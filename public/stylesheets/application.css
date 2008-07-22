@@ -1,8 +1,15 @@
 .fieldWithErrors {
-	border: 1px solid red;
 	display: inline-block;
 	padding: 0px;
 	margin: 0px;
+}
+
+.fieldWithErrors input {
+	border: 1px solid red;
+}
+
+.fieldWithErrors label {
+	color: red;
 }
 
 .formError {
