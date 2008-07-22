@@ -24,14 +24,13 @@ class User < ActiveRecord::Base
                             :mobile
 
   validates_format_of       :firstname, 
-			    :lastname, 
-			    :laboratory, :with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL})+\Z/         
+			                      :lastname, 
+                  			    :laboratory,  :with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL})+\Z/         
 			  
-  validates_format_of       :addr, :with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL}|#{NUM})+\Z/ 
+  validates_format_of       :addr,        :with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL}|#{NUM})+\Z/ 
   
   validates_format_of       :phone, 
-			    :mobile,
-			    :with => /\A(#{NUM}){10}\Z/
+                  			    :mobile,      :with => /\A(#{NUM}){10}\Z/
   
 
   # HACK HACK HACK -- how to do attr_accessible from here?
