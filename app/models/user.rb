@@ -15,7 +15,18 @@ class User < ActiveRecord::Base
   validates_uniqueness_of   :email,    :case_sensitive => false
   validates_format_of       :email,    :with => RE_EMAIL_OK, :message => MSG_EMAIL_BAD
 
-  
+  validates_presence_of     :firstname,
+                            :lastname,
+                            :addr,
+                            :laboratory,
+                            :phone,
+                            :mobile
+                            
+  # validates_format_of       :firtname,
+  #                           :lastname,
+  #                           :addr
+  #                           :laboratory,
+  #                           :activity
 
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
