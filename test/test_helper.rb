@@ -46,8 +46,8 @@ class Test::Unit::TestCase
     
     values.to_a.each do |f|
       assert_no_difference "#{model_name}.count" do
-        model_instance = self.send(new_instance, field.intern => f)
-        assert model_instance.errors.on(field.intern), "Column #{field.to_s} should return an error with value \"#{f}\"."
+        model_instance = self.send(new_instance, field => f)
+        assert model_instance.errors.on(field), "Column #{field.to_s} should return an error with value \"#{f}\"."
       end
     end
   end
