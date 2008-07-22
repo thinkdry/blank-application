@@ -12,7 +12,7 @@ class CreateUsers < ActiveRecord::Migration
       t.column :activity,                   :string, :limit => 255
       t.column :edito,                      :text
       # CHANGED: FileColumn instead of Attachment FU
-      t.column :image_path,                 :strint, :limit => 500
+      t.column :image_path,                 :string, :limit => 500
       
       t.column :crypted_password,           :string, :limit => 40
       t.column :salt,                       :string, :limit => 40
