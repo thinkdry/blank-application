@@ -95,90 +95,39 @@ class UserTest < Test::Unit::TestCase
     assert users(:quentin).remember_token_expires_at.between?(before, after)
   end
   
-  # our tests
+  # Our tests
   
   def test_firstname_should_be_valid
-    # require, [a-z], [A-Z], '-', accentued chars
-    ["", "jdk@k", "1234"].each do |f|
-      assert_no_difference 'User.count' do
-        u = create_user(:firstname => f)
-	assert u.errors.on(:firstname), "Column firstname should return an error with value \"#{f}\"."
-      end
-    end
+    assert_invalid_format :firtname, ["", "jdk@k", "1234"]
   end
   
   def test_lastname_should_be_valid
-    # require, [a-z], [A-Z], '-', accentued chars
-    ["", "jdk@k", "1234"].each do |l|
-      assert_no_difference 'User.count' do
-        u = create_user(:lastname => l)
-	assert u.errors.on(:lastname), "Column lastname should return an error with value \"#{l}\"."
-      end
-    end
+    assert_invalid_format :lastname, ["", "jdk@k", "1234"]
   end
   
   def test_email_should_be_valid
-    # require, mail format
-    ["", "jdk@k", "jdk@ffff.f"].each do |e|
-      assert_no_difference 'User.count' do
-        u = create_user(:email => e)
-	assert u.errors.on(:email), "Column email should return an error with value \"#{l}\"."
-      end
-    end
+    assert_invalid_format :email, ["", "jdk@k", "jdk@ffff.f"]
   end
   
   def test_address_should_be_valid
-    # require
-    [""].each do |a|
-      assert_no_difference 'User.count' do
-        u = create_user(:addr => a)
-	assert u.errors.on(:addr), "Column address should return an error with value \"#{a}\"."
-      end
-    end
+    assert_invalid_format :addr, ""
   end
   
   def test_laboratory_should_be_valid
-    # require, [a-z], [A-Z], '-', accentued chars
-    ["", "jdk@k", "1234"].each do |l|
-      assert_no_difference 'User.count' do
-        u = create_user(:laboratory => l)
-	assert u.errors.on(:lalaboratory), "Column laboratory should return an error with value \"#{l}\"."
-      end
-    end
+    assert_invalid_format :laboratory, ["", "jdk@k", "1234"]
   end
   
   def test_phone_should_be_valid
-    # require, 10 numbers expected
-    ["", "jdk@k", "1234", "11 11 11 1"].each do |p|
-      assert_no_difference 'User.count' do
-        u = create_user(:phone => p)
-	assert u.errors.on(:phone), "Column phone should return an error with value \"#{p}\"."
-      end
-    end
+    assert_invalid_format :phone, ["", "jdk@k", "1234", "11 11 11 1"]
   end
   
   def test_mobile_should_be_valid
-    # require, 10 numbers expected
-    ["", "jdk@k", "1234", "11 11 11 1"].each do |m|
-      assert_no_difference 'User.count' do
-        u = create_user(:mobile => m)
-	assert u.errors.on(:mobile), "Column mobile should return an error with value \"#{m}\"."
-      end
-    end
+    assert_invalid_format :mobile, ["", "jdk@k", "1234", "11 11 11 1"]
   end
   
   def test_activity_should_be_valid
-    # [a-z], [A-Z], '-', accentued chars
-    ["jdk@k", "1234"].each do |a|
-      assert_no_difference 'User.count' do
-        u = create_user(:activity => a)
-	assert u.errors.on(:activity), "Column activity should return an error with value \"#{a}\"."
-      end
-    end
+    assert_invalid_format :activity => ["jdk@k", "1234"]
   end
-  
-  
-  
   
 protected
   def create_user(options = {})

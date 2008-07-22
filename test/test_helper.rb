@@ -35,5 +35,22 @@ class Test::Unit::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  
+  def assert_invalid_format field, values
+    
+    raise 'Must be Test::Unit::TestCase' unless self.class.superclass == Test::Unit::TestCase
+    
+    model_name = self.class.to_s.underscore.humanize.split.first.classify
+    new_instance = "create_#{model_name.downcase}"
+    
+    raise "Must implement #{new_instance}" unless self.respond_to?(new_instance)
+    
+    values.to_a.each do |f|
+      assert_no_difference "#{model_name}.count" do
+        model_instance = self.send(new_instance, :firstname => f)
+        assert model_instance.errors.on(:firstname), "Column firstname should return an error with value \"#{f}\"."
+      end
+    end
+  end
 end
 
