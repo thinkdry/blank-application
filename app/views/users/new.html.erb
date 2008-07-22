@@ -1,19 +1,58 @@
-<h1>Sign up as a new user</h1>
+<h1>Enregistrer un nouvel utilisateur</h1>
 <% @user.password = @user.password_confirmation = nil %>
 
-<%= error_messages_for :user %>
 <% form_for :user, :url => users_path do |f| -%>
-<p><label for="login">Login</label><br/>
-<%= f.text_field :login %></p>
+<div><label for="login">Login</label>
+<%= ajax_error_message_on(@user, :login) %><br/>
+<%= f.text_field :login %></div>
 
-<p><label for="email">Email</label><br/>
-<%= f.text_field :email %></p>
+<div><label for="email">Email</label>
+<%= ajax_error_message_on(@user, :email) %><br/>
+<%= f.text_field :email %></div>
 
-<p><label for="password">Password</label><br/>
-<%= f.password_field :password %></p>
+<div><label for="password">Mot de passe</label>
+<%= ajax_error_message_on(@user, :password) %><br/>
+<%= f.password_field :password %></div>
 
-<p><label for="password_confirmation">Confirm Password</label><br/>
-<%= f.password_field :password_confirmation %></p>
+<div><label for="password_confirmation">Confirmation du mot de passe</label>
+<%= ajax_error_message_on(@user, :password_confirmation) %><br/>
+<%= f.password_field :password_confirmation %></div>
 
-<p><%= submit_tag 'Sign up' %></p>
+<div><label for="lastname">Nom</label>
+<%= ajax_error_message_on(@user, :lastname) %><br />
+<%= f.text_field :lastname, :onblur => ajax_validation(@user, :lastname) %></div>
+
+<div><label for="firstname">Prénom</label>
+<%= ajax_error_message_on(@user, :firstname) %><br />
+<%= f.text_field :firstname %></div>
+
+<div><label for="addr">Adresse</label>
+<%= ajax_error_message_on(@user, :addr) %><br />
+<%= f.text_field :addr %></div>
+
+<div><label for="laboratory">Laboratoire</label>
+<%= ajax_error_message_on(@user, :laboratory) %><br />
+<%= f.text_field :laboratory %></div>
+
+<div><label for="phone">Téléphone fixe</label>
+<%= ajax_error_message_on(@user, :phone) %><br />
+<%= f.text_field :phone %></div>
+
+<div><label for="mobile">Téléphone portable</label>
+<%= ajax_error_message_on(@user, :mobile) %><br />
+<%= f.text_field :mobile %></div>
+
+<div><label for="activity">Activité</label>
+<%= ajax_error_message_on(@user, :activity) %><br />
+<%= f.text_field :activity %></div>
+
+<div><label for="edito">Edito</label>
+<%= ajax_error_message_on(@user, :edito) %><br />
+<%= f.text_field :edito %></div>
+
+<!--
+	TODO: Image upload
+-->
+
+<%= submit_tag 'Sign up' %>
 <% end -%>

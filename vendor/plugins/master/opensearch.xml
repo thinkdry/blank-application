@@ -1,0 +1,793 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <title>mattetti's globalite at master &mdash; GitHub</title>
+    <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GitHub" />
+    <link rel="fluid-icon" href="http://github.com/fluidicon.png" title="GitHub" />
+
+    
+      <link href="/stylesheets/bundle.css?5b02cce638a1df88d91a6c29abbbc3521c53f643" media="screen" rel="stylesheet" type="text/css" />
+    
+
+    
+      
+        <script src="/javascripts/bundle.js?5b02cce638a1df88d91a6c29abbbc3521c53f643" type="text/javascript"></script>
+      
+    
+    
+  
+    
+  
+
+
+  <link href="http://github.com/feeds/mattetti/commits/globalite/master" rel="alternate" title="Recent Commits to globalite:master" type="application/atom+xml" />
+
+
+    
+  </head>
+
+  
+
+  <body>
+    
+    
+    <div id="main">
+      <div id="header" class="">
+        <div class="site">
+          <div class="logo">
+            <a href="/"><img src="/images/modules/header/logo.png" alt="git-hub" /></a>
+          </div>
+          
+            <div class="actions">
+              <a href="/">Home</a>
+              <a href="/plans"><b><u>Pricing and Signup</u></b></a>
+              <a href="/repositories">Repositories</a>
+              <a href="/news">News</a>
+              <a href="/login">Login</a>
+            </div>
+          
+        </div>
+      </div>
+      
+      
+        
+  <div id="repo_menu">
+    <div class="site">
+      <ul>
+        
+          <li class="active"><a href="/mattetti/globalite/tree/master">Source</a></li>
+
+          <li class=""><a href="/mattetti/globalite/commits/master">Commits</a></li>
+
+          <li class=""><a href="/mattetti/globalite/info/feed">Info</a></li>
+
+          <li class=""><a href="/mattetti/globalite/wikis">Wiki (1)</a></li>
+
+          <li class=""><a href="/mattetti/globalite/network">Network (16)</a></li>
+
+          
+
+        
+      </ul>
+    </div>
+  </div>
+
+  <div id="repo_sub_menu">
+    <div class="site">
+      <div class="joiner"></div>
+      
+
+      
+
+      
+        <ul>
+          <li>
+            <a class="active" href="/mattetti/globalite/tree/2679f94e9f11353c91903455b53780cccb98cb5e">master</a>
+          </li>
+          <li>
+            <a href="#">all branches</a>
+            <ul>
+              
+                <li><a href="/mattetti/globalite/tree/master">master</a></li>
+              
+            </ul>
+          </li>
+          <li>
+            <a href="#">all tags</a>
+            
+          </li>
+        </ul>
+
+      
+    </div>
+  </div>
+
+  <div class="site">
+    
+
+<div id="repos">
+  
+
+
+<div class="repo public">
+  <div class="title">
+    <div class="path">
+      <a href="/mattetti">mattetti</a> / <b><a href="/mattetti/globalite/tree">globalite</a></b>
+
+      
+
+        
+
+        
+          
+
+          
+            
+            <a href="/signup"><img alt="fork" class="button" src="/images/modules/repos/fork_button.png?5b02cce638a1df88d91a6c29abbbc3521c53f643" /></a> 
+          
+        
+
+        <a href="/signup" class="toggle_watch"><img alt="watch" class="button" src="/images/modules/repos/watch_button.png?5b02cce638a1df88d91a6c29abbbc3521c53f643" /></a><a href="/signup" class="toggle_watch" style="display:none;"><img alt="watch" class="button" src="/images/modules/repos/unwatch_button.png?5b02cce638a1df88d91a6c29abbbc3521c53f643" /></a>
+
+        
+          <a href="/mattetti/globalite/tarball/master" id="download_button" rel="/mattetti/globalite/downloads/master"><img alt="download tarball" class="button" src="/images/modules/repos/download_button.png?5b02cce638a1df88d91a6c29abbbc3521c53f643" /></a> 
+        
+      
+    </div>
+
+    <div class="security private_security" style="display:none">
+      <a href="#private_repo" rel="facebox"><img src="/images/icons/private.png" alt="private" /></a>
+    </div>
+
+    <div id="private_repo" class="hidden">
+      This repository is private.  
+      All pages are served over SSL and all pushing and pulling is done over SSH.
+      No one may fork, clone, or view it unless they are added as a <a href="/mattetti/globalite/edit/collaborators">member</a>.
+
+      <br/>
+      <br/>
+      Every repository with this icon (<img src="/images/icons/private.png" alt="private" />) is private.
+    </div>
+
+    <div class="security public_security" style="">
+      <a href="#public_repo" rel="facebox"><img src="/images/icons/public.png" alt="public" /></a>
+    </div>
+
+    <div id="public_repo" class="hidden">
+      This repository is public.
+      Anyone may fork, clone, or view it.
+
+      <br/>
+      <br/>
+      Every repository with this icon (<img src="/images/icons/public.png" alt="public" />) is public.
+    </div>
+
+    
+
+    
+      <div class="security" style="margin-right:0.5em;">
+        <a href="#rubygem_install" rel="facebox"><img alt="Rubygem" src="/images/icons/rubygem.png?5b02cce638a1df88d91a6c29abbbc3521c53f643" /></a>
+      </div>
+
+      <div id="rubygem_install" class="hidden">
+        
+          <p>Run the following if you haven't already:</p>
+          <pre>gem sources -a http://gems.github.com</pre>
+          <p>Install the gem(s):</p>
+          
+            <pre>sudo gem install mattetti-globalite</pre>
+          
+        
+      </div>
+    
+  </div>
+  <div class="meta">
+    <table>
+      
+      
+        <tr>
+          <td class="label">Description:</td>
+          <td>
+            <span id="repository_description" rel="/mattetti/globalite/edit/update" class="">Globalite is meant to be a breed of the best i18n /l10n plugins available for Rails. </span> 
+            
+          </td>
+        </tr>
+      
+      
+        <tr>
+          <td class="label">Homepage:</td>
+          <td>
+            
+              <a href="http://code.google.com/p/globalite/">http://code.google.com/p/globalite/</a> 
+            
+          </td>
+        </tr>
+      
+      
+        <tr>
+          <td class="label">Clone&nbsp;URL:</td>
+          
+          <td>
+            <a href="git://github.com/mattetti/globalite.git" class="git_url_facebox" rel="#git-clone">git://github.com/mattetti/globalite.git</a>
+            <div id="git-clone" style="display:none;">
+              Give this clone URL to anyone.
+              <br/>
+              <code>git clone git://github.com/mattetti/globalite.git </code>
+            </div>
+          </td>
+        </tr>
+      
+      
+      
+      <tr>
+        <td class="label">Search Repo:</td>
+        <td>
+          <form action="/mattetti/globalite/search" method="get">
+            <input type="text" name="q" value="" /> <select name="choice"><option value="code">Code</option><option value="grep">Commit Messages</option><option value="author">Author</option><option value="committer">Committer</option></select>
+            <input type="submit" value="Go" />
+          </form>
+        </td>
+      </tr>
+    </table>
+    
+      </div>
+</div>
+
+</div>
+
+<div id="commit">
+  <div class="group">
+    <div class="envelope commit">
+  <div class="human">
+    
+      <div class="message"><pre><a href="/mattetti/globalite/commit/2679f94e9f11353c91903455b53780cccb98cb5e">fixed Portuguese translation</a> </pre></div>
+    
+
+    <div class="actor">
+      <div class="gravatar">
+        
+        <img alt="" height="30" src="http://www.gravatar.com/avatar/c69521d6e22fc0bbd69337ec8b1698df?s=30&amp;d=http%3A%2F%2Fgithub.com%2Fimages%2Fgravatars%2Fgravatar-30.png" width="30" />
+      </div>
+      <div class="name"><a href="/mattetti">mattetti</a> <span>(author)</span></div>
+        <div class="date">
+          <abbr class="relatize" title="2008-07-17 20:46:37">Thu Jul 17 20:46:37 -0700 2008</abbr> 
+        </div>
+    </div>
+
+    
+
+  </div>
+  <div class="machine">
+    <span>c</span>ommit&nbsp;&nbsp;<a href="/mattetti/globalite/commit/2679f94e9f11353c91903455b53780cccb98cb5e" hotkey="c">2679f94e9f11353c91903455b53780cccb98cb5e</a><br />
+    <span>t</span>ree&nbsp;&nbsp;&nbsp;&nbsp;<a href="/mattetti/globalite/tree/2679f94e9f11353c91903455b53780cccb98cb5e" hotkey="t">09c33837c86ec52e06b85a700fa541b2a38032b2</a><br />
+
+    
+      <span>p</span>arent&nbsp;
+      
+      <a href="/mattetti/globalite/tree/5913941018404dcf8b6caae90561b908f5996a8b" hotkey="p">5913941018404dcf8b6caae90561b908f5996a8b</a>
+    
+
+  </div>
+</div>
+
+  </div>
+</div>
+
+
+
+  
+    <div id="path">
+      <b><a href="/mattetti/globalite/tree">globalite</a></b> / 
+    </div>
+
+    
+      
+<div id="browser"> 
+  <table cellpadding="0" cellspacing="0">
+    <tr>
+      <th></th>
+      <th>name</th>
+      <th>age</th>
+      <th>
+        <div class="history">
+          <a href="/mattetti/globalite/commits/master/">history</a>
+        </div>
+        message
+      </th>
+    </tr>
+
+    
+
+    
+      <tr class="alt">
+        <td class="icon"> <img alt="folder" src="/images/icons/txt.png?3c1f6887a7000a517f1e3d58b61ce95339751aaa" /> </td>
+        <td> <a href="/mattetti/globalite/tree/2679f94e9f11353c91903455b53780cccb98cb5e/.gitignore">.gitignore</a> </td>
+        <td> <span class="relatize">Wed Jun 04 09:53:22 -0700 2008</span> </td>
+        <td> <a href="/mattetti/globalite/commit/4e9ad5aaf50f941a86cbab2270ef76a153b06b2c" class="message">Fixing some minor bugs in spanish translations ...</a> [<a href="/calas">calas</a>] </td>
+      </tr>
+    
+      <tr class="">
+        <td class="icon"> <img alt="folder" src="/images/icons/txt.png?3c1f6887a7000a517f1e3d58b61ce95339751aaa" /> </td>
+        <td> <a href="/mattetti/globalite/tree/2679f94e9f11353c91903455b53780cccb98cb5e/CHANGELOG">CHANGELOG</a> </td>
+        <td> <span class="relatize">Thu Jul 03 07:39:59 -0700 2008</span> </td>
+        <td> <a href="/mattetti/globalite/commit/85cf5e0b7010ae29d65c8318ae38270d2df668e7" class="message">changelog update</a> [<a href="/edgerunner">edgerunner</a>] </td>
+      </tr>
+    
+      <tr class="alt">
+        <td class="icon"> <img alt="folder" src="/images/icons/txt.png?3c1f6887a7000a517f1e3d58b61ce95339751aaa" /> </td>
+        <td> <a href="/mattetti/globalite/tree/2679f94e9f11353c91903455b53780cccb98cb5e/README">README</a> </td>
+        <td> <span class="relatize">Tue Jul 15 23:38:29 -0700 2008</span> </td>
+        <td> <a href="/mattetti/globalite/commit/425f8b6c71dadb1ac3cb1fb7e8d5a007fa206d88" class="message">Updated README and rdoc to mention ActionContro...</a> [<a href="/edgerunner">edgerunner</a>] </td>
+      </tr>
+    
+      <tr class="">
+        <td class="icon"> <img alt="folder" src="/images/icons/txt.png?3c1f6887a7000a517f1e3d58b61ce95339751aaa" /> </td>
+        <td> <a href="/mattetti/globalite/tree/2679f94e9f11353c91903455b53780cccb98cb5e/README.rdoc">README.rdoc</a> </td>
+        <td> <span class="relatize">Tue Jul 15 23:38:29 -0700 2008</span> </td>
+        <td> <a href="/mattetti/globalite/commit/425f8b6c71dadb1ac3cb1fb7e8d5a007fa206d88" class="message">Updated README and rdoc to mention ActionContro...</a> [<a href="/edgerunner">edgerunner</a>] </td>
+      </tr>
+    
+      <tr class="alt">
+        <td class="icon"> <img alt="folder" src="/images/icons/txt.png?3c1f6887a7000a517f1e3d58b61ce95339751aaa" /> </td>
+        <td> <a href="/mattetti/globalite/tree/2679f94e9f11353c91903455b53780cccb98cb5e/Rakefile">Rakefile</a> </td>
+        <td> <span class="relatize">Thu May 31 20:12:12 -0700 2007</span> </td>
+        <td> <a href="/mattetti/globalite/commit/a39b6569c841bd0e46887f4758b6dfb15506e4ca" class="message">moved the files to the proper folder</a> [mattAimonetti] </td>
+      </tr>
+    
+      <tr class="">
+        <td class="icon"> <img alt="folder" src="/images/icons/txt.png?3c1f6887a7000a517f1e3d58b61ce95339751aaa" /> </td>
+        <td> <a href="/mattetti/globalite/tree/2679f94e9f11353c91903455b53780cccb98cb5e/globalite.gemspec">globalite.gemspec</a> </td>
+        <td> <span class="relatize">Thu Jul 03 07:56:18 -0700 2008</span> </td>
+        <td> <a href="/mattetti/globalite/commit/76d2baa14d055c84645905fba409daef416e1499" class="message">updated credits and gemspec</a> [<a href="/edgerunner">edgerunner</a>] </td>
+      </tr>
+    
+      <tr class="alt">
+        <td class="icon"> <img alt="folder" src="/images/icons/txt.png?3c1f6887a7000a517f1e3d58b61ce95339751aaa" /> </td>
+        <td> <a href="/mattetti/globalite/tree/2679f94e9f11353c91903455b53780cccb98cb5e/init.rb">init.rb</a> </td>
+        <td> <span class="relatize">Tue Jun 03 12:02:06 -0700 2008</span> </td>
+        <td> <a href="/mattetti/globalite/commit/3f918d2d5ccb5d346eb286d14d06aec49d603782" class="message">gemspec file to create gem version of globalite.</a> [Piotr Nowak] </td>
+      </tr>
+    
+      <tr class="">
+        <td class="icon"> <img alt="folder" src="/images/icons/txt.png?3c1f6887a7000a517f1e3d58b61ce95339751aaa" /> </td>
+        <td> <a href="/mattetti/globalite/tree/2679f94e9f11353c91903455b53780cccb98cb5e/install.rb">install.rb</a> </td>
+        <td> <span class="relatize">Thu Jun 14 19:12:37 -0700 2007</span> </td>
+        <td> <a href="/mattetti/globalite/commit/c206af49097ff3fde7c10c17945272ea93634204" class="message">updated documentation and created rdoc so peopl...</a> [mattAimonetti] </td>
+      </tr>
+    
+      <tr class="alt">
+        <td class="icon"> <img alt="folder" src="/images/icons/dir.png?3c1f6887a7000a517f1e3d58b61ce95339751aaa" /> </td>
+        <td> <a href="/mattetti/globalite/tree/2679f94e9f11353c91903455b53780cccb98cb5e/lang">lang/</a> </td>
+        <td> <span class="relatize">Thu Jul 17 20:46:37 -0700 2008</span> </td>
+        <td> <a href="/mattetti/globalite/commit/2679f94e9f11353c91903455b53780cccb98cb5e" class="message">fixed Portuguese translation</a> [<a href="/mattetti">mattetti</a>] </td>
+      </tr>
+    
+      <tr class="">
+        <td class="icon"> <img alt="folder" src="/images/icons/dir.png?3c1f6887a7000a517f1e3d58b61ce95339751aaa" /> </td>
+        <td> <a href="/mattetti/globalite/tree/2679f94e9f11353c91903455b53780cccb98cb5e/lib">lib/</a> </td>
+        <td> <span class="relatize">Sat Jul 05 15:15:13 -0700 2008</span> </td>
+        <td> <a href="/mattetti/globalite/commit/92497fa765d865f0cf836a63ecfaa1270ba70383" class="message">Merge branch 'master' of git://github.com/matte...</a> [<a href="/edgerunner">edgerunner</a>] </td>
+      </tr>
+    
+      <tr class="alt">
+        <td class="icon"> <img alt="folder" src="/images/icons/dir.png?3c1f6887a7000a517f1e3d58b61ce95339751aaa" /> </td>
+        <td> <a href="/mattetti/globalite/tree/2679f94e9f11353c91903455b53780cccb98cb5e/rdoc">rdoc/</a> </td>
+        <td> <span class="relatize">Tue Jul 15 23:38:29 -0700 2008</span> </td>
+        <td> <a href="/mattetti/globalite/commit/425f8b6c71dadb1ac3cb1fb7e8d5a007fa206d88" class="message">Updated README and rdoc to mention ActionContro...</a> [<a href="/edgerunner">edgerunner</a>] </td>
+      </tr>
+    
+      <tr class="">
+        <td class="icon"> <img alt="folder" src="/images/icons/dir.png?3c1f6887a7000a517f1e3d58b61ce95339751aaa" /> </td>
+        <td> <a href="/mattetti/globalite/tree/2679f94e9f11353c91903455b53780cccb98cb5e/spec">spec/</a> </td>
+        <td> <span class="relatize">Fri May 16 12:47:48 -0700 2008</span> </td>
+        <td> <a href="/mattetti/globalite/commit/37d031d0cf15f787deae61ed910bd194e4eac9f0" class="message">fixed spec, html order for #select_month</a> [<a href="/mattetti">mattetti</a>] </td>
+      </tr>
+    
+      <tr class="alt">
+        <td class="icon"> <img alt="folder" src="/images/icons/dir.png?3c1f6887a7000a517f1e3d58b61ce95339751aaa" /> </td>
+        <td> <a href="/mattetti/globalite/tree/2679f94e9f11353c91903455b53780cccb98cb5e/tasks">tasks/</a> </td>
+        <td> <span class="relatize">Sun Jun 15 13:19:00 -0700 2008</span> </td>
+        <td> <a href="/mattetti/globalite/commit/01b2c8355b773bf0c0efe84e2648d7a0eac4f828" class="message">added malagasy localization - and a rake task t...</a> [tosoa] </td>
+      </tr>
+    
+      <tr class="">
+        <td class="icon"> <img alt="folder" src="/images/icons/txt.png?3c1f6887a7000a517f1e3d58b61ce95339751aaa" /> </td>
+        <td> <a href="/mattetti/globalite/tree/2679f94e9f11353c91903455b53780cccb98cb5e/uninstall.rb">uninstall.rb</a> </td>
+        <td> <span class="relatize">Thu Jun 14 19:12:37 -0700 2007</span> </td>
+        <td> <a href="/mattetti/globalite/commit/c206af49097ff3fde7c10c17945272ea93634204" class="message">updated documentation and created rdoc so peopl...</a> [mattAimonetti] </td>
+      </tr>
+    
+  </table>
+</div>
+
+<div id="readme"><span class="name">README.rdoc</span><div class="wikistyle"><p>
+﻿=Globalite
+</p>
+<p>
+Globalite is meant to be a breed of the best
+internationalization/localization plugins available for Rails.
+</p>
+<p>
+Globalite should provide you with a 3-in-1 solution:
+</p>
+<ul>
+<li>Easy UI localization.
+
+</li>
+<li>Rails localization. (Localization of the core functions from rails)
+
+</li>
+<li>Simple yet powerful solution for user content availability in multiple
+languages.
+
+</li>
+</ul>
+<p>
+On top of that: yml files are used for most of the localization, which
+makes Globalite a light and fast solution. The Locale is set on the
+user&#8217;s session making Globalite a perfect solution for multilingual
+support. The developer can pass dynamic values to be used in the
+localization.
+</p>
+<h2>What&#8217;s the difference between Globalite and the other existing l10n/i18n plugins?</h2>
+<p>
+Gibberish is a nice plugin but it doesn&#8217;t handle locales, you
+can&#8217;t have your application in British English and American English.
+I also don&#8217;t really like the syntax :p I based the UI localization of
+Globalite on Chris&#8217; work on Gibberish.
+</p>
+<p>
+Globalize is a great plugin but man, it&#8217;s bloated&#8230; I would like
+to have something a bit lighter and easier to use. (less options, less
+setup time, less database usage). I decided to trim down Globalize to offer
+less options and fulfill the needs of most developers.
+</p>
+<p>
+Also, Globalite doesn&#8217;t have the concept of a base language. Mainly
+because I think that&#8217;s a bad idea. If you use English as your base
+language and you need to fix a string in English(you did a typo), you will
+break all the other translations. That&#8217;s why Globalite uses
+localization keys only.
+</p>
+<h2>Usage</h2>
+<h3>installation:</h3>
+<pre>
+        script/plugin install git://github.com/mattetti/globalite.git
+</pre>
+<p>
+(or as a gem from github)
+</p>
+<h3>UI Localization:</h3>
+<p>
+Create a lang folder at the root of your project. Add your localization
+files in the lang/ui folder if you want to localize your interface.
+</p>
+<p>
+Declare the current locale or language in your environment.rb &gt;
+</p>
+<pre>
+        Globalite.language = :fr
+</pre>
+<p>
+Localize a key in your view &gt;
+</p>
+<pre>
+        :localization_key.l
+</pre>
+<p>
+or
+</p>
+<pre>
+        :localization_key.localize
+</pre>
+<p>
+Easy, isn&#8217;t?
+</p>
+<p>
+Advanced users can also do more:
+</p>
+<p>
+You can also pass an optional localization string only used if the
+localization is missing
+</p>
+<pre>
+        :missing_localization_key.l(&quot;text used if the key is not localized yet&quot;)
+</pre>
+<p>
+You can also pass values to the localization, and the translator can do
+whatever he wants with them:
+</p>
+<pre>
+        :welcome_user.l_with_args({:user =&gt; @user.name}) would render &quot;Welcome Matt!&quot;
+</pre>
+<p>
+Note that variables can be used in any order the translator wants
+</p>
+<p>
+You can also use pluralization right in your translations:
+</p>
+<pre>
+  geese_amount:  we have pluralize{{geese_count}, goose, geese} in the farm!
+</pre>
+<p>
+In your view do the following:
+</p>
+<pre>
+  :geese_amount.l_with_args({:geese_count =&gt; @geese.count})
+</pre>
+<p>
+Note that the pluralization form of your string is optional, you could use
+a translation like that too:
+</p>
+<pre>
+  cow_amount:  we have pluralize{{count}, cow} in the farm!
+</pre>
+<p>
+By pushing the pluralization to the translator, I believe we offer more
+flexibility so the translation can be smoother. This solution was inspired
+by a discussion with Ivan: &quot;It&#8217;s very difficult to just
+translate &quot;prohibited this&quot; and &quot;from being saved&quot; to
+Chinese, cause the resulting sentence will look like a machine translated
+one without making much sense. Not to mention Chinese handles pluralization
+differently, we pretty much don&#8217;t have it. For example, we&#8217;ll
+use the same word for &quot;person&quot; and &quot;people&quot;, no
+difference. So to me, it makes sense just to replace the whole thing with
+one simple header message that says &quot;Invalid attributes!&quot; in
+Chinese.&quot;
+</p>
+<h3>Rails Localization:</h3>
+<p>
+Localize a time object by using a predefined format (defined in the
+date_helper_time_formats variable that you can find in
+globalite/lang/rails/[lang].yml)
+</p>
+<pre>
+        Globalite.language = :fr
+        Time.now.l(:long)
+</pre>
+<p>
+Localize a date object by using a predefined format (defined in the
+date_helper_date_formats variable that you can find in
+globalite/lang/rails/[lang].yml)
+</p>
+<pre>
+        Date.today.l
+</pre>
+<p>
+In your views, create a select box with a list of all countries(listed in
+the locale language):
+</p>
+<pre>
+        country_options_for_select
+</pre>
+<p>
+In your views, create a select box with a list of all the months(listed in
+the locale language) with the current month selected:
+</p>
+<pre>
+        select_month(Time.now)
+</pre>
+<p>
+In your views, create a set of html select-tags (one for year, month, day,
+hour, and minute):
+</p>
+<pre>
+        select_datetime
+</pre>
+<p>
+In your views, create a set of html select-tags (one for year, month, and
+day):
+</p>
+<pre>
+        select_date
+</pre>
+<p>
+Get a number returned in currency, for instance if the locale was set to
+&#8216;fr&#8217; the returned value would be 123,00 € but if the locale
+was set to &#8216;en-US&#8217; it would return $123.00
+</p>
+<pre>
+        number_to_currency(123)
+</pre>
+<p>
+Get a distance of time in words localized.
+</p>
+<pre>
+        distance_of_time_in_words(10.minutes.ago, Time.now)
+</pre>
+<p>
+Get the %edit% and %new% verbs in the url tanslated
+</p>
+<pre>
+        http://grandascenseurs.fr/ascenseurs/nouvelle
+        http://haberler.com.tr/haberler/17/duzenle
+</pre>
+<p>
+Active record errors are automatically rendered in the locale language
+</p>
+<h2>Localize field names in validator messages</h2>
+<p>
+By default, here is the normal validation behavior:
+</p>
+<p>
+Name cannot be empty (en) Name nie może być puste(y,a) (pl)
+</p>
+<p>
+However, Name should be replaced with &#8216;Nazwa&#8217; in polish.
+</p>
+<p>
+Consider the following example:
+</p>
+<p>
+validates_presence_of :name, :email, :age
+</p>
+<p>
+GlobaLite will try to use your yml language files entries using the
+following localization keys: name:, email:, age:. Globalite will also try
+to replace model name from validation messages with localized version from
+yml file, i.e. the message below:
+</p>
+<p>
+8 errors prohibited this user from being saved
+</p>
+<pre>
+                         ^^^^
+</pre>
+<p>
+will be localized and &#8216;user&#8217; will be replaced if
+&#8216;user&#8217; key exists in yml language file.
+</p>
+<p>
+If the plugin can&#8217;t find any localizations, the original field name
+will be used. You can get rid of field name in custom validation message
+with :message attribute.
+</p>
+<p>
+validates_uniqueness_of :name, :message =&gt; &#8217;^my message&#8217;
+</p>
+<h4>Notes</h4>
+<p>
+Check on the tests in the spec folder for more examples. There&#8217;s also
+a demo app available: http://github.com/mattetti/globalite-example
+</p>
+<h2>FAQ:</h2>
+<h3>Why did you call your plugin &#8216;Globalite&#8217;?</h3>
+<p>
+Globalize was already taken ;) More seriously, I was looking for a
+i18n/l10n solution for a project I was working on, after few hours testing
+Globalize, Josh http://joshknowles.com, Matt http://heidmotron.com/ and I
+http://railsontherun.com saw it wouldn&#8217;t work for us. Since we only
+had the choice between very simple solutions and a complicated solution, I
+decided to make a &quot;lite&quot; version of Globalize ;)
+</p>
+<h2>TODO:</h2>
+<ul>
+<li>Model i18n/l10n
+
+</li>
+</ul>
+<h3>Internationalization, Localization, Locale:</h3>
+<p>
+Internationalization refers to the process of modifying an application’s
+design so that it can support locale differences like text orientation,
+currency, date and time format, sorting, and so forth. This can be done by
+externalizing text strings into files or a database, and by developing
+currency and date formatting utilities.
+</p>
+<p>
+Localization means adapting an application to a specific language or
+locale; for example, by translating text into multiple languages. A locale
+is identified by the user’s language and country, and specifies how, for
+example, numbers, currencies, and dates are displayed on the screen. The
+code for the US English locale is en-US. Locales are specified by RFC 3066
+and consist of two parts. The first is an ISO 639 language code and uses
+lowercase letters. The second is usually an ISO 3166 country code in
+uppercase letters. [from Ruby on Rails Commerce (Hellsten, Laine)]
+</p>
+<h3>CREDITS:</h3>
+<p>
+Some code was very influenced from different projects such as:
+</p>
+<ul>
+<li>Gibberish http://require.errtheblog.com/plugins/browser/gibberish written
+by Chris Wanstrath (http://errtheblog.com)
+
+</li>
+<li>Globalize http://www.globalize-rails.org written by too many people to list
+them here ;)
+
+</li>
+<li>LocalizationSimplified (L10n-simplified) written By Jesper Ronn-Jensen (
+http://justaddwater.dk/ )
+
+</li>
+</ul>
+<h3>Author:</h3>
+<p>
+Matt Aimonetti http://railsontherun.com mattaimonetti AT gmail DOT com
+</p>
+<h3>Contributors:</h3>
+<p>
+Mert Torun (resource path localization) Ivan Chang yuanhueichang AT
+gmail_DOT_com ( Chinese translation, help on the ActiveRecord msg error
+i18n/l10n) Ralph von Der Heyden ralph AT rvdh_DOT_de (German translation)
+jiman.ryu AT gmail http://jasonpa.tistory.com/ (bug fix) Guillaume
+Belleguic guillaume.belleguic AT oceans DOT eu (Model error handling)
+Marcus Derencius derencius AT gmail_dot_com (Brazilian Portuguese
+translation) MrPrise (Hungarian localization) Koen Punt (Dutch
+localization) Mariano Ayesa (Spanish Spain and Argentina localization)
+jyrkij http://github.com/jyrkij (Finnish) Ilke Akdeniz (Turkish) Dejan
+Dimic (Serbian) Tosoa Bacca (Malagasy)
+</p>
+<p>
+your name here if you submit a patch :)
+</p>
+<h3>More info:</h3>
+<p>
+http://github.com/mattetti/globalite
+</p>
+<p>
+http://railsontherun.com/globalite
+</p>
+<p>
+Sample app: http://github.com/mattetti/globalite-example
+</p>
+</div></div>
+
+    
+  
+
+
+  </div>
+
+      
+      
+      <div class="push"></div>
+    </div>
+    
+    <div id="footer">
+      <div class="site">
+        <div class="info">
+          <div class="links">
+            <a href="http://github.com/blog"><strong>Blog</strong></a> |
+            <a href="http://groups.google.com/group/github/">Google Group</a> | 
+            <a href="http://logicalawesome.lighthouseapp.com/projects/8570/home">Report a Bug</a> |
+            <a href="http://logicalawesome.lighthouseapp.com/projects/8570/home">Request a Feature</a> |
+            <a href="mailto:support@github.com">Contact</a> | 
+            <a href="http://github.wordpress.com">Status</a>
+          </div>
+          <div class="company">
+            <span id="_rrt" title="0.60145s from github.com">GitHub</span>
+            is <a href="http://logicalawesome.com/">Logical Awesome</a> | &copy;2008 | <a href="/site/terms">Terms of Service</a> | <a href="/site/privacy">Privacy Policy</a>
+          </div>
+        </div>
+        <div class="sponsor">
+          <a href="http://engineyard.com">Amazing Rails hosting by our good friends at Engine Yard</a>
+          <a href="http://engineyard.com">
+            <img src="/images/modules/footer/engine_yard_logo.gif" alt="Hosted by Engine Yard" />
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <div id="coming_soon" style="display:none;">
+      This feature is coming soon.  Sit tight!
+    </div>
+        <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    var pageTracker = _gat._getTracker("UA-3769691-2");
+    pageTracker._initData();
+    pageTracker._trackPageview();
+    </script>
+
+  </body>
+</html>
+

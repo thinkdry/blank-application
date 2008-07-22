@@ -1,0 +1,11 @@
+.fieldWithErrors {
+	border: 1px solid red;
+	display: inline-block;
+	padding: 0px;
+	margin: 0px;
+}
+
+.formError {
+	display: inline;
+	color: red;
+}
