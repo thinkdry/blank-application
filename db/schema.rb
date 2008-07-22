@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(:version => 20080722051438) do
     t.string   "mobile"
     t.string   "activity"
     t.text     "edito"
+    t.integer  "image_path"
     t.string   "crypted_password",          :limit => 40
     t.string   "salt",                      :limit => 40
     t.datetime "created_at"

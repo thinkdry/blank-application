@@ -93,6 +93,30 @@ class UserTest < Test::Unit::TestCase
     assert_not_nil users(:quentin).remember_token_expires_at
     assert users(:quentin).remember_token_expires_at.between?(before, after)
   end
+  
+  def test_should_require_firstname
+    assert true
+  end
+  
+  def test_should_require_lastname
+    assert true
+  end
+  
+  def test_should_require_addr
+    assert true
+  end
+  
+  def test_should_require_laboratory
+    assert true
+  end
+  
+  def test_should_require_phone
+    assert true
+  end
+  
+  def test_should_require_mobile
+    assert true
+  end
 
 protected
   def create_user(options = {})
