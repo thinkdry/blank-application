@@ -126,7 +126,7 @@ class UserTest < Test::Unit::TestCase
   end
   
   def test_activity_should_be_valid
-    assert_invalid_format :activity => ["jdk@k", "1234"]
+    assert_invalid_format :activity, ["jdk@k", "1234"]
   end
   
 protected
