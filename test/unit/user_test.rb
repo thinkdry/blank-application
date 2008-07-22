@@ -6,6 +6,7 @@ class UserTest < Test::Unit::TestCase
   include AuthenticatedTestHelper
   fixtures :users
 
+  
   def test_should_create_user
     assert_difference 'User.count' do
       user = create_user
@@ -94,72 +95,90 @@ class UserTest < Test::Unit::TestCase
     assert users(:quentin).remember_token_expires_at.between?(before, after)
   end
   
-  def test_should_require_firstname
-    assert true
+  # our tests
+  
+  def test_firstname_should_be_valid
+    # require, [a-z], [A-Z], '-', accentued chars
+    ["", "jdk@k", "1234"].each do |f|
+      assert_no_difference 'User.count' do
+        u = create_user(:firstname => f)
+	assert u.errors.on(:firstname), "Column firstname should return an error with value \"#{f}\"."
+      end
+    end
   end
   
-  def test_should_require_lastname
-    assert true
+  def test_lastname_should_be_valid
+    # require, [a-z], [A-Z], '-', accentued chars
+    ["", "jdk@k", "1234"].each do |l|
+      assert_no_difference 'User.count' do
+        u = create_user(:lastname => l)
+	assert u.errors.on(:lastname), "Column lastname should return an error with value \"#{l}\"."
+      end
+    end
   end
   
-  def test_should_require_addr
-    assert true
+  def test_email_should_be_valid
+    # require, mail format
+    ["", "jdk@k", "jdk@ffff.f"].each do |e|
+      assert_no_difference 'User.count' do
+        u = create_user(:email => e)
+	assert u.errors.on(:email), "Column email should return an error with value \"#{l}\"."
+      end
+    end
   end
   
-  def test_should_require_laboratory
-    assert true
-  end
-  
-  def test_should_require_phone
-    assert true
-  end
-  
-  def test_should_require_mobile
-    assert true
-  end
-  
-  def test_firtname_should_be_valid
-    # [a-z], [A-Z], '-', accentued chars
-    assert true
-  end
-  
-  def test_lastame_should_be_valid
-    # [a-z], [A-Z], '-', accentued chars
-    assert true
-  end
-  
-  def test_addr_should_be_valid
-    # 0-9a-zA-Z+ " - ' "+caractères accentués
-    assert true
+  def test_address_should_be_valid
+    # require
+    [""].each do |a|
+      assert_no_difference 'User.count' do
+        u = create_user(:addr => a)
+	assert u.errors.on(:addr), "Column address should return an error with value \"#{a}\"."
+      end
+    end
   end
   
   def test_laboratory_should_be_valid
-    # 0-9a-zA-Z+ " - ' "+caractères accentués
-    assert true
-  end
-  
-  def test_mail_should_be_valid
-    # mail format
-    assert true
+    # require, [a-z], [A-Z], '-', accentued chars
+    ["", "jdk@k", "1234"].each do |l|
+      assert_no_difference 'User.count' do
+        u = create_user(:laboratory => l)
+	assert u.errors.on(:lalaboratory), "Column laboratory should return an error with value \"#{l}\"."
+      end
+    end
   end
   
   def test_phone_should_be_valid
-    # 10 numbers expected
-    assert true
+    # require, 10 numbers expected
+    ["", "jdk@k", "1234", "11 11 11 1"].each do |p|
+      assert_no_difference 'User.count' do
+        u = create_user(:phone => p)
+	assert u.errors.on(:phone), "Column phone should return an error with value \"#{p}\"."
+      end
+    end
   end
   
   def test_mobile_should_be_valid
-    # 10 numbers expected
-    assert true
-  end 
+    # require, 10 numbers expected
+    ["", "jdk@k", "1234", "11 11 11 1"].each do |m|
+      assert_no_difference 'User.count' do
+        u = create_user(:mobile => m)
+	assert u.errors.on(:mobile), "Column mobile should return an error with value \"#{m}\"."
+      end
+    end
+  end
   
   def test_activity_should_be_valid
-    assert true
+    # [a-z], [A-Z], '-', accentued chars
+    ["jdk@k", "1234"].each do |a|
+      assert_no_difference 'User.count' do
+        u = create_user(:activity => a)
+	assert u.errors.on(:activity), "Column activity should return an error with value \"#{a}\"."
+      end
+    end
   end
   
-  def test_edito_should_be_valid
-    assert true
-  end
+  
+  
   
 protected
   def create_user(options = {})
