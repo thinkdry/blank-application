@@ -117,7 +117,50 @@ class UserTest < Test::Unit::TestCase
   def test_should_require_mobile
     assert true
   end
-
+  
+  def test_firtname_should_be_valid
+    # [a-z], [A-Z], '-', accentued chars
+    assert true
+  end
+  
+  def test_lastame_should_be_valid
+    # [a-z], [A-Z], '-', accentued chars
+    assert true
+  end
+  
+  def test_addr_should_be_valid
+    # 0-9a-zA-Z+ " - ' "+caractères accentués
+    assert true
+  end
+  
+  def test_laboratory_should_be_valid
+    # 0-9a-zA-Z+ " - ' "+caractères accentués
+    assert true
+  end
+  
+  def test_mail_should_be_valid
+    # mail format
+    assert true
+  end
+  
+  def test_phone_should_be_valid
+    # 10 numbers expected
+    assert true
+  end
+  
+  def test_mobile_should_be_valid
+    # 10 numbers expected
+    assert true
+  end 
+  
+  def test_activity_should_be_valid
+    assert true
+  end
+  
+  def test_edito_should_be_valid
+    assert true
+  end
+  
 protected
   def create_user(options = {})
     record = User.new({ :login => 'quire', :email => 'quire@example.com', :password => 'quire69', :password_confirmation => 'quire69' }.merge(options))
