@@ -37,7 +37,6 @@ class Test::Unit::TestCase
   # Add more helper methods to be used by all tests here...
   
   def assert_invalid_format field, values
-    
     raise 'Must be Test::Unit::TestCase' unless self.class.superclass == Test::Unit::TestCase
     
     model_name = self.class.to_s.underscore.humanize.split.first.classify
@@ -47,8 +46,8 @@ class Test::Unit::TestCase
     
     values.to_a.each do |f|
       assert_no_difference "#{model_name}.count" do
-        model_instance = self.send(new_instance, :firstname => f)
-        assert model_instance.errors.on(:firstname), "Column firstname should return an error with value \"#{f}\"."
+        model_instance = self.send(new_instance, field.intern => f)
+        assert model_instance.errors.on(field.intern), "Column #{field.to_s} should return an error with value \"#{f}\"."
       end
     end
   end
