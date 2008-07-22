@@ -97,35 +97,35 @@ class UserTest < Test::Unit::TestCase
   
   # Our tests
   
-  def test_firstname_should_be_valid
+  def test_firstname_should_not_validate
     assert_invalid_format :firtname, ["", "jdk@k", "1234"]
   end
   
-  def test_lastname_should_be_valid
+  def test_lastname_should_not_validate
     assert_invalid_format :lastname, ["", "jdk@k", "1234"]
   end
   
-  def test_email_should_be_valid
+  def test_email_should_not_validate
     assert_invalid_format :email, ["", "jdk@k", "jdk@ffff.f"]
   end
   
-  def test_address_should_be_valid
+  def test_address_should_not_validate
     assert_invalid_format :addr, ""
   end
   
-  def test_laboratory_should_be_valid
+  def test_laboratory_should_not_validate
     assert_invalid_format :laboratory, ["", "jdk@k", "1234"]
   end
   
-  def test_phone_should_be_valid
+  def test_phone_should_not_validate
     assert_invalid_format :phone, ["", "jdk@k", "1234", "11 11 11 1"]
   end
   
-  def test_mobile_should_be_valid
+  def test_mobile_should_not_validate
     assert_invalid_format :mobile, ["", "jdk@k", "1234", "11 11 11 1"]
   end
   
-  def test_activity_should_be_valid
+  def test_activity_should_not_validate
     assert_invalid_format :activity, ["jdk@k", "1234"]
   end
   
