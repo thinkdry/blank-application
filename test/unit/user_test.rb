@@ -98,7 +98,7 @@ class UserTest < Test::Unit::TestCase
   # Our tests
   
   def test_firstname_should_not_validate
-    assert_invalid_format :firtname, ["", "jdk@k", "1234"]
+    assert_invalid_format :firstname, ["", "dddd@ðððð", "1234"]
   end
   
   def test_lastname_should_not_validate
@@ -110,7 +110,7 @@ class UserTest < Test::Unit::TestCase
   end
   
   def test_address_should_not_validate
-    assert_invalid_format :addr, ""
+    assert_invalid_format :addr, ["", "jdk@k", "jdk@ffff.f"]
   end
   
   def test_laboratory_should_not_validate
@@ -126,7 +126,7 @@ class UserTest < Test::Unit::TestCase
   end
   
   def test_activity_should_not_validate
-    assert_invalid_format :activity, ["jdk@k", "1234"]
+    assert_invalid_format :activity, ""
   end
   
 protected
