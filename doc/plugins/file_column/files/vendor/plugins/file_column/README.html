@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: README</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>README</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>vendor/plugins/file_column/README
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Tue Jul 22 11:39:55 +0530 2008</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+FEATURES
+</p>
+<h6>==</h6>
+<p>
+Let&#8216;s assume an model class named Entry, where we want to define the
+&quot;image&quot; column as a &quot;file_upload&quot; column.
+</p>
+<p>
+class Entry &lt; ActiveRecord::Base
+</p>
+<pre>
+  file_column :image
+</pre>
+<p>
+end
+</p>
+<ul>
+<li>every entry can have one uploaded file, the filename will be stored in the
+&quot;image&quot; column
+
+</li>
+<li>files will be stored in
+&quot;public/entry/image/&lt;entry.id&gt;/filename.ext&quot;
+
+</li>
+<li>Newly uploaded files will be stored in
+&quot;public/entry/tmp/&lt;random&gt;/filename.ext&quot; so that they can
+be reused in form redisplays (due to validation etc.)
+
+</li>
+<li>in a view, &quot;&lt;%= file_column_field &#8216;entry&#8217;,
+&#8216;image&#8217; %&gt; will create a file upload field as well as a
+hidden field to recover files uploaded before in a case of a form redisplay
+
+</li>
+<li>in a view, &quot;&lt;%= url_for_file_column &#8216;entry&#8217;,
+&#8216;image&#8217; %&gt; will create an URL to access the uploaded file.
+Note that you need an Entry object in the instance variable @entry for this
+to work.
+
+</li>
+<li>easy integration with RMagick to resize images and/or create thumb-nails.
+
+</li>
+</ul>
+<p>
+USAGE
+</p>
+<h5></h5>
+<p>
+Just drop the whole directory into your application&#8216;s
+&quot;vendor/plugins&quot; directory. Starting with version 1.0rc of rails,
+it will be automatically picked for you by rails plugin mechanism.
+</p>
+<p>
+DOCUMENTATION
+</p>
+<h6>=======</h6>
+<p>
+Please look at the rdoc-generated documentation in the &quot;doc&quot;
+directory.
+</p>
+<p>
+RUNNING UNITTESTS
+</p>
+<h6>===========</h6>
+<p>
+There are extensive unittests in the &quot;test&quot; directory. Currently,
+only MySQL is supported, but you should be able to easily fix this by
+looking at &quot;connection.rb&quot;. You have to create a database for the
+tests and put the connection information into &quot;connection.rb&quot;.
+The schema for MySQL can be found in &quot;test/fixtures/mysql.sql&quot;.
+</p>
+<p>
+You can run the tests by starting the &quot;*_test.rb&quot; in the
+directory &quot;test&quot;
+</p>
+<p>
+BUGS &amp; FEEDBACK
+</p>
+<h6>=========</h6>
+<p>
+Bug reports (as well as patches) and feedback are very welcome. Please send
+it to sebastian.kanthak@muehlheim.de
+</p>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

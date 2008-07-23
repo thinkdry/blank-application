@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: CHANGELOG</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>CHANGELOG</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>vendor/plugins/restful-authentication/CHANGELOG
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Tue Jul 22 10:39:43 +0530 2008</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+h1. Internal Changes to code
+</p>
+<p>
+As always, this is just a copy-and-pasted version of the CHANGELOG file in
+the source code tree.
+</p>
+<p>
+h2. Changes for the May, 2008 version of restful-authentication
+</p>
+<p>
+h3. Changes to user model
+</p>
+<ul>
+<li>recently_activated? belongs only if stateful
+
+</li>
+<li>Gave migration a 40-char limit on remember_token &amp; an index on users by
+login
+
+</li>
+<li>*<b>Much</b>* stricter login and email validation
+
+</li>
+<li>put length constraints in migration too
+
+</li>
+<li>password in 6, 40
+
+</li>
+<li>salt and remember_token now much less predictability
+
+</li>
+</ul>
+<p>
+h3. Changes to session_controller
+</p>
+<ul>
+<li>use uniform logout function
+
+</li>
+<li>use uniform remember_cookie functions
+
+</li>
+<li>avoid calling logged_in? which will auto-log-you-in (safe in the face of
+logout! call, but idiot-proof)
+
+</li>
+<li>Moved reset_session into only the &quot;now logged in&quot; branch
+
+</li>
+</ul>
+<p>
+** wherever it goes, it has to be in front of the current_user= call ** See
+more in README-Tradeoffs.txt
+</p>
+<ul>
+<li>made a place to take action on failed login attempt
+
+</li>
+<li>recycle login and remember_me setting on failed login
+
+</li>
+<li>nil&#8216;ed out the password field in &#8216;new&#8217; view
+
+</li>
+</ul>
+<p>
+h3. Changes to users_controller
+</p>
+<ul>
+<li>use uniform logout function
+
+</li>
+<li>use uniform remember_cookie functions
+
+</li>
+<li>Moved reset_session into only the &quot;now logged in&quot; branch
+
+</li>
+</ul>
+<p>
+** wherever it goes, it has to be in front of the current_user= call ** See
+more in README-Tradeoffs.txt
+</p>
+<ul>
+<li>made the implicit login only happen for non-activationed sites
+
+</li>
+<li>On a failed signup, kick you back to the signin screen (but strip out the
+password &amp; confirmation)
+
+</li>
+<li>more descriptive error messages in activate()
+
+</li>
+</ul>
+<p>
+h3. users_helper
+</p>
+<ul>
+<li>link_to_user, link_to_current_user, link_to_signin_with_IP
+
+</li>
+<li>if_authorized(action, resource, &amp;block) view function (with appropriate
+warning)
+
+</li>
+</ul>
+<p>
+h3. authenticated_system
+</p>
+<ul>
+<li>Made authorized? take optional arguments action=nil, resource=nil, *args
+This makes its signature better match traditional approaches to access
+control eg Reference Monitor in &quot;Security Patterns&quot;:<a
+href="http://www.securitypatterns.org/patterns.html">www.securitypatterns.org/patterns.html</a>)
+
+</li>
+<li>authorized? should be a helper too
+
+</li>
+<li>added uniform logout! methods
+
+</li>
+<li>format.any (as found in access_denied) doesn&#8216;t work until <a
+href="http://dev.rubyonrails.org/changeset/8987">dev.rubyonrails.org/changeset/8987</a>
+lands.
+
+</li>
+<li>cookies are now refreshed each time we cross the logged out/in barrier, as
+&quot;best&quot;:<a
+href="http://palisade.plynt.com/issues/2004Jul/safe-auth-practices">palisade.plynt.com/issues/2004Jul/safe-auth-practices</a>/
+&quot;practice&quot;:<a
+href="http://www.owasp.org/index.php/Session_Management#Regeneration_of_Session_Tokens">www.owasp.org/index.php/Session_Management#Regeneration_of_Session_Tokens</a>
+
+</li>
+</ul>
+<p>
+h3. Other
+</p>
+<ul>
+<li>Used escapes &lt;%= %&gt; in email templates (among other reasons, so
+courtenay&#8216;s &quot;&#8217;dumbass&#8217; test&quot;:<a
+href="http://tinyurl.com/684g9t">tinyurl.com/684g9t</a> doesn&#8216;t
+complain)
+
+</li>
+<li>Added site key to generator, users.yml.
+
+</li>
+<li>Made site key generation idempotent in the most crude and hackish way
+
+</li>
+<li>100% coverage apart from the stateful code. (needed some access_control
+checks, and the http_auth stuff)
+
+</li>
+<li>Stories!
+
+</li>
+</ul>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

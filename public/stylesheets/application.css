@@ -16,3 +16,9 @@
 	display: inline;
 	color: red;
 }
+
+.notice {
+	padding: 0.5em;
+	margin-top: 1em;
+	background-color: rgb(56, 117, 215);
+}

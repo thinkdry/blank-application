@@ -39,7 +39,7 @@ class Test::Unit::TestCase
   def assert_invalid_format field, values
     raise 'Must be Test::Unit::TestCase' unless self.class.superclass == Test::Unit::TestCase
     
-    model_name = self.class.to_s.underscore.humanize.split.first.classify
+    model_name = self.class.to_s[0..-5].classify
     new_instance = "create_#{model_name.downcase}"
     
     raise "Must implement #{new_instance}" unless self.respond_to?(new_instance)

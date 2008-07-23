@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: README</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>README</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>vendor/plugins/restful-authentication/README
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Tue Jul 22 10:39:43 +0530 2008</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+h1. Restful <a
+href="../../../../classes/Authentication.html">Authentication</a> Generator
+</p>
+<p>
+This widely-used plugin provides a foundation for securely managing user
+authentication:
+</p>
+<ul>
+<li>Login / logout
+
+</li>
+<li>Secure password handling
+
+</li>
+<li>Account activation by validating email
+
+</li>
+<li>Account approval / disabling by admin
+
+</li>
+<li>Rudimentary hooks for authorization and access control.
+
+</li>
+</ul>
+<p>
+Several features were updated in May, 2008. The newest version of this
+plugin may be found in
+</p>
+<pre>
+  http://github.com/technoweenie/restful-authentication/tree/master
+</pre>
+<p>
+While a &quot;classic&quot; (backward-compatible) version may be found in
+</p>
+<pre>
+  http://github.com/technoweenie/restful-authentication/tree/classic
+
+  !! important: if you upgrade your site, existing user account !!
+  !! passwords will stop working unless you use --old-passwords !!
+</pre>
+<p>
+This page has notes on
+</p>
+<ul>
+<li>&quot;Installation&quot;:INSTALL
+
+</li>
+<li>&quot;Compatibility Warning&quot;:COMPATIBILITY
+
+</li>
+<li>&quot;New Features&quot;:AWESOME
+
+</li>
+<li>&quot;After installing&quot;:POST-INSTALL
+
+</li>
+</ul>
+<p>
+See the &quot;wiki&quot;:<a
+href="http://github.com/technoweenie/restful-authentication/wikis/home">github.com/technoweenie/restful-authentication/wikis/home</a>
+(or the notes/ directory) if you want to learn more about:
+</p>
+<ul>
+<li>&quot;Security Design Patterns&quot;:Security-Patterns with &quot;snazzy
+diagram&quot;:<img
+src="http://github.com/technoweenie/restful-authentication/tree/master/notes/SecurityFramework.png"
+/>
+
+</li>
+<li>[[<a href="../../../../classes/Authentication.html">Authentication</a>]]
+&#8212; Lets a visitor identify herself (and lay claim to her corresponding
+Roles and measure of Trust)
+
+</li>
+<li>&quot;Trust Metrics&quot;:<a
+href="../../../../classes/Trustification.html">Trustification</a> &#8212;
+Confidence we can rely on the outcomes of this visitor&#8216;s actions.
+
+</li>
+<li>[[<a href="../../../../classes/Authorization.html">Authorization</a>]] and
+Policy &#8212; Based on trust and identity, what actions may this visitor
+perform?
+
+</li>
+<li>[[Access Control]] &#8212; How the <a
+href="../../../../classes/Authorization.html">Authorization</a> policy is
+actually enforced in your code (A: hopefully without turning it into a
+spaghetti of if thens)
+
+</li>
+<li>[[Rails Plugins]] for <a
+href="../../../../classes/Authentication.html">Authentication</a>, Trust,
+<a href="../../../../classes/Authorization.html">Authorization</a> and
+Access Control
+
+</li>
+<li>[[Tradeoffs]] &#8212; for the paranoid or the curious, a rundown of
+tradeoffs made in the code
+
+</li>
+<li>[[CHANGELOG]] &#8212; Summary of changes to internals
+
+</li>
+<li>[[TODO]] &#8212; Ideas for how you can help
+
+</li>
+</ul>
+<p>
+These best version of the release notes are in the notes/ directory in the
+&quot;source code&quot;:<a
+href="http://github.com/technoweenie/restful-authentication/tree/master">github.com/technoweenie/restful-authentication/tree/master</a>
+</p>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

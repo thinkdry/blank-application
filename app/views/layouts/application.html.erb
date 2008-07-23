@@ -3,6 +3,6 @@
 
 <%= render :partial => "users/user_bar" %>
 
-<%= flash[:notice] || nil %>
+<%= content_tag(:div, flash[:notice], :class => 'notice') if flash[:notice] %>
 
 <%= yield %>

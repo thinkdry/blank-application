@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: Resourceful::Serialize</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">Resourceful::Serialize</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/vendor/plugins/make_resourceful/lib/resourceful/serialize_rb.html">
+                vendor/plugins/make_resourceful/lib/resourceful/serialize.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+This module contains mixin modules used to implement the object
+serialization used for the <a
+href="Builder.html#M000068">Builder#publish</a> method. They can also be
+used to get serialized representations of objects in other contexts.
+</p>
+<p>
+Serialization makes use of duck typing. Each class that can be serialized
+(just <a href="Serialize/Array.html">Array</a> and <a
+href="../ActiveRecord/Base.html">ActiveRecord::Base</a> by default)
+implements the <tt>serialize</tt> and <tt>to_serializable</tt> methods.
+These methods are implemented differently by the different classes, but the
+semantics of the implementations are consistent, so they can be used
+consistently.
+</p>
+<p>
+<tt>to_serializable</tt> returns an object that can be directly serialized
+with a call to <tt>to_xml</tt>, <tt>to_yaml</tt>, or <tt>to_json</tt>. This
+object is either a hash or an array, and all the elements are either
+values, like strings and integers, or other serializable objects. This is
+useful for getting a model into a simple data structure format. The
+<tt>attributes</tt> argument uses the same semantics as the
+<tt>:attributes</tt> option for <a
+href="Builder.html#M000068">Builder#publish</a>. For example:
+</p>
+<pre>
+  c = Cake.new(:flavor =&gt; 'chocolate', :text =&gt; 'Happy birthday, Chris!')
+  c.recipient = User.new(:name =&gt; 'Chris', :password =&gt; 'not very secure')
+  c.to_serializable [
+      :flavor, :text,
+      :recipient =&gt; :name
+    ]
+</pre>
+<p>
+This would return the Ruby hash
+</p>
+<pre>
+  { :flavor =&gt; 'chocolate', :text =&gt; 'Happy birthday, Chris!',
+    :user =&gt; {:name =&gt; 'Chris'} }
+</pre>
+<p>
+<tt>serialize</tt> takes a format (<tt>:xml</tt>, <tt>:yaml</tt>, or
+<tt>:json</tt> - see New Formats below) and a hash of options. The only
+option currently recognized is <tt>:attributes</tt>, which has the same
+semantics as the <tt>:attributes</tt> option for <a
+href="Builder.html#M000068">Builder#publish</a>. <tt>serialize</tt> returns
+a string containing the target serialized in the given format. For example:
+</p>
+<pre>
+  c = CandyBag.new(:title =&gt; 'jellybag')
+  c.candies &lt;&lt; Candy.new(:type =&gt; 'jellybean', :flavor =&gt; 'root beer')
+  c.candies &lt;&lt; Candy.new(:type =&gt; 'jellybean', :flavor =&gt; 'pear')
+  c.candies &lt;&lt; Candy.new(:type =&gt; 'licorice',  :flavor =&gt; 'anisey')
+  c.serialize :xml, :attributes =&gt; [:title, {:candies =&gt; [:type, :flavor]}]
+</pre>
+<p>
+This would return a Ruby string containing
+</p>
+<pre>
+  &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+  &lt;candy-bag&gt;
+    &lt;title&gt;jellybag&lt;/title&gt;
+    &lt;candies&gt;
+      &lt;candy&gt;
+        &lt;type&gt;jellybean&lt;/type&gt;
+        &lt;flavor&gt;root beer&lt;/flavor&gt;
+      &lt;/candy&gt;
+      &lt;candy&gt;
+        &lt;type&gt;jellybean&lt;/type&gt;
+        &lt;flavor&gt;pear&lt;/flavor&gt;
+      &lt;/candy&gt;
+      &lt;candy&gt;
+        &lt;type&gt;licorice&lt;/type&gt;
+        &lt;flavor&gt;anisey&lt;/flavor&gt;
+      &lt;/candy&gt;
+    &lt;/candies&gt;
+  &lt;/candy-bag&gt;
+</pre>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+    <div id="class-list">
+      <h3 class="section-bar">Classes and Modules</h3>
+
+      Module <a href="Serialize/Array.html" class="link">Resourceful::Serialize::Array</a><br />
+Module <a href="Serialize/Model.html" class="link">Resourceful::Serialize::Model</a><br />
+
+    </div>
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>
