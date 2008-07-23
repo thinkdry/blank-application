@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
   include Authentication
   include Authentication::ByPassword
   include Authentication::ByCookieToken
+  
+  file_column :image_path
 
   validates_presence_of     :login
   validates_length_of       :login,    :within => 3..40
@@ -36,7 +38,7 @@ class User < ActiveRecord::Base
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :password, :password_confirmation, :firstname, :lastname, :addr, :laboratory, :phone, :mobile, :activity, :edito
+  attr_accessible :login, :email, :password, :password_confirmation, :firstname, :lastname, :addr, :laboratory, :phone, :mobile, :activity, :edito, :image_path_temp, :image_path
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   #
