@@ -14,14 +14,18 @@
 	<%= f.text_field :mobile, :label => 'Portable' %>
 	<%= f.text_field :activity, :label => 'Activité' %>
 	
+	<p>
+		<label for="user_image_path">Photo</label><br/>
+		<%= image_tag(url_for_file_column(@user, 'image_path')) + '<br />' if @user.image_path %>
+		<%= file_column_field 'user', 'image_path' %>
+	</p>
+	
+	<%= f.text_area :edito, :label => 'Édito' %>
 	<script type="text/javascript">
 		bkLib.onDomLoaded(function() {
-		new nicEditor({iconsPath : '/images/nicEditorIcons.gif'}).panelInstance('user_edito');
-	});
+			new nicEditor({iconsPath : '/images/nicEditorIcons.gif'}).panelInstance('user_edito');
+		});
 	</script>
-	<%= f.text_area :edito, :label => 'Édito' %>
-	
-	<%= file_column_field 'user', 'image_path' %>
 
-	<%= submit_tag 'Sign up' %>
+	<%= submit_tag 'Créer utilisateur' %>
 <% end -%>

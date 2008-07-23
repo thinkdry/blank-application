@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   include Authentication::ByPassword
   include Authentication::ByCookieToken
   
-  file_column :image_path
+  file_column :image_path, :magick => {:size => "200x200>"}
 
   validates_presence_of     :login
   validates_length_of       :login,    :within => 3..40
