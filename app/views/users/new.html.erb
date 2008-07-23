@@ -13,8 +13,14 @@
 	<%= f.text_field :phone, :label => 'Téléphone (fixe)' %>
 	<%= f.text_field :mobile, :label => 'Portable' %>
 	<%= f.text_field :activity, :label => 'Activité' %>
-	<%= f.text_field :edito, :label => 'Édito' %>
-
+	
+	<script type="text/javascript">
+		bkLib.onDomLoaded(function() {
+		new nicEditor({iconsPath : '/images/nicEditorIcons.gif'}).panelInstance('user_edito');
+	});
+	</script>
+	<%= f.text_area :edito, :label => 'Édito' %>
+	
 	<%= file_column_field 'user', 'image_path' %>
 
 	<%= submit_tag 'Sign up' %>
