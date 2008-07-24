@@ -5,6 +5,11 @@ class User < ActiveRecord::Base
   include Authentication
   include Authentication::ByPassword
   include Authentication::ByCookieToken
+	
+	has_many :users_working_spaces
+	has_many :working_spaces, :through => :users_working_spaces
+	has_many :roles, :through => :users_working_spaces
+	
   
   file_column :image_path, :magick => {:size => "200x200>"}
 

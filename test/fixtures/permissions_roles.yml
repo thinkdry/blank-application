@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  role: one
+  permission: one
+
+two:
+  role: one
+  permission: two
+
+three:
+  role: two
+  permission: two
+
+four:
+  role: two
+  permission: three
