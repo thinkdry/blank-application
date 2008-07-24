@@ -14,6 +14,14 @@ class WorkspaceTest < Test::Unit::TestCase
     assert_invalid_format :name, [""]
   end
 	
+	def test_no_same_user_in_workspace
+		workspace = create_workspace
+		assert workspace.users_workspaces.build(:user_id => users(:quentin), :role_id => roles(:two))
+		assert_difference 'workspace.users_workspaces.count' do
+			assert !workspace.users_workspaces.build(:user_id => users(:quentin), :role_id => roles(:one)), "Doublon user"
+		end
+  end
+	
 	protected
   def create_workspace(options = {})
     record = Workspace.new({

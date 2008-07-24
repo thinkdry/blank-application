@@ -4,7 +4,7 @@ class WorkspacesController < ApplicationController
 
   make_resourceful do
     actions :all
-  end
-	
-	
+	end
+ 
+		
 end
