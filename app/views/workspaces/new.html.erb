@@ -1,17 +1,17 @@
 <h1>Enregistrer un nouvel espace de travail</h1>
 
-<% form_for @working_space, :html => {:multipart => true}, :builder => LabelFormBuilder do |f| -%>
+<% form_for @workspace, :html => {:multipart => true}, :builder => LabelFormBuilder do |f| -%>
 	
 	<%= f.text_field :name %>
 	
-	<% f.fields_for @users_working_spaces do |fe| %>
-	  <% i = 0 %>
-		<% while i < 5 %>
-			<%= fe.text_field :user %>
-			<%= fe.select "role", Role.find(:all).collect {|p| [ p.name, p.id ] } %>
-			<% i = i + 1 %>
+	
+		<% 5.times do |i| %>
+			<% fields_for "workspace[users_workspaces[#{i}]]" do |fe| %>
+			<%= fe.text_field :user_id %>
+			<%= fe.select :role_id, Role.find(:all).collect {|p| [ p.name, p.id ] } %><br />
+			<% end %>
 		<% end %>
-	<% end %>
+
 	
 	<%= f.submit "Créer cet espace de travail" %>
 	
