@@ -37,6 +37,8 @@ class Test::Unit::TestCase
   # Add more helper methods to be used by all tests here...
   
   def assert_invalid_format field, values
+    # Hack ''.to_a => [] ([''] expected)
+    values = [''] if values == ''
     raise 'Must be Test::Unit::TestCase' unless self.class.superclass == Test::Unit::TestCase
     
     model_name = self.class.to_s[0..-5].classify

@@ -16,9 +16,10 @@ class WorkspaceTest < Test::Unit::TestCase
 	
 	def test_no_same_user_in_workspace
 		workspace = create_workspace
-		assert workspace.users_workspaces.build(:user_id => users(:quentin), :role_id => roles(:two))
-		assert_difference 'workspace.users_workspaces.count' do
-			assert !workspace.users_workspaces.build(:user_id => users(:quentin), :role_id => roles(:one)), "Doublon user"
+		assert workspace.users_workspaces.create(:user_id => users(:quentin), :role_id => roles(:two))
+		assert_no_difference 'workspace.users_workspaces.count' do
+			assert workspace.users_workspaces.build(:user_id => users(:quentin), :role_id => roles(:one))
+			assert !workspace.save
 		end
   end
 	
