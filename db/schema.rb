@@ -18,8 +18,8 @@ ActiveRecord::Schema.define(:version => 20080723121819) do
   end
 
   create_table "permissions_roles", :force => true do |t|
-    t.integer  "role_id",       :limit => 11
-    t.integer  "permission_id", :limit => 11
+    t.integer  "role_id"
+    t.integer  "permission_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -53,9 +53,9 @@ ActiveRecord::Schema.define(:version => 20080723121819) do
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true
 
   create_table "users_workspaces", :force => true do |t|
-    t.integer  "workspace_id", :limit => 11
-    t.integer  "role_id",      :limit => 11
-    t.integer  "user_id",      :limit => 11
+    t.integer  "workspace_id"
+    t.integer  "role_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -1,7 +1,5 @@
-<h1>Utilisateurs</h1>
-
 <ul>
 	<% @current_objects.each do |user| %>
-		<%= content_tag :li, user.id.to_s + ' ' + user.login %>
+		<%= content_tag :li, user.login %>
 	<% end %>
 </ul>

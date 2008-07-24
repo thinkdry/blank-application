@@ -1,9 +1,12 @@
 class UsersController < ApplicationController
-	
   acts_as_ajax_validation
 
   make_resourceful do
     actions :all
+
+    response_for :index do |format|
+      format.html { render :layout => false }
+    end
   end
  
   def create
