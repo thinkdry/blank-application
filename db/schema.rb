@@ -52,15 +52,15 @@ ActiveRecord::Schema.define(:version => 20080723121819) do
 
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true
 
-  create_table "users_working_spaces", :force => true do |t|
-    t.integer  "working_space_id", :limit => 11
-    t.integer  "role_id",          :limit => 11
-    t.integer  "user_id",          :limit => 11
+  create_table "users_workspaces", :force => true do |t|
+    t.integer  "workspace_id", :limit => 11
+    t.integer  "role_id",      :limit => 11
+    t.integer  "user_id",      :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "working_spaces", :force => true do |t|
+  create_table "workspaces", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
