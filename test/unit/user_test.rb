@@ -6,6 +6,10 @@ class UserTest < Test::Unit::TestCase
   include AuthenticatedTestHelper
   fixtures :users
 
+  def test_quentin_valid?
+    # This fixture will be used as a valid record for testing
+    assert users(:quentin).valid?
+  end
   
   def test_should_create_user
     assert_difference 'User.count' do

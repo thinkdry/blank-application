@@ -26,7 +26,8 @@ class User < ActiveRecord::Base
                             :addr,
                             :laboratory,
                             :phone,
-                            :mobile
+                            :mobile,
+                            :activity
 
   validates_format_of       :firstname, 
 			                      :lastname, 

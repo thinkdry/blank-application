@@ -12,6 +12,7 @@ quentin:
   mobile:                       0612345678
   phone:                        0112345678
   addr:                         42 rue du chat qui pette
+  activity:                     riendutout
       
 aaron:
   login:                        aaron
@@ -27,6 +28,7 @@ aaron:
   mobile:                       0612345678
   phone:                        0112345678
   addr:                         42 rue du chat qui pette
+  activity:                     riendutout
 
 old_password_holder:
   login:                        old_password_holder
@@ -40,4 +42,5 @@ old_password_holder:
   mobile:                       0612345678
   phone:                        0112345678
   addr:                         42 rue du chat qui pette
+  activity:                     riendutout
 
