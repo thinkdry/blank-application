@@ -23,8 +23,8 @@ ActiveRecord::Schema.define(:version => 20080728113647) do
 
   create_table "items", :force => true do |t|
     t.string   "itemable_type"
-    t.integer  "itemable_id",   :limit => 11
-    t.integer  "workspace_id",  :limit => 11
+    t.integer  "itemable_id"
+    t.integer  "workspace_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -36,18 +36,18 @@ ActiveRecord::Schema.define(:version => 20080728113647) do
   end
 
   create_table "permissions_roles", :force => true do |t|
-    t.integer  "role_id",       :limit => 11
-    t.integer  "permission_id", :limit => 11
+    t.integer  "role_id"
+    t.integer  "permission_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "public_items", :force => true do |t|
-    t.integer  "itemable_id",          :limit => 11
+    t.integer  "itemable_id"
     t.string   "itemable_type"
-    t.integer  "extranet_category_id", :limit => 11
-    t.integer  "suggester_id",         :limit => 11
-    t.integer  "validated",            :limit => 11
+    t.integer  "extranet_category_id"
+    t.integer  "suggester_id"
+    t.integer  "validated"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -81,9 +81,9 @@ ActiveRecord::Schema.define(:version => 20080728113647) do
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true
 
   create_table "users_workspaces", :force => true do |t|
-    t.integer  "workspace_id", :limit => 11
-    t.integer  "role_id",      :limit => 11
-    t.integer  "user_id",      :limit => 11
+    t.integer  "workspace_id"
+    t.integer  "role_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

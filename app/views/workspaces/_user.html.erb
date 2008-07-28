@@ -9,6 +9,8 @@
 		<%= user_form.select :role_id, Role.find(:all).collect { |r| [r.name, r.id] } %>
 	
 	<% end %>
+	
+	<%= link_to_function 'Delete', "$(this).up('.user').remove()" %>
 
 	<br/>
 </div>

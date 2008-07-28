@@ -9,7 +9,7 @@ class Workspace < ActiveRecord::Base
 	validates_presence_of :name
 	validates_associated :users_workspaces
 	
-	after_update :save_users_workspaces
+	after_update  :save_users_workspaces
 	
 	def new_user_attributes= user_attributes
 	  user_attributes.each do |attributes| 
@@ -20,7 +20,7 @@ class Workspace < ActiveRecord::Base
   def existing_user_attributes= user_attributes
     users_workspaces.reject(&:new_record?).each do |uw|
       attributes = user_attributes[uw.id.to_s]
-      attributes ? uw.attributes = attributes : users_workspaces.delete(task)
+      attributes ? uw.attributes = attributes : users_workspaces.delete(uw)
     end
   end
   
