@@ -1,0 +1,18 @@
+<% form_for @workspace, :builder => LabelFormBuilder do |f| -%>
+	
+	<%= f.text_field :name, :label => "Nom de l'espace de travail" %>
+
+	<h2>Utilisateurs associés:</h2>
+	<div id="users">
+		<% @current_object.users_workspaces.each do |object| %>
+			<%= new_user(object) %>
+		<% end %>
+	</div>
+		
+	<%= link_to_new_user 'Ajouter un utilisateur' %>
+	
+	<br /><br />
+	<%= f.submit "Créer cet espace de travail" %>
+
+	
+<% end -%>

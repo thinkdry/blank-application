@@ -1,5 +1,10 @@
 <ul>
 	<% @current_objects.each do |user| %>
-		<%= content_tag :li, user.login %>
+		<%=	content_tag(
+				:li,
+				user.login +
+				content_tag(:span, " (#{user.firstname} #{user.lastname})", :class => "informal")
+			)
+		%>
 	<% end %>
 </ul>

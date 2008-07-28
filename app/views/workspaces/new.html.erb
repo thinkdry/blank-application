@@ -1,38 +1,3 @@
-<script type="text/javascript" charset="utf-8">
-	cn = 0;
-	function add_new_user_field()
-	{
-		container = $('new_users_field');
-		container.insert(new Element('input', {
-			id: 	'new_user_' + cn,
-			type: 	'text',
-			name: 	'new_users[][user_id]'
-		}));
-		container.insert(new Element('div', {
-			id: 	'autocomplete_choices_' + cn,
-			class: 	'autocomplete'
-		}));
-		container.insert("<%= escape_javascript select_tag('new_users[][role_id]', options_for_select(Role.find(:all).collect { |r| r.name })) %>");
-		container.insert("<br />");
-		new Ajax.Autocompleter('new_user_' + cn, 'autocomplete_choices_' + cn, "<%= url_for :controller => :users, :action => :index %>", {method: 'get'});
-		cn++;
-	}
-</script>
-
 <h1>Enregistrer un nouvel espace de travail</h1>
 
-<% form_for @workspace, :builder => LabelFormBuilder do |f| -%>
-	
-
-	<%= f.text_field :name, :label => "Nom de l'espace de travail" %>
-
-	<h2>Utilisateurs associés:</h2>
-	<div id="new_users_field"></div>
-		
-	<%= link_to_function 'Ajouter un utilisateur', 'add_new_user_field()' %>
-	
-	<br /><br />
-	<%= f.submit "Créer cet espace de travail" %>
-
-	
-<% end -%>	
+<%= render :partial => "form" %>

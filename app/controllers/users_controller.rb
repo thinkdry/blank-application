@@ -26,4 +26,14 @@ class UsersController < ApplicationController
       render :action => 'new'
     end
   end
+  
+  def current_objects
+     conditions = if params['login']
+       ["login LIKE :login OR firstname LIKE :login OR lastname LIKE :login", 
+         { :login => "%#{params['login']}%"}]
+     else
+       {}
+     end
+     @current_objects ||= current_model.find(:all, :conditions => conditions)
+   end
 end
