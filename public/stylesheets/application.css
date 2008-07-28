@@ -45,3 +45,15 @@ div.autocomplete ul li {
   height:32px;
   cursor:pointer;
 }
+
+#user_bar {
+	float: right;
+}
+
+#user_bar div {
+  display: inline-block;
+}
+
+#menu_right {
+  float:right;
+}

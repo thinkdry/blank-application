@@ -1,8 +1,16 @@
-<h1>SHow</h1>
+<h1>Espace <%= @current_object.name %></h1>
 
-Name: <%= @current_object.name %>
+<h2>Utilisateurs associés:</h2>
 
-<h2>Users:</h2>
 <% @current_object.users_workspaces.each do |uw| %>
-	<%= uw.user_login %> - <%= Role.find(uw.role_id).name %> <br />
+	<%= uw.user_login %>: <%= Role.find(uw.role_id).name %> <br />
 <% end %>
+
+<ul>
+	<li>Articles		</li>
+	<li>Images			</li>
+	<li>Audios			</li>
+	<li>Vidéos			</li>
+	<li>Fichiers		</li>
+	<li>Publications	</li>
+</ul>

@@ -9,7 +9,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resource :session
 
-
   # TODO: Publishing, Bookmarks, Admin related controllers: rights...
 
   map.root :controller => 'users', :action => 'new'
@@ -25,6 +24,7 @@ ActionController::Routing::Routes.draw do |map|
     parent.resources :videos
     parent.resources :artic_files
     parent.resources :publications
+    parent.resources :images
     # Publication sources are private, but need to be scoped to import publication
     # into right workspace
     parent.resources :publications_sources

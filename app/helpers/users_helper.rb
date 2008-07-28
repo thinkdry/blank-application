@@ -1,5 +1,13 @@
 module UsersHelper
   
+  def show_title
+    if @current_object == current_user
+      'Mon Profil'
+    else
+      @current_object.login
+    end
+  end
+  
   #
   # Use this to wrap view elements that the user can't access.
   # !! Note: this is an *interface*, not *security* feature !!

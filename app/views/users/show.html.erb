@@ -1,17 +1,18 @@
-<h1>Utilisateur <%= @current_object.login %></h1>
+<h1><%= show_title %></h1>
 
-Login: 					<%= @current_object.login %>         <br />
-Email: 					<%= @current_object.email %>         <br />
-Nom: 					<%= @current_object.lastname %>      <br />
-Prénom: 				<%= @current_object.firstname %>     <br />
-Adresse: 				<%= @current_object.addr %>          <br />
-Laboratoire: 			<%= @current_object.laboratory %>    <br />
-Téléphone (fixe): 		<%= @current_object.phone %>         <br />
-Portable: 				<%= @current_object.mobile %>        <br />
-Activité:				<%= @current_object.activity %>      <br />
+<%= link_to 'Editer', edit_user_url(@current_object.id) %><br /><br />
 
 <% if @user.image_path %>
-	Photo:				<%= image_tag(url_for_file_column(@user, 'image_path')) %>	<br />
+	<%= image_tag(url_for_file_column(@user, 'image_path')) %>
 <% end %>
 
-Edito:					<%= @current_object.edito %>
+<span class="label">Nom: 		 </label>  	<%= @current_object.lastname %>      	<br />
+<span class="label">Prénom: 	 </label>  	<%= @current_object.firstname %>     	<br />
+<span class="label">Adresse: 	 </label>  	<%= @current_object.addr %>          	<br />
+<span class="label">Laboratoire: </label>  	<%= @current_object.laboratory %>    	<br />
+<span class="label">Email: 		 </label>  	<%= @current_object.email %>         	<br />
+<span class="label">Téléphone:	 </label>  	<%= @current_object.phone %>
+								 </label>  	<%= @current_object.mobile %> 			<br />
+						         </label> 
+<span class="label">Activité:	 </label>  	<%= @current_object.activity %>      	<br />
+<span class="label">Edito:		 </label>  	<%= @current_object.edito %>

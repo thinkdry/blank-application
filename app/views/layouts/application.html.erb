@@ -1,7 +1,31 @@
 <%= stylesheet_link_tag "application.css" %>
 <%= javascript_include_tag :all %>
 
-<%= render :partial => "users/user_bar" %>
+<div id="user_bar">
+	<%= render :partial => "users/user_bar" %>
+</div>
+
+<div id="menu_up">
+	<%= link_to 'Mon Compte', :controller => :account %> 						|
+	Contenu :	Tout,
+				<% current_user.workspaces.each do |workspace| %>
+					<%= link_to workspace.name, workspace_url(workspace.id) %>,
+				<% end %>
+				<%= link_to 'Nouvel espace', new_workspace_url %> 				|
+	Recherche																	|
+	<%= link_to 'Administration', :controller => :admin %>
+</div>
+
+<div id="menu_right">
+	
+	<%=
+		begin
+			render :partial => "#{@_request.path_parameters['controller']}/menu"
+		rescue ActionView::MissingTemplate => e
+			String.new
+		end
+	%>
+</div>
 
 <%= content_tag(:div, flash[:notice], :class => 'notice') if flash[:notice] %>
 

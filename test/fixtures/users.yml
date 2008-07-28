@@ -13,6 +13,7 @@ quentin:
   phone:                        0112345678
   addr:                         42 rue du chat qui pette
   activity:                     riendutout
+  image_path:                   'image.png'
       
 aaron:
   login:                        aaron
@@ -29,6 +30,7 @@ aaron:
   phone:                        0112345678
   addr:                         42 rue du chat qui pette
   activity:                     riendutout
+  image_path:                   'image.png'
 
 old_password_holder:
   login:                        old_password_holder
@@ -43,4 +45,5 @@ old_password_holder:
   phone:                        0112345678
   addr:                         42 rue du chat qui pette
   activity:                     riendutout
+  image_path:                   'image.png'
 

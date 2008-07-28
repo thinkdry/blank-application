@@ -1,0 +1,12 @@
+<% unless @current_object.new_record? %>
+
+<h1><%= @current_object.name %></h1>
+
+<%= link_to 'Articles',		workspace_articles_url(@current_object.id) %>	<br />
+<%= link_to 'Images',		workspace_images_url(@current_object.id) %> 	<br />
+Audios         																<br />
+Vidéos         																<br />
+<%= link_to 'Fichiers',		workspace_artic_files_url(@current_object.id) %><br />
+Publications
+
+<% end %>
