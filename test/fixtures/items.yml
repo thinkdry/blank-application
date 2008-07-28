@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  itemable: one (ArticFile)
+  workspace: one
+
+two:
+  itemable: two (ArticFile)
+  workspace: two

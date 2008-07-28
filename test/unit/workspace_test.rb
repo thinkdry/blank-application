@@ -34,6 +34,15 @@ class WorkspaceTest < Test::Unit::TestCase
 		end
   end
 	
+	def test_remove_element_associated_when_object_destroyed
+		assert id = workspaces(:one).id, "Workspace nil"
+		assert UsersWorkspace.count(:all, :conditions => {:workspace_id => id})!=0, "No elements in the U-W join table"
+		assert Item.count(:all, :conditions => {:workspace_id => id})!=0, "No elements in the Item table"
+		assert workspaces(:one).destroy, "Cannot destroy the role"
+		assert UsersWorkspace.count(:all, :conditions => {:workspace_id => id})==0, "UsersWorkspaces associated not removed"
+		assert Item.count(:all, :conditions => {:workspace_id => id})==0, "Items associated not removed"
+	end
+	
 	protected
   def create_workspace(options = {})
     record = Workspace.new({

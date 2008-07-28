@@ -1,0 +1,29 @@
+<% form_for @artic_file, 
+	:html => {:multipart => true}, 
+	:builder => LabelFormBuilder do |f| -%>
+	
+	<%= f.text_field :title, :label => "Titre :" %>
+	
+	<p>
+		<label for="artic_file_file_path">Fichier : </label><br/>
+		<%= image_tag(url_for_file_column(@artic_file, 'file_path')) + '<br />' if @artic_file.file_path %>
+		<%= file_column_field 'artic_file', 'file_path' %>
+	</p>
+	
+	<%= f.text_area :description, :label => 'Description :' %>
+	<script type="text/javascript">
+		bkLib.onDomLoaded(function() {
+			new nicEditor({iconsPath : '/images/nicEditorIcons.gif'}).panelInstance('artic_file_description');
+		});
+	</script>
+
+	<p>
+		<%= f.label :state, "Etat :" %><br />
+    <% ['new', 'submited', 'published'].each do |t| %>
+        <%= f.radio_button :state, t %> <%= t %>
+    <% end %>
+	</p>
+
+	<%= submit_tag 'Créer ce fichier' %>
+
+<% end -%>

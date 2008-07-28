@@ -1,0 +1,5 @@
+<ul>
+	<% @current_objects.each do |user| %>
+		<%= content_tag :li, user.login %>
+	<% end %>
+</ul>

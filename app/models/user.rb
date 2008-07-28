@@ -6,8 +6,10 @@ class User < ActiveRecord::Base
   include Authentication::ByPassword
   include Authentication::ByCookieToken
 	
-	has_many :users_workspaces
+	has_many :users_workspaces, :dependent => :delete_all
 	has_many :workspaces, :through => :users_workspaces
+	has_many :artic_files
+	
   
   file_column :image_path, :magick => {:size => "200x200>"}
 

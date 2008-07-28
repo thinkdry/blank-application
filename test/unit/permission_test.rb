@@ -15,6 +15,14 @@ class PermissionTest < Test::Unit::TestCase
     assert_invalid_format :name, [""]
   end
 	
+	def test_remove_element_associated_when_object_destroyed
+		assert id = permissions(:one).id, "Permission nil"
+		assert PermissionsRole.count(:all, :conditions => {:permission_id => id})!=0, "No elements in the P-R join table"
+		assert permissions(:one).destroy, "Cannot destroy the permission"
+		assert PermissionsRole.count(:all, :conditions => {:permission_id => id})==0, "Roles associated not removed"
+		
+	end
+	
 	protected
   def create_permission(options = {})
     record = Permission.new({

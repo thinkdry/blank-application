@@ -14,6 +14,15 @@ class RoleTest < Test::Unit::TestCase
     assert_invalid_format :name, [""]
   end
 	
+	def test_remove_element_associated_when_object_destroyed
+		assert id = roles(:one).id, "Role nil"
+		assert PermissionsRole.count(:all, :conditions => {:role_id => id})!=0, "No elements in the P-R join table"
+		assert UsersWorkspace.count(:all, :conditions => {:role_id => id})!=0, "No elements in the U-W join table"
+		assert roles(:one).destroy, "Cannot destroy the role"
+		assert PermissionsRole.count(:all, :conditions => {:role_id => id})==0, "Permissions associated not removed"
+		assert UsersWorkspace.count(:all, :conditions => {:role_id => id})==0, "UsersWorkspaces associated not removed"
+	end
+	
 	protected
   def create_role(options = {})
     record = Role.new({

@@ -18,12 +18,12 @@ ActionController::Routing::Routes.draw do |map|
   # => Those items may be scoped to different resources
   def items_ressources(parent)
     parent.resources :articles do |articles|
-      articles.resources :files
+      articles.resources :artic_files
       articles.resources :images
     end
     parent.resources :sounds
     parent.resources :videos
-    parent.resources :files
+    parent.resources :artic_files
     parent.resources :publications
     # Publication sources are private, but need to be scoped to import publication
     # into right workspace

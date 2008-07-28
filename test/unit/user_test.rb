@@ -132,6 +132,13 @@ class UserTest < Test::Unit::TestCase
   def test_activity_should_not_validate
     assert_invalid_format :activity, ""
   end
+	
+	def test_remove_element_associated_when_object_destroyed
+		assert id = users(:quentin).id, "Workspace nil"
+		assert UsersWorkspace.count(:all, :conditions => {:user_id => id})!=0, "No elements in the U-W join table"
+		assert users(:quentin).destroy, "Cannot destroy the role"
+		assert UsersWorkspace.count(:all, :conditions => {:user_id => id})==0, "UsersWorkspaces associated not removed"
+	end
   
 protected
   def create_user(options = {})
