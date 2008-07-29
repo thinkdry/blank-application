@@ -6,14 +6,19 @@
 </div>
 
 <div id="menu_up">
-	<%= link_to 'Mon Compte', :controller => :account %> 						|
+	<%= link_to 'Mon Compte', :controller => :account %>
+	|
 	Contenu :	Tout,
 				<% current_user.workspaces.each do |workspace| %>
 					<%= link_to workspace.name, workspace_url(workspace.id) %>,
 				<% end %>
-				<%= link_to 'Nouvel espace', new_workspace_url %> 				|
-	Recherche																	|
-	<%= link_to 'Administration', :controller => :admin %>
+				<%= link_to 'Nouvel espace', new_workspace_url %>
+	|
+	Recherche
+	<% if permit 'admin' %>
+		|
+		<%= link_to 'Administration', :controller => :admin %>
+	<% end %>
 </div>
 
 <div id="menu_right">

@@ -23,7 +23,7 @@ AUTHORIZATION_MIXIN = "hardwired"
 # This can be set to a hash or to an explicit path like '/login'
 #
 LOGIN_REQUIRED_REDIRECTION = { :controller => '/sessions', :action => 'new' }
-PERMISSION_DENIED_REDIRECTION = { :controller => '/home', :action => 'index' }
+PERMISSION_DENIED_REDIRECTION = { :controller => '/account', :action => 'index' }
 
 # The method your auth scheme uses to store the location to redirect back to
 STORE_LOCATION_METHOD = :store_location

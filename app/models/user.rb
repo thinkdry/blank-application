@@ -5,11 +5,13 @@ class User < ActiveRecord::Base
   include Authentication
   include Authentication::ByPassword
   include Authentication::ByCookieToken
-	
+
+	acts_as_authorized_user
+  acts_as_authorizable	
+
 	has_many :users_workspaces, :dependent => :delete_all
 	has_many :workspaces, :through => :users_workspaces
 	has_many :artic_files
-	
   
   file_column :image_path, :magick => {:size => "200x200>"}
 
@@ -56,9 +58,9 @@ class User < ActiveRecord::Base
     u = find_by_login(login) # need to get the salt
     u && u.authenticated?(password) ? u : nil
   end
-
-  protected
     
-
+  def has_role? role
+    false
+  end
 
 end

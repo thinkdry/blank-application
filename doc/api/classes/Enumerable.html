@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: Enumerable</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">Enumerable</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/vendor/rails/activesupport/lib/active_support/core_ext/enumerable_rb.html">
+                vendor/rails/activesupport/lib/active_support/core_ext/enumerable.rb
+                </a>
+        <br />
+                <a href="../files/vendor/rails/activesupport/lib/active_support/json/encoders/enumerable_rb.html">
+                vendor/rails/activesupport/lib/active_support/json/encoders/enumerable.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M001961">group_by</a>&nbsp;&nbsp;
+      <a href="#M001963">index_by</a>&nbsp;&nbsp;
+      <a href="#M001962">sum</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M001961" class="method-detail">
+        <a name="M001961"></a>
+
+        <div class="method-heading">
+          <a href="#M001961" class="method-signature">
+          <span class="method-name">group_by</span><span class="method-args">() {|element| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Collect an enumerable into sets, grouped by the result of a block. Useful,
+for example, for grouping records by date.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  latest_transcripts.group_by(&amp;:day).each do |day, transcripts|
+    p &quot;#{day} -&gt; #{transcripts.map(&amp;:class).join(', ')}&quot;
+  end
+  &quot;2006-03-01 -&gt; Transcript&quot;
+  &quot;2006-02-28 -&gt; Transcript&quot;
+  &quot;2006-02-27 -&gt; Transcript, Transcript&quot;
+  &quot;2006-02-26 -&gt; Transcript, Transcript&quot;
+  &quot;2006-02-25 -&gt; Transcript&quot;
+  &quot;2006-02-24 -&gt; Transcript, Transcript&quot;
+  &quot;2006-02-23 -&gt; Transcript&quot;
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M001961-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M001961-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/rails/activesupport/lib/active_support/core_ext/enumerable.rb, line 20</span>
+20:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">group_by</span>
+21:     <span class="ruby-identifier">inject</span> <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">OrderedHash</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">grouped</span>, <span class="ruby-identifier">element</span><span class="ruby-operator">|</span>
+22:       (<span class="ruby-identifier">grouped</span>[<span class="ruby-keyword kw">yield</span>(<span class="ruby-identifier">element</span>)] <span class="ruby-operator">||=</span> []) <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">element</span>
+23:       <span class="ruby-identifier">grouped</span>
+24:     <span class="ruby-keyword kw">end</span>
+25:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M001963" class="method-detail">
+        <a name="M001963"></a>
+
+        <div class="method-heading">
+          <a href="#M001963" class="method-signature">
+          <span class="method-name">index_by</span><span class="method-args">() {|elem| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Convert an enumerable to a hash. Examples:
+</p>
+<pre>
+  people.index_by(&amp;:login)
+    =&gt; { &quot;nextangle&quot; =&gt; &lt;Person ...&gt;, &quot;chade-&quot; =&gt; &lt;Person ...&gt;, ...}
+  people.index_by { |person| &quot;#{person.first_name} #{person.last_name}&quot; }
+    =&gt; { &quot;Chade- Fowlersburg-e&quot; =&gt; &lt;Person ...&gt;, &quot;David Heinemeier Hansson&quot; =&gt; &lt;Person ...&gt;, ...}
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M001963-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M001963-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/rails/activesupport/lib/active_support/core_ext/enumerable.rb, line 63</span>
+63:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">index_by</span>
+64:     <span class="ruby-identifier">inject</span>({}) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">accum</span>, <span class="ruby-identifier">elem</span><span class="ruby-operator">|</span>
+65:       <span class="ruby-identifier">accum</span>[<span class="ruby-keyword kw">yield</span>(<span class="ruby-identifier">elem</span>)] = <span class="ruby-identifier">elem</span>
+66:       <span class="ruby-identifier">accum</span>
+67:     <span class="ruby-keyword kw">end</span>
+68:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M001962" class="method-detail">
+        <a name="M001962"></a>
+
+        <div class="method-heading">
+          <a href="#M001962" class="method-signature">
+          <span class="method-name">sum</span><span class="method-args">(identity = 0, &amp;block)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Calculates a <a href="Enumerable.html#M001962">sum</a> from the elements.
+Examples:
+</p>
+<pre>
+ payments.sum { |p| p.price * p.tax_rate }
+ payments.sum(&amp;:price)
+</pre>
+<p>
+The latter is a shortcut for:
+</p>
+<pre>
+ payments.inject { |sum, p| sum + p.price }
+</pre>
+<p>
+It can also calculate the <a href="Enumerable.html#M001962">sum</a> without
+the use of a block.
+</p>
+<pre>
+ [5, 15, 10].sum # =&gt; 30
+ [&quot;foo&quot;, &quot;bar&quot;].sum # =&gt; &quot;foobar&quot;
+ [[1, 2], [3, 1, 5]].sum =&gt; [1, 2, 3, 1, 5]
+</pre>
+<p>
+The default <a href="Enumerable.html#M001962">sum</a> of an empty list is
+zero. You can override this default:
+</p>
+<pre>
+ [].sum(Payment.new(0)) { |i| i.amount } # =&gt; Payment.new(0)
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M001962-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M001962-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/rails/activesupport/lib/active_support/core_ext/enumerable.rb, line 46</span>
+46:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">sum</span>(<span class="ruby-identifier">identity</span> = <span class="ruby-value">0</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+47:     <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">identity</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+48: 
+49:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
+50:       <span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>).<span class="ruby-identifier">sum</span>
+51:     <span class="ruby-keyword kw">else</span>
+52:       <span class="ruby-identifier">inject</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">sum</span>, <span class="ruby-identifier">element</span><span class="ruby-operator">|</span> <span class="ruby-identifier">sum</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">element</span> }
+53:     <span class="ruby-keyword kw">end</span>
+54:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>
