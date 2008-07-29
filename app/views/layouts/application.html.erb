@@ -5,7 +5,6 @@
 	<%= render :partial => "users/user_bar" %>
 </div>
 
-<% if self.current_user %>
 <div id="menu_up">
 	<%= link_to 'Mon Compte', :controller => :account %> 						|
 	Contenu :	Tout,
@@ -16,7 +15,6 @@
 	Recherche																	|
 	<%= link_to 'Administration', :controller => :admin %>
 </div>
-<% end %>
 
 <div id="menu_right">
 	

@@ -11,7 +11,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # TODO: Publishing, Bookmarks, Admin related controllers: rights...
 
-  map.root :controller => 'users', :action => 'new'
+  map.root :controller => 'account', :action => 'index'
 
   # Items are CMS component types
   # => Those items may be scoped to different resources
