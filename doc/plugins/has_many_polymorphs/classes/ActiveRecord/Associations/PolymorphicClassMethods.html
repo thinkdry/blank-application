@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: ActiveRecord::Associations::PolymorphicClassMethods</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">ActiveRecord::Associations::PolymorphicClassMethods</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/vendor/plugins/has_many_polymorphs/lib/has_many_polymorphs/class_methods_rb.html">
+                vendor/plugins/has_many_polymorphs/lib/has_many_polymorphs/class_methods.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+Class methods added to <a href="../Base.html">ActiveRecord::Base</a> for
+setting up polymorphic associations.
+</p>
+<h2>Notes</h2>
+<p>
+STI association targets must enumerated and named. For example, if Dog and
+Cat both inherit from Animal, you still need to say <tt>[:dogs,
+:cats]</tt>, and not <tt>[:animals]</tt>.
+</p>
+<p>
+Namespaced models follow the Rails <tt>underscore</tt> convention.
+ZooAnimal::Lion becomes <tt>:&#8217;zoo_animal/lion&#8216;</tt>.
+</p>
+<p>
+You do not need to set up any other associations other than for either the
+regular method or the double. The join associations and all individual and
+reverse associations are generated for you. However, a join model and table
+are required.
+</p>
+<p>
+There is a tentative report that you can make the parent model be its own
+join model, but this is untested.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000017">acts_as_double_polymorphic_join</a>&nbsp;&nbsp;
+      <a href="#M000018">has_many_polymorphs</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000017" class="method-detail">
+        <a name="M000017"></a>
+
+        <div class="method-heading">
+          <a href="#M000017" class="method-signature">
+          <span class="method-name">acts_as_double_polymorphic_join</span><span class="method-args">(options={})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This method creates a doubled-sided polymorphic relationship. It must be
+called on the join model:
+</p>
+<pre>
+  class Devouring &lt; ActiveRecord::Base
+    belongs_to :eater, :polymorphic =&gt; true
+    belongs_to :eaten, :polymorphic =&gt; true
+
+    acts_as_double_polymorphic_join(
+      :eaters =&gt; [:dogs, :cats],
+      :eatens =&gt; [:cats, :birds]
+    )
+  end
+</pre>
+<p>
+The method works by defining one or more special <tt><a
+href="PolymorphicClassMethods.html#M000018">has_many_polymorphs</a></tt>
+association on every model in the target lists, depending on which side of
+the association it is on. Double self-references will work.
+</p>
+<p>
+The two association names and their value arrays are the only required
+parameters.
+</p>
+<h2>Available options</h2>
+<p>
+These options are passed through to targets on both sides of the
+association. If you want to affect only one side, prepend the key with the
+name of that side. For example, <tt>:eaters_extend</tt>.
+</p>
+<table>
+<tr><td valign="top"><tt>:dependent</tt>:</td><td>Accepts <tt>:destroy</tt>, <tt>:nullify</tt>, or <tt>:delete_all</tt>.
+Controls how the join record gets treated on any association delete
+(whether from the polymorph or from an individual collection); defaults to
+<tt>:destroy</tt>.
+
+</td></tr>
+<tr><td valign="top"><tt>:skip_duplicates</tt>:</td><td>If <tt>true</tt>, will check to avoid pushing already associated records
+(but also triggering a database load). Defaults to <tt>true</tt>.
+
+</td></tr>
+<tr><td valign="top"><tt>:rename_individual_collections</tt>:</td><td>If <tt>true</tt>, all individual collections are prepended with the
+polymorph name, and the children&#8216;s parent collection is appended with
+<tt>&quot;_of_#{association_name}&quot;</tt>.
+
+</td></tr>
+<tr><td valign="top"><tt>:extend</tt>:</td><td>One or an array of mixed modules and procs, which are applied to the
+polymorphic association (usually to define custom methods).
+
+</td></tr>
+<tr><td valign="top"><tt>:join_extend</tt>:</td><td>One or an array of mixed modules and procs, which are applied to the join
+association.
+
+</td></tr>
+<tr><td valign="top"><tt>:conditions</tt>:</td><td>An array or string of conditions for the SQL <tt>WHERE</tt> clause.
+
+</td></tr>
+<tr><td valign="top"><tt>:order</tt>:</td><td>A string for the SQL <tt>ORDER BY</tt> clause.
+
+</td></tr>
+<tr><td valign="top"><tt>:limit</tt>:</td><td>An integer. Affects the polymorphic and individual associations.
+
+</td></tr>
+<tr><td valign="top"><tt>:offset</tt>:</td><td>An integer. Only affects the polymorphic association.
+
+</td></tr>
+<tr><td valign="top"><tt>:namespace</tt>:</td><td>A symbol. Prepended to all the models in the <tt>:from</tt> and
+<tt>:through</tt> keys. This is especially useful for Camping, which
+namespaces models by default.
+
+</td></tr>
+</table>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000017-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000017-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/has_many_polymorphs/lib/has_many_polymorphs/class_methods.rb, line 62</span>
+ 62:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">acts_as_double_polymorphic_join</span> <span class="ruby-identifier">options</span>={}, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">extension</span>      
+ 63:         
+ 64:         <span class="ruby-identifier">collections</span>, <span class="ruby-identifier">options</span> = <span class="ruby-identifier">extract_double_collections</span>(<span class="ruby-identifier">options</span>)
+ 65:         
+ 66:         <span class="ruby-comment cmt"># handle the block</span>
+ 67:         <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:extend</span>] = (<span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:extend</span>]
+ 68:           <span class="ruby-constant">Array</span>(<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:extend</span>]) <span class="ruby-operator">+</span> [<span class="ruby-identifier">extension</span>]
+ 69:         <span class="ruby-keyword kw">else</span> 
+ 70:           <span class="ruby-identifier">extension</span>
+ 71:         <span class="ruby-keyword kw">end</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">extension</span> 
+ 72:         
+ 73:         <span class="ruby-identifier">collection_option_keys</span> = <span class="ruby-identifier">make_general_option_keys_specific!</span>(<span class="ruby-identifier">options</span>, <span class="ruby-identifier">collections</span>)
+ 74:   
+ 75:         <span class="ruby-identifier">join_name</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">tableize</span>.<span class="ruby-identifier">to_sym</span>
+ 76:         <span class="ruby-identifier">collections</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">association_id</span>, <span class="ruby-identifier">children</span><span class="ruby-operator">|</span>
+ 77:           <span class="ruby-identifier">parent_hash_key</span> = (<span class="ruby-identifier">collections</span>.<span class="ruby-identifier">keys</span> <span class="ruby-operator">-</span> [<span class="ruby-identifier">association_id</span>]).<span class="ruby-identifier">first</span> <span class="ruby-comment cmt"># parents are the entries in the _other_ children array</span>
+ 78:           
+ 79:           <span class="ruby-keyword kw">begin</span>
+ 80:             <span class="ruby-identifier">parent_foreign_key</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">reflect_on_association</span>(<span class="ruby-identifier">parent_hash_key</span>.<span class="ruby-identifier">_singularize</span>).<span class="ruby-identifier">primary_key_name</span>
+ 81:           <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">NoMethodError</span>
+ 82:             <span class="ruby-identifier">raise</span> <span class="ruby-constant">PolymorphicError</span>, <span class="ruby-node">&quot;Couldn't find 'belongs_to' association for :#{parent_hash_key._singularize} in #{self.name}.&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">parent_foreign_key</span>
+ 83:           <span class="ruby-keyword kw">end</span>
+ 84: 
+ 85:           <span class="ruby-identifier">parents</span> = <span class="ruby-identifier">collections</span>[<span class="ruby-identifier">parent_hash_key</span>]
+ 86:           <span class="ruby-identifier">conflicts</span> = (<span class="ruby-identifier">children</span> <span class="ruby-operator">&amp;</span> <span class="ruby-identifier">parents</span>) <span class="ruby-comment cmt"># set intersection          </span>
+ 87:           <span class="ruby-identifier">parents</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">plural_parent_name</span><span class="ruby-operator">|</span> 
+ 88:   
+ 89:             <span class="ruby-identifier">parent_class</span> = <span class="ruby-identifier">plural_parent_name</span>.<span class="ruby-identifier">_as_class</span>
+ 90:             <span class="ruby-identifier">singular_reverse_association_id</span> = <span class="ruby-identifier">parent_hash_key</span>.<span class="ruby-identifier">_singularize</span> 
+ 91:               
+ 92:             <span class="ruby-identifier">internal_options</span> = {
+ 93:               <span class="ruby-identifier">:is_double</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>,
+ 94:               <span class="ruby-identifier">:from</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">children</span>, 
+ 95:               <span class="ruby-identifier">:as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">singular_reverse_association_id</span>,
+ 96:               <span class="ruby-identifier">:through</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">join_name</span>.<span class="ruby-identifier">to_sym</span>, 
+ 97:               <span class="ruby-identifier">:foreign_key</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">parent_foreign_key</span>, 
+ 98:               <span class="ruby-identifier">:foreign_type_key</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">parent_foreign_key</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-regexp re">/_id$/</span>, <span class="ruby-value str">'_type'</span>),
+ 99:               <span class="ruby-identifier">:singular_reverse_association_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">singular_reverse_association_id</span>,
+100:               <span class="ruby-identifier">:conflicts</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">conflicts</span>
+101:             }
+102:             
+103:             <span class="ruby-identifier">general_options</span> = <span class="ruby-constant">Hash</span>[<span class="ruby-operator">*</span><span class="ruby-identifier">options</span>.<span class="ruby-identifier">_select</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+104:               <span class="ruby-identifier">collection_option_keys</span>[<span class="ruby-identifier">association_id</span>].<span class="ruby-identifier">include?</span> <span class="ruby-identifier">key</span> <span class="ruby-keyword kw">and</span> <span class="ruby-operator">!</span><span class="ruby-identifier">value</span>.<span class="ruby-identifier">nil?</span>
+105:             <span class="ruby-keyword kw">end</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+106:               [<span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_s</span>[<span class="ruby-identifier">association_id</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">length</span><span class="ruby-operator">+</span><span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>].<span class="ruby-identifier">to_sym</span>, <span class="ruby-identifier">value</span>]
+107:             <span class="ruby-keyword kw">end</span>.<span class="ruby-identifier">_flatten_once</span>] <span class="ruby-comment cmt"># rename side-specific options to general names</span>
+108:             
+109:             <span class="ruby-identifier">general_options</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+110:               <span class="ruby-comment cmt"># avoid clobbering keys that appear in both option sets</span>
+111:               <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">internal_options</span>[<span class="ruby-identifier">key</span>]
+112:                 <span class="ruby-identifier">general_options</span>[<span class="ruby-identifier">key</span>] = <span class="ruby-constant">Array</span>(<span class="ruby-identifier">value</span>) <span class="ruby-operator">+</span> <span class="ruby-constant">Array</span>(<span class="ruby-identifier">internal_options</span>[<span class="ruby-identifier">key</span>])
+113:               <span class="ruby-keyword kw">end</span>
+114:             <span class="ruby-keyword kw">end</span>
+115: 
+116:             <span class="ruby-identifier">parent_class</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">:has_many_polymorphs</span>, <span class="ruby-identifier">association_id</span>, <span class="ruby-identifier">internal_options</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">general_options</span>))
+117:   
+118:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">conflicts</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">plural_parent_name</span> 
+119:               <span class="ruby-comment cmt"># unify the alternate sides of the conflicting children</span>
+120:               (<span class="ruby-identifier">conflicts</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">method_name</span><span class="ruby-operator">|</span>
+121:                 <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">parent_class</span>.<span class="ruby-identifier">instance_methods</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">method_name</span>)
+122:                   <span class="ruby-identifier">parent_class</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">:define_method</span>, <span class="ruby-identifier">method_name</span>) <span class="ruby-keyword kw">do</span>
+123:                     (<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;#{singular_reverse_association_id}_#{method_name}&quot;</span>) <span class="ruby-operator">+</span> 
+124:                       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;#{association_id._singularize}_#{method_name}&quot;</span>)).<span class="ruby-identifier">freeze</span>
+125:                   <span class="ruby-keyword kw">end</span>
+126:                 <span class="ruby-keyword kw">end</span>     
+127:               <span class="ruby-keyword kw">end</span>            
+128:               
+129:               <span class="ruby-comment cmt"># unify the join model... join model is always renamed for doubles, unlike child associations</span>
+130:               <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">parent_class</span>.<span class="ruby-identifier">instance_methods</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">join_name</span>)
+131:                 <span class="ruby-identifier">parent_class</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">:define_method</span>, <span class="ruby-identifier">join_name</span>) <span class="ruby-keyword kw">do</span>
+132:                   (<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;#{join_name}_as_#{singular_reverse_association_id}&quot;</span>) <span class="ruby-operator">+</span> 
+133:                     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;#{join_name}_as_#{association_id._singularize}&quot;</span>)).<span class="ruby-identifier">freeze</span>
+134:                 <span class="ruby-keyword kw">end</span>              
+135:               <span class="ruby-keyword kw">end</span>                         
+136:             <span class="ruby-keyword kw">else</span>
+137:               <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">parent_class</span>.<span class="ruby-identifier">instance_methods</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">join_name</span>)
+138:                 <span class="ruby-identifier">parent_class</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">:alias_method</span>, <span class="ruby-identifier">join_name</span>, <span class="ruby-node">&quot;#{join_name}_as_#{singular_reverse_association_id}&quot;</span>)
+139:               <span class="ruby-keyword kw">end</span>
+140:             <span class="ruby-keyword kw">end</span>                      
+141:   
+142:           <span class="ruby-keyword kw">end</span>
+143:         <span class="ruby-keyword kw">end</span>
+144:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000018" class="method-detail">
+        <a name="M000018"></a>
+
+        <div class="method-heading">
+          <a href="#M000018" class="method-signature">
+          <span class="method-name">has_many_polymorphs</span><span class="method-args">(association_id, options = {}, &amp;extension)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This method createds a single-sided polymorphic relationship.
+</p>
+<pre>
+  class Petfood &lt; ActiveRecord::Base
+    has_many_polymorphs :eaters, :from =&gt; [:dogs, :cats, :birds]
+  end
+</pre>
+<p>
+The only required parameter, aside from the association name, is
+<tt>:from</tt>.
+</p>
+<p>
+The method generates a number of associations aside from the polymorphic
+one. In this example Petfood also gets <tt>dogs</tt>, <tt>cats</tt>, and
+<tt>birds</tt>, and Dog, Cat, and Bird get <tt>petfoods</tt>. (The reverse
+association to the parents is always plural.)
+</p>
+<h2>Available options</h2>
+<table>
+<tr><td valign="top"><tt>:from</tt>:</td><td>An array of symbols representing the target models. Required.
+
+</td></tr>
+<tr><td valign="top"><tt>:as</tt>:</td><td>A symbol for the parent&#8216;s interface in the join&#8212;what the parent
+&#8216;acts as&#8217;.
+
+</td></tr>
+<tr><td valign="top"><tt>:through</tt>:</td><td>A symbol representing the class of the join model. Follows Rails defaults
+if not supplied (the parent and the association names, alphabetized,
+concatenated with an underscore, and singularized).
+
+</td></tr>
+<tr><td valign="top"><tt>:dependent</tt>:</td><td>Accepts <tt>:destroy</tt>, <tt>:nullify</tt>, <tt>:delete_all</tt>.
+Controls how the join record gets treated on any associate delete (whether
+from the polymorph or from an individual collection); defaults to
+<tt>:destroy</tt>.
+
+</td></tr>
+<tr><td valign="top"><tt>:skip_duplicates</tt>:</td><td>If <tt>true</tt>, will check to avoid pushing already associated records
+(but also triggering a database load). Defaults to <tt>true</tt>.
+
+</td></tr>
+<tr><td valign="top"><tt>:rename_individual_collections</tt>:</td><td>If <tt>true</tt>, all individual collections are prepended with the
+polymorph name, and the children&#8216;s parent collection is appended with
+&quot;<em>of</em>#{association_name}&quot;&lt;/tt&gt;. For example,
+<tt>zoos</tt> becomes <tt>zoos_of_animals</tt>. This is to help avoid
+method name collisions in crowded classes.
+
+</td></tr>
+<tr><td valign="top"><tt>:extend</tt>:</td><td>One or an array of mixed modules and procs, which are applied to the
+polymorphic association (usually to define custom methods).
+
+</td></tr>
+<tr><td valign="top"><tt>:join_extend</tt>:</td><td>One or an array of mixed modules and procs, which are applied to the join
+association.
+
+</td></tr>
+<tr><td valign="top"><tt>:parent_extend</tt>:</td><td>One or an array of mixed modules and procs, which are applied to the target
+models&#8217; association to the parents.
+
+</td></tr>
+<tr><td valign="top"><tt>:conditions</tt>:</td><td>An array or string of conditions for the SQL <tt>WHERE</tt> clause.
+
+</td></tr>
+<tr><td valign="top"><tt>:parent_conditions</tt>:</td><td>An array or string of conditions which are applied to the target
+models&#8217; association to the parents.
+
+</td></tr>
+<tr><td valign="top"><tt>:order</tt>:</td><td>A string for the SQL <tt>ORDER BY</tt> clause.
+
+</td></tr>
+<tr><td valign="top"><tt>:parent_order</tt>:</td><td>A string for the SQL <tt>ORDER BY</tt> which is applied to the target
+models&#8217; association to the parents.
+
+</td></tr>
+<tr><td valign="top"><tt>:group</tt>:</td><td>An array or string of conditions for the SQL <tt>GROUP BY</tt> clause.
+Affects the polymorphic and individual associations.
+
+</td></tr>
+<tr><td valign="top"><tt>:limit</tt>:</td><td>An integer. Affects the polymorphic and individual associations.
+
+</td></tr>
+<tr><td valign="top"><tt>:offset</tt>:</td><td>An integer. Only affects the polymorphic association.
+
+</td></tr>
+<tr><td valign="top"><tt>:namespace</tt>:</td><td>A symbol. Prepended to all the models in the <tt>:from</tt> and
+<tt>:through</tt> keys. This is especially useful for Camping, which
+namespaces models by default.
+
+</td></tr>
+<tr><td valign="top"><tt>:uniq</tt>:</td><td>If <tt>true</tt>, the records returned are passed through a pure-Ruby
+<tt>uniq</tt> before they are returned. Rarely needed.
+
+</td></tr>
+<tr><td valign="top"><tt>:foreign_key</tt>:</td><td>The column name for the parent&#8216;s id in the join.
+
+</td></tr>
+<tr><td valign="top"><tt>:foreign_type_key</tt>:</td><td>The column name for the parent&#8216;s class name in the join, if the
+parent itself is polymorphic. Rarely needed&#8212;if you&#8216;re thinking
+about using this, you almost certainly want to use <tt><a
+href="PolymorphicClassMethods.html#M000017">acts_as_double_polymorphic_join</a>()</tt>
+instead.
+
+</td></tr>
+<tr><td valign="top"><tt>:polymorphic_key</tt>:</td><td>The column name for the child&#8216;s id in the join.
+
+</td></tr>
+<tr><td valign="top"><tt>:polymorphic_type_key</tt>:</td><td>The column name for the child&#8216;s class name in the join.
+
+</td></tr>
+</table>
+<p>
+If you pass a block, it gets converted to a Proc and added to
+<tt>:extend</tt>.
+</p>
+<h2>On condition nullification</h2>
+<p>
+When you request an individual association, non-applicable but
+fully-qualified fields in the polymorphic association&#8216;s
+<tt>:conditions</tt>, <tt>:order</tt>, and <tt>:group</tt> options get
+changed to <tt>NULL</tt>. For example, if you set <tt>:conditions =&gt;
+&quot;dogs.name != &#8216;Spot&#8217;&quot;</tt>, when you request
+<tt>.cats</tt>, the conditions string is changed to <tt>NULL !=
+&#8216;Spot&#8216;</tt>.
+</p>
+<p>
+Be aware, however, that <tt>NULL != &#8216;Spot&#8216;</tt> returns
+<tt>false</tt> due to SQL&#8216;s 3-value logic. Instead, you need to use
+the <tt>:conditions</tt> string <tt>&quot;dogs.name IS NULL OR dogs.name !=
+&#8216;Spot&#8217;&quot;</tt> to get the behavior you probably expect for
+negative matches.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000018-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000018-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/has_many_polymorphs/lib/has_many_polymorphs/class_methods.rb, line 241</span>
+241:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_many_polymorphs</span> (<span class="ruby-identifier">association_id</span>, <span class="ruby-identifier">options</span> = {}, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">extension</span>)
+242:         <span class="ruby-identifier">_logger_debug</span> <span class="ruby-node">&quot;associating #{self}.#{association_id}&quot;</span>
+243:         <span class="ruby-identifier">reflection</span> = <span class="ruby-identifier">create_has_many_polymorphs_reflection</span>(<span class="ruby-identifier">association_id</span>, <span class="ruby-identifier">options</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">extension</span>)
+244:         <span class="ruby-comment cmt"># puts &quot;Created reflection #{reflection.inspect}&quot;</span>
+245:         <span class="ruby-comment cmt"># configure_dependency_for_has_many(reflection)</span>
+246:         <span class="ruby-identifier">collection_reader_method</span>(<span class="ruby-identifier">reflection</span>, <span class="ruby-constant">PolymorphicAssociation</span>)
+247:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

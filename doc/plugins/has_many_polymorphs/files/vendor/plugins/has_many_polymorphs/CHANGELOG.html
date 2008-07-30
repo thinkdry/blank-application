@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: CHANGELOG</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>CHANGELOG</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>vendor/plugins/has_many_polymorphs/CHANGELOG
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Mon Jul 28 18:21:29 +0530 2008</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+v2.12. Improvements to the test suite; bugfixes for STI children (rsl).
+Remove fancy dependency system in favor of using Dispatcher::to_prepare
+every time.
+</p>
+<p>
+v2.11. Rails 1.2.6 tagging generator compatibility; change test suite to
+use included integration app.
+</p>
+<p>
+v2.10. Add :parent_conditions option; bugfix for nullified conditions;
+bugfix for self-referential tagging generator; allow setting of
+has_many_polymorphs_options hash in Configuration&#8216;s after_initialize
+if you need to adjust the autoload behavior; clear error message on missing
+or improperly namespaced models; fix .build on double-sided relationships;
+add :namespace key for easier set up of Camping apps or other unusual class
+structures.
+</p>
+<p>
+v2.9. Gem version renumbering; my apologies if this messes anyone up.
+</p>
+<p>
+v2.8. RDoc documentation; repository relocation; Rakefile cleanup; remove
+deprecated plugin-specific class caching.
+</p>
+<p>
+v2.7.5. Various bugfixes; Postgres problems may remain on edge.
+</p>
+<p>
+v2.7.3. Use new :source and :source_type options in 1.2.3 (David Lemstra);
+fix pluralization bug; add some tests; experimental tagging generator.
+</p>
+<p>
+v2.7.2. Deprecate has_many_polymorphs_cache_classes= option because it
+doesn&#8216;t really work. Use config.cache_classes= instead to cache all
+reloadable items.
+</p>
+<p>
+v2.7.1. Dispatcher.to_prepare didn&#8216;t fire in the console; now using a
+config.after_initialize wrapper instead.
+</p>
+<p>
+v2.7. Dependency injection framework elimates having to care about load
+order.
+</p>
+<p>
+v2.6. Make the logger act sane for the gem version.
+</p>
+<p>
+v2.5.2. Allow :skip_duplicates on double relationships.
+</p>
+<p>
+v2.5.1. Renamed :ignore_duplicates to :skip_duplicates to better express
+its non-passive behavior; made sure not to load target set on push unless
+necessary.
+</p>
+<p>
+v2.5. Activerecord compatibility branch becomes trunk: extra options now
+supported for double polymorphism; conditions nulled-out and propogated to
+child relationships; more tests; new :ignore_duplicates option on macro can
+be set to false if you want &lt;&lt; to push duplicate associations.
+</p>
+<p>
+v2.4.1. Code split into multiple files; tests added for pluralization
+check; Rails 1.1.6 no longer supported.
+</p>
+<p>
+v2.4. Unlimited mixed class association extensions for both single and
+double targets and joins.
+</p>
+<p>
+v2.3. Gem version
+</p>
+<p>
+v2.2. API change; prefix on methods is now singular when using
+:rename_individual_collections.
+</p>
+<p>
+v2.1. Add configuration option to cache polymorphic classes in development
+mode.
+</p>
+<p>
+v2.0. Collection methods (push, delete, clear) now on individual
+collections.
+</p>
+<p>
+v1.9.2. Disjoint collection sides bugfix, don&#8216;t raise on new records.
+</p>
+<p>
+v1.9.1. Double classify bugfix.
+</p>
+<p>
+v1.9. Large changes to properly support double polymorphism.
+</p>
+<p>
+v1.8.2. Bugfix to make sure the type gets checked on doubly polymorphic
+parents.
+</p>
+<p>
+v1.8.1. Bugfix for sqlite3 child attribute retrieval.
+</p>
+<p>
+v1.8. Bugfix for instantiating attributes of namespaced models.
+</p>
+<p>
+v1.7.1. Bugfix for double polymorphic relationships.
+</p>
+<p>
+v1.7. Double polymorphic relationships (includes new API method).
+</p>
+<p>
+v1.6. Namespaced model support.
+</p>
+<p>
+v1.5. Bugfix for Postgres and Mysql under 1.1.6; refactored tests
+(hildofur); properly handles legacy table names set with set_table_name().
+</p>
+<p>
+v1.4. STI support added (use the child class names, not the base class).
+</p>
+<p>
+v1.3. Bug regarding table names with underscores in SQL query fixed.
+</p>
+<p>
+v1.2. License change, again.
+</p>
+<p>
+v1.1. File_column bug fixed.
+</p>
+<p>
+v1.0. Tests written; after_find and after_initialize now correctly called.
+</p>
+<p>
+v0.5. SQL performance enhancements added.
+</p>
+<p>
+v0.4. Rewrote singletons as full-fledged proxy class so that marshalling
+works (e.g. in the session).
+</p>
+<p>
+v0.3. Caching added.
+</p>
+<p>
+v0.2. Fixed dependency reloading problem in development mode.
+</p>
+<p>
+v0.1. License change.
+</p>
+<p>
+v0. Added :dependent support on the join table; no changelog before this
+version.
+</p>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

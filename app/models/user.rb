@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
 	has_many :users_workspaces, :dependent => :delete_all
 	has_many :workspaces, :through => :users_workspaces
 	has_many :artic_files
+	belongs_to :system_role
   
   file_column :image_path, :magick => {:size => "200x200>"}
 
@@ -60,7 +61,11 @@ class User < ActiveRecord::Base
   end
     
   def has_role? role
-    false
+    return (self.system_role && self.system_role.name.downcase == role.downcase)
   end
-
+  
+  def accepts_role? role, user
+     return(true) if (role == 'owner' && user == self)
+     false
+   end
 end

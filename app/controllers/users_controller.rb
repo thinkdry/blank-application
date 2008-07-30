@@ -4,6 +4,9 @@ class UsersController < ApplicationController
   make_resourceful do
     actions :all
 
+    before :new, :create do permit("admin") end
+    before :edit, :update do permit("admin or owner of user") end
+
     response_for :index do |format|
       format.html { render :layout => false }
     end

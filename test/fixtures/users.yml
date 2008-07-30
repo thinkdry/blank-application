@@ -14,6 +14,8 @@ quentin:
   addr:                         42 rue du chat qui pette
   activity:                     riendutout
   image_path:                   'image.png'
+  system_role:                  admin
+  
       
 aaron:
   login:                        aaron

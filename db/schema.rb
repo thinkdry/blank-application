@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080728113647) do
+ActiveRecord::Schema.define(:version => 20080730103801) do
 
   create_table "artic_files", :force => true do |t|
     t.string   "title"
@@ -58,6 +58,12 @@ ActiveRecord::Schema.define(:version => 20080728113647) do
     t.datetime "updated_at"
   end
 
+  create_table "system_roles", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", :force => true do |t|
     t.string   "login",                     :limit => 40
     t.string   "firstname"
@@ -72,6 +78,7 @@ ActiveRecord::Schema.define(:version => 20080728113647) do
     t.string   "image_path",                :limit => 500
     t.string   "crypted_password",          :limit => 40
     t.string   "salt",                      :limit => 40
+    t.integer  "system_role_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "remember_token",            :limit => 40

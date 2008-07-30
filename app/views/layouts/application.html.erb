@@ -15,7 +15,7 @@
 				<%= link_to 'Nouvel espace', new_workspace_url %>
 	|
 	Recherche
-	<% if permit 'admin' %>
+	<% permit 'admin' do %>
 		|
 		<%= link_to 'Administration', :controller => :admin %>
 	<% end %>
