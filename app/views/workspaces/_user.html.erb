@@ -4,6 +4,8 @@
 
 	<% fields_for prefix, user do |user_form| -%>
 
+		<%= error_message_on user, :user, "L'utilisateur ", '<br />' %>
+		
 		<%= user_form.text_field :user_login, :class => :text_field %>
 		<%= content_tag :div, nil, :class => "autocomplete" %>
 		<%= user_form.select :role_id, Role.find(:all).collect { |r| [r.name, r.id] } %>

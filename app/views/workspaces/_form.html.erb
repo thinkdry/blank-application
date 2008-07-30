@@ -12,7 +12,6 @@
 	<%= link_to_new_user 'Ajouter un utilisateur' %>
 	
 	<br /><br />
-	<%= f.submit "Créer cet espace de travail" %>
+	<%= f.submit(current_object.new_record? ?  "Créer cet espace de travail" : "Sauvegarder") %>
 
-	
 <% end -%>
