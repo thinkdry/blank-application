@@ -1,6 +1,4 @@
-<% form_for @artic_file, 
-	:html => {:multipart => true}, 
-	:builder => LabelFormBuilder do |f| -%>
+<% form_for @artic_file, :html => {:multipart => true}, :builder => LabelFormBuilder do |f| -%>
 	
 	<%= f.text_field :title, :label => "Titre :" %>
 	
@@ -18,12 +16,18 @@
 	</script>
 
 	<p>
-		<%= f.label :state, "Etat :" %><br />
-    <% ['new', 'submited', 'published'].each do |t| %>
-        <%= f.radio_button :state, t %> <%= t %>
-    <% end %>
+		<%= f.label :state, "Etat :" %>
+		<%= radio_button :artic_file, :state, "public" %> Public
+		<%= radio_button :artic_file, :state, "private" %> Privé
 	</p>
 
-	<%= submit_tag 'Créer ce fichier' %>
+	<p>
+		Diffusion :<br />
+		<% self.current_user.workspaces.each do |w| %>
+			<%= w.name %> <%= check_box_tag "artic_file[associated_workspaces][]", w.id, (@artic_file.workspaces.exists?(w.id) || (w.id == params[:workspace_id].to_i)) %> | 
+		<% end %>
+	</p>	
+
+	<%= f.submit 'Créer ce fichier' %>
 
 <% end -%>

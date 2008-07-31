@@ -1,5 +1,24 @@
-<ul>
-	<% @current_objects.each do |user| %>
-		<%= content_tag :li, user.login %>
-	<% end %>
-</ul>
+<h1>Fichiers</h1>
+
+<% if params[:workspace_id] %>
+	
+<% end %>
+
+	
+<% @artic_files.each do |af| %>
+	<p>
+		Titre : <%= af.title %><br />
+		Description : <%= af.description %>
+		Nom du fichier : <%= af.file_path.split("/").last %><br />
+		Workspace(s) associé(s) : <%= af.workspaces.collect { |e| e.name}.join(" | ") %><br />
+		Etat : <%= af.state.to_s %><br />
+		<%= link_to "Télécharger", url_for_file_column(af, :file_path) %><br />
+		<%= link_to "Voir", workspace_artic_file_path(params[:workspace_id], af) %> | 
+		<%= link_to "Mise à jour", edit_object_path(af) %> | 
+		<%= link_to "Supprimer", object_path(af), :method => :delete %>
+	</p>
+<% end %>
+
+<br /><br />
+
+<%= link_to "Ajouter un ficher", new_object_path %>

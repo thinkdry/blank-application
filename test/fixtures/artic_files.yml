@@ -3,9 +3,9 @@
 one:
   title: fileOne
   description: a file
-  file_path: /path/file.txt
+  file_path: file.txt
 
 two:
   title: fileTwo
   description: an other file
-  file_path: /path/file.jpg
+  file_path: file.jpg

@@ -3,9 +3,8 @@ class CreateArticFiles < ActiveRecord::Migration
     create_table :artic_files do |t|
       t.string :title
       t.text :description
-      t.string :file_type, :default => nil
       t.string :file_path
-			t.string :state, :default => nil
+			t.string :state, :default => "public"
 			
       t.timestamps
     end

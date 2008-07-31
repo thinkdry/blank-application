@@ -24,14 +24,13 @@ class ArticFileTest < Test::Unit::TestCase
 		# require
     assert_invalid_format :file_path, [""]
   end	
-
 	
 	protected
 		def create_articfile(options = {})
     record = ArticFile.new({
       :title => 'myPhoto',
-			:description => "tralali tralala",
-			:file_path => '/path/file.txt',
+			:description => "tralali tralala"
+			#:file_path => 
 			}.merge(options))
     record.save
     record

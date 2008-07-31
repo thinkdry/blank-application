@@ -3,7 +3,8 @@ class UsersController < ApplicationController
 
   make_resourceful do
     actions :all
-
+		has_many :artic_files
+		
     before :new, :create do permit("admin") end
     before :edit, :update do permit("admin or owner of user") end
 

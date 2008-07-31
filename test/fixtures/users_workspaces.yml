@@ -9,3 +9,8 @@ two:
   workspace: two
   role: two
   user: aaron
+
+three:
+  workspace: two
+  role: one
+  user: quentin

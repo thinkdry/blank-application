@@ -5,6 +5,6 @@ class ArticFilesController < ApplicationController
 	make_resourceful do
     actions :all
 		belongs_to :workspace
-  end
-  
+  end	
+	
 end

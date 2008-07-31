@@ -1,17 +1,11 @@
-<h1>Utilisateur <%= @current_object.login %></h1>
+<h1>Fichier</h1>
 
-Login: 					<%= @current_object.login %>         <br />
-Email: 					<%= @current_object.email %>         <br />
-Nom: 					<%= @current_object.lastname %>      <br />
-Prénom: 				<%= @current_object.firstname %>     <br />
-Adresse: 				<%= @current_object.addr %>          <br />
-Laboratoire: 			<%= @current_object.laboratory %>    <br />
-Téléphone (fixe): 		<%= @current_object.phone %>         <br />
-Portable: 				<%= @current_object.mobile %>        <br />
-Activité:				<%= @current_object.activity %>      <br />
+<p>
+	Titre : <%= @artic_file.title %><br />
+	Description : <%= @artic_file.description %><br />
+	Nom du fichier : <%= @artic_file.file_path %><br />
+	Etat : <%= @artic_file.state.to_s %>
+	<%= link_to "Télécharger", url_for_file_column(@artic_file, :file_path) %><br />
+</p>
 
-<% if @user.image_path %>
-	Photo:				<%= image_tag(url_for_file_column(@user, 'image_path')) %>	<br />
-<% end %>
-
-Edito:					<%= @current_object.edito %>
+<%= link_to "Mise à jour", edit_object_path %>
