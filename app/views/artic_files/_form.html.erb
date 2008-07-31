@@ -15,19 +15,8 @@
 			new nicEditor({iconsPath : '/images/nicEditorIcons.gif'}).panelInstance('artic_file_description');
 		});
 	</script>
-
-	<p>
-		<%= f.label :state, "Etat :" %><br />
-		<%= radio_button :artic_file, :private, false %> Public<br />
-		<%= radio_button :artic_file, :private, true  %> Privé
-	</p>
-
-	<p>
-		Diffusion :<br />
-		<% self.current_user.workspaces.each do |w| %>
-			<%= w.name %> <%= check_box_tag "artic_file[associated_workspaces][]", w.id, (@artic_file.workspaces.exists?(w.id) || (w.id == params[:workspace_id].to_i)) %> | 
-		<% end %>
-	</p>	
+	
+	<%= item_status_fields(f, @artic_file) %>
 
 	<%= f.submit current_object.new_record? ? 'Créer ce fichier' : 'Mettre à jour' %>
 

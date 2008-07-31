@@ -1,0 +1,17 @@
+<p>
+	<%= f.label :private, "Etat :" %><br />
+	<%= radio_button item.class.to_s.underscore, :private, false %> Public<br />
+	<%= radio_button item.class.to_s.underscore, :private, true  %> Privé
+</p>
+
+<p>
+	Diffusion :<br />
+	<%= current_user.workspaces.collect do |w|
+			w.name + ' ' +
+			check_box_tag(
+				"#{item.class.to_s.underscore}[associated_workspaces][]",
+				w.id,
+				item.workspaces.exists?(w.id) || (w.id == params[:workspace_id].to_i)
+			) 
+		end.join(' | ') %>
+</p>
