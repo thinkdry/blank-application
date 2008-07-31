@@ -3,8 +3,8 @@
 <p>
 	Titre : <%= @artic_file.title %><br />
 	Description : <%= @artic_file.description %><br />
-	Nom du fichier : <%= @artic_file.file_path %><br />
-	Etat : <%= @artic_file.state.to_s %>
+	Nom du fichier : <%= File.basename @artic_file.file_path %><br />
+	Etat : <%= @artic_file.private ? 'Privé' : 'Public' %>
 	<%= link_to "Télécharger", url_for_file_column(@artic_file, :file_path) %><br />
 </p>
 

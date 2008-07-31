@@ -4,7 +4,7 @@ class CreateArticFiles < ActiveRecord::Migration
       t.string :title
       t.text :description
       t.string :file_path
-			t.string :state, :default => "public"
+			t.boolean :private, :default => false
 			
       t.timestamps
     end

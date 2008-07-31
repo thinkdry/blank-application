@@ -6,5 +6,5 @@ class ArticFilesController < ApplicationController
     actions :all
 		belongs_to :workspace
   end	
-	
+  
 end

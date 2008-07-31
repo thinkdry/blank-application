@@ -3,8 +3,9 @@
 	<%= f.text_field :title, :label => "Titre :" %>
 	
 	<p>
-		<label for="artic_file_file_path">Fichier : </label><br/>
-		<%= image_tag(url_for_file_column(@artic_file, 'file_path')) + '<br />' if @artic_file.file_path %>
+		<%= f.label :file_path, 'Fichier :' %>
+		<%= error_message_on :artic_file, :file_path %><br/>
+		<%= File.basename(@artic_file.file_path) + '<br />' if @artic_file.file_path %>
 		<%= file_column_field 'artic_file', 'file_path' %>
 	</p>
 	
@@ -16,9 +17,9 @@
 	</script>
 
 	<p>
-		<%= f.label :state, "Etat :" %>
-		<%= radio_button :artic_file, :state, "public" %> Public
-		<%= radio_button :artic_file, :state, "private" %> Privé
+		<%= f.label :state, "Etat :" %><br />
+		<%= radio_button :artic_file, :private, false %> Public<br />
+		<%= radio_button :artic_file, :private, true  %> Privé
 	</p>
 
 	<p>
@@ -28,6 +29,6 @@
 		<% end %>
 	</p>	
 
-	<%= f.submit 'Créer ce fichier' %>
+	<%= f.submit current_object.new_record? ? 'Créer ce fichier' : 'Mettre à jour' %>
 
 <% end -%>

@@ -1,17 +1,4 @@
 class ArticFile < ActiveRecord::Base
-	
-	acts_as_state_machine :initial => :public, :column => 'state'
-	state :private
-	state :public
-	
-	event :put_public do
-		transitions :from => :private, :to => :public
-	end
-  
-	event :put_private do
-		transitions :from => :public, :to => :private
-  end
-	
 	belongs_to :users
 	
 	file_column :file_path

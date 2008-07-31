@@ -125,7 +125,9 @@ module Resourceful
       end
 
       def instance_route(name, object, type, action = nil)
-        send("#{action ? action + '_' : ''}#{url_helper_prefix}#{name}_#{type}", object)
+        # CHANGED: Added nested support
+        send("#{action ? action + '_' : ''}#{url_helper_prefix || collection_url_prefix}#{name}_#{type}",
+            *([object] + (parent? ? [parent_object] : [])))
       end
 
       def collection_route(name, type, action = nil)
