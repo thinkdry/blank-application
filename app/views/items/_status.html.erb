@@ -1,17 +1,35 @@
+<% item_class_name =  item.class.to_s.underscore %>
+
 <p>
 	<%= f.label :private, "Etat :" %><br />
-	<%= radio_button item.class.to_s.underscore, :private, false %> Public<br />
-	<%= radio_button item.class.to_s.underscore, :private, true  %> Privé
+	<%= radio_button item_class_name, :private, false %> Public<br />
+	<%= radio_button item_class_name, :private, true  %> Privé
 </p>
 
 <p>
 	Diffusion :<br />
-	<%= current_user.workspaces.collect do |w|
+	<%=	check_box_tag_name = "#{item_class_name}[associated_workspaces][]"
+		# Checkboxes for associated WorkSpaces
+		current_user.workspaces.collect do |w|
+
+			checked =
+				# Checked if related params...
+				if params[item_class_name]
+					if params[item_class_name]['associated_workspaces'] && params[item_class_name]['associated_workspaces'].include?(w.id.to_s)
+						true
+					else
+						false
+					end
+				# ... or nested resource
+				elsif item.workspaces.exists?(w.id) || (w.id == params[:workspace_id].to_i)
+					true
+				else
+					false
+				end
+			
+			# Out	
 			w.name + ' ' +
-			check_box_tag(
-				"#{item.class.to_s.underscore}[associated_workspaces][]",
-				w.id,
-				item.workspaces.exists?(w.id) || (w.id == params[:workspace_id].to_i)
-			) 
+			check_box_tag(check_box_tag_name, w.id, checked)
+			
 		end.join(' | ') %>
 </p>
