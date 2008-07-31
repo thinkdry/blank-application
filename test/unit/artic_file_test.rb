@@ -29,8 +29,8 @@ class ArticFileTest < Test::Unit::TestCase
 		def create_articfile(options = {})
     record = ArticFile.new({
       :title => 'myPhoto',
-			:description => "tralali tralala"
-			#:file_path => 
+			:description => "tralali tralala",
+			:file_path => upload("#{RAILS_ROOT}/test/file_column_files/Record Dolphin.png")
 			}.merge(options))
     record.save
     record
