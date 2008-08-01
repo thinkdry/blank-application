@@ -13,7 +13,7 @@
 		Etat : <%= af.private ? 'Privé' : 'Public' %><br />
 		<%= link_to "Télécharger", url_for_file_column(af, :file_path) %><br />
 		<%= link_to "Voir", object_path(af) %> | 
-		<%= link_to "Mise à jour", object_path(af) %> | 
+		<%= link_to "Mise à jour", edit_object_path(af) %> | 
 		<%= link_to "Supprimer", object_path(af), :method => :delete %>
 	</p>
 <% end %>
