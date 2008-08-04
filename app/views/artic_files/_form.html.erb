@@ -1,7 +1,7 @@
 <% form_for @artic_file, :html => {:multipart => true}, :builder => LabelFormBuilder do |f| -%>
 	
 	<%= f.text_field :title, :label => "Titre :" %>
-	
+		
 	<p>
 		<%= f.label :file_path, 'Fichier :' %>
 		<%= error_message_on :artic_file, :file_path %><br/>

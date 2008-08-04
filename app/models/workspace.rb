@@ -37,4 +37,9 @@ class Workspace < ActiveRecord::Base
     end 
   end 
   
+  def accepts_role? role, user
+    return true if role == 'member' && self.users.include?(user)
+    false
+  end
+  
 end
