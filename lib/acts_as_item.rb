@@ -1,20 +1,29 @@
 module ActsAsItem
-  module Controllers
-    class ItemController < ApplicationController
-      acts_as_ajax_validation
+  module ControllerMethods
+    
+    def self.included(base)
+      base.extend ClassMethods
+    end
+    
+    module ClassMethods
+      def acts_as_item
+      	make_resourceful do
+          actions :all
+      		belongs_to :workspace
 
-    	make_resourceful do
-        actions :all
-    		belongs_to :workspace
-
-        before :create, :new, :index do
-      	  permit "member of workspace" if @workspace
-      	end
-
-      	before :edit, :update, :delete do
-      	  debugger
-      	  permit "author of artic_file"
-    	  end
+          # Permissions related callbacks
+          before :create, :new, :index do
+        	  permit "member of workspace" if @workspace
+        	end
+        	before :edit, :update, :delete do
+        	  permit "author of artic_file"
+      	  end
+        	
+        	# Makes `current_user` as author for the current_object
+        	before :create do
+        	  current_object.user = current_user
+      	  end
+        end
       end
     end
   end
