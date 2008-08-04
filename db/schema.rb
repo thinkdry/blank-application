@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080730103801) do
+ActiveRecord::Schema.define(:version => 20080801124527) do
 
   create_table "artic_files", :force => true do |t|
     t.string   "title"
@@ -20,10 +20,28 @@ ActiveRecord::Schema.define(:version => 20080730103801) do
     t.datetime "updated_at"
   end
 
+  create_table "audios", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.string   "file_path"
+    t.boolean  "private",     :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "images", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.string   "file_path"
+    t.boolean  "private",     :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "items", :force => true do |t|
     t.string   "itemable_type"
-    t.integer  "itemable_id"
-    t.integer  "workspace_id"
+    t.integer  "itemable_id",   :limit => 11
+    t.integer  "workspace_id",  :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -35,18 +53,18 @@ ActiveRecord::Schema.define(:version => 20080730103801) do
   end
 
   create_table "permissions_roles", :force => true do |t|
-    t.integer  "role_id"
-    t.integer  "permission_id"
+    t.integer  "role_id",       :limit => 11
+    t.integer  "permission_id", :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "public_items", :force => true do |t|
-    t.integer  "itemable_id"
+    t.integer  "itemable_id",          :limit => 11
     t.string   "itemable_type"
-    t.integer  "extranet_category_id"
-    t.integer  "suggester_id"
-    t.integer  "validated"
+    t.integer  "extranet_category_id", :limit => 11
+    t.integer  "suggester_id",         :limit => 11
+    t.integer  "validated",            :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -77,7 +95,7 @@ ActiveRecord::Schema.define(:version => 20080730103801) do
     t.string   "image_path",                :limit => 500
     t.string   "crypted_password",          :limit => 40
     t.string   "salt",                      :limit => 40
-    t.integer  "system_role_id"
+    t.integer  "system_role_id",            :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "remember_token",            :limit => 40
@@ -87,9 +105,18 @@ ActiveRecord::Schema.define(:version => 20080730103801) do
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true
 
   create_table "users_workspaces", :force => true do |t|
-    t.integer  "workspace_id"
-    t.integer  "role_id"
-    t.integer  "user_id"
+    t.integer  "workspace_id", :limit => 11
+    t.integer  "role_id",      :limit => 11
+    t.integer  "user_id",      :limit => 11
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "videos", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.string   "file_path"
+    t.boolean  "private",     :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

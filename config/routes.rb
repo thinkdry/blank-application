@@ -20,7 +20,7 @@ ActionController::Routing::Routes.draw do |map|
       articles.resources :artic_files
       articles.resources :images
     end
-    parent.resources :sounds
+    parent.resources :audios
     parent.resources :videos
     parent.resources :artic_files
     parent.resources :publications

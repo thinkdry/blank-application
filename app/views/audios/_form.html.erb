@@ -1,12 +1,12 @@
 <% form_for @current_object, :html => {:multipart => true}, :builder => LabelFormBuilder do |f| -%>
 	
 	<%= f.text_field :title, :label => "Titre :" %>
-		
+	
 	<p>
-		<%= f.label :file_path, "Fichier :"%><br />
-		<%= error_message_on @current_object, :file_path %><br/>
+		<%= f.label :file_path, 'Fichier :' %>
+		<%= error_message_on :artic_file, :file_path %><br/>
 		<%= File.basename(@current_object.file_path) + '<br />' if @current_object.file_path %>
-		<%= file_column_field "artic_file", 'file_path' %>
+		<%= file_column_field 'audio', 'file_path' %>
 	</p>
 	
 	<%= f.text_area :description, :label => 'Description :' %>

@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  title: videoOne
+  description: a video file
+  file_path: file.avi
+
+two:
+  title: videoTwo
+  description: an other video file
+  file_path: file.mpg

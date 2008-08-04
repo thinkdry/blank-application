@@ -1,9 +1,10 @@
-<h1>Fichiers</h1>
+<h1>Images</h1>
 	
 <% @current_objects.each do |co| %>
 	<p>
 		Titre : <%= co.title %><br />
-		Description : <%= co.description %>
+		<%= image_tag url_for_file_column(co, "file_path", "thumb") %><br />
+		Description : <%= co.description %><br />
 		Nom du fichier : <%= co.file_path.split("/").last %><br />
 		Workspace(s) associé(s) : <%= co.workspaces.collect { |e| e.name}.join(" | ") %><br />
 		Etat : <%= co.private ? 'Privé' : 'Public' %><br />

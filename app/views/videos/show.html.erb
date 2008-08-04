@@ -1,10 +1,11 @@
-<h1>Fichier</h1>
+<h1>Vidéo</h1>
 
 <p>
 	Titre : <%= @current_object.title %><br />
 	Description : <%= @current_object.description %><br />
 	Nom du fichier : <%= File.basename @current_object.file_path %><br />
-	Etat : <%= @current_object.private ? 'Privé' : 'Public' %>
+	Etat : <%= @current_object.private ? 'Privé' : 'Public' %><br />
+	<%= link_to "Lire", "" %><br />
 	<%= link_to "Télécharger", url_for_file_column(@current_object, :file_path) %><br />
 </p>
 
