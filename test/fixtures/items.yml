@@ -32,3 +32,11 @@ eight:
   itemable: two (Image)
   workspace: two
 
+nine:
+  itemable: one (Article)
+  workspace: one
+
+ten:
+  itemable: two (Article)
+  workspace: two
+

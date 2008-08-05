@@ -28,6 +28,7 @@ class ImageTest < Test::Unit::TestCase
 	protected
 		def create_image(options = {})
     record = Image.new({
+			:user => users(:quentin),
       :title => 'myPhoto',
 			:description => "tralali tralala",
 			:file_path => upload("#{RAILS_ROOT}/test/file_column_files/Record Dolphin.png")

@@ -1,11 +1,13 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
+  user: quentin
   title: audioOne
   description: a audio file
   file_path: file.mp3
 
 two:
+  user: aaron
   title: audioTwo
   description: an other audio file
   file_path: dansmabenz.mp3

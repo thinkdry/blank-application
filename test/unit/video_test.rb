@@ -28,6 +28,7 @@ class VideoTest < Test::Unit::TestCase
 	protected
 		def create_video(options = {})
     record = Video.new({
+			:user => users(:quentin),
       :title => 'myPhoto',
 			:description => "tralali tralala",
 			:file_path => upload("#{RAILS_ROOT}/test/file_column_files/Record Dolphin.png")

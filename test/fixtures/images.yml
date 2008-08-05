@@ -1,11 +1,13 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
+  user: quentin
   title: imageOne
   description: a image file
   file_path: file.jpg
 
 two:
+  user: aaron
   title: fileTwo
   description: an other image file
   file_path: file.png
