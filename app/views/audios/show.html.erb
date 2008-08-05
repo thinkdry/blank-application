@@ -5,7 +5,21 @@
 	Description : <%= @current_object.description %><br />
 	Nom du fichier : <%= File.basename @current_object.file_path %><br />
 	Etat : <%= @current_object.private ? 'Privé' : 'Public' %>
-	<%= link_to "Télécharger", url_for_file_column(@current_object, :file_path) %><br />
 </p>
 
+<p id='preview'></p>
+
+<script type='text/javascript' src='/mediaplayer/swfobject.js'></script>
+<script type='text/javascript'>
+	var s1 = new SWFObject('/mediaplayer/player.swf','ply','470','20','9','#ffffff');
+	s1.addVariable("skin", "/mediaplayer/snel.swf");
+  s1.addParam('allowfullscreen','true');
+  s1.addParam('allowscriptaccess','always');
+  s1.addParam('wmode','opaque');
+	s1.addParam('flashvars', 'file=<%= url_for_file_column(@current_object, "file_path") %>');
+	s1.write('preview');
+</script>
+
+
+<%= link_to "Télécharger", url_for_file_column(@current_object, :file_path) %><br />
 <%= link_to "Mise à jour", edit_object_path %>

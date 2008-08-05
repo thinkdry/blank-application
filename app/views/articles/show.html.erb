@@ -1,0 +1,11 @@
+<h1>Fichier</h1>
+
+<p>
+	Titre : <%= @current_object.title %><br />
+	Description : <%= @current_object.description %><br />
+	Nom du fichier : <%= File.basename @current_object.file_path %><br />
+	Etat : <%= @current_object.private ? 'Privé' : 'Public' %>
+	<%= link_to "Télécharger", url_for_file_column(@current_object, :file_path) %><br />
+</p>
+
+<%= link_to "Mise à jour", edit_object_path %>

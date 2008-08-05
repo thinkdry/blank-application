@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  article: one
+  file_path: file.pdf
+
+two:
+  article: two
+  file_path: file.txt

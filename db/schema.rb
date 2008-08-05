@@ -9,31 +9,60 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080801124527) do
+ActiveRecord::Schema.define(:version => 20080804211420) do
 
   create_table "artic_files", :force => true do |t|
+    t.integer  "user_id",     :limit => 11
     t.string   "title"
     t.text     "description"
     t.string   "file_path"
-    t.boolean  "private",     :default => false
+    t.boolean  "private",                   :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "article_files", :force => true do |t|
+    t.integer  "article_id", :limit => 11
+    t.string   "file_path"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "article_images", :force => true do |t|
+    t.integer  "article_id", :limit => 11
+    t.string   "image_path"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "articles", :force => true do |t|
+    t.integer  "user_id",      :limit => 11
+    t.string   "title"
+    t.text     "description"
+    t.text     "introduction"
+    t.text     "body"
+    t.text     "conclusion"
+    t.boolean  "private",                    :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "audios", :force => true do |t|
+    t.integer  "user_id",     :limit => 11
     t.string   "title"
     t.text     "description"
     t.string   "file_path"
-    t.boolean  "private",     :default => false
+    t.boolean  "private",                   :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "images", :force => true do |t|
+    t.integer  "user_id",     :limit => 11
     t.string   "title"
     t.text     "description"
     t.string   "file_path"
-    t.boolean  "private",     :default => false
+    t.boolean  "private",                   :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -113,10 +142,11 @@ ActiveRecord::Schema.define(:version => 20080801124527) do
   end
 
   create_table "videos", :force => true do |t|
+    t.integer  "user_id",     :limit => 11
     t.string   "title"
     t.text     "description"
     t.string   "file_path"
-    t.boolean  "private",     :default => false
+    t.boolean  "private",                   :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -1,0 +1,46 @@
+<% form_for @current_object, :html => {:multipart => true}, :builder => LabelFormBuilder do |f| -%>
+	
+	<%= f.text_field :title, :label => "Titre :" %>
+	
+	<%= f.text_area :description, :label => 'Résumé :' %>
+	<script type="text/javascript">
+		bkLib.onDomLoaded(function() {
+			new nicEditor({iconsPath : '/images/nicEditorIcons.gif'}).panelInstance('article_description');
+		});
+	</script>
+
+	<%= f.text_area :introduction, :label => 'Introduction :' %>
+	<script type="text/javascript">
+		bkLib.onDomLoaded(function() {
+			new nicEditor({iconsPath : '/images/nicEditorIcons.gif'}).panelInstance('article_introduction');
+		});
+	</script>
+
+	<%= f.text_area :body, :label => 'Corps :' %>
+	<script type="text/javascript">
+		bkLib.onDomLoaded(function() {
+			new nicEditor({iconsPath : '/images/nicEditorIcons.gif'}).panelInstance('article_body');
+		});
+	</script>
+
+	<%= f.text_area :conclusion, :label => 'Conclusion :' %>
+	<script type="text/javascript">
+		bkLib.onDomLoaded(function() {
+			new nicEditor({iconsPath : '/images/nicEditorIcons.gif'}).panelInstance('article_conclusion');
+		});
+	</script>
+	
+	<%= item_status_fields(f, @current_object) %>
+
+	<h2>Fichiers associés:</h2>
+	<div id="files">
+		<% @current_object.artic_files.each do |object| %>
+			<%= new_file(object) %>
+		<% end %>
+	</div>
+
+	<%= link_to_new_user 'Joindre un nouveau fichier' %>
+	
+	<%= f.submit current_object.new_record? ? 'Créer' : 'Mettre à jour' %>
+
+<% end -%>

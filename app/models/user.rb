@@ -12,6 +12,10 @@ class User < ActiveRecord::Base
 	has_many :users_workspaces, :dependent => :delete_all
 	has_many :workspaces, :through => :users_workspaces
 	has_many :artic_files
+	has_many :audios
+	has_many :videos
+	has_many :images
+	has_many :articles
 	belongs_to :system_role
   
   file_column :image_path, :magick => {:size => "200x200>"}
