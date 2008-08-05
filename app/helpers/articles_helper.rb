@@ -5,7 +5,7 @@ module ArticlesHelper
   end
   
   def link_to_new_file(name)
-    link_to_function name, js_add_new_file(ArticlesArticFile.new)
+    link_to_function name, js_add_new_file(ArticleFile.new)
   end
   
   private

@@ -34,12 +34,14 @@
 
 	<h2>Fichiers associés:</h2>
 	<div id="files">
-		<% @current_object.artic_files.each do |object| %>
+		<% @current_object.article_files.each do |object| %>
 			<%= new_file(object) %>
 		<% end %>
 	</div>
 
-	<%= link_to_new_user 'Joindre un nouveau fichier' %>
+	<%= link_to_new_file 'Joindre un nouveau fichier' %>
+	
+	<br /><br />
 	
 	<%= f.submit current_object.new_record? ? 'Créer' : 'Mettre à jour' %>
 
