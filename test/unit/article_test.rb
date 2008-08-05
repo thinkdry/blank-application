@@ -41,7 +41,7 @@ class ArticleTest < Test::Unit::TestCase
 		assert ArticleImage.count(:all, :conditions => {:article_id => id})!=0, "No elements in the A-I table"
 		assert articles(:one).destroy, "Cannot destroy the article"
 		assert ArticleFile.count(:all, :conditions => {:article_id => id})==0, "Artic files associated not removed"
-		assert ArticleImage.count(:all, :conditions => {:artcile_id => id})==0, "Images associated not removed"
+		assert ArticleImage.count(:all, :conditions => {:article_id => id})==0, "Images associated not removed"
 	end
 	
 	protected

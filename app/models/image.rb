@@ -2,7 +2,6 @@ class Image < ActiveRecord::Base
 	
   acts_as_item
   
-	has_many :articles
 	belongs_to :user
 	
 	file_column :file_path, :magick => { :versions => { :thumb => "100x100", :web => "500x500" } }

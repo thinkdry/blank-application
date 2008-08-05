@@ -4,11 +4,14 @@ class Article < ActiveRecord::Base
   
 	belongs_to :user
 	
-	has_many :artic_files
-	has_many :images
+	has_many :article_files, :dependent => :delete_all
+	has_many :article_images, :dependent => :delete_all
 	
 	validates_presence_of	:title,
 		:description,
+		:introduction,
+		:body,
+		:conclusion,
 		:user
 		
 	def new_file_attributes= file_attributes
