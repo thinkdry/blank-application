@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 
   make_resourceful do
     actions :all
+		belongs_to :account
 		
     before :new, :create do permit("admin") end
     before :edit, :update do permit("admin or owner of user") end
@@ -39,4 +40,5 @@ class UsersController < ApplicationController
      end
      @current_objects ||= current_model.find(:all, :conditions => conditions)
    end
+  
 end

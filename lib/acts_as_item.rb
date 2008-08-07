@@ -7,6 +7,7 @@ module ActsAsItem
     
     module ClassMethods
       def acts_as_item
+        
       	make_resourceful do
           actions :all
       		belongs_to :workspace
@@ -50,7 +51,6 @@ module ActsAsItem
       end
       
       def accepts_role? role, user
-        p role, user
     	  begin
     	    if %W(edit delete author).include? role
     	      return(true) if self.user == user

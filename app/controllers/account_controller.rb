@@ -1,9 +1,11 @@
 class AccountController < ApplicationController
+  before_filter { |controller| controller.session[:menu] = 'account' }
+  
   def index
   end
   
   def profile
-    render_component(:controller => 'users', :action => 'show', :id => current_user)
+    redirect_to user_path(current_user)
   end
   
   def contents

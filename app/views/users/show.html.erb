@@ -1,6 +1,6 @@
 <h1><%= show_title %></h1>
 
-<%= link_to 'Editer', edit_user_url(@current_object.id) %><br /><br />
+<%= link_to 'Editer', edit_object_path %><br /><br />
 
 <% if @user.image_path %>
 	<%= image_tag(url_for_file_column(@user, 'image_path')) %>

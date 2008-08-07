@@ -26,16 +26,11 @@
 			<% end %>
 		</div>
 
-		<div id="menu_right">
-	
-			<%=
-				begin
-					render :partial => "#{@_request.path_parameters['controller']}/menu"
-				rescue ActionView::MissingTemplate => e
-					String.new
-				end
-			%>
-		</div>
+		<% if session && session[:menu] %>
+			<div id="menu_right">
+				<%= render :partial => "#{session[:menu]}/menu" %>
+			</div>
+		<% end %>
 
 		<%= content_tag(:div, flash[:notice], :class => 'notice') if flash[:notice] %>
 
