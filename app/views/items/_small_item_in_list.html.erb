@@ -1,0 +1,47 @@
+<li
+	id="item_<%= object.object_id %>"
+	class="item"
+	onmouseover="this.addClassName('over')"
+	onmouseout="this.removeClassName('over')"
+	onclick="window.location.href = '<%= item_url(object) %>'">
+	
+		<div class="window hidden">
+			
+			<div align="right" style="float:right">
+				<%= link_to_edit_item(object) %>
+				<%= link_to_remove_item(object) %>
+			</div>
+			
+			<h2><%= object.title %></h2>
+
+			<p><%= object.description %></p>
+
+			<div>
+				<strong>Nombre de commentaires :</strong> 42<br>
+				<%= link_to 'Voir', '#'%>
+				<%= link_to 'Ajouter', '#' %>
+			</div>
+
+			<div>
+				<strong>Note :</strong> <%= Array.new(5, image_tag('icons/star.png')) %>
+			</div>
+
+			<div>
+				<%= (1..3).collect { |i| item_tag("tag_#{i}") }.join(' ') %>
+				<%= text_field_tag :temp, nil, :size => 5 %>
+				<%= link_to image_tag('icons/add.png') %>
+			</div>
+
+			<div>
+				<strong>Groupes de travail :</strong> <%= object.workspaces.collect { |w| w.name } %>
+				<br>
+				<strong>Privé ?</strong> <%= check_box(object, :private) %>
+			</div>
+		</div>
+	
+		<%= ('(' + object.class.to_s + ')').ljust(13).gsub(' ', '&nbsp;') %>
+		<b><%= object.title %></b>
+		par
+		<%= object.user.firstname.capitalize %>
+		<%= object.user.lastname.capitalize %>
+</li>

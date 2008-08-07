@@ -1,17 +1,7 @@
 <h1>Articles</h1>
 	
 <% @current_objects.each do |co| %>
-	<p>
-		Titre : <%= co.title %><br />
-		Description : <%= co.description %>
-		Workspace(s) associé(s) : <%= co.workspaces.collect { |e| e.name}.join(" | ") %><br />
-		Etat : <%= co.private ? 'Privé' : 'Public' %><br />
-		<%= link_to "Voir", object_path(co) %> | 
-		<%= link_to "Mise à jour", edit_object_path(co) %> | 
-		<%= link_to "Supprimer", object_path(co), :method => :delete %>
-	</p>
+	<%= item_in_list co %>
 <% end %>
-
-<br /><br />
 
 <%= link_to "Ajouter un article", new_object_path %>

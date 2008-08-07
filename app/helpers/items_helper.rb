@@ -1,4 +1,15 @@
 module ItemsHelper
+  def item_list conditions = {}
+    
+    conditions = { :workspace_id => current_user.workspaces } if conditions == {}
+    
+    list = Item.find(:all,
+      :order => 'created_at DESC',
+      :limit => 10,
+      :conditions => conditions).collect { |item| item.itemable }
+    render :partial => "items/list", :object => list
+  end
+  
   def item_in_list(object, thumb = nil)
     render :partial => "items/item_in_list", :object => object
   end

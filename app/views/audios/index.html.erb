@@ -1,19 +1,7 @@
 <h1>Documents audio</h1>
 	
 <% @current_objects.each do |co| %>
-	<p>
-		Titre : <%= co.title %><br />
-		Description : <%= co.description %>
-		Nom du fichier : <%= co.file_path.split("/").last %><br />
-		Workspace(s) associé(s) : <%= co.workspaces.collect { |e| e.name}.join(" | ") %><br />
-		Etat : <%= co.private ? 'Privé' : 'Public' %><br />
-		<%= link_to "Télécharger", url_for_file_column(co, :file_path) %><br />
-		<%= link_to "Voir", object_path(co) %> | 
-		<%= link_to "Mise à jour", edit_object_path(co) %> | 
-		<%= link_to "Supprimer", object_path(co), :method => :delete %>
-	</p>
+	<%= item_in_list co %>
 <% end %>
-
-<br /><br />
 
 <%= link_to "Ajouter un ficher", new_object_path %>

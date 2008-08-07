@@ -6,11 +6,4 @@
 	<%= uw.user_login %>: <%= Role.find(uw.role_id).name %> <br />
 <% end %>
 
-<ul>
-	<li>Articles		</li>
-	<li>Images			</li>
-	<li>Audios			</li>
-	<li>Vidéos			</li>
-	<li>Fichiers		</li>
-	<li>Publications	</li>
-</ul>
+<%= item_list :workspace_id => @current_object.id %>

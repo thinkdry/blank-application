@@ -1,3 +1,7 @@
+BODY {
+	font-family: monospace;
+}
+
 .fieldWithErrors {
 	display: inline-block;
 	padding: 0px;
@@ -60,22 +64,38 @@ div.autocomplete ul li {
 
 .over {
 	background-color: #EEEEEE;
+	color: red;
+	cursor: pointer !important;
 }
 
 .item {
 	padding: 0.5em;
 	max-width: 40em;
-	cursor: pointer;
+}
+
+.item .window {
+	padding: 0.3em;
+	background-color:#EEEEEE;
+	border: 1px solid black;
+	display:inline;
+	width: 20em;
+	margin-left: 20em;
+	position:absolute;
+	color: black !important;
+}
+
+.item .window div {
+	margin-bottom: 0.4em;
 }
 
 .hidden {
-	display: none;
+	display: none !important;
 	font-size: 12px;
 	padding-left: 2em;
 }
 
 .over .hidden {
-	display: block
+	display: block !important;
 }
 
 a img {
