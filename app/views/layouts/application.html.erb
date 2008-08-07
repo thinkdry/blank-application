@@ -1,37 +1,45 @@
-<%= stylesheet_link_tag "application.css" %>
-<%= javascript_include_tag :all %>
+<html>
+	<head>
+		<%= stylesheet_link_tag "application.css" %>
+		<%= javascript_include_tag :all %>
+	</head>
 
-<div id="user_bar">
-	<%= render :partial => "users/user_bar" %>
-</div>
+	<body onload="initialize()">
 
-<div id="menu_up">
-	<%= link_to 'Mon Compte', :controller => :account %>
-	|
-	Contenu :	Tout,
-				<% current_user.workspaces.each do |workspace| %>
-					<%= link_to workspace.name, workspace_url(workspace.id) %>,
-				<% end %>
-				<%= link_to 'Nouvel espace', new_workspace_url %>
-	|
-	Recherche
-	<% permit 'admin' do %>
-		|
-		<%= link_to 'Administration', :controller => :admin %>
-	<% end %>
-</div>
+		<div id="user_bar">
+			<%= render :partial => "users/user_bar" %>
+		</div>
 
-<div id="menu_right">
+		<div id="menu_up">
+			<%= link_to 'Mon Compte', :controller => :account %>
+			|
+			Contenu :	Tout,
+						<% current_user.workspaces.each do |workspace| %>
+							<%= link_to workspace.name, workspace_url(workspace.id) %>,
+						<% end %>
+						<%= link_to 'Nouvel espace', new_workspace_url %>
+			|
+			Recherche
+			<% permit 'admin' do %>
+				|
+				<%= link_to 'Administration', :controller => :admin %>
+			<% end %>
+		</div>
+
+		<div id="menu_right">
 	
-	<%=
-		begin
-			render :partial => "#{@_request.path_parameters['controller']}/menu"
-		rescue ActionView::MissingTemplate => e
-			String.new
-		end
-	%>
-</div>
+			<%=
+				begin
+					render :partial => "#{@_request.path_parameters['controller']}/menu"
+				rescue ActionView::MissingTemplate => e
+					String.new
+				end
+			%>
+		</div>
 
-<%= content_tag(:div, flash[:notice], :class => 'notice') if flash[:notice] %>
+		<%= content_tag(:div, flash[:notice], :class => 'notice') if flash[:notice] %>
 
-<%= yield %>
+		<%= yield %>
+
+	</body>
+</html>

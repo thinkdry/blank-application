@@ -1,7 +1,13 @@
 require 'test_helper'
 
 class ArticFileTest < Test::Unit::TestCase
-  # Replace this with your real tests.
+	fixtures :artic_files	
+	
+	def test_fixtures_validation
+	  ArticFile.find(:all).each do |af|
+	    assert af.valid?
+    end
+  end
 	
 	def test_should_create_articfile
     assert_difference 'ArticFile.count' do

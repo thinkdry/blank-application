@@ -1,0 +1,44 @@
+<div
+	id="item_<%= self.object_id %>"
+	class="item"
+	onmouseover="this.addClassName('over')"
+	onmouseout="this.removeClassName('over')"
+	onclick="window.location.href = '<%= item_url(object) %>'">
+	
+	<div style="float:right" class="hidden">
+		<div align="right">
+			<%= link_to_edit_item(object) %>
+			<%= link_to_remove_item(object) %>
+		</div>
+				
+		<div>
+			Nombre de commentaires : 42
+			<%= link_to 'voir les commentaires', '#'%>
+			<%= link_to 'ajouter un commentaire', '#' %>
+		</div>
+
+		<div>
+			Note: <%= Array.new(5, image_tag('icons/star.png')) %>
+		</div>
+
+		<div>
+			<%= (1..3).collect { |i| item_tag("tag_#{i}") }.join(' ') %>
+			<%= text_field_tag :temp, nil, :size => 5 %>
+			<%= link_to image_tag('icons/add.png') %>
+		</div>
+
+		<div>
+			Groupes de travail : <%= item_in_list.workspaces.collect { |w| w.name } %>
+			&nbsp;&nbsp;&nbsp;
+			Privé ? <%= check_box(item_in_list, :private) %>
+		</div>
+	</div>
+	
+	<h2><%= item_in_list.title %></h2>
+
+	<p><%= item_in_list.description %></p>
+
+
+	</div>
+	
+</div>

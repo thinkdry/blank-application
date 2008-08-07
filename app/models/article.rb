@@ -20,13 +20,4 @@ class Article < ActiveRecord::Base
     end
   end
 	
-	def accepts_role? role, user
-	  begin
-	    return true if role == 'author' && self.user == user
-  	  false
-	  rescue Exception => e
-	    p e
-	    raise e
-	  end
-  end
 end

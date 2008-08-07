@@ -57,3 +57,27 @@ div.autocomplete ul li {
 #menu_right {
   float:right;
 }
+
+.over {
+	background-color: #EEEEEE;
+}
+
+.item {
+	padding: 0.5em;
+	max-width: 40em;
+	cursor: pointer;
+}
+
+.hidden {
+	display: none;
+	font-size: 12px;
+	padding-left: 2em;
+}
+
+.over .hidden {
+	display: block
+}
+
+a img {
+	border: none
+}	

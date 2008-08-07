@@ -16,8 +16,11 @@ module ActsAsItem
         	  permit "member of workspace" if @workspace
         	end
         	before :edit, :update, :delete do
-        	  permit "author of artic_file"
+        	  permit "edit of current_object"
       	  end
+      	  before :delete do
+      	    permit "delete of current_object"
+    	    end
         	
         	# Makes `current_user` as author for the current_object
         	before :create do
@@ -44,6 +47,20 @@ module ActsAsItem
       def associated_workspaces= workspace_ids
     		self.workspaces.delete_all
     		workspace_ids.each { |w| self.items.build(:workspace_id => w) }
+      end
+      
+      def accepts_role? role, user
+        p role, user
+    	  begin
+    	    if %W(edit delete author).include? role
+    	      return(true) if self.user == user
+      	  else
+      	    return(false)
+    	    end
+    	  rescue Exception => e
+    	    p e
+    	    raise e
+    	  end
       end
     end
         
