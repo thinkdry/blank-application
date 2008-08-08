@@ -1,16 +1,9 @@
 <div class="file">
-
-	<% prefix = "article[new_file_attributes][]" %>
-
-	<% fields_for prefix, file do |file_form| -%>
-
-		<%= error_message_on file, :article_file, "Le fichier ", '<br />' %>
 		
-		<%= file_column_field file_form, "file_path" %>
+	<%= file_field_tag "article[new_file_attributes][]" %>
 	
-	<% end %>
-	
-	<%= link_to_function 'Delete', "$(this).up('.article_file').remove()" %>
+	<%= link_to_function 'Delete', '$(this).parentNode.remove()' %>
 
 	<br/>
+
 </div>

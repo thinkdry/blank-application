@@ -34,9 +34,13 @@
 
 	<h2>Fichiers associés:</h2>
 	<div id="files">
-		<% @current_object.article_files.each do |object| %>
-			<%= new_file(object) %>
-		<% end %>
+		<% @current_object.article_files.each do |af| %>
+			<div id="file<%= af.id.to_s %>">
+				<%= af.file_path.split('/').last %>
+				<%= link_to "Télécharger", url_for_file_column(af, :file_path) %> 
+				<%= link_to_remote "Supprimer", :url => { :action => "removeFile", :id => af.id }, :success => "$(file#{af.id.to_s}.remove())" %>
+			</div>
+	<% end %>
 	</div>
 
 	<%= link_to_new_file 'Joindre un nouveau fichier' %>

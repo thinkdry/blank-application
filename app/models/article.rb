@@ -15,8 +15,8 @@ class Article < ActiveRecord::Base
 		:user
 		
 	def new_file_attributes= file_attributes
-	  file_attributes.each do |attributes| 
-      article_files.build(attributes) 
+	  file_attributes.each do |file_path| 
+      article_files.build(:article_id => self.id, :file_path => file_path) 
     end
   end
 	

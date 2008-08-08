@@ -9,7 +9,7 @@
 	Etat : <%= @current_object.private ? 'Privé' : 'Public' %><br />
 	Fichiers joints :<br />
 	<% @current_object.article_files.each do |af| %>
-		<%= af.file_path.split('/').last %><%= link_to "Télécharger", url_for_file_column(af.file_path) %><br />
+		<%= af.file_path.split('/').last %><%= link_to "Télécharger", url_for_file_column(af, :file_path) %><br />
 	<% end %>
 </p>
 
