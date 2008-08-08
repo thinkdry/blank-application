@@ -19,12 +19,14 @@ class Workspace < ActiveRecord::Base
   end
 	
 	def new_user_attributes= user_attributes
+	  downcase_user_attributes(user_attributes)
 	  user_attributes.each do |attributes| 
       users_workspaces.build(attributes) 
     end
   end
   
   def existing_user_attributes= user_attributes
+    downcase_user_attributes(user_attributes)
     users_workspaces.reject(&:new_record?).each do |uw|
       attributes = user_attributes[uw.id.to_s]
       attributes ? uw.attributes = attributes : users_workspaces.delete(uw)
@@ -42,4 +44,8 @@ class Workspace < ActiveRecord::Base
     false
   end
   
+  private
+  def downcase_user_attributes(attributes)
+    attributes.each { |value| value['user_login'].downcase! }
+  end
 end

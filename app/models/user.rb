@@ -21,9 +21,10 @@ class User < ActiveRecord::Base
   file_column :image_path, :magick => {:size => "200x200>"}
 
   validates_presence_of     :login
-  validates_length_of       :login,    :within => 3..40
-  validates_uniqueness_of   :login,    :case_sensitive => false
-  validates_format_of       :login,    :with => RE_LOGIN_OK
+  validates_length_of       :login,     :within => 3..40
+  validates_uniqueness_of   :login,     :case_sensitive => false
+  validates_format_of       :login,     :with => /\A[a-z_-]+\z/,
+                                        :message => 'invalide : ne peut comporter que des lettres minuscules.'
 
   validates_presence_of     :email
   validates_length_of       :email,    :within => 6..100 #r@a.wk
