@@ -13,10 +13,14 @@
 		<div id="menu_up">
 			<%= link_to 'Mon Compte', :controller => :account %>
 			|
-			Contenu :	Tout,
-						<% current_user.workspaces.each do |workspace| %>
-							<%= link_to workspace.name, workspace_url(workspace.id) %>,
-						<% end %>
+			Contenu :	<%= link_to 'Tout', :controller => 'items' %>,
+						<%
+							current_user.workspaces.each do |workspace|
+								out = link_to(workspace.name, workspace_url(workspace.id)) + ', '
+								out = content_tag(:strong, out) if (@workspace == workspace)
+								concat(out, binding)
+							end
+						%>
 						<%= link_to 'Nouvel espace', new_workspace_url %>
 			|
 			Recherche

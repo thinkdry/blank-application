@@ -39,12 +39,21 @@ module ActsAsItem
     end
     
     module ClassMethods
+      def item?
+        return true if self.respond_to?(:item)
+        false
+      end
+      
       def acts_as_item
         include ActsAsItem::ModelMethods::InstanceMethods
       end
     end
     
     module InstanceMethods
+      def item
+        true
+      end
+      
       def associated_workspaces= workspace_ids
     		self.workspaces.delete_all
     		workspace_ids.each { |w| self.items.build(:workspace_id => w) }

@@ -59,6 +59,14 @@ class User < ActiveRecord::Base
   # We really need a Dispatch Chain here or something.
   # This will also let us return a human error message.
   #
+  def items
+    (self.artic_files +
+  	 self.audios      +
+  	 self.videos      +
+  	 self.images      +
+  	 self.articles).sort { |a, b| a.created_at <=> b.created_at }
+  end
+  
   def self.authenticate(login, password)
     u = find_by_login(login) # need to get the salt
     u && u.authenticated?(password) ? u : nil

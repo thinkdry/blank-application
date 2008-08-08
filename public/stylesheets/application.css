@@ -58,6 +58,11 @@ div.autocomplete ul li {
   display: inline-block;
 }
 
+#menu_up strong
+{
+	font-size: 150%;
+}
+
 #menu_right {
   	border:2px dashed;
 	float:right;
