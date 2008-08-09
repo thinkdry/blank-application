@@ -1,18 +1,25 @@
 <h1><%= show_title %></h1>
 
-<%= link_to 'Editer', edit_object_path %><br /><br />
-
-<% if @user.image_path %>
-	<%= image_tag(url_for_file_column(@user, 'image_path')) %>
+<% if @current_object.image_path %>
+	<%= image_tag(url_for_file_column(@current_object, 'image_path')) %><br />
 <% end %>
 
-<span class="label">Nom: 		 </label>  	<%= @current_object.lastname %>      	<br />
-<span class="label">Prénom: 	 </label>  	<%= @current_object.firstname %>     	<br />
-<span class="label">Adresse: 	 </label>  	<%= @current_object.addr %>          	<br />
-<span class="label">Laboratoire: </label>  	<%= @current_object.laboratory %>    	<br />
-<span class="label">Email: 		 </label>  	<%= @current_object.email %>         	<br />
-<span class="label">Téléphone:	 </label>  	<%= @current_object.phone %>
-								 </label>  	<%= @current_object.mobile %> 			<br />
-						         </label> 
-<span class="label">Activité:	 </label>  	<%= @current_object.activity %>      	<br />
-<span class="label">Edito:		 </label>  	<%= @current_object.edito %>
+Nom : <%= @current_object.lastname %><br />
+Prénom: <%= @current_object.firstname %><br />
+Adresse: <%= @current_object.addr %><br />
+Laboratoire: <%= @current_object.laboratory %><br />
+Email: <%= @current_object.email %><br />
+Téléphone: <%= @current_object.phone %>	<%= @current_object.mobile %><br />
+Activité:	<%= @current_object.activity %><br />
+Edito: <%= @current_object.edito %><br />
+
+<%= link_to 'Mettre à jour', edit_object_path %>
+
+<br /><br />
+
+<% if permit?("owner of current_object") %>
+	<%= link_to 'Accueil', "" %>
+<% end %>
+<% if permit?("admin") %>
+	<%= link_to 'Retour sur la liste des utilisateurs', users_path %>
+<% end %>

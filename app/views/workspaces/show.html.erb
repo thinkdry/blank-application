@@ -7,3 +7,13 @@
 <% end %>
 
 <%= item_list :workspace_id => @current_object.id %>
+
+<br /><br />
+
+<% if permit?("admin") %>
+	<%= link_to "Mettre à jour", edit_object_path(@current_object) %>
+<% end %>
+
+<br /><br />
+
+<%= link_to "Retour sur le profil", user_path(@current_user) %>

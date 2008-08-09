@@ -1,5 +1,11 @@
 <% @user.password = @user.password_confirmation = nil %>
 
+<p>
+	<label for="user_image_path">Photo</label><br/>
+	<%= image_tag(url_for_file_column(@user, 'image_path')) + '<br />' if @user.image_path %>
+	<%= file_column_field 'user', 'image_path' %>
+</p>
+	
 <% form_for @user, :html => {:multipart => true}, :builder => LabelFormBuilder do |f| -%>
 	<%= f.text_field :login %>
 	<%= f.text_field :email %>
@@ -13,12 +19,6 @@
 	<%= f.text_field :mobile, :label => 'Portable' %>
 	<%= f.text_field :activity, :label => 'Activité' %>
 	
-	<p>
-		<label for="user_image_path">Photo</label><br/>
-		<%= image_tag(url_for_file_column(@user, 'image_path')) + '<br />' if @user.image_path %>
-		<%= file_column_field 'user', 'image_path' %>
-	</p>
-	
 	<%= f.text_area :edito, :label => 'Édito' %>
 	<script type="text/javascript">
 		bkLib.onDomLoaded(function() {
@@ -26,5 +26,6 @@
 		});
 	</script>
 
-	<%= submit_tag 'Créer utilisateur' %>
+	<%= f.submit current_object.new_record? ? 'Créer cet utilisateur' : 'Mettre à jour' %>
+	
 <% end -%>

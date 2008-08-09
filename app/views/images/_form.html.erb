@@ -1,18 +1,19 @@
 <% form_for @current_object, :html => {:multipart => true}, :builder => LabelFormBuilder do |f| -%>
 	
-	<%= f.text_field :title, :label => "Titre :" %>
+	<%= f.text_field :title, :label => "Titre :" %><br />
 	
-	<p>
-		<%= f.label :file_path, "Fichier :"%><br />
-		<%= error_message_on :artic_file, :file_path %><br/>
-		<%= File.basename(@current_object.file_path) + '<br />' if @current_object.file_path %>
-		<%= file_field 'image', 'file_path' %>
-	</p>
+	<%= f.label :file_path, "Fichier :"%><br />
+	<% if @current_object.file_path %>
+		<%= image_tag url_for_file_column(@current_object, :file_path, "web") %><br />
+	<% end %>
+	<%= error_message_on :artic_file, :file_path %><br/>
+	<%= File.basename(@current_object.file_path) + '<br />' if @current_object.file_path %>
+	<%= file_field 'image', 'file_path' %><br />
 	
 	<%= f.text_area :description, :label => 'Description :' %>
 	<script type="text/javascript">
 		bkLib.onDomLoaded(function() {
-			new nicEditor({iconsPath : '/images/nicEditorIcons.gif'}).panelInstance('artic_file_description');
+			new nicEditor({iconsPath : '/images/nicEditorIcons.gif'}).panelInstance('image_description');
 		});
 	</script>
 	
