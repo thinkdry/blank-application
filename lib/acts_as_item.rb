@@ -50,8 +50,8 @@ module ActsAsItem
     end
     
     module InstanceMethods
-      def item
-        true
+      def icon
+        'item_icons/' + self.class.to_s.underscore.downcase + '.png'
       end
       
       def associated_workspaces= workspace_ids

@@ -1,4 +1,4 @@
 <h1>Mon Compte</h1>
-<%= link_to 'Acceuil', :action => :index %><br />
-<%= link_to 'Mon Profil', :action => :profile %><br />
-<%= link_to 'Mon contenu', :action => :contents %>
+<%= link_to 'Acceuil', :controller => :account, :action => :index %><br />
+<%= link_to 'Mon Profil', user_path(current_user) %><br />
+<%= link_to 'Mon contenu', :controller => :account, :action => :contents %>

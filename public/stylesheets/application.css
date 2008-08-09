@@ -85,14 +85,21 @@ div.autocomplete ul li {
 }
 
 .item .window {
-	padding: 0.3em;
 	background-color:#EEEEEE;
-	border: 1px solid black;
+	border:1px dashed black;
+	color:black !important;
 	display:inline;
-	width: 20em;
-	margin-left: 20em;
+	margin-left:46em;
+	padding:0.3em;
 	position:absolute;
-	color: black !important;
+	width:20em;
+	margin-top:-7px;
+}
+
+.item span
+{
+	display: inline-block;
+	overflow: hidden;
 }
 
 .item .window div {
