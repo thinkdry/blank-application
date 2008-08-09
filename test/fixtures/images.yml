@@ -4,10 +4,10 @@ one:
   user: quentin
   title: imageOne
   description: a image file
-  file_path: file.jpg
+  file_path: Record_Dolphin.png
 
 two:
   user: aaron
   title: fileTwo
   description: an other image file
-  file_path: file.png
+  file_path: Record_Dolphin.png
