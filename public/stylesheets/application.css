@@ -1,6 +1,65 @@
-BODY {
-	font-family: monospace;
+body {
+	font-family:"Lucida Grande","Bitstream Vera Sans",Helvetica,Verdana,Arial,sans-serif;
+	margin: 0px;
+	padding: 0px;
 }
+
+#site_title {
+	font-size:170%;
+	font-weight:bold;
+	margin-left:20px;
+	padding-top:19px;
+}
+
+#site_links {
+	color:#F5CBCB;
+	font-size:80%;
+	margin:0pt;
+	position:absolute;
+	right:20pt;
+	top:20px;
+}
+
+#site_links a {
+	color: white;
+}
+
+#site_links a:hover {
+	text-decoration: none;
+}
+
+#site_subtitle {
+	color:#FFCC66;
+	font-size:90%;
+	font-style:italic;
+	margin-left:20px;
+}
+
+#navigation {
+	border-bottom:2px solid #CC0000;
+	font-size:90%;
+	line-height:100%;
+	margin-top:-5px;
+	padding:0.5em 20px 0.5em 0.5em;
+	text-align:right;
+}
+
+#navigation a {
+	background-color:#EAE3C5;
+	color:black;
+	display:inline;
+	outline-color:-moz-use-text-color;
+	outline-style:none;
+	outline-width:medium;
+	padding:0.5em 0.9em;
+	text-decoration:none;
+}
+
+#navigation a:hover {
+	text-decoration: underline;
+	background-color:white;
+}
+
 
 .fieldWithErrors {
 	display: inline-block;
@@ -56,6 +115,11 @@ div.autocomplete ul li {
 
 #user_bar div {
   display: inline-block;
+}
+
+#menu_up {
+	background-color: #CC0000;
+	color: white;
 }
 
 #menu_up strong
