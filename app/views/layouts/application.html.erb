@@ -6,35 +6,38 @@
 
 <body onload="initialize()">
 <div id="page">
+	
 	<div id="menu_up">
 		<div id="site_title">Artic</div>
-		<div id="site_subtitle">Outil de publication scientiques</div>
-		<div id="navigation">
-			<%= link_to 'Mon compte', '#' %>
-			<%= link_to 'Tout le contenu', '' %>
-			<%
-				current_user.workspaces.each do |w|
-					concat link_to(w.name, '#') + ' ', binding
-				end
-			%>
-			<%= link_to 'Nouvel espace de travail' %>
-			<%= link_to 'Recherche' %>
-		</div>
+		<div id="site_subtitle">Publications scientifiques</div>
+		<ul id="navigation">
+				<li><%= link_to 'Mon compte', :controller => :account, :action => :index %></li>
+				<li>
+					Contenu
+					<ul>
+						<li><%= link_to 'Toutes les publications', :controller => :items, :action => :index %></li>
+						<li>Par espace de travail'</li>
+						<% current_user.workspaces.each do |w|
+							concat content_tag(:li, '&nbsp;&nbsp;&nbsp;&nbsp;' + link_to(w.name, workspace_path(w))), binding
+						 end %>
+						</li>
+					</ul>
+				</li>
+				<li><%= link_to 'Recherche', '', :style => 'text-decoration:line-through'%></li>
+		</ul>
 		<div id="site_links">
-			<%= link_to 'Se déconnecter', '#' %> |
-			<%= link_to 'Administration' %>
+			<%= link_to 'Se déconnecter', '/logout' %> |
+			<%= link_to 'Administration', :controller => :admin %>
 		</div>
+
+	</div>
+	
+	<div id="container">
+		<%= content_tag(:div, flash[:notice], :class => 'notice') if flash[:notice] %>
+
+		<%= yield %>
 	</div>
 
-	<% if session && session[:menu] %>
-		<div id="menu_right">
-			<%= render :partial => "#{session[:menu]}/menu" %>
-		</div>
-	<% end %>
-
-	<%= content_tag(:div, flash[:notice], :class => 'notice') if flash[:notice] %>
-
-	<%= yield %>
 </div>
 </body>
 </html>
