@@ -1,5 +1,7 @@
 <% form_for @workspace, :builder => LabelFormBuilder do |f| -%>
 	
+	<%= f.hidden_field :creator, :value => self.current_user.id %>
+	
 	<%= f.text_field :name, :label => "Nom de l'espace de travail" %>
 
 	<h2>Utilisateurs associés:</h2>

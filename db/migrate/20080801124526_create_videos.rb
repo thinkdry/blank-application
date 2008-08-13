@@ -5,9 +5,10 @@ class CreateVideos < ActiveRecord::Migration
       t.string :title
       t.text :description
       t.string :file_path
-			t.string :encoded_file_path
+			t.string :encoded_file
+			t.string :thumbnail
 			t.boolean :private, :default => false
-			
+
       t.timestamps
     end
   end

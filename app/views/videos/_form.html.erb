@@ -6,13 +6,13 @@
 		<%= f.label :file_path, 'Fichier :' %>
 		<%= error_message_on :artic_file, :file_path %><br/>
 		<%= File.basename(@current_object.file_path) + '<br />' if @current_object.file_path %>
-		<%= file_column_field 'video', 'file_path' %>
+		<%= file_column_field "video", 'file_path' %>
 	</p>
 	
 	<%= f.text_area :description, :label => 'Description :' %>
 	<script type="text/javascript">
 		bkLib.onDomLoaded(function() {
-			new nicEditor({iconsPath : '/images/nicEditorIcons.gif'}).panelInstance('artic_file_description');
+			new nicEditor({iconsPath : '/images/nicEditorIcons.gif'}).panelInstance('video_description');
 		});
 	</script>
 	
