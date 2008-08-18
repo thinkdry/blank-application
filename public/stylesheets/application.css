@@ -8,6 +8,14 @@ body {
 	padding: 0em 1em 1em;
 }
 
+#page_title {
+	font-size:250%;
+	left:300px;
+	position:absolute;
+	top:20px;
+	z-index:2;
+}
+
 #site_title {
 	font-size:170%;
 	font-weight:bold;
@@ -50,7 +58,7 @@ body {
 #navigation a {
 	color: black;
 	text-decoration: none;
-	font-weight: normal !important;
+	font-weight: bold !important;
 }
 
 #navigation a:hover {
@@ -59,7 +67,6 @@ body {
 }
 
 #navigation ul{
-    position:absolute;
     display:block;
 	margin: 0;
 	padding: 0;
@@ -69,24 +76,32 @@ body {
 	background-color: #eeeeee;
 }
     
-#navigation li > ul{
+#navigation li ul{
     visibility:hidden;
 	margin: 0.5em -0.9em;
+	clear: both;
 }
 
-#navigation li:hover > ul
+#navigation li:hover ul
 {
 	visibility: visible;
 }
 
 #navigation li {
+	position: relative;
     list-style:none;
-    display:inline-block;
+    display:inline;
 	background-color:#EAE3C5;
 	text-align: left;
 	padding:0.5em 0.9em;
 	font-weight: bold;
 	color: black;
+	z-index: 3;
+}
+
+#navigation li li
+{
+	float:none;
 }
     
 #navigation li li{
@@ -159,14 +174,29 @@ div.autocomplete ul li {
 	font-size: 150%;
 }
 
-#menu_right {
-  	border:2px dashed;
-	float:right;
+#right_menu {
+	background-color:#EAE3C5;
+	margin-top:2em;
 	padding:1em;
 	position:absolute;
-	right:3em;
-	top:7em;
-	width: 15em;
+	right:2.5em;
+	text-align:center;
+	width:10em;
+	z-index:2;
+	font-size: 90%;
+}
+
+#right_menu a {
+	color: black;
+	text-decoration: none
+}
+
+#right_menu h1 {
+	font-size: 12pt;
+}
+
+#right_menu a:hover {
+	text-decoration: underline !important;
 }
 
 .over {
@@ -177,15 +207,13 @@ div.autocomplete ul li {
 
 .item {
 	padding: 0.5em;
-	max-width: 40em;
+	width: 35em;
 }
 
 .item .window {
-	background-color:#EEEEEE;
-	border:1px dashed black;
-	color:black !important;
+	color: black !important;
 	display:inline;
-	margin-left:46em;
+	margin-left:50em;
 	padding:0.7em;
 	position:absolute;
 	width:20em;

@@ -1,13 +1,2 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  user: quentin
-  title: videoOne
-  description: a video file
-  file_path: file.avi
-
-two:
-  user: aaron
-  title: videoTwo
-  description: an other video file
-  file_path: file.mpg

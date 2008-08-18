@@ -1,11 +1,2 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  user: quentin
-  title: articleOne
-  description: a article
- 
-two:
-  user: aaron
-  title: articleTwo
-  description: an other article

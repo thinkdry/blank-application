@@ -16,7 +16,7 @@ class Video < ActiveRecord::Base
   after_save  :encode_video
   
   def encoded_file
-    return super if File.exists?(RAILS_ROOT + attributes['encoded_file'])
+    return super if attributes['encoded_file'] && File.exists?(RAILS_ROOT + attributes['encoded_file'])
     nil
   end
   

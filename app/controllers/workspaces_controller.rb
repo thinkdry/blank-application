@@ -10,6 +10,10 @@ class WorkspacesController < ApplicationController
       session[:menu] = 'workspaces'
     end
     
+    before :index do
+      session[:menu] = 'items'
+    end
+    
     before :update do
       # Hack. Permit deletion of all assigned users (with roles).
       params["workspace"]["existing_user_attributes"] ||= {}

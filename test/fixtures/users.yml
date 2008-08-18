@@ -15,37 +15,4 @@ quentin:
   activity:                     riendutout
   image_path:                   'image.png'
   system_role:                  admin
-  
-      
-aaron:
-  login:                        aaron
-  email:                        aaron@example.com
-  salt:                         da4b9237bacccdf19c0760cab7aec4a8359010b0 # SHA1('1')
-  crypted_password:             4fb69b59a17c693c80edd6f01e27a4a2dfee82aa # 'monkey'
-  created_at:                   <%= 1.days.ago.to_s :db %>
-  remember_token_expires_at: 
-  remember_token:            
-  lastname:                     dupond
-  firstname:                    quentin
-  laboratory:                   hisLab
-  mobile:                       0612345678
-  phone:                        0112345678
-  addr:                         42 rue du chat qui pette
-  activity:                     riendutout
-  image_path:                   'image.png'
-
-old_password_holder:
-  login:                        old_password_holder
-  email:                        salty_dog@example.com
-  salt:                         7e3041ebc2fc05a40c60028e2c4901a81035d3cd
-  crypted_password:             00742970dc9e6319f8019fd54864d3ea740f04b1 # test
-  created_at:                   <%= 1.days.ago.to_s :db %>
-  lastname:                     dupond
-  firstname:                    quentin
-  laboratory:                   hisLab
-  mobile:                       0612345678
-  phone:                        0112345678
-  addr:                         42 rue du chat qui pette
-  activity:                     riendutout
-  image_path:                   'image.png'
 

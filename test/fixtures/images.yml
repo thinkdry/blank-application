@@ -5,9 +5,3 @@ one:
   title: imageOne
   description: a image file
   file_path: Record_Dolphin.png
-
-two:
-  user: aaron
-  title: fileTwo
-  description: an other image file
-  file_path: Record_Dolphin.png

@@ -81,20 +81,16 @@ class User < ActiveRecord::Base
      return(true) if (role == 'owner' && user == self)
      false
    end
-	 
+	
 	def workspaces_administred
-		if (r = Workspace.find(:all, :conditions => { :creator => self.id }))
-			return r
-		else
-			return []
-    end
+	  Workspace.find(:all, :conditions => { :creator_id => self.id })
   end
 	
 	def workspaces_consulted
-		if (r = (UsersWorkspace.find(:all, :conditions => { :user_id => self.id }) - self.workspaces_administred))
-			return r
-		else
-			return []
-    end
+	  UsersWorkspace.find(:all, :conditions => { :user_id => self.id })
+  end
+  
+  def all_workspaces
+    workspaces_consulted + workspaces_administred
   end
 end

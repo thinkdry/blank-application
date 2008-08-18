@@ -10,31 +10,31 @@
 	<div id="menu_up">
 		<div id="site_title">Artic</div>
 		<div id="site_subtitle">Publications scientifiques</div>
-		<ul id="navigation">
-				<li><%= link_to 'Mon compte', :controller => :account, :action => :index %></li>
-				<li>
-					Contenu
-					<ul>
-						<li><%= link_to 'Toutes les publications', :controller => :items, :action => :index %></li>
-						<li>Par espace de travail'</li>
-						<% current_user.workspaces.each do |w|
-							concat content_tag(:li, '&nbsp;&nbsp;&nbsp;&nbsp;' + link_to(w.name, workspace_path(w))), binding
-						 end %>
-						</li>
-					</ul>
-				</li>
-				<li><%= link_to 'Recherche', '', :style => 'text-decoration:line-through'%></li>
-		</ul>
 		<div id="site_links">
 			<%= link_to 'Se déconnecter', '/logout' %> |
 			<%= link_to 'Administration', :controller => :admin %>
 		</div>
+		<div id="navigation">
+			<ul>
+				<li>
+					<%= link_to 'Acceuil - Mon compte', '/' %>
+				</li>
+				<li>
+					<%= link_to 'Contenu', workspaces_path %>
+				</li>
+				<li>
+					<%= link_to 'Recherche', '' %>
+				</li>
+			</ul>
+		</div>
+		<div id="page_title">
 
+		</div>
 	</div>
 	
 	<div id="container">
 		<%= content_tag(:div, flash[:notice], :class => 'notice') if flash[:notice] %>
-
+		<%= right_menu %>
 		<%= yield %>
 	</div>
 

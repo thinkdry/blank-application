@@ -1,16 +1,2 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  workspace: one
-  role: one
-  user: quentin
-
-two:
-  workspace: two
-  role: two
-  user: aaron
-
-three:
-  workspace: two
-  role: one
-  user: quentin

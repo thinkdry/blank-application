@@ -1,6 +1,15 @@
+<h1>Contenu</h1>
+
+<%= link_to '- Tout lister -', :controller => :items, :action => :index %><br>
+
 <%= link_to 'Articles',		articles_url	%>		<br />
 <%= link_to 'Images',		images_url 		%>		<br />
 <%= link_to 'Audios',		audios_url		%>		<br />
 <%= link_to 'Videos',		videos_url 		%>		<br />
 <%= link_to 'Fichiers',		artic_files_url %>		<br />
 Publications
+
+<h1>Espaces</h1>
+<% current_user.all_workspaces.each do |ws|
+	concat link_to(ws.name, workspace_path(ws.id)) + '<br />', binding
+	end %>

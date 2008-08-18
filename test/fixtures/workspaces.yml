@@ -1,9 +1,10 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  creator: users(:quentin).id
-  name: ws1
+cancerologie:
+  creator: quentin
+  name: Cancérologie
 
-two:
-  creator: users(:aaron).id
-  name: ws2
+fun:
+  creator: quentin
+  name: Fun
+ 

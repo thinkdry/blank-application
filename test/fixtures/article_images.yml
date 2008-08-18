@@ -1,9 +1,2 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  article: one
-  image_path: image.png
-
-two:
-  article: two
-  image_path: image.jpg

@@ -16,7 +16,7 @@ module ItemsHelper
   # Render a lisf of recent items, recent comments and recent publications.
   # (Uses the `small_item_list` helper)
   def item_list(conditions = {})
-    conditions = { :workspace_id => current_user.workspaces } if conditions == {}
+    conditions = { :workspace_id => current_user.all_workspaces } if conditions == {}
     
     list = Item.find(:all,
       :order => 'created_at DESC',

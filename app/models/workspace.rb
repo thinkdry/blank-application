@@ -11,6 +11,8 @@ class Workspace < ActiveRecord::Base
 	
 	after_update  :save_users_workspaces
 	
+	belongs_to :creator, :class_name => 'User'
+	
 	def uniqueness_of_users
 	  new_users = self.users_workspaces.reject { |e| ! e.new_record? }.collect { |e| e.user }
 	  new_users.size.times do

@@ -1,42 +1,5 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  itemable: one (ArticFile)
-  workspace: one
-
-two:
-  itemable: two (ArticFile)
-  workspace: two
-
-three:
-  itemable: one (Audio)
-  workspace: one
-
-four:
-  itemable: two (Audio)
-  workspace: two
-
-five:
-  itemable: one (Video)
-  workspace: one
-
-six:
-  itemable: two (Video)
-  workspace: two
-
-seven:
-  itemable: one (Image)
-  workspace: one
-
-eight:
-  itemable: two (Image)
-  workspace: two
-
-nine:
-  itemable: one (Article)
-  workspace: one
-
-ten:
-  itemable: two (Article)
-  workspace: two
-
+image_one_on_fun_workspace:
+    itemable: one (Image)
+    workspace: fun
