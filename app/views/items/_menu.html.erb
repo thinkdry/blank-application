@@ -9,7 +9,11 @@
 <%= link_to 'Fichiers',		artic_files_url %>		<br />
 Publications
 
+<h1><%= link_to 'Nouvel élément', :controller => :items, :action => :index, :anchor => "add_links" %></h1>
+
 <h1>Espaces</h1>
-<% current_user.all_workspaces.each do |ws|
-	concat link_to(ws.name, workspace_path(ws.id)) + '<br />', binding
-	end %>
+<%
+	current_user.all_workspaces.each do |ws|
+		concat link_to(ws.name, workspace_path(ws.id)) + '<br />', binding
+	end
+%>

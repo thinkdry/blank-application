@@ -1,0 +1,16 @@
+<h1><%= title %></h1>
+
+<h2><%= object.title %></h2>
+
+<div><%= object.description %></div>
+
+<p>
+	<%= capture(&block) %>
+</p>
+
+<p>
+	<div>
+		Commenter:
+	</div>
+	<%= text_area_tag :new_comment %>
+</p>

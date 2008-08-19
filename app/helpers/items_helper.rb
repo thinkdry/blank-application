@@ -1,4 +1,13 @@
 module ItemsHelper
+  def item_show(parameters, &block)
+    concat\
+      render( :partial => "items/show",
+              :locals => {  :object => parameters[:object],
+                            :title => parameters[:title],
+                            :block => block                 } ),
+      block.binding
+  end
+  
   # Container of tags that include modal window. Contains the javascript events.
   # Please apply 'hidden' class on each child you want to be displayed on mouseover.
   def item_reactive_content_tag(tag, object, &block)

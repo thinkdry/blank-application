@@ -1,0 +1,15 @@
+<h1>Contenu</h1>
+
+<h2>
+	<%= link_to 'Afficher tout les éléments', :controller => :items, :action => :index %>
+</h2>
+
+<h2>Travailler sur un espace</h2>
+
+<ul>
+<%
+	current_user.all_workspaces.each do |ws|
+		concat content_tag(:h3, link_to(ws.name, workspace_path(ws.id))), binding
+	end
+%>
+</ul>

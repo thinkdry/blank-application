@@ -232,7 +232,7 @@ div.autocomplete ul li {
 
 .hidden {
 	display: none !important;
-	font-size: 12px;
+	font-size: 80%;
 	padding-left: 2em;
 }
 
