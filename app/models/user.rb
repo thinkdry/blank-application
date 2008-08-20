@@ -16,6 +16,8 @@ class User < ActiveRecord::Base
 	has_many :videos
 	has_many :images
 	has_many :articles
+	has_many :rattings
+	has_many :comments
 	belongs_to :system_role
   
   file_column :image_path, :magick => {:size => "200x200>"}

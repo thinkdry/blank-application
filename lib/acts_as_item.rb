@@ -46,6 +46,11 @@ module ActsAsItem
       
       def acts_as_item
         include ActsAsItem::ModelMethods::InstanceMethods
+        
+        has_many :taggings, :as => :taggable
+        has_many :tags,     :through => :taggings
+        has_many :rattings, :as => :rateable
+        has_many :comments, :as => :commentable
       end
     end
     
