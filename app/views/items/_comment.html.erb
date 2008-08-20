@@ -1,0 +1,8 @@
+<p>
+	<div class="comment_header">
+		<%= object.created_at.l(:long) %>
+		-
+		<%= object.user.firstname %> <%= object.user.lastname %>
+	</div>
+	<%= object.text %> <br>
+</p>

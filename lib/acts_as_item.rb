@@ -50,7 +50,7 @@ module ActsAsItem
         has_many :taggings, :as => :taggable
         has_many :tags,     :through => :taggings
         has_many :rattings, :as => :rateable
-        has_many :comments, :as => :commentable
+        has_many :comments, :as => :commentable, :order => 'created_at ASC'
       end
     end
     

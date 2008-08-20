@@ -4,12 +4,28 @@
 
 <div><%= object.description %></div>
 
+<p id="note">
+	<strong>Note:</strong>
+	xxxxx
+</p>
+
+<p id="tags">
+	<strong>Tags:</strong>
+</p>
+
+<p id="workspaces">
+	<strong>Diffusé dans les espaces de travail suivants:</strong>
+	Lorem ipsum dolor
 <p>
 	<%= capture(&block) %>
 </p>
 
 <p>
+	<h2>Commentaires:</h2>
+	<%= render :partial => "items/comment", :collection => object.comments %>
 	
-	<h3>Commenter:</h3>
-	<%= text_area_tag :new_comment %>
+	<h3>Ajouter votre commentaire:</h3>
+	<%= text_area_tag :new_comment, nil, :class => :comment_box %>
+	<br>
+	<%= submit_tag 'Ajouter' %>
 </p>
