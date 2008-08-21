@@ -9,9 +9,7 @@ class Article < ActiveRecord::Base
 	
 	validates_presence_of	:title,
 		:description,
-		:introduction,
 		:body,
-		:conclusion,
 		:user
 		
 	def new_file_attributes= file_attributes

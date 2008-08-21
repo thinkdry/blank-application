@@ -1,7 +1,7 @@
 <% item_show( :title => 'Article',  :object => @current_object ) do %>
-	Introduction : <%= @current_object.introduction %><br />
-	Corps : <%= @current_object.body %><br />
-	Conclusion : <%= @current_object.conclusion %><br />
+	<p>
+		<%= @current_object.body %>
+	</p>
 
 	Fichiers joints :<br />
 	<% @current_object.article_files.each do |af| %>

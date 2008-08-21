@@ -9,24 +9,10 @@
 		});
 	</script>
 
-	<%= f.text_area :introduction, :label => 'Introduction :' %>
-	<script type="text/javascript">
-		bkLib.onDomLoaded(function() {
-			new nicEditor({iconsPath : '/images/nicEditorIcons.gif'}).panelInstance('article_introduction');
-		});
-	</script>
-
 	<%= f.text_area :body, :label => 'Corps :' %>
 	<script type="text/javascript">
 		bkLib.onDomLoaded(function() {
 			new nicEditor({iconsPath : '/images/nicEditorIcons.gif'}).panelInstance('article_body');
-		});
-	</script>
-
-	<%= f.text_area :conclusion, :label => 'Conclusion :' %>
-	<script type="text/javascript">
-		bkLib.onDomLoaded(function() {
-			new nicEditor({iconsPath : '/images/nicEditorIcons.gif'}).panelInstance('article_conclusion');
 		});
 	</script>
 	
