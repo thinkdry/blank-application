@@ -12,23 +12,23 @@ class Video < ActiveRecord::Base
 		:file_path,
 		:user
 	
-	before_save :set_encoded_file_path
   after_save  :encode_video
   
   def encoded_file
-    return super if attributes['encoded_file'] && File.exists?(RAILS_ROOT + attributes['encoded_file'])
+    return super if attributes['encoded_file'] && File.exists?(RAILS_ROOT + '/public' + attributes['encoded_file'])
     nil
   end
   
   def set_encoded_file_path
     public_directory = "/video/#{self.id}/"
-    self.encoded_file = public_directory + 'video.flv'
+    self.update_attribute(:encoded_file, public_directory + 'video.flv')
     @dest_directory = RAILS_ROOT + '/public' + public_directory
   end
   
   def encode_video
     return false if !self.file_path_just_uploaded? || @encoding_in_progress
     @encoding_in_progress = true
+    set_encoded_file_path
     VideoEncoder.new(self.id, self.file_path, @dest_directory)
   end
 end
@@ -51,7 +51,7 @@ class VideoEncoder
   
   private
   def upload
-    @uploaded_video = HeyWatch::Video.create(:file => @file_path, :name => 'video.flv') { |*args| true }
+    @uploaded_video = HeyWatch::Video.create(:file => @file_path, :title => 'video') { |*args| true }
   end
 
   def encode
