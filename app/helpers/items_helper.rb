@@ -24,14 +24,36 @@ module ItemsHelper
   
   # Render a lisf of recent items, recent comments and recent publications.
   # (Uses the `small_item_list` helper)
-  def item_list(conditions = {})
-    conditions = { :workspace_id => current_user.all_workspaces } if conditions == {}
+  def item_list(params = Hash.new)
     
-    list = Item.find(:all,
-      :order => 'created_at DESC',
-      :limit => 10,
-      :conditions => conditions).collect { |item| item.itemable }
-    render :partial => "items/list", :object => list
+    # Default params
+    params[:workspaces] = Array(params[:workspaces]) || current_user.all_workspaces
+    params[:include_private_items] ||= params[:workspaces].empty? ? true : false
+    
+    items = [] # List being rendered
+    
+    # 1st: Collect items in workspaces
+    unless params[:workspaces].empty?
+      conditions = [ "workspace_id IN (?)", params[:workspaces] ]
+      items = Item.find(:all,
+        :order => 'created_at DESC',
+        :limit => 10,
+        :conditions => conditions)
+      items.collect! { |item| item.itemable }
+    end
+    
+    # 2nd: Include private item
+    if params[:include_private_items]
+      [:images, :articles, :audios, :artic_files, :videos].each do |itemable_type|
+        items |= current_user.send(itemable_type)
+      end
+    end
+    
+    # Sort by CREATED_AT DESC
+    items.sort! {|a, b| b.created_at <=> a.created_at }
+    
+    render :partial => "items/list", :object => items[0..10]
+    
   end
   
   # Item. Type, title and author.

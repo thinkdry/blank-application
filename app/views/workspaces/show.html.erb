@@ -6,7 +6,7 @@
 	<%= uw.user_login %>: <%= Role.find(uw.role_id).name %> <br />
 <% end %>
 
-<%= item_list :workspace_id => @current_object.id %>
+<%= item_list :workspaces => @current_object %>
 
 <br /><br />
 
