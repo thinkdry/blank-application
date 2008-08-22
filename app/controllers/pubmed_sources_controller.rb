@@ -1,3 +1,5 @@
+# TODO: Associate author (user) on creation
+
 require 'pubmed'
 
 class PubmedSourcesController < ApplicationController

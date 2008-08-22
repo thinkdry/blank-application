@@ -1,7 +1,7 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-# one:
-#   column: value
-#
-# two:
-#   column: value
+cancer:
+    name: Cancer
+    description: Tout, tout, vous saurez tout sur le cancer...
+    url: http://eutils.ncbi.nlm.nih.gov/entrez/eutils/erss.cgi?rss_guid=1L77UU-fM1-fNUjYRFRAGKQxNNZOSnz1FVKVvNbr1-VluAOQr
+    user: quentin

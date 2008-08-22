@@ -86,6 +86,3 @@ Rails::Initializer.run do |config|
 end
 
 Globalite.language = :fr
-
-require 'heywatch'
-HeyWatch::Base::establish_connection! :login => 'koad9', :password => 'personne'

@@ -1,3 +1,6 @@
+require 'heywatch'
+HeyWatch::Base::establish_connection! :login => 'koad9', :password => 'personne'
+
 require 'ftools'
 
 class Video < ActiveRecord::Base
