@@ -1,0 +1,17 @@
+<style type="text/css" media="screen">
+	.pubmed_item {
+		background-color: #eeeeee;
+	}
+</style>
+
+<div class="pubmed_item">
+
+<h2><%= item.title %></h2>
+<div class="description"><%= item.description %></div>
+<div class="links">
+	<%= link_to 'Importer dans Artic', '', :style => 'float: left' %>
+	&nbsp;&nbsp;
+	<%= link_to 'Lien vers Pubmed', item.link %>
+</div>
+
+</div>

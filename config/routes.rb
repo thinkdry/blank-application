@@ -26,7 +26,7 @@ ActionController::Routing::Routes.draw do |map|
     parent.resources :images
     # Publication sources are private, but need to be scoped to import publication
     # into right workspace
-    parent.resources :publications_sources
+    parent.resources :pubmed_sources
   end
 
   # Items created outside any workspace are private or fully public.
