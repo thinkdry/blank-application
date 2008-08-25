@@ -4,33 +4,35 @@
 	<h1>
 		Espace Fun
 	</h1>
-	<span class="txt_80_666">Phasellus pharetra. Duis velit lacus, ornare ultrices, commodo eu, ultricies non, dolor. Donec rhoncus nunc nec ipsum. Etiam id lacus eu tortor vehicula facilisis. Ut et leo sit amet felis pharetra vehicula. Integer a felis id est placerat semper. Cras nec nisi. Proin turpis odio, iaculis sit amet, tincidunt sit amet, rhoncus ac, metus. Aliquam erat volutpat. Proin luctus porta diam. Pellentesque placerat. Vestibulum nulla magna, rhoncus sit amet, mollis vitae, fermentum ullamcorper, enim.</span>
+	<span class="txt_80_666"><%= @current_object.description %></span>
 </div>
 <div id="area_USERS">
 	<h2>
 		Utilisateurs inscrits dans cet espace
 	</h2>
-	Administrateur : <a href="#"><%= @current_object.creator.firstname + ' ' + @current_object.creator.lastname %></a><br>
-	<span class="txt_80_666">Auteurs : <a href="#">Quentin Dupont</a>, <a href="#">Binouze Maxi</a>, <a href="#">Pastis Ricard</a>, <a href="#">Pouet-Pouet Tagada</a>, <a href="#">Mister Saucisse</a>, <a href="#">Chouette de la Forêt Magique</a></span>
+	Administrateur : <%= link_to_user(@current_object.creator) %>
+	<div class="txt_80_666">
+		Auteurs : <%= @current_object.users.collect { |u| link_to_user(u) }.join(', ') %>
+	</div>
 </div>
 <div id="area_POST">
 	<div id="area_ADDED">
-		<span class="txt_100_000"><strong>Les 5 derniers éléments ajoutés</strong></span><strong><br>
-		<br></strong>
+		<div class="txt_100_000"><strong>Les 5 derniers éléments ajoutés</strong></div><br>
 		<% @current_object.items(:limit => 5).collect { |e| e.itemable }.each do |e| %>
 			<div class="item" onclick="window.location.href = '<%= item_url(e) %>'" onmouseout='this.removeClassName("over")' onmouseover='this.addClassName("over")'>
 				<%= image_tag(e.icon) %> imageOne<br>
-				<span class="txt_80_666">par Quentin Dupond le 20 Août, 2008 à 12:23<br>
-				42 commentaires - <strong>Note :</strong></span> <%= Array.new(5, image_tag('star.png', :width => 12, :height => 12)) %>
+				<span class="txt_80_666">par <%= link_to_user(e.user) %> le <%= e.created_at.l(:long) %>
 			</div>
 		<% end %>
 	</div>
 	<div id="area_COMMENTS">
-		<span class="titre"><strong>Les 8 derniers commentaires publiés</strong></span><br>
+		<span class="titre"><strong>Les 5 derniers commentaires publiés</strong></span><br>
 		<br>
-		<div class="item" id="item_-613527198" onclick="window.location.href = 'http://think-alternative.net:3060/images/953125641'" onmouseout='this.removeClassName("over")' onmouseover='this.addClassName("over")'>
-			</div>Ouais super content pour toi...<br>
-			<span class="txt_80_666">par <a href="#">Quentin Dupond</a> le 20 Août, 2008 à 12:23<br></span>
-		</div>
+		<% @current_object.latest_comments.each do |e| %>
+			<div class="item" onclick="window.location.href = '<%= item_url(e.commentable) %>'" onmouseout='this.removeClassName("over")' onmouseover='this.addClassName("over")'>
+			<%= e.commentable.title %> : <%= e.text[0..30] %><%= '...' if e.text.length > 30 %><br>
+			<span class="txt_80_666">par <%= link_to_user(e.user) %> le <%= e.created_at.l(:long) %><br></span>
+			</div>
+		<% end %>
 	</div>
 </div>

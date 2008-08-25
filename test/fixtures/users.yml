@@ -16,3 +16,20 @@ quentin:
   image_path:                   'image.png'
   system_role:                  admin
 
+yvon:
+    login:                        yvon
+    email:                        yvon@example.com
+    salt:                         356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
+    crypted_password:             a2c297302eb67e8f981a0f9bfae0e45e4d0e4317 # 'monkey'
+    created_at:                   <%= 2.days.ago.to_s :db  %>
+    remember_token_expires_at:    <%= 1.days.from_now.to_s %>
+    remember_token:               77de68daecd823babbb58edb1c8e14d7106e83bb
+    lastname:                     cognard
+    firstname:                    yvon
+    laboratory:                   labo2
+    mobile:                       0612345678
+    phone:                        0112345678
+    addr:                         11 rue Buffon
+    activity:                     Development
+    image_path:                   'image.png'
+    system_role:                  admin

@@ -1,2 +1,6 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
+yvon_fun_role_one:
+    workspace: fun
+    user: yvon
+    role: one

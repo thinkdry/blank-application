@@ -4,9 +4,8 @@
 		<% 
 			[:article, :image, :artic_file, :video, :audio, :publication].each do |elem|
 				model = elem.to_s.classify.constantize
-				p model
 				concat\
-					content_tag(:li, link_to(model.label.pluralize, send("new_#{elem}_path")),
+					content_tag(:li, link_to(model.label.pluralize, send("workspace_#{elem.to_s.pluralize}_path", @current_object)),
 						:style => "list-style-image:url(/images/#{model.icon});list-style-position:inside"),
 					binding
 			end
@@ -17,26 +16,26 @@
 	<span class="titre">Ajouter</span><br>
 	<div id="slct_ADD">
 		<form name="form1" method="post" action="" id="form1">
-			<select name="slct_filtre" id="slct_filtre">
-				<option selected>
+			<select name="slct_filtre" id="slct_filtre" onchange="document.location.href = this.value">
+				<option selected value='#'>
 					--------
 				</option>
-				<option value="http://think-alternative.net:3060/workspaces/876922099/articles">
+				<option value="<%= new_workspace_article_path(@current_object) %>">
 					Un article
 				</option>
-				<option value="http://think-alternative.net:3060/workspaces/876922099/images">
+				<option value="<%= new_workspace_image_path(@current_object) %>">
 					Une image
 				</option>
-				<option value="http://think-alternative.net:3060/workspaces/876922099/audios">
+				<option value="<%= new_workspace_audio_path(@current_object) %>">
 					Fichier Audio
 				</option>
-				<option value="http://think-alternative.net:3060/workspaces/876922099/videos">
+				<option value="<%= new_workspace_video_path(@current_object) %>">
 					Fichier Vidéo
 				</option>
-				<option value="http://think-alternative.net:3060/workspaces/876922099/artic-files">
+				<option value="<%= new_workspace_artic_file_path(@current_object) %>">
 					Fichier
 				</option>
-				<option value="http://think-alternative.net:3060/workspaces/876922099/publi">
+				<option value="<%= new_workspace_publication_path(@current_object) %>">
 					Une publication
 				</option>
 			</select>

@@ -13,6 +13,10 @@ class Workspace < ActiveRecord::Base
 	
 	belongs_to :creator, :class_name => 'User'
 	
+	def latest_comments
+	  Comment.all(:order => 'created_at DESC').select { |c| c.commentable.workspace_ids.include?(self.id) }[0..5]
+  end
+	
 	def uniqueness_of_users
 	  new_users = self.users_workspaces.reject { |e| ! e.new_record? }.collect { |e| e.user }
 	  new_users.size.times do
