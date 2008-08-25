@@ -13,4 +13,8 @@ class Image < ActiveRecord::Base
 	
 	#validates_file_format_of :file_path, :in => ["gif", "png", "jpg"]
 	
+	def self.label
+	  "Image"
+	end
+	
 end

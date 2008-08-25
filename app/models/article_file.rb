@@ -4,4 +4,8 @@ class ArticleFile < ActiveRecord::Base
 	
 	file_column :file_path
 	
+	def self.label
+	  "Fichier"
+	end
+	
 end

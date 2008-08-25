@@ -1,12 +1,45 @@
-<% if @workspace && !@workspace.new_record? %>
-
-<h1><%= @workspace.name %></h1>
-
-<%= link_to 'Articles',		workspace_articles_url(@workspace.id) %>	<br />
-<%= link_to 'Images',		workspace_images_url(@workspace.id) %>		<br />
-<%= link_to 'Audios',		workspace_audios_url(@workspace.id) %>		<br />
-<%= link_to 'Videos',		workspace_videos_url(@workspace.id) %>		<br />
-<%= link_to 'Fichiers',		workspace_artic_files_url(@workspace.id) %>	<br />
-Publications
-
-<% end %>
+<div id="right_menu">
+	<span class="titre">Filtrer</span><br>
+	<ul>
+		<% 
+			[:article, :image, :artic_file, :video, :audio, :publication].each do |elem|
+				model = elem.to_s.classify.constantize
+				p model
+				concat\
+					content_tag(:li, link_to(model.label.pluralize, send("new_#{elem}_path")),
+						:style => "list-style-image:url(/images/#{model.icon});list-style-position:inside"),
+					binding
+			end
+		%>
+	</ul>
+</div>
+<div id="Add_menu">
+	<span class="titre">Ajouter</span><br>
+	<div id="slct_ADD">
+		<form name="form1" method="post" action="" id="form1">
+			<select name="slct_filtre" id="slct_filtre">
+				<option selected>
+					--------
+				</option>
+				<option value="http://think-alternative.net:3060/workspaces/876922099/articles">
+					Un article
+				</option>
+				<option value="http://think-alternative.net:3060/workspaces/876922099/images">
+					Une image
+				</option>
+				<option value="http://think-alternative.net:3060/workspaces/876922099/audios">
+					Fichier Audio
+				</option>
+				<option value="http://think-alternative.net:3060/workspaces/876922099/videos">
+					Fichier Vidéo
+				</option>
+				<option value="http://think-alternative.net:3060/workspaces/876922099/artic-files">
+					Fichier
+				</option>
+				<option value="http://think-alternative.net:3060/workspaces/876922099/publi">
+					Une publication
+				</option>
+			</select>
+		</form>
+	</div>
+</div>

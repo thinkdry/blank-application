@@ -52,11 +52,15 @@ module ActsAsItem
         has_many :rattings, :as => :rateable
         has_many :comments, :as => :commentable, :order => 'created_at ASC'
       end
+      
+      def icon
+        'item_icons/' + self.to_s.underscore + '.png'
+      end
     end
     
     module InstanceMethods
       def icon
-        'item_icons/' + self.class.to_s.underscore.downcase + '.png'
+         self.class.icon
       end
       
       def associated_workspaces= workspace_ids

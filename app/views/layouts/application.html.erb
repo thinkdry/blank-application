@@ -7,34 +7,57 @@
 <body onload="initialize()">
 <div id="page">
 	
-	<div id="menu_up">
-		<div id="site_title">Artic</div>
-		<div id="site_subtitle">Publications scientifiques</div>
-		<div id="site_links">
-			<%= link_to 'Se déconnecter', '/logout' %> |
-			<%= link_to 'Administration', :controller => :admin %>
+	<div id="header">
+		<div id="logo">
+			<%= image_tag 'logo.gif', :width => '400', :height => '80' %>
 		</div>
-		<div id="navigation">
+		<div id="main_links">
+			Bienvenue <%= @current_user.firstname.capitalize %> | <%= link_to 'Mon compte', '/account' %> </a> | <%= link_to 'Administration', '/admin' %>  | <%= link_to 'Se déconnecter', '/logout' %>
+		</div>
+		<div id="MenuHR">
 			<ul>
 				<li>
-					<%= link_to 'Acceuil - Mon compte', '/' %>
+					<%= link_to 'Acceuil', '/' %>
 				</li>
 				<li>
-					<%= link_to 'Contenu', workspaces_path %>
+					<%= link_to 'Contenu', '/items' %>
 				</li>
 				<li>
-					<%= link_to 'Recherche', '' %>
+					<%= link_to 'Rechercher' %>
 				</li>
 			</ul>
-		</div>
-		<div id="page_title">
-
+			<div id="slct_WS">
+				<select name="slct_WS">
+					<option>
+						Espace de travail
+					</option>
+					<option>
+						----------
+					</option>
+					<% @current_user.all_workspaces.each do |w|
+						concat\
+							content_tag(:option, w.name, :onclick => "document.location.href = '#{workspace_path(w)}'"),
+							binding
+					end %>
+					<option>
+						----------
+					</option>
+					<option onclick="document.location.href='/items'">
+						Tout le contenu
+					</option>
+					<option>
+						----------
+					</option>
+					<option onclick="document.location.href='<%= new_workspace_path %>'">
+						Nouvel espace de travail
+					</option>
+				</select>
+			</div>
 		</div>
 	</div>
 	
 	<div id="container">
 		<%= content_tag(:div, flash[:notice], :class => 'notice') if flash[:notice] %>
-		<%= right_menu %>
 		<%= yield %>
 	</div>
 

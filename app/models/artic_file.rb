@@ -10,4 +10,7 @@ class ArticFile < ActiveRecord::Base
 		:file_path,
 		:user
 
+  def self.label
+    "Fichier"
+  end
 end

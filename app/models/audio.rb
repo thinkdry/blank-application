@@ -10,4 +10,7 @@ class Audio < ActiveRecord::Base
 		:file_path,
 		:user
 	
+	def self.label
+    "Audio"
+	end
 end

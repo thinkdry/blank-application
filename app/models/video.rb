@@ -17,6 +17,10 @@ class Video < ActiveRecord::Base
 	
   after_save  :encode_video
   
+  def self.label
+    "Video"
+  end
+  
   def encoded_file
     return super if attributes['encoded_file'] && File.exists?(RAILS_ROOT + '/public' + attributes['encoded_file'])
     nil

@@ -1,19 +1,36 @@
-<h1>Espace <%= @current_object.name %></h1>
+<%= render :partial => "menu" %>
 
-<h2>Utilisateurs associés:</h2>
-
-<% @current_object.users_workspaces.each do |uw| %>
-	<%= uw.user_login %>: <%= Role.find(uw.role_id).name %> <br />
-<% end %>
-
-<%= item_list :workspaces => @current_object %>
-
-<br /><br />
-
-<% if permit?("admin") %>
-	<%= link_to "Mettre à jour", edit_object_path(@current_object) %>
-<% end %>
-
-<br /><br />
-
-<%= link_to "Retour sur le profil", user_path(@current_user) %>
+<div id="area_TITLE">
+	<h1>
+		Espace Fun
+	</h1>
+	<span class="txt_80_666">Phasellus pharetra. Duis velit lacus, ornare ultrices, commodo eu, ultricies non, dolor. Donec rhoncus nunc nec ipsum. Etiam id lacus eu tortor vehicula facilisis. Ut et leo sit amet felis pharetra vehicula. Integer a felis id est placerat semper. Cras nec nisi. Proin turpis odio, iaculis sit amet, tincidunt sit amet, rhoncus ac, metus. Aliquam erat volutpat. Proin luctus porta diam. Pellentesque placerat. Vestibulum nulla magna, rhoncus sit amet, mollis vitae, fermentum ullamcorper, enim.</span>
+</div>
+<div id="area_USERS">
+	<h2>
+		Utilisateurs inscrits dans cet espace
+	</h2>
+	Administrateur : <a href="#"><%= @current_object.creator.firstname + ' ' + @current_object.creator.lastname %></a><br>
+	<span class="txt_80_666">Auteurs : <a href="#">Quentin Dupont</a>, <a href="#">Binouze Maxi</a>, <a href="#">Pastis Ricard</a>, <a href="#">Pouet-Pouet Tagada</a>, <a href="#">Mister Saucisse</a>, <a href="#">Chouette de la Forêt Magique</a></span>
+</div>
+<div id="area_POST">
+	<div id="area_ADDED">
+		<span class="txt_100_000"><strong>Les 5 derniers éléments ajoutés</strong></span><strong><br>
+		<br></strong>
+		<% @current_object.items(:limit => 5).collect { |e| e.itemable }.each do |e| %>
+			<div class="item" onclick="window.location.href = '<%= item_url(e) %>'" onmouseout='this.removeClassName("over")' onmouseover='this.addClassName("over")'>
+				<%= image_tag(e.icon) %> imageOne<br>
+				<span class="txt_80_666">par Quentin Dupond le 20 Août, 2008 à 12:23<br>
+				42 commentaires - <strong>Note :</strong></span> <%= Array.new(5, image_tag('star.png', :width => 12, :height => 12)) %>
+			</div>
+		<% end %>
+	</div>
+	<div id="area_COMMENTS">
+		<span class="titre"><strong>Les 8 derniers commentaires publiés</strong></span><br>
+		<br>
+		<div class="item" id="item_-613527198" onclick="window.location.href = 'http://think-alternative.net:3060/images/953125641'" onmouseout='this.removeClassName("over")' onmouseover='this.addClassName("over")'>
+			</div>Ouais super content pour toi...<br>
+			<span class="txt_80_666">par <a href="#">Quentin Dupond</a> le 20 Août, 2008 à 12:23<br></span>
+		</div>
+	</div>
+</div>

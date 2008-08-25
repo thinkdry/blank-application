@@ -18,4 +18,7 @@ class Article < ActiveRecord::Base
     end
   end
 	
+	def self.label
+	  "Article"
+  end
 end
