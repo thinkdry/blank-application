@@ -24,26 +24,19 @@ module ItemsHelper
   
   # Render a lisf of recent items, recent comments and recent publications.
   # (Uses the `small_item_list` helper)
-  def item_list(params = Hash.new)
-    
-    # Default params
-    params[:workspaces] = Array(params[:workspaces]) || current_user.all_workspaces
-    params[:include_private_items] ||= params[:workspaces].empty? ? true : false
-    
+  def item_list
     items = [] # List being rendered
     
     # 1st: Collect items in workspaces
-    unless params[:workspaces].empty?
-      conditions = [ "workspace_id IN (?)", params[:workspaces] ]
-      items = Item.find(:all,
-        :order => 'created_at DESC',
-        :limit => 10,
-        :conditions => conditions)
-      items.collect! { |item| item.itemable }
-    end
+    conditions = [ "workspace_id IN (?)", current_workspace || current_user.all_workspaces ]
+    items = Item.find(:all,
+      :order => 'created_at DESC',
+      :limit => 10,
+      :conditions => conditions)
+    items.collect! { |item| item.itemable }
     
     # 2nd: Include private item
-    if params[:include_private_items]
+    unless current_workspace
       [:images, :articles, :audios, :artic_files, :videos].each do |itemable_type|
         items |= current_user.send(itemable_type)
       end
@@ -53,13 +46,6 @@ module ItemsHelper
     items.sort! {|a, b| b.created_at <=> a.created_at }
     
     render :partial => "items/list", :object => items[0..10]
-    
-  end
-  
-  # Item. Type, title and author.
-  # Modal window on mouseover, displaying additionnal informations
-  def small_item_in_list(object)
-    render :partial => "items/small_item_in_list", :object => object
   end
   
   # Item. Title and descriptions.
@@ -96,8 +82,10 @@ module ItemsHelper
     ) if permit?("delete of object", :object => object)
   end
   
-  def method_missing(method, object)
+  def method_missing(method, *args)
     begin
+      raise unless args.size == 1
+      object = args.first
       prefix_length = method.to_s =~ /_?((item_url)|(item_path))$/
       raise unless prefix_length
 

@@ -1,24 +1,16 @@
-<h2>Récemment ajoutés</h2>
-
-
-	<% list.each do |object| %>
-		<%= render :partial => "items/small_item_in_list", :object => object %>
-	<% end %>
-
-<h2>Derniers commentaires</h2>
-
-(...)
-
-<h2>Dernières mises en ligne</h2>
-
-(...)
-
-<h2 id="add_links">Ajouter</h2>
-<ul>
-	<li><%= link_to 'Article',		new_article_path 	%></li>
-	<li><%= link_to 'Image',		new_image_path 		%></li>
-	<li><%= link_to 'Fichier',		new_artic_file_path %></li>
-	<li><%= link_to 'Video',		new_video_path 		%></li>
-	<li><%= link_to 'Audio',		new_audio_path 		%></li>
-	<li><%= link_to 'Publication',	new_article_path 	%></li>
-</ul>
+<div id="area_POST">
+	<div id="area_ADDED">
+		<div class="txt_100_000"><strong>Les 5 derniers éléments ajoutés</strong></div><br>
+		<% list[0..5].each do |e| %>
+			<div class="item" onclick="window.location.href = '<%= item_url(e) %>'" onmouseout='this.removeClassName("over")' onmouseover='this.addClassName("over")'>
+				<%= image_tag(e.icon) %> imageOne<br>
+				<span class="txt_80_666">par <%= link_to_user(e.user) %> le <%= e.created_at.l(:long) %>
+			</div>
+		<% end %>
+	</div>
+	<div id="area_COMMENTS">
+		<span class="titre"><strong>Les 5 derniers commentaires publiés</strong></span><br>
+		<br>
+	
+	</div>
+</div>

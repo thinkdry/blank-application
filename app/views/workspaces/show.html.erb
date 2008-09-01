@@ -17,24 +17,5 @@
 			<%= 'Aucun' if @current_object.users.count <= 0 %>
 	</div>
 </div>
-<div id="area_POST">
-	<div id="area_ADDED">
-		<div class="txt_100_000"><strong>Les 5 derniers éléments ajoutés</strong></div><br>
-		<% @current_object.items(:limit => 5).collect { |e| e.itemable }.each do |e| %>
-			<div class="item" onclick="window.location.href = '<%= item_url(e) %>'" onmouseout='this.removeClassName("over")' onmouseover='this.addClassName("over")'>
-				<%= image_tag(e.icon) %> imageOne<br>
-				<span class="txt_80_666">par <%= link_to_user(e.user) %> le <%= e.created_at.l(:long) %>
-			</div>
-		<% end %>
-	</div>
-	<div id="area_COMMENTS">
-		<span class="titre"><strong>Les 5 derniers commentaires publiés</strong></span><br>
-		<br>
-		<% @current_object.latest_comments.each do |e| %>
-			<div class="item" onclick="window.location.href = '<%= item_url(e.commentable) %>'" onmouseout='this.removeClassName("over")' onmouseover='this.addClassName("over")'>
-			<%= e.commentable.title %> : <%= e.text[0..30] %><%= '...' if e.text.length > 30 %><br>
-			<span class="txt_80_666">par <%= link_to_user(e.user) %> le <%= e.created_at.l(:long) %><br></span>
-			</div>
-		<% end %>
-	</div>
-</div>
+
+<%= item_list %>
