@@ -19,7 +19,6 @@ a:active {
 	text-decoration: none;
 }
 #page {
-	float: left;
 	width: 100%;
 }
 #container {
@@ -31,9 +30,19 @@ a:active {
 #header {
 	background-color: #bdd6d9;
 	color: white;
-	float: left;
 	margin-bottom: 1em;
+	height: 103px;
+	min-width: 1000px;
 }
+
+#header_right{
+	float:right;
+	margin-right: 25px;
+	margin-top: 10px;
+	width: 440px;
+	height:80px;
+}
+
 #page #container h1 {
 	color: #000000;
 	font-size: 175%;
@@ -61,12 +70,9 @@ a:active {
 	padding-bottom: 10px;
 }
 #main_links {
-	float: right;
-	margin-right: 25px;
 	font-size: 80%;
-	margin-top: 10px;
 	margin-bottom: 30px;
-	margin-left: 200px;
+	text-align: right;
 }
 #main_links a {
 	color: #7C0041;
@@ -103,9 +109,8 @@ a:active {
 	font-size: 90%;
 	background-color: #AB5D7C;
 	width: 440px;
-	float: right;
-	margin-right: 25px;
-	margin-top: 13px;
+	height: 36px;
+	margin-top: 43px;
 }
 #MenuHR ul {
 	margin: 0px;
@@ -129,7 +134,6 @@ a:active {
 	background-color: #7B003B;
 }
 #slct_WS {
-	float: right;
 	padding-right: 10px;
 	padding-left: 10px;
 	padding-top: 5px;
@@ -146,7 +150,7 @@ a:active {
 }
 
 #navigation ul{
-    display:block;
+  display:block;
 	margin: 0;
 	padding: 0;
 }
