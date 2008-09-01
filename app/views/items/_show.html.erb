@@ -6,7 +6,19 @@
 
 <p id="note">
 	<strong>Note:</strong>
-	xxxxx
+	<span id="rating"></span>
+	<script type="text/javascript" charset="utf-8">
+		new Starbox('rating', <%= @current_object.rating %>, {
+			rerate: false,
+			indicator: '(#{total})',
+			total: <%= @current_object.ratings.size %>,
+			onRate: function(element, info) {
+				new Ajax.Request('<%= rate_item_url(@current_object) %>', {
+					parameters: info
+				});
+			}
+		});
+	</script>
 </p>
 
 <p id="tags">

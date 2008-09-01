@@ -7,6 +7,7 @@ module ActsAsItem
     
     module ClassMethods
       def acts_as_item
+        include ActsAsItem::ControllerMethods::InstanceMethods
         
       	make_resourceful do
           actions :all
@@ -30,6 +31,13 @@ module ActsAsItem
         end
       end
     end
+    
+    module InstanceMethods
+      def rate
+        current_object.add_rating(Rating.new(:rating => params[:rated].to_i))
+        render :nothing => true
+      end
+    end
   end
   
   module ModelMethods
@@ -45,12 +53,13 @@ module ActsAsItem
       end
       
       def acts_as_item
-        include ActsAsItem::ModelMethods::InstanceMethods
+        acts_as_rateable
         
         has_many :taggings, :as => :taggable
         has_many :tags,     :through => :taggings
-        has_many :rattings, :as => :rateable
         has_many :comments, :as => :commentable, :order => 'created_at ASC'
+        
+        include ActsAsItem::ModelMethods::InstanceMethods
       end
       
       def icon

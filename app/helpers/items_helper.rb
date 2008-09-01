@@ -95,14 +95,17 @@ module ItemsHelper
       :method => :delete
     ) if permit?("delete of object", :object => object)
   end
-
-  # Resourceful helper. May be used in generic forms (acts_as_item).
-  def item_url(object)
-    self.send("#{object.class.to_s.underscore}_url", object.id)
-  end
   
-  # Resourceful helper. May be used in generic forms (acts_as_item).
-  def edit_item_url(object)
-    self.send("edit_#{object.class.to_s.underscore}_url", object.id)
+  def method_missing(method, object)
+    begin
+      prefix_length = method.to_s =~ /_?((item_url)|(item_path))$/
+      raise unless prefix_length
+
+      method_name = object.class.to_s.underscore + '_url'
+      method_name.insert(0, method.to_s[0..prefix_length - 1] + '_') if prefix_length > 0
+      send(method_name, object)
+    rescue Exception => e
+      raise NoMethodError, "NoMethodError : `#{method}`"
+    end
   end
 end
