@@ -21,12 +21,12 @@ a:active {
 #page {
 	width: 100%;
 }
+
 #container {
-	float: left;
-	width: 97%;
-	padding-right: 1em;
-	padding-left: 1em;
+	min-width: 1000px;
+	padding: 10px 20px 10px 20px;
 }
+
 #header {
 	background-color: #bdd6d9;
 	color: white;
@@ -171,7 +171,7 @@ a:active {
 }
     
 #navigation li ul{
-    visibility:hidden;
+  visibility:hidden;
 	margin: 0.5em -0.9em;
 	clear: both;
 }
@@ -201,14 +201,16 @@ a:active {
 #navigation li li{
     display:block;
 }
+
+#content{
+	margin-right: 230px;
+}
 #area_TITLE {
-	width: 79%;
 	padding: 0.5em;
 	margin-bottom: 1em;
 	border: 2px solid #F2F2F2;
 }
 #area_USERS {
-	width: 79%;
 	margin-bottom: 1em;
 	line-height: 20px;
 	padding: 0.5em;
@@ -231,13 +233,13 @@ a:active {
 	float: left;
 }
 #area_ADDED {
-	width: 48%;
+	width: 47%;
 	padding: 0.5em;
 	float: left;
 }
 #area_COMMENTS {
 	float: right;
-	width: 48%;
+	width: 47%;
 	padding: 0.5em;
 	font-size: 12px;
 }
@@ -257,7 +259,6 @@ a:active {
 	padding: 0.5em;
 	background-color: #E3EFF2;
 	border: 2px solid #BDD6D9;
-	clear: left;
 	float: left;
 }
 
@@ -322,12 +323,17 @@ div.autocomplete ul li {
 	font-size: 150%;
 }
 
+#right-container{
+	position:absolute;
+	top: 127px;
+	right: 20px;
+}
+
 #right_menu {
 	background-color:#F2F2F2;
-	position:absolute;
-	right:25px;
+	margin-right: 5px;
 	text-align:left;
-	width:13%;
+	width:170px;
 	z-index:4;
 	font-size: 90%;
 	padding-top: 1em;
@@ -383,17 +389,17 @@ div.autocomplete ul li {
 }
 #Add_menu {
 	background-color: #EEFFE9;
-	position:absolute;
-	right:25px;
+	float:right;
+	margin-right: 5px;
+	margin-top: 15px;
 	text-align:left;
-	width:13%;
+	width:170px;
 	z-index:5;
 	font-size: 90%;
 	padding-top: 1em;
 	padding-right: 1em;
 	padding-bottom: 1em;
 	padding-left: 1em;
-	top: 320px;
 	border: 2px solid #D7E6D2;
 }
 #Add_menu .titre {

@@ -1,21 +1,22 @@
-<%= render :partial => "menu" %>
-
-<div id="area_TITLE">
-	<h1>
-		Espace <%= @current_object.name %>
-	</h1>
-	<span class="txt_80_666"><%= @current_object.description %></span>
-</div>
-<div id="area_USERS">
-	<h2>
-		Utilisateurs inscrits dans cet espace
-	</h2>
-	Administrateur : <%= link_to_user(@current_object.creator) %>
-	<div class="txt_80_666">
-		Auteurs :
-			<%= @current_object.users.collect { |u| link_to_user(u) }.join(', ') %>
-			<%= 'Aucun' if @current_object.users.count <= 0 %>
+<div id="content">
+	<div id="area_TITLE">
+		<h1>
+			Espace <%= @current_object.name %>
+		</h1>
+		<span class="txt_80_666"><%= @current_object.description %></span>
 	</div>
+	<div id="area_USERS">
+		<h2>
+			Utilisateurs inscrits dans cet espace
+		</h2>
+		Administrateur : <%= link_to_user(@current_object.creator) %>
+		<div class="txt_80_666">
+			Auteurs :
+				<%= @current_object.users.collect { |u| link_to_user(u) }.join(', ') %>
+				<%= 'Aucun' if @current_object.users.count <= 0 %>
+		</div>
+	</div>
+	<%= item_list %>
+	<div class="clear"></div>
 </div>
-
-<%= item_list %>
+<%= render :partial => "menu" %>
