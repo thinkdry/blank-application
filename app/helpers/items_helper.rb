@@ -90,8 +90,13 @@ module ItemsHelper
       raise unless prefix_length
 
       method_name = object.class.to_s.underscore + '_url'
+      method_name.insert(0, 'workspace_') if current_workspace
       method_name.insert(0, method.to_s[0..prefix_length - 1] + '_') if prefix_length > 0
-      send(method_name, object)
+      
+      params = []
+      params << current_workspace if current_workspace
+      params << object
+      send(method_name, *params)
     rescue Exception => e
       raise NoMethodError, "NoMethodError : `#{method}`"
     end
