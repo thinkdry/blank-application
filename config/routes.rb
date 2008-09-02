@@ -15,15 +15,13 @@ ActionController::Routing::Routes.draw do |map|
   # Items are CMS component types
   # => Those items may be scoped to different resources
   def items_ressources(parent)
-    parent.resources :articles, :member => { :rate => :any } do |articles|
-      articles.resources :artic_files
-      articles.resources :images
+    [:items, :articles, :audios, :videos, :artic_files, :publications, :images].each do |name|
+      parent.resources name, :member => {
+        :rate => :any,
+        :add_tag => :any,
+        :remove_tag => :any
+      }
     end
-    parent.resources :audios, :member => { :rate => :any }
-    parent.resources :videos, :member => { :rate => :any }
-    parent.resources :artic_files, :member => { :rate => :any }
-    parent.resources :publications, :member => { :rate => :any }
-    parent.resources :images, :member => { :rate => :any }
     # Publication sources are private, but need to be scoped to import publication
     # into right workspace
     parent.resources :pubmed_sources

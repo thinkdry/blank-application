@@ -1,14 +1,4 @@
-module WorkspacesHelper
-  def current_workspace
-    return @workspace if @workspace
-    return @current_object if @current_object && @current_object.class == Workspace
-    if params['workspace_id']
-      @workspace = Workspace.find(params['workspace_id'].to_i)
-      return @workspace
-    end
-    nil
-  end
-  
+module WorkspacesHelper  
   def new_user(object)
     javascript_tag js_add_new_user(object)
   end

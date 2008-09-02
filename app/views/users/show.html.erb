@@ -20,11 +20,3 @@ Edito: <%= @current_object.edito %><br />
 
 <%= link_to 'Mettre à jour', edit_object_path %>
 
-<br /><br />
-
-<% if permit?("owner of current_object") %>
-	<%= link_to 'Accueil', "" %>
-<% end %>
-<% if permit?("admin") %>
-	<%= link_to 'Retour sur la liste des utilisateurs', users_path %>
-<% end %>

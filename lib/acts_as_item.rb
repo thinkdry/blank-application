@@ -37,6 +37,14 @@ module ActsAsItem
         current_object.add_rating(Rating.new(:rating => params[:rated].to_i))
         render :nothing => true
       end
+      
+      def add_tag
+        current_object.tags << Tag.create(:name => params[:tag_name])
+      end
+      
+      def remove_tag
+        render :nothing => true
+      end
     end
   end
   

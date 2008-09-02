@@ -14,7 +14,7 @@
 		</div>
 		<div id="header_right">
 			<div id="main_links">
-				Bienvenue <%= @current_user.firstname.capitalize %> | <%= link_to 'Mon compte', '/account' %> </a> | <%= link_to 'Administration', '/admin' %>  | <%= link_to 'Se déconnecter', '/logout' %>
+				Bienvenue <%= @current_user.firstname.capitalize %> | <%= link_to 'Mon compte', user_path(current_user) %> </a> | <%= link_to 'Administration', '/admin' %>  | <%= link_to 'Se déconnecter', '/logout' %>
 			</div>
 			<div id="MenuHR">
 				<ul>

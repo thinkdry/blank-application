@@ -3,17 +3,9 @@
 
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
-
   before_filter :is_logged?
-
-  # See ActionController::RequestForgeryProtection for details
-  # Uncomment the :secret if you're not using the cookie session store
-  # protect_from_forgery # :secret => '1dac8eab756e700d7fa6e3d4ac0bbf21'
-  
-  # See ActionController::Base for details 
-  # Uncomment this to filter the contents of submitted sensitive data parameters
-  # from your application log (in this case, all fields with names like "password"). 
-  # filter_parameter_logging :password
+	
+	helper_method :current_workspace
 	
 	include AuthenticatedSystem
 	
@@ -23,6 +15,16 @@ class ApplicationController < ActionController::Base
     else
       redirect_to login_path
     end
+  end
+  
+  def current_workspace
+    return @workspace if @workspace
+    return @current_object if @current_object && @current_object.class == Workspace
+    if params['workspace_id']
+      @workspace = Workspace.find(params['workspace_id'].to_i)
+      return @workspace
+    end
+    nil
   end
 	
 end

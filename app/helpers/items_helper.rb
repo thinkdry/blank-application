@@ -1,4 +1,5 @@
 module ItemsHelper
+    
   def item_show(parameters, &block)
     concat\
       render( :partial => "items/show",
@@ -18,7 +19,7 @@ module ItemsHelper
         :class        => 'item',
         :onmouseover  => 'this.addClassName("over")',
         :onmouseout   => 'this.removeClassName("over")',
-        :onclick      => "window.location.href = '#{item_url(object)}'"),
+        :onclick      => "window.location.href = '#{item_url(object, :object_type => object.class)}'"),
       block.binding
   end
   
@@ -60,15 +61,16 @@ module ItemsHelper
   end
   
   # Tag. Item's author is allowed to remove it by Ajax action.
-  def item_tag name
-    name
+  def item_tag tag
+    # TODO: item_path has to be updated
+    tag.name + link_to_remote('(x)', :url => remove_tag_item_path(@current_object, :item_type => @current_object.class, :tag_id => tag.id))
   end
   
   # Resourceful helper. May be used in generic forms (acts_as_item).
   def link_to_edit_item object
     link_to(
       image_tag('icons/pencil.png'),
-      edit_item_url(object)
+      item_url(object, :object_type => object.class)
     ) if permit?("edit of object", :object => object)
   end
   
@@ -76,29 +78,10 @@ module ItemsHelper
   def link_to_remove_item object
     link_to(
       image_tag('icons/delete.png'),
-      item_url(object),
+      item_url(object, :object_type => object.class),
       :confirm => 'Êtes vous sur de vouloir supprimer cet élément ? Cette action est irréversible.',
       :method => :delete
     ) if permit?("delete of object", :object => object)
   end
-  
-  def method_missing(method, *args)
-    begin
-      raise unless args.size == 1
-      object = args.first
-      prefix_length = method.to_s =~ /_?((item_url)|(item_path))$/
-      raise unless prefix_length
 
-      method_name = object.class.to_s.underscore + '_url'
-      method_name.insert(0, 'workspace_') if current_workspace
-      method_name.insert(0, method.to_s[0..prefix_length - 1] + '_') if prefix_length > 0
-      
-      params = []
-      params << current_workspace if current_workspace
-      params << object
-      send(method_name, *params)
-    rescue Exception => e
-      raise NoMethodError, "NoMethodError : `#{method}`"
-    end
-  end
 end
