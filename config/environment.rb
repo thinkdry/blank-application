@@ -86,3 +86,4 @@ Rails::Initializer.run do |config|
 end
 
 Globalite.language = :fr
+

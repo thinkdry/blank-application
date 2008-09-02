@@ -262,6 +262,24 @@ a:active {
 	float: left;
 }
 
+#area_FORM {
+	clear: left;
+	float: left;
+	width: 95%;
+	padding-top: 0px;
+	margin-bottom: 0px;
+	padding-left: 1em;
+	padding-right: 1em;
+}
+
+#area_BUTTONS {
+	clear: both;
+	float: none;
+	height: 32px;
+	width: 250px;
+	margin: 0px auto;
+}
+
 .fieldWithErrors {
 	display: inline-block;
 	padding: 0px;
