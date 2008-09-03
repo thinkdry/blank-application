@@ -139,6 +139,17 @@ a:active {
 	padding-top: 5px;
 }
 
+#item_WS {
+	float: right;
+	width: 47%;
+	background-color: #D2A7BB;
+	padding: 0.5em;
+	border: 2px solid #BD7F9C;
+}
+#item_WS .titre {
+	color: #FFFFFF;
+}
+
 #navigation {
 	z-index: 20;
 	text-align: right;
@@ -228,7 +239,7 @@ a:active {
 	text-decoration: underline;
 }
 #area_POST {
-	width: 81%;
+	width: 98%;
 	margin-bottom: 1em;
 	float: left;
 }
@@ -301,8 +312,14 @@ a:active {
 
 .notice {
 	padding: 0.5em;
-	margin-top: 1em;
-	background-color: rgb(56, 117, 215);
+	background-color: #BAE6AF;
+	margin-bottom: 1em;
+	width: 99%;
+	border: 2px solid #669900;
+	font-size: 90%;
+	font-weight: bold;
+	color: #336633;
+	line-height: 18px;
 }
 
 div.autocomplete {
@@ -491,6 +508,10 @@ a img {
 }	
 .txt_100_000 {
 	color: #000000;
+}
+.txt_80_333 {
+	color: #333333;
+	font-size: 80%;
 }
 .txt_80_666 {
 	font-size: 80%;
