@@ -1,0 +1,59 @@
+@charset "UTF-8";
+/* CSS Document */
+
+body {
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	font-family: verdana, arial, helvetica, sans-serif;
+	color: #333333;
+	text-align: center;	/* part 1 of 2 centering hack */
+	}
+#content_login {
+	width: 400px;
+	padding: 10px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-right: auto;
+	margin-left: auto;
+	/* opera does not like 'margin:20px auto' */
+	background: #F9F9F9;
+	border: 2px solid #C2C2C2;
+	text-align:left;
+	/* part 2 of 2 centering hack */
+	width: 400px; /* ie5win fudge begins */
+	voice-family: "\"}\"";
+	voice-family:inherit;
+	width: 300px;
+	}
+html>body #content_login {
+	width: 300px; /* ie5win fudge ends */
+	}
+a:link {
+	color: #7B003B;
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+a:active {
+	text-decoration: none;
+}
+#area_BUTTONS {
+	width: 100%;
+	clear: left;
+	float: none;
+	height: 32px;
+	margin: 0px;
+}
+form  {
+	padding: 10px;
+	margin: 0px;
+	line-height: 150%;
+}
+#content_login   label {
+	line-height: 180%;
+	font-size: 80%;
+}

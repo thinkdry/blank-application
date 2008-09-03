@@ -1,4 +1,4 @@
-<h1>Log In</h1>
+<!--<h1>Log In</h1>
 
 <% form_tag session_path do -%>
 <p><label for="login">Login</label><br/>
@@ -7,10 +7,36 @@
 <p><label for="password">Password</label><br/>
 <%= password_field_tag 'password', nil %></p>
 
-<!-- Uncomment this if you want this functionality
+ Uncomment this if you want this functionality
 <p><label for="remember_me">Remember me:</label>
 <%= check_box_tag 'remember_me', '1', @remember_me %></p>
+<% end %>
 -->
 
-<p><%= submit_tag 'Log in' %></p>
-<% end -%>
+<html>
+	<head>
+		<%= stylesheet_link_tag "application.css" %>
+		<%= stylesheet_link_tag "login.css" %>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>ARTIC - Login</title>
+	</head>
+	<body>
+		<div id="content_login">
+    	<img src="images/logo_intranet_login.gif" alt="ARTIC" width="168" height="80">
+    	<% form_tag session_path do -%>
+				<label>Identifiant<br>
+				<%= text_field_tag 'login', @login %></label>
+				<br>
+				<p>
+					<label>Mot de passe<br>
+    			<%= password_field_tag 'password' %></label>
+				</p>
+				<div id="area_BUTTONS" class="buttons">
+	        <button type="submit" class="positive">
+	        <img src="images/tick.png" alt=""/>Connexion</button>
+	        <a href="/password/reset/">Mot de passe perdu ?</a>
+	      </div>
+			<% end %>
+		</div>
+	</body>
+</html>
