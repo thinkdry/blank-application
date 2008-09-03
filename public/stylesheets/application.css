@@ -241,6 +241,7 @@ a:active {
 #area_POST {
 	width: 98%;
 	margin-bottom: 1em;
+	margin-top: 40px;
 	float: left;
 }
 #area_ADDED {
@@ -314,7 +315,9 @@ a:active {
 	padding: 0.5em;
 	background-color: #BAE6AF;
 	margin-bottom: 1em;
-	width: 99%;
+	width: 60%;
+	margin-left: auto;
+	margin-right: auto;
 	border: 2px solid #669900;
 	font-size: 90%;
 	font-weight: bold;
