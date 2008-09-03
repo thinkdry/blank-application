@@ -39,11 +39,21 @@ module ActsAsItem
       end
       
       def add_tag
-        current_object.tags << Tag.create(:name => params[:tag_name])
+        tag_name = params[:tag]['name']
+        tag = Tag.find_by_name(tag_name) || Tag.create(:name => tag_name)
+        current_object.taggings.create(:tag => tag)
+        render :update do |page|
+          page.insert_html :bottom, 'tag_list', ' ' + item_tag(tag)
+        end
       end
       
       def remove_tag
-        render :nothing => true
+        tag = current_object.taggings.find_by_tag_id(params[:tag_id].to_i)
+        tag_dom_id = "tag_#{tag.tag_id}"
+        tag.destroy
+        render :update do |page|
+          page.remove tag_dom_id
+        end
       end
     end
   end
