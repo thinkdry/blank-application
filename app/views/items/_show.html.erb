@@ -13,7 +13,7 @@
 			indicator: '(#{total})',
 			total: <%= @current_object.ratings.size %>,
 			onRate: function(element, info) {
-				new Ajax.Request('<%= rate_item_url(@current_object, :object_type => object.class) %>', {
+				new Ajax.Request('<%= rate_item_path(@current_object) %>', {
 					parameters: info
 				});
 			}

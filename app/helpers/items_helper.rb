@@ -1,5 +1,9 @@
 module ItemsHelper
-    
+  
+  def self.included base
+    define_prefixed_item_paths(base)
+  end
+  
   def item_show(parameters, &block)
     concat\
       render( :partial => "items/show",
@@ -19,7 +23,7 @@ module ItemsHelper
         :class        => 'item',
         :onmouseover  => 'this.addClassName("over")',
         :onmouseout   => 'this.removeClassName("over")',
-        :onclick      => "window.location.href = '#{item_url(object, :object_type => object.class)}'"),
+        :onclick      => "window.location.href = '#{item_path(object)}'"),
       block.binding
   end
   
@@ -62,15 +66,14 @@ module ItemsHelper
   
   # Tag. Item's author is allowed to remove it by Ajax action.
   def item_tag tag
-    # TODO: item_path has to be updated
-    tag.name + link_to_remote('(x)', :url => remove_tag_item_path(@current_object, :item_type => @current_object.class, :tag_id => tag.id))
+    tag.name + link_to_remote('(x)', :url => remove_tag_item_path(@current_object, :tag_id => tag.id))
   end
   
   # Resourceful helper. May be used in generic forms (acts_as_item).
   def link_to_edit_item object
     link_to(
       image_tag('icons/pencil.png'),
-      item_url(object, :object_type => object.class)
+      item_path(object)
     ) if permit?("edit of object", :object => object)
   end
   
@@ -78,10 +81,36 @@ module ItemsHelper
   def link_to_remove_item object
     link_to(
       image_tag('icons/delete.png'),
-      item_url(object, :object_type => object.class),
+      item_path(object),
       :confirm => 'Êtes vous sur de vouloir supprimer cet élément ? Cette action est irréversible.',
       :method => :delete
     ) if permit?("delete of object", :object => object)
   end
+  
+  def item_path object, params = {}
+    prefix = params.delete :prefix
+    
+    helper_name = String.new
+    helper_name += prefix + '_' if prefix
+    helper_name += 'workspace_' if current_workspace
+    helper_name += object.class.to_s.underscore + '_path'
+    
+    args = [object, params]
+    args.insert(0, current_workspace) if current_workspace
 
+    send helper_name, *args
+  end
+  
+  private
+  def self.define_prefixed_item_paths base
+    # TODO: Import prefix list from a conf file
+     ['new', 'edit', 'rate', 'add_tag', 'remove_tag'].each do |prefix|
+       base.send(:define_method, "#{prefix}_item_path") do |*args|
+         object, params = args[0], args[1] || {}
+         params[:prefix] = prefix
+         item_path(object, params)
+       end
+     end
+  end
+  
 end
