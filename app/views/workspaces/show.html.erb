@@ -11,7 +11,7 @@
 		</h2>
 		Administrateur : <%= link_to_user(@current_object.creator) %>
 		<div class="txt_80_666">
-			Auteurs :
+			Inscrits :
 				<%= @current_object.users.collect { |u| link_to_user(u) }.join(', ') %>
 				<%= 'Aucun' if @current_object.users.count <= 0 %>
 		</div>

@@ -3,7 +3,7 @@
 		<div class="txt_100_000"><strong>Les 5 derniers éléments ajoutés</strong></div><br>
 		<% list[0..5].each do |e| %>
 			<div class="item" onclick="window.location.href = '<%= item_path(e) %>'" onmouseout='this.removeClassName("over")' onmouseover='this.addClassName("over")'>
-				<%= image_tag(e.icon) %> imageOne<br>
+				<%= image_tag(e.icon) %> <%= e.title %><br>
 				<span class="txt_80_666">par <%= link_to_user(e.user) %> le <%= e.created_at.l(:long) %>
 			</div>
 		<% end %>
