@@ -2,7 +2,7 @@
 	
 	<%= f.text_field :title, :label => "Titre :" %>
 	
-	<%= render :partial => "items/tagging" %>
+	<%= f.tags_field :string_tags, :label => "Tags (séparés par des espaces):" %>
 		
 	<p>
 		<%= f.label :file_path, "Fichier :"%><br />

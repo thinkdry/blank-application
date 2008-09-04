@@ -97,6 +97,19 @@ module ActsAsItem
          self.class.icon
       end
       
+      def string_tags= arg # Take a list of tag, space separated and assign them to the object
+        @string_tags = arg
+        arg.split(' ').each do |tag_name|
+          tag = Tag.find_by_name(tag_name) || Tag.new(:name => tag_name)
+          self.taggings.build(:tag => tag)
+        end
+      end
+      
+      def string_tags # Return space separated tag names
+        return @string_tags if @string_tags
+        tags.collect { |t| t.name }.join(' ') if tags && tags.size > 0
+      end
+      
       def associated_workspaces= workspace_ids
     		self.workspaces.delete_all
     		workspace_ids.each { |w| self.items.build(:workspace_id => w) }
