@@ -193,3 +193,23 @@ button.positive, .buttons a.positive{
     border:1px solid #d12f19;
     color:#fff;
 }
+
+#form_new{
+	width: 900px;
+	background-color: #F9F9F9;
+	margin-right: auto;
+	margin-left: auto;
+	padding: 3em;
+	border: 2px solid #C2C2C2;
+}
+
+#form_new label{
+}
+
+.form_titre{
+	text-align: center;
+}
+
+.nicEdit-panelContain{
+	margin-left: 0px;
+}

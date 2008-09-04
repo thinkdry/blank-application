@@ -1,50 +1,28 @@
-<!--<% form_for @current_object, :html => {:multipart => true}, :builder => LabelFormBuilder do |f| -%>
+<div id="form_new">
+	<% form_for @current_object, :html => {:multipart => true}, :builder => LabelFormBuilder do |f| -%>
+		
+		<%= f.text_field :title, :label => "Titre :" %><br />
+		
+		<%= f.tags_field :string_tags, :label => "Tags (séparés par des espaces):" %>
+		
+		<%= f.label :file_path, "Fichier :"%><br />
+		<% if @current_object.file_path %>
+			<%= image_tag url_for_file_column(@current_object, :file_path, "web") %><br />
+		<% end %>
+		<%= error_message_on :artic_file, :file_path %><br/>
+		<%= File.basename(@current_object.file_path) + '<br />' if @current_object.file_path %>
+		<%= file_field 'image', 'file_path' %><br />
+		
+		<%= f.text_area :description, :label => 'Description :' %>
+		<script type="text/javascript">
+			bkLib.onDomLoaded(function() {
+				new nicEditor({iconsPath : '/images/nicEditorIcons.gif'}).panelInstance('image_description');
+			});
+		</script>
+		
+		<%= item_status_fields(f, @current_object) %>
 	
-	<%= f.text_field :title, :label => "Titre :" %><br />
+		<%= f.submit current_object.new_record? ? 'Créer ce fichier' : 'Mettre à jour' %>
 	
-	<%= f.tags_field :string_tags, :label => "Tags (séparés par des espaces):" %>
-	
-	<%= f.label :file_path, "Fichier :"%><br />
-	<% if @current_object.file_path %>
-		<%= image_tag url_for_file_column(@current_object, :file_path, "web") %><br />
-	<% end %>
-	<%= error_message_on :artic_file, :file_path %><br/>
-	<%= File.basename(@current_object.file_path) + '<br />' if @current_object.file_path %>
-	<%= file_field 'image', 'file_path' %><br />
-	
-	<%= f.text_area :description, :label => 'Description :' %>
-	<script type="text/javascript">
-		bkLib.onDomLoaded(function() {
-			new nicEditor({iconsPath : '/images/nicEditorIcons.gif'}).panelInstance('image_description');
-		});
-	</script>
-	
-	<%= item_status_fields(f, @current_object) %>
-
-	<%= f.submit current_object.new_record? ? 'Créer ce fichier' : 'Mettre à jour' %>
-
-<% end -%>-->
-		<div id="basic" class="myform">
-			<% form_for @current_object, :html => {:multipart => true}, :builder => LabelFormBuilder do |f| -%>
-			  Informations de l'image
-	    	<div id="area_FORM">
-	    		<label>Titre :<span class="small">Le titre de l'image</span></label>
-    			<%= f.text_field :title%>
-    			<label>Tags (séparés par des espaces):<span class="small">Adjectifs</span></label>
-    			<%= f.tags_field :string_tags%>
-    			<label>Déscription :<span class="small">Description de l'image</span></label>
-    			<%= f.text_area :description, :size => "40x6" %>
-    			<label>Fichier<span class="small">L'image à uploader</span></label>
-					<%= error_message_on :artic_file, :file_path %><br/>
-					<%= file_field 'image', 'file_path' %><br />
-					<br /><br /><br />
-					<div style="margin-left: 330px"><%= File.basename(@current_object.file_path) + '<br />' if @current_object.file_path %></div>
-  			</div>
-  			<div class="spacer"></div>
-  			<p></p>
-				<div class="buttons" id="area_BUTTONS">
-	        <button type="submit" class="positive"><img src="/images/tick.png" alt=""/><%= current_object.new_record? ? 'Créer ce fichier' : 'Mettre à jour'%></button>
-	         <button type="reset" class="negative"><img src="/images/cross.png" alt=""/>Annuler</button>
-	      </div>
-			<%end%>
-		</div>
+	<% end -%>
+</div>
