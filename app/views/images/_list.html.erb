@@ -1,9 +1,10 @@
 <div id="content">
 	<div id="area_CONTENUS">
-		<div class="titre"><img src="/images/images.png" alt="icones articles" width="16" height="16"><strong>Images</strong></div>
-		<% @current_objects.each do |co| %>
-			<%= item_in_list co %>
-		<% end %>
-		<%= link_to "Ajouter un ficher", new_object_path, :class => "add_item" %>
+		<div class="titre"><img src="images/page_white_text.png" alt="icones articles" width="16" height="16"><strong>Articles</strong></div>
+			<% @current_objects.each do |co| %>
+				<%= item_in_list co %>
+			<% end %>
+			<%= link_to "Ajouter un ficher", new_object_path %>
+		</div>
 	</div>
 </div>
