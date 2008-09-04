@@ -43,7 +43,7 @@
   			<div class="spacer"></div>
   			<p></p>
 				<div class="buttons" id="area_BUTTONS">
-	        <button type="submit" class="positive"><img src="/images/tick.png" alt=""/>Mettre à jour</button>
+	        <button type="submit" class="positive"><img src="/images/tick.png" alt=""/><%= current_object.new_record? ? 'Créer ce fichier' : 'Mettre à jour'%></button>
 	         <button type="reset" class="negative"><img src="/images/cross.png" alt=""/>Annuler</button>
 	      </div>
 			<%end%>
