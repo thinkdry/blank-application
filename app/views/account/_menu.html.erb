@@ -1,4 +1,46 @@
-<h1>Mon Compte</h1>
-<%= link_to 'Acceuil', :controller => :account, :action => :index %><br />
-<%= link_to 'Mon Profil', user_path(current_user) %><br />
-<%= link_to 'Mon contenu', :controller => :account, :action => :contents %>
+<div id="right-container">
+	<div id="right_menu">
+		<span class="titre">Filtrer</span><br>
+		<ul>
+			<% 
+				[:article, :image, :artic_file, :video, :audio, :publication].each do |elem|
+					model = elem.to_s.classify.constantize
+					concat\
+						content_tag(:li, link_to(model.label.pluralize, send("#{elem.to_s.pluralize}_path")),
+							:style => "list-style-image:url(/images/#{model.icon});list-style-position:inside"),
+						binding
+				end
+			%>
+		</ul>
+	</div>
+	<div id="Add_menu">
+		<span class="titre">Ajouter</span><br>
+		<div id="slct_ADD">
+			<form name="form1" method="post" action="" id="form1">
+				<select name="slct_filtre" id="slct_filtre" onchange="document.location.href = this.value">
+					<option selected value='#'>
+						--------
+					</option>
+					<option value="<%= new_article_path %>">
+						Un article
+					</option>
+					<option value="<%= new_image_path %>">
+						Une image
+					</option>
+					<option value="<%= new_audio_path %>">
+						Fichier Audio
+					</option>
+					<option value="<%= new_video_path %>">
+						Fichier Vidéo
+					</option>
+					<option value="<%= new_artic_file_path %>">
+						Fichier
+					</option>
+					<option value="<%= new_publication_path %>">
+						Une publication
+					</option>
+				</select>
+			</form>
+		</div>
+	</div>
+</div>

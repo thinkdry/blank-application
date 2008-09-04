@@ -7,22 +7,26 @@
 	</div>
 		<div id="area_ADDED">
 			<div class="txt_100_000"><strong>Mes informations personnelles</strong></div>
-		  <p><span class="txt_80_333">Lieu  :</span> <span class="txt_80_666"><%= current_user.addr %></span><br>
-	    <span class="txt_80_333">Activité : </span><span class="txt_80_666"><%= current_user.activity %></span><br>
-	    <span class="txt_80_333">Email :</span> <span class="txt_80_666"><%= current_user.email %></span><br>
-	    <span class="txt_80_333">Téléphone :</span> <span class="txt_80_666"><%= current_user.phone %></span></p>
+	  		<p>
+				<span class="txt_80_333">Lieu  :</span> <span class="txt_80_666"><%= current_user.addr %></span><br>
+    			<span class="txt_80_333">Activité : </span><span class="txt_80_666"><%= current_user.activity %></span><br>
+    			<span class="txt_80_333">Email :</span> <span class="txt_80_666"><%= current_user.email %></span><br>
+    			<span class="txt_80_333">Téléphone :</span> <span class="txt_80_666"><%= current_user.phone %></span>
+			</p>
 		</div>
 		<div id="item_WS">
 			<span class="titre"><strong>Mes espaces de travail</strong></span><br>
 			<br>
 			<div class="item" id="item_-613527198">
-					<span class="txt_80_333">Vous administrez : <a href="#">Cancérologie</a></span><span class="txt_80_666"><br></span>
+				<span class="txt_80_333">Vous administrez :
+				<%= @current_user.workspaces_administred.collect { |ws| link_to(ws.name, ws) }.join(', ') %>
 			</div>
-	    <div class="item" id="item_-613527198">
-	    	<span class="txt_80_333">Vous avez accès aux espaces : <a href="#">Cancérologie</a>,<a href="#"> Fun</a>, <a href="#">Espace 3</a>, <a href="#">Espace 4</a>, <a href="#">Espace 5</a></span><br>
+	    	<div class="item" id="item_-613527198">
+	    		<span class="txt_80_333">Vous avez accès aux espaces :
+				<%= @current_user.all_workspaces.collect { |ws| link_to(ws.name, ws) }.join(', ') %>
 			</div>
+		</div>
+		<%= item_list %>
+		<div class="clear"></div>
 	</div>
-	<%= item_list %>
-	<div class="clear"></div>
-</div>
-<%= render :partial => "workspaces/menu" %>
+<%= render :partial => "account/menu" %>
