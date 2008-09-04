@@ -222,6 +222,7 @@ a:active {
 	float: left;
 	padding-left: 0.5em;
 	padding-right: 0.5em;
+	width: 100%;
 }
 #area_PROFIL #item_WS {
 	background-color: #D2A7BB;

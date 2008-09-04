@@ -93,6 +93,7 @@ class User < ActiveRecord::Base
   end
   
   def all_workspaces
-    workspaces_consulted + workspaces_administred
+    #workspaces_consulted + workspaces_administred
+    workspaces_administred
   end
 end

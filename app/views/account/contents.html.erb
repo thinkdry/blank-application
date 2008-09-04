@@ -1,5 +1,10 @@
-<h1>Mon contenu</h1>
-
-<% current_user.items.each do |item| %>
-	<%= small_item_in_list(item) %>
-<% end %>
+<div id="content">
+	<div id="area_TITLE">
+		<h1>Mon contenu</h1>
+		<span class="txt_80_666">quesaco</span>
+	</div>
+	<% current_user.items.each do |item| %>
+		<%= small_item_in_list(item) %>
+	<% end %>
+</div>
+<%= render :partial => "menu" %>
