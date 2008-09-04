@@ -5,8 +5,16 @@
 			<% 
 				[:article, :image, :artic_file, :video, :audio, :publication].each do |elem|
 					model = elem.to_s.classify.constantize
+					
+					helper_name = String.new
+					helper_name += 'workspace_' if current_workspace
+					helper_name += "#{elem.to_s.pluralize}_path"
+					
+					args = []
+					args << current_workspace if current_workspace
+										
 					concat\
-						content_tag(:li, link_to(model.label.pluralize, send("workspace_#{elem.to_s.pluralize}_path", @current_object)),
+						content_tag(:li, link_to(model.label.pluralize, send(helper_name, *args)),
 							:style => "list-style-image:url(/images/#{model.icon});list-style-position:inside"),
 						binding
 				end
@@ -21,22 +29,22 @@
 					<option selected value='#'>
 						--------
 					</option>
-					<option value="<%= new_workspace_article_path(@current_object) %>">
+					<option value="<%= new_item_path(Article) %>">
 						Un article
 					</option>
-					<option value="<%= new_workspace_image_path(@current_object) %>">
+					<option value="<%= new_item_path(Image) %>">
 						Une image
 					</option>
-					<option value="<%= new_workspace_audio_path(@current_object) %>">
+					<option value="<%= new_item_path(Audio) %>">
 						Fichier Audio
 					</option>
-					<option value="<%= new_workspace_video_path(@current_object) %>">
+					<option value="<%= new_item_path(Video) %>">
 						Fichier Vidéo
 					</option>
-					<option value="<%= new_workspace_artic_file_path(@current_object) %>">
+					<option value="<%= new_item_path(ArticFile) %>">
 						Fichier
 					</option>
-					<option value="<%= new_workspace_publication_path(@current_object) %>">
+					<option value="">
 						Une publication
 					</option>
 				</select>

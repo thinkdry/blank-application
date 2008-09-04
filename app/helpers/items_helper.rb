@@ -111,10 +111,18 @@ module ItemsHelper
     send helper_name, *args
   end
   
+  def new_item_path(model)
+    helper_name = 'new_'
+    helper_name += 'workspace_' if current_workspace
+    helper_name += model.to_s.underscore + '_path'
+    args = current_workspace ? [current_workspace] : []
+    send(helper_name, *args)
+  end
+  
   private
   def self.define_prefixed_item_paths base
     # TODO: Import prefix list from a conf file
-     ['new', 'edit', 'rate', 'add_tag', 'remove_tag', 'comment'].each do |prefix|
+     ['edit', 'rate', 'add_tag', 'remove_tag', 'comment'].each do |prefix|
        base.send(:define_method, "#{prefix}_item_path") do |*args|
          object, params = args[0], args[1] || {}
          params[:prefix] = prefix
