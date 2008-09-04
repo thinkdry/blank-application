@@ -1,40 +1,42 @@
-<% form_for @current_object, :html => {:multipart => true}, :builder => LabelFormBuilder do |f| -%>
+<div id="form_new">
+	<% form_for @current_object, :html => {:multipart => true}, :builder => LabelFormBuilder do |f| -%>
+		
+		<%= f.text_field :title, :label => "Titre :" %>
+		
+		<%= f.tags_field :string_tags, :label => "Tags (séparés par des espaces):" %>
+		
+		<%= f.text_area :description, :label => 'Résumé :' %>
+		<script type="text/javascript">
+			bkLib.onDomLoaded(function() {
+				new nicEditor({iconsPath : '/images/nicEditorIcons.gif'}).panelInstance('article_description');
+			});
+		</script>
 	
-	<%= f.text_field :title, :label => "Titre :" %>
+		<%= f.text_area :body, :label => 'Corps :' %>
+		<script type="text/javascript">
+			bkLib.onDomLoaded(function() {
+				new nicEditor({iconsPath : '/images/nicEditorIcons.gif'}).panelInstance('article_body');
+			});
+		</script>
+		
+		<%= item_status_fields(f, @current_object) %>
 	
-	<%= f.tags_field :string_tags, :label => "Tags (séparés par des espaces):" %>
+		<h2>Fichiers associés:</h2>
+		<div id="files">
+			<% @current_object.article_files.each do |af| %>
+				<div id="file<%= af.id.to_s %>">
+					<%= af.file_path.split('/').last %>
+					<%= link_to "Télécharger", url_for_file_column(af, :file_path) %> 
+					<%= link_to_remote "Supprimer", :url => { :action => "removeFile", :id => af.id }, :success => "$(file#{af.id.to_s}.remove())" %>
+				</div>
+		<% end %>
+		</div>
 	
-	<%= f.text_area :description, :label => 'Résumé :' %>
-	<script type="text/javascript">
-		bkLib.onDomLoaded(function() {
-			new nicEditor({iconsPath : '/images/nicEditorIcons.gif'}).panelInstance('article_description');
-		});
-	</script>
-
-	<%= f.text_area :body, :label => 'Corps :' %>
-	<script type="text/javascript">
-		bkLib.onDomLoaded(function() {
-			new nicEditor({iconsPath : '/images/nicEditorIcons.gif'}).panelInstance('article_body');
-		});
-	</script>
+		<%= link_to_new_file 'Joindre un nouveau fichier' %>
+		
+		<br /><br />
+		
+		<%= f.submit current_object.new_record? ? 'Créer' : 'Mettre à jour' %>
 	
-	<%= item_status_fields(f, @current_object) %>
-
-	<h2>Fichiers associés:</h2>
-	<div id="files">
-		<% @current_object.article_files.each do |af| %>
-			<div id="file<%= af.id.to_s %>">
-				<%= af.file_path.split('/').last %>
-				<%= link_to "Télécharger", url_for_file_column(af, :file_path) %> 
-				<%= link_to_remote "Supprimer", :url => { :action => "removeFile", :id => af.id }, :success => "$(file#{af.id.to_s}.remove())" %>
-			</div>
-	<% end %>
-	</div>
-
-	<%= link_to_new_file 'Joindre un nouveau fichier' %>
-	
-	<br /><br />
-	
-	<%= f.submit current_object.new_record? ? 'Créer' : 'Mettre à jour' %>
-
-<% end -%>
+	<% end -%>
+</div>
