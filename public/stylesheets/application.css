@@ -244,6 +244,10 @@ a.add_item{
 	margin: 0px auto;
 }
 
+#content_show h2{
+	color: #000;
+}
+
 
 #area_PROFIL {
 	line-height: 18px;
@@ -622,4 +626,13 @@ a img {
 
 #items_list{
 	
+}
+
+.comment_box{
+	margin-left: 0px;
+}
+.comments_box{
+	padding: 20px;
+	background-color: #eee;
+	width: 350px;
 }

@@ -3,10 +3,10 @@
 		<%= title %>
 		<%= link_to '(edit)', :action => :edit %>
 	</h1>
-	
-	<h2><%= object.title %></h2>
-	
-	<%= object.description %>
+	<br />
+	<strong>Titre :</strong> <%= object.title %>
+	<br /><br />
+	<strong>Description :</strong> <%= object.description %>
 	
 	
 	<%= render :partial => "items/rating" %>
@@ -26,9 +26,12 @@
 		</p>
 	<% end %>
 	
+	<strong>Fichier : </strong>
 		<%= capture(&block) %>
-	
-	<h2>Commentaires:</h2>
+	<br /><br /><br />
+	<div class="comments_box">
+	<strong>Commentaires:</strong>
+		<br />
 	<div id="comment_list">
 		<%= render :partial => "items/comment", :collection => object.comments %>
 	</div>
@@ -38,5 +41,6 @@
 		<br>
 		<%= f.submit 'Ajouter' %>
 	<% end %>
+	</div>
 
 </div>
