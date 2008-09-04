@@ -1,6 +1,6 @@
 <div id="content">
 	<div id="area_CONTENUS">
-		<div class="titre"><%= Audio.icon %><strong>Audios</strong></div>
+		<div class="titre"><%= image_tag Audio.icon %><strong>Audios</strong></div>
 		<% @current_objects.each do |co| %>
 			<%= item_in_list co %>
 		<% end %>
