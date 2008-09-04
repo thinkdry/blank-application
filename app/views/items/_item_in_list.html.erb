@@ -1,2 +1,9 @@
-<h2><%= item_in_list.title %></h2>
-<p><%= item_in_list.description %></p>
+<% div_for object do %>
+	<h3><%= link_to object.title, object %></h3>
+	par <%= link_to_user object.user %>
+	- <%= object.comments.count %> commentaires -
+	<span id="rating_<%= object.class.to_s.underscore %>_<%= object.id %>" />
+	<script type="text/javascript" charset="utf-8">
+		new Starbox("rating_<%= object.class.to_s.underscore %>_<%= object.id %>", <%= object.rating %>, { locked: true });	
+	</script>
+<% end %>

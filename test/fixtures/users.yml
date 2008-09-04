@@ -6,13 +6,13 @@ quentin:
   created_at:                   <%= 5.days.ago.to_s :db  %>
   remember_token_expires_at:    <%= 1.days.from_now.to_s :db %>
   remember_token:               77de68daecd823babbb58edb1c8e14d7106e83bb
-  lastname:                     dupond
-  firstname:                    quentin
-  laboratory:                   hisLab
+  lastname:                     Dupond
+  firstname:                    Quentin
+  laboratory:                   Mon Laboratoire
   mobile:                       0612345678
   phone:                        0112345678
-  addr:                         42 rue du chat qui pette
-  activity:                     riendutout
+  addr:                         11 rue Buffon
+  activity:                     Chercheur
   image_path:                   'image.png'
   system_role:                  admin
 
