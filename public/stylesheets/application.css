@@ -219,10 +219,19 @@ a.add_item{
     display:block;
 }
 
-#content{
+#content, #content_bis{
 	margin-right: 230px;
 }
 
+#content_bis h2{
+	border-bottom: 1px #bbb solid;
+	padding-bottom: 5px;
+}
+
+#content_bis h3{
+	padding-bottom: 0px;
+	margin-bottom: 0px;
+}
 #area_PROFIL {
 	line-height: 18px;
 	float: left;
@@ -595,4 +604,8 @@ a img {
 .txt_70_666 {
 	font-size: 80%;
 	color: #666666;
+}
+
+#items_list{
+	
 }

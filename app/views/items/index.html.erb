@@ -1,4 +1,5 @@
-<h1>Tout le contenu</h1>
+<div id="content_bis">
+	<h1>Tout le contenu</h1>
 
 <style type="text/css" media="screen">
 	h2 {
@@ -7,47 +8,50 @@
 	}
 </style>
 
-<div id="articles">
-	<h2>
-		<%= image_tag Article.icon %>
-		Articles
-	</h2>
+	<div id="articles">
+		<h2>
+			<%= image_tag Article.icon %>
+			Articles
+		</h2>
+		
+		<%= render(:partial => "item_in_list", :collection => Article.all(:order => 'created_at DESC')) %>
+	</div>
 	
-	<%= render(:partial => "item_in_list", :collection => Article.all(:order => 'created_at DESC')) %>
-</div>
-
-<div id="images">
-	<h2>
-		<%= image_tag Image.icon %>
-		Images
-	</h2>
+	<div id="images">
+		<h2>
+			<%= image_tag Image.icon %>
+			Images
+		</h2>
+		
+		<%= render(:partial => "item_in_list", :collection => Image.all(:order => 'created_at DESC')) %>
+	</div>
 	
-	<%= render(:partial => "item_in_list", :collection => Image.all(:order => 'created_at DESC')) %>
-</div>
-
-<div id="fichiers">
-	<h2>
-		<%= image_tag ArticFile.icon %>
-		Fichier
-	</h2>
+	<div id="fichiers">
+		<h2>
+			<%= image_tag ArticFile.icon %>
+			Fichier
+		</h2>
+		
+		<%= render(:partial => "item_in_list", :collection => ArticFile.all(:order => 'created_at DESC')) %>
+	</div>
 	
-	<%= render(:partial => "item_in_list", :collection => ArticFile.all(:order => 'created_at DESC')) %>
-</div>
-
-<div id="sounds">
-	<h2>
-		<%= image_tag ArticFile.icon %>
-		Fichiers audios
-	</h2>
+	<div id="sounds">
+		<h2>
+			<%= image_tag ArticFile.icon %>
+			Fichiers audios
+		</h2>
+		
+		<%= render(:partial => "item_in_list", :collection => Audio.all(:order => 'created_at DESC')) %>
+	</div>
 	
-	<%= render(:partial => "item_in_list", :collection => Audio.all(:order => 'created_at DESC')) %>
-</div>
-
-<div id="videos">
-	<h2>
-		<%= image_tag Video.icon %>
-		Videos
-	</h2>
+	<div id="videos">
+		<h2>
+			<%= image_tag Video.icon %>
+			Videos
+		</h2>
+		
+		<%= render(:partial => "item_in_list", :collection => Video.all(:order => 'created_at DESC')) %>
+	</div>
 	
-	<%= render(:partial => "item_in_list", :collection => Video.all(:order => 'created_at DESC')) %>
 </div>
+<%= render :partial => "menu" %>
