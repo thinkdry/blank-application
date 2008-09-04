@@ -65,13 +65,14 @@ module ItemsHelper
   end
   
   # Tag. Item's author is allowed to remove it by Ajax action.
-  def item_tag tag
-    content_tag :span,
-      tag.name + link_to_remote(image_tag('icons/delete.png'),
-        :url => remove_tag_item_path(@current_object, :tag_id => tag.id),
-        :loading => "$('ajax_loader').show()",
-        :complete => "$('ajax_loader').hide()"
-      ), :id => "tag_#{tag.id}"
+  def item_tag tag, editable = false
+    content = tag.name
+    content += link_to_remote(image_tag('icons/delete.png'),
+      :url => remove_tag_item_path(@current_object, :tag_id => tag.id),
+      :loading => "$('ajax_loader').show()",
+      :complete => "$('ajax_loader').hide()") if editable
+    
+    content_tag :span, content, :id => "tag_#{tag.id}"
   end
   
   # Resourceful helper. May be used in generic forms (acts_as_item).
@@ -109,7 +110,7 @@ module ItemsHelper
   private
   def self.define_prefixed_item_paths base
     # TODO: Import prefix list from a conf file
-     ['new', 'edit', 'rate', 'add_tag', 'remove_tag'].each do |prefix|
+     ['new', 'edit', 'rate', 'add_tag', 'remove_tag', 'comment'].each do |prefix|
        base.send(:define_method, "#{prefix}_item_path") do |*args|
          object, params = args[0], args[1] || {}
          params[:prefix] = prefix

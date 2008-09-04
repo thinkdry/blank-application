@@ -19,7 +19,8 @@ ActionController::Routing::Routes.draw do |map|
       parent.resources name, :member => {
         :rate => :any,
         :add_tag => :any,
-        :remove_tag => :any
+        :remove_tag => :any,
+        :comment => :any
       }
     end
     # Publication sources are private, but need to be scoped to import publication

@@ -47,6 +47,13 @@ module ActsAsItem
         end
       end
       
+      def comment
+        comment = current_object.comments.create(params[:comment].merge(:user => @current_user))
+        render :update do |page|
+          page.insert_html :bottom, 'comment_list', :partial => "items/comment", :object => comment
+        end
+      end
+      
       def remove_tag
         tag = current_object.taggings.find_by_tag_id(params[:tag_id].to_i)
         tag_dom_id = "tag_#{tag.tag_id}"
