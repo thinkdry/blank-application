@@ -224,14 +224,27 @@ a.add_item{
 }
 
 #content_bis h2{
-	border-bottom: 1px #bbb solid;
-	padding-bottom: 5px;
+	width: 100%;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #666666;
+	padding-bottom: 0.3em;
+	font-size: 125%;
+	margin-top: 20px;
+	display: block;
 }
 
 #content_bis h3{
 	padding-bottom: 0px;
 	margin-bottom: 0px;
 }
+
+#content_show{
+	width: 800px;
+	margin: 0px auto;
+}
+
+
 #area_PROFIL {
 	line-height: 18px;
 	float: left;
@@ -321,6 +334,7 @@ a.add_item{
 	padding: 0.5em;
 	font-size: 12px;
 }
+
 #area_COMMENTS .titre {
 	font-size: 14px;
 	color: #000000;

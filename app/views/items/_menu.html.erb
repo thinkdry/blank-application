@@ -1,19 +1,54 @@
-<h1>Contenu</h1>
-
-<%= link_to '- Tout lister -', :controller => :items, :action => :index %><br>
-
-<%= link_to 'Articles',		articles_url	%>		<br />
-<%= link_to 'Images',		images_url 		%>		<br />
-<%= link_to 'Audios',		audios_url		%>		<br />
-<%= link_to 'Videos',		videos_url 		%>		<br />
-<%= link_to 'Fichiers',		artic_files_url %>		<br />
-Publications
-
-<h1><%= link_to 'Nouvel élément', :controller => :items, :action => :index, :anchor => "add_links" %></h1>
-
-<h1>Espaces</h1>
-<%
-	current_user.all_workspaces.each do |ws|
-		concat link_to(ws.name, workspace_path(ws.id)) + '<br />', binding
-	end
-%>
+<div id="right-container">
+	<div id="right_menu">
+		<span class="titre">Filtrer</span><br>
+		<ul>
+			<% 
+				[:article, :image, :artic_file, :video, :audio, :publication].each do |elem|
+					model = elem.to_s.classify.constantize
+					
+					helper_name = String.new
+					helper_name += 'workspace_' if current_workspace
+					helper_name += "#{elem.to_s.pluralize}_path"
+					
+					args = []
+					args << current_workspace if current_workspace
+										
+					concat\
+						content_tag(:li, link_to(model.label.pluralize, send(helper_name, *args)),
+							:style => "list-style-image:url(/images/#{model.icon});list-style-position:inside"),
+						binding
+				end
+			%>
+		</ul>
+	</div>
+	<div id="Add_menu">
+		<span class="titre">Ajouter</span><br>
+		<div id="slct_ADD">
+			<form name="form1" method="post" action="" id="form1">
+				<select name="slct_filtre" id="slct_filtre" onchange="document.location.href = this.value">
+					<option selected value='#'>
+						--------
+					</option>
+					<option value="<%= new_item_path(Article) %>">
+						Un article
+					</option>
+					<option value="<%= new_item_path(Image) %>">
+						Une image
+					</option>
+					<option value="<%= new_item_path(Audio) %>">
+						Fichier Audio
+					</option>
+					<option value="<%= new_item_path(Video) %>">
+						Fichier Vidéo
+					</option>
+					<option value="<%= new_item_path(ArticFile) %>">
+						Fichier
+					</option>
+					<option value="">
+						Une publication
+					</option>
+				</select>
+			</form>
+		</div>
+	</div>
+</div>

@@ -1,35 +1,33 @@
-<h1>
-	<%= title %>
-	<%= link_to '(edit)', :action => :edit %>
-</h1>
-
-<h2><%= object.title %></h2>
-
-<div><%= object.description %></div>
-
-
-<%= render :partial => "items/rating" %>
-
-<p id="tags">
-	<strong>Tags:</strong>
-	<span id="tag_list">
-		<%= @current_object.tags.collect { |t| item_tag(t) }.join(' ')  %>
-	</span>
-</p>
-
-
-<% if object.workspaces.size > 1 %>
-	<p id="workspaces">
-		<strong>Diffusé dans les espaces de travail suivants:</strong>
-		<%= object.workspaces.collect { |w| w.name }.join("&nbsp;") %>
+<div id="content_show">
+	<h1>
+		<%= title %>
+		<%= link_to '(edit)', :action => :edit %>
+	</h1>
+	
+	<h2><%= object.title %></h2>
+	
+	<%= object.description %>
+	
+	
+	<%= render :partial => "items/rating" %>
+	
+	<p id="tags">
+		<strong>Tags:</strong>
+		<span id="tag_list">
+			<%= @current_object.tags.collect { |t| item_tag(t) }.join(' ')  %>
+		</span>
 	</p>
-<% end %>
-
-<p>
-	<%= capture(&block) %>
-</p>
-
-<p>
+	
+	
+	<% if object.workspaces.size > 1 %>
+		<p id="workspaces">
+			<strong>Diffusé dans les espaces de travail suivants:</strong>
+			<%= object.workspaces.collect { |w| w.name }.join("&nbsp;") %>
+		</p>
+	<% end %>
+	
+		<%= capture(&block) %>
+	
 	<h2>Commentaires:</h2>
 	<div id="comment_list">
 		<%= render :partial => "items/comment", :collection => object.comments %>
@@ -40,4 +38,5 @@
 		<br>
 		<%= f.submit 'Ajouter' %>
 	<% end %>
-</p>
+
+</div>
