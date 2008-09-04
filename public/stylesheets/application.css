@@ -18,6 +18,12 @@ a:hover {
 a:active {
 	text-decoration: none;
 }
+
+a.add_item{
+	display: block;
+	margin-top: 30px;
+}
+
 #page {
 	width: 100%;
 }
@@ -341,6 +347,18 @@ a:active {
 	height: 32px;
 	width: 250px;
 	margin: 0px auto;
+}
+
+#area_CONTENUS  .titre {
+	width: 100%;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #666666;
+	padding-bottom: 0.3em;
+	font-size: 125%;
+}
+#area_CONTENUS  .titre  img {
+	margin-right: 0.5em;
 }
 
 .fieldWithErrors {
