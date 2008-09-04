@@ -1,1 +1,7 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+how_i_feel:
+    user: quentin
+    title: How I Feel
+    description: WaxTailor<br>
+    file_path: 17_How_I_feel.mp3

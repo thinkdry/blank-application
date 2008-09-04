@@ -1,1 +1,7 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+schema_bdd:
+    user: quentin
+    title: Schema base de donnee
+    description: "Documentation<br>"
+    file_path: db.png
