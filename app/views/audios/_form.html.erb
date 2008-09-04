@@ -2,6 +2,8 @@
 	
 	<%= f.text_field :title, :label => "Titre :" %>
 	
+	<%= render :partial => "items/tagging" %>
+	
 	<p>
 		<%= f.label :file_path, 'Fichier :' %>
 		<%= error_message_on :artic_file, :file_path %><br/>

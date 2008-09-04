@@ -2,6 +2,8 @@
 	
 	<%= f.text_field :title, :label => "Titre :" %><br />
 	
+	<%= render :partial => "items/tagging" %>
+	
 	<%= f.label :file_path, "Fichier :"%><br />
 	<% if @current_object.file_path %>
 		<%= image_tag url_for_file_column(@current_object, :file_path, "web") %><br />

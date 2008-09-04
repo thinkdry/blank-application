@@ -3,7 +3,7 @@
 		<strong>Tags:</strong>
 		<%= image_tag 'ajax-loader.gif', :style => 'display:none', :id => 'ajax_loader' %>
 		<span id="tag_list">
-			<%= @current_object.tags.collect { |t| item_tag(t) }.join(' ')  %>
+			<%= @current_object.tags.collect { |t| item_editable_tag(t) }.join(' ')  %>
 		</span>
 		<%= f.text_field :name, :size => 10 %>
 		<%= image_submit_tag 'icons/add.png' %>

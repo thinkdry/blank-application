@@ -75,6 +75,10 @@ module ItemsHelper
     content_tag :span, content, :id => "tag_#{tag.id}"
   end
   
+  def item_editable_tag tag
+    item_tag tag, true
+  end
+  
   # Resourceful helper. May be used in generic forms (acts_as_item).
   def link_to_edit_item object
     link_to(

@@ -1,6 +1,8 @@
 <% form_for @current_object, :html => {:multipart => true}, :builder => LabelFormBuilder do |f| -%>
 	
 	<%= f.text_field :title, :label => "Titre :" %>
+	
+	<%= render :partial => "items/tagging" %>
 		
 	<p>
 		<%= f.label :file_path, "Fichier :"%><br />
