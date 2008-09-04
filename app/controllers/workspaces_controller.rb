@@ -14,6 +14,10 @@ class WorkspacesController < ApplicationController
       session[:menu] = 'items'
     end
     
+    before :create do
+      @current_object.creator = @current_user
+    end
+    
     before :update do
       # Hack. Permit deletion of all assigned users (with roles).
       params["workspace"]["existing_user_attributes"] ||= {}
