@@ -1,22 +1,32 @@
-<h1><%= show_title %></h1>
-
-<% if @current_object.image_path %>
-	<%= image_tag(url_for_file_column(@current_object, 'image_path')) %><br />
-<% end %>
-
-Nom : <%= @current_object.lastname %><br />
-Prénom: <%= @current_object.firstname %><br />
-Adresse: <%= @current_object.addr %><br />
-Laboratoire: <%= @current_object.laboratory %><br />
-Email: <%= @current_object.email %><br />
-Téléphone: <%= @current_object.phone %>	<%= @current_object.mobile %><br />
-Activité:	<%= @current_object.activity %><br />
-Workspace(s) :<br />
-    - Administré(s) :
-<%= @current_object.workspaces_administred.collect{|x| x.name }.join(' | ') %><br />
-    - Consulté(s) :
-<%= @current_object.workspaces_consulted.collect{|x| x.workspace.name }.join(' | ') %><br />
-Edito: <%= @current_object.edito %><br />
-
-<%= link_to 'Mettre à jour', edit_object_path %>
+<div id="area_POST_bis">
+	<div id="area_PROFIL">
+		<span class="titre">Mes informations personnelles</span><br>
+		<%= @current_object.firstname %> <%= @current_object.lastname %>
+	  <%= image_tag(url_for_file_column(@user, 'image_path'), :class => "avatar") if @user.image_path %>
+	  <p>
+	  	<span class="txt_80_333">Laboratoire  :</span> <span class="txt_80_666"><%= @current_object.laboratory %></span><br>
+	    <span class="txt_80_333">Activité : </span><span class="txt_80_666"><%= @current_object.activity %></span>
+	  </p>
+	  <p>
+	  	<span class="txt_80_333">Adresse postale :</span><br>
+	    <span class="txt_80_666"><%= @current_object.addr %></span><br>
+	    <span class="txt_80_333">Email :</span> <span class="txt_80_666"><%= @current_object.email %></span><br>
+	    <span class="txt_80_333">Téléphone :</span> <span class="txt_80_666"><%= @current_object.phone %>	- <%= @current_object.mobile %></span>
+	  </p>
+	  <p>
+	  	<span class="txt_80_333">Présentation</span><br>
+	    <span class="txt_80_666"><%= @current_object.edito %></span>
+	  </p>
+	  
+		<%= link_to 'Mettre à jour mes informations personnelles', edit_object_path, :class => "txt_80_666_bis" %>
+	</div>
+</div>
+<div id="area_DROITS">
+	<span class="titre">Mes droits d'accès</span><br>
+	<br>
+	<div class="item" id="item_-613527198">
+		<span class="txt_80_333"><strong>Administrateur du système : NON</strong></span><br>
+		<span class="txt_80_333">Pas de droit.</span><span class="txt_80_666"><br></span>
+	</div>
+</div>
 

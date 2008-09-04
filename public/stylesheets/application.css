@@ -216,6 +216,43 @@ a:active {
 #content{
 	margin-right: 230px;
 }
+
+#area_PROFIL {
+	line-height: 18px;
+	float: left;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+}
+#area_PROFIL #item_WS {
+	background-color: #D2A7BB;
+	padding: 0.5em;
+	border: 2px solid #BD7F9C;
+}
+#area_PROFIL #item_WS .titre {
+	color: #FFFFFF;
+}
+#area_PROFIL .titre {
+	font-weight: bold;
+	color: #000000;
+}
+#area_PROFIL img {
+	border: 1px solid #666666;
+	float: right;
+	margin-top: 20px;
+}
+
+#area_DROITS {
+	float: right;
+	width: 47%;
+	padding: 0.5em;
+	background-color: #D2A7BB;
+	border: 2px solid #BD7F9C;
+}
+#area_DROITS .titre {
+	font-weight: bold;
+	color: #FFFFFF;
+}
+
 #area_TITLE {
 	padding: 0.5em;
 	margin-bottom: 1em;
@@ -242,6 +279,19 @@ a:active {
 	width: 98%;
 	margin-bottom: 1em;
 	margin-top: 40px;
+	float: left;
+}
+
+#area_POST_bis {
+	width: 47%;
+	margin-bottom: 1em;
+	margin-top: 0px;
+	float: left;
+}
+
+#area_POST_bis .titre{
+	width: 98%;
+	margin-bottom: 1em;
 	float: left;
 }
 #area_ADDED {
@@ -514,6 +564,11 @@ a img {
 	color: #333333;
 	font-size: 80%;
 }
+
+.txt_80_666_bis {
+	font-size: 80%;
+}
+
 .txt_80_666 {
 	font-size: 80%;
 	color: #666666;
