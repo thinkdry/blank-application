@@ -628,11 +628,28 @@ a img {
 	
 }
 
+.file_infos_box{
+	padding: 20px;
+	border: 2px solid #BD7F9C;
+	margin-bottom: 40px;
+}
+
+.file_box{
+	padding: 20px;
+	background-color: #E3EFF2;
+	border: 2px solid #BDD6D9;
+	margin-bottom: 40px;
+}
+
 .comment_box{
 	margin-left: 0px;
 }
 .comments_box{
 	padding: 20px;
 	background-color: #eee;
-	width: 350px;
+	border: 2px solid #ddd;
+}
+
+.comment_header{
+	width: 100%;	
 }

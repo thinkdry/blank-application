@@ -4,43 +4,46 @@
 		<%= link_to '(edit)', :action => :edit %>
 	</h1>
 	<br />
-	<strong>Titre :</strong> <%= object.title %>
-	<br /><br />
-	<strong>Description :</strong> <%= object.description %>
-	
-	
-	<%= render :partial => "items/rating" %>
-	
-	<p id="tags">
-		<strong>Tags:</strong>
-		<span id="tag_list">
-			<%= @current_object.tags.collect { |t| item_tag(t) }.join(' ')  %>
-		</span>
-	</p>
-	
-	
-	<% if object.workspaces.size > 1 %>
-		<p id="workspaces">
-			<strong>Diffusé dans les espaces de travail suivants:</strong>
-			<%= object.workspaces.collect { |w| w.name }.join("&nbsp;") %>
+	<div class="file_infos_box">
+		<strong>Titre :</strong> <%= object.title %>
+		<br /><br />
+		<strong>Description :</strong> <%= object.description %>
+		
+		
+		<%= render :partial => "items/rating" %>
+		
+		<p id="tags">
+			<strong>Tags:</strong>
+			<span id="tag_list">
+				<%= @current_object.tags.collect { |t| item_tag(t) }.join(' ')  %>
+			</span>
 		</p>
-	<% end %>
-	
-	<strong>Fichier : </strong>
-		<%= capture(&block) %>
-	<br /><br /><br />
-	<div class="comments_box">
-	<strong>Commentaires:</strong>
-		<br />
-	<div id="comment_list">
-		<%= render :partial => "items/comment", :collection => object.comments %>
+		
+		<% if object.workspaces.size > 1 %>
+			<p id="workspaces">
+				<strong>Diffusé dans les espaces de travail suivants:</strong>
+				<%= object.workspaces.collect { |w| w.name }.join("&nbsp;") %>
+			</p>
+		<% end %>
 	</div>
 	
-	<% remote_form_for Comment.new, :url => comment_item_path(@current_object), :loading => "$('comment_box').writeAttribute('disabled')", :complete => "$('comment_box').writeAttribute('disabled', false);$('comment_box').value = ''" do |f| %>
-		<%= f.text_area :text, :class => :comment_box, :id => :comment_box %>
-		<br>
-		<%= f.submit 'Ajouter' %>
-	<% end %>
+	<div class="file_box">
+		<strong>Fichier : </strong>
+		<%= capture(&block) %>
+	</div>
+	
+	<div class="comments_box">
+		<strong>Commentaires:</strong>
+			<br />
+		<div id="comment_list">
+			<%= render :partial => "items/comment", :collection => object.comments %>
+		</div>
+		
+		<% remote_form_for Comment.new, :url => comment_item_path(@current_object), :loading => "$('comment_box').writeAttribute('disabled')", :complete => "$('comment_box').writeAttribute('disabled', false);$('comment_box').value = ''" do |f| %>
+			<%= f.text_area :text, :size => "90x8",:class => :comment_box, :id => :comment_box %>
+			<br>
+			<%= f.submit 'Ajouter' %>
+		<% end %>
 	</div>
 
 </div>
