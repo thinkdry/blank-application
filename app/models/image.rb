@@ -1,9 +1,7 @@
 class Image < ActiveRecord::Base
 	
   acts_as_item
-  
-	belongs_to :user
-	
+  	
 	file_column :file_path, :magick => { :versions => { :thumb => "100x100", :web => "500x500" } }
 	
 	validates_presence_of	:title,

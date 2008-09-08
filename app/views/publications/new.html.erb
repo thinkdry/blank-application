@@ -1,0 +1,16 @@
+<h1>Nouvelle publication</h1>
+
+<% form_for @current_object, :html => {:multipart => true}, :builder => LabelFormBuilder do |f| %>
+	<%= hidden_field_tag :pubmed_item_id, params[:pubmed_item_id] %>
+
+	<%= f.text_field :title %>
+	<%= f.text_area :description %>
+	
+	<%= f.text_field :author, :disabled => true %>
+	<%= f.text_field :link, :disabled => true %>
+	
+	<label>Fichier attaché</label><br>
+	<%= file_column_field 'publication', 'file_path' %>
+	
+	<p><%= f.submit %></p>
+<% end %>

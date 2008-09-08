@@ -1,9 +1,7 @@
 class Article < ActiveRecord::Base
 	
   acts_as_item
-  
-	belongs_to :user
-	
+  	
 	has_many :article_files, :dependent => :delete_all
 	has_many :article_images, :dependent => :delete_all
 	

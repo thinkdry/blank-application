@@ -1,12 +1,14 @@
 class CreatePublications < ActiveRecord::Migration
   def self.up
     create_table :publications do |t|
+      t.integer :user_id
+      t.boolean :imported
       t.string  :title
       t.string  :author
-      t.date    :publication_date
-      t.string  :url
+      t.string  :link
       t.text    :description
       t.string  :file_path
+      t.boolean :private, :default => false
       t.timestamps
     end
   end

@@ -1,3 +1,4 @@
 <h1><%= @current_object.name %></h1>
+<h2><%= @current_object.pubmed_items.count %></h2>
 
 <%= render :partial => "item", :collection => @current_object.pubmed_items %>

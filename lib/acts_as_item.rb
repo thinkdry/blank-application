@@ -6,12 +6,14 @@ module ActsAsItem
     end
     
     module ClassMethods
-      def acts_as_item
+      def acts_as_item &block
         include ActsAsItem::ControllerMethods::InstanceMethods
         
       	make_resourceful do
           actions :all
       		belongs_to :workspace
+
+          self.instance_eval &block if block_given?
 
           # Permissions related callbacks
           before :create, :new, :index do
@@ -80,6 +82,7 @@ module ActsAsItem
       def acts_as_item
         acts_as_rateable
         
+        belongs_to :user
         has_many :taggings, :as => :taggable
         has_many :tags,     :through => :taggings
         has_many :comments, :as => :commentable, :order => 'created_at ASC'

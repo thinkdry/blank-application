@@ -5,9 +5,7 @@ require 'ftools'
 
 class Video < ActiveRecord::Base
   acts_as_item
-  
-	belongs_to :user
-	
+  	
 	file_column :file_path
 	
 	validates_presence_of	:title,
