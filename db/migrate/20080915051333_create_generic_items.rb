@@ -4,7 +4,7 @@ class CreateGenericItems < ActiveRecord::Migration
     [:article, :image, :artic_file, :audio, :video, :publication].each do |model|
       subqueries << "
         SELECT
-          '#{model}' as item_type,
+          '#{model.to_s.classify}' as item_type,
           id,
           title,
           description,
