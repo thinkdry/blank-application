@@ -1,0 +1,9 @@
+<table border="1">
+	<% @items.each do |item| %>
+		<tr>
+			<% GenericItem.columns.collect(&:name).each do |col|
+				concat content_tag(:td, item.send(col)), binding
+			end %>
+		</td>
+	<% end %>
+</table>

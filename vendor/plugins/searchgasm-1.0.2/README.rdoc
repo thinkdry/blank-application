@@ -1,0 +1,359 @@
+= Searchgasm
+
+Searchgasm is orgasmic. Maybe not orgasmic, but you will get aroused. So go grab a towel and let's dive in.
+
+<b>Searchgasm's inspiration comes right from ActiveRecord. ActiveRecord lets you create objects that represent a record in the database, so why can't you create objects that represent searching the database? Now you can! It's searching, ordering, and pagination all in one.</b>
+
+== Helpful links
+
+*	<b>Documentation:</b> http://searchgasm.rubyforge.org
+*	<b>Easy pagination, ordering, and searching tutorial:</b> http://www.binarylogic.com/2008/9/7/tutorial-pagination-ordering-and-searching-with-searchgasm
+*	<b>Live example of the tutorial above (with source):</b> http://searchgasm_example.binarylogic.com
+
+== Install and use
+
+  sudo gem install searchgasm
+
+For rails
+
+  $ cd vendor/plugins
+  $ sudo gem unpack searchgasm
+
+Or as a plugin
+
+  script/plugin install git://github.com/binarylogic/searchgasm.git
+
+Now try out some of the examples below:
+
+<b>For all examples, let's assume the following relationships: User => Orders => Line Items</b>
+
+== Simple Searching Example
+
+  User.all(
+    :conditions => {
+      :first_name_contains => "Ben",          # first_name like '%Ben%'
+      :email_ends_with => "binarylogic.com"   # email like '%binarylogic.com'
+    },
+    :per_page => 20,                        # limit 20
+    :page => 3,                             # offset 40, which starts us on page 3
+    :order_as => "ASC",
+    :order_by => {:user_group => :name}     # order user_groups.name ASC
+  )
+  
+same as above, but object based
+
+  search = User.new_search
+  search.conditions.first_name_contains = "Ben"
+  search.conditions.email_ends_with = "binarylogic.com"
+  search.per_page = 20
+  search.page = 3
+  search.order_as = "ASC"
+  search.order_by = {:user_group => :name}
+  search.all
+
+In both examples, instead of using the "all" method you could use any search method: first, find(:all), find(:first), count, sum, average, etc, just like ActiveRecord.
+
+== The beauty of searchgasm, integration into rails
+
+Using Searchgasm in rails is the best part, because rails has all kinds of nifty methods to make dealing with ActiveRecord objects quick and easy, especially with forms. So let's take advantage of them! That's the idea behind this plugin. Searchgasm is searching, ordering, and pagination all rolled into one simple plugin. Take all of that pagination and searching cruft out of your models and controllers, and let Searchgasm handle it. Check it out:
+
+  # app/controllers/users_controller.rb
+  def index
+    @search = User.new_search(params[:search])
+    @users, @users_count = @search.all, @search.count
+  end
+
+Now your view:
+
+  # app/views/users/index.html.haml
+  - form_for @search do |f|
+    - f.fields_for @search.conditions do |users|
+      = users.text_field :first_name_contains
+      = users.calendar_date_select :created_after # nice rails plugin for replacing date_select
+      - users.fields_for users.object.orders do |orders|
+        = orders.select :total_gt, (1..100)
+    = f.submit "Search"
+  
+  - if @users_count > 0
+    %table
+      %tr
+        %th= order_by_link :account => :name
+        %th= order_by_link :first_name
+        %th= order_by_link :last_name
+        %th= order_by_link :email
+      - @users.each do |user|
+        %tr
+          %td= user.account? ? user.account.name : "-"
+          %td= user.first_name
+          %td= user.last_name
+          %td= user.email
+  
+    Per page:
+    = per_page_select
+    Page:
+    = page_select
+  - else
+    No users were found.
+
+Things to note in this view:
+
+1.  Passing a search object right into form\_for and fields\_for
+2.  The built in conditions for each column and how you can traverse the relationships and set conditions on them
+3.  The order_by_link helper
+4.  The page_select and per_page_select helpers
+5.  All of your search logic is in 1 spot: your view. Nice and DRY.
+
+<b>See my tutorial on this example: http://www.binarylogic.com/2008/9/7/tutorial-pagination-ordering-and-searching-with-searchgasm</b>
+
+== Exhaustive Example w/ Object Based Searching (great for form_for or fields_for)
+
+  # Start a new search
+  @search = User.new_search(
+    :conditions => {
+      :first_name_contains => "Ben", 
+      :age_gt => 18,
+      :orders => {:total_lt => 100}
+    },
+    :per_page => 20,
+    :page => 2,
+    :order_by => {:orders => :total},
+    :order_as => "DESC"
+  )
+  
+  # Set local conditions
+  @search.conditions.email_ends_with = "binarylogic.com"
+
+  # Set conditions on relationships
+  @search.conditions.oders.line_items.created_after = Time.now  # can traverse through all relationships
+  
+  # Set options
+  @search.per_page = 50                     # overrides the 20 set above
+  @search.order_by = [:first_name, {:user_group => :name}]  # order by first name and then by the user group's name it belongs to
+  @search.order_as = "ASC"
+  
+  # Set ANY of the ActiveRecord options
+  @search.group = "last_name"
+  @search.readonly = true
+  # ... see ActiveRecord documentation
+  
+  # Return results just like ActiveRecord
+  @search.all
+  @search.first
+
+Take the @search object and pass it right into form\_for or fields\_for (see above).
+
+== Calculations
+
+Using the object from above:
+
+  @search.average('id')
+  @search.count
+  @search.maximum('id')
+  @search.minimum('id')
+  @search.sum('id')
+  @search.calculate(:sum, 'id')
+  # ...any of the above calculations, see ActiveRecord documentation on calculations
+
+Or do it from your model:
+
+  User.count(:conditions => {:first_name_contains => "Ben"})
+  User.sum('id', :conditions => {:first_name_contains => "Ben"})
+  # ... all other calcualtions, etc.
+
+== Different ways to search, take your pick
+
+Any of the options used in the above example can be used in these, but for the sake of brevity I am only using a few:
+
+  User.all(:conditions => {:age_gt => 18}, :per_page => 20)
+
+  User.first(:conditions => {:age_gt => 18}, :per_page => 20)
+
+  User.find(:all, :conditions => {:age_gt => 18}, :per_page => 20)
+
+  User.find(:first, :conditions => {:age_gt => 18}, :per_page => 20)
+
+  search = User.new_search(:conditions => {:age_gt => 18})  # build_search is an alias
+  search.conditions.first_name_contains = "Ben"
+  search.per_page = 20
+  search.all
+
+== Search with conditions only
+
+Don't need pagination, ordering, or any of the other options? Search with conditions only.
+
+  conditions = User.new_conditions(:age_gt => 18)
+  conditions.first_name_contains = "Ben"
+  conditions.all
+  # ... all operations above are available
+
+Pass a conditions object right into ActiveRecord:
+
+  User.all(:conditions => conditions)
+
+== Scoped searching
+
+  @current_user.orders.find(:all, :conditions => {:total_lte => 500})
+  @current_user.orders.count(:conditions => {:total_lte => 500})
+  @current_user.orders.sum('total', :conditions => {:total_lte => 500})
+  
+  search = @current_user.orders.build_search(:conditions => {:total_lte => 500})
+
+== Searching trees
+
+For tree data structures you get a few nifty methods. Let's assume Users is a tree data structure.
+
+  # Child of
+  User.all(:conditions => {:child_of => User.roots.first})
+  User.all(:conditions => {:child_of => User.roots.first.id})
+  
+  # Sibling of
+  User.all(:conditions => {:sibling_of => User.roots.first})
+  User.all(:conditions => {:sibling_of => User.roots.first.id})
+  
+  # Descendant of (includes all recursive children: children, grand children, great grand children, etc)
+  User.all(:conditions => {:descendant_of => User.roots.first})
+  User.all(:conditions => {:descendant_of => User.roots.first.id})
+  
+  # Inclusive descendant_of. Same as above but includes the root
+  User.all(:conditions => {:inclusive_descendant_of => User.roots.first})
+  User.all(:conditions => {:inclusive_descendant_of => User.roots.first.id})
+  
+
+== Available anywhere (relationships & scopes)
+
+Not only can you use searchgasm when searching, but you can use it when setting up relationships or scopes. Anywhere you specify conditions in ActiveRecord.
+
+  class User < ActiveRecord::Base
+    has_many :expensive_pending_orders, :conditions => {:total_greater_than => 1_000_000, :state => :pending}, :per_page => 20
+    named_scope :sexy, :conditions => {:first_name => "Ben", email_ends_with => "binarylogic.com"}, :per_page => 20
+  end
+
+== Always use protection...against SQL injections
+
+If there is one thing we all know, it's to always use protection against SQL injections. That's why searchgasm protects you by default. The new\_search and new\_conditions methods protect mass assignments by default (instantiation and search.options = {}). This means that various checks are done to ensure it is not possible to perform any type of SQL injection during mass assignments. But this also limits how you can search, meaning you can't write raw SQL. If you want to be daring and search without protection, all that you have to do is add ! to the end of the methods: new\_search! and new\_conditions!.
+
+=== Protected from SQL injections
+
+  search = Account.new_search(params[:search])
+  conditions = Account.new_conditions(params[:conditions])
+
+=== *NOT* protected from SQL injections
+
+  accounts = Account.find(params[:search])
+  accounts = Account.all(params[:search])
+  account = Account.first(params[:search])
+  search = Account.new_search!(params[:search])
+  conditions = Account.new_conditions!(params[:conditions])
+
+I'm sure you already knew this, but it's tempting to do this when you can pass the params hash right into these methods.
+
+Lesson learned: use new\_search and new\_conditions when passing in params as *ANY* of the options.
+
+== Available Conditions
+
+Depending on the type, each column comes preloaded with a bunch of nifty conditions:
+
+  all columns
+  => :equals, :does_not_equal
+
+  :string, :text
+  => :begins_with, :contains, :keywords, :ends_with
+
+  :integer, :float, :decimal,:datetime, :timestamp, :time, :date
+  => :greater_than, :greater_than_or_equal_to, :less_than, :less_than_or_equal_to
+
+  tree data structures (see above "searching trees")
+  => :child_of, :sibling_of, :descendant_of, :inclusive_descendant_of
+
+Some of these conditions come with aliases, so you have your choice how to call the conditions. For example you can use "greater\_than" or "gt":
+
+  :equals                     => :is
+  :does_not_equal             => :is_not, :not
+  :begins_with                => :starts_with, :sw, :bw, :start
+  :contains                   => :like, :has
+  :ends_with                  => :ew, :ends, :end
+  :greater_than               => :gt, :after
+  :greater_than_or_equal_to   => :at_least, :gte
+  :keywords                   => :kwords, :kw
+  :less_than                  => :lt, :before
+  :less_than_or_equal_to      => :at_most, :lte
+
+For more information on each condition see Searchgasm::Condition. Each condition has it's own class and the source is pretty simple and self explanatory.
+
+=== Enhanced searching and blacklisted words
+
+You will notice above there is "contains" and "keywords". The difference is that "keywords" is an enhanced search. It acts like a real keyword search. It finds those keywords, in any order, and blacklists meaningless words such as "and", "the", etc. "contains" finds the EXACT string in the column you are searching, spaces and all.
+
+=== Roll your own conditions
+
+I didn't include this function because its MySQL specific, and it's probably rarely used, but MySQL supports a "SOUNDS LIKE" function.
+
+I want to use it, so let's add it:
+
+  # config/initializers/searchgasm.rb
+  # Actual function for MySQL databases only
+  class SoundsLike < Searchgasm::Condition::Base
+    class << self
+    # I pass you the column, you tell me what you want the method to be called.
+    # If you don't want to add this condition for that column, return nil
+    # It defaults to "#{column.name}_sounds_like" (using the class name). So if thats what you want you don't even need to do this.
+    def name_for_column(column)
+      super
+    end
+    
+    # Only do this if you want aliases for your condition
+    def aliases_for_column(column)
+      ["#{column.name}_sounds", "#{column.name}_similar_to"]
+    end
+    end
+    
+    # You can return an array or a string. NOT a hash, because all of these conditions
+    # need to eventually get merged together. The array or string can be anything you would put in
+    # the :conditions option for ActiveRecord::Base.find(). Also, for a list of methods / variables you can use check out
+	# Searchgasm::Condition::Base.
+    def to_conditions(value)
+    ["#{quoted_table_name}.#{quoted_column_name} SOUNDS LIKE ?", value]
+    end
+  end
+  
+  Searchgasm::Conditions::Base.register_condition(SoundsLike)
+
+Now test it out:
+
+  search = User.new_search
+  search.conditions.first_name_sounds_like = "Ben"
+  search.all  # will return any user that has a first name that sounds like "Ben"
+
+Pretty nifty, huh? You can create any condition ultimately creating any SQL you want. The sky is the limit. For more information see Searchgasm::Condition::Base
+
+== Under the hood
+
+I'm a big fan of understanding what I'm using, so here's a quick explanation: The design behind this plugin is pretty simple. The search object "sanitizes" down into the options passed into ActiveRecord::Base.find(). It serves as a transparent filter between you and ActiveRecord::Base.find(). This filter provides "enhancements" that get translated into options that ActiveRecord::Base.find() can understand. It doesn't dig into the ActiveRecord internals, it only uses what is publicly available. It jumps in and helps out <em>only</em> when needed, otherwise it sits back and lets ActiveRecord do all of the work. Between that and the extensive tests, this is a solid and fast plugin.
+
+== Performance / Benchmarking
+
+I ran searchgasm through some performance tests using ruby-prof. After working on it for a little while I improved performance quite a bit. Notice the "2nd instantiation" report. This is implementing caching and skips all dynamic method creation / meta programming. It resulted in code over 50 times faster.
+
+	                          user     system      total        real
+	1st instantiation:    0.000000   0.000000   0.000000 (  0.005466)
+	2nd instantiation:    0.000000   0.000000   0.000000 (  0.000108)
+	Local ordering:       0.000000   0.000000   0.000000 (  0.000265)
+	Advanced ordering:    0.000000   0.000000   0.000000 (  0.000413)
+	Local conditions:     0.000000   0.000000   0.000000 (  0.000241)
+	Advanced conditions:  0.000000   0.000000   0.000000 (  0.000602)
+	Its complicated:      0.000000   0.000000   0.000000 (  0.001017)
+
+I also included the benchmarking file in benchmarks/benchmark.rb to see for yourself.
+
+== Reporting problems / bugs
+
+http://binarylogic.lighthouseapp.com/projects/16601-searchgasm
+
+== Credits
+
+Author: {Ben Johnson}[http://github.com/binarylogic] of {Binary Logic}[http://www.binarylogic.com]
+
+Credit to {Zack Ham}[http://github.com/zackham] and {Robert Malko}[http://github.com/malkomalko/] for helping with feature suggestions.
+
+
+Copyright (c) 2008 {Ben Johnson}[http://github.com/binarylogic] of {Binary Logic}[http://www.binarylogic.com], released under the MIT license 

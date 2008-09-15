@@ -42,6 +42,8 @@ ActionController::Routing::Routes.draw do |map|
       meetings.resources :objectives
     end
   end
+  
+  map.resource :search
     
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id'
