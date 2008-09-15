@@ -9,7 +9,7 @@ class Search < ActiveRecord::Base
   column :item_type_equals, :string
   column :title_contains, :integer
   column :description_contains, :string
-  column :created_after, :datetimne
+  column :created_after, :datetime
   column :created_before, :datetime
   
   validates_date :created_after, :created_before, :allow_nil => true
