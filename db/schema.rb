@@ -9,75 +9,83 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080826073430) do
+ActiveRecord::Schema.define(:version => 20080915051333) do
 
   create_table "artic_files", :force => true do |t|
-    t.integer  "user_id"
+    t.integer  "user_id",     :limit => 11
     t.string   "title"
     t.text     "description"
     t.string   "file_path"
-    t.boolean  "private",     :default => false
+    t.boolean  "private",                   :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "article_files", :force => true do |t|
-    t.integer  "article_id"
+    t.integer  "article_id", :limit => 11
     t.string   "file_path"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "article_images", :force => true do |t|
-    t.integer  "article_id"
+    t.integer  "article_id", :limit => 11
     t.string   "image_path"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "articles", :force => true do |t|
-    t.integer  "user_id"
+    t.integer  "user_id",     :limit => 11
     t.string   "title"
     t.text     "description"
     t.text     "body"
-    t.boolean  "private",     :default => false
+    t.boolean  "private",                   :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "audios", :force => true do |t|
-    t.integer  "user_id"
+    t.integer  "user_id",     :limit => 11
     t.string   "title"
     t.text     "description"
     t.string   "file_path"
-    t.boolean  "private",     :default => false
+    t.boolean  "private",                   :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "comments", :force => true do |t|
     t.text     "text"
-    t.integer  "user_id"
-    t.integer  "commentable_id"
+    t.integer  "user_id",          :limit => 11
+    t.integer  "commentable_id",   :limit => 11
     t.string   "commentable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  create_table "generic_items", :force => true do |t|
+    t.string   "item_type",   :limit => 11, :default => "", :null => false
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "images", :force => true do |t|
-    t.integer  "user_id"
+    t.integer  "user_id",     :limit => 11
     t.string   "title"
     t.text     "description"
     t.string   "file_path"
-    t.boolean  "private",     :default => false
+    t.boolean  "private",                   :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "items", :force => true do |t|
     t.string   "itemable_type"
-    t.integer  "itemable_id"
-    t.integer  "workspace_id"
+    t.integer  "itemable_id",   :limit => 11
+    t.integer  "workspace_id",  :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -89,38 +97,38 @@ ActiveRecord::Schema.define(:version => 20080826073430) do
   end
 
   create_table "permissions_roles", :force => true do |t|
-    t.integer  "role_id"
-    t.integer  "permission_id"
+    t.integer  "role_id",       :limit => 11
+    t.integer  "permission_id", :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "public_items", :force => true do |t|
-    t.integer  "itemable_id"
+    t.integer  "itemable_id",          :limit => 11
     t.string   "itemable_type"
-    t.integer  "extranet_category_id"
-    t.integer  "suggester_id"
-    t.integer  "validated"
+    t.integer  "extranet_category_id", :limit => 11
+    t.integer  "suggester_id",         :limit => 11
+    t.integer  "validated",            :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "publications", :force => true do |t|
-    t.integer  "user_id"
+    t.integer  "user_id",     :limit => 11
     t.boolean  "imported"
     t.string   "title"
     t.string   "author"
     t.string   "link"
     t.text     "description"
     t.string   "file_path"
-    t.boolean  "private",     :default => false
+    t.boolean  "private",                   :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "pubmed_items", :force => true do |t|
     t.string   "guid"
-    t.integer  "pubmed_source_id"
+    t.integer  "pubmed_source_id", :limit => 11
     t.string   "title"
     t.text     "description"
     t.string   "author"
@@ -130,7 +138,7 @@ ActiveRecord::Schema.define(:version => 20080826073430) do
   end
 
   create_table "pubmed_sources", :force => true do |t|
-    t.integer  "user_id"
+    t.integer  "user_id",     :limit => 11
     t.string   "name"
     t.text     "description"
     t.string   "url",         :limit => 1024
@@ -139,9 +147,9 @@ ActiveRecord::Schema.define(:version => 20080826073430) do
   end
 
   create_table "ratings", :force => true do |t|
-    t.integer  "rating"
-    t.integer  "user_id"
-    t.integer  "rateable_id"
+    t.integer  "rating",        :limit => 11
+    t.integer  "user_id",       :limit => 11
+    t.integer  "rateable_id",   :limit => 11
     t.string   "rateable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -160,8 +168,8 @@ ActiveRecord::Schema.define(:version => 20080826073430) do
   end
 
   create_table "taggings", :force => true do |t|
-    t.integer  "tag_id"
-    t.integer  "taggable_id"
+    t.integer  "tag_id",        :limit => 11
+    t.integer  "taggable_id",   :limit => 11
     t.string   "taggable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -187,7 +195,7 @@ ActiveRecord::Schema.define(:version => 20080826073430) do
     t.string   "image_path",                :limit => 500
     t.string   "crypted_password",          :limit => 40
     t.string   "salt",                      :limit => 40
-    t.integer  "system_role_id"
+    t.integer  "system_role_id",            :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "remember_token",            :limit => 40
@@ -197,27 +205,27 @@ ActiveRecord::Schema.define(:version => 20080826073430) do
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true
 
   create_table "users_workspaces", :force => true do |t|
-    t.integer  "workspace_id"
-    t.integer  "role_id"
-    t.integer  "user_id"
+    t.integer  "workspace_id", :limit => 11
+    t.integer  "role_id",      :limit => 11
+    t.integer  "user_id",      :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "videos", :force => true do |t|
-    t.integer  "user_id"
+    t.integer  "user_id",      :limit => 11
     t.string   "title"
     t.text     "description"
     t.string   "file_path"
     t.string   "encoded_file"
     t.string   "thumbnail"
-    t.boolean  "private",      :default => false
+    t.boolean  "private",                    :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "workspaces", :force => true do |t|
-    t.integer  "creator_id"
+    t.integer  "creator_id",  :limit => 11
     t.text     "description"
     t.string   "name"
     t.datetime "created_at"
