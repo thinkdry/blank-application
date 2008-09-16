@@ -1,3 +1,4 @@
+
 <h1>Nouvelle publication</h1>
 
 <% form_for @current_object, :html => {:multipart => true}, :builder => LabelFormBuilder do |f| %>
@@ -17,6 +18,5 @@
 	<%= file_column_field 'publication', 'file_path' %>
 	
 	<%= item_status_fields(f, @current_object) %>
-	
 	<p><%= f.submit %></p>
 <% end %>

@@ -1,4 +1,5 @@
 class CreatePublications < ActiveRecord::Migration
+  
   def self.up
     create_table :publications do |t|
       t.integer :user_id
