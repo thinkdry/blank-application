@@ -6,10 +6,13 @@
 		<%= f.tags_field :string_tags, :label => "Tags (séparés par des espaces):" %>
 		
 		<%= f.text_area :description, :label => 'Résumé :' %>
+                
+               
 		<script type="text/javascript">
 			bkLib.onDomLoaded(function() {
-				new nicEditor({iconsPath : '/images/nicEditorIcons.gif'}).panelInstance('article_description');
-			});
+				new nicEditor({iconsPath : '/images/nicEditorIcons.gif'}).panelInstance('article_description');  
+                               });
+                        
 		</script>
 	
 		<%= f.text_area :body, :label => 'Corps :' %>

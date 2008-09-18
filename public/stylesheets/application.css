@@ -422,6 +422,20 @@ a.add_item{
 	line-height: 18px;
 }
 
+.error {
+	padding: 0.5em;
+	background-color: #C3878C;
+	margin-bottom: 1em;
+	margin-right: 230px;
+	border: 2px solid #800000;
+	font-size: 90%;
+	font-weight: bold;
+	color: #ff0000;
+	line-height: 18px;
+}
+
+
+
 div.autocomplete {
   position:absolute;
   width:250px;

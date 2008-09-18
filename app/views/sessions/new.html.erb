@@ -24,6 +24,7 @@
 		<div id="content_login">
     	<img src="images/logo_intranet_login.gif" alt="ARTIC" width="168" height="80">
     	<% form_tag session_path do -%>
+                                <p style="color:red"><%=flash[:error]%></p>
 				<label>Identifiant<br>
 				<%= text_field_tag 'login', @login %></label>
 				<br>
@@ -34,6 +35,7 @@
 				<div id="area_BUTTONS" class="buttons">
 	        <button type="submit" class="positive">
 	        <img src="images/tick.png" alt=""/>Connexion</button>
+                 
 	        <a href="/password/reset/">Mot de passe perdu ?</a>
 	      </div>
 			<% end %>

@@ -5,6 +5,7 @@
 		<%= stylesheet_link_tag "starbox.css" %>
 		<%= javascript_include_tag :all %>
 		<%#= calendar_date_select_includes nil %>
+                 
 	</head>
 
 <body onload="initialize()">
@@ -63,9 +64,17 @@
 	
 	<div id="container">
 		<%= content_tag(:div, flash[:notice], :class => 'notice') if flash[:notice] %>
+                <%= content_tag(:div, flash[:error], :class => 'error') if flash[:error] %>
 		<%= yield %>
+                <div id="spinner" style="display:none;">
+                 <center>
+                <%= image_tag 'spinner.gif', :width => '40', :height => '15' %>
+                <br><b>L O A D I N G</b>
+                </center>
+                </div>
 	</div>
 
 </div>
+
 </body>
 </html>

@@ -9,7 +9,7 @@
 			<%= f.label :file_path, 'Fichier :' %>
 			<%= error_message_on :artic_file, :file_path %><br/>
 			<%= File.basename(@current_object.file_path) + '<br />' if @current_object.file_path %>
-			<%= file_column_field "video", 'file_path' %>
+			<%= file_column_field "video", 'file_path',:onChange=>"LimitAttach(this.form, this.form.video_file_path.value,'video')" %>
 		</p>
 		
 		<%= f.text_area :description, :label => 'Description :' %>
@@ -22,6 +22,6 @@
 		<%= item_status_fields(f, @current_object) %>
 	
 		<%= f.submit current_object.new_record? ? 'Créer ce fichier' : 'Mettre à jour' %>
-	
+                 
 	<% end -%>
 </div>

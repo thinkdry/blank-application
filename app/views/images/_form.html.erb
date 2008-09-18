@@ -11,7 +11,7 @@
 		<% end %>
 		<%= error_message_on :artic_file, :file_path %><br/>
 		<%= File.basename(@current_object.file_path) + '<br />' if @current_object.file_path %>
-		<%= file_field 'image', 'file_path' %><br />
+		<%= file_field 'image', 'file_path',:onChange=>"LimitAttach(this.form, this.form.image_file_path.value,'image')" %><br />
 		
 		<%= f.text_area :description, :label => 'Description :' %>
 		<script type="text/javascript">
@@ -22,7 +22,9 @@
 		
 		<%= item_status_fields(f, @current_object) %>
 	
-		<%= f.submit current_object.new_record? ? 'Créer ce fichier' : 'Mettre à jour' %>
-	
+                   <%= f.submit current_object.new_record? ? 'Créer ce fichier' : 'Mettre à jour' %> 
+                    
+              
+               
 	<% end -%>
 </div>

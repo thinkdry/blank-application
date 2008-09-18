@@ -7,6 +7,7 @@ class Audio < ActiveRecord::Base
 		:description,
 		:file_path,
 		:user
+         validates_file_format_of :file_path, :in => ["mp3", "wav"]
 	
 	def self.label
     "Audio"

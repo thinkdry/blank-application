@@ -8,8 +8,8 @@ class Image < ActiveRecord::Base
 		:description,
 		:file_path,
 		:user
-	
-	#validates_file_format_of :file_path, :in => ["gif", "png", "jpg"]
+	validates_file_format_of :file_path, :in => ["gif", "jpeg", "jpg"]
+         
 	
 	def self.label
 	  "Image"
