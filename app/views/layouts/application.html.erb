@@ -62,6 +62,10 @@
 		</div>
 	</div>
 	
+	<% form_tag search_path, :method => :get do %>
+		<%= text_field_tag :search %>
+	<% end %>
+	
 	<div id="container">
 		<%= content_tag(:div, flash[:notice], :class => 'notice') if flash[:notice] %>
                 <%= content_tag(:div, flash[:error], :class => 'error') if flash[:error] %>

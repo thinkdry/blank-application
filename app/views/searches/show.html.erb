@@ -1,9 +1,16 @@
 <table border="1">
+	<tr>
+		<th>Model</th>
+		<th>Titre</th>
+		<th>Description</th>
+		<th>Créé le</th>
+	</tr>
 	<% @items.each do |item| %>
 		<tr>
-			<% GenericItem.columns.collect(&:name).each do |col|
-				concat content_tag(:td, item.send(col)), binding
-			end %>
-		</td>
+			<td><%= item.class %></td>
+			<td><%= item.title %></td>
+			<td><%= item.description %></td>
+			<td><%= item.created_at %></td>
+		</tr>
 	<% end %>
 </table>
