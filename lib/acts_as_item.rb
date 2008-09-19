@@ -68,7 +68,9 @@ module ActsAsItem
   end
   
   module ModelMethods
-    
+     def validate
+           errors.add(:description, "Cannot Be Blank") if (description=="<br>")
+      end
     def self.included(base)
       base.extend ClassMethods
     end
