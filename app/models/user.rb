@@ -96,4 +96,20 @@ class User < ActiveRecord::Base
     #workspaces_consulted + workspaces_administred
     workspaces_administred
   end
+	
+  def create_reset_code
+    @reset = true
+    self.password_reset_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
+    save(false)
+  end
+  
+  def recently_reset?
+    @reset
+  end
+ 
+  def delete_reset_code
+    self.password_reset_code = nil
+    save(false)
+  end
+	
 end

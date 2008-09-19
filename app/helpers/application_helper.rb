@@ -8,12 +8,12 @@ module ApplicationHelper
 		content_tag :p, item.description		
 	end
         
-        def flash_messages
-          return unless messages = flash.keys.select{|k| FLASH_NOTICE_KEYS.include?(k)}
-          formatted_messages = messages.map do |type|      
-         content_tag :div, :class => type.to_s do
-         message_for_item(flash[type], flash["#{type}_item".to_sym])
-      end
+  def flash_messages
+		return unless messages = flash.keys.select{|k| FLASH_NOTICE_KEYS.include?(k)}
+			formatted_messages = messages.map do |type|      
+			content_tag :div, :class => type.to_s do
+				message_for_item(flash[type], flash["#{type}_item".to_sym])
+			end
     end
     formatted_messages.join
   end

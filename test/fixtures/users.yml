@@ -1,6 +1,6 @@
 quentin:
   login:                        quentin
-  email:                        quentin@example.com
+  email:                        francois@thinkdry.com
   salt:                         356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
   crypted_password:             a2c297302eb67e8f981a0f9bfae0e45e4d0e4317 # 'monkey'
   created_at:                   <%= 5.days.ago.to_s :db  %>

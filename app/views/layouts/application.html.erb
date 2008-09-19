@@ -68,7 +68,7 @@
 	
 	<div id="container">
 		<%= content_tag(:div, flash[:notice], :class => 'notice') if flash[:notice] %>
-                <%= content_tag(:div, flash[:error], :class => 'error') if flash[:error] %>
+    <%= content_tag(:div, flash[:error], :class => 'error') if flash[:error] %>
 		<%= yield %>
                 <div id="spinner" style="display:none;">
                  <center>
