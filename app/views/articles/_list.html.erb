@@ -4,6 +4,8 @@
 		<% @current_objects.each do |co| %>
 			<%= item_in_list co %>
 		<% end %>
+		<%= will_paginate @current_objects %><br />
 		<%= link_to "Ajouter un ficher", new_item_path(Article), :class => "add_item" %>
 	</div>
 </div>
+

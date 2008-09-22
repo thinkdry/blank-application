@@ -22,6 +22,15 @@ class WorkspacesController < ApplicationController
       # Hack. Permit deletion of all assigned users (with roles).
       params["workspace"]["existing_user_attributes"] ||= {}
     end
+		
+		before :index do
+			@current_objects = current_objects.paginate(
+				:page => params[:page],
+				:order => :title,
+				:per_page => 2
+			)
+		end
+					
 	end
 	
 end

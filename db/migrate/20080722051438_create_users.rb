@@ -16,6 +16,7 @@ class CreateUsers < ActiveRecord::Migration
       
       t.column :crypted_password,           :string, :limit => 40
       t.column :salt,                       :string, :limit => 40
+			t.column :invitation_code,						:string, :limit => 40
       t.column :password_reset_code,				:string, :limit => 40
       t.integer :system_role_id
      

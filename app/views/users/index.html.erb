@@ -6,5 +6,9 @@
 				content_tag(:span, " (#{user.firstname} #{user.lastname})", :class => "informal")
 			)
 		%>
+		
 	<% end %>
+	
+	<%= will_paginate @current_objects %>
+
 </ul>

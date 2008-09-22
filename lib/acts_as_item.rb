@@ -30,6 +30,16 @@ module ActsAsItem
         	before :create do
         	  current_object.user = current_user
       	  end
+					
+					before :index do
+						@current_objects = current_objects.paginate(
+						:page => params[:page],
+						:order => :title,
+						:per_page => 2
+					)
+					end
+					
+					
         end
       end
     end

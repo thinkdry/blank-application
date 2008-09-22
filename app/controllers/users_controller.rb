@@ -2,8 +2,7 @@ class UsersController < ApplicationController
   acts_as_ajax_validation
 	
 	skip_before_filter :is_logged?, :only => [:forgot_password, :reset_password]
-	layout nil, :only => [:forgot_password, :reset_password]
-	
+	layout "application", :except => [:forgot_password, :reset_password]
 
   make_resourceful do
     actions :all
@@ -11,7 +10,15 @@ class UsersController < ApplicationController
 		
     before :new, :create do permit("admin") end
     before :edit, :update do permit("admin or owner of user") end
-
+		
+		before :index do
+			@current_objects = current_objects.paginate(
+     	:page => params[:page],
+			:order => :title,
+			:per_page => 20
+		)
+    end
+		
     response_for :index do |format|
       format.html { render :layout => false }
     end
@@ -74,7 +81,7 @@ class UsersController < ApplicationController
       end
 		end
     else
-			flash[:error] = "Ce lien n'est pas valide."
+			flash[:error] = "Ce lien n'est plus valide."
 			redirect_to "/login"
 		end
   end  
