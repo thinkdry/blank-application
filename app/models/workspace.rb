@@ -53,8 +53,9 @@ class Workspace < ActiveRecord::Base
 	def usersByRole(role_name)
 		@result = []
 		UsersWorkspace.find(:all, :conditions => { :workspace_id => self.id, :role_id => Role.find_by_name(role_name).id }).each do |uw|
-			@result << User.find(uw.id)
+			@result << User.find(uw.user_id)
 		end
+		return @result
   end
 	
   

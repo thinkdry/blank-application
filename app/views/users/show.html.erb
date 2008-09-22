@@ -25,8 +25,44 @@
 	<span class="titre">Mes droits d'accès</span><br>
 	<br>
 	<div class="item" id="item_-613527198">
-		<span class="txt_80_333"><strong>Administrateur du système : NON</strong></span><br>
-		<span class="txt_80_333">Pas de droit.</span><span class="txt_80_666"><br></span>
+		<% if @current_object.system_role == "Admin" %>
+			<span class="txt_80_333"><strong>Administrateur du système : OUI</strong></span><br>
+			<span class="txt_80_333">Vous pouvez administrer le site.</span><span class="txt_80_666"><br></span>
+		<% else %>
+			<span class="txt_80_333"><strong>Administrateur du système : NON</strong></span><br>
+			<span class="txt_80_333">Pas de droit.</span><span class="txt_80_666"><br></span>
+		<% end %>
+		<% if (@res=@current_object.workspaces_by_role("Modérateur")) %>
+			<br/>
+			<span class="txt_80_333"><strong>Modérateur : OUI</strong></span><br>
+			<span class="txt_80_333">Vous avez les droits pour modérer : 
+			 <%= @res.map{|w| link_to(w.name, workspace_path(w.id)) }.join(', ') %>
+			</span><span class="txt_80_666"><br></span>
+		<% else %>
+			<span class="txt_80_333"><strong>Modérateur : NON</strong></span><br>
+			<span class="txt_80_333">Pas de droit.</span><span class="txt_80_666"><br></span>
+		<% end %>
+		<% if (@res=@current_object.workspaces_by_role("Rédacteur")) %>
+			<br/>
+			<span class="txt_80_333"><strong>Rédacteur : OUI</strong></span><br>
+			<span class="txt_80_333">Vous avez les droits pour modérer les espaces : 
+			 <%= @res.map{|w| link_to(w.name, workspace_path(w.id)) }.join(', ') %>
+			</span><span class="txt_80_666"><br></span>
+		<% else %>
+			<span class="txt_80_333"><strong>Rédacteur : NON</strong></span><br>
+			<span class="txt_80_333">Pas de droit.</span><span class="txt_80_666"><br></span>
+		<% end %>
+		<% if (@res=@current_object.workspaces_by_role("Lecteur")) %>
+			<br/>
+			<span class="txt_80_333"><strong>Lecteur : OUI</strong></span><br>
+			<span class="txt_80_333">Vous avez accès en lecture dans : 
+			 <%= @res.map{|w| link_to(w.name, workspace_path(w.id)) }.join(', ') %>
+			</span><span class="txt_80_666"><br></span>
+		<% else %>
+			<span class="txt_80_333"><strong>Lecteur : NON</strong></span><br>
+			<span class="txt_80_333">Pas de droit.</span><span class="txt_80_666"><br></span>
+		<% end %>
+		
 	</div>
 </div>
 

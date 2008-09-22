@@ -10,6 +10,8 @@ ActionController::Routing::Routes.draw do |map|
   map.reset_password '/reset_password/:password_reset_code', :controller => 'users', :action => 'reset_password'
   map.resources :users
   map.resource :session
+	
+	map.admin '/admin', :controller => 'admin', :action => 'index'
 
   # TODO: Publishing, Bookmarks, Admin related controllers: rights...
 
