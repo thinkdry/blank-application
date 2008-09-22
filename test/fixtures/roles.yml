@@ -1,7 +1,10 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  name: role1
+moderateur:
+  name: Modérateur
 
-two:
-  name: role2
+redacteur:
+  name: Rédacteur
+
+lecteur:
+  name: Lecteur

@@ -1,6 +1,41 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 yvon_fun_role_one:
-    workspace: fun
-    user: yvon
-    role: one
+  workspace: fun
+  user: yvon
+  role: one
+
+one:
+  workspace: cancerologie
+  user: tintin
+  role: moderateur
+
+two:
+  workspace: fun
+  user: milou
+  role: redacteur
+
+three:
+  workspace: test
+  user: tintin
+  role: lecteur
+
+four:
+  workspace: fun
+  user: tintin
+  role: redacteur
+
+five:
+  workspace: cancerologie
+  user: milou
+  role: lecteur
+
+six:
+  workspace: cancerologie
+  user: haddock
+  role: moderateur
+
+seven:
+  workspace: fun
+  user: haddock
+  role: lecteur

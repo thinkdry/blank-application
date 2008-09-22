@@ -49,9 +49,20 @@ class Workspace < ActiveRecord::Base
     return true if role == 'member' && user.all_workspaces.include?(self)
     false
   end
+	
+	def usersByRole(role_name)
+		@result = []
+		UsersWorkspace.find(:all, :conditions => { :workspace_id => self.id, :role_id => Role.find_by_name(role_name).id }).each do |uw|
+			@result << User.find(uw.id)
+		end
+  end
+	
   
   private
   def downcase_user_attributes(attributes)
     attributes.each { |value| value['user_login'].downcase! }
   end
+	
+	
+	
 end
