@@ -4,6 +4,7 @@ class Workspace < ActiveRecord::Base
 	has_many :users, :through => :users_workspaces
 	has_many :items, :dependent => :delete_all
   has_many_polymorphs :itemables, :from => [:articles, :artic_files, :audios, :videos, :images, :publications], :through => :items
+	belongs_to :creator, :class_name => 'User'
 	
 	validates_presence_of :name
 	validates_associated  :users_workspaces
@@ -11,7 +12,9 @@ class Workspace < ActiveRecord::Base
 	
 	after_update  :save_users_workspaces
 	
-	belongs_to :creator, :class_name => 'User'
+  named_scope :latest,
+    :order => 'created_at DESC',
+    :limit => 5
 	
 	def latest_comments
 	  Comment.all(:order => 'created_at DESC').select { |c| c.commentable.workspace_ids.include?(self.id) }[0..5]
