@@ -1,32 +1,36 @@
-<div id="content">
-	<div id="area_TITLE">
-		<h1>
-			Bonjour <%= current_user.firstname %>
-		</h1>
-		<span class="txt_80_666"><%= current_user.edito %></span>
-	</div>
-		<div id="area_ADDED">
-			<div class="txt_100_000"><strong>Mes informations personnelles</strong></div>
-	  		<p>
-				<span class="txt_80_333">Lieu  :</span> <span class="txt_80_666"><%= current_user.addr %></span><br>
-    			<span class="txt_80_333">Activité : </span><span class="txt_80_666"><%= current_user.activity %></span><br>
-    			<span class="txt_80_333">Email :</span> <span class="txt_80_666"><%= current_user.email %></span><br>
-    			<span class="txt_80_333">Téléphone :</span> <span class="txt_80_666"><%= current_user.phone %></span>
-			</p>
-		</div>
-		<div id="item_WS">
-			<span class="titre"><strong>Mes espaces de travail</strong></span><br>
-			<br>
-			<div class="item" id="item_-613527198">
-				<span class="txt_80_333">Vous administrez :
-				<%= @current_user.workspaces_administred.collect { |ws| link_to(ws.name, ws) }.join(', ') %>
-			</div>
-	    	<div class="item" id="item_-613527198">
-	    		<span class="txt_80_333">Vous avez accès aux espaces :
-				<%= @current_user.all_workspaces.collect { |ws| link_to(ws.name, ws) }.join(', ') %>
-			</div>
-		</div>
-		<%= item_list %>
-		<div class="clear"></div>
-	</div>
-<%= render :partial => "account/menu" %>
+<div class="area_LEFT">
+  <div id="area_WS">
+  	<h4>Mes droits d'accès</h4>
+  	<br />
+  	<span class="label-txt">Vous administrez :</span>
+  	<%= @current_user.workspaces_administred.collect { |ws| link_to(ws.name, ws) }.join(', ') %>
+  	<br /><br />
+  	<span class="label-txt">Vous avez accès aux espaces :</span>
+  	<%= @current_user.all_workspaces.collect { |ws| link_to(ws.name, ws) }.join(', ') %>
+  	<br /><br />
+  	<%= link_to "Accéder à l'intrface d'administration", admin_path %>
+  </div>
+  <br />
+  <div id="area_INFOS">
+  	<h4>Mes informations personnelles</h4>
+  	<br />
+  	<p class="name"><%= current_user.firstname %> <%= current_user.lastname %></p><br />
+  	<%= image_tag(url_for_file_column(current_user, 'image_path'), :class => "avatar", :align => "right") if current_user.image_path %>
+  	<p><span class="label-txt">Lieu  :</span> <span class="content-txt"><%= current_user.laboratory %></span></p>
+  	<p><span class="label-txt">Activité : </span><span class="content-txt"><%= current_user.activity %></span></p>
+  	<p><span class="label-txt">Adresse postale : </span><span class="content-txt"><%= current_user.addr %></span></p>
+  	<p><span class="label-txt">Email :</span> <span class="content-txt"><%= current_user.email %></span></p>
+  	<p><span class="label-txt">Téléphone :</span> <span class="content-txt"><%= current_user.phone %></span></p>
+  	<p><span class="label-txt">Présentation : </span><span class="content-txt"><%= current_user.edito %></span></p>
+  	<br />
+  	<%= link_to 'Mettre à jour mes informations personnelles', edit_user_path(current_user) %>
+  </div>
+</div>
+<div class="area_RIGHT">
+  ICI TOP ELEMENTS
+</div>
+<div class="clear"></div>
+<br />
+<div class="area_BOTH">
+  ICI DERNIERS DOCUMENS EN LIGNE
+</div>
