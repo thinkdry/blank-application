@@ -13,4 +13,16 @@ class GenericItem < ActiveRecord::Base
            users_workspaces.workspace_id = items.workspace_id AND
            users_workspaces.user_id = #{user.id} ) > 0 }}
   }
+  
+  named_scope :most_commented,
+    :select => %{
+      *,
+      ( SELECT COUNT(*)
+        FROM comments
+        WHERE
+          generic_items.id = comments.commentable_id AND
+          generic_items.item_type = comments.commentable_type
+      ) AS number_of_comments },
+    :order => 'number_of_comments DESC',
+    :limit => 5
 end
