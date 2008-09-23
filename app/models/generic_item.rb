@@ -38,4 +38,8 @@ class GenericItem < ActiveRecord::Base
       ) AS average_rate },
     :order => 'average_rate DESC',
     :limit => 5
+    
+  named_scope :latest,
+    :order => 'created_at DESC',
+    :limit => 5
 end
