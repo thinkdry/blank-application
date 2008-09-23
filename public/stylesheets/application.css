@@ -24,19 +24,23 @@ a.add_item{
 	margin-top: 30px;
 }
 
+.clear{
+  clear: both;
+}
+
 #page {
 	width: 100%;
 }
 
 #container {
-	min-width: 980px;
-	padding: 10px 20px 10px 20px;
+  width: 100%;
+  position: absolute;
+  min-width: 998px;
 }
 
 #header {
 	background-color: #bdd6d9;
 	color: white;
-	margin-bottom: 1em;
 	height: 103px;
 	min-width: 1000px;
 }
@@ -286,11 +290,6 @@ a.add_item{
 	color: #FFFFFF;
 }
 
-#area_TITLE {
-	padding: 0.5em;
-	margin-bottom: 1em;
-	border: 2px solid #F2F2F2;
-}
 #area_USERS {
 	margin-bottom: 1em;
 	line-height: 20px;
@@ -472,12 +471,12 @@ div.autocomplete ul li {
 	font-size: 150%;
 }
 
-#right-container{
+/*#right-container{
 	position:absolute;
 	top: 127px;
 	right: 20px;
 }
-
+*/
 #right_menu {
 	background-color:#F2F2F2;
 	margin-right: 5px;
@@ -669,4 +668,10 @@ a img {
 
 .comment_header{
 	width: 100%;	
+}
+
+#footer{
+  background-color: #BDD6D9;
+  color: #fff;
+  padding: 15px;
 }
