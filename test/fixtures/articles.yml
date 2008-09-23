@@ -29,3 +29,15 @@ four:
   title: Article 4
   description: Artice vide
   body: C'est un bon article sur un peu rien mais aussi ps grand chose.
+
+article_by_yvon:
+    user: yvon
+    title: "Here is one article created by Yvon"
+    description: "My description"
+    body: "My content"
+    
+private_article_by_quentin:
+    user: quentin
+    title: "Quentin's private item"
+    description: "My description"
+    body: "My content"
