@@ -25,4 +25,17 @@ class GenericItem < ActiveRecord::Base
       ) AS number_of_comments },
     :order => 'number_of_comments DESC',
     :limit => 5
+    
+  named_scope :best_rated,
+    :select => %{
+      *,
+      ( SELECT AVG(rating)
+        FROM ratings
+        WHERE
+          generic_items.id = ratings.rateable_id AND
+          generic_items.item_type = ratings.rateable_type
+        GROUP BY rateable_id
+      ) AS average_rate },
+    :order => 'average_rate DESC',
+    :limit => 5
 end
