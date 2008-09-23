@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080918093914) do
+ActiveRecord::Schema.define(:version => 20080922085723) do
 
   create_table "acts_as_xapian_jobs", :force => true do |t|
     t.string  "model",                  :null => false
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(:version => 20080918093914) do
 
   create_table "generic_items", :force => true do |t|
     t.string   "item_type",   :limit => 11, :default => "", :null => false
+    t.integer  "user_id",     :limit => 11
     t.string   "title"
     t.text     "description"
     t.datetime "created_at"

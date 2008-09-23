@@ -1,23 +1,20 @@
 class CreateGenericItems < ActiveRecord::Migration
-  def self.up
+  def self.up  
     subqueries = Array.new
     [:article, :image, :artic_file, :audio, :video, :publication].each do |model|
-      subqueries << "
+      subqueries << %{
         SELECT
           '#{model.to_s.classify}' as item_type,
           id,
+          user_id,
           title,
           description,
           created_at,
           updated_at
-        FROM #{model.to_s.pluralize}
-      "
+        FROM #{model.to_s.pluralize} }
     end
     
-    sql_statement = "CREATE OR REPLACE VIEW generic_items AS "
-    sql_statement += subqueries.join(" UNION ALL ")
-
-    execute(sql_statement)
+    execute "CREATE OR REPLACE VIEW generic_items AS #{subqueries.join(' UNION ALL ')}"
   end
 
   def self.down
