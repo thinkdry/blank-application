@@ -1,8 +1,3 @@
-<h2>
-	<%= link_to request.name.capitalize, pubmed_source_url(request)%>
-  
-</h2>
-<%= request.created_at.l(:short) %>
-<p>
-	<%= request.description %>
-</p>
+<h2><%= link_to request.name.capitalize, pubmed_source_url(request)%></h2>
+  <%= request.created_at.l(:short) %><%=link_to "supprimer",pubmed_source_url(@current_object)%>
+ <%#= request.description %>

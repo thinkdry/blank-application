@@ -1,3 +1,12 @@
-<h1>Requêtes</h1>
+<h1>Mes Requêtes PubMed</h1><br />
 
 <%= render :partial => "request", :collection => @current_objects %>
+<%#= render :partial => "form" %>
+<%#=link_to "New Publication",new_pubmed_source_url%>
+<% form_for @current_object, :html => {:multipart => true}, :builder => LabelFormBuilder do |f| %>
+	
+	<%= f.text_field :name %>
+	<%= f.text_field :url %>
+	
+	<%= f.submit 'Ajouter' %>
+<% end %>

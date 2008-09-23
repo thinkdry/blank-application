@@ -5,7 +5,7 @@ ActionController::Routing::Routes.draw do |map|
   map.login '/login', :controller => 'sessions', :action => 'new'
   map.register '/register', :controller => 'users', :action => 'create'
   map.signup '/signup', :controller => 'users', :action => 'new'
-	map.forgot_password '/forgot_password', :controller => 'users', :action => 'forgot_password'
+  map.forgot_password '/forgot_password', :controller => 'users', :action => 'forgot_password'
   #map.change_password '/change_password', :controller => 'users', :action => 'change_password'
   map.reset_password '/reset_password/:password_reset_code', :controller => 'users', :action => 'reset_password'
   map.resources :users
@@ -13,6 +13,8 @@ ActionController::Routing::Routes.draw do |map|
 	
 	map.admin '/admin', :controller => 'admin', :action => 'index'
 
+  
+  
   # TODO: Publishing, Bookmarks, Admin related controllers: rights...
 
   map.root :controller => 'account', :action => 'index'
@@ -47,6 +49,7 @@ ActionController::Routing::Routes.draw do |map|
       meetings.resources :objectives
     end
   end
+  map.add_new_user '/add_new_user', :controller => 'workspaces', :action => 'add_new_user'
   
   map.resource :search
     

@@ -10,8 +10,8 @@ module WorkspacesHelper
   private
   def js_add_new_user(object)
     update_page do |p|
-      p.insert_html :bottom, 'users', :partial => 'user', :object => object
-      p << "lastElement = $('users').childElements().last()"
+      p.insert_html :bottom, 'newuser', :partial => 'user', :object => object
+      p << "lastElement = $('newuser').childElements().last()"
       p << "textfield = lastElement.down('.text_field')"
       p << "autocomplete = lastElement.down('.autocomplete')"
       p << "new Ajax.Autocompleter(textfield, autocomplete, #{url_for(:controller => :users, :action => :index).inspect}, { method: 'get', paramName: 'login' })"
