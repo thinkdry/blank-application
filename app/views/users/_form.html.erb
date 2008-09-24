@@ -30,48 +30,48 @@
 	
 <% end -%>-->
 
-		<div id="basic" class="myform">
-			<% form_for @user, :html => {:multipart => true} do |f| -%>
-			  Vos informations personnelles
-			  <p>Merci de renseigner tous les champs de ce formulaire.</p>
-	    	<div id="area_FORM">
-	    		<label>Login<span class="small">Votre nom d'utilisateur</span></label>
-    			<%= f.text_field :login%>
-    			<label>Email<span class="small">Votre email</span></label>
-    			<%= f.text_field :email%>
-    			<label>Mot de passe<span class="small">Votre mot de passe</span></label>
-    			<%= f.text_field :password%>
-    			<label>Confirmation<span class="small">Confirmer votre mot de passe</span></label>
-    			<%= f.text_field :password_confirmation%>
-    			<label>Nom<span class="small">Votre nom</span></label>
-    			<%= f.text_field :lastname%>
-        	<label>Prénom<span class="small">Votre prénom (Min. 6 chars)</span></label>
-			    <%= f.text_field :firstname %>
-			    <label>Adresse<span class="small">Votre adresse complète</span></label>
-			    <%= f.text_area :addr, :size => "40x6" %>
-			    <label>Téléphone<span class="small">Numéro professionnel</span></label>
-			    <%= f.text_field :phone %>
-			    <label>Portable<span class="small">Numéro de téléphone portable</span></label>
-			    <%= f.text_field :mobile %>
-			    <label>Laboratoire<span class="small">Pour qui travaillez-vous ?</span></label>
-			    <%= f.text_field :laboratory %>
-			    <label>Activité<span class="small">Votre activité</span></label>
-			    <%= f.text_area :activity, :size => "40x6" %>
-			    <label>Edito<span class="small">Votre édito</span></label>
-			    <%= f.text_area :edito, :size => "40x6" %>
-			  </div>
-			  <p>Informations facultatives</p>
-    		<div id="area_FORM" >
-    			<label>Photo<span class="small">Votre photo</span></label>
-					<%= file_column_field 'user', 'image_path' %>
-					<br /><br /><br />
-					<div style="margin-left: 330px"> <%= image_tag(url_for_file_column(@user, 'image_path')) if @user.image_path %></div>
-  			</div>
-  			<div class="spacer"></div>
-  			<p></p>
-				<div class="buttons" id="area_BUTTONS">
-	        <button type="submit" class="positive"><img src="/images/tick.png" alt=""/>Mettre à jour</button>
-	         <button type="reset" class="negative"><img src="/images/cross.png" alt=""/>Annuler</button>
-	      </div>
-			<%end%>
-		</div>
+		  <fieldset class="myform">
+		    <legend>Vos informations personnelles</legend>
+			  <% form_for @user, :html => {:multipart => true} do |f| -%>
+  			  <p style="color:red;font-weight:bold;">Merci de renseigner tous les champs de ce formulaire.</p>
+  	    	<div id="area_FORM">
+  	    		<label>Login<span class="small">Votre nom d'utilisateur</span></label>
+      			<%= f.text_field :login%>
+      			<label>Email<span class="small">Votre email</span></label>
+      			<%= f.text_field :email%>
+      			<label>Mot de passe<span class="small">Votre mot de passe</span></label>
+      			<%= f.text_field :password%>
+      			<label>Confirmation<span class="small">Confirmer votre mot de passe</span></label>
+      			<%= f.text_field :password_confirmation%>
+      			<label>Nom<span class="small">Votre nom</span></label>
+      			<%= f.text_field :lastname%>
+          	<label>Prénom<span class="small">Votre prénom (Min. 6 chars)</span></label>
+  			    <%= f.text_field :firstname %>
+  			    <label>Adresse<span class="small">Votre adresse complète</span></label>
+  			    <%= f.text_area :addr, :size => "40x6" %>
+  			    <label>Téléphone<span class="small">Numéro professionnel</span></label>
+  			    <%= f.text_field :phone %>
+  			    <label>Portable<span class="small">Numéro de téléphone portable</span></label>
+  			    <%= f.text_field :mobile %>
+  			    <label>Laboratoire<span class="small">Pour qui travaillez-vous ?</span></label>
+  			    <%= f.text_field :laboratory %>
+  			    <label>Activité<span class="small">Votre activité</span></label>
+  			    <%= f.text_area :activity, :size => "40x6" %>
+  			    <label>Edito<span class="small">Votre édito</span></label>
+  			    <%= f.text_area :edito, :size => "40x6" %>
+  			  </div>
+  			  <p>Informations facultatives</p>
+      		<div id="area_FORM" >
+      			<label>Photo<span class="small">Votre photo</span></label>
+  					<%= file_column_field 'user', 'image_path' %>
+  					<br /><br /><br />
+  					<div style="margin-left: 330px"> <%= image_tag(url_for_file_column(@user, 'image_path')) if @user.image_path %></div>
+    			</div>
+    			<div class="spacer"></div>
+    			<p></p>
+  				<div class="buttons" id="area_BUTTONS">
+  	        <button type="submit" class="positive"><img src="/images/tick.png" alt=""/>Mettre à jour</button>
+  	         <button type="reset" class="negative"><img src="/images/cross.png" alt=""/>Annuler</button>
+  	      </div>
+			  <%end%>
+			</fieldset>

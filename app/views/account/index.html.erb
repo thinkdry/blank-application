@@ -1,6 +1,6 @@
 <div class="area_LEFT">
   <div id="area_WS">
-  	<h4>Mes droits d'accès</h4>
+  	<h4>Mes espaces de travail</h4>
   	<br />
   	<span class="label-txt">Vous administrez :</span>
   	<%= @current_user.workspaces_administred.collect { |ws| link_to(ws.name, ws) }.join(', ') %>
