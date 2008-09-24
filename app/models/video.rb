@@ -5,7 +5,7 @@ require 'ftools'
 
 class Video < ActiveRecord::Base
   acts_as_item
-  acts_as_xapian :texts => [:title, :description]
+  #acts_as_xapian :texts => [:title, :description]
   	
 	file_column :file_path
 	

@@ -119,6 +119,47 @@ module ItemsHelper
     send(helper_name, *args)
   end
   
+  def display_tabs(page)
+    html = '<ul id="tabs">'
+    html += '<li '
+    html += 'class="selected"' if (page=="articles")
+    html += '>'+link_to(image_tag(Article.icon)+" Articles", content_url(:page => "articles"))+'</li>'
+    html += '<li '
+    html += 'class="selected"' if (page=="images")
+    html += '>'+link_to(image_tag(Image.icon)+" Images", content_url(:page => "images"))+'</li>'
+    html += '<li '
+    html += ' class="selected"' if (page=="files")
+    html += '>'+link_to(image_tag(ArticFile.icon)+" Fichiers", content_url(:page => "files"))+'</li>'
+    html += '<li '
+    html += 'class="selected"' if (page=="videos")
+    html += '>'+link_to(image_tag(Video.icon)+" Videos", content_url(:page => "videos"))+'</li>'
+    html += '<li '
+    html += 'class="selected"' if (page=="audios")
+    html += '>'+link_to(image_tag(Audio.icon)+" Audios", content_url(:page => "audios"))+'</li>'
+    html += '<li '
+    html += 'class="selected"' if (page=="publications")
+    html += '>'+link_to(image_tag(Publication.icon)+" Publications", content_url(:page => "publications"))+'</li>'
+    html += '</ul><div class="clear"></div>'
+	end
+  
+  def display_item_list(page)
+    case page
+      when "articles"
+        collection = Article.all(:order => 'created_at DESC')
+      when "images"
+        collection = Image.all(:order => 'created_at DESC')
+      when "audios"
+        collection = Audio.all(:order => 'created_at DESC')
+      when "videos"
+        collection = Video.all(:order => 'created_at DESC')
+      when "files"
+        collection = ArticFile.all(:order => 'created_at DESC')
+      when "publications"
+        collection = Publication.all(:order => 'created_at DESC')
+    end
+    render(:partial => "item_in_list", :collection => collection)
+  end
+  
   private
   def self.define_prefixed_item_paths base
     # TODO: Import prefix list from a conf file
