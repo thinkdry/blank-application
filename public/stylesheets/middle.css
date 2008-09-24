@@ -3,6 +3,33 @@ h4{
   margin: 0;
   padding: 0;
 }
+
+.notice {
+	padding: 0.5em;
+	background-color: #BAE6AF;
+	margin-bottom: 1em;
+	border: 2px solid #669900;
+	font-size: 90%;
+	font-weight: bold;
+	color: #336633;
+	line-height: 18px;
+}
+
+.error {
+	padding: 0.5em;
+	background-color: #C3878C;
+	margin-bottom: 1em;
+	border: 2px solid #800000;
+	font-size: 90%;
+	font-weight: bold;
+	color: #ff0000;
+	line-height: 18px;
+}
+
+.red{
+  color: red;
+}
+
 #middle-middle{
   border-right: 1px #F2F2F2 solid;
   margin-right: 200px;
@@ -28,7 +55,17 @@ h4{
   border-bottom: 1px #F2F2F2 solid;
 }
 
-#search-bar-left, #search-bar-right, #search-bar{
+.fuck-ie{
+  text-align:center;
+}
+
+#search-bar-container{
+  width: 760px;
+  margin: 0px auto 20px auto;
+  display : table;
+}
+
+#search-bar-left, #search-bar-right, #search-bar-middle{
   float: left;
   height: 57px;
 }
@@ -45,11 +82,10 @@ h4{
   background: #AB5D7C url(/images/search_bg_right.gif) no-repeat;
 }
 
-#search-bar{
+#search-bar-middle{
   background: #AB5D7C url(/images/search_bg_middle.gif) repeat-x;
   color: #fff;
   font-size: 130%;
-  margin-bottom: 20px;
 }
 
 a.search_button{
@@ -57,13 +93,12 @@ a.search_button{
   margin: 13px 12px 0px 17px;
 }
 
-#search-bar form{
+#search-bar-middle form{
   margin: 0;
   padding: 0px;
 }
 
-#search-bar input.style_text, #search-bar select{
-  display: block;
+#search-bar-middle input.style_text, #search-bar-middle select{
   float: left;
   height: 30px;
   width: 310px;
@@ -72,7 +107,7 @@ a.search_button{
   margin-top: 13px;
 }
 
-#search-bar p{
+#search-bar-middle p{
   margin: 15px 0 0 0;
   padding: 0;
   display: block;
@@ -92,13 +127,11 @@ img.avatar{
 .area_LEFT{
   float: left;
   width: 375px;
-  background-color: #eee;
 }
 
 .area_RIGHT{
   float: right;
   width: 375px;
-  background-color: #D2A7BB;
 }
 
 .area_BOTH{

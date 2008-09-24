@@ -1,48 +1,54 @@
-@charset "UTF-8";
-	#basic h1 {
-		font-size:14px;
-		font-weight:bold;
-		margin-bottom:8px;
-	}
-#basic {
-	margin: 0px auto;
-	width: 940px;
-}
-	#basic p{
-	font-size:11px;
-	color:#333333;
-	margin-bottom:10px;
-	border-bottom:solid 1px #dedede;
-	padding-bottom:10px;
-	}
-	#basic label{
-	display:block;
+
+#basic h1 {
+	font-size:14px;
 	font-weight:bold;
-	text-align:right;
-	width:35%;
-	float:left;
-	}
-	#basic .small{
-	color:#666666;
-	display:block;
-	font-size:11px;
-	font-weight:normal;
-	text-align:right;
-	width:100%;
-	}
-	#basic input, #basic textarea{
-	float:left;
-	width:250px;
-	margin:2px 150px 20px 20px;
-	}
+	margin-bottom:8px;
+}
+
+
+
+fieldset p{
+  font-size:11px;
+  color:#333333;
+  margin-bottom:10px;
+  border-bottom:solid 1px #dedede;
+  padding-bottom:10px;
+}
+
+fieldset legend{
+  margin-left: 10px;
+  font-size: 110%;
+  color: #000;
+}
+
+fieldset label{
+  display:block;
+  font-weight:bold;
+  text-align:right;
+  width:35%;
+  float:left;
+}
+fieldset .small{
+  color:#666666;
+  display:block;
+  font-size:11px;
+  font-weight:normal;
+  text-align:right;
+  width:100%;
+}
+fieldset input, fieldset textarea{
+  float:left;
+  width:250px;
+  margin:2px 150px 20px 20px;
+}
 	
 
-#basic #textfield {
+fieldset #textfield {
 	float:left;
 	width:250px;
 	margin:2px 150px 20px 20px;
 }
-#basic  #textfield_comments {
+fieldset  #textfield_comments {
 	float:left;
 	width:90%;
 	margin:2px 150px 20px 20px;
@@ -72,14 +78,9 @@
 }
 .spacer{clear:both; height:1px;}
 /* ----------- My Form ----------- */
-.myform{
-	width:79%;
-	margin-top: 1em;
-	margin-bottom: 1em;
+fieldset.myform{
 	background-color: #F9F9F9;
-	margin-right: auto;
-	margin-left: auto;
-	padding: 0.5em;
+	padding: 1em;
 	border: 2px solid #C2C2C2;
 }
 .myformComments {

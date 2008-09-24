@@ -26,6 +26,7 @@ a.add_item{
 
 .clear{
   clear: both;
+  visibility : hidden;
 }
 
 #page {
@@ -408,31 +409,6 @@ a.add_item{
 	display: inline;
 	color: red;
 }
-
-.notice {
-	padding: 0.5em;
-	background-color: #BAE6AF;
-	margin-bottom: 1em;
-	margin-right: 230px;
-	border: 2px solid #669900;
-	font-size: 90%;
-	font-weight: bold;
-	color: #336633;
-	line-height: 18px;
-}
-
-.error {
-	padding: 0.5em;
-	background-color: #C3878C;
-	margin-bottom: 1em;
-	margin-right: 230px;
-	border: 2px solid #800000;
-	font-size: 90%;
-	font-weight: bold;
-	color: #ff0000;
-	line-height: 18px;
-}
-
 
 
 div.autocomplete {
