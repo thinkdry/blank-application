@@ -10,12 +10,15 @@ a:link {
 	text-decoration: none;
 }
 a:visited {
+  color: #7B003B;
 	text-decoration: none;
 }
 a:hover {
+  color: #7B003B;
 	text-decoration: underline;
 }
 a:active {
+  color: #7B003B;
 	text-decoration: none;
 }
 
@@ -224,11 +227,7 @@ a.add_item{
     display:block;
 }
 
-#content, #content_bis{
-	margin-right: 230px;
-}
-
-#content_bis h2{
+#content h2{
 	width: 100%;
 	border-bottom-width: 1px;
 	border-bottom-style: solid;
@@ -239,7 +238,7 @@ a.add_item{
 	display: block;
 }
 
-#content_bis h3{
+#content h3{
 	padding-bottom: 0px;
 	margin-bottom: 0px;
 }

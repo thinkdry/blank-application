@@ -169,3 +169,51 @@ img.avatar{
 .content-txt{
   color: #444;
 }
+
+a.object{
+  color: black;
+}
+
+.item-list{
+  margin-top: 1em;
+  color: #555;
+}
+
+
+ul#tabs{
+  margin: 0;
+  padding: 0 0 30px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+ul#tabs li{
+  float: left;
+  list-style-type: none;
+  margin-right: 5px;
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+}
+
+ul#tabs li.selected{
+  background-color: #fff;
+  border-bottom: 1px solid #fff;
+}
+
+ul#tabs li.selected a{
+  color: #888;
+}
+
+ul#tabs li a{
+  text-decoration: none;
+  display: block;
+  padding: 5px 8px;
+  font-weight: bold;
+}
+
+#object-llist{
+  border-bottom: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  padding: 20px;
+}
