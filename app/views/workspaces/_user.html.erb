@@ -6,7 +6,8 @@
 
 		<%= error_message_on user, :user, "L'utilisateur ", '<br />' %>
 
-                <%= user_form.hidden_field :user_login %><%= object.user.login %>
+                <%= object.user.login %>
+                <%= user_form.hidden_field :user_id, :value => object.user.id %>
 		<%= user_form.select :role_id, Role.find(:all).collect { |r| [r.name, r.id] } %>
                 
 	<% end %>

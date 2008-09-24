@@ -4,7 +4,7 @@ require 'open-uri'
 
 class PubmedSource < ActiveRecord::Base
   belongs_to  :user
-  has_many    :pubmed_items
+  has_many    :pubmed_items , :dependent => :delete_all
   
   validates_presence_of :name, :url
 

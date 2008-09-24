@@ -1,0 +1,5 @@
+<% form_for @current_object, :builder => LabelFormBuilder do |f| %>
+	<%= f.text_field :name %>
+	<%= f.text_field :url %>
+	<%= f.submit 'Ajouter' %>
+<% end %>
