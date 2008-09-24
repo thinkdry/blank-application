@@ -36,7 +36,7 @@ class CreateGenericItems < ActiveRecord::Migration
         FROM #{table_name} }
     end
     
-    execute "CREATE OR REPLACE VIEW generic_items AS #{subqueries.join(' UNION ALL ')}"
+    execute "CREATE OR REPLACE VIEW generic_items AS #{subqueries.join(' UNION ALL ')}".tr_s(" \n", ' ')
   end
 
   def self.down
