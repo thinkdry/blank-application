@@ -11,6 +11,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users
   map.resource :session
 	
+  map.content '/content/:page', :controller => 'items', :action => 'index'
+  
 	map.admin '/admin', :controller => 'admin', :action => 'index'
 
   
@@ -19,6 +21,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.root :controller => 'account', :action => 'index'
 
+   
   # Items are CMS component types
   # => Those items may be scoped to different resources
   def items_ressources(parent)
