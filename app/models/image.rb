@@ -1,7 +1,7 @@
 class Image < ActiveRecord::Base
 	
   acts_as_item
-  #acts_as_xapian :texts => [:title, :description]
+  acts_as_xapian :texts => [:title, :description]
   
   	
 	file_column :file_path, :magick => { :versions => { :thumb => "100x100", :web => "500x500" } }

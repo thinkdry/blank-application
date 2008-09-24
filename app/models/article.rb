@@ -3,7 +3,7 @@ class Article < ActiveRecord::Base
   
 	
   acts_as_item
-  #acts_as_xapian :texts => [:title, :description, :body]
+  acts_as_xapian :texts => [:title, :description, :body]
   	
 	has_many :article_files, :dependent => :delete_all
 	has_many :article_images, :dependent => :delete_all
