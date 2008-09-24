@@ -25,7 +25,7 @@ class CreateGenericItems < ActiveRecord::Migration
               #{table_name}.id = items.itemable_id AND
               items.itemable_type = '#{model_name}' AND
               workspaces.id = items.workspace_id
-          ) AS workspaces,
+          ) AS workspace_names,
           ( SELECT AVG(rating)
             FROM ratings
             WHERE

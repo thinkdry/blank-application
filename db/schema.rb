@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(:version => 20080922085723) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "number_of_comments", :limit => 21
-    t.string   "workspaces",         :limit => 341
+    t.string   "workspace_names",    :limit => 341
     t.decimal  "average_rate",                      :precision => 14, :scale => 4
   end
 
