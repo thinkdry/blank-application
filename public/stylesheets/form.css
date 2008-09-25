@@ -22,10 +22,11 @@ fieldset legend{
 }
 
 fieldset label{
+  clear: left;
   display:block;
   font-weight:bold;
   text-align:right;
-  width:35%;
+  width:160px;
   float:left;
 }
 fieldset .small{

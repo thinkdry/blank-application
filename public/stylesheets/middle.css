@@ -1,6 +1,6 @@
 h4{
   font-size: 110%;
-  margin: 0;
+  margin: 0 0 10px 0;
   padding: 0;
 }
 
@@ -60,7 +60,7 @@ h4{
 }
 
 #search-bar-container{
-  width: 760px;
+  width: 660px;
   margin: 0px auto 20px auto;
   display : table;
 }
@@ -101,10 +101,10 @@ a.search_button{
 #search-bar-middle input.style_text, #search-bar-middle select{
   float: left;
   height: 30px;
-  width: 310px;
-  font-size: 100%;
+  width: 260px;
   margin-left: 10px;
   margin-top: 13px;
+  font-size: 100%;
 }
 
 #search-bar-middle p{
@@ -126,12 +126,12 @@ img.avatar{
 
 .area_LEFT{
   float: left;
-  width: 375px;
+  width: 320px;
 }
 
 .area_RIGHT{
   float: right;
-  width: 375px;
+  width: 320px;
 }
 
 .area_BOTH{
@@ -140,7 +140,6 @@ img.avatar{
 
 
 #area_INFOS{
-  width: 370px;
 }
 
 #area_INFOS p{
@@ -179,17 +178,24 @@ a.object{
   color: #555;
 }
 
+.top_elem{
+  border-bottom: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  padding: 10px;
+}
+
 
 ul#tabs{
   margin: 0;
-  padding: 0 0 30px 0;
+  padding: 0 0 29px 0;
   border-bottom: 1px solid #ccc;
 }
 
 ul#tabs li{
   float: left;
   list-style-type: none;
-  margin-right: 5px;
+  margin-right: 3px;
   border-top: 1px solid #ccc;
   border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;
@@ -204,14 +210,23 @@ ul#tabs li.selected a{
   color: #888;
 }
 
+ul.without_img li a{
+  padding: 7px 8px !important;
+}
+
 ul#tabs li a{
   text-decoration: none;
   display: block;
   padding: 5px 8px;
   font-weight: bold;
+  font-size: 95%;
 }
 
-#object-llist{
+ul#tabs li a img{
+  margin-top: -1px;
+}
+
+#object-list{
   border-bottom: 1px solid #ccc;
   border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;

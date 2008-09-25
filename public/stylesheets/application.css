@@ -2,7 +2,7 @@ body {
 	font-family:"Lucida Grande", "Bitstream Vera Sans", Helvetica, Verdana, Arial, sans-serif;
 	margin: 0px;
 	padding: 0px;
-	font-size: 14px;
+	font-size: 10pt;
 	color: #333333;
 }
 a:link {
@@ -38,15 +38,12 @@ a.add_item{
 
 #container {
   width: 100%;
-  position: absolute;
-  min-width: 998px;
 }
 
 #header {
 	background-color: #bdd6d9;
 	color: white;
 	height: 103px;
-	min-width: 1000px;
 }
 
 #header_right{
