@@ -11,11 +11,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users
   map.resource :session
 	
-  map.content '/content/:page', :controller => 'items', :action => 'index'
-  
+	map.content '/content/:page', :controller => 'items', :action => 'index'
+	
 	map.admin '/admin', :controller => 'admin', :action => 'index'
-
-  
   
   # TODO: Publishing, Bookmarks, Admin related controllers: rights...
 
@@ -24,7 +22,7 @@ ActionController::Routing::Routes.draw do |map|
    
   # Items are CMS component types
   # => Those items may be scoped to different resources
-  def items_ressources(parent)
+  def items_ressources(parent)  	
     [:items, :articles, :audios, :videos, :artic_files, :publications, :images].each do |name|
       parent.resources name, :member => {
         :rate => :any,
@@ -44,7 +42,10 @@ ActionController::Routing::Routes.draw do |map|
   items_ressources(map)
 
   # Items in context of workspaces
-  map.resources(:workspaces) { |workspaces| items_ressources(workspaces) }
+  map.resources(:workspaces) do |workspaces|
+    workspaces.content '/:page', :controller => 'workspaces', :action => 'show', :conditions => { :method => :get }
+    items_ressources(workspaces)
+  end
   
   # Project management
   map.resources(:projects) do |projects|

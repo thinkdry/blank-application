@@ -7,6 +7,8 @@ class WorkspacesController < ApplicationController
     actions :all
     
     before :show do
+      params[:id] = params[:workspace_id]
+      params[:page] ||= 'articles'
       session[:menu] = 'workspaces'
     end
     
@@ -41,7 +43,17 @@ class WorkspacesController < ApplicationController
     render :update do |page|
       page.insert_html :bottom, 'users', :partial => 'user',  :object => @uw
     end
+  end
   
+  def current_object
+    @current_object ||= @workspace =
+      if params[:id]
+        Workspace.find(params[:id])
+      elsif params[:workspace_id]
+        Workspace.find(params[:workspace_id])
+      else
+        nil
+      end
   end
  
 end

@@ -5,6 +5,7 @@
 		</h1>
 		<span class="txt_80_666"><%= @current_object.description %></span>
 	</div>
+	<%= render :partial => "items/tab_list" %>
 	<div id="area_USERS">
 		<h2>
 			Utilisateurs inscrits dans cet espace
@@ -16,7 +17,5 @@
 				<%= 'Aucun' if @current_object.users.count <= 0 %>
 		</div>
 	</div>
-	<%= item_list %>
 	<div class="clear"></div>
 </div>
-<%= render :partial => "menu" %>

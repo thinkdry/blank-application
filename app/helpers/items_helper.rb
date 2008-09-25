@@ -119,26 +119,35 @@ module ItemsHelper
     send(helper_name, *args)
   end
   
+  def items_path(model)
+    model = model.table_name unless model.is_a?(String)  
+    if current_workspace
+      workspace_content_url(current_workspace.id, :page => model)
+    else
+      content_url(:page => model)
+    end
+  end
+  
   def display_tabs(page)
     html = '<ul id="tabs">'
     html += '<li '
     html += 'class="selected"' if (page=="articles")
-    html += '>'+link_to(image_tag(Article.icon)+" Articles", content_url(:page => "articles"))+'</li>'
+    html += '>'+link_to(image_tag(Article.icon)+" Articles", items_path(Article))+'</li>'
     html += '<li '
     html += 'class="selected"' if (page=="images")
-    html += '>'+link_to(image_tag(Image.icon)+" Images", content_url(:page => "images"))+'</li>'
+    html += '>'+link_to(image_tag(Image.icon)+" Images", items_path(Image))+'</li>'
     html += '<li '
     html += ' class="selected"' if (page=="files")
-    html += '>'+link_to(image_tag(ArticFile.icon)+" Fichiers", content_url(:page => "files"))+'</li>'
+    html += '>'+link_to(image_tag(ArticFile.icon)+" Fichiers", items_path("files"))+'</li>'
     html += '<li '
     html += 'class="selected"' if (page=="videos")
-    html += '>'+link_to(image_tag(Video.icon)+" Videos", content_url(:page => "videos"))+'</li>'
+    html += '>'+link_to(image_tag(Video.icon)+" Videos", items_path("videos"))+'</li>'
     html += '<li '
     html += 'class="selected"' if (page=="audios")
-    html += '>'+link_to(image_tag(Audio.icon)+" Audios", content_url(:page => "audios"))+'</li>'
+    html += '>'+link_to(image_tag(Audio.icon)+" Audios", items_path("audios"))+'</li>'
     html += '<li '
     html += 'class="selected"' if (page=="publications")
-    html += '>'+link_to(image_tag(Publication.icon)+" Publications", content_url(:page => "publications"))+'</li>'
+    html += '>'+link_to(image_tag(Publication.icon)+" Publications", items_path("publications"))+'</li>'
     html += '</ul><div class="clear"></div>'
 	end
   
@@ -157,7 +166,7 @@ module ItemsHelper
       when "publications"
         collection = Publication.all(:order => 'created_at DESC')
     end
-    render(:partial => "item_in_list", :collection => collection)
+    render(:partial => "items/item_in_list", :collection => collection)
   end
   
   private
