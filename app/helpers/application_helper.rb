@@ -25,4 +25,19 @@ module ApplicationHelper
       message % item
     end
   end
+  
+  def display_top_items_tabs(page)
+    html = '<ul id="tabs" class="without_img">'
+    html += '<li '
+    html += 'class="selected"' if (page=="comment")
+    html += '>'+link_to("Les + commentés", "#")+'</li>'
+    html += '<li '
+    html += 'class="selected"' if (page=="note")
+    html += '>'+link_to("Les mieux notés", "#")+'</li>'
+    html += '<li '
+    html += 'class="selected"' if (page=="view")
+    html += '>'+link_to("Les + lus", "#")+'</li>'
+    html += '</ul><div class="clear"></div>'
+	end
+  
 end
