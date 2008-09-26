@@ -38,7 +38,7 @@
 						<%= link_to 'Contenu', content_path("articles") %>
 					</li>
 					<li>
-						<%= link_to 'Rechercher', new_search_path %>
+						<%= link_to 'Administration', admin_path %>
 					</li>
 				</ul>
 				<div id="slct_WS">
@@ -57,13 +57,7 @@
 						<option>
 							----------
 						</option>
-						<option onclick="document.location.href='/content/articles'">
-							Tout le contenu
-						</option>
-						<option>
-							----------
-						</option>
-						<option onclick="document.location.href='<%= new_workspace_path %>'">
+						<option onclick="document.location.href='<%= admin_path %>'">
 							Nouvel espace de travail
 						</option>
 					</select>

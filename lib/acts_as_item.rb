@@ -78,9 +78,6 @@ module ActsAsItem
   end
   
   module ModelMethods
-     def validate
-           errors.add(:description, "Cannot Be Blank") if (description=="<br>")
-      end
     def self.included(base)
       base.extend ClassMethods
     end
@@ -92,6 +89,10 @@ module ActsAsItem
       end
       
       def acts_as_item
+        def validate
+          errors.add(:description, "Cannot Be Blank") if (description=="<br>")
+        end
+        
         acts_as_rateable
         
         belongs_to :user

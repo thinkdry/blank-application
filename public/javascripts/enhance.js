@@ -29,8 +29,7 @@ ext = file.slice(file.indexOf(".")).toLowerCase();
 for (var i = 0; i < extArray.length; i++) {
 if (extArray[i] == ext) { allowSubmit = true; break; }
 }
-if (allowSubmit) form.submit();
-else
+if (!allowSubmit)
 alert("Please only upload files that end in types:  " 
 + (extArray.join("  ")) + "\nPlease select a new "
 + "file to upload and submit again.");
