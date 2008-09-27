@@ -10,22 +10,16 @@ _________________________________
 <br />
 
 ADMINISTRATION DES WORKSPACES :<br />
-<% if (current_user.system_role == "Admin")
-		@ws = Workspace.find(:all)
-	else
-		@ws = current_user.workspaces_administred+current_user.workspaces_by_role("Modérateur")
-end %>
-<% @ws.each do |w| %>
-	<%= w.name %><br />
-  Administrateur de l'espace : <%= link_to w.creator.full_name, user_path(w.creator.id) %><br />
-  Modérateurs : <%= w.usersByRole("Modérateur").map{|u| link_to(u.full_name, user_path(u.id))}.join(', ') %><br />
-  Rédacteurs : <%= w.usersByRole("Rédacteur").map{|u| link_to(u.full_name, user_path(u.id))}.join(', ') %><br />
-  Lecteurs : <%= w.usersByRole("Lecteur").map{|u| link_to(u.full_name, user_path(u.id))}.join(', ') %><br />
-  <br />
-  <%= link_to "Gérer les droits et utilisateurs de cet espace", workspace_path(w.id) %>
+<% @workspaces.each do |w| %>
+	<%= w.name %>														<br />
+	Administrateur de l'espace : 	<%= link_to_user(w.creator) %>		<br />
+	Modérateurs : 					<%= user_list_of(w, :moderators) %>	<br />
+	Rédacteurs : 					<%= user_list_of(w, :writters) %>	<br />
+	Lecteurs : 						<%= user_list_of(w, :readers) %>	<br />
+	<br />
+	<%= link_to "Gérer les droits et utilisateurs de cet espace", edit_workspace_path(w.id) %>
 	<br /><br />
 <% end %>
-
 
 _________________________________
 <br />

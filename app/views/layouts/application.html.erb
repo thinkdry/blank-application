@@ -49,7 +49,7 @@
 						<option>
 							----------
 						</option>
-						<% @current_user.all_workspaces.each do |w|
+						<% (Workspace.administrated_by(@current_user) + Workspace.consulted_by(@current_user)).each do |w|
 							concat\
 								content_tag(:option, w.name, :onclick => "document.location.href = '#{workspace_path(w)}'"),
 								binding

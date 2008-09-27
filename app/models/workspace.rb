@@ -1,6 +1,7 @@
 class Workspace < ActiveRecord::Base
 	
 	has_many :users_workspaces, :dependent => :delete_all
+	has_many :roles, :through => :users_workspaces
 	has_many :users, :through => :users_workspaces
 	has_many :items, :dependent => :delete_all
   has_many_polymorphs :itemables, :from => [:articles, :artic_files, :audios, :videos, :images, :publications], :through => :items
@@ -16,15 +17,61 @@ class Workspace < ActiveRecord::Base
     :order => 'created_at DESC',
     :limit => 5
 	
-	def latest_comments
-	  Comment.all(:order => 'created_at DESC').select { |c| c.commentable.workspace_ids.include?(self.id) }[0..5]
+	named_scope :administrated_by, lambda { |user|
+	  raise 'User required' unless user
+	  { :conditions => "creator_id = #{user.id}" }
+  }
+  
+  named_scope :consulted_by, lambda { |user|
+    raise 'User required' unless user
+    { :include => [ :users_workspaces ],
+      :conditions => "users_workspaces.user_id = #{user.id}" }
+  }
+  
+  named_scope :by_user_and_role, lambda { |user, role|
+    raise 'Args missing' if user.nil? || role.nil?
+    { :include => [ :users_workspaces, :roles ],
+      :conditions => "users_workspaces.user_id = #{user.id} AND roles.name = '#{role}'" }
+  }
+  
+  def self.moderated_by user
+    self.by_user_and_role(user, 'Modérateur')
+	end
+	
+	def self.with_moderator_role_for user
+	  self.moderated_by user
   end
+	
+	def self.with_writter_role_for user
+	  self.by_user_and_role(user, 'Rédacteur')
+	end
+	
+	def self.with_reader_role_for user
+	  self.by_user_and_role(user, 'Lecteur')
+	end
 	
 	def uniqueness_of_users
 	  new_users = self.users_workspaces.reject { |e| ! e.new_record? }.collect { |e| e.user }
 	  new_users.size.times do
 		  self.errors.add_to_base('Same user added twice') and return if new_users.include?(new_users.pop)
 	  end
+  end
+	
+	def users_by_role role_name
+	  role = self.roles.find_by_name(role_name)
+	  role ? role.users : []
+  end
+  
+	def moderators
+	  users_by_role('Modérateur')
+  end
+  
+	def writters
+	  users_by_role('Rédacteur')
+  end
+  
+	def readers
+	  users_by_role('Lecteur')
   end
 	
 	def new_user_attributes= user_attributes
@@ -52,21 +99,9 @@ class Workspace < ActiveRecord::Base
     return true if role == 'member' && user.all_workspaces.include?(self)
     false
   end
-	
-	def usersByRole(role_name)
-		@result = []
-		UsersWorkspace.find(:all, :conditions => { :workspace_id => self.id, :role_id => Role.find_by_name(role_name).id }).each do |uw|
-			@result << User.find(uw.user_id)
-		end
-		return @result
-  end
-	
   
   private
   def downcase_user_attributes(attributes)
     attributes.each { |value| value['user_login'].downcase! }
   end
-	
-	
-	
 end

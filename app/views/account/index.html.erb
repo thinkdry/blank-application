@@ -2,10 +2,10 @@
   <div id="area_WS">
   	<h4>Mes espaces de travail</h4>
   	<span class="label-txt">Vous administrez :</span>
-  	<%= @current_user.workspaces_administred.collect { |ws| link_to(ws.name, ws) }.join(', ') %>
+  	<%= Workspace.administrated_by(@current_user).collect { |ws| link_to(ws.name, ws) }.join(', ') %>
   	<br /><br />
   	<span class="label-txt">Vous avez accès aux espaces :</span>
-  	<%= @current_user.all_workspaces.collect { |ws| link_to(ws.name, ws) }.join(', ') %>
+  	<%= Workspace.consulted_by(@current_user).collect { |ws| link_to(ws.name, ws) }.join(', ') %>
   	<br /><br />
   	<%= link_to "Accéder à l'intrface d'administration", admin_path %>
   </div>

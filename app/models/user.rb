@@ -88,23 +88,6 @@ class User < ActiveRecord::Base
 		return self.lastname+" "+self.firstname
   end
 	
-	def workspaces_administred
-	  Workspace.find(:all, :conditions => { :creator_id => self.id })
-  end
-	
-	def workspaces_by_role(user_role)
-		@result = []
-	  UsersWorkspace.find(:all, :conditions => { :user_id => self.id, :role_id => Role.find_by_name(user_role) }).each do |uw|
-			@result << Workspace.find(uw.workspace_id)
-    end
-		return @result
-  end
-  
-  def all_workspaces
-    #workspaces_consulted + workspaces_administred
-    return workspaces_administred+workspaces_by_role("Modérateur")+workspaces_by_role("Rédacteur")+workspaces_by_role("Lecteur")
-  end
-	
   def create_reset_code
     @reset = true
     self.password_reset_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
@@ -119,5 +102,4 @@ class User < ActiveRecord::Base
     self.password_reset_code = nil
     save(false)
   end
-	
 end

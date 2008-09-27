@@ -11,6 +11,13 @@ class UsersController < ApplicationController
 		
     before :new, :create do permit("admin") end
     before :edit, :update do permit("admin or owner of user") end
+      
+    before :show do
+      @is_admin = @current_object.system_role == "Admin"
+      @moderated_ws = Workspace.with_moderator_role_for(@current_object)
+      @writter_role_on_ws = Workspace.with_writter_role_for(@current_object)
+      @reader_role_on_ws = Workspace.with_reader_role_for(@current_object)
+    end
 		
 		before :index do
 			@current_objects = current_objects.paginate(

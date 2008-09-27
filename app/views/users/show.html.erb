@@ -1,6 +1,6 @@
 <div id="area_POST_bis">
 	<div id="area_PROFIL">
-		<span class="titre">Mes informations personnelles</span><br>
+		<span class="titre">Informations personnelles</span><br>
 		<%= @current_object.firstname %> <%= @current_object.lastname %>
 	  <%= image_tag(url_for_file_column(@user, 'image_path'), :class => "avatar") if @user.image_path %>
 	  <p>
@@ -22,17 +22,20 @@
 	</div>
 </div>
 <div id="area_DROITS">
-	<span class="titre">Mes droits d'accès</span><br>
+	<span class="titre">Droits d'accès</span><br>
 	<br>
 	<div class="item" id="item_-613527198">
-		<% if @current_object.system_role == "Admin" %>
-			<span class="txt_80_333"><strong>Administrateur du système : OUI</strong></span><br>
-			<span class="txt_80_333">Vous pouvez administrer le site.</span><span class="txt_80_666"><br></span>
-		<% else %>
-			<span class="txt_80_333"><strong>Administrateur du système : NON</strong></span><br>
-			<span class="txt_80_333">Pas de droit.</span><span class="txt_80_666"><br></span>
-		<% end %>
-		<% if (@res=@current_object.workspaces_by_role("Modérateur")) %>
+		<span class="txt_80_333"><strong>
+			Administrateur du système : <%= @is_admin ? 'Oui' : 'Non' %>
+		</strong></span><br>
+		<span class="txt_80_333">
+			<% if @is_admin %>
+				Vous pouvez administrer le site.
+			<% else %>
+				Pas de droit.
+			<% end %>
+		</span><span class="txt_80_666"><br></span>
+		<% if (@res = Workspace.with_moderator_role_for(@current_object)) %>
 			<br/>
 			<span class="txt_80_333"><strong>Modérateur : OUI</strong></span><br>
 			<span class="txt_80_333">Vous avez les droits pour modérer : 
@@ -42,7 +45,7 @@
 			<span class="txt_80_333"><strong>Modérateur : NON</strong></span><br>
 			<span class="txt_80_333">Pas de droit.</span><span class="txt_80_666"><br></span>
 		<% end %>
-		<% if (@res=@current_object.workspaces_by_role("Rédacteur")) %>
+		<% if (@res = Workspace.with_writter_role_for(@current_object)) %>
 			<br/>
 			<span class="txt_80_333"><strong>Rédacteur : OUI</strong></span><br>
 			<span class="txt_80_333">Vous avez les droits pour modérer les espaces : 
@@ -52,7 +55,7 @@
 			<span class="txt_80_333"><strong>Rédacteur : NON</strong></span><br>
 			<span class="txt_80_333">Pas de droit.</span><span class="txt_80_666"><br></span>
 		<% end %>
-		<% if (@res=@current_object.workspaces_by_role("Lecteur")) %>
+		<% if (@res = Workspace.with_reader_role_for(@current_object)) %>
 			<br/>
 			<span class="txt_80_333"><strong>Lecteur : OUI</strong></span><br>
 			<span class="txt_80_333">Vous avez accès en lecture dans : 
