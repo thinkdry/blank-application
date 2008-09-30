@@ -10,7 +10,7 @@
 	Diffusion :<br />
 	<%=	check_box_tag_name = "#{item_class_name}[associated_workspaces][]"
 		# Checkboxes for associated WorkSpaces
-		current_user.all_workspaces.collect do |w|
+		 (Workspace.administrated_by(@current_user) + Workspace.consulted_by(@current_user)).collect do |w|
 
 			checked =
 				# Checked if related params...

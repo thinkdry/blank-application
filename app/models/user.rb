@@ -62,6 +62,13 @@ class User < ActiveRecord::Base
   # We really need a Dispatch Chain here or something.
   # This will also let us return a human error message.
   #
+  
+  named_scope :latest,
+    :order => 'created_at DESC',
+    :limit => 5
+  
+  
+  
   def items
     (self.artic_files +
   	 self.audios      +

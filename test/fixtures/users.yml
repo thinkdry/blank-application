@@ -16,6 +16,24 @@ quentin:
   image_path:                   'image.png'
   system_role:                  admin
 
+anup:
+  login:                        anup
+  email:                        anup.nivargi@thinkdry.com
+  salt:                         356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
+  crypted_password:             a2c297302eb67e8f981a0f9bfae0e45e4d0e4317 # 'monkey'
+  created_at:                   <%= 5.days.ago.to_s :db  %>
+  remember_token_expires_at:    <%= 1.days.from_now.to_s :db %>
+  remember_token:               77de68daecd823babbb58edb1c8e14d7106e83bb
+  lastname:                     Nivargi
+  firstname:                    Anup
+  laboratory:                   Lab3
+  mobile:                       0612345678
+  phone:                        0112345678
+  addr:                         11 rue Buffon
+  activity:                     Chercheur
+  image_path:                   'image.png'
+  system_role:                  admin
+
 yvon:
     login:                        yvon
     email:                        yvon@example.com
@@ -50,7 +68,7 @@ tintin:
     addr:                         11 rue Buffon
     activity:                     Development
     image_path:                   'image.png'
-    system_role:                  
+    system_role:                  Modérateur
 
 haddock:
     login:                        capitain
@@ -68,7 +86,7 @@ haddock:
     addr:                         11 rue Buffon
     activity:                     Development
     image_path:                   'image.png'
-    system_role:                  
+    system_role:                  Rédacteur
 
 milou:
     login:                        milou
@@ -86,5 +104,5 @@ milou:
     addr:                         11 rue Buffon
     activity:                     Development
     image_path:                   'image.png'
-    system_role:                  
+    system_role:                  Lecteur
 

@@ -21,7 +21,7 @@ class GenericItem < ActiveRecord::Base
   named_scope :best_rated,
     :order => 'average_rate DESC',
     :limit => 5
-    
+   
   named_scope :latest,
     :order => 'created_at DESC',
     :limit => 5
