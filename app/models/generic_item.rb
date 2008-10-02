@@ -1,6 +1,16 @@
 class GenericItem < ActiveRecord::Base
   self.inheritance_column = :item_type
-    
+  
+  named_scope :from_workspace, lambda { |ws|
+    raise 'WS expected' unless ws
+    { :from => 'generic_items, items',
+      :conditions => %{
+        generic_items.item_type = items.itemable_type AND
+        generic_items.id = items.itemable_id AND
+        items.workspace_id = #{ws.id} }
+    }
+  }
+  
   named_scope :consultable_by, lambda { |user|
     raise 'User expected' unless user
     { :conditions => %{
@@ -15,14 +25,14 @@ class GenericItem < ActiveRecord::Base
   }
   
   named_scope :most_commented,
-    :order => 'number_of_comments DESC',
+    :order => 'generic_items.number_of_comments DESC',
     :limit => 5
     
   named_scope :best_rated,
-    :order => 'average_rate DESC',
+    :order => 'generic_items.average_rate DESC',
     :limit => 5
    
   named_scope :latest,
-    :order => 'created_at DESC',
+    :order => 'generic_items.created_at DESC',
     :limit => 5
 end
