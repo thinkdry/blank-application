@@ -16,6 +16,27 @@ class Workspace < ActiveRecord::Base
   named_scope :latest,
     :order => 'created_at DESC',
     :limit => 5
+  
+  # Must be called from User.
+  # Example : User.first.workspaces.moderated
+  named_scope :moderated, {
+    :include => [ :roles ],
+    :conditions => "roles.name = 'Modérateur'"
+  }
+  
+  # Must be called from User.
+  # Example : User.first.workspaces.written
+  named_scope :written, {
+    :include => [ :roles ],
+    :conditions => "roles.name = 'Rédacteur'"
+  }
+  
+  # Must be called from User.
+  # Example : User.first.workspaces.read
+  named_scope :read, {
+    :include => [ :roles ],
+    :conditions => "roles.name = 'Lecteur'"
+  }
 	
 	named_scope :administrated_by, lambda { |user|
 	  raise 'User required' unless user
