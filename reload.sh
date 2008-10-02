@@ -1,1 +1,1 @@
-rake db:drop && rake db:migrate && rake db:fixtures:load
+svn up && rake db:drop && rake db:create && rake db:migrate && rake db:fixtures:load && rake backgroundrb:create_queue &&  ./script/backgroundrb stop && ./script/backgroundrb start &&mongrel_rails restart
