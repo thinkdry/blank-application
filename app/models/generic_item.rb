@@ -1,6 +1,24 @@
 class GenericItem < ActiveRecord::Base
   self.inheritance_column = :item_type
   
+  named_scope :images,
+    :conditions => { :item_type => 'Image' }
+  
+  named_scope :videos,
+    :conditions => { :item_type => 'Video' }
+  
+  named_scope :audios,
+    :conditions => { :item_type => 'Audio' }
+  
+  named_scope :files,
+    :conditions => { :item_type => 'ArticFile' }
+
+  named_scope :articles,
+    :conditions => { :item_type => 'Article' }
+  
+  named_scope :publications,
+    :conditions => { :item_type => 'Publication' }
+  
   named_scope :from_workspace, lambda { |ws|
     raise 'WS expected' unless ws
     { :from => 'generic_items, items',

@@ -25,30 +25,7 @@
   </div>
 </div>
 <div class="area_RIGHT">
-	<%# NOTE: See http://livepipe.net/control/tabs for styling tabs %>
-	<%# NOTE: Jimmy is gay %>
-	<h4>Mon TOP élément</h4>
-	<ul id="top_elems" class="subsection_tabs">  
-    	<li class="tab"><a href="#one">Les + commentés</a></li>  
-	    <li class="tab"><a href="#two">Les mieux notés</a></li>
-		<li class="tab"><a href="#three">Les + consultés</a></li>
-	</ul>
-	<div id="one"><p>
-		<%= render 	:partial => "items/item_in_top_box",
-					:collection => GenericItem.consultable_by(@current_user).most_commented %>
-	</p></div>  
-	<div id="two"><p>
-		<%= render 	:partial => "items/item_in_top_box",
-					:collection => GenericItem.consultable_by(@current_user).best_rated %>
-	</p></div>
-	<%# TODO: GenericItem.most_consulted missing %>
-	<div id="three"><p>
-		<%= render 	:partial => "items/item_in_top_box",
-					:collection => GenericItem.consultable_by(@current_user).latest %>
-	</p></div>
-	<script type="text/javascript" charset="utf-8">
-		new Control.Tabs('top_elems'); 
-	</script>
+	<%= render :partial => "items/top_box" %>
 </div>
 <div class="clear"></div>
 <br />

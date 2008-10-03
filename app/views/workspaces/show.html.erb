@@ -5,17 +5,18 @@
 		</h1>
 		<span class="txt_80_666"><%= @current_object.description %></span>
 	</div>
+	
+	<h2>5 derniers éléments</h2>
+	<ul>
+		<% GenericItem.from_workspace(@current_object).latest.each do |item| %>
+			<li>
+				<%= item.title %>
+			</li>
+		<% end %>
+	</ul>
+	
+	<%= render :partial => "items/top_box" %>
+	
 	<%= render :partial => "items/tab_list" %>
-	<div id="area_USERS">
-		<h2>
-			Utilisateurs inscrits dans cet espace
-		</h2>
-		Administrateur : <%= link_to_user(@current_object.creator) %>
-		<div class="txt_80_666">
-			Inscrits :
-				<%= @current_object.users.collect { |u| link_to_user(u) }.join(', ') %>
-				<%= 'Aucun' if @current_object.users.count <= 0 %>
-		</div>
-	</div>
 	<div class="clear"></div>
 </div>

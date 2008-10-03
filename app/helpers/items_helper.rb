@@ -152,21 +152,27 @@ module ItemsHelper
 	end
   
   def display_item_list(page)
+    items = if current_workspace
+      GenericItem.from_workspace(current_workspace)
+    else
+      GenericItem.consultable_by(@current_user)
+    end
+      
     case page
       when "articles"
-        collection = Article.all(:order => 'created_at DESC')
+        collection = items.articles(:order => 'created_at DESC')
       when "images"
-        collection = Image.all(:order => 'created_at DESC')
+        collection = items.images(:order => 'created_at DESC')
       when "audios"
-        collection = Audio.all(:order => 'created_at DESC')
+        collection = items.audios(:order => 'created_at DESC')
       when "videos"
-        collection = Video.all(:order => 'created_at DESC')
+        collection = items.videos(:order => 'created_at DESC')
       when "files"
-        collection = ArticFile.all(:order => 'created_at DESC')
+        collection = items.files(:order => 'created_at DESC')
       when "publications"
-        collection = Publication.all(:order => 'created_at DESC')
+        collection = items.publications(:order => 'created_at DESC')
     end
-    render(:partial => "items/item_in_list", :collection => collection)
+    render(:partial => "items/item_in_list", :collection => collection.to_a)
   end
   
   private
