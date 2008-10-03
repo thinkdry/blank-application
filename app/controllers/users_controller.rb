@@ -8,7 +8,13 @@ class UsersController < ApplicationController
   make_resourceful do
     actions :all
 		belongs_to :account
-      
+    
+    # TODO: UserController rights
+    # => Delete: admin
+    # => Edit - Update: current_user or admin
+    # => New - Create: Admin
+    # => Show: Any user
+    
     before :show do
       @is_admin = @current_object.system_role == "Admin"
       @moderated_ws = Workspace.with_moderator_role_for(@current_object)

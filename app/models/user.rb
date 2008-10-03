@@ -87,9 +87,9 @@ class User < ActiveRecord::Base
   end
   
   def accepts_role? role, user
-     return(true) if (role == 'owner' && user == self)
-     false
-   end
+    return(true) if (role == 'owner' && user == self)
+    false
+  end
 	 
 	def full_name
 		return self.lastname+" "+self.firstname

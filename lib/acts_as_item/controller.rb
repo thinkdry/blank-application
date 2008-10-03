@@ -14,6 +14,14 @@ module ActsAsItem
       		belongs_to :workspace
 
           self.instance_eval &block if block_given?
+          
+          # TODO: Items related roles
+          # ROLES DESCRIPTION
+          # New - Create:   Any User
+          #                 WS assignation: Writer, Moderator or Creator of WS
+          # Show:           Admin, Author or Member of one assigned WS
+          # Edit - Update:  Admin, Author, Creator or Moderator of WS
+          # Remove:         Admin, Author
         	
         	# Makes `current_user` as author for the current_object
         	before :create do
