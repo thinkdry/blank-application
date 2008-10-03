@@ -4,8 +4,6 @@ class PubmedWorker < BackgrounDRb::MetaWorker
     retrieve_items
     add_periodic_timer(3600) { retrieve_items }
   end
-  
-  # TOTO: Auto
   def retrieve_items
     PubmedSource.all.each do |s|
       s.import_latest_items
