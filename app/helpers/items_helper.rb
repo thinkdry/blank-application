@@ -84,7 +84,7 @@ module ItemsHelper
     link_to(
       image_tag('icons/pencil.png'),
       item_path(object)
-    ) if permit?("edit of object", :object => object)
+    )
   end
   
   # Resourceful helper. May be used in generic forms (acts_as_item).
@@ -94,7 +94,7 @@ module ItemsHelper
       item_path(object),
       :confirm => 'Êtes vous sur de vouloir supprimer cet élément ? Cette action est irréversible.',
       :method => :delete
-    ) if permit?("delete of object", :object => object)
+    )
   end
   
   def item_path object, params = {}

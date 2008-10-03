@@ -8,9 +8,6 @@ class UsersController < ApplicationController
   make_resourceful do
     actions :all
 		belongs_to :account
-		
-    before :new, :create do permit("admin") end
-    before :edit, :update do permit("admin or owner of user") end
       
     before :show do
       @is_admin = @current_object.system_role == "Admin"

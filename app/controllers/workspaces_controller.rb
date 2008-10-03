@@ -1,7 +1,5 @@
 class WorkspacesController < ApplicationController
-	
   acts_as_ajax_validation
-  before_filter { |controller| controller.session[:menu] = nil }
 
   make_resourceful do
     actions :all

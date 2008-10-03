@@ -8,8 +8,6 @@ class ArticlesController < ApplicationController
 		else
 			render :nothing => true
     end
-		
   end
-	
 	
 end
