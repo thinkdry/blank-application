@@ -23,6 +23,22 @@ module ActsAsItem
           # Edit - Update:  Admin, Author, Creator or Moderator of WS
           # Remove:         Admin, Author
         	
+        	before :new, :create do
+        	  permit 'creation of current_object'
+      	  end
+        	
+        	before :show do
+        	  permit 'consultation of current_object'
+      	  end
+      	  
+      	  before :edit, :update do
+      	    permit 'edition of current_object'
+    	    end
+    	    
+    	    before :destroy do
+    	      permit 'deletion of current_object'
+  	      end
+        	
         	# Makes `current_user` as author for the current_object
         	before :create do
         	  current_object.user = current_user
