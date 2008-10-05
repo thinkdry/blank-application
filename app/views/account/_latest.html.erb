@@ -1,0 +1,52 @@
+<a href="#" onclick="Effect.SlideDown('items',{ duration: 2.0 }); $('publications').hide(); $('users').hide(); $('workspaces').hide(); return false;">Derniers documents en ligne</a><br>
+<div id="items" style="display:none; width:600px;">
+  <div>
+    <% if @latest_items.blank? %>
+  There are no latest items.
+<%else%>
+    <%@latest_items.each do |l|%>
+         <%=l.title%>
+         <%=l.created_at%><br><br>
+    <%end%>
+<%end%>
+  </div>
+</div>
+
+<a href="#" onclick="Effect.SlideDown('users',{ duration: 2.0 });$('items').hide(); $('publications').hide(); $('workspaces').hide(); return false;">Derniers utlisateurs ajoutes</a><br>
+<div id="users" style="display:none; width:600px;">
+  <div>
+   <% if @latest_users.blank? %>
+  There are no latest users.
+   <%else%>
+    <%@latest_users.each do |u|%>
+        <%=u.firstname%>&nbsp;<%=u.lastname%>&nbsp;<%=u.created_at%><br><br>
+    <%end%>
+<%end%>
+  </div>
+</div>
+
+<a href="#" onclick="Effect.SlideDown('workspaces',{ duration: 2.0 }); $('publications').hide(); $('users').hide(); $('items').hide(); return false;">Derniers espaces de travail ajoutes</a><br>
+<div id="workspaces" style="display:none; width:600px">
+  <div>
+<%if @latest_ws.blank?%>
+  There are no latest Workspaces
+<%else%>
+     <%@latest_ws.each do |ws|%>
+         <%=ws.name%>&nbsp;<%=ws.created_at%><br><br>
+     <%end%>
+<%end%>  
+  </div>
+</div>
+
+<a href="#" onclick="Effect.SlideDown('publications',{ duration: 2.0 }); $('items').hide(); $('users').hide(); $('workspaces').hide(); return false;">Dernieres publications recues</a><br>
+<div id="publications" style="display:none; width:600px;">
+  <div>
+<%if @latest_pubmed.blank?%>
+  There are no latest Publications.
+<%else%>
+    <%@latest_pubmed.each do |pm|%>
+        <%=pm.title%>&nbsp;<%=pm.created_at%><br><br>
+    <%end%>
+<%end%> 
+  </div>
+</div>

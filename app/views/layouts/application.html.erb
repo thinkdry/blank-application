@@ -16,7 +16,11 @@
 		</div>
 		<div id="header_right">
 			<div id="main_links">
-				Bienvenue <%= @current_user.firstname.capitalize %> | <%= link_to 'Mon compte', user_path(current_user) %> | <%= link_to 'Administration', admin_path %>  | <%= link_to 'Se déconnecter', '/logout' %>
+				Bienvenue <%= @current_user.firstname.capitalize %> |
+				<%= link_to 'Mon compte', user_path(current_user) %> |
+				<%= link_to 'Flux Pubmed', pubmed_sources_path %> |
+				<%= link_to 'Administration', admin_path %> |
+				<%= link_to 'Se déconnecter', '/logout' %>
 			</div>
 			<div id="MenuHR">
 				<ul>
