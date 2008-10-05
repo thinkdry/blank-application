@@ -1,4 +1,12 @@
-module WorkspacesHelper  
+module WorkspacesHelper
+  def link_to_workspace(workspace)
+    link_to(workspace.name, workspace_url(workspace))
+  end
+  
+  def links_to_workspace_collection(workspaces)
+    workspaces.collect { |ws| link_to_workspace(ws) }.join(', ')
+  end
+  
   def new_user(object)
     javascript_tag js_add_new_user(object)
   end

@@ -1,0 +1,14 @@
+<p>
+	<div>
+		<%= image_tag object.icon %>
+		<%= link_to_item(object) %>
+		dans <%= links_to_workspace_collection(object.workspaces) %>
+		par <%= link_to_user(object.user) %>
+		le <%= object.created_at.l(:long) %>
+	</div>
+	<div>
+		Tags: <%= object.tags.collect(&:name).join(', ') %> -
+		<%= object.comments.size %> commentaires -
+		Note: <%= item_rate_locked(object) %>
+	</div>
+</p>

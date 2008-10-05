@@ -1,7 +1,20 @@
 module ItemsHelper
-  
   def self.included base
     define_prefixed_item_paths(base)
+  end
+  
+  def item_rate(object, params = {})
+    params_to_js_hash = '{' + params.collect { |k, v| "#{k}: #{v}" }.join(', ') + '}'
+    div_id = "rating_#{object.class.to_s.underscore}_#{object.id}"
+    
+    content_tag(:div, nil, { :id => div_id, :class => :rating }) +
+		javascript_tag(%{
+			new Starbox("#{div_id}", #{object.rating}, #{params_to_js_hash});	
+		})
+  end
+  
+  def item_rate_locked(object)
+    item_rate(object, :locked => true)
   end
   
   def item_show(parameters, &block)
@@ -95,6 +108,10 @@ module ItemsHelper
       :confirm => 'Êtes vous sur de vouloir supprimer cet élément ? Cette action est irréversible.',
       :method => :delete
     )
+  end
+  
+  def link_to_item(object)
+    link_to(object.title, item_path(object))
   end
   
   def item_path object, params = {}
