@@ -4,23 +4,28 @@
 	
 	<% form_for :search, :url => search_path, :html => {:method => :get} do |f| %>
 		<p>
-			<%= f.text_field :title_contains %> Titre
+			<strong>Titre.</strong>
+			<%= f.text_field :title_contains %>
 		</p>
+		<%# TODO: Use lib with user friendly multiple select %>
 		<p>
+			<strong>Type.</strong>
 			<%= f.select :item_type_equals,
 					%W(Article Image Video Audio Publication ArticFile),
 					{}, :multiple => true %>
+			</span>
 		</p>
 		<p>
-			<%= f.text_field :user_name_contains %> Auteur
+			<strong>Auteur.</strong>
+			<%= f.text_field :user_name_contains %>
 		</p>
 		<p>
-			<%= f.calendar_date_select :created_after %> Créé après le
-		</p>
-		<p>
-			<%= f.calendar_date_select :created_before %> Créé avant
+			<strong>Date.</strong>
+			Du <%= f.calendar_date_select :created_after %>
+			au <%= f.calendar_date_select :created_before %>
 		</p>
 		<%# TODO: Add tags and note %>
+		<%#	=> Que le gay d'integrateur ne s'en soucie pas, on l'ajoutera plus tard. %>
 		<%= f.submit 'Rechercher' %>
 	<% end %>
 </div>

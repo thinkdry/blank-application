@@ -1,6 +1,9 @@
 class SearchesController < ApplicationController
   def new
     @hide_full_text_search = true
+    @search = Search.new
+    # By default, search into every type of items
+    @search.item_type_equals = %W(Article Image Video Audio Publication ArticFile)
   end
   
   def show
