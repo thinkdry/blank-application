@@ -6,23 +6,23 @@
 * Configure database.yml with a mysql adapter.
 * Run those lignes
 	
-  rake db:create
-  rake db:migrate
-  rake db:fixtures:load
-  
-  # Build the Xapian index with given models. Change RAILS_ENV if required.
-  rake xapian:rebuild_index models="ArticFile Article Audio Image Publication Video" RAILS_ENV=development
-  
-  # Update the Xapian index
-  rake xapian:update_index RAILS_ENV=development
-  
-  # Import the Pubmed feeds into DB
-  rake cron:pubmed:update_rss
+rake db:create
+rake db:migrate
+rake db:fixtures:load
+
+# Build the Xapian index with given models. Change RAILS_ENV if required.
+rake xapian:rebuild_index models="ArticFile Article Audio Image Publication Video" RAILS_ENV=development
+
+# Update the Xapian index
+rake xapian:update_index RAILS_ENV=development
+
+# Import the Pubmed feeds into DB
+rake cron:pubmed:update_rss
 
 == Crontab configuration (production environment)
 
-  # Update Xapian index each minute
-  */1 * * * *	cd /path/to/my/application && rake xapian:update_index RAILS_ENV=development
-  
-  # Import latest Pubmed publications each 20 minute
-  */20 * * * *	cd /path/to/my/application && rake cron:pubmed:update_rss
+# Update Xapian index each minute
+*/1 * * * *	cd /path/to/my/application && rake xapian:update_index RAILS_ENV=development
+
+# Import latest Pubmed publications each 20 minute
+*/20 * * * *	cd /path/to/my/application && rake cron:pubmed:update_rss
