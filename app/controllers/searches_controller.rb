@@ -1,5 +1,6 @@
 class SearchesController < ApplicationController
   def new
+    @hide_full_text_search = true
   end
   
   def show
@@ -8,7 +9,8 @@ class SearchesController < ApplicationController
   
   private
   def advanced_search
-    @header = 'avanced_search_fields'
+    @hide_full_text_search = true
+    @header = 'advanced_search_fields'
     @search = Search.new(params[:search])
     render(:action => :new) and return unless @search.valid?
     @items = GenericItem.all(:conditions => @search.attributes.delete_if { |k, v| v.nil? })

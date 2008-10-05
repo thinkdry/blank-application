@@ -1,14 +1,14 @@
 <% form_for :search, :url => search_path, :html => {:method => :get} do |f| %>
 	<p>
+		<%= f.text_field :title_contains %> Titre
+	</p>
+	<p>
 		<%= f.select :item_type_equals,
 				%W(Article Image Video Audio Publication ArticFile),
 				{}, :multiple => true %>
 	</p>
 	<p>
-		<%= f.text_field :title_contains %> Titre
-	</p>
-	<p>
-		<%= f.text_field :description_contains %> Description
+		<%= f.text_field :user_name_contains %>Auteur
 	</p>
 	<p>
 		<%= f.calendar_date_select :created_after %> Créé après le
@@ -16,6 +16,6 @@
 	<p>
 		<%= f.calendar_date_select :created_before %> Créé avant
 	</p>
-	
+	<%# TODO: Add tags and note %>
 	<%= f.submit 'Search'%>
 <% end %>

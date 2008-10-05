@@ -84,21 +84,23 @@
 			</form>
     </div>
 	  <div id="middle-middle">
-	    <div class="fuck-ie">
-  	    <div id="search-bar-container">
-    	    <div id="search-bar-left"></div>
-    	    <div id="search-bar-middle">
-            <% form_tag search_path, :method => :get, :name => "search" do -%>
-    		      <%= text_field_tag :search, "Rechercher", :class => "style_text" %>
-    		      <p>dans</p> 
-    		      <%= select_tag "search_in", "<option>tous les éléments de cet espace</opttion>", :disabled => true %>
-				  <%# TODO: Implement filters into search and reactivate select box %>
-    		      <%= link_to(image_tag("search_button.gif"), "javascript:void(1);", :onclick => "document.search.submit();", :class => "search_button") %>
-    	      <% end -%>
-      	  </div>
-      	  <div id="search-bar-right"></div>
-      	  <div class="clear"></div>
-    	  </div>
+	 	   <div class="fuck-ie">
+				<% unless @hide_full_text_search %>
+		  	    <div id="search-bar-container">
+		    	    <div id="search-bar-left"></div>
+		    	    <div id="search-bar-middle">
+		            <% form_tag search_path, :method => :get, :name => "search" do -%>
+		    		      <%= text_field_tag :search, "Rechercher", :class => "style_text" %>
+		    		      <p>dans</p> 
+		    		      <%= select_tag "search_in", "<option>tous les éléments de cet espace</opttion>", :disabled => true %>
+						  <%# TODO: Implement filters into search and reactivate select box %>
+		    		      <%= link_to(image_tag("search_button.gif"), "javascript:void(1);", :onclick => "document.search.submit();", :class => "search_button") %>
+		    	    <% end -%>
+		      	  </div>
+		      	  <div id="search-bar-right"></div>
+		      	  <div class="clear"></div>
+	    	  </div>
+			  <% end %>
   	  </div>
 		  <%= content_tag(:div, flash[:notice], :class => 'notice') if flash[:notice] %>
       <%= content_tag(:div, flash[:error], :class => 'error') if flash[:error] %>

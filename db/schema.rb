@@ -73,15 +73,16 @@ ActiveRecord::Schema.define(:version => 20080922085723) do
   end
 
   create_table "generic_items", :force => true do |t|
-    t.string   "item_type",          :limit => 11,                                 :default => "", :null => false
+    t.string   "item_type",          :limit => 11,                                        :default => "", :null => false
     t.integer  "user_id",            :limit => 11
+    t.text     "user_name",          :limit => 2147483647
     t.string   "title"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "number_of_comments", :limit => 21
     t.string   "workspace_names",    :limit => 341
-    t.decimal  "average_rate",                      :precision => 14, :scale => 4
+    t.decimal  "average_rate",                             :precision => 14, :scale => 4
   end
 
   create_table "images", :force => true do |t|
@@ -207,8 +208,6 @@ ActiveRecord::Schema.define(:version => 20080922085723) do
     t.string   "image_path",                :limit => 500
     t.string   "crypted_password",          :limit => 40
     t.string   "salt",                      :limit => 40
-    t.string   "invitation_code",           :limit => 40
-    t.string   "password_reset_code",       :limit => 40
     t.integer  "system_role_id",            :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
