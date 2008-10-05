@@ -8,7 +8,8 @@ class PubmedSourcesController < ApplicationController
       @current_object.user_id=@current_user
     end
     after :create do 
-      MiddleMan.worker(:pubmed_worker).async_retrieve_items()
+      # After addition of a source, import the RSS into DB.
+      @current_object.import_latest_items
     end
     before :index do
       @current_object=PubmedSource.new
