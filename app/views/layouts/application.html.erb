@@ -86,7 +86,6 @@
 	  <div id="middle-middle">
 	 	   <div class="fuck-ie">
 				<% unless @hide_full_text_search %>
-				<%# TODO: Add a link to avanced search %>
 		  	    <div id="search-bar-container">
 		    	    <div id="search-bar-left"></div>
 		    	    <div id="search-bar-middle">
@@ -96,6 +95,8 @@
 		    		      <%= select_tag "search_in", "<option>tous les éléments de cet espace</opttion>", :disabled => true %>
 						  <%# TODO: Implement filters into search and reactivate select box %>
 		    		      <%= link_to(image_tag("search_button.gif"), "javascript:void(1);", :onclick => "document.search.submit();", :class => "search_button") %>
+						  <%# TODO: Decorate avanced search link link %>
+						  <%= link_to 'Recherche avancée', new_search_path, :style => "float:right;position:absolute" %>
 		    	    <% end -%>
 		      	  </div>
 		      	  <div id="search-bar-right"></div>
