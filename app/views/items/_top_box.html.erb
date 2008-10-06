@@ -6,13 +6,10 @@
 	end
  %>
 
-<%# NOTE: See http://livepipe.net/control/tabs for styling tabs %>
-<%# NOTE: Jimmy is gay %>
 <h4>Mon TOP élément</h4>
 <ul id="top_elems" class="subsection_tabs without_img">  
 	<li class="tab"><a href="#one">Les + commentés</a></li>  
     <li class="tab"><a href="#two">Les mieux notés</a></li>
-	<li class="tab"><a href="#three">Les + consultés</a></li>
 </ul>
 <div id="top_content">
   <div id="one">
@@ -25,13 +22,6 @@
     <ul class="top_box">
   	<%= render 	:partial => "items/item_in_top_box",
   				:collection => items.best_rated.to_a %>
-  	</ul>
-  </div>
-  <%# TODO: GenericItem.most_consulted missing %>
-  <div id="three">
-    <ul class="top_box">
-  	<%= render 	:partial => "items/item_in_top_box",
-  				:collection => items.latest.to_a %>
   	</ul>
   </div>
 </div>

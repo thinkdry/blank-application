@@ -5,7 +5,7 @@ module ItemsHelper
   
   def item_rate(object, params = {})
     params_to_js_hash = '{' + params.collect { |k, v| "#{k}: #{v}" }.join(', ') + '}'
-    div_id = "rating_#{object.class.to_s.underscore}_#{object.id}"
+    div_id = "rating_#{object.class.to_s.underscore}_#{object.id}_#{rand(1000)}"
     
     content_tag(:div, nil, { :id => div_id, :class => :rating }) +
 		javascript_tag(%{

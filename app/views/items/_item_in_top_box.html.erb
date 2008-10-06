@@ -1,4 +1,8 @@
 <%# NOTE: Jimmy, je sais que tu aimes les li %>
 <li>
-	<%= object.title %>
+	<%= image_tag object.icon %>
+	<%= link_to_item object %><br>
+	le <%= object.created_at.l(:long) %> -
+	<%= object.comments.size %> commentaires -
+	<%= item_rate_locked(object) %>
 </li>
