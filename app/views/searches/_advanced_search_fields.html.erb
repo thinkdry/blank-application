@@ -1,4 +1,4 @@
-<%# TODO: Remove style %>
+<%# TODO: (integration) Remove style attribute %>
 <div style="border: 1px dashed black; padding: 0.5em">
 	<h1>Recherche avancée</h1><br>
 	
@@ -7,7 +7,7 @@
 			<strong>Titre.</strong>
 			<%= f.text_field :title_contains %>
 		</p>
-		<%# TODO: Use lib with user friendly multiple select %>
+		<%# OPTIMIZE: Use lib with user friendly multiple select %>
 		<p>
 			<strong>Type.</strong>
 			<%= f.select :item_type_equals,

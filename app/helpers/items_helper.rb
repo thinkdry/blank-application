@@ -194,7 +194,7 @@ module ItemsHelper
   
   private
   def self.define_prefixed_item_paths base
-    # TODO: Import prefix list from a conf file
+    # OPTIMIZE: Import prefix list from a conf file
      ['edit', 'rate', 'add_tag', 'remove_tag', 'comment'].each do |prefix|
        base.send(:define_method, "#{prefix}_item_path") do |*args|
          object, params = args[0], args[1] || {}

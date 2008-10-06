@@ -91,7 +91,28 @@ class User < ActiveRecord::Base
   end
   
   def accepts_role? role, user
-    return(true) if (role == 'owner' && user == self)
+	  begin
+	    auth_method = "accepts_#{role.downcase}?"
+	    return (send(auth_method, user)) if defined?(auth_method)
+	    raise("Auth method not defined")
+	  rescue Exception => e
+	    p(e) and raise(e)
+	  end
+  end
+  
+  def accepts_deletion user
+    return true if user.is_admin?
+    false
+  end
+  
+  def accepts_edition user
+    return true if user.is_admin?
+    return true if user == self
+    false
+  end
+  
+  def accepts_creation user
+    return true if user.is_admin
     false
   end
 	 

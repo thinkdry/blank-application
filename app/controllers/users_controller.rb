@@ -4,16 +4,21 @@ class UsersController < ApplicationController
 	skip_before_filter :is_logged?, :only => [:forgot_password, :reset_password]
 	layout "application", :except => [:forgot_password, :reset_password]
 
-
   make_resourceful do
     actions :all
 		belongs_to :account
     
-    # TODO: UserController rights
-    # => Delete: admin
-    # => Edit - Update: current_user or admin
-    # => New - Create: Admin
-    # => Show: Any user
+    before :remove do
+      permit "deletion of user"
+    end
+    
+    before :edit, :update do
+      permit "edition of user"
+    end
+    
+    before :new, :create do
+      permit "creation of user"
+    end
     
     before :show do
       @is_admin = @current_object.system_role == "Admin"
