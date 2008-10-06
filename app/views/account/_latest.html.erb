@@ -1,6 +1,6 @@
-<a href="#" onclick="Effect.SlideDown('items'); if($('publications').visible()) Effect.SlideUp('publications'); if($('users').visible()) Effect.SlideUp('users'); if($('workspaces').visible()) Effect.SlideUp('workspaces'); return false;">Derniers documents en ligne</a><br>
+<a href="#" id="items_link" class="blok" onclick="Effect.SlideDown('items'); if($('publications').visible()) Effect.SlideUp('publications'); if($('users').visible()) Effect.SlideUp('users'); if($('workspaces').visible()) Effect.SlideUp('workspaces'); return false;">Derniers documents en ligne</a>
 <div id="items" style="display:none; width:600px;">
-  <div>
+  <div class="lift_items">
     <% if @latest_items.blank? %>
   There are no latest items.
 <%else%>
@@ -12,9 +12,9 @@
   </div>
 </div>
 
-<a href="#" onclick="Effect.SlideDown('users');if($('publications').visible()) Effect.SlideUp('publications'); if($('items').visible()) Effect.SlideUp('items'); if($('workspaces').visible()) Effect.SlideUp('workspaces'); return false;">Derniers utlisateurs ajoutes</a><br>
+<a href="#" id="users_link" class="blok" onclick="Effect.SlideDown('users');if($('publications').visible()) Effect.SlideUp('publications'); if($('items').visible()) Effect.SlideUp('items'); if($('workspaces').visible()) Effect.SlideUp('workspaces'); return false;">Derniers utlisateurs ajoutes</a>
 <div id="users" style="display:none; width:600px;">
-  <div>
+  <div class="lift_items">
    <% if @latest_users.blank? %>
   There are no latest users.
    <%else%>
@@ -25,9 +25,9 @@
   </div>
 </div>
 
-<a href="#" onclick="Effect.SlideDown('workspaces'); if($('publications').visible()) Effect.SlideUp('publications'); if($('users').visible()) Effect.SlideUp('users'); if($('items').visible()) Effect.SlideUp('items'); return false;">Derniers espaces de travail ajoutes</a><br>
+<a href="#" id="ws_link" class="blok" onclick="Effect.SlideDown('workspaces'); if($('publications').visible()) Effect.SlideUp('publications'); if($('users').visible()) Effect.SlideUp('users'); if($('items').visible()) Effect.SlideUp('items'); return false;">Derniers espaces de travail ajoutes</a>
 <div id="workspaces" style="display:none; width:600px">
-  <div>
+  <div class="lift_items">
 <%if @latest_ws.blank?%>
   There are no latest Workspaces
 <%else%>
@@ -38,9 +38,9 @@
   </div>
 </div>
 
-<a href="#" onclick="Effect.SlideDown('publications'); if($('items').visible()) Effect.SlideUp('items'); if($('users').visible()) Effect.SlideUp('users'); if($('workspaces').visible()) Effect.SlideUp('workspaces'); return false;">Dernieres publications recues</a><br>
+<a href="#" id="pubs_link" class="blok" onclick="Effect.SlideDown('publications'); if($('items').visible()) Effect.SlideUp('items'); if($('users').visible()) Effect.SlideUp('users'); if($('workspaces').visible()) Effect.SlideUp('workspaces'); return false;">Dernieres publications recues</a>
 <div id="publications" style="display:none; width:600px;">
-  <div>
+  <div class="lift_items">
 <%if @latest_pubmed.blank?%>
   There are no latest Publications.
 <%else%>
