@@ -37,6 +37,5 @@ Usefull commands:
 
 Publish a patch:
 * git pull
-* git show origin/master (to know the revision of origin)
-* git format-patch (as arguments, the range of revisions you want to publish => see man git-format-patch)
+* git format-patch origin/master
 * Add the files created to redmine
