@@ -86,6 +86,10 @@ class User < ActiveRecord::Base
     return (self.system_role && self.system_role.name.downcase == role.downcase)
   end
   
+  def is_admin?
+    has_role?('admin')
+  end
+  
   def accepts_role? role, user
     return(true) if (role == 'owner' && user == self)
     false

@@ -66,20 +66,34 @@ module ActsAsItem
       private
       # Is user authorized to consult this item?
       def accepts_consultation? user
-        # TODO: Admin, Author or Member of one assigned WS
-        true
+        # Admin
+        return true if user.is_admin?
+        # Author
+        return true if self.user = user
+        # Member of one assigned WS
+        self.workspaces.each do |ws|
+          return true if ws.users.include?(user)
+        end
+        false
       end
       
       # Is user authorized to delete this item?
       def accepts_deletion? user
-        # TODO: Admin, Author
-        true
+        # Admin
+        return true if user.is_admin?
+        # Author
+        return true if self.user = user
+        false
       end
       
       # Is user authorized to edit this item?
       def accepts_edition? user
-        # TODO: admin, Author, Creator or Moderator of WS
-        true
+        # Admin
+        return true if user.is_admin?
+        # Author
+        return true if self.user = user
+        # TODO: Allow creator or moderator of WS to edit items
+        false
       end
       
       # Is user authorized to create one item?
