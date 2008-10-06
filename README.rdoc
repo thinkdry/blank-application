@@ -26,3 +26,17 @@ rake db:fixtures:load
 	
 	# Import latest Pubmed publications each 20 minute
 	*/20 * * * *	cd /path/to/my/application && rake cron:pubmed:update_rss
+
+== Git
+
+Usefull commands:
+* git add
+* git status
+* git commit (only local commit)
+* git pull (equivalent to svn update)
+
+Publish a patch:
+* git pull
+* git show origin/master (to know the revision of origin)
+* git format-patch (as arguments, the range of revisions you want to publish => see man git-format-patch)
+* Add the files created to redmine
