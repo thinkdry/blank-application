@@ -1,4 +1,4 @@
-<a href="#" onclick="Effect.SlideDown('items',{ duration: 2.0 }); $('publications').hide(); $('users').hide(); $('workspaces').hide(); return false;">Derniers documents en ligne</a><br>
+<a href="#" onclick="Effect.SlideDown('items'); if($('publications').visible()) Effect.SlideUp('publications'); if($('users').visible()) Effect.SlideUp('users'); if($('workspaces').visible()) Effect.SlideUp('workspaces'); return false;">Derniers documents en ligne</a><br>
 <div id="items" style="display:none; width:600px;">
   <div>
     <% if @latest_items.blank? %>
@@ -12,7 +12,7 @@
   </div>
 </div>
 
-<a href="#" onclick="Effect.SlideDown('users',{ duration: 2.0 });$('items').hide(); $('publications').hide(); $('workspaces').hide(); return false;">Derniers utlisateurs ajoutes</a><br>
+<a href="#" onclick="Effect.SlideDown('users');if($('publications').visible()) Effect.SlideUp('publications'); if($('items').visible()) Effect.SlideUp('items'); if($('workspaces').visible()) Effect.SlideUp('workspaces'); return false;">Derniers utlisateurs ajoutes</a><br>
 <div id="users" style="display:none; width:600px;">
   <div>
    <% if @latest_users.blank? %>
@@ -25,7 +25,7 @@
   </div>
 </div>
 
-<a href="#" onclick="Effect.SlideDown('workspaces',{ duration: 2.0 }); $('publications').hide(); $('users').hide(); $('items').hide(); return false;">Derniers espaces de travail ajoutes</a><br>
+<a href="#" onclick="Effect.SlideDown('workspaces'); if($('publications').visible()) Effect.SlideUp('publications'); if($('users').visible()) Effect.SlideUp('users'); if($('items').visible()) Effect.SlideUp('items'); return false;">Derniers espaces de travail ajoutes</a><br>
 <div id="workspaces" style="display:none; width:600px">
   <div>
 <%if @latest_ws.blank?%>
@@ -38,7 +38,7 @@
   </div>
 </div>
 
-<a href="#" onclick="Effect.SlideDown('publications',{ duration: 2.0 }); $('items').hide(); $('users').hide(); $('workspaces').hide(); return false;">Dernieres publications recues</a><br>
+<a href="#" onclick="Effect.SlideDown('publications'); if($('items').visible()) Effect.SlideUp('items'); if($('users').visible()) Effect.SlideUp('users'); if($('workspaces').visible()) Effect.SlideUp('workspaces'); return false;">Dernieres publications recues</a><br>
 <div id="publications" style="display:none; width:600px;">
   <div>
 <%if @latest_pubmed.blank?%>
