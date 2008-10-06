@@ -4,6 +4,7 @@ body {
 	padding: 0px;
 	font-size: 10pt;
 	color: #333333;
+	background-color: #eee;
 }
 a:link {
 	color: #7B003B;
@@ -33,11 +34,13 @@ a.add_item{
 }
 
 #page {
-	width: 100%;
+	width: 1000px;
+	margin: 0 auto;
+	background-color: #fff;
 }
 
 #container {
-  width: 100%;
+  width: 998px;
 }
 
 #header {
