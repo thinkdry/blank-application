@@ -27,18 +27,12 @@
 	<div class="item" id="item_-613527198">
 		<span class="txt_80_333"><strong>
 			Administrateur du système : <%= @is_admin ? 'Oui' : 'Non' %>
-		</strong></span><br>
-		<span class="txt_80_333">
-			<% if @is_admin %>
-				Vous pouvez administrer le site.
-			<% else %>
-				Pas de droit.
-			<% end %>
-		</span><span class="txt_80_666"><br></span>
+		</strong></span>
+		<span class="txt_80_666"><br></span>
 		<% if (@res = Workspace.with_moderator_role_for(@current_object)) %>
 			<br/>
 			<span class="txt_80_333"><strong>Modérateur : OUI</strong></span><br>
-			<span class="txt_80_333">Vous avez les droits pour modérer : 
+			<span class="txt_80_333">Droits pour modérer : 
 			 <%= @res.map{|w| link_to(w.name, workspace_path(w.id)) }.join(', ') %>
 			</span><span class="txt_80_666"><br></span>
 		<% else %>
@@ -48,7 +42,7 @@
 		<% if (@res = Workspace.with_writter_role_for(@current_object)) %>
 			<br/>
 			<span class="txt_80_333"><strong>Rédacteur : OUI</strong></span><br>
-			<span class="txt_80_333">Vous avez les droits pour modérer les espaces : 
+			<span class="txt_80_333">Droits pour modérer les espaces : 
 			 <%= @res.map{|w| link_to(w.name, workspace_path(w.id)) }.join(', ') %>
 			</span><span class="txt_80_666"><br></span>
 		<% else %>
@@ -58,7 +52,7 @@
 		<% if (@res = Workspace.with_reader_role_for(@current_object)) %>
 			<br/>
 			<span class="txt_80_333"><strong>Lecteur : OUI</strong></span><br>
-			<span class="txt_80_333">Vous avez accès en lecture dans : 
+			<span class="txt_80_333">Accès en lecture dans : 
 			 <%= @res.map{|w| link_to(w.name, workspace_path(w.id)) }.join(', ') %>
 			</span><span class="txt_80_666"><br></span>
 		<% else %>
