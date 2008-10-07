@@ -21,8 +21,15 @@ class SearchesController < ApplicationController
   
   def full_text_search
     @header = 'full_text_search_header'
+    
+    if params[:model] && !params[:model].empty?
+      models = [params[:model].constantize]
+    else
+      models = [Article, ArticFile, Audio, Image, Publication, Video]
+    end
+    
     search = ActsAsXapian::Search.new(
-       [Article, ArticFile, Audio, Image, Publication, Video],
+       models,
        params[:search], :limit => 20)
     @items = search.results.collect { |r| r[:model] }
   end
