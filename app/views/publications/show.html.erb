@@ -1,11 +1,14 @@
 <% item_show(:title => 'Publication',  :object => @current_object ) do %>
-	<%# TODO: Fill this view %>
-	<%= link_to File.basename(@current_object.file_path), url_for_file_column(@current_object, 'file_path') if @current_object.file_path %>
+	<h2>Author(s)</h2>
+	<%= @current_object.author %>
+	
+	<% if @current_object.file_path %>
+		<h2>Fichier attaché</h2>
+		<%= link_to File.basename(@current_object.file_path), url_for_file_column(@current_object, 'file_path') %>
+	<% end %>
 	
 	<% if @current_object.link %>
-		<p>
-			Url:
-			<%= link_to @current_object.link, @current_object.link %>
-		</p>
+		<h2>Url</h2>
+		<%= link_to @current_object.link, @current_object.link %>
 	<% end %>
 <% end %>
