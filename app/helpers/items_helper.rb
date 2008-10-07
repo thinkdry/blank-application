@@ -4,6 +4,14 @@ module ItemsHelper
   end
   
   def item_rate(object, params = {})
+    params = {
+      :rerate => false,
+  		:onRate => "function(element, info) {
+  			new Ajax.Request('#{rate_item_path(object)}', {
+  				parameters: info
+  			})}"
+  		} if params.empty?
+    
     params_to_js_hash = '{' + params.collect { |k, v| "#{k}: #{v}" }.join(', ') + '}'
     div_id = "rating_#{object.class.to_s.underscore}_#{object.id}_#{rand(1000)}"
     
