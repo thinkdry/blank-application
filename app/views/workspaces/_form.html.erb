@@ -17,7 +17,11 @@
     <fieldset>
           <legend>Ajout d'un utilisateur</legend><br>
           <label for="user_login">Nom de I'utilisateur</label>
-          <%= text_field_tag :user_login %><br>
+          
+          <%= text_field_tag :user_login %>
+          <div id="autocomplete_choices" class="autocomplete"></div>
+          <script>new Ajax.Autocompleter("user_login", "autocomplete_choices","/users/index",{ method: 'post', paramName: 'login' });</script>
+          <br>
           <%#= content_tag :div, nil, :class => "autocomplete" %><br>
           <label for="user_role">Role</label>
           <%=select_tag(:user_role, options_from_collection_for_select(Role.find(:all), "id", "name"))%><br><br>
