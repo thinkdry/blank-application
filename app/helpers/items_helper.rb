@@ -34,6 +34,14 @@ module ItemsHelper
       block.binding
   end
   
+  def advanced_editor_on(object, attribute)
+    javascript_tag(%{
+			bkLib.onDomLoaded(function() {
+				new nicEditor({iconsPath : '/images/nicEditorIcons.gif'}).panelInstance('#{object.class.to_s.underscore}_#{attribute}');
+			});
+		})
+  end
+  
   # Container of tags that include modal window. Contains the javascript events.
   # Please apply 'hidden' class on each child you want to be displayed on mouseover.
   def item_reactive_content_tag(tag, object, &block)
