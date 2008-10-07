@@ -1,12 +1,6 @@
 <% item_class_name =  item.class.to_s.underscore %>
 
 <p>
-	<%= f.label :private, "Etat :" %><br />
-	<%= radio_button item_class_name, :private, false %> Public<br />
-	<%= radio_button item_class_name, :private, true  %> Privé
-</p>
-
-<p>
 	Diffusion :<br />
 	<%=	check_box_tag_name = "#{item_class_name}[associated_workspaces][]"
 		# Checkboxes for associated WorkSpaces
