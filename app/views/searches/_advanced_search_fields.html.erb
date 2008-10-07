@@ -1,31 +1,24 @@
 <%# TODO: (integration) Remove style attribute %>
-<div style="border: 1px dashed black; padding: 0.5em">
-	<h1>Recherche avancée</h1><br>
-	
-	<% form_for :search, :url => search_path, :html => {:method => :get} do |f| %>
-		<p>
-			<strong>Titre.</strong>
-			<%= f.text_field :title_contains %>
-		</p>
-		<%# OPTIMIZE: Use lib with user friendly multiple select %>
-		<p>
-			<strong>Type.</strong>
-			<%= f.select :item_type_equals,
-					%W(Article Image Video Audio Publication ArticFile),
-					{}, :multiple => true %>
-			</span>
-		</p>
-		<p>
-			<strong>Auteur.</strong>
-			<%= f.text_field :user_name_contains %>
-		</p>
-		<p>
-			<strong>Date.</strong>
-			Du <%= f.calendar_date_select :created_after %>
-			au <%= f.calendar_date_select :created_before %>
-		</p>
-		<%# TODO: Add tags and note %>
-		<%#	=> Que le gay d'integrateur ne s'en soucie pas, on l'ajoutera plus tard. %>
-		<%= f.submit 'Rechercher' %>
+<fieldset class="myform">
+  <legend>Recherche avancée</legend>
+  <% form_for :search, :url => search_path, :html => {:method => :get} do |f| %>
+    <p>Informations au sujet de l'élément recherché</p>
+    <label>Titre<span class="small">Entrer le titre de l'élément recherché</span></label>
+    <%= f.text_field :title_contains %>
+    <%# OPTIMIZE: Use lib with user friendly multiple select %>
+    <label>Type<span class="small">Sélectionner un type d'élément</span></label>
+    <%= f.select :item_type_equals, %W(Article Image Video Audio Publication ArticFile), {}, :multiple => true %>
+    <label>Auteur<span class="small">Préciser l'auteur</span></label>
+    <%= f.text_field :user_name_contains %>
+    <label>Date<span class="small">Sélectionner la période de recherche</span></label>
+    <div class="input_container">
+      Du <%= f.calendar_date_select :created_after %> au <%= f.calendar_date_select :created_before %>
+    </div>
+  	<%# TODO: Add tags and note %>
+    <%#	=> Que le gay d'integrateur ne s'en soucie pas, on l'ajoutera plus tard. %>
+    <%# => Ok! La grande folle de developpeuse doit etre au courant que l'integrateur ne se soucie jamais de rien %>
+  	<div class="buttons">
+      <button type="submit" class="positive alone"><img src="/images/tick.png" alt=""/>Rechercher</button>
+    </div>
 	<% end %>
-</div>
+</fieldset>
