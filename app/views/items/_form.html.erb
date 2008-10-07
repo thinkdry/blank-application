@@ -1,0 +1,18 @@
+<div id="form_new">
+	<% form_for @current_object, :html => {:multipart => true}, :builder => LabelFormBuilder do |f| -%>
+		<%= f.text_field :title, :label => "Titre :" %>
+		<%= f.tags_field :string_tags, :label => "Tags (séparés par des espaces):" %>
+		<%= f.text_area :description, :label => 'Description :' %>
+
+		<script type="text/javascript">
+			bkLib.onDomLoaded(function() {
+				new nicEditor({iconsPath : '/images/nicEditorIcons.gif'}).panelInstance('artic_file_description');
+			});
+		</script>
+		
+		<%= capture(f, &block) %>
+	
+		<%= item_status_fields(f, @current_object) %>
+		<%= f.submit current_object.new_record? ? 'Créer' : 'Mettre à jour' %>
+	<% end -%>
+</div>

@@ -48,6 +48,10 @@ module ItemsHelper
       block.binding
   end
   
+  def form_for_item(object, &block)
+    concat(render(:partial => "items/form", :locals => { :block => block }), block.binding)
+  end
+  
   # Render a lisf of recent items, recent comments and recent publications.
   # (Uses the `small_item_list` helper)
   def item_list
