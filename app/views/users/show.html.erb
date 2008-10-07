@@ -18,7 +18,7 @@
 	    <span class="txt_80_666"><%= @current_object.edito %></span>
 	  </p>
 	  
-		<%= link_to 'Mettre à jour mes informations personnelles', edit_object_path, :class => "txt_80_666_bis" %>
+		<%= link_to 'Mettre à jour les informations personnelles', edit_object_path, :class => "txt_80_666_bis" if permit? "edition of user" %>
 	</div>
 </div>
 <div id="area_DROITS">
