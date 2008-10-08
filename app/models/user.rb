@@ -114,7 +114,7 @@ class User < ActiveRecord::Base
   end
   
   def accepts_creation? user
-    return true if user.is_admin
+    return true if user.is_admin?
     false
   end
 	 
