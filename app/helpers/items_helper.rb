@@ -166,26 +166,22 @@ module ItemsHelper
   end
   
   def display_tabs(page)
-    html = '<ul id="tabs">'
-    html += '<li '
-    html += 'class="selected"' if (page=="articles")
-    html += '>'+link_to(image_tag(Article.icon)+" Articles", items_path(Article))+'</li>'
-    html += '<li '
-    html += 'class="selected"' if (page=="images")
-    html += '>'+link_to(image_tag(Image.icon)+" Images", items_path(Image))+'</li>'
-    html += '<li '
-    html += ' class="selected"' if (page=="files")
-    html += '>'+link_to(image_tag(ArticFile.icon)+" Fichiers", items_path("files"))+'</li>'
-    html += '<li '
-    html += 'class="selected"' if (page=="videos")
-    html += '>'+link_to(image_tag(Video.icon)+" Videos", items_path("videos"))+'</li>'
-    html += '<li '
-    html += 'class="selected"' if (page=="audios")
-    html += '>'+link_to(image_tag(Audio.icon)+" Audios", items_path("audios"))+'</li>'
-    html += '<li '
-    html += 'class="selected"' if (page=="publications")
-    html += '>'+link_to(image_tag(Publication.icon)+" Publications", items_path("publications"))+'</li>'
-    html += '</ul><div class="clear"></div>'
+    content = String.new
+    
+    [Article, Image, ArticFile, Video, Audio, Publication].each do |item_model|
+      item_page = item_model.to_s.underscore.pluralize
+      item_human_name = item_page
+      options = {}
+      options[:selected] = true if (page == item_page)
+
+      content += content_tag(
+        :li,
+        link_to(image_tag(item_model.icon) + item_human_name, items_path(item_model)),
+        options
+      )
+    end
+    
+    content_tag(:ul, content, :id => :tabs)
 	end
   
   def display_item_list(page)
@@ -194,21 +190,9 @@ module ItemsHelper
     else
       GenericItem.consultable_by(@current_user)
     end
-      
-    case page
-      when "articles"
-        collection = items.articles(:order => 'created_at DESC')
-      when "images"
-        collection = items.images(:order => 'created_at DESC')
-      when "audios"
-        collection = items.audios(:order => 'created_at DESC')
-      when "videos"
-        collection = items.videos(:order => 'created_at DESC')
-      when "files"
-        collection = items.files(:order => 'created_at DESC')
-      when "publications"
-        collection = items.publications(:order => 'created_at DESC')
-    end
+    
+    collection = items.send(page, :order => 'created_at DESC')
+    
     render(:partial => "items/item_in_list", :collection => collection.to_a)
   end
   

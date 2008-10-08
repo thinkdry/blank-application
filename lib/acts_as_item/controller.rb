@@ -30,6 +30,11 @@ module ActsAsItem
     	    before :destroy do
     	      permit 'deletion of current_object'
   	      end
+  	      
+  	      before :index do
+  	        # TODO: redirect to /content/page
+  	        render :nothing => true
+	        end
         	
         	# Makes `current_user` as author for the current_object
         	before :create do

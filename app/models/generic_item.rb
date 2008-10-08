@@ -12,6 +12,9 @@ class GenericItem < ActiveRecord::Base
   
   named_scope :files,
     :conditions => { :item_type => 'ArticFile' }
+    
+  named_scope :artic_files,
+    :conditions => { :item_type => 'ArticFile' }
 
   named_scope :articles,
     :conditions => { :item_type => 'Article' }
