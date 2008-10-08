@@ -32,8 +32,7 @@ module ActsAsItem
   	      end
   	      
   	      before :index do
-  	        # TODO: redirect to /content/page
-  	        render :nothing => true
+  	        redirect_to(items_path(params[:controller]))
 	        end
         	
         	# Makes `current_user` as author for the current_object
