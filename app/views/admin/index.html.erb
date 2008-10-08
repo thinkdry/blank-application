@@ -1,33 +1,32 @@
 <h1>Administration</h1>
 
-ADMINISTRATION GLOBALE :<br />
-<% if current_user.system_role == "Admin" %>
-	<li><%= link_to 'Ajouter un utilisateur', new_user_path %></li>
+<% if @current_user.is_admin? %>
+	<h2>Configuration administrateur</h2>
+	<%= link_to 'Ajouter un utilisateur', new_user_path %></li>
 <% end %>
 
-<br />
-_________________________________
-<br />
+<h2>Administration des espaces de travail</h2>
 
-ADMINISTRATION DES WORKSPACES :<br />
 <% @workspaces.each do |w| %>
-	<%= w.name %>														<br />
-	Administrateur de l'espace : 	<%= link_to_user(w.creator) %>		<br />
-	Modérateurs : 					<%= user_list_of(w, :moderators) %>	<br />
-	Rédacteurs : 					<%= user_list_of(w, :writters) %>	<br />
-	Lecteurs : 						<%= user_list_of(w, :readers) %>	<br />
-	<br />
-	<%= link_to "Gérer les droits et utilisateurs de cet espace", edit_workspace_path(w.id) %>
-	<br /><br />
+	<fieldset>
+		<legend><%= w.name %></legend>
+		<p>
+			Administrateur de l'espace : 	<%= link_to_user(w.creator) %>		<br />
+			Modérateurs : 					<%= user_list_of(w, :moderators) %>	<br />
+			Rédacteurs : 					<%= user_list_of(w, :writters) %>	<br />
+			Lecteurs : 						<%= user_list_of(w, :readers) %>
+		</p>
+		<p>
+			<%= link_to "Gérer les droits et utilisateurs de cet espace", edit_workspace_path(w.id) %>
+		</p>
+	</fieldset>
 <% end %>
 
-_________________________________
-<br />
-
-<div id="new_workspace">
-	<%= render :partial => "workspaces/new" %>
-</div>
-
+<p>
+	<div id="new_workspace">
+		<%= render :partial => "workspaces/new" %>
+	</div>
+</p>
 
 
 
