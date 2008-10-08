@@ -19,6 +19,10 @@
 		<% if permit? 'edition of current_object' %>
 			<%= link_to 'Editer', edit_item_path(object)%>
 		<% end %>
+		<% if permit? 'deletion of current_object' %>
+			<%= link_to 'Supprimer', item_path(object), :method => :delete,
+			 		:confirm => "Êtes vous sûr de vouloir supprimer cet item ?\nL'action est irréversible." %>
+		<% end %>
 	</div>
 	
 	<h2>Résumé</h2>
