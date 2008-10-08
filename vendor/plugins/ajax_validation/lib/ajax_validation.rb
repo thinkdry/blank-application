@@ -47,8 +47,15 @@ module AjaxValidation
         object = @object || @object_name.to_s.classify.constantize.new
         options = (args.last.is_a?(Hash) ? args.pop : {})
         options.merge!(:onblur => @template.ajax_validation(object, field))
-        label = label(field, options[:label], :class => options[:label_clas])
-        label += "<strong><sup>*</sup></strong>" if object.class.required_fields.include?(field)
+        
+        label = label(
+          field,
+          options[:label] +
+            (object.class.required_fields.include?(field) ? @template.content_tag(:sup, '*') : '') +
+            (options[:hint] ? @template.content_tag(:span, options[:hint], :class => :hint) : ''),
+          :class => options[:label_clas]
+        )
+
         @template.content_tag(:p,
           label + ' ' +
           @template.ajax_error_message_on(object, field) +
