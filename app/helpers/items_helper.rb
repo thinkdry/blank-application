@@ -135,7 +135,7 @@ module ItemsHelper
     
     [Article, Image, ArticFile, Video, Audio, Publication].each do |item_model|
       item_page = item_model.to_s.underscore.pluralize
-      item_human_name = item_page
+      item_human_name = item_model.label
       options = {}
       options[:selected] = true if (page == item_page)
 
