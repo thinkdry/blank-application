@@ -1,5 +1,5 @@
 require 'heywatch'
-HeyWatch::Base::establish_connection! :login => 'koad9', :password => 'personne'
+HeyWatch::Base::establish_connection! :login => 'thinkdry', :password => 'thinkdry38'
 
 require 'ftools'
 
