@@ -24,7 +24,8 @@ class GenericItem < ActiveRecord::Base
   
   named_scope :from_workspace, lambda { |ws|
     raise 'WS expected' unless ws
-    { :from => 'generic_items, items',
+    { :select => 'generic_items.*',
+      :from => 'generic_items, items',
       :conditions => %{
         generic_items.item_type = items.itemable_type AND
         generic_items.id = items.itemable_id AND
