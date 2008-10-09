@@ -50,7 +50,7 @@ module AjaxValidation
         
         label = label(
           field,
-          options[:label] +
+          options[:label] || field.to_s.capitalize +
             (object.class.required_fields.include?(field) ? @template.content_tag(:sup, '*') : '') +
             (options[:hint] ? @template.content_tag(:span, options[:hint], :class => :hint) : ''),
           :class => options[:label_clas]
