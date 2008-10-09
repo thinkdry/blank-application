@@ -1,8 +1,4 @@
 module ItemsHelper
-  def self.included base
-    define_prefixed_item_paths(base)
-  end
-  
   def item_rate(object, params = {})
     params = {
       :rerate => false,
@@ -56,8 +52,8 @@ module ItemsHelper
       block.binding
   end
   
-  def form_for_item(object, &block)
-    concat(render(:partial => "items/form", :locals => { :block => block }), block.binding)
+  def form_for_item(object, title = '', &block)
+    concat(render(:partial => "items/form", :locals => { :block => block, :title => title }), block.binding)
   end
   
   # Render a lisf of recent items, recent comments and recent publications.
@@ -134,58 +130,23 @@ module ItemsHelper
     link_to(object.title, item_path(object))
   end
   
-  def item_path object, params = {}
-    prefix = params.delete :prefix
-    
-    helper_name = String.new
-    helper_name += prefix + '_' if prefix
-    helper_name += 'workspace_' if current_workspace
-    helper_name += object.class.to_s.underscore + '_path'
-    
-    args = [object, params]
-    args.insert(0, current_workspace) if current_workspace
-
-    send helper_name, *args
-  end
-  
-  def new_item_path(model)
-    helper_name = 'new_'
-    helper_name += 'workspace_' if current_workspace
-    helper_name += model.to_s.underscore + '_path'
-    args = current_workspace ? [current_workspace] : []
-    send(helper_name, *args)
-  end
-  
-  def items_path(model)
-    model = model.table_name unless model.is_a?(String)  
-    if current_workspace
-      workspace_content_url(current_workspace.id, :page => model)
-    else
-      content_url(:page => model)
-    end
-  end
-  
   def display_tabs(page)
-    html = '<ul id="tabs">'
-    html += '<li '
-    html += 'class="selected"' if (page=="articles")
-    html += '>'+link_to(image_tag(Article.icon)+" Articles", items_path(Article))+'</li>'
-    html += '<li '
-    html += 'class="selected"' if (page=="images")
-    html += '>'+link_to(image_tag(Image.icon)+" Images", items_path(Image))+'</li>'
-    html += '<li '
-    html += ' class="selected"' if (page=="files")
-    html += '>'+link_to(image_tag(ArticFile.icon)+" Fichiers", items_path("files"))+'</li>'
-    html += '<li '
-    html += 'class="selected"' if (page=="videos")
-    html += '>'+link_to(image_tag(Video.icon)+" Videos", items_path("videos"))+'</li>'
-    html += '<li '
-    html += 'class="selected"' if (page=="audios")
-    html += '>'+link_to(image_tag(Audio.icon)+" Audios", items_path("audios"))+'</li>'
-    html += '<li '
-    html += 'class="selected"' if (page=="publications")
-    html += '>'+link_to(image_tag(Publication.icon)+" Publications", items_path("publications"))+'</li>'
-    html += '</ul><div class="clear"></div>'
+    content = String.new
+    
+    [Article, Image, ArticFile, Video, Audio, Publication].each do |item_model|
+      item_page = item_model.to_s.underscore.pluralize
+      item_human_name = item_model.label
+      options = {}
+      options[:selected] = true if (page == item_page)
+
+      content += content_tag(
+        :li,
+        link_to(image_tag(item_model.icon) + item_human_name, items_path(item_model)),
+        options
+      )
+    end
+    
+    content_tag(:ul, content, :id => :tabs)
 	end
   
   def display_item_list(page)
@@ -194,34 +155,10 @@ module ItemsHelper
     else
       GenericItem.consultable_by(@current_user)
     end
-      
-    case page
-      when "articles"
-        collection = items.articles(:order => 'created_at DESC')
-      when "images"
-        collection = items.images(:order => 'created_at DESC')
-      when "audios"
-        collection = items.audios(:order => 'created_at DESC')
-      when "videos"
-        collection = items.videos(:order => 'created_at DESC')
-      when "files"
-        collection = items.files(:order => 'created_at DESC')
-      when "publications"
-        collection = items.publications(:order => 'created_at DESC')
-    end
+    
+    collection = items.send(page, :order => 'created_at DESC')
+    
     render(:partial => "items/item_in_list", :collection => collection.to_a)
-  end
-  
-  private
-  def self.define_prefixed_item_paths base
-    # OPTIMIZE: Import prefix list from a conf file
-     ['edit', 'rate', 'add_tag', 'remove_tag', 'comment'].each do |prefix|
-       base.send(:define_method, "#{prefix}_item_path") do |*args|
-         object, params = args[0], args[1] || {}
-         params[:prefix] = prefix
-         item_path(object, params)
-       end
-     end
   end
   
 end

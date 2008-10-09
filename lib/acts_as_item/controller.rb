@@ -30,6 +30,10 @@ module ActsAsItem
     	    before :destroy do
     	      permit 'deletion of current_object'
   	      end
+  	      
+  	      before :index do
+  	        redirect_to(items_path(params[:controller]))
+	        end
         	
         	# Makes `current_user` as author for the current_object
         	before :create do
