@@ -30,7 +30,7 @@ fieldset label{
   width:200px;
   float:left;
 }
-fieldset .small{
+fieldset .hint{
   color:#666666;
   display:block;
   font-size:11px;
@@ -41,7 +41,12 @@ fieldset .small{
 fieldset input, fieldset textarea, fieldset select{
   float:left;
   width:270px;
-  margin:2px 150px 20px 20px;
+  margin:2px 10px 20px 20px;
+}
+
+.nicEdit-panelContain{
+  float:left;
+  margin:2px 10px 0px 20px;
 }
 
 fieldset .input_container{
@@ -93,7 +98,7 @@ fieldset  #textfield_comments {
 }
 .spacer{clear:both; height:1px;}
 /* ----------- My Form ----------- */
-fieldset.myform{
+fieldset{
 	background-color: #F9F9F9;
 	padding: 1em;
 	border: 2px solid #C2C2C2;

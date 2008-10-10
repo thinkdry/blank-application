@@ -6,17 +6,21 @@
 		<span class="txt_80_666"><%= @current_object.description %></span>
 	</div>
 	
-	<h2>5 derniers éléments</h2>
-	<ul>
-		<% GenericItem.from_workspace(@current_object).latest.each do |item| %>
-			<li>
-				<%= item.title %>
-			</li>
-		<% end %>
-	</ul>
-	
-	<%= render :partial => "items/top_box" %>
-	
-	<%= render :partial => "items/tab_list" %>
+	<div class="area_LEFT">
+  	<h2>5 derniers éléments</h2>
+  	<ul>
+  		<% GenericItem.from_workspace(@current_object).latest.each do |item| %>
+  			<li>
+  				<%= item.title %>
+  			</li>
+  		<% end %>
+  	</ul>
+	</div>
+	<div class="area_RIGHT">
+	  <%= render :partial => "items/top_box" %>
+	</div>
 	<div class="clear"></div>
+	<div class="area_BOTH" style="margin-top: 20px;">
+	  <%= render :partial => "items/tab_list" %>
+	</div>
 </div>

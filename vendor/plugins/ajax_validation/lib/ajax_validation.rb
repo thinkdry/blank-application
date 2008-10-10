@@ -56,12 +56,9 @@ module AjaxValidation
           :class => options[:label_clas]
         )
 
-        @template.content_tag(:p,
           label + ' ' +
-          @template.ajax_error_message_on(object, field) +
-          '<br/>' +
-          yield(field, *(args << options))
-        )
+          yield(field, *(args << options)) +
+          @template.ajax_error_message_on(object, field)
       end
     end 
   end
