@@ -137,7 +137,7 @@ module ItemsHelper
       item_page = item_model.to_s.underscore.pluralize
       item_human_name = item_model.label
       options = {}
-      options[:selected] = true if (page == item_page)
+      options[:class] = 'selected' if (page == item_page)
 
       content += content_tag(
         :li,
