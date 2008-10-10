@@ -1,26 +1,24 @@
-<div id="content_bis">
-	<div id="area_TITLE">
-		<h1>
-			Espace <%= @current_object.name %>
-		</h1>
-		<span class="txt_80_666"><%= @current_object.description %></span>
-	</div>
-	
-	<div class="area_LEFT">
-  	<h2>5 derniers éléments</h2>
-  	<ul>
-  		<% GenericItem.from_workspace(@current_object).latest.each do |item| %>
-  			<li>
-  				<%= item.title %>
-  			</li>
-  		<% end %>
-  	</ul>
-	</div>
-	<div class="area_RIGHT">
-	  <%= render :partial => "items/top_box" %>
-	</div>
-	<div class="clear"></div>
-	<div class="area_BOTH" style="margin-top: 20px;">
-	  <%= render :partial => "items/tab_list" %>
-	</div>
+<div id="area_TITLE">
+	<h1>
+		Espace <%= @current_object.name %>
+	</h1>
+	<span class="txt_80_666"><%= @current_object.description %></span>
+</div>
+
+<div class="area_LEFT">
+	<h2>5 derniers éléments</h2>
+	<ul>
+		<% GenericItem.from_workspace(@current_object).latest.each do |item| %>
+			<li>
+				<%= item.title %>
+			</li>
+		<% end %>
+	</ul>
+</div>
+<div class="area_RIGHT">
+  <%= render :partial => "items/top_box" %>
+</div>
+<div class="clear"></div>
+<div class="area_BOTH" style="margin-top: 20px;">
+  <%= render :partial => "items/tab_list" %>
 </div>

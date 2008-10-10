@@ -1,6 +1,8 @@
-<% form_for_item @current_object do |f| -%>
+<% form_for_item @current_object, title do |f| -%>
 	<%= f.label :file_path, 'Fichier :' %>
-	<%= error_message_on :artic_file, :file_path %><br/>
-	<%= File.basename(@current_object.file_path) + '<br />' if @current_object.file_path %>
-	<%= file_column_field "video", 'file_path',:onChange=>"LimitAttach(this.form, this.form.video_file_path.value,'video')" %>
+	<div class="input_file_container">
+	  <%= File.basename(@current_object.file_path) + '<br />' if @current_object.file_path %>
+  	<%= file_column_field "video", 'file_path',:onChange=>"LimitAttach(this.form, this.form.video_file_path.value,'video')" %>
+  	<%= error_message_on :artic_file, :file_path %>
+	</div>
 <% end -%>

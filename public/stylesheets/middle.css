@@ -151,13 +151,13 @@ img.avatar{
   font-size: 110%;
 }
 
-#area_WS{
+.area_WS{
   background-color: #D2A7BB;
   border: 2px solid #BD7F9C;
   padding: 10px;
 }
 
-#area_WS h4{
+.area_WS h4{
   color: #fff;
 }
 

@@ -1,6 +1,8 @@
-<% form_for_item @current_object do |f| -%>
-	<%= f.label :file_path, "Fichier :"%><br />
-	<%= error_message_on @current_object, :file_path %><br/>
-	<%= File.basename(@current_object.file_path) + '<br />' if @current_object.file_path %>
-	<%= file_column_field "artic_file", 'file_path' %>
+<% form_for_item @current_object, title do |f| -%>
+	<%= f.label :file_path, "Fichier :"%>
+	<div class="input_file_container">
+	  <%= File.basename(@current_object.file_path)+'<br />' if @current_object.file_path %>
+	  <%= file_column_field "artic_file", 'file_path' %>
+	  <%= error_message_on(@current_object, :file_path) %>
+	</div>
 <% end -%>

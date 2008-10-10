@@ -390,9 +390,6 @@ a.add_item{
 }
 
 .fieldWithErrors {
-	display: inline-block;
-	padding: 0px;
-	margin: 0px;
 }
 
 .fieldWithErrors input {

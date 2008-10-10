@@ -62,6 +62,31 @@ fieldset .input_container input{
   margin: 0;
 }
 
+fieldset .input_files_container{
+  float: left;
+  width: 350px;
+  margin: 2px 10px 20px 20px;
+}
+
+fieldset .input_files_container input{
+  float: none;
+  display: inline;
+  width: 250px;
+  margin: 5px 0px 0px 0px;
+}
+
+fieldset .input_file_container{
+  float: left;
+  width: 480px;
+  margin: 2px 10px 20px 20px;
+}
+
+fieldset .input_file_container input{
+  float: none;
+  display: inline;
+  width: 250px;
+  margin: 0px 0px 0px 0px;
+}
 
 fieldset #textfield {
 	float:left;

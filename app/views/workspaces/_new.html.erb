@@ -2,7 +2,7 @@
 	<legend>Créer un nouvel espace de travail</legend>
 	<% form_for @workspace, :builder => LabelFormBuilder do |f| -%>
 		<%= f.text_field :name, :label => "Nom de l'espace de travail" %>
-		<%= f.text_field :description, :label => "Description de l'espace de travail" %>
+		<%= f.text_area :description, :label => "Description de l'espace de travail" %>
 		<%= f.submit "Créer" %>
 	<% end %>
 </fieldset>

@@ -1,9 +1,10 @@
-<% form_for_item @current_object do |f| -%>
+<% form_for_item @current_object, title do |f| -%>
 	<%= f.text_area :body, :label => 'Corps :' %>
 	<%= advanced_editor_on(@current_object, :body) %>
 	
-	<h2>Fichiers associés:</h2>
-	<div id="files">
+	<label>Fichiers associés:</label>
+	<div id="files" class="input_files_container">
+	  <%= link_to_new_file 'Joindre un nouveau fichier' %><br />
 		<% @current_object.article_files.each do |af| %>
 			<div id="file<%= af.id.to_s %>">
 				<%= af.file_path.split('/').last %>
@@ -12,6 +13,4 @@
 			</div>
 		<% end %>
 	</div>
-
-	<%= link_to_new_file 'Joindre un nouveau fichier' %>
 <% end -%>
