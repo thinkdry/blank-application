@@ -1,6 +1,9 @@
 <% form_for_item @current_object, title do |f| -%>
-	<%= f.text_area :body, :label => 'Corps :' %>
-	<%= advanced_editor_on(@current_object, :body) %>
+	<script type="text/javascript">
+		var oFCKeditor = new FCKeditor('FCKeditor1');
+		oFCKeditor.BasePath = "/fckeditor/";
+		oFCKeditor.Create();
+	</script>
 	
 	<label>Fichiers associés:</label>
 	<div id="files" class="input_files_container">
