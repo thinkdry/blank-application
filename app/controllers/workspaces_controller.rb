@@ -1,5 +1,3 @@
-# TODO: On error it redirects to show that does not exist.
-
 class WorkspacesController < ApplicationController
   acts_as_ajax_validation
 
