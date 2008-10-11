@@ -10,7 +10,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users
   map.resource :session
 	
-	map.content '/content/:page', :controller => 'items', :action => 'index'
+	map.content '/content/:item_type', :controller => 'items', :action => 'index'
 	
 	map.admin '/admin', :controller => 'admin', :action => 'index'
   
@@ -42,7 +42,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # Items in context of workspaces
   map.resources(:workspaces) do |workspaces|
-    workspaces.content '/:page', :controller => 'workspaces', :action => 'show', :conditions => { :method => :get }
+    workspaces.content '/:item_type', :controller => 'workspaces', :action => 'show', :conditions => { :method => :get }
     items_ressources(workspaces)
   end
   
