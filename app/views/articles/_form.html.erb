@@ -1,9 +1,6 @@
 <% form_for_item @current_object, title do |f| -%>
-	<script type="text/javascript">
-		var oFCKeditor = new FCKeditor('FCKeditor1');
-		oFCKeditor.BasePath = "/fckeditor/";
-		oFCKeditor.Create();
-	</script>
+	<%= f.text_area(:body, :label => 'Article : ') %>
+	<%= advanced_editor_on(@current_object, :body) %>
 	
 	<label>Fichiers associés:</label>
 	<div id="files" class="input_files_container">

@@ -32,9 +32,11 @@ module ItemsHelper
   
   def advanced_editor_on(object, attribute)
     javascript_tag(%{
-			bkLib.onDomLoaded(function() {
-				new nicEditor({iconsPath : '/images/nicEditorIcons.gif'}).panelInstance('#{object.class.to_s.underscore}_#{attribute}');
-			});
+
+        var oFCKeditor = new FCKeditor('#{object.class.to_s.underscore}_#{attribute}') ;
+        oFCKeditor.BasePath = "/fckeditor/" ;
+        oFCKeditor.ReplaceTextarea() ;
+
 		})
   end
   
