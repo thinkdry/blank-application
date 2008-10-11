@@ -1,3 +1,5 @@
+# TODO: On error it redirects to show that does not exist.
+
 class WorkspacesController < ApplicationController
   acts_as_ajax_validation
 
@@ -7,13 +9,8 @@ class WorkspacesController < ApplicationController
     before :show do
       params[:id] = params[:workspace_id]
       params[:page] ||= 'articles'
-      session[:menu] = 'workspaces'
     end
-    
-    before :index do
-      session[:menu] = 'items'
-    end
-    
+        
     before :create do
       @current_object.creator = @current_user
     end
@@ -24,13 +21,11 @@ class WorkspacesController < ApplicationController
     end
     
     before :index do
-    @current_objects = current_objects.paginate(
-        :page => params[:page],
-          			:order => :title,
-				:per_page => 2
-			)
+      @current_objects = current_objects.paginate \
+          :page => params[:page],
+            			:order => :title,
+  				:per_page => 2
 		end
-					
 	end
 
   def add_new_user
