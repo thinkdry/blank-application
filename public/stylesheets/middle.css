@@ -32,14 +32,17 @@ h4{
 
 #middle-middle{
   border-right: 1px #F2F2F2 solid;
-  margin-right: 200px;
+  margin-right: 180px;
   padding: 20px 20px 40px 20px;
   font-size: 95%;
+  width: 760px;
+  _width: 800px;
+  overflow: hidden;
 }
 
 #middle-right{
   float: right;
-  width: 190px;
+  width: 180px;
 }
 
 #middle-right select{
