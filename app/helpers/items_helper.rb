@@ -158,9 +158,9 @@ module ItemsHelper
       GenericItem.consultable_by(@current_user)
     end
     
-    collection = items.send(item_type, :order => 'created_at DESC')
+    @collection = items.send(item_type, :order => 'created_at DESC').paginate(:page => params[:page])
     
-    render(:partial => "items/item_in_list", :collection => collection.to_a)
+    render(:partial => "items/item_in_list", :collection => @collection.to_a)
   end
   
 end
