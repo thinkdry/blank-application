@@ -1,6 +1,6 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-named_scoped:
+video_1:
     user: quentin
     title: "Named Scopes into Rails"
     description: "Nouvelle fonctionnalité Rails 2.1<br>"

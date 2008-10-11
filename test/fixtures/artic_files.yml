@@ -1,9 +1,8 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
 <% 1.upto(300) do |i| %>
-    schema_bdd_<%= i %>:
+    artic_file_<%= i %>:
         user: quentin
         title: Schema base de donnee (<%= i %>)
         description: "Documentation<br>"
         file_path: db.png
+        created_at: <%= i.days.ago %>
 <% end %>

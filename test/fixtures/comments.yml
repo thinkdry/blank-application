@@ -1,13 +1,9 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-image_one_comment_one:
-  text: Mes félicitations !
-  user: quentin
-  commentable: one (Image)
-  created_at : <%= 2.hours.ago.to_s :db %>
-
-image_one_comment_two:
-  text: Et je m'auto congratule à nouveau, et ouai...
-  user: quentin
-  commentable: one (Image)
-  created_at : <%= 1.hour.ago.to_s :db %>
+# 3 to 33 comments by user on first article
+<% User.all.each do |u| %>
+    <% (3 + rand(30)).times do |i| %>
+        comment_<%= i %>_by_<%= u.login %>:
+            user_id: <%= u.id %>
+            text: 'Mon commmentaire généré : <%= u.id %><%= i %>. Bravo !'
+            commentable: article_1 (Article)
+    <% end %>
+<% end %>

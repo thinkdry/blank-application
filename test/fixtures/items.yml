@@ -1,9 +1,0 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-image_one_on_fun_workspace:
-    itemable: one (Image)
-    workspace: fun
-    
-image_one_on_cancerologie_workspace:
-    itemable: one (Image)
-    workspace: cancerologie
