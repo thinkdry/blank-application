@@ -15,13 +15,19 @@ module ActsAsItem
     end
 
     def current_workspace
-      return @workspace if @workspace
-      return @current_object if @current_object && @current_object.class == Workspace
-      if params['workspace_id']
-        @workspace = Workspace.find(params['workspace_id'].to_i)
-        return @workspace
+      get_ws = Proc.new do
+        params['workspace_id'] ? 
+          Workspace.find(params['workspace_id'].to_i) :
+          nil
       end
-      nil
+      
+      if @workspace
+        # Hack: Workspace may be "Workspace.new"
+        return @workspace if @workspace.id
+        return get_ws.call
+      end
+      return @current_object if @current_object && @current_object.class == Workspace
+      @workspace = get_ws.call
     end
 
     def item_path object, params = {}
