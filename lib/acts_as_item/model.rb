@@ -10,11 +10,7 @@ module ActsAsItem
         false
       end
       
-      def acts_as_item
-        def validate
-          errors.add(:description, "Cannot Be Blank") if (description=="<br>")
-        end
-        
+      def acts_as_item        
         acts_as_rateable
         
         belongs_to :user
