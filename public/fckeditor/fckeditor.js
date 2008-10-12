@@ -30,7 +30,7 @@ var FCKeditor = function( instanceName, width, height, toolbarSet, value )
 {
 	// Properties
 	this.InstanceName	= instanceName ;
-	this.Width			= width			|| '100%' ;
+	this.Width			= width			|| '520px' ;
 	this.Height			= height		|| '200' ;
 	this.ToolbarSet		= toolbarSet	|| 'Default' ;
 	this.Value			= value			|| '' ;
@@ -178,11 +178,9 @@ FCKeditor.prototype._GetIFrameHtml = function()
 	html = '<iframe id="' + this.InstanceName +
 		'___Frame" src="' + sLink +
 		'" width="' + this.Width +
-		'" height="' + this.Height ;
-
+		'" height="' + this.Height;
 	if ( this.TabIndex )
 		html += '" tabindex="' + this.TabIndex ;
-
 	html += '" frameborder="0" scrolling="no"></iframe>' ;
 
 	return html ;

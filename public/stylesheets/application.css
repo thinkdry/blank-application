@@ -643,8 +643,27 @@ a img {
 	width: 100%;	
 }
 
+h1.pub{
+  padding-bottom: 10px;
+  border-bottom: 1px #333 solid;
+}
+
+small.grey{
+  color: #555555;
+  font-size: 60%;
+}
+
 #footer{
   background-color: #BDD6D9;
   color: #fff;
   padding: 15px;
+}
+
+#footer .name{
+  float:left;;
+}
+
+#footer .menu{
+  float: right;
+  font-size: 90%;
 }

@@ -258,6 +258,28 @@ button.positive, .buttons a.positive{
 #form_new label{
 }
 
+.user label{
+  clear: left;
+  width: 200px;
+  text-align: right;
+  padding-right: 10px;
+  margin-top: 5px;
+  color: #7B003B;
+  float: left;
+}
+
+.user select{
+  width: 150px;
+  float: left;
+  margin-top: 5px;
+} 
+
+.user a{
+  float: left;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
 .form_titre{
 	text-align: center;
 	padding-bottom: 20px;
