@@ -1,7 +1,9 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+<% require 'file_path_utils' %>
 
-how_i_feel:
-    user: quentin
-    title: How I Feel
-    description: WaxTailor<br>
-    file_path: 17_How_I_feel.mp3
+<% 1.upto(300) do |i| %>
+    audio_<%= i %>:
+        user: quentin
+        title: How I Feel (<%= i %>)
+        description: WaxTailor
+        file_path: <%= file_path_import(:model => 'audio', :id => Fixtures.identify("audio_#{i}"), :file_path => '17_How_I_feel.mp3') %>
+<% end %>

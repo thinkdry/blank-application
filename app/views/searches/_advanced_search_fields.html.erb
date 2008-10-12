@@ -1,4 +1,3 @@
-<%# TODO: (integration) Remove style attribute %>
 <fieldset class="myform">
   <legend>Recherche avancée</legend>
   <% form_for :search, :url => search_path, :html => {:method => :get} do |f| %>
@@ -14,7 +13,7 @@
     <div class="input_container">
       Du <%= f.calendar_date_select :created_after %> au <%= f.calendar_date_select :created_before %>
     </div>
-  	<%# TODO: Add tags and note %>
+  	<%# TODO: Add tags and note (low priority) %>
     <%#	=> Que le gay d'integrateur ne s'en soucie pas, on l'ajoutera plus tard. %>
     <%# => Ok! La grande folle de developpeuse doit etre au courant que l'integrateur ne se soucie jamais de rien %>
   	<div class="buttons">

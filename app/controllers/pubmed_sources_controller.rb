@@ -13,6 +13,11 @@ class PubmedSourcesController < ApplicationController
     end
     before :index do
       @current_object=PubmedSource.new
+			@current_objects=@current_objects.paginate(
+				:page => params[:page],
+				:order => :created_at,
+				:per_page => 2
+			)
     end
   end
 end

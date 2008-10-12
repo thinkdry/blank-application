@@ -132,14 +132,14 @@ module ItemsHelper
     link_to(object.title, item_path(object))
   end
   
-  def display_tabs(page)
+  def display_tabs(item_type)
     content = String.new
     
     [Article, Image, ArticFile, Video, Audio, Publication].each do |item_model|
       item_page = item_model.to_s.underscore.pluralize
       item_human_name = item_model.label
       options = {}
-      options[:class] = 'selected' if (page == item_page)
+      options[:class] = 'selected' if (item_type == item_page)
 
       content += content_tag(
         :li,
@@ -151,16 +151,16 @@ module ItemsHelper
     content_tag(:ul, content, :id => :tabs)
 	end
   
-  def display_item_list(page)
+  def display_item_list(item_type)
     items = if current_workspace
       GenericItem.from_workspace(current_workspace)
     else
       GenericItem.consultable_by(@current_user)
     end
     
-    collection = items.send(page, :order => 'created_at DESC')
+    @collection = items.send(item_type, :order => 'created_at DESC').paginate(:page => params[:page])
     
-    render(:partial => "items/item_in_list", :collection => collection.to_a)
+    render(:partial => "items/item_in_list", :collection => @collection.to_a)
   end
   
 end

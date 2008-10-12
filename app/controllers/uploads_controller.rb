@@ -2,7 +2,6 @@ require 'FileUtils'
 
 class UploadsController < ApplicationController
   def create
-    # TODO: Catch exeptions and return JS
     begin
       temp_path = params[:NewFile].path
       original_filename = params[:NewFile].original_filename
