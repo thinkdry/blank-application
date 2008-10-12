@@ -1,6 +1,6 @@
-# 3 to 33 comments by user on first article
+# 1 to 3 comments by user on first article
 <% User.all.each do |u| %>
-    <% (3 + rand(30)).times do |i| %>
+    <% (1 + rand(2)).times do |i| %>
         comment_<%= i %>_by_<%= u.login %>:
             user_id: <%= u.id %>
             text: 'Mon commmentaire généré : <%= u.id %><%= i %>. Bravo !'
