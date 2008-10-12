@@ -1,8 +1,0 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-video_1:
-    user: quentin
-    title: "Named Scopes into Rails"
-    description: "Nouvelle fonctionnalité Rails 2.1<br>"
-    file_path: "108_named_scope.mov"
-    encoded_file: "/video/415800220/video.flv"
