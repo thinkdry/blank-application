@@ -36,13 +36,6 @@ ActiveRecord::Schema.define(:version => 20080922085723) do
     t.datetime "updated_at"
   end
 
-  create_table "article_images", :force => true do |t|
-    t.integer  "article_id", :limit => 11
-    t.string   "image_path"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "articles", :force => true do |t|
     t.integer  "user_id",     :limit => 11
     t.string   "title"

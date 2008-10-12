@@ -1,0 +1,11 @@
+<% [ArticFile, Article, Audio, Image, Publication, Video].each do |model| %>
+    <% puts "#{model.to_s} : #{model.count} elements" %>
+    <% model.all.each do |instance| %>
+        <% Workspace.all.delete_if { rand < 0.5 }.each do |workspace| %>
+            <%= model.to_s.underscore %>_<%= instance.id %>_on_<%= workspace.name %>:
+                itemable_type: <%= model %>
+                itemable_id: <%= instance.id %>
+                workspace_id: <%= workspace.id %>
+        <% end %>
+    <% end %>
+<% end %>
