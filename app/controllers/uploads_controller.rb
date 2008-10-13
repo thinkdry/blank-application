@@ -13,6 +13,7 @@ class UploadsController < ApplicationController
       FileUtils.copy(temp_path, @dest_path)
       render :action => 'create', :layout => false
     rescue Exception => e
+      logger.error(e)
       render :action => 'create_failed', :layout => false
     end
   end
