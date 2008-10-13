@@ -9,9 +9,25 @@
 	<h2>5 derniers éléments</h2>
 	<ul>
 		<% GenericItem.from_workspace(@current_object).latest.each do |item| %>
-			<li>
-				<%= item.title %>
-			</li>
+			<p>
+				<div>
+					<%= image_tag(item.icon) %>
+					<%= link_to_item(item) %>
+				</div>
+				<div>
+					par
+					<%= link_to_user(item.user) %>
+					le
+					<%= item.created_at.l(:long) %>
+				</div>
+				<div style="float:left">
+					<%= item.comments.count %>
+					commentaires -
+				</div>
+				<div style="float:left"><%= item_rate_locked(item) %></div>
+				<div style="clear:both">
+				</div>
+			</p>
 		<% end %>
 	</ul>
 </div>
