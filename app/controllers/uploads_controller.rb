@@ -1,4 +1,4 @@
-require 'FileUtils'
+require 'fileutils'
 
 class UploadsController < ApplicationController
   def create
