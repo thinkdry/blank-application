@@ -18,6 +18,10 @@ class PubmedSourcesController < ApplicationController
       # New object form displayed in index
       @current_object = PubmedSource.new
     end
+    
+    before :show do
+      @pubmed_items = @current_object.pubmed_items.paginate(:page => params[:page], :per_page => 15)
+    end
   end
   
   def current_objects

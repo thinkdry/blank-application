@@ -11,8 +11,8 @@
 <div class="links">
 	<%= link_to 'Importer dans Artic', new_publication_path(:pubmed_item_id => item.id), :style => 'float: left' %>
 	&nbsp;&nbsp;
-	<%= link_to 'Lien vers Pubmed', item.link,:popup=>['new_window'] %>
-       <% # Specify the weight & width :popup=>['new_window','height=800,width=1024']%>
+	<%= link_to 'Lien vers Pubmed', item.link, :popup=>['new_window'] %>
+    <%# Specify the weight & width :popup=>['new_window','height=800,width=1024'] %>
 </div>
 
 </div>
