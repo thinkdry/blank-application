@@ -5,8 +5,7 @@ class WorkspacesController < ApplicationController
     actions :all
     
     before :show do
-      params[:id] = params[:workspace_id]
-      params[:page] ||= 'articles'
+      params[:id] ||= params[:workspace_id]
     end
         
     before :create do

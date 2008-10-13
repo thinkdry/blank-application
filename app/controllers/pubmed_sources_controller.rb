@@ -21,6 +21,7 @@ class PubmedSourcesController < ApplicationController
   end
   
   def current_objects
+    # TODO: Get objects of current_user
     @current_objects ||= PubmedSource.paginate(
 			:page => params[:page],
 			:order => :created_at

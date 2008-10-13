@@ -133,6 +133,7 @@ module ItemsHelper
   end
   
   def display_tabs(item_type)
+    item_type ||= 'articles'
     content = String.new
     
     [Article, Image, ArticFile, Video, Audio, Publication].each do |item_model|
@@ -152,6 +153,8 @@ module ItemsHelper
 	end
   
   def display_item_list(item_type)
+    item_type ||= 'articles'
+    
     items = if current_workspace
       GenericItem.from_workspace(current_workspace)
     else
@@ -160,7 +163,7 @@ module ItemsHelper
     
     @collection = items.send(item_type, :order => 'created_at DESC').paginate(:page => params[:page])
     
-    render(:partial => "items/item_in_list", :collection => @collection.to_a)
+    render(:partial => "items/item_in_list", :collection => @collection)
   end
   
 end
