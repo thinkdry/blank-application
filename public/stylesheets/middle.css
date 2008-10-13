@@ -277,3 +277,108 @@ ul.top_box li{
   border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;
 }
+
+.file_infos_box {
+	border:1px solid #cccccc;
+	padding:5px 10px;
+	margin:0px;
+}
+
+#page #container h1 {
+	color:#000000;
+	font-size:175%;
+	padding-bottom:7px;
+	border-bottom:1px solid #000;
+}
+
+#content_show {
+	margin:0 auto;
+	width:760px;
+	color:#666666;
+}
+
+#content_show h1 {
+	margin:0px 0px 1px;
+	padding:0px;
+}
+
+#content_show .undertitle {
+	margin:2px 4px 0px 0px;
+	padding:0px;
+	float:left;	
+	color:#000;
+}
+
+#content_show .tags {
+	margin:5px 0px;
+	clear:left;
+	color:#000;
+}
+
+#content_show .file_infos_box {
+	padding:5px 10px;
+	margin-bottom:20px;
+}
+
+#content_show .file_infos_box img {
+	position:relative;
+	top:2px;
+	margin: 0px 2px 0px 0px;
+	padding:0px;
+}
+
+#content_show .file_infos_box a {
+	margin:0px 25px 0px 0px;
+	padding:0px;
+}
+
+#content_show h2 {
+	font-size:110% !important;
+	margin-bottom:15px;
+	margin-top:25px;
+	color:#000000;
+}
+
+#content_show fieldset#new_comment_form_box {
+	padding:0px 30px 20px;
+	margin-top:20px;
+	margin-left:0px;
+	width:550px !important;
+}
+
+#content_show #new_comment_form_box textarea {
+	width:550px;
+	margin:0px 0px 20px;
+}
+
+#content_show #new_comment_form_box .buttons button.alone {
+	margin-left:175px;
+}
+
+#content_show #comment_list {
+	margin-top:40px;
+	padding:0px;
+}
+
+#content_show #comment_list img {
+	float:left;
+	position:relative;
+	top:-7px;
+	margin-right:10px;
+}
+
+#content_show h2#comments {
+	font-size:100%;
+	margin:0px 0px 0px 0px;
+	padding:0px;
+}
+
+#content_show #comment_list table {
+	font-size:100%;
+	clear:left;
+	margin:0px;
+	border-top:1px solid black;
+}
+
+#content_show #comment_list table tr {
+}
