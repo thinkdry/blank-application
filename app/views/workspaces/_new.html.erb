@@ -4,6 +4,6 @@
 		<%= f.text_field :name, :label => "Nom de l'espace de travail" %>
 		<%= f.text_area :description, :label => "Description de l'espace" %>
 		<%= advanced_editor_on(@workspace, :description) %>
-		<%= f.submit "Créer" %>
+		<label>&nbsp;</label><%= f.submit "Créer" %>
 	<% end %>
 </fieldset>

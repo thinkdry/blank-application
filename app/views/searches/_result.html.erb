@@ -7,8 +7,9 @@
 		le <%= object.created_at.l(:long) %>
 	</div>
 	<div>
-		Tags: <%= object.tags.collect(&:name).join(', ') %> -
-		<%= object.comments.size %> commentaires -
-		Note: <%= item_rate_locked(object) %>
-	</div>
+		<div style="float:left;">Tags: <%= object.tags.collect(&:name).join(', ') %> - </div>
+		<div style="float:left;">&nbsp;<%= object.comments.size %> commentaires - </div>
+    <div style="float:left"> <%= item_rate_locked(object) %></div>
+    <div class="clear"></div>
+  </div>
 </p>

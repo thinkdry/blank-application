@@ -12,7 +12,7 @@
 <div id="page">
 	<div id="header">
 		<div id="logo">
-			<%= image_tag 'logo.gif', :width => '400', :height => '80' %>
+			<%= link_to(image_tag('logo.gif', :width => '400', :height => '80', :border => 0), "/") %>
 		</div>
 		<div id="header_right">
 			<div id="main_links">
@@ -116,7 +116,13 @@
       </div>
     </div>
     <div id="footer">
-      2008 - Artic Institut
+      <div class="name">2008 - Artic Institut</div>
+      <div class="menu">
+        <%= link_to "Contact", "#" %>&nbsp;|&nbsp;
+        <%= link_to "Plan du site", "#" %>&nbsp;|&nbsp;
+        <%= link_to "FAQ", "#" %>
+      </div>
+      <div class="clear"></div>
     </div>
 	</div>
 	

@@ -2,14 +2,14 @@
   <legend>Recherche avancée</legend>
   <% form_for :search, :url => search_path, :html => {:method => :get} do |f| %>
     <p>Informations au sujet de l'élément recherché</p>
-    <label>Titre<span class="small">Entrer le titre de l'élément recherché</span></label>
+    <label>Titre<span class="hint">Entrer le titre de l'élément recherché</span></label>
     <%= f.text_field :title_contains %>
     <%# OPTIMIZE: Use lib with user friendly multiple select %>
-    <label>Type<span class="small">Sélectionner un type d'élément</span></label>
+    <label>Type<span class="hint">Sélectionner un type d'élément</span></label>
     <%= f.select :item_type_equals, %W(Article Image Video Audio Publication ArticFile), {}, :multiple => true %>
-    <label>Auteur<span class="small">Préciser l'auteur</span></label>
+    <label>Auteur<span class="hint">Préciser l'auteur</span></label>
     <%= f.text_field :user_name_contains %>
-    <label>Date<span class="small">Sélectionner la période de recherche</span></label>
+    <label>Date<span class="hint">Sélectionner la période de recherche</span></label>
     <div class="input_container">
       Du <%= f.calendar_date_select :created_after %> au <%= f.calendar_date_select :created_before %>
     </div>
