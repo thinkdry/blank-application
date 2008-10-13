@@ -20,9 +20,21 @@
 	<div class="file_infos_box">
 		
 		<%= image_tag 'icons/award_star_gold_1.png' %>
-		<!-- TODO: make appear/redirect item_rate(object) when click on the link above -->
-		<%= link_to 'Noter', '#' %> 
-		
+		<%= link_to 'Noter', '#', :id => :rate_action %>
+		<div id="item_rate_modal_content">
+			<%= item_rate(object) %>
+		</div>
+		<script type="text/javascript" charset="utf-8">
+			content = $('item_rate_modal_content').remove().innerHTML;
+			new Tip($('rate_action'), content, {
+				showOn: 'click',
+				stem: 'topLeft',
+				hook: { target: 'rightMiddle', tip: 'topLeft' },
+				hideOn: false,
+				hideAfter: 2,
+				width: 100
+			});
+		</script>
 		
 		<%= image_tag 'icons/comments.png' %>
 		<%= link_to 'Commenter', '#new_comment_form_box' %>
