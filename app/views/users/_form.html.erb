@@ -1,46 +1,33 @@
-		  <fieldset class="myform">
-		    <legend>Vos informations personnelles</legend>
-			  <% form_for @user, :html => {:multipart => true} do |f| -%>
-  			  <p style="color:red;font-weight:bold;">Merci de renseigner tous les champs de ce formulaire.</p>
-  	    	<div id="area_FORM">
-  	    		<label>Login<span class="hint">Votre nom d'utilisateur</span></label>
-      			<%= f.text_field :login%>
-      			<label>Email<span class="hint">Votre email</span></label>
-      			<%= f.text_field :email%>
-      			<label>Mot de passe<span class="hint">Votre mot de passe</span></label>
-      			<%= f.text_field :password%>
-      			<label>Confirmation<span class="hint">Confirmer votre mot de passe</span></label>
-      			<%= f.text_field :password_confirmation%>
-      			<label>Nom<span class="hint">Votre nom</span></label>
-      			<%= f.text_field :lastname%>
-          	<label>Prénom<span class="hint">Votre prénom (Min. 6 chars)</span></label>
-  			    <%= f.text_field :firstname %>
-  			    <label>Adresse<span class="hint">Votre adresse complète</span></label>
-  			    <%= f.text_area :addr, :size => "40x6" %>
-  			    <label>Téléphone<span class="hint">Numéro professionnel</span></label>
-  			    <%= f.text_field :phone %>
-  			    <label>Portable<span class="hint">Numéro de téléphone portable</span></label>
-  			    <%= f.text_field :mobile %>
-  			    <label>Laboratoire<span class="hint">Pour qui travaillez-vous ?</span></label>
-  			    <%= f.text_field :laboratory %>
-  			    <label>Activité<span class="hint">Votre activité</span></label>
-  			    <%= f.text_area :activity, :size => "40x6" %>
-  			    <label>Edito<span class="hint">Votre édito</span></label>
-  			    <%= f.text_area :edito, :size => "40x6" %>
-  			  </div>
-  			  <p>Informations facultatives</p>
-      		<div id="area_FORM" >
-      			<label>Photo<span class="hint">Votre photo</span></label>
-  					<%= file_column_field 'user', 'image_path' %>
-  					<br /><br /><br />
-  					<div style="margin-left: 330px"> <%= image_tag(url_for_file_column(@user, 'image_path')) if @user.image_path %></div>
-    			</div>
-    			<div class="spacer"></div>
-    			<p></p>
-  				<div class="buttons" id="area_BUTTONS">
-  				  <% button_text = current_object.new_record? ? 'Créer cet utilisateur' : 'Mettre à jour' %>
+<fieldset class="myform">
+	<legend>Vos informations personnelles</legend>
+	
+	<% form_for @user, :builder => LabelFormBuilder, :html => {:multipart => true} do |f| -%>
+    	<%= f.text_field :login, :label => 'Login', :hint => "Votre nom d'utilisateur" %>
+      	<%= f.text_field :email, :label => 'Email' %>
+		<%= f.password_field :password, :label => 'Mot de passe'%>
+      	<%= f.password_field :password_confirmation, :label => 'Confirmation'%>
+  
+  		<%= f.text_field :lastname, :label => 'Nom'%>
+	    <%= f.text_field :firstname, :label => 'Prénom' %>
+	    <%= f.text_area :addr, :size => "40x6", :label => 'Addresse', :hint => 'Votre adresse complète' %>
+	    <%= f.text_field :phone, :label => 'Téléphone', :hint => 'Numéro professionnel' %>
+	    <%= f.text_field :mobile, :label => 'Portable', :hint => 'Numéro de téléphone portable' %>
+	    <%= f.text_field :laboratory, :label => 'Laboratoire', :hint => 'Pour qui travaillez-vous ?' %>
+	    <%= f.text_area :activity, :size => "40x6", :label => 'Activité' %>
+	    <%= f.text_area :edito, :size => "40x6", :label => 'Edito' %>
+
+      	<label>Photo</label>
+  		<%= file_column_field 'user', 'image_path' %>
+  		
+		<div style="clear:both;text-align: center;"c>
+			<%= image_tag(url_for_file_column(@user, 'image_path')) if @user.image_path %>
+		</div>
+
+  		<div class="buttons" id="area_BUTTONS" style="padding-top: 2em">
+  			<% button_text = current_object.new_record? ? 'Créer cet utilisateur' : 'Mettre à jour' %>
   	        <button type="submit" class="positive"><img src="/images/tick.png" alt=""/><%= button_text%></button>
   	        <button type="reset" class="negative"><img src="/images/cross.png" alt=""/>Annuler</button>
-  	      </div>
-			  <%end%>
-			</fieldset>
+  	     </div>
+	<% end %>
+
+</fieldset>
