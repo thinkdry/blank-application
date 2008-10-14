@@ -17,7 +17,8 @@ module WorkspacesHelper
   end
   
   def user_list_of(workspace, role)
-    workspace.send(role).map { |u| link_to_user(u) }.join(', ')
+    list = workspace.send(role)
+    list.empty? ? '- Aucun -' : list.map { |u| link_to_user(u) }.join(', ')
   end
   
   private
