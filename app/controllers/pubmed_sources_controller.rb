@@ -5,8 +5,8 @@ class PubmedSourcesController < ApplicationController
     actions :all
 		belongs_to :workspace
 
-    before :create, :update do
-      @current_object.user_id=@current_user
+    before :create do
+      @current_object.user = @current_user
     end
 
     after :create do 
@@ -25,8 +25,7 @@ class PubmedSourcesController < ApplicationController
   end
   
   def current_objects
-    # TODO: Get objects of current_user
-    @current_objects ||= PubmedSource.paginate(
+    @current_objects ||= PubmedSource.all(:conditions => "user_id = #{@current_user.id}").paginate(
 			:page => params[:page],
 			:order => :created_at
 		)
