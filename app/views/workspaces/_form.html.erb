@@ -1,6 +1,8 @@
 <div class="area_WS" style="margin-bottom:20px;">
 <% form_for @workspace, :builder => LabelFormBuilder do |f| -%>
 	<%= f.text_field :name, :label => "Nom de l'espace de travail" %>
+	<%= f.text_area :description, :label => 'Description' %>
+	<%= advanced_editor_on(@workspace, :description) %>
 	<br /><br />
 	<h4>Utilisateurs associés :</h4>
 	<div id="users">
