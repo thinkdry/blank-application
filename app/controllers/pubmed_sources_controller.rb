@@ -20,7 +20,12 @@ class PubmedSourcesController < ApplicationController
     end
     
     before :show do
+      permit "consultation of current_object"
       @pubmed_items = @current_object.pubmed_items.paginate(:page => params[:page], :per_page => 15)
+    end
+    
+    before :edit, :update do
+      permit "edition of current_object"
     end
   end
   

@@ -29,4 +29,31 @@ class PubmedSource < ActiveRecord::Base
       end
     end
   end
+  
+  def accepts_role? role, user
+	  begin
+	    auth_method = "accepts_#{role.downcase}?"
+	    return (send(auth_method, user)) if defined?(auth_method)
+	    raise("Auth method not defined")
+	  rescue Exception => e
+	    p(e) and raise(e)
+	  end
+  end
+  
+  def accepts_consultation? user
+    user_is_admin_or_author?(user)
+  end
+  
+  def accepts_edition? user
+    user_is_admin_or_author?(user)
+  end
+  
+  private
+  def user_is_admin_or_author?
+    # Admin
+    return true if user.is_admin?
+    # Author
+    return true if self.user = user
+    false
+  end
 end
