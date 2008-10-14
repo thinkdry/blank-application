@@ -15,7 +15,7 @@ DEFAULTS: &DEFAULTS
     image_path:                   'image.png'
 
 quentin:
-    system_role: admin
+    system_role_id: <%= SystemRole.find_by_name('admin').id %>
     <<: *DEFAULTS
 
 anup:
