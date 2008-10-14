@@ -29,37 +29,21 @@
 			Administrateur du système : <%= @is_admin ? 'Oui' : 'Non' %>
 		</strong></span>
 		<span class="txt_80_666"><br></span>
-		<% if (@res = Workspace.with_moderator_role_for(@current_object)) %>
 			<br/>
-			<span class="txt_80_333"><strong>Modérateur : OUI</strong></span><br>
+			<span class="txt_80_333"><strong>Modérateur : <%= @moderated_ws.empty? ? 'Non' : 'Oui' %> </strong></span><br>
 			<span class="txt_80_333">Droits pour modérer : 
-			 <%= @res.map{|w| link_to(w.name, workspace_path(w.id)) }.join(', ') %>
+			<%= links_to_workspace_collection(@moderated_ws) || '- Aucun -' %>
 			</span><span class="txt_80_666"><br></span>
-		<% else %>
-			<span class="txt_80_333"><strong>Modérateur : NON</strong></span><br>
-			<span class="txt_80_333">Pas de droit.</span><span class="txt_80_666"><br></span>
-		<% end %>
-		<% if (@res = Workspace.with_writter_role_for(@current_object)) %>
 			<br/>
-			<span class="txt_80_333"><strong>Rédacteur : OUI</strong></span><br>
+			<span class="txt_80_333"><strong>Rédacteur : <%= @writter_role_on_ws.empty? ? 'Non' : 'Oui' %></strong></span><br>
 			<span class="txt_80_333">Droits pour modérer les espaces : 
-			 <%= @res.map{|w| link_to(w.name, workspace_path(w.id)) }.join(', ') %>
+			<%= links_to_workspace_collection(@writter_role_on_ws) || '- Aucun -' %>
 			</span><span class="txt_80_666"><br></span>
-		<% else %>
-			<span class="txt_80_333"><strong>Rédacteur : NON</strong></span><br>
-			<span class="txt_80_333">Pas de droit.</span><span class="txt_80_666"><br></span>
-		<% end %>
-		<% if (@res = Workspace.with_reader_role_for(@current_object)) %>
 			<br/>
-			<span class="txt_80_333"><strong>Lecteur : OUI</strong></span><br>
+			<span class="txt_80_333"><strong>Lecteur : <%= @reader_role_on_ws.empty? ? 'Non' : 'Oui' %></strong></span><br>
 			<span class="txt_80_333">Accès en lecture dans : 
-			 <%= @res.map{|w| link_to(w.name, workspace_path(w.id)) }.join(', ') %>
+			 <%= links_to_workspace_collection(@reader_role_on_ws) || '- Aucun -' %>
 			</span><span class="txt_80_666"><br></span>
-		<% else %>
-			<span class="txt_80_333"><strong>Lecteur : NON</strong></span><br>
-			<span class="txt_80_333">Pas de droit.</span><span class="txt_80_666"><br></span>
-		<% end %>
-		
 	</div>
 </div>
 <div class="clear"></div>

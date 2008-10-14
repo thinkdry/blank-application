@@ -4,6 +4,7 @@ module WorkspacesHelper
   end
   
   def links_to_workspace_collection(workspaces)
+    return nil if workspaces.empty?
     workspaces.collect { |ws| link_to_workspace(ws) }.join(', ')
   end
   

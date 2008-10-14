@@ -22,7 +22,9 @@ class UsersController < ApplicationController
     
     before :show do
       @is_admin = @current_object.system_role == "Admin"
-      @moderated_ws = Workspace.with_moderator_role_for(@current_object)
+      @moderated_ws =
+        Workspace.with_moderator_role_for(@current_object) |
+        Workspace.administrated_by(@current_object)
       @writter_role_on_ws = Workspace.with_writter_role_for(@current_object)
       @reader_role_on_ws = Workspace.with_reader_role_for(@current_object)
     end
