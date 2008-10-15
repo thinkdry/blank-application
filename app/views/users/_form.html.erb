@@ -2,7 +2,7 @@
 	<legend>Vos informations personnelles</legend>
 
 	<% form_for @user, :builder => LabelFormBuilder, :html => {:multipart => true} do |f| -%>
-		<%= f.text_field :login, :label => 'Login', :hint => "Votre nom d'utilisateur" %>
+		<%= f.text_field :login, :label => 'Login', :hint => "Votre nom d'utilisateur" if @user.new_record? %>
 		<%= f.text_field :email, :label => 'Email' %>
 		<%= f.password_field :password, :label => 'Mot de passe'%>
 		<%= f.password_field :password_confirmation, :label => 'Confirmation'%>
