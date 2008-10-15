@@ -45,18 +45,18 @@ module ActsAsItem
       end
       
       def associated_workspaces= workspace_ids
-    		self.workspaces.delete_all
-    		workspace_ids.each { |w| self.items.build(:workspace_id => w) }
+        self.workspaces.delete_all
+        workspace_ids.each { |w| self.items.build(:workspace_id => w) }
       end
       
       def accepts_role? role, user
-    	  begin
-    	    auth_method = "accepts_#{role.downcase}?"
-    	    return (send(auth_method, user)) if defined?(auth_method)
-    	    raise("Auth method not defined")
-    	  rescue Exception => e
-    	    p(e) and raise(e)
-    	  end
+        begin
+          auth_method = "accepts_#{role.downcase}?"
+          return (send(auth_method, user)) if defined?(auth_method)
+          raise("Auth method not defined")
+        rescue Exception => e
+          p(e) and raise(e)
+        end
       end
       
       private
@@ -65,7 +65,7 @@ module ActsAsItem
         # Admin
         return true if user.is_admin?
         # Author
-        return true if self.user = user
+        return true if self.user == user
         # Member of one assigned WS
         self.workspaces.each do |ws|
           return true if ws.users.include?(user)
@@ -78,7 +78,7 @@ module ActsAsItem
         # Admin
         return true if user.is_admin?
         # Author
-        return true if self.user = user
+        return true if self.user == user
         false
       end
       
@@ -87,7 +87,7 @@ module ActsAsItem
         # Admin
         return true if user.is_admin?
         # Author
-        return true if self.user = user
+        return true if self.user == user
         # TODO: Allow creator or moderator of WS to edit items
         false
       end

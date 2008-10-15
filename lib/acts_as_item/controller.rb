@@ -9,44 +9,36 @@ module ActsAsItem
       def acts_as_item &block
         include ActsAsItem::ControllerMethods::InstanceMethods
         
-      	make_resourceful do
+        make_resourceful do
           actions :all
-      		belongs_to :workspace
+          belongs_to :workspace
 
           self.instance_eval &block if block_given?
-        	
-        	before :new, :create do
-        	  permit 'creation of current_object'
-      	  end
-        	
-        	before :show do
-        	  permit 'consultation of current_object'
-      	  end
-      	  
-      	  before :edit, :update do
-      	    permit 'edition of current_object'
-    	    end
-    	    
-    	    before :destroy do
-    	      permit 'deletion of current_object'
-  	      end
-  	      
-  	      before :index do
-  	        redirect_to(items_path(params[:controller]))
-	        end
-        	
-        	# Makes `current_user` as author for the current_object
-        	before :create do
-        	  current_object.user = current_user
-      	  end
-					
-					before :index do
-						@current_objects = current_objects.paginate(
-						:page => params[:page],
-						:order => :title,
-						:per_page => 2
-					)
-					end			
+          
+          before :new, :create do
+            permit 'creation of current_object'
+          end
+          
+          before :show do
+            permit 'consultation of current_object'
+          end
+          
+          before :edit, :update do
+            permit 'edition of current_object'
+          end
+          
+          before :destroy do
+            permit 'deletion of current_object'
+          end
+          
+          before :index do
+            redirect_to(items_path(params[:controller]))
+          end
+          
+          # Makes `current_user` as author for the current_object
+          before :create do
+            current_object.user = current_user
+          end
         end
       end
     end
