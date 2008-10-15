@@ -91,15 +91,15 @@ class User < ActiveRecord::Base
   end
   
   def accepts_role? role, user
-	  begin
-	    auth_method = "accepts_#{role.downcase}?"
-	    return (send(auth_method, user)) if defined?(auth_method)
-	    raise("Auth method not defined")
-	  rescue Exception => e
-	    p(e)
-	    puts e.backtrace[0..20].join("\n")
-	    raise
-	  end
+    begin
+      auth_method = "accepts_#{role.downcase}?"
+      return (send(auth_method, user)) if defined?(auth_method)
+      raise("Auth method not defined")
+    rescue Exception => e
+      p(e)
+      puts e.backtrace[0..20].join("\n")
+      raise
+    end
   end
   
   def accepts_deletion? user
