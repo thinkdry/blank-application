@@ -32,6 +32,7 @@ class GenericItem < ActiveRecord::Base
   
   named_scope :consultable_by, lambda { |user|
     raise 'User expected' unless user
+    return { } if user.is_admin? 
     { :conditions => %{
         user_id = #{user.id} OR
         ( SELECT count(*)
