@@ -8,6 +8,7 @@ class SearchesController < ApplicationController
   
   def show
     params[:search].is_a?(Hash) ? advanced_search : full_text_search
+    @items = @items.paginate(:page => params[:page])
   end
   
   private
@@ -30,7 +31,7 @@ class SearchesController < ApplicationController
     
     search = ActsAsXapian::Search.new(
        models,
-       params[:search], :limit => 20)
+       params[:search], :limit => 300)
     @items = search.results.collect { |r| r[:model] }
   end
 end
