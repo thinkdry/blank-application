@@ -17,7 +17,7 @@ class SearchesController < ApplicationController
     @header = 'advanced_search_fields'
     @search = Search.new(params[:search])
     render(:action => :new) and return unless @search.valid?
-    @items = GenericItem.all(:conditions => @search.attributes.delete_if { |k, v| v.nil? })
+    @items = GenericItem.consultable_by(current_user).all(:conditions => @search.attributes.delete_if { |k, v| v.nil? })
   end
   
   def full_text_search
