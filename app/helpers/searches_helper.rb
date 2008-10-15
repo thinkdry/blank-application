@@ -1,6 +1,6 @@
 module SearchesHelper
 def page_entries_info(collection, options = {})
-  entry_name = 'résulat'
+  entry_name = 'résultat'
   
   if collection.total_pages < 2
     case collection.size

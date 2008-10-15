@@ -29,9 +29,9 @@ class SearchesController < ApplicationController
       models = [Article, ArticFile, Audio, Image, Publication, Video]
     end
     
-    search = ActsAsXapian::Search.new(
-       models,
-       params[:search], :limit => 300)
-    @items = search.results.collect { |r| r[:model] }
+    search = ActsAsXapian::Search.new(models, params[:search], :limit => 300)
+    @items = search.results.collect { |r| r[:model] }.delete_if do |e|
+      !permit?("consultation of item", { :item => e })
+    end
   end
 end
