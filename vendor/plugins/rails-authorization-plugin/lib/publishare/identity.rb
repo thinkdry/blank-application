@@ -98,19 +98,16 @@ module Authorization
     module ModelExtensions
       module InstanceMethods
 
-        def users
-          users = self.accepted_roles.find(:all, :include => :users).collect { |role| role.users }
-          users.flatten.compact.uniq if users
-        end
-
         def method_missing( method_sym, *args )
           method_name = method_sym.to_s
           if method_name =~ /^has_(\w+)\?$/
-            role_name = $1.singularize
-            self.accepted_roles.find_all_by_name(role_name).any? { |role| role.users.compact.any? }
+            roles = $1.split('_or_').collect { |role| role.singularize }
+            roles = roles.flatten.compact
+            self.accepted_roles.find_all_by_name(roles, :include => :users).any? { |role| role.users.compact.any? }
           elsif method_name =~ /^has_(\w+)$/
-            role_name = $1.singularize
-            users = self.accepted_roles.find_all_by_name(role_name).collect { |role| role.users }
+            roles = $1.split('_or_').collect { |role| role.singularize }
+            roles = roles.flatten.compact
+            users = self.accepted_roles.find_all_by_name(roles, :include => :users).collect { |role| role.users }
             users.flatten.compact.uniq if users
           else
             super
