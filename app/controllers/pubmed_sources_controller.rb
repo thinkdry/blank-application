@@ -3,17 +3,17 @@ class PubmedSourcesController < ApplicationController
   
 	make_resourceful do
     actions :all
-		belongs_to :workspace
+    belongs_to :workspace
 
     before :create do
-      @current_object.user = @current_user
+      @current_object.user = @current_user      
     end
 
     after :create do 
       # After addition of a source, import the RSS into DB.
       @current_object.import_latest_items
     end
-    
+
     before :index do
       # New object form displayed in index
       @current_object = PubmedSource.new

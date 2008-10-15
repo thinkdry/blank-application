@@ -7,6 +7,17 @@ class PubmedSource < ActiveRecord::Base
   has_many    :pubmed_items , :dependent => :delete_all
   
   validates_presence_of :name, :url
+  def validate
+    rss_valid?
+  end
+  
+  def rss_valid?
+    begin
+      rss_content
+    rescue Exception => e
+      errors.add(:url, "Erreur lors de l'importation des flux, adresse invalide ?")
+    end
+  end
 
   def rss_content
     return @rss if @rss
@@ -49,7 +60,7 @@ class PubmedSource < ActiveRecord::Base
   end
   
   private
-  def user_is_admin_or_author?
+  def user_is_admin_or_author?(user)
     # Admin
     return true if user.is_admin?
     # Author
