@@ -1,0 +1,662 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: BackgrounDRb::Connection</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">BackgrounDRb::Connection</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/vendor/plugins/backgroundrb/lib/backgroundrb/bdrb_connection_rb.html">
+                vendor/plugins/backgroundrb/lib/backgroundrb/bdrb_connection.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000045">all_worker_info</a>&nbsp;&nbsp;
+      <a href="#M000049">ask_result</a>&nbsp;&nbsp;
+      <a href="#M000042">ask_work</a>&nbsp;&nbsp;
+      <a href="#M000041">close_connection</a>&nbsp;&nbsp;
+      <a href="#M000046">delete_worker</a>&nbsp;&nbsp;
+      <a href="#M000040">dump_object</a>&nbsp;&nbsp;
+      <a href="#M000036">establish_connection</a>&nbsp;&nbsp;
+      <a href="#M000039">flush_in_loop</a>&nbsp;&nbsp;
+      <a href="#M000048">gen_key</a>&nbsp;&nbsp;
+      <a href="#M000035">new</a>&nbsp;&nbsp;
+      <a href="#M000043">new_worker</a>&nbsp;&nbsp;
+      <a href="#M000050">read_from_bdrb</a>&nbsp;&nbsp;
+      <a href="#M000047">read_object</a>&nbsp;&nbsp;
+      <a href="#M000051">send_request</a>&nbsp;&nbsp;
+      <a href="#M000038">server_info</a>&nbsp;&nbsp;
+      <a href="#M000044">worker_info</a>&nbsp;&nbsp;
+      <a href="#M000037">write_data</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">cluster_conn</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">connection_status</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">server_ip</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">server_port</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000035" class="method-detail">
+        <a name="M000035"></a>
+
+        <div class="method-heading">
+          <a href="#M000035" class="method-signature">
+          <span class="method-name">new</span><span class="method-args">(ip,port,cluster_conn)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000035-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000035-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/backgroundrb/lib/backgroundrb/bdrb_connection.rb, line 5</span>
+ 5:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span> <span class="ruby-identifier">ip</span>,<span class="ruby-identifier">port</span>,<span class="ruby-identifier">cluster_conn</span>
+ 6:       <span class="ruby-ivar">@mutex</span> = <span class="ruby-constant">Mutex</span>.<span class="ruby-identifier">new</span>
+ 7:       <span class="ruby-ivar">@server_ip</span> = <span class="ruby-identifier">ip</span>
+ 8:       <span class="ruby-ivar">@server_port</span> = <span class="ruby-identifier">port</span>
+ 9:       <span class="ruby-ivar">@cluster_conn</span> = <span class="ruby-identifier">cluster_conn</span>
+10:       <span class="ruby-ivar">@connection_status</span> = <span class="ruby-keyword kw">true</span>
+11:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000045" class="method-detail">
+        <a name="M000045"></a>
+
+        <div class="method-heading">
+          <a href="#M000045" class="method-signature">
+          <span class="method-name">all_worker_info</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000045-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000045-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/backgroundrb/lib/backgroundrb/bdrb_connection.rb, line 106</span>
+106:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">all_worker_info</span>
+107:       <span class="ruby-identifier">p_data</span> = { }
+108:       <span class="ruby-identifier">p_data</span>[<span class="ruby-identifier">:type</span>] = <span class="ruby-identifier">:all_worker_info</span>
+109:       <span class="ruby-identifier">dump_object</span>(<span class="ruby-identifier">p_data</span>)
+110:       <span class="ruby-identifier">bdrb_response</span> = <span class="ruby-keyword kw">nil</span>
+111:       <span class="ruby-ivar">@mutex</span>.<span class="ruby-identifier">synchronize</span> { <span class="ruby-identifier">bdrb_response</span> = <span class="ruby-identifier">read_from_bdrb</span>() }
+112:       <span class="ruby-identifier">close_connection</span>
+113:       <span class="ruby-identifier">bdrb_response</span>
+114:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000049" class="method-detail">
+        <a name="M000049"></a>
+
+        <div class="method-heading">
+          <a href="#M000049" class="method-signature">
+          <span class="method-name">ask_result</span><span class="method-args">(p_data)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000049-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000049-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/backgroundrb/lib/backgroundrb/bdrb_connection.rb, line 142</span>
+142:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ask_result</span>(<span class="ruby-identifier">p_data</span>)
+143:       <span class="ruby-keyword kw">if</span> <span class="ruby-constant">BDRB_CONFIG</span>[<span class="ruby-identifier">:backgroundrb</span>][<span class="ruby-identifier">:result_storage</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'memcache'</span>
+144:         <span class="ruby-identifier">return_result_from_memcache</span>(<span class="ruby-identifier">p_data</span>)
+145:       <span class="ruby-keyword kw">else</span>
+146:         <span class="ruby-identifier">p_data</span>[<span class="ruby-identifier">:type</span>] = <span class="ruby-identifier">:get_result</span>
+147:         <span class="ruby-identifier">dump_object</span>(<span class="ruby-identifier">p_data</span>)
+148:         <span class="ruby-identifier">bdrb_response</span> = <span class="ruby-keyword kw">nil</span>
+149:         <span class="ruby-ivar">@mutex</span>.<span class="ruby-identifier">synchronize</span> { <span class="ruby-identifier">bdrb_response</span> = <span class="ruby-identifier">read_from_bdrb</span>() }
+150:         <span class="ruby-identifier">close_connection</span>
+151:         <span class="ruby-identifier">bdrb_response</span> <span class="ruby-value">? </span><span class="ruby-identifier">bdrb_response</span>[<span class="ruby-identifier">:data</span>] <span class="ruby-operator">:</span> <span class="ruby-keyword kw">nil</span>
+152:       <span class="ruby-keyword kw">end</span>
+153:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000042" class="method-detail">
+        <a name="M000042"></a>
+
+        <div class="method-heading">
+          <a href="#M000042" class="method-signature">
+          <span class="method-name">ask_work</span><span class="method-args">(p_data)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000042-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000042-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/backgroundrb/lib/backgroundrb/bdrb_connection.rb, line 84</span>
+84:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ask_work</span> <span class="ruby-identifier">p_data</span>
+85:       <span class="ruby-identifier">p_data</span>[<span class="ruby-identifier">:type</span>] = <span class="ruby-identifier">:async_invoke</span>
+86:       <span class="ruby-identifier">dump_object</span>(<span class="ruby-identifier">p_data</span>)
+87:       <span class="ruby-identifier">close_connection</span>
+88:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000041" class="method-detail">
+        <a name="M000041"></a>
+
+        <div class="method-heading">
+          <a href="#M000041" class="method-signature">
+          <span class="method-name">close_connection</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000041-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000041-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/backgroundrb/lib/backgroundrb/bdrb_connection.rb, line 79</span>
+79:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">close_connection</span>
+80:       <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">close</span>
+81:       <span class="ruby-ivar">@connection</span> = <span class="ruby-keyword kw">nil</span>
+82:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000046" class="method-detail">
+        <a name="M000046"></a>
+
+        <div class="method-heading">
+          <a href="#M000046" class="method-signature">
+          <span class="method-name">delete_worker</span><span class="method-args">(p_data)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000046-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000046-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/backgroundrb/lib/backgroundrb/bdrb_connection.rb, line 116</span>
+116:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">delete_worker</span> <span class="ruby-identifier">p_data</span>
+117:       <span class="ruby-identifier">p_data</span>[<span class="ruby-identifier">:type</span>] = <span class="ruby-identifier">:delete_worker</span>
+118:       <span class="ruby-identifier">dump_object</span>(<span class="ruby-identifier">p_data</span>)
+119:       <span class="ruby-identifier">close_connection</span>
+120:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000040" class="method-detail">
+        <a name="M000040"></a>
+
+        <div class="method-heading">
+          <a href="#M000040" class="method-signature">
+          <span class="method-name">dump_object</span><span class="method-args">(data)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000040-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000040-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/backgroundrb/lib/backgroundrb/bdrb_connection.rb, line 68</span>
+68:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dump_object</span> <span class="ruby-identifier">data</span>
+69:       <span class="ruby-identifier">establish_connection</span>
+70:       <span class="ruby-identifier">raise</span> <span class="ruby-constant">BackgrounDRb</span><span class="ruby-operator">::</span><span class="ruby-constant">BdrbConnError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;Error while connecting to the backgroundrb server #{server_info}&quot;</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@connection_status</span>
+71: 
+72:       <span class="ruby-identifier">object_dump</span> = <span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">dump</span>(<span class="ruby-identifier">data</span>)
+73:       <span class="ruby-identifier">dump_length</span> = <span class="ruby-identifier">object_dump</span>.<span class="ruby-identifier">length</span>.<span class="ruby-identifier">to_s</span>
+74:       <span class="ruby-identifier">length_str</span> = <span class="ruby-identifier">dump_length</span>.<span class="ruby-identifier">rjust</span>(<span class="ruby-value">9</span>,<span class="ruby-value str">'0'</span>)
+75:       <span class="ruby-identifier">final_data</span> = <span class="ruby-identifier">length_str</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">object_dump</span>
+76:       <span class="ruby-ivar">@mutex</span>.<span class="ruby-identifier">synchronize</span> { <span class="ruby-identifier">write_data</span>(<span class="ruby-identifier">final_data</span>) }
+77:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000036" class="method-detail">
+        <a name="M000036"></a>
+
+        <div class="method-heading">
+          <a href="#M000036" class="method-signature">
+          <span class="method-name">establish_connection</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000036-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000036-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/backgroundrb/lib/backgroundrb/bdrb_connection.rb, line 14</span>
+14:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">establish_connection</span>
+15:       <span class="ruby-keyword kw">begin</span>
+16:         <span class="ruby-identifier">timeout</span>(<span class="ruby-value">3</span>) <span class="ruby-keyword kw">do</span>
+17:           <span class="ruby-ivar">@connection</span> = <span class="ruby-constant">TCPSocket</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">server_ip</span>, <span class="ruby-identifier">server_port</span>)
+18:           <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">setsockopt</span>(<span class="ruby-constant">Socket</span><span class="ruby-operator">::</span><span class="ruby-constant">IPPROTO_TCP</span>,<span class="ruby-constant">Socket</span><span class="ruby-operator">::</span><span class="ruby-constant">TCP_NODELAY</span>,<span class="ruby-value">1</span>)
+19:         <span class="ruby-keyword kw">end</span>
+20:         <span class="ruby-ivar">@connection_status</span> = <span class="ruby-keyword kw">true</span>
+21:       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Timeout</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span>
+22:         <span class="ruby-ivar">@connection_status</span> = <span class="ruby-keyword kw">false</span>
+23:       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+24:         <span class="ruby-ivar">@connection_status</span> = <span class="ruby-keyword kw">false</span>
+25:       <span class="ruby-keyword kw">end</span>
+26:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000039" class="method-detail">
+        <a name="M000039"></a>
+
+        <div class="method-heading">
+          <a href="#M000039" class="method-signature">
+          <span class="method-name">flush_in_loop</span><span class="method-args">(data)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000039-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000039-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/backgroundrb/lib/backgroundrb/bdrb_connection.rb, line 56</span>
+56:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">flush_in_loop</span>(<span class="ruby-identifier">data</span>)
+57:       <span class="ruby-identifier">t_length</span> = <span class="ruby-identifier">data</span>.<span class="ruby-identifier">length</span>
+58:       <span class="ruby-identifier">loop</span> <span class="ruby-keyword kw">do</span>
+59:         <span class="ruby-keyword kw">break</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">t_length</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-value">0</span>
+60:         <span class="ruby-identifier">written_length</span> = <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">data</span>)
+61:         <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Error writing to socket&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">written_length</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-value">0</span>
+62:         <span class="ruby-identifier">result</span> = <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">flush</span>
+63:         <span class="ruby-identifier">data</span> = <span class="ruby-identifier">data</span>[<span class="ruby-identifier">written_length</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>]
+64:         <span class="ruby-identifier">t_length</span> = <span class="ruby-identifier">data</span>.<span class="ruby-identifier">length</span>
+65:       <span class="ruby-keyword kw">end</span>
+66:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000048" class="method-detail">
+        <a name="M000048"></a>
+
+        <div class="method-heading">
+          <a href="#M000048" class="method-signature">
+          <span class="method-name">gen_key</span><span class="method-args">(options)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000048-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000048-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/backgroundrb/lib/backgroundrb/bdrb_connection.rb, line 133</span>
+133:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">gen_key</span> <span class="ruby-identifier">options</span>
+134:       <span class="ruby-keyword kw">if</span> <span class="ruby-constant">BDRB_CONFIG</span>[<span class="ruby-identifier">:backgroundrb</span>][<span class="ruby-identifier">:result_storage</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'memcache'</span>
+135:         <span class="ruby-identifier">key</span> = [<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:worker</span>],<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:worker_key</span>],<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:job_key</span>]].<span class="ruby-identifier">compact</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'_'</span>)
+136:         <span class="ruby-identifier">key</span>
+137:       <span class="ruby-keyword kw">else</span>
+138:         <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:job_key</span>]
+139:       <span class="ruby-keyword kw">end</span>
+140:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000043" class="method-detail">
+        <a name="M000043"></a>
+
+        <div class="method-heading">
+          <a href="#M000043" class="method-signature">
+          <span class="method-name">new_worker</span><span class="method-args">(p_data)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000043-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000043-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/backgroundrb/lib/backgroundrb/bdrb_connection.rb, line 90</span>
+90:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">new_worker</span> <span class="ruby-identifier">p_data</span>
+91:       <span class="ruby-identifier">p_data</span>[<span class="ruby-identifier">:type</span>] = <span class="ruby-identifier">:start_worker</span>
+92:       <span class="ruby-identifier">dump_object</span>(<span class="ruby-identifier">p_data</span>)
+93:       <span class="ruby-identifier">close_connection</span>
+94:       <span class="ruby-comment cmt"># RailsWorkerProxy.worker(p_data[:worker],p_data[:worker_key],self)</span>
+95:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000050" class="method-detail">
+        <a name="M000050"></a>
+
+        <div class="method-heading">
+          <a href="#M000050" class="method-signature">
+          <span class="method-name">read_from_bdrb</span><span class="method-args">(timeout = 3)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000050-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000050-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/backgroundrb/lib/backgroundrb/bdrb_connection.rb, line 155</span>
+155:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_from_bdrb</span>(<span class="ruby-identifier">timeout</span> = <span class="ruby-value">3</span>)
+156:       <span class="ruby-keyword kw">begin</span>
+157:         <span class="ruby-identifier">ret_val</span> = <span class="ruby-identifier">select</span>([<span class="ruby-ivar">@connection</span>],<span class="ruby-keyword kw">nil</span>,<span class="ruby-keyword kw">nil</span>,<span class="ruby-identifier">timeout</span>)
+158:         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">ret_val</span>
+159:         <span class="ruby-identifier">raw_response</span> = <span class="ruby-identifier">read_object</span>()
+160:         <span class="ruby-identifier">master_response</span> = <span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">load</span>(<span class="ruby-identifier">raw_response</span>)
+161:         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">master_response</span>
+162:       <span class="ruby-keyword kw">rescue</span>
+163:         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span>
+164:       <span class="ruby-keyword kw">end</span>
+165:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000047" class="method-detail">
+        <a name="M000047"></a>
+
+        <div class="method-heading">
+          <a href="#M000047" class="method-signature">
+          <span class="method-name">read_object</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000047-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000047-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/backgroundrb/lib/backgroundrb/bdrb_connection.rb, line 122</span>
+122:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_object</span>
+123:       <span class="ruby-keyword kw">begin</span>
+124:         <span class="ruby-identifier">message_length_str</span> = <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">read</span>(<span class="ruby-value">9</span>)
+125:         <span class="ruby-identifier">message_length</span> = <span class="ruby-identifier">message_length_str</span>.<span class="ruby-identifier">to_i</span>
+126:         <span class="ruby-identifier">message_data</span> = <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">message_length</span>)
+127:         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">message_data</span>
+128:       <span class="ruby-keyword kw">rescue</span>
+129:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">BackgrounDRb</span><span class="ruby-operator">::</span><span class="ruby-constant">BdrbConnError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;Not able to connect #{server_info}&quot;</span>)
+130:       <span class="ruby-keyword kw">end</span>
+131:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000051" class="method-detail">
+        <a name="M000051"></a>
+
+        <div class="method-heading">
+          <a href="#M000051" class="method-signature">
+          <span class="method-name">send_request</span><span class="method-args">(p_data)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000051-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000051-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/backgroundrb/lib/backgroundrb/bdrb_connection.rb, line 167</span>
+167:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">send_request</span>(<span class="ruby-identifier">p_data</span>)
+168:       <span class="ruby-identifier">p_data</span>[<span class="ruby-identifier">:type</span>] = <span class="ruby-identifier">:sync_invoke</span>
+169:       <span class="ruby-identifier">dump_object</span>(<span class="ruby-identifier">p_data</span>)
+170:       <span class="ruby-identifier">bdrb_response</span> = <span class="ruby-keyword kw">nil</span>
+171:       <span class="ruby-ivar">@mutex</span>.<span class="ruby-identifier">synchronize</span> { <span class="ruby-identifier">bdrb_response</span> = <span class="ruby-identifier">read_from_bdrb</span>(<span class="ruby-keyword kw">nil</span>) }
+172:       <span class="ruby-identifier">close_connection</span>
+173:       <span class="ruby-identifier">bdrb_response</span> <span class="ruby-value">? </span><span class="ruby-identifier">bdrb_response</span>[<span class="ruby-identifier">:data</span>] <span class="ruby-operator">:</span> <span class="ruby-keyword kw">nil</span>
+174:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000038" class="method-detail">
+        <a name="M000038"></a>
+
+        <div class="method-heading">
+          <a href="#M000038" class="method-signature">
+          <span class="method-name">server_info</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000038-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000038-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/backgroundrb/lib/backgroundrb/bdrb_connection.rb, line 52</span>
+52:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">server_info</span>
+53:       <span class="ruby-node">&quot;#{server_ip}:#{server_port}&quot;</span>
+54:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000044" class="method-detail">
+        <a name="M000044"></a>
+
+        <div class="method-heading">
+          <a href="#M000044" class="method-signature">
+          <span class="method-name">worker_info</span><span class="method-args">(p_data)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000044-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000044-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/backgroundrb/lib/backgroundrb/bdrb_connection.rb, line 97</span>
+ 97:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">worker_info</span>(<span class="ruby-identifier">p_data</span>)
+ 98:       <span class="ruby-identifier">p_data</span>[<span class="ruby-identifier">:type</span>] = <span class="ruby-identifier">:worker_info</span>
+ 99:       <span class="ruby-identifier">dump_object</span>(<span class="ruby-identifier">p_data</span>)
+100:       <span class="ruby-identifier">bdrb_response</span> = <span class="ruby-keyword kw">nil</span>
+101:       <span class="ruby-ivar">@mutex</span>.<span class="ruby-identifier">synchronize</span> { <span class="ruby-identifier">bdrb_response</span> = <span class="ruby-identifier">read_from_bdrb</span>() }
+102:       <span class="ruby-identifier">close_connection</span>
+103:       <span class="ruby-identifier">bdrb_response</span>
+104:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000037" class="method-detail">
+        <a name="M000037"></a>
+
+        <div class="method-heading">
+          <a href="#M000037" class="method-signature">
+          <span class="method-name">write_data</span><span class="method-args">(data)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000037-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000037-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/backgroundrb/lib/backgroundrb/bdrb_connection.rb, line 28</span>
+28:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">write_data</span> <span class="ruby-identifier">data</span>
+29:       <span class="ruby-keyword kw">begin</span>
+30:         <span class="ruby-identifier">flush_in_loop</span>(<span class="ruby-identifier">data</span>)
+31:       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Errno</span><span class="ruby-operator">::</span><span class="ruby-constant">EAGAIN</span>
+32:         <span class="ruby-keyword kw">return</span>
+33:       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Errno</span><span class="ruby-operator">::</span><span class="ruby-constant">EPIPE</span>
+34:         <span class="ruby-identifier">establish_connection</span>
+35:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@connection_status</span>
+36:           <span class="ruby-identifier">flush_in_loop</span>(<span class="ruby-identifier">data</span>)
+37:         <span class="ruby-keyword kw">else</span>
+38:           <span class="ruby-ivar">@connection_status</span> = <span class="ruby-keyword kw">false</span>
+39:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">BackgrounDRb</span><span class="ruby-operator">::</span><span class="ruby-constant">BdrbConnError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;Error while writing #{server_info}&quot;</span>)
+40:         <span class="ruby-keyword kw">end</span>
+41:       <span class="ruby-keyword kw">rescue</span>
+42:         <span class="ruby-identifier">establish_connection</span>
+43:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@connection_status</span>
+44:           <span class="ruby-identifier">flush_in_loop</span>(<span class="ruby-identifier">data</span>)
+45:         <span class="ruby-keyword kw">else</span>
+46:           <span class="ruby-ivar">@connection_status</span> = <span class="ruby-keyword kw">false</span>
+47:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">BackgrounDRb</span><span class="ruby-operator">::</span><span class="ruby-constant">BdrbConnError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;Error while writing #{server_info}&quot;</span>)
+48:         <span class="ruby-keyword kw">end</span>
+49:       <span class="ruby-keyword kw">end</span>
+50:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

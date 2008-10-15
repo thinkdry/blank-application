@@ -86,12 +86,12 @@ Instance Methods
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000014">forget_me</a>&nbsp;&nbsp;
-      <a href="#M000013">refresh_token</a>&nbsp;&nbsp;
-      <a href="#M000010">remember_me</a>&nbsp;&nbsp;
-      <a href="#M000011">remember_me_for</a>&nbsp;&nbsp;
-      <a href="#M000012">remember_me_until</a>&nbsp;&nbsp;
-      <a href="#M000009">remember_token?</a>&nbsp;&nbsp;
+      <a href="#M000017">forget_me</a>&nbsp;&nbsp;
+      <a href="#M000016">refresh_token</a>&nbsp;&nbsp;
+      <a href="#M000013">remember_me</a>&nbsp;&nbsp;
+      <a href="#M000014">remember_me_for</a>&nbsp;&nbsp;
+      <a href="#M000015">remember_me_until</a>&nbsp;&nbsp;
+      <a href="#M000012">remember_token?</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -113,11 +113,11 @@ Instance Methods
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000014" class="method-detail">
-        <a name="M000014"></a>
+      <div id="method-M000017" class="method-detail">
+        <a name="M000017"></a>
 
         <div class="method-heading">
-          <a href="#M000014" class="method-signature">
+          <a href="#M000017" class="method-signature">
           <span class="method-name">forget_me</span><span class="method-args">()</span>
           </a>
         </div>
@@ -129,8 +129,8 @@ Deletes the server-side record of the authentication token. The client-side
 deleted together.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000014-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000014-source">
+            onclick="toggleCode('M000017-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000017-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/restful-authentication/lib/authentication/by_cookie_token.rb, line 55</span>
 55:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">forget_me</span>
@@ -143,11 +143,11 @@ deleted together.
         </div>
       </div>
 
-      <div id="method-M000013" class="method-detail">
-        <a name="M000013"></a>
+      <div id="method-M000016" class="method-detail">
+        <a name="M000016"></a>
 
         <div class="method-heading">
-          <a href="#M000013" class="method-signature">
+          <a href="#M000016" class="method-signature">
           <span class="method-name">refresh_token</span><span class="method-args">()</span>
           </a>
         </div>
@@ -157,8 +157,8 @@ deleted together.
 refresh token (keeping same expires_at) if it exists
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000013-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000013-source">
+            onclick="toggleCode('M000016-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000016-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/restful-authentication/lib/authentication/by_cookie_token.rb, line 43</span>
 43:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">refresh_token</span>
@@ -172,11 +172,11 @@ refresh token (keeping same expires_at) if it exists
         </div>
       </div>
 
-      <div id="method-M000010" class="method-detail">
-        <a name="M000010"></a>
+      <div id="method-M000013" class="method-detail">
+        <a name="M000013"></a>
 
         <div class="method-heading">
-          <a href="#M000010" class="method-signature">
+          <a href="#M000013" class="method-signature">
           <span class="method-name">remember_me</span><span class="method-args">()</span>
           </a>
         </div>
@@ -187,8 +187,8 @@ These create and unset the fields required for remembering users between
 browser closes
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000010-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000010-source">
+            onclick="toggleCode('M000013-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000013-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/restful-authentication/lib/authentication/by_cookie_token.rb, line 28</span>
 28:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">remember_me</span>
@@ -199,19 +199,19 @@ browser closes
         </div>
       </div>
 
-      <div id="method-M000011" class="method-detail">
-        <a name="M000011"></a>
+      <div id="method-M000014" class="method-detail">
+        <a name="M000014"></a>
 
         <div class="method-heading">
-          <a href="#M000011" class="method-signature">
+          <a href="#M000014" class="method-signature">
           <span class="method-name">remember_me_for</span><span class="method-args">(time)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000011-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000011-source">
+            onclick="toggleCode('M000014-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000014-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/restful-authentication/lib/authentication/by_cookie_token.rb, line 32</span>
 32:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">remember_me_for</span>(<span class="ruby-identifier">time</span>)
@@ -222,19 +222,19 @@ browser closes
         </div>
       </div>
 
-      <div id="method-M000012" class="method-detail">
-        <a name="M000012"></a>
+      <div id="method-M000015" class="method-detail">
+        <a name="M000015"></a>
 
         <div class="method-heading">
-          <a href="#M000012" class="method-signature">
+          <a href="#M000015" class="method-signature">
           <span class="method-name">remember_me_until</span><span class="method-args">(time)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000012-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000012-source">
+            onclick="toggleCode('M000015-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000015-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/restful-authentication/lib/authentication/by_cookie_token.rb, line 36</span>
 36:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">remember_me_until</span>(<span class="ruby-identifier">time</span>)
@@ -247,19 +247,19 @@ browser closes
         </div>
       </div>
 
-      <div id="method-M000009" class="method-detail">
-        <a name="M000009"></a>
+      <div id="method-M000012" class="method-detail">
+        <a name="M000012"></a>
 
         <div class="method-heading">
-          <a href="#M000009" class="method-signature">
+          <a href="#M000012" class="method-signature">
           <span class="method-name">remember_token?</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000009-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000009-source">
+            onclick="toggleCode('M000012-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000012-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/restful-authentication/lib/authentication/by_cookie_token.rb, line 22</span>
 22:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">remember_token?</span>

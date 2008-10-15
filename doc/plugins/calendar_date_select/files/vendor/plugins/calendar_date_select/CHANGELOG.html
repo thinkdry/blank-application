@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: CHANGELOG</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>CHANGELOG</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>vendor/plugins/calendar_date_select/CHANGELOG
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Mon Sep 15 12:10:10 +0200 2008</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h2>Version 1.11 ==</h2>
+<pre>
+ * Calendar Date Select now works as a ruby-gem (thanks, artmotion!)
+ * Applied fix outlined in Issue #83: http://code.google.com/p/calendardateselect/issues/detail?id=83 (Thanks David Bolton)
+</pre>
+<h2>Version 1.10.5 ==</h2>
+<p>
+Apr 7, 2008
+</p>
+<pre>
+ * Javascript code refactoring!  Less mess!
+ * Bugfix - range was including element 42, which is really the 43rd element, so there was an error happening when today happens exactly 43 days after the beginning date (caught this by chance, surprised it wasn't reported before)
+</pre>
+<h2>Version 1.10.4 ==</h2>
+<p>
+Mar 24, 2008
+</p>
+<pre>
+ * patch applied to fix issue #92: nil object option causes CalendarDateSelect.calendar_date_select(object, method, options) to not use object.  Thanks, sskirby!
+</pre>
+<h2>Version 1.10.3 ==</h2>
+<p>
+Mar 24. 2008
+</p>
+<pre>
+ * Fixed active scaffold integration bug.  Thanks tapajos!
+</pre>
+<h2>Version 1.10.2 ==</h2>
+<p>
+Mar 10. 2008
+</p>
+<pre>
+ * bugfix: calendar_date_select_tag doesn't format Time and Date values (thanks for the patch, sskirby!)
+</pre>
+<h2>Version 1.10.1 ==</h2>
+<p>
+Mar 10, 2008
+</p>
+<pre>
+ * updated to automatically install locale folder
+ * bugfix - cds &quot;today&quot; was showing up as Mar 9th 2008, when it was really Mar 10th 2008 - was caused by a wrinkle in time (Day light savings time)
+ * Prototype 1.6.0.1 compatibility issue (77) resolved - thanks mike.nicholaides for the patch!
+ * patch applied from mjroghelia to fix ie ssl iframe issue (84)
+ * xhtml error fixed - &amp;nbsp; replaced with #160;
+</pre>
+<h2>Version 1.10 ==</h2>
+<p>
+Dec 3, 2007
+</p>
+<pre>
+  * You can now pass in a parameter to tell CalendarDateSelect not to allow selection of certain dates.  See the [http://www.restatesman.com/static/calendar?tab=other demo] for an example.
+</pre>
+<h2>Version 1.9.2==</h2>
+<p>
+Nov 26, 2007
+</p>
+<pre>
+  * CalendarDateSelect was leaking javascript variables.  (nothing was explicitly declared local, so javascript assumes global).  Added test case and applied fix.  This may help with some of the conflicts CalendarDateSelect has been causing with other scripts.
+  * Applied Ryan Wood's patch to fix the problem with using a form builder against objects like authorization[coverage_attributes][].  Thanks Ryan Wood!
+  * Wes Hays brought up the point of parseInt trying to auto-detect number formats.  Wrote code to force interpretation of digits as base10, with test cases to prove it.
+  * Misleading test case failure in Safari fixed: Safari won't let a boolean value to a property that should have a function (understandably).  Changed the test variable names to prevent such a conflict.
+  * Now uses css :hover, rather than manually setting/removing the hover class.  If you are using a custom stylesheet, you'll need to change &quot;.calendar_date_select tbody td.hover&quot; to &quot;.calendar_date_select tbody td:hover&quot; (thanks, Alex Egg)
+</pre>
+<h2>Version 1.9.1==</h2>
+<p>
+Nov 15, 2007
+</p>
+<pre>
+  * Removed dependency on deprecated features in 1.6.0.  Thanks again, Richard Quadling!
+  * Bugfix - was showing wrong day selected when selecting Mar 23, 2008.  (Day light savings time issue).  Fixed with test case.
+  * Added CSS style to show red border around the embedded calendar_date_select div's with errors.
+  * Callbacks were broken with 1.9.0.  Fixed, added test cases.
+</pre>
+<h2>Version 1.9.0==</h2>
+<p>
+Nov 13, 2007
+</p>
+<pre>
+  * Prototype 1.6.0 compatibility update.  Will now break with earlier versions of prototype (ie 1.5.1).  Big thanks to Kevin Alexander and Richard Quadling
+  * Additional test coverage for improved stability going forward.
+</pre>
+<h2>Version 1.8.3==</h2>
+<p>
+Nov 12, 2007
+</p>
+<pre>
+        * Improved close methods:
+          * Added &quot;OK&quot; button at the bottom
+                * Double clicking a day closes the calendar (not in IE, though... because IE is everyone's favorite browser to program for)
+                * Escape key closes calendar
+        * Added optional close button at the top, which is hidden by default.  Don't use this unless you really need it, because it may disappear in the future.
+        * Don't focus a hidden element
+        * Navigate down to child input element if exists (in case a div tag is passed in).  Resolves problems when input control is wrapped with a error div.  Test cases
+        * Allow specific year ranges (pass in an array)
+          * restrict year navigation inside of a non-flexible range
+          * test case to check auto-repopulating of flexibleYearRanges.
+          * test case to check boundaries of nonFlexibleYearRanges.
+                * Ability to pass in :year_range =&gt; 5.years.ago..0.years.ago to calendar_date_select (ruby)
+        * Updated test cases
+        * Bugfix for duplicate days that were occuring across day-light-saving-time boundaries
+        * Added format_american.js (thanks, Wes Hays)
+        * Added format_italian.js (thanks, Bigonazzi)
+        * Added format_euro_24hr.js (thanks, James Silberbauer)
+        * Bugfix for Konqueror - Was showing blank white box for popup window - had to do with Iframe hack.
+        * Code-refactoring, clean up, breaking down methods, making the code easier to understand and extend.
+        * Added new stylesheet definition: .calendar_date_select .cds_header a.close { display: none}.  Update your custom stylesheet with this new definition.
+</pre>
+<h2>Version 1.8.1==</h2>
+<p>
+September 27 2007
+</p>
+<pre>
+  * 1.8.0 was rushed.  There were a bunch of bugs that cropped up immediately.  This deploy includes JavaScript unit testing using the scriptaculous unit test framework! ([http://www.restatesman.com/calendar_date_select/js_test/functional/cds_test.html click here to run the tests on the latest trunk version]).  These unit tests are going to greatly improve the reliability of CalendarDateSelect releases.
+</pre>
+<h2>Version 1.8.0==</h2>
+<p>
+September 26 2007
+</p>
+<pre>
+  * Bugfix - Safari 2 issue fixed (was interpreting &quot;&quot; as January 1, 1969)
+  * CSS overhaul - removed buttons and replaced with links.  Cleaned up CSS.  See CSSDiff_1_7_0__1_8_0 for a diff.
+  * :popup =&gt; :force (force the user to select a date)
+  * :time =&gt; &quot;mixed&quot; - You can now create a calendar control that allows a user to select &quot;all day&quot; or a specific time!
+  * :month_year =&gt; &quot;label&quot; - Replace the clunky dropdowns with a text.
+  * Some internal &quot;gardening&quot; on the code
+</pre>
+<h2>Version 1.7.1==</h2>
+<p>
+Aug 29 2007
+</p>
+<pre>
+  * Rendering options weren't being passed to the input control (like :style, :class, etc.)
+</pre>
+<h2>Version 1.7.0==</h2>
+<p>
+Aug 24 2007
+</p>
+<pre>
+  * update calendar date select to not rely on dom_id's anymore ( and no longer automatically changes the dom_id for your input fields )
+
+  * applied Steve Madsen's patch for not blanking out invalid dates.
+</pre>
+<h2>Version 1.6.1==</h2>
+<p>
+Aug 24 2007
+</p>
+<pre>
+  * Serious javascript bug when using &quot;hyphen_ampm&quot; format fixed.  (Was only working in Firefox browsers with firebug installed)
+
+  * Added a bunch of new callbacks: before_show, before_close, after_show, after_close, after_navigate. (see [http://www.restatesman.com/static/calendar?tab=callbacks here] for details)
+</pre>
+<h2>Version 1.6.0==</h2>
+<p>
+July 27 2007
+</p>
+<pre>
+  * Now MUCH easier to change date formats!  See ChangingDateFormat for details.
+  * Opera button labels fixed
+  * Calendar &quot;flicker&quot; fixed when displaying popup window.
+  * JS error 106 being thrown - fixed
+  * Bug fixes relating to calendar date select deciding whether to display above or below an element on a page
+  * XHTML compliance issue resolved - image had an invalid &quot;id&quot;
+  * Disabled/readonly elements can't be updated
+    * (note, if you wish to prevent user from inputting a date without the date picker, use the &quot;embedded&quot; option.  See [http://restatesman.com/static/calendar/ demo] for example).
+  * Changes/cleanups submitted by Steve Madsen.  If you see Steve, tell him what a great guy he is!
+    * Ability to change calendar image via CalendarDateSelect.image=
+    * cleaning up on how input tags are rendered
+</pre>
+<h2>Version 1.5.2==</h2>
+<p>
+July 12 2007
+</p>
+<pre>
+  * onchange event handler now supported.
+  * detects to see if prototype is loaded.  If not, shows error message
+  * ability to hide &quot;buttons&quot;
+  * date parsing broken out to static function Date.parseFormattedString() for anyone who wants date's to parse a different way from javascript
+  * you can no longer select 1:60 pm.
+</pre>
+<h2>Version 1.5.1==</h2>
+<p>
+June 21, 2007
+</p>
+<pre>
+  * fixed following tickets:
+    * Selecting dates in April 2007 doesn't highlight day
+    * Selecting 29 February 2008 returns 1 March 2008
+    * options[:format] needs to be purged
+</pre>
+<h2>Version 1.5==</h2>
+<p>
+June 18, 2007
+</p>
+<pre>
+  * New CSS stylesheet
+
+  * Fixed &quot;white on white&quot; css issue when selecting a day
+
+  * Clicking today now updates the input field
+</pre>
+<h2>Version 1.4==</h2>
+<p>
+June 16, 2007
+</p>
+<pre>
+  * more bug fixes (selecting across daylight savings time causing js error.  Sometimes clicking a day of the next month after selecting day 31 of the previous month was causing 2 months later to be selected)
+
+  * CSS improvements and refactoring
+
+  * form builder methods now automatically detect whether or not to use a Time field
+
+  * a bit more optimization
+
+  * refactored date formatter methods and others so they can be more easily overridden.
+</pre>
+<h2>Version 1.3==</h2>
+<p>
+June 8, 2007
+</p>
+<pre>
+  * a few bug fixes
+
+  * Modified the helper methods to allow passing of virtually any JavaScript argument into the JavaScript control.
+</pre>
+<h2>Version 1.2==</h2>
+<p>
+June 4, 2007
+</p>
+<pre>
+  * Big optimizations to the redrawing of the calendar.  Now, previous/next buttons much more responsive.
+
+  * Improved feel of pop-up dialog - when somewhere else clicked on the screen other than the popup calendar, popup calendar will automatically close.
+
+  * If the popup window won't fit on the screen underneath the control, will automatically position to the top.
+</pre>
+<h2>Version 1.1==</h2>
+<p>
+June 2, 2007
+</p>
+<pre>
+  * There was a very strange bug that crept in for Internet Explorer.  Internet Explorer does not allow you to set the innerHTML property for &quot;button&quot; elements.  Therefore, it was necessary to change &quot;button&quot; elements to &quot;input&quot; elements of type button.
+
+  * There was a change to the CSS file.  Anything applying styles to &quot;button&quot; elements has been changed to &quot;input.button&quot;.  If you have a custom stylesheet, update accordingly.
+</pre>
+<h2>Version 1.0==</h2>
+<p>
+June 1, 2007
+</p>
+<pre>
+  * Initial release!
+</pre>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>
