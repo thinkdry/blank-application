@@ -7,8 +7,9 @@
 		<%= advanced_editor_on(@current_object, :description) %>
 		<%= capture(f, &block) %>
 		<label>Diffusion :</label>
-	  <div class="input_container">
-		  <%= item_status_fields(f, @current_object) %>
+		<div class="input_container">
+			<%= item_status_fields(f, @current_object) %>
+			<%= error_message_on :current_object, :items %>
 		</div>
 		<%= f.submit current_object.new_record? ? 'Créer' : 'Mettre à jour' %>
 	<% end -%>

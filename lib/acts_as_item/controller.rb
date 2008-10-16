@@ -15,6 +15,10 @@ module ActsAsItem
 
           self.instance_eval &block if block_given?
           
+          before :create, :update do
+            @current_object.workspace_ids = [] unless params[:workspace_ids]
+          end
+          
           before :new, :create do
             permit 'creation of current_object'
           end

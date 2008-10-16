@@ -18,6 +18,9 @@ module ActsAsItem
         has_many :tags,     :through => :taggings
         has_many :comments, :as => :commentable, :order => 'created_at ASC'
         
+        # Ensure that item is associated to one or more workspaces throught items table
+        validates_presence_of :items, :message => "Sélectionner au moins un espace de travail"
+        
         include ActsAsItem::ModelMethods::InstanceMethods
       end
       
@@ -52,8 +55,7 @@ module ActsAsItem
       end
       
       def associated_workspaces= workspace_ids
-        self.workspaces.delete_all
-        workspace_ids.each { |w| self.items.build(:workspace_id => w) }
+        self.items = workspace_ids.collect { |id| self.items.build(:workspace_id => id) }
       end
       
       def accepts_role? role, user
