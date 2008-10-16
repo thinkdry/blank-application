@@ -31,9 +31,16 @@ module ActsAsItem
          self.class.icon
       end
       
-      def string_tags= arg # Take a list of tag, space separated and assign them to the object
+      # Take a list of tag, space separated and assign them to the object
+      def string_tags= arg
         @string_tags = arg
-        arg.split(' ').each do |tag_name|
+        tag_names = arg.split(' ')
+        # Delete all tags that are no more associated
+        taggings.each do |tagging|
+          tagging.destroy unless tag_names.delete(tagging.tag.name)
+        end
+        # Insert new tags
+        tag_names.each do |tag_name|
           tag = Tag.find_by_name(tag_name) || Tag.new(:name => tag_name)
           self.taggings.build(:tag => tag)
         end
