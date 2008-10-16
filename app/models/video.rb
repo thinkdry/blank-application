@@ -9,11 +9,6 @@ class Video < ActiveRecord::Base
   	
   file_column :file_path
 
-  validates_presence_of	:title,
-    :description,
-    :file_path,
-    :user
-
   after_save  :encode_video
   
   def self.label

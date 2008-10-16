@@ -18,6 +18,7 @@ module ActsAsItem
         has_many :tags,     :through => :taggings
         has_many :comments, :as => :commentable, :order => 'created_at ASC'
         
+        validates_presence_of	:title, :description, :user
         # Ensure that item is associated to one or more workspaces throught items table
         validates_presence_of :items, :message => "Sélectionner au moins un espace de travail"
         

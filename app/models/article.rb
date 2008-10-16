@@ -5,7 +5,6 @@ class Article < ActiveRecord::Base
   acts_as_xapian :texts => [:title, :description, :body]
   	
 	has_many :article_files, :dependent => :delete_all
-	has_many :article_images, :dependent => :delete_all
 	
 	validates_presence_of	:title, :user
                                                    
