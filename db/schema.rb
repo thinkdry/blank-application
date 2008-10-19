@@ -36,6 +36,13 @@ ActiveRecord::Schema.define(:version => 20080922085723) do
     t.datetime "updated_at"
   end
 
+  create_table "article_images", :force => true do |t|
+    t.integer  "article_id", :limit => 11
+    t.string   "image_path"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "articles", :force => true do |t|
     t.integer  "user_id",     :limit => 11
     t.string   "title"
@@ -92,6 +99,19 @@ ActiveRecord::Schema.define(:version => 20080922085723) do
     t.string   "itemable_type"
     t.integer  "itemable_id",   :limit => 11
     t.integer  "workspace_id",  :limit => 11
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "permissions", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "permissions_roles", :force => true do |t|
+    t.integer  "role_id",       :limit => 11
+    t.integer  "permission_id", :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
   end

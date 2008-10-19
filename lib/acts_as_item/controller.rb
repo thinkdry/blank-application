@@ -65,7 +65,7 @@ module ActsAsItem
       def comment
         comment = current_object.comments.create(params[:comment].merge(:user => @current_user))
         render :update do |page|
-          page.insert_html :bottom, 'comment_list', :partial => "items/comment", :object => comment
+          page.insert_html :bottom, 'table_list', :partial => "items/comment", :object => comment
         end
       end
       

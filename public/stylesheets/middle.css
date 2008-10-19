@@ -358,6 +358,7 @@ ul.top_box li{
 #content_show #comment_list {
 	margin-top:40px;
 	padding:0px;
+	width: 100%;
 }
 
 #content_show #comment_list img {

@@ -61,7 +61,7 @@
 	<div id="comment_list">
 		<%= image_tag 'icons/comments.png' %>
 		<h2 id="comments">Commentaires</h2>
-		<table width="610px">
+		<table width="610px"  id="table_list">
 			<%= render :partial => "items/comment", :collection => object.comments %>
 		</table>
 	</div>
