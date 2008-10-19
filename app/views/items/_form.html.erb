@@ -11,6 +11,7 @@
 			<%= item_status_fields(f, @current_object) %>
 			<%= error_message_on :current_object, :items %>
 		</div>
+		<label>&nbsp;</label>
 		<%= f.submit current_object.new_record? ? 'Créer' : 'Mettre à jour' %>
 	<% end -%>
 </fieldset>
