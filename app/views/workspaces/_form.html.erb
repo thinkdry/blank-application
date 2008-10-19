@@ -1,4 +1,5 @@
 <div class="area_WS" style="margin-bottom:20px;">
+<fieldset>
 <% form_for @workspace, :builder => LabelFormBuilder do |f| -%>
 	<%= f.text_field :name, :label => "Nom de l'espace de travail" %>
 	<%= f.text_area :description, :label => 'Description' %>
@@ -20,6 +21,7 @@
 	<%#= f.submit(current_object.new_record? ?  "Créer cet espace de travail" : "Sauvegarder") %>
 
 <% end -%>
+</fieldset>
 </div>
 <div id="newuser">
     <fieldset>

@@ -62,7 +62,7 @@ a.add_item{
 #page #container h1 {
 	color: #000000;
 	font-size: 175%;
-	line-height: 0px;
+	line-height: 1;
 }
 #page #container h2 {
 	font-size: 125%;
