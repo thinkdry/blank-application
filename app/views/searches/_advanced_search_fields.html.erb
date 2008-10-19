@@ -11,7 +11,7 @@
     <%= f.text_field :user_name_contains %>
     <label>Date<span class="hint">Sélectionner la période de recherche</span></label>
     <div class="input_container">
-      Du <%= f.calendar_date_select :created_after %> au <%= f.calendar_date_select :created_before %>
+      Du <%= f.calendar_date_select :created_after, :class => "advanced" %> au <%= f.calendar_date_select :created_before, :class => "advanced" %>
     </div>
   	<%# TODO: Add tags and note (low priority) %>
     <%#	=> Que le gay d'integrateur ne s'en soucie pas, on l'ajoutera plus tard. %>

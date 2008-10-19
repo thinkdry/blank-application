@@ -58,8 +58,12 @@ fieldset .input_container{
 fieldset .input_container input{
   float: none;
   display: inline;
-  width: 90px;
+  width: 15px;
   margin: 0;
+}
+
+fieldset .input_container input.advanced{
+  width: 90px;
 }
 
 fieldset .input_files_container{
