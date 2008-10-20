@@ -1,0 +1,14 @@
+DEFAULTS: &DEFAULTS
+    title: pubmed item title
+
+one:
+    pubmed_source: created_by_luc
+    <<: *DEFAULTS
+    
+two:
+    pubmed_source: created_by_luc
+    <<: *DEFAULTS
+    
+three:
+    pubmed_source: created_by_albert
+    <<: *DEFAULTS
