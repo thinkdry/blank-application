@@ -273,6 +273,12 @@ ul.top_box li{
   margin-top: 5px;
 }
 
+.pubmed_item {
+	background-color: #F9F9F9;
+	padding: 10px;
+	margin-top: 20px;
+}
+
 #object-list{
   background: #fff url(/images/top_elems_bg.png) repeat-x;
   padding: 20px;
