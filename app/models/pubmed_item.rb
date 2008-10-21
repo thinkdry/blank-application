@@ -4,4 +4,5 @@ class PubmedItem < ActiveRecord::Base
   named_scope :latest,
     :order => 'created_at DESC',
     :limit => 5
+  
 end

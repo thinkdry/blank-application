@@ -4,17 +4,27 @@ class UsersController < ApplicationController
 	skip_before_filter :is_logged?, :only => [:forgot_password, :reset_password]
 	layout "application", :except => [:forgot_password, :reset_password]
 
-
   make_resourceful do
     actions :all
 		belongs_to :account
-		
-    before :new, :create do permit("admin") end
-    before :edit, :update do permit("admin or owner of user") end
-      
+    
+    before :remove do
+      permit "deletion of user"
+    end
+    
+    before :edit, :update do
+      permit "edition of user"
+    end
+    
+    before :new, :create do
+      permit "creation of user"
+    end
+    
     before :show do
       @is_admin = @current_object.system_role == "Admin"
-      @moderated_ws = Workspace.with_moderator_role_for(@current_object)
+      @moderated_ws =
+        Workspace.with_moderator_role_for(@current_object) |
+        Workspace.administrated_by(@current_object)
       @writter_role_on_ws = Workspace.with_writter_role_for(@current_object)
       @reader_role_on_ws = Workspace.with_reader_role_for(@current_object)
     end
@@ -32,25 +42,6 @@ class UsersController < ApplicationController
     end
   end
  
-  def create
-    # logout_keeping_session!
-    @user = User.new(params[:user])
-    success = @user && @user.save
-    if success && @user.errors.empty?
-      # Protects against session fixation attacks, causes request forgery
-      # protection if visitor resubmits an earlier form using back
-      # button. Uncomment if you understand the tradeoffs.
-      # reset session
-      # self.current_user = @user # !! now logged in
-      # redirect_back_or_default('/')
-      flash[:notice] = "Nouvel utilisateur créé"
-			redirect_to user_url(@user)
-    else
-      flash[:error]  = "Ce compte n'a pu être créé, ressayez ou contactez l'administrateur."
-      render :action => 'new'
-    end
-  end
-  
   def current_objects
      conditions = if params['login']
        ["login LIKE :login OR firstname LIKE :login OR lastname LIKE :login", 

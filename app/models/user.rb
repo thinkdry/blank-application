@@ -6,19 +6,21 @@ class User < ActiveRecord::Base
   include Authentication::ByPassword
   include Authentication::ByCookieToken
 
-	acts_as_authorized_user
+  acts_as_authorized_user
   acts_as_authorizable	
 
-	has_many :users_workspaces, :dependent => :delete_all
-	has_many :workspaces, :through => :users_workspaces
-	has_many :artic_files
-	has_many :audios
-	has_many :videos
-	has_many :images
-	has_many :articles
-	has_many :rattings
-	has_many :comments
-	belongs_to :system_role
+  has_many :users_workspaces, :dependent => :delete_all
+  has_many :workspaces, :through => :users_workspaces
+  has_many :artic_files
+  has_many :audios
+  has_many :videos
+  has_many :images
+  has_many :articles
+  has_many :rattings
+  has_many :comments
+  has_many :pubmed_sources
+  has_many :pubmed_items, :through => :pubmed_sources
+  belongs_to :system_role
   
   file_column :image_path, :magick => {:size => "200x200>"}
 
@@ -86,10 +88,37 @@ class User < ActiveRecord::Base
     return (self.system_role && self.system_role.name.downcase == role.downcase)
   end
   
+  def is_admin?
+    has_role?('admin')
+  end
+  
   def accepts_role? role, user
-     return(true) if (role == 'owner' && user == self)
-     false
-   end
+    begin
+      auth_method = "accepts_#{role.downcase}?"
+      return (send(auth_method, user)) if defined?(auth_method)
+      raise("Auth method not defined")
+    rescue Exception => e
+      p(e)
+      puts e.backtrace[0..20].join("\n")
+      raise
+    end
+  end
+  
+  def accepts_deletion? user
+    return true if user.is_admin?
+    false
+  end
+  
+  def accepts_edition? user
+    return true if user.is_admin?
+    return true if user == self
+    false
+  end
+  
+  def accepts_creation? user
+    return true if user.is_admin?
+    false
+  end
 	 
 	def full_name
 		return self.lastname+" "+self.firstname

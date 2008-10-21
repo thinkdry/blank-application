@@ -1,7 +1,24 @@
 module ItemsHelper
+  def item_rate(object, params = {})
+    params = {
+      :rerate => false,
+  		:onRate => "function(element, info) {
+  			new Ajax.Request('#{rate_item_path(object)}', {
+  				parameters: info
+  			})}"
+  		} if params.empty?
+    
+    params_to_js_hash = '{' + params.collect { |k, v| "#{k}: #{v}" }.join(', ') + '}'
+    div_id = "rating_#{object.class.to_s.underscore}_#{object.id}_#{rand(1000)}"
+    
+    content_tag(:div, nil, { :id => div_id, :class => :rating }) +
+		javascript_tag(%{
+			new Starbox("#{div_id}", #{object.rating}, #{params_to_js_hash});	
+		})
+  end
   
-  def self.included base
-    define_prefixed_item_paths(base)
+  def item_rate_locked(object)
+    item_rate(object, :locked => true)
   end
   
   def item_show(parameters, &block)
@@ -11,6 +28,16 @@ module ItemsHelper
                             :title => parameters[:title],
                             :block => block                 } ),
       block.binding
+  end
+  
+  def advanced_editor_on(object, attribute)
+    javascript_tag(%{
+
+        var oFCKeditor = new FCKeditor('#{object.class.to_s.underscore}_#{attribute}') ;
+        oFCKeditor.BasePath = "/fckeditor/" ;
+        oFCKeditor.ReplaceTextarea() ;
+
+		})
   end
   
   # Container of tags that include modal window. Contains the javascript events.
@@ -25,6 +52,10 @@ module ItemsHelper
         :onmouseout   => 'this.removeClassName("over")',
         :onclick      => "window.location.href = '#{item_path(object)}'"),
       block.binding
+  end
+  
+  def form_for_item(object, title = '', &block)
+    concat(render(:partial => "items/form", :locals => { :block => block, :title => title }), block.binding)
   end
   
   # Render a lisf of recent items, recent comments and recent publications.
@@ -84,7 +115,7 @@ module ItemsHelper
     link_to(
       image_tag('icons/pencil.png'),
       item_path(object)
-    ) if permit?("edit of object", :object => object)
+    )
   end
   
   # Resourceful helper. May be used in generic forms (acts_as_item).
@@ -94,91 +125,45 @@ module ItemsHelper
       item_path(object),
       :confirm => 'Êtes vous sur de vouloir supprimer cet élément ? Cette action est irréversible.',
       :method => :delete
-    ) if permit?("delete of object", :object => object)
+    )
   end
   
-  def item_path object, params = {}
-    prefix = params.delete :prefix
+  def link_to_item(object)
+    link_to(object.title, item_path(object))
+  end
+  
+  def display_tabs(item_type)
+    item_type ||= 'articles'
+    content = String.new
     
-    helper_name = String.new
-    helper_name += prefix + '_' if prefix
-    helper_name += 'workspace_' if current_workspace
-    helper_name += object.class.to_s.underscore + '_path'
-    
-    args = [object, params]
-    args.insert(0, current_workspace) if current_workspace
+    [Article, Image, ArticFile, Video, Audio, Publication].each do |item_model|
+      item_page = item_model.to_s.underscore.pluralize
+      item_human_name = item_model.label
+      options = {}
+      options[:class] = 'selected' if (item_type == item_page)
 
-    send helper_name, *args
-  end
-  
-  def new_item_path(model)
-    helper_name = 'new_'
-    helper_name += 'workspace_' if current_workspace
-    helper_name += model.to_s.underscore + '_path'
-    args = current_workspace ? [current_workspace] : []
-    send(helper_name, *args)
-  end
-  
-  def items_path(model)
-    model = model.table_name unless model.is_a?(String)  
-    if current_workspace
-      workspace_content_url(current_workspace.id, :page => model)
-    else
-      content_url(:page => model)
+      content += content_tag(
+        :li,
+        link_to(image_tag(item_model.icon) + item_human_name, items_path(item_model)),
+        options
+      )
     end
-  end
-  
-  def display_tabs(page)
-    html = '<ul id="tabs">'
-    html += '<li '
-    html += 'class="selected"' if (page=="articles")
-    html += '>'+link_to(image_tag(Article.icon)+" Articles", items_path(Article))+'</li>'
-    html += '<li '
-    html += 'class="selected"' if (page=="images")
-    html += '>'+link_to(image_tag(Image.icon)+" Images", items_path(Image))+'</li>'
-    html += '<li '
-    html += ' class="selected"' if (page=="files")
-    html += '>'+link_to(image_tag(ArticFile.icon)+" Fichiers", items_path("files"))+'</li>'
-    html += '<li '
-    html += 'class="selected"' if (page=="videos")
-    html += '>'+link_to(image_tag(Video.icon)+" Videos", items_path("videos"))+'</li>'
-    html += '<li '
-    html += 'class="selected"' if (page=="audios")
-    html += '>'+link_to(image_tag(Audio.icon)+" Audios", items_path("audios"))+'</li>'
-    html += '<li '
-    html += 'class="selected"' if (page=="publications")
-    html += '>'+link_to(image_tag(Publication.icon)+" Publications", items_path("publications"))+'</li>'
-    html += '</ul><div class="clear"></div>'
+    
+    content_tag(:ul, content, :id => :tabs)
 	end
   
-  def display_item_list(page)
-    case page
-      when "articles"
-        collection = Article.all(:order => 'created_at DESC')
-      when "images"
-        collection = Image.all(:order => 'created_at DESC')
-      when "audios"
-        collection = Audio.all(:order => 'created_at DESC')
-      when "videos"
-        collection = Video.all(:order => 'created_at DESC')
-      when "files"
-        collection = ArticFile.all(:order => 'created_at DESC')
-      when "publications"
-        collection = Publication.all(:order => 'created_at DESC')
+  def display_item_list(item_type)
+    item_type ||= 'articles'
+    
+    items = if current_workspace
+      GenericItem.from_workspace(current_workspace)
+    else
+      GenericItem.consultable_by(@current_user)
     end
-    render(:partial => "items/item_in_list", :collection => collection)
-  end
-  
-  private
-  def self.define_prefixed_item_paths base
-    # TODO: Import prefix list from a conf file
-     ['edit', 'rate', 'add_tag', 'remove_tag', 'comment'].each do |prefix|
-       base.send(:define_method, "#{prefix}_item_path") do |*args|
-         object, params = args[0], args[1] || {}
-         params[:prefix] = prefix
-         item_path(object, params)
-       end
-     end
+    
+    @collection = items.send(item_type, :order => 'created_at DESC').paginate(:page => params[:page])
+    
+    render(:partial => "items/item_in_list", :collection => @collection)
   end
   
 end

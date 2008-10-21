@@ -1,43 +1,7 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-ryan:
-    user: quentin
-    title: "\"loaded_specs\" Gem Error"
-    body: "<div style=\"border-style: none solid solid; border-color: -moz-use-text-color rgb(204, 204, 204) rgb(204, 204, 204); border-width: 0pt 1px 1px; width: 329px; overflow-y: auto; overflow-x: hidden;\"><div class=\"nicEdit-main nicEdit-selected\" style=\"margin: 4px; overflow: hidden; width: 321px; min-height: 295px;\" contenteditable=\"true\"><span style=\"font-weight: bold;\">For those of you that have run into this gem error when running the latest rails:</span><br>\r\n<br>\r\n<span style=\"font-style: italic;\">./script/../config/../vendor/rails/railties/lib/initializer.rb:175:in\r\n`install_gem_spec_stubs': undefined method `loaded_specs' for\r\nGem:Module (NoMethodError)</span><br style=\"font-style: italic;\">\r\n<span style=\"font-style: italic;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; from ./script/../config/../vendor/rails/railties/lib/initializer.rb:175:in `reject!'</span><br style=\"font-style: italic;\">\r\n<span style=\"font-style: italic;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; from ./script/../config/../vendor/rails/railties/lib/initializer.rb:175:in `install_gem_spec_stubs'</span><br style=\"font-style: italic;\">\r\n<span style=\"font-style: italic;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; from ./script/../config/../vendor/rails/railties/lib/initializer.rb:89:in `send'</span><br style=\"font-style: italic;\">\r\n<span style=\"font-style: italic;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; from ./script/../config/../vendor/rails/railties/lib/initializer.rb:89:in `run'</span><br style=\"font-style: italic;\">\r\n<span style=\"font-style: italic;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; from ./script/../config/boot.rb:46:in `load_initializer'</span><br style=\"font-style: italic;\">\r\n<span style=\"font-style: italic;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; from ./script/../config/boot.rb:38:in `run'</span><br style=\"font-style: italic;\">\r\n<span style=\"font-style: italic;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; from ./script/../config/boot.rb:11:in `boot!'</span><br style=\"font-style: italic;\">\r\n<span style=\"font-style: italic;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; from ./script/../config/boot.rb:109</span><br style=\"font-style: italic;\">\r\n<span style=\"font-style: italic;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; from script/dbconsole:2:in `require'</span><br style=\"font-style: italic;\">\r\n<span style=\"font-style: italic;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; from script/dbconsole:2</span><br style=\"font-style: italic;\">\r\n<span style=\"font-style: italic;\">the solution is a quick and dirty:</span><br>\r\n<br>\r\ngem update --system<br>\r\nOr, if you currently have rubygems v0.8.4 or earlier installed:<br>\r\n<br>\r\ngem install rubygems-update<br>\r\nupdate_rubygems<br>\r\n<br>\r\nJust a public service announcement from the “Ryan’s been bitten by this one” dept.<br></div></div>"
-    description: "undefined method `loaded_specs' for Gem:Module (NoMethodError)<span style=\"font-weight: bold;\"><br></span><h3><span style=\"font-weight: bold;\"></span>-&gt; How to solve</h3>"
-    
-one: 
-  user: quentin
-  title: Article 1
-  description: Artice vide
-  body: C'est un bon article sur un peu rien mais aussi ps grand chose.
-
-two: 
-  user: quentin
-  title: Article 2
-  description: Artice vide
-  body: C'est un bon article sur un peu rien mais aussi ps grand chose.
-
-three: 
-  user: quentin
-  title: Article 3
-  description: Artice vide
-  body: C'est un bon article sur un peu rien mais aussi ps grand chose.
-
-four: 
-  user: quentin
-  title: Article 4
-  description: Artice vide
-  body: C'est un bon article sur un peu rien mais aussi ps grand chose.
-
-article_by_yvon:
-    user: yvon
-    title: "Here is one article created by Yvon"
-    description: "My description"
-    body: "My content"
-    
-private_article_by_quentin:
-    user: quentin
-    title: "Quentin's private item"
-    description: "My description"
-    body: "My content"
+<% 1.upto(300) do |i| %>
+    article_<%= i %>: 
+        user: quentin
+        title: Article (<%= i %>)
+        description: Article vide
+        body: C'est un bon article sur un peu rien mais aussi ps grand chose.
+<% end %>

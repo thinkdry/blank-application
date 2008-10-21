@@ -1,21 +1,40 @@
-<div id="content_bis">
-	<div id="area_TITLE">
-		<h1>
-			Espace <%= @current_object.name %>
-		</h1>
-		<span class="txt_80_666"><%= @current_object.description %></span>
-	</div>
-	<%= render :partial => "items/tab_list" %>
-	<div id="area_USERS">
-		<h2>
-			Utilisateurs inscrits dans cet espace
-		</h2>
-		Administrateur : <%= link_to_user(@current_object.creator) %>
-		<div class="txt_80_666">
-			Inscrits :
-				<%= @current_object.users.collect { |u| link_to_user(u) }.join(', ') %>
-				<%= 'Aucun' if @current_object.users.count <= 0 %>
-		</div>
-	</div>
-	<div class="clear"></div>
+<div id="area_TITLE">
+	<h1>
+		Espace <%= @current_object.name %>
+	</h1>
+	<span class="txt_80_666"><%= @current_object.description %></span>
+</div>
+
+<div class="area_LEFT">
+	<h2>5 derniers éléments</h2>
+	<ul>
+		<% GenericItem.from_workspace(@current_object).latest.each do |item| %>
+			<p>
+				<div>
+					<%= image_tag(item.icon) %>
+					<%= link_to_item(item) %>
+				</div>
+				<div>
+					par
+					<%= link_to_user(item.user) %>
+					le
+					<%= item.created_at.l(:long) %>
+				</div>
+				<div style="float:left">
+					<%= item.comments.count %>
+					commentaires -
+				</div>
+				<div style="float:left"><%= item_rate_locked(item) %></div>
+				<div style="clear:both">
+				</div>
+			</p>
+		<% end %>
+	</ul>
+</div>
+<div class="area_RIGHT">
+  <%= render :partial => "items/top_box" %>
+</div>
+<div class="clear"></div>
+<div class="area_BOTH" style="margin-top: 20px;">
+  <%= render :partial => "items/tab_list" %>
 </div>

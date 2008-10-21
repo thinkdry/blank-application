@@ -1,4 +1,13 @@
-module WorkspacesHelper  
+module WorkspacesHelper
+  def link_to_workspace(workspace)
+    link_to(workspace.name, workspace_url(workspace))
+  end
+  
+  def links_to_workspace_collection(workspaces)
+    return nil if workspaces.empty?
+    workspaces.collect { |ws| link_to_workspace(ws) }.join(', ')
+  end
+  
   def new_user(object)
     javascript_tag js_add_new_user(object)
   end
@@ -8,7 +17,8 @@ module WorkspacesHelper
   end
   
   def user_list_of(workspace, role)
-    workspace.send(role).map { |u| link_to_user(u) }.join(', ')
+    list = workspace.send(role)
+    list.empty? ? '- Aucun -' : list.map { |u| link_to_user(u) }.join(', ')
   end
   
   private

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: CHANGELOG</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>CHANGELOG</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>vendor/plugins/backgroundrb/CHANGELOG
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Fri Sep 12 09:36:26 +0200 2008</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+2008-06-19 hemant kumar &lt;hemant@shire.com&gt;
+</p>
+<pre>
+        * Make binary parser iterative and hence won't blow your stack
+
+        * Add run_concurrent
+
+        * Let parent sleep for a while when forking the bdrb master process.
+
+        * Fixed issue with fork. BackgrounDRb now uses fork and exec.
+</pre>
+<p>
+2008-02-28 hemant kumar &lt;hemant@shire&gt;
+</p>
+<pre>
+        * fixed some meory leaks.
+
+        * Implemented cleaner API for invoking tasks in workers
+
+        * Updated the documentation
+</pre>
+<p>
+2008-02-25 hemant kumar &lt;hemant@shire&gt;
+</p>
+<pre>
+        * Commited Patch by Alex which lets BackgrounDRb to have command line arguments and loading of specific environments
+        through command line argument.
+</pre>
+<p>
+2008-02-14 hemant kumar &lt;hemant@shire&gt;
+</p>
+<pre>
+        * Added TestCases for Cron Triggers, Meta Workers and stuff. We are heading towards proper code coverage with specs.
+
+        * Added preliminary support for starting a worker on demand through scheduler. What it means is, when you have a worker which is getting
+        scheduled very less frequently and you don't want the worker to persist, you can ask BackgrounDRb to restart the worker on each schedule.
+
+        * Fixed some unreported issues with writing data to socket between workers and stuff.
+
+        * Fixed issues with too many open connections, because connections were not getting closed. BackgrounDRb now opens only one connection, which is
+        reused throughout the lifecycle of rails application.
+
+        * Fixed all outstanding issues with Cron triggers, BackgrounDRb now explicitly depends on &quot;chronic&quot; gem.
+
+        * Removed Framework directory and BackgrounDRb now explicitly depends on packet gem.
+</pre>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

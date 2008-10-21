@@ -1,7 +1,10 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+<% require 'file_path_utils' %>
 
-schema_bdd:
-    user: quentin
-    title: Schema base de donnee
-    description: "Documentation<br>"
-    file_path: db.png
+<% 1.upto(300) do |i| %>
+    artic_file_<%= i %>:
+        user: quentin
+        title: Schema base de donnee (<%= i %>)
+        description: "Documentation<br>"
+        file_path: <%= file_path_import(:model => 'artic_file', :id => Fixtures.identify("artic_file_#{i}"), :file_path => 'db.png') %>
+        created_at: <%= i.days.ago %>
+<% end %>

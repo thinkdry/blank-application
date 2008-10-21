@@ -1,8 +1,15 @@
 <% div_for item_in_list do %>
   <div class="item-list">
-    <% #TODO:brancher les liens vers workspaces et afficher la date en fr%>
-    <%= link_to item_in_list.title, item_in_list, :class => 'object' %> dans <%= link_to "lien workspace", item_in_list %> par <%= link_to_user item_in_list.user %> le samedi 10 septembre
-    <div style="float:left"><%= item_in_list.comments.count %> commentaires - Note : </div>
+    <div style="float:left">
+    <%= link_to object.title, item_path(object), :class => 'object' %>
+	<% if object.workspaces.size > 0 %>
+		dans <%= links_to_workspace_collection object.workspaces %>
+	<% end %>
+	par <%= link_to_user item_in_list.user %>
+	le <%= object.created_at.l(:long) %>
+	  </div>
+	  <div class="clear"></div>
+    <div style="float:left"><%= object.comments.count %> commentaires - Note : </div>
     <div style="float:left" id="rating_<%= item_in_list.class.to_s.underscore %>_<%= item_in_list.id %>" style="width:85px;"></div>
     <div class="clear"></div>
   </div>

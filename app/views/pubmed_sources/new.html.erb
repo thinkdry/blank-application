@@ -1,35 +1,4 @@
-<h1>Ajouter une source de publication Pubmed</h1>
-
-<% form_for @current_object, :builder => LabelFormBuilder do |f| %>
-	
-	<%= f.text_field :name %>
-	<%= f.text_field :url %>
-	
-	<%= f.submit 'Ajouter' %>
-<% end %>
-
-<h2>Marche à suivre</h2>
-<ul>
-	<li>
-		Rendez-vous sur le site de Pubmed : http://www.ncbi.nlm.nih.gov/pubmed/<br>
-		Effectuez une recherche.<br>
-		<%= image_tag 'pubmed/1.png' %>
-	</li>
-	<li>
-		Sélectionnez RSS Feed dans la liste déroulante d'exportation<br>
-		<%= image_tag 'pubmed/2.png' %><br>
-	</li>
-	<li>
-		Choississez un nom pour votre flux.<br>
-		Cliquez sur "Create FEED".<br>
-		<%= image_tag 'pubmed/3.png' %>
-	</li>
-	<li>
-		Cliquez avec le bouton droit sur l'icone RSS.<br>
-		Sélectionnez "enregistrer l'addresse"<br>
-		<%= image_tag 'pubmed/4.png' %>
-	</li>
-	<li>
-		Copiez cette adresse dans le champs "url" de cette page
-	</li>
-</ul>
+<fieldset>
+	<legend>Ajout d'un flux RSS PubMed</legend><br>
+    <%= render :partial => "form"%>
+</fieldset>

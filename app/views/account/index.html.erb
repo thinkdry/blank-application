@@ -1,110 +1,31 @@
 <div class="area_LEFT">
-  <div id="area_WS">
+  <div class="area_WS">
   	<h4>Mes espaces de travail</h4>
   	<span class="label-txt">Vous administrez :</span>
-  	<%= Workspace.administrated_by(@current_user).collect { |ws| link_to(ws.name, ws) }.join(', ') %>
+  	<%= links_to_workspace_collection(Workspace.administrated_by(@current_user)) || '- Aucun -' %>
   	<br /><br />
   	<span class="label-txt">Vous avez accès aux espaces :</span>
-  	<%= Workspace.consulted_by(@current_user).collect { |ws| link_to(ws.name, ws) }.join(', ') %>
-  	<br /><br />
-  	<%= link_to "Accéder à l'intrface d'administration", admin_path %>
+  	<%= links_to_workspace_collection(Workspace.consulted_by(@current_user)) || '- Aucun -' %>
+  	<br />
   </div>
   <br />
   <div id="area_INFOS">
   	<h4>Mes informations personnelles</h4>
-  	<p class="name"><%= current_user.firstname %> <%= current_user.lastname %></p><br />
-  	<%= image_tag(url_for_file_column(current_user, 'image_path'), :class => "avatar", :align => "right") if current_user.image_path %>
-  	<p><span class="label-txt">Lieu  :</span> <span class="content-txt"><%= current_user.laboratory %></span></p>
-  	<p><span class="label-txt">Activité : </span><span class="content-txt"><%= current_user.activity %></span></p>
-  	<p><span class="label-txt">Adresse postale : </span><span class="content-txt"><%= current_user.addr %></span></p>
-  	<p><span class="label-txt">Email :</span> <span class="content-txt"><%= current_user.email %></span></p>
-  	<p><span class="label-txt">Téléphone :</span> <span class="content-txt"><%= current_user.phone %></span></p>
-  	<p><span class="label-txt">Présentation : </span><span class="content-txt"><%= current_user.edito %></span></p>
-  	<br />
-  	<%= link_to 'Mettre à jour mes informations personnelles', edit_user_path(current_user) %>
+  	<%= image_tag(url_for_file_column(@current_user, 'image_path'), :class => "avatar", :align => "right") if @current_user.image_path %>
+  	<p><span class="label-txt">Lieu  :</span> <span class="content-txt"><%= @current_user.laboratory %></span></p>
+  	<p><span class="label-txt">Activité : </span><span class="content-txt"><%= @current_user.activity %></span></p>
+	<br>
+  	<p><span class="label-txt">Email :</span> <span class="content-txt"><%= @current_user.email %></span></p>
+  	<p><span class="label-txt">Téléphone :</span> <span class="content-txt"><%= @current_user.phone %></span></p>
   </div>
 </div>
 <div class="area_RIGHT">
-	<%# NOTE: See http://livepipe.net/control/tabs for styling tabs %>
-	<%# NOTE: Jimmy is gay %>
-	<h4>Mon TOP élément</h4>
-	<ul id="top_elems" class="subsection_tabs">  
-    	<li class="tab"><a href="#one">Les + commentés</a></li>  
-	    <li class="tab"><a href="#two">Les mieux notés</a></li>
-		<li class="tab"><a href="#three">Les + consultés</a></li>
-	</ul>
-	<div id="one"><p>
-		<%= render 	:partial => "items/item_in_top_box",
-					:collection => GenericItem.consultable_by(@current_user).most_commented %>
-	</p></div>  
-	<div id="two"><p>
-		<%= render 	:partial => "items/item_in_top_box",
-					:collection => GenericItem.consultable_by(@current_user).best_rated %>
-	</p></div>
-	<%# TODO: GenericItem.most_consulted missing %>
-	<div id="three"><p>
-		<%= render 	:partial => "items/item_in_top_box",
-					:collection => GenericItem.consultable_by(@current_user).latest %>
-	</p></div>
-	<script type="text/javascript" charset="utf-8">
-		new Control.Tabs('top_elems'); 
-	</script>
+	<%= render :partial => "items/top_box" %>
 </div>
 <div class="clear"></div>
-<br />
+<br>
+<div class="pubmed"><%= link_to image_tag("rss.png")+' Visualiser mes flux Pubmed', pubmed_sources_path %></div>
+<br /><br>
 <div class="area_BOTH">
-  Ici un menu en ascensceur
+  <%= render :partial => "latest" %>
 </div>
-<a href="#" onclick="Effect.SlideDown('items',{ duration: 2.0 }); $('publications').hide(); $('users').hide(); $('workspaces').hide(); return false;">Derniers documents en lign</a><br>
-<div id="items" style="display:none; width:600px;">
-  <div>
-    <% if @latest_items.blank? %>
-  There are no latest items.
-<%else%>
-    <%@latest_items.each do |l|%>
-         <%=l.title%>
-         <%=l.created_at%><br><br>
-    <%end%>
-<%end%>
-  </div>
-</div>
-
-<a href="#" onclick="Effect.SlideDown('users',{ duration: 2.0 });$('items').hide(); $('publications').hide(); $('workspaces').hide(); return false;">Derniers utlisateurs ajoutes</a><br>
-<div id="users" style="display:none; width:600px;">
-  <div>
-   <% if @latest_users.blank? %>
-  There are no latest users.
-   <%else%>
-    <%@latest_users.each do |u|%>
-        <%=u.firstname%>&nbsp;<%=u.lastname%>&nbsp;<%=u.created_at%><br><br>
-    <%end%>
-<%end%>
-  </div>
-</div>
-
-<a href="#" onclick="Effect.SlideDown('workspaces',{ duration: 2.0 }); $('publications').hide(); $('users').hide(); $('items').hide(); return false;">Derniers espaces de travail ajoutes</a><br>
-<div id="workspaces" style="display:none; width:600px">
-  <div>
-<%if @latest_ws.blank?%>
-  There are no latest Workspaces
-<%else%>
-     <%@latest_ws.each do |ws|%>
-         <%=ws.name%>&nbsp;<%=ws.created_at%><br><br>
-     <%end%>
-<%end%>  
-  </div>
-</div>
-
-<a href="#" onclick="Effect.SlideDown('publications',{ duration: 2.0 }); $('items').hide(); $('users').hide(); $('workspaces').hide(); return false;">Dernieres publications recues</a><br>
-<div id="publications" style="display:none; width:600px;">
-  <div>
-<%if @latest_pubmed.blank?%>
-  There are no latest Publications.
-<%else%>
-    <%@latest_pubmed.each do |pm|%>
-        <%=pm.title%>&nbsp;<%=pm.created_at%><br><br>
-    <%end%>
-<%end%> 
-  </div>
-</div>
-

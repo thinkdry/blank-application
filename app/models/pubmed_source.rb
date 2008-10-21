@@ -7,6 +7,17 @@ class PubmedSource < ActiveRecord::Base
   has_many    :pubmed_items , :dependent => :delete_all
   
   validates_presence_of :name, :url
+  def validate
+    rss_valid?
+  end
+  
+  def rss_valid?
+    begin
+      rss_content
+    rescue Exception => e
+      errors.add(:url, "Erreur lors de l'importation des flux, adresse invalide ?")
+    end
+  end
 
   def rss_content
     return @rss if @rss
@@ -28,5 +39,32 @@ class PubmedSource < ActiveRecord::Base
           :link           => item.link })
       end
     end
+  end
+  
+  def accepts_role? role, user
+	  begin
+	    auth_method = "accepts_#{role.downcase}?"
+	    return (send(auth_method, user)) if defined?(auth_method)
+	    raise("Auth method not defined")
+	  rescue Exception => e
+	    p(e) and raise(e)
+	  end
+  end
+  
+  def accepts_consultation? user
+    user_is_admin_or_author?(user)
+  end
+  
+  def accepts_edition? user
+    user_is_admin_or_author?(user)
+  end
+  
+  private
+  def user_is_admin_or_author?(user)
+    # Admin
+    return true if user.is_admin?
+    # Author
+    return true if self.user = user
+    false
   end
 end

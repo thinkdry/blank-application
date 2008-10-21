@@ -1,4 +1,9 @@
 <%# NOTE: Jimmy, je sais que tu aimes les li %>
 <li>
-	<%= object.title %>
+	<%= image_tag object.icon %>
+	<%= link_to_item object %><br>
+	<div style="float:left; font-size: 90%">le <%= object.created_at.l(:long) %> - </div>
+	<div style="float:left; font-size: 90%">&nbsp;<%= object.comments.size %> commentaires - </div>
+	<div style="float:left"><%= item_rate_locked(object) %></div>
+	<div class="clear"></div>
 </li>

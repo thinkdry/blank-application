@@ -1,0 +1,696 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Searchgasm::Condition::Base</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Searchgasm::Condition::Base</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/vendor/plugins/searchgasm-1_0_2/lib/searchgasm/condition/base_rb.html">
+                vendor/plugins/searchgasm-1.0.2/lib/searchgasm/condition/base.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h1>Conditions condition</h1>
+<p>
+The base class for creating a condition. Your custom conditions should
+extend this class. See Searchgasm::Conditions::Base.register_condition on
+how to write your own condition.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000121">aliases_for_column</a>&nbsp;&nbsp;
+      <a href="#M000123">aliases_for_klass</a>&nbsp;&nbsp;
+      <a href="#M000125">comparable_column?</a>&nbsp;&nbsp;
+      <a href="#M000119">condition_name</a>&nbsp;&nbsp;
+      <a href="#M000131">condition_name</a>&nbsp;&nbsp;
+      <a href="#M000127">explicitly_set_value=</a>&nbsp;&nbsp;
+      <a href="#M000128">explicitly_set_value?</a>&nbsp;&nbsp;
+      <a href="#M000129">ignore_blanks?</a>&nbsp;&nbsp;
+      <a href="#M000130">name</a>&nbsp;&nbsp;
+      <a href="#M000120">name_for_column</a>&nbsp;&nbsp;
+      <a href="#M000122">name_for_klass</a>&nbsp;&nbsp;
+      <a href="#M000126">new</a>&nbsp;&nbsp;
+      <a href="#M000132">quote_column_name</a>&nbsp;&nbsp;
+      <a href="#M000134">quote_table_name</a>&nbsp;&nbsp;
+      <a href="#M000133">quoted_column_name</a>&nbsp;&nbsp;
+      <a href="#M000135">quoted_table_name</a>&nbsp;&nbsp;
+      <a href="#M000124">string_column?</a>&nbsp;&nbsp;
+      <a href="#M000136">value</a>&nbsp;&nbsp;
+      <a href="#M000137">value=</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+    <div id="includes">
+      <h3 class="section-bar">Included Modules</h3>
+
+      <div id="includes-list">
+        <span class="include-name">Utilities</span>
+      </div>
+    </div>
+
+    <div id="section">
+
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">column</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">klass</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">value</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000121" class="method-detail">
+        <a name="M000121"></a>
+
+        <div class="method-heading">
+          <a href="#M000121" class="method-signature">
+          <span class="method-name">aliases_for_column</span><span class="method-args">(column)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias methods for the column condition.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000121-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000121-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/searchgasm-1.0.2/lib/searchgasm/condition/base.rb, line 26</span>
+26:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">aliases_for_column</span>(<span class="ruby-identifier">column</span>)
+27:           []
+28:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000123" class="method-detail">
+        <a name="M000123"></a>
+
+        <div class="method-heading">
+          <a href="#M000123" class="method-signature">
+          <span class="method-name">aliases_for_klass</span><span class="method-args">(klass)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias methods for the klass condition
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000123-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000123-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/searchgasm-1.0.2/lib/searchgasm/condition/base.rb, line 37</span>
+37:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">aliases_for_klass</span>(<span class="ruby-identifier">klass</span>)
+38:           []
+39:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000125" class="method-detail">
+        <a name="M000125"></a>
+
+        <div class="method-heading">
+          <a href="#M000125" class="method-signature">
+          <span class="method-name">comparable_column?</span><span class="method-args">(column)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+A utility method for using in <a
+href="Base.html#M000120">name_for_column</a>. For example you
+wouldn&#8216;t want a string column to use the greater thann condition, but
+you would for an integer column.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000125-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000125-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/searchgasm-1.0.2/lib/searchgasm/condition/base.rb, line 47</span>
+47:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">comparable_column?</span>(<span class="ruby-identifier">column</span>)
+48:           [<span class="ruby-identifier">:integer</span>, <span class="ruby-identifier">:float</span>, <span class="ruby-identifier">:decimal</span>, <span class="ruby-identifier">:datetime</span>, <span class="ruby-identifier">:timestamp</span>, <span class="ruby-identifier">:time</span>, <span class="ruby-identifier">:date</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">column</span>.<span class="ruby-identifier">type</span>)
+49:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000119" class="method-detail">
+        <a name="M000119"></a>
+
+        <div class="method-heading">
+          <a href="#M000119" class="method-signature">
+          <span class="method-name">condition_name</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Name of the condition inferred from the class <a
+href="Base.html#M000130">name</a>
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000119-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000119-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/searchgasm-1.0.2/lib/searchgasm/condition/base.rb, line 15</span>
+15:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">condition_name</span>
+16:           <span class="ruby-identifier">name</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;::&quot;</span>).<span class="ruby-identifier">last</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/Condition$/</span>, <span class="ruby-value str">&quot;&quot;</span>).<span class="ruby-identifier">underscore</span>
+17:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000120" class="method-detail">
+        <a name="M000120"></a>
+
+        <div class="method-heading">
+          <a href="#M000120" class="method-signature">
+          <span class="method-name">name_for_column</span><span class="method-args">(column)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+I pass you a column you tell me what to call the condition. If you
+don&#8216;t want to use this condition for the column just return nil
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000120-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000120-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/searchgasm-1.0.2/lib/searchgasm/condition/base.rb, line 21</span>
+21:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">name_for_column</span>(<span class="ruby-identifier">column</span>)
+22:           <span class="ruby-node">&quot;#{column.name}_#{condition_name}&quot;</span>
+23:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000122" class="method-detail">
+        <a name="M000122"></a>
+
+        <div class="method-heading">
+          <a href="#M000122" class="method-signature">
+          <span class="method-name">name_for_klass</span><span class="method-args">(klass)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Sane as <a href="Base.html#M000120">name_for_column</a> but for the class
+as a whole. For example the tree methods apply to the class as a whole and
+not specific columns. Any condition that applies to columns should probably
+return nil here.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000122-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000122-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/searchgasm-1.0.2/lib/searchgasm/condition/base.rb, line 32</span>
+32:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">name_for_klass</span>(<span class="ruby-identifier">klass</span>)
+33:           <span class="ruby-keyword kw">nil</span>
+34:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000126" class="method-detail">
+        <a name="M000126"></a>
+
+        <div class="method-heading">
+          <a href="#M000126" class="method-signature">
+          <span class="method-name">new</span><span class="method-args">(klass, column = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000126-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000126-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/searchgasm-1.0.2/lib/searchgasm/condition/base.rb, line 52</span>
+52:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">klass</span>, <span class="ruby-identifier">column</span> = <span class="ruby-keyword kw">nil</span>)          
+53:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">klass</span> = <span class="ruby-identifier">klass</span>
+54:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">column</span> = <span class="ruby-identifier">column</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">columns_hash</span>[<span class="ruby-identifier">column</span>] <span class="ruby-operator">:</span> <span class="ruby-identifier">column</span>
+55:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000124" class="method-detail">
+        <a name="M000124"></a>
+
+        <div class="method-heading">
+          <a href="#M000124" class="method-signature">
+          <span class="method-name">string_column?</span><span class="method-args">(column)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+A utility method for using in <a
+href="Base.html#M000120">name_for_column</a>. For example the keywords
+condition only applied to string columns, the great than condition doesnt.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000124-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000124-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/searchgasm-1.0.2/lib/searchgasm/condition/base.rb, line 42</span>
+42:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">string_column?</span>(<span class="ruby-identifier">column</span>)
+43:           [<span class="ruby-identifier">:string</span>, <span class="ruby-identifier">:text</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">column</span>.<span class="ruby-identifier">type</span>)
+44:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000131" class="method-detail">
+        <a name="M000131"></a>
+
+        <div class="method-heading">
+          <a href="#M000131" class="method-signature">
+          <span class="method-name">condition_name</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+A convenience method for the <a href="Base.html#M000130">name</a> of this
+condition
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000131-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000131-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/searchgasm-1.0.2/lib/searchgasm/condition/base.rb, line 78</span>
+78:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">condition_name</span>
+79:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">condition_name</span>
+80:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000127" class="method-detail">
+        <a name="M000127"></a>
+
+        <div class="method-heading">
+          <a href="#M000127" class="method-signature">
+          <span class="method-name">explicitly_set_value=</span><span class="method-args">(value)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Allows nils to be meaninful values
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000127-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000127-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/searchgasm-1.0.2/lib/searchgasm/condition/base.rb, line 58</span>
+58:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">explicitly_set_value=</span>(<span class="ruby-identifier">value</span>)
+59:         <span class="ruby-ivar">@explicitly_set_value</span> = <span class="ruby-identifier">value</span>
+60:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000128" class="method-detail">
+        <a name="M000128"></a>
+
+        <div class="method-heading">
+          <a href="#M000128" class="method-signature">
+          <span class="method-name">explicitly_set_value?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Need this if someone wants to actually use nil in a meaningful way
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000128-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000128-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/searchgasm-1.0.2/lib/searchgasm/condition/base.rb, line 63</span>
+63:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">explicitly_set_value?</span>
+64:         <span class="ruby-ivar">@explicitly_set_value</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">true</span>
+65:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000129" class="method-detail">
+        <a name="M000129"></a>
+
+        <div class="method-heading">
+          <a href="#M000129" class="method-signature">
+          <span class="method-name">ignore_blanks?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+In most cases a blank <a href="Base.html#M000136">value</a> should be
+ignored, except for conditions like equals. A blank <a
+href="Base.html#M000136">value</a> is meaningful there, but a blank <a
+href="Base.html#M000136">value</a> for they keyswords condition is not.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000129-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000129-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/searchgasm-1.0.2/lib/searchgasm/condition/base.rb, line 68</span>
+68:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ignore_blanks?</span>
+69:         <span class="ruby-keyword kw">true</span>
+70:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000130" class="method-detail">
+        <a name="M000130"></a>
+
+        <div class="method-heading">
+          <a href="#M000130" class="method-signature">
+          <span class="method-name">name</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+A convenience method for the <a href="Base.html#M000130">name</a> of the
+method for that specific column or klass
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000130-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000130-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/searchgasm-1.0.2/lib/searchgasm/condition/base.rb, line 73</span>
+73:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">name</span>
+74:         <span class="ruby-identifier">column</span> <span class="ruby-value">? </span><span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name_for_column</span>(<span class="ruby-identifier">column</span>) <span class="ruby-operator">:</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name_for_klass</span>(<span class="ruby-identifier">klass</span>)
+75:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000132" class="method-detail">
+        <a name="M000132"></a>
+
+        <div class="method-heading">
+          <a href="#M000132" class="method-signature">
+          <span class="method-name">quote_column_name</span><span class="method-args">(column_name)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Quotes a column <a href="Base.html#M000130">name</a> properly for sql.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000132-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000132-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/searchgasm-1.0.2/lib/searchgasm/condition/base.rb, line 83</span>
+83:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">quote_column_name</span>(<span class="ruby-identifier">column_name</span>)
+84:         <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">quote_column_name</span>(<span class="ruby-identifier">column_name</span>)
+85:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000134" class="method-detail">
+        <a name="M000134"></a>
+
+        <div class="method-heading">
+          <a href="#M000134" class="method-signature">
+          <span class="method-name">quote_table_name</span><span class="method-args">(table_name)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Quotes a table <a href="Base.html#M000130">name</a> properly for sql
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000134-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000134-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/searchgasm-1.0.2/lib/searchgasm/condition/base.rb, line 93</span>
+93:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">quote_table_name</span>(<span class="ruby-identifier">table_name</span>)
+94:         <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">quote_table_name</span>(<span class="ruby-identifier">table_name</span>)
+95:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000133" class="method-detail">
+        <a name="M000133"></a>
+
+        <div class="method-heading">
+          <a href="#M000133" class="method-signature">
+          <span class="method-name">quoted_column_name</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+A convenience method for using when writing your sql in to_conditions. This
+is the proper way to use a column <a href="Base.html#M000130">name</a> in a
+query for most databases
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000133-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000133-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/searchgasm-1.0.2/lib/searchgasm/condition/base.rb, line 88</span>
+88:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">quoted_column_name</span>
+89:         <span class="ruby-identifier">quote_column_name</span>(<span class="ruby-identifier">column</span>.<span class="ruby-identifier">name</span>)
+90:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000135" class="method-detail">
+        <a name="M000135"></a>
+
+        <div class="method-heading">
+          <a href="#M000135" class="method-signature">
+          <span class="method-name">quoted_table_name</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+A convenience method for using when writing your sql in to_conditions. This
+is the proper way to use a table <a href="Base.html#M000130">name</a> in a
+query for most databases
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000135-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000135-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/searchgasm-1.0.2/lib/searchgasm/condition/base.rb, line 98</span>
+ 98:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">quoted_table_name</span>
+ 99:         <span class="ruby-identifier">quote_table_name</span>(<span class="ruby-identifier">klass</span>.<span class="ruby-identifier">table_name</span>)
+100:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000136" class="method-detail">
+        <a name="M000136"></a>
+
+        <div class="method-heading">
+          <a href="#M000136" class="method-signature">
+          <span class="method-name">value</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+The <a href="Base.html#M000136">value</a> for the condition
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000136-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000136-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/searchgasm-1.0.2/lib/searchgasm/condition/base.rb, line 115</span>
+115:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">value</span>
+116:         <span class="ruby-ivar">@value</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">column</span>.<span class="ruby-identifier">type_cast</span>(<span class="ruby-ivar">@value</span>) <span class="ruby-operator">:</span> <span class="ruby-ivar">@value</span>
+117:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000137" class="method-detail">
+        <a name="M000137"></a>
+
+        <div class="method-heading">
+          <a href="#M000137" class="method-signature">
+          <span class="method-name">value=</span><span class="method-args">(v)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Sets the <a href="Base.html#M000136">value</a> for the condition, will
+ignore place if <a href="Base.html#M000129">ignore_blanks?</a>
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000137-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000137-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/searchgasm-1.0.2/lib/searchgasm/condition/base.rb, line 120</span>
+120:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">value=</span>(<span class="ruby-identifier">v</span>)
+121:         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ignore_blanks?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">v</span>.<span class="ruby-identifier">blank?</span>
+122:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">explicitly_set_value</span> = <span class="ruby-keyword kw">true</span>
+123:         <span class="ruby-ivar">@value</span> = <span class="ruby-identifier">v</span>
+124:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>
