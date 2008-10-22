@@ -88,8 +88,6 @@ Rails::Initializer.run do |config|
 
   # RESTful authentification observer
   config.active_record.observers = :user_observer
-
-  config.gem "rmagick", :lib => 'RMagick'
 end
 
 Globalite.language = :fr
