@@ -4,7 +4,7 @@
 
 * Update you rubygem version:
  
-$ sudo gem update --system
+  $ sudo gem update --system
 
 * Install required gems
   - rmagick
