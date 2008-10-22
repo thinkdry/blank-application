@@ -11,12 +11,12 @@
   <br />
   <div id="area_INFOS">
   	<h4>Mes informations personnelles</h4>
-  	<%= image_tag(url_for_file_column(current_user, 'image_path'), :class => "avatar", :align => "right") if current_user.image_path %>
-  	<p><span class="label-txt">Lieu  :</span> <span class="content-txt"><%= current_user.laboratory %></span></p>
-  	<p><span class="label-txt">Activité : </span><span class="content-txt"><%= current_user.activity %></span></p>
+  	<%= image_tag(url_for_file_column(@current_user, 'image_path'), :class => "avatar", :align => "right") if @current_user.image_path %>
+  	<p><span class="label-txt">Lieu  :</span> <span class="content-txt"><%= @current_user.laboratory %></span></p>
+  	<p><span class="label-txt">Activité : </span><span class="content-txt"><%= @current_user.activity %></span></p>
 	<br>
-  	<p><span class="label-txt">Email :</span> <span class="content-txt"><%= current_user.email %></span></p>
-  	<p><span class="label-txt">Téléphone :</span> <span class="content-txt"><%= current_user.phone %></span></p>
+  	<p><span class="label-txt">Email :</span> <span class="content-txt"><%= @current_user.email %></span></p>
+  	<p><span class="label-txt">Téléphone :</span> <span class="content-txt"><%= @current_user.phone %></span></p>
   </div>
 </div>
 <div class="area_RIGHT">

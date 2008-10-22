@@ -6,19 +6,21 @@ class User < ActiveRecord::Base
   include Authentication::ByPassword
   include Authentication::ByCookieToken
 
-	acts_as_authorized_user
+  acts_as_authorized_user
   acts_as_authorizable	
 
-	has_many :users_workspaces, :dependent => :delete_all
-	has_many :workspaces, :through => :users_workspaces
-	has_many :artic_files
-	has_many :audios
-	has_many :videos
-	has_many :images
-	has_many :articles
-	has_many :rattings
-	has_many :comments
-	belongs_to :system_role
+  has_many :users_workspaces, :dependent => :delete_all
+  has_many :workspaces, :through => :users_workspaces
+  has_many :artic_files
+  has_many :audios
+  has_many :videos
+  has_many :images
+  has_many :articles
+  has_many :rattings
+  has_many :comments
+  has_many :pubmed_sources
+  has_many :pubmed_items, :through => :pubmed_sources
+  belongs_to :system_role
   
   file_column :image_path, :magick => {:size => "200x200>"}
 

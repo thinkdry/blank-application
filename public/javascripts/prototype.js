@@ -2693,7 +2693,7 @@ document.viewport = {
       window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop);
   }
 };
-/* Portions of the Selector class are derived from Jack Slocum’s DomQuery,
+/* Portions of the Selector class are derived from Jack Slocumâ€™s DomQuery,
  * part of YUI-Ext version 0.40, distributed under the terms of an MIT-style
  * license.  Please see http://www.yui-ext.com/ for more information. */
 
