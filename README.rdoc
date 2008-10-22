@@ -3,6 +3,7 @@
 == Installation
 
 * Update you rubygem version:
+  
   $ sudo gem update --system
 
 * Install required gems
