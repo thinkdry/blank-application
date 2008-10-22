@@ -4,6 +4,9 @@
 
 * Update you rubygem version:
     $ sudo gem update --system
+    
+* Install ImageMagick
+    $ sudo apt-get install imagemagick libmagick9-dev
 
 * Install required gems
   - rmagick
