@@ -12,7 +12,6 @@ module ActiveSupport
         else
           self << [key, value]
         end
-        value
       end
 
       def [](key)
@@ -39,20 +38,6 @@ module ActiveSupport
           each { |array| hash[array[0]] = array[1] }
         end
       end
-
-      def has_key?(k)
-        !assoc(k).nil?
-      end
-
-      alias_method :key?, :has_key?
-      alias_method :include?, :has_key?
-      alias_method :member?, :has_key?
-
-      def has_value?(v)
-        any? { |key, value| value == v }
-      end
-
-      alias_method :value?, :has_value?
     end
   end
 end

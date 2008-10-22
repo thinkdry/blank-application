@@ -1,8 +1,9 @@
 require 'test_helper'
 
 class <%= class_name %>Test < ActionMailer::TestCase
+  tests <%= class_name %>
 <% for action in actions -%>
-  test "<%= action %>" do
+  def test_<%= action %>
     @expected.subject = '<%= class_name %>#<%= action %>'
     @expected.body    = read_fixture('<%= action %>')
     @expected.date    = Time.now
@@ -13,7 +14,7 @@ class <%= class_name %>Test < ActionMailer::TestCase
 <% end -%>
 <% if actions.blank? -%>
   # replace this with your real tests
-  test "the truth" do
+  def test_truth
     assert true
   end
 <% end -%>

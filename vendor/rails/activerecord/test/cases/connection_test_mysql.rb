@@ -24,7 +24,7 @@ class MysqlConnectionTest < ActiveRecord::TestCase
     assert @connection.active?
     @connection.update('set @@wait_timeout=1')
     sleep 2
-    @connection.verify!
+    @connection.verify!(0)
     assert @connection.active?
   end
 end

@@ -43,6 +43,8 @@ end
 # can change this behavior by setting ActionController::Base.allow_concurrency
 # to true.
 class DispatchServlet < WEBrick::HTTPServlet::AbstractServlet
+  REQUEST_MUTEX = Mutex.new
+
   # Start the WEBrick server with the given options, mounting the
   # DispatchServlet at <tt>/</tt>.
   def self.dispatch(options = {})
@@ -71,8 +73,15 @@ class DispatchServlet < WEBrick::HTTPServlet::AbstractServlet
 
   def service(req, res) #:nodoc:
     unless handle_file(req, res)
-      unless handle_dispatch(req, res)
-        raise WEBrick::HTTPStatus::NotFound, "`#{req.path}' not found."
+      begin
+        REQUEST_MUTEX.lock unless ActionController::Base.allow_concurrency
+        unless handle_dispatch(req, res)
+          raise WEBrick::HTTPStatus::NotFound, "`#{req.path}' not found."
+        end
+      ensure
+        unless ActionController::Base.allow_concurrency
+          REQUEST_MUTEX.unlock if REQUEST_MUTEX.locked?
+        end
       end
     end
   end

@@ -114,11 +114,7 @@ module ActionController #:nodoc:
         @request    = controller.request
         @response   = controller.response
 
-        if ActionController::Base.use_accept_header
-          @mime_type_priority = Array(Mime::Type.lookup_by_extension(@request.parameters[:format]) || @request.accepts)
-        else
-          @mime_type_priority = [@request.format]
-        end
+        @mime_type_priority = Array(Mime::Type.lookup_by_extension(@request.parameters[:format]) || @request.accepts)
 
         @order     = []
         @responses = {}
