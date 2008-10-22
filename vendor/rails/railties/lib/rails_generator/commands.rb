@@ -57,17 +57,6 @@ module Rails
         end
 
         protected
-          def current_migration_number
-            Dir.glob("#{RAILS_ROOT}/#{@migration_directory}/[0-9]*_*.rb").inject(0) do |max, file_path|
-              n = File.basename(file_path).split('_', 2).first.to_i
-              if n > max then n else max end
-            end
-          end
-             
-          def next_migration_number
-            current_migration_number + 1
-          end
-               
           def migration_directory(relative_path)
             directory(@migration_directory = relative_path)
           end
@@ -81,11 +70,7 @@ module Rails
           end
 
           def next_migration_string(padding = 3)
-            if ActiveRecord::Base.timestamped_migrations
-              Time.now.utc.strftime("%Y%m%d%H%M%S")
-            else
-              "%.#{padding}d" % next_migration_number
-            end
+            Time.now.utc.strftime("%Y%m%d%H%M%S")
           end
 
           def gsub_file(relative_destination, regexp, *args, &block)
@@ -103,7 +88,7 @@ module Rails
                 Tempfile.open(File.basename(destination), File.dirname(dst)) do |temp|
                   temp.write render_file(src, file_options, &block)
                   temp.rewind
-                  $stdout.puts `#{diff_cmd} "#{dst}" "#{temp.path}"`
+                  $stdout.puts `#{diff_cmd} #{dst} #{temp.path}`
                 end
                 puts "retrying"
                 raise 'retry diff'
@@ -169,29 +154,35 @@ HELP
         # Ruby or Rails.  In the future, expand to check other namespaces
         # such as the rest of the user's app.
         def class_collisions(*class_names)
-          path = class_names.shift
+
+          # Initialize some check varibles
+          last_class = Object
+          current_class = nil
+          name = nil
+
           class_names.flatten.each do |class_name|
             # Convert to string to allow symbol arguments.
             class_name = class_name.to_s
 
             # Skip empty strings.
-            next if class_name.strip.empty?
+            class_name.strip.empty? ? next : current_class = class_name
 
             # Split the class from its module nesting.
             nesting = class_name.split('::')
             name = nesting.pop
 
             # Extract the last Module in the nesting.
-            last = nesting.inject(Object) { |last, nest|
-              break unless last.const_defined?(nest)
-              last.const_get(nest)
+            last = nesting.inject(last_class) { |last, nest|
+              break unless last_class.const_defined?(nest)
+              last_class = last_class.const_get(nest)
             }
 
-            # If the last Module exists, check whether the given
-            # class exists and raise a collision if so.
-            if last and last.const_defined?(name.camelize)
-              raise_class_collision(class_name)
-            end
+          end
+          # If the last Module exists, check whether the given
+          # class exists and raise a collision if so.
+
+          if last_class and last_class.const_defined?(name.camelize)
+            raise_class_collision(current_class)
           end
         end
 

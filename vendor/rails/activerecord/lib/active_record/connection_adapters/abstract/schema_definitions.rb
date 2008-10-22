@@ -1,5 +1,4 @@
 require 'date'
-require 'set'
 require 'bigdecimal'
 require 'bigdecimal/util'
 
@@ -7,8 +6,6 @@ module ActiveRecord
   module ConnectionAdapters #:nodoc:
     # An abstract definition of a column in a table.
     class Column
-      TRUE_VALUES = [true, 1, '1', 't', 'T', 'true', 'TRUE'].to_set
-
       module Format
         ISO_DATE = /\A(\d{4})-(\d\d)-(\d\d)\z/
         ISO_DATETIME = /\A(\d{4})-(\d\d)-(\d\d) (\d\d):(\d\d):(\d\d)(\.\d+)?\z/
@@ -33,15 +30,11 @@ module ActiveRecord
       end
 
       def text?
-        type == :string || type == :text
+        [:string, :text].include? type
       end
 
       def number?
-        type == :integer || type == :float || type == :decimal
-      end
-
-      def has_default?
-        !default.nil?
+        [:float, :integer, :decimal].include? type
       end
 
       # Returns the Ruby class that corresponds to the abstract data type.
@@ -142,10 +135,10 @@ module ActiveRecord
 
         # convert something to a boolean
         def value_to_boolean(value)
-          if value.is_a?(String) && value.blank?
-            nil
+          if value == true || value == false
+            value
           else
-            TRUE_VALUES.include?(value)
+            %w(true t 1).include?(value.to_s.downcase)
           end
         end
 
@@ -256,10 +249,6 @@ module ActiveRecord
     class IndexDefinition < Struct.new(:table, :name, :unique, :columns) #:nodoc:
     end
 
-    # Abstract representation of a column definition. Instances of this type
-    # are typically created by methods in TableDefinition, and added to the
-    # +columns+ attribute of said TableDefinition object, in order to be used
-    # for generating a number of table creation or table changing SQL statements.
     class ColumnDefinition < Struct.new(:base, :name, :type, :limit, :precision, :scale, :default, :null) #:nodoc:
 
       def sql_type
@@ -268,10 +257,7 @@ module ActiveRecord
 
       def to_sql
         column_sql = "#{base.quote_column_name(name)} #{sql_type}"
-        column_options = {}
-        column_options[:null] = null unless null.nil?
-        column_options[:default] = default unless default.nil?
-        add_column_options!(column_sql, column_options) unless type.to_sym == :primary_key
+        add_column_options!(column_sql, :null => null, :default => default) unless type.to_sym == :primary_key
         column_sql
       end
       alias to_s :to_sql
@@ -283,29 +269,9 @@ module ActiveRecord
         end
     end
 
-    # Represents the schema of an SQL table in an abstract way. This class
-    # provides methods for manipulating the schema representation.
-    #
-    # Inside migration files, the +t+ object in +create_table+ and
-    # +change_table+ is actually of this type:
-    #
-    #   class SomeMigration < ActiveRecord::Migration
-    #     def self.up
-    #       create_table :foo do |t|
-    #         puts t.class  # => "ActiveRecord::ConnectionAdapters::TableDefinition"
-    #       end
-    #     end
-    #     
-    #     def self.down
-    #       ...
-    #     end
-    #   end
-    #
-    # The table definitions
-    # The Columns are stored as a ColumnDefinition in the +columns+ attribute.
+    # Represents a SQL table in an abstract way.
+    # Columns are stored as a ColumnDefinition in the +columns+ attribute.
     class TableDefinition
-      # An array of ColumnDefinition objects, representing the column changes
-      # that have been defined.
       attr_accessor :columns
 
       def initialize(base)
@@ -338,7 +304,8 @@ module ActiveRecord
       #
       # Available options are (none of these exists by default):
       # * <tt>:limit</tt> -
-      #   Requests a maximum column length. This is number of characters for <tt>:string</tt> and <tt>:text</tt> columns and number of bytes for :binary and :integer columns.
+      #   Requests a maximum column length (<tt>:string</tt>, <tt>:text</tt>,
+      #   <tt>:binary</tt> or <tt>:integer</tt> columns only)
       # * <tt>:default</tt> -
       #   The column's default value. Use nil for NULL.
       # * <tt>:null</tt> -
@@ -348,12 +315,6 @@ module ActiveRecord
       #   Specifies the precision for a <tt>:decimal</tt> column.
       # * <tt>:scale</tt> -
       #   Specifies the scale for a <tt>:decimal</tt> column.
-      #
-      # For clarity's sake: the precision is the number of significant digits,
-      # while the scale is the number of digits that can be stored following
-      # the decimal point. For example, the number 123.45 has a precision of 5
-      # and a scale of 2. A decimal with a precision of 5 and a scale of 2 can
-      # range from -999.99 to 999.99.
       #
       # Please be aware of different RDBMS implementations behavior with
       # <tt>:decimal</tt> columns:
@@ -407,10 +368,6 @@ module ActiveRecord
       #  # probably wouldn't hurt to include it.
       #  td.column(:huge_integer, :decimal, :precision => 30)
       #  # => huge_integer DECIMAL(30)
-      #
-      #  # Defines a column with a database-specific type.
-      #  td.column(:foo, 'polygon')
-      #  # => foo polygon
       #
       # == Short-hand examples
       #
@@ -485,10 +442,9 @@ module ActiveRecord
 
       # Appends <tt>:datetime</tt> columns <tt>:created_at</tt> and
       # <tt>:updated_at</tt> to the table.
-      def timestamps(*args)
-        options = args.extract_options!
-        column(:created_at, :datetime, options)
-        column(:updated_at, :datetime, options)
+      def timestamps
+        column(:created_at, :datetime)
+        column(:updated_at, :datetime)
       end
 
       def references(*args)

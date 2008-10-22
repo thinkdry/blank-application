@@ -16,7 +16,7 @@ def helper(*helper_names)
   end
 end
 
-require_dependency 'application'
+require 'application'
 
 class << helper 
   include_all_modules_from ActionView

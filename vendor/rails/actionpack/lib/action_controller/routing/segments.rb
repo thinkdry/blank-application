@@ -2,15 +2,13 @@ module ActionController
   module Routing
     class Segment #:nodoc:
       RESERVED_PCHAR = ':@&=+$,;'
-      SAFE_PCHAR = "#{URI::REGEXP::PATTERN::UNRESERVED}#{RESERVED_PCHAR}"
-      UNSAFE_PCHAR = Regexp.new("[^#{SAFE_PCHAR}]", false, 'N').freeze
+      UNSAFE_PCHAR = Regexp.new("[^#{URI::REGEXP::PATTERN::UNRESERVED}#{RESERVED_PCHAR}]", false, 'N').freeze
 
-      # TODO: Convert :is_optional accessor to read only
       attr_accessor :is_optional
       alias_method :optional?, :is_optional
 
       def initialize
-        @is_optional = false
+        self.is_optional = false
       end
 
       def extraction_code
@@ -65,14 +63,12 @@ module ActionController
     end
 
     class StaticSegment < Segment #:nodoc:
-      attr_reader :value, :raw
+      attr_accessor :value, :raw
       alias_method :raw?, :raw
 
-      def initialize(value = nil, options = {})
+      def initialize(value = nil)
         super()
-        @value = value
-        @raw = options[:raw] if options.key?(:raw)
-        @is_optional = options[:optional] if options.key?(:optional)
+        self.value = value
       end
 
       def interpolation_chunk
@@ -101,8 +97,10 @@ module ActionController
     end
 
     class DividerSegment < StaticSegment #:nodoc:
-      def initialize(value = nil, options = {})
-        super(value, {:raw => true, :optional => true}.merge(options))
+      def initialize(value = nil)
+        super(value)
+        self.raw = true
+        self.is_optional = true
       end
 
       def optionality_implied?
@@ -111,17 +109,13 @@ module ActionController
     end
 
     class DynamicSegment < Segment #:nodoc:
-      attr_reader :key
-
-      # TODO: Convert these accessors to read only
-      attr_accessor :default, :regexp
+      attr_accessor :key, :default, :regexp
 
       def initialize(key = nil, options = {})
         super()
-        @key = key
-        @default = options[:default] if options.key?(:default)
-        @regexp = options[:regexp] if options.key?(:regexp)
-        @is_optional = true if options[:optional] || options.key?(:default)
+        self.key = key
+        self.default = options[:default] if options.key? :default
+        self.is_optional = true if options[:optional] || options.key?(:default)
       end
 
       def to_s
@@ -136,7 +130,6 @@ module ActionController
       def extract_value
         "#{local_name} = hash[:#{key}] && hash[:#{key}].to_param #{"|| #{default.inspect}" if default}"
       end
-
       def value_check
         if default # Then we know it won't be nil
           "#{value_regexp.inspect} =~ #{local_name}" if regexp
@@ -148,7 +141,6 @@ module ActionController
           "#{local_name} #{"&& #{value_regexp.inspect} =~ #{local_name}" if regexp}"
         end
       end
-
       def expiry_statement
         "expired, hash = true, options if !expired && expire_on[:#{key}]"
       end
@@ -160,7 +152,7 @@ module ActionController
         s << "\n#{expiry_statement}"
       end
 
-      def interpolation_chunk(value_code = local_name)
+      def interpolation_chunk(value_code = "#{local_name}")
         "\#{URI.escape(#{value_code}.to_s, ActionController::Routing::Segment::UNSAFE_PCHAR)}"
       end
 
@@ -183,7 +175,7 @@ module ActionController
       end
 
       def regexp_chunk
-        if regexp
+        if regexp 
           if regexp_has_modifiers?
             "(#{regexp.to_s})"
           else
@@ -222,6 +214,7 @@ module ActionController
       def regexp_has_modifiers?
         regexp.options & (Regexp::IGNORECASE | Regexp::EXTENDED) != 0
       end
+
     end
 
     class ControllerSegment < DynamicSegment #:nodoc:
@@ -231,7 +224,7 @@ module ActionController
       end
 
       # Don't URI.escape the controller name since it may contain slashes.
-      def interpolation_chunk(value_code = local_name)
+      def interpolation_chunk(value_code = "#{local_name}")
         "\#{#{value_code}.to_s}"
       end
 
@@ -251,12 +244,12 @@ module ActionController
     end
 
     class PathSegment < DynamicSegment #:nodoc:
-      def interpolation_chunk(value_code = local_name)
+      def interpolation_chunk(value_code = "#{local_name}")
         "\#{#{value_code}}"
       end
 
       def extract_value
-        "#{local_name} = hash[:#{key}] && Array(hash[:#{key}]).collect { |path_component| URI.escape(path_component.to_param, ActionController::Routing::Segment::UNSAFE_PCHAR) }.to_param #{"|| #{default.inspect}" if default}"
+        "#{local_name} = hash[:#{key}] && hash[:#{key}].collect { |path_component| URI.escape(path_component.to_param, ActionController::Routing::Segment::UNSAFE_PCHAR) }.to_param #{"|| #{default.inspect}" if default}"
       end
 
       def default

@@ -1,19 +1,20 @@
 module ActionView #:nodoc:
-  class InlineTemplate #:nodoc:
-    include Renderable
-
-    attr_reader :source, :extension, :method_segment
-
-    def initialize(source, type = nil)
+  class InlineTemplate < Template #:nodoc:
+    
+    def initialize(view, source, locals = {}, type = nil)
+      @view = view
+      @finder = @view.finder
+      
       @source = source
       @extension = type
-      @method_segment = "inline_#{@source.hash.abs}"
+      @locals = locals || {}
+      
+      @handler = self.class.handler_class_for_extension(@extension).new(@view)
     end
-
-    private
-      # Always recompile inline templates
-      def recompile?(local_assigns)
-        true
-      end
+    
+    def method_key
+      @source
+    end
+    
   end
 end

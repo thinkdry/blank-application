@@ -7,28 +7,22 @@ module ActiveRecord
       end
 
       def create(attrs = {}, replace_existing = true)
-        new_record(replace_existing) do |reflection|
-          reflection.create_association(attrs)
-        end
+        new_record(replace_existing) { |klass| klass.create(attrs) }
       end
 
       def create!(attrs = {}, replace_existing = true)
-        new_record(replace_existing) do |reflection|
-          reflection.create_association!(attrs)
-        end
+        new_record(replace_existing) { |klass| klass.create!(attrs) }
       end
 
       def build(attrs = {}, replace_existing = true)
-        new_record(replace_existing) do |reflection|
-          reflection.build_association(attrs)
-        end
+        new_record(replace_existing) { |klass| klass.new(attrs) }
       end
 
       def replace(obj, dont_save = false)
         load_target
 
-        unless @target.nil? || @target == obj
-          if dependent? && !dont_save
+        unless @target.nil?
+          if dependent? && !dont_save && @target != obj
             @target.destroy unless @target.new_record?
             @owner.clear_association_cache
           else
@@ -53,16 +47,7 @@ module ActiveRecord
           return (obj.nil? ? nil : self)
         end
       end
-
-      protected
-        def owner_quoted_id
-          if @reflection.options[:primary_key]
-            @owner.class.quote_value(@owner.send(@reflection.options[:primary_key]))
-          else
-            @owner.quoted_id
-          end
-        end
-
+            
       private
         def find_target
           @reflection.klass.find(:first, 
@@ -78,10 +63,10 @@ module ActiveRecord
           case
             when @reflection.options[:as]
               @finder_sql = 
-                "#{@reflection.quoted_table_name}.#{@reflection.options[:as]}_id = #{owner_quoted_id} AND " +
+                "#{@reflection.quoted_table_name}.#{@reflection.options[:as]}_id = #{@owner.quoted_id} AND " +
                 "#{@reflection.quoted_table_name}.#{@reflection.options[:as]}_type = #{@owner.class.quote_value(@owner.class.base_class.name.to_s)}"
             else
-              @finder_sql = "#{@reflection.quoted_table_name}.#{@reflection.primary_key_name} = #{owner_quoted_id}"
+              @finder_sql = "#{@reflection.quoted_table_name}.#{@reflection.primary_key_name} = #{@owner.quoted_id}"
           end
           @finder_sql << " AND (#{conditions})" if conditions
         end
@@ -97,9 +82,7 @@ module ActiveRecord
           # instance. Otherwise, if the target has not previously been loaded
           # elsewhere, the instance we create will get orphaned.
           load_target if replace_existing
-          record = @reflection.klass.send(:with_scope, :create => construct_scope[:create]) do
-            yield @reflection
-          end
+          record = @reflection.klass.send(:with_scope, :create => construct_scope[:create]) { yield @reflection.klass }
 
           if replace_existing
             replace(record, true) 

@@ -28,24 +28,24 @@ module ActiveResource
 
   # 3xx Redirection
   class Redirection < ConnectionError # :nodoc:
-    def to_s; response['Location'] ? "#{super} => #{response['Location']}" : super; end
-  end
+    def to_s; response['Location'] ? "#{super} => #{response['Location']}" : super; end    
+  end 
 
   # 4xx Client Error
   class ClientError < ConnectionError; end # :nodoc:
-
+  
   # 400 Bad Request
   class BadRequest < ClientError; end # :nodoc
-
+  
   # 401 Unauthorized
   class UnauthorizedAccess < ClientError; end # :nodoc
-
+  
   # 403 Forbidden
   class ForbiddenAccess < ClientError; end # :nodoc
-
+  
   # 404 Not Found
   class ResourceNotFound < ClientError; end # :nodoc:
-
+  
   # 409 Conflict
   class ResourceConflict < ClientError; end # :nodoc:
 
@@ -63,13 +63,6 @@ module ActiveResource
   # This class is used by ActiveResource::Base to interface with REST
   # services.
   class Connection
-
-    HTTP_FORMAT_HEADER_NAMES = {  :get => 'Accept',
-      :put => 'Content-Type',
-      :post => 'Content-Type',
-      :delete => 'Accept'
-    }
-
     attr_reader :site, :user, :password, :timeout
     attr_accessor :format
 
@@ -113,25 +106,25 @@ module ActiveResource
     # Execute a GET request.
     # Used to get (find) resources.
     def get(path, headers = {})
-      format.decode(request(:get, path, build_request_headers(headers, :get)).body)
+      format.decode(request(:get, path, build_request_headers(headers)).body)
     end
 
     # Execute a DELETE request (see HTTP protocol documentation if unfamiliar).
     # Used to delete resources.
     def delete(path, headers = {})
-      request(:delete, path, build_request_headers(headers, :delete))
+      request(:delete, path, build_request_headers(headers))
     end
 
     # Execute a PUT request (see HTTP protocol documentation if unfamiliar).
     # Used to update resources.
     def put(path, body = '', headers = {})
-      request(:put, path, body.to_s, build_request_headers(headers, :put))
+      request(:put, path, body.to_s, build_request_headers(headers))
     end
 
     # Execute a POST request.
     # Used to create new resources.
     def post(path, body = '', headers = {})
-      request(:post, path, body.to_s, build_request_headers(headers, :post))
+      request(:post, path, body.to_s, build_request_headers(headers))
     end
 
     # Execute a HEAD request.
@@ -147,7 +140,7 @@ module ActiveResource
         logger.info "#{method.to_s.upcase} #{site.scheme}://#{site.host}:#{site.port}#{path}" if logger
         result = nil
         time = Benchmark.realtime { result = http.send(method, path, *arguments) }
-        logger.info "--> %d %s (%d %.2fs)" % [result.code, result.message, result.body ? result.body.length : 0, time] if logger
+        logger.info "--> #{result.code} #{result.message} (#{result.body ? result.body.length : 0}b %.2fs)" % time if logger
         handle_response(result)
       rescue Timeout::Error => e
         raise TimeoutError.new(e.message)
@@ -194,12 +187,12 @@ module ActiveResource
       end
 
       def default_header
-        @default_header ||= {}
+        @default_header ||= { 'Content-Type' => format.mime_type }
       end
 
       # Builds headers for request to remote service.
-      def build_request_headers(headers, http_method=nil)
-        authorization_header.update(default_header).update(http_format_header(http_method)).update(headers)
+      def build_request_headers(headers)
+        authorization_header.update(default_header).update(headers)
       end
 
       # Sets authorization header
@@ -207,12 +200,8 @@ module ActiveResource
         (@user || @password ? { 'Authorization' => 'Basic ' + ["#{@user}:#{ @password}"].pack('m').delete("\r\n") } : {})
       end
 
-      def http_format_header(http_method)
-        {HTTP_FORMAT_HEADER_NAMES[http_method] => format.mime_type}
-      end
-
       def logger #:nodoc:
-        Base.logger
+        ActiveResource::Base.logger
       end
   end
 end

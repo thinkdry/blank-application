@@ -62,11 +62,6 @@ class RescueController < ActionController::Base
     render :text => exception.message
   end
 
-  # This is a Dispatcher exception and should be in ApplicationController.
-  rescue_from ActionController::RoutingError do
-    render :text => 'no way'
-  end
-
   def raises
     render :text => 'already rendered'
     raise "don't panic!"
@@ -75,7 +70,7 @@ class RescueController < ActionController::Base
   def method_not_allowed
     raise ActionController::MethodNotAllowed.new(:get, :head, :put)
   end
-
+  
   def not_implemented
     raise ActionController::NotImplemented.new(:get, :put)
   end
@@ -107,7 +102,7 @@ class RescueController < ActionController::Base
   def record_invalid_raise_as_string
     raise RecordInvalidToRescueAsString
   end
-
+  
   def bad_gateway
     raise BadGateway
   end
@@ -135,19 +130,18 @@ class RescueController < ActionController::Base
     end
 end
 
-class RescueControllerTest < ActionController::TestCase
+class RescueTest < Test::Unit::TestCase
   FIXTURE_PUBLIC = "#{File.dirname(__FILE__)}/../fixtures".freeze
 
-  setup :set_all_requests_local
-  setup :populate_exception_object
+  def setup
+    @controller = RescueController.new
+    @request    = ActionController::TestRequest.new
+    @response   = ActionController::TestResponse.new
 
-  def set_all_requests_local
     RescueController.consider_all_requests_local = true
     @request.remote_addr = '1.2.3.4'
     @request.host = 'example.com'
-  end
 
-  def populate_exception_object
     begin
       raise 'foo'
     rescue => @exception
@@ -308,7 +302,7 @@ class RescueControllerTest < ActionController::TestCase
       assert_nil @controller.send(:clean_backtrace, Exception.new)
     end
   end
-
+  
   def test_not_implemented
     with_all_requests_local false do
       with_rails_public_path(".") do
@@ -384,10 +378,6 @@ class RescueControllerTest < ActionController::TestCase
     assert_equal "RescueController::ResourceUnavailableToRescueAsString", @response.body
   end
 
-  def test_rescue_dispatcher_exceptions
-    RescueController.process_with_exception(@request, @response, ActionController::RoutingError.new("Route not found"))
-    assert_equal "no way", @response.body
-  end
 
   protected
     def with_all_requests_local(local = true)
@@ -464,7 +454,14 @@ class ExceptionInheritanceRescueController < ActionController::Base
   end
 end
 
-class ExceptionInheritanceRescueControllerTest < ActionController::TestCase
+class ExceptionInheritanceRescueTest < Test::Unit::TestCase
+
+  def setup
+    @controller = ExceptionInheritanceRescueController.new
+    @request    = ActionController::TestRequest.new
+    @response   = ActionController::TestResponse.new
+  end
+
   def test_bottom_first
     get :raise_grandchild_exception
     assert_response :no_content
@@ -494,7 +491,14 @@ class ControllerInheritanceRescueController < ExceptionInheritanceRescueControll
   end
 end
 
-class ControllerInheritanceRescueControllerTest < ActionController::TestCase
+class ControllerInheritanceRescueControllerTest < Test::Unit::TestCase
+
+  def setup
+    @controller = ControllerInheritanceRescueController.new
+    @request    = ActionController::TestRequest.new
+    @response   = ActionController::TestResponse.new
+  end
+
   def test_first_exception_in_child_controller
     get :raise_first_exception_in_child_controller
     assert_response :gone

@@ -3,7 +3,6 @@
 development:
   adapter: sqlite
   database: db/development.sqlite2
-  pool: 5
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -11,9 +10,7 @@ development:
 test:
   adapter: sqlite
   database: db/test.sqlite2
-  pool: 5
 
 production:
   adapter: sqlite
   database: db/production.sqlite2
-  pool: 5

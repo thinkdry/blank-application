@@ -2,11 +2,11 @@ module ActiveRecord
   module Associations
     class BelongsToAssociation < AssociationProxy #:nodoc:
       def create(attributes = {})
-        replace(@reflection.create_association(attributes))
+        replace(@reflection.klass.create(attributes))
       end
 
       def build(attributes = {})
-        replace(@reflection.build_association(attributes))
+        replace(@reflection.klass.new(attributes))
       end
 
       def replace(record)

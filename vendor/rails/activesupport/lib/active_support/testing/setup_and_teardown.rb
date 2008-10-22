@@ -10,46 +10,19 @@ module ActiveSupport
         end
 
       def self.included(base)
-        base.class_eval do
-          include ActiveSupport::Callbacks
-          define_callbacks :setup, :teardown
+        base.send :include, ActiveSupport::Callbacks
+        base.define_callbacks :setup, :teardown
 
-          if defined?(::Mini)
-            undef_method :run
-            alias_method :run, :run_with_callbacks_and_miniunit
-          else
-            begin
-              require 'mocha'
-              undef_method :run
-              alias_method :run, :run_with_callbacks_and_mocha
-            rescue LoadError
-              undef_method :run
-              alias_method :run, :run_with_callbacks_and_testunit
-            end
-          end
-        end
-      end
-
-      def run_with_callbacks_and_miniunit(runner)
-        result = '.'
         begin
-          run_callbacks :setup
-          result = super
-        rescue Exception => e
-          result = runner.puke(self.class, self.name, e)
-        ensure
-          begin
-            teardown
-            run_callbacks :teardown, :enumerator => :reverse_each
-          rescue Exception => e
-            result = runner.puke(self.class, self.name, e)
-          end
+          require 'mocha'
+          base.alias_method_chain :run, :callbacks_and_mocha
+        rescue LoadError
+          base.alias_method_chain :run, :callbacks
         end
-        result
       end
 
       # This redefinition is unfortunate but test/unit shows us no alternative.
-      def run_with_callbacks_and_testunit(result) #:nodoc:
+      def run_with_callbacks(result) #:nodoc:
         return if @method_name.to_s == "default_test"
 
         yield(Test::Unit::TestCase::STARTED, name)

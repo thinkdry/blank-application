@@ -77,64 +77,49 @@ class ComponentsTest < Test::Unit::TestCase
   end
 
   def test_calling_from_controller
-    assert_deprecated do
-      get :calling_from_controller
-      assert_equal "Lady of the House, speaking", @response.body
-    end
+    get :calling_from_controller
+    assert_equal "Lady of the House, speaking", @response.body
   end
 
   def test_calling_from_controller_with_params
-    assert_deprecated do
-      get :calling_from_controller_with_params
-      assert_equal "David of the House, speaking", @response.body
-    end
+    get :calling_from_controller_with_params
+    assert_equal "David of the House, speaking", @response.body
   end
 
   def test_calling_from_controller_with_different_status_code
-    assert_deprecated do
-      get :calling_from_controller_with_different_status_code
-      assert_equal 500, @response.response_code
-    end
+    get :calling_from_controller_with_different_status_code
+    assert_equal 500, @response.response_code
   end
 
   def test_calling_from_template
-    assert_deprecated do
-      get :calling_from_template
-      assert_equal "Ring, ring: Lady of the House, speaking", @response.body
-    end
+    get :calling_from_template
+    assert_equal "Ring, ring: Lady of the House, speaking", @response.body
   end
 
   def test_etag_is_set_for_parent_template_when_calling_from_template
-    assert_deprecated do
-      get :calling_from_template
-      expected_etag = etag_for("Ring, ring: Lady of the House, speaking")
-      assert_equal expected_etag, @response.headers['ETag']
-    end
+    get :calling_from_template
+    expected_etag = etag_for("Ring, ring: Lady of the House, speaking")
+    assert_equal expected_etag, @response.headers['ETag']
   end
 
   def test_internal_calling
-    assert_deprecated do
-      get :internal_caller
-      assert_equal "Are you there? Yes, ma'am", @response.body
-    end
+    get :internal_caller
+    assert_equal "Are you there? Yes, ma'am", @response.body
   end
 
   def test_flash
-    assert_deprecated do
-      get :set_flash
-      assert_equal 'My stoney baby', flash[:notice]
-      get :use_flash
-      assert_equal 'My stoney baby', @response.body
-      get :use_flash
-      assert_equal 'no flash', @response.body
-    end
+    get :set_flash
+    assert_equal 'My stoney baby', flash[:notice]
+    get :use_flash
+    assert_equal 'My stoney baby', @response.body
+    get :use_flash
+    assert_equal 'no flash', @response.body
   end
 
   def test_component_redirect_redirects
-    assert_deprecated do
-      get :calling_redirected
-      assert_redirected_to :controller=>"callee", :action => "being_called"
-    end
+    get :calling_redirected
+
+    assert_redirected_to :action => "being_called"
   end
 
   def test_component_multiple_redirect_redirects
@@ -143,10 +128,9 @@ class ComponentsTest < Test::Unit::TestCase
   end
 
   def test_component_as_string_redirect_renders_redirected_action
-    assert_deprecated do
-      get :calling_redirected_as_string
-      assert_equal "Lady of the House, speaking", @response.body
-    end
+    get :calling_redirected_as_string
+
+    assert_equal "Lady of the House, speaking", @response.body
   end
 
   protected
