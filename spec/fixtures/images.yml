@@ -1,0 +1,8 @@
+one:
+    user: luc
+    title: My image
+    description: description
+
+created_by_albert_in_the_future:
+    user: alber
+    created_at: <%= Date.today + 10.days %>

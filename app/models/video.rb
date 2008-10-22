@@ -1,19 +1,14 @@
 require 'heywatch'
-HeyWatch::Base::establish_connection! :login => 'koad9', :password => 'personne'
+HeyWatch::Base::establish_connection! :login => 'thinkdry', :password => 'thinkdry38'
 
 require 'ftools'
 
 class Video < ActiveRecord::Base
   acts_as_item
-  acts_as_xapian :texts => [:title, :description]
+  acts_as_xapian :texts => [:title, :description, :file_path]
   	
-	file_column :file_path
-	
-	validates_presence_of	:title,
-		:description,
-		:file_path,
-		:user
-	
+  file_column :file_path
+
   after_save  :encode_video
   
   def self.label

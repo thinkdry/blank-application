@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: ActiveRecord::ConnectionAdapters::Column</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">ActiveRecord::ConnectionAdapters::Column</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/vendor/plugins/validates_date_time/lib/parser_rb.html">
+                vendor/plugins/validates_date_time/lib/parser.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000004">full_hour</a>&nbsp;&nbsp;
+      <a href="#M000005">month_index</a>&nbsp;&nbsp;
+      <a href="#M000001">string_to_date</a>&nbsp;&nbsp;
+      <a href="#M000002">string_to_dummy_time</a>&nbsp;&nbsp;
+      <a href="#M000003">string_to_time</a>&nbsp;&nbsp;
+      <a href="#M000006">unambiguous_year</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000004" class="method-detail">
+        <a name="M000004"></a>
+
+        <div class="method-heading">
+          <a href="#M000004" class="method-signature">
+          <span class="method-name">full_hour</span><span class="method-args">(hour, meridian)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000004-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000004-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/validates_date_time/lib/parser.rb, line 103</span>
+103:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">full_hour</span>(<span class="ruby-identifier">hour</span>, <span class="ruby-identifier">meridian</span>)
+104:           <span class="ruby-identifier">hour</span> = <span class="ruby-identifier">hour</span>.<span class="ruby-identifier">to_i</span>
+105:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">meridian</span>.<span class="ruby-identifier">strip</span>.<span class="ruby-identifier">downcase</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'am'</span>
+106:             <span class="ruby-identifier">hour</span> <span class="ruby-operator">==</span> <span class="ruby-value">12</span> <span class="ruby-operator">?</span> <span class="ruby-value">0</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">hour</span>
+107:           <span class="ruby-keyword kw">else</span>
+108:             <span class="ruby-identifier">hour</span> <span class="ruby-operator">==</span> <span class="ruby-value">12</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">hour</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">hour</span> <span class="ruby-operator">+</span> <span class="ruby-value">12</span>
+109:           <span class="ruby-keyword kw">end</span>
+110:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000005" class="method-detail">
+        <a name="M000005"></a>
+
+        <div class="method-heading">
+          <a href="#M000005" class="method-signature">
+          <span class="method-name">month_index</span><span class="method-args">(month)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000005-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000005-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/validates_date_time/lib/parser.rb, line 112</span>
+112:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">month_index</span>(<span class="ruby-identifier">month</span>)
+113:           <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">month</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">month</span>.<span class="ruby-identifier">to_i</span>.<span class="ruby-identifier">nonzero?</span>
+114:           <span class="ruby-constant">Date</span><span class="ruby-operator">::</span><span class="ruby-constant">ABBR_MONTHNAMES</span>.<span class="ruby-identifier">index</span>(<span class="ruby-identifier">month</span>.<span class="ruby-identifier">capitalize</span>) <span class="ruby-operator">||</span> <span class="ruby-constant">Date</span><span class="ruby-operator">::</span><span class="ruby-constant">MONTHNAMES</span>.<span class="ruby-identifier">index</span>(<span class="ruby-identifier">month</span>.<span class="ruby-identifier">capitalize</span>)
+115:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000001" class="method-detail">
+        <a name="M000001"></a>
+
+        <div class="method-heading">
+          <a href="#M000001" class="method-signature">
+          <span class="method-name">string_to_date</span><span class="method-args">(value)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000001-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000001-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/validates_date_time/lib/parser.rb, line 5</span>
+ 5:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">string_to_date</span>(<span class="ruby-identifier">value</span>)
+ 6:           <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">blank?</span>
+ 7:           <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">value</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Date</span>)
+ 8:           <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">to_date</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Time</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">DateTime</span>)
+ 9:           
+10:           <span class="ruby-identifier">year</span>, <span class="ruby-identifier">month</span>, <span class="ruby-identifier">day</span> = <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">strip</span>
+11:             <span class="ruby-comment cmt"># 22/1/06, 22\1\06 or 22.1.06</span>
+12:             <span class="ruby-keyword kw">when</span> <span class="ruby-regexp re">/\A(\d{1,2})[\\\/\.-](\d{1,2})[\\\/\.-](\d{2}|\d{4})\Z/</span>
+13:               <span class="ruby-constant">ValidatesDateTime</span>.<span class="ruby-identifier">us_date_format</span> <span class="ruby-value">? </span>[<span class="ruby-identifier">$3</span>, <span class="ruby-identifier">$1</span>, <span class="ruby-identifier">$2</span>] <span class="ruby-operator">:</span> [<span class="ruby-identifier">$3</span>, <span class="ruby-identifier">$2</span>, <span class="ruby-identifier">$1</span>]
+14:             <span class="ruby-comment cmt"># 22 Feb 06 or 1 jun 2001</span>
+15:             <span class="ruby-keyword kw">when</span> <span class="ruby-regexp re">/\A(\d{1,2}) (\w{3,9}) (\d{2}|\d{4})\Z/</span>
+16:               [<span class="ruby-identifier">$3</span>, <span class="ruby-identifier">$2</span>, <span class="ruby-identifier">$1</span>]
+17:             <span class="ruby-comment cmt"># July 1 2005</span>
+18:             <span class="ruby-keyword kw">when</span> <span class="ruby-regexp re">/\A(\w{3,9}) (\d{1,2})\,? (\d{2}|\d{4})\Z/</span>
+19:               [<span class="ruby-identifier">$3</span>, <span class="ruby-identifier">$1</span>, <span class="ruby-identifier">$2</span>]
+20:             <span class="ruby-comment cmt"># 2006-01-01</span>
+21:             <span class="ruby-keyword kw">when</span> <span class="ruby-regexp re">/\A(\d{4})-(\d{2})-(\d{2})\Z/</span>
+22:               [<span class="ruby-identifier">$1</span>, <span class="ruby-identifier">$2</span>, <span class="ruby-identifier">$3</span>]
+23:             <span class="ruby-comment cmt"># 2006-01-01T10:10:10+13:00</span>
+24:             <span class="ruby-keyword kw">when</span> <span class="ruby-regexp re">/\A(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})\Z/</span>
+25:               [<span class="ruby-identifier">$1</span>, <span class="ruby-identifier">$2</span>, <span class="ruby-identifier">$3</span>]
+26:             <span class="ruby-comment cmt"># Not a valid date string</span>
+27:             <span class="ruby-keyword kw">else</span>
+28:               <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span>
+29:           <span class="ruby-keyword kw">end</span>
+30:           
+31:           <span class="ruby-constant">Date</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">unambiguous_year</span>(<span class="ruby-identifier">year</span>), <span class="ruby-identifier">month_index</span>(<span class="ruby-identifier">month</span>), <span class="ruby-identifier">day</span>.<span class="ruby-identifier">to_i</span>) <span class="ruby-keyword kw">rescue</span> <span class="ruby-keyword kw">nil</span>
+32:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000002" class="method-detail">
+        <a name="M000002"></a>
+
+        <div class="method-heading">
+          <a href="#M000002" class="method-signature">
+          <span class="method-name">string_to_dummy_time</span><span class="method-args">(value)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000002-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000002-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/validates_date_time/lib/parser.rb, line 34</span>
+34:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">string_to_dummy_time</span>(<span class="ruby-identifier">value</span>)
+35:           <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">blank?</span>
+36:           <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">value</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Time</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">DateTime</span>)
+37:           <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">to_time</span>(<span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">default_timezone</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Date</span>)
+38:           
+39:           <span class="ruby-identifier">hour</span>, <span class="ruby-identifier">minute</span>, <span class="ruby-identifier">second</span>, <span class="ruby-identifier">microsecond</span> = <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">strip</span>
+40:             <span class="ruby-comment cmt"># 12 hours with minute and second</span>
+41:             <span class="ruby-keyword kw">when</span> <span class="ruby-regexp re">/\A(\d{1,2})[\. :](\d{2})[\. :](\d{2})\s?(am|pm)\Z/i</span>
+42:               [<span class="ruby-identifier">full_hour</span>(<span class="ruby-identifier">$1</span>, <span class="ruby-identifier">$4</span>), <span class="ruby-identifier">$2</span>, <span class="ruby-identifier">$3</span>]
+43:             <span class="ruby-comment cmt"># 12 hour with minute: 7.30pm, 11:20am, 2 20PM</span>
+44:             <span class="ruby-keyword kw">when</span> <span class="ruby-regexp re">/\A(\d{1,2})[\. :](\d{2})\s?(am|pm)\Z/i</span>
+45:               <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">$1</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-value">12</span>
+46:               [<span class="ruby-identifier">full_hour</span>(<span class="ruby-identifier">$1</span>, <span class="ruby-identifier">$3</span>), <span class="ruby-identifier">$2</span>]
+47:             <span class="ruby-comment cmt"># 12 hour without minute: 2pm, 11Am, 7 pm</span>
+48:             <span class="ruby-keyword kw">when</span> <span class="ruby-regexp re">/\A(\d{1,2})\s?(am|pm)\Z/i</span>
+49:               [<span class="ruby-identifier">full_hour</span>(<span class="ruby-identifier">$1</span>, <span class="ruby-identifier">$2</span>)]
+50:             <span class="ruby-comment cmt"># 24 hour: 22:30, 03.10, 12 30</span>
+51:             <span class="ruby-keyword kw">when</span> <span class="ruby-regexp re">/\A(\d{2})[\. :](\d{2})([\. :](\d{2})(\.(\d{1,6}))?)?\Z/</span>
+52:               [<span class="ruby-identifier">$1</span>, <span class="ruby-identifier">$2</span>, <span class="ruby-identifier">$4</span>, <span class="ruby-identifier">$6</span>]
+53:             <span class="ruby-comment cmt"># 2006-01-01T10:10:10+13:00</span>
+54:             <span class="ruby-keyword kw">when</span> <span class="ruby-regexp re">/\A(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})\Z/</span>
+55:               [<span class="ruby-identifier">$4</span>, <span class="ruby-identifier">$5</span>, <span class="ruby-identifier">$6</span>]
+56:             <span class="ruby-comment cmt"># Not a valid time string</span>
+57:             <span class="ruby-keyword kw">else</span>
+58:               <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span>
+59:           <span class="ruby-keyword kw">end</span>
+60:           
+61:           <span class="ruby-constant">Time</span>.<span class="ruby-identifier">send</span>(<span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">default_timezone</span>, <span class="ruby-value">2000</span>, <span class="ruby-value">1</span>, <span class="ruby-value">1</span>, <span class="ruby-identifier">hour</span>.<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">minute</span>.<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">second</span>.<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">microsecond</span>.<span class="ruby-identifier">to_i</span>) <span class="ruby-keyword kw">rescue</span> <span class="ruby-keyword kw">nil</span>
+62:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000003" class="method-detail">
+        <a name="M000003"></a>
+
+        <div class="method-heading">
+          <a href="#M000003" class="method-signature">
+          <span class="method-name">string_to_time</span><span class="method-args">(value)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000003-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000003-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/validates_date_time/lib/parser.rb, line 64</span>
+ 64:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">string_to_time</span>(<span class="ruby-identifier">value</span>)
+ 65:           <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">blank?</span>
+ 66:           <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">value</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Time</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">DateTime</span>)
+ 67:           <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">to_time</span>(<span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">default_timezone</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Date</span>)
+ 68:           
+ 69:           <span class="ruby-identifier">value</span> = <span class="ruby-identifier">value</span>.<span class="ruby-identifier">strip</span>
+ 70:           
+ 71:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">value</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/\A(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})\Z/</span>
+ 72:             <span class="ruby-identifier">time_array</span> = [<span class="ruby-identifier">$1</span>, <span class="ruby-identifier">$2</span>, <span class="ruby-identifier">$3</span>, <span class="ruby-identifier">$4</span>, <span class="ruby-identifier">$5</span>, <span class="ruby-identifier">$6</span>].<span class="ruby-identifier">map!</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">:to_i</span>)
+ 73:           <span class="ruby-keyword kw">else</span>
+ 74:             <span class="ruby-comment cmt"># The basic approach is to attempt to parse a date from the front of the string, splitting on spaces.</span>
+ 75:             <span class="ruby-comment cmt"># Once a date has been parsed, a time is extracted from the rest of the string.</span>
+ 76:             <span class="ruby-identifier">split_index</span> = <span class="ruby-identifier">date</span> = <span class="ruby-keyword kw">nil</span>
+ 77:             <span class="ruby-identifier">loop</span> <span class="ruby-keyword kw">do</span>
+ 78:               <span class="ruby-identifier">split_index</span> = <span class="ruby-identifier">value</span>.<span class="ruby-identifier">index</span>(<span class="ruby-value str">' '</span>, <span class="ruby-identifier">split_index</span> <span class="ruby-value">? </span><span class="ruby-identifier">split_index</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span> <span class="ruby-operator">:</span> <span class="ruby-value">0</span>)
+ 79:               
+ 80:               <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">split_index</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">date</span> = <span class="ruby-identifier">string_to_date</span>(<span class="ruby-identifier">value</span>.<span class="ruby-identifier">first</span>(<span class="ruby-identifier">split_index</span>))
+ 81:                 <span class="ruby-keyword kw">break</span>
+ 82:               <span class="ruby-keyword kw">end</span>
+ 83:             <span class="ruby-keyword kw">end</span>
+ 84:             
+ 85:             <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">date</span>.<span class="ruby-identifier">nil?</span>
+ 86:             
+ 87:             <span class="ruby-identifier">time</span> = <span class="ruby-identifier">string_to_dummy_time</span>(<span class="ruby-identifier">value</span>.<span class="ruby-identifier">last</span>(<span class="ruby-identifier">value</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">split_index</span>))
+ 88:             <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">time</span>.<span class="ruby-identifier">nil?</span>
+ 89:             
+ 90:             <span class="ruby-identifier">time_array</span> = [<span class="ruby-identifier">date</span>.<span class="ruby-identifier">year</span>, <span class="ruby-identifier">date</span>.<span class="ruby-identifier">month</span>, <span class="ruby-identifier">date</span>.<span class="ruby-identifier">day</span>, <span class="ruby-identifier">time</span>.<span class="ruby-identifier">hour</span>, <span class="ruby-identifier">time</span>.<span class="ruby-identifier">min</span>, <span class="ruby-identifier">time</span>.<span class="ruby-identifier">sec</span>, <span class="ruby-identifier">time</span>.<span class="ruby-identifier">usec</span>]
+ 91:           <span class="ruby-keyword kw">end</span>
+ 92:           
+ 93:           <span class="ruby-comment cmt"># From schema_definitions.rb</span>
+ 94:           <span class="ruby-keyword kw">begin</span>
+ 95:             <span class="ruby-constant">Time</span>.<span class="ruby-identifier">send</span>(<span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">default_timezone</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">time_array</span>)
+ 96:           <span class="ruby-keyword kw">rescue</span>
+ 97:             <span class="ruby-identifier">zone_offset</span> = <span class="ruby-keyword kw">if</span> <span class="ruby-constant">Base</span>.<span class="ruby-identifier">default_timezone</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:local</span> <span class="ruby-keyword kw">then</span> <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">offset</span> <span class="ruby-keyword kw">else</span> <span class="ruby-value">0</span> <span class="ruby-keyword kw">end</span>
+ 98:             <span class="ruby-comment cmt"># Append zero calendar reform start to account for dates skipped by calendar reform</span>
+ 99:             <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">new</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">time_array</span>[<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">5</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">zone_offset</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">0</span>) <span class="ruby-keyword kw">rescue</span> <span class="ruby-keyword kw">nil</span>
+100:           <span class="ruby-keyword kw">end</span>
+101:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000006" class="method-detail">
+        <a name="M000006"></a>
+
+        <div class="method-heading">
+          <a href="#M000006" class="method-signature">
+          <span class="method-name">unambiguous_year</span><span class="method-args">(year)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Extract a 4-digit year from a 2-digit year. If the number is less than 20,
+assume year 20#{number} otherwise use 19#{number}. Ignore if already 4
+digits.
+</p>
+<p>
+Eg:
+</p>
+<pre>
+   10 =&gt; 2010, 60 =&gt; 1960, 00 =&gt; 2000, 1963 =&gt; 1963
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000006-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000006-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/validates_date_time/lib/parser.rb, line 123</span>
+123:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">unambiguous_year</span>(<span class="ruby-identifier">year</span>)
+124:           <span class="ruby-identifier">year</span> = <span class="ruby-node">&quot;#{year.to_i &lt; 20 ? '20' : '19'}#{year}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">year</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">2</span>
+125:           <span class="ruby-identifier">year</span>.<span class="ruby-identifier">to_i</span>
+126:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

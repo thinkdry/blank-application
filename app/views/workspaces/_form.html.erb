@@ -1,27 +1,41 @@
+<div class="area_WS" style="margin-bottom:20px;">
+<fieldset>
 <% form_for @workspace, :builder => LabelFormBuilder do |f| -%>
-		
 	<%= f.text_field :name, :label => "Nom de l'espace de travail" %>
-
-	<h2>Utilisateurs associés:</h2>
+	<%= f.text_area :description, :label => 'Description' %>
+	<%= advanced_editor_on(@workspace, :description) %>
+	<br /><br />
+	<h4>Utilisateurs associés :</h4>
 	<div id="users">
 		<% @current_object.users_workspaces.each do |object| %>
-                     <%= render :partial => 'user', :object => object %>
+    <%= render :partial => 'user', :object => object %>
 		<% end %>
 	</div>
-	
+	<div class="clear"></div>
 	<br /><br />
-	<%= f.submit(current_object.new_record? ?  "Créer cet espace de travail" : "Sauvegarder") %>
+	<% text_button = (current_object.new_record? ?  "Créer cet espace de travail" : "Sauvegarder") %>
+	<div class="buttons">
+    <button type="submit" class="positive alone"><img src="/images/tick.png" alt=""/><%= text_button %></button>
+  </div>
+  <div class="clear"></div>
+	<%#= f.submit(current_object.new_record? ?  "Créer cet espace de travail" : "Sauvegarder") %>
 
 <% end -%>
+</fieldset>
+</div>
 <div id="newuser">
     <fieldset>
           <legend>Ajout d'un utilisateur</legend><br>
-          <label for="user_login">Nom de I'utilisateur</label>
-          <%= text_field_tag :user_login %><br>
+          <label for="user_login">Nom de l'utilisateur</label>
+          
+          <%= text_field_tag :user_login %>
+          <div id="autocomplete_choices" class="autocomplete"></div>
+          <script>new Ajax.Autocompleter("user_login", "autocomplete_choices","/users/index",{ method: 'post', paramName: 'login' });</script>
+          <br>
           <%#= content_tag :div, nil, :class => "autocomplete" %><br>
           <label for="user_role">Role</label>
           <%=select_tag(:user_role, options_from_collection_for_select(Role.find(:all), "id", "name"))%><br><br>
-          <%= button_to_function "Add", "new Ajax.Request('/add_new_user?user_login='+$('user_login').value+'&user_role='+$('user_role').value, {method:'get', asynchronous:true, evalScripts:true})" %>
+          <label>&nbsp;</label><%= button_to_function "Add", "new Ajax.Request('/add_new_user?user_login='+$('user_login').value+'&user_role='+$('user_role').value, {method:'get', asynchronous:true, evalScripts:true})" %>
      </fieldset>
 </div>
 

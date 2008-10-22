@@ -1,39 +1,24 @@
 class WorkspacesController < ApplicationController
-	
   acts_as_ajax_validation
-  before_filter { |controller| controller.session[:menu] = nil }
 
   make_resourceful do
-    actions :all
+    actions :show, :create, :new, :edit, :update
     
     before :show do
-      params[:id] = params[:workspace_id]
-      params[:page] ||= 'articles'
-      session[:menu] = 'workspaces'
+      permit "consultation of current_object"
+      params[:id] ||= params[:workspace_id]
     end
-    
-    before :index do
-      session[:menu] = 'items'
-    end
-    
+        
     before :create do
       @current_object.creator = @current_user
     end
     
     before :update do
+      permit "edition of current_object"
       # Hack. Permit deletion of all assigned users (with roles).
       params["workspace"]["existing_user_attributes"] ||= {}
     end
-    
-    before :index do
-    @current_objects = current_objects.paginate(
-        :page => params[:page],
-          			:order => :title,
-				:per_page => 2
-			)
-		end
-					
-	end
+  end
 
   def add_new_user
     @user = User.find_by_login(params[:user_login])

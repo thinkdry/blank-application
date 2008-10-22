@@ -38,10 +38,8 @@ class ArticleTest < Test::Unit::TestCase
 	def test_remove_element_associated_when_object_destroyed
 		assert id = articles(:one).id, "Article nil"
 		assert ArticleFile.count(:all, :conditions => {:article_id => id})!=0, "No elements in the A-AF join table"
-		assert ArticleImage.count(:all, :conditions => {:article_id => id})!=0, "No elements in the A-I table"
 		assert articles(:one).destroy, "Cannot destroy the article"
 		assert ArticleFile.count(:all, :conditions => {:article_id => id})==0, "Artic files associated not removed"
-		assert ArticleImage.count(:all, :conditions => {:article_id => id})==0, "Images associated not removed"
 	end
 	
 	protected

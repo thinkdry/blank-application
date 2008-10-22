@@ -9,7 +9,8 @@
 
 fieldset p{
   font-size:11px;
-  color:#333333;
+  color:#999999;
+  font-weight: bold;
   margin-bottom:10px;
   border-bottom:solid 1px #dedede;
   padding-bottom:10px;
@@ -26,10 +27,10 @@ fieldset label{
   display:block;
   font-weight:bold;
   text-align:right;
-  width:160px;
+  width:200px;
   float:left;
 }
-fieldset .small{
+fieldset .hint{
   color:#666666;
   display:block;
   font-size:11px;
@@ -37,12 +38,59 @@ fieldset .small{
   text-align:right;
   width:100%;
 }
-fieldset input, fieldset textarea{
+fieldset input, fieldset textarea, fieldset select{
   float:left;
-  width:250px;
-  margin:2px 150px 20px 20px;
+  width:270px;
+  margin:2px 10px 20px 20px;
 }
-	
+
+.nicEdit-panelContain{
+  float:left;
+  margin:2px 10px 0px 20px;
+}
+
+fieldset .input_container{
+  float: left;
+  width: 290px;
+  margin: 2px 150px 20px 20px;
+}
+
+fieldset .input_container input{
+  float: none;
+  display: inline;
+  width: 15px;
+  margin: 0;
+}
+
+fieldset .input_container input.advanced{
+  width: 90px;
+}
+
+fieldset .input_files_container{
+  float: left;
+  width: 350px;
+  margin: 2px 10px 20px 20px;
+}
+
+fieldset .input_files_container input{
+  float: none;
+  display: inline;
+  width: 250px;
+  margin: 5px 0px 0px 0px;
+}
+
+fieldset .input_file_container{
+  float: left;
+  width: 480px;
+  margin: 2px 10px 20px 20px;
+}
+
+fieldset .input_file_container input{
+  float: none;
+  display: inline;
+  width: 250px;
+  margin: 0px 0px 0px 0px;
+}
 
 fieldset #textfield {
 	float:left;
@@ -79,7 +127,7 @@ fieldset  #textfield_comments {
 }
 .spacer{clear:both; height:1px;}
 /* ----------- My Form ----------- */
-fieldset.myform{
+fieldset{
 	background-color: #F9F9F9;
 	padding: 1em;
 	border: 2px solid #C2C2C2;
@@ -123,6 +171,12 @@ fieldset.myform{
     overflow:visible;
     padding:4px 10px 3px 7px; /* IE6 */
 }
+
+.buttons button.alone{
+  float: left;
+  margin-left: 310px;
+}
+
 .buttons button[type]{
     padding:5px 10px 5px 7px; /* Firefox */
     line-height:17px; /* Safari */
@@ -206,6 +260,28 @@ button.positive, .buttons a.positive{
 }
 
 #form_new label{
+}
+
+.user label{
+  clear: left;
+  width: 200px;
+  text-align: right;
+  padding-right: 10px;
+  margin-top: 5px;
+  color: #7B003B;
+  float: left;
+}
+
+.user select{
+  width: 150px;
+  float: left;
+  margin-top: 5px;
+} 
+
+.user a{
+  float: left;
+  margin-top: 5px;
+  margin-left: 10px;
 }
 
 .form_titre{

@@ -1,18 +1,13 @@
 class Article < ActiveRecord::Base
-   include ActionView::Helpers::SanitizeHelper
-  
-	
+  include ActionView::Helpers::SanitizeHelper
+
   acts_as_item
   acts_as_xapian :texts => [:title, :description, :body]
   	
 	has_many :article_files, :dependent => :delete_all
-	has_many :article_images, :dependent => :delete_all
 	
-	validates_presence_of	:title,
-                                                   :user
-        
-        
-         
+	validates_presence_of	:title, :user
+                                                   
 	def new_file_attributes= file_attributes
 	  file_attributes.each do |file_path| 
       article_files.build(:article_id => self.id, :file_path => file_path) 
@@ -20,8 +15,6 @@ class Article < ActiveRecord::Base
   end
 	
 	def self.label
-	  "Article"
-          
-                      
+	  "Article"           
   end
 end

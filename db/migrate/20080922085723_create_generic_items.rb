@@ -9,6 +9,10 @@ class CreateGenericItems < ActiveRecord::Migration
           '#{model_name}' as item_type,
           id,
           user_id,
+          ( SELECT CONCAT_WS(' ', users.login, users.firstname, users.lastname)
+            FROM users
+            WHERE users.id = #{table_name}.user_id
+          ) as user_name,
           title,
           description,
           created_at,

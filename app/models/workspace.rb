@@ -117,12 +117,31 @@ class Workspace < ActiveRecord::Base
   end 
   
   def accepts_role? role, user
-    return true if role == 'member' && user.all_workspaces.include?(self)
-    false
+    begin
+      auth_method = "accepts_#{role.downcase}?"
+      return (send(auth_method, user)) if defined?(auth_method)
+      raise("Auth method not defined")
+    rescue Exception => e
+      p(e)
+      puts e.backtrace[0..20].join("\n")
+      raise
+    end
   end
   
   private
   def downcase_user_attributes(attributes)
     attributes.each { |value| value['user_login'].downcase! }
+  end
+  
+  def accepts_edition?(user)
+    # TODO: Check if edition of WS is allowed
+    true
+  end
+  
+  def accepts_consultation?(user)
+    return true if user.is_admin?
+    return true if self.creator == user
+    return true if self.users.include?(user) 
+    return false
   end
 end

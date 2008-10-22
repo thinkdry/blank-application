@@ -1,0 +1,56 @@
+<a href="#" id="items_link" class="blok" onclick="Effect.SlideDown('items'); if($('publications').visible()) Effect.SlideUp('publications'); if($('users').visible()) Effect.SlideUp('users'); if($('workspaces').visible()) Effect.SlideUp('workspaces'); return false;">Derniers documents en ligne</a>
+<div id="items" style="display:none; width:600px;">
+  <div class="lift_items">
+    <%@latest_items.each do |l|%>
+		<p>
+			<%= image_tag l.icon %>
+         	<%= link_to_item l %>
+			<% if l.workspaces.size > 0 %>
+				dans <%= links_to_workspace_collection l.workspaces %>
+			<% end %>
+         	le <%= l.created_at.l(:long) %>
+			par <%= link_to_user(l.user) %>
+		</p>
+    <%end%>
+  </div>
+</div>
+
+<a href="#" id="users_link" class="blok" onclick="Effect.SlideDown('users');if($('publications').visible()) Effect.SlideUp('publications'); if($('items').visible()) Effect.SlideUp('items'); if($('workspaces').visible()) Effect.SlideUp('workspaces'); return false;">Derniers utlisateurs ajoutes</a>
+<div id="users" style="display:none; width:600px;">
+  <div class="lift_items">
+    <%@latest_users.each do |u|%>
+		<p>
+			<%= image_tag 'icons/user_red.png' %>
+        	<%=	link_to_user(u) %>
+			le <%= u.created_at.l(:long) %>
+		</p>
+    <%end%>
+  </div>
+</div>
+
+<a href="#" id="ws_link" class="blok" onclick="Effect.SlideDown('workspaces'); if($('publications').visible()) Effect.SlideUp('publications'); if($('users').visible()) Effect.SlideUp('users'); if($('items').visible()) Effect.SlideUp('items'); return false;">Derniers espaces de travail ajoutes</a>
+<div id="workspaces" style="display:none; width:600px">
+  <div class="lift_items">
+     <%@latest_ws.each do |ws|%>
+		<p>
+			<%= image_tag 'icons/folder_go.png' %>
+     		<%= link_to_workspace(ws) %>
+			le <%= ws.created_at.l(:long) %>
+		</p>
+     <%end%> 
+  </div>
+</div>
+
+<a href="#" id="pubs_link" class="blok" onclick="Effect.SlideDown('publications'); if($('items').visible()) Effect.SlideUp('items'); if($('users').visible()) Effect.SlideUp('users'); if($('workspaces').visible()) Effect.SlideUp('workspaces'); return false;">Dernieres publications recues</a>
+<div id="publications" style="display:none; width:600px;">
+  <div class="lift_items">
+    <%@latest_pubmed.each do |pm|%>
+		<p>
+			<%= image_tag 'icons/rss.png' %>
+			<%= link_to pm.pubmed_source.name, pubmed_source_path(pm.pubmed_source) %> :
+        	<%= pm.title[0..50] + (pm.title.size > 50 ? '...' : '' ) %>
+			le <%= pm.created_at.l(:long) %>
+		</p>
+    <%end%>
+  </div>
+</div>

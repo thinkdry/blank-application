@@ -1,9 +1,5 @@
-<div id="form_new">
-	<% form_for @current_object, :html => {:multipart => true}, :builder => LabelFormBuilder do |f| %>
+<% form_for_item @current_object, title do |f| -%>
 	<%= hidden_field_tag :pubmed_item_id, params[:pubmed_item_id] if @pubmed_item %>
-
-	<%= f.text_field :title %>
-	<%= f.text_area :description %>
 	
 	<% if @pubmed_item %>
 		<%= f.text_field :author, :disabled => true %>
@@ -14,8 +10,4 @@
 	
 	<label>Fichier attaché</label><br>
 	<%= file_column_field 'publication', 'file_path' %>
-	
-	<%= item_status_fields(f, @current_object) %>
-	<p><%= f.submit current_object.new_record? ? 'Create' : 'Edit' %></p>
 <% end %>
-</div>

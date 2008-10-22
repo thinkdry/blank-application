@@ -1,9 +1,0 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-dolphin_for_image_one:
-    tag: dolphin
-    taggable: one (Image)
-
-record_for_image_one:
-    tag: record
-    taggable: one (Image)

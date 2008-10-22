@@ -1,7 +1,10 @@
-<h1>Mes Requêtes PubMed</h1><br />
+<h1 class="pub"><%= image_tag "rss.png"%> Mes Requêtes PubMed</h1>
 <%= render :partial => "request", :collection => @current_objects %>
+<br />
+<%= will_paginate @current_objects %>
+<br />
 
 <fieldset>
-          <legend>Ajout d'un flux RSS PubMed</legend><br>
-              <%= render :partial => "form"%>
+	<legend>Ajout d'un flux RSS PubMed</legend><br>
+    <%= render :partial => "form"%>
 </fieldset>

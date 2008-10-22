@@ -1,16 +1,8 @@
-<table border="1">
-	<tr>
-		<th>Model</th>
-		<th>Titre</th>
-		<th>Description</th>
-		<th>Créé le</th>
-	</tr>
-	<% @items.each do |item| %>
-		<tr>
-			<td><%= item.class %></td>
-			<td><%= item.title %></td>
-			<td><%= item.description %></td>
-			<td><%= item.created_at %></td>
-		</tr>
-	<% end %>
-</table>
+<%= render :partial => @header %>
+
+<h2 style="padding: 1em">
+	<%= page_entries_info @items %>
+</h2>
+
+<%= render :partial => 'result', :collection => @items %>
+<%= will_paginate @items %>

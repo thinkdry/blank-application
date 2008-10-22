@@ -1,7 +1,9 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+<% require 'file_path_utils' %>
 
-one:
-  user: quentin
-  title: imageOne
-  description: a image file
-  file_path: Record_Dolphin.png
+<% 1.upto(50) do |i| %>
+    image_<%= i %>:
+        user: quentin
+        title: Image (<%= i %>)
+        description: a image file
+        file_path: <%= file_path_import(:model => 'image', :id => Fixtures.identify("image_#{i}"), :file_path => 'Record_Dolphin.png') %>
+<% end %>

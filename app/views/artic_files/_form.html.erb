@@ -1,26 +1,8 @@
-<div id="form_new">
-	<% form_for @current_object, :html => {:multipart => true}, :builder => LabelFormBuilder do |f| -%>
-		
-		<%= f.text_field :title, :label => "Titre :" %>
-		
-		<%= f.tags_field :string_tags, :label => "Tags (séparés par des espaces):" %>
-			
-		<p>
-			<%= f.label :file_path, "Fichier :"%><br />
-			<%= error_message_on @current_object, :file_path %><br/>
-			<%= File.basename(@current_object.file_path) + '<br />' if @current_object.file_path %>
-			<%= file_column_field "artic_file", 'file_path' %>
-		</p>
-		
-		<%= f.text_area :description, :label => 'Description :' %>
-		<script type="text/javascript">
-			bkLib.onDomLoaded(function() {
-				new nicEditor({iconsPath : '/images/nicEditorIcons.gif'}).panelInstance('artic_file_description');
-			});
-		</script>
-		
-		<%= item_status_fields(f, @current_object) %>
-	
-		<%= f.submit current_object.new_record? ? 'Créer ce fichier' : 'Mettre à jour' %>
-	
-	<% end -%>
+<% form_for_item @current_object, title do |f| -%>
+	<%= f.label :file_path, "Fichier :"%>
+	<div class="input_file_container">
+	  <%= File.basename(@current_object.file_path)+'<br />' if @current_object.file_path %>
+	  <%= file_column_field "artic_file", 'file_path' %>
+	  <%= error_message_on(@current_object, :file_path) %>
+	</div>
+<% end -%>

@@ -7,8 +7,9 @@ class Search < ActiveRecord::Base
   end
  
   column :item_type_equals, :string
-  column :title_contains, :integer
+  column :title_contains, :string
   column :description_contains, :string
+  column :user_name_contains, :string
   column :created_after, :datetime
   column :created_before, :datetime
   

@@ -1,8 +1,4 @@
 class AdminController < ApplicationController
-  
-	#before_filter { |controller| controller.session[:menu] = nil }
-  #permit 'admin'
-	
 	acts_as_ajax_validation
   
 	def index

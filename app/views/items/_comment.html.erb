@@ -1,8 +1,10 @@
-<p>
-	<div class="comment_header">
-		<%= object.created_at.l(:long) %>
-		-
-		<%= object.user.firstname %> <%= object.user.lastname %>
-	</div>
-	<%= object.text %>
-</p>
+<tr><td></td></tr>
+<tr><td></td></tr>
+<tr>
+	<td valign="top" width="200px">
+		<%= link_to_user object.user %> <br /> le <%= object.created_at.l(:long) %>
+	</td>
+	<td valign="top">
+		<%= object.text %>
+	</td>
+</tr>

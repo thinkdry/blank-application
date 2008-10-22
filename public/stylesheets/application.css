@@ -4,6 +4,8 @@ body {
 	padding: 0px;
 	font-size: 10pt;
 	color: #333333;
+	background-color: #eee;
+	text-align: center;
 }
 a:link {
 	color: #7B003B;
@@ -33,11 +35,14 @@ a.add_item{
 }
 
 #page {
-	width: 100%;
+	width: 1000px;
+	margin: 0 auto;
+	background-color: #fff;
 }
 
 #container {
-  width: 100%;
+  width: 1000px;
+  text-align: left;
 }
 
 #header {
@@ -50,19 +55,18 @@ a.add_item{
 	float:right;
 	margin-right: 25px;
 	margin-top: 10px;
-	width: 440px;
+	width: 450px;
 	height:80px;
 }
 
 #page #container h1 {
 	color: #000000;
 	font-size: 175%;
-	line-height: 0px;
+	line-height: 1;
 }
 #page #container h2 {
-	color: #FFFFFF;
 	font-size: 125%;
-	line-height: 0px;
+	line-height: 1;
 }
 
 #page_title {
@@ -119,7 +123,7 @@ a.add_item{
 #MenuHR  {
 	font-size: 90%;
 	background-color: #AB5D7C;
-	width: 440px;
+	width: 450px;
 	height: 36px;
 	margin-top: 43px;
 }
@@ -371,7 +375,7 @@ a.add_item{
 	clear: both;
 	float: none;
 	height: 32px;
-	width: 250px;
+	width: 270px;
 	margin: 0px auto;
 }
 
@@ -388,9 +392,6 @@ a.add_item{
 }
 
 .fieldWithErrors {
-	display: inline-block;
-	padding: 0px;
-	margin: 0px;
 }
 
 .fieldWithErrors input {
@@ -600,7 +601,7 @@ a img {
 }
 
 .txt_80_666_bis {
-	font-size: 80%;
+	font-size: 90%;
 }
 
 .txt_80_666 {
@@ -614,12 +615,6 @@ a img {
 
 #items_list{
 	
-}
-
-.file_infos_box{
-	padding: 20px;
-	border: 2px solid #BD7F9C;
-	margin-bottom: 40px;
 }
 
 .file_box{
@@ -642,8 +637,27 @@ a img {
 	width: 100%;	
 }
 
+h1.pub{
+  padding-bottom: 10px;
+  border-bottom: 1px #333 solid;
+}
+
+small.grey{
+  color: #555555;
+  font-size: 60%;
+}
+
 #footer{
   background-color: #BDD6D9;
   color: #fff;
   padding: 15px;
+}
+
+#footer .name{
+  float:left;;
+}
+
+#footer .menu{
+  float: right;
+  font-size: 90%;
 }
