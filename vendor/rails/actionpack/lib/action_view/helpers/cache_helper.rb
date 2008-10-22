@@ -32,7 +32,8 @@ module ActionView
       #      <i>Topics listed alphabetically</i>
       #    <% end %>
       def cache(name = {}, options = nil, &block)
-        @controller.fragment_for(output_buffer, name, options, &block)
+        handler = Template.handler_class_for_extension(current_render_extension.to_sym)
+        handler.new(@controller).cache_fragment(block, name, options)
       end
     end
   end

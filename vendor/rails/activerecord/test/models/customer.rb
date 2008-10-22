@@ -1,8 +1,7 @@
 class Customer < ActiveRecord::Base
   composed_of :address, :mapping => [ %w(address_street street), %w(address_city city), %w(address_country country) ], :allow_nil => true
-  composed_of :balance, :class_name => "Money", :mapping => %w(balance amount), :converter => Proc.new { |balance| balance.to_money }
+  composed_of(:balance, :class_name => "Money", :mapping => %w(balance amount)) { |balance| balance.to_money }
   composed_of :gps_location, :allow_nil => true
-  composed_of :fullname, :mapping => %w(name to_s), :constructor => Proc.new { |name| Fullname.parse(name) }, :converter => :parse
 end
 
 class Address
@@ -52,22 +51,5 @@ class GpsLocation
 
   def ==(other)
     self.latitude == other.latitude && self.longitude == other.longitude
-  end
-end
-
-class Fullname
-  attr_reader :first, :last
-
-  def self.parse(str)
-    return nil unless str
-    new(*str.to_s.split)
-  end
-
-  def initialize(first, last = nil)
-    @first, @last = first, last
-  end
-
-  def to_s
-    "#{first} #{last.upcase}"
   end
 end

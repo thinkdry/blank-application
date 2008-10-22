@@ -1,10 +1,10 @@
 require 'test_helper'
 
 class <%= class_name %>Test < ActionController::IntegrationTest
-  fixtures :all
+  # fixtures :your, :models
 
   # Replace this with your real tests.
-  test "the truth" do
+  def test_truth
     assert true
   end
 end

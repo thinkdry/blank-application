@@ -2,19 +2,6 @@ require 'set'
 
 module ActiveRecord
   module Associations
-    # AssociationCollection is an abstract class that provides common stuff to
-    # ease the implementation of association proxies that represent
-    # collections. See the class hierarchy in AssociationProxy.
-    #
-    # You need to be careful with assumptions regarding the target: The proxy
-    # does not fetch records from the database until it needs them, but new
-    # ones created with +build+ are added to the target. So, the target may be
-    # non-empty and still lack children waiting to be read from the database.
-    # If you look directly to the database you cannot assume that's the entire
-    # collection because new records may have beed added to the target, etc.
-    #
-    # If you need to work on all current children, new and existing records,
-    # +load_target+ and the +loaded+ flag are your friends.
     class AssociationCollection < AssociationProxy #:nodoc:
       def initialize(owner, reflection)
         super
@@ -27,7 +14,7 @@ module ActiveRecord
         # If using a custom finder_sql, scan the entire collection.
         if @reflection.options[:finder_sql]
           expects_array = args.first.kind_of?(Array)
-          ids           = args.flatten.compact.uniq.map { |arg| arg.to_i }
+          ids           = args.flatten.compact.uniq.map(&:to_i)
 
           if ids.size == 1
             id = ids.first
@@ -63,7 +50,7 @@ module ActiveRecord
       
       # Fetches the first one using SQL if possible.
       def first(*args)
-        if fetch_first_or_last_using_find?(args)
+        if fetch_first_or_last_using_find? args
           find(:first, *args)
         else
           load_target unless loaded?
@@ -73,7 +60,7 @@ module ActiveRecord
 
       # Fetches the last one using SQL if possible.
       def last(*args)
-        if fetch_first_or_last_using_find?(args)
+        if fetch_first_or_last_using_find? args
           find(:last, *args)
         else
           load_target unless loaded?
@@ -91,14 +78,11 @@ module ActiveRecord
         @loaded = false
       end
 
-      def build(attributes = {}, &block)
+      def build(attributes = {})
         if attributes.is_a?(Array)
-          attributes.collect { |attr| build(attr, &block) }
+          attributes.collect { |attr| build(attr) }
         else
-          build_record(attributes) do |record|
-            block.call(record) if block_given?
-            set_belongs_to_association_for(record)
-          end
+          build_record(attributes) { |record| set_belongs_to_association_for(record) }
         end
       end
 
@@ -108,7 +92,7 @@ module ActiveRecord
         result = true
         load_target if @owner.new_record?
 
-        transaction do
+        @owner.transaction do
           flatten_deeper(records).each do |record|
             raise_on_type_mismatch(record)
             add_record_to_target_with_callbacks(record) do |r|
@@ -122,21 +106,6 @@ module ActiveRecord
 
       alias_method :push, :<<
       alias_method :concat, :<<
-
-      # Starts a transaction in the association class's database connection.
-      #
-      #   class Author < ActiveRecord::Base
-      #     has_many :books
-      #   end
-      #
-      #   Author.find(:first).books.transaction do
-      #     # same effect as calling Book.transaction
-      #   end
-      def transaction(*args)
-        @reflection.klass.transaction(*args) do
-          yield
-        end
-      end
 
       # Remove all records from this association
       def delete_all
@@ -154,47 +123,12 @@ module ActiveRecord
         end
       end
 
-      # Count all records using SQL. If the +:counter_sql+ option is set for the association, it will
-      # be used for the query. If no +:counter_sql+ was supplied, but +:finder_sql+ was set, the
-      # descendant's +construct_sql+ method will have set :counter_sql automatically.
-      # Otherwise, construct options and pass them with scope to the target class's +count+.
-      def count(*args)
-        if @reflection.options[:counter_sql]
-          @reflection.klass.count_by_sql(@counter_sql)
-        else
-          column_name, options = @reflection.klass.send(:construct_count_options_from_args, *args)
-          if @reflection.options[:uniq]
-            # This is needed because 'SELECT count(DISTINCT *)..' is not valid SQL.
-            column_name = "#{@reflection.quoted_table_name}.#{@reflection.klass.primary_key}" if column_name == :all
-            options.merge!(:distinct => true)
-          end
-
-          value = @reflection.klass.send(:with_scope, construct_scope) { @reflection.klass.count(column_name, options) }
-
-          limit  = @reflection.options[:limit]
-          offset = @reflection.options[:offset]
-
-          if limit || offset
-            [ [value - offset.to_i, 0].max, limit.to_i ].min
-          else
-            value
-          end
-        end
-      end
-
-
-      # Removes +records+ from this association calling +before_remove+ and
-      # +after_remove+ callbacks.
-      #
-      # This method is abstract in the sense that +delete_records+ has to be
-      # provided by descendants. Note this method does not imply the records
-      # are actually removed from the database, that depends precisely on
-      # +delete_records+. They are in any case removed from the collection.
+      # Remove +records+ from this association.  Does not destroy +records+.
       def delete(*records)
         records = flatten_deeper(records)
         records.each { |record| raise_on_type_mismatch(record) }
         
-        transaction do
+        @owner.transaction do
           records.each { |record| callback(:before_remove, record) }
           
           old_records = records.reject {|r| r.new_record? }
@@ -221,7 +155,7 @@ module ActiveRecord
       end
       
       def destroy_all
-        transaction do
+        @owner.transaction do
           each { |record| record.destroy }
         end
 
@@ -246,41 +180,26 @@ module ActiveRecord
         end
       end
 
-      # Returns the size of the collection by executing a SELECT COUNT(*)
-      # query if the collection hasn't been loaded, and calling
-      # <tt>collection.size</tt> if it has.
-      #
-      # If the collection has been already loaded +size+ and +length+ are
-      # equivalent. If not and you are going to need the records anyway
-      # +length+ will take one less query. Otherwise +size+ is more efficient.
-      #
-      # This method is abstract in the sense that it relies on
-      # +count_records+, which is a method descendants have to provide.
+      # Returns the size of the collection by executing a SELECT COUNT(*) query if the collection hasn't been loaded and
+      # calling collection.size if it has. If it's more likely than not that the collection does have a size larger than zero
+      # and you need to fetch that collection afterwards, it'll take one less SELECT query if you use length.
       def size
         if @owner.new_record? || (loaded? && !@reflection.options[:uniq])
           @target.size
-        elsif !loaded? && @reflection.options[:group]
-          load_target.size
         elsif !loaded? && !@reflection.options[:uniq] && @target.is_a?(Array)
-          unsaved_records = @target.select { |r| r.new_record? }
+          unsaved_records = Array(@target.detect { |r| r.new_record? })
           unsaved_records.size + count_records
         else
           count_records
         end
       end
 
-      # Returns the size of the collection calling +size+ on the target.
-      #
-      # If the collection has been already loaded +length+ and +size+ are
-      # equivalent. If not and you are going to need the records anyway this
-      # method will take one less query. Otherwise +size+ is more efficient.
+      # Returns the size of the collection by loading it and calling size on the array. If you want to use this method to check
+      # whether the collection is empty, use collection.length.zero? instead of collection.empty?
       def length
         load_target.size
       end
 
-      # Equivalent to <tt>collection.size.zero?</tt>. If the collection has
-      # not been already loaded and you are going to fetch the records anyway
-      # it is better to check <tt>collection.length.zero?</tt>.
       def empty?
         size.zero?
       end
@@ -313,7 +232,7 @@ module ActiveRecord
         other   = other_array.size < 100 ? other_array : other_array.to_set
         current = @target.size < 100 ? @target : @target.to_set
 
-        transaction do
+        @owner.transaction do
           delete(@target.select { |v| !other.include?(v) })
           concat(other_array.select { |v| !current.include?(v) })
         end
@@ -324,10 +243,6 @@ module ActiveRecord
         load_target if @reflection.options[:finder_sql] && !loaded?
         return @target.include?(record) if loaded?
         exists?(record)
-      end
-
-      def proxy_respond_to?(method, include_private = false)
-        super || @reflection.klass.respond_to?(method, include_private)
       end
 
       protected
@@ -398,9 +313,7 @@ module ActiveRecord
         def create_record(attrs)
           attrs.update(@reflection.options[:conditions]) if @reflection.options[:conditions].is_a?(Hash)
           ensure_owner_is_not_new
-          record = @reflection.klass.send(:with_scope, :create => construct_scope[:create]) do
-            @reflection.build_association(attrs)
-          end
+          record = @reflection.klass.send(:with_scope, :create => construct_scope[:create]) { @reflection.klass.new(attrs) }
           if block_given?
             add_record_to_target_with_callbacks(record) { |*block_args| yield(*block_args) }
           else
@@ -410,7 +323,7 @@ module ActiveRecord
 
         def build_record(attrs)
           attrs.update(@reflection.options[:conditions]) if @reflection.options[:conditions].is_a?(Hash)
-          record = @reflection.build_association(attrs)
+          record = @reflection.klass.new(attrs)
           if block_given?
             add_record_to_target_with_callbacks(record) { |*block_args| yield(*block_args) }
           else
@@ -422,7 +335,7 @@ module ActiveRecord
           callback(:before_add, record)
           yield(record) if block_given?
           @target ||= [] unless loaded?
-          @target << record unless @reflection.options[:uniq] && @target.include?(record)
+          @target << record
           callback(:after_add, record)
           record
         end
@@ -445,8 +358,7 @@ module ActiveRecord
         end
 
         def fetch_first_or_last_using_find?(args)
-          args.first.kind_of?(Hash) || !(loaded? || @owner.new_record? || @reflection.options[:finder_sql] ||
-                                         @target.any? { |record| record.new_record? } || args.first.kind_of?(Integer))
+          args.first.kind_of?(Hash) || !(loaded? || @owner.new_record? || @reflection.options[:finder_sql] || !@target.blank? || args.first.kind_of?(Integer))
         end
     end
   end

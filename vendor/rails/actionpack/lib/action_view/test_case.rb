@@ -25,7 +25,9 @@ module ActionView
       end
     end
 
-    include ActionView::Helpers
+    ActionView::Base.helper_modules.each do |helper_module|
+      include helper_module
+    end
     include ActionController::PolymorphicRoutes
     include ActionController::RecordIdentifier
 
@@ -35,8 +37,6 @@ module ActionView
       if helper_class && !self.class.ancestors.include?(helper_class)
         self.class.send(:include, helper_class)
       end
-
-      self.output_buffer = ''
     end
 
     class TestController < ActionController::Base
@@ -48,13 +48,10 @@ module ActionView
       end
     end
 
-    protected
-      attr_accessor :output_buffer
-
     private
       def method_missing(selector, *args)
         controller = TestController.new
-        return controller.__send__(selector, *args) if ActionController::Routing::Routes.named_routes.helpers.include?(selector)
+        return controller.send!(selector, *args) if ActionController::Routing::Routes.named_routes.helpers.include?(selector)
         super
       end
   end

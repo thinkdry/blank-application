@@ -96,12 +96,15 @@ module ActiveSupport
         end
       end
 
-      # TODO: Decompose into more Array like behavior
-      def replace_or_append!(chain)
-        if index = index(chain)
-          self[index] = chain
+      def |(chain)
+        if chain.is_a?(CallbackChain)
+          chain.each { |callback| self | callback }
         else
-          self << chain
+          if (found_callback = find(chain)) && (index = index(chain))
+            self[index] = chain
+          else
+            self << chain
+          end
         end
         self
       end
@@ -154,14 +157,6 @@ module ActiveSupport
         self.class.new(@kind, @method, @options.dup)
       end
 
-      def hash
-        if @identifier
-          @identifier.hash
-        else
-          @method.hash
-        end
-      end
-
       def call(*args, &block)
         evaluate_method(method, *args, &block) if should_run_callback?(*args)
       rescue LocalJumpError
@@ -188,7 +183,7 @@ module ActiveSupport
                   "Callbacks must be a symbol denoting the method to call, a string to be evaluated, " +
                   "a block to be invoked, or an object responding to the callback method."
               end
-          end
+            end
         end
 
         def should_run_callback?(*args)

@@ -70,8 +70,7 @@ class CGI::Session::CookieStore
       'path'    => options['session_path'],
       'domain'  => options['session_domain'],
       'expires' => options['session_expires'],
-      'secure'  => options['session_secure'],
-      'http_only' => options['session_http_only']
+      'secure'  => options['session_secure']
     }
 
     # Set no_hidden and no_cookies since the session id is unused and we
@@ -130,7 +129,7 @@ class CGI::Session::CookieStore
   private
     # Marshal a session hash into safe cookie data. Include an integrity hash.
     def marshal(session)
-      data = ActiveSupport::Base64.encode64s(Marshal.dump(session))
+      data = ActiveSupport::Base64.encode64(Marshal.dump(session)).chop
       "#{data}--#{generate_digest(data)}"
     end
 

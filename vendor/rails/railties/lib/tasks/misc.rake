@@ -3,9 +3,10 @@ task :environment do
   require(File.join(RAILS_ROOT, 'config', 'environment'))
 end
 
-desc 'Generate a crytographically secure secret key. This is typically used to generate a secret for cookie sessions.'
+require 'rails_generator/secret_key_generator'
+desc 'Generate a crytographically secure secret key. This is typically used to generate a secret for cookie sessions. Pass a unique identifier to the generator using ID="some unique identifier" for greater security.'
 task :secret do
-  puts ActiveSupport::SecureRandom.hex(64)
+  puts Rails::SecretKeyGenerator.new(ENV['ID']).generate_secret
 end
 
 require 'active_support'
@@ -43,7 +44,7 @@ namespace :time do
         end
       end
       previous_offset = nil
-      ActiveSupport::TimeZone.__send__(method).each do |zone|
+      TimeZone.__send__(method).each do |zone|
         if offset.nil? || offset == zone.utc_offset
           puts "\n* UTC #{zone.formatted_offset} *" unless zone.utc_offset == previous_offset
           puts zone.name

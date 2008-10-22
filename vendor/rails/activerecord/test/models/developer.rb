@@ -43,8 +43,6 @@ class Developer < ActiveRecord::Base
 
   has_many :audit_logs
 
-  named_scope :jamises, :conditions => {:name => 'Jamis'}
-
   validates_inclusion_of :salary, :in => 50000..200000
   validates_length_of    :name, :within => 3..20
 
@@ -58,8 +56,7 @@ class Developer < ActiveRecord::Base
 end
 
 class AuditLog < ActiveRecord::Base
-  belongs_to :developer, :validate => true
-  belongs_to :unvalidated_developer, :class_name => 'Developer'
+  belongs_to :developer
 end
 
 DeveloperSalary = Struct.new(:amount)

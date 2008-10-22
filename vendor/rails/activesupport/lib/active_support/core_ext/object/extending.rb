@@ -3,43 +3,21 @@ class Object
     Class.remove_class(*subclasses_of(*superclasses))
   end
 
-  begin
-    ObjectSpace.each_object(Class.new) {}
+  def subclasses_of(*superclasses) #:nodoc:
+    subclasses = []
 
     # Exclude this class unless it's a subclass of our supers and is defined.
     # We check defined? in case we find a removed class that has yet to be
     # garbage collected. This also fails for anonymous classes -- please
     # submit a patch if you have a workaround.
-    def subclasses_of(*superclasses) #:nodoc:
-      subclasses = []
-
-      superclasses.each do |sup|
-        ObjectSpace.each_object(class << sup; self; end) do |k|
-          if k != sup && (k.name.blank? || eval("defined?(::#{k}) && ::#{k}.object_id == k.object_id"))
-            subclasses << k
-          end
-        end
+    ObjectSpace.each_object(Class) do |k|
+      if superclasses.any? { |superclass| k < superclass } &&
+        (k.name.blank? || eval("defined?(::#{k}) && ::#{k}.object_id == k.object_id"))
+        subclasses << k
       end
-
-      subclasses
     end
-  rescue RuntimeError
-    # JRuby and any implementations which cannot handle the objectspace traversal
-    # above fall back to this implementation
-    def subclasses_of(*superclasses) #:nodoc:
-      subclasses = []
 
-      superclasses.each do |sup|
-        ObjectSpace.each_object(Class) do |k|
-          if superclasses.any? { |superclass| k < superclass } &&
-            (k.name.blank? || eval("defined?(::#{k}) && ::#{k}.object_id == k.object_id"))
-            subclasses << k
-          end
-        end
-        subclasses.uniq!
-      end
-      subclasses
-    end
+    subclasses
   end
 
   def extended_by #:nodoc:

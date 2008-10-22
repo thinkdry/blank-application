@@ -1,17 +1,12 @@
 desc "List the gems that this rails application depends on"
 task :gems => 'gems:base' do
   Rails.configuration.gems.each do |gem|
-    print_gem_status(gem)
+    code = gem.loaded? ? (gem.frozen? ? "F" : "I") : " "
+    puts "[#{code}] #{gem.name} #{gem.requirement.to_s}"
   end
   puts
   puts "I = Installed"
   puts "F = Frozen"
-end
-
-def print_gem_status(gem, indent=1)
-  code = gem.loaded? ? (gem.frozen? ? "F" : "I") : " "
-  puts "   "*(indent-1)+" - [#{code}] #{gem.name} #{gem.requirement.to_s}"
-  gem.dependencies.each { |g| print_gem_status(g, indent+1)} if gem.loaded?
 end
 
 namespace :gems do
@@ -24,7 +19,7 @@ namespace :gems do
   task :build do
     $rails_gem_installer = true
     require 'rails/gem_builder'
-    Dir[File.join(Rails::GemDependency.unpacked_path, '*')].each do |gem_dir|
+    Dir[File.join(RAILS_ROOT, 'vendor', 'gems', '*')].each do |gem_dir|
       spec_file = File.join(gem_dir, '.specification')
       next unless File.exists?(spec_file)
       specification = YAML::load_file(spec_file)
@@ -33,7 +28,7 @@ namespace :gems do
       puts "Built gem: '#{gem_dir}'"
     end
   end
-
+  
   desc "Installs all required gems for this application."
   task :install => :base do
     require 'rubygems'
@@ -47,10 +42,10 @@ namespace :gems do
     require 'rubygems/gem_runner'
     Rails.configuration.gems.each do |gem|
       next unless !gem.frozen? && (ENV['GEM'].blank? || ENV['GEM'] == gem.name)
-      gem.unpack_to(Rails::GemDependency.unpacked_path) if gem.loaded?
+      gem.unpack_to(File.join(RAILS_ROOT, 'vendor', 'gems')) if gem.loaded?
     end
   end
-
+  
   namespace :unpack do
     desc "Unpacks the specified gems and its dependencies into vendor/gems"
     task :dependencies => :unpack do
@@ -59,21 +54,11 @@ namespace :gems do
       Rails.configuration.gems.each do |gem|
         next unless ENV['GEM'].blank? || ENV['GEM'] == gem.name
         gem.dependencies.each do |dependency|
+          dependency.add_load_paths # double check that we have not already unpacked
           next if dependency.frozen?
-          dependency.unpack_to(Rails::GemDependency.unpacked_path)
+          dependency.unpack_to(File.join(RAILS_ROOT, 'vendor', 'gems'))
         end
       end
-    end
-  end
-
-  desc "Regenerate gem specifications in correct format."
-  task :refresh_specs => :base do
-    require 'rubygems'
-    require 'rubygems/gem_runner'
-    Rails::VendorGemSourceIndex.silence_spec_warnings = true
-    Rails.configuration.gems.each do |gem|
-      next unless gem.frozen? && (ENV['GEM'].blank? || ENV['GEM'] == gem.name)
-      gem.refresh_spec(Rails::GemDependency.unpacked_path) if gem.loaded?
     end
   end
 end

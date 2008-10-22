@@ -107,7 +107,7 @@ class RespondToController < ActionController::Base
       type.any(:js, :xml) { render :text => "Either JS or XML" }
     end
   end
-
+  
   def handle_any_any
     respond_to do |type|
       type.html { render :text => 'HTML' }
@@ -120,12 +120,12 @@ class RespondToController < ActionController::Base
       type.html
       type.js
     end
-  end
-
-  def iphone_with_html_response_type
+  end 
+  
+  def iphone_with_html_response_type 
     Mime::Type.register_alias("text/html", :iphone)
     request.format = :iphone if request.env["HTTP_ACCEPT"] == "text/iphone"
-
+    
     respond_to do |type|
       type.html   { @type = "Firefox" }
       type.iphone { @type = "iPhone"  }
@@ -138,7 +138,7 @@ class RespondToController < ActionController::Base
   def iphone_with_html_response_type_without_layout
     Mime::Type.register_alias("text/html", :iphone)
     request.format = "iphone" if request.env["HTTP_ACCEPT"] == "text/iphone"
-
+    
     respond_to do |type|
       type.html   { @type = "Firefox"; render :action => "iphone_with_html_response_type" }
       type.iphone { @type = "iPhone" ; render :action => "iphone_with_html_response_type" }
@@ -162,9 +162,10 @@ class RespondToController < ActionController::Base
     end
 end
 
+RespondToController.view_paths = [ File.dirname(__FILE__) + "/../fixtures/" ]
+
 class MimeControllerTest < Test::Unit::TestCase
   def setup
-    ActionController::Base.use_accept_header = true
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
 
@@ -172,12 +173,8 @@ class MimeControllerTest < Test::Unit::TestCase
     @request.host = "www.example.com"
   end
 
-  def teardown
-    ActionController::Base.use_accept_header = false
-  end
-
   def test_html
-    @request.accept = "text/html"
+    @request.env["HTTP_ACCEPT"] = "text/html"
     get :js_or_html
     assert_equal 'HTML', @response.body
 
@@ -189,7 +186,7 @@ class MimeControllerTest < Test::Unit::TestCase
   end
 
   def test_all
-    @request.accept = "*/*"
+    @request.env["HTTP_ACCEPT"] = "*/*"
     get :js_or_html
     assert_equal 'HTML', @response.body # js is not part of all
 
@@ -201,13 +198,13 @@ class MimeControllerTest < Test::Unit::TestCase
   end
 
   def test_xml
-    @request.accept = "application/xml"
+    @request.env["HTTP_ACCEPT"] = "application/xml"
     get :html_xml_or_rss
     assert_equal 'XML', @response.body
   end
 
   def test_js_or_html
-    @request.accept = "text/javascript, text/html"
+    @request.env["HTTP_ACCEPT"] = "text/javascript, text/html"
     get :js_or_html
     assert_equal 'JS', @response.body
 
@@ -232,7 +229,7 @@ class MimeControllerTest < Test::Unit::TestCase
       'JSON' => %w(application/json text/x-json)
     }.each do |body, content_types|
       content_types.each do |content_type|
-        @request.accept = content_type
+        @request.env['HTTP_ACCEPT'] = content_type
         get :json_or_yaml
         assert_equal body, @response.body
       end
@@ -240,7 +237,7 @@ class MimeControllerTest < Test::Unit::TestCase
   end
 
   def test_js_or_anything
-    @request.accept = "text/javascript, */*"
+    @request.env["HTTP_ACCEPT"] = "text/javascript, */*"
     get :js_or_html
     assert_equal 'JS', @response.body
 
@@ -250,36 +247,36 @@ class MimeControllerTest < Test::Unit::TestCase
     get :just_xml
     assert_equal 'XML', @response.body
   end
-
+  
   def test_using_defaults
-    @request.accept = "*/*"
+    @request.env["HTTP_ACCEPT"] = "*/*"
     get :using_defaults
     assert_equal "text/html", @response.content_type
     assert_equal 'Hello world!', @response.body
 
-    @request.accept = "text/javascript"
+    @request.env["HTTP_ACCEPT"] = "text/javascript"
     get :using_defaults
     assert_equal "text/javascript", @response.content_type
     assert_equal '$("body").visualEffect("highlight");', @response.body
 
-    @request.accept = "application/xml"
+    @request.env["HTTP_ACCEPT"] = "application/xml"
     get :using_defaults
     assert_equal "application/xml", @response.content_type
     assert_equal "<p>Hello world!</p>\n", @response.body
   end
 
   def test_using_defaults_with_type_list
-    @request.accept = "*/*"
+    @request.env["HTTP_ACCEPT"] = "*/*"
     get :using_defaults_with_type_list
     assert_equal "text/html", @response.content_type
     assert_equal 'Hello world!', @response.body
 
-    @request.accept = "text/javascript"
+    @request.env["HTTP_ACCEPT"] = "text/javascript"
     get :using_defaults_with_type_list
     assert_equal "text/javascript", @response.content_type
     assert_equal '$("body").visualEffect("highlight");', @response.body
 
-    @request.accept = "application/xml"
+    @request.env["HTTP_ACCEPT"] = "application/xml"
     get :using_defaults_with_type_list
     assert_equal "application/xml", @response.content_type
     assert_equal "<p>Hello world!</p>\n", @response.body
@@ -298,90 +295,90 @@ class MimeControllerTest < Test::Unit::TestCase
   end
 
   def test_synonyms
-    @request.accept = "application/javascript"
+    @request.env["HTTP_ACCEPT"] = "application/javascript"
     get :js_or_html
     assert_equal 'JS', @response.body
 
-    @request.accept = "application/x-xml"
+    @request.env["HTTP_ACCEPT"] = "application/x-xml"
     get :html_xml_or_rss
     assert_equal "XML", @response.body
   end
 
   def test_custom_types
-    @request.accept = "application/crazy-xml"
+    @request.env["HTTP_ACCEPT"] = "application/crazy-xml"
     get :custom_type_handling
     assert_equal "application/crazy-xml", @response.content_type
     assert_equal 'Crazy XML', @response.body
 
-    @request.accept = "text/html"
+    @request.env["HTTP_ACCEPT"] = "text/html"
     get :custom_type_handling
     assert_equal "text/html", @response.content_type
     assert_equal 'HTML', @response.body
   end
 
   def test_xhtml_alias
-    @request.accept = "application/xhtml+xml,application/xml"
+    @request.env["HTTP_ACCEPT"] = "application/xhtml+xml,application/xml"
     get :html_or_xml
     assert_equal 'HTML', @response.body
   end
 
   def test_firefox_simulation
-    @request.accept = "text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5"
+    @request.env["HTTP_ACCEPT"] = "text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5"
     get :html_or_xml
     assert_equal 'HTML', @response.body
   end
 
   def test_handle_any
-    @request.accept = "*/*"
+    @request.env["HTTP_ACCEPT"] = "*/*"
     get :handle_any
     assert_equal 'HTML', @response.body
 
-    @request.accept = "text/javascript"
+    @request.env["HTTP_ACCEPT"] = "text/javascript"
     get :handle_any
     assert_equal 'Either JS or XML', @response.body
 
-    @request.accept = "text/xml"
+    @request.env["HTTP_ACCEPT"] = "text/xml"
     get :handle_any
     assert_equal 'Either JS or XML', @response.body
   end
 
   def test_handle_any_any
-    @request.accept = "*/*"
+    @request.env["HTTP_ACCEPT"] = "*/*"
     get :handle_any_any
     assert_equal 'HTML', @response.body
   end
-
+  
   def test_handle_any_any_parameter_format
     get :handle_any_any, {:format=>'html'}
     assert_equal 'HTML', @response.body
   end
-
+  
   def test_handle_any_any_explicit_html
-    @request.accept = "text/html"
+    @request.env["HTTP_ACCEPT"] = "text/html"
     get :handle_any_any
     assert_equal 'HTML', @response.body
   end
 
   def test_handle_any_any_javascript
-    @request.accept = "text/javascript"
+    @request.env["HTTP_ACCEPT"] = "text/javascript"
     get :handle_any_any
     assert_equal 'Whatever you ask for, I got it', @response.body
   end
-
+  
   def test_handle_any_any_xml
-    @request.accept = "text/xml"
+    @request.env["HTTP_ACCEPT"] = "text/xml"
     get :handle_any_any
     assert_equal 'Whatever you ask for, I got it', @response.body
   end
 
   def test_rjs_type_skips_layout
-    @request.accept = "text/javascript"
+    @request.env["HTTP_ACCEPT"] = "text/javascript"
     get :all_types_with_layout
     assert_equal 'RJS for all_types_with_layout', @response.body
   end
 
   def test_html_type_with_layout
-    @request.accept = "text/html"
+    @request.env["HTTP_ACCEPT"] = "text/html"
     get :all_types_with_layout
     assert_equal '<html><div id="html">HTML for all_types_with_layout</div></html>', @response.body
   end
@@ -448,31 +445,31 @@ class MimeControllerTest < Test::Unit::TestCase
 
     get :using_defaults, :format => "xml"
     assert_equal "using_defaults - xml", @response.body
-  end
-
+  end 
+  
   def test_format_with_custom_response_type
     get :iphone_with_html_response_type
-    assert_equal '<html><div id="html">Hello future from Firefox!</div></html>', @response.body
-
+    assert_equal '<html><div id="html">Hello future from Firefox!</div></html>', @response.body 
+    
     get :iphone_with_html_response_type, :format => "iphone"
     assert_equal "text/html", @response.content_type
     assert_equal '<html><div id="iphone">Hello iPhone future from iPhone!</div></html>', @response.body
-  end
-
+  end 
+  
   def test_format_with_custom_response_type_and_request_headers
-    @request.accept = "text/iphone"
+    @request.env["HTTP_ACCEPT"] = "text/iphone"
     get :iphone_with_html_response_type
     assert_equal '<html><div id="iphone">Hello iPhone future from iPhone!</div></html>', @response.body
     assert_equal "text/html", @response.content_type
-  end
+  end 
 
   def test_format_with_custom_response_type_and_request_headers_with_only_one_layout_present
     get :iphone_with_html_response_type_without_layout
-    assert_equal '<html><div id="html_missing">Hello future from Firefox!</div></html>', @response.body
+    assert_equal '<html><div id="html_missing">Hello future from Firefox!</div></html>', @response.body 
 
-    @request.accept = "text/iphone"
+    @request.env["HTTP_ACCEPT"] = "text/iphone"
     assert_raises(ActionView::MissingTemplate) { get :iphone_with_html_response_type_without_layout }
-  end
+  end 
 end
 
 class AbstractPostController < ActionController::Base
@@ -500,7 +497,7 @@ class PostController < AbstractPostController
     end
 end
 
-class SuperPostController < PostController
+class SuperPostController < PostController  
   def index
     respond_to do |type|
       type.html
@@ -517,24 +514,25 @@ class MimeControllerLayoutsTest < Test::Unit::TestCase
     @controller   = PostController.new
     @request.host = "www.example.com"
   end
-
+  
   def test_missing_layout_renders_properly
     get :index
-    assert_equal '<html><div id="html">Hello Firefox</div></html>', @response.body
+    assert_equal '<html><div id="html">Hello Firefox</div></html>', @response.body 
 
-    @request.accept = "text/iphone"
+    @request.env["HTTP_ACCEPT"] = "text/iphone"
     get :index
     assert_equal 'Hello iPhone', @response.body
   end
-
+  
   def test_format_with_inherited_layouts
     @controller = SuperPostController.new
-
+    
     get :index
     assert_equal 'Super Firefox', @response.body
-
-    @request.accept = "text/iphone"
+    
+    @request.env["HTTP_ACCEPT"] = "text/iphone"
     get :index
     assert_equal '<html><div id="super_iphone">Super iPhone</div></html>', @response.body
   end
 end
+  

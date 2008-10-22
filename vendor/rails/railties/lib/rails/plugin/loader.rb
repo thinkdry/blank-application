@@ -45,9 +45,9 @@ module Rails
         plugins.each do |plugin|
           plugin.load_paths.each do |path|
             $LOAD_PATH.insert(application_lib_index + 1, path)
-            ActiveSupport::Dependencies.load_paths      << path
+            Dependencies.load_paths      << path
             unless Rails.configuration.reload_plugins?
-              ActiveSupport::Dependencies.load_once_paths << path
+              Dependencies.load_once_paths << path
             end
           end
         end
