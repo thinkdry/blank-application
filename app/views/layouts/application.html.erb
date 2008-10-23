@@ -1,130 +1,114 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
-	<head>
-                   
-                <link rel="shortcut icon" href="/images/favicon.ico" >
-		<%= stylesheet_link_tag "application.css" %>
-		<%= stylesheet_link_tag "form.css" %>
-		<%= stylesheet_link_tag "starbox.css" %>
-		<%= stylesheet_link_tag "middle.css" %>
-		<link rel="stylesheet" type="text/css" href="/prototip2.0.4/css/prototip.css" />
-		
-		<%= javascript_include_tag :all %>
-		<script type="text/javascript" src="/fckeditor/fckeditor.js"></script>
-		<script type='text/javascript' src='/prototip2.0.4/js/prototip.js'></script>
-		<%= calendar_date_select_includes nil %>
-                 <title>ARTIC Institut - <%= params[:action].capitalize if params[:action]!='index'%>&nbsp;<%if params[:controller]=='account'%>Home&nbsp;<%else%><%= params[:controller].capitalize %>&nbsp;<%end%>
-                 </title>
-  </head>
-<body onload="initialize()">
 <div id="page">
-	<div id="header">
-		<div id="logo">
-			<%= link_to(image_tag('logo.gif', :width => '400', :height => '80', :border => 0), "/") %>
-		</div>
-		<div id="header_right">
-			<div id="main_links">
-				Bienvenue <%= @current_user.firstname.capitalize %> |
-				<%= link_to 'Mon compte', user_path(current_user) %> |
-				<%= link_to 'Flux Pubmed', pubmed_sources_path %> |
-				<%= link_to 'Administration', admin_path %> |
-				<%= link_to 'Se déconnecter', '/logout' %>
-			</div>
-			<div id="MenuHR">
-				<ul>
-					<li>
-						<%= link_to 'Accueil', '/' %>
-					</li>
-					<li>
-						<%= link_to 'Contenu', content_path("articles") %>
-					</li>
-					<li>
-						<%= link_to 'Administration', admin_path %>
-					</li>
-				</ul>
-				<div id="slct_WS">
-					<select name="slct_WS">
-						<option>
-							Espace de travail
-						</option>
-						<option>
-							----------
-						</option>
-						<% (Workspace.administrated_by(@current_user) + Workspace.consulted_by(@current_user)).each do |w|
-							concat\
-								content_tag(:option, w.name, :onclick => "document.location.href = '#{workspace_path(w)}'"),
-								binding
-						end %>
-						<option>
-							----------
-						</option>
-						<option onclick="document.location.href='<%= admin_path %>#new_workspace'">
-							Nouvel espace de travail
-						</option>
-					</select>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div id="container">
-	  <div id="middle-right">
-      <h3>Ajouter un fichier</h3>
-      <form name="form1" method="post" action="" id="form1">
-				<select name="slct_filtre" id="slct_filtre" onchange="document.location.href = this.value">
-					<option selected value='#'>
-						--------
-					</option>
-					<option value="<%= new_item_path(Article) %>">
-						Un article
-					</option>
-					<option value="<%= new_item_path(Image) %>">
-						Une image
-					</option>
-					<option value="<%= new_item_path(Audio) %>">
-						Fichier Audio
-					</option>
-					<option value="<%= new_item_path(Video) %>">
-						Fichier Vidéo
-					</option>
-					<option value="<%= new_item_path(ArticFile) %>">
-						Fichier
-					</option>
-					<option value="<%= new_item_path(Publication) %>">
-						Une publication
-					</option>
-				</select>
-			</form>
+  <div id="header">
+    <div id="logo">
+      <%= link_to(image_tag('logo.gif', :width => '400', :height => '80', :border => 0), "/") %>
     </div>
-	  <div id="middle-middle">
-				<% unless @hide_full_text_search %>
-		  	    <div id="search-bar-container">
-		    	    <div id="search-bar-left"></div>
-		    	    <div id="search-bar-middle">
-		            <% form_tag search_path, :method => :get, :name => "search" do -%>
-		    		      <%= text_field_tag :search, params[:search] || "Rechercher", :class => "style_text", :onfocus => '$(this).select()' %>
-		    		      <p>dans</p> 
-		    		      <%= select_tag "model", options_for_select([['Tous les éléments', nil], ['Images', 'Image'], ['Videos', 'Video'], ['Fichiers', 'ArticFile'], ['Articles', 'Article'], ['Publications', 'Publication'], ['Fichiers audios', 'Audio']], params['model']) %>
-    		    		      <%= link_to(image_tag("search_button.gif"), "javascript:void(1);", :onclick => "document.search.submit();", :class => "search_button") %>
-    						  <br />
-    						  <%= link_to 'Recherche avancée', new_search_path, :class => "advanced_search" %>&nbsp;&nbsp;
-    		    	  <% end -%>
-		      	  </div>
-		      	  <div id="search-bar-right"></div>
-		      	  <div class="clear"></div>
-	    	  </div>
-			  <% end %>
-		  <%= content_tag(:div, flash[:notice], :class => 'notice') if flash[:notice] %>
+    <div id="header_right">
+      <div id="main_links">
+        Bienvenue
+        <%= @current_user.firstname.capitalize %> |
+        <%= link_to 'Mon compte', user_path(current_user) %> |
+        <%= link_to 'Flux Pubmed', pubmed_sources_path %> |
+        <%= link_to 'Administration', admin_path %> |
+        <%= link_to 'Se déconnecter', '/logout' %>
+      </div>
+      <div id="MenuHR">
+        <ul>
+          <li>
+            <%= link_to 'Accueil', '/' %>
+          </li>
+          <li>
+            <%= link_to 'Contenu', content_path("articles") %>
+          </li>
+          <li>
+            <%= link_to 'Administration', admin_path %>
+          </li>
+        </ul>
+        <div id="slct_WS">
+          <select name="slct_WS">
+            <option>
+              Espace de travail
+            </option>
+            <option>
+              ----------
+            </option>
+            <% (Workspace.administrated_by(@current_user) + Workspace.consulted_by(@current_user)).each do |w| %>
+              <%= content_tag(:option, w.name, :onclick => "document.location.href = '#{workspace_path(w)}'") %>
+            <% end %>
+            <option>
+              ----------
+            </option>
+            <option onclick="document.location.href='<%= admin_path %>#new_workspace'">
+              Nouvel espace de travail
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <div id="middle-right">
+      <h3>
+        Ajouter un fichier
+      </h3>
+      <form name="form1" method="post" action="" id="form1">
+        <select name="slct_filtre" id="slct_filtre" onchange="document.location.href = this.value">
+          <option selected="selected" value='#'>
+            --------
+          </option>
+          <option value="<%= new_item_path(Article) %>">
+            Un article
+          </option>
+          <option value="<%= new_item_path(Image) %>">
+            Une image
+          </option>
+          <option value="<%= new_item_path(Audio) %>">
+            Fichier Audio
+          </option>
+          <option value="<%= new_item_path(Video) %>">
+            Fichier Vidéo
+          </option>
+          <option value="<%= new_item_path(ArticFile) %>">
+            Fichier
+          </option>
+          <option value="<%= new_item_path(Publication) %>">
+            Une publication
+          </option>
+        </select>
+      </form>
+    </div>
+    <div id="middle-middle">
+      <% unless @hide_full_text_search %>
+        <div id="search-bar-container">
+          <div id="search-bar-left"></div>
+          <div id="search-bar-middle">
+            <% form_tag search_path, :method => :get, :name => "search" do -%>
+              <%= text_field_tag :search, params[:search] || "Rechercher", :class => "style_text", :onfocus => '$(this).select()' %>
+              <p>dans</p>
+              <%= select_tag "model", options_for_select([['Tous les éléments', nil], ['Images', 'Image'], ['Videos', 'Video'], ['Fichiers', 'ArticFile'], ['Articles', 'Article'], ['Publications', 'Publication'], ['Fichiers audios', 'Audio']], params['model']) %>
+              <%= link_to(image_tag("search_button.gif"), "javascript:void(1);", :onclick => "document.search.submit();", :class => "search_button") %>
+              <br />
+              <%= link_to 'Recherche avancée', new_search_path, :class => "advanced_search" %>&nbsp;&nbsp;
+            <% end -%>
+          </div>
+          <div id="search-bar-right"></div>
+          <div class="clear"></div>
+        </div>
+      <% end %>
+      <%= content_tag(:div, flash[:notice], :class => 'notice') if flash[:notice] %>
       <%= content_tag(:div, flash[:error], :class => 'error') if flash[:error] %>
-		  <%= yield %>
+      <%= yield %>
       <div id="spinner" style="display:none;">
         <center>
-          <%= image_tag 'spinner.gif', :width => '40', :height => '15' %>
-          <br><b>L O A D I N G</b>
+          <%= image_tag 'spinner.gif', :width => '40', :height => '15' %><br />
+          <b>L O A D I N G</b>
         </center>
       </div>
     </div>
     <div id="footer">
-      <div class="name">2008 - Artic Institut</div>
+      <div class="name">
+        2008 - Artic Institut
+      </div>
       <div class="menu">
         <%= link_to "Contact", "#" %>&nbsp;|&nbsp;
         <%= link_to "Plan du site", "#" %>&nbsp;|&nbsp;
@@ -132,10 +116,5 @@
       </div>
       <div class="clear"></div>
     </div>
-	</div>
-	
+  </div>
 </div>
-
-
-</body>
-</html>
