@@ -52,7 +52,7 @@
           </li>
         </ul>
         <div id="slct_WS">
-          <select name="slct_WS">
+          <select name="slct_WS" onchange="document.location.href = this.value">
             <option>
               Espace de travail
             </option>
@@ -60,12 +60,12 @@
               ----------
             </option>
             <% (Workspace.administrated_by(@current_user) + Workspace.consulted_by(@current_user)).each do |w| %>
-              <%= content_tag(:option, w.name, :onclick => "document.location.href = '#{workspace_path(w)}'") %>
+              <%= content_tag(:option, w.name, :value => workspace_path(w)) %>
             <% end %>
             <option>
               ----------
             </option>
-            <option onclick="document.location.href='<%= admin_path %>#new_workspace'">
+            <option value="<%= admin_path %>#new_workspace">
               Nouvel espace de travail
             </option>
           </select>
