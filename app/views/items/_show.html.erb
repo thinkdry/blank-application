@@ -20,17 +20,18 @@
     <%= image_tag 'icons/award_star_gold_1.png' %>
     <%= link_to 'Noter', '#', :id => :rate_action %>
     <div id="item_rate_modal_content">
-      <%= item_rate(object) %>
+      <div align="center">
+        <%= item_rate(object) %>
+      </div>
     </div>
     <script type="text/javascript" charset="utf-8">
       content = $('item_rate_modal_content').remove().innerHTML;
       new Tip($('rate_action'), content, {
         showOn: 'click',
-        stem: 'topLeft',
         hook: { target: 'rightMiddle', tip: 'topLeft' },
         hideOn: false,
         hideAfter: 2,
-        width: 100
+        width: 300
       });
     </script>
     
