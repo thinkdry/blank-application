@@ -9,9 +9,10 @@ describe Image do
   end
   
   def image_attributes
-    item_attributes
+    file_path = File.expand_path(File.dirname(__FILE__) + '/../file_path/image.png')
+    item_attributes.merge(:file_path => upload(file_path))
   end
-    
+  
   before(:each) do
     @image = item
   end
@@ -21,5 +22,8 @@ describe Image do
     @image.should be_valid
   end
   
-  it "should require file_path"
+  it "should require file_path" do
+    @image.attributes = image_attributes.except(:file_path)
+    @image.should have(1).error_on(:file_path)
+  end
 end
