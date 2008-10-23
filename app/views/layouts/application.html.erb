@@ -1,6 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 	<head>
+                   
+                <link rel="shortcut icon" href="/images/favicon.ico" >
 		<%= stylesheet_link_tag "application.css" %>
 		<%= stylesheet_link_tag "form.css" %>
 		<%= stylesheet_link_tag "starbox.css" %>
@@ -11,6 +13,8 @@
 		<script type="text/javascript" src="/fckeditor/fckeditor.js"></script>
 		<script type='text/javascript' src='/prototip2.0.4/js/prototip.js'></script>
 		<%= calendar_date_select_includes nil %>
+                 <title>ARTIC Institut - <%= params[:action].capitalize if params[:action]!='index'%>&nbsp;<%if params[:controller]=='account'%>Home&nbsp;<%else%><%= params[:controller].capitalize %>&nbsp;<%end%>
+                 </title>
   </head>
 <body onload="initialize()">
 <div id="page">
