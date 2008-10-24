@@ -7,6 +7,17 @@
     
 * Install ImageMagick
     $ sudo apt-get install imagemagick libmagick9-dev
+    
+* Install Xapian Ruby bindings
+    $ apt-get install libxapian15  libxapian-ruby1.8
+
+  If rake tasks are still displaying warnings "No Ruby bindings for Xapian installed",
+  it might be because xapian lib is in a wrong directory
+    # mv /usr/lib/ruby/1.8/x86_64-linux/* /usr/local/lib/ruby/1.8/x86_64-linux/
+    # mv /usr/lib/ruby/1.8/xapian.rb /usr/local/lib/ruby/1.8/
+    # rmdir /usr/lib/ruby/1.8/x86_64-linux/
+    # rmdir /usr/lib/ruby/1.8/
+    # rmdir /usr/lib/ruby/
 
 * Install required gems
   - rmagick
