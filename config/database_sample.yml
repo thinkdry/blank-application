@@ -1,0 +1,16 @@
+DEFAULTS: &DEFAULTS
+  adapter: mysql
+  host: localhost
+  username: root
+
+development:
+  database: artic_dev
+  <<: *DEFAULTS
+  
+test:
+  database: artic_test
+  <<: *DEFAULTS
+  
+production:
+  database: artic_production
+  <<: *DEFAULTS
