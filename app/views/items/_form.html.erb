@@ -3,7 +3,7 @@
 	<% form_for @current_object, :html => {:multipart => true}, :builder => LabelFormBuilder do |f| -%>
 		<%= f.text_field :title, :label => "Titre :" %>
 		<%= f.tags_field :string_tags, :label => "Tags :", :hint => "(séparés par des espaces)" %>
-		<%= f.text_area :description, :label => 'Description :' %>
+		<%= f.text_area :description, :label => false %>
 		<%= advanced_editor_on(@current_object, :description) %>
 		<%= capture(f, &block) %>
 		<label>Diffusion :</label>
