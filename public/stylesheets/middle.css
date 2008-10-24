@@ -36,7 +36,7 @@ h4{
   padding: 20px 20px 40px 20px;
   font-size: 95%;
   width: 760px;
-  _width: 800px;
+  /*_width: 800px;*/
   overflow: hidden;
 }
 
@@ -86,7 +86,7 @@ h4{
   text-align: right;
 }
 
-a.advanced_search{
+a.advanced_search, a:hover.advanced_search, a:link.advanced_search, a:active.advanced_search{
   font-size: 75%;
   color: #fff;
 }
@@ -212,11 +212,14 @@ a.blok{
   margin-top: 1px;
   background-color: #444d4e;
   display: block;
-  padding: 5px 10px;
+  padding: 7px 10px;
+}
+
+a:hover.blok, a:link.blok, a:active.blok, a:visited.blok{
+  font-weight: bold;
   color: #fff;
   text-decoration: none;
 }
-
 
 a.blok_selected{
   background-color: #bdd6d9;
