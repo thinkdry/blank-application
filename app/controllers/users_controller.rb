@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     end
     
     before :show do
-      @is_admin = @current_object.system_role == "Admin"
+      @is_admin = @current_object.is_admin?
       @moderated_ws =
         Workspace.with_moderator_role_for(@current_object) |
         Workspace.administrated_by(@current_object)

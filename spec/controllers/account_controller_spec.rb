@@ -1,14 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AccountController do
-  
+
   describe "responding to GET index" do
-    
-    # @latest_items = GenericItem.latest
-    # @latest_users = User.latest
-    # @latest_pubmed = PubmedItem.latest
-    # @latest_ws = Workspace.latest
-    
     fixtures :users
     
     before(:each) do
