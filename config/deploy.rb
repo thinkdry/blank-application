@@ -84,20 +84,4 @@ namespace :deploy do
   after "deploy:init", "deploy:create_shared_config"
 end
 
-namespace :config do
-  
-  desc "Copy config files"
-  task :copy_config_files do
-    run "cp #{shared_path}/config/* #{release_path}/config/"
-  end
-  after "deploy:update_code", "config:copy_config_files"
-
-  desc "Create shared/config directory and default database.yml."
-  task :create_shared_config do
-    run "mkdir -p #{shared_path}/config"
-
-    upload(File.dirname(__FILE__) + '/database_sample.yml', "#{shared_path}/config/database.yml")
-    puts "Please edit database.yml in the shared directory."
-  end
-end
 
