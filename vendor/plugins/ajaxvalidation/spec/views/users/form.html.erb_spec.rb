@@ -17,7 +17,7 @@ describe "A form for new user" do
     @inline_content ||= %{
       <% form_for @user, :url => '#', :builder => LabelFormBuilder do |f| %>
         <%= f.text_field :lastname %>
-        <%= f.text_field :firstname %>
+        <%= f.text_field :firstname  %>
         <%= f.submit %>
       <% end %>
     }
@@ -38,6 +38,17 @@ describe "A form for new user" do
   it "should add labels" do
     render page
     response.should have_tag('label', 2)
+  end
+  
+  it "should support :label => false option" do
+    render :inline => %{
+      <% form_for @user, :url => '#', :builder => LabelFormBuilder do |f| %>
+        <%= f.text_field :lastname %>
+        <%= f.text_field :firstname, :label => false  %>
+        <%= f.submit %>
+      <% end %>
+    }
+    response.should have_tag('label', 1)
   end
   
   it "should add onblur events on text fields" do

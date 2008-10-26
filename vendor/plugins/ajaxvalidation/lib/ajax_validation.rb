@@ -48,17 +48,19 @@ module AjaxValidation
         options = (args.last.is_a?(Hash) ? args.pop : {})
         options.merge!(:onblur => @template.ajax_validation(object, field))
         
-        label = label(
-          field,
-          options[:label] || field.to_s.capitalize +
-            (object.class.required_fields.include?(field) ? @template.content_tag(:sup, '*') : '') +
-            (options[:hint] ? @template.content_tag(:span, options[:hint], :class => :hint) : ''),
-          :class => options[:label_clas]
-        )
-
-          label + ' ' +
-          yield(field, *(args << options)) +
-          @template.ajax_error_message_on(object, field)
+        out = String.new
+        
+        if options[:label] != false
+          out += label(
+            field,
+            options[:label] || field.to_s.capitalize +
+              (object.class.required_fields.include?(field) ? @template.content_tag(:sup, '*') : '') +
+              (options[:hint] ? @template.content_tag(:span, options[:hint], :class => :hint) : ''),
+            :class => options[:label_clas]
+          ) + ' '
+        end
+        
+        out +=  yield(field, *(args << options)) + @template.ajax_error_message_on(object, field)
       end
     end 
   end
