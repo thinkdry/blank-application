@@ -1,0 +1,33 @@
+= AjaxValidation
+
+This plugin 
+* Add labels formulary helers
+* Check the validity on each field on blur, and display the error message if any
+
+Consult the LightHouse page here
+http://yvon.lighthouseapp.com/projects/18053-ajaxvalidation/overview
+
+== Installation
+
+1. Install the plugin.
+
+ $ ./script/plugin install git://github.com/yvon/ajaxvalidation.git
+
+2. Comment _protect_from_forgery_ line into ApplicationController
+
+It will be fixed and wont be required anymore.
+http://yvon.lighthouseapp.com/projects/18053-ajaxvalidation/tickets/1-authenticitytoken
+
+3. Include prototype.js and ajax_validation.js into your view.
+
+4. Mark you controller as ajax validator.
+
+ class UsersController < ApplicationController
+   acts_as_ajax_validation
+ end
+
+This will define a _validate_ method.
+
+5. Link the builder to your form.
+
+ <% form_for @user, :builder => LabelFormBuilder do |f| %>
