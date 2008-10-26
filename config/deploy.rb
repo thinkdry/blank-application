@@ -83,5 +83,3 @@ namespace :deploy do
   end
   after "deploy:init", "deploy:create_shared_config"
 end
-
-
