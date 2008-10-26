@@ -1,4 +1,4 @@
 <% item_show( :title => 'Fichier',  :object => @current_object ) do %>
 	<h2>Fichier : <%= File.basename(@current_object.file_path) %></h2>
-	<%= image_tag("add.png")%> <%= link_to "Télécharger", url_for_file_column(@current_object, :file_path) %><br />
+	<%= link_to "Télécharger", url_for_file_column(@current_object, :file_path) %><br />
 <% end %>

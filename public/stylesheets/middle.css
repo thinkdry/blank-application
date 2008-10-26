@@ -6,26 +6,24 @@ h4{
 
 .notice {
 	padding: 0.5em;
+	background-color: #BAE6AF;
 	margin-bottom: 1em;
 	border: 2px solid #669900;
 	font-size: 90%;
 	font-weight: bold;
 	color: #336633;
-	line-height: 1;
-	background: #BAE6AF url(/images/accept.png) left no-repeat;
-	background-position: 10px 7px;
+	line-height: 18px;
 }
 
 .error {
-	padding: 10px 10px 10px 30px;
+	padding: 0.5em;
+	background-color: #C3878C;
 	margin-bottom: 1em;
-	border: 2px solid #ff3333;
+	border: 2px solid #800000;
 	font-size: 90%;
 	font-weight: bold;
-	color: #d30000;
-	line-height: 1;
-	background: #ff9999 url(/images/cancel.png) left no-repeat;
-	background-position: 10px 7px;
+	color: #ff0000;
+	line-height: 18px;
 }
 
 .red{
@@ -38,6 +36,7 @@ h4{
   padding: 20px 20px 40px 20px;
   font-size: 95%;
   width: 760px;
+  /*_width: 800px;*/
   overflow: hidden;
 }
 
@@ -87,7 +86,7 @@ h4{
   text-align: right;
 }
 
-a.advanced_search, a:hover.advanced_search, a:link.advanced_search, a:active.advanced_search, a:visited.advanced_search{
+a.advanced_search, a:hover.advanced_search, a:link.advanced_search, a:active.advanced_search{
   font-size: 75%;
   color: #fff;
 }
@@ -217,6 +216,7 @@ a.blok{
 }
 
 a:hover.blok, a:link.blok, a:active.blok, a:visited.blok{
+  font-weight: bold;
   color: #fff;
   text-decoration: none;
 }
