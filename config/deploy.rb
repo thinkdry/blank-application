@@ -62,13 +62,13 @@ namespace :deploy do
   desc "Create shared folders"
   task :create_shared_folders, :roles => :app do
     run <<-CMD
-      mkdir -p #{shared_path}/public/artic_file &&
-      mkdir -p #{shared_path}/public/article_file &&
-      mkdir -p #{shared_path}/public/audio &&
-      mkdir -p #{shared_path}/public/image &&
-      mkdir -p #{shared_path}/public/publication &&
-      mkdir -p #{shared_path}/public/user &&
-      mkdir -p #{shared_path}/public/video &&
+      mkdir -p #{shared_path}/public/artic_file/file_path/tmp &&
+      mkdir -p #{shared_path}/public/article_file/file_path/tmp &&
+      mkdir -p #{shared_path}/public/audio/file_path/tmp &&
+      mkdir -p #{shared_path}/public/image/file_path/tmp &&
+      mkdir -p #{shared_path}/public/publication/file_path/tmp &&
+      mkdir -p #{shared_path}/public/user/image_path/tmp &&
+      mkdir -p #{shared_path}/public/video/file_path/tmp &&
       mkdir -p #{shared_path}/public/uploads
     CMD
   end
