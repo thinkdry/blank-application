@@ -57,7 +57,7 @@ namespace :deploy do
   task :copy_config_files do
     run "cp #{shared_path}/config/* #{release_path}/config/"
   end
-  after "deploy:update_code", "config:copy_config_files"
+  after "deploy:update_code", "deploy:copy_config_files"
   
   desc "Create shared folders"
   task :create_shared_folders, :roles => :app do
