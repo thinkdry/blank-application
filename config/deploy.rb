@@ -61,7 +61,7 @@ namespace :deploy do
   
   desc "Run spec tests"
   task :spec, :roles => :app do
-    run "cd #{release_path} && rake spec"
+    run "cd #{release_path} && rake db:migrate RAILS_ENV=test && spec spec -f s"
   end
   after "deploy:update_code", "deploy:spec"
   
