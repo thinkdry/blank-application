@@ -2,7 +2,7 @@ class Article < ActiveRecord::Base
   include ActionView::Helpers::SanitizeHelper
 
   acts_as_item
-  acts_as_xapian :texts => [:title, :description, :body]
+  acts_as_xapian :texts => [:title, :description, :tags, :body]
   	
   has_many :article_files, :dependent => :delete_all
                                                    

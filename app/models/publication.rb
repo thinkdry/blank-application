@@ -1,6 +1,6 @@
 class Publication < ActiveRecord::Base
   acts_as_item
-  acts_as_xapian :texts => [:title, :description, :author, :link, :file_path]
+  acts_as_xapian :texts => [:title, :description, :tags, :author, :link, :file_path]
   
   file_column :file_path
   
