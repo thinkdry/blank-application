@@ -22,6 +22,7 @@ describe Article do
   end
   
   describe "attachements" do
+    
     it "should accept one new file" do
       @article.attributes = article_attributes
       file_path = ActionController::TestUploadedFile.new \
@@ -41,5 +42,6 @@ describe Article do
        @article.article_files.size.should == 1
        @article.article_files.first.file_path.should_not be_nil
     end
+    
   end
 end
