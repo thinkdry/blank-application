@@ -82,4 +82,11 @@ namespace :deploy do
     puts "Please edit database.yml in the shared directory."
   end
   after "deploy:init", "deploy:create_shared_config"
+  
+  desc "Create XAPIAN index"
+  task :create_xapian_index do
+    run "rake xapian:rebuild_index models='ArticFile Article Audio Image Publication Video' RAILS_ENV=#{server}"
+    run "rake xapian:update_index RAILS_ENV=#{server}"
+  end
+  after "deploy:migrate", "deploy:create_xapian_index"
 end
