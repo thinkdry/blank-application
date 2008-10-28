@@ -24,6 +24,28 @@ module ItemsSpecHelper
          @item.should have(1).error_on(:description)
         end
         
+        it "should accepts tags" do
+          @item.attributes = item_attributes.merge(:string_tags => 'tag1 tag2')
+          @item.taggings.size.should == 2
+        end
+        
+        it "should not record duplicated tags" do
+          @item.attributes = item_attributes.merge(:string_tags => 'tag1 tag2 tag1')
+          @item.taggings.size.should == 2
+        end
+        
+        it "should flat tags into 'tags' attribute" do
+          @item.attributes = item_attributes.merge(:string_tags => 'tag1 tag2')
+          @item[:tags].should == 'tag1 tag2'
+        end
+        
+        describe "string_tags method" do
+          it "should return tags flatten (space separated)" do
+            @item.attributes = item_attributes.merge(:string_tags => 'tag1 tag2')
+            @item.string_tags.should == 'tag1 tag2'
+          end
+        end
+        
       end
       
     end

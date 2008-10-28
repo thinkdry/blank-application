@@ -35,10 +35,14 @@ module ActsAsItem
          self.class.icon
       end
       
+      def flat_tags
+        self[:tags] = self.taggings.collect { |t| t.tag.name }.join(' ')
+      end
+      
       # Take a list of tag, space separated and assign them to the object
       def string_tags= arg
         @string_tags = arg
-        tag_names = arg.split(' ')
+        tag_names = arg.split(' ').uniq
         # Delete all tags that are no more associated
         taggings.each do |tagging|
           tagging.destroy unless tag_names.delete(tagging.tag.name)
@@ -48,11 +52,12 @@ module ActsAsItem
           tag = Tag.find_by_name(tag_name) || Tag.new(:name => tag_name)
           self.taggings.build(:tag => tag)
         end
+        flat_tags
       end
       
       def string_tags # Return space separated tag names
         return @string_tags if @string_tags
-        tags.collect { |t| t.name }.join(' ') if tags && tags.size > 0
+        self[:tags]
       end
       
       def associated_workspaces= workspace_ids

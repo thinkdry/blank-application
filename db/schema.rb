@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080922085723) do
+ActiveRecord::Schema.define(:version => 20081028153000) do
 
   create_table "acts_as_xapian_jobs", :force => true do |t|
     t.string  "model",                  :null => false
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(:version => 20080922085723) do
     t.boolean  "private",                   :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "tags"
   end
 
   create_table "article_files", :force => true do |t|
@@ -44,6 +45,7 @@ ActiveRecord::Schema.define(:version => 20080922085723) do
     t.boolean  "private",                   :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "tags"
   end
 
   create_table "audios", :force => true do |t|
@@ -54,6 +56,7 @@ ActiveRecord::Schema.define(:version => 20080922085723) do
     t.boolean  "private",                   :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "tags"
   end
 
   create_table "comments", :force => true do |t|
@@ -86,6 +89,7 @@ ActiveRecord::Schema.define(:version => 20080922085723) do
     t.boolean  "private",                   :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "tags"
   end
 
   create_table "items", :force => true do |t|
@@ -117,6 +121,7 @@ ActiveRecord::Schema.define(:version => 20080922085723) do
     t.boolean  "private",                   :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "tags"
   end
 
   create_table "pubmed_items", :force => true do |t|
@@ -217,6 +222,7 @@ ActiveRecord::Schema.define(:version => 20080922085723) do
     t.boolean  "private",                    :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "tags"
   end
 
   create_table "workspaces", :force => true do |t|
