@@ -59,6 +59,12 @@ namespace :deploy do
   end
   after "deploy:update_code", "deploy:copy_config_files"
   
+  desc "Run spec tests"
+  task :spec, :roles => :app do
+    run "cd #{release_path} && rake spec"
+  end
+  after "deploy:update_code", "deploy:spec"
+  
   desc "Create shared folders"
   task :create_shared_folders, :roles => :app do
     run <<-CMD
@@ -85,8 +91,8 @@ namespace :deploy do
   
   desc "Create XAPIAN index"
   task :create_xapian_index do
-    run "rake xapian:rebuild_index models='ArticFile Article Audio Image Publication Video' RAILS_ENV=#{server}"
-    run "rake xapian:update_index RAILS_ENV=#{server}"
+    run "cd #{release_path} && rake xapian:rebuild_index models='ArticFile Article Audio Image Publication Video' RAILS_ENV=#{server}"
+    run "cd #{release_path} && rake xapian:update_index RAILS_ENV=#{server}"
   end
   after "deploy:migrate", "deploy:create_xapian_index"
 end
