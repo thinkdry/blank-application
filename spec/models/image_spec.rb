@@ -9,7 +9,7 @@ describe Image do
   end
   
   def image_attributes
-    file_path = File.expand_path(File.dirname(__FILE__) + '/../file_path/image.png')
+    file_path = url_to_filepath_file('image.png')
     item_attributes.merge(:file_path => upload(file_path))
   end
   

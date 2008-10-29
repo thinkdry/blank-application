@@ -4,6 +4,8 @@ class ArticFile < ActiveRecord::Base
   	
   file_column :file_path
   
+  validates_presence_of :file_path
+  
   def self.label
     "Fichier"
   end

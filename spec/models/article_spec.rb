@@ -9,7 +9,9 @@ describe Article do
   end
   
   def article_attributes
-    item_attributes
+    item_attributes.merge(
+      :body => 'My body content'
+    )
   end
   
   before(:each) do
@@ -21,12 +23,17 @@ describe Article do
     @article.should be_valid
   end
   
+  it "should require body" do
+    @article.attributes = article_attributes.except(:body)
+    @article.should have(1).error_on(:body)
+  end
+  
   describe "attachements" do
     
     it "should accept one new file" do
       @article.attributes = article_attributes
       file_path = ActionController::TestUploadedFile.new \
-        File.expand_path(File.dirname(__FILE__) + '/../file_path/image.png'),
+        url_to_filepath_file('image.png'),
         'image/png'
       @article.new_file_attributes = [file_path]
       @article.article_files.size.should == 1
@@ -36,7 +43,7 @@ describe Article do
     it "should accepts file names with spaces" do
       @article.attributes = article_attributes
        file_path = ActionController::TestUploadedFile.new \
-         File.expand_path(File.dirname(__FILE__) + '/../file_path/filename with spaces.txt'),
+         url_to_filepath_file('filename with spaces.txt'),
          'image/png'
        @article.new_file_attributes = [file_path]
        @article.article_files.size.should == 1

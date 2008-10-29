@@ -7,4 +7,23 @@ describe Publication do
   def item
     Publication.new
   end
+  
+  def publication_attributes
+    item_attributes.merge(:author => 'The famous author')
+  end
+  
+  before(:each) do
+    @publication = Publication.new
+  end
+  
+  it "should be valid" do
+    @publication.attributes = publication_attributes
+    @publication.should be_valid
+  end
+  
+  it "should require author" do
+    @publication.attributes = publication_attributes.except(:author)
+    @publication.should have(1).error_on(:author)
+  end
+  
 end

@@ -4,7 +4,7 @@ describe ArticleFile do
   
   def article_file_attributes
     { :article_id => 42,
-      :file_path => upload(File.expand_path(File.dirname(__FILE__) + '/../file_path/image.png')) }
+      :file_path => upload_filepath_file('image.png') }
   end
   
   before(:each) do
@@ -23,7 +23,7 @@ describe ArticleFile do
   
   it "should not validates empty files" do
     @article_file.attributes = article_file_attributes.merge(
-      :file_path => upload(File.expand_path(File.dirname(__FILE__) + '/../file_path/empty_file.txt')))
+      :file_path => upload_filepath_file('empty_file.txt'))
     @article_file.should have(1).error_on(:file_path)
   end
   

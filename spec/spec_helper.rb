@@ -45,3 +45,11 @@ Spec::Runner.configure do |config|
   # 
   # For more information take a look at Spec::Example::Configuration and Spec::Runner
 end
+
+def upload_filepath_file(filename)
+  upload(url_to_filepath_file(filename))
+end
+
+def url_to_filepath_file(filename)
+  File.expand_path(File.dirname(__FILE__) + "/file_path/#{filename}")
+end

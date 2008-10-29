@@ -8,6 +8,8 @@ class Video < ActiveRecord::Base
   acts_as_xapian :texts => [:title, :description, :tags, :file_path]
   	
   file_column :file_path
+  
+  validates_presence_of :file_path
 
   after_save  :encode_video
   
