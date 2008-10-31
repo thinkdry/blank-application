@@ -1,16 +1,21 @@
 <% form_for_item @current_object, title do |f| -%>
-	<%= f.text_area(:body, :label => 'Article : ') %>
-	<%= advanced_editor_on(@current_object, :body) %>
-	
-	<label>Fichiers associés:</label>
-	<div id="files" class="input_files_container">
-	  <%= link_to_new_file 'Joindre un nouveau fichier' %><br />
-		<% @current_object.article_files.each do |af| %>
-			<div id="file<%= af.id.to_s %>">
-				<%= af.file_path.split('/').last %>
-				<%= link_to "Télécharger", url_for_file_column(af, :file_path) %> 
-				<%= link_to_remote "Supprimer", :url => { :action => "removeFile", :id => af.id }, :success => "$(file#{af.id.to_s}.remove())" %>
-			</div>
-		<% end %>
-	</div>
+
+  <%= f.advanced_editor(:body, :label => 'Article :') %>
+
+  <% f.field :article_files, :label => 'Fichiers associés :' do %>
+  
+    <div id="files">
+      <% @current_object.article_files.each do |af| %>
+        <div id="file<%= af.id.to_s %>">
+          <%= af.file_path.split('/').last %>
+          <%= link_to "Télécharger", url_for_file_column(af, :file_path) %> 
+          <%= link_to_remote "Supprimer", :url => { :action => "removeFile", :id => af.id }, :success => "$(file#{af.id.to_s}.remove())" %>
+        </div>
+      <% end %>
+    </div>
+    
+    <%= link_to_new_file '- Joindre un nouveau fichier -' %><br />
+    
+  <% end %>
+    
 <% end -%>

@@ -1,17 +1,20 @@
 <fieldset>
   <legend><%= title %></legend>
-	<% form_for @current_object, :html => {:multipart => true}, :builder => LabelFormBuilder do |f| -%>
-		<%= f.text_field :title, :label => "Titre :" %>
-		<%= f.tags_field :string_tags, :label => "Tags :", :hint => "(séparés par des espaces)" %>
-		<%= f.text_area :description, :label => false %>
-		<%= advanced_editor_on(@current_object, :description) %>
-		<%= capture(f, &block) %>
-		<label>Diffusion :</label>
-		<div class="input_container">
-			<%= item_status_fields(f, @current_object) %>
-			<%= error_message_on :current_object, :items %>
-		</div>
-		<label>&nbsp;</label>
-		<%= f.submit current_object.new_record? ? 'Créer' : 'Mettre à jour' %>
-	<% end -%>
+  <% form_for @current_object, :builder => ArticFormBuilder, :html => {:multipart => true} do |f| -%>
+
+    <%= f.text_field :title, :label => "Titre :" %>
+    <%= f.tags_field :string_tags, :label => "Tags :", :hint => "(séparés par des espaces)" %>
+    
+    <%= f.advanced_editor :description, :label => 'Description :' %>
+    
+    <%= capture(f, &block) %>
+
+    <% f.field :workspaces, :label => 'Espaces de travail :' do %>
+      <%= item_status_fields(f, @current_object) %>
+      <%= error_message_on :current_object, :items %>
+    <% end %>
+
+    <%= f.submit current_object.new_record? ? 'Créer' : 'Mettre à jour' %>
+	
+  <% end -%>
 </fieldset>

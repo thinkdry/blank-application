@@ -1,9 +1,7 @@
 <% form_for_item @current_object, title do |f| -%>		
-	<%= f.label :file_path, 'Fichier :' %>
-	<div class="input_file_container">
+	<% f.field :file_path, :label => 'Fichier :' %>
 	  <%= File.basename(@current_object.file_path) + '<br />' if @current_object.file_path %>
 	  <%= file_column_field 'audio', 'file_path', :onChange=>"LimitAttach(this.form, this.form.audio_file_path.value,'audio')" %>
-	  <%= error_message_on :artic_file, :file_path %>
-	</div>
+	<% end %>
 <% end %>
 

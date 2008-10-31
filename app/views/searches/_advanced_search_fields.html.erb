@@ -1,23 +1,33 @@
 <fieldset>
   <legend>Recherche avancée</legend>
-  <% form_for :search, :url => search_path, :html => {:method => :get} do |f| %>
+  <% form_for :search, :url => search_path, :builder => ArticFormBuilder, :html => {:method => :get} do |f| %>
+  
     <p>Informations au sujet de l'élément recherché</p>
-    <label>Titre<span class="hint">Entrer le titre de l'élément recherché</span></label>
-    <%= f.text_field :title_contains %>
+    
+    <%= f.text_field :title_contains, :label => 'Titre' %>
+    
     <%# OPTIMIZE: Use lib with user friendly multiple select %>
-    <label>Type<span class="hint">Sélectionner un type d'élément</span></label>
-    <%= f.select :item_type_equals, %W(Article Image Video Audio Publication ArticFile), {}, :multiple => true %>
-    <label>Auteur<span class="hint">Préciser l'auteur</span></label>
-    <%= f.text_field :user_name_contains %>
+    <%= f.select  :item_type_equals,
+                  %W(Article Image Video Audio Publication ArticFile),
+                  :label => 'Type' %>
+
+    <%= f.text_field :user_name_contains, :label => 'Auteur' %>
     <div id="autocomplete_choices" class="autocomplete"></div>
-    <script type="text/javascript">new Ajax.Autocompleter("search_user_name_contains", "autocomplete_choices","/users/index",{ method: 'post', paramName: 'login' });</script>
-    <label>Date<span class="hint">Sélectionner la période de recherche</span></label>
-    <div class="input_container">
-      Du <%= f.calendar_date_select :created_after, :class => "advanced" %> 
-      au <%= f.calendar_date_select :created_before, :class => "advanced" %>
-    </div>
+    <script type="text/javascript">
+      new Ajax.Autocompleter("search_user_name_contains", "autocomplete_choices", "/users/index",{
+        method: 'post', paramName: 'login'
+      });
+    </script>
+    
+    
+    <% f.field :date, :label => 'Période de recherche' do %>
+      Du <%= f.calendar_date_select :created_after, :class => "advanced" %> <br>
+      Au <%= f.calendar_date_select :created_before, :class => "advanced" %>
+    <% end %>
+    
   	<div class="buttons">
       <button type="submit" class="positive alone"><img src="/images/tick.png" alt=""/>Rechercher</button>
     </div>
+    
 	<% end %>
 </fieldset>

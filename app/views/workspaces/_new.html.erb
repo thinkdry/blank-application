@@ -1,9 +1,8 @@
 <fieldset>
 	<legend>Créer un nouvel espace de travail</legend>
-	<% form_for @workspace, :builder => LabelFormBuilder do |f| -%>
-		<%= f.text_field :name, :label => "Nom de l'espace de travail" %>
-		<%= f.text_area :description, :label => "Description de l'espace" %>
-		<%= advanced_editor_on(@workspace, :description) %>
-		<label>&nbsp;</label><%= f.submit "Créer" %>
+	<% form_for @workspace, :builder => ArticFormBuilder do |f| -%>
+		<%= f.text_field :name, :label => "Nom :" %>
+		<%= f.advanced_editor :description, :label => "Description :" %>
+		<%= f.submit "Créer" %>
 	<% end %>
 </fieldset>

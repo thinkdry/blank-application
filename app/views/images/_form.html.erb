@@ -1,12 +1,8 @@
 <% form_for_item @current_object, title do |f| -%>
-	<%= f.label :file_path, "Fichier :"%>
-	<div class="input_file_container">
-	  <%= File.basename(@current_object.file_path)+'<br />' if @current_object.file_path %>
-	  <%= file_field 'image', 'file_path',:onChange=>"LimitAttach(this.form, this.form.image_file_path.value,'image')" %>
-	  <%= error_message_on(:artic_file, :file_path) %>
-	</div>
-	<% if @current_object.file_path %>
-	  <label>&nbsp;</label>
-		<%= image_tag url_for_file_column(@current_object, :file_path, "web"), :style => "margin-left:20px;" %>
-	<% end %>
+
+  <% f.field :file_path, :label => "Fichier :" do %>
+    <%= File.basename(@current_object.file_path) + '<br />' if @current_object.file_path %>
+    <%= file_field 'image', 'file_path',:onChange=>"LimitAttach(this.form, this.form.image_file_path.value,'image')" %>
+  <% end %>
+
 <% end -%>

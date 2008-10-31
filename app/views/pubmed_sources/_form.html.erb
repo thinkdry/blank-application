@@ -1,5 +1,7 @@
-<% form_for @current_object, :builder => LabelFormBuilder do |f| %>
-	<%= f.text_field :name %>
-	<%= f.text_field :url %>
-	<label>&nbsp;</label><%= f.submit 'Ajouter' %>
+<% form_for @current_object, :builder => ArticFormBuilder do |f| %>
+  <%= f.text_field :name %>
+  <%= f.text_field :url %>
+  <% f.field(:submit, :label => '') do  %>
+    <%= submit_tag 'Ajouter' %>
+  <% end %>
 <% end %>

@@ -1,4 +1,6 @@
 class SearchesController < ApplicationController
+  acts_as_ajax_validation
+  
   def new
     @hide_full_text_search = true
     @search = Search.new

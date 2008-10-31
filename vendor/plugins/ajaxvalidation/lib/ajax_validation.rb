@@ -38,29 +38,56 @@ module AjaxValidation
         end
       end
       
-      def tags_field(field, *args)
-        text_field(field, *args)
+      def default_template(object)
+        @template.content_tag(:p,
+          @template.label(object.object_name, object.method, object.label) + '<br />' +
+          object
+        )
+      end
+      
+      def field(field, *args, &block)
+        @template.concat(labelize(field, *args) { @template.capture(&block) }, block.binding)
       end
       
       private
       def labelize(field, *args)
         object = @object || @object_name.to_s.classify.constantize.new
-        options = (args.last.is_a?(Hash) ? args.pop : {})
-        options.merge!(:onblur => @template.ajax_validation(object, field))
+
+        options = args.extract_options!        
+        options[:ajax] = true if options[:ajax].nil?
+        options[:onblur] = @template.ajax_validation(object, field) if options[:ajax]
         
-        out = String.new
-        
-        if options[:label] != false
-          out += label(
-            field,
-            options[:label] || field.to_s.capitalize +
-              (object.class.required_fields.include?(field) ? @template.content_tag(:sup, '*') : '') +
-              (options[:hint] ? @template.content_tag(:span, options[:hint], :class => :hint) : ''),
-            :class => options[:label_clas]
-          ) + ' '
+        label = options.delete(:label) || field.to_s.capitalize
+
+        proc = Proc.new do
+          obj = yield(field, *(args << options))
+          obj += @template.ajax_error_message_on(object, field) if options[:ajax]
+          obj.instance_exec do
+            @label = label.to_s
+            @object = object
+            @object_name = object.class.to_s.downcase
+            @method = field.to_s
+            def object
+              @object
+            end
+            def instance
+              @object
+            end
+            def label
+              @label
+            end
+            def object_name
+              @object_name
+            end
+            def method
+              @method
+            end
+          end
+          obj
         end
         
-        out +=  yield(field, *(args << options)) + @template.ajax_error_message_on(object, field)
+        template_method = options.delete(:template) || 'default_template' 
+        self.send(template_method, proc.call)
       end
     end 
   end

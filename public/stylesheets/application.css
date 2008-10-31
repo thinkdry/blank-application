@@ -391,6 +391,7 @@ a.add_item{
 }
 
 .fieldWithErrors {
+  display: inline;
 }
 
 .fieldWithErrors input {
@@ -398,12 +399,12 @@ a.add_item{
 }
 
 .fieldWithErrors label {
-	color: red;
 }
 
 .formError {
 	display: inline;
 	color: red;
+	margin-left: 10px;
 }
 
 

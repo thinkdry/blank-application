@@ -1,13 +1,16 @@
 <% form_for_item @current_object, title do |f| -%>
-	<%= hidden_field_tag :pubmed_item_id, params[:pubmed_item_id] if @pubmed_item %>
-	
-	<% if @pubmed_item %>
-		<%= f.text_field :author, :disabled => true %>
-		<%= f.text_field :link, :disabled => true %>
-	<% else %>
-		<%= f.text_field :author %>
-	<% end %>
-	
-	<label>Fichier attaché</label><br>
-	<%= file_column_field 'publication', 'file_path' %>
+
+  <%= hidden_field_tag :pubmed_item_id, params[:pubmed_item_id] if @pubmed_item %>
+
+  <% if @pubmed_item %>
+    <%= f.text_field :author, :disabled => true %>
+    <%= f.text_field :link, :disabled => true %>
+  <% else %>
+    <%= f.text_field :author %>
+  <% end %>
+
+  <% f.field :file_path, :label => 'Fichier attaché :' do %>
+    <%= file_column_field 'publication', 'file_path' %>
+  <% end %>
+  
 <% end %>
