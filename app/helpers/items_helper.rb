@@ -33,7 +33,7 @@ module ItemsHelper
   def advanced_editor_on(object, attribute)
     javascript_tag(%{
 
-        var oFCKeditor = new FCKeditor('#{object.class.to_s.underscore}_#{attribute}') ;
+        var oFCKeditor = new FCKeditor('#{object.class.to_s.underscore}_#{attribute}', '700px') ;
         oFCKeditor.BasePath = "/fckeditor/" ;
         oFCKeditor.ReplaceTextarea() ;
 
