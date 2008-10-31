@@ -32,6 +32,11 @@ h4{
   color: red;
 }
 
+img.test{
+  clear: left;
+  float:left;
+} 
+
 #middle-middle{
   border-right: 1px #F2F2F2 solid;
   margin-right: 180px;
