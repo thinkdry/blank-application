@@ -18,17 +18,5 @@ describe "GET /" do
     
     render page
   end
-  
-  it "should show latest items" do
-    response.should have_tag('#items') do
-      with_tag 'p', assigns[:latest_items].size
-    end
-  end
-  
-  it "should show latest pubmed items" do
-    response.should have_tag('#publications') do
-      with_tag 'p', assigns[:latest_pubmed].size
-    end
-  end
 
 end
