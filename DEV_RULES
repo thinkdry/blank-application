@@ -1,0 +1,9 @@
+2 spaces by indentation (do not use tabulations)
+  
+a_method_name(a_first_argument, a_second, a_third)
+ => Use of parentheses are encouraged, even if its ruby
+ => Use undescores to name methods and variables
+ => Put spaces after comma
+ 
+my_string1 + my_string2
+ => Every operator takes spaces before and after
