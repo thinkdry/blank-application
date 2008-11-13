@@ -1,0 +1,26 @@
+<div id="area_TITLE">
+  <h1>Administration</h1>
+</div>
+<div class="area_BOTH">
+  <% @workspaces.each do |w| %>
+    <div class="area_WS" style="margin-bottom: 10px;">
+  		<h4><%= w.name %></h4>
+  		Administrateur de l'espace : 	<%= link_to_user(w.creator) %>		<br />
+  		Modérateurs : 					<%= user_list_of(w, :moderators) %>	<br />
+  		Rédacteurs : 					<%= user_list_of(w, :writters) %>	<br />
+  		Lecteurs : 						<%= user_list_of(w, :readers) %><br />
+  		<br />
+  		<%= link_to "Gérer les droits et utilisateurs de cet espace", edit_workspace_path(w.id) %>
+  	</div>
+  <% end %>
+</div>
+<div id="new_workspace" style="margin-top: 20px;">
+	<%= render :partial => "workspaces/new" %>
+</div>
+<% if current_user.is_admin? %>
+<fieldset style="margin-top: 20px;">
+	<legend>Configuration administrateur</legend>
+	<%= link_to 'Ajouter un utilisateur', new_user_path %>
+</fieldset>
+<% end %>
+

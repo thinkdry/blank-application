@@ -7,12 +7,12 @@ ActionController::Routing::Routes.draw do |map|
   map.forgot_password '/forgot_password', :controller => 'users', :action => 'forgot_password'
   #map.change_password '/change_password', :controller => 'users', :action => 'change_password'
   map.reset_password '/reset_password/:password_reset_code', :controller => 'users', :action => 'reset_password'
-  map.resources :users
+  map.resources :users, :member => { :administration => :any, :superadministration => :any }
   map.resource :session
 	
 	map.content '/content/:item_type', :controller => 'items', :action => 'index'
 	
-	map.admin '/admin', :controller => 'admin', :action => 'index'
+	#map.admin '/admin', :controller => 'admin', :action => 'index'
   
   # TODO: Publishing, Bookmarks, Admin related controllers: rights...
 
@@ -41,18 +41,18 @@ ActionController::Routing::Routes.draw do |map|
   items_ressources(map)
 
   # Items in context of workspaces
-  map.resources(:workspaces) do |workspaces|
+  map.resources :workspaces, :member => { :add_new_user => :any } do |workspaces|
     workspaces.content '/:item_type', :controller => 'workspaces', :action => 'show', :conditions => { :method => :get }
     items_ressources(workspaces)
   end
   
   # Project management
-  map.resources(:projects) do |projects|
+  map.resources :projects  do |projects|
     projects.resources :meetings do |meetings|
       meetings.resources :objectives
     end
   end
-  map.add_new_user '/add_new_user', :controller => 'workspaces', :action => 'add_new_user'
+  #map.add_new_user '/add_new_user', :controller => 'workspaces', :action => 'add_new_user'
   
   map.resource :search
   map.resources :uploads

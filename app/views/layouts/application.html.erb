@@ -35,7 +35,10 @@
         <%= @current_user.firstname.capitalize %> |
         <%= link_to 'Mon compte', user_path(current_user) %> |
         <%= link_to 'Flux Pubmed', pubmed_sources_path %> |
-        <%= link_to 'Administration', admin_path %> |
+        <%= link_to 'Administration', administration_user_path(current_user) %> |
+				<% if current_user.is_superadmin? %>
+					<%= link_to 'Super Administration', superadministration_user_path(current_user) %> | 
+				<% end %>
         <%= link_to 'Se déconnecter', '/logout' %>
       </div>
       <div id="MenuHR">
@@ -47,7 +50,7 @@
             <%= link_to 'Contenu', content_path("articles") %>
           </li>
           <li>
-            <%= link_to 'Administration', admin_path %>
+            <%= link_to 'Administration', administration_user_path(current_user) %>
           </li>
         </ul>
         <div id="slct_WS">
@@ -64,7 +67,7 @@
             <option>
               ----------
             </option>
-            <option value="<%= admin_path %>#new_workspace">
+            <option value="<%= administration_user_path(current_user) %>#new_workspace">
               Nouvel espace de travail
             </option>
           </select>
