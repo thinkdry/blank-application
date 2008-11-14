@@ -1,26 +1,37 @@
 <div id="area_TITLE">
   <h1>Super Administration</h1>
 </div>
-<div class="area_BOTH">
-  <% @workspaces.each do |w| %>
-    <div class="area_WS" style="margin-bottom: 10px;">
-  		<h4><%= w.name %></h4>
-  		Administrateur de l'espace : 	<%= link_to_user(w.creator) %>		<br />
-  		Modérateurs : 					<%= user_list_of(w, :moderators) %>	<br />
-  		Rédacteurs : 					<%= user_list_of(w, :writters) %>	<br />
-  		Lecteurs : 						<%= user_list_of(w, :readers) %><br />
-  		<br />
-  		<%= link_to "Gérer les droits et utilisateurs de cet espace", edit_workspace_path(w.id) %>
-  	</div>
-  <% end %>
+
+<ul id="top_elems" class="subsection_tabs without_img">  
+	<li class="tab"><a href="#one">Image manager</a></li>  
+  <li class="tab"><a href="#two">Colors manager</a></li>
+	<li class="tab"><a href="#three">Fonts manager</a></li>
+	<li class="tab"><a href="#four">Labels manager</a></li>
+</ul>
+<div id="top_content">
+  <div id="one">
+    <ul class="top_box">
+  	<%= render 	:partial => "users/superadministration/pictures" %>
+  	</ul>
+  </div>
+  <div id="two">
+    <ul class="top_box">
+  	<%= render 	:partial => "users/superadministration/colors" %>
+  	</ul>
+  </div>
+	<div id="three">
+    <ul class="top_box">
+  	<%= render 	:partial => "users/superadministration/fonts" %>
+  	</ul>
+  </div>
+	<div id="four">
+    <ul class="top_box">
+  	<%= render 	:partial => "users/superadministration/fonts" %>
+  	</ul>
+  </div>
 </div>
-<div id="new_workspace" style="margin-top: 20px;">
-	<%= render :partial => "workspaces/new" %>
-</div>
-<% if @current_user.is_admin? %>
-<fieldset style="margin-top: 20px;">
-	<legend>Configuration administrateur</legend>
-	<%= link_to 'Ajouter un utilisateur', new_user_path %>
-</fieldset>
-<% end %>
+
+<script type="text/javascript" charset="utf-8">
+	new Control.Tabs('top_elems'); 
+</script>
 

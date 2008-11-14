@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081029105829) do
+ActiveRecord::Schema.define(:version => 20081114104140) do
 
   create_table "acts_as_xapian_jobs", :force => true do |t|
     t.string  "model",                  :default => "", :null => false
@@ -92,6 +92,13 @@ ActiveRecord::Schema.define(:version => 20081029105829) do
     t.string   "itemable_type"
     t.integer  "itemable_id",   :limit => 11
     t.integer  "workspace_id",  :limit => 11
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "pictures", :force => true do |t|
+    t.string   "name"
+    t.string   "picture_path"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

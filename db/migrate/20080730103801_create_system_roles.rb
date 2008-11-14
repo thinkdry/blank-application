@@ -5,6 +5,7 @@ class CreateSystemRoles < ActiveRecord::Migration
       t.timestamps
     end
     SystemRole.create(:name => 'admin')
+		SystemRole.create(:name => 'superadmin')
   end
 
   def self.down

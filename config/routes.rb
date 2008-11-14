@@ -8,6 +8,7 @@ ActionController::Routing::Routes.draw do |map|
   #map.change_password '/change_password', :controller => 'users', :action => 'change_password'
   map.reset_password '/reset_password/:password_reset_code', :controller => 'users', :action => 'reset_password'
   map.resources :users, :member => { :administration => :any, :superadministration => :any }
+	map.picture_changing '/users/:id/superadminstration/picture_changing', :controller => 'users', :action => 'picture_changing'
   map.resource :session
 	
 	map.content '/content/:item_type', :controller => 'items', :action => 'index'

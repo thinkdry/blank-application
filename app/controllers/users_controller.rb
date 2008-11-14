@@ -97,7 +97,27 @@ class UsersController < ApplicationController
 	
 	def superadministration
 		@current_object = current_user
+		@logo = Picture.find_by_name('logo')
 		
   end
+	
+	def picture_changing
+		
+		if current_user.is_superadmin?
+			@picture = Picture.new(params[:picture])
+			if Picture.find_by_name('logo')
+				Picture.find_by_name('logo').update_attributes(:name => 'old_logo')
+      end
+			if @picture.save
+				redirect_to superadministration_user_url(current_user)
+				flash[:notice] = "Logo mis à jour"
+			else
+				render :nothing =>:true
+			end
+		else
+			redirect_to "/"
+			flash[:notice] = "Vous n'avez pas ce droit."
+		end
+	end
   
 end

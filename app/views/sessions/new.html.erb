@@ -22,7 +22,11 @@
 	</head>
 	<body>
 		<div id="content_login">
-    	<img src="images/logo_intranet_login.gif" alt="ARTIC" width="168" height="80">
+			<% if (@logo=Picture.find_by_name('logo')) %>
+				<%= image_tag(url_for_file_column(@logo, 'picture_path', 'thumb')) %>
+			<% else %> 
+				<img src="images/logo_intranet_login.gif" alt="ARTIC" width="168" height="80">
+			<% end %>
     	<% form_tag session_path do -%>
                                 <p style="color:red"><%=flash[:error]%></p>
 				<label>Identifiant<br>

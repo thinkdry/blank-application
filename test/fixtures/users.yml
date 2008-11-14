@@ -34,3 +34,7 @@ haddock:
 
 milou:
     <<: *DEFAULTS
+
+boss:
+   system_role_id: <%= SystemRole.find_by_name('superadmin').id %>
+   <<: *DEFAULTS
