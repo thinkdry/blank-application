@@ -7,7 +7,10 @@ ActionController::Routing::Routes.draw do |map|
   map.forgot_password '/forgot_password', :controller => 'users', :action => 'forgot_password'
   #map.change_password '/change_password', :controller => 'users', :action => 'change_password'
   map.reset_password '/reset_password/:password_reset_code', :controller => 'users', :action => 'reset_password'
-  map.resources :users, :member => { :administration => :any, :superadministration => :any }
+  map.resources :users, :member => { :administration => :any } do |user|
+		user.picture_changing '/superadminstration/picture_changing', :controller => 'users', :action => 'picture_changing'
+		user.superadministration '/superadministration/:part', :controller => 'users', :action => 'superadministration'
+	end
 	map.picture_changing '/users/:id/superadminstration/picture_changing', :controller => 'users', :action => 'picture_changing'
   map.resource :session
 	

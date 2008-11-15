@@ -41,7 +41,7 @@
         <%= link_to 'Flux Pubmed', pubmed_sources_path %> |
         <%= link_to 'Administration', administration_user_path(current_user) %> |
 				<% if current_user.is_superadmin? %>
-					<%= link_to 'Super Administration', superadministration_user_path(current_user) %> | 
+					<%= link_to 'Super Administration', user_superadministration_path(current_user, default) %> | 
 				<% end %>
         <%= link_to 'Se déconnecter', '/logout' %>
       </div>
