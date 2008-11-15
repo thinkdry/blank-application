@@ -11,7 +11,6 @@ ActionController::Routing::Routes.draw do |map|
 		user.picture_changing '/superadminstration/picture_changing', :controller => 'users', :action => 'picture_changing'
 		user.superadministration '/superadministration/:part', :controller => 'users', :action => 'superadministration'
 	end
-	map.picture_changing '/users/:id/superadminstration/picture_changing', :controller => 'users', :action => 'picture_changing'
   map.resource :session
 	
 	map.content '/content/:item_type', :controller => 'items', :action => 'index'

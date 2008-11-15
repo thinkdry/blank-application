@@ -3,7 +3,7 @@
 
 	<%= image_tag(url_for_file_column(@logo, 'picture_path', 'thumb')) if @logo.picture_path %><br />
 
-  <% form_for @logo, :url => picture_changing_path(current_user.id), :html => {:multipart => true} do |f| -%>
+  <% form_for @logo, :url => user_picture_changing_path(current_user.id), :html => {:multipart => true} do |f| -%>
 
 		<%= f.hidden_field :name, :value => "logo" %>
 	

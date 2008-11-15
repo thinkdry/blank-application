@@ -14,7 +14,7 @@
   <script type='text/javascript' src='/prototip2.0.4/js/prototip.js'></script>
   <%= calendar_date_select_includes nil %>
   <title>
-    ARTIC Institut -
+    Blank engine -
     <%= params[:action].capitalize if params[:action] != 'index' %>
     <% if params[:controller] == 'account' %>
       Home
@@ -42,7 +42,7 @@
         <%= link_to 'Flux Pubmed', pubmed_sources_path %> |
         <%= link_to 'Administration', administration_user_path(current_user) %> |
 				<% if current_user.is_superadmin? %>
-					<%= link_to 'Super Administration', user_superadministration_path(current_user, 'default') %> | 
+					<%= link_to 'Super Administration', user_superadministration_path(current_user, "default") %> | 
 				<% end %>
         <%= link_to 'Se déconnecter', '/logout' %>
       </div>

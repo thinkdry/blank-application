@@ -3,35 +3,16 @@
 </div>
 
 <ul id="top_elems" class="subsection_tabs without_img">  
-	<li class="tab"><a href="#one">Image manager</a></li>  
-  <li class="tab"><a href="#two">Colors manager</a></li>
-	<li class="tab"><a href="#three">Fonts manager</a></li>
-	<li class="tab"><a href="#four">Labels manager</a></li>
+	<li class="tab"><%= link_to_remote "Pictures manager", :update => 'top_content', :url => user_superadministration_path(current_user, 'pictures') %></li>  
+  <li class="tab"><%= link_to_remote "Colors manager", :update => 'top_content', :url => user_superadministration_path(current_user, 'colors') %></li>
+	<li class="tab"><%= link_to_remote "Fonts manager", :update => 'top_content', :url => user_superadministration_path(current_user, 'fonts') %></li>
+	<li class="tab"><%= link_to_remote "Fields names manager", :update => 'top_content', :url => user_superadministration_path(current_user, 'default') %></li>
 </ul>
 <div id="top_content">
   <div id="one">
     <ul class="top_box">
-  	<%= render 	:partial => "users/superadministration/pictures" %>
-  	</ul>
-  </div>
-  <div id="two">
-    <ul class="top_box">
-  	<%= render 	:partial => "users/superadministration/colors" %>
-  	</ul>
-  </div>
-	<div id="three">
-    <ul class="top_box">
-  	<%= render 	:partial => "users/superadministration/fonts" %>
-  	</ul>
-  </div>
-	<div id="four">
-    <ul class="top_box">
-  	<%= render 	:partial => "users/superadministration/fonts" %>
+			<%= render :partial => 'users/superadministration/default' %>
   	</ul>
   </div>
 </div>
-
-<script type="text/javascript" charset="utf-8">
-	new Control.Tabs('top_elems'); 
-</script>
 
