@@ -99,6 +99,9 @@ class UsersController < ApplicationController
 		@current_object = current_user
 		@logo = Picture.find_by_name('logo')
 		
+		#if params[:section] == "pictures"
+		
+			
   end
 	
 	def picture_changing

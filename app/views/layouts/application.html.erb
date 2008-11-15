@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-  <link rel="shortcut icon" href="/images/favicon.ico"/>
+  <link rel="shortcut icon" href=<%= Picture.find_by_name('logo') ? url_for_file_column(@logo, 'picture_path', 'favicon') : "/images/favicon.ico" %>/>
   <%= stylesheet_link_tag "application.css" %>
   <%= stylesheet_link_tag "form.css" %>
   <%= stylesheet_link_tag "starbox.css" %>
@@ -28,7 +28,7 @@
   <div id="header">
     <div id="logo">
 			<% if (@logo=Picture.find_by_name('logo')) %>
-				<%= image_tag(url_for_file_column(@logo, 'picture_path', 'normal')) %>
+				<%= link_to image_tag(url_for_file_column(@logo, 'picture_path', 'normal')), "/" %>
 			<% else %>
 				<%= link_to(image_tag('logo.gif', :width => '400', :height => '80', :border => 0), "/") %>
 			<% end %>
