@@ -30,7 +30,7 @@
 			<% if (@logo=Picture.find_by_name('logo')) %>
 				<%= link_to image_tag(url_for_file_column(@logo, 'picture_path', 'normal')), "/" %>
 			<% else %>
-				<%= link_to(image_tag('logo.gif', :width => '400', :height => '80', :border => 0), "/") %>
+				<%= link_to(image_tag('logo.png', :width => '400', :height => '80', :border => 0), "/") %>
 			<% end %>
     </div>
     <div id="header_right">
