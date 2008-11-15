@@ -99,7 +99,7 @@ class UsersController < ApplicationController
 		@current_object = current_user
 		@logo = Picture.find_by_name('logo')
 		
-		#if params[:section] == "pictures"
+		#f params[:part] == "default"
 		
 			
   end

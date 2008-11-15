@@ -4,7 +4,6 @@ class CreatePictures < ActiveRecord::Migration
       t.string :name
       t.string :picture_path
       t.timestamps
-			
     end
 		Picture.create(:name => 'logo')
   end

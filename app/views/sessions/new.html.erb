@@ -22,7 +22,8 @@
 	</head>
 	<body>
 		<div id="content_login">
-			<% if (@logo=Picture.find_by_name('logo')) %>
+			<% @logo = Picture.find_by_name('logo') %>
+			<% if !(@logo.picture_path.nil? || @logo.picture_path.blank?) %>
 				<%= image_tag(url_for_file_column(@logo, 'picture_path', 'thumb')) %>
 			<% else %> 
 				<img src="images/logo_intranet_login.gif" alt="ARTIC" width="168" height="80">
