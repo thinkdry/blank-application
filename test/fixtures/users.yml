@@ -1,20 +1,20 @@
 DEFAULTS: &DEFAULTS
-    login:                        $LABEL
-    email:                        example@artic-institue.org
-    salt:                         356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
-    crypted_password:             a2c297302eb67e8f981a0f9bfae0e45e4d0e4317 # 'monkey'
-    remember_token_expires_at:    <%= 1.days.from_now.to_s :db %>
-    remember_token:               77de68daecd823babbb58edb1c8e14d7106e83bb
-    lastname:                     dupond
-    firstname:                    $LABEL
-    laboratory:                   Mon Laboratoire
-    mobile:                       0612345678
-    phone:                        0112345678
-    addr:                         15 rue Leonard
-    activity:                     Chercheur
-    image_path:                   'image.png'
+      login:        $LABEL
+      email:        example@artic-institue.org
+      salt:        356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
+      crypted_password:        a2c297302eb67e8f981a0f9bfae0e45e4d0e4317 # 'monkey'
+      remember_token_expires_at:        <%= 1.days.from_now.to_s :db %>
+      remember_token:        77de68daecd823babbb58edb1c8e14d7106e83bb
+      lastname:        dupond
+      firstname:        $LABEL
+      laboratory:        Mon Laboratoire
+      mobile:        0612345678
+      phone:        0112345678
+      addr:        15 rue Leonard
+      activity:        Chercheur
+      image_path:        'image.png'
 
-quentin:
+quentin: 
     system_role_id: <%= SystemRole.find_by_name('admin').id %>
     <<: *DEFAULTS
 
@@ -28,13 +28,11 @@ tintin:
     <<: *DEFAULTS
 
 haddock:
-    lastname: capitaine
-    firstname: haddock
     <<: *DEFAULTS
 
 milou:
     <<: *DEFAULTS
 
 boss:
-   system_role_id: <%= SystemRole.find_by_name('superadmin').id %>
-   <<: *DEFAULTS
+    system_role_id: <%= SystemRole.find_by_name('superadmin').id %>
+    <<: *DEFAULTS
