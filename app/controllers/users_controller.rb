@@ -96,12 +96,23 @@ class UsersController < ApplicationController
   end
 	
 	def superadministration
-		@current_object = current_user
-		@logo = Picture.find_by_name('logo')
-		
-		#if params[:section] == "pictures"
-		
+		@current_object = current_user	
+		if params[:part] == "default" 
 			
+    end
+		if params[:part] == "pictures"
+			@logo = Picture.find_by_name('logo')
+			render :partial => 'users/superadministration/pictures'
+    end
+		if params[:part] == "colors"
+			render :partial => 'users/superadministration/colors'
+    end
+		if params[:part] == "fonts"
+			render :partial => 'users/superadministration/fonts'
+    end
+		if params[:part] == "languages"
+			#render :partial => 'users/superadministration/'
+    end
   end
 	
 	def picture_changing
@@ -112,7 +123,7 @@ class UsersController < ApplicationController
 				Picture.find_by_name('logo').update_attributes(:name => 'old_logo')
       end
 			if @picture.save
-				redirect_to superadministration_user_url(current_user)
+				redirect_to user_superadministration_url(current_user.id)
 				flash[:notice] = "Logo mis à jour"
 			else
 				render :nothing =>:true
