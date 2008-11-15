@@ -1,8 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-	<% @logo = Picture.find_by_name('logo') %>
-  <link rel="shortcut icon" href=<%= !(@logo.picture_path.nil? || @logo.picture_path.blank?) ? url_for_file_column(@logo, 'picture_path', 'favicon') : "/images/favicon.ico" %>/>
+	
+  <link rel="shortcut icon" href="/images/favicon.ico"/>
   <%= stylesheet_link_tag "application.css" %>
   <%= stylesheet_link_tag "form.css" %>
   <%= stylesheet_link_tag "starbox.css" %>
@@ -28,11 +28,12 @@
 <div id="page">
   <div id="header">
     <div id="logo">
+<%#= link_to(image_tag('logo.png', :width => '300', :height => '80', :border => 0), "/") %>
 			<% if !(@logo.picture_path.nil? || @logo.picture_path.blank?) %>
 				<%= link_to image_tag(url_for_file_column(@logo, 'picture_path', 'normal')), "/" %>
 			<% else %>
 				<%= link_to(image_tag('logo.gif', :width => '400', :height => '80', :border => 0), "/") %>
-			<% end %>
+			<%end %>
     </div>
     <div id="header_right">
       <div id="main_links">

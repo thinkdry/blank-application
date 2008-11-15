@@ -1,7 +1,7 @@
 class StylesheetsController < ApplicationController
   
   def application
-    @color="#FFFF00"
+    @color="#FFFFFF"
     respond_to do |format|
       format.css do
         render
