@@ -116,7 +116,6 @@ class UsersController < ApplicationController
   end
 	
 	def picture_changing
-		
 		if current_user.is_superadmin?
 			@picture = Picture.new(params[:picture])
 			if Picture.find_by_name('logo')
