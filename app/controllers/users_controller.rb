@@ -105,7 +105,7 @@ class UsersController < ApplicationController
 			render :partial => 'users/superadministration/pictures'
     end
 		if params[:part] == "colors"
-                        @elements=Element.find(:first)
+                        @element=Element.find(:first)
 			render :partial => 'users/superadministration/colors'
     end
 		if params[:part] == "fonts"
@@ -134,5 +134,14 @@ class UsersController < ApplicationController
 			flash[:notice] = "Vous n'avez pas ce droit."
 		end
 	end
+        
+        def change_elements
+          if @element.save
+              flash[:notice]="Changed Sucessfully"
+              redirect_to user_superadministration_url(current_user.id)
+            else
+	      render :nothing =>:true
+          end
+        end
   
 end

@@ -1,4 +1,10 @@
 <fieldset class="myform">
   <legend>Colors management</legend>
- 
+   <% form_for @element,  :url => user_change_elements_path(current_user.id),  :html => {:multipart => true} do |f| -%>
+  <%=f.hidden_field :name, :value=>"header"%>
+  <%=f.text_field :bgcolor%>
+  <%=f.hidden_field :name, :value=>"body"%>
+  <%=f.text_field :bgcolor%>
+  <%=f.submit "Update"%>
+   <%end%>
 </fieldset>

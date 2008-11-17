@@ -2,7 +2,6 @@ class StylesheetsController < ApplicationController
   
   
   def application
-    @header=Element.find_by_name("header")
     respond_to do |format|
       format.css do
         render
