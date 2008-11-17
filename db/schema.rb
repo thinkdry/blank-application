@@ -12,9 +12,9 @@
 ActiveRecord::Schema.define(:version => 20081114104140) do
 
   create_table "acts_as_xapian_jobs", :force => true do |t|
-    t.string  "model",                  :default => "", :null => false
-    t.integer "model_id", :limit => 11,                 :null => false
-    t.string  "action",                 :default => "", :null => false
+    t.string  "model",                  :null => false
+    t.integer "model_id", :limit => 11, :null => false
+    t.string  "action",                 :null => false
   end
 
   add_index "acts_as_xapian_jobs", ["model", "model_id"], :name => "index_acts_as_xapian_jobs_on_model_and_model_id", :unique => true
