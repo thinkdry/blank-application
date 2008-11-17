@@ -2,7 +2,7 @@ module ActiveRecord
   class Errors
     
     # Error messages modified in lang file
-    @@default_error_messages.update({
+		@@default_error_messages.update({
               :inclusion           => :error_message_inclusion.l,
               :exclusion           => :error_message_exclusion.l,
               :invalid             => :error_message_invalid.l,
