@@ -36,7 +36,7 @@
     </div>
     <div id="header_right">
       <div id="main_links">
-        Bienvenue
+        <%= I18n.t 'home.welcome_message' %>
         <%= @current_user.firstname.capitalize %> |
         <%= link_to 'Mon compte', user_path(current_user) %> |
         <%= link_to 'Flux Pubmed', pubmed_sources_path %> |

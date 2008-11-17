@@ -8,7 +8,7 @@
 			<% if l.workspaces.size > 0 %>
 				dans <%= links_to_workspace_collection l.workspaces %>
 			<% end %>
-         	le <%= l.created_at.l(:long) %>
+         	le <%= I18n.l l.created_at, :format => :long %>
 			par <%= link_to_user(l.user) %>
 		</p>
     <%end%>
@@ -22,7 +22,7 @@
 		<p>
 			<%= image_tag 'icons/user_red.png' %>
         	<%=	link_to_user(u) %>
-			le <%= u.created_at.l(:long) %>
+			le <%= I18n.l u.created_at, :format => :long %>
 		</p>
     <%end%>
   </div>
@@ -35,7 +35,7 @@
 		<p>
 			<%= image_tag 'icons/folder_go.png' %>
      		<%= link_to_workspace(ws) %>
-			le <%= ws.created_at.l(:long) %>
+			le <%= I18n.l ws.created_at, :format => :long %>
 		</p>
      <%end%> 
   </div>
@@ -49,7 +49,7 @@
 			<%= image_tag 'icons/rss.png' %>
 			<%= link_to pm.pubmed_source.name, pubmed_source_path(pm.pubmed_source) %> :
         	<%= pm.title[0..50] + (pm.title.size > 50 ? '...' : '' ) %>
-			le <%= pm.created_at.l(:long) %>
+			le <%= I18n.l pm.created_at, :format => :long %>
 		</p>
     <%end%>
   </div>
