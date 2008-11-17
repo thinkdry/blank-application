@@ -1,7 +1,8 @@
 class StylesheetsController < ApplicationController
   
+  
   def application
-    @color="#FFFFFF"
+    @header=Element.find_by_name("header")
     respond_to do |format|
       format.css do
         render
@@ -26,6 +27,14 @@ class StylesheetsController < ApplicationController
   end
   
   def starbox
+    respond_to do |format|
+      format.css do
+        render
+      end
+    end
+  end
+  
+  def login
     respond_to do |format|
       format.css do
         render

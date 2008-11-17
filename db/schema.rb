@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081114104140) do
+ActiveRecord::Schema.define(:version => 20081117061403) do
 
   create_table "acts_as_xapian_jobs", :force => true do |t|
     t.string  "model",                  :null => false
@@ -56,11 +56,26 @@ ActiveRecord::Schema.define(:version => 20081114104140) do
     t.string   "tags"
   end
 
+  create_table "colors", :force => true do |t|
+    t.integer  "element_id", :limit => 11
+    t.string   "bgcolor"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "comments", :force => true do |t|
     t.text     "text"
     t.integer  "user_id",          :limit => 11
     t.integer  "commentable_id",   :limit => 11
     t.string   "commentable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "elements", :force => true do |t|
+    t.string   "name"
+    t.string   "bgcolor"
+    t.string   "layout"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

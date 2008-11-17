@@ -105,6 +105,7 @@ class UsersController < ApplicationController
 			render :partial => 'users/superadministration/pictures'
     end
 		if params[:part] == "colors"
+                        @elements=Element.find(:first)
 			render :partial => 'users/superadministration/colors'
     end
 		if params[:part] == "fonts"
