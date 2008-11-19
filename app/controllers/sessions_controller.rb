@@ -35,6 +35,16 @@ class SessionsController < ApplicationController
     flash[:notice] = "Vous avez été déconnecté"
     redirect_back_or_default('/')
   end
+	
+	def change_language
+		if session[:locale] == params[:locale]
+			render :nothing => :true
+    else
+			session[:locale] = params[:locale]
+			render(:update) { |page| page.call 'location.reload' }
+			#redirect_back_or_default('/')
+		end
+  end
 
 protected
   # Track failed login attempts

@@ -18,7 +18,7 @@
 					par
 					<%= link_to_user(item.user) %>
 					le
-					<%= item.created_at.l(:long) %>
+					<%= I18n.l item.created_at, :format => :long %>
 				</div>
 				<div style="float:left">
 					<%= item.comments.count %>

@@ -9,17 +9,18 @@ ActionController::Routing::Routes.draw do |map|
   map.reset_password '/reset_password/:password_reset_code', :controller => 'users', :action => 'reset_password'
   map.resources :users, :member => { :administration => :any } do |user|
 		user.picture_changing '/superadminstration/picture_changing', :controller => 'users', :action => 'picture_changing'
+		user.language_switching '/superadministration/language_switching', :controller => 'users', :action => 'language_switching'
+		user.translations_changing '/superadministration/translations_changing', :controller => 'users', :action => 'translations_changing'
 		user.superadministration '/superadministration/:part', :controller => 'users', :action => 'superadministration'
 	end
-  map.resource :session
+  map.resource :session, :member => { :change_language => :any }
+	
 	
 	map.content '/content/:item_type', :controller => 'items', :action => 'index'
-	
-	#map.admin '/admin', :controller => 'admin', :action => 'index'
   
   # TODO: Publishing, Bookmarks, Admin related controllers: rights...
 
-  map.root :controller => 'account', :action => 'index'
+  map.root :controller => 'home', :action => 'index'
   map.connect '/stylesheets/:action.:format', :controller => 'stylesheets'
 
    
@@ -62,6 +63,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :uploads
     
   # Install the default routes as the lowest priority.
-  map.connect ':controller/:action/:id'
-  map.connect ':controller/:action/:id.:format'
+  #map.connect ':controller/:action/:id'
+  #map.connect ':controller/:action/:id.:format'
 end

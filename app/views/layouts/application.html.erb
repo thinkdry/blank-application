@@ -14,13 +14,9 @@
   <script type='text/javascript' src='/prototip2.0.4/js/prototip.js'></script>
   <%= calendar_date_select_includes nil %>
   <title>
-    Blank engine -
+    <%= I18n.t 'layout.title' %> - 
     <%= params[:action].capitalize if params[:action] != 'index' %>
-    <% if params[:controller] == 'account' %>
-      Home
-    <% else %>
-      <%= params[:controller].capitalize %>
-    <% end %>
+    <%= params[:controller].capitalize %>
   </title>
 </head>
 
@@ -36,7 +32,7 @@
     </div>
     <div id="header_right">
       <div id="main_links">
-        <%= I18n.t 'home.welcome_message' %>
+        <%= I18n.t 'layout.welcome_message' %>
         <%= @current_user.firstname.capitalize %> |
         <%= link_to 'Mon compte', user_path(current_user) %> |
         <%= link_to 'Flux Pubmed', pubmed_sources_path %> |
@@ -45,7 +41,11 @@
 					<%= link_to 'Super Administration', user_superadministration_path(current_user, "default") %> | 
 				<% end %>
         <%= link_to 'Se déconnecter', '/logout' %>
-      </div>
+				<br />
+				<%= link_to_remote image_tag('countries/en.jpg'), :url => change_language_session_path(:locale => "en-US") %> 
+				<%= link_to_remote image_tag('countries/es.jpg'), :url => change_language_session_path(:locale => "es-ES") %> 	
+				<%= link_to_remote image_tag('countries/fr.jpg'), :url => change_language_session_path(:locale => "fr-FR") %>
+			</div>
       <div id="MenuHR">
         <ul>
           <li>

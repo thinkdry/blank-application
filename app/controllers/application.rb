@@ -22,7 +22,13 @@ class ApplicationController < ActionController::Base
 
   private
   def set_locale
-    I18n.locale = params[:locale] or session[:locale] or I18n.default_locale
+		if params[:locale]
+			I18n.locale = params[:locale]
+		elsif session[:locale]
+			I18n.locale = session[:locale]
+		else
+			I18n.locale = I18n.default_locale
+		end
   end
 	
 	
