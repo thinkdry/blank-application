@@ -9,6 +9,7 @@ ActionController::Routing::Routes.draw do |map|
   map.reset_password '/reset_password/:password_reset_code', :controller => 'users', :action => 'reset_password'
   map.resources :users, :member => { :administration => :any } do |user|
 		user.picture_changing '/superadminstration/picture_changing', :controller => 'users', :action => 'picture_changing'
+                user.change_elements '/superadministration/change_elements',:controller =>'users', :action=>'change_elements'
 		user.superadministration '/superadministration/:part', :controller => 'users', :action => 'superadministration'
 	end
   map.resource :session
@@ -57,7 +58,7 @@ ActionController::Routing::Routes.draw do |map|
     end
   end
   #map.add_new_user '/add_new_user', :controller => 'workspaces', :action => 'add_new_user'
-  
+  map.resource :element
   map.resource :search
   map.resources :uploads
     

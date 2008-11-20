@@ -1,6 +1,17 @@
 <fieldset class="myform">
   <legend>Colors management</legend>
-
-  cvezecczc
-
+   <%form_for(:template ,:builder => ArticFormBuilder,:url=>element_path,:html => {:method=>:put,:multipart => true}) do |f| %>
+    <div id="template">
+          <%@elements.each do |e|%>
+                <%=e.name.capitalize%><input type="text" name="template[<%=e.name%>]" value="<%=e.bgcolor%>" onclick="startColorPicker(this)" onkeyup="maskedHex(this)"><br>
+         <%end%>
+     </div>
+     <%=f.submit "Save Changes"%>
+ <%end%>
+  <select name='template[temp]' onchange="new Ajax.Updater('template','/elements/index?temp='+ this.value, {asynchronous:true, evalScripts:true})">
+          <%@temp.each do |t|%>
+              <option value="<%=t.template%>"><%=t.template%></option>
+          <%end%>
+</select>
 </fieldset>
+

@@ -1,7 +1,3 @@
-<%#
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
-%>
 
 body {
 	font-family:"Lucida Grande", "Bitstream Vera Sans", Helvetica, Verdana, Arial, sans-serif;
@@ -18,16 +14,16 @@ a:hover {
 	text-decoration: underline;
 }
 a:active {
-  color: #7B003B;
+  color: #D86C27;
 	text-decoration: none;
 }
 
 a:link {
-	color: #7B003B;
+	color:<%=@links.bgcolor%>;
 	text-decoration: none;
 }
 a:visited {
-  color: #7B003B;
+  color: <%=@clicked.bgcolor%>;
 	text-decoration: none;
 }
 
@@ -43,7 +39,7 @@ a.add_item{
 #page {
 	width: 1000px;
 	margin: 0 auto;
-	background-color: #fff;
+	background-color:<%=@body.bgcolor%>;
 }
 
 #container {
@@ -52,7 +48,7 @@ a.add_item{
 }
 
 #header {
-	background-color: <%=@color%>;
+	background-color:<%=@header.bgcolor%>;
 	color: white;
 	height: 103px;
 }
@@ -96,7 +92,7 @@ a.add_item{
 	text-align: right;
 }
 #main_links a {
-	color: #7C0041;
+	color:<%=@links.bgcolor%>;
 	text-decoration: none;
 }
 #main_links a:hover {
@@ -128,7 +124,7 @@ a.add_item{
 }
 #MenuHR  {
 	font-size: 90%;
-	background-color: #AB5D7C;
+	background-color: <%=@top.bgcolor%>;
 	width: 450px;
 	height: 36px;
 	margin-top: 43px;
@@ -289,8 +285,8 @@ a.add_item{
 	float: right;
 	width: 47%;
 	padding: 0.5em;
-	background-color: #D2A7BB;
-	border: 2px solid #BD7F9C;
+	background-color:<%=@ws.bgcolor%>;
+	border: 2px solid <%=@border.bgcolor%>;
 }
 #area_DROITS .titre {
 	font-weight: bold;
@@ -655,7 +651,7 @@ small.grey{
 }
 
 #footer{
-  background-color: #BDD6D9;
+  background-color:<%=@footer.bgcolor%>;
   color: #fff;
   padding: 15px;
 }
