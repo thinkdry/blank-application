@@ -1,0 +1,13 @@
+<fieldset class="myform">
+  <legend></legend>
+
+  Cliquez un pays pour configurer les différents champs et textes du site.<br />
+  <%= link_to_remote image_tag('countries/en.jpg'), :update => 'tablo', :url => user_language_switching_path(:user_id => current_user.id, :locale_to_conf => "en-US") %> 
+	<%= link_to_remote image_tag('countries/es.jpg'), :update => 'tablo', :url => user_language_switching_path(:user_id => current_user.id, :locale_to_conf => "es-ES") %> 	
+	<%= link_to_remote image_tag('countries/fr.jpg'), :update => 'tablo', :url => user_language_switching_path(:user_id => current_user.id, :locale_to_conf => "fr-FR") %>
+			
+	<div id='tablo'>
+		 <%= render :partial => 'users/superadministration/translations_tab', :locals => {:file => @file} %>
+	</div>
+
+</fieldset>

@@ -6,7 +6,7 @@
 		dans <%= links_to_workspace_collection object.workspaces %>
 	<% end %>
 	par <%= link_to_user item_in_list.user %>
-	le <%= object.created_at.l(:long) %>
+	le <%= I18n.l object.created_at, :format => :long %>
 	  </div>
 	  <div class="clear"></div>
     <div style="float:left"><%= object.comments.count %> commentaires - Note : </div>

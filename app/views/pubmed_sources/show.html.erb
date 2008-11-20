@@ -1,4 +1,0 @@
-<h1 class="pub"><%= image_tag "rss.png"%>  Détail de la requête PubMed : <small class="grey"><%= @current_object.name %> (<%= @current_object.pubmed_items.count %>)</small></h1>
-<%= render :partial => "item", :collection => @pubmed_items %>
-
-<%= will_paginate @pubmed_items %>

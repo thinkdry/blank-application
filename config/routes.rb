@@ -10,17 +10,18 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users, :member => { :administration => :any } do |user|
 		user.picture_changing '/superadminstration/picture_changing', :controller => 'users', :action => 'picture_changing'
                 user.change_elements '/superadministration/change_elements',:controller =>'users', :action=>'change_elements'
+		user.language_switching '/superadministration/language_switching', :controller => 'users', :action => 'language_switching'
+		user.translations_changing '/superadministration/translations_changing', :controller => 'users', :action => 'translations_changing'
 		user.superadministration '/superadministration/:part', :controller => 'users', :action => 'superadministration'
 	end
-  map.resource :session
+  map.resource :session, :member => { :change_language => :any }
+	
 	
 	map.content '/content/:item_type', :controller => 'items', :action => 'index'
-	
-	#map.admin '/admin', :controller => 'admin', :action => 'index'
   
   # TODO: Publishing, Bookmarks, Admin related controllers: rights...
 
-  map.root :controller => 'account', :action => 'index'
+  map.root :controller => 'home', :action => 'index'
   map.connect '/stylesheets/:action.:format', :controller => 'stylesheets'
 
    
@@ -37,7 +38,7 @@ ActionController::Routing::Routes.draw do |map|
     end
     # Publication sources are private, but need to be scoped to import publication
     # into right workspace
-    parent.resources :pubmed_sources
+    parent.resources :feed_sources
   end
 
   # Items created outside any workspace are private or fully public.
@@ -61,6 +62,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :element
   map.resource :search
   map.resources :uploads
+	map.resources :feed_sources
     
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id'

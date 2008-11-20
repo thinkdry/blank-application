@@ -98,25 +98,24 @@ class UsersController < ApplicationController
 	def superadministration
 		@current_object = current_user	
 		if params[:part] == "default" 
-			
-    end
-		if params[:part] == "pictures"
+			#s
+    elsif params[:part] == "pictures"
 			@logo = Picture.find_by_name('logo')
 			render :partial => 'users/superadministration/pictures'
-    end
-		if params[:part] == "colors"
-                       
-                        @elements = Element.find(:all,:conditions=>{:template=>"current"})
+    elsif params[:part] == "colors"
+        @elements = Element.find(:all,:conditions=>{:template=>"current"})
                         @temp=Element.find( :all,:select => 'DISTINCT template' )
-                        
 			render :partial => 'users/superadministration/colors'
-               end
-		if params[:part] == "fonts"
+    elsif params[:part] == "fonts"
 			render :partial => 'users/superadministration/fonts'
-    end
-		if params[:part] == "languages"
-			#render :partial => 'users/superadministration/'
-    end
+    elsif params[:part] == "translations"
+			@file = YAML.load_file("#{RAILS_ROOT}/config/locales/#{I18n.default_locale}.yml")
+			@res = @file[I18n.default_locale.to_s]
+			@language = I18n.default_locale.to_s
+			render :partial => 'users/superadministration/translations'
+    else
+			render :nothing => true, :layout => 'application'
+		end
   end
 	
 	def picture_changing
@@ -135,6 +134,44 @@ class UsersController < ApplicationController
 			redirect_to "/"
 			flash[:notice] = "Vous n'avez pas ce droit."
 		end
+	end
+	
+	
+	def language_switching
+		@yaml = YAML.load_file("#{RAILS_ROOT}/config/locales/#{params[:locale_to_conf]}.yml")
+		@res = @yaml[params[:locale_to_conf].to_s]
+		@language = params[:locale_to_conf].to_s
+		if @yaml
+			render :partial => 'users/superadministration/translations_tab'
+		else
+			render :text => "Impossible d'ouvrir le fichier de langue demandé."
+		end
+  end
+	
+	def translations_changing
+		@yaml = YAML.load_file("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml")
+		
+		["layout", "form", "other"].each do |type|
+			if params[type.to_sym] && @yaml[params[:language].to_s][type]
+				params[type.to_sym].each do |k, v|
+					@yaml[params[:language]][type][k] = v.to_s
+				end
+			else
+				flash[:notice] = "Params vide ou section absente du fichier"
+				#redirect_to "/users/#{current_user.id}/superadministration/default"
+			end
+		end
+		
+		File.rename("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml", "#{RAILS_ROOT}/config/locales/old_#{params[:language]}.yml")
+		@new = File.new("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml", "w+")
+		if @new.puts(@yaml.to_yaml)
+			flash[:notice] = "Mise à jour avec succès"
+			redirect_to "/users/#{current_user.id}/superadministration/default"
+		else
+			flash[:notice] = "Mise à jour avec échec"
+			redirect_to "/users/#{current_user.id}/superadministration/default"
+		end
+		
 	end
   
 end

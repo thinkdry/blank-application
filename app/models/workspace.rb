@@ -8,8 +8,8 @@ class Workspace < ActiveRecord::Base
 	belongs_to :creator, :class_name => 'User'
 	
 	validates_presence_of :name
-	validates_associated  :users_workspaces
-	validate  :uniqueness_of_users
+	validates_associated :users_workspaces
+	validate :uniqueness_of_users
 	
 	after_update  :save_users_workspaces
 	
@@ -95,6 +95,7 @@ class Workspace < ActiveRecord::Base
 	  users_by_role('Lecteur')
   end
 	
+	# Link the attributes directly from the form
 	def new_user_attributes= user_attributes
 	  #downcase_user_attributes(user_attributes)
 	  user_attributes.each do |attributes| 

@@ -6,7 +6,8 @@ require "acts_as_item/url_helpers.rb"
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   before_filter :is_logged?
-	
+	before_filter :set_locale
+		
 	include AuthenticatedSystem
 	include ActsAsItem::UrlHelpers
 	
@@ -17,5 +18,18 @@ class ApplicationController < ActionController::Base
       redirect_to login_path
     end
   end
+	
+
+  private
+  def set_locale
+		if params[:locale]
+			I18n.locale = params[:locale]
+		elsif session[:locale]
+			I18n.locale = session[:locale]
+		else
+			I18n.locale = I18n.default_locale
+		end
+  end
+	
 	
 end

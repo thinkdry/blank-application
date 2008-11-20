@@ -1,0 +1,10 @@
+<h1 class="pub"><%= image_tag "rss.png"%>  Détail de la requête RSS : <small class="grey"><%= @current_object.name %> (<%= @current_object.feed_items.count %>)</small></h1>
+
+Name : <%= @current_object.name %><br />
+URL : <%= @current_object.url %><br />
+
+Here are the feeds on this url :<br /><br />
+
+<%= render :partial => "item", :collection => @feed_items %>
+
+<%= will_paginate @feed_items %>
