@@ -1,6 +1,7 @@
 require 'rss/1.0'
 require 'rss/2.0'
 require 'open-uri'
+require 'feed-normalizer'
 
 class FeedSource < ActiveRecord::Base
   belongs_to  :user
