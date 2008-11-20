@@ -98,11 +98,13 @@ class UsersController < ApplicationController
 	def superadministration
 		@current_object = current_user	
 		if params[:part] == "default" 
-			#
+			#s
     elsif params[:part] == "pictures"
 			@logo = Picture.find_by_name('logo')
 			render :partial => 'users/superadministration/pictures'
     elsif params[:part] == "colors"
+        @elements = Element.find(:all,:conditions=>{:template=>"current"})
+                        @temp=Element.find( :all,:select => 'DISTINCT template' )
 			render :partial => 'users/superadministration/colors'
     elsif params[:part] == "fonts"
 			render :partial => 'users/superadministration/fonts'
@@ -121,7 +123,7 @@ class UsersController < ApplicationController
 			@picture = Picture.new(params[:picture])
 			if Picture.find_by_name('logo')
 				Picture.find_by_name('logo').update_attributes(:name => 'old_logo')
-      end
+                         end
 			if @picture.save
 				redirect_to user_superadministration_url(current_user.id)
 				flash[:notice] = "Logo mis à jour"
