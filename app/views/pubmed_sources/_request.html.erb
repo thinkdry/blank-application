@@ -1,8 +1,0 @@
-<%= link_to request.name.capitalize, pubmed_source_url(request)%>
-	Créée le <%= request.created_at.l(:short) %>&nbsp;-&nbsp;
-	Mise à jour le <%= request.updated_at.l(:short) %>&nbsp;-&nbsp;
-	<%= image_tag("delete.png") %><%= link_to " supprimer",
-			pubmed_source_url(request),
-			:method => :delete,
-			:confirm => "Êtes vous sûr de vouloir supprimer cet éléments ?" %>
-<br>

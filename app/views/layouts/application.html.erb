@@ -35,7 +35,7 @@
         <%= I18n.t 'layout.welcome_message' %>
         <%= @current_user.firstname.capitalize %> |
         <%= link_to 'Mon compte', user_path(current_user) %> |
-        <%= link_to 'Flux Pubmed', pubmed_sources_path %> |
+        <%= link_to 'Flux RSS', feed_sources_path %> |
         <%= link_to 'Administration', administration_user_path(current_user) %> |
 				<% if current_user.is_superadmin? %>
 					<%= link_to 'Super Administration', user_superadministration_path(current_user, "default") %> | 

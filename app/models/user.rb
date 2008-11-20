@@ -18,8 +18,8 @@ class User < ActiveRecord::Base
   has_many :articles
   has_many :rattings
   has_many :comments
-  has_many :pubmed_sources
-  has_many :pubmed_items, :through => :pubmed_sources
+  has_many :feed_sources
+  has_many :feed_items, :through => :feed_sources
   belongs_to :system_role
   
   file_column :image_path, :magick => {:size => "200x200>"}

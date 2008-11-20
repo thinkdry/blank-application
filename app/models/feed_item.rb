@@ -1,7 +1,7 @@
 include ActionView::Helpers::SanitizeHelper
 
-class PubmedItem < ActiveRecord::Base
-  belongs_to :pubmed_source
+class FeedItem < ActiveRecord::Base
+  belongs_to :feed_source
   
   named_scope :latest,
     :order => 'created_at DESC',
@@ -9,7 +9,7 @@ class PubmedItem < ActiveRecord::Base
   
   def description=(value)
     # Remove html tags from description
-    value = strip_tags(value)
+    #value = strip_tags(value)
     
     # Clean first characters maching
     #     Related Articles

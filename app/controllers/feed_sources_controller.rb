@@ -1,4 +1,4 @@
-class PubmedSourcesController < ApplicationController
+class FeedSourcesController < ApplicationController
   acts_as_ajax_validation
   
 	make_resourceful do
@@ -16,12 +16,12 @@ class PubmedSourcesController < ApplicationController
 
     before :index do
       # New object form displayed in index
-      @current_object = PubmedSource.new
+      @current_object = FeedSource.new
     end
     
     before :show do
       permit "consultation of current_object"
-      @pubmed_items = @current_object.pubmed_items.paginate(:page => params[:page], :per_page => 15)
+      @feed_items = @current_object.feed_items.paginate(:page => params[:page], :per_page => 15)
     end
     
     before :edit, :update do
@@ -30,7 +30,7 @@ class PubmedSourcesController < ApplicationController
   end
   
   def current_objects
-    @current_objects ||= PubmedSource.all(:conditions => "user_id = #{@current_user.id}").paginate(
+    @current_objects ||= FeedSource.all(:conditions => "user_id = #{@current_user.id}").paginate(
 			:page => params[:page],
 			:order => :created_at
 		)

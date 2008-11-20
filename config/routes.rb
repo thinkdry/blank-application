@@ -37,7 +37,7 @@ ActionController::Routing::Routes.draw do |map|
     end
     # Publication sources are private, but need to be scoped to import publication
     # into right workspace
-    parent.resources :pubmed_sources
+    parent.resources :feed_sources
   end
 
   # Items created outside any workspace are private or fully public.
@@ -61,8 +61,9 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resource :search
   map.resources :uploads
+	map.resources :feed_sources
     
   # Install the default routes as the lowest priority.
-  #map.connect ':controller/:action/:id'
-  #map.connect ':controller/:action/:id.:format'
+  map.connect ':controller/:action/:id'
+  map.connect ':controller/:action/:id.:format'
 end

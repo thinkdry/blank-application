@@ -12,15 +12,15 @@
 ActiveRecord::Schema.define(:version => 20081114104140) do
 
   create_table "acts_as_xapian_jobs", :force => true do |t|
-    t.string  "model",                  :default => "", :null => false
-    t.integer "model_id", :limit => 11,                 :null => false
-    t.string  "action",                 :default => "", :null => false
+    t.string  "model",    :default => "", :null => false
+    t.integer "model_id",                 :null => false
+    t.string  "action",   :default => "", :null => false
   end
 
   add_index "acts_as_xapian_jobs", ["model", "model_id"], :name => "index_acts_as_xapian_jobs_on_model_and_model_id", :unique => true
 
   create_table "artic_files", :force => true do |t|
-    t.integer  "user_id",     :limit => 11
+    t.integer  "user_id"
     t.string   "title"
     t.text     "description"
     t.string   "file_path"
@@ -30,14 +30,14 @@ ActiveRecord::Schema.define(:version => 20081114104140) do
   end
 
   create_table "article_files", :force => true do |t|
-    t.integer  "article_id", :limit => 11
+    t.integer  "article_id"
     t.string   "file_path"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "articles", :force => true do |t|
-    t.integer  "user_id",     :limit => 11
+    t.integer  "user_id"
     t.string   "title"
     t.text     "description"
     t.text     "body"
@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(:version => 20081114104140) do
   end
 
   create_table "audios", :force => true do |t|
-    t.integer  "user_id",     :limit => 11
+    t.integer  "user_id"
     t.string   "title"
     t.text     "description"
     t.string   "file_path"
@@ -58,28 +58,48 @@ ActiveRecord::Schema.define(:version => 20081114104140) do
 
   create_table "comments", :force => true do |t|
     t.text     "text"
-    t.integer  "user_id",          :limit => 11
-    t.integer  "commentable_id",   :limit => 11
+    t.integer  "user_id"
+    t.integer  "commentable_id"
     t.string   "commentable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "feed_items", :force => true do |t|
+    t.string   "guid"
+    t.integer  "feed_source_id"
+    t.string   "title"
+    t.text     "description"
+    t.string   "author"
+    t.string   "link"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "feed_sources", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.text     "description"
+    t.string   "url",         :limit => 1024
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "generic_items", :force => true do |t|
     t.string   "item_type",          :limit => 11,                                        :default => "", :null => false
-    t.integer  "user_id",            :limit => 11
+    t.integer  "user_id"
     t.text     "user_name",          :limit => 2147483647
     t.string   "title"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "number_of_comments", :limit => 21
+    t.integer  "number_of_comments", :limit => 8
     t.string   "workspace_names",    :limit => 341
     t.decimal  "average_rate",                             :precision => 14, :scale => 4
   end
 
   create_table "images", :force => true do |t|
-    t.integer  "user_id",     :limit => 11
+    t.integer  "user_id"
     t.string   "title"
     t.text     "description"
     t.string   "file_path"
@@ -90,8 +110,8 @@ ActiveRecord::Schema.define(:version => 20081114104140) do
 
   create_table "items", :force => true do |t|
     t.string   "itemable_type"
-    t.integer  "itemable_id",   :limit => 11
-    t.integer  "workspace_id",  :limit => 11
+    t.integer  "itemable_id"
+    t.integer  "workspace_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -104,17 +124,17 @@ ActiveRecord::Schema.define(:version => 20081114104140) do
   end
 
   create_table "public_items", :force => true do |t|
-    t.integer  "itemable_id",          :limit => 11
+    t.integer  "itemable_id"
     t.string   "itemable_type"
-    t.integer  "extranet_category_id", :limit => 11
-    t.integer  "suggester_id",         :limit => 11
-    t.integer  "validated",            :limit => 11
+    t.integer  "extranet_category_id"
+    t.integer  "suggester_id"
+    t.integer  "validated"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "publications", :force => true do |t|
-    t.integer  "user_id",     :limit => 11
+    t.integer  "user_id"
     t.boolean  "imported"
     t.string   "title"
     t.string   "author"
@@ -126,30 +146,10 @@ ActiveRecord::Schema.define(:version => 20081114104140) do
     t.string   "tags"
   end
 
-  create_table "pubmed_items", :force => true do |t|
-    t.string   "guid"
-    t.integer  "pubmed_source_id", :limit => 11
-    t.string   "title"
-    t.text     "description"
-    t.string   "author"
-    t.string   "link"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "pubmed_sources", :force => true do |t|
-    t.integer  "user_id",     :limit => 11
-    t.string   "name"
-    t.text     "description"
-    t.string   "url",         :limit => 1024
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "ratings", :force => true do |t|
-    t.integer  "rating",        :limit => 11
-    t.integer  "user_id",       :limit => 11
-    t.integer  "rateable_id",   :limit => 11
+    t.integer  "rating"
+    t.integer  "user_id"
+    t.integer  "rateable_id"
     t.string   "rateable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -168,8 +168,8 @@ ActiveRecord::Schema.define(:version => 20081114104140) do
   end
 
   create_table "taggings", :force => true do |t|
-    t.integer  "tag_id",        :limit => 11
-    t.integer  "taggable_id",   :limit => 11
+    t.integer  "tag_id"
+    t.integer  "taggable_id"
     t.string   "taggable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -197,7 +197,7 @@ ActiveRecord::Schema.define(:version => 20081114104140) do
     t.string   "salt",                      :limit => 40
     t.string   "invitation_code",           :limit => 40
     t.string   "password_reset_code",       :limit => 40
-    t.integer  "system_role_id",            :limit => 11
+    t.integer  "system_role_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "remember_token",            :limit => 40
@@ -207,15 +207,15 @@ ActiveRecord::Schema.define(:version => 20081114104140) do
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true
 
   create_table "users_workspaces", :force => true do |t|
-    t.integer  "workspace_id", :limit => 11
-    t.integer  "role_id",      :limit => 11
-    t.integer  "user_id",      :limit => 11
+    t.integer  "workspace_id"
+    t.integer  "role_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "videos", :force => true do |t|
-    t.integer  "user_id",      :limit => 11
+    t.integer  "user_id"
     t.string   "title"
     t.text     "description"
     t.string   "file_path"
@@ -227,7 +227,7 @@ ActiveRecord::Schema.define(:version => 20081114104140) do
   end
 
   create_table "workspaces", :force => true do |t|
-    t.integer  "creator_id",  :limit => 11
+    t.integer  "creator_id"
     t.text     "description"
     t.string   "name"
     t.datetime "created_at"

@@ -1,8 +1,8 @@
-class CreatePubmedItems < ActiveRecord::Migration
+class CreateFeedItems < ActiveRecord::Migration
   def self.up
-    create_table :pubmed_items do |t|
+    create_table :feed_items do |t|
       t.string  :guid
-      t.integer :pubmed_source_id
+      t.integer :feed_source_id
       t.string  :title
       t.text    :description
       t.string  :author
@@ -12,6 +12,6 @@ class CreatePubmedItems < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :pubmed_items
+    drop_table :feed_items
   end
 end

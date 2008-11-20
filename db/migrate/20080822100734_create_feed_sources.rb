@@ -1,6 +1,6 @@
-class CreatePubmedSources < ActiveRecord::Migration
+class CreateFeedSources < ActiveRecord::Migration
   def self.up
-    create_table  :pubmed_sources do |t|
+    create_table  :feed_sources do |t|
       t.integer   :user_id
       t.string    :name
       t.text      :description
@@ -10,6 +10,6 @@ class CreatePubmedSources < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :pubmed_sources
+    drop_table :feed_sources
   end
 end
