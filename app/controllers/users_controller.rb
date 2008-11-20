@@ -105,9 +105,12 @@ class UsersController < ApplicationController
 			render :partial => 'users/superadministration/pictures'
     end
 		if params[:part] == "colors"
-                        @element=Element.find(:first)
+                       
+                        @elements = Element.find(:all,:conditions=>{:template=>"current"})
+                        @temp=Element.find( :all,:select => 'DISTINCT template' )
+                        
 			render :partial => 'users/superadministration/colors'
-    end
+               end
 		if params[:part] == "fonts"
 			render :partial => 'users/superadministration/fonts'
     end
@@ -122,7 +125,7 @@ class UsersController < ApplicationController
 			@picture = Picture.new(params[:picture])
 			if Picture.find_by_name('logo')
 				Picture.find_by_name('logo').update_attributes(:name => 'old_logo')
-      end
+                         end
 			if @picture.save
 				redirect_to user_superadministration_url(current_user.id)
 				flash[:notice] = "Logo mis à jour"
@@ -134,14 +137,5 @@ class UsersController < ApplicationController
 			flash[:notice] = "Vous n'avez pas ce droit."
 		end
 	end
-        
-        def change_elements
-          if @element.save
-              flash[:notice]="Changed Sucessfully"
-              redirect_to user_superadministration_url(current_user.id)
-            else
-	      render :nothing =>:true
-          end
-        end
   
 end

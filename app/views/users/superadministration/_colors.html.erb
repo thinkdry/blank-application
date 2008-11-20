@@ -1,10 +1,17 @@
 <fieldset class="myform">
   <legend>Colors management</legend>
-   <% form_for @element,  :url => user_change_elements_path(current_user.id),  :html => {:multipart => true} do |f| -%>
-  <%=f.hidden_field :name, :value=>"header"%>
-  <%=f.text_field :bgcolor%>
-  <%=f.hidden_field :name, :value=>"body"%>
-  <%=f.text_field :bgcolor%>
-  <%=f.submit "Update"%>
-   <%end%>
+   <%form_for(:template ,:builder => ArticFormBuilder,:url=>element_path,:html => {:method=>:put,:multipart => true}) do |f| %>
+    <div id="template">
+          <%@elements.each do |e|%>
+                <%=e.name.capitalize%><input type="text" name="template[<%=e.name%>]" value="<%=e.bgcolor%>" onclick="startColorPicker(this)" onkeyup="maskedHex(this)"><br>
+         <%end%>
+     </div>
+     <%=f.submit "Save Changes"%>
+ <%end%>
+  <select name='template[temp]' onchange="new Ajax.Updater('template','/elements/index?temp='+ this.value, {asynchronous:true, evalScripts:true})">
+          <%@temp.each do |t|%>
+              <option value="<%=t.template%>"><%=t.template%></option>
+          <%end%>
+</select>
 </fieldset>
+

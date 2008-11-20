@@ -75,7 +75,7 @@ ActiveRecord::Schema.define(:version => 20081117061403) do
   create_table "elements", :force => true do |t|
     t.string   "name"
     t.string   "bgcolor"
-    t.string   "layout"
+    t.string   "template"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

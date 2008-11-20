@@ -7,12 +7,12 @@ h4{
 .notice {
 	padding: 10px 10px 10px 30px;
 	margin-bottom: 1em;
-	border: 2px solid #669900;
+	border: 2px solid <%=@links.bgcolor%>;
 	font-size: 90%;
 	font-weight: bold;
-	color: #336633;
+	color: <%=@links.bgcolor%>;
 	line-height: 1;
-	background: #BAE6AF url(/images/accept.png) left no-repeat;
+	background: <%=@header.bgcolor%> url(/images/accept.png) left no-repeat;
 	background-position: 10px 7px;
 }
 
@@ -78,15 +78,15 @@ img.test{
 }
 
 #search-bar-left{
-  background: #666666; 
+  background:<%=@search.bgcolor%>; 
 }
 
 #search-bar-right{
-  background: #666666; 
+  background: <%=@search.bgcolor%>; 
 }
 
 #search-bar-middle{
-  background: #666666;; 
+  background:<%=@search.bgcolor%>; 
   color: #fff;
   font-size: 130%;
   text-align: right;
@@ -161,8 +161,8 @@ img.avatar{
 }
 
 .area_WS{
-  background-color: #FF9933;
-  border: 2px solid #D86C27;
+  background-color:<%=@ws.bgcolor%>;
+  border: 2px solid <%=@border.bgcolor%>;
   padding: 10px;
 }
 
@@ -216,7 +216,7 @@ a.object{
 
 a.blok{
   margin-top: 1px;
-  background-color: #606060;
+  background-color:<%=@accordion.bgcolor%>;
   display: block;
   padding: 7px 10px;
 }

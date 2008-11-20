@@ -19,11 +19,11 @@ a:active {
 }
 
 a:link {
-	color: #D86C27;
+	color:<%=@links.bgcolor%>;
 	text-decoration: none;
 }
 a:visited {
-  color: #FF9933;
+  color: <%=@clicked.bgcolor%>;
 	text-decoration: none;
 }
 
@@ -39,7 +39,7 @@ a.add_item{
 #page {
 	width: 1000px;
 	margin: 0 auto;
-	background-color: #fff;
+	background-color:<%=@body.bgcolor%>;
 }
 
 #container {
@@ -48,7 +48,7 @@ a.add_item{
 }
 
 #header {
-	background-color: <%=@header.bgcolor%>;
+	background-color:<%=@header.bgcolor%>;
 	color: white;
 	height: 103px;
 }
@@ -92,11 +92,10 @@ a.add_item{
 	text-align: right;
 }
 #main_links a {
-	color: #D86C27;
+	color:<%=@links.bgcolor%>;
 	text-decoration: none;
 }
 #main_links a:hover {
-        color:#666666;
 	text-decoration: underline;
 }
 
@@ -125,7 +124,7 @@ a.add_item{
 }
 #MenuHR  {
 	font-size: 90%;
-	background-color: #666666;
+	background-color: <%=@top.bgcolor%>;
 	width: 450px;
 	height: 36px;
 	margin-top: 43px;
@@ -286,8 +285,8 @@ a.add_item{
 	float: right;
 	width: 47%;
 	padding: 0.5em;
-	background-color: #D2A7BB;
-	border: 2px solid #BD7F9C;
+	background-color:<%=@ws.bgcolor%>;
+	border: 2px solid <%=@border.bgcolor%>;
 }
 #area_DROITS .titre {
 	font-weight: bold;
@@ -652,7 +651,7 @@ small.grey{
 }
 
 #footer{
-  background-color: #666666;
+  background-color:<%=@footer.bgcolor%>;
   color: #fff;
   padding: 15px;
 }

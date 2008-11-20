@@ -3,20 +3,12 @@ class CreateElements < ActiveRecord::Migration
     create_table :elements do |t|
       t.string:name
       t.string:bgcolor
-      t.string:layout
+      t.string:template
       t.timestamps
     end
-    Element.create(:name=>"header",:bgcolor=>"#FFFFFF",:layout=>"default")
-    Element.create(:name=>"body",:bgcolor=>"#FFFFFF",:layout=>"default")
-    Element.create(:name=>"right",:bgcolor=>"#FFFFFF",:layout=>"default")
-    Element.create(:name=>"footer",:bgcolor=>"#666666",:layout=>"default")
-    Element.create(:name=>"top",:bgcolor=>"#D86C27",:layout=>"default")
-    Element.create(:name=>"search",:bgcolor=>"#666666",:layout=>"default")
-    Element.create(:name=>"ws",:bgcolor=>"#FF9933",:layout=>"default")
-    Element.create(:name=>"border",:bgcolor=>"#D86C27",:layout=>"default")
-    Element.create(:name=>"accordion",:bgcolor=>"#666666",:layout=>"default")
-    Element.create(:name=>"links",:bgcolor=>"#D86C27",:layout=>"default")
-    Element.create(:name=>"clicked",:bgcolor=>"#FF9933",:layout=>"default")
+    Element.create(:name=>"header",:bgcolor=>"#FFFFFF",:template=>"current")
+    Element.create(:name=>"body",:bgcolor=>"#FFFFFF",:template=>"current")
+    
   end
 
   def self.down

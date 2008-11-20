@@ -23,11 +23,11 @@
 
 
 // A few configuration settings
-var CROSSHAIRS_LOCATION = 'images/crosshairs.png';
-var HUE_SLIDER_LOCATION = 'images/h.png';
-var HUE_SLIDER_ARROWS_LOCATION = 'images/position.png';
-var SAT_VAL_SQUARE_LOCATION = 'images/sv.png';
-var BUTON_CLOSE_LOCATION='images/close.jpg';
+var CROSSHAIRS_LOCATION = '/images/crosshairs.png';
+var HUE_SLIDER_LOCATION = '/images/h.png';
+var HUE_SLIDER_ARROWS_LOCATION = '/images/position.png';
+var SAT_VAL_SQUARE_LOCATION = '/images/sv.png';
+var BUTON_CLOSE_LOCATION='/images/close.jpg';
 var HEIGHT_OF_OBJ=25;//manualy move the the color picker top or botom
 var WIDTH_OF_OBJ=150; //manualy move the color picker left or right
 
