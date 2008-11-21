@@ -112,6 +112,7 @@ class UsersController < ApplicationController
 			render :partial => 'users/superadministration/colors'
                end
 		if params[:part] == "fonts"
+                        @fonts=Font.new
 			render :partial => 'users/superadministration/fonts'
     end
 		if params[:part] == "languages"

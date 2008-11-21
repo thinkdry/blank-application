@@ -1,17 +1,31 @@
 <fieldset class="myform">
   <legend>Colors management</legend>
-   <%form_for(:template ,:builder => ArticFormBuilder,:url=>element_path,:html => {:method=>:put,:multipart => true}) do |f| %>
+<div id="newtemplate">
+   <%form_for(:template ,:url=>element_path,:html => {:method=>:put,:multipart => true}) do |f| %>
     <div id="template">
           <%@elements.each do |e|%>
                 <%=e.name.capitalize%><input type="text" name="template[<%=e.name%>]" value="<%=e.bgcolor%>" onclick="startColorPicker(this)" onkeyup="maskedHex(this)"><br>
          <%end%>
      </div>
-     <%=f.submit "Save Changes"%>
+     <%= link_to_function "New Template", "if (document.getElementById('newTemp').style.display=='none') {document.getElementById('newTemp').style.display='block';document.getElementById('update').style.display='none';}"%>
+     <div id="newTemp" style="display:none;">
+     Template Name : <input type="text" name="newtemplate">
+     <%=submit_tag "Save New Template", :onclick=>"alert('Hello')"%>
+     <%= link_to_function "Cancel", "if (document.getElementById('newTemp').style.display=='block') {document.getElementById('newTemp').style.display='none';document.getElementById('update').style.display='block';}"%>
+     </div>
+      
+      <div id="update" style="display:block;">
+     <%=f.submit "Update"%>
+      </div>
  <%end%>
+ 
+  Select Template
   <select name='template[temp]' onchange="new Ajax.Updater('template','/elements/index?temp='+ this.value, {asynchronous:true, evalScripts:true})">
           <%@temp.each do |t|%>
               <option value="<%=t.template%>"><%=t.template%></option>
           <%end%>
-</select>
+</select><br>
+
+</div>
 </fieldset>
 
