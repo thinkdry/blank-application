@@ -104,10 +104,12 @@ class UsersController < ApplicationController
 			render :partial => 'users/superadministration/pictures'
     elsif params[:part] == "colors"
         @elements = Element.find(:all,:conditions=>{:template=>"current"})
-                        @temp=Element.find( :all,:select => 'DISTINCT template' )
-			render :partial => 'users/superadministration/colors'
+         @temp=Element.find( :all,:select => 'DISTINCT template' )
+         render :partial => 'users/superadministration/colors'
+
     elsif params[:part] == "fonts"
-			render :partial => 'users/superadministration/fonts'
+                  @fonts=Font.new
+                  render :partial => 'users/superadministration/fonts'
     elsif params[:part] == "translations"
 			@file = YAML.load_file("#{RAILS_ROOT}/config/locales/#{I18n.default_locale}.yml")
 			@res = @file[I18n.default_locale.to_s]

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081117061403) do
+ActiveRecord::Schema.define(:version => 20081121102959) do
 
   create_table "acts_as_xapian_jobs", :force => true do |t|
     t.string  "model",    :null => false
@@ -56,13 +56,6 @@ ActiveRecord::Schema.define(:version => 20081117061403) do
     t.string   "tags"
   end
 
-  create_table "colors", :force => true do |t|
-    t.integer  "element_id"
-    t.string   "bgcolor"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "comments", :force => true do |t|
     t.text     "text"
     t.integer  "user_id"
@@ -80,6 +73,7 @@ ActiveRecord::Schema.define(:version => 20081117061403) do
     t.datetime "updated_at"
   end
 
+<<<<<<< HEAD:db/schema.rb
   create_table "feed_items", :force => true do |t|
     t.string   "guid"
     t.integer  "feed_source_id"
@@ -93,9 +87,19 @@ ActiveRecord::Schema.define(:version => 20081117061403) do
 
   create_table "feed_sources", :force => true do |t|
     t.integer  "user_id"
+=======
+  create_table "fonts", :force => true do |t|
+>>>>>>> anup:db/schema.rb
     t.string   "name"
+<<<<<<< HEAD:db/schema.rb
     t.text     "description"
     t.string   "url",         :limit => 1024
+=======
+    t.string   "type"
+    t.integer  "weight",     :limit => 11
+    t.string   "template",                 :default => "current"
+    t.integer  "element_id", :limit => 11
+>>>>>>> anup:db/schema.rb
     t.datetime "created_at"
     t.datetime "updated_at"
   end
