@@ -3,10 +3,10 @@
   <%= hidden_field_tag :pubmed_item_id, params[:pubmed_item_id] if @pubmed_item %>
 
   <% if @pubmed_item %>
-    <%= f.text_field :author, :disabled => true %>
+    <%= f.text_field :authors, :disabled => true %>
     <%= f.text_field :link, :disabled => true %>
   <% else %>
-    <%= f.text_field :author %>
+    <%= f.text_field :authors %>
   <% end %>
 
   <% f.field :file_path, :label => 'Fichier attaché :' do %>

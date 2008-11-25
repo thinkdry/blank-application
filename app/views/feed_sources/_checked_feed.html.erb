@@ -1,0 +1,15 @@
+<% if (@what == "new") %>
+	<legend>Importation du flux dans la base</legend>
+	Voici les informations fournies par l'analyse du flux. Validez les pour importer ce flux et y souscrire.<br /><br />
+	<%= render :partial => "form", :locals => {:title => "Nouveau flux"} %>
+	
+<% elsif (@what == "already") %>
+	<legend>Retour sur l'analyse de votre flux</legend>
+	Ce feed est déjà référencé sur le site, cliquez sur ce lien pour y accéder et l'ajouter à votre espace de travail.
+	<%= link_to "ici", feed_source_path(@feed.id) %>
+	
+<% else %>
+	
+	Une erreur est survenue durant la vérification de votre flux.
+	
+<% end %>

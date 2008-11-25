@@ -1,12 +1,12 @@
 server = ENV['SERVER'] || ENV['RAILS_ENV']
 server ||= 'development'
 
-set :application, "artic"
+set :application, "blank"
 
 set :use_sudo, false
 
 # GitHub repository
-set :repository,  "thinkdry@dev.thinkdry.com:home/git/blank.git"
+set :repository,  "thinkdry@dev.thinkdry.com:/home/git/blank.git"
 set :scm, :git
 # The git repository is cloned to a temp directory
 # => This folder is copied and pulled on update_code task

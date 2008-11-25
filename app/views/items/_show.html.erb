@@ -5,7 +5,7 @@
   </h1>
   <div class="undertitle">
     par <%= link_to_user object.user %>
-    le <%= object.created_at.l(:long) %> -
+    le <%= I18n.l object.created_at, :format =>:long %> -
     <%= object.comments.size %> commentaires - Note : 
   </div>
   <%= item_rate_locked(object) %>

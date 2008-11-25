@@ -9,12 +9,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081121102959) do
+ActiveRecord::Schema.define(:version => 20081126085723) do
 
   create_table "acts_as_xapian_jobs", :force => true do |t|
-    t.string  "model",    :null => false
-    t.integer "model_id", :null => false
-    t.string  "action",   :null => false
+    t.string  "model",    :default => "", :null => false
+    t.integer "model_id",                 :null => false
+    t.string  "action",   :default => "", :null => false
   end
 
   add_index "acts_as_xapian_jobs", ["model", "model_id"], :name => "index_acts_as_xapian_jobs_on_model_and_model_id", :unique => true
@@ -73,33 +73,41 @@ ActiveRecord::Schema.define(:version => 20081121102959) do
     t.datetime "updated_at"
   end
 
-<<<<<<< HEAD:db/schema.rb
   create_table "feed_items", :force => true do |t|
-    t.string   "guid"
+    t.string   "remote_id"
     t.integer  "feed_source_id"
     t.string   "title"
+    t.string   "content"
     t.text     "description"
-    t.string   "author"
+    t.string   "authors"
+    t.datetime "date_published"
     t.string   "link"
+    t.string   "categories"
+    t.string   "copyright"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "feed_sources", :force => true do |t|
     t.integer  "user_id"
-=======
-  create_table "fonts", :force => true do |t|
->>>>>>> anup:db/schema.rb
-    t.string   "name"
-<<<<<<< HEAD:db/schema.rb
+    t.string   "remote_id"
+    t.string   "title"
     t.text     "description"
-    t.string   "url",         :limit => 1024
-=======
+    t.string   "url",          :limit => 1024
+    t.string   "link",         :limit => 1024
+    t.datetime "last_updated"
+    t.string   "authors"
+    t.boolean  "private",                      :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "fonts", :force => true do |t|
+    t.string   "name"
     t.string   "type"
-    t.integer  "weight",     :limit => 11
-    t.string   "template",                 :default => "current"
-    t.integer  "element_id", :limit => 11
->>>>>>> anup:db/schema.rb
+    t.string   "weight"
+    t.string   "template",   :default => "current"
+    t.integer  "element_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -135,6 +143,20 @@ ActiveRecord::Schema.define(:version => 20081121102959) do
     t.datetime "updated_at"
   end
 
+  create_table "links", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.string   "link"
+    t.string   "content"
+    t.text     "description"
+    t.string   "authors"
+    t.datetime "date_published"
+    t.string   "copyright"
+    t.string   "categories"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "pictures", :force => true do |t|
     t.string   "name"
     t.string   "picture_path"
@@ -156,7 +178,7 @@ ActiveRecord::Schema.define(:version => 20081121102959) do
     t.integer  "user_id"
     t.boolean  "imported"
     t.string   "title"
-    t.string   "author"
+    t.string   "authors"
     t.string   "link"
     t.text     "description"
     t.string   "file_path"

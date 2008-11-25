@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :feed_sources
   has_many :feed_items, :through => :feed_sources
+	has_many :links
   belongs_to :system_role
   
   file_column :image_path, :magick => {:size => "200x200>"}

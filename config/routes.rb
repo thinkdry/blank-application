@@ -28,7 +28,7 @@ ActionController::Routing::Routes.draw do |map|
   # Items are CMS component types
   # => Those items may be scoped to different resources
   def items_ressources(parent)  	
-    [:items, :articles, :audios, :videos, :artic_files, :publications, :images].each do |name|
+    [:items, :articles, :audios, :videos, :artic_files, :publications, :images, :feed_sources, :links].each do |name|
       parent.resources name, :member => {
         :rate => :any,
         :add_tag => :any,
@@ -63,7 +63,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :fonts
   map.resource :search
   map.resources :uploads
-	map.resources :feed_sources
+	
+	map.check_feed '/feed_sources/check_feed', :controller => 'feed_sources', :action => 'check_feed'
     
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id'

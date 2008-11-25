@@ -4,12 +4,22 @@ require 'open-uri'
 require 'feed-normalizer'
 
 class FeedSource < ActiveRecord::Base
-  belongs_to  :user
-  has_many    :feed_items , :dependent => :delete_all
+  #has_many  :feed_sources_users, :dependent => :delete_all
   
-  validates_presence_of :name, :url
-	validates_uniqueness_of :name, :message => "Ce nom est déjà utilisé."
-	validates_uniqueness_of :url, :message => "Ce feed est déjà utilisé."
+  acts_as_item
+  acts_as_xapian :texts => [:title, :description, :tags, :authors]
+  	
+	has_many  :feed_items , :dependent => :delete_all
+	
+  validates_presence_of :title, :url
+	#validates_uniqueness_of :title, :message => "Ce nom est déjà utilisé."
+	#validates_uniqueness_of :url, :message => "Ce feed est déjà utilisé."
+	validates_format_of :url, :with => /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix, :message=>"The format of the url is not valid."
+	validate :feed_compliance
+	
+	def self.label
+    "Flux RSS"           
+  end
 	
   def validate
     rss_valid?
@@ -24,7 +34,7 @@ class FeedSource < ActiveRecord::Base
   end
 
   def rss_content
-    return @rss if @rss
+		return @rss if @rss
     content = String.new # raw content of rss feed will be loaded here
     open(self.url) { |s| content = s.read }
 		if !(content.blank? || content.nil?)
@@ -39,50 +49,37 @@ class FeedSource < ActiveRecord::Base
 			#redirect_to feed_contents_url
 		end
   end
+	
+	def rss_content2
+		return (FeedNormalizer::FeedNormalizer.parse open(self.url))
+  end
 
   def import_latest_items
-		if self.rss_content.items.size > 0
-			self.rss_content.items.each do |item|
-				# Be sure that the item hasnt been imported before
-				if self.feed_items.count(:conditions => { :guid => item.guid }) <= 0
-					self.feed_items.create({
-						:guid           => item.guid,
-						:title          => item.title,
-						:description    => item.description,
-						:author         => item.author,
-						:link           => item.link })
-				end
+		feed = self.rss_content2
+		feed.clean!
+		feed.entries.each do |item|
+			# Be sure that the item hasnt been imported before
+			if self.feed_items.count(:conditions => { :title => item.title, :link => item.url }) <= 0
+				self.feed_items.create({
+					#:guid           => item.guid,
+					:title          => item.title,
+					:description    => item.description,
+					:authors         => item.authors,
+					:link           => item.url })
 			end
-		else
-			#flash[:notice] = "RSS unreachable"
-			#redirect_to feed_contents_url
 		end
 	end
-  
-  def accepts_role? role, user
+	
+	def feed_compliance
 	  begin
-	    auth_method = "accepts_#{role.downcase}?"
-	    return (send(auth_method, user)) if defined?(auth_method)
-	    raise("Auth method not defined")
-	  rescue Exception => e
-	    p(e) and raise(e)
-	  end
+		  open(self.url) do |http|
+      response = http.read
+      result = RSS::Parser.parse(response, false)
+    end
+    t = true
+    rescue
+	    self.errors.add(:url, "The url entered is not a compliant RSS/Atom Feed") 
+    end
   end
   
-  def accepts_consultation? user
-    user_is_admin_or_author?(user)
-  end
-  
-  def accepts_edition? user
-    user_is_admin_or_author?(user)
-  end
-  
-  private
-  def user_is_admin_or_author?(user)
-    # Admin
-    return true if user.is_admin?
-    # Author
-    return true if self.user = user
-    false
-  end
 end

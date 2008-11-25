@@ -47,7 +47,7 @@
     <%@latest_feeds.each do |pm|%>
 		<p>
 			<%= image_tag 'icons/rss.png' %>
-			<%= link_to pm.feed_source.name, feed_source_path(pm.feed_source) %> :
+			<%= link_to pm.feed_source.title, feed_source_path(pm.feed_source) %> :
         	<%= pm.title[0..50] + (pm.title.size > 50 ? '...' : '' ) %>
 			le <%= I18n.l pm.created_at, :format => :long %>
 		</p>

@@ -22,6 +22,12 @@ class GenericItem < ActiveRecord::Base
   named_scope :publications,
     :conditions => { :item_type => 'Publication' }
   
+	named_scope :feed_sources,
+    :conditions => { :item_type => 'FeedSource' }
+	
+	named_scope :links,
+    :conditions => { :item_type => 'Link' }
+	
   named_scope :from_workspace, lambda { |ws|
     raise 'WS expected' unless ws
     { :select => 'generic_items.*',
