@@ -1,0 +1,33 @@
+<fieldset class="myform">
+  <legend><%= @language %></legend>
+
+	<% form_for :res, :url => translations_changing_superadministration_path do |f| %>
+	
+	<input id="language" name="language" type="hidden" value=<%= @language.to_s %>>
+	
+	<% ["layout", "form", "other"].each do |type| %>
+		
+		<%= type.upcase %><br /><br />
+		
+		<% if @res[type] %>
+			<% @res[type].each do |k, v| %>
+				<%= k %> : <%= text_field type.to_sym, k, :value => v %><br />
+			<% end %>
+		<% else %>
+			Pas de champs pour cette partie.<br />
+		<% end %>
+		
+		<br />
+		
+	<% end %>
+		
+	<div class="buttons" id="area_BUTTONS" style="padding-top: 2em">
+      <button type="submit" class="positive"><img src="/images/tick.png" alt=""/>Mettre à jour</button>
+      <button type="reset" class="negative"><img src="/images/cross.png" alt=""/>Annuler</button>
+  </div>
+
+	<% end %>
+	
+<%= "eee " + @res["layout"]["title"].to_s %>
+	
+</fieldset>
