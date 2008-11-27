@@ -168,7 +168,6 @@ module ActionController
             #
             @module.module_eval <<-end_eval # We use module_eval to avoid leaks
               def #{selector}(*args)
-
                 #{generate_optimisation_block(route, kind)}
 
                 opts = if args.empty? || Hash === args.first

@@ -1,5 +1,3 @@
-require 'active_support/duration'
-
 module ActiveSupport #:nodoc:
   module CoreExtensions #:nodoc:
     module Time #:nodoc:

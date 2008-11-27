@@ -1,6 +1,5 @@
 require 'rbconfig'
 require 'digest/md5' 
-require 'active_support/secure_random'
 
 class AppGenerator < Rails::Generator::Base
   DEFAULT_SHEBANG = File.join(Config::CONFIG['bindir'],
@@ -64,9 +63,6 @@ class AppGenerator < Rails::Generator::Base
       m.template "configs/initializers/inflections.rb", "config/initializers/inflections.rb"
       m.template "configs/initializers/mime_types.rb", "config/initializers/mime_types.rb"
       m.template "configs/initializers/new_rails_defaults.rb", "config/initializers/new_rails_defaults.rb"
-
-      # Locale
-      m.template "configs/locales/en.yml", "config/locales/en.yml"
 
       # Environments
       m.file "environments/boot.rb",    "config/boot.rb"
@@ -146,7 +142,6 @@ class AppGenerator < Rails::Generator::Base
     app/views/layouts
     config/environments
     config/initializers
-    config/locales
     db
     doc
     lib

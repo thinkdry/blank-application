@@ -8,10 +8,11 @@ module ActiveRecord
         current_object = @owner.send(@reflection.through_reflection.name)
         
         if current_object
-          current_object.update_attributes(construct_join_attributes(new_value))
-        else
-          @owner.send(@reflection.through_reflection.name,  klass.send(:create, construct_join_attributes(new_value)))
+          klass.destroy(current_object)
+          @owner.clear_association_cache
         end
+        
+        @owner.send(@reflection.through_reflection.name,  klass.send(:create, construct_join_attributes(new_value)))
       end
       
     private

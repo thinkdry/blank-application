@@ -313,12 +313,6 @@ module ActiveSupport #:nodoc:
         nesting = expanded_path[(expanded_root.size)..-1]
         nesting = nesting[1..-1] if nesting && nesting[0] == ?/
         next if nesting.blank?
-        nesting_camel = nesting.camelize
-        begin
-          qualified_const_defined?(nesting_camel)
-        rescue NameError
-          next
-        end
 
         [
           nesting.camelize,
@@ -505,7 +499,7 @@ module ActiveSupport #:nodoc:
           initial_constants = if qualified_const_defined?(mod_name)
             mod_name.constantize.local_constant_names
           else
-            []
+           []
           end
         else
           raise Argument, "#{desc.inspect} does not describe a module!"
