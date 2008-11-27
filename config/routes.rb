@@ -7,21 +7,22 @@ ActionController::Routing::Routes.draw do |map|
   map.forgot_password '/forgot_password', :controller => 'users', :action => 'forgot_password'
   #map.change_password '/change_password', :controller => 'users', :action => 'change_password'
   map.reset_password '/reset_password/:password_reset_code', :controller => 'users', :action => 'reset_password'
-  map.resources :users, :member => { :administration => :any } do |user|
-		user.picture_changing '/superadminstration/picture_changing', :controller => 'users', :action => 'picture_changing'
-                user.change_elements '/superadministration/change_elements',:controller =>'users', :action=>'change_elements'
-		user.language_switching '/superadministration/language_switching', :controller => 'users', :action => 'language_switching'
-		user.translations_changing '/superadministration/translations_changing', :controller => 'users', :action => 'translations_changing'
-		user.superadministration '/superadministration/:part', :controller => 'users', :action => 'superadministration'
-	end
-  map.resource :session, :member => { :change_language => :any }
+  map.resources :users, :member => { :administration => :any }
+	map.resource :session, :member => { :change_language => :any }
 	
-	
+	map.picture_changing_superadministration 'superadministration/picture_changing', :controller => 'superadministration', :action => 'picture_changing'
+	map.check_color_superadministration 'superadministration/check_color', :controller => 'superadministration', :action => 'check_color'
+	map.colors_changing_superadministration 'superadministration/colors_changing', :controller => 'superadministration', :action => 'colors_changing'
+	map.language_switching_superadministration 'superadministration/language_switching', :controller => 'superadministration', :action => 'language_switching'
+	map.translations_changing_superadministration 'superadministration/translations_changing', :controller => 'superadministration', :action => 'translations_changing'
+	map.superadministration '/superadministration/:part', :controller => 'superadministration', :action => 'superadministration'
+  
 	map.content '/content/:item_type', :controller => 'items', :action => 'index'
   
   # TODO: Publishing, Bookmarks, Admin related controllers: rights...
 
   map.root :controller => 'home', :action => 'index'
+	
   map.connect '/stylesheets/:action.:format', :controller => 'stylesheets'
 
    
@@ -38,7 +39,7 @@ ActionController::Routing::Routes.draw do |map|
     end
     # Publication sources are private, but need to be scoped to import publication
     # into right workspace
-    parent.resources :feed_sources
+    # parent.resources :feed_sources
   end
 
   # Items created outside any workspace are private or fully public.
@@ -53,20 +54,19 @@ ActionController::Routing::Routes.draw do |map|
   end
   
   # Project management
-  map.resources :projects  do |projects|
-    projects.resources :meetings do |meetings|
-      meetings.resources :objectives
-    end
-  end
+  #map.resources :projects  do |projects|
+  #  projects.resources :meetings do |meetings|
+  #    meetings.resources :objectives
+  #  end
+  #end
+	
   #map.add_new_user '/add_new_user', :controller => 'workspaces', :action => 'add_new_user'
-  map.resource :element
-  map.resource :fonts
   map.resource :search
   map.resources :uploads
 	
 	map.check_feed '/feed_sources/check_feed', :controller => 'feed_sources', :action => 'check_feed'
     
   # Install the default routes as the lowest priority.
-  map.connect ':controller/:action/:id'
+	map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 end

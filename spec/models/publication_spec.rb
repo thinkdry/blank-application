@@ -9,7 +9,7 @@ describe Publication do
   end
   
   def publication_attributes
-    item_attributes.merge(:author => 'The famous author')
+    item_attributes.merge(:authors => 'The famous author')
   end
   
   before(:each) do
@@ -22,8 +22,8 @@ describe Publication do
   end
   
   it "should require author" do
-    @publication.attributes = publication_attributes.except(:author)
-    @publication.should have(1).error_on(:author)
+    @publication.attributes = publication_attributes.except(:authors)
+    @publication.should have(1).error_on(:authors)
   end
   
 end

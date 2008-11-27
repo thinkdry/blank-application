@@ -1,29 +1,32 @@
 server = ENV['SERVER'] || ENV['RAILS_ENV']
-server ||= 'development'
+server ||= 'production'
 
 set :application, "blank"
 
 set :use_sudo, false
 
 # GitHub repository
-set :repository,  "thinkdry@dev.thinkdry.com:/home/git/blank.git"
+set :repository, "thinkdry@dev.thinkdry.com:/home/git/blank.git"
 set :scm, :git
 # The git repository is cloned to a temp directory
 # => This folder is copied and pulled on update_code task
 set :deploy_via, :remote_cache
+set :ssh_options, { :forward_agent => true }
 
 set :user, 'thinkdry'
 
-set :deploy_to, "/home/rails/#{application}"
+#set :deploy_to, "/home/rails/#{application}"
 
 if (server == 'development')
+	set :deploy_to, "/home/rails/#{application}_dev"
   set :rails_env, 'development'
   set :branch, "master" 
   server "dev.thinkdry.com", :app, :web, :db, :primary => true
 elsif (server == 'production')
+	set :deploy_to, "/home/rails/#{application}"
   set :rails_env, 'production'
-  set :branch, "release"
-  server "prod.thinkdry.com", :app, :web, :db, :primary => true
+  set :branch, "master"
+  server "dev.thinkdry.com", :app, :web, :db, :primary => true
 end
 
 namespace :deploy do
@@ -48,14 +51,16 @@ namespace :deploy do
       ln -s #{shared_path}/public/publication   #{latest_release}/public/publication &&
       ln -s #{shared_path}/public/user          #{latest_release}/public/user &&
       ln -s #{shared_path}/public/video         #{latest_release}/public/video &&
-      ln -s #{shared_path}/public/uploads       #{latest_release}/public/uploads
+      ln -s #{shared_path}/public/uploads       #{latest_release}/public/uploads &&
+			ln -s #{shared_path}/public/picture       #{latest_release}/public/picture
     CMD
   end
   after "deploy:update_code", "deploy:link_shared_folders"
   
   desc "Copy config files (database.yml) into release path"
   task :copy_config_files do
-    run "cp #{shared_path}/config/* #{release_path}/config/"
+    #run "cp #{shared_path}/config/* #{release_path}/config/"
+		run "mv #{release_path}/config/database_sample.yml #{release_path}/config/database.yml"
   end
   after "deploy:update_code", "deploy:copy_config_files"
   
@@ -75,7 +80,8 @@ namespace :deploy do
       mkdir -p #{shared_path}/public/publication/file_path/tmp &&
       mkdir -p #{shared_path}/public/user/image_path/tmp &&
       mkdir -p #{shared_path}/public/video/file_path/tmp &&
-      mkdir -p #{shared_path}/public/uploads
+      mkdir -p #{shared_path}/public/uploads &&
+			mkdir -p #{shared_path}/public/picture/picture_path/tmp
     CMD
   end
   after "deploy:init", "deploy:create_shared_folders"
@@ -91,7 +97,7 @@ namespace :deploy do
   
   desc "Create XAPIAN index"
   task :create_xapian_index do
-    run "cd #{release_path} && rake xapian:rebuild_index models='ArticFile Article Audio Image Publication Video' RAILS_ENV=#{server}"
+    run "cd #{release_path} && rake xapian:rebuild_index models='ArticFile Article Audio Image Publication Video FeedSource Link' RAILS_ENV=#{server}"
     run "cd #{release_path} && rake xapian:update_index RAILS_ENV=#{server}"
   end
   after "deploy:migrate", "deploy:create_xapian_index"
