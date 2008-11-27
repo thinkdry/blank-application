@@ -68,7 +68,7 @@ namespace :deploy do
   task :spec, :roles => :app do
     run "cd #{release_path} && rake db:migrate RAILS_ENV=test && spec spec -f s"
   end
-  after "deploy:update_code", "deploy:spec"
+  #after "deploy:update_code", "deploy:spec"
   
   desc "Create shared folders"
   task :create_shared_folders, :roles => :app do
@@ -93,7 +93,7 @@ namespace :deploy do
     upload(File.dirname(__FILE__) + '/database_sample.yml', "#{shared_path}/config/database.yml")
     puts "Please edit database.yml in the shared directory."
   end
-  after "deploy:init", "deploy:create_shared_config"
+  #after "deploy:init", "deploy:create_shared_config"
   
   desc "Create XAPIAN index"
   task :create_xapian_index do
