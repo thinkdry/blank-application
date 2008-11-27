@@ -18,7 +18,7 @@ set :user, 'thinkdry'
 #set :deploy_to, "/home/rails/#{application}"
 
 if (server == 'development')
-	set :deploy_to, "/home/rails/#{application}_dev"
+	set :deploy_to, "/home/rails/#{application}"
   set :rails_env, 'development'
   set :branch, "master" 
   server "dev.thinkdry.com", :app, :web, :db, :primary => true
@@ -55,7 +55,7 @@ namespace :deploy do
 			ln -s #{shared_path}/public/picture       #{latest_release}/public/picture
     CMD
   end
-  after "deploy:update_code", "deploy:link_shared_folders"
+  #after "deploy:update_code", "deploy:link_shared_folders"
   
   desc "Copy config files (database.yml) into release path"
   task :copy_config_files do
@@ -66,7 +66,7 @@ namespace :deploy do
   
   desc "Run spec tests"
   task :spec, :roles => :app do
-    run "cd #{release_path} && rake db:migrate RAILS_ENV=test && spec spec -f s"
+    #run "cd #{release_path} && rake db:migrate RAILS_ENV=test && spec spec -f s"
   end
   #after "deploy:update_code", "deploy:spec"
   
@@ -84,7 +84,7 @@ namespace :deploy do
 			mkdir -p #{shared_path}/public/picture/picture_path/tmp
     CMD
   end
-  after "deploy:init", "deploy:create_shared_folders"
+  #after "deploy:init", "deploy:create_shared_folders"
   
   desc "Create shared/config directory and default database.yml."
   task :create_shared_config do
