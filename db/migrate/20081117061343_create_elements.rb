@@ -6,8 +6,6 @@ class CreateElements < ActiveRecord::Migration
       t.string:template
       t.timestamps
     end
-    Element.create(:name=>"header",:bgcolor=>"#FFFFFF",:template=>"current")
-    Element.create(:name=>"body",:bgcolor=>"#FFFFFF",:template=>"current")
     
   end
 

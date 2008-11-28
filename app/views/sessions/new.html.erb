@@ -26,7 +26,7 @@
 			<% if !(@logo.picture_path.nil? || @logo.picture_path.blank?) %>
 				<%= image_tag(url_for_file_column(@logo, 'picture_path', 'thumb')) %>
 			<% else %> 
-				<img src="images/logo_intranet_login.gif" alt="ARTIC" width="168" height="80">
+				<img src="images/logo_intranet_login.png" alt="ARTIC" width="168" height="80">
 			<% end %>
     	<% form_tag session_path do -%>
                                 <p style="color:red"><%=flash[:error]%></p>

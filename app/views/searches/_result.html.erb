@@ -4,7 +4,7 @@
 		<%= link_to_item(object) %>
 		dans <%= links_to_workspace_collection(object.workspaces) %>
 		par <%= link_to_user(object.user) %>
-		le <%= object.created_at.l(:long) %>
+		le <%= I18n.l object.created_at, :format => :long %>
 	</div>
 	<div>
 		<div style="float:left;">Tags: <%= object.tags.collect(&:name).join(', ') %> - </div>

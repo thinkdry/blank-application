@@ -73,7 +73,7 @@ module ItemsHelper
     
     # 2nd: Include private item
     unless current_workspace
-      [:images, :articles, :audios, :artic_files, :videos].each do |itemable_type|
+      [:images, :articles, :audios, :artic_files, :videos, :feed_sources, :links].each do |itemable_type|
         items |= current_user.send(itemable_type)
       end
     end
@@ -136,7 +136,7 @@ module ItemsHelper
     item_type ||= 'articles'
     content = String.new
     
-    [Article, Image, ArticFile, Video, Audio, Publication].each do |item_model|
+    [Article, Image, ArticFile, Video, Audio, Publication, FeedSource, Link].each do |item_model|
       item_page = item_model.to_s.underscore.pluralize
       item_human_name = item_model.label
       options = {}

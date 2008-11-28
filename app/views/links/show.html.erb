@@ -1,0 +1,21 @@
+<% item_show(:title => 'Lien',  :object => @current_object ) do %>
+	
+		<h2>Url</h2>
+		<%= link_to @current_object.link, @current_object.link %>
+		
+		<h2>Content</h2>
+		<%= @current_object.content %>	
+		
+		<h2>Author</h2>
+		<%= @current_object.authors %>
+		
+		<h2>Date published</h2>
+		<%#= I18n.l @current_object.date_published, :format => :short %>
+		
+		<h2>Categories</h2>
+		<%= @current_object.categories %>
+		
+		<h2>Copyright</h2>
+		<%= @current_object.copyright %>
+	
+<% end %>

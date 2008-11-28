@@ -5,7 +5,7 @@ class CreatePublications < ActiveRecord::Migration
       t.integer :user_id
       t.boolean :imported
       t.string  :title
-      t.string  :author
+      t.string  :authors
       t.string  :link
       t.text    :description
       t.string  :file_path

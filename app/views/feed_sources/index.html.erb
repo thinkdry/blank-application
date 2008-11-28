@@ -1,8 +1,9 @@
 <h1 class="pub"><%= image_tag "rss.png"%> Mes Requêtes PubMed</h1>
 
-<fieldset>
-	<legend>Ajout d'un flux RSS</legend><br>
-    <%= render :partial => "form"%>
+<fieldset id="aaa">
+<legend> Analyse d'un feed</legend>
+	<%= text_field :url, :value %>
+  <%= button_to_function 'Vérifier ce flux', "new Ajax.Updater('aaa', '/feed_sources/check_feed', { parameters: { url: $('url_value').value }, method:'post', asynchronous:true, evalScripts:true })" %>
 </fieldset>
 
 <%= render :partial => "request", :collection => @current_objects %>

@@ -3,7 +3,7 @@
 		<span class="titre">Filtrer</span><br>
 		<ul>
 			<% 
-				[:article, :image, :artic_file, :video, :audio, :publication].each do |elem|
+				[:article, :image, :artic_file, :video, :audio, :publication, :link].each do |elem|
 					model = elem.to_s.classify.constantize
 					
 					helper_name = String.new

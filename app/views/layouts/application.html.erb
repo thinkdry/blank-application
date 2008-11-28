@@ -1,8 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-	<% @logo = Picture.find_by_name('logo') %>
-  <link rel="shortcut icon" href=<%= !(@logo.picture_path.nil? || @logo.picture_path.blank?) ? url_for_file_column(@logo, 'picture_path', 'favicon') : "/images/favicon.ico" %>/>
+  <% @logo = Picture.find_by_name('logo') %>
+  <link rel="shortcut icon" href=<%= !(@logo.nil? || @logo.picture_path.blank?) ? url_for_file_column(@logo, 'picture_path', 'favicon') : "/images/favicon.ico" %>/>
 
   <%= stylesheet_link_tag "application.css" %>
   <%= stylesheet_link_tag "form.css" %>
@@ -28,10 +28,10 @@
   <div id="header">
     <div id="logo">
 <%#= link_to(image_tag('logo.png', :width => '300', :height => '80', :border => 0), "/") %>
-			<% if !(@logo.picture_path.nil? || @logo.picture_path.blank?) %>
+			<% if !(@logo.nil? || @logo.picture_path.blank?) %>
 				<%= link_to image_tag(url_for_file_column(@logo, 'picture_path', 'normal')), "/" %>
 			<% else %>
-				<%= link_to(image_tag('logo.gif', :width => '400', :height => '80', :border => 0), "/") %>
+				<%= link_to(image_tag('logo.png', :width => '400', :height => '80', :border => 0), "/") %>
 			<%end %>
     </div>
     <div id="header_right">
@@ -41,15 +41,14 @@
         <%= link_to 'Mon compte', user_path(current_user) %> |
         <%= link_to 'Flux RSS', feed_sources_path %> |
         <%= link_to 'Administration', administration_user_path(current_user) %> |
-				<% if current_user.is_superadmin? %>
-					<%= link_to 'Super Administration', user_superadministration_path(current_user, "default") %> | 
-				<% end %>
+		<% if current_user.is_superadmin? %>
+          <%= link_to 'Super Administration', superadministration_path("default") %> |
+		<% end %>
         <%= link_to 'Se déconnecter', '/logout' %>
-				<br />
-				<%= link_to_remote image_tag('countries/en.jpg'), :url => change_language_session_path(:locale => "en-US") %> 
-				<%= link_to_remote image_tag('countries/es.jpg'), :url => change_language_session_path(:locale => "es-ES") %> 	
-				<%= link_to_remote image_tag('countries/fr.jpg'), :url => change_language_session_path(:locale => "fr-FR") %>
-			</div>
+		<%= link_to_remote image_tag('countries/en.jpg'), :url => change_language_session_path(:locale => "en-US") %> 
+		<%= link_to_remote image_tag('countries/es.jpg'), :url => change_language_session_path(:locale => "es-ES") %> 	
+		<%= link_to_remote image_tag('countries/fr.jpg'), :url => change_language_session_path(:locale => "fr-FR") %>
+      </div>
       <div id="MenuHR">
         <ul>
           <li>
@@ -111,6 +110,12 @@
           </option>
           <option value="<%= new_item_path(Publication) %>">
             Une publication
+          </option>
+					<option value="<%= new_item_path(FeedSource) %>">
+            Un flux de syndication
+          </option>
+					<option value="<%= new_item_path(Link) %>">
+            Un lien vers une page Web
           </option>
         </select>
       </form>

@@ -1,8 +1,8 @@
-<%= link_to request.name.capitalize, feed_source_url(request)%>
+<%= link_to request.title.capitalize, feed_source_path(request)%>
 	Créée le <%= I18n.l request.created_at, :format => :short %>&nbsp;-&nbsp;
 	Mise à jour le <%= I18n.l request.updated_at, :format => :short %>&nbsp;-&nbsp;
 	<%= image_tag("delete.png") %><%= link_to " supprimer",
-			feed_source_url(request),
+			feed_source_path(request),
 			:method => :delete,
 			:confirm => "Êtes vous sûr de vouloir supprimer cet éléments ?" %>
 <br>
