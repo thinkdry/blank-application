@@ -6,7 +6,6 @@ class UsersController < ApplicationController
 
   make_resourceful do
     actions :all
-		belongs_to :account
     
     before :remove do
       permit "deletion of user"
@@ -51,16 +50,27 @@ class UsersController < ApplicationController
      end
      @current_objects ||= current_model.find(:all, :conditions => conditions)
    end
-	 
+
+	
+	# Function allowing to activate the user with the RESTful authentification plugin
+  def activate
+    self.current_user = params[:activation_code].blank? ? :false : User.find_by_activation_code(params[:activation_code])
+    if logged_in? && !current_user.active?
+      current_user.activate
+      flash[:notice] = "Inscription complète !"
+    end
+    redirect_back_or_default('/')
+  end
+
 	# Function allowing to gain his password by email in case of forgot
   def forgot_password    
 		return unless request.post?
 		if @user = User.find_by_email(params[:user][:email])
 		  @user.create_reset_code
-		  flash[:notice] = "Un lien permettant le changement de votre mot de passe vous a été envoyé sur votre messagerie." 
+		  flash.now[:notice_forgot] = "Un lien permettant le changement de votre mot de passe vous a été envoyé sur votre messagerie."
 			render :action => "forgot_password"
 		else
-		  flash[:error] = "Aucun utilisateur ne correspond à cette adresse email." 
+		  flash.now[:error_forgot] = "Aucun utilisateur ne correspond à cette adresse email."
 			render :action => "forgot_password"
 		end
   end
@@ -94,5 +104,5 @@ class UsersController < ApplicationController
 	    Workspace.administrated_by(current_user) + Workspace.moderated_by(current_user)
     end
   end
-  
+ 
 end

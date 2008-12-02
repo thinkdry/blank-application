@@ -1,13 +1,12 @@
 <div class="pubmed_item">
-  <h2><%= item.title %></h2>
+  <%= link_to item.title, item.link, :popup=>['new_window'] %>
   <div class="description"><%= item.description %></div>
   <div class="links">
     <%= image_tag("rss_add.png") %>
   	<%= link_to 'Importer dans les publications', new_publication_path(:feed_item_id => item.id) %>
-		<%= link_to 'Importer dans les liens', new_link_path(:feed_item_id => item.id) %>
   	&nbsp;-&nbsp;
   	<%= image_tag("link.png") %>
-  	<%= link_to 'Lien vers la page Web', item.link, :popup=>['new_window'] %>
+  	<%= link_to 'Importer dans les liens', new_link_path(:feed_item_id => item.id) %>
     <%# Specify the weight & width :popup=>['new_window','height=800,width=1024'] %>
   </div>
 </div>

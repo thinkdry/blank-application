@@ -1,6 +1,4 @@
 require 'heywatch'
-HeyWatch::Base::establish_connection! :login => 'thinkdry', :password => 'thinkdry38'
-
 require 'ftools'
 
 class Video < ActiveRecord::Base
@@ -32,7 +30,13 @@ class Video < ActiveRecord::Base
     return false if !self.file_path_just_uploaded? || @encoding_in_progress
     @encoding_in_progress = true
     set_encoded_file_path
-    VideoEncoder.new(self.id, self.file_path, @dest_directory)
+		begin
+			HeyWatch::Base::establish_connection! :login => 'thinkdry', :password => 'thinkdry38'
+			VideoEncoder.new(self.id, self.file_path, @dest_directory)
+		rescue Exception => e
+			flash[:notice] = "HeyWatch service unreachable for video encoding"
+			redirect_to new_video_url
+		end
   end
 end
 

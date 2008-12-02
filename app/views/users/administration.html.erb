@@ -1,6 +1,15 @@
 <div id="area_TITLE">
   <h1>Administration</h1>
 </div>
+<% if current_user.is_admin? %>
+<fieldset style="margin-top: 20px;">
+	<legend>Configuration administrateur</legend>
+	<%= link_to 'Ajouter un utilisateur', new_user_path %>
+</fieldset>
+<% end %>
+<div id="new_workspace" style="margin-top: 20px;">
+	<%= render :partial => "workspaces/new" %>
+</div>
 <div class="area_BOTH">
   <% @workspaces.each do |w| %>
     <div class="area_WS" style="margin-bottom: 10px;">
@@ -14,13 +23,4 @@
   	</div>
   <% end %>
 </div>
-<div id="new_workspace" style="margin-top: 20px;">
-	<%= render :partial => "workspaces/new" %>
-</div>
-<% if current_user.is_admin? %>
-<fieldset style="margin-top: 20px;">
-	<legend>Configuration administrateur</legend>
-	<%= link_to 'Ajouter un utilisateur', new_user_path %>
-</fieldset>
-<% end %>
 

@@ -9,7 +9,10 @@ class CreateFeedSources < ActiveRecord::Migration
 			t.string		:link, :limit => 1024
 			t.datetime	:last_updated
 			t.string		:authors
-			t.boolean :private, :default => false
+			t.string		:copyright
+			t.string		:generator
+			t.integer		:ttl
+			t.string		:image_path
       t.timestamps
     end
   end

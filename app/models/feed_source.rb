@@ -2,6 +2,7 @@ require 'rss/1.0'
 require 'rss/2.0'
 require 'open-uri'
 require 'feed-normalizer'
+require 'regexps'
 
 class FeedSource < ActiveRecord::Base
   #has_many  :feed_sources_users, :dependent => :delete_all
@@ -11,10 +12,10 @@ class FeedSource < ActiveRecord::Base
   	
 	has_many  :feed_items , :dependent => :delete_all
 	
-  validates_presence_of :title, :url
+  validates_presence_of :title, :description, :url
 	#validates_uniqueness_of :title, :message => "Ce nom est déjà utilisé."
 	#validates_uniqueness_of :url, :message => "Ce feed est déjà utilisé."
-	validates_format_of :url, :with => /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix, :message=>"The format of the url is not valid."
+	validates_format_of :url, :with => /#{URL}/ix, :message=>"The format of the url is not valid."
 	validate :feed_compliance
 	
 	def self.label
@@ -51,7 +52,7 @@ class FeedSource < ActiveRecord::Base
   end
 	
 	def rss_content2
-		return (FeedNormalizer::FeedNormalizer.parse open(self.url))
+		return (FeedNormalizer::FeedNormalizer.parse open(self.url), :force_parser => FeedNormalizer::SimpleRssParser)
   end
 
   def import_latest_items
@@ -61,11 +62,16 @@ class FeedSource < ActiveRecord::Base
 			# Be sure that the item hasnt been imported before
 			if self.feed_items.count(:conditions => { :title => item.title, :link => item.url }) <= 0
 				self.feed_items.create({
-					#:guid           => item.guid,
-					:title          => item.title,
-					:description    => item.description,
-					:authors         => item.authors,
-					:link           => item.url })
+					:remote_id			=> item.id,
+					:title					=> item.title,
+					:description		=> item.description,
+					:content				=> item.content,
+					:authors				=> item.authors.join(' ,'),
+					:date_published => item.date_published,
+					:last_updated		=> item.last_updated,
+					:categories			=> item.categories.join(' ,'),
+					:link           => item.url,
+					:copyright			=> item.copyright })
 			end
 		end
 	end

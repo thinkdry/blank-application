@@ -4,10 +4,6 @@ class FeedSourcesController < ApplicationController
 	acts_as_ajax_validation
   acts_as_item do
     
-    before :create do
-			
-    end
-
     after :create do 
       # After addition of a source, import the RSS into DB.
       @current_object.import_latest_items
@@ -20,43 +16,28 @@ class FeedSourcesController < ApplicationController
 		
   end
   
-  #def current_objects
-  #  @current_objects ||= FeedSource.all(:conditions => "user_id = #{@current_user.id}").paginate(
-	#		:page => params[:page],
-	#		:order => :created_at
-	#	)
-  #end
-	
-	def check_feed
-		#if (@feed = FeedSource.find(:first, :conditions => { :url => params[:url] }))
-		#	@what = "already"
-		if (@feed = FeedNormalizer::FeedNormalizer.parse open(params[:url]))
-			@current_object = FeedSource.new
-			@current_object.title = @feed.title
-			@current_object.description = @feed.description
-			@current_object.remote_id = @feed.id
-			@current_object.authors = @feed.authors
-			#@current_object.last_updated = @feed.last_updated
-			@current_object.link = @feed.url
-			@current_object.url = params[:url]
+  def check_feed
+		if (@feed=FeedSource.find(:first, :conditions => { :url => params[:url], :user_id => current_user.id }))
+			@what = "already"
+		elsif (@feed=FeedNormalizer::FeedNormalizer.parse open(params[:url]), :force_parser => FeedNormalizer::SimpleRssParser)
+			@current_object = FeedSource.new(
+				:remote_id => @feed.id,
+				:title => @feed.title,
+				:description => @feed.description,
+				:authors => @feed.authors.join(' ,'),
+				:last_updated => @feed.last_updated,
+				:link => @feed.url,
+				:url => params[:url],
+				:copyright => @feed.copyright,
+				:generator => @feed.generator,
+				:ttl => @feed.ttl
+				#:image => @feed.image
+				)
 			@what = "new"
 		else
 			@what = ""
 		end
 		render :partial => 'checked_feed' 
   end
-	
-	def manage_subscription
-		if (@rec=FeedSourcesUser.find(:first, :conditions => { :user_id => self.current_user.id, :feed_source_id => params[:feed_source_id].to_i }))
-			@rec.destroy
-			already = "Adhérer"
-		else
-			FeedSourcesUser.create(:user_id => self.current_user.id, :feed_source_id => params[:feed_source_id].to_i)
-			already = "Résilier"
-    end
-		#@current_object = FeedSource.find(params[:feed_source_id].to_i)
-		render :text => "<input type='button' value='#{already}' onclick=\"new Ajax.Updater('dabutton', '/feed_sources/#{params[:feed_source_id]}/manage_subscription', { parameters: { feed_source_id: #{params[:feed_source_id]} }, method:'get', asynchronous:true, evalScripts:true });\"/>"
-  end
-	
 	
 end

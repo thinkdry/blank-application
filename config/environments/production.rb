@@ -20,3 +20,8 @@ config.action_controller.perform_caching             = true
 
 # Disable delivery errors, bad email addresses will be ignored
 # config.action_mailer.raise_delivery_errors = false
+
+# Need the production_log_analyze gem
+# Use for example : pl_analyze log/production.log -e recipient@example.com
+require 'hodel_3000_compliant_logger'
+config.logger = Hodel3000CompliantLogger.new(config.log_path)

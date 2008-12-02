@@ -184,3 +184,25 @@ fr-FR:
   layout: 
     title: Moteur de blank
     welcome_message: Bienvenue lulu
+    account_access: Mon compte
+    administration: Administration
+    superadministration: Superadministration
+    logout: Se déconnecter
+    first_page: Accueil
+    content: Contenu
+    workspaces: Espaces de travail
+    new_workspace: Nouvel espace de travail
+    add_content: Ajouter du contenu
+    article: Article
+    image: Image
+    audio: Audio
+    video: Vidéo
+    file: Fichier
+    publication: Publication
+    feed_source: Flux de syndication
+    link: Lien
+    search: eee
+    footer_title: ThinkDRY Technologies 2008
+    contact: Contact
+    map: Plan du site
+    faq: FAQ

@@ -5,11 +5,12 @@
     <%= f.text_field :login, :label => 'Login', :hint => "Votre nom d'utilisateur" if @user.new_record? %>
     <%= f.text_field :email, :label => 'Email' %>
     <%= f.password_field :password, :label => 'Mot de passe'%>
-    <%= f.password_field :password_confirmation, :label => 'Confirmation'%>
+    <%= f.password_field :password_confirmation, :label => 'Confirmation de mot de passe'%>
 
     <%= f.text_field :lastname, :label => 'Nom'%>
     <%= f.text_field :firstname, :label => 'Prénom' %>
-    <%= f.text_area :addr, :size => "40x6", :label => 'Addresse', :hint => 'Votre adresse complète' %>
+    <%= f.country_select :nationality, :label => 'Nationalité' %>
+    <%= f.text_area :address, :size => "40x6", :label => 'Adresse', :hint => 'Votre adresse complète' %>
     <%= f.text_field :phone, :label => 'Téléphone', :hint => 'Numéro professionnel' %>
     <%= f.text_field :mobile, :label => 'Portable', :hint => 'Numéro de téléphone portable' %>
     <%= f.text_field :laboratory, :label => 'Laboratoire', :hint => 'Pour qui travaillez-vous ?' %>

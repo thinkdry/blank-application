@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081126085723) do
+ActiveRecord::Schema.define(:version => 20081201182055) do
 
   create_table "acts_as_xapian_jobs", :force => true do |t|
     t.string  "model",    :null => false
@@ -74,14 +74,15 @@ ActiveRecord::Schema.define(:version => 20081126085723) do
   end
 
   create_table "feed_items", :force => true do |t|
-    t.string   "remote_id"
     t.integer  "feed_source_id"
+    t.string   "remote_id"
     t.string   "title"
     t.string   "content"
     t.text     "description"
     t.string   "authors"
     t.datetime "date_published"
-    t.string   "link"
+    t.datetime "last_updated"
+    t.string   "link",           :limit => 1024
     t.string   "categories"
     t.string   "copyright"
     t.datetime "created_at"
@@ -97,7 +98,10 @@ ActiveRecord::Schema.define(:version => 20081126085723) do
     t.string   "link",         :limit => 1024
     t.datetime "last_updated"
     t.string   "authors"
-    t.boolean  "private",                      :default => false
+    t.string   "copyright"
+    t.string   "generator"
+    t.integer  "ttl"
+    t.string   "image_path"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -202,6 +206,16 @@ ActiveRecord::Schema.define(:version => 20081126085723) do
     t.datetime "updated_at"
   end
 
+  create_table "sessions", :force => true do |t|
+    t.string   "session_id", :null => false
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
   create_table "system_roles", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -227,16 +241,18 @@ ActiveRecord::Schema.define(:version => 20081126085723) do
     t.string   "firstname"
     t.string   "lastname"
     t.string   "email"
-    t.string   "addr",                      :limit => 500
+    t.string   "address",                   :limit => 500
     t.string   "laboratory"
     t.string   "phone"
     t.string   "mobile"
     t.string   "activity"
+    t.string   "nationality"
     t.text     "edito"
     t.string   "image_path",                :limit => 500
     t.string   "crypted_password",          :limit => 40
     t.string   "salt",                      :limit => 40
-    t.string   "invitation_code",           :limit => 40
+    t.string   "activation_code",           :limit => 40
+    t.datetime "activated_at"
     t.string   "password_reset_code",       :limit => 40
     t.integer  "system_role_id"
     t.datetime "created_at"
