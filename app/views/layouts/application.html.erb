@@ -8,14 +8,17 @@
   <%= stylesheet_link_tag "form.css" %>
   <%= stylesheet_link_tag "starbox.css" %>
   <%= stylesheet_link_tag "middle.css" %>
-   <%= stylesheet_link_tag "colorPicker.css" %>
+  <%= stylesheet_link_tag "colorPicker.css" %>
   
-  <link rel="stylesheet" type="text/css" href="/prototip2.0.4/css/prototip.css" />
-
-  <%= javascript_include_tag :all %>
+  <%#= javascript_include_tag :all %>
+  <script type="text/javascript" src="/javascripts/prototype.js"></script>
+  <script type="text/javascript" src="/javascripts/scriptaculous.js"></script>
   <script type="text/javascript" src="/fckeditor/fckeditor.js"></script>
-  <script type='text/javascript' src='/prototip2.0.4/js/prototip.js'></script>
-  <%= calendar_date_select_includes nil %>
+  <script type="text/javascript" src="/javascripts/starbox.js"></script>
+  <script type="text/javascript" src="/javascripts/enhance.js"></script>
+  <script type="text/javascript" src="/javascripts/colorPicker.js"></script>
+  
+  <%#= calendar_date_select_includes nil %>
   <title>
     <%= I18n.t 'layout.title' %> - 
     <%= params[:action].capitalize if params[:action] != 'index' %>
@@ -27,7 +30,6 @@
 <div id="page">
   <div id="header">
     <div id="logo">
-<%#= link_to(image_tag('logo.png', :width => '300', :height => '80', :border => 0), "/") %>
 			<% if !(@logo.nil? || @logo.picture_path.blank?) %>
 				<%= link_to image_tag(url_for_file_column(@logo, 'picture_path', 'normal')), "/" %>
 			<% else %>
@@ -36,15 +38,14 @@
     </div>
     <div id="header_right">
       <div id="main_links">
-        <%= I18n.t 'layout.welcome_message' %>
+        <%= I18n.t('layout.welcome_message') %>
         <%= @current_user.firstname.capitalize %> |
-        <%= link_to 'Mon compte', user_path(current_user) %> |
-        <%= link_to 'Flux RSS', feed_sources_path %> |
-        <%= link_to 'Administration', administration_user_path(current_user) %> |
+        <%= link_to I18n.t('layout.account_access'), user_path(current_user) %> |
+        <%= link_to I18n.t('layout.administration'), administration_user_path(current_user) %> |
 		<% if current_user.is_superadmin? %>
-          <%= link_to 'Super Administration', superadministration_path("default") %> |
+          <%= link_to I18n.t('layout.superadministration'), superadministration_path("default") %> |
 		<% end %>
-        <%= link_to 'Se déconnecter', '/logout' %>
+        <%= link_to I18n.t('layout.logout'), '/logout' %>
 		<%= link_to_remote image_tag('countries/en.jpg'), :url => change_language_session_path(:locale => "en-US") %> 
 		<%= link_to_remote image_tag('countries/es.jpg'), :url => change_language_session_path(:locale => "es-ES") %> 	
 		<%= link_to_remote image_tag('countries/fr.jpg'), :url => change_language_session_path(:locale => "fr-FR") %>
@@ -52,19 +53,19 @@
       <div id="MenuHR">
         <ul>
           <li>
-            <%= link_to 'Accueil', '/' %>
+            <%= link_to I18n.t('layout.first_page'), '/' %>
           </li>
           <li>
-            <%= link_to 'Contenu', content_path("articles") %>
+            <%= link_to I18n.t('layout.content'), content_path("articles") %>
           </li>
           <li>
-            <%= link_to 'Administration', administration_user_path(current_user) %>
+            <%= link_to I18n.t('layout.administration'), administration_user_path(current_user) %>
           </li>
         </ul>
         <div id="slct_WS">
           <select name="slct_WS" onchange="document.location.href = this.value">
             <option>
-              Espace de travail
+              <%= I18n.t('layout.workspaces') %>
             </option>
             <option>
               ----------
@@ -76,7 +77,7 @@
               ----------
             </option>
             <option value="<%= administration_user_path(current_user) %>#new_workspace">
-              Nouvel espace de travail
+              <%= I18n.t('layout.new_workspace') %>
             </option>
           </select>
         </div>
@@ -86,7 +87,7 @@
   <div id="container">
     <div id="middle-right">
       <h3>
-        Ajouter un élément
+        <%= I18n.t('layout.add_content') %>
       </h3>
       <form name="form1" method="post" action="" id="form1">
         <select name="slct_filtre" id="slct_filtre" onchange="document.location.href = this.value">
@@ -94,28 +95,28 @@
             --------
           </option>
           <option value="<%= new_item_path(Article) %>">
-            Un article
+            <%= I18n.t 'layout.article' %>
           </option>
           <option value="<%= new_item_path(Image) %>">
-            Une image
+            <%= I18n.t 'layout.image' %>
           </option>
           <option value="<%= new_item_path(Audio) %>">
-            Fichier Audio
+            <%= I18n.t 'layout.audio' %>
           </option>
           <option value="<%= new_item_path(Video) %>">
-            Fichier Vidéo
+            <%= I18n.t 'layout.video' %>
           </option>
           <option value="<%= new_item_path(ArticFile) %>">
-            Fichier
+            <%= I18n.t 'layout.file' %>
           </option>
           <option value="<%= new_item_path(Publication) %>">
-            Une publication
+            <%= I18n.t 'layout.publication' %>
           </option>
-					<option value="<%= new_item_path(FeedSource) %>">
-            Un flux de syndication
+          <option value="<%= new_item_path(FeedSource) %>">
+            <%= I18n.t 'layout.feed_source' %>
           </option>
-					<option value="<%= new_item_path(Link) %>">
-            Un lien vers une page Web
+          <option value="<%= new_item_path(Link) %>">
+            <%= I18n.t 'layout.link' %>
           </option>
         </select>
       </form>
@@ -150,12 +151,12 @@
     </div>
     <div id="footer">
       <div class="name">
-        2008 - ThinkDRY Blank
+        <%=  I18n.t 'layout.footer_title' %>
       </div>
       <div class="menu">
-        <%= link_to "Contact", "#" %>&nbsp;|&nbsp;
-        <%= link_to "Plan du site", "#" %>&nbsp;|&nbsp;
-        <%= link_to "FAQ", "#" %>
+        <%= link_to I18n.t('layout.contact'), "#" %>&nbsp;|&nbsp;
+        <%= link_to I18n.t('layout.map'), "#" %>&nbsp;|&nbsp;
+        <%= link_to I18n.t('layout.faq'), "#" %>
       </div>
       <div class="clear"></div>
     </div>

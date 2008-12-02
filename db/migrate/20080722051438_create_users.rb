@@ -5,18 +5,20 @@ class CreateUsers < ActiveRecord::Migration
       t.column :firstname,                  :string, :limit => 255
       t.column :lastname,                   :string, :limit => 255
       t.column :email,                      :string, :limit => 255
-      t.column :addr,                       :string, :limit => 500
+      t.column :address,                    :string, :limit => 500
       t.column :laboratory,                 :string, :limit => 255
       t.column :phone,                      :string, :limit => 255
       t.column :mobile,                     :string, :limit => 255
       t.column :activity,                   :string, :limit => 255
+			t.column :nationality,								:string, :limit => 255
       t.column :edito,                      :text
       # CHANGED: FileColumn instead of Attachment FU
       t.column :image_path,                 :string, :limit => 500
       
       t.column :crypted_password,           :string, :limit => 40
       t.column :salt,                       :string, :limit => 40
-			t.column :invitation_code,						:string, :limit => 40
+			t.string :activation_code, :limit => 40
+      t.datetime :activated_at
       t.column :password_reset_code,				:string, :limit => 40
       t.integer :system_role_id
      

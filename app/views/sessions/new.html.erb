@@ -10,6 +10,7 @@
  Uncomment this if you want this functionality
 <p><label for="remember_me">Remember me:</label>
 <%= check_box_tag 'remember_me', '1', @remember_me %></p>
+<%= link_to 'password forgotten', forgot_password_path %>
 <% end %>
 -->
 
@@ -29,7 +30,7 @@
 				<img src="images/logo_intranet_login.png" alt="ARTIC" width="168" height="80">
 			<% end %>
     	<% form_tag session_path do -%>
-                                <p style="color:red"><%=flash[:error]%></p>
+                <p style="color:red"><%=flash[:error]%></p>
 				<label>Identifiant<br>
 				<%= text_field_tag 'login', @login %></label>
 				<br>
@@ -41,6 +42,9 @@
 	        <button type="submit" class="positive">
 	        <img src="images/tick.png" alt=""/>Connexion</button>          
 	      </div>
+          <label for="remember_me">Remember me:</label>
+          <%= check_box_tag 'remember_me', '1', @remember_me %><br />
+          <%= link_to 'password forgotten', forgot_password_path %>
 			<% end %>
 		</div>
 	</body>

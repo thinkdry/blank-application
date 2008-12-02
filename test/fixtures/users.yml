@@ -10,9 +10,10 @@ DEFAULTS: &DEFAULTS
       laboratory:        Mon Laboratoire
       mobile:        0612345678
       phone:        0112345678
-      addr:        15 rue Leonard
+      address:        15 rue Leonard
       activity:        Chercheur
       image_path:        'image.png'
+      activated_at: <%= Time.now.to_s :db %>
 
 quentin: 
     system_role_id: <%= SystemRole.find_by_name('admin').id %>

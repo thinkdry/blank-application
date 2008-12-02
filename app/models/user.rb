@@ -1,5 +1,6 @@
 require 'digest/sha1'
 require 'regexps'
+require 'country_select'
 
 class User < ActiveRecord::Base
   include Authentication
@@ -36,9 +37,13 @@ class User < ActiveRecord::Base
   validates_uniqueness_of   :email,    :case_sensitive => false
   validates_format_of       :email,    :with => RE_EMAIL_OK
 
+	validates_presence_of     :password
+	validates_presence_of     :password_confirmation
+	validates_confirmation_of :password
+
   validates_presence_of     :firstname, 
                             :lastname,
-                            :addr,
+                            :address,
                             :laboratory,
                             :phone,
                             :mobile,
@@ -48,7 +53,7 @@ class User < ActiveRecord::Base
 			                      :lastname, 
                   			    :laboratory,  :with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL})+\Z/         
 			  
-  validates_format_of       :addr,        :with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL}|#{NUM})+\Z/ 
+  validates_format_of       :address,        :with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL}|#{NUM})+\Z/
   
   validates_format_of       :phone, 
                   			    :mobile,      :with => /\A(#{NUM}){10}\Z/
@@ -57,7 +62,7 @@ class User < ActiveRecord::Base
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :password, :password_confirmation, :firstname, :lastname, :addr, :laboratory, :phone, :mobile, :activity, :edito, :image_path_temp, :image_path
+  attr_accessible :login, :email, :password, :password_confirmation, :firstname, :lastname, :address, :laboratory, :phone, :mobile, :activity, :edito, :image_path_temp, :image_path
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   #
@@ -69,8 +74,6 @@ class User < ActiveRecord::Base
   named_scope :latest,
     :order => 'created_at DESC',
     :limit => 5
-  
-  
   
   def items
     (self.artic_files +
@@ -128,8 +131,26 @@ class User < ActiveRecord::Base
 	def full_name
 		return self.lastname+" "+self.firstname
   end
-	
-  def create_reset_code
+
+	# Activates the user in the database.
+  def activate
+    @activated = true
+    self.activated_at = Time.now.utc
+    self.activation_code = nil
+    save(false)
+  end
+
+  def active?
+    # the existence of an activation code means they have not activated yet
+    activation_code.nil?
+  end
+
+  # Returns true if the user has just been activated.
+  def pending?
+    @activated
+  end
+
+	def create_reset_code
     @reset = true
     self.password_reset_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
     save(false)

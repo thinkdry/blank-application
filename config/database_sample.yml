@@ -15,5 +15,5 @@ test:
   <<: *DEFAULTS
   
 production:
-  database: blank_prod
+  database: blank_dev
   <<: *DEFAULTS

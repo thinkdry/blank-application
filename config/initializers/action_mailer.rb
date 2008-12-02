@@ -1,11 +1,11 @@
 ActionMailer::Base.delivery_method = :smtp
 
 ActionMailer::Base.smtp_settings = {
-    :address => 'smtp.artic-institut.org',
-		:domain => 'artic-institut.org',
+    :address => 'smtp.think-alternative.net',
+		:domain => 'think-alternative.net',
     :port => '25',
-		:user_name => 'contact@artic-institut.org',
-		:password => 'passpass',
+		:user_name => 'test@think-alternative.com',
+		:password => 'test',
 		:authentication => :login
 }
 

@@ -23,7 +23,7 @@ AUTHORIZATION_MIXIN = "hardwired"
 # This can be set to a hash or to an explicit path like '/login'
 #
 LOGIN_REQUIRED_REDIRECTION = { :controller => '/sessions', :action => 'new' }
-PERMISSION_DENIED_REDIRECTION = { :controller => '/account', :action => 'index' }
+PERMISSION_DENIED_REDIRECTION = { :controller => '/home', :action => 'index' }
 
 # The method your auth scheme uses to store the location to redirect back to
 STORE_LOCATION_METHOD = :store_location
@@ -74,7 +74,7 @@ Rails::Initializer.run do |config|
   # Use the database for sessions instead of the cookie-based default,
   # which shouldn't be used to store highly confidential information
   # (create the session table with "rake db:sessions:create")
-  # config.action_controller.session_store = :active_record_store
+  config.action_controller.session_store = :active_record_store
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper,
@@ -88,5 +88,6 @@ Rails::Initializer.run do |config|
 
   # RESTful authentification observer
   config.active_record.observers = :user_observer
+	
 end
 
