@@ -3,7 +3,7 @@
 		<span class="titre">Filtrer</span><br>
 		<ul>
 			<% 
-				[:article, :image, :artic_file, :video, :audio, :publication, :link].each do |elem|
+				[:article, :image, :cms_file, :video, :audio, :publication, :feed_source, :bookmark].each do |elem|
 					model = elem.to_s.classify.constantize
 					
 					helper_name = String.new
@@ -41,7 +41,7 @@
 					<option value="<%= new_item_path(Video) %>">
 						Fichier Vidéo
 					</option>
-					<option value="<%= new_item_path(ArticFile) %>">
+					<option value="<%= new_item_path(CmsFile) %>">
 						Fichier
 					</option>
 					<option value="">

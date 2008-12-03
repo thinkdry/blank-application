@@ -1,4 +1,4 @@
-<% [ArticFile, Article, Audio, Image, Publication, Video].each do |model| %>
+<% [CmsFile, Article, Audio, Image, Publication, Video].each do |model| %>
     <% puts "#{model.to_s} : #{model.count} elements" %>
     <% model.all.each do |instance| %>
         <% Workspace.all.delete_if { rand < 0.5 }.each do |workspace| %>

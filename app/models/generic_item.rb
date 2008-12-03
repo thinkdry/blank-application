@@ -11,10 +11,10 @@ class GenericItem < ActiveRecord::Base
     :conditions => { :item_type => 'Audio' }
   
   named_scope :files,
-    :conditions => { :item_type => 'ArticFile' }
+    :conditions => { :item_type => 'CmsFile' }
     
-  named_scope :artic_files,
-    :conditions => { :item_type => 'ArticFile' }
+  named_scope :cms_files,
+    :conditions => { :item_type => 'CmsFile' }
 
   named_scope :articles,
     :conditions => { :item_type => 'Article' }
@@ -25,8 +25,8 @@ class GenericItem < ActiveRecord::Base
 	named_scope :feed_sources,
     :conditions => { :item_type => 'FeedSource' }
 	
-	named_scope :links,
-    :conditions => { :item_type => 'Link' }
+	named_scope :bookmarks,
+    :conditions => { :item_type => 'Bookmark' }
 	
   named_scope :from_workspace, lambda { |ws|
     raise 'WS expected' unless ws

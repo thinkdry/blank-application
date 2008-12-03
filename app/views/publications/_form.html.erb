@@ -1,4 +1,4 @@
-<% form_for_item @current_object, title do |f| -%>
+<% form_for_item @current_object, title, fixed_fileds do |f| -%>
 
   <%= hidden_field_tag :pubmed_item_id, params[:pubmed_item_id] if @pubmed_item %>
 

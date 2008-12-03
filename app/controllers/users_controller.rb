@@ -35,6 +35,11 @@ class UsersController < ApplicationController
 			:per_page => 20
 		)
     end
+
+		after :create do
+			# Creation of the private workspace fur the user
+			Workspace.create(:name => "Private space of #{@current_object.login}", :creator_id => @current_object.id)
+		end
 		
     response_for :index do |format|
       format.html { render :layout => false }

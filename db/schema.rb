@@ -19,16 +19,6 @@ ActiveRecord::Schema.define(:version => 20081201182055) do
 
   add_index "acts_as_xapian_jobs", ["model", "model_id"], :name => "index_acts_as_xapian_jobs_on_model_and_model_id", :unique => true
 
-  create_table "artic_files", :force => true do |t|
-    t.integer  "user_id"
-    t.string   "title"
-    t.text     "description"
-    t.string   "file_path"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "tags"
-  end
-
   create_table "article_files", :force => true do |t|
     t.integer  "article_id"
     t.string   "file_path"
@@ -40,6 +30,7 @@ ActiveRecord::Schema.define(:version => 20081201182055) do
     t.integer  "user_id"
     t.string   "title"
     t.text     "description"
+    t.string   "state"
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -50,7 +41,34 @@ ActiveRecord::Schema.define(:version => 20081201182055) do
     t.integer  "user_id"
     t.string   "title"
     t.text     "description"
+    t.string   "state"
     t.string   "file_path"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "tags"
+  end
+
+  create_table "bookmarks", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.text     "description"
+    t.string   "state"
+    t.string   "link"
+    t.string   "content"
+    t.string   "authors"
+    t.datetime "date_published"
+    t.string   "copyright"
+    t.string   "categories"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "cms_files", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.text     "description"
+    t.string   "file_path"
+    t.string   "state"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "tags"
@@ -94,6 +112,7 @@ ActiveRecord::Schema.define(:version => 20081201182055) do
     t.string   "remote_id"
     t.string   "title"
     t.text     "description"
+    t.string   "state"
     t.string   "url",          :limit => 1024
     t.string   "link",         :limit => 1024
     t.datetime "last_updated"
@@ -133,6 +152,7 @@ ActiveRecord::Schema.define(:version => 20081201182055) do
     t.integer  "user_id"
     t.string   "title"
     t.text     "description"
+    t.string   "state"
     t.string   "file_path"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -143,20 +163,6 @@ ActiveRecord::Schema.define(:version => 20081201182055) do
     t.string   "itemable_type"
     t.integer  "itemable_id"
     t.integer  "workspace_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "links", :force => true do |t|
-    t.integer  "user_id"
-    t.string   "title"
-    t.string   "link"
-    t.string   "content"
-    t.text     "description"
-    t.string   "authors"
-    t.datetime "date_published"
-    t.string   "copyright"
-    t.string   "categories"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -186,6 +192,7 @@ ActiveRecord::Schema.define(:version => 20081201182055) do
     t.string   "link"
     t.text     "description"
     t.string   "file_path"
+    t.boolean  "private",     :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "tags"
@@ -275,6 +282,7 @@ ActiveRecord::Schema.define(:version => 20081201182055) do
     t.integer  "user_id"
     t.string   "title"
     t.text     "description"
+    t.string   "state"
     t.string   "file_path"
     t.string   "encoded_file"
     t.string   "thumbnail"
@@ -287,6 +295,7 @@ ActiveRecord::Schema.define(:version => 20081201182055) do
     t.integer  "creator_id"
     t.text     "description"
     t.string   "name"
+    t.string   "state"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

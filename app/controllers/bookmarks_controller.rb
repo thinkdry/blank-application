@@ -1,4 +1,4 @@
-class LinksController < ApplicationController
+class BookmarksController < ApplicationController
   include ActionView::Helpers::SanitizeHelper
   
   acts_as_ajax_validation

@@ -5,7 +5,7 @@ class SearchesController < ApplicationController
     @hide_full_text_search = true
     @search = Search.new
     # By default, search into every type of items
-    @search.item_type_equals = %W(Article Image Video Audio Publication ArticFile)
+    @search.item_type_equals = %W(Article Image Video Audio Publication CmsFile)
   end
   
   def show
@@ -28,7 +28,7 @@ class SearchesController < ApplicationController
     if params[:model] && !params[:model].empty?
       models = [params[:model].constantize]
     else
-      models = [Article, ArticFile, Audio, Image, Publication, Video]
+      models = [Article, CmsFile, Audio, Image, Publication, Video]
     end
     
     search = ActsAsXapian::Search.new(models, params[:search], :limit => 300)

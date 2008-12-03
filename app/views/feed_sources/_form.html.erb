@@ -1,18 +1,17 @@
-<% form_for_item @current_object do |f| %>
-		
-		<%= f.text_field :url %>
-		
+<% form_for_item @current_object, title, fixed_fields do |f| %>
+
+        <% if !@current_object.url.blank? %>
+          URL : <%= @current_object.url %>
+        <% end %>
+
 		<% if !@current_object.authors.blank? %>
-			Auteurs : <% @current_object.authors %>
-			<%= f.hidden_field :authors %>
+			Auteurs : <%= @current_object.authors %>
 		<% end %>	
 		
 		<% if !@current_object.last_updated.blank? %>
 			Dernière mise à jour : <%= I18n.l @current_object.last_updated, :format => :short %>
-			<%= f.hidden_field :last_updated %>
 		<% end %>
 		
-	
-<% end %>	
+	<% end %>	
   
 	

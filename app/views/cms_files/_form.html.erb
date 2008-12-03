@@ -1,6 +1,6 @@
 <% form_for_item @current_object, title do |f| -%>
   <% f.field :file_path, :label => "Fichier :" do %>
     <%= File.basename(@current_object.file_path) + '<br />' if @current_object.file_path %>
-    <%= file_column_field "artic_file", 'file_path' %>
+    <%= file_column_field "cms_file", 'file_path' %>
   <% end %>
 <% end -%>

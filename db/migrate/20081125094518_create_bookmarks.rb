@@ -1,12 +1,13 @@
-class CreateLinks < ActiveRecord::Migration
+class CreateBookmarks < ActiveRecord::Migration
 	
   def self.up
-    create_table :links do |t|
+    create_table :bookmarks do |t|
 			t.integer :user_id
       t.string  :title
+			t.text    :description
+			t.string	:state
       t.string  :link
 			t.string	:content
-      t.text    :description
 			t.string	:authors
 			t.datetime :date_published
 			t.string	:copyright
@@ -16,6 +17,6 @@ class CreateLinks < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :links
+    drop_table :bookmarks
   end
 end

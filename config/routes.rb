@@ -30,7 +30,7 @@ ActionController::Routing::Routes.draw do |map|
   # Items are CMS component types
   # => Those items may be scoped to different resources
   def items_ressources(parent)  	
-    [:items, :articles, :audios, :videos, :artic_files, :publications, :images, :feed_sources, :links].each do |name|
+    [:items, :articles, :audios, :videos, :cms_files, :publications, :images, :feed_sources, :bookmarks].each do |name|
       parent.resources name, :member => {
         :rate => :any,
         :add_tag => :any,

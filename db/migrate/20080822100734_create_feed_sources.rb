@@ -5,6 +5,7 @@ class CreateFeedSources < ActiveRecord::Migration
 			t.string		:remote_id
       t.string    :title
       t.text      :description
+			t.string		:state
       t.string    :url, :limit => 1024
 			t.string		:link, :limit => 1024
 			t.datetime	:last_updated

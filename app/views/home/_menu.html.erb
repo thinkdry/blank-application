@@ -3,7 +3,7 @@
 		<span class="titre">Filtrer</span><br>
 		<ul>
 			<% 
-				[:article, :image, :artic_file, :video, :audio, :publication].each do |elem|
+				[:article, :image, :cms_file, :video, :audio, :publication].each do |elem|
 					model = elem.to_s.classify.constantize
 					concat\
 						content_tag(:li, link_to(model.label.pluralize, send("#{elem.to_s.pluralize}_path")),
@@ -33,7 +33,7 @@
 					<option value="<%= new_video_path %>">
 						Fichier Vidéo
 					</option>
-					<option value="<%= new_artic_file_path %>">
+					<option value="<%= new_cms_file_path %>">
 						Fichier
 					</option>
 					<option value="<%= new_publication_path %>">

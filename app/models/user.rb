@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
 
   has_many :users_workspaces, :dependent => :delete_all
   has_many :workspaces, :through => :users_workspaces
-  has_many :artic_files
+  has_many :cms_files
   has_many :audios
   has_many :videos
   has_many :images
@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :feed_sources
   has_many :feed_items, :through => :feed_sources
-	has_many :links
+	has_many :bookmarks
   belongs_to :system_role
   
   file_column :image_path, :magick => {:size => "200x200>"}
@@ -76,7 +76,7 @@ class User < ActiveRecord::Base
     :limit => 5
   
   def items
-    (self.artic_files +
+    (self.cms_files +
   	 self.audios      +
   	 self.videos      +
   	 self.images      +

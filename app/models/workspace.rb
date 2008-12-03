@@ -4,7 +4,7 @@ class Workspace < ActiveRecord::Base
 	has_many :roles, :through => :users_workspaces
 	has_many :users, :through => :users_workspaces
 	has_many :items, :dependent => :delete_all
-  has_many_polymorphs :itemables, :from => [:articles, :artic_files, :audios, :videos, :images, :publications, :feed_sources, :links], :through => :items
+  has_many_polymorphs :itemables, :from => [:articles, :cms_files, :audios, :videos, :images, :publications, :feed_sources, :bookmarks], :through => :items
 	belongs_to :creator, :class_name => 'User'
 	
 	validates_presence_of :name

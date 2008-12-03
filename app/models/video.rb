@@ -30,13 +30,7 @@ class Video < ActiveRecord::Base
     return false if !self.file_path_just_uploaded? || @encoding_in_progress
     @encoding_in_progress = true
     set_encoded_file_path
-		begin
-			HeyWatch::Base::establish_connection! :login => 'thinkdry', :password => 'thinkdry38'
-			VideoEncoder.new(self.id, self.file_path, @dest_directory)
-		rescue Exception => e
-			flash[:notice] = "HeyWatch service unreachable for video encoding"
-			redirect_to new_video_url
-		end
+		VideoEncoder.new(self.id, self.file_path, @dest_directory)
   end
 end
 
@@ -46,6 +40,7 @@ class VideoEncoder
     @video_id, @file_path, @dest_directory = args
     Thread.new do
        begin
+				 HeyWatch::Base::establish_connection! :login => 'thinkdry', :password => 'thinkdry38'
          upload
          encode
          download
