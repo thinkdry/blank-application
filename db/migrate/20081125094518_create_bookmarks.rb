@@ -10,6 +10,7 @@ class CreateBookmarks < ActiveRecord::Migration
 			t.string	:content
 			t.string	:authors
 			t.datetime :date_published
+			t.datetime :last_updated
 			t.string	:copyright
 			t.string	:categories
       t.timestamps

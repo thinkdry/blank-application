@@ -8,10 +8,23 @@ class BookmarksController < ApplicationController
       # Creation from an FeedItem
       if params[:feed_item_id]
         @feed_item = FeedItem.find(params[:feed_item_id])
-        %W(title description authors link content copyright categories date_published).each do |field|
+        %W(title description authors link content copyright categories).each do |field|
           @current_object.send("#{field}=", @feed_item.send(field))
-        end
+				end
+				@current_object.state = 'copyright'
       end
+		end
+
+		after :create do
+			if !(@current_object.state == 'copyright')
+				@current_object.date_published = Time.now
+			end
+		end
+
+		after :create, :update do
+			if !(@current_object.state == 'copyright')
+				#@current_object.last_updated = Time.now
+			end
 		end
 	
 	end

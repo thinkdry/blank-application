@@ -1,11 +1,18 @@
 <% form_for_item @current_object, title do |f| -%>
 
-  <%= f.text_field :link %>
-	
-	<%= f.text_field :authors %>
-	
-	<%= f.text_field :copyright %>
-	
-	<%= f.text_field :categories %>
+  <% is_copyright = (@current_object.state == 'copyright') ? true : false %>
+  
+  <%= f.text_field :content, :label => "Contenu : ", :readonly => is_copyright %>
+  <%= f.text_field :link, :label => "Lien : " , :readonly => is_copyright%>
+  <%= f.text_field :authors, :label => "Auteurs : ", :readonly => is_copyright %>
+  <% if is_copyright %>
+    <%= f.datetime_select :date_published, :label => "Date de publication :", :readonly => is_copyright %>
+    <%#= f.datetime_select :last_updated, :label => "Dernière mise à jour :", :readonly => is_copyright %>
+  <% else %>
+    (Les champs concernant la date de publication et de la dernière mise sont gérés automatiquement.)<br />
+  <% end %>
+  <%= f.text_field :categories, :label => "Catégories : ", :readonly => is_copyright %>
+  <%= f.text_field :copyright, :label => "Copyright : ", :readonly => is_copyright %>
 
 <% end %>
+

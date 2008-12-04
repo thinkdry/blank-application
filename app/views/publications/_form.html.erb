@@ -1,13 +1,18 @@
-<% form_for_item @current_object, title, fixed_fileds do |f| -%>
+<% form_for_item @current_object, title do |f| -%>
 
-  <%= hidden_field_tag :pubmed_item_id, params[:pubmed_item_id] if @pubmed_item %>
+  <% is_copyright = (@current_object.state == 'copyright') ? true : false %>
 
-  <% if @pubmed_item %>
-    <%= f.text_field :authors, :disabled => true %>
-    <%= f.text_field :link, :disabled => true %>
+  <%= f.text_field :content, :label => "Contenu : ", :readonly => is_copyright %>
+  <%= f.text_field :link, :label => "Lien : " , :readonly => is_copyright%>
+  <%= f.text_field :authors, :label => "Auteurs : ", :readonly => is_copyright %>
+  <% if is_copyright %>
+    <%= f.datetime_select :date_published, :label => "Date de publication :", :readonly => is_copyright %>
+    <%= f.datetime_select :last_updated, :label => "Dernière mise à jour :", :readonly => is_copyright %>
   <% else %>
-    <%= f.text_field :authors %>
+    (Les champs concernant la date de publication et de la dernière mise sont gérés automatiquement.)<br />
   <% end %>
+  <%= f.text_field :categories, :label => "Catégories : ", :readonly => is_copyright %>
+  <%= f.text_field :copyright, :label => "Copyright : ", :readonly => is_copyright %>
 
   <% f.field :file_path, :label => 'Fichier attaché :' do %>
     <%= file_column_field 'publication', 'file_path' %>

@@ -54,12 +54,8 @@ module ItemsHelper
       block.binding
   end
   
-  def form_for_item(object, title = '', fixed_fields = false, &block)
-		if fixed_fields
-			concat(render(:partial => "items/form2", :locals => { :block => block, :title => title }), block.binding)
-		else
-			concat(render(:partial => "items/form", :locals => { :block => block, :title => title }), block.binding)
-		end
+  def form_for_item(object, title = '', &block)
+		concat(render(:partial => "items/form", :locals => { :block => block, :title => title }), block.binding)
   end
   
   # Render a lisf of recent items, recent comments and recent publications.

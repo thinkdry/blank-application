@@ -186,13 +186,17 @@ ActiveRecord::Schema.define(:version => 20081201182055) do
 
   create_table "publications", :force => true do |t|
     t.integer  "user_id"
-    t.boolean  "imported"
     t.string   "title"
-    t.string   "authors"
-    t.string   "link"
     t.text     "description"
+    t.string   "state"
+    t.string   "link"
+    t.string   "content"
+    t.string   "authors"
+    t.datetime "date_published"
+    t.datetime "last_updated"
+    t.string   "copyright"
+    t.string   "categories"
     t.string   "file_path"
-    t.boolean  "private",     :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "tags"

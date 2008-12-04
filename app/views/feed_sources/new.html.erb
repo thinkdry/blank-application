@@ -1,10 +1,1 @@
-<fieldset id="aaa">
-<legend> Nouveau feed</legend>
-	1. Ajout d'un flux existant<br />
-	<%= text_field :url, :value %><br />
-  <%= button_to_function 'Ajouter ce flux', "new Ajax.Updater('aaa', '/feed_sources/check_feed', { parameters: { url: $('url_value').value }, method:'post', asynchronous:true, evalScripts:true })" %>
-	<br /><br />
-	2. Création d'un flux personnel<br />
-	<%= button_to_function 'Création d\'un flux' do |page| page.replace_html('aaa', :partial => 'form', :locals => { :title => "", :fixed_fields => false }) end %>
-
-</fieldset>
+<%= render :partial => "form", :locals => {:title => "Nouveau flux RSS"} %>
