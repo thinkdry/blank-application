@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   has_many :rattings
   has_many :comments
   has_many :feed_sources
-  has_many :feed_items, :through => :feed_sources
+  has_many :feed_items, :through => :feed_sources, :order => "last_updated"
 	has_many :bookmarks
   belongs_to :system_role
   
@@ -93,7 +93,7 @@ class User < ActiveRecord::Base
   end
   
   def is_admin?
-    has_role?('admin')
+    has_role?('admin') or has_role?('superadmin')
   end
 	
 	def is_superadmin?
@@ -164,4 +164,5 @@ class User < ActiveRecord::Base
     self.password_reset_code = nil
     save(false)
   end
+	
 end

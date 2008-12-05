@@ -8,7 +8,7 @@
 <div class="area_LEFT">
 	<h2>5 derniers éléments</h2>
 	<ul>
-		<% GenericItem.from_workspace(@current_object).latest.each do |item| %>
+		<% GenericItem.from_workspace(@current_object.id).latest.each do |item| %>
 			<p>
 				<div>
 					<%= image_tag(item.icon) %>

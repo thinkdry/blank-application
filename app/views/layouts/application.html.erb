@@ -9,17 +9,11 @@
   <%= stylesheet_link_tag "starbox.css" %>
   <%= stylesheet_link_tag "middle.css" %>
   <%= stylesheet_link_tag "colorPicker.css" %>
-  
-  <%#= javascript_include_tag :all %>
-  <script type="text/javascript" src="/javascripts/prototype.js"></script>
-  <script type="text/javascript" src="/javascripts/scriptaculous.js"></script>
+  <link rel="stylesheet" type="text/css" href="/prototip2.0.4/css/prototip.css" />
+
+  <%= javascript_include_tag :all %>
   <script type="text/javascript" src="/fckeditor/fckeditor.js"></script>
-  <script type="text/javascript" src="/javascripts/flashobject.js"></script>
-  <script type="text/javascript" src="/javascripts/ajax_validation.js"></script>
-  <script type="text/javascript" src="/javascripts/tabs.js"></script>
-  <script type="text/javascript" src="/javascripts/starbox.js"></script>
-  <script type="text/javascript" src="/javascripts/enhance.js"></script>
-  <script type="text/javascript" src="/javascripts/colorPicker.js"></script>
+  <script type='text/javascript' src='/prototip2.0.4/js/prototip.js'></script>
   
   <%#= calendar_date_select_includes nil %>
   <title>
@@ -29,7 +23,7 @@
   </title>
 </head>
 
-<body onload="initialize()">
+<body>
 <div id="page">
   <div id="header">
     <div id="logo">

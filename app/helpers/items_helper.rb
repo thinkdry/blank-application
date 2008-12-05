@@ -156,9 +156,9 @@ module ItemsHelper
     item_type ||= 'articles'
     
     items = if current_workspace
-      GenericItem.from_workspace(current_workspace)
+      GenericItem.from_workspace(current_workspace.id)
     else
-      GenericItem.consultable_by(@current_user)
+      GenericItem.consultable_by(@current_user.id)
     end
     
     @collection = items.send(item_type, :order => 'created_at DESC').paginate(:page => params[:page])
