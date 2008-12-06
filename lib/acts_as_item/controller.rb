@@ -34,15 +34,25 @@ module ActsAsItem
           before :destroy do
             permit 'deletion of current_object'
           end
-          
-          before :index do
-            redirect_to(items_path(params[:controller]))
-          end
-          
+                    
           # Makes `current_user` as author for the current_object
           before :create do
-            current_object.user = current_user
+            current_object.user_id = current_user.id
           end
+
+					response_for :show do |format|
+						format.html # index.html.erb
+						format.xml { render :xml=>@current_object }
+						format.json { render :json=>@current_object }
+	        end
+
+					response_for :index do |format|
+						format.html # index.html.erb
+						format.xml { render :xml=>@current_objects }
+						format.json { render :json=>@current_objects }
+						format.atom # index.atom.builder
+	        end
+					
         end
       end
     end
