@@ -1,15 +1,18 @@
 <%
-	items = if current_workspace
-		GenericItem.from_workspace(current_workspace)
+	if current_workspace
+		items = GenericItem.from_workspace(current_workspace.id)
+        feed_items = FeedItem.from_workspace(current_workspace.id)
 	else
-		GenericItem.consultable_by(@current_user)
+		items = GenericItem.consultable_by(@current_user.id)
+        feed_items = FeedItem.consultable_by(@current_user.id)
 	end
  %>
 
 <h4>Mon TOP élément</h4>
 <ul id="top_elems" class="subsection_tabs without_img">  
-	<li class="tab"><a href="#one">Les + commentés</a></li>  
-    <li class="tab"><a href="#two">Les mieux notés</a></li>
+	<li class="tab"><a href="#one">Most commented</a></li>
+    <li class="tab"><a href="#two">Best rates</a></li>
+    <li class="tab"><a href="#three">Feed items</a></li>
 </ul>
 <div id="top_content">
   <div id="one">
@@ -24,6 +27,13 @@
   				:collection => items.best_rated.to_a %>
   	</ul>
   </div>
+  <div id="three">
+    <ul class="top_box">
+  	<%= render 	:partial => "items/feed_item_in_top_box",
+  				:collection => feed_items.latest.to_a %>
+  	</ul>
+  </div>
+
 </div>
 <script type="text/javascript" charset="utf-8">
 	new Control.Tabs('top_elems'); 

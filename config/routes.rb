@@ -30,7 +30,7 @@ ActionController::Routing::Routes.draw do |map|
   # Items are CMS component types
   # => Those items may be scoped to different resources
   def items_ressources(parent)  	
-    [:items, :articles, :audios, :videos, :artic_files, :publications, :images, :feed_sources, :links].each do |name|
+    [:items, :articles, :audios, :videos, :cms_files, :publications, :images, :feed_sources, :bookmarks].each do |name|
       parent.resources name, :member => {
         :rate => :any,
         :add_tag => :any,
@@ -42,6 +42,9 @@ ActionController::Routing::Routes.draw do |map|
     # into right workspace
     # parent.resources :feed_sources
   end
+
+	map.check_feed '/feed_sources/check_feed', :controller => 'feed_sources', :action => 'check_feed'
+  map.what_to_do '/feed_sources/what_to_do', :controller => 'feed_sources', :action => 'what_to_do'
 
   # Items created outside any workspace are private or fully public.
   # Items may be acceded by a list that gives all items the user can consult.
@@ -64,9 +67,7 @@ ActionController::Routing::Routes.draw do |map|
   #map.add_new_user '/add_new_user', :controller => 'workspaces', :action => 'add_new_user'
   map.resource :search
   map.resources :uploads
-	
-	map.check_feed '/feed_sources/check_feed', :controller => 'feed_sources', :action => 'check_feed'
-    
+
   # Install the default routes as the lowest priority.
 	map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'

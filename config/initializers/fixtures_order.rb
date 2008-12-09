@@ -2,7 +2,7 @@ fixtures = Array.new
 
 # Fixtures predecedence
 # => Load all items before assigning them workspaces (items table)
-fixtures |= ['videos', 'publications', 'images', 'artic_files', 'articles', 'audios', 'items']
+fixtures |= ['videos', 'publications', 'images', 'cms_files', 'articles', 'audios', 'items', 'feed_sources', 'bookmarks']
 # => Load users because inserting random number of comments for each user
 fixtures |= ['users', 'comments']
 

@@ -1,0 +1,14 @@
+<fieldset>
+<legend> Nouveau feed</legend>
+	1. Ajout d'un flux existant<br />
+    <% form_for :daurl, :url => '/feed_sources/check_feed' do |f| %>
+      <%= f.text_field :value %><br />
+      <%= f.submit 'Vérifier ce flux' %>
+    <% end %>
+	<br /><br />
+    2. Activation de flux prédéfinis<br />
+    (under construction, modal windows possibility or ajax div show)
+    <br /><br />
+	3. Création d'un flux personnel<br />
+	<%= button_to 'Créer un nouveau flux', '/feed_sources/new' %>
+</fieldset>

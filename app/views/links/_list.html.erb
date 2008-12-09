@@ -1,9 +1,0 @@
-<div id="content_bis">
-	<div id="area_CONTENUS">
-		<div class="titre"><%= image_tag Link.icon %><strong>Liens</strong></div>
-		<% @current_objects.each do |co| %>
-			<%= item_in_list co %>
-		<% end %>
-		<%= link_to "Ajouter un lien", new_item_path(Link), :class => "add_item" %>
-	</div>
-</div>

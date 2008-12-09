@@ -1,7 +1,7 @@
 class CreateGenericItems < ActiveRecord::Migration
   def self.up  
     subqueries = Array.new
-    [:article, :image, :artic_file, :audio, :video, :publication, :feed_source, :link].each do |model|
+    [:article, :image, :cms_file, :audio, :video, :publication, :feed_source, :bookmark].each do |model|
       table_name = model.to_s.pluralize
       model_name = model.to_s.classify
       subqueries << %{

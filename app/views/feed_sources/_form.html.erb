@@ -1,18 +1,13 @@
-<% form_for_item @current_object do |f| %>
-		
-		<%= f.text_field :url %>
-		
-		<% if !@current_object.authors.blank? %>
-			Auteurs : <% @current_object.authors %>
-			<%= f.hidden_field :authors %>
-		<% end %>	
-		
-		<% if !@current_object.last_updated.blank? %>
-			Dernière mise à jour : <%= I18n.l @current_object.last_updated, :format => :short %>
-			<%= f.hidden_field :last_updated %>
-		<% end %>
-		
-	
-<% end %>	
-  
-	
+<% form_for_item @current_object, title do |f| %>
+
+  <% is_copyright = (@current_object.state == 'copyright') ? true : false %>
+
+    <%= f.text_field :url, :label => "URL : ", :readonly => is_copyright %>
+    <%= f.text_field :authors, :label => "Auteur(s) : ", :readonly => is_copyright %>
+    <% if is_copyright %>
+      <%= f.datetime_select :last_updated, :label => "Dernière mise à jour :", :readonly => is_copyright %>
+    <% else %>
+      (Le champ concernant la date de la dernière mise est géré automatiquement.)<br />
+    <% end %>
+    <%= f.text_field :copyright, :label => "Copyright : ", :readonly => is_copyright %>
+  <% end  %>

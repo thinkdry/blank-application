@@ -1,17 +1,17 @@
-class CreateArticFiles < ActiveRecord::Migration
+class CreateCmsFiles < ActiveRecord::Migration
   def self.up
-    create_table :artic_files do |t|
+    create_table :cms_files do |t|
 			t.integer :user_id
       t.string :title
       t.text :description
       t.string :file_path
-      t.boolean :private, :default => false
+      t.string :state
 			
       t.timestamps
     end
   end
 
   def self.down
-    drop_table :artic_files
+    drop_table :cms_files
   end
 end

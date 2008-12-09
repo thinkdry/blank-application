@@ -4,6 +4,7 @@ class CreateWorkspaces < ActiveRecord::Migration
 			t.integer :creator_id
 			t.text    :description
       t.string :name
+			t.string :state
 
       t.timestamps
     end

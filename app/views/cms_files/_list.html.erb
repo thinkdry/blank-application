@@ -1,0 +1,9 @@
+<div id="content_bis">
+	<div id="area_CONTENUS">
+		<div class="titre"><%= image_tag CmsFile.icon%><strong>Fichiers</strong></div>
+		<% @current_objects.each do |co| %>
+			<%= item_in_list co %>
+		<% end %>
+		<%= link_to "Ajouter un ficher", new_item_path(CmsFile), :class => "add_item" %>
+	</div>
+</div>

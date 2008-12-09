@@ -4,7 +4,8 @@ class Workspace < ActiveRecord::Base
 	has_many :roles, :through => :users_workspaces
 	has_many :users, :through => :users_workspaces
 	has_many :items, :dependent => :delete_all
-  has_many_polymorphs :itemables, :from => [:articles, :artic_files, :audios, :videos, :images, :publications, :feed_sources, :links], :through => :items
+  has_many_polymorphs :itemables, :from => [:articles, :cms_files, :audios, :videos, :images, :publications, :feed_sources, :bookmarks], :through => :items
+	has_many :feed_items, :through => :feed_sources
 	belongs_to :creator, :class_name => 'User'
 	
 	validates_presence_of :name
@@ -54,7 +55,7 @@ class Workspace < ActiveRecord::Base
     { :include => [ :users_workspaces, :roles ],
       :conditions => "users_workspaces.user_id = #{user.id} AND roles.name = '#{role}'" }
   }
-  
+
   def self.moderated_by user
     self.by_user_and_role(user, 'Modérateur')
 	end

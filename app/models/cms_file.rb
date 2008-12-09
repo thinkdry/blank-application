@@ -1,4 +1,4 @@
-class ArticFile < ActiveRecord::Base
+class CmsFile < ActiveRecord::Base
   acts_as_item
   acts_as_xapian :texts => [:title, :description, :tags, :file_path]
   	

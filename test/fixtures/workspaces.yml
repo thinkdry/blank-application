@@ -14,3 +14,9 @@ test:
   creator: haddock
   name: Alcoolisme
   description: Sacré capitaine
+
+private:
+  creator: boss
+  name: Private for boss
+  description: ppp
+  state: private

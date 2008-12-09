@@ -44,7 +44,7 @@ namespace :deploy do
   desc "Link shared folders into release_path"
   task :link_shared_folders, :roles => :app do
     run <<-CMD
-      ln -s #{shared_path}/public/artic_file    #{latest_release}/public/artic_file &&
+      ln -s #{shared_path}/public/cms_file			#{latest_release}/public/cms_file &&
       ln -s #{shared_path}/public/article_file  #{latest_release}/public/article_file &&
       ln -s #{shared_path}/public/audio         #{latest_release}/public/audio &&
       ln -s #{shared_path}/public/image         #{latest_release}/public/image &&
@@ -73,7 +73,7 @@ namespace :deploy do
   desc "Create shared folders"
   task :create_shared_folders, :roles => :app do
     run <<-CMD
-      mkdir -p #{shared_path}/public/artic_file/file_path/tmp &&
+      mkdir -p #{shared_path}/public/cms_file/file_path/tmp &&
       mkdir -p #{shared_path}/public/article_file/file_path/tmp &&
       mkdir -p #{shared_path}/public/audio/file_path/tmp &&
       mkdir -p #{shared_path}/public/image/file_path/tmp &&
@@ -97,7 +97,7 @@ namespace :deploy do
   
   desc "Create XAPIAN index"
   task :create_xapian_index do
-    run "cd #{release_path} && rake xapian:rebuild_index models='ArticFile Article Audio Image Publication Video FeedSource Link' RAILS_ENV=#{server}"
+    run "cd #{release_path} && rake xapian:rebuild_index models='CmsFile Article Audio Image Publication Video FeedSource Bookmark' RAILS_ENV=#{server}"
     run "cd #{release_path} && rake xapian:update_index RAILS_ENV=#{server}"
   end
   after "deploy:migrate", "deploy:create_xapian_index"

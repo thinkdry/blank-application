@@ -55,7 +55,7 @@ module ItemsHelper
   end
   
   def form_for_item(object, title = '', &block)
-    concat(render(:partial => "items/form", :locals => { :block => block, :title => title }), block.binding)
+		concat(render(:partial => "items/form", :locals => { :block => block, :title => title }), block.binding)
   end
   
   # Render a lisf of recent items, recent comments and recent publications.
@@ -73,7 +73,7 @@ module ItemsHelper
     
     # 2nd: Include private item
     unless current_workspace
-      [:images, :articles, :audios, :artic_files, :videos, :feed_sources, :links].each do |itemable_type|
+      [:images, :articles, :audios, :cms_files, :videos, :feed_sources, :bookmarks].each do |itemable_type|
         items |= current_user.send(itemable_type)
       end
     end
@@ -136,7 +136,7 @@ module ItemsHelper
     item_type ||= 'articles'
     content = String.new
     
-    [Article, Image, ArticFile, Video, Audio, Publication, FeedSource, Link].each do |item_model|
+    [Article, Image, CmsFile, Video, Audio, Publication, FeedSource, Bookmark].each do |item_model|
       item_page = item_model.to_s.underscore.pluralize
       item_human_name = item_model.label
       options = {}
@@ -156,9 +156,9 @@ module ItemsHelper
     item_type ||= 'articles'
     
     items = if current_workspace
-      GenericItem.from_workspace(current_workspace)
+      GenericItem.from_workspace(current_workspace.id)
     else
-      GenericItem.consultable_by(@current_user)
+      GenericItem.consultable_by(@current_user.id)
     end
     
     @collection = items.send(item_type, :order => 'created_at DESC').paginate(:page => params[:page])

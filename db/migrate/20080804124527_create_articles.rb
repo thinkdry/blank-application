@@ -5,8 +5,8 @@ class CreateArticles < ActiveRecord::Migration
       t.integer :user_id
       t.string :title
       t.text :description
+			t.string :state
       t.text :body
-      t.boolean :private, :default => false
       t.timestamps
     end
   end

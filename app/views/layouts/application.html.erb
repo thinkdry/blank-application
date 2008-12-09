@@ -9,17 +9,11 @@
   <%= stylesheet_link_tag "starbox.css" %>
   <%= stylesheet_link_tag "middle.css" %>
   <%= stylesheet_link_tag "colorPicker.css" %>
-  
-  <%#= javascript_include_tag :all %>
-  <script type="text/javascript" src="/javascripts/prototype.js"></script>
-  <script type="text/javascript" src="/javascripts/scriptaculous.js"></script>
+  <link rel="stylesheet" type="text/css" href="/prototip2.0.4/css/prototip.css" />
+
+  <%= javascript_include_tag :all %>
   <script type="text/javascript" src="/fckeditor/fckeditor.js"></script>
-  <script type="text/javascript" src="/javascripts/flashobject.js"></script>
-  <script type="text/javascript" src="/javascripts/ajax_validation.js"></script>
-  <script type="text/javascript" src="/javascripts/tabs.js"></script>
-  <script type="text/javascript" src="/javascripts/starbox.js"></script>
-  <script type="text/javascript" src="/javascripts/enhance.js"></script>
-  <script type="text/javascript" src="/javascripts/colorPicker.js"></script>
+  <script type='text/javascript' src='/prototip2.0.4/js/prototip.js'></script>
   
   <%#= calendar_date_select_includes nil %>
   <title>
@@ -29,7 +23,7 @@
   </title>
 </head>
 
-<body onload="initialize()">
+<body>
 <div id="page">
   <div id="header">
     <div id="logo">
@@ -109,17 +103,17 @@
           <option value="<%= new_item_path(Video) %>">
             <%= I18n.t 'layout.video' %>
           </option>
-          <option value="<%= new_item_path(ArticFile) %>">
+          <option value="<%= new_item_path(CmsFile) %>">
             <%= I18n.t 'layout.file' %>
           </option>
           <option value="<%= new_item_path(Publication) %>">
             <%= I18n.t 'layout.publication' %>
           </option>
-          <option value="<%= new_item_path(FeedSource) %>">
+          <option value="/feed_sources/what_to_do">
             <%= I18n.t 'layout.feed_source' %>
           </option>
-          <option value="<%= new_item_path(Link) %>">
-            <%= I18n.t 'layout.link' %>
+          <option value="<%= new_item_path(Bookmark) %>">
+            <%= I18n.t 'layout.bookmark' %>
           </option>
         </select>
       </form>
@@ -132,7 +126,7 @@
             <% form_tag search_path, :method => :get, :name => "search" do -%>
               <%= text_field_tag :search, params[:search] || "Rechercher", :class => "style_text", :onfocus => '$(this).select()' %>
               <p>dans</p>
-              <%= select_tag "model", options_for_select([['Tous les éléments', nil], ['Images', 'Image'], ['Videos', 'Video'], ['Fichiers', 'ArticFile'], ['Articles', 'Article'], ['Publications', 'Publication'], ['Fichiers audios', 'Audio']], params['model']) %>
+              <%= select_tag "model", options_for_select([['Tous les éléments', nil], ['Images', 'Image'], ['Videos', 'Video'], ['Fichiers', 'CmsFile'], ['Articles', 'Article'], ['Publications', 'Publication'], ['Fichiers audios', 'Audio']], params['model']) %>
               <%= link_to(image_tag("search_button.gif"), "javascript:void(1);", :onclick => "document.search.submit();", :class => "search_button") %>
               <br />
               <%= link_to 'Recherche avancée', new_search_path, :class => "advanced_search" %>&nbsp;&nbsp;
