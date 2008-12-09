@@ -4,6 +4,6 @@
 		<% @current_objects.each do |co| %>
 			<%= item_in_list co %>
 		<% end %>
-		<%= link_to "Ajouter un ficher", new_item_path(Audio), :class => "add_item" %>
+		<%= link_to I18n.t('general.add_a_new_file'), new_item_path(Audio), :class => "add_item" %>
 	</div>
 </div>

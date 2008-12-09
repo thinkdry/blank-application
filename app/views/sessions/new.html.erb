@@ -19,7 +19,7 @@
 		<%= stylesheet_link_tag "application.css" %>
 		<%= stylesheet_link_tag "login.css" %>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>ARTIC - Login</title>
+		<title>BLANK - Login</title>
 	</head>
 	<body>
 		<div id="content_login">
@@ -27,24 +27,24 @@
 			<% if !(@logo.picture_path.nil? || @logo.picture_path.blank?) %>
 				<%= image_tag(url_for_file_column(@logo, 'picture_path', 'thumb')) %>
 			<% else %> 
-				<img src="images/logo_intranet_login.png" alt="ARTIC" width="168" height="80">
+				<img src="images/logo_intranet_login.png" alt="BLANK">
 			<% end %>
     	<% form_tag session_path do -%>
                 <p style="color:red"><%=flash[:error]%></p>
-				<label>Identifiant<br>
+				<label><%=I18n.t('login.login')%><br>
 				<%= text_field_tag 'login', @login %></label>
 				<br>
 				<p>
-					<label>Mot de passe<br>
+					<label<%=I18n.t('login.password')%><br>
     			<%= password_field_tag 'password' %></label>
 				</p>
 				<div id="area_BUTTONS" class="buttons">
 	        <button type="submit" class="positive">
-	        <img src="images/tick.png" alt=""/>Connexion</button>          
+	        <img src="images/tick.png" alt=""/><%=I18n.t('login.connexion')%></button>
 	      </div>
-          <label for="remember_me">Remember me:</label>
+          <label for="remember_me"><%=I18n.t('login.remember_me')%>:</label>
           <%= check_box_tag 'remember_me', '1', @remember_me %><br />
-          <%= link_to 'password forgotten', forgot_password_path %>
+          <%= link_to I18n.t('login.password_forgotten'), forgot_password_path %>
 			<% end %>
 		</div>
 	</body>

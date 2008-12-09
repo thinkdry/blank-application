@@ -1,15 +1,15 @@
 <fieldset>
-  <legend>Recherche avancée</legend>
+  <legend><%=I18n.t('search.advanced_search')%></legend>
   <% form_for :search, :url => search_path, :builder => ArticFormBuilder, :html => {:method => :get} do |f| %>
   
-    <p>Informations au sujet de l'élément recherché</p>
+    <p><%=I18n.t('search.informations_on_searched_item')%></p>
     
-    <%= f.text_field :title_contains, :label => 'Titre' %>
+    <%= f.text_field :title_contains, :label => I18n.t('item.title') %>
     
     <%# OPTIMIZE: Use lib with user friendly multiple select %>
     <%= f.select  :item_type_equals,
                   %W(Article Image Video Audio Publication CmsFile),
-                  :label => 'Type' %>
+                  :label => I18n.t('general.type') %>
 
     <%= f.text_field :user_name_contains, :label => 'Auteur' %>
     <div id="autocomplete_choices" class="autocomplete"></div>
@@ -20,13 +20,13 @@
     </script>
     
     
-    <% f.field :date, :label => 'Période de recherche' do %>
-      Du <%= f.calendar_date_select :created_after, :class => "advanced" %> <br>
-      Au <%= f.calendar_date_select :created_before, :class => "advanced" %>
+    <% f.field :date, :label => I18n.t('search.search_period') do %>
+      <%=I18n.t('general.from1')%> <%= f.calendar_date_select :created_after, :class => "advanced" %> <br>
+      <%=I18n.t('general.to')%> <%= f.calendar_date_select :created_before, :class => "advanced" %>
     <% end %>
     
   	<div class="buttons">
-      <button type="submit" class="positive alone"><img src="/images/tick.png" alt=""/>Rechercher</button>
+      <button type="submit" class="positive alone"><img src="/images/tick.png" alt=""/><%=I18n.t('general.search')%></button>
     </div>
     
 	<% end %>

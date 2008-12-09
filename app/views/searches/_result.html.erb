@@ -2,13 +2,13 @@
 	<div>
 		<%= image_tag object.icon %>
 		<%= link_to_item(object) %>
-		dans <%= links_to_workspace_collection(object.workspaces) %>
-		par <%= link_to_user(object.user) %>
-		le <%= I18n.l object.created_at, :format => :long %>
+		<%=I18n.t('general.in')%> <%= links_to_workspace_collection(object.workspaces) %>
+		<%=I18n.t('general.by')%> <%= link_to_user(object.user) %>
+		<%=I18n.t('general.on1')%> <%= I18n.l object.created_at, :format => :long %>
 	</div>
 	<div>
-		<div style="float:left;">Tags: <%= object.tags.collect(&:name).join(', ') %> - </div>
-		<div style="float:left;">&nbsp;<%= object.comments.size %> commentaires - </div>
+		<div style="float:left;"><%=I18n.t('general.tag').pluralize%> : <%= object.tags.collect(&:name).join(', ') %> - </div>
+		<div style="float:left;">&nbsp;<%= object.comments.size %> <%=I18n.t('general.comment').pluralize%> - </div>
     <div style="float:left"> <%= item_rate_locked(object) %></div>
     <div class="clear"></div>
   </div>

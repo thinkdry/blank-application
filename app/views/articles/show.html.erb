@@ -1,17 +1,17 @@
 <% item_show( :title => 'Article',  :object => @current_object ) do %>
-  <h2>Article</h2>
+  <h2> <%=I18n.t('general.article')%></h2>
   <%= @current_object.body %>
   
   <% if @current_object.article_files.size > 0 %>
-    <h2>Fichiers joints</h2>
+    <h2> <%=I18n.t('general.associated_files')%></h2>
     <ul>
       <% @current_object.article_files.each do |af| %>
         <li>
           <% if af.file_path %>
             <%= af.file_path.split('/').last %>
-            <%= link_to "Télécharger", url_for_file_column(af, :file_path) %>
+            <%= link_to  I18n.t('general.download'), url_for_file_column(af, :file_path) %>
           <% else %>
-            Fichier corrumpu
+             <%=I18n.t('file.corrupted_file')%>
           <% end %>
         </li>
       <% end %>

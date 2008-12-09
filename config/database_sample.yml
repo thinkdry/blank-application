@@ -8,8 +8,13 @@ DEFAULTS: &DEFAULTS
 
 development:
   database: blank_dev
-  <<: *DEFAULTS
-  
+  adapter: mysql
+  encoding: utf8
+  host: localhost
+  username: root
+  password: toor
+  socket: /var/run/mysqld/mysqld.sock
+
 test:
   database: blank_test
   <<: *DEFAULTS

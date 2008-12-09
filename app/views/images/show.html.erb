@@ -1,5 +1,5 @@
 <% item_show( :title => 'Image',  :object => @current_object ) do %>
-	<h2>Image</h2>
+	<h2><%=I18n.t('general.picture')%></h2>
 
 	<%= File.basename @current_object.file_path %>
 	<br />

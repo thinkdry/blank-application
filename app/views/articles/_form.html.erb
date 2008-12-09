@@ -1,20 +1,20 @@
 <% form_for_item @current_object, title do |f| -%>
 
-  <%= f.advanced_editor(:body, :label => 'Article :') %>
+  <%= f.advanced_editor(:body, :label => I18n.t('general.article')+ ' :') %>
 
-  <% f.field :article_files, :label => 'Fichiers associés :' do %>
+  <% f.field :article_files, :label => I18n.t('general.associated_files') do %>
   
     <div id="files">
       <% @current_object.article_files.each do |af| %>
         <div id="file<%= af.id.to_s %>">
           <%= af.file_path.split('/').last %>
-          <%= link_to "Télécharger", url_for_file_column(af, :file_path) %> 
-          <%= link_to_remote "Supprimer", :url => { :action => "removeFile", :id => af.id }, :success => "$(file#{af.id.to_s}.remove())" %>
+          <%= link_to I18n.t('general.download') %>, url_for_file_column(af, :file_path) %>
+          <%= link_to_remote I18n.t('general.delete'), :url => { :action => "removeFile", :id => af.id }, :success => "$(file#{af.id.to_s}.remove())" %>
         </div>
       <% end %>
     </div>
     
-    <%= link_to_new_file '- Joindre un nouveau fichier -' %><br />
+    <%= link_to_new_file '- '+ I18n.t('general.add_a_new_file') +' -' %><br />
     
   <% end %>
     

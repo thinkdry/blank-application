@@ -1,10 +1,10 @@
 <div id="content_bis">
 	<div id="area_CONTENUS">
-		<div class="titre"><%= image_tag Image.icon %><strong>Images</strong></div>
+		<div class="titre"><%= image_tag Image.icon %><strong><%=I18n.t('general.picture')%></strong></div>
 			<% @current_objects.each do |co| %>
 				<%= item_in_list co %>
 			<% end %>
-			<%= link_to "Ajouter un ficher", new_item_path(Image), :class => "add_item"%>
+			<%= link_to I18n.t('file.add_a_new_file'), new_item_path(Image), :class => "add_item"%>
 		</div>
 	</div>
 </div>

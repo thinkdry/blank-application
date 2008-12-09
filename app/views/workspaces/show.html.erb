@@ -1,12 +1,12 @@
 <div id="area_TITLE">
 	<h1>
-		Espace <%= @current_object.name %>
+		<%=I18n.t('general.workspace')%> <%= @current_object.name %>
 	</h1>
 	<span class="txt_80_666"><%= @current_object.description %></span>
 </div>
 
 <div class="area_LEFT">
-	<h2>5 derniers éléments</h2>
+	<h2><%=I18n.t('workspace.last_five_elements')%></h2>
 	<ul>
 		<% GenericItem.from_workspace(@current_object.id).latest.each do |item| %>
 			<p>
@@ -22,7 +22,7 @@
 				</div>
 				<div style="float:left">
 					<%= item.comments.count %>
-					commentaires -
+					<%=I18n.t('general.comments')%> -
 				</div>
 				<div style="float:left"><%= item_rate_locked(item) %></div>
 				<div style="clear:both">

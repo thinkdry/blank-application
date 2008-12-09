@@ -1,48 +1,48 @@
 <div id="area_POST_bis">
 	<div id="area_PROFIL">
-		<span class="titre">Informations personnelles</span><br>
+		<span class="titre"><%=I18n.t('user.private_informations')%></span><br>
 		<%= @current_object.firstname %> <%= @current_object.lastname %>
 	  <%= image_tag(url_for_file_column(@user, 'image_path'), :class => "avatar") if @user.image_path %>
 	  <p>
-	  	<span class="txt_80_333">Laboratoire  :</span> <span class="txt_80_666"><%= @current_object.laboratory %></span><br>
-	    <span class="txt_80_333">Activité : </span><span class="txt_80_666"><%= @current_object.activity %></span>
+	  	<span class="txt_80_333"><%=I18n.t('user.location')%>  :</span> <span class="txt_80_666"><%= @current_object.laboratory %></span><br>
+	    <span class="txt_80_333"><%=I18n.t('user.activity')%> : </span><span class="txt_80_666"><%= @current_object.activity %></span>
 	  </p>
 	  <p>
-	  	<span class="txt_80_333">Adresse postale :</span><br>
+	  	<span class="txt_80_333"><%=I18n.t('user.address')%> :</span><br>
 	    <span class="txt_80_666"><%= @current_object.address %></span><br>
-	    <span class="txt_80_333">Email :</span> <span class="txt_80_666"><%= @current_object.email %></span><br>
-	    <span class="txt_80_333">Téléphone :</span> <span class="txt_80_666"><%= @current_object.phone %>	- <%= @current_object.mobile %></span>
+	    <span class="txt_80_333"><%=I18n.t('user.email')%> :</span> <span class="txt_80_666"><%= @current_object.email %></span><br>
+	    <span class="txt_80_333"><%=I18n.t('user.phone')%> :</span> <span class="txt_80_666"><%= @current_object.phone %>	- <%= @current_object.mobile %></span>
 	  </p>
 	  <p>
-	  	<span class="txt_80_333">Présentation</span><br>
+	  	<span class="txt_80_333"><%=I18n.t('user.edito')%></span><br>
 	    <span class="txt_80_666"><%= @current_object.edito %></span>
 	  </p>
 	  
-		<%= link_to 'Mettre à jour les informations personnelles', edit_object_path, :class => "txt_80_666_bis" if permit? "edition of user" %>
+		<%= link_to I18n.t('user.update_private_informations'), edit_object_path, :class => "txt_80_666_bis" if permit? "edition of user" %>
 	</div>
 </div>
 <div id="area_DROITS">
-	<span class="titre">Droits d'accès</span><br>
+	<span class="titre"><%=I18n.t('user.access_rights')%></span><br>
 	<br>
 	<div class="item" id="item_-613527198">
 		<span class="txt_80_333"><strong>
-			Administrateur du système : <%= @is_admin ? 'Oui' : 'Non' %>
+			<%=I18n.t('user.system_administrator')%> : <%= @is_admin ? I18n.t('general.yes') : I18n.t('general.no1') %>
 		</strong></span>
 		<span class="txt_80_666"><br></span>
 			<br/>
-			<span class="txt_80_333"><strong>Modérateur : <%= @moderated_ws.empty? ? 'Non' : 'Oui' %> </strong></span><br>
-			<span class="txt_80_333">Droits pour modérer : 
-			<%= links_to_workspace_collection(@moderated_ws) || '- Aucun -' %>
+			<span class="txt_80_333"><strong><%=I18n.t('user.moderator')%> : <%= @moderated_ws.empty? ? I18n.t('general.yes') : I18n.t('general.no1') %> </strong></span><br>
+			<span class="txt_80_333"><%=I18n.t('user.rights_to_be_moderator')%> :
+			<%= links_to_workspace_collection(@moderated_ws) || '- ' + I18n.t('general.void') + ' -' %>
 			</span><span class="txt_80_666"><br></span>
 			<br/>
-			<span class="txt_80_333"><strong>Rédacteur : <%= @writter_role_on_ws.empty? ? 'Non' : 'Oui' %></strong></span><br>
-			<span class="txt_80_333">Droits pour modérer les espaces : 
-			<%= links_to_workspace_collection(@writter_role_on_ws) || '- Aucun -' %>
+			<span class="txt_80_333"><strong><%=I18n.t('user.writer')%> : <%= @writter_role_on_ws.empty? ? I18n.t('general.yes') : I18n.t('general.no1') %></strong></span><br>
+			<span class="txt_80_333"<%=I18n.t('user.rights_to_manage')%> <%=I18n.t('general.workspace')%> :
+			<%= links_to_workspace_collection(@writter_role_on_ws) || '-' + I18n.t('general.void') + ' -' %>
 			</span><span class="txt_80_666"><br></span>
 			<br/>
-			<span class="txt_80_333"><strong>Lecteur : <%= @reader_role_on_ws.empty? ? 'Non' : 'Oui' %></strong></span><br>
-			<span class="txt_80_333">Accès en lecture dans : 
-			 <%= links_to_workspace_collection(@reader_role_on_ws) || '- Aucun -' %>
+			<span class="txt_80_333"><strong><%=I18n.t('user.reader')%> : <%= @reader_role_on_ws.empty? ? I18n.t('general.yes') : I18n.t('general.no1') %></strong></span><br>
+			<span class="txt_80_333"><%=I18n.t('user.readonly_access_to')%> :
+			 <%= links_to_workspace_collection(@reader_role_on_ws) || '- ' + I18n.t('general.void')+ ' -' %>
 			</span><span class="txt_80_666"><br></span>
 	</div>
 </div>

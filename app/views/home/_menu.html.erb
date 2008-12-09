@@ -1,6 +1,6 @@
 <div id="right-container">
 	<div id="right_menu">
-		<span class="titre">Filtrer</span><br>
+		<span class="titre"><%= I18n.t('home.filter')%></span><br>
 		<ul>
 			<% 
 				[:article, :image, :cms_file, :video, :audio, :publication].each do |elem|
@@ -14,7 +14,7 @@
 		</ul>
 	</div>
 	<div id="Add_menu">
-		<span class="titre">Ajouter</span><br>
+		<span class="titre"><%= I18n.l'general.add' %></span><br>
 		<div id="slct_ADD">
 			<form name="form1" method="post" action="" id="form1">
 				<select name="slct_filtre" id="slct_filtre" onchange="document.location.href = this.value">
@@ -22,22 +22,22 @@
 						--------
 					</option>
 					<option value="<%= new_article_path %>">
-						Un article
+						<%= I18n.l'general.article' %>
 					</option>
 					<option value="<%= new_image_path %>">
-						Une image
+						<%= I18n.l'general.picture' %>
 					</option>
 					<option value="<%= new_audio_path %>">
-						Fichier Audio
+						<%= I18n.l'general.audio' %>
 					</option>
 					<option value="<%= new_video_path %>">
-						Fichier Vidéo
+						<%= I18n.l'general.video' %>
 					</option>
 					<option value="<%= new_cms_file_path %>">
-						Fichier
+						<%= I18n.l'general.file' %>
 					</option>
 					<option value="<%= new_publication_path %>">
-						Une publication
+						<%= I18n.l'general.publication' %>
 					</option>
 				</select>
 			</form>

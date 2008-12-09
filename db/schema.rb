@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(:version => 20081201182055) do
     t.string   "content"
     t.string   "authors"
     t.datetime "date_published"
+    t.datetime "last_updated"
     t.string   "copyright"
     t.string   "categories"
     t.datetime "created_at"
