@@ -1,6 +1,6 @@
 <div id="area_POST">
 	<div id="area_ADDED">
-		<div class="txt_100_000"><strong>Les 5 derniers éléments ajoutés</strong></div><br>
+		<div class="txt_100_000"><strong><%=I18n.t('general.last_five_published_items')%></strong></div><br>
 		<% list[0..5].each do |e| %>
 			<div class="item" onclick="window.location.href = '<%= item_path(e) %>'" onmouseout='this.removeClassName("over")' onmouseover='this.addClassName("over")'>
 				<%= image_tag(e.icon) %> <%= e.title %><br>
@@ -9,7 +9,7 @@
 		<% end %>
 	</div>
 	<div id="area_COMMENTS">
-		<span class="titre"><strong>Les 5 derniers commentaires publiés</strong></span><br>
+		<span class="titre"><strong><%=I18n.t('general.last_five_posted_comments')%></strong></span><br>
 		<br>
 	</div>
 </div>

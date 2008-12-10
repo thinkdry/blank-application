@@ -1,12 +1,16 @@
 <div id="area_TITLE">
 	<h1>
+<<<<<<< HEAD:app/views/workspaces/show.html.erb
 		Espace <%= @current_object.title %>
+=======
+		<%=I18n.t('general.workspace')%> <%= @current_object.name %>
+>>>>>>> 5091119169f3d4b2f93d7f7efe741917b5389442:app/views/workspaces/show.html.erb
 	</h1>
 	<span class="txt_80_666"><%= @current_object.description %></span>
 </div>
 
 <div class="area_LEFT">
-	<h2>5 derniers éléments</h2>
+	<h2><%=I18n.t('workspace.last_five_elements')%></h2>
 	<ul>
 		<% GenericItem.from_workspace(@current_object.id).latest.each do |item| %>
 			<p>
@@ -22,7 +26,7 @@
 				</div>
 				<div style="float:left">
 					<%= item.comments.count %>
-					commentaires -
+					<%=I18n.t('general.comments')%> -
 				</div>
 				<div style="float:left"><%= item_rate_locked(item) %></div>
 				<div style="clear:both">

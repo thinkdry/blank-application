@@ -1,6 +1,6 @@
 <% form_for_item @current_object, title do |f| -%>
 
-  <% f.field :file_path, :label => "Fichier :" do %>
+  <% f.field :file_path, :label => I18n.t('general.file') + " :" do %>
     <%= File.basename(@current_object.file_path) + '<br />' if @current_object.file_path %>
     <%= file_field 'image', 'file_path',:onChange=>"LimitAttach(this.form, this.form.image_file_path.value,'image')" %>
   <% end %>

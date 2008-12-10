@@ -1,5 +1,5 @@
-<% item_show( :title => 'Document Audio',  :object => @current_object ) do %>
-	<h2>Document audio</h2>
+<% item_show( :title => I18n.t('general.audio'),  :object => @current_object ) do %>
+	<h2><%=I18n.t('general.audio')%></h2>
 	
 	<p id='preview'></p>
 	<script type='text/javascript' src='/videoplayer/swfobject.js'></script>
@@ -12,5 +12,5 @@
 		s1.write('preview');
 	</script>
 
-	<%= link_to "Télécharger", url_for_file_column(@current_object, :file_path) %><br />
+	<%= link_to I18n.t('general.download'), url_for_file_column(@current_object, :file_path) %><br />
 <% end %>

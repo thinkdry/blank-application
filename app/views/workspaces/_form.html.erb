@@ -6,7 +6,7 @@
       
       <br /><br />
       
-      <h4>Utilisateurs associés :</h4>
+      <h4><%=I18n.t 'workspace.associated_users'%></h4>
       <div id="users">
         <% @current_object.users_workspaces.each do |object| %>
         <%= render :partial => 'user', :object => object %>
@@ -15,7 +15,7 @@
       <div class="clear"></div>
       <br /><br />
       
-      <% text_button = (current_object.new_record? ?  "Créer cet espace de travail" : "Sauvegarder") %>
+      <% text_button = (current_object.new_record? ?  I18n.t('workspace.create_a_new_workspace') : I18n.t('workspace.save') )%>
       <div class="buttons">
         <button type="submit" class="positive alone"><img src="/images/tick.png" alt=""/><%= text_button %></button>
       </div>
@@ -28,7 +28,7 @@
 
 <div id="newuser">
   <fieldset>
-  <legend>Ajout d'un utilisateur</legend><br>
+  <legend><%=I18n.t('workspace.add_new_user')%></legend><br>
     
     <% form_for :user,  :builder => ArticFormBuilder do |f| %>
     

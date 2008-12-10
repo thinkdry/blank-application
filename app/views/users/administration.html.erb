@@ -1,10 +1,10 @@
 <div id="area_TITLE">
-  <h1>Administration</h1>
+  <h1><%=I18n.t('user.administration')%></h1>
 </div>
 <% if current_user.is_admin? %>
 <fieldset style="margin-top: 20px;">
-	<legend>Configuration administrateur</legend>
-	<%= link_to 'Ajouter un utilisateur', new_user_path %>
+	<legend><%=I18n.t('user.administration_configuration')%></legend>
+	<%= link_to I18n.t('user.add_a_new_user'), new_user_path %>
 </fieldset>
 <% end %>
 <div id="new_workspace" style="margin-top: 20px;">
@@ -14,12 +14,12 @@
   <% @workspaces.each do |w| %>
     <div class="area_WS" style="margin-bottom: 10px;">
   		<h4><%= w.name %></h4>
-  		Administrateur de l'espace : 	<%= link_to_user(w.creator) %>		<br />
-  		Modérateurs : 					<%= user_list_of(w, :moderators) %>	<br />
-  		Rédacteurs : 					<%= user_list_of(w, :writters) %>	<br />
-  		Lecteurs : 						<%= user_list_of(w, :readers) %><br />
+  		<%=I18n.t('general.workspace')%> <%=I18n.t('user.administrator').pluralize%> : 	<%= link_to_user(w.creator) %>		<br />
+  		<%=I18n.t('user.moderator').pluralize%> : 					<%= user_list_of(w, :moderators) %>	<br />
+  		<%=I18n.t('user.writer').pluralize%> : 					<%= user_list_of(w, :writters) %>	<br />
+  		<%=I18n.t('user.reader').pluralize%> : 						<%= user_list_of(w, :readers) %><br />
   		<br />
-  		<%= link_to "Gérer les droits et utilisateurs de cet espace", edit_workspace_path(w.id) %>
+  		<%= link_to I18n.t('user.manage_users_and_rights'), edit_workspace_path(w.id) %>
   	</div>
   <% end %>
 </div>

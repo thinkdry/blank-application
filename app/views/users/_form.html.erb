@@ -1,32 +1,31 @@
 <fieldset class="myform">
-  <legend>Vos informations personnelles</legend>
+  <legend><%=I18n.t('user.your_private_informations')%></legend>
 
   <% form_for @user, :builder => ArticFormBuilder, :html => {:multipart => true} do |f| -%>
-    <%= f.text_field :login, :label => 'Login', :hint => "Votre nom d'utilisateur" if @user.new_record? %>
-    <%= f.text_field :email, :label => 'Email' %>
-    <%= f.password_field :password, :label => 'Mot de passe'%>
-    <%= f.password_field :password_confirmation, :label => 'Confirmation de mot de passe'%>
+    <%= f.text_field :login, :label => I18n.t('user.login'), :hint => "Votre nom d'utilisateur" if @user.new_record? %>
+    <%= f.text_field :email, :label => I18n.t('user.email') %>
+    <%= f.password_field :password, :label => I18n.t('user.password')%>
+    <%= f.password_field :password_confirmation, :label => I18n.t('user.confirm_password')%>
+    <%= f.text_field :lastname, :label => I18n.t('user.name')%>
+    <%= f.text_field :firstname, :label => I18n.t('user.first_name') %>
+    <%= f.country_select :nationality, :label => I18n.t('user.nationality') %>
+    <%= f.text_area :address, :size => "40x6", :label => I18n.t('user.address'), :hint => 'Votre adresse complète' %>
+    <%= f.text_field :phone, :label => I18n.t('user.phone'), :hint => 'Numéro professionnel' %>
+    <%= f.text_field :mobile, :label => I18n.t('user.mobile'), :hint => 'Numéro de téléphone portable' %>
+    <%= f.text_field :company, :label => I18n.t('user.location'), :hint => 'Pour qui travaillez-vous ?' %>
+    <%= f.text_area :activity, :size => "40x6", :label => I18n.t('user.activity') %>
+    <%= f.text_area :edito, :size => "40x6", :label => I18n.t('user.edito') %>
 
-    <%= f.text_field :lastname, :label => 'Nom'%>
-    <%= f.text_field :firstname, :label => 'Prénom' %>
-    <%= f.country_select :nationality, :label => 'Nationalité' %>
-    <%= f.text_area :address, :size => "40x6", :label => 'Adresse', :hint => 'Votre adresse complète' %>
-    <%= f.text_field :phone, :label => 'Téléphone', :hint => 'Numéro professionnel' %>
-    <%= f.text_field :mobile, :label => 'Portable', :hint => 'Numéro de téléphone portable' %>
-    <%= f.text_field :company, :label => 'Laboratoire', :hint => 'Pour qui travaillez-vous ?' %>
-    <%= f.text_area :activity, :size => "40x6", :label => 'Activité' %>
-    <%= f.text_area :edito, :size => "40x6", :label => 'Edito' %>
-
-    <% f.field :image_path, :label => 'Photo' do %>
+    <% f.field :image_path, :label => I18n.t('user.photo') do %>
       <%= file_column_field 'user', 'image_path' %>
     <% end %>
 
     <%= image_tag(url_for_file_column(@user, 'image_path')) if @user.image_path %>
 
     <div class="buttons" id="area_BUTTONS" style="padding-top: 2em">
-      <% button_text = current_object.new_record? ? 'Créer cet utilisateur' : 'Mettre à jour' %>
+      <% button_text = current_object.new_record? ? I18n.t('user.create_this_user') : I18n.t('general.update') %>
       <button type="submit" class="positive"><img src="/images/tick.png" alt=""/><%= button_text%></button>
-      <button type="reset" class="negative"><img src="/images/cross.png" alt=""/>Annuler</button>
+      <button type="reset" class="negative"><img src="/images/cross.png" alt=""/><%=I18n.t('general.cancel')%></button>
     </div>
   <% end %>
 

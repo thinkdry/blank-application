@@ -1,9 +1,9 @@
 <div id="content_bis">
 	<div id="area_CONTENUS">
-		<div class="titre"><%= image_tag Bookmark.icon %><strong>Bookmarks</strong></div>
+		<div class="titre"><%= image_tag Bookmark.icon %><strong><%=I18n.t('general.bookmark').plurialize%></strong></div>
 		<% @current_objects.each do |co| %>
 			<%= item_in_list co %>
 		<% end %>
-		<%= link_to "Ajouter un lien", new_item_path(Bookmark), :class => "add_item" %>
+		<%= link_to I18n.t('bookmark.add_a_link'), new_item_path(Bookmark), :class => "add_item" %>
 	</div>
 </div>

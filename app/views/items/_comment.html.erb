@@ -2,7 +2,7 @@
 <tr><td></td></tr>
 <tr>
 	<td valign="top" width="200px">
-		<%= link_to_user object.user %> <br /> le <%= I18n.l object.created_at, :format => :long %>
+		<%= link_to_user object.user %> <br /> <%=I18n.t('general.on1')%> <%= I18n.l object.created_at, :format => :long %>
 	</td>
 	<td valign="top">
 		<%= object.text %>

@@ -5,5 +5,5 @@
         user: quentin
         title: Image (<%= i %>)
         description: a image file
-        file_path: <%= file_path_import(:model => 'image', :id => Fixtures.identify("image_#{i}"), :file_path => 'Record_Dolphin.png') %>
+        file_path: <%= file_path_import(:model => 'image', :id => Fixtures.identify("image_#{i}"), :file_path => 'test.png') %>
 <% end %>

@@ -196,16 +196,175 @@ en-US:
     workspaces: Workspaces
     new_workspace: New workspace
     add_content: Add content
-    article: Article
-    image: Image
-    audio: Audio
-    video: Vidéo
-    file: File
-    publication: Publication
-    feed_source: Web feed
-    link: Link
-    search: eee
+    search: Search
+    advanced_search: Advanced search
     footer_title: ThinkDRY Technologies 2008
     contact: Contact
     map: Site map
     faq: FAQ
+  general:
+    by: by
+    on1: 'on'
+    in: In
+    from1: 'From'
+    to: To
+    yes: Yes
+    no: No
+    no1: No
+    add: Add
+    delete: Delete
+    commentV: Comment
+    download: Download
+    create: Create
+    cancel: Cancel
+    edit: edit
+    print: Print
+    filter: Filter
+    search: Search
+    send: Send
+    add_a_new_file: Add a new file
+    associated_file: Associated file
+    name: name
+    all_elements: All elements
+    description: description
+    workspace: Workspace
+    comment: Comment
+    tag: Tag
+    rate: Rate
+    update: update
+    publish_my_comment: Publish my comment
+    your_comment: Your comment
+    article: Article
+    picture: Picture
+    audio: Audio
+    video: Video
+    file: File
+    publication: Publication
+    feed_source: RSS feed
+    bookmark: Bookmark
+    link: Link
+    url: Url
+    content: Content
+    category: Category
+    type: Type
+    copyright: Copyright
+    author: Author
+    publishing_date: Publishing date
+    void: void
+    last_five_published_items: Last 5 published items
+    last_five_posted_comments: Last 5 posted comments
+    separated_by_spaces: Separated by spaces
+    last_update_date: Last update date
+    publishing_date: Publishing date
+  item:
+    summary: Summary
+    description: Description
+    title: Title
+  file:
+    edit_file_params: Edit file params
+    corrupted_file: Corrupted file
+    add_a_new_file: Add a new file
+  article:
+    edit_article: Edit article
+    add_a_new_article: Add a new article
+  audio:
+    edit_audio: Edit audio
+    add_a_new_audio: Add a new audio file
+  picture:
+    add_a_new_picture: Add a new picture
+    edit_picture_params: Edit picture params
+  publication:
+    add_a_new_publication: Add a new publication
+    edit_publication: Edit publication
+  bookmark:
+    add_a_link: Add a link
+    edit_bookmark: Edit bookmark
+    show_my_links: Show my links
+    new_bookmark: New bookmark
+    url: url
+  home:
+    my_workspaces: My workspaces
+    you_administrate: You administrate
+    you_have_access_to_workspaces: You have access to worspaces
+    my_personnal_informations: My personnal informations
+    show_my_feeds: Show my RSS feeds
+    my_content: My content
+    filter: Filter
+    accordeon1: Last added documents
+    accordeon2: Last added users
+    accordeon3: Last added workspaces
+    accordeon4: Last received publications
+  video:
+    download_video: Download original video
+    edit_video_params: Edit video params
+    add_a_new_video: Add a new video
+  workspace:
+    last_five_items: last five items
+    associated_users: associated users
+    create_a_new_workspace: Create a new workspace
+    save: Save
+    add_new_user: Ajouter un utilisateur
+    modification_of_workspace: Modification of the workspace
+  profil:
+    location: Location
+    activity: Activity
+    landline: Landline
+    email: email
+  search:
+    your_search_result: Your search result
+    you_have_searched_for: you have searched for
+    advanced_search: Advanced search
+    informations_on_searched_items: Informations on searched items
+    search_period: Search period
+  login:
+    login: Login
+    password: Password
+    connexion: Connexion
+    password_forgotten: Password forgotten
+    remember_me: Remember me
+  user:
+    new_password: New password
+    confirm_new_password: Confirm new password
+    confirm_password: Confirm password
+    validate_this_password: Validate this password
+    back_to_login: Back to login
+    administration: Administration
+    administration_configuration: Administation configuration
+    add_a_new_user: Add a new user
+    system_administrator: System administrator
+    administrator: Administrator
+    moderator: Moderator
+    writer: Writer
+    reader: Reader
+    manage_users_and_rights: Manage users and rights
+    access_rights: Access rights
+    rights_to_manage: Rights to manage
+    rights_to_be_moderator: Rights to be moderator
+    readonly_access_to: Read only access to
+    password_reset_request: Password reset request
+    create_this_user: Create this user
+    your_private_informations: Your private informations
+    private_informations: Private informations
+    update_private_informations: Update private informations
+    login: Login
+    email: Email
+    password: Password
+    name: Name
+    first_name: First name
+    nationality: Nationality
+    address: Address
+    phone: Phone
+    mobile: Mobile
+    location: Location
+    activity: Activity
+    edito: Edito
+    photo: Photo
+    log_in: Log in
+    signup: Sign up
+    logout: Log out
+  message:
+    copyright_restriction: Some fields can't be modified as this element is copyright protected.
+    error_during_file_transfer: Error during file transfer
+    video_wip: Your video has been recorded for encoding. Please come bacl later.
+  text:
+    reset_password: Enter your password and a reactivation link will be send to you by mail
