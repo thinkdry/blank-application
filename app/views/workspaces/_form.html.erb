@@ -1,7 +1,7 @@
 <div class="area_WS" style="margin-bottom:20px;">
   <fieldset>
     <% form_for @workspace, :builder => ArticFormBuilder do |f| -%>
-      <%= f.text_field :name, :label => "Nom de l'espace de travail : " %>
+      <%= f.text_field :title, :label => "Nom de l'espace de travail : " %>
       <%= f.advanced_editor :description, :label => 'Description : ' %>
       
       <br /><br />

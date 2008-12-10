@@ -1,6 +1,6 @@
 module WorkspacesHelper
   def link_to_workspace(workspace)
-    link_to(workspace.name, workspace_url(workspace))
+    link_to(workspace.title, workspace_url(workspace))
   end
   
   def links_to_workspace_collection(workspaces)

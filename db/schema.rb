@@ -50,13 +50,14 @@ ActiveRecord::Schema.define(:version => 20081201182055) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
+    t.integer  "feed_source_id"
     t.string   "title"
     t.text     "description"
     t.string   "state"
-    t.string   "link"
     t.string   "content"
     t.string   "authors"
     t.datetime "date_published"
+    t.datetime "last_updated"
     t.string   "copyright"
     t.string   "categories"
     t.datetime "created_at"
@@ -144,7 +145,7 @@ ActiveRecord::Schema.define(:version => 20081201182055) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "number_of_comments", :limit => 8
-    t.string   "workspace_names",    :limit => 341
+    t.string   "workspace_titles",   :limit => 341
     t.decimal  "average_rate",                             :precision => 14, :scale => 4
   end
 
@@ -174,18 +175,9 @@ ActiveRecord::Schema.define(:version => 20081201182055) do
     t.datetime "updated_at"
   end
 
-  create_table "public_items", :force => true do |t|
-    t.integer  "itemable_id"
-    t.string   "itemable_type"
-    t.integer  "extranet_category_id"
-    t.integer  "suggester_id"
-    t.integer  "validated"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "publications", :force => true do |t|
     t.integer  "user_id"
+    t.integer  "feed_source_id"
     t.string   "title"
     t.text     "description"
     t.string   "state"
@@ -235,6 +227,7 @@ ActiveRecord::Schema.define(:version => 20081201182055) do
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"
+    t.integer  "user_id"
     t.integer  "taggable_id"
     t.string   "taggable_type"
     t.datetime "created_at"
@@ -242,6 +235,7 @@ ActiveRecord::Schema.define(:version => 20081201182055) do
   end
 
   create_table "tags", :force => true do |t|
+    t.integer  "user_id"
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -253,7 +247,7 @@ ActiveRecord::Schema.define(:version => 20081201182055) do
     t.string   "lastname"
     t.string   "email"
     t.string   "address",                   :limit => 500
-    t.string   "laboratory"
+    t.string   "company"
     t.string   "phone"
     t.string   "mobile"
     t.string   "activity"
@@ -298,7 +292,7 @@ ActiveRecord::Schema.define(:version => 20081201182055) do
   create_table "workspaces", :force => true do |t|
     t.integer  "creator_id"
     t.text     "description"
-    t.string   "name"
+    t.string   "title"
     t.string   "state"
     t.datetime "created_at"
     t.datetime "updated_at"

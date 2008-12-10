@@ -7,7 +7,7 @@ DEFAULTS: &DEFAULTS
       remember_token:        77de68daecd823babbb58edb1c8e14d7106e83bb
       lastname:        dupond
       firstname:        $LABEL
-      laboratory:        Mon Laboratoire
+      company:        Mon Laboratoire
       mobile:        0612345678
       phone:        0112345678
       address:        15 rue Leonard

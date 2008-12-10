@@ -4,7 +4,6 @@ class CreateItems < ActiveRecord::Migration
       t.string :itemable_type
       t.integer :itemable_id
       t.integer :workspace_id
-
       t.timestamps
     end
   end

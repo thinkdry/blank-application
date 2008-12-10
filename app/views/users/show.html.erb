@@ -4,7 +4,7 @@
 		<%= @current_object.firstname %> <%= @current_object.lastname %>
 	  <%= image_tag(url_for_file_column(@user, 'image_path'), :class => "avatar") if @user.image_path %>
 	  <p>
-	  	<span class="txt_80_333">Laboratoire  :</span> <span class="txt_80_666"><%= @current_object.laboratory %></span><br>
+	  	<span class="txt_80_333">Laboratoire  :</span> <span class="txt_80_666"><%= @current_object.company %></span><br>
 	    <span class="txt_80_333">Activité : </span><span class="txt_80_666"><%= @current_object.activity %></span>
 	  </p>
 	  <p>

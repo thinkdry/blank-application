@@ -29,7 +29,7 @@ class UserMailer < ActionMailer::Base
   protected
     def setup_email(user)
       recipients user.email
-      #from "contact@thinkdry.com"
+      from "contact@thinkdry.com"
       #sent_on Time.now
     end
 		
