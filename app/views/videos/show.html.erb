@@ -1,4 +1,4 @@
-<% item_show( :title => 'Vidéo',  :object => @current_object ) do %>
+<% item_show( :title => I18n.t('general.video'),  :object => @current_object ) do %>
 	<h2>Vidéo</h2>
 	
 	<% if @current_object.encoded_file %>
@@ -14,8 +14,8 @@
 			so.write('player');
 		</script>
 	<% else %>
-		<strong>Vidéo en cours d'encodage, revenez dans quelques minutes</strong>
+		<strong><%=I18n.t('message.video_wip')%></strong>
 	<% end %>
 	
-	<%= link_to 'Télécharger la version originale', url_for_file_column('video', 'file_path') %>
+	<%= link_to I18n.t('video.download_video'), url_for_file_column('video', 'file_path') %>
 <% end %>

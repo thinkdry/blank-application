@@ -22,7 +22,7 @@
 		</ul>
 	</div>
 	<div id="Add_menu">
-		<span class="titre">Ajouter</span><br>
+		<span class="titre"><%=I18n.t('general.add')%></span><br>
 		<div id="slct_ADD">
 			<form name="form1" method="post" action="" id="form1">
 				<select name="slct_filtre" id="slct_filtre" onchange="document.location.href = this.value">
@@ -30,22 +30,22 @@
 						--------
 					</option>
 					<option value="<%= new_item_path(Article) %>">
-						Un article
+						<%=I18n.t('layour.article')%>
 					</option>
 					<option value="<%= new_item_path(Image) %>">
-						Une image
+						<%=I18n.t('general.image')%>
 					</option>
 					<option value="<%= new_item_path(Audio) %>">
-						Fichier Audio
+						<%=I18n.t('general.audio')%>
 					</option>
 					<option value="<%= new_item_path(Video) %>">
-						Fichier Vidéo
+						<%=I18n.t('general.video')%>
 					</option>
 					<option value="<%= new_item_path(CmsFile) %>">
-						Fichier
+						<%=I18n.t('general.file')%>
 					</option>
 					<option value="">
-						Une publication
+						<%=I18n.t('general.publication')%>
 					</option>
 				</select>
 			</form>

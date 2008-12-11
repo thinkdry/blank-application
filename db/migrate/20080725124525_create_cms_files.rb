@@ -5,8 +5,7 @@ class CreateCmsFiles < ActiveRecord::Migration
       t.string :title
       t.text :description
       t.string :file_path
-      t.string :state
-			
+      t.string :state	
       t.timestamps
     end
   end

@@ -3,6 +3,7 @@ class CreatePublications < ActiveRecord::Migration
   def self.up
     create_table :publications do |t|
       t.integer :user_id
+			t.integer	:feed_source_id
       t.string  :title
 			t.text    :description
 			t.string	:state

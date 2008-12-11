@@ -1,22 +1,22 @@
 <div class="area_LEFT">
   <div class="area_WS">
-  	<h4>Mes espaces de travail</h4>
-  	<span class="label-txt">Vous administrez :</span>
-  	<%= links_to_workspace_collection(Workspace.administrated_by(@current_user)) || '- Aucun -' %>
+  	<h4><%= I18n.t('home.my_workspaces')%> </h4>
+  	<span class="label-txt"><%= I18n.t('home.you_administrate')%>:</span>
+  	<%= links_to_workspace_collection(Workspace.administrated_by(@current_user)) || '- ' +I18n.t('general.void')+' -' %>
   	<br /><br />
-  	<span class="label-txt">Vous avez accès aux espaces :</span>
-  	<%= links_to_workspace_collection(Workspace.consulted_by(@current_user)) || '- Aucun -' %>
+  	<span class="label-txt"><%= I18n.t('home.you_have_access_to_workspaces')%> :</span>
+  	<%= links_to_workspace_collection(Workspace.consulted_by(@current_user)) || '- ' + I18n.t('general.void')+ ' -' %>
   	<br />
   </div>
   <br />
   <div id="area_INFOS">
-  	<h4>Mes informations personnelles</h4>
+  	<h4><%= I18n.t('home.my_personnal_informations')%></h4>
   	<%= image_tag(url_for_file_column(@current_user, 'image_path'), :class => "avatar", :align => "right") if @current_user.image_path %>
-  	<p><span class="label-txt">Lieu  :</span> <span class="content-txt"><%= @current_user.laboratory %></span></p>
-  	<p><span class="label-txt">Activité : </span><span class="content-txt"><%= @current_user.activity %></span></p>
+  	<p><span class="label-txt"><%= I18n.t('profil.location')%>  :</span> <span class="content-txt"><%= @current_user.company %></span></p>
+  	<p><span class="label-txt"><%= I18n.t('profil.activity')%> : </span><span class="content-txt"><%= @current_user.activity %></span></p>
 	<br>
-  	<p><span class="label-txt">Email :</span> <span class="content-txt"><%= @current_user.email %></span></p>
-  	<p><span class="label-txt">Téléphone :</span> <span class="content-txt"><%= @current_user.phone %></span></p>
+  	<p><span class="label-txt"><%= I18n.t('profil.email')%> :</span> <span class="content-txt"><%= @current_user.email %></span></p>
+  	<p><span class="label-txt"><%= I18n.t('profil.landline')%> :</span> <span class="content-txt"><%= @current_user.phone %></span></p>
   </div>
 </div>
 <div class="area_RIGHT">
@@ -24,7 +24,7 @@
 </div>
 <div class="clear"></div>
 <br>
-<div class="pubmed"><%= link_to image_tag("rss.png")+' Visualiser mes flux Pubmed', feed_sources_path %></div>
+<div class="pubmed"><%= link_to image_tag("rss.png")+I18n.t('home.show_my_feeds'), feed_sources_path %></div>
 <br /><br>
 <div class="area_BOTH">
   <%= render :partial => "latest" %>

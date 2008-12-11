@@ -4,7 +4,6 @@ class CreateUsersWorkspaces < ActiveRecord::Migration
       t.integer :workspace_id
       t.integer :role_id
       t.integer :user_id
-
       t.timestamps
     end
   end

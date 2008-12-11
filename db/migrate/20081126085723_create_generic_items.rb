@@ -23,13 +23,13 @@ class CreateGenericItems < ActiveRecord::Migration
             #{table_name}.id = comments.commentable_id AND
             comments.commentable_type = '#{model_name}'
            ) AS number_of_comments,
-          ( SELECT GROUP_CONCAT(workspaces.name)
+          ( SELECT GROUP_CONCAT(workspaces.title)
             FROM items, workspaces
             WHERE
               #{table_name}.id = items.itemable_id AND
               items.itemable_type = '#{model_name}' AND
               workspaces.id = items.workspace_id
-          ) AS workspace_names,
+          ) AS workspace_titles,
           ( SELECT AVG(rating)
             FROM ratings
             WHERE
