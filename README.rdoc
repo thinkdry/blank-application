@@ -36,7 +36,7 @@
     $ rake db:fixtures:load
   
   Build the Xapian index with given models. Change RAILS_ENV if required.
-    $ rake xapian:rebuild_index models="CmsFile Article Audio Image Publication Video" RAILS_ENV=development
+    $ rake xapian:rebuild_index models="CmsFile Article Audio Image Publication Video FeedSource Bookmark" RAILS_ENV=development
   
   Update the Xapian index
     $ rake xapian:update_index RAILS_ENV=development

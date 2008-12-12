@@ -1,6 +1,6 @@
 <fieldset>
   <legend><%=I18n.t('search.advanced_search')%></legend>
-  <% form_for :search, :url => search_path, :builder => ArticFormBuilder, :html => {:method => :get} do |f| %>
+  <% form_for :search, :url => search_path, :builder => BlankFormBuilder, :html => {:method => :get} do |f| %>
   
     <p><%=I18n.t('search.informations_on_searched_item')%></p>
     

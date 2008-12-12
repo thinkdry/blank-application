@@ -3,4 +3,4 @@ coverage
 log/*.log
 config/database.yml
 nbproject/
-#db/schema.rb
+db/schema.rb

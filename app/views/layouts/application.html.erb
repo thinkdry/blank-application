@@ -15,7 +15,7 @@
   <script type="text/javascript" src="/fckeditor/fckeditor.js"></script>
   <script type='text/javascript' src='/prototip2.0.4/js/prototip.js'></script>
   
-  <%#= calendar_date_select_includes nil %>
+  <%= calendar_date_select_includes %>
   <title>
     <%= I18n.t 'layout.title' %> - 
     <%= params[:action].capitalize if params[:action] != 'index' %>
@@ -68,7 +68,7 @@
               ----------
             </option>
             <% (Workspace.administrated_by(@current_user) + Workspace.consulted_by(@current_user)).each do |w| %>
-              <%= content_tag(:option, w.name, :value => workspace_path(w)) %>
+              <%= content_tag(:option, w.title, :value => workspace_path(w)) %>
             <% end %>
             <option>
               ----------

@@ -1,5 +1,5 @@
 module ActionView::Base::CompiledTemplates
-  class ArticFormBuilder < LabelFormBuilder
+  class BlankFormBuilder < LabelFormBuilder
     def default_template(object)
       %{
         <table>

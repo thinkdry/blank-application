@@ -44,25 +44,27 @@ class User < ActiveRecord::Base
   validates_presence_of     :firstname, 
                             :lastname,
                             :address,
-                            :laboratory,
+                            :company,
                             :phone,
                             :mobile,
                             :activity
 
   validates_format_of       :firstname, 
-			                      :lastname, 
-                  			    :laboratory,  :with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL})+\Z/         
+			                      :lastname,
+														:company,
+														:with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL})+\Z/
 			  
-  validates_format_of       :address,        :with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL}|#{NUM})+\Z/
+  validates_format_of       :address, :with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL}|#{NUM})+\Z/
   
   validates_format_of       :phone, 
-                  			    :mobile,      :with => /\A(#{NUM}){10}\Z/
+                  			    :mobile,
+														:with => /\A(#{NUM}){10}\Z/
   
 
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :password, :password_confirmation, :firstname, :lastname, :address, :laboratory, :phone, :mobile, :activity, :edito, :image_path_temp, :image_path
+  attr_accessible :login, :email, :password, :password_confirmation, :firstname, :lastname, :address, :company, :phone, :mobile, :activity, :edito, :image_path_temp, :image_path
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   #
