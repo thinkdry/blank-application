@@ -1,9 +1,28 @@
 <div id="area_POST_bis">
 	<div id="area_PROFIL">
 		<span class="titre"><%=I18n.t('user.private_informations')%></span><br>
-		<%= @current_object.firstname %> <%= @current_object.lastname %>
-	  <%= image_tag(url_for_file_column(@user, 'image_path'), :class => "avatar") if @user.image_path %>
+		<%= @current_object.firstname %> <%= @current_object.lastname %> 
+	  <%if @current_user.image_path %>
+  	    <%= image_submit_tag(url_for_file_column(@current_user, 'image_path'), :class => "avatar", :align => "right", :onclick=>'popup();')%>
+      <%else%>
+         <%= image_submit_tag(('/user/image_path/default/user.png'), :class=>"avatar", :align=>"right", :onclick=>'popup()') %>
+      <% end %>
+      <div id="upload" style="display:none">
+         <%form_for @current_user , :html => {:multipart => true} do |f|%>
+         <%= f.hidden_field :upload, :value => "upload" %>
+        <%=  file_column_field "user", "image_path" %>
+        <%=submit_tag "Save"%>
+        <% end %>
+      </div>
+      <script type="text/javascript">
+        function popup()
+        {
+            $('upload').appear();
+            $('upload').appear({ duration: 3.0 });
+        }
+      </script>
 	  <p>
+
 	  	<span class="txt_80_333"><%=I18n.t('user.location')%>  :</span> <span class="txt_80_666"><%= @current_object.company %></span><br>
 	    <span class="txt_80_333"><%=I18n.t('user.activity')%> : </span><span class="txt_80_666"><%= @current_object.activity %></span>
 	  </p>
