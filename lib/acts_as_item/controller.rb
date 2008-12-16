@@ -39,7 +39,7 @@ module ActsAsItem
           before :create do
             current_object.user_id = current_user.id
           end
-
+					
 					response_for :show do |format|
 						format.html # index.html.erb
 						format.xml { render :xml=>@current_object }
