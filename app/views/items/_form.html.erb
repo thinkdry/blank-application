@@ -1,6 +1,6 @@
 <fieldset>
   <legend><%= title %></legend>
-  <% form_for @current_object, :builder => ArticFormBuilder, :html => {:multipart => true} do |f| -%>
+  <% form_for @current_object, :builder => BlankFormBuilder, :html => {:multipart => true} do |f| -%>
     
     <% is_copyright = (@current_object.state == 'copyright') ? true : false %>
     <% if is_copyright %>

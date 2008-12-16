@@ -12,7 +12,7 @@ class UserMailer < ActionMailer::Base
 	def signup_notification(user)
 		setup_email(user)
 		subject self.site_name+" : Ouverture de compte"
-		body :url => self.daurl+"/login",
+		body :url => self.daurl+"/#{user.activation_code}",
 			:site => self.site_name,
 			:user_login => user.login,
 			:user_password => user.password

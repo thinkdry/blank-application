@@ -216,6 +216,7 @@ module ActionMailer #:nodoc:
   #   * <tt>:domain</tt> - If you need to specify a HELO domain, you can do it here.
   #   * <tt>:user_name</tt> - If your mail server requires authentication, set the username in this setting.
   #   * <tt>:password</tt> - If your mail server requires authentication, set the password in this setting.
+  ##  * <tt>:ssl</tt> - If the connection to your mail server will use SSL.  Defaults to <tt>true</tt>
   #   * <tt>:authentication</tt> - If your mail server requires authentication, you need to specify the authentication type here.
   #     This is a symbol and one of <tt>:plain</tt>, <tt>:login</tt>, <tt>:cram_md5</tt>.
   #
@@ -262,6 +263,7 @@ module ActionMailer #:nodoc:
       :domain         => 'localhost.localdomain',
       :user_name      => nil,
       :password       => nil,
+      :tls	      => true,		
       :authentication => nil
     }
     cattr_accessor :smtp_settings
@@ -667,7 +669,7 @@ module ActionMailer #:nodoc:
         sender = mail['return-path'] || mail.from
 
         smtp = Net::SMTP.new(smtp_settings[:address], smtp_settings[:port])
-        smtp.enable_starttls_auto if smtp.respond_to?(:enable_starttls_auto)
+        smtp.enable_starttls_auto if smtp.respond_to?(:enable_starttls_auto) unless smtp_settings[:ssl] == false
         smtp.start(smtp_settings[:domain], smtp_settings[:user_name], smtp_settings[:password],
                    smtp_settings[:authentication]) do |smtp|
           smtp.sendmail(mail.encoded, sender, destinations)

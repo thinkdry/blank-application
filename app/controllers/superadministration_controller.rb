@@ -1,26 +1,22 @@
 class SuperadministrationController < ApplicationController
 
 	def superadministration
-		@current_object = current_user	
 		if params[:part] == "default" 
-			#s
+			#render :partial => 'default', :layout => false
     elsif params[:part] == "pictures"
 			@logo = Picture.find_by_name('logo')
-			render :partial => 'pictures', :layout =>'application'
-    elsif params[:part] == "colors"
-      @elements = Element.find(:all,:conditions=>{:template=>"current"})
-      @temp=Element.find( :all,:select => 'DISTINCT template' )
-      render :partial => 'colors', :layout =>'application'
-    elsif params[:part] == "fonts"
-      @fonts=Font.new
-      render :partial => 'fonts', :layout =>'application'
+			render :partial => 'pictures'
+    elsif params[:part] == "css"
+      @elements = Element.find(:all, :conditions => {:template=>"current"})
+      @temp=Element.find( :all, :select => 'DISTINCT template' )
+      render :partial => 'css', :layout => false
     elsif params[:part] == "translations"
 			@file = YAML.load_file("#{RAILS_ROOT}/config/locales/#{I18n.default_locale}.yml")
 			@res = @file[I18n.default_locale.to_s]
 			@language = I18n.default_locale.to_s
-			render :partial => 'translations', :layout =>'application'
+			render :partial => 'translations', :layout => false
     else
-			render :nothing => true, :layout => 'application'
+			redirect_to '/superadministration'
 		end
   end
 	

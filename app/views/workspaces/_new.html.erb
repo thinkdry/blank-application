@@ -1,7 +1,7 @@
 <fieldset>
 	<legend><%=I18n.t('workspace.create_a_new_workspace')%></legend>
-	<% form_for @workspace, :builder => ArticFormBuilder do |f| -%>
-		<%= f.text_field :name, :label => I18n.t('general.name') + " :" %>
+	<% form_for @workspace, :builder => BlankFormBuilder do |f| -%>
+		<%= f.text_field :title, :label => I18n.t('general.name') + " :" %>
 		<%= f.advanced_editor :description, :label => I18n.t('general.description') + " :" %>
 		<%= f.submit I18n.t('general.create') %>
 	<% end %>

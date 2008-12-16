@@ -2,7 +2,7 @@
 #I18n.load_path << "#{RAILS_ROOT}/config/translations.yml"
 
 
-I18n.default_locale = "fr-FR"
+I18n.default_locale = "en-US"
 #I18n.locale = 'fr-FR'
 #I18n.default_locale = 'fr-FR'
 #%w{yml rb}.each do |type|

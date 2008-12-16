@@ -1,7 +1,7 @@
 <fieldset class="myform">
   <legend><%=I18n.t('user.your_private_informations')%></legend>
 
-  <% form_for @user, :builder => ArticFormBuilder, :html => {:multipart => true} do |f| -%>
+  <% form_for @user, :builder => BlankFormBuilder, :html => {:multipart => true} do |f| -%>
     <%= f.text_field :login, :label => I18n.t('user.login'), :hint => "Votre nom d'utilisateur" if @user.new_record? %>
     <%= f.text_field :email, :label => I18n.t('user.email') %>
     <%= f.password_field :password, :label => I18n.t('user.password')%>

@@ -1,5 +1,6 @@
 <% item_show( :title => 'Article',  :object => @current_object ) do %>
   <h2> <%=I18n.t('general.article')%></h2>
+  
   <%= @current_object.body %>
   
   <% if @current_object.article_files.size > 0 %>

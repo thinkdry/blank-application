@@ -54,9 +54,9 @@ class FeedItem < ActiveRecord::Base
 	named_scope :from_workspace, lambda { |ws_id|
     raise 'WS expected' unless ws_id
     { :select => 'feed_items.*',
-      :joins => "LEFT JOIN users_workspaces ON users_workspaces.user_id = #{user_id} "+
+      :joins => "LEFT JOIN users_workspaces ON users_workspaces.user_id = #{ws_id} "+
 				"INNER JOIN items ON items.workspace_id = users_workspaces.workspace_id AND items.itemable_type = 'FeedSource' "+
-				"INNER JOIN feed_sources ON feed_sources.id = items.itemable_id OR feed_sources.user_id = #{user_id}",
+				"INNER JOIN feed_sources ON feed_sources.id = items.itemable_id OR feed_sources.user_id = #{ws_id}",
 			:conditions => "feed_items.feed_source_id = feed_sources.id"
     }
   }
@@ -65,7 +65,7 @@ class FeedItem < ActiveRecord::Base
     raise 'User expected' unless user_id
     return { } if User.find(user_id).is_admin?
     { :select => 'feed_items.*',
-      :joins => "LEFT JOIN items ON items.workspace_id = #{ws_id} AND items.itemable_type = 'FeedSource' LEFT JOIN feed_sources ON feed_sources.id = items.itemable_id ",
+      :joins => "LEFT JOIN items ON items.workspace_id = #{user_id} AND items.itemable_type = 'FeedSource' LEFT JOIN feed_sources ON feed_sources.id = items.itemable_id ",
       :conditions => "feed_items.feed_source_id = feed_sources.id"
     }
   }

@@ -18,7 +18,8 @@
 					false
 				end
 			
-			# Out	
-			check_box_tag(check_box_tag_name, w.id, checked) + ' ' + w.name
+			# Out
+            if
+			check_box_tag(check_box_tag_name, w.id, checked, :disabled => true) + ' ' + w.title
 			
 		end.join('<br />') %>

@@ -13,7 +13,7 @@
 <div class="area_BOTH">
   <% @workspaces.each do |w| %>
     <div class="area_WS" style="margin-bottom: 10px;">
-  		<h4><%= w.name %></h4>
+  		<h4><%= w.title %></h4>
   		<%=I18n.t('general.workspace')%> <%=I18n.t('user.administrator').pluralize%> : 	<%= link_to_user(w.creator) %>		<br />
   		<%=I18n.t('user.moderator').pluralize%> : 					<%= user_list_of(w, :moderators) %>	<br />
   		<%=I18n.t('user.writer').pluralize%> : 					<%= user_list_of(w, :writters) %>	<br />
