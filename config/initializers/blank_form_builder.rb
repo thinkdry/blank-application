@@ -17,6 +17,7 @@ module ActionView::Base::CompiledTemplates
           <tr>
             <td class="label"><label>#{object.label}</label></td>
             <td>#{@template.ajax_error_message_on(@object, object.method)}</td>
+						<td>#{@template.ajax_hint_message_on(@object, object.method, options[:hint])}</td>
           </tr>
           <tr>
             <td colspan="2">#{object}</td>
@@ -27,7 +28,7 @@ module ActionView::Base::CompiledTemplates
      
     def advanced_editor(field, *args)
       options = args.extract_options!
-      options = options.merge(:ajax => false, :template => :template_for_advanced_editor)
+      options = options.merge(:ajax => true, :template => :template_for_advanced_editor)
 
       '<br' +
         text_area(field, options) +

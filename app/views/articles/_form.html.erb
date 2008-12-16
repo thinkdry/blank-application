@@ -1,6 +1,6 @@
 <% form_for_item @current_object, title do |f| -%>
 
-  <%= f.advanced_editor(:body, :label => I18n.t('general.article')+ ' :') %>
+  <%= f.advanced_editor(:body, :label => I18n.t('general.article')+ ' :', :hint => "message pour") %>
 
   <% f.field :article_files, :label => I18n.t('general.associated_files') do %>
   

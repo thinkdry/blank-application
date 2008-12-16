@@ -9,19 +9,18 @@ module AjaxValidation
       "<span id=\"errors_for_#{object.class.to_s}_#{attribute.to_s}\">
         #{error_message_on(object, attribute) if object.errors.on(attribute)}
       </span>"
-    end
+		end
     
     def ajax_hint_message_on(object, attribute, message)
       hint_message_id = 'hint_for_' + object.class.to_s + '_' + attribute.to_s
       field_id = object.class.to_s.underscore +  "_" + attribute.to_s.downcase
-      
-      javascript_tag("
-        Event.observe('#{field_id}', 'focus', function() { #{ update_page { |p| p[hint_message_id].show } } })
-        Event.observe('#{field_id}', 'blur',  function() { #{ update_page { |p| p[hint_message_id].hide } } })
-      ") +
       "<div id=\"#{hint_message_id}\" class=\"ajax_hint_message\" style=\"display:none\">
         #{message}
-      </div>"
+      </div>" +
+			"<script type='text/javascript'>
+				Event.observe('#{field_id}', 'focus', function() { $('#{hint_message_id}').show() })
+        Event.observe('#{field_id}', 'blur',  function() { $('#{hint_message_id}').hide() })
+      </script>"
     end
   end  
   
@@ -38,13 +37,6 @@ module AjaxValidation
         end
       end
       
-      def default_template(object)
-        @template.content_tag(:p,
-          @template.label(object.object_name, object.method, object.label) + '<br />' +
-          object
-        )
-      end
-      
       def field(field, *args, &block)
         @template.concat(labelize(field, *args) { @template.capture(&block) }, block.binding)
       end
@@ -56,12 +48,13 @@ module AjaxValidation
         options = args.extract_options!        
         options[:ajax] = true if options[:ajax].nil?
         options[:onblur] = @template.ajax_validation(object, field) if options[:ajax]
-        
+        #options[:onchange] = "$('errors_for_#{object.class.to_s}_#{field.to_s}').hide()"
         label = options.delete(:label) || field.to_s.capitalize
 
         proc = Proc.new do
           obj = yield(field, *(args << options))
           obj += @template.ajax_error_message_on(object, field) if options[:ajax]
+					obj += @template.ajax_hint_message_on(object, field, options[:hint]) if !options[:hint].blank?
           obj.instance_exec do
             @label = label.to_s
             @object = object
