@@ -18,7 +18,10 @@ class ApplicationController < ActionController::Base
       redirect_to login_path
     end
   end
-	
+
+	def available_items_list
+		return ITEMS_LIST
+	end
 
   private
   def set_locale
@@ -30,6 +33,7 @@ class ApplicationController < ActionController::Base
 			I18n.locale = I18n.default_locale
 		end
   end
+
 	
 	
 end

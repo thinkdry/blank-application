@@ -1,32 +1,10 @@
 class GenericItem < ActiveRecord::Base
   self.inheritance_column = :item_type
-  
-  named_scope :images,
-    :conditions => { :item_type => 'Image' }
-  
-  named_scope :videos,
-    :conditions => { :item_type => 'Video' }
-  
-  named_scope :audios,
-    :conditions => { :item_type => 'Audio' }
-  
-  named_scope :files,
-    :conditions => { :item_type => 'CmsFile' }
-    
-  named_scope :cms_files,
-    :conditions => { :item_type => 'CmsFile' }
 
-  named_scope :articles,
-    :conditions => { :item_type => 'Article' }
-  
-  named_scope :publications,
-    :conditions => { :item_type => 'Publication' }
-  
-	named_scope :feed_sources,
-    :conditions => { :item_type => 'FeedSource' }
-	
-	named_scope :bookmarks,
-    :conditions => { :item_type => 'Bookmark' }
+	ITEMS_LIST.each do |item|
+		named_scope item.pluralize.to_sym,
+			:conditions => { :item_type => item.camelize }
+	end
 	
   named_scope :from_workspace, lambda { |ws_id|
     raise 'WS expected' unless ws_id

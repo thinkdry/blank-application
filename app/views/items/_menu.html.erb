@@ -3,7 +3,7 @@
 		<span class="titre"><%=I18n.t('general.filter')%></span><br>
 		<ul>
 			<% 
-				[:article, :image, :cms_file, :video, :audio, :publication, :feed_source, :bookmark].each do |elem|
+				ITEMS_LIST.map{ |item| item.pluralize.to_sym}.each do |elem|
 					model = elem.to_s.classify.constantize
 					
 					helper_name = String.new

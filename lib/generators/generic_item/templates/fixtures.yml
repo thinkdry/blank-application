@@ -1,0 +1,6 @@
+<% 1.upto(300) do |i| %>
+    <%= class_name %>_<%= i %>:
+        user: quentin
+        title: <%= class_name %> (<%= i %>)
+        description: <%= class_name %> empty for fixtures
+<% end %>

@@ -10,4 +10,5 @@ class Audio < ActiveRecord::Base
   def self.label
     "Audio"
   end
+	
 end

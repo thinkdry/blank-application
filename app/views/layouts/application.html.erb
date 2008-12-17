@@ -91,30 +91,11 @@
           <option selected="selected" value='#'>
             --------
           </option>
-          <option value="<%= new_item_path(Article) %>">
-            <%= I18n.t 'general.article' %>
-          </option>
-          <option value="<%= new_item_path(Image) %>">
-            <%= I18n.t 'general.picture' %>
-          </option>
-          <option value="<%= new_item_path(Audio) %>">
-            <%= I18n.t 'general.audio' %>
-          </option>
-          <option value="<%= new_item_path(Video) %>">
-            <%= I18n.t 'general.video' %>
-          </option>
-          <option value="<%= new_item_path(CmsFile) %>">
-            <%= I18n.t 'general.file' %>
-          </option>
-          <option value="<%= new_item_path(Publication) %>">
-            <%= I18n.t 'general.publication' %>
-          </option>
-          <option value="/feed_sources/what_to_do">
-            <%= I18n.t 'general.feed_source' %>
-          </option>
-          <option value="<%= new_item_path(Bookmark) %>">
-            <%= I18n.t 'general.bookmark' %>
-          </option>
+          <% ITEMS_LIST.each do |type| %>
+            <option value="<%= new_item_path(type.camelize) %>">
+              <%= I18n.t "general.#{type}" %>
+            </option>
+          <% end %>
         </select>
       </form>
     </div>

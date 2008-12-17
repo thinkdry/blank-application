@@ -12,16 +12,15 @@ class User < ActiveRecord::Base
 
   has_many :users_workspaces, :dependent => :delete_all
   has_many :workspaces, :through => :users_workspaces
-  has_many :cms_files
-  has_many :audios
-  has_many :videos
-  has_many :images
-  has_many :articles
+
+	ITEMS_LIST.each do |item|
+		has_many item.pluralize.to_sym
+	end
+
   has_many :rattings
   has_many :comments
-  has_many :feed_sources
+
   has_many :feed_items, :through => :feed_sources, :order => "last_updated"
-	has_many :bookmarks
   belongs_to :system_role
   
   file_column :image_path, :magick => {:size => "200x200>"}
@@ -78,11 +77,11 @@ class User < ActiveRecord::Base
     :limit => 5
   
   def items
-    (self.cms_files +
-  	 self.audios      +
-  	 self.videos      +
-  	 self.images      +
-  	 self.articles).sort { |a, b| a.created_at <=> b.created_at }
+		@items = []
+		ITEMS_LIST.map{ |item| item.pluralize }.each do |item|
+			@items + self.send(item)
+		end
+		@items.sort { |a, b| a.created_at <=> b.created_at }
   end
   
   def self.authenticate(login, password)

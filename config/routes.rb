@@ -26,12 +26,11 @@ ActionController::Routing::Routes.draw do |map|
 	
   map.connect '/stylesheets/:action.:format', :controller => 'stylesheets'
 
-   
   # Items are CMS component types
   # => Those items may be scoped to different resources
   def items_ressources(parent)  	
-    [:items, :articles, :audios, :videos, :cms_files, :publications, :images, :feed_sources, :bookmarks].each do |name|
-      parent.resources name, :member => {
+ 		(ITEMS_LIST+['item']).each do |name|
+      parent.resources name.pluralize.to_sym, :member => {
         :rate => :any,
         :add_tag => :any,
         :remove_tag => :any,
