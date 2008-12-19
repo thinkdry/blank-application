@@ -24,9 +24,7 @@
 require 'rss/1.0'
 require 'rss/2.0'
 require 'open-uri'
-require 'feed-normalizer'
 require 'regexps'
-require 'iconv'
 require 'rfeedparser'
 
 class FeedSource < ActiveRecord::Base
