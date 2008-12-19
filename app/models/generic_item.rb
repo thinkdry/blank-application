@@ -1,3 +1,21 @@
+# == Schema Information
+# Schema version: 20181126085723
+#
+# Table name: generic_items
+#
+#  item_type          :string(11)      default(""), not null
+#  id                 :integer(4)      default(0), not null, primary key
+#  user_id            :integer(4)
+#  user_name          :text(2147483647
+#  title              :string(255)
+#  description        :text
+#  created_at         :datetime
+#  updated_at         :datetime
+#  number_of_comments :integer(8)
+#  workspace_titles   :string(341)
+#  average_rate       :decimal(14, 4)
+#
+
 class GenericItem < ActiveRecord::Base
   self.inheritance_column = :item_type
 

@@ -8,7 +8,7 @@ class BookmarksController < ApplicationController
       # Creation from an FeedItem
       if params[:feed_item_id]
         @feed_item = FeedItem.find(params[:feed_item_id])
-        %W(title description authors link content copyright categories).each do |field|
+        %W(title description enclosures link copyright categories).each do |field|
           @current_object.send("#{field}=", @feed_item.send(field))
 				end
 				@current_object.state = 'copyright'

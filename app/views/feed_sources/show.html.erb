@@ -3,8 +3,8 @@
 <h2>URL</h2>
 <%= @current_object.url %><br /><br/>
 
-<h2><%= link_to_function "Print items", "if $('itemss').visible() $('itemss').show() else $('itemss').hide()" %></h2>
-<div id='itemss' onload="$('itemss').hide()">
+<h2><%= link_to_function "Print items", "{ if ($('itemss').visible()) $('itemss').writeAttribute('class', 'visible'); else $('itemss').writeAttribute('class', 'hidden'); }" %></h2>
+<div id='itemss' class='hidden' onload="Element.hide( this ) ">
   <%= render :partial => "item", :collection => @feed_items %>
   <%= will_paginate @feed_items %>
 </div>

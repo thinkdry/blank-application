@@ -1,6 +1,7 @@
 <% item_show(:title => I18n.t('general.publication'),  :object => @current_object ) do %>
-	<h2><%=I18n.t('general.author')%>(s)</h2>
-	<%= @current_object.authors %>
+  
+	<%#=I18n.t('general.author')%>
+	<%#= @current_object.authors %>
 	
 	<% if @current_object.file_path %>
 		<h2><%=I18n.t('general.associated_files')%></h2>

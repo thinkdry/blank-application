@@ -92,9 +92,15 @@
             --------
           </option>
           <% ITEMS_LIST.each do |type| %>
-            <option value="<%= new_item_path(type.camelize) %>">
-              <%= I18n.t "general.#{type}" %>
-            </option>
+            <% if type=='feed_source' %>
+              <option value="/feed_sources/what_to_do">
+                <%= I18n.t "general.#{type}" %>
+              </option>
+            <% else %>
+              <option value="<%= new_item_path(type.camelize) %>">
+                <%= I18n.t "general.#{type}" %>
+              </option>
+            <% end %>
           <% end %>
         </select>
       </form>

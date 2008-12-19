@@ -1,3 +1,16 @@
+# == Schema Information
+# Schema version: 20181126085723
+#
+# Table name: items
+#
+#  id            :integer(4)      not null, primary key
+#  itemable_type :string(255)
+#  itemable_id   :integer(4)
+#  workspace_id  :integer(4)
+#  created_at    :datetime
+#  updated_at    :datetime
+#
+
 <% ITEMS_LIST.map{ |item| item.camelize }.each do |model| %>
     <% puts "#{model.to_s} : #{Kernel.const_get(model).count} elements" %>
     <% Kernel.const_get(model).all.each do |instance| %>

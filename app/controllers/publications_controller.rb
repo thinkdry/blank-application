@@ -9,7 +9,7 @@ class PublicationsController < ApplicationController
       # => Export values from the existing PubmedItem to the new Publication
       if params[:feed_item_id]
         @feed_item = FeedItem.find(params[:feed_item_id])
-        %W(title description authors link content copyright categories).each do |field|
+        %W(title description link enclosures copyright categories).each do |field|
           @current_object.send("#{field}=", @feed_item.send(field))
         end
 				@current_object.state = 'copyright'

@@ -28,7 +28,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # Items are CMS component types
   # => Those items may be scoped to different resources
-  def items_ressources(parent)  	
+  def items_resources(parent)  	
  		(ITEMS_LIST+['item']).each do |name|
       parent.resources name.pluralize.to_sym, :member => {
         :rate => :any,
@@ -37,23 +37,20 @@ ActionController::Routing::Routes.draw do |map|
         :comment => :any
       }
     end
-    # Publication sources are private, but need to be scoped to import publication
-    # into right workspace
-    # parent.resources :feed_sources
   end
-
 	map.check_feed '/feed_sources/check_feed', :controller => 'feed_sources', :action => 'check_feed'
   map.what_to_do '/feed_sources/what_to_do', :controller => 'feed_sources', :action => 'what_to_do'
-
+	#map.resources :feed_items
+	
   # Items created outside any workspace are private or fully public.
   # Items may be acceded by a list that gives all items the user can consult.
   # => (his items, the public items, and items in workspaces he has permissions)
-  items_ressources(map)
+  items_resources(map)
 
   # Items in context of workspaces
   map.resources :workspaces, :member => { :add_new_user => :any } do |workspaces|
     workspaces.content '/:item_type', :controller => 'workspaces', :action => 'show', :conditions => { :method => :get }
-    items_ressources(workspaces)
+    items_resources(workspaces)
   end
   
   # Project management

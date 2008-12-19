@@ -1,3 +1,17 @@
+# == Schema Information
+# Schema version: 20181126085723
+#
+# Table name: comments
+#
+#  id               :integer(4)      not null, primary key
+#  text             :text
+#  user_id          :integer(4)
+#  commentable_id   :integer(4)
+#  commentable_type :string(255)
+#  created_at       :datetime
+#  updated_at       :datetime
+#
+
 # 1 to 3 comments by user on first article
 <% User.all.each do |u| %>
     <% (1 + rand(2)).times do |i| %>

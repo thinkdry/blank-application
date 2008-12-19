@@ -3,14 +3,11 @@
 		<h2><%=I18n.t('bookmark.url')%></h2>
 		<%= link_to @current_object.link, @current_object.link %>
 		
-		<h2><%=I18n.t('general.content')%></h2>
-		<%= @current_object.content %>	
-		
-		<h2><%=I18n.t('general.author').pluralize%></h2>
-		<%= @current_object.authors %>
+		<%#=I18n.t('general.author').pluralize%>
+		<%#= @current_object.authors %>
 		
 		<h2><%=I18n.t('general.publishing_date')%></h2>
-		<%#= I18n.l @current_object.date_published, :format => :short %>
+		<%= I18n.l @current_object.date_published, :format => :short %>
 		
 		<h2><%=I18n.t('general.category').pluralize%></h2>
 		<%= @current_object.categories %>

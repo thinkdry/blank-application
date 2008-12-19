@@ -1,3 +1,19 @@
+# == Schema Information
+# Schema version: 20181126085723
+#
+# Table name: audios
+#
+#  id          :integer(4)      not null, primary key
+#  user_id     :integer(4)
+#  title       :string(255)
+#  description :text
+#  state       :string(255)
+#  file_path   :string(255)
+#  created_at  :datetime
+#  updated_at  :datetime
+#  tags        :string(255)
+#
+
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 require File.expand_path(File.dirname(__FILE__) + '/items_spec_helper')
 

@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   before_filter :is_logged?
 	before_filter :set_locale
-		
+
 	include AuthenticatedSystem
 	include ActsAsItem::UrlHelpers
 	
