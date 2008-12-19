@@ -12,6 +12,7 @@ DEFAULTS: &DEFAULTS
       phone:        0112345678
       address:        15 rue Leonard
       activity:        Chercheur
+      nationality:        India
       activated_at: <%= Time.now.to_s :db %>
 
 quentin: 

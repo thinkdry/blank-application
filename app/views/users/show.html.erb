@@ -2,24 +2,21 @@
 	<div id="area_PROFIL">
 		<span class="titre"><%=I18n.t('user.private_informations')%></span><br>
 		<%= @current_object.firstname %> <%= @current_object.lastname %> 
-	  <%if @current_user.image_path %>
-  	    <%= image_submit_tag(url_for_file_column(@current_user, 'image_path'), :class => "avatar", :align => "right", :onclick=>'popup();')%>
+	  <%if @current_object.image_path %>
+  	    <%= image_tag(url_for_file_column(@current_object, 'image_path'), :class => "avatar", :align => "right", :onclick=>'popup(this);')%>
       <%else%>
-         <%= image_submit_tag(('/user/image_path/default/user.png'), :class=>"avatar", :align=>"right", :onclick=>'popup()') %>
+         <%= image_tag(('/user/image_path/default/user.png'), :class=>"avatar", :align=>"right", :onclick=>'popup(this)') %>
       <% end %>
-      <div id="upload" style="display:none">
-         <%form_for @current_user , :html => {:multipart => true} do |f|%>
-         <%= f.hidden_field :upload, :value => "upload" %>
-        <%=  file_column_field "user", "image_path" %>
-        <%=submit_tag "Save"%>
-        <% end %>
-      </div>
+      
       <script type="text/javascript">
-        function popup()
-        {
-            $('upload').appear();
-            $('upload').appear({ duration: 3.0 });
-        }
+            function popup()
+            {
+
+              $('upload').appear();
+              $('upload').appear({ duration: 3.0 });
+
+            }
+
       </script>
 	  <p>
 
@@ -37,7 +34,7 @@
 	    <span class="txt_80_666"><%= @current_object.edito %></span>
 	  </p>
 	  
-		<%= link_to I18n.t('user.update_private_informations'), edit_object_path, :class => "txt_80_666_bis" if permit? "edition of user" %>
+		<%= link_to I18n.t('user.update_private_informations'), edit_user_path, :class => "txt_80_666_bis" if permit? "edition of user" %>
 	</div>
 </div>
 <div id="area_DROITS">

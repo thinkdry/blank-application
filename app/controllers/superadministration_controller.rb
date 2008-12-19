@@ -14,7 +14,7 @@ class SuperadministrationController < ApplicationController
 			@file = YAML.load_file("#{RAILS_ROOT}/config/locales/#{I18n.default_locale}.yml")
 			@res = @file[I18n.default_locale.to_s]
 			@language = I18n.default_locale.to_s
-			render :partial => 'translations', :layout => false
+			  render :partial => 'translations', :layout => false
     else
 			redirect_to '/superadministration'
 		end
@@ -70,7 +70,7 @@ class SuperadministrationController < ApplicationController
          #render :action => "/"
       #end
    #end
-	
+   	
 	def language_switching
 		@yaml = YAML.load_file("#{RAILS_ROOT}/config/locales/#{params[:locale_to_conf]}.yml")
 		@res = @yaml[params[:locale_to_conf].to_s]
@@ -81,14 +81,21 @@ class SuperadministrationController < ApplicationController
 			render :text => "Impossible d'ouvrir le fichier de langue demandé."
 		end
   end
+
 	
 	def translations_changing
 		@yaml = YAML.load_file("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml")
 		
-		["layout", "form", "other"].each do |type|
+		["general","layout", "user", "login","home","workspace","item","file","audio","video","publication","bookmark"].each do |type|
 			if params[type.to_sym] && @yaml[params[:language].to_s][type]
 				params[type.to_sym].each do |k, v|
-					@yaml[params[:language]][type][k] = v.to_s
+					if @yaml[params[:language]][type][k]
+            @yaml[params[:language]][type][k] = v.to_s
+          else
+             @yaml[params[:language]][type][k]=k.to_s
+             @yaml[params[:language]][type][k]=v.to_s
+             
+          end
 				end
 			else
 				flash[:notice] = "Params vide ou section absente du fichier"
@@ -98,11 +105,12 @@ class SuperadministrationController < ApplicationController
 		
 		File.rename("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml", "#{RAILS_ROOT}/config/locales/old_#{params[:language]}.yml")
 		@new = File.new("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml", "w+")
-		if @new.puts(@yaml.to_yaml)
-			flash[:notice] = "Mise à jour avec succès"
+    
+		if @new.puts(@yaml.to_yaml) 
+			flash[:notice] = "Updated Sucessfully"
 			redirect_to '/superadministration/default'
 		else
-			flash[:notice] = "Mise à jour avec échec"
+			flash[:notice] = "Update Failed"
 			redirect_to '/superadministration/default'
 		end
 		

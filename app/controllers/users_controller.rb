@@ -13,7 +13,8 @@ class UsersController < ApplicationController
     
     before :edit, :update do
       permit "edition of user"
-    end
+       end
+    
     
     before :new, :create do
       permit "creation of user"

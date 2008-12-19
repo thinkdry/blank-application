@@ -1,33 +1,107 @@
 <fieldset class="myform">
   <legend><%= @language %></legend>
+       <% form_for :res, :url => translations_changing_superadministration_path do |f| %>
+             <label>Select a Section</label><%= select_tag "element", options_for_select([ "Select","general" ,"layout", "user","item", "home","workspace" ], "Select"),:onchange=>"changer(this.value)"%>
+             <input id="language" name="language" type="hidden" value=<%= @language.to_s %>>
+             <div id="general" style="display:none;">
+             <%type='general'%>
+             <table>
+             <% if @res[type] %>
+                 <% @res[type].each do |k, v| %>
+                   <tr>
+                      <td><%= k %></td>
+                      <td><%= text_field type.to_sym, k, :value => v %></td>
+                  </tr>
+                 <% end %>
+             <% else %>
+                 Pas de champs pour cette partie.<br />
+             <% end %>
+              </table>
+            </div>
+	         <div id="layout" style="display:none;">
+             <table>
+             <%type='layout'%>
+             <% if @res[type] %>
+                <% @res[type].each do |k, v| %>
+                    <tr>
+                        <td><%= k %></td>
+                        <td><%= text_field type.to_sym, k, :value => v %></td>
+                    </tr>
+                <% end %>
+                
+              <% end %>
+              </table>
+             
+              </div>
+             
+            <div id="user" style="display:none;">
+              <table>
+              <%["user", "login"].each do |type|%>
+                 <% if @res[type] %>
+                    <% @res[type].each do |k, v| %>
+                   <tr>
+                     <td><%= k %></td>
+                     <td><%= text_field type.to_sym, k, :value => v %></td>
+                    </tr>
+                    <% end %>
+                 <% end %>
+              <% end %>
+              </table>
+              </div>
 
-	<% form_for :res, :url => translations_changing_superadministration_path do |f| %>
-	
-	<input id="language" name="language" type="hidden" value=<%= @language.to_s %>>
-	
-	<% ["layout", "form", "other"].each do |type| %>
-		
-		<%= type.upcase %><br /><br />
-		
-		<% if @res[type] %>
-			<% @res[type].each do |k, v| %>
-				<%= k %> : <%= text_field type.to_sym, k, :value => v %><br />
-			<% end %>
-		<% else %>
-			Pas de champs pour cette partie.<br />
-		<% end %>
-		
-		<br />
-		
-	<% end %>
-		
-	<div class="buttons" id="area_BUTTONS" style="padding-top: 2em">
-      <button type="submit" class="positive"><img src="/images/tick.png" alt=""/>Mettre à jour</button>
-      <button type="reset" class="negative"><img src="/images/cross.png" alt=""/>Annuler</button>
-  </div>
+            <div id="home" style="display:none;">
+             <table>
+             <%type='home'%>
+             <% if @res[type] %>
+                <% @res[type].each do |k, v| %>
+                   <tr>
+                    <td><%= k %></td>
+                    <td><%= text_field type.to_sym, k, :value => v %></td>
+                   </tr>
+                <% end %>
+              <% end %>
+              </table>
+             </div>
 
-	<% end %>
-	
-<%= "eee " + @res["layout"]["title"].to_s %>
+            <div id="workspace" style="display:none;">
+              <table>
+             <%type='workspace'%>
+             <% if @res[type] %>
+                <% @res[type].each do |k, v| %>
+                    <tr>
+                      <td><%= k %></td>
+                      <td><%= text_field type.to_sym, k, :value => v %></td>
+                    </tr>
+                <% end %>
+              <% end %>
+              </table>
+            </div>
+            <div id="item" style="display:none;">
+              <table>
+              <%["item","file","audio","video","article","bookmark","publication"].each do |type|%>
+                  <% if @res[type] %>
+                    <% @res[type].each do |k, v| %>
+                      <tr>
+                         <td><%= k %></td>
+                         <td><%= text_field type.to_sym, k, :value => v %></td>
+                      </tr>
+                    <% end %>
+                 <% end %>
+              <% end %>
+              </table>
+            </div>
+		<br />	
+         <div class="buttons" id="area_BUTTONS" style="padding-top: 2em">
+            <button type="submit" class="positive"><img src="/images/tick.png" alt=""/>Mettre à jour</button>
+            <button type="reset" class="negative"><img src="/images/cross.png" alt=""/>Annuler</button>
+        </div><br><br>
+    <% end %>
+<div id="newlabel" style="display:none">
+  <label>Key</label><input id="key" type="text" name="key">
+  <label>Value</label><input id="value" type="text" name="value">
+  <%=link_to_function "New Label", :onclick=>"newlabel()"%>
+</div>
+ 
+<%#= "eee " + @res["layout"]["title"].to_s %>
 	
 </fieldset>

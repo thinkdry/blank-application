@@ -1,7 +1,40 @@
 <div id="area_TITLE">
   <h1>Super Administration</h1>
 </div>
+<script type="text/javascript">
 
+ function newlabel()
+{
+  str=$('key').value+"</td><td><input type=text id="+$('element').value+"_"+$('key').value+" value="+$('value').value+" name="+$('element').value+"["+$('key').value+"]"+" size='30'>"
+  $($('element').value).innerHTML+=str;
+}
+
+function changer(pop)
+  {
+    reset();
+    if (pop=='Select')
+     {
+      $('newlabel').hide();
+      return;
+     }
+    else
+      {
+        $(pop).show();
+        $('newlabel').show();
+      }
+  }
+  function reset()
+  {
+     $('home').hide();
+     $('workspace').hide();
+     $('user').hide();
+     $('layout').hide();
+     $('item').hide();
+     $('general').hide();
+  }
+  
+
+</script>
 <ul id="top_elems" class="subsection_tabs without_img">  
 	<li class="tab"><%= link_to_remote "Pictures manager", :update => 'top_box', :url => superadministration_path(:part => 'pictures') %></li>
     <li class="tab"><%= link_to_remote "CSS manager", :update => 'top_box', :url => superadministration_path(:part => 'css') %></li>

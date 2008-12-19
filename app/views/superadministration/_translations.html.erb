@@ -5,7 +5,7 @@
   <%= link_to_remote image_tag('countries/en.jpg'), :update => 'tablo', :url => language_switching_superadministration_path(:locale_to_conf => "en-US") %>
   <%= link_to_remote image_tag('countries/es.jpg'), :update => 'tablo', :url => language_switching_superadministration_path(:locale_to_conf => "es-ES") %>
   <%= link_to_remote image_tag('countries/fr.jpg'), :update => 'tablo', :url => language_switching_superadministration_path(:locale_to_conf => "fr-FR") %>
-			
+ 
   <div id='tablo'>
     <%= render :partial => 'superadministration/translations_tab', :locals => {:file => @file} %>
   </div>
