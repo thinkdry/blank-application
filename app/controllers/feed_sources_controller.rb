@@ -1,24 +1,27 @@
 class FeedSourcesController < ApplicationController
-  acts_as_ajax_validation
   
 	acts_as_ajax_validation
   acts_as_item do
 
 		before :new do
 			if params[:url]
-				if (@feed=FeedNormalizer::FeedNormalizer.parse open(params[:url]), :force_parser => FeedNormalizer::SimpleRssParser)
+				#if (@feed=FeedNormalizer::FeedNormalizer.parse open(params[:url]), :force_parser => FeedNormalizer::SimpleRssParser)
+				if 	(@feed=FeedParser.parse(open(params[:url])))
 					@current_object = FeedSource.new(
-						:remote_id => @feed.id,
-						:title => @feed.title,
-						:description => @feed.description,
-						:authors => @feed.authors.join(' ,'),
-						:last_updated => @feed.last_updated,
-						:link => @feed.url,
+						:etag => @feed.etag,
+						:version => @feed.version,
+						:encoding => @feed.encoding,
+						:language => @feed.feed.language,
+						:title => @feed.feed.title,
+						:description => @feed.feed.description,
+						#:authors => @feed.authors.join(' ,'),
+						:categories => @feed.feed.tags ? @feed.feed.tags.map{ |tag| tag["term"]}.to_s : nil,
+						:last_updated => @feed.updated,
+						:link => @feed.link,
 						:url => params[:url],
-						:copyright => @feed.copyright,
-						:generator => @feed.generator,
-						:ttl => @feed.ttl,	
-						#:image => @feed.image
+						:copyright => @feed.rights,
+						:ttl => @feed.feed.ttl,
+						:image => @feed.image,
 						:state => 'copyright'
 					)
 					flash[:notice] = "Ce feed a retourné ces informations, validez-les pour y souscrire."
@@ -36,7 +39,7 @@ class FeedSourcesController < ApplicationController
     
     before :show do
       permit "consultation of current_object"
-			@feed_items = @current_object.feed_items.paginate(:page => params[:page], :per_page => 15)
+			@feed_items = @current_object.feed_items.paginate(:page => params[:page], :per_page => 10)
     end
 		
   end
@@ -52,7 +55,7 @@ class FeedSourcesController < ApplicationController
 			redirect_to '/feed_sources/what_to_do'
 		elsif (@feed=FeedSource.find(:first, :conditions => { :url => daurl, :user_id => current_user.id }))
 			flash[:notice] = "Déjà souscrit"
-			redirect_to feed_item_path(@feed.id)
+			redirect_to feed_source_path(@feed.id)
 		else
 			redirect_to "/feed_sources/new?url=#{daurl}"
 		end

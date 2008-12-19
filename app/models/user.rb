@@ -1,3 +1,33 @@
+# == Schema Information
+# Schema version: 20181126085723
+#
+# Table name: users
+#
+#  id                        :integer(4)      not null, primary key
+#  login                     :string(40)
+#  firstname                 :string(255)
+#  lastname                  :string(255)
+#  email                     :string(255)
+#  address                   :string(500)
+#  company                   :string(255)
+#  phone                     :string(255)
+#  mobile                    :string(255)
+#  activity                  :string(255)
+#  nationality               :string(255)
+#  edito                     :text
+#  image_path                :string(500)
+#  crypted_password          :string(40)
+#  salt                      :string(40)
+#  activation_code           :string(40)
+#  activated_at              :datetime
+#  password_reset_code       :string(40)
+#  system_role_id            :integer(4)
+#  created_at                :datetime
+#  updated_at                :datetime
+#  remember_token            :string(40)
+#  remember_token_expires_at :datetime
+#
+
 require 'digest/sha1'
 require 'regexps'
 require 'country_select'
@@ -12,16 +42,15 @@ class User < ActiveRecord::Base
 
   has_many :users_workspaces, :dependent => :delete_all
   has_many :workspaces, :through => :users_workspaces
-  has_many :cms_files
-  has_many :audios
-  has_many :videos
-  has_many :images
-  has_many :articles
+
+	ITEMS_LIST.each do |item|
+		has_many item.pluralize.to_sym
+	end
+
   has_many :rattings
   has_many :comments
-  has_many :feed_sources
+
   has_many :feed_items, :through => :feed_sources, :order => "last_updated"
-	has_many :bookmarks
   belongs_to :system_role
   
   file_column :image_path, :magick => {:size => "200x200>"}
@@ -78,11 +107,11 @@ class User < ActiveRecord::Base
     :limit => 5
   
   def items
-    (self.cms_files +
-  	 self.audios      +
-  	 self.videos      +
-  	 self.images      +
-  	 self.articles).sort { |a, b| a.created_at <=> b.created_at }
+		@items = []
+		ITEMS_LIST.map{ |item| item.pluralize }.each do |item|
+			@items + self.send(item)
+		end
+		@items.sort { |a, b| a.created_at <=> b.created_at }
   end
   
   def self.authenticate(login, password)

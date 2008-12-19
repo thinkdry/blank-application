@@ -235,10 +235,10 @@ en-US:
     publish_my_comment: Publish my comment
     your_comment: Your comment
     article: Article
-    picture: Picture
+    image: Picture
     audio: Audio
     video: Video
-    file: File
+    cms_file: File
     publication: Publication
     feed_source: RSS feed
     bookmark: Bookmark

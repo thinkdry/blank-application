@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   before_filter :is_logged?
 	before_filter :set_locale
-		
+
 	include AuthenticatedSystem
 	include ActsAsItem::UrlHelpers
 	
@@ -18,7 +18,10 @@ class ApplicationController < ActionController::Base
       redirect_to login_path
     end
   end
-	
+
+	def available_items_list
+		return ITEMS_LIST
+	end
 
   private
   def set_locale
@@ -30,6 +33,7 @@ class ApplicationController < ActionController::Base
 			I18n.locale = I18n.default_locale
 		end
   end
+
 	
 	
 end

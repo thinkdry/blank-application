@@ -8,13 +8,12 @@ class CreatePublications < ActiveRecord::Migration
 			t.text    :description
 			t.string	:state
       t.string  :link
-			t.string	:content
+			t.string	:enclosures
 			t.string	:authors
 			t.datetime :date_published
 			t.datetime :last_updated
 			t.string	:copyright
 			t.string	:categories
-			t.string	:file_path
       t.timestamps
     end
   end

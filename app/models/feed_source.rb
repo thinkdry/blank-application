@@ -1,16 +1,40 @@
+# == Schema Information
+# Schema version: 20181126085723
+#
+# Table name: feed_sources
+#
+#  id           :integer(4)      not null, primary key
+#  user_id      :integer(4)
+#  remote_id    :string(255)
+#  title        :string(255)
+#  description  :text
+#  state        :string(255)
+#  url          :string(1024)
+#  link         :string(1024)
+#  last_updated :datetime
+#  authors      :string(255)
+#  copyright    :string(255)
+#  generator    :string(255)
+#  ttl          :integer(4)
+#  image_path   :string(255)
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+
 require 'rss/1.0'
 require 'rss/2.0'
 require 'open-uri'
 require 'feed-normalizer'
 require 'regexps'
+require 'iconv'
+require 'rfeedparser'
 
 class FeedSource < ActiveRecord::Base
-  #has_many  :feed_sources_users, :dependent => :delete_all
-  
+
   acts_as_item
   acts_as_xapian :texts => [:title, :description, :tags, :authors]
   	
-	has_many  :feed_items , :dependent => :delete_all
+	has_many :feed_items , :dependent => :delete_all
 	
   validates_presence_of :title, :description, :url
 	#validates_uniqueness_of :title, :message => "Ce nom est déjà utilisé."
@@ -52,15 +76,38 @@ class FeedSource < ActiveRecord::Base
   end
 	
 	def rss_content2
-		return (FeedNormalizer::FeedNormalizer.parse open(self.url), :force_parser => FeedNormalizer::SimpleRssParser)
+		#return (FeedNormalizer::FeedNormalizer.parse open(self.url), :force_parser => FeedNormalizer::SimpleRssParser)
+		return FeedParser.parse(open(self.url))
   end
 
-  def import_latest_items
+	def import_latest_items
+		feed = self.rss_content2
+		#feed.clean!
+		feed.entries.each do |item|
+			# Be sure that the item hasnt been imported before
+			#if self.feed_items.count(:conditions => { :link => item.url, :feed_source_id => self.id }) <= 0
+				FeedItem.create({
+					:feed_source_id => self.id,
+					:guid						=> item.guid,
+					:title					=> item.title,
+					:description		=> item.description,
+					:enclosures     => item.enclosures,
+					#:authors				=> item.authors.join(' ,'),
+					:date_published => item.issued,
+					:last_updated		=> item.date,
+					:categories			=> item.tags ? item.tags.map{ |tag| tag["term"]}.to_s : nil,
+					:link           => item.url,
+					:copyright			=> item.rights })
+			#end
+		end
+	end
+
+  def import_latest_items2
 		feed = self.rss_content2
 		feed.clean!
 		feed.entries.each do |item|
 			# Be sure that the item hasnt been imported before
-			if self.feed_items.count(:conditions => { :title => item.title, :link => item.url }) <= 0
+			if self.feed_items.count(:conditions => { :link => item.url, :feed_source_id => self.id }) <= 0
 				self.feed_items.create({
 					:remote_id			=> item.id,
 					:title					=> item.title,
@@ -87,5 +134,19 @@ class FeedSource < ActiveRecord::Base
 	    self.errors.add(:url, "The url entered is not a compliant RSS/Atom Feed") 
     end
   end
+
+	def yop
+		return Iconv.new("utf8", "iso-8859-1")
+	end
+
+	def title=(value)
+		#yop.iconv(value)
+		super(value)
+	end
+
+	def description=(value)
+		#yop.iconv(value)
+		super(value)
+	end
   
 end

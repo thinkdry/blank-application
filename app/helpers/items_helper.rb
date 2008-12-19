@@ -73,7 +73,7 @@ module ItemsHelper
     
     # 2nd: Include private item
     unless current_workspace
-      [:images, :articles, :audios, :cms_files, :videos, :feed_sources, :bookmarks].each do |itemable_type|
+      available_items_list.map{ |item| item.pluralize.to_sym }.each do |itemable_type|
         items |= current_user.send(itemable_type)
       end
     end
@@ -136,15 +136,13 @@ module ItemsHelper
     item_type ||= 'articles'
     content = String.new
     
-    [Article, Image, CmsFile, Video, Audio, Publication, FeedSource, Bookmark].each do |item_model|
-      item_page = item_model.to_s.underscore.pluralize
-      item_human_name = item_model.label
+    ITEMS_LIST.map{ |item| item.camelize }.each do |item_model|
+      item_page = item_model.underscore.pluralize
       options = {}
       options[:class] = 'selected' if (item_type == item_page)
-
       content += content_tag(
         :li,
-        link_to(image_tag(item_model.icon) + item_human_name, items_path(item_model)),
+        link_to(image_tag(item_model.classify.constantize.icon) + I18n.t("general.#{item_model.underscore}"), items_path(item_model.classify.constantize)),
         options
       )
     end

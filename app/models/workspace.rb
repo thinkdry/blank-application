@@ -1,10 +1,24 @@
+# == Schema Information
+# Schema version: 20181126085723
+#
+# Table name: workspaces
+#
+#  id          :integer(4)      not null, primary key
+#  creator_id  :integer(4)
+#  description :text
+#  title       :string(255)
+#  state       :string(255)
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+
 class Workspace < ActiveRecord::Base
 	
 	has_many :users_workspaces, :dependent => :delete_all
 	has_many :roles, :through => :users_workspaces
 	has_many :users, :through => :users_workspaces
 	has_many :items, :dependent => :delete_all
-  has_many_polymorphs :itemables, :from => [:articles, :cms_files, :audios, :videos, :images, :publications, :feed_sources, :bookmarks], :through => :items
+  has_many_polymorphs :itemables, :from => ITEMS_LIST.map{ |item| item.pluralize.to_sym }, :through => :items
 	has_many :feed_items, :through => :feed_sources
 	belongs_to :creator, :class_name => 'User'
 	

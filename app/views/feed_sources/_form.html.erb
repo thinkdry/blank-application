@@ -1,9 +1,9 @@
 <% form_for_item @current_object, title do |f| %>
 
   <% is_copyright = (@current_object.state == 'copyright') ? true : false %>
-
+    
     <%= f.text_field :url, :label => "URL : ", :readonly => is_copyright %>
-    <%= f.text_field :authors, :label => "Auteur(s) : ", :readonly => is_copyright %>
+    <%#= f.text_field :authors, :label => "Auteur(s) : ", :readonly => is_copyright %>
     <% if is_copyright %>
       <%= f.datetime_select :last_updated, :label => "Dernière mise à jour :", :readonly => is_copyright %>
     <% else %>

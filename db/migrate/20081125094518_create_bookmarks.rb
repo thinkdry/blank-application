@@ -7,8 +7,8 @@ class CreateBookmarks < ActiveRecord::Migration
       t.string  :title
 			t.text    :description
 			t.string	:state
-      t.string  :link => 1024
-			t.string	:content
+      t.string  :link, :limit => 1024
+			t.string	:enclosures
 			t.string	:authors
 			t.datetime :date_published
 			t.datetime :last_updated

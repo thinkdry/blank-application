@@ -1,3 +1,16 @@
+# == Schema Information
+# Schema version: 20181126085723
+#
+# Table name: searches
+#
+#  item_type_equals     :string
+#  title_contains       :string
+#  description_contains :string
+#  user_name_contains   :string
+#  created_after        :datetime
+#  created_before       :datetime
+#
+
 class Search < ActiveRecord::Base
   # Tableless model
   def self.columns() @columns ||= []; end
