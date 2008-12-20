@@ -132,19 +132,5 @@ class FeedSource < ActiveRecord::Base
 	    self.errors.add(:url, "The url entered is not a compliant RSS/Atom Feed") 
     end
   end
-
-	def yop
-		return Iconv.new("utf8", "iso-8859-1")
-	end
-
-	def title=(value)
-		#yop.iconv(value)
-		super(value)
-	end
-
-	def description=(value)
-		#yop.iconv(value)
-		super(value)
-	end
   
 end
