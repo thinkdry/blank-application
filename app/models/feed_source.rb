@@ -40,10 +40,6 @@ class FeedSource < ActiveRecord::Base
 	validates_format_of :url, :with => /#{URL}/ix, :message=>"The format of the url is not valid."
 	validate :feed_compliance
 	
-	def self.label
-    "Flux RSS"           
-  end
-	
   def validate
     rss_valid?
   end

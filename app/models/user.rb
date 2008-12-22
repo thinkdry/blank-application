@@ -184,19 +184,19 @@ class User < ActiveRecord::Base
     @activated
   end
 
-	# Encrypts some data with the salt.
-  def self.encrypt(password, salt)
-    Digest::SHA1.hexdigest("--#{salt}--#{password}--")
-  end
-
-  # Encrypts the password with the user salt
-  def encrypt(password)
-    self.class.encrypt(password, salt)
-  end
-
-  def authenticated?(password)
-    crypted_password == encrypt(password)
-  end
+#	# Encrypts some data with the salt.
+#  def self.encrypt(password, salt)
+#    Digest::SHA1.hexdigest("--#{salt}--#{password}--")
+#  end
+#
+#  # Encrypts the password with the user salt
+#  def encrypt(password)
+#    self.class.encrypt(password, salt)
+#  end
+#
+#  def authenticated?(password)
+#    crypted_password == encrypt(password)
+#  end
 
   def remember_token?
     remember_token_expires_at && Time.now.utc < remember_token_expires_at

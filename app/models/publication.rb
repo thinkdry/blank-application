@@ -28,10 +28,4 @@ class Publication < ActiveRecord::Base
   
   file_column :file_path
   
-  #validates_presence_of :author
-  
-  def self.label
-    "Publication"
-		
-  end
 end
