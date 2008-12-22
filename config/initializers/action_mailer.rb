@@ -17,7 +17,7 @@ ActionMailer::Base.delivery_method = :smtp
 
 ActionMailer::Base.smtp_settings = {
     :address => 'smtp.phpnet.org',
-		:domain => 'phpnet.org',
+		#:domain => 'phpnet.org',
     :port => '25',
 		:user_name => 'blank@thinkdry.com',
 		:password => 'blank',
