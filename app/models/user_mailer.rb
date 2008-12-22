@@ -30,7 +30,7 @@ class UserMailer < ActionMailer::Base
     def setup_email(user)
       recipients user.email
       from "contact@thinkdry.com"
-      #sent_on Time.now
+      sent_on Time.now
     end
 		
 end
