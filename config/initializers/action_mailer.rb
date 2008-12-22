@@ -14,9 +14,9 @@ ActionMailer::Base.smtp_settings = {
 #		:domain => 'phpnet.org',
 #    :port => '25',
 ##		:pop3_auth => {
-##			:server => 'pop.think-alternative.net',
-##			:user_name => 'test@think-alternative.net',
-##			:password => 'test',
+##			:server => 'pop.phpnet.org',
+##			:user_name => 'blank@thinkdry.com',
+##			:password => 'blank',
 ##			:expires => 1.hour # expiration time for the credentials
 ##		}
 #		:user_name => 'blank@thinkdry.com',
