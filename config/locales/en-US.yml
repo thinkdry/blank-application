@@ -86,6 +86,7 @@ en-US:
     type: Type
     author: Author
     publishing_date: Publishing Date
+    new_key: new_value
     dsdsad: sadsads
     in: In
     to: To
@@ -103,6 +104,7 @@ en-US:
     content: Content
     copyright: Copyright
     "false": ""
+    check: check
     send: Send
     picture: Picture
     link: Link
@@ -110,6 +112,7 @@ en-US:
     update: Update
     video: Video
     last_five_posted_comments: Last 5 Posted Comments
+    hello_world: hello
     associated_file: Associated file
     all_elements: All elements
     publish_my_comment: Publish my Comment
@@ -294,6 +297,7 @@ en-US:
     description: Description
   picture: 
     add_a_new_picture: Add a New Picture
+    new_picture: New
     edit_picture_params: Edit Picture params
   datetime: 
     distance_in_words: 
