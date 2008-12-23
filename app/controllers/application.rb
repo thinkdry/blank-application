@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
 		return ITEMS_LIST
 	end
 
-  private
+    private
   def set_locale
 		if params[:locale]
 			I18n.locale = params[:locale]

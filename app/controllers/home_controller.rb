@@ -5,6 +5,6 @@ class HomeController < ApplicationController
     @latest_users = User.latest
     @latest_feeds = current_user.feed_items.latest
     @latest_ws = Workspace.latest
-		#@lasted_feed_items =
+		@accordion=[@latest_items,@latest_users,@latest_feeds,@latest_ws]
   end
 end
