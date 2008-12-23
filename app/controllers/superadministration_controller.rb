@@ -43,9 +43,18 @@ class SuperadministrationController < ApplicationController
 					res << k.to_s
 				end
 				@conf['sa_items_list'] = res
-				@conf.puts
 			end
-			redirect_to superadministration_path("general")
+			if (@list=params[:languages_list])
+				res = []
+				@list.each do |k, v|
+					res << k.to_s
+				end
+				@conf['sa_languages_list'] = res
+			end
+			File.rename("#{RAILS_ROOT}/config/sa_config.yml", "#{RAILS_ROOT}/config/old_sa_config.yml")
+				@new=File.new("#{RAILS_ROOT}/config/sa_config.yml", "w+")
+				@new.syswrite(@conf.to_yaml)
+			redirect_to superadministration_path("default")
 			flash[:notice] = "General settings updated"
 		else
 			redirect_to '/'

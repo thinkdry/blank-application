@@ -20,10 +20,14 @@ class ApplicationController < ActionController::Base
   end
 
 	def available_items_list
-		return ITEMS_LIST
+		return YAML.load_file("#{RAILS_ROOT}/config/sa_config.yml")["sa_items_list"]
 	end
 
-    private
+	def available_languages
+		return YAML.load_file("#{RAILS_ROOT}/config/sa_config.yml")["sa_languages_list"]
+	end
+
+  private
   def set_locale
 		if params[:locale]
 			I18n.locale = params[:locale]

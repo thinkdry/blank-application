@@ -29,6 +29,7 @@ PERMISSION_DENIED_REDIRECTION = { :controller => '/home', :action => 'index' }
 STORE_LOCATION_METHOD = :store_location
 
 ITEMS_LIST = ['article', 'image', 'cms_file', 'video', 'audio', 'publication', 'feed_source', 'bookmark']
+LANGUAGES_LIST = ['en-US', 'fr-FR', 'es-ES']
 
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here.
