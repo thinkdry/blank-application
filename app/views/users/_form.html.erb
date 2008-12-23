@@ -7,20 +7,22 @@
     <% else %>
     <%= image_tag(('/images/default/user.png'), :class=>"avatar", :align=>"right")%>
     <% end %>
-    <%= f.text_field :login, :label => I18n.t('user.login'), :hint => "Votre nom d'utilisateur" if @user.new_record? %>
-    <%= f.text_field :email, :label => I18n.t('user.email') if @user.new_record?%>
-    <%= f.password_field :password, :label => I18n.t('user.password') if @user.new_record?%>
-    <%= f.password_field :password_confirmation, :label => I18n.t('user.confirm_password') if @user.new_record?%>
-    <%= f.text_field :lastname, :label => I18n.t('user.name')%>
-    <%= f.text_field :firstname, :label => I18n.t('user.first_name') %>
-    <%= f.country_select :nationality,:label => I18n.t('user.nationality') %>
-    <%= f.text_area :address, :size => "40x6", :label => I18n.t('user.address'), :hint => 'Votre adresse complète' %>
-    <%= f.text_field :phone, :label => I18n.t('user.phone'), :hint => 'Numéro professionnel' %>
-    <%= f.text_field :mobile, :label => I18n.t('user.mobile'), :hint => 'Numéro de téléphone portable' %>
-    <%= f.text_field :company, :label => I18n.t('user.location'), :hint => 'Pour qui travaillez-vous ?' %>
-    <%= f.text_area :activity, :size => "40x6", :label => I18n.t('user.activity') %>
-    <%= f.text_area :edito, :size => "40x6", :label => I18n.t('user.edito') %>
-    <% f.field :image_path, :label => I18n.t('user.photo') do %>
+    <%= f.text_field :login, :label => I18n.t('user.login')+" * : ", :hint => "Votre nom d'utilisateur" %>
+    <%= f.text_field :email, :label => I18n.t('user.email')+" * : " %>
+    <% if @user.new_record? %>
+      <%= f.password_field :password, :label => I18n.t('user.password')+" * : " %>
+      <%= f.password_field :password_confirmation, :label => I18n.t('user.confirm_password')+" * : " %>
+    <% end %>
+    <%= f.text_field :lastname, :label => I18n.t('user.name')+" * : " %>
+    <%= f.text_field :firstname, :label => I18n.t('user.first_name')+" * : " %>
+    <%= f.country_select :nationality,:label => I18n.t('user.nationality')+" * : " %>
+    <%= f.text_area :address, :size => "40x6", :label => I18n.t('user.address')+" * : ", :hint => 'Votre adresse complète' %>
+    <%= f.text_field :phone, :label => I18n.t('user.phone')+" * : ", :hint => 'Numéro professionnel' %>
+    <%= f.text_field :mobile, :label => I18n.t('user.mobile')+" * : ", :hint => 'Numéro de téléphone portable' %>
+    <%= f.text_field :company, :label => I18n.t('user.location')+" * : ", :hint => 'Pour qui travaillez-vous ?' %>
+    <%= f.text_area :activity, :size => "40x6", :label => I18n.t('user.activity')+" * : " %>
+    <%= f.text_area :edito, :size => "40x6", :label => I18n.t('user.edito')+" : " %>
+    <% f.field :image_path, :label => I18n.t('user.photo')+" : " do %>
       <%= file_column_field 'user', 'image_path' %>
     <% end %>
     <div class="buttons" id="area_BUTTONS" style="padding-top: 2em">

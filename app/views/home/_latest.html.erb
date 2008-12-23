@@ -1,7 +1,7 @@
 <a href="#" id="items_link" class="blok" onclick="Effect.SlideDown('items'); if($('publications').visible()) Effect.SlideUp('publications'); if($('users').visible()) Effect.SlideUp('users'); if($('workspaces').visible()) Effect.SlideUp('workspaces'); return false;"><%=I18n.t('home.accordeon1')%></a>
 <div id="items" style="display:none; width:600px;">
   <div class="lift_items">
-    <%@latest_items.each do |l|%>
+    <% @latest_items.each do |l|%>
 		<p>
 			<%= image_tag l.icon %>
          	<%= link_to_item l %>

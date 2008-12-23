@@ -74,16 +74,16 @@ class SuperadministrationController < ApplicationController
 				@element = Element.create(:name => k_elmt.to_s, :bgcolor => v_elmt.to_s,:template => params[:newtemplate])
       end
       flash[:notice]="New Template Created"
-			redirect_to '/superadministration/colors'
+			redirect_to '/superadministration/css'
     elsif params[:template]
       params[:template].each do |k_elmt, v_elmt|
 				Element.find(:first, :conditions => {:name => k_elmt.to_s, :template => "current"}).update_attributes(:bgcolor => v_elmt.to_s)
       end
       flash[:notice]="Saved Sucessfully"
-      redirect_to  '/superadministration/colors'
+      redirect_to  '/superadministration/css'
     else
       flash[:notice]="Changes not Saved"
-      render :action=> '/superadministration/colors'
+      render :action=> '/superadministration/css'
     end
   end
     #if @element.update_attributes(params[:element])
