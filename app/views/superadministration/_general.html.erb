@@ -1,0 +1,35 @@
+<fieldset class="myform">
+  <legend>General management</legend>
+
+  <% form_for :general, :url => general_changing_superadministration_path, :html => {:multipart => true} do |f| -%>
+
+      Logo management :<br />
+      <%= image_tag(url_for_file_column(@logo, 'picture_path', 'thumb')) if (@logo && @logo.picture_path) %><br />
+      <%= file_column_field 'general', 'picture_path' %><br />
+      <br />
+      
+      Available items selection :<br />
+      <% ITEMS_LIST.each do |i| %>
+        <%= check_box_tag "items_list[#{i}]", "1", @conf["sa_items_list"].include?(i) %>
+	      <%=  I18n.t("general.#{i}") %><br />
+      <% end %><br />
+      <br />
+
+      Available languages :<br />
+      <% LANGUAGES_LIST.each do |l| %>
+        <%= check_box_tag "languages_list[#{l}]", "1", @conf["sa_languages_list"].include?(l) %>
+	      <%= image_tag("countries/#{l.split('-').first}.jpg") %> <%=  I18n.t("general.#{l}") %><br />
+      <% end %><br />
+      <br />
+
+      <div class="buttons" id="area_BUTTONS" style="padding-top: 2em">
+      <button type="submit" class="positive"><img src="/images/tick.png" alt=""/>Mettre à jour</button>
+      <button type="reset" class="negative"><img src="/images/cross.png" alt=""/>Annuler</button>
+     </div>
+<% end %>
+
+
+
+
+
+</fieldset>
