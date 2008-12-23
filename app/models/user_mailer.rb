@@ -25,12 +25,19 @@ class UserMailer < ActionMailer::Base
 			:user_login => user.login,
 			:site => self.site_name
   end
+
+	def ws_administrator_request(admin, user, type, msg)
+		setup_email(User.find(admin))
+		from User.find(user).email
+		subject self.site_name+" : "+type
+		body :msg => msg
+  end
    
   protected
     def setup_email(user)
       recipients user.email
-      from "contact@thinkdry.com"
-      #sent_on Time.now
+      from "blank@thinkdry.com"
+      sent_on Time.now
     end
 		
 end

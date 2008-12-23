@@ -34,6 +34,10 @@ module ActsAsItem
           before :destroy do
             permit 'deletion of current_object'
           end
+
+					after :index do
+						@current_objects = @current_objects.paginate(:per_page => 20, :page => params[:page])
+					end
                     
           # Makes `current_user` as author for the current_object
           before :create do
@@ -47,7 +51,7 @@ module ActsAsItem
 	        end
 
 					response_for :index do |format|
-						format.html # index.html.erb
+						format.html { redirect_to(items_path(params[:controller])) }
 						format.xml { render :xml=>@current_objects }
 						format.json { render :json=>@current_objects }
 						format.atom # index.atom.builder

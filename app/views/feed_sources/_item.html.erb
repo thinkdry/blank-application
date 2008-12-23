@@ -2,10 +2,10 @@
   <%= link_to item.title, item.link, :popup=>['new_window'] %>
   <div class="description"><%= item.description %></div>
   <div class="links">
-    <%= image_tag("rss_add.png") %>
+    <%= image_tag("item_icons/publication_add.png") %>
   	<%= link_to 'Importer dans les publications', new_publication_path(:feed_item_id => item.id) %>
   	&nbsp;-&nbsp;
-  	<%= image_tag("link.png") %>
+  	<%= image_tag("item_icons/bookmark_add.png") %>
   	<%= link_to 'Importer dans les liens', new_bookmark_path(:feed_item_id => item.id) %>
     <%# Specify the weight & width :popup=>['new_window','height=800,width=1024'] %>
   </div>

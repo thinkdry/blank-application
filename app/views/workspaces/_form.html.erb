@@ -1,15 +1,19 @@
 <div class="area_WS" style="margin-bottom:20px;">
   <fieldset>
     <% form_for @workspace, :builder => BlankFormBuilder do |f| -%>
-      <%= f.text_field :title, :label => "Nom de l'espace de travail : " %>
+      <%= f.text_field :title, :label => "Nom de l'espace de travail * : " %>
       <%= f.advanced_editor :description, :label => 'Description : ' %>
-      
+      <% if @workspace.state != 'private' %>
+        <%= f.select :state, ['Closed', 'Public', 'Autorisé', 'Archived'], :label => 'Type d\'espace de travail :' %>
+      <% else %>
+        <%= f.select :state, ['Private'], :label => 'Type d\'espace de travail :', :disabled => true %>
+      <% end %>
       <br /><br />
       
       <h4><%=I18n.t 'workspace.associated_users'%></h4>
       <div id="users">
         <% @current_object.users_workspaces.each do |object| %>
-        <%= render :partial => 'user', :object => object %>
+          <%= render :partial => 'user', :object => object %>
         <% end %>
       </div>
       <div class="clear"></div>

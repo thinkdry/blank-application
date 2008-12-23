@@ -240,7 +240,7 @@ en-US:
     video: Video
     cms_file: File
     publication: Publication
-    feed_source: RSS feed
+    feed_source: Web feed
     bookmark: Bookmark
     link: Link
     url: Url
@@ -303,8 +303,8 @@ en-US:
     associated_users: associated users
     create_a_new_workspace: Create a new workspace
     save: Save
-    add_new_user: Ajouter un utilisateur
-    modification_of_workspace: Modification of the workspace
+    add_new_user: Add a user
+    modification_of_workspace: Edition of the workspace
   profil:
     location: Location
     activity: Activity

@@ -5,7 +5,36 @@
 	<span class="txt_80_666"><%= @current_object.description %></span>
 </div>
 
-<div class="area_LEFT">
+ <div class="area_LEFT">
+    <% if @workspace.creator == self.current_user %>
+      You are the administrator of this workspace, click <%= link_to "here", edit_workspace_path(@workspace.id) %> to manage it.<br/>
+    <% else %>
+    <% if user=@workspace.users_workspaces.find(:first, :conditions => { :user_id => self.current_user.id }) %>
+      <h2> Your subscription </h2>
+      Vous êtes déjà inscrit sur cet espace de travail en temps que <%= user.role %>.<br />
+      Vous pouvez vous désinscrire en cliquant sur le bouton ci-dessous.<br />
+      <%= link_to "Désinscription", unsubscription_workspace_path(@workspace.id) %><br />
+    <% else %>
+      <% if @current_object.state == 'Public' %>
+        <h2> Public workspace </h2>
+        Cet espace de travail est public, vous pouvez donc y souscrire en tant que lecteur en cliquant sur le lien ci-dessous.<br />
+        <%= link_to "Subscription as reader", subscription_workspace_path(@workspace.id) %><br />
+        Pour obtenir un rôle plus avancé sur cet espace de travail, veillez adresser une demande à l'administrateur (voir ci-dessous).<br />
+      <% end %>
+    <% end %>
+    <br />
+    <% if @current_object.state == 'Public' || @current_object.state == 'mi_public' %>
+      <h2> Request to the workspace administrator </h2>
+      Si vous voulez envoyez un demande particulière à l'administrateur de cet espace de travail, remplissez l'encadré ci-dessus afin de générer un email pour l'administrateur.<br />
+      <% form_for :question, :url => question_workspace_path(@workspace.id) do |f| %>
+        <%= f.select :type, ["Inscription", "Autre"] %><br />
+        <%= f.text_area :msg, :size => '50x5' %><br />
+        <%= f.submit "Envoyez votre demande" %><br />
+      <% end %>
+    <% end %>
+    <br /><br />
+    <% end %>
+
 	<h2><%=I18n.t('workspace.last_five_elements')%></h2>
 	<ul>
 		<% GenericItem.from_workspace(@current_object.id).latest.each do |item| %>

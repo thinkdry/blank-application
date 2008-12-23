@@ -142,7 +142,7 @@ module ItemsHelper
       options[:class] = 'selected' if (item_type == item_page)
       content += content_tag(
         :li,
-        link_to(image_tag(item_model.classify.constantize.icon) + I18n.t("general.#{item_model.underscore}"), items_path(item_model.classify.constantize)),
+        link_to(image_tag(item_model.classify.constantize.icon) + item_model.classify.constantize.label, items_path(item_model.classify.constantize)),
         options
       )
     end

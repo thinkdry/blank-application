@@ -48,7 +48,7 @@ ActionController::Routing::Routes.draw do |map|
   items_resources(map)
 
   # Items in context of workspaces
-  map.resources :workspaces, :member => { :add_new_user => :any } do |workspaces|
+  map.resources :workspaces, :member => { :add_new_user => :any, :subscription => :any, :unsubscription => :any, :question => :any } do |workspaces|
     workspaces.content '/:item_type', :controller => 'workspaces', :action => 'show', :conditions => { :method => :get }
     items_resources(workspaces)
   end

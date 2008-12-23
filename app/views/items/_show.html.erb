@@ -2,6 +2,10 @@
   <h1>
     <%= image_tag object.icon %>
     <%= object.title %>
+    <div align="right">
+      <%= link_to 'XML', item_path(object)+".xml" %>
+      <%= link_to 'JSON', item_path(object)+".json" %>
+    </div>
   </h1>
   <div class="undertitle">
     <%=I18n.t('general.by')%> <%= link_to_user object.user %>
