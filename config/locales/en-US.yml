@@ -1,59 +1,165 @@
---- 
-en-US: 
-  number: 
-    format: 
-      separator: .
-      delimiter: ","
-      precision: 3
-    currency: 
-      format: 
-        format: "%u %n"
-        unit: $
-        precision: 2
-  time: 
+---
+en-US:
+  message:
+    copyright_restriction: Some fields can't be Modified as this Item is Copyright Protected.
+    error_during_file_transfer: Error during File transfer
+    video_wip: Your video has been recorded for encoding. Please come back later.
+  user:
+    photo: Photo
+    name: Name
+    system_administrator: System Administrator
+    rights_to_manage: Rights to Manage
+    writer: Writer
+    administration: Administration
+    logout: Log out
+    private_informations: Private Informations
+    reader: Reader
+    confirm_new_password: Confirm new password
+    log_in: Log in
+    activity: Activity
+    your_private_informations: Your Private Informations
+    confirm_password: Confirm password
+    edito: Edito
+    manage_users_and_rights: Users and Rights Management
+    moderator: Moderator
+    signup: Sign up
+    mobile: Mobile
+    administrator: Administrator
+    phone: Phone
+    update_private_informations: Update private Informations
+    readonly_access_to: Read Only Access to
+    access_rights: Access rights
+    back_to_login: Back to Login
+    first_name: First name
+    validate_this_password: Validate this password
+    new_password: New password
+    address: Address
+    password: Password
+    login: Login
+    create_this_user: Create User
+    password_reset_request: Password Reset Request
+    rights_to_be_moderator: Rights to Moderator
+    hello_world: hello
+    location: Location
+    nationality: Nationality
+    email: Email
+    add_a_new_user: Add a New User
+    administration_configuration: Administation Configuration
+  bookmark:
+    add_a_link: Add Link
+    url: url
+    edit_bookmark: Edit Bookmark
+    show_my_links: Show My Links
+    new_bookmark: New Bookmark
+  audio:
+    edit_audio: Edit Audio
+    add_a_new_audio: Add a New Audio file
+  article:
+    edit_article: Edit Article
+    add_a_new_article: New Article
+  search:
+    informations_on_searched_items: Informations on Searched Items
+    advanced_search: Advanced Search
+    search_period: Search period
+    you_have_searched_for: you have searched for
+    your_search_result: Your search result
+  general:
+    last_five_published_items: Last 5 Published Items
+    bookmark: Bookmark
+    audio: Audio
+    article: Article
+    name: Name
+    delete: Delete
+    false: false
+    from1: From
+    go_key: go
+    separated_by_spaces: Separated by Spaces
+    category: Category
+    your_comment: Your comment
+    search: Search
+    download: Download
+    add: Add
+    by: by
+    void: void
+    true: true
+    dsfsdfs: fdsfdsfsd
+    "true": "true"
+    workspace: Workspace
+    edit: Edit
+    publishing_date: Publishing Date
+    author: Author
+    type: Type
+    url: url
+    rate: Rate
+    tag: Tag
+    cancel: Cancel
+    last_update_date: Last Update Date
+    publication: Publication
+    add_a_new_file: Add a new file
+    commentV: Comment
+    no1: ""
+    to: To
+    in: In
+    dsdsad: sadsads
+    feed_source: RSS feed
+    description: Description
+    filter: Filter
+    print: Print
+    create: Create
+    "false": ""
+    copyright: Copyright
+    content: Content
+    on1: "on"
+    link: Link
+    picture: Picture
+    send: Send
+    last_five_posted_comments: Last 5 Posted Comments
+    video: Video
+    update: Update
+    comment: Comment
+    file: File
+    publish_my_comment: Publish my Comment
+    all_elements: All elements
+    associated_file: Associated file
+  text:
+    reset_password: Your password and a reactivation Link will be send by Mail
+  time:
     am: am
-    formats: 
+    formats:
       default: "%a %b %d %H:%M:%S %Z %Y"
       time: "%H:%M"
       only_second: "%S"
-      datetime: 
-        formats: 
+      datetime:
+        formats:
           default: "%Y-%m-%dT%H:%M:%S%Z"
-      long: "%B %d, %Y %H:%M"
       short: "%d %b %H:%M"
+      long: "%B %d, %Y %H:%M"
     pm: pm
-  active_record: 
-    error: 
-      message: "Please check the following fields :"
-      header_message: 
-      - "Couldn't save this {{object_name}}: 1 error"
-      - "Couldn't save this {{object_name}}: {{count}} errors."
-    error_messages: 
-      taken: This field is not available.
-      accepted: This field must be accepted.
-      not_a_number: This field is not a number.
-      greater_than_or_equal_to: This field must be greater than or equal to {{count}}.
-      blank: This field must be given.
-      less_than_or_equal_to: This field must be less than or equal to {{count}}.
-      confirmation: This field does not match its confirmation.
-      exclusion: This field is not available.
-      odd: This field must be odd.
-      invalid: This field is not valid.
-      wrong_length: This field is not the right length (must be {{count}} characters).
-      too_short: This field is too short (no less than {{count}} characters).
-      empty: This field must be given.
-      less_than: This field must be less than {{count}}.
-      too_long: This field is too long (no more than {{count}} characters).
-      even: This field must be even.
-      equal_to: This field must be equal to {{count}}.
-      greater_than: This field must be greater than {{count}}.
-      inclusion: This field is not included in the list.
-  date: 
-    order: 
+  number:
+    format:
+      separator: .
+      delimiter: ","
+      precision: 3
+    currency:
+      format:
+        format: "%u %n"
+        unit: $
+        precision: 2
+  workspace:
+    top_five_items: Top Five Items
+    first_five: First
+    create_a_new_workspace: Create a New Workspace
+    associated_users: Associated Users
+    modification_of_workspace: Modify Workspace
+    save: Save
+    add_new_user: Ajouter un utilisateur
+    last_five_items: Last Five Items
+  date:
+    order:
     - :year
     - :month
     - :day
-    abbr_day_names: 
+    abbr_day_names:
     - Sun
     - Mon
     - Tue
@@ -61,27 +167,21 @@ en-US:
     - Thu
     - Fri
     - Sat
-    formats: 
+    formats:
       default: "%Y-%m-%d"
       only_day: "%e"
-      long: "%B %e, %Y"
       short: "%e %b"
-    abbr_month_names: 
-    - 
-    - Jan
-    - Feb
-    - Mar
-    - Apr
-    - May
-    - Jun
-    - Jul
-    - Aug
-    - Sep
-    - Oct
-    - Nov
-    - Dec
-    month_names: 
-    - 
+      long: "%B %e, %Y"
+    day_names:
+    - Sunday
+    - Monday
+    - Tuesday
+    - Wednesday
+    - Thursday
+    - Friday
+    - Saturday
+    month_names:
+    -
     - January
     - February
     - March
@@ -94,277 +194,186 @@ en-US:
     - October
     - November
     - December
-    day_names: 
-    - Sunday
-    - Monday
-    - Tuesday
-    - Wednesday
-    - Thursday
-    - Friday
-    - Saturday
-  txt: 
-    date_formats: 
-      rails_standards_work: "Rails standard formats (Date::DATE_FORMATS) still work:"
+    abbr_month_names:
+    -
+    - Jan
+    - Feb
+    - Mar
+    - Apr
+    - May
+    - Jun
+    - Jul
+    - Aug
+    - Sep
+    - Oct
+    - Nov
+    - Dec
+  active_record:
+    error:
+      message: "Please check the following fields :"
+      header_message:
+      - "Couldn't save this {{object_name}}: 1 error"
+      - "Couldn't save this {{object_name}}: {{count}} errors."
+    error_messages:
+      accepted: This field must be accepted.
+      taken: This field is not available.
+      not_a_number: This field is not a number.
+      blank: This field must be given.
+      greater_than_or_equal_to: This field must be greater than or equal to {{count}}.
+      exclusion: This field is not available.
+      confirmation: This field does not match its confirmation.
+      less_than_or_equal_to: This field must be less than or equal to {{count}}.
+      odd: This field must be odd.
+      invalid: This field is not valid.
+      empty: This field must be given.
+      too_short: This field is too short (no less than {{count}} characters).
+      wrong_length: This field is not the right length (must be {{count}} characters).
+      too_long: This field is too long (no more than {{count}} characters).
+      less_than: This field must be less than {{count}}.
+      even: This field must be even.
+      inclusion: This field is not included in the list.
+      greater_than: This field must be greater than {{count}}.
+      equal_to: This field must be equal to {{count}}.
+  publication:
+    edit_publication: Edit Publication
+    add_a_new_publication: New Publication
+  txt:
     main_title: Localizing Rails
+    date_formats:
+      rails_standards_work: "Rails standard formats (Date::DATE_FORMATS) still work:"
     app_name: Demo Application
-    time_formats: 
-      rails_standards_work: "Rails standard formats (Time::DATE_FORMATS) still work:"
-    active_record: 
+    active_record:
       easy_to_understand: It's quite easy to understand, though.
       too_lazy: No examples here since I'm too lazy to think of attributes to show all custom error messages. ;-)
-    number_helper: 
+    time_formats:
+      rails_standards_work: "Rails standard formats (Time::DATE_FORMATS) still work:"
+    number_helper:
       note_one: "Note: number_to_phone hasn't been localized yet and probably never will be - at least not in core. Look out for new internationalization/localization plugins like a new version of {{globalize}} as they will probably support stuff like that."
       note_two: "Another note: number_to_currency, number_to_percentage and number_to_human_size all use number_with_precision internally and number_with_precision uses number_with_delimiter internally."
-    about: 
+    about:
       title: About this demo app
       author: This demo app was written by {{mail_1}}.
       licence: This demo app and all its contents are licensed under the {{licence_href}}. If you want to use it in ways prohibited by this license, please contact me and ask my permission.
       feedback: If you have any feedback, please feel free to drop me a line. Also visit {{blog_href}} where I regularly blog about Rails and other stuff.
-    setup: 
-      best_place: The best place to put your locale configuration, in my opinion, is config/locales. The localized_dates plugin will copy two locales, en-US and de-AT, in this directory. You can extend or modify them and also create new locales.
-      config_locale: Configuring the locale
-      freezing_edge_and_adding: Freezing Edge and installing the localized_dates plugin
-      locale_structure_date_time: "The same holds true for dates and times: If needed, :datetime and :time_with_zone can be used to specifically address formatting of their respective types instead of just relying on the settings for :time. Note, however, that usually you want to use the same formats as :time."
-      you_need_to_be_on_edge: "You need to be on Edge Rails in order to use the Rails i18n features:"
-      locale_structure_title: A word on the structure of locales
-      defaults: You also need to set up the default locale and/or locale in your environment.rb or an initializer.
-      locale_structure_number: You may have noticed that inside the :number part of the locale, we defined :format and :currency. In general, locales are structured hierarchically - i.e. a currencies are numbers, percentages are numbers, etc. :currency can either override the basic :format settings (in our case, we set :precision to 2 instead of 3) or extend them (we add two new options, :unit and :format).
-      locale: "Here's the demo locale that was used for this demo application:"
-      date_time_formats: "For date and time formats, you also need to install the {{localized_dates_link}}:"
-    index: 
+    sub_title: how to localize your app with Rails' new i18n features
+    index:
       story_so_far: This demo app tries to show you how you can use the features that have been implemented so far to localize big parts of your Rails application.
       others: others
       introduction: Lately, a lot of work has been done by {{sven_blog}} and {{sven_github}} to facilitate future internationalization and localization of Rails.
-    sub_title: how to localize your app with Rails' new i18n features
+    setup:
+      config_locale: Configuring the locale
+      best_place: The best place to put your locale configuration, in my opinion, is config/locales. The localized_dates plugin will copy two locales, en-US and de-AT, in this directory. You can extend or modify them and also create new locales.
+      freezing_edge_and_adding: Freezing Edge and installing the localized_dates plugin
+      you_need_to_be_on_edge: "You need to be on Edge Rails in order to use the Rails i18n features:"
+      locale_structure_date_time: "The same holds true for dates and times: If needed, :datetime and :time_with_zone can be used to specifically address formatting of their respective types instead of just relying on the settings for :time. Note, however, that usually you want to use the same formats as :time."
+      defaults: You also need to set up the default locale and/or locale in your environment.rb or an initializer.
+      locale_structure_title: A word on the structure of locales
+      locale: "Here's the demo locale that was used for this demo application:"
+      locale_structure_number: You may have noticed that inside the :number part of the locale, we defined :format and :currency. In general, locales are structured hierarchically - i.e. a currencies are numbers, percentages are numbers, etc. :currency can either override the basic :format settings (in our case, we set :precision to 2 instead of 3) or extend them (we add two new options, :unit and :format).
+      date_time_formats: "For date and time formats, you also need to install the {{localized_dates_link}}:"
     contents: Contents
-    date_helper: 
-      forms_title: Forms
-      date_time_title: Date/Time distance
-    menu: 
+    menu:
       date_formats: Date formats
       time_formats: Time formats
       about: About
       setup: Setup
       introduction: Introduction
-  yaml: 
+    date_helper:
+      date_time_title: Date/Time distance
+      forms_title: Forms
+  profil:
+    landline: Landline
+    activity: Activity
+    email: email
+    location: Location
+  yaml:
     title: Title
     welcome_message: Welcome message
-  datetime: 
-    distance_in_words: 
-      less_than_x_minutes: 
+  picture:
+    add_a_new_picture: Add a New Picture
+    edit_picture_params: Edit Picture params
+  item:
+    title: Title
+    description: Description
+    summary: Summary
+  login:
+    password_forgotten: Forgot Password
+    connexion: Login
+    password: Password
+    login: Login
+    remember_me: Remember me
+  video:
+    add_a_new_video: Add a New Video
+    edit_video_params: Edit Video Params
+    download_video: Download Original Video
+  home:
+    home_key: Homee
+    accordeon1: Last Added Items
+    filter: Filter
+    accordeon2: Last Added Users
+    accordeon3: Last Added Workspaces
+    show_my_feeds: Show my RSS feeds
+    you_have_access_to_workspaces: You have Access to Workspaces
+    accordeon4: Last Added Publications
+    you_administrate: You Administer
+    my_content: My content
+    my_personnal_informations: My Personal Information
+    my_workspaces: My Workspaces
+  datetime:
+    distance_in_words:
+      less_than_x_minutes:
         one: 1 minute
         zero: less than a minute
         other: "{{count}} minutes"
-      x_days: 
+      x_days:
         one: 1 day
         other: "{{count}} days"
-      x_minutes: 
-        one: 1 minute
-        other: "{{count}} minutes"
-      x_seconds: 
+      x_seconds:
         one: 1 second
         other: "{{count}} seconds"
-      x_months: 
-        one: 1 month
-        other: "{{count}} months"
-      about_x_hours: 
-        one: about 1 hour
-        other: "{{count}} hours"
-      less_than_x_seconds: 
+      x_minutes:
+        one: 1 minute
+        other: "{{count}} minutes"
+      less_than_x_seconds:
         one: 1 second
         zero: less than 1 second
         other: "{{count}} seconds"
-      about_x_months: 
+      about_x_hours:
+        one: about 1 hour
+        other: "{{count}} hours"
+      x_months:
+        one: 1 month
+        other: "{{count}} months"
+      about_x_months:
         one: about 1 month
         other: "{{count}} months"
-      about_x_years: 
+      about_x_years:
         one: about 1 year
         other: "{{count}} years"
-      over_x_years: 
+      half_a_minute: half a minute
+      over_x_years:
         one: over 1 year
         other: "{{count}} years"
-      half_a_minute: half a minute
-  layout: 
-    title: Blank engine
-    welcome_message: Welcome
-    account_access: My account
-    administration: Administration
-    superadministration: Superadministration
-    logout: Logout
-    first_page: Welcome
-    content: Content
-    workspaces: Workspaces
-    new_workspace: New workspace
-    add_content: Add content
-    search: Search
-    advanced_search: Advanced search
-    footer_title: ThinkDRY Technologies 2008
-    contact: Contact
-    map: Site map
-    faq: FAQ
-  general:
-    by: by
-    on1: 'on'
-    in: In
-    from1: 'From'
-    to: To
-    yes: Yes
-    no: No
-    no1: No
-    add: Add
-    delete: Delete
-    commentV: Comment
-    download: Download
-    create: Create
-    cancel: Cancel
-    edit: edit
-    print: Print
-    filter: Filter
-    search: Search
-    send: Send
-    add_a_new_file: Add a new file
-    associated_file: Associated file
-    name: name
-    all_elements: All elements
-    description: description
-    workspace: Workspace
-    comment: Comment
-    tag: Tag
-    rate: Rate
-    update: update
-    publish_my_comment: Publish my comment
-    your_comment: Your comment
-    article: Article
-    image: Picture
-    audio: Audio
-    video: Video
-    cms_file: File
-    publication: Publication
-    feed_source: Web feed
-    bookmark: Bookmark
-    link: Link
-    url: Url
-    content: Content
-    category: Category
-    type: Type
-    copyright: Copyright
-    author: Author
-    publishing_date: Publishing date
-    void: void
-    last_five_published_items: Last 5 published items
-    last_five_posted_comments: Last 5 posted comments
-    separated_by_spaces: Separated by spaces
-    last_update_date: Last update date
-    publishing_date: Publishing date
-  item:
-    summary: Summary
-    description: Description
-    title: Title
   file:
     edit_file_params: Edit file params
+    add_a_new_file: New File
     corrupted_file: Corrupted file
-    add_a_new_file: Add a new file
-  article:
-    edit_article: Edit article
-    add_a_new_article: Add a new article
-  audio:
-    edit_audio: Edit audio
-    add_a_new_audio: Add a new audio file
-  picture:
-    add_a_new_picture: Add a new picture
-    edit_picture_params: Edit picture params
-  publication:
-    add_a_new_publication: Add a new publication
-    edit_publication: Edit publication
-  bookmark:
-    add_a_link: Add a link
-    edit_bookmark: Edit bookmark
-    show_my_links: Show my links
-    new_bookmark: New bookmark
-    url: url
-  home:
-    my_workspaces: My workspaces
-    you_administrate: You administrate
-    you_have_access_to_workspaces: You have access to worspaces
-    my_personnal_informations: My personnal informations
-    show_my_feeds: Show my RSS feeds
-    my_content: My content
-    filter: Filter
-    accordeon1: Last added documents
-    accordeon2: Last added users
-    accordeon3: Last added workspaces
-    accordeon4: Last received publications
-  video:
-    download_video: Download original video
-    edit_video_params: Edit video params
-    add_a_new_video: Add a new video
-  workspace:
-    last_five_items: last five items
-    associated_users: associated users
-    create_a_new_workspace: Create a new workspace
-    save: Save
-    add_new_user: Add a user
-    modification_of_workspace: Edition of the workspace
-  profil:
-    location: Location
-    activity: Activity
-    landline: Landline
-    email: email
-  search:
-    your_search_result: Your search result
-    you_have_searched_for: you have searched for
-    advanced_search: Advanced search
-    informations_on_searched_items: Informations on searched items
-    search_period: Search period
-  login:
-    login: Login
-    password: Password
-    connexion: Connexion
-    password_forgotten: Password forgotten
-    remember_me: Remember me
-  user:
-    new_password: New password
-    confirm_new_password: Confirm new password
-    confirm_password: Confirm password
-    validate_this_password: Validate this password
-    back_to_login: Back to login
+  layout:
+    bye_message: Bye
+    faq: FAQ
+    new_workspace: New workspace
+    account_access: My account
+    search: Search
+    workspaces: Workspaces
+    first_page: Home
     administration: Administration
-    administration_configuration: Administation configuration
-    add_a_new_user: Add a new user
-    system_administrator: System administrator
-    administrator: Administrator
-    moderator: Moderator
-    writer: Writer
-    reader: Reader
-    manage_users_and_rights: Manage users and rights
-    access_rights: Access rights
-    rights_to_manage: Rights to manage
-    rights_to_be_moderator: Rights to be moderator
-    readonly_access_to: Read only access to
-    password_reset_request: Password reset request
-    create_this_user: Create this user
-    your_private_informations: Your private informations
-    private_informations: Private informations
-    update_private_informations: Update private informations
-    login: Login
-    email: Email
-    password: Password
-    name: Name
-    first_name: First name
-    nationality: Nationality
-    address: Address
-    phone: Phone
-    mobile: Mobile
-    location: Location
-    activity: Activity
-    edito: Edito
-    photo: Photo
-    log_in: Log in
-    signup: Sign up
-    logout: Log out
-  message:
-    copyright_restriction: Some fields can't be modified as this element is copyright protected.
-    error_during_file_transfer: Error during file transfer
-    video_wip: Your video has been recorded for encoding. Please come bacl later.
-  text:
-    reset_password: Enter your password and a reactivation link will be send to you by mail
+    title: Blank Engine
+    logout: Logout
+    superadministration: Superadministration
+    contact: Contact
+    advanced_search: Advanced search
+    add_content: Add content
+    map: Site map
+    content: Content
+    footer_title: ThinkDRY Technologies 2008
+    welcome_message: Welcome

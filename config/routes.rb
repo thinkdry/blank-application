@@ -17,7 +17,6 @@ ActionController::Routing::Routes.draw do |map|
 	map.language_switching_superadministration 'superadministration/language_switching', :controller => 'superadministration', :action => 'language_switching'
 	map.translations_changing_superadministration 'superadministration/translations_changing', :controller => 'superadministration', :action => 'translations_changing'
 	map.superadministration '/superadministration/:part', :controller => 'superadministration', :action => 'superadministration'
-  
 	map.content '/content/:item_type', :controller => 'items', :action => 'index'
   
   # TODO: Publishing, Bookmarks, Admin related controllers: rights...
