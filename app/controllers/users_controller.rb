@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   acts_as_ajax_validation
 	
-	skip_before_filter :is_logged?, :only => [:forgot_password, :reset_password]
+	skip_before_filter :is_logged?, :only => [:forgot_password, :reset_password, :activate]
 	layout "application", :except => [:forgot_password, :reset_password]
 
   make_resourceful do
