@@ -5,7 +5,7 @@ class SuperadministrationController < ApplicationController
 			if params[:part] == "default"
 				#render :partial => 'default', :layout => false
 			elsif params[:part] == "general"
-				@conf = File.read("#{RAILS_ROOT}/config/sa_config.rb")
+				@conf = YAML.load_file("#{RAILS_ROOT}/config/sa_config.yml")
 				@logo = Picture.find_by_name('logo')
 				render :partial => 'general'
 			elsif params[:part] == "css"
@@ -28,18 +28,25 @@ class SuperadministrationController < ApplicationController
 	
 	def general_changing
 		if current_user.is_superadmin?
-			if (@picture = Picture.new(params[:general][:picture]))
+			@conf = YAML.load_file("#{RAILS_ROOT}/config/sa_config.yml")
+			if params[:general][:picture]
+				@picture = Picture.new(params[:general][:picture])
+				@picture.name = 'logo'
 				if Picture.find_by_name('logo')
 					Picture.find_by_name('logo').update_attributes(:name => 'old_logo')
 				end
-				if @picture.save
-					redirect_to superadministration_path("general")
-					flash[:notice] = "General settings updated"
-				else
-					render :nothing =>:true
-				end
+				@picture.save
 			end
-			
+			if (@list=params[:items_list])
+				res = []
+				@list.each do |k, v|
+					res << k.to_s
+				end
+				@conf['sa_items_list'] = res
+				@conf.puts
+			end
+			redirect_to superadministration_path("general")
+			flash[:notice] = "General settings updated"
 		else
 			redirect_to '/'
 			flash[:notice] = "Vous n'avez pas ce droit."
@@ -91,7 +98,6 @@ class SuperadministrationController < ApplicationController
 		end
   end
 
-	
 	def translations_changing
     if params[:language]=="en-US"
         language2="fr-FR"
