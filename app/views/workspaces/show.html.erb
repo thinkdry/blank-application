@@ -36,7 +36,7 @@
     <br /><br />
     <% end %>
 
-	<h2><%=I18n.t('workspace.last_five_elements')%></h2>
+	<h2><%=I18n.t('workspace.last_five_items')%></h2>
 	<ul>
 		<% GenericItem.from_workspace(@current_object.id).latest.each do |item| %>
 			<p>
