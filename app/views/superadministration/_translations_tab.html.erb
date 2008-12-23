@@ -60,15 +60,5 @@
             <button type="reset" class="negative"><img src="/images/cross.png" alt=""/>Annuler</button>
         </div><br><br>
     <% end %>
-<div id="newlabel1" style="display:none">
-  <label>Key</label><input id="key" type="text" name="key">
-  <label>Value</label><input id="value" type="text" name="value">
-  <%=link_to_function "New Label", :onclick=>"newlabel()"%>
-<div id="usersel" style="display:none;"><select id='subelement1'><option value='user' selected>User</option><option value='login'>Login</option><option value='profil'>Profil</option></select></div>
-<div id="itemsel" style="display:none;"><select id='subelement2'><option value='item' selected>Item</option><option value='article'>Article</option><option value='audio'>Audio</option><option value='video'>Video</option><option value='bookmark'>Bookmark</option><option value='file'>File</option><option value='publication'>Publication</option><option value='picture'>Picture</option></select></div>
-</div>
-
- 
-<%#= "eee " + @res["layout"]["title"].to_s %>
 	
 </fieldset>

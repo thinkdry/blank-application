@@ -27,8 +27,6 @@ PERMISSION_DENIED_REDIRECTION = { :controller => '/home', :action => 'index' }
 
 # The method your auth scheme uses to store the location to redirect back to
 STORE_LOCATION_METHOD = :store_location
-
-
 ITEMS_LIST = ['article', 'image', 'cms_file', 'video', 'audio', 'publication', 'feed_source', 'bookmark']
 LANGUAGES_LIST = ['en-US', 'fr-FR', 'es-ES']
 

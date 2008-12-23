@@ -108,39 +108,22 @@ class SuperadministrationController < ApplicationController
   end
 
 	def translations_changing
-    if params[:language]=="en-US"
-        language2="fr-FR"
-      @yaml = YAML.load_file("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml")
-      @yaml1=YAML.load_file("#{RAILS_ROOT}/config/locales/#{language2}.yml")
-   end
-    if  params[:language]=="fr-FR"
-      language2="en-US"
-      @yaml = YAML.load_file("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml")
-      @yaml1=YAML.load_file("#{RAILS_ROOT}/config/locales/#{language2}.yml")
-    end
-		["general","layout", "user", "login","profil","home","workspace","article","item","file","audio","video","publication","bookmark","picture"].each do |type|
-			if params[type.to_sym] && @yaml[params[:language].to_s][type] && @yaml1[language2][type]
+
+    @yaml = YAML.load_file("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml")
+   	["general","layout", "user", "login","profil","home","workspace","article","item","file","audio","video","publication","bookmark","picture"].each do |type|
+			if params[type.to_sym] && @yaml[params[:language].to_s][type] 
 				params[type.to_sym].each do |k, v|
 					if @yaml[params[:language]][type][k]
             @yaml[params[:language]][type][k] = v.to_s
-          else
-            @yaml[params[:language]][type][k]=k.to_s
-            @yaml[params[:language]][type][k]=v.to_s
-           end
-           if  !@yaml1[language2][type][k]
-            @yaml1[language2][type][k]=k.to_s
-            @yaml1[language2][type][k]=v.to_s
-           end
-				end
+          end
+       end
       end
     end
 			
 		
   File.rename("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml", "#{RAILS_ROOT}/config/locales/old_#{params[:language]}.yml")
-  File.rename("#{RAILS_ROOT}/config/locales/#{language2}.yml", "#{RAILS_ROOT}/config/locales/old_#{language2}.yml")
   @new=File.new("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml", "w+")
-  @new1=File.new("#{RAILS_ROOT}/config/locales/#{language2}.yml", "w+")
-  if @new.syswrite(@yaml.to_yaml) && @new1.syswrite(@yaml1.to_yaml)
+   if @new.syswrite(@yaml.to_yaml)
      flash[:notice] = "Updated Sucessfully"
     redirect_to '/superadministration/default'
   else

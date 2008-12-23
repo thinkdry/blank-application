@@ -29,32 +29,10 @@
 function changer(pop)
   {
     reset();
-    if (pop=='select')
-     {
-      $('newlabel1').hide();
-      $('itemsel').hide();
-      $('usersel').hide();
-      return;
-     }
-    else if(pop=='user')
-       {
-           $(pop).show();
-           $('usersel').show();
-           $('newlabel1').show();
-        }
-     else if(pop=='item')
-        {
-            $(pop).show();
-            $('itemsel').show();
-            $('newlabel1').show();
-          }
-      else
-        {
-            $('itemsel').hide();
-            $('usersel').hide();
-            $(pop).show();
-            $('newlabel1').show();
-      }
+    if(pop=="select")
+    return
+    else
+    $(pop).show();
   }
   
 function reset()
@@ -65,7 +43,5 @@ function reset()
      $('layout').hide();
      $('item').hide();
      $('general').hide();
-     $('itemsel').hide();
-     $('usersel').hide();
   }
   
