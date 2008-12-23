@@ -36,7 +36,7 @@
     <div id="header_right">
       <div id="main_links">
         <%= I18n.t('layout.welcome_message') %>
-        <%= @current_user.firstname.capitalize %> |
+        <b><%= @current_user.firstname.capitalize %></b> |
         <%= link_to I18n.t('layout.account_access'), user_path(current_user) %> |
         <%= link_to I18n.t('layout.administration'), administration_user_path(current_user) %> |
 		<% if current_user.is_superadmin? %>
