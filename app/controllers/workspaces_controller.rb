@@ -63,10 +63,11 @@ class WorkspacesController < ApplicationController
 
 	def question
 		if UserMailer.deliver_ws_administrator_request(Workspace.find(params[:id]).creator, @current_user.id, params[:question][:type], params[:question][:msg])
-			flash[:notice] = "Votre demandea bien été envoyée."
+			flash[:notice] = "Votre demande a bien été envoyée."
 			redirect_to workspace_path(params[:id])
 		else
-
+			flash[:error] = "Votre demande n'a pu être envoyée."
+			redirect_to workspace_path(params[:id])
 		end
 	end
  

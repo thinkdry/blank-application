@@ -11,7 +11,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users, :member => { :administration => :any }
 	map.resource :session, :member => { :change_language => :any }
 	
-	map.picture_changing_superadministration 'superadministration/picture_changing', :controller => 'superadministration', :action => 'picture_changing'
+	map.general_changing_superadministration 'superadministration/general_changing', :controller => 'superadministration', :action => 'general_changing'
 	map.check_color_superadministration 'superadministration/check_color', :controller => 'superadministration', :action => 'check_color'
 	map.colors_changing_superadministration 'superadministration/colors_changing', :controller => 'superadministration', :action => 'colors_changing'
 	map.language_switching_superadministration 'superadministration/language_switching', :controller => 'superadministration', :action => 'language_switching'

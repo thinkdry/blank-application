@@ -1,37 +1,45 @@
 class SuperadministrationController < ApplicationController
 
 	def superadministration
-		if params[:part] == "default" 
-			#render :partial => 'default', :layout => false
-    elsif params[:part] == "pictures"
-			@logo = Picture.find_by_name('logo')
-			render :partial => 'pictures'
-    elsif params[:part] == "css"
-      @elements = Element.find(:all, :conditions => {:template=>"current"})
-      @temp=Element.find( :all, :select => 'DISTINCT template' )
-      render :partial => 'css', :layout => false
-    elsif params[:part] == "translations"
-			@file = YAML.load_file("#{RAILS_ROOT}/config/locales/#{I18n.default_locale}.yml")
-			@res = @file[I18n.default_locale.to_s]
-			@language = I18n.default_locale.to_s
-			render :partial => 'translations', :layout => false
-    else
-			redirect_to '/superadministration'
-		end
-  end
-	
-	def picture_changing
 		if current_user.is_superadmin?
-			@picture = Picture.new(params[:picture])
-			if Picture.find_by_name('logo')
-				Picture.find_by_name('logo').update_attributes(:name => 'old_logo')
-      end
-			if @picture.save
-				redirect_to superadministration_path("pictures")
-				flash[:notice] = "Logo mis à jour"
+			if params[:part] == "default"
+				#render :partial => 'default', :layout => false
+			elsif params[:part] == "general"
+				@conf = File.read("#{RAILS_ROOT}/config/sa_config.rb")
+				@logo = Picture.find_by_name('logo')
+				render :partial => 'general'
+			elsif params[:part] == "css"
+				@elements = Element.find(:all, :conditions => {:template=>"current"})
+				@temp=Element.find( :all, :select => 'DISTINCT template' )
+				render :partial => 'css', :layout => false
+			elsif params[:part] == "translations"
+				@file = YAML.load_file("#{RAILS_ROOT}/config/locales/#{I18n.default_locale}.yml")
+				@res = @file[I18n.default_locale.to_s]
+				@language = I18n.default_locale.to_s
+				render :partial => 'translations', :layout => false
 			else
-				render :nothing =>:true
+				redirect_to '/superadministration'
 			end
+		else
+			flash[:notice] = "Vous n'avez pas ce droit."
+			redirect_to ''
+		end
+	end
+	
+	def general_changing
+		if current_user.is_superadmin?
+			if (@picture = Picture.new(params[:general][:picture]))
+				if Picture.find_by_name('logo')
+					Picture.find_by_name('logo').update_attributes(:name => 'old_logo')
+				end
+				if @picture.save
+					redirect_to superadministration_path("general")
+					flash[:notice] = "General settings updated"
+				else
+					render :nothing =>:true
+				end
+			end
+			
 		else
 			redirect_to '/'
 			flash[:notice] = "Vous n'avez pas ce droit."
