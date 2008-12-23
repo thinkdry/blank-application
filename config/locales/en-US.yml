@@ -14,7 +14,7 @@ en-US:
     new_bookmark: New Bookmark
   user: 
     system_administrator: System Administrator
-    name: Name
+    name: Lastname
     photo: Photo
     administration: Administration
     writer: Writer
@@ -112,7 +112,7 @@ en-US:
     update: Update
     video: Video
     last_five_posted_comments: Last 5 Posted Comments
-    associated_file: Associated file
+    associated_files: Associated file
     all_elements: All elements
     publish_my_comment: Publish my Comment
     file: File

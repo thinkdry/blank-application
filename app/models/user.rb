@@ -57,18 +57,18 @@ class User < ActiveRecord::Base
 
   validates_presence_of     :login
   validates_length_of       :login,     :within => 3..40
-  validates_uniqueness_of   :login,     :case_sensitive => false
+  validates_uniqueness_of   :login,     :case_sensitive => false, :on => :create
   validates_format_of       :login,     :with => /\A[a-z_-]+\z/,
                                         :message => 'invalide : ne peut comporter que des lettres minuscules.'
 
   validates_presence_of     :email
-  validates_length_of       :email,    :within => 6..100 #r@a.wk
-  validates_uniqueness_of   :email,    :case_sensitive => false
+  validates_length_of       :email,    :within => 6..100
+  validates_uniqueness_of   :email,    :case_sensitive => false, :on => :create
   validates_format_of       :email,    :with => RE_EMAIL_OK
 
-	validates_presence_of     :password
-	validates_presence_of     :password_confirmation
-	validates_confirmation_of :password
+	validates_presence_of     :password, :on => :create
+	validates_presence_of     :password_confirmation, :on => :create
+	validates_confirmation_of :password, :on => :create
 
   validates_presence_of     :firstname, 
                             :lastname,
