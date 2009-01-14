@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html 
      PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <title>Module: FileColumn::ClassMethods</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Script-Type" content="text/javascript" />
   <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
   <script type="text/javascript">
@@ -99,7 +99,7 @@ your models.
 </p>
 <h2>Generated Methods</h2>
 <p>
-After calling &quot;<tt><a href="ClassMethods.html#M000008">file_column</a>
+After calling &quot;<tt><a href="ClassMethods.html#M000007">file_column</a>
 :image</tt>&quot; as in the example above, a number of instance methods
 will automatically be generated, all prefixed by &quot;image&quot;:
 </p>
@@ -208,14 +208,14 @@ the files are served with the correct mime-type by your web-server. Most
 web-servers are setting the mime-type based on the file&#8216;s extension.
 You can disable this behaviour by passing the <tt>:fix_file_extensions</tt>
 option with a value of <tt>nil</tt> to <tt><a
-href="ClassMethods.html#M000008">file_column</a></tt>.
+href="ClassMethods.html#M000007">file_column</a></tt>.
 </p>
 <p>
 In order to set the correct extension, FileColumn tries to determine the
 files mime-type first. It then uses the <tt>MIME_EXTENSIONS</tt> hash to
 choose the corresponding file extension. You can override this hash by
 passing in a <tt>:mime_extensions</tt> option to <tt><a
-href="ClassMethods.html#M000008">file_column</a></tt>.
+href="ClassMethods.html#M000007">file_column</a></tt>.
 </p>
 <p>
 The mime-type of the uploaded file is determined with the following steps:
@@ -237,7 +237,7 @@ used as a fallback.
 FileColumn&#8216;s storage location is determined in the following way. All
 files are saved below the so-called &quot;root_path&quot; directory, which
 defaults to &quot;RAILS_ROOT/public&quot;. For every <a
-href="ClassMethods.html#M000008">file_column</a>, you can set a separte
+href="ClassMethods.html#M000007">file_column</a>, you can set a separte
 &quot;store_dir&quot; option. It defaults to
 &quot;model_name/attribute_name&quot;.
 </p>
@@ -283,7 +283,7 @@ your <tt>:store_dir</tt>. You can override this via the
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000008">file_column</a>&nbsp;&nbsp;
+      <a href="#M000007">file_column</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -323,7 +323,7 @@ rename a file to the correct extension if it detects a known mime-type
           <td width="3em">&nbsp;</td>
           <td class="context-item-desc">
 default options. You can override these with <tt><a
-href="ClassMethods.html#M000008">file_column</a></tt>&#8216;s
+href="ClassMethods.html#M000007">file_column</a></tt>&#8216;s
 <tt>options</tt> parameter
 
 </td>
@@ -341,11 +341,11 @@ href="ClassMethods.html#M000008">file_column</a></tt>&#8216;s
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000008" class="method-detail">
-        <a name="M000008"></a>
+      <div id="method-M000007" class="method-detail">
+        <a name="M000007"></a>
 
         <div class="method-heading">
-          <a href="#M000008" class="method-signature">
+          <a href="#M000007" class="method-signature">
           <span class="method-name">file_column</span><span class="method-args">(attr, options={})</span>
           </a>
         </div>
@@ -364,15 +364,15 @@ You can pass in an options hash that overrides the options in
 <tt>DEFAULT_OPTIONS</tt>.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000008-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000008-source">
+            onclick="toggleCode('M000007-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000007-source">
 <pre>
      <span class="ruby-comment cmt"># File vendor/plugins/file_column/lib/file_column.rb, line 615</span>
 615:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">file_column</span>(<span class="ruby-identifier">attr</span>, <span class="ruby-identifier">options</span>={})
 616:       <span class="ruby-identifier">options</span> = <span class="ruby-constant">DEFAULT_OPTIONS</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">options</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>
 617:       
 618:       <span class="ruby-identifier">my_options</span> = <span class="ruby-constant">FileColumn</span><span class="ruby-operator">::</span><span class="ruby-identifier">init_options</span>(<span class="ruby-identifier">options</span>, 
-619:                                             <span class="ruby-constant">Inflector</span>.<span class="ruby-identifier">underscore</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">name</span>).<span class="ruby-identifier">to_s</span>,
+619:                                             <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Inflector</span>.<span class="ruby-identifier">underscore</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">name</span>).<span class="ruby-identifier">to_s</span>,
 620:                                             <span class="ruby-identifier">attr</span>.<span class="ruby-identifier">to_s</span>)
 621:       
 622:       <span class="ruby-identifier">state_attr</span> = <span class="ruby-node">&quot;@#{attr}_state&quot;</span>.<span class="ruby-identifier">to_sym</span>

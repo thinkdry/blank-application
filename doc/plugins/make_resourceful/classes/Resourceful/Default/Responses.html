@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html 
      PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <title>Module: Resourceful::Default::Responses</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Script-Type" content="text/javascript" />
   <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
   <script type="text/javascript">
@@ -80,9 +80,9 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000052">included</a>&nbsp;&nbsp;
-      <a href="#M000050">set_default_flash</a>&nbsp;&nbsp;
-      <a href="#M000051">set_default_redirect</a>&nbsp;&nbsp;
+      <a href="#M000010">included</a>&nbsp;&nbsp;
+      <a href="#M000008">set_default_flash</a>&nbsp;&nbsp;
+      <a href="#M000009">set_default_redirect</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -104,11 +104,11 @@
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000052" class="method-detail">
-        <a name="M000052"></a>
+      <div id="method-M000010" class="method-detail">
+        <a name="M000010"></a>
 
         <div class="method-heading">
-          <a href="#M000052" class="method-signature">
+          <a href="#M000010" class="method-signature">
           <span class="method-name">included</span><span class="method-args">(base)</span>
           </a>
         </div>
@@ -116,13 +116,13 @@
         <div class="method-description">
           <p>
 This method is automatically run when this module is <a
-href="Responses.html#M000052">included</a> in <a
+href="Responses.html#M000010">included</a> in <a
 href="../Base.html">Resourceful::Base</a>. It sets up the default responses
 for the default actions.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000052-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000052-source">
+            onclick="toggleCode('M000010-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000010-source">
 <pre>
      <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/responses.rb, line 53</span>
  53:       <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">included</span>(<span class="ruby-identifier">base</span>)
@@ -195,11 +195,11 @@ for the default actions.
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000050" class="method-detail">
-        <a name="M000050"></a>
+      <div id="method-M000008" class="method-detail">
+        <a name="M000008"></a>
 
         <div class="method-heading">
-          <a href="#M000050" class="method-signature">
+          <a href="#M000008" class="method-signature">
           <span class="method-name">set_default_flash</span><span class="method-args">(type, message)</span>
           </a>
         </div>
@@ -219,8 +219,8 @@ By default, the flash types are <tt>notice</tt> when the database operation
 completes successfully and <tt>error</tt> when it fails.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000050-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000050-source">
+            onclick="toggleCode('M000008-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000008-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/responses.rb, line 19</span>
 19:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_default_flash</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">message</span>)
@@ -231,11 +231,11 @@ completes successfully and <tt>error</tt> when it fails.
         </div>
       </div>
 
-      <div id="method-M000051" class="method-detail">
-        <a name="M000051"></a>
+      <div id="method-M000009" class="method-detail">
+        <a name="M000009"></a>
 
         <div class="method-heading">
-          <a href="#M000051" class="method-signature">
+          <a href="#M000009" class="method-signature">
           <span class="method-name">set_default_redirect</span><span class="method-args">(to, options = {})</span>
           </a>
         </div>
@@ -265,8 +265,8 @@ This will run <tt>redirect_to params[:_redirect_on][:failure]</tt> if the
 parameter exists, or <tt>redirect_to &quot;/posts&quot;</tt> otherwise.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000051-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000051-source">
+            onclick="toggleCode('M000009-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000009-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/responses.rb, line 46</span>
 46:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_default_redirect</span>(<span class="ruby-identifier">to</span>, <span class="ruby-identifier">options</span> = {})

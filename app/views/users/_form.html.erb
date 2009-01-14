@@ -2,12 +2,8 @@
   <legend><%=I18n.t('user.your_private_informations')%></legend>
 
   <% form_for @user,:builder => BlankFormBuilder, :html => {:multipart=> true} do |f| -%>
-    <% if @user.image_path %>
-  	<%= image_tag(url_for_file_column(@user, 'image_path'), :class => "avatar", :align => "right")%>
-    <% else %>
-    <%= image_tag(('/images/default/user.png'), :class=>"avatar", :align=>"right")%>
-    <% end %>
-    <%= f.text_field :login, :label => I18n.t('user.login')+" * : ", :hint => "Votre nom d'utilisateur" %>
+    <%= image_tag(@user.avatar.url(:thumb), :class => "avatar", :align => "right")%>
+    <%= f.text_field :login, :label => I18n.t('user.login')+" * : ", :hint => "Select name for logging in" %>
     <%= f.text_field :email, :label => I18n.t('user.email')+" * : " %>
     <% if @user.new_record? %>
       <%= f.password_field :password, :label => I18n.t('user.password')+" * : " %>
@@ -22,8 +18,8 @@
     <%= f.text_field :company, :label => I18n.t('user.location')+" * : ", :hint => 'Pour qui travaillez-vous ?' %>
     <%= f.text_area :activity, :size => "40x6", :label => I18n.t('user.activity')+" * : " %>
     <%= f.text_area :edito, :size => "40x6", :label => I18n.t('user.edito')+" : " %>
-    <% f.field :image_path, :label => I18n.t('user.photo')+" : " do %>
-      <%= file_column_field 'user', 'image_path' %>
+    <% f.field :avatar, :label => I18n.t('user.photo')+" : " do %>
+      <%= file_field 'user', 'avatar' %>
     <% end %>
     <div class="buttons" id="area_BUTTONS" style="padding-top: 2em">
       <% button_text = current_object.new_record? ? I18n.t('user.create_this_user') : I18n.t('general.update') %>

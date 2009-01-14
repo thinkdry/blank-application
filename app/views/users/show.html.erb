@@ -2,22 +2,9 @@
 	<div id="area_PROFIL">
 		<span class="titre"><%=I18n.t('user.private_informations')%></span><br>
 		<%= @current_object.firstname %> <%= @current_object.lastname %> 
-	  <%if @current_object.image_path %>
-  	    <%= image_tag(url_for_file_column(@current_object, 'image_path'), :class => "avatar", :align => "right", :onclick=>'popup(this);')%>
-      <%else%>
-         <%= image_tag(('/images/default/user.png'), :class=>"avatar", :align=>"right", :onclick=>'popup(this)') %>
-      <% end %>
-      
-      <script type="text/javascript">
-            function popup()
-            {
-
-              $('upload').appear();
-              $('upload').appear({ duration: 3.0 });
-
-            }
-
-      </script>
+	  <%#if @current_object.avatar.file? %>
+  	    <%= image_tag @current_object.avatar.url(:thumb), :class => "avatar", :align => "right"%>
+      <%# end %>
 	  <p>
 
 	  	<span class="txt_80_333"><%=I18n.t('user.location')%>  :</span> <span class="txt_80_666"><%= @current_object.company %></span><br>

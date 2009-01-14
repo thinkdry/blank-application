@@ -11,12 +11,8 @@
   <br />
   <div id="area_INFOS">
   	<h4><%= I18n.t('home.my_personnal_informations')%></h4>
-    <%if @current_user.image_path %>
-  	<%= image_tag(url_for_file_column(@current_user, 'image_path'), :class => "avatar", :align => "right")%>
-    <%else%>
-    <%= image_tag(('/images/default/user.png'), :class=>"avatar", :align=>"right")%>
-    <% end %>
-  	<p><span class="label-txt"><%= I18n.t('profil.location')%>  :</span> <span class="content-txt"><%= @current_user.company %></span></p>
+     	  <%= image_tag @current_user.avatar.url(:thumb), :class => "avatar", :align => "right"%>
+     	<p><span class="label-txt"><%= I18n.t('profil.location')%>  :</span> <span class="content-txt"><%= @current_user.company %></span></p>
   	<p><span class="label-txt"><%= I18n.t('profil.activity')%> : </span><span class="content-txt"><%= @current_user.activity %></span></p>
 	<br>
   	<p><span class="label-txt"><%= I18n.t('profil.email')%> :</span> <span class="content-txt"><%= @current_user.email %></span></p>

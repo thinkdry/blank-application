@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html 
      PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <title>Class: ActiveRecord::Associations::PolymorphicAssociation</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Script-Type" content="text/javascript" />
   <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
   <script type="text/javascript">
@@ -92,13 +92,13 @@ The association class for a <tt>has_many_polymorphs</tt> association.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000018">&lt;&lt;</a>&nbsp;&nbsp;
-      <a href="#M000024">clear</a>&nbsp;&nbsp;
-      <a href="#M000020">concat</a>&nbsp;&nbsp;
-      <a href="#M000022">construct_scope</a>&nbsp;&nbsp;
-      <a href="#M000023">delete</a>&nbsp;&nbsp;
-      <a href="#M000021">find</a>&nbsp;&nbsp;
-      <a href="#M000019">push</a>&nbsp;&nbsp;
+      <a href="#M000019">&lt;&lt;</a>&nbsp;&nbsp;
+      <a href="#M000025">clear</a>&nbsp;&nbsp;
+      <a href="#M000021">concat</a>&nbsp;&nbsp;
+      <a href="#M000023">construct_scope</a>&nbsp;&nbsp;
+      <a href="#M000024">delete</a>&nbsp;&nbsp;
+      <a href="#M000022">find</a>&nbsp;&nbsp;
+      <a href="#M000020">push</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -143,11 +143,11 @@ The association class for a <tt>has_many_polymorphs</tt> association.
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000018" class="method-detail">
-        <a name="M000018"></a>
+      <div id="method-M000019" class="method-detail">
+        <a name="M000019"></a>
 
         <div class="method-heading">
-          <a href="#M000018" class="method-signature">
+          <a href="#M000019" class="method-signature">
           <span class="method-name">&lt;&lt;</span><span class="method-args">(*records)</span>
           </a>
         </div>
@@ -159,8 +159,8 @@ uniqueness check only if <tt>:skip_duplicates</tt> is <tt>true</tt>. Return
 value is undefined.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000018-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000018-source">
+            onclick="toggleCode('M000019-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000019-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/has_many_polymorphs/lib/has_many_polymorphs/association.rb, line 14</span>
 14:       <span class="ruby-keyword kw">def</span> <span class="ruby-operator">&lt;&lt;</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">records</span>)
@@ -189,11 +189,11 @@ value is undefined.
         </div>
       </div>
 
-      <div id="method-M000024" class="method-detail">
-        <a name="M000024"></a>
+      <div id="method-M000025" class="method-detail">
+        <a name="M000025"></a>
 
         <div class="method-heading">
-          <a href="#M000024" class="method-signature">
+          <a href="#M000025" class="method-signature">
           <span class="method-name">clear</span><span class="method-args">(klass = nil)</span>
           </a>
         </div>
@@ -203,8 +203,8 @@ value is undefined.
 Clears all records from the association. Returns an empty array.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000024-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000024-source">
+            onclick="toggleCode('M000025-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000025-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/has_many_polymorphs/lib/has_many_polymorphs/association.rb, line 70</span>
 70:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">clear</span>(<span class="ruby-identifier">klass</span> = <span class="ruby-keyword kw">nil</span>)
@@ -224,8 +224,8 @@ Clears all records from the association. Returns an empty array.
         </div>
       </div>
 
-      <div id="method-M000020" class="method-detail">
-        <a name="M000020"></a>
+      <div id="method-M000021" class="method-detail">
+        <a name="M000021"></a>
 
         <div class="method-heading">
           <span class="method-name">concat</span><span class="method-args">(*records)</span>
@@ -238,19 +238,19 @@ Alias for #&lt;&lt;
         </div>
       </div>
 
-      <div id="method-M000022" class="method-detail">
-        <a name="M000022"></a>
+      <div id="method-M000023" class="method-detail">
+        <a name="M000023"></a>
 
         <div class="method-heading">
-          <a href="#M000022" class="method-signature">
+          <a href="#M000023" class="method-signature">
           <span class="method-name">construct_scope</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000022-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000022-source">
+            onclick="toggleCode('M000023-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000023-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/has_many_polymorphs/lib/has_many_polymorphs/association.rb, line 46</span>
 46:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">construct_scope</span>
@@ -262,11 +262,11 @@ Alias for #&lt;&lt;
         </div>
       </div>
 
-      <div id="method-M000023" class="method-detail">
-        <a name="M000023"></a>
+      <div id="method-M000024" class="method-detail">
+        <a name="M000024"></a>
 
         <div class="method-heading">
-          <a href="#M000023" class="method-signature">
+          <a href="#M000024" class="method-signature">
           <span class="method-name">delete</span><span class="method-args">(*records)</span>
           </a>
         </div>
@@ -276,8 +276,8 @@ Alias for #&lt;&lt;
 Deletes a record from the association. Return value is undefined.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000023-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000023-source">
+            onclick="toggleCode('M000024-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000024-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/has_many_polymorphs/lib/has_many_polymorphs/association.rb, line 52</span>
 52:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">delete</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">records</span>)
@@ -301,25 +301,25 @@ Deletes a record from the association. Return value is undefined.
         </div>
       </div>
 
-      <div id="method-M000021" class="method-detail">
-        <a name="M000021"></a>
+      <div id="method-M000022" class="method-detail">
+        <a name="M000022"></a>
 
         <div class="method-heading">
-          <a href="#M000021" class="method-signature">
+          <a href="#M000022" class="method-signature">
           <span class="method-name">find</span><span class="method-args">(*args)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Runs a <tt><a href="PolymorphicAssociation.html#M000021">find</a></tt>
+Runs a <tt><a href="PolymorphicAssociation.html#M000022">find</a></tt>
 against the association contents, returning the matched records. All
-regular <tt><a href="PolymorphicAssociation.html#M000021">find</a></tt>
+regular <tt><a href="PolymorphicAssociation.html#M000022">find</a></tt>
 options except <tt>:include</tt> are supported.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000021-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000021-source">
+            onclick="toggleCode('M000022-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000022-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/has_many_polymorphs/lib/has_many_polymorphs/association.rb, line 40</span>
 40:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
@@ -332,8 +332,8 @@ options except <tt>:include</tt> are supported.
         </div>
       </div>
 
-      <div id="method-M000019" class="method-detail">
-        <a name="M000019"></a>
+      <div id="method-M000020" class="method-detail">
+        <a name="M000020"></a>
 
         <div class="method-heading">
           <span class="method-name">push</span><span class="method-args">(*records)</span>

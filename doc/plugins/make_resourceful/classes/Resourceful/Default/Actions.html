@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html 
      PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <title>Module: Resourceful::Default::Actions</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Script-Type" content="text/javascript" />
   <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
   <script type="text/javascript">
@@ -99,13 +99,13 @@ for single-object actions is 12.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000045">create</a>&nbsp;&nbsp;
-      <a href="#M000049">destroy</a>&nbsp;&nbsp;
-      <a href="#M000048">edit</a>&nbsp;&nbsp;
-      <a href="#M000043">index</a>&nbsp;&nbsp;
-      <a href="#M000047">new</a>&nbsp;&nbsp;
-      <a href="#M000044">show</a>&nbsp;&nbsp;
-      <a href="#M000046">update</a>&nbsp;&nbsp;
+      <a href="#M000037">create</a>&nbsp;&nbsp;
+      <a href="#M000041">destroy</a>&nbsp;&nbsp;
+      <a href="#M000040">edit</a>&nbsp;&nbsp;
+      <a href="#M000035">index</a>&nbsp;&nbsp;
+      <a href="#M000039">new</a>&nbsp;&nbsp;
+      <a href="#M000036">show</a>&nbsp;&nbsp;
+      <a href="#M000038">update</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -127,11 +127,11 @@ for single-object actions is 12.
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000045" class="method-detail">
-        <a name="M000045"></a>
+      <div id="method-M000037" class="method-detail">
+        <a name="M000037"></a>
 
         <div class="method-heading">
-          <a href="#M000045" class="method-signature">
+          <a href="#M000037" class="method-signature">
           <span class="method-name">create</span><span class="method-args">()</span>
           </a>
         </div>
@@ -141,8 +141,8 @@ for single-object actions is 12.
 POST /foos
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000045-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000045-source">
+            onclick="toggleCode('M000037-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000037-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/actions.rb, line 33</span>
 33:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create</span>
@@ -164,11 +164,11 @@ POST /foos
         </div>
       </div>
 
-      <div id="method-M000049" class="method-detail">
-        <a name="M000049"></a>
+      <div id="method-M000041" class="method-detail">
+        <a name="M000041"></a>
 
         <div class="method-heading">
-          <a href="#M000049" class="method-signature">
+          <a href="#M000041" class="method-signature">
           <span class="method-name">destroy</span><span class="method-args">()</span>
           </a>
         </div>
@@ -178,8 +178,8 @@ POST /foos
 DELETE /foos/12
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000049-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000049-source">
+            onclick="toggleCode('M000041-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000041-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/actions.rb, line 79</span>
 79:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">destroy</span>
@@ -198,11 +198,11 @@ DELETE /foos/12
         </div>
       </div>
 
-      <div id="method-M000048" class="method-detail">
-        <a name="M000048"></a>
+      <div id="method-M000040" class="method-detail">
+        <a name="M000040"></a>
 
         <div class="method-heading">
-          <a href="#M000048" class="method-signature">
+          <a href="#M000040" class="method-signature">
           <span class="method-name">edit</span><span class="method-args">()</span>
           </a>
         </div>
@@ -212,8 +212,8 @@ DELETE /foos/12
 GET /foos/12/edit
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000048-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000048-source">
+            onclick="toggleCode('M000040-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000040-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/actions.rb, line 72</span>
 72:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">edit</span>
@@ -226,11 +226,11 @@ GET /foos/12/edit
         </div>
       </div>
 
-      <div id="method-M000043" class="method-detail">
-        <a name="M000043"></a>
+      <div id="method-M000035" class="method-detail">
+        <a name="M000035"></a>
 
         <div class="method-heading">
-          <a href="#M000043" class="method-signature">
+          <a href="#M000035" class="method-signature">
           <span class="method-name">index</span><span class="method-args">()</span>
           </a>
         </div>
@@ -240,8 +240,8 @@ GET /foos/12/edit
 GET /foos
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000043-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000043-source">
+            onclick="toggleCode('M000035-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000035-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/actions.rb, line 17</span>
 17:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">index</span>
@@ -254,11 +254,11 @@ GET /foos
         </div>
       </div>
 
-      <div id="method-M000047" class="method-detail">
-        <a name="M000047"></a>
+      <div id="method-M000039" class="method-detail">
+        <a name="M000039"></a>
 
         <div class="method-heading">
-          <a href="#M000047" class="method-signature">
+          <a href="#M000039" class="method-signature">
           <span class="method-name">new</span><span class="method-args">()</span>
           </a>
         </div>
@@ -268,8 +268,8 @@ GET /foos
 GET /foos/new
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000047-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000047-source">
+            onclick="toggleCode('M000039-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000039-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/actions.rb, line 64</span>
 64:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">new</span>
@@ -283,11 +283,11 @@ GET /foos/new
         </div>
       </div>
 
-      <div id="method-M000044" class="method-detail">
-        <a name="M000044"></a>
+      <div id="method-M000036" class="method-detail">
+        <a name="M000036"></a>
 
         <div class="method-heading">
-          <a href="#M000044" class="method-signature">
+          <a href="#M000036" class="method-signature">
           <span class="method-name">show</span><span class="method-args">()</span>
           </a>
         </div>
@@ -297,8 +297,8 @@ GET /foos/new
 GET /foos/12
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000044-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000044-source">
+            onclick="toggleCode('M000036-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000036-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/actions.rb, line 24</span>
 24:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">show</span>
@@ -313,11 +313,11 @@ GET /foos/12
         </div>
       </div>
 
-      <div id="method-M000046" class="method-detail">
-        <a name="M000046"></a>
+      <div id="method-M000038" class="method-detail">
+        <a name="M000038"></a>
 
         <div class="method-heading">
-          <a href="#M000046" class="method-signature">
+          <a href="#M000038" class="method-signature">
           <span class="method-name">update</span><span class="method-args">()</span>
           </a>
         </div>
@@ -327,8 +327,8 @@ GET /foos/12
 PUT /foos/12
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000046-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000046-source">
+            onclick="toggleCode('M000038-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000038-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/actions.rb, line 49</span>
 49:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update</span>

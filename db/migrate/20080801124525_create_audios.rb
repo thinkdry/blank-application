@@ -4,8 +4,11 @@ class CreateAudios < ActiveRecord::Migration
       t.integer :user_id
       t.string :title
       t.text :description
-			t.string :state
-      t.string :file_path
+     	t.string :state
+      t.string :audio_file_name
+      t.string :audio_content_type
+      t.integer :audio_file_size
+      t.datetime :audio_updated_at
       t.timestamps
     end
   end

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html 
      PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <title>Module: Authorization::Base::ControllerInstanceMethods</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Script-Type" content="text/javascript" />
   <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
   <script type="text/javascript">
@@ -80,8 +80,8 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000022">permit</a>&nbsp;&nbsp;
-      <a href="#M000021">permit?</a>&nbsp;&nbsp;
+      <a href="#M000023">permit</a>&nbsp;&nbsp;
+      <a href="#M000022">permit?</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -110,11 +110,11 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000022" class="method-detail">
-        <a name="M000022"></a>
+      <div id="method-M000023" class="method-detail">
+        <a name="M000023"></a>
 
         <div class="method-heading">
-          <a href="#M000022" class="method-signature">
+          <a href="#M000023" class="method-signature">
           <span class="method-name">permit</span><span class="method-args">( authorization_expression, *args ) {|if block_given?| ...}</span>
           </a>
         </div>
@@ -122,13 +122,13 @@
         <div class="method-description">
           <p>
 Allow method-level authorization checks. <a
-href="ControllerInstanceMethods.html#M000022">permit</a> (without a
+href="ControllerInstanceMethods.html#M000023">permit</a> (without a
 question mark ending) calls redirect on denial by default. Specify
 :redirect =&gt; false to turn off redirection.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000022-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000022-source">
+            onclick="toggleCode('M000023-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000023-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rails-authorization-plugin/lib/authorization.rb, line 60</span>
 60:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">permit</span>( <span class="ruby-identifier">authorization_expression</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span> )
@@ -146,11 +146,11 @@ question mark ending) calls redirect on denial by default. Specify
         </div>
       </div>
 
-      <div id="method-M000021" class="method-detail">
-        <a name="M000021"></a>
+      <div id="method-M000022" class="method-detail">
+        <a name="M000022"></a>
 
         <div class="method-heading">
-          <a href="#M000021" class="method-signature">
+          <a href="#M000022" class="method-signature">
           <span class="method-name">permit?</span><span class="method-args">( authorization_expression, *args )</span>
           </a>
         </div>
@@ -160,8 +160,8 @@ question mark ending) calls redirect on denial by default. Specify
 Permit? turns off redirection by default and takes no blocks
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000021-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000021-source">
+            onclick="toggleCode('M000022-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000022-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rails-authorization-plugin/lib/authorization.rb, line 50</span>
 50:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">permit?</span>( <span class="ruby-identifier">authorization_expression</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span> )

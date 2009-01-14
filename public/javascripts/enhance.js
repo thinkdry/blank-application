@@ -15,7 +15,7 @@
 var file1="";
 function LimitAttach(form, file, type) {
 if(type=="audio")
-extArray = new Array(".mp3", ".wav");
+extArray = new Array(".mp3", ".mp4");
 if(type=="video")
 extArray = new Array(".avi", ".mov", ".mpeg", ".mpg", ".mp4", ".qt", ".asf", ".asx", ".flv", ".rm", ".ram", ".swf", ".3gp");
 if(type=="image")

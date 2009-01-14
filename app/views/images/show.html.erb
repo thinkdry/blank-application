@@ -1,11 +1,10 @@
 <% item_show( :title => 'Image',  :object => @current_object ) do %>
 	<h2><%=I18n.t('general.picture')%></h2>
 
-	<%= File.basename @current_object.file_path %>
+	<%= File.basename @current_object.image_file_name %>
 	<br />
 	<%= link_to(
-			image_tag(url_for_file_column(@current_object, :file_path, "web")),
-			url_for_file_column(@current_object, :file_path)) %>
+			image_tag(@current_object.image.url(:medium)), @current_object.image.url) %>
 	<br />
 
 <% end %>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html 
      PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <title>Module: Resourceful::Default::URLs</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Script-Type" content="text/javascript" />
   <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
   <script type="text/javascript">
@@ -90,20 +90,20 @@ which parent objects it should be passed.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000042">collection_url_prefix</a>&nbsp;&nbsp;
-      <a href="#M000033">edit_object_path</a>&nbsp;&nbsp;
-      <a href="#M000034">edit_object_url</a>&nbsp;&nbsp;
-      <a href="#M000031">nested_object_path</a>&nbsp;&nbsp;
-      <a href="#M000032">nested_object_url</a>&nbsp;&nbsp;
-      <a href="#M000037">new_object_path</a>&nbsp;&nbsp;
-      <a href="#M000038">new_object_url</a>&nbsp;&nbsp;
-      <a href="#M000029">object_path</a>&nbsp;&nbsp;
-      <a href="#M000030">object_url</a>&nbsp;&nbsp;
-      <a href="#M000035">objects_path</a>&nbsp;&nbsp;
-      <a href="#M000036">objects_url</a>&nbsp;&nbsp;
-      <a href="#M000039">parent_path</a>&nbsp;&nbsp;
-      <a href="#M000040">parent_url</a>&nbsp;&nbsp;
-      <a href="#M000041">url_helper_prefix</a>&nbsp;&nbsp;
+      <a href="#M000059">collection_url_prefix</a>&nbsp;&nbsp;
+      <a href="#M000050">edit_object_path</a>&nbsp;&nbsp;
+      <a href="#M000051">edit_object_url</a>&nbsp;&nbsp;
+      <a href="#M000048">nested_object_path</a>&nbsp;&nbsp;
+      <a href="#M000049">nested_object_url</a>&nbsp;&nbsp;
+      <a href="#M000054">new_object_path</a>&nbsp;&nbsp;
+      <a href="#M000055">new_object_url</a>&nbsp;&nbsp;
+      <a href="#M000046">object_path</a>&nbsp;&nbsp;
+      <a href="#M000047">object_url</a>&nbsp;&nbsp;
+      <a href="#M000052">objects_path</a>&nbsp;&nbsp;
+      <a href="#M000053">objects_url</a>&nbsp;&nbsp;
+      <a href="#M000056">parent_path</a>&nbsp;&nbsp;
+      <a href="#M000057">parent_url</a>&nbsp;&nbsp;
+      <a href="#M000058">url_helper_prefix</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -125,11 +125,11 @@ which parent objects it should be passed.
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000042" class="method-detail">
-        <a name="M000042"></a>
+      <div id="method-M000059" class="method-detail">
+        <a name="M000059"></a>
 
         <div class="method-heading">
-          <a href="#M000042" class="method-signature">
+          <a href="#M000059" class="method-signature">
           <span class="method-name">collection_url_prefix</span><span class="method-args">()</span>
           </a>
         </div>
@@ -137,18 +137,18 @@ which parent objects it should be passed.
         <div class="method-description">
           <p>
 This prefix is added to the Rails URL helper names for the make_resourceful
-collection URL helpers, <a href="URLs.html#M000035">objects_path</a> and <a
-href="URLs.html#M000037">new_object_path</a>. It&#8216;s only added if <a
-href="URLs.html#M000041">url_helper_prefix</a> returns nil. By default,
+collection URL helpers, <a href="URLs.html#M000052">objects_path</a> and <a
+href="URLs.html#M000054">new_object_path</a>. It&#8216;s only added if <a
+href="URLs.html#M000058">url_helper_prefix</a> returns nil. By default,
 it&#8216;s the parent name followed by an underscore if a parent is given,
 and the empty string otherwise.
 </p>
 <p>
-See also <a href="URLs.html#M000041">url_helper_prefix</a>.
+See also <a href="URLs.html#M000058">url_helper_prefix</a>.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000042-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000042-source">
+            onclick="toggleCode('M000059-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000059-source">
 <pre>
      <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/urls.rb, line 100</span>
 100:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">collection_url_prefix</span>
@@ -159,11 +159,11 @@ See also <a href="URLs.html#M000041">url_helper_prefix</a>.
         </div>
       </div>
 
-      <div id="method-M000033" class="method-detail">
-        <a name="M000033"></a>
+      <div id="method-M000050" class="method-detail">
+        <a name="M000050"></a>
 
         <div class="method-heading">
-          <a href="#M000033" class="method-signature">
+          <a href="#M000050" class="method-signature">
           <span class="method-name">edit_object_path</span><span class="method-args">(object = current_object)</span>
           </a>
         </div>
@@ -179,8 +179,8 @@ HatsController the following are equivalent:
   edit_person_hat_path(@person, @hat) #=&gt; &quot;/hats/12/edit&quot;
 </pre>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000033-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000033-source">
+            onclick="toggleCode('M000050-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000050-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/urls.rb, line 39</span>
 39:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">edit_object_path</span>(<span class="ruby-identifier">object</span> = <span class="ruby-identifier">current_object</span>); <span class="ruby-identifier">edit_object_route</span>(<span class="ruby-identifier">object</span>, <span class="ruby-value str">'path'</span>); <span class="ruby-keyword kw">end</span>
@@ -189,23 +189,23 @@ HatsController the following are equivalent:
         </div>
       </div>
 
-      <div id="method-M000034" class="method-detail">
-        <a name="M000034"></a>
+      <div id="method-M000051" class="method-detail">
+        <a name="M000051"></a>
 
         <div class="method-heading">
-          <a href="#M000034" class="method-signature">
+          <a href="#M000051" class="method-signature">
           <span class="method-name">edit_object_url</span><span class="method-args">(object = current_object)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Same as <a href="URLs.html#M000033">edit_object_path</a>, but with the
+Same as <a href="URLs.html#M000050">edit_object_path</a>, but with the
 protocol and hostname.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000034-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000034-source">
+            onclick="toggleCode('M000051-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000051-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/urls.rb, line 41</span>
 41:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">edit_object_url</span> (<span class="ruby-identifier">object</span> = <span class="ruby-identifier">current_object</span>); <span class="ruby-identifier">edit_object_route</span>(<span class="ruby-identifier">object</span>, <span class="ruby-value str">'url'</span>);  <span class="ruby-keyword kw">end</span>
@@ -214,18 +214,18 @@ protocol and hostname.
         </div>
       </div>
 
-      <div id="method-M000031" class="method-detail">
-        <a name="M000031"></a>
+      <div id="method-M000048" class="method-detail">
+        <a name="M000048"></a>
 
         <div class="method-heading">
-          <a href="#M000031" class="method-signature">
+          <a href="#M000048" class="method-signature">
           <span class="method-name">nested_object_path</span><span class="method-args">(object = current_object)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-This is the same as <a href="URLs.html#M000029">object_path</a>, unless a
+This is the same as <a href="URLs.html#M000046">object_path</a>, unless a
 parent exists. Then it returns the nested path for the object. For example,
 in HatsController where Person has_many :hats and <tt>params[:person_id] ==
 42</tt>, the following are equivalent:
@@ -235,8 +235,8 @@ in HatsController where Person has_many :hats and <tt>params[:person_id] ==
   person_hat_path(@person, @hat) #=&gt; &quot;/person/42/hats/12&quot;
 </pre>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000031-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000031-source">
+            onclick="toggleCode('M000048-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000048-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/urls.rb, line 28</span>
 28:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">nested_object_path</span>(<span class="ruby-identifier">object</span> = <span class="ruby-identifier">current_object</span>); <span class="ruby-identifier">nested_object_route</span>(<span class="ruby-identifier">object</span>, <span class="ruby-value str">'path'</span>); <span class="ruby-keyword kw">end</span>
@@ -245,23 +245,23 @@ in HatsController where Person has_many :hats and <tt>params[:person_id] ==
         </div>
       </div>
 
-      <div id="method-M000032" class="method-detail">
-        <a name="M000032"></a>
+      <div id="method-M000049" class="method-detail">
+        <a name="M000049"></a>
 
         <div class="method-heading">
-          <a href="#M000032" class="method-signature">
+          <a href="#M000049" class="method-signature">
           <span class="method-name">nested_object_url</span><span class="method-args">(object = current_object)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Same as <a href="URLs.html#M000031">nested_object_path</a>, but with the
+Same as <a href="URLs.html#M000048">nested_object_path</a>, but with the
 protocol and hostname.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000032-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000032-source">
+            onclick="toggleCode('M000049-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000049-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/urls.rb, line 30</span>
 30:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">nested_object_url</span> (<span class="ruby-identifier">object</span> = <span class="ruby-identifier">current_object</span>); <span class="ruby-identifier">nested_object_route</span>(<span class="ruby-identifier">object</span>, <span class="ruby-value str">'url'</span>);  <span class="ruby-keyword kw">end</span>
@@ -270,11 +270,11 @@ protocol and hostname.
         </div>
       </div>
 
-      <div id="method-M000037" class="method-detail">
-        <a name="M000037"></a>
+      <div id="method-M000054" class="method-detail">
+        <a name="M000054"></a>
 
         <div class="method-heading">
-          <a href="#M000037" class="method-signature">
+          <a href="#M000054" class="method-signature">
           <span class="method-name">new_object_path</span><span class="method-args">()</span>
           </a>
         </div>
@@ -290,8 +290,8 @@ example, in HatsController where Person has_many :hats and
   new_person_hat_path(@person) #=&gt; &quot;/people/42/hats/new&quot;
 </pre>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000037-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000037-source">
+            onclick="toggleCode('M000054-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000054-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/urls.rb, line 61</span>
 61:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">new_object_path</span>; <span class="ruby-identifier">new_object_route</span>(<span class="ruby-value str">'path'</span>); <span class="ruby-keyword kw">end</span>
@@ -300,23 +300,23 @@ example, in HatsController where Person has_many :hats and
         </div>
       </div>
 
-      <div id="method-M000038" class="method-detail">
-        <a name="M000038"></a>
+      <div id="method-M000055" class="method-detail">
+        <a name="M000055"></a>
 
         <div class="method-heading">
-          <a href="#M000038" class="method-signature">
+          <a href="#M000055" class="method-signature">
           <span class="method-name">new_object_url</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Same as <a href="URLs.html#M000037">new_object_path</a>, but with the
+Same as <a href="URLs.html#M000054">new_object_path</a>, but with the
 protocol and hostname.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000038-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000038-source">
+            onclick="toggleCode('M000055-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000055-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/urls.rb, line 63</span>
 63:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">new_object_url</span> ; <span class="ruby-identifier">new_object_route</span>(<span class="ruby-value str">'url'</span>);  <span class="ruby-keyword kw">end</span>
@@ -325,11 +325,11 @@ protocol and hostname.
         </div>
       </div>
 
-      <div id="method-M000029" class="method-detail">
-        <a name="M000029"></a>
+      <div id="method-M000046" class="method-detail">
+        <a name="M000046"></a>
 
         <div class="method-heading">
-          <a href="#M000029" class="method-signature">
+          <a href="#M000046" class="method-signature">
           <span class="method-name">object_path</span><span class="method-args">(object = current_object)</span>
           </a>
         </div>
@@ -345,8 +345,8 @@ HatsController the following are equivalent:
   hat_path(@hat) #=&gt; &quot;/hats/12&quot;
 </pre>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000029-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000029-source">
+            onclick="toggleCode('M000046-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000046-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/urls.rb, line 15</span>
 15:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">object_path</span>(<span class="ruby-identifier">object</span> = <span class="ruby-identifier">current_object</span>); <span class="ruby-identifier">object_route</span>(<span class="ruby-identifier">object</span>, <span class="ruby-value str">'path'</span>); <span class="ruby-keyword kw">end</span>
@@ -355,23 +355,23 @@ HatsController the following are equivalent:
         </div>
       </div>
 
-      <div id="method-M000030" class="method-detail">
-        <a name="M000030"></a>
+      <div id="method-M000047" class="method-detail">
+        <a name="M000047"></a>
 
         <div class="method-heading">
-          <a href="#M000030" class="method-signature">
+          <a href="#M000047" class="method-signature">
           <span class="method-name">object_url</span><span class="method-args">(object = current_object)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Same as <a href="URLs.html#M000029">object_path</a>, but with the protocol
+Same as <a href="URLs.html#M000046">object_path</a>, but with the protocol
 and hostname.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000030-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000030-source">
+            onclick="toggleCode('M000047-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000047-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/urls.rb, line 17</span>
 17:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">object_url</span> (<span class="ruby-identifier">object</span> = <span class="ruby-identifier">current_object</span>); <span class="ruby-identifier">object_route</span>(<span class="ruby-identifier">object</span>, <span class="ruby-value str">'url'</span>);  <span class="ruby-keyword kw">end</span>
@@ -380,11 +380,11 @@ and hostname.
         </div>
       </div>
 
-      <div id="method-M000035" class="method-detail">
-        <a name="M000035"></a>
+      <div id="method-M000052" class="method-detail">
+        <a name="M000052"></a>
 
         <div class="method-heading">
-          <a href="#M000035" class="method-signature">
+          <a href="#M000052" class="method-signature">
           <span class="method-name">objects_path</span><span class="method-args">()</span>
           </a>
         </div>
@@ -400,8 +400,8 @@ example, in HatsController where Person has_many :hats and
   person_hats_path(@person) #=&gt; &quot;/people/42/hats&quot;
 </pre>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000035-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000035-source">
+            onclick="toggleCode('M000052-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000052-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/urls.rb, line 50</span>
 50:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">objects_path</span>; <span class="ruby-identifier">objects_route</span>(<span class="ruby-value str">'path'</span>); <span class="ruby-keyword kw">end</span>
@@ -410,23 +410,23 @@ example, in HatsController where Person has_many :hats and
         </div>
       </div>
 
-      <div id="method-M000036" class="method-detail">
-        <a name="M000036"></a>
+      <div id="method-M000053" class="method-detail">
+        <a name="M000053"></a>
 
         <div class="method-heading">
-          <a href="#M000036" class="method-signature">
+          <a href="#M000053" class="method-signature">
           <span class="method-name">objects_url</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Same as <a href="URLs.html#M000035">objects_path</a>, but with the protocol
+Same as <a href="URLs.html#M000052">objects_path</a>, but with the protocol
 and hostname.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000036-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000036-source">
+            onclick="toggleCode('M000053-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000053-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/urls.rb, line 52</span>
 52:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">objects_url</span> ; <span class="ruby-identifier">objects_route</span>(<span class="ruby-value str">'url'</span>);  <span class="ruby-keyword kw">end</span>
@@ -435,11 +435,11 @@ and hostname.
         </div>
       </div>
 
-      <div id="method-M000039" class="method-detail">
-        <a name="M000039"></a>
+      <div id="method-M000056" class="method-detail">
+        <a name="M000056"></a>
 
         <div class="method-heading">
-          <a href="#M000039" class="method-signature">
+          <a href="#M000056" class="method-signature">
           <span class="method-name">parent_path</span><span class="method-args">(object = parent_object)</span>
           </a>
         </div>
@@ -449,8 +449,8 @@ and hostname.
 This returns the path for the parent object.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000039-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000039-source">
+            onclick="toggleCode('M000056-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000056-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/urls.rb, line 67</span>
 67:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parent_path</span>(<span class="ruby-identifier">object</span> = <span class="ruby-identifier">parent_object</span>)
@@ -461,23 +461,23 @@ This returns the path for the parent object.
         </div>
       </div>
 
-      <div id="method-M000040" class="method-detail">
-        <a name="M000040"></a>
+      <div id="method-M000057" class="method-detail">
+        <a name="M000057"></a>
 
         <div class="method-heading">
-          <a href="#M000040" class="method-signature">
+          <a href="#M000057" class="method-signature">
           <span class="method-name">parent_url</span><span class="method-args">(object = parent_object)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Same as <a href="URLs.html#M000039">parent_path</a>, but with the protocol
+Same as <a href="URLs.html#M000056">parent_path</a>, but with the protocol
 and hostname.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000040-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000040-source">
+            onclick="toggleCode('M000057-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000057-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/urls.rb, line 71</span>
 71:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parent_url</span>(<span class="ruby-identifier">object</span> = <span class="ruby-identifier">parent_object</span>)
@@ -488,11 +488,11 @@ and hostname.
         </div>
       </div>
 
-      <div id="method-M000041" class="method-detail">
-        <a name="M000041"></a>
+      <div id="method-M000058" class="method-detail">
+        <a name="M000058"></a>
 
         <div class="method-heading">
-          <a href="#M000041" class="method-signature">
+          <a href="#M000058" class="method-signature">
           <span class="method-name">url_helper_prefix</span><span class="method-args">()</span>
           </a>
         </div>
@@ -512,12 +512,12 @@ For example, in Admin::Content::PagesController:
   url_helper_prefix #=&gt; &quot;admin_content_&quot;
 </pre>
 <p>
-Then <a href="URLs.html#M000029">object_path</a> is the same as
+Then <a href="URLs.html#M000046">object_path</a> is the same as
 <tt>admin_content_page_path(current_object)</tt>.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000041-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000041-source">
+            onclick="toggleCode('M000058-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000058-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/urls.rb, line 88</span>
 88:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">url_helper_prefix</span>

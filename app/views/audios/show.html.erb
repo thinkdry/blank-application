@@ -8,9 +8,9 @@
 		s1.addParam('allowfullscreen','true');
 		s1.addParam('allowscriptaccess','always');
 		s1.addParam('wmode','opaque');
-		s1.addParam('flashvars', 'file=<%= url_for_file_column(@current_object, "file_path") %>');
+		s1.addParam('flashvars', 'file=<%=@current_object.audio.url.split("?")[0] %>');
 		s1.write('preview');
 	</script>
 
-	<%= link_to I18n.t('general.download'), url_for_file_column(@current_object, :file_path) %><br />
+	<%= link_to I18n.t('general.download'), @current_object.audio.url %><br />
 <% end %>

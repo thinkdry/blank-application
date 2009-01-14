@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html 
      PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <title>Module: Resourceful::Default::Callbacks</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Script-Type" content="text/javascript" />
   <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
   <script type="text/javascript">
@@ -90,10 +90,10 @@ href="../Builder.html#M000067">Builder#response_for</a>, should be called.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000002">after</a>&nbsp;&nbsp;
-      <a href="#M000001">before</a>&nbsp;&nbsp;
-      <a href="#M000003">response_for</a>&nbsp;&nbsp;
-      <a href="#M000004">scope</a>&nbsp;&nbsp;
+      <a href="#M000043">after</a>&nbsp;&nbsp;
+      <a href="#M000042">before</a>&nbsp;&nbsp;
+      <a href="#M000044">response_for</a>&nbsp;&nbsp;
+      <a href="#M000045">scope</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -115,23 +115,23 @@ href="../Builder.html#M000067">Builder#response_for</a>, should be called.
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000002" class="method-detail">
-        <a name="M000002"></a>
+      <div id="method-M000043" class="method-detail">
+        <a name="M000043"></a>
 
         <div class="method-heading">
-          <a href="#M000002" class="method-signature">
+          <a href="#M000043" class="method-signature">
           <span class="method-name">after</span><span class="method-args">(event)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Calls any <tt><a href="Callbacks.html#M000002">after</a></tt> callbacks set
+Calls any <tt><a href="Callbacks.html#M000043">after</a></tt> callbacks set
 in the <tt>make_resourceful</tt> block for the given event.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000002-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000002-source">
+            onclick="toggleCode('M000043-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000043-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/callbacks.rb, line 16</span>
 16:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">after</span>(<span class="ruby-identifier">event</span>)
@@ -142,23 +142,23 @@ in the <tt>make_resourceful</tt> block for the given event.
         </div>
       </div>
 
-      <div id="method-M000001" class="method-detail">
-        <a name="M000001"></a>
+      <div id="method-M000042" class="method-detail">
+        <a name="M000042"></a>
 
         <div class="method-heading">
-          <a href="#M000001" class="method-signature">
+          <a href="#M000042" class="method-signature">
           <span class="method-name">before</span><span class="method-args">(event)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Calls any <tt><a href="Callbacks.html#M000001">before</a></tt> callbacks
+Calls any <tt><a href="Callbacks.html#M000042">before</a></tt> callbacks
 set in the <tt>make_resourceful</tt> block for the given event.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000001-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000001-source">
+            onclick="toggleCode('M000042-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000042-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/callbacks.rb, line 11</span>
 11:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">before</span>(<span class="ruby-identifier">event</span>)
@@ -169,25 +169,25 @@ set in the <tt>make_resourceful</tt> block for the given event.
         </div>
       </div>
 
-      <div id="method-M000003" class="method-detail">
-        <a name="M000003"></a>
+      <div id="method-M000044" class="method-detail">
+        <a name="M000044"></a>
 
         <div class="method-heading">
-          <a href="#M000003" class="method-signature">
+          <a href="#M000044" class="method-signature">
           <span class="method-name">response_for</span><span class="method-args">(event)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Calls any <tt><a href="Callbacks.html#M000003">response_for</a></tt>
+Calls any <tt><a href="Callbacks.html#M000044">response_for</a></tt>
 callbacks set in the <tt>make_resourceful</tt> block for the given event.
 Note that these aren&#8216;t called directly, but instead passed along to
 Rails&#8217; respond_to method.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000003-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000003-source">
+            onclick="toggleCode('M000044-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000044-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/callbacks.rb, line 23</span>
 23:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">response_for</span>(<span class="ruby-identifier">event</span>)
@@ -204,11 +204,11 @@ Rails&#8217; respond_to method.
         </div>
       </div>
 
-      <div id="method-M000004" class="method-detail">
-        <a name="M000004"></a>
+      <div id="method-M000045" class="method-detail">
+        <a name="M000045"></a>
 
         <div class="method-heading">
-          <a href="#M000004" class="method-signature">
+          <a href="#M000045" class="method-signature">
           <span class="method-name">scope</span><span class="method-args">(block)</span>
           </a>
         </div>
@@ -220,8 +220,8 @@ current controller. The returned block accepts no arguments, even if the
 given block accepted them.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000004-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000004-source">
+            onclick="toggleCode('M000045-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000045-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/callbacks.rb, line 37</span>
 37:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">scope</span>(<span class="ruby-identifier">block</span>)
