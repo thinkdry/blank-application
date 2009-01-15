@@ -4,8 +4,11 @@ class CreateCmsFiles < ActiveRecord::Migration
 			t.integer :user_id
       t.string :title
       t.text :description
-      t.string :file_path
-      t.string :state	
+      t.string :state
+      t.string :cmsfile_file_name
+      t.string :cmsfile_content_type
+      t.integer :cmsfile_file_size
+      t.datetime :cmsfile_updated_at
       t.timestamps
     end
   end
