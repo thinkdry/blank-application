@@ -1,5 +1,5 @@
 <% form_for_item @current_object, title do |f| -%>		
-	<% f.field :audio, :label => I18n.t('general.file') +' :' do %>
+	<% f.field :audio, :label => I18n.t('item.type.audio') +' :' do %>
 	  <%= File.basename(@current_object.audio_file_name) + '<br />' if @current_object.audio_file_name %>
 	  <%= file_field 'audio', 'audio', :onChange=>"LimitAttach(this.form, this.form.audio_audio.value,'audio')" %>
 	<% end %>
