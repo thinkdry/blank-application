@@ -40,10 +40,6 @@ class FeedSource < ActiveRecord::Base
 	validates_format_of :url, :with => /#{URL}/ix, :message=>"The format of the url is not valid."
 	validate :feed_compliance
 	
-	def self.label
-    "Flux RSS"           
-  end
-	
   def validate
     rss_valid?
   end
@@ -132,19 +128,5 @@ class FeedSource < ActiveRecord::Base
 	    self.errors.add(:url, "The url entered is not a compliant RSS/Atom Feed") 
     end
   end
-
-	def yop
-		return Iconv.new("utf8", "iso-8859-1")
-	end
-
-	def title=(value)
-		#yop.iconv(value)
-		super(value)
-	end
-
-	def description=(value)
-		#yop.iconv(value)
-		super(value)
-	end
   
 end

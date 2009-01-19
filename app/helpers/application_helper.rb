@@ -39,5 +39,13 @@ module ApplicationHelper
     html += '>'+link_to("Les + lus", "#")+'</li>'
     html += '</ul><div class="clear"></div>'
 	end
+
+	def available_items_list
+		return YAML.load_file("#{RAILS_ROOT}/config/sa_config.yml")["sa_items_list"]
+	end
+
+	def available_languages_list
+		return YAML.load_file("#{RAILS_ROOT}/config/sa_config.yml")["sa_languages_list"]
+	end
   
 end

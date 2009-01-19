@@ -11,13 +11,12 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users, :member => { :administration => :any }
 	map.resource :session, :member => { :change_language => :any }
 	
-	map.picture_changing_superadministration 'superadministration/picture_changing', :controller => 'superadministration', :action => 'picture_changing'
+	map.general_changing_superadministration 'superadministration/general_changing', :controller => 'superadministration', :action => 'general_changing'
 	map.check_color_superadministration 'superadministration/check_color', :controller => 'superadministration', :action => 'check_color'
 	map.colors_changing_superadministration 'superadministration/colors_changing', :controller => 'superadministration', :action => 'colors_changing'
 	map.language_switching_superadministration 'superadministration/language_switching', :controller => 'superadministration', :action => 'language_switching'
 	map.translations_changing_superadministration 'superadministration/translations_changing', :controller => 'superadministration', :action => 'translations_changing'
 	map.superadministration '/superadministration/:part', :controller => 'superadministration', :action => 'superadministration'
-  
 	map.content '/content/:item_type', :controller => 'items', :action => 'index'
   
   # TODO: Publishing, Bookmarks, Admin related controllers: rights...
@@ -48,7 +47,7 @@ ActionController::Routing::Routes.draw do |map|
   items_resources(map)
 
   # Items in context of workspaces
-  map.resources :workspaces, :member => { :add_new_user => :any } do |workspaces|
+  map.resources :workspaces, :member => { :add_new_user => :any, :subscription => :any, :unsubscription => :any, :question => :any } do |workspaces|
     workspaces.content '/:item_type', :controller => 'workspaces', :action => 'show', :conditions => { :method => :get }
     items_resources(workspaces)
   end

@@ -40,5 +40,35 @@ class WorkspacesController < ApplicationController
         nil
       end
   end
+
+	def unsubscription
+		if UsersWorkspace.find(:first, :conditions => { :user_id => self.current_user.id, :workspace_id => params[:id] }).destroy
+			flash[:notice] = "Vous êtes désinscrit de cet espace de travail."
+			redirect_to workspace_path(params[:id])
+		else
+			flash[:error] = "Vous n'avez pas été désinscrit de cet espace de travail."
+			redirect_to workspace_path(params[:id])
+		end
+	end
+
+	def subscription
+		if UsersWorkspace.create(:user_id => self.current_user.id, :workspace_id => params[:id], :role_id => Role.find_by_name('reader').id)
+			flash[:notice] = "Vous êtes inscrit sur cet espace de travail."
+			redirect_to workspace_path(params[:id])
+		else
+			flash[:error] = "Vous n'avez pas été inscrit sur cet espace de travail."
+			redirect_to workspace_path(params[:id])
+		end
+	end
+
+	def question
+		if UserMailer.deliver_ws_administrator_request(Workspace.find(params[:id]).creator, @current_user.id, params[:question][:type], params[:question][:msg])
+			flash[:notice] = "Votre demande a bien été envoyée."
+			redirect_to workspace_path(params[:id])
+		else
+			flash[:error] = "Votre demande n'a pu être envoyée."
+			redirect_to workspace_path(params[:id])
+		end
+	end
  
 end

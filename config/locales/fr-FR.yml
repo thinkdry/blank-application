@@ -1,17 +1,127 @@
 --- 
 fr-FR: 
-  time: 
-    am: am
-    formats: 
-      default: "%a %b %d %H:%M:%S %Z %Y"
-      time: "%H:%M"
-      only_second: "%S"
-      datetime: 
-        formats: 
-          default: "%Y-%m-%dT%H:%M:%S%Z"
-      short: "%d %b %H:%M"
-      long: "%B %d, %Y %H:%M"
-    pm: pm
+  article: 
+    edit_article: Edit Article
+    add_a_new_article: New Article
+  audio: 
+    edit_audio: Edit Audio
+    add_a_new_audio: Add a New Audio file
+  bookmark: 
+    add_a_link: Add Link
+    edit_bookmark: Edit Bookmark
+    url: url
+    show_my_links: Show My Links
+    new_bookmark: New Bookmark
+  user: 
+    system_administrator: System Administrator
+    name: Name
+    photo: Photo
+    administration: Administration
+    writer: Writer
+    rights_to_manage: Rights to Manage
+    confirm_new_password: Confirm new password
+    reader: Reader
+    private_informations: Private Informations
+    logout: Log out
+    confirm_password: Confirm password
+    your_private_informations: Your Private Informations
+    activity: Activity
+    log_in: Log in
+    moderator: Moderator
+    manage_users_and_rights: Users and Rights Management
+    edito: Edito
+    administrator: Administrator
+    mobile: Mobile
+    signup: Sign up
+    back_to_login: Back to Login
+    access_rights: Access rights
+    readonly_access_to: Read Only Access to
+    update_private_informations: Update private Informations
+    phone: Phone
+    new_password: New password
+    validate_this_password: Validate this password
+    first_name: First name
+    hello_world: hello
+    rights_to_be_moderator: Rights to Moderator
+    password_reset_request: Password Reset Request
+    create_this_user: Create User
+    login: Login
+    password: Password
+    address: Address
+    administration_configuration: Administation Configuration
+    add_a_new_user: Add a New User
+    email: Email
+    nationality: Nationality
+    location: Location
+  message: 
+    copyright_restriction: Some fields can't be Modified as this Item is Copyright Protected.
+    error_during_file_transfer: Error during File transfer
+    video_wip: Your video has been recorded for encoding. Please come back later.
+  general: 
+    hello_key: hello
+    from1: From
+    false: false
+    delete: Delete
+    name: Name
+    article: Article
+    audio: Audio
+    bookmark: Bookmark
+    last_five_published_items: Last 5 Published Items
+    by: by
+    add: Add
+    download: Download
+    search: Search
+    your_comment: Your comment
+    category: Category
+    separated_by_spaces: Separated by Spaces
+    go_key: go
+    true: true
+    void: void
+    edit: Edit
+    workspace: Workspace
+    "true": "true"
+    dsfsdfs: fdsfdsfsd
+    cancel: Cancel
+    tag: Tag
+    rate: Rate
+    url: url
+    type: Type
+    author: Author
+    publishing_date: Publishing Date
+    dsdsad: sadsads
+    in: In
+    to: To
+    no1: ""
+    commentV: Comment
+    add_a_new_file: Add a new file
+    publication: Publication
+    last_update_date: Last Update Date
+    create: Create
+    print: Print
+    filter: Filter
+    description: Description
+    feed_source: RSS feed
+    on1: "on"
+    content: Content
+    copyright: Copyright
+    "false": ""
+    send: Send
+    picture: Picture
+    link: Link
+    comment: Comment
+    update: Update
+    video: Video
+    last_five_posted_comments: Last 5 Posted Comments
+    associated_file: Associated file
+    all_elements: All elements
+    publish_my_comment: Publish my Comment
+    file: File
+  search: 
+    advanced_search: Advanced Search
+    informations_on_searched_items: Informations on Searched Items
+    search_period: Search period
+    your_search_result: Your search result
+    you_have_searched_for: you have searched for
   number: 
     format: 
       separator: .
@@ -22,6 +132,46 @@ fr-FR:
         format: "%u %n"
         unit: $
         precision: 2
+  time: 
+    am: am
+    formats: 
+      default: "%a %b %d %H:%M:%S %Z %Y"
+      time: "%H:%M"
+      only_second: "%S"
+      datetime: 
+        formats: 
+          default: "%Y-%m-%dT%H:%M:%S%Z"
+      long: "%B %d, %Y %H:%M"
+      short: "%d %b %H:%M"
+    pm: pm
+  text: 
+    reset_password: Your password and a reactivation Link will be send by Mail
+  active_record: 
+    error: 
+      message: "Please check the following fields :"
+      header_message: 
+      - "Couldn't save this {{object_name}}: 1 error"
+      - "Couldn't save this {{object_name}}: {{count}} errors."
+    error_messages: 
+      taken: This field is not available.
+      accepted: This field must be accepted.
+      not_a_number: This field is not a number.
+      greater_than_or_equal_to: This field must be greater than or equal to {{count}}.
+      blank: This field must be given.
+      less_than_or_equal_to: This field must be less than or equal to {{count}}.
+      confirmation: This field does not match its confirmation.
+      exclusion: This field is not available.
+      odd: This field must be odd.
+      invalid: This field is not valid.
+      wrong_length: This field is not the right length (must be {{count}} characters).
+      too_short: This field is too short (no less than {{count}} characters).
+      empty: This field must be given.
+      less_than: This field must be less than {{count}}.
+      too_long: This field is too long (no more than {{count}} characters).
+      even: This field must be even.
+      equal_to: This field must be equal to {{count}}.
+      greater_than: This field must be greater than {{count}}.
+      inclusion: This field is not included in the list.
   date: 
     order: 
     - :year
@@ -38,30 +188,8 @@ fr-FR:
     formats: 
       default: "%Y-%m-%d"
       only_day: "%e"
-      short: "%e %b"
       long: "%B %e, %Y"
-    day_names: 
-    - Sunday
-    - Monday
-    - Tuesday
-    - Wednesday
-    - Thursday
-    - Friday
-    - Saturday
-    month_names: 
-    - 
-    - January
-    - February
-    - March
-    - April
-    - May
-    - June
-    - July
-    - August
-    - September
-    - October
-    - November
-    - December
+      short: "%e %b"
     abbr_month_names: 
     - 
     - Jan
@@ -76,42 +204,47 @@ fr-FR:
     - Oct
     - Nov
     - Dec
-  active_record: 
-    error: 
-      message: "Please check the following fields:"
-      header_message: 
-      - "Couldn't save this {{object_name}}: 1 error"
-      - "Couldn't save this {{object_name}}: {{count}} errors."
-    error_messages: 
-      accepted: must be accepted
-      taken: is not available
-      not_a_number: is not a number
-      blank: must be given
-      greater_than_or_equal_to: must be greater than or equal to {{count}}
-      exclusion: is not available
-      confirmation: does not match its confirmation
-      less_than_or_equal_to: must be less than or equal to {{count}}
-      odd: must be odd
-      invalid: is not valid
-      empty: must be given
-      too_short: is too short (no less than {{count}} characters)
-      wrong_length: is not the right length (must be {{count}} characters)
-      too_long: is too long (no more than {{count}} characters)
-      less_than: must be less than {{count}}
-      even: must be even
-      inclusion: is not included in the list
-      greater_than: must be greater than {{count}}
-      equal_to: must be equal to {{count}}
+    month_names: 
+    - 
+    - January
+    - February
+    - March
+    - April
+    - May
+    - June
+    - July
+    - August
+    - September
+    - October
+    - November
+    - December
+    day_names: 
+    - Sunday
+    - Monday
+    - Tuesday
+    - Wednesday
+    - Thursday
+    - Friday
+    - Saturday
+  workspace: 
+    top_five_items: Top Five Items
+    first_five: First
+    create_a_new_workspace: Create a New Workspace
+    associated_users: Associated Users
+    modification_of_workspace: Modify Workspace
+    save: Save
+    add_new_user: Ajouter un utilisateur
+    last_five_items: Last Five Items
   txt: 
-    main_title: Localizing Rails
     date_formats: 
       rails_standards_work: "Rails standard formats (Date::DATE_FORMATS) still work:"
+    main_title: Localizing Rails
     app_name: Demo Application
+    time_formats: 
+      rails_standards_work: "Rails standard formats (Time::DATE_FORMATS) still work:"
     active_record: 
       easy_to_understand: It's quite easy to understand, though.
       too_lazy: No examples here since I'm too lazy to think of attributes to show all custom error messages. ;-)
-    time_formats: 
-      rails_standards_work: "Rails standard formats (Time::DATE_FORMATS) still work:"
     number_helper: 
       note_one: "Note: number_to_phone hasn't been localized yet and probably never will be - at least not in core. Look out for new internationalization/localization plugins like a new version of {{globalize}} as they will probably support stuff like that."
       note_two: "Another note: number_to_currency, number_to_percentage and number_to_human_size all use number_with_precision internally and number_with_precision uses number_with_delimiter internally."
@@ -120,32 +253,50 @@ fr-FR:
       author: This demo app was written by {{mail_1}}.
       licence: This demo app and all its contents are licensed under the {{licence_href}}. If you want to use it in ways prohibited by this license, please contact me and ask my permission.
       feedback: If you have any feedback, please feel free to drop me a line. Also visit {{blog_href}} where I regularly blog about Rails and other stuff.
-    sub_title: how to localize your app with Rails' new i18n features
+    setup: 
+      best_place: The best place to put your locale configuration, in my opinion, is config/locales. The localized_dates plugin will copy two locales, en-US and de-AT, in this directory. You can extend or modify them and also create new locales.
+      config_locale: Configuring the locale
+      freezing_edge_and_adding: Freezing Edge and installing the localized_dates plugin
+      locale_structure_date_time: "The same holds true for dates and times: If needed, :datetime and :time_with_zone can be used to specifically address formatting of their respective types instead of just relying on the settings for :time. Note, however, that usually you want to use the same formats as :time."
+      you_need_to_be_on_edge: "You need to be on Edge Rails in order to use the Rails i18n features:"
+      locale_structure_title: A word on the structure of locales
+      defaults: You also need to set up the default locale and/or locale in your environment.rb or an initializer.
+      locale_structure_number: You may have noticed that inside the :number part of the locale, we defined :format and :currency. In general, locales are structured hierarchically - i.e. a currencies are numbers, percentages are numbers, etc. :currency can either override the basic :format settings (in our case, we set :precision to 2 instead of 3) or extend them (we add two new options, :unit and :format).
+      locale: "Here's the demo locale that was used for this demo application:"
+      date_time_formats: "For date and time formats, you also need to install the {{localized_dates_link}}:"
     index: 
       story_so_far: This demo app tries to show you how you can use the features that have been implemented so far to localize big parts of your Rails application.
       others: others
       introduction: Lately, a lot of work has been done by {{sven_blog}} and {{sven_github}} to facilitate future internationalization and localization of Rails.
-    setup: 
-      config_locale: Configuring the locale
-      best_place: The best place to put your locale configuration, in my opinion, is config/locales. The localized_dates plugin will copy two locales, en-US and de-AT, in this directory. You can extend or modify them and also create new locales.
-      freezing_edge_and_adding: Freezing Edge and installing the localized_dates plugin
-      you_need_to_be_on_edge: "You need to be on Edge Rails in order to use the Rails i18n features:"
-      locale_structure_date_time: "The same holds true for dates and times: If needed, :datetime and :time_with_zone can be used to specifically address formatting of their respective types instead of just relying on the settings for :time. Note, however, that usually you want to use the same formats as :time."
-      defaults: You also need to set up the default locale and/or locale in your environment.rb or an initializer.
-      locale_structure_title: A word on the structure of locales
-      locale: "Here's the demo locale that was used for this demo application:"
-      locale_structure_number: You may have noticed that inside the :number part of the locale, we defined :format and :currency. In general, locales are structured hierarchically - i.e. a currencies are numbers, percentages are numbers, etc. :currency can either override the basic :format settings (in our case, we set :precision to 2 instead of 3) or extend them (we add two new options, :unit and :format).
-      date_time_formats: "For date and time formats, you also need to install the {{localized_dates_link}}:"
+    sub_title: how to localize your app with Rails' new i18n features
     contents: Contents
+    date_helper: 
+      forms_title: Forms
+      date_time_title: Date/Time distance
     menu: 
       date_formats: Date formats
       time_formats: Time formats
       about: About
       setup: Setup
       introduction: Introduction
-    date_helper: 
-      date_time_title: Date/Time distance
-      forms_title: Forms
+  publication: 
+    edit_publication: Edit Publication
+    add_a_new_publication: New Publication
+  profil: 
+    landline: Landline
+    activity: Activity
+    location: Location
+    email: email
+  yaml: 
+    title: Title
+    welcome_message: Welcome message
+  item: 
+    title: Title
+    summary: Summary
+    description: Description
+  picture: 
+    add_a_new_picture: Add a New Picture
+    edit_picture_params: Edit Picture params
   datetime: 
     distance_in_words: 
       less_than_x_minutes: 
@@ -155,54 +306,75 @@ fr-FR:
       x_days: 
         one: 1 day
         other: "{{count}} days"
-      x_seconds: 
-        one: 1 second
-        other: "{{count}} seconds"
       x_minutes: 
         one: 1 minute
         other: "{{count}} minutes"
+      x_seconds: 
+        one: 1 second
+        other: "{{count}} seconds"
+      x_months: 
+        one: 1 month
+        other: "{{count}} months"
+      about_x_hours: 
+        one: about 1 hour
+        other: "{{count}} hours"
       less_than_x_seconds: 
         one: 1 second
         zero: less than 1 second
         other: "{{count}} seconds"
-      about_x_hours: 
-        one: about 1 hour
-        other: "{{count}} hours"
-      x_months: 
-        one: 1 month
-        other: "{{count}} months"
       about_x_months: 
         one: about 1 month
         other: "{{count}} months"
       about_x_years: 
         one: about 1 year
         other: "{{count}} years"
-      half_a_minute: half a minute
       over_x_years: 
         one: over 1 year
         other: "{{count}} years"
+      half_a_minute: half a minute
+  home: 
+    home_key: Homee
+    filter: Filter
+    accordeon1: Last Added Items
+    accordeon2: Last Added Users
+    you_have_access_to_workspaces: You have Access to Workspaces
+    show_my_feeds: Show my RSS feeds
+    accordeon3: Last Added Workspaces
+    you_administrate: You Administer
+    accordeon4: Last Added Publications
+    my_workspaces: My Workspaces
+    my_personnal_informations: My Personal Information
+    my_content: My content
+  video: 
+    add_a_new_video: Add a New Video
+    edit_video_params: Edit Video Params
+    download_video: Download Original Video
+  login: 
+    password_forgotten: Forgot Password
+    connexion: Login
+    login: Login
+    password: Password
+    remember_me: Remember me
   layout: 
-    title: Moteur de blank
-    welcome_message: Bienvenue lulu
-    account_access: Mon compte
-    administration: Administration
-    superadministration: Superadministration
-    logout: Se déconnecter
-    first_page: Accueil
-    content: Contenu
-    workspaces: Espaces de travail
-    new_workspace: Nouvel espace de travail
-    add_content: Ajouter du contenu
-    article: Article
-    image: Image
-    audio: Audio
-    video: Vidéo
-    file: Fichier
-    publication: Publication
-    feed_source: Flux de syndication
-    bookmark: Lien
-    search: eee
-    footer_title: ThinkDRY Technologies 2008
-    contact: Contact
-    map: Plan du site
+    account_access: My account
+    new_workspace: New workspace
     faq: FAQ
+    bye_message: Bye
+    administration: Administration
+    first_page: Home
+    workspaces: Workspaces
+    search: Search
+    title: Blank Engine
+    superadministration: Superadministration
+    logout: Logout
+    contact: Contact
+    add_content: Add content
+    advanced_search: Advanced search
+    map: Site map
+    content: Content
+    footer_title: ThinkDRY Technologies 2008
+    welcome_message: Welcome
+  file: 
+    edit_file_params: Edit file params
+    add_a_new_file: New File
+    corrupted_file: Corrupted file

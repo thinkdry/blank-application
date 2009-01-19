@@ -22,8 +22,5 @@ class Image < ActiveRecord::Base
   
   validates_presence_of :file_path
   validates_file_format_of :file_path, :in => ["png", "gif", "jpg"]
-  
-  def self.label
-    "Image"
-  end
+ 
 end

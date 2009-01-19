@@ -57,18 +57,18 @@ class User < ActiveRecord::Base
 
   validates_presence_of     :login
   validates_length_of       :login,     :within => 3..40
-  validates_uniqueness_of   :login,     :case_sensitive => false
+  validates_uniqueness_of   :login,     :case_sensitive => false, :on => :create
   validates_format_of       :login,     :with => /\A[a-z_-]+\z/,
                                         :message => 'invalide : ne peut comporter que des lettres minuscules.'
 
   validates_presence_of     :email
-  validates_length_of       :email,    :within => 6..100 #r@a.wk
-  validates_uniqueness_of   :email,    :case_sensitive => false
+  validates_length_of       :email,    :within => 6..100
+  validates_uniqueness_of   :email,    :case_sensitive => false, :on => :create
   validates_format_of       :email,    :with => RE_EMAIL_OK
 
-	validates_presence_of     :password
-	validates_presence_of     :password_confirmation
-	validates_confirmation_of :password
+	validates_presence_of     :password, :on => :create
+	validates_presence_of     :password_confirmation, :on => :create
+	validates_confirmation_of :password, :on => :create
 
   validates_presence_of     :firstname, 
                             :lastname,
@@ -77,6 +77,7 @@ class User < ActiveRecord::Base
                             :phone,
                             :mobile,
                             :activity
+                            :nationality
 
   validates_format_of       :firstname, 
 			                      :lastname,
@@ -90,10 +91,13 @@ class User < ActiveRecord::Base
 														:with => /\A(#{NUM}){10}\Z/
   
 
+	before_save :encrypt_password
+  before_create :make_activation_code
+
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :password, :password_confirmation, :firstname, :lastname, :address, :company, :phone, :mobile, :activity, :edito, :image_path_temp, :image_path
+  attr_accessible :login, :email, :password, :password_confirmation, :firstname, :lastname, :address, :company, :phone, :mobile, :activity, :nationality,:edito, :image_path_temp, :image_path
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   #
@@ -181,19 +185,77 @@ class User < ActiveRecord::Base
     @activated
   end
 
+#	# Encrypts some data with the salt.
+#  def self.encrypt(password, salt)
+#    Digest::SHA1.hexdigest("--#{salt}--#{password}--")
+#  end
+#
+#  # Encrypts the password with the user salt
+#  def encrypt(password)
+#    self.class.encrypt(password, salt)
+#  end
+#
+#  def authenticated?(password)
+#    crypted_password == encrypt(password)
+#  end
+
+  def remember_token?
+    remember_token_expires_at && Time.now.utc < remember_token_expires_at
+  end
+
+  # These create and unset the fields required for remembering users between browser closes
+  def remember_me
+    remember_me_for 2.weeks
+  end
+
+  def remember_me_for(time)
+    remember_me_until time.from_now.utc
+  end
+
+  def remember_me_until(time)
+    self.remember_token_expires_at = time
+    self.remember_token            = encrypt("#{email}--#{remember_token_expires_at}")
+    save(false)
+  end
+
+  def forget_me
+    self.remember_token_expires_at = nil
+    self.remember_token            = nil
+    save(false)
+  end
+
+	# To change password
+	def recently_reset?
+    @reset
+  end
+
+  def delete_reset_code
+    self.password_reset_code = nil
+    save(false)
+  end
+
+  protected
+    # before filter
+    def encrypt_password
+      return if password.blank?
+      self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{login}--") if new_record?
+      self.crypted_password = encrypt(password)
+    end
+
+    def password_required?
+      crypted_password.blank? || !password.blank?
+    end
+
+    def make_activation_code
+      self.activation_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
+    end
+
 	def create_reset_code
     @reset = true
     self.password_reset_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
     save(false)
   end
   
-  def recently_reset?
-    @reset
-  end
- 
-  def delete_reset_code
-    self.password_reset_code = nil
-    save(false)
-  end
+  
 	
 end

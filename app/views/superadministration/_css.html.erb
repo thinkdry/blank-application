@@ -4,18 +4,32 @@
 
   <%form_for :template ,:url => colors_changing_superadministration_path do |f| %>
     <div id="template">
+      <table>
       <%  @elements.each do |e| %>
-        <%=e.name.capitalize%><input type="text" name="template[<%=e.name%>]" value="<%=e.bgcolor%>" onclick="startColorPicker(this)" onkeyup="maskedHex(this)"><br>
+        <tr>
+           <td><%=e.name.capitalize%></td>
+           <td><input type="text" name="template[<%=e.name%>]" value="<%=e.bgcolor%>" style="background-color:<%=e.bgcolor%>" onclick="startColorPicker(this)" onkeyup="maskedHex(this)"></td>
+        </tr>
       <% end %>
+      </table>
     </div>
     <%= link_to_function "New Template", "if (document.getElementById('newTemp').style.display=='none') {document.getElementById('newTemp').style.display='block';document.getElementById('update').style.display='none';}"%>
     <div id="newTemp" style="display:none;">
-      Template Name : <input type="text" name="newtemplate">
-      <%= submit_tag "Save New Template", :onclick=>"alert('Hello')"%>
-      <%= link_to_function "Cancel", "if (document.getElementById('newTemp').style.display=='block') {document.getElementById('newTemp').style.display='none';document.getElementById('update').style.display='block';}"%>
+      <table>
+      <tr>
+        <td>Template Name
+        <input type="text" name="newtemplate"></td>
+      </tr>
+      <tr>
+        <td><%= submit_tag "Save New Template"%>
+        <%= link_to_function "Cancel", "if (document.getElementById('newTemp').style.display=='block') {document.getElementById('newTemp').style.display='none';document.getElementById('update').style.display='block';}"%></td>
+      </tr>
+      </table>
     </div>
     <div id="update" style="display:block;">
-      <%=  f.submit "Update" %>
+      <table>
+      <tr><td colspan="2"><%=  f.submit "Update" %></td></tr>
+      </table>
     </div>
   <%  end %>
  

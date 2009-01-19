@@ -1,5 +1,127 @@
 --- 
 en-US: 
+  article: 
+    edit_article: Edit Article
+    add_a_new_article: New Article
+  audio: 
+    edit_audio: Edit Audio
+    add_a_new_audio: Add a New Audio file
+  bookmark: 
+    add_a_link: Add Link
+    edit_bookmark: Edit Bookmark
+    url: url
+    show_my_links: Show My Links
+    new_bookmark: New Bookmark
+  user: 
+    system_administrator: System Administrator
+    name: Lastname
+    photo: Photo
+    administration: Administration
+    writer: Writer
+    rights_to_manage: Rights to Manage
+    confirm_new_password: Confirm new password
+    reader: Reader
+    private_informations: Private Informations
+    logout: Log out
+    confirm_password: Confirm password
+    your_private_informations: Your Private Informations
+    activity: Activity
+    log_in: Log in
+    moderator: Moderator
+    manage_users_and_rights: Users and Rights Management
+    edito: Edito
+    administrator: Administrator
+    mobile: Mobile
+    signup: Sign up
+    back_to_login: Back to Login
+    access_rights: Access rights
+    readonly_access_to: Read Only Access to
+    update_private_informations: Update private Informations
+    phone: Phone
+    new_password: New password
+    validate_this_password: Validate this password
+    first_name: First name
+    hello_world: hello
+    rights_to_be_moderator: Rights to Moderator
+    password_reset_request: Password Reset Request
+    create_this_user: Create User
+    login: Login
+    password: Password
+    address: Address
+    administration_configuration: Administation Configuration
+    add_a_new_user: Add a New User
+    email: Email
+    nationality: Nationality
+    location: Location
+  message: 
+    copyright_restriction: Some fields can't be Modified as this Item is Copyright Protected.
+    error_during_file_transfer: Error during File transfer
+    video_wip: Your video has been recorded for encoding. Please come back later.
+  general: 
+    hello_key: hello
+    from1: From
+    false: false
+    delete: Delete
+    name: Name
+    article: Article
+    audio: Audio
+    bookmark: Bookmark
+    last_five_published_items: Last 5 Published Items
+    by: by
+    add: Add
+    download: Download
+    search: Search
+    your_comment: Your comment
+    category: Category
+    separated_by_spaces: Separated by Spaces
+    go_key: go
+    true: true
+    void: void
+    edit: Edit
+    workspace: Workspace
+    "true": "true"
+    dsfsdfs: fdsfdsfsd
+    cancel: Cancel
+    tag: Tag
+    rate: Rate
+    url: url
+    type: Type
+    author: Author
+    publishing_date: Publishing Date
+    dsdsad: sadsads
+    in: In
+    to: To
+    no1: ""
+    commentV: Comment
+    add_a_new_file: Add a new file
+    publication: Publication
+    last_update_date: Last Update Date
+    create: Create
+    print: Print
+    filter: Filter
+    description: Description
+    feed_source: RSS feed
+    on1: "on"
+    content: Content
+    copyright: Copyright
+    "false": ""
+    send: Send
+    image: Image
+    link: Link
+    comment: Comment
+    update: Update
+    video: Video
+    last_five_posted_comments: Last 5 Posted Comments
+    associated_files: Associated file
+    all_elements: All elements
+    publish_my_comment: Publish my Comment
+    file: File
+  search: 
+    advanced_search: Advanced Search
+    informations_on_searched_items: Informations on Searched Items
+    search_period: Search period
+    your_search_result: Your search result
+    you_have_searched_for: you have searched for
   number: 
     format: 
       separator: .
@@ -22,6 +144,8 @@ en-US:
       long: "%B %d, %Y %H:%M"
       short: "%d %b %H:%M"
     pm: pm
+  text: 
+    reset_password: Your password and a reactivation Link will be send by Mail
   active_record: 
     error: 
       message: "Please check the following fields :"
@@ -102,6 +226,15 @@ en-US:
     - Thursday
     - Friday
     - Saturday
+  workspace: 
+    top_five_items: Top Five Items
+    first_five: First
+    create_a_new_workspace: Create a New Workspace
+    associated_users: Associated Users
+    modification_of_workspace: Modify Workspace
+    save: Save
+    add_new_user: Ajouter un utilisateur
+    last_five_items: Last Five Items
   txt: 
     date_formats: 
       rails_standards_work: "Rails standard formats (Date::DATE_FORMATS) still work:"
@@ -146,9 +279,24 @@ en-US:
       about: About
       setup: Setup
       introduction: Introduction
+  publication: 
+    edit_publication: Edit Publication
+    add_a_new_publication: New Publication
+  profil: 
+    landline: Landline
+    activity: Activity
+    location: Location
+    email: email
   yaml: 
     title: Title
     welcome_message: Welcome message
+  item: 
+    title: Title
+    summary: Summary
+    description: Description
+  picture: 
+    add_a_new_picture: Add a New Picture
+    edit_picture_params: Edit Picture params
   datetime: 
     distance_in_words: 
       less_than_x_minutes: 
@@ -184,24 +332,48 @@ en-US:
         one: over 1 year
         other: "{{count}} years"
       half_a_minute: half a minute
+  home: 
+    home_key: Homee
+    filter: Filter
+    accordeon1: Last Added Items
+    accordeon2: Last Added Users
+    you_have_access_to_workspaces: You have Access to Workspaces
+    show_my_feeds: Show my RSS feeds
+    accordeon3: Last Added Workspaces
+    you_administrate: You Administer
+    accordeon4: Last Added Publications
+    my_workspaces: My Workspaces
+    my_personnal_informations: My Personal Information
+    my_content: My content
+  video: 
+    add_a_new_video: Add a New Video
+    edit_video_params: Edit Video Params
+    download_video: Download Original Video
+  login: 
+    password_forgotten: Forgot Password
+    connexion: Login
+    login: Login
+    password: Password
+    remember_me: Remember me
   layout: 
-    title: Blank engine
-    welcome_message: Welcome
     account_access: My account
+    new_workspace: New workspace
+    faq: FAQ
+    bye_message: Bye
     administration: Administration
+    first_page: Home
+    workspaces: Workspaces
+    search: Search
+    title: Blank Engine
     superadministration: Superadministration
     logout: Logout
-    first_page: Welcome
-    content: Content
-    workspaces: Workspaces
-    new_workspace: New workspace
-    add_content: Add content
-    search: Search
-    advanced_search: Advanced search
-    footer_title: ThinkDRY Technologies 2008
     contact: Contact
+    add_content: Add content
+    advanced_search: Advanced search
     map: Site map
     faq: FAQ
+    footer_title: ThinkDRY Technologies 2008
+    welcome_message: Welcome
   general:
     by: by
     on1: 'on'
@@ -262,7 +434,8 @@ en-US:
     description_hint: Enter some description text
     title: Title
     title_hint: Enter a title
-  file:
+  file: 
+    content: Content
     edit_file_params: Edit file params
     corrupted_file: Corrupted file
     add_a_new_file: Add a new file

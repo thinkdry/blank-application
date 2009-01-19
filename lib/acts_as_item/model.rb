@@ -28,6 +28,11 @@ module ActsAsItem
       def icon
         'item_icons/' + self.to_s.underscore + '.png'
       end
+
+			def label
+				I18n.t("general.#{self.model_name.underscore}")
+			end
+
     end
     
     module InstanceMethods

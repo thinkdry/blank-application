@@ -1,0 +1,33 @@
+<% object.each do |o| %>
+    <%if object==(@latest_items)%>
+      <p>
+			<%= image_tag o.icon %>
+         	<%= link_to_item o %>
+			<% if o.workspaces.size > 0 %>
+				dans <%= links_to_workspace_collection o.workspaces %>
+			<% end %>
+         	<%= I18n.t('general.by') %>
+            <%= link_to_user(o.user) %>
+		</p>
+    <% end %>
+    <%if object==(@latest_users)%>
+      <p>
+			<%= image_tag 'icons/user_red.png' %>
+        	<%=	link_to_user(o) %>
+	 </p>
+    <% end %>
+    <%if object==(@latest_feeds)%>
+     <p>
+			<%= image_tag 'icons/rss.png' %>
+			<%= link_to o.feed_source.title, feed_source_path(o.feed_source) %> :
+        	<%= o.title[0..50] + (o.title.size > 50 ? '...' : '' ) %>
+	</p>
+    <% end %>
+    <%if object==(@latest_ws)%>
+     <p>
+			<%= image_tag 'icons/folder_go.png' %>
+     		<%= link_to_workspace(o) %>
+	 </p>
+    <% end %>
+    <%= I18n.t('general.on1') %> <%= I18n.l o.created_at, :format => :long %>
+<%  end %>

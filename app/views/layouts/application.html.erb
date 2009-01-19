@@ -36,16 +36,16 @@
     <div id="header_right">
       <div id="main_links">
         <%= I18n.t('layout.welcome_message') %>
-        <%= @current_user.firstname.capitalize %> |
+        <b><%= @current_user.firstname.capitalize %></b> |
         <%= link_to I18n.t('layout.account_access'), user_path(current_user) %> |
         <%= link_to I18n.t('layout.administration'), administration_user_path(current_user) %> |
 		<% if current_user.is_superadmin? %>
           <%= link_to I18n.t('layout.superadministration'), superadministration_path("default") %> |
 		<% end %>
         <%= link_to I18n.t('layout.logout'), '/logout' %>
-		<%= link_to_remote image_tag('countries/en.jpg'), :url => change_language_session_path(:locale => "en-US") %> 
-		<%= link_to_remote image_tag('countries/es.jpg'), :url => change_language_session_path(:locale => "es-ES") %> 	
-		<%= link_to_remote image_tag('countries/fr.jpg'), :url => change_language_session_path(:locale => "fr-FR") %>
+        <% available_languages_list.each do |l| %>
+          <%= link_to_remote image_tag("countries/#{l.split('-').first}.jpg"), :url => change_language_session_path(:locale => l) %>
+        <% end %>
       </div>
     </div>
   </div>
@@ -75,7 +75,7 @@
           <option selected="selected" value='#'>
             --------
           </option>
-          <% ITEMS_LIST.each do |type| %>
+          <% self.available_items_list.each do |type| %>
             <% if type=='feed_source' %>
               <option value="/feed_sources/what_to_do">
                 <%= I18n.t "general.#{type}" %>
@@ -116,12 +116,7 @@
       <%= content_tag(:div, flash[:notice], :class => 'notice') if flash[:notice] %>
       <%= content_tag(:div, flash[:error], :class => 'error') if flash[:error] %>
       <%= yield %>
-      <div id="spinner" style="display:none;">
-        <center>
-          <%= image_tag 'spinner.gif', :width => '40', :height => '15' %><br />
-          <b>L O A D I N G</b>
-        </center>
-      </div>
+ 
     </div>
     <div id="footer">
       <div class="name">

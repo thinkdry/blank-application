@@ -3,6 +3,7 @@
 	<% form_for @workspace, :builder => BlankFormBuilder do |f| -%>
 		<%= f.text_field :title, :label => I18n.t('general.name') + " :" %>
 		<%= f.advanced_editor :description, :label => I18n.t('general.description') + " :" %>
+        <%= f.select :state, ['Closed', 'Public', 'Autorisé', 'Archived'], :label => 'Type d\'espace de travail :' %>
 		<%= f.submit I18n.t('general.create') %>
 	<% end %>
 </fieldset>

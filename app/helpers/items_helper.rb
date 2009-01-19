@@ -136,13 +136,13 @@ module ItemsHelper
     item_type ||= 'articles'
     content = String.new
     
-    ITEMS_LIST.map{ |item| item.camelize }.each do |item_model|
+    available_items_list.map{ |item| item.camelize }.each do |item_model|
       item_page = item_model.underscore.pluralize
       options = {}
       options[:class] = 'selected' if (item_type == item_page)
       content += content_tag(
         :li,
-        link_to(image_tag(item_model.classify.constantize.icon) + I18n.t("general.#{item_model.underscore}"), items_path(item_model.classify.constantize)),
+        link_to(image_tag(item_model.classify.constantize.icon) + item_model.classify.constantize.label, items_path(item_model.classify.constantize)),
         options
       )
     end

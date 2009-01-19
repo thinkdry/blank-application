@@ -1,9 +1,8 @@
 <div id="area_TITLE">
   <h1>Super Administration</h1>
 </div>
-
 <ul id="top_elems" class="subsection_tabs without_img">  
-	<li class="tab"><%= link_to_remote "Pictures manager", :update => 'top_box', :url => superadministration_path(:part => 'pictures') %></li>
+	<li class="tab"><%= link_to_remote "General manager", :update => 'top_box', :url => superadministration_path(:part => 'general') %></li>
     <li class="tab"><%= link_to_remote "CSS manager", :update => 'top_box', :url => superadministration_path(:part => 'css') %></li>
 	<li class="tab"><%= link_to_remote "Translations manager", :update => 'top_box', :url => superadministration_path(:part => 'translations') %></li>
 </ul>

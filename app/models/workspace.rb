@@ -22,7 +22,7 @@ class Workspace < ActiveRecord::Base
 	has_many :feed_items, :through => :feed_sources
 	belongs_to :creator, :class_name => 'User'
 	
-	validates_presence_of :name
+	validates_presence_of :title
 	validates_associated :users_workspaces
 	validate :uniqueness_of_users
 	
@@ -36,21 +36,21 @@ class Workspace < ActiveRecord::Base
   # Example : User.first.workspaces.moderated
   named_scope :moderated, {
     :include => [ :roles ],
-    :conditions => "roles.name = 'Modérateur'"
+    :conditions => "roles.name = 'moderator'"
   }
   
   # Must be called from User.
   # Example : User.first.workspaces.written
   named_scope :written, {
     :include => [ :roles ],
-    :conditions => "roles.name = 'Rédacteur'"
+    :conditions => "roles.name = 'writer'"
   }
   
   # Must be called from User.
   # Example : User.first.workspaces.read
   named_scope :read, {
     :include => [ :roles ],
-    :conditions => "roles.name = 'Lecteur'"
+    :conditions => "roles.name = 'reader'"
   }
 	
 	named_scope :administrated_by, lambda { |user|
@@ -71,7 +71,7 @@ class Workspace < ActiveRecord::Base
   }
 
   def self.moderated_by user
-    self.by_user_and_role(user, 'Modérateur')
+    self.by_user_and_role(user, 'moderator')
 	end
 	
 	def self.with_moderator_role_for user
@@ -79,11 +79,11 @@ class Workspace < ActiveRecord::Base
   end
 	
 	def self.with_writter_role_for user
-	  self.by_user_and_role(user, 'Rédacteur')
+	  self.by_user_and_role(user, 'writer')
 	end
 	
 	def self.with_reader_role_for user
-	  self.by_user_and_role(user, 'Lecteur')
+	  self.by_user_and_role(user, 'reader')
 	end
 	
 	def uniqueness_of_users
@@ -99,15 +99,15 @@ class Workspace < ActiveRecord::Base
   end
   
 	def moderators
-	  users_by_role('Modérateur')
+	  users_by_role('moderator')
   end
   
 	def writters
-	  users_by_role('Rédacteur')
+	  users_by_role('writer')
   end
   
 	def readers
-	  users_by_role('Lecteur')
+	  users_by_role('reader')
   end
 	
 	# Link the attributes directly from the form
@@ -143,7 +143,7 @@ class Workspace < ActiveRecord::Base
       raise
     end
   end
-  
+
   private
   def downcase_user_attributes(attributes)
     attributes.each { |value| value['user_login'].downcase! }

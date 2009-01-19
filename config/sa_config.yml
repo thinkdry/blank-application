@@ -1,0 +1,15 @@
+--- 
+sa_ws_type: 
+- closed
+- public
+- mi_public
+- archived
+sa_items_list: 
+- article
+- audio
+- video
+- cms_file
+- image
+sa_languages_list: 
+- en-US
+- fr-FR
