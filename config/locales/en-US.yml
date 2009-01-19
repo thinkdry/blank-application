@@ -231,7 +231,7 @@ en-US:
     comment: Comment
     tag: Tag
     rate: Rate
-    update: update
+    update: Update
     publish_my_comment: Publish my comment
     your_comment: Your comment
     article: Article
@@ -259,7 +259,9 @@ en-US:
   item:
     summary: Summary
     description: Description
+    description_hint: Enter some description text
     title: Title
+    title_hint: Enter a title
   file:
     edit_file_params: Edit file params
     corrupted_file: Corrupted file
@@ -299,8 +301,8 @@ en-US:
     edit_video_params: Edit video params
     add_a_new_video: Add a new video
   workspace:
-    last_five_items: last five items
-    associated_users: associated users
+    last_five_items: Last five items
+    associated_users: Associated users
     create_a_new_workspace: Create a new workspace
     save: Save
     add_new_user: Ajouter un utilisateur

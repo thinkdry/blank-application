@@ -2,7 +2,7 @@
 
   <%= f.advanced_editor(:body, :label => I18n.t('general.article')+ ' :', :hint => "message pour") %>
 
-  <% f.field :article_files, :label => I18n.t('general.associated_files') do %>
+  <% f.field :article_files, :label => I18n.t('general.associated_file') do %>
   
     <div id="files">
       <% @current_object.article_files.each do |af| %>

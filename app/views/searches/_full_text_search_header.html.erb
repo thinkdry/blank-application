@@ -1,7 +1,5 @@
-<%# TODO: (integration) Remove style attribute %>
-<div style="border: 1px solid black; padding: 0.5em">
+<div class="display_search_result">
 	<h1><%=I18n.t('search.your_search_result')%></h1>
 	<%=I18n.t('search.you_have_searched_for')%>
-	<%# TODO: (integration) Remove style attribute %>
-	<span style="color:grey"><%= params[:search] %></span>
+	<span><%= params[:search] %></span>
 </div>

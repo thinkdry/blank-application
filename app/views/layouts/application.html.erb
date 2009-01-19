@@ -30,7 +30,7 @@
 			<% if !(@logo.nil? || @logo.picture_path.blank?) %>
 				<%= link_to image_tag(url_for_file_column(@logo, 'picture_path', 'normal')), "/" %>
 			<% else %>
-				<%= link_to(image_tag('logo.png', :width => '400', :height => '80', :border => 0), "/") %>
+				<%= link_to(image_tag('logo.png', :border => 0), "/") %>
 			<%end %>
     </div>
     <div id="header_right">
@@ -47,20 +47,12 @@
 		<%= link_to_remote image_tag('countries/es.jpg'), :url => change_language_session_path(:locale => "es-ES") %> 	
 		<%= link_to_remote image_tag('countries/fr.jpg'), :url => change_language_session_path(:locale => "fr-FR") %>
       </div>
-      <div id="MenuHR">
-        <ul>
-          <li>
-            <%= link_to I18n.t('layout.first_page'), '/' %>
-          </li>
-          <li>
-            <%= link_to I18n.t('layout.content'), content_path("articles") %>
-          </li>
-          <li>
-            <%= link_to I18n.t('layout.administration'), administration_user_path(current_user) %>
-          </li>
-        </ul>
-        <div id="slct_WS">
-          <select name="slct_WS" onchange="document.location.href = this.value">
+    </div>
+  </div>
+  <div id="container">
+    <div id="middle-right">
+    	<h3>Select Workspace</h3>
+	    <select name="slct_WS" onchange="document.location.href = this.value">
             <option>
               <%= I18n.t('layout.workspaces') %>
             </option>
@@ -76,16 +68,8 @@
             <option value="<%= administration_user_path(current_user) %>#new_workspace">
               <%= I18n.t('layout.new_workspace') %>
             </option>
-          </select>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div id="container">
-    <div id="middle-right">
-      <h3>
-        <%= I18n.t('layout.add_content') %>
-      </h3>
+         </select>
+      <h3><%= I18n.t('layout.add_content') %></h3>
       <form name="form1" method="post" action="" id="form1">
         <select name="slct_filtre" id="slct_filtre" onchange="document.location.href = this.value">
           <option selected="selected" value='#'>
@@ -104,6 +88,12 @@
           <% end %>
         </select>
       </form>
+	  </br>
+	  <h3>Menu</h3>
+	  <div id="midle-right-menu">
+	  	<p><%= link_to I18n.t('layout.content'), content_path("articles") %></p>
+	  	<p><%= link_to I18n.t('layout.first_page'), '/' %></p>
+	  </div>
     </div>
     <div id="middle-middle">
       <% unless @hide_full_text_search %>
@@ -113,7 +103,7 @@
             <% form_tag search_path, :method => :get, :name => "search" do -%>
               <%= text_field_tag :search, params[:search] || "Rechercher", :class => "style_text", :onfocus => '$(this).select()' %>
               <p><%= I18n.t 'general.in'%></p>
-              <%= select_tag "model", options_for_select([[I18n.t('general.all_elements'), nil], [I18n.t('general.picture'), 'Image'], [I18n.t('general.video'), 'Video'], [I18n.t('general.file'), 'CmsFile'], [I18n.t('general.article'), 'Article'], [I18n.t('general.publication'), 'Publication'], [I18n.t('general.audio'), 'Audio']], params['model']) %>
+              <%= select_tag "model", options_for_select([[I18n.t('general.all_elements'), nil], [I18n.t('general.image'), 'Image'], [I18n.t('general.video'), 'Video'], [I18n.t('general.cms_file'), 'CmsFile'], [I18n.t('general.article'), 'Article'], [I18n.t('general.publication'), 'Publication'], [I18n.t('general.audio'), 'Audio']], params['model']) %>
               <%= link_to(image_tag("search_button.gif"), "javascript:void(1);", :onclick => "document.search.submit();", :class => "search_button") %>
               <br />
               <%= link_to I18n.t('layout.advanced_search'), new_search_path, :class => "advanced_search" %>&nbsp;&nbsp;

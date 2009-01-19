@@ -4,7 +4,7 @@
   <%= @current_object.body %>
   
   <% if @current_object.article_files.size > 0 %>
-    <h2> <%=I18n.t('general.associated_files')%></h2>
+    <h2> <%=I18n.t('general.associated_file')%></h2>
     <ul>
       <% @current_object.article_files.each do |af| %>
         <li>

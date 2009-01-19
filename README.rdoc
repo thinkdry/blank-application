@@ -7,9 +7,13 @@
     
 * Install ImageMagick
     $ sudo apt-get install imagemagick libmagick9-dev
+	(for mac : http://www.red91.com/tag/rmagick)
     
 * Install Xapian Ruby bindings
     $ apt-get install libxapian15  libxapian-ruby1.8
+	(for mac : http://www.locomotivation.com/blog/2008/07/23/simple-ruby-on-rails-full-text-search-using-xapian.html)
+
+ gem install rfeedparser
 
   If rake tasks are still displaying warnings "No Ruby bindings for Xapian installed",
   it might be because xapian lib is in a wrong directory

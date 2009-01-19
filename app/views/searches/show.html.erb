@@ -1,8 +1,4 @@
 <%= render :partial => @header %>
-
-<h2 style="padding: 1em">
-	<%= page_entries_info @items %>
-</h2>
-
+<h2><%= page_entries_info @items %></h2>
 <%= render :partial => 'result', :collection => @items %>
 <%= will_paginate @items %>

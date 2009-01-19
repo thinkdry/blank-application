@@ -6,29 +6,20 @@
 </div>
 
 <div class="area_LEFT">
-	<h2><%=I18n.t('workspace.last_five_elements')%></h2>
-	<ul>
-		<% GenericItem.from_workspace(@current_object.id).latest.each do |item| %>
-			<p>
-				<div>
-					<%= image_tag(item.icon) %>
-					<%= link_to_item(item) %>
-				</div>
-				<div>
-					par
-					<%= link_to_user(item.user) %>
-					le
-					<%= I18n.l item.created_at, :format => :long %>
-				</div>
-				<div style="float:left">
-					<%= item.comments.count %>
-					<%=I18n.t('general.comments')%> -
-				</div>
-				<div style="float:left"><%= item_rate_locked(item) %></div>
-				<div style="clear:both">
-				</div>
-			</p>
-		<% end %>
+	<h2><%=I18n.t('workspace.last_five_items')%></h2>
+	<ul class="top-box">
+	<% GenericItem.from_workspace(@current_object.id).latest.each do |item| %>
+		<li>
+			<%= image_tag(item.icon) %>&nbsp;
+			<%= link_to_item(item) %></br>
+			<%=I18n.t('general.by')%> 
+			<%= link_to_user(item.user) %>
+			<%=I18n.t('general.on1')%> 
+			<%= I18n.l item.created_at, :format => :long %> - </br>
+			<%= item.comments.count %> <%=I18n.t('general.comment').pluralize%> -
+			<%= item_rate_locked(item) %>
+		</li>
+	<% end -%>
 	</ul>
 </div>
 <div class="area_RIGHT">
