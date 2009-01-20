@@ -1,0 +1,21 @@
+DEFAULTS: &DEFAULTS
+  adapter: mysql
+  encoding: utf8
+  host: localhost
+  username: thinkdry
+  password: AK47freedom
+  socket: /var/run/mysqld/mysqld.sock
+
+development:
+  database: blank_dev
+  <<: *DEFAULTS
+
+test:
+  database: blank_dev
+  <<: *DEFAULTS
+
+production:
+  database: blank_dev
+  <<: *DEFAULTS
+
+
