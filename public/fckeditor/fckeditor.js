@@ -1,6 +1,6 @@
 /*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2008 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2009 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -30,7 +30,7 @@ var FCKeditor = function( instanceName, width, height, toolbarSet, value )
 {
 	// Properties
 	this.InstanceName	= instanceName ;
-	this.Width			= width			|| '520px' ;
+	this.Width			= width			|| '100%' ;
 	this.Height			= height		|| '200' ;
 	this.ToolbarSet		= toolbarSet	|| 'Default' ;
 	this.Value			= value			|| '' ;
@@ -59,8 +59,8 @@ FCKeditor.MinHeight = 200 ;
  */
 FCKeditor.MinWidth = 750 ;
 
-FCKeditor.prototype.Version			= '2.6.3' ;
-FCKeditor.prototype.VersionBuild	= '19836' ;
+FCKeditor.prototype.Version			= '2.6.4 Beta' ;
+FCKeditor.prototype.VersionBuild	= '21469' ;
 
 FCKeditor.prototype.Create = function()
 {
@@ -106,6 +106,8 @@ FCKeditor.prototype.CreateHtml = function()
 
 FCKeditor.prototype.ReplaceTextarea = function()
 {
+	if ( document.getElementById( this.InstanceName + '___Frame' ) )
+		return ;
 	if ( !this.CheckBrowser || this._IsCompatibleBrowser() )
 	{
 		// We must check the elements firstly using the Id and then the name.
@@ -175,12 +177,14 @@ FCKeditor.prototype._GetIFrameHtml = function()
 	if (this.ToolbarSet)
 		sLink += '&amp;Toolbar=' + this.ToolbarSet ;
 
-	html = '<iframe id="' + this.InstanceName +
+	var html = '<iframe id="' + this.InstanceName +
 		'___Frame" src="' + sLink +
 		'" width="' + this.Width +
-		'" height="' + this.Height;
+		'" height="' + this.Height ;
+
 	if ( this.TabIndex )
 		html += '" tabindex="' + this.TabIndex ;
+
 	html += '" frameborder="0" scrolling="no"></iframe>' ;
 
 	return html ;

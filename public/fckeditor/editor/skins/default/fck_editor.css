@@ -1,6 +1,6 @@
 /*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2008 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2009 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -51,7 +51,7 @@ body
 .TB_ToolbarSet, .TB_Expand, .TB_Collapse
 {
     cursor: default;
-    background-color: #eee;
+    background-color: #efefde;
 }
 
 .TB_ToolbarSet
@@ -133,9 +133,8 @@ body
 
 .TB_Button_On, .TB_Button_Off, .TB_Button_On_Over, .TB_Button_Off_Over, .TB_Button_Disabled
 {
-    border: #bdd6d9 1px solid; /* This is the default border */
+    border: #efefde 1px solid; /* This is the default border */
     height: 22px; /* The height is necessary, otherwise IE will not apply the alpha */
-    background-color: #fff;
 }
 
 .TB_Button_On
@@ -387,7 +386,7 @@ body
     opacity: 0.75; /* Safari, Opera and Mozilla */
     filter: alpha(opacity=70); /* IE */ /* -moz-opacity: 0.75; Mozilla (Old) */
     height: 23px;
-    background-color: #eee;
+    background-color: #efefde;
 }
 
 .SC_FieldLabel

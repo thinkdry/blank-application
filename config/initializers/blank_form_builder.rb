@@ -17,7 +17,6 @@ module ActionView::Base::CompiledTemplates
           <tr>
             <td class="label"><label>#{object.label}</label></td>
             <td>#{@template.ajax_error_message_on(@object, object.method)}</td>
-						<td>#{@template.ajax_hint_message_on(@object, object.method, options[:hint])}</td>
           </tr>
           <tr>
             <td colspan="2">#{object}</td>

@@ -4,5 +4,5 @@ log/*.log
 config/database.yml
 nbproject/
 db/schema.rb
-config/deply.rb
+config/deploy.rb
 Capfile

@@ -1,6 +1,6 @@
 ﻿/*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2008 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2009 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -308,6 +308,11 @@ DlgTableCellSpace	: "间距",
 DlgTableCellPad		: "边距",
 DlgTableCaption		: "标题",
 DlgTableSummary		: "摘要",
+DlgTableHeaders		: "Headers",	//MISSING
+DlgTableHeadersNone		: "None",	//MISSING
+DlgTableHeadersColumn	: "First column",	//MISSING
+DlgTableHeadersRow		: "First Row",	//MISSING
+DlgTableHeadersBoth		: "Both",	//MISSING
 
 // Table Cell Dialog
 DlgCellTitle		: "单元格属性",
@@ -330,6 +335,9 @@ DlgCellVerAlignTop	: "顶端",
 DlgCellVerAlignMiddle	: "居中",
 DlgCellVerAlignBottom	: "底部",
 DlgCellVerAlignBaseline	: "基线",
+DlgCellType		: "单元格类型",
+DlgCellTypeData		: "资料",
+DlgCellTypeHeader	: "标题",
 DlgCellRowSpan		: "纵跨行数",
 DlgCellCollSpan		: "横跨列数",
 DlgCellBackColor	: "背景颜色",
