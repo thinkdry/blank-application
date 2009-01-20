@@ -10,21 +10,21 @@ body {
 }
 
 a:hover {
-  color: #7B003B;
+  color: #dbdbdb;
 	text-decoration: underline;
 }
 a:active {
-  color: #D86C27;
+  color: #9c9c9c;
 	text-decoration: none;
 }
 
 a:link {
-	color:<%=@links.bgcolor%>;
+	color:#9c9c9c;
 	text-decoration: none;
 }
 a:visited {
-  color: <%=@clicked.bgcolor%>;
-	text-decoration: none;
+  color:#9c9c9c;
+  text-decoration: none;
 }
 
 a.add_item{
@@ -62,13 +62,14 @@ a.add_item{
 }
 
 #page #container h1 {
-	color: #000000;
+	color: #F79646;
 	font-size: 175%;
 	line-height: 1;
 }
 #page #container h2 {
 	font-size: 125%;
 	line-height: 1;
+	color:#F79646;
 }
 
 #page_title {
@@ -93,7 +94,7 @@ a.add_item{
     color:#000000;
 }
 #main_links a {
-	color:<%=@links.bgcolor%>;
+	color:#F79646;
 	text-decoration: none;
 }
 #main_links a:hover {
@@ -652,9 +653,13 @@ small.grey{
 }
 
 #footer{
-  background-color:<%=@footer.bgcolor%>;
+  background-color:#dbdcdb;
   color: #fff;
   padding: 15px;
+}
+
+#footer a{
+	color:#F79646;
 }
 
 #footer .name{

@@ -8,12 +8,12 @@
       <%=I18n.t('message.copyright_restriction')%><br />
     <% end %>
     
-    <%= f.text_field :title, :label => I18n.t('item.title') + " :", :hint => "tamere", :readonly => is_copyright %>
+    <%= f.text_field :title, :label => I18n.t('item.title') + " :", :hint => I18n.t('item.title_hint'), :readonly => is_copyright %>
     
     <%= f.tags_field :string_tags, :label => I18n.t('general.tag').pluralize + " :", :hint => I18n.t('general.separated_by_spaces') %>
 
-    <%= f.advanced_editor :description, :label => 'Description :' %>
-   
+    <%= f.text_field :description, :label => I18n.t('item.description') + ' :', :hint => I18n.t('item.description_hint'), :readonly => is_copyright %>
+        
     <%= capture(f, &block) %>
 
     <% f.field :workspaces, :label => I18n.t('general.workspace') +' :' do %>
