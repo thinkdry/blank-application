@@ -43,9 +43,10 @@
           <%= link_to I18n.t('layout.superadministration'), superadministration_path("default") %> |
 		<% end %>
         <%= link_to I18n.t('layout.logout'), '/logout' %>
-        <% available_languages_list.each do |l| %>
-          <%= link_to_remote image_tag("countries/#{l.split('-').first}.jpg"), :url => change_language_session_path(:locale => l) %>
-        <% end %>
+        <%= select_languages %>
+        <%# available_languages_list.each do |l| %>
+          <%#= link_to_remote image_tag("countries/#{l.split('-').first}.jpg"), :url => change_language_session_path(:locale => l) %>
+        <%# end %>
       </div>
     </div>
   </div>
