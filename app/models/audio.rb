@@ -19,7 +19,7 @@ class Audio < ActiveRecord::Base
   acts_as_xapian :texts => [:title, :description, :tags, :audio_file_name]
   has_attached_file :audio
   validates_attachment_presence :audio
-  validates_attachment_content_type :audio, :content_type => ['audio/mpeg', 'video/mp4']
+  validates_attachment_content_type :audio, :content_type => ['audio/x-wav', 'audio/mpeg', 'video/mp4']
   validates_attachment_size(:audio, :less_than => 5.megabytes)
   #file_column :file_path
    #validates_presence_of :file_path

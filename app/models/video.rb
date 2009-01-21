@@ -16,16 +16,16 @@
 #  tags         :string(255)
 #
 
-require 'heywatch'
-require 'ftools'
+#require 'heywatch'
+#require 'ftools'
 
 class Video < ActiveRecord::Base
   acts_as_item
   acts_as_xapian :texts => [:title, :description, :tags, :file_path]
   has_attached_file :video
-  validates_attachment_presence :video
-  validates_attachment_content_type :video, :content_type => ['video/quicktime','video/x-flash-video']
-  validates_attachment_size(:video, :less_than => 5.megabytes)
+  #validates_attachment_presence :video
+  #validates_attachment_content_type :video, :content_type => ['video/quicktime','video/x-flash-video']
+ # validates_attachment_size(:video, :less_than => 5.megabytes)
   #file_column :file_path
  # validates_presence_of :file_path
  

@@ -1,0 +1,8 @@
+--- 
+:backgroundrb:
+  :ip: 0.0.0.0
+  :port: 11006
+#:schedules:
+#  :converter_worker:
+  #  :encoder:
+  #    :trigger_args: 1 * * * *

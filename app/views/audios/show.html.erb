@@ -1,16 +1,17 @@
 <% item_show( :title => I18n.t('general.audio'),  :object => @current_object ) do %>
 	<h2><%=I18n.t('general.audio')%></h2>
-	
-	<p id='preview'></p>
-	<script type='text/javascript' src='/videoplayer/swfobject.js'></script>
+    <div id='preview'></div>
+    <%if @current_object.state=="converted"%>
 	<script type='text/javascript'>
-		var s1 = new SWFObject('/videoplayer/player.swf','ply','470','20','9','#ffffff');
+		var s1 = new SWFObject('/videoplayer/player.swf','ply','470','20','9','#000000');
 		s1.addParam('allowfullscreen','true');
 		s1.addParam('allowscriptaccess','always');
 		s1.addParam('wmode','opaque');
-		s1.addParam('flashvars', 'file=<%=@current_object.audio.url.split("?")[0] %>');
+		s1.addParam('flashvars', '&file=<%=File.dirname(@current_object.audio.url)%>/audio.mp3');
 		s1.write('preview');
 	</script>
-
+   <% else %>
+    <strong>Your Audio is Queued for Encoding</strong>
+   <% end %>
 	<%= link_to I18n.t('general.download'), @current_object.audio.url %><br />
 <% end %>
