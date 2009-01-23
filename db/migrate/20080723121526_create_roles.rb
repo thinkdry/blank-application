@@ -8,7 +8,21 @@ class CreateRoles < ActiveRecord::Migration
     Role.create(:name => 'moderator')
     Role.create(:name => 'writer')
     Role.create(:name => 'reader')
-  end
+  
+		create_table :permissions do |t|
+			t.string :name
+			t.text :description
+      t.timestamps
+		end
+
+		create_table :permissions_roles, :id => false do |t|
+			t.integer :permission_id
+			t.integer :role_id
+		end
+	
+	end
+
+
 
   def self.down
     drop_table :roles

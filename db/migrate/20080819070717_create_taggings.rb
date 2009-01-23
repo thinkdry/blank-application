@@ -1,6 +1,6 @@
 class CreateTaggings < ActiveRecord::Migration
   def self.up
-    create_table :taggings do |t|
+    create_table :taggings, :id => false do |t|
       t.integer   :tag_id
 			t.integer		:user_id
       t.integer   :taggable_id

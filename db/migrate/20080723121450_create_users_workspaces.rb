@@ -1,6 +1,6 @@
 class CreateUsersWorkspaces < ActiveRecord::Migration
   def self.up
-    create_table :users_workspaces do |t|
+    create_table :users_workspaces, :id => false do |t|
       t.integer :workspace_id
       t.integer :role_id
       t.integer :user_id

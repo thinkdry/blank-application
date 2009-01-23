@@ -1,0 +1,8 @@
+<!--
+Status:      307
+Header:      Location: http://127.0.0.1:8097/tests/rfponly/http/307.xml_redirect
+Description: return 307 redirected feed
+Expect:      not bozo and status == "200" and feed.title == "Feed 307"
+-->
+<feed version="0.3" xmlns="http://purl.org/atom/ns#">
+</feed>

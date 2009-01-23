@@ -88,6 +88,8 @@ Rails::Initializer.run do |config|
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
 
+	config.gem 'rfeedparser', :version => '0.9.951', :lib => 'rfeedparser'
+
   #config.action_mailer.delivery_method = :activerecord
 
   # RESTful authentification observer

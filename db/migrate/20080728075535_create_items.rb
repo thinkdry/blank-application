@@ -1,6 +1,6 @@
 class CreateItems < ActiveRecord::Migration
   def self.up
-    create_table :items do |t|
+    create_table :items, :id => false do |t|
       t.string :itemable_type
       t.integer :itemable_id
       t.integer :workspace_id

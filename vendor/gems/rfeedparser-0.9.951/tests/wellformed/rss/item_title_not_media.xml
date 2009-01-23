@@ -1,0 +1,15 @@
+<!--
+Description: RSS CNN Media feed with media title
+Expect:      entries[0]['title'] == 'the correct title'
+-->
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:feedburner="http://rssnamespace.org/feedburner/ext/1.0" version="2.0">
+  <channel>
+    <item>
+      <title>the correct title</title>
+      <media:content url="http://i.l.cnn.net/image.jpg" medium="image">
+        <media:title type="html">media title</media:title>
+      </media:content>
+    </item>
+  </channel>
+</rss>

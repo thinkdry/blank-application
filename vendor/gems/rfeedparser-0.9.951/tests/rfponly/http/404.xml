@@ -1,0 +1,7 @@
+<!--
+Status:      404
+Description: return 404 status code
+Expect:      bozo and status == "404"
+-->
+<feed version="0.3" xmlns="http://purl.org/atom/ns#">
+</feed>

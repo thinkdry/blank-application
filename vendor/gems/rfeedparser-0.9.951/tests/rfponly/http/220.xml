@@ -1,0 +1,28 @@
+<!--
+Status:      220
+Description: return 220 status code which is unknown but successful, so interpret it as 200
+Expect:      not bozo and len(entries) == 1 and status == "220"
+-->
+<feed xmlns="http://www.w3.org/2005/Atom">
+<title>Feed 220</title>
+<subtitle>Feed subtitle 220</subtitle>
+<link rel="alternate" type="text/html" href="http://example.com/220"/>
+<link rel="self" type="application/atom+xml" href="http://diveintomark.org/tests/client/http/220.xml"/>
+<id>http://diveintomark.org/tests/client/http/220.xml</id>
+<updated>2006-01-18T00:00:00Z</updated>
+<entry>
+<author>
+<name>Example feed author</name>
+<uri>http://url.example.com/</uri>
+<email>f8dy@example.com</email>
+</author>
+<updated>2006-01-18T00:00:00Z</updated>
+<published>2003-07-22T00:30:00Z</published>
+<title>Example item 220</title>
+<link rel="alternate" type="text/html" href="http://example.com/entry/link/220"/>
+<id>http://example.com/entry/id/220</id>
+<content type="html">
+&lt;p&gt;This is example 220, testing a bogus HTTP 220 return code.  RFC 2616 states that all unknown HTTP codes must be treated the same as the base code in their class.  So 220 must be treated the same as 200 (i.e. feed accepted and parsed normally).&lt;/p&gt;
+</content>
+</entry>
+</feed>
