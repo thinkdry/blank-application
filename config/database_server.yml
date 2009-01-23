@@ -13,7 +13,9 @@ development:
 test:
   database: blank_dev
   <<: *DEFAULTS
-  
+
 production:
   database: blank_dev
   <<: *DEFAULTS
+
+

@@ -5,7 +5,6 @@
 	<span class="txt_80_666"><%= @current_object.description %></span>
 </div>
 
-
  <div class="area_LEFT">
     <% if @workspace.creator == self.current_user %>
       You are the administrator of this workspace, click <%= link_to "here", edit_workspace_path(@workspace.id) %> to manage it.<br/>

@@ -3,33 +3,47 @@ class SuperadministrationController < ApplicationController
 	def superadministration
 		if current_user.is_superadmin?
 			if params[:part] == "default"
-				#render :partial => 'default', :layout => false
 			elsif params[:part] == "general"
 				@conf = YAML.load_file("#{RAILS_ROOT}/config/sa_config.yml")
 				@logo = Picture.find_by_name('logo')
-				render :partial => 'general'
 			elsif params[:part] == "css"
 				@elements = Element.find(:all, :conditions => {:template=>"current"})
 				@temp=Element.find( :all, :select => 'DISTINCT template' )
-				render :partial => 'css', :layout => false
 			elsif params[:part] == "translations"
 				@file = YAML.load_file("#{RAILS_ROOT}/config/locales/#{I18n.default_locale}.yml")
 				@res = @file[I18n.default_locale.to_s]
 				@language = I18n.default_locale.to_s
-				render :partial => 'translations', :layout => false
+			elsif params[:part] == "roles"
+				@roles
+				@permissions
 			else
-				redirect_to '/superadministration'
+				flash[:notice] = "Unexisting section"
+				redirect_to '/'
+			end
+			if request.post?
+				render :partial => params[:part], :layout => false
 			end
 		else
 			flash[:notice] = "Vous n'avez pas ce droit."
 			redirect_to ''
 		end
 	end
+
+	def check_to_tab(param)
+		@list = params[param.to_sym]
+		res = []
+		if @list
+				@list.each do |k, v|
+					res << k.to_s
+				end
+		end
+		return res
+	end
 	
 	def general_changing
 		if current_user.is_superadmin?
 			@conf = YAML.load_file("#{RAILS_ROOT}/config/sa_config.yml")
-			if params[:general][:picture]
+			if !params[:general][:picture_path].blank?
 				@picture = Picture.new(params[:general][:picture])
 				@picture.name = 'logo'
 				if Picture.find_by_name('logo')
@@ -37,24 +51,15 @@ class SuperadministrationController < ApplicationController
 				end
 				@picture.save
 			end
-			if (@list=params[:items_list])
-				res = []
-				@list.each do |k, v|
-					res << k.to_s
-				end
-				@conf['sa_items_list'] = res
+
+			['items', 'languages', 'feed_items_importation_types', 'ws_types'].each do |list|
+				@conf['sa_'+list] = check_to_tab(list)
 			end
-			if (@list=params[:languages_list])
-				res = []
-				@list.each do |k, v|
-					res << k.to_s
-				end
-				@conf['sa_languages_list'] = res
-			end
+
 			File.rename("#{RAILS_ROOT}/config/sa_config.yml", "#{RAILS_ROOT}/config/old_sa_config.yml")
 				@new=File.new("#{RAILS_ROOT}/config/sa_config.yml", "w+")
 				@new.syswrite(@conf.to_yaml)
-			redirect_to superadministration_path("default")
+			redirect_to '/superadministration/general'
 			flash[:notice] = "General settings updated"
 		else
 			redirect_to '/'
@@ -80,10 +85,10 @@ class SuperadministrationController < ApplicationController
 				Element.find(:first, :conditions => {:name => k_elmt.to_s, :template => "current"}).update_attributes(:bgcolor => v_elmt.to_s)
       end
       flash[:notice]="Saved Sucessfully"
-      redirect_to  '/superadministration/css'
+      redirect_to '/superadministration/css'
     else
       flash[:notice]="Changes not Saved"
-      render :action=> '/superadministration/css'
+      redirect_to '/superadministration/css'
     end
   end
     #if @element.update_attributes(params[:element])
@@ -119,16 +124,15 @@ class SuperadministrationController < ApplicationController
        end
       end
     end
-			
 		
   File.rename("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml", "#{RAILS_ROOT}/config/locales/old_#{params[:language]}.yml")
   @new=File.new("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml", "w+")
    if @new.syswrite(@yaml.to_yaml)
      flash[:notice] = "Updated Sucessfully"
-    redirect_to '/superadministration/default'
+    redirect_to '/superadministration/translations'
   else
     flash[:notice] = "Update Failed"
-   redirect_to '/superadministration/default'
+   redirect_to '/superadministration/translations'
   end
 end
 end

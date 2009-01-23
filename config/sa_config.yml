@@ -1,15 +1,15 @@
 --- 
-sa_ws_type: 
-- closed
+sa_ws_types: 
 - public
-- mi_public
-- archived
-sa_items_list: 
+- closed
+ws_types: []
+
+sa_feed_items_importation_types: 
+- bookmark
+sa_items: 
 - article
-- audio
-- video
 - cms_file
+- video
 - image
-sa_languages_list: 
+sa_languages: 
 - en-US
-- fr-FR

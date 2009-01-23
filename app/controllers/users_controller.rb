@@ -63,7 +63,7 @@ class UsersController < ApplicationController
     self.current_user = params[:activation_code].blank? ? :false : User.find_by_activation_code(params[:activation_code])
     if logged_in? && !current_user.active?
       current_user.activate
-      flash[:notice] = "Inscription complète !"
+      flash[:notice] = "Subscription complete !"
     end
     redirect_back_or_default('/')
   end
@@ -73,10 +73,10 @@ class UsersController < ApplicationController
 		return unless request.post?
 		if @user = User.find_by_email(params[:user][:email])
 		  @user.create_reset_code
-		  flash.now[:notice_forgot] = "Un lien permettant le changement de votre mot de passe vous a été envoyé sur votre messagerie."
+		  flash.now[:notice_forgot] = "A link that allows you to change your password has been send by e-mail."
 			render :action => "forgot_password"
 		else
-		  flash.now[:error_forgot] = "Aucun utilisateur ne correspond à cette adresse email."
+		  flash.now[:error_forgot] = "There is no user with this e-mail address."
 			render :action => "forgot_password"
 		end
   end
@@ -88,15 +88,15 @@ class UsersController < ApplicationController
       if @user.update_attributes(:password => params[:user][:password], :password_confirmation => params[:user][:password_confirmation])
         self.current_user = @user
         @user.delete_reset_code
-        flash[:notice] = "Mot de passe changé avec succès pour #{@user.login}"
+        flash[:notice] = "#{@user.login}, Your password has been successfully changed"
         redirect_to "/login"
       else
-				flash[:error] = "Le mot de passe n'a pu être changé."
+				flash[:error] = "Your password has not been changed."
         render :action => :reset_password
       end
 		end
     else
-			flash[:error] = "Ce lien n'est plus valide."
+			flash[:error] = "This link is no more valid."
 			redirect_to "/login"
 		end
   end  

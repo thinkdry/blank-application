@@ -7,10 +7,10 @@ h4{
 .notice {
 	padding: 10px 10px 10px 30px;
 	margin-bottom: 1em;
-	border: 2px solid <%=@links.bgcolor%>;
+	border: 2px solid #666;
 	font-size: 90%;
 	font-weight: bold;
-	color: <%=@links.bgcolor%>;
+	color:#666;
 	line-height: 1;
 	background: <%=@header.bgcolor%> url(/images/accept.png) left no-repeat;
 	background-position: 10px 7px;
@@ -38,7 +38,6 @@ img.test{
 } 
 
 #middle-middle{
-  border-right: 1px #F2F2F2 solid;
   margin-right: 180px;
   padding: 20px 20px 40px 20px;
   font-size: 95%;
@@ -49,6 +48,7 @@ img.test{
 #middle-right{
   float: right;
   width: 180px;
+  margin-top: 10px;
 }
 
 #middle-right select{
@@ -59,12 +59,20 @@ img.test{
   margin-top: 10px;
   padding-bottom: 4px;
   font-size: 97%;
-  color: #888;
+  color: #F79646;
   border-bottom: 1px #F2F2F2 solid;
 }
 
+#midle-right-menu{
+	text-align:right;
+	padding-right:20px;
+}
+
+#midle-right-menu p{
+	margin:0;
+}
 #search-bar-container{
-  width: 800px;
+  width: 780px;
   margin: 0px 0px 20px 0px;
 }
 
@@ -74,22 +82,22 @@ img.test{
 }
 
 #search-bar-left, #search-bar-right{
-  width: 5px;
+  width: 10px;
 }
 
 #search-bar-left{
-  background:<%=@search.bgcolor%>; 
+   background:#AB5D7C url(/images/search_bg_left.png) no-repeat scroll 0 0;
 }
 
 #search-bar-right{
-  background: <%=@search.bgcolor%>; 
+  background:#AB5D7C url(/images/search_bg_right.png) no-repeat scroll 0 0;
 }
 
 #search-bar-middle{
-  background:<%=@search.bgcolor%>; 
+  background:#AB5D7C url(/images/search_bg_middle.png) repeat-x scroll 0 0;
   color: #fff;
-  font-size: 130%;
   text-align: right;
+  width:740px;
 }
 
 a.advanced_search, a:hover.advanced_search, a:link.advanced_search, a:active.advanced_search, a:visited.advanced_search{
@@ -109,11 +117,14 @@ a.search_button{
 
 #search-bar-middle input.style_text, #search-bar-middle select{
   float: left;
-  height: 28px;
   width: 310px;
   margin-left: 10px;
   margin-top: 13px;
-  font-size: 100%;
+  font-size: 140%;
+}
+
+#search-bar-middle select{
+  height:31px;
 }
 
 #search-bar-middle p{
@@ -122,15 +133,15 @@ a.search_button{
   display: block;
   float: left;
   margin-left: 10px;
+  font-size: 140%;
 }
 
 img.avatar{
 }
 
 #area_TITLE{
-	padding: 0.5em;
 	margin: 20px 0 20px 0;
-	border: 2px solid #F2F2F2;
+	border: 2px solid #fff;
 }
 
 .area_LEFT{
@@ -147,6 +158,14 @@ img.avatar{
   
 }
 
+.area_LEFT ul{
+	padding-left:10px;
+	list-style-type:none;
+}
+
+.area_LEFT ul li{
+	margin-top:10px;
+}
 
 #area_INFOS{
 }
@@ -164,6 +183,7 @@ img.avatar{
   background-color:<%=@ws.bgcolor%>;
   border: 2px solid <%=@border.bgcolor%>;
   padding: 10px;
+  margin-top:10px;
 }
 
 .area_WS h4{
@@ -179,6 +199,10 @@ img.avatar{
 
 .area_WS fieldset label{
   color: #fff;
+}
+
+.area_WS a{
+	color:#ffffff;
 }
 
 .pubmed{
@@ -205,6 +229,7 @@ a.object{
 .item-list{
   margin-top: 1em;
   color: #555;
+  overflow:hidden;
 }
 
 .top_elem{
@@ -216,7 +241,7 @@ a.object{
 
 a.blok{
   margin-top: 1px;
-  background-color:<%=@accordion.bgcolor%>;
+  background-color:#dbdbdb;
   display: block;
   padding: 7px 10px;
 }
@@ -235,6 +260,10 @@ ul#tabs, ul#top_elems{
   margin: 0;
   padding: 0 0 29px 0;
   border-bottom: 1px solid #ccc;
+}
+
+a.active{
+	background:#f3f3f3;
 }
 
 ul#tabs li, ul#top_elems li{
@@ -268,7 +297,7 @@ ul#tabs li a, ul#top_elems li a{
 }
 
 ul#tabs li a img{
-  margin-top: -1px;
+  margin-right: 3px;
 }
 
 ul.top_box{
@@ -278,7 +307,11 @@ ul.top_box{
 }
 
 ul.top_box li{
-  margin-top: 5px;
+  margin-top: 10px;
+}
+
+.top_box a{
+	color:#F79646;
 }
 
 .pubmed_item {
@@ -311,7 +344,7 @@ ul.top_box li{
 }
 
 #page #container h1 {
-	color:#000000;
+	color:#F79646;
 	font-size:175%;
 	padding-bottom:7px;
 }
@@ -325,7 +358,7 @@ ul.top_box li{
 #content_show h1 {
 	margin:0px 0px 1px;
 	padding:0px;
-	border-bottom: 1px #000 solid;
+	border-bottom: 1px #F2F2F2 solid;
 }
 
 #content_show .undertitle {
@@ -389,7 +422,6 @@ ul.top_box li{
 #content_show #comment_list img {
 	float:left;
 	position:relative;
-	top:-7px;
 	margin-right:10px;
 }
 
@@ -407,4 +439,16 @@ ul.top_box li{
 }
 
 #content_show #comment_list table tr {
+}
+
+.display_search_result{
+	border: 1px solid #F2F2F2;
+	padding: 0.5em;
+}
+.display_search_result span{
+	color:grey;
+}
+
+.pagination{
+	text-align:center;
 }

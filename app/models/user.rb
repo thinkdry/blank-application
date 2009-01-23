@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
   has_many :users_workspaces, :dependent => :delete_all
   has_many :workspaces, :through => :users_workspaces
 
-	ITEMS_LIST.each do |item|
+	ITEMS.each do |item|
 		has_many item.pluralize.to_sym
 	end
 
@@ -112,7 +112,7 @@ class User < ActiveRecord::Base
   
   def items
 		@items = []
-		ITEMS_LIST.map{ |item| item.pluralize }.each do |item|
+		ITEMS.map{ |item| item.pluralize }.each do |item|
 			@items + self.send(item)
 		end
 		@items.sort { |a, b| a.created_at <=> b.created_at }

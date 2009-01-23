@@ -27,8 +27,12 @@ PERMISSION_DENIED_REDIRECTION = { :controller => '/home', :action => 'index' }
 
 # The method your auth scheme uses to store the location to redirect back to
 STORE_LOCATION_METHOD = :store_location
-ITEMS_LIST = ['article', 'image', 'cms_file', 'video', 'audio', 'publication', 'feed_source', 'bookmark']
-LANGUAGES_LIST = ['en-US', 'fr-FR', 'es-ES']
+
+ITEMS = ['article', 'image', 'cms_file', 'video', 'audio', 'publication', 'feed_source', 'bookmark']
+LANGUAGES = ['en-US', 'fr-FR', 'es-ES']
+FEED_ITEMS_IMPORTATION_TYPES = ['bookmark', 'publication']
+WS_TYPES = ['closed', 'public', 'authorized', 'archived']
+
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers

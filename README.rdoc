@@ -1,4 +1,4 @@
-= ARTIC
+= BLANK Application
 
 == Installation
 
@@ -7,9 +7,13 @@
     
 * Install ImageMagick
     $ sudo apt-get install imagemagick libmagick9-dev
+	(for mac : http://www.red91.com/tag/rmagick)
     
 * Install Xapian Ruby bindings
     $ apt-get install libxapian15  libxapian-ruby1.8
+	(for mac : http://www.locomotivation.com/blog/2008/07/23/simple-ruby-on-rails-full-text-search-using-xapian.html)
+
+ gem install rfeedparser
 
   If rake tasks are still displaying warnings "No Ruby bindings for Xapian installed",
   it might be because xapian lib is in a wrong directory
@@ -41,8 +45,8 @@
   Update the Xapian index
     $ rake xapian:update_index RAILS_ENV=development
   
-  Import the Pubmed feeds into DB
-    $ rake cron:pubmed:update_rss
+  Import the feed items into DB
+    $ rake cron:feed_items:update
 
 == Crontab configuration (production environment)
 
@@ -50,7 +54,7 @@ Update Xapian index each minute
   */1 * * * *	cd /path/to/my/application && /usr/bin/rake xapian:update_index RAILS_ENV=development
 
 Import latest Pubmed publications each 20 minute
-  */20 * * * *	cd /path/to/my/application && /usr/bin/rake cron:pubmed:update_rss
+  */20 * * * *	cd /path/to/my/application && /usr/bin/rake cron:feed_items:update
 
 == Git
 
