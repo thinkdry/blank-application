@@ -41,19 +41,23 @@ module ApplicationHelper
 	end
 
 	def available_items_list
-		return YAML.load_file("#{RAILS_ROOT}/config/sa_config.yml")["sa_items_list"]
+		return YAML.load_file("#{RAILS_ROOT}/config/sa_config.yml")["sa_items"]
 	end
 
 	def available_languages_list
-		return YAML.load_file("#{RAILS_ROOT}/config/sa_config.yml")["sa_languages_list"]
+		return YAML.load_file("#{RAILS_ROOT}/config/sa_config.yml")["sa_languages"]
 	end
 
 	def select_languages
-		res = "<select name='languages' id='languages' onchange=\"new Ajax.Request('/session/change_language?locale='+this.value, {asynchronous:true, evalScripts:true}); return false;\">"
-		available_languages_list.each do |l|
-			res += "<option value='#{l}' selected='#{I18n.locale==l ? true : false}'>"+l+"</option>"
+		if (available_languages_list.size > 1)
+			res = "<select name='languages' id='languages' onchange=\"new Ajax.Request('/session/change_language?locale='+this.value, {asynchronous:true, evalScripts:true}); return false;\">"
+			available_languages_list.each do |l|
+				res += "<option value='#{l}' selected='#{I18n.locale==l ? true : false}'>"+l+"</option>"
+			end
+			res += "</select>"
+		else
+			res = ""
 		end
-		res += "</select>"
 		return res
 	end
 

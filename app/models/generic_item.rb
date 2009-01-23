@@ -19,7 +19,7 @@
 class GenericItem < ActiveRecord::Base
   self.inheritance_column = :item_type
 
-	ITEMS_LIST.each do |item|
+	ITEMS.each do |item|
 		named_scope item.pluralize.to_sym,
 			:conditions => { :item_type => item.camelize }
 	end

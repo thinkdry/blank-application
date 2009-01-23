@@ -1,5 +1,5 @@
 <fieldset class="myform">
-  <legend>General management</legend>
+  <legend>General settings</legend>
 
   <% form_for :general, :url => general_changing_superadministration_path, :html => {:multipart => true} do |f| -%>
 
@@ -8,18 +8,18 @@
       <%= file_column_field 'general', 'picture_path' %><br />
       <br />
       
-      Available items selection :<br />
-      <% ITEMS_LIST.each do |i| %>
-        <%= check_box_tag "items_list[#{i}]", "1", @conf["sa_items_list"].include?(i) %>
-	      <%=  I18n.t("general.#{i}") %><br />
-      <% end %><br />
-      <br />
-
+      Available items :<br />
+      <%= checkboxes_from_list(ITEMS, "items", @conf) %>
+      
       Available languages :<br />
-      <% LANGUAGES_LIST.each do |l| %>
-        <%= check_box_tag "languages_list[#{l}]", "1", @conf["sa_languages_list"].include?(l) %>
-	      <%= image_tag("countries/#{l.split('-').first}.jpg") %> <%=  I18n.t("general.#{l}") %><br />
-      <% end %><br />
+      <%= checkboxes_from_list(LANGUAGES, "languages", @conf) %>
+
+      Workspaces types :<br />
+      <%= checkboxes_from_list(WS_TYPES, "ws_types", @conf) %>
+
+      Feed items imporation types :<br />
+      <%= checkboxes_from_list(FEED_ITEMS_IMPORTATION_TYPES, "feed_items_importation_types", @conf) %>
+      
       <br />
 
       <div class="buttons" id="area_BUTTONS" style="padding-top: 2em">

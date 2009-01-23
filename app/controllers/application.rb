@@ -20,11 +20,11 @@ class ApplicationController < ActionController::Base
   end
 
 	def available_items_list
-		return YAML.load_file("#{RAILS_ROOT}/config/sa_config.yml")["sa_items_list"]
+		return YAML.load_file("#{RAILS_ROOT}/config/sa_config.yml")["sa_items"]
 	end
 
 	def available_languages
-		return YAML.load_file("#{RAILS_ROOT}/config/sa_config.yml")["sa_languages_list"]
+		return YAML.load_file("#{RAILS_ROOT}/config/sa_config.yml")["sa_languages"]
 	end
 
   private
