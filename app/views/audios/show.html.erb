@@ -19,7 +19,7 @@
        <div id="states">
           <%=@current_object.state%>
        </div>
-       <%= image_tag "/images/loader.gif" %>
-   <% end %>
+          <%= image_tag "/images/loader.gif" %>
+      <% end %>
 	<%= link_to I18n.t('general.download'), @current_object.audio.url.split("?")[0] %><br />
 <% end %>
