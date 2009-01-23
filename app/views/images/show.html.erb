@@ -4,7 +4,7 @@
 	<%= File.basename @current_object.image_file_name %>
 	<br />
 	<%= link_to(
-			image_tag(@current_object.image.url(:medium)), @current_object.image.url) %>
+			image_tag(@current_object.image.url(:medium)), @current_object.image.url.split("?")[0]) %>
 	<br />
 
 <% end %>

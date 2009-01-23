@@ -1,17 +1,26 @@
 <% item_show( :title => I18n.t('general.video'),  :object => @current_object ) do %>
 	<h2>Vidéo</h2>
-    <div id="player"></div>
-		<% if @current_object.state=="converted" %>
-		<script type="text/javascript">
-			var so = new SWFObject('/videoplayer/player.swf','mpl','470','320','9');
-			so.addParam('allowscriptaccess','always');
-			so.addParam('allowfullscreen','true');
-			so.addParam('flashvars','&file=<%=File.dirname(@current_object.video.url)%>/video.flv');
-			so.write('player');
-		</script>
-	<% else %>
-		<strong>Your Video is Queued for Encoding</strong><br />
-	<% end %>
+            <div id="player"></div>
+            <% if @current_object.state=="encoded" %>
+            <script type="text/javascript">
+                var so = new SWFObject('/videoplayer/player.swf','mpl','470','320','9');
+                so.addParam('allowscriptaccess','always');
+                so.addParam('allowfullscreen','true');
+                so.addParam('flashvars','&file=<%=File.dirname(@current_object.video.url)%>/video.flv');
+                so.write('player');
+             </script>
+             <% elsif @current_object.state=="error" %>
+                <%= @current_object.state=="error" %>
+            <% else %>
+            <%= periodically_call_remote :update=> 'states',
+                                                                  :url => {:action=> 'get_progress', :id=>@current_object.id},
+                                                                  :frequency => 5 %>
+             <div id="states">
+              <%=@current_object.state%>
+             </div>
+            <% if !@current_object.state=="error" %>
+            <%= image_tag "/images/loader.gif" %>
+     <% end %>
 	
 	<%= link_to I18n.t('video.download_video'), (@current_object.video.url) %>
 <% end %>

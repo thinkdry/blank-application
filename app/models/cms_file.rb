@@ -17,7 +17,9 @@
 class CmsFile < ActiveRecord::Base
   acts_as_item
   acts_as_xapian :texts => [:title, :description, :tags, :cmsfile_file_name]
-  has_attached_file :cmsfile
+  has_attached_file :cmsfile,
+                                    :url =>    "/uploaded_files/cmsfile/:id/:style/:basename.:extension",
+                                   :path => ":rails_root/public/uploaded_files/cmsfile/:id/:style/:basename.:extension"
   validates_attachment_presence :cmsfile
   validates_attachment_content_type :cmsfile, :content_type => ['application/pdf', 'text/plain','application/octet-stream','application/msword']
   validates_attachment_size(:cmsfile, :less_than => 5.megabytes)
