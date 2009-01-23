@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html 
      PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <title>Module: CalendarDateSelect::FormHelper</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Script-Type" content="text/javascript" />
   <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
   <script type="text/javascript">
@@ -80,11 +80,11 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000012">calendar_date_select</a>&nbsp;&nbsp;
-      <a href="#M000013">calendar_date_select_output</a>&nbsp;&nbsp;
-      <a href="#M000011">calendar_date_select_process_options</a>&nbsp;&nbsp;
-      <a href="#M000009">calendar_date_select_tag</a>&nbsp;&nbsp;
-      <a href="#M000010">format_time</a>&nbsp;&nbsp;
+      <a href="#M000009">calendar_date_select</a>&nbsp;&nbsp;
+      <a href="#M000010">calendar_date_select_output</a>&nbsp;&nbsp;
+      <a href="#M000008">calendar_date_select_process_options</a>&nbsp;&nbsp;
+      <a href="#M000006">calendar_date_select_tag</a>&nbsp;&nbsp;
+      <a href="#M000007">format_time</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -106,19 +106,19 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000012" class="method-detail">
-        <a name="M000012"></a>
+      <div id="method-M000009" class="method-detail">
+        <a name="M000009"></a>
 
         <div class="method-heading">
-          <a href="#M000012" class="method-signature">
+          <a href="#M000009" class="method-signature">
           <span class="method-name">calendar_date_select</span><span class="method-args">(object, method, options={})</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000012-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000012-source">
+            onclick="toggleCode('M000009-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000009-source">
 <pre>
      <span class="ruby-comment cmt"># File vendor/plugins/calendar_date_select/lib/calendar_date_select.rb, line 151</span>
 151:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">calendar_date_select</span>(<span class="ruby-identifier">object</span>, <span class="ruby-identifier">method</span>, <span class="ruby-identifier">options</span>={})
@@ -148,7 +148,7 @@
 175:           <span class="ruby-keyword kw">nil</span>
 176:         <span class="ruby-keyword kw">end</span>
 177: 
-178:       <span class="ruby-identifier">tag</span> = <span class="ruby-constant">ActionView</span><span class="ruby-operator">::</span><span class="ruby-constant">Helpers</span><span class="ruby-operator">::</span><span class="ruby-constant">InstanceTag</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">object</span>, <span class="ruby-identifier">method</span>, <span class="ruby-keyword kw">self</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">:object</span>))
+178:       <span class="ruby-identifier">tag</span> = <span class="ruby-constant">ActionView</span><span class="ruby-operator">::</span><span class="ruby-constant">Helpers</span><span class="ruby-operator">::</span><span class="ruby-constant">InstanceTag</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">object</span>, <span class="ruby-identifier">method</span>, <span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">:object</span>))
 179:       <span class="ruby-identifier">calendar_date_select_output</span>(
 180:         <span class="ruby-identifier">tag</span>.<span class="ruby-identifier">to_input_field_tag</span>( (<span class="ruby-identifier">calendar_options</span>[<span class="ruby-identifier">:hidden</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">calendar_options</span>[<span class="ruby-identifier">:embedded</span>]) <span class="ruby-operator">?</span> <span class="ruby-value str">&quot;hidden&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-value str">&quot;text&quot;</span>, <span class="ruby-identifier">options</span>), 
 181:         <span class="ruby-identifier">calendar_options</span>
@@ -159,19 +159,19 @@
         </div>
       </div>
 
-      <div id="method-M000013" class="method-detail">
-        <a name="M000013"></a>
+      <div id="method-M000010" class="method-detail">
+        <a name="M000010"></a>
 
         <div class="method-heading">
-          <a href="#M000013" class="method-signature">
+          <a href="#M000010" class="method-signature">
           <span class="method-name">calendar_date_select_output</span><span class="method-args">(input, calendar_options = {})</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000013-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000013-source">
+            onclick="toggleCode('M000010-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000010-source">
 <pre>
      <span class="ruby-comment cmt"># File vendor/plugins/calendar_date_select/lib/calendar_date_select.rb, line 185</span>
 185:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">calendar_date_select_output</span>(<span class="ruby-identifier">input</span>, <span class="ruby-identifier">calendar_options</span> = {})
@@ -197,11 +197,11 @@
         </div>
       </div>
 
-      <div id="method-M000011" class="method-detail">
-        <a name="M000011"></a>
+      <div id="method-M000008" class="method-detail">
+        <a name="M000008"></a>
 
         <div class="method-heading">
-          <a href="#M000011" class="method-signature">
+          <a href="#M000008" class="method-signature">
           <span class="method-name">calendar_date_select_process_options</span><span class="method-args">(options)</span>
           </a>
         </div>
@@ -212,8 +212,8 @@ extracts any options passed into calendar date select, appropriating them
 to either the Javascript call or the html tag.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000011-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000011-source">
+            onclick="toggleCode('M000008-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000008-source">
 <pre>
      <span class="ruby-comment cmt"># File vendor/plugins/calendar_date_select/lib/calendar_date_select.rb, line 113</span>
 113:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">calendar_date_select_process_options</span>(<span class="ruby-identifier">options</span>)
@@ -258,19 +258,19 @@ to either the Javascript call or the html tag.
         </div>
       </div>
 
-      <div id="method-M000009" class="method-detail">
-        <a name="M000009"></a>
+      <div id="method-M000006" class="method-detail">
+        <a name="M000006"></a>
 
         <div class="method-heading">
-          <a href="#M000009" class="method-signature">
+          <a href="#M000006" class="method-signature">
           <span class="method-name">calendar_date_select_tag</span><span class="method-args">( name, value = nil, options = {})</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000009-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000009-source">
+            onclick="toggleCode('M000006-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000006-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/calendar_date_select/lib/calendar_date_select.rb, line 83</span>
 83:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">calendar_date_select_tag</span>( <span class="ruby-identifier">name</span>, <span class="ruby-identifier">value</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">options</span> = {})
@@ -291,19 +291,19 @@ to either the Javascript call or the html tag.
         </div>
       </div>
 
-      <div id="method-M000010" class="method-detail">
-        <a name="M000010"></a>
+      <div id="method-M000007" class="method-detail">
+        <a name="M000007"></a>
 
         <div class="method-heading">
-          <a href="#M000010" class="method-signature">
+          <a href="#M000007" class="method-signature">
           <span class="method-name">format_time</span><span class="method-args">(value, options = {})</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000010-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000010-source">
+            onclick="toggleCode('M000007-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000007-source">
 <pre>
      <span class="ruby-comment cmt"># File vendor/plugins/calendar_date_select/lib/calendar_date_select.rb, line 97</span>
  97:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">format_time</span>(<span class="ruby-identifier">value</span>, <span class="ruby-identifier">options</span> = {})

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html 
      PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <title>Module: Resourceful::Maker</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Script-Type" content="text/javascript" />
   <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
   <script type="text/javascript">
@@ -74,9 +74,9 @@
 
     <div id="description">
       <p>
-This module is <a href="Maker.html#M000057">extended</a> by the
+This module is <a href="Maker.html#M000005">extended</a> by the
 ActionController::Base class object. It provides the actual <tt><a
-href="Maker.html#M000058">make_resourceful</a></tt> method and sets up the
+href="Maker.html#M000006">make_resourceful</a></tt> method and sets up the
 controller so that everything will work.
 </p>
 
@@ -89,9 +89,9 @@ controller so that everything will work.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000057">extended</a>&nbsp;&nbsp;
-      <a href="#M000059">made_resourceful?</a>&nbsp;&nbsp;
-      <a href="#M000058">make_resourceful</a>&nbsp;&nbsp;
+      <a href="#M000005">extended</a>&nbsp;&nbsp;
+      <a href="#M000007">made_resourceful?</a>&nbsp;&nbsp;
+      <a href="#M000006">make_resourceful</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -113,11 +113,11 @@ controller so that everything will work.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000057" class="method-detail">
-        <a name="M000057"></a>
+      <div id="method-M000005" class="method-detail">
+        <a name="M000005"></a>
 
         <div class="method-heading">
-          <a href="#M000057" class="method-signature">
+          <a href="#M000005" class="method-signature">
           <span class="method-name">extended</span><span class="method-args">(base)</span>
           </a>
         </div>
@@ -128,8 +128,8 @@ Called automatically on ActionController::Base. Initializes various
 inheritable attributes.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000057-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000057-source">
+            onclick="toggleCode('M000005-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000005-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/maker.rb, line 11</span>
 11:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">extended</span>(<span class="ruby-identifier">base</span>)
@@ -145,23 +145,23 @@ inheritable attributes.
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000059" class="method-detail">
-        <a name="M000059"></a>
+      <div id="method-M000007" class="method-detail">
+        <a name="M000007"></a>
 
         <div class="method-heading">
-          <a href="#M000059" class="method-signature">
+          <a href="#M000007" class="method-signature">
           <span class="method-name">made_resourceful?</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Returns whether or not <a href="Maker.html#M000058">make_resourceful</a>
+Returns whether or not <a href="Maker.html#M000006">make_resourceful</a>
 has been called on this controller or any controllers it inherits from.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000059-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000059-source">
+            onclick="toggleCode('M000007-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000007-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/maker.rb, line 68</span>
 68:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">made_resourceful?</span>
@@ -172,11 +172,11 @@ has been called on this controller or any controllers it inherits from.
         </div>
       </div>
 
-      <div id="method-M000058" class="method-detail">
-        <a name="M000058"></a>
+      <div id="method-M000006" class="method-detail">
+        <a name="M000006"></a>
 
         <div class="method-heading">
-          <a href="#M000058" class="method-signature">
+          <a href="#M000006" class="method-signature">
           <span class="method-name">make_resourceful(options = {}) { ... }<br />
 </span>
           </a>
@@ -185,7 +185,7 @@ has been called on this controller or any controllers it inherits from.
         <div class="method-description">
           <p>
 This is the central method, and namesake, of <a
-href="Maker.html#M000058">make_resourceful</a>. It takes a block and
+href="Maker.html#M000006">make_resourceful</a>. It takes a block and
 evaluates it in the context of a <a href="Builder.html">Builder</a>,
 allowing the controller to be customized extensively.
 </p>
@@ -217,8 +217,8 @@ This is the same as:
   end
 </pre>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000058-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000058-source">
+            onclick="toggleCode('M000006-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000006-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/maker.rb, line 49</span>
 49:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">make_resourceful</span>(<span class="ruby-identifier">options</span> = {}, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)

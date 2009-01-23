@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html 
      PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <title>Module: Resourceful::Default::Accessors</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Script-Type" content="text/javascript" />
   <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
   <script type="text/javascript">
@@ -93,7 +93,7 @@ in any unexpected ways.
 <p>
 For example, suppose your controller is called TagsController, but your
 model is called PhotoTag. All you have to do is override <a
-href="Accessors.html#M000010">current_model_name</a>:
+href="Accessors.html#M000016">current_model_name</a>:
 </p>
 <pre>
   def current_model_name
@@ -101,13 +101,13 @@ href="Accessors.html#M000010">current_model_name</a>:
   end
 </pre>
 <p>
-Then <a href="Accessors.html#M000013">current_model</a> will return the
-PhotoTag model, <a href="Accessors.html#M000007">current_object</a> will
+Then <a href="Accessors.html#M000019">current_model</a> will return the
+PhotoTag model, <a href="Accessors.html#M000013">current_object</a> will
 call <tt>PhotoTag.find</tt>, and so forth.
 </p>
 <p>
-Overriding <a href="Accessors.html#M000005">current_objects</a> and <a
-href="Accessors.html#M000007">current_object</a> is particularly useful for
+Overriding <a href="Accessors.html#M000011">current_objects</a> and <a
+href="Accessors.html#M000013">current_object</a> is particularly useful for
 providing customized model lookup logic.
 </p>
 
@@ -120,30 +120,30 @@ providing customized model lookup logic.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000009">build_object</a>&nbsp;&nbsp;
-      <a href="#M000013">current_model</a>&nbsp;&nbsp;
-      <a href="#M000010">current_model_name</a>&nbsp;&nbsp;
-      <a href="#M000007">current_object</a>&nbsp;&nbsp;
-      <a href="#M000005">current_objects</a>&nbsp;&nbsp;
-      <a href="#M000021">ensure_parent_exists</a>&nbsp;&nbsp;
-      <a href="#M000012">instance_variable_name</a>&nbsp;&nbsp;
-      <a href="#M000008">load_object</a>&nbsp;&nbsp;
-      <a href="#M000006">load_objects</a>&nbsp;&nbsp;
-      <a href="#M000020">load_parent_object</a>&nbsp;&nbsp;
-      <a href="#M000011">namespaces</a>&nbsp;&nbsp;
-      <a href="#M000014">object_parameters</a>&nbsp;&nbsp;
-      <a href="#M000016">parent?</a>&nbsp;&nbsp;
-      <a href="#M000018">parent_model</a>&nbsp;&nbsp;
-      <a href="#M000017">parent_name</a>&nbsp;&nbsp;
-      <a href="#M000015">parent_names</a>&nbsp;&nbsp;
-      <a href="#M000019">parent_object</a>&nbsp;&nbsp;
-      <a href="#M000028">plural?</a>&nbsp;&nbsp;
-      <a href="#M000025">plural_action?</a>&nbsp;&nbsp;
-      <a href="#M000024">save_failed!</a>&nbsp;&nbsp;
-      <a href="#M000023">save_succeeded!</a>&nbsp;&nbsp;
-      <a href="#M000022">save_succeeded?</a>&nbsp;&nbsp;
-      <a href="#M000027">singular?</a>&nbsp;&nbsp;
-      <a href="#M000026">singular_action?</a>&nbsp;&nbsp;
+      <a href="#M000015">build_object</a>&nbsp;&nbsp;
+      <a href="#M000019">current_model</a>&nbsp;&nbsp;
+      <a href="#M000016">current_model_name</a>&nbsp;&nbsp;
+      <a href="#M000013">current_object</a>&nbsp;&nbsp;
+      <a href="#M000011">current_objects</a>&nbsp;&nbsp;
+      <a href="#M000027">ensure_parent_exists</a>&nbsp;&nbsp;
+      <a href="#M000018">instance_variable_name</a>&nbsp;&nbsp;
+      <a href="#M000014">load_object</a>&nbsp;&nbsp;
+      <a href="#M000012">load_objects</a>&nbsp;&nbsp;
+      <a href="#M000026">load_parent_object</a>&nbsp;&nbsp;
+      <a href="#M000017">namespaces</a>&nbsp;&nbsp;
+      <a href="#M000020">object_parameters</a>&nbsp;&nbsp;
+      <a href="#M000022">parent?</a>&nbsp;&nbsp;
+      <a href="#M000024">parent_model</a>&nbsp;&nbsp;
+      <a href="#M000023">parent_name</a>&nbsp;&nbsp;
+      <a href="#M000021">parent_names</a>&nbsp;&nbsp;
+      <a href="#M000025">parent_object</a>&nbsp;&nbsp;
+      <a href="#M000034">plural?</a>&nbsp;&nbsp;
+      <a href="#M000031">plural_action?</a>&nbsp;&nbsp;
+      <a href="#M000030">save_failed!</a>&nbsp;&nbsp;
+      <a href="#M000029">save_succeeded!</a>&nbsp;&nbsp;
+      <a href="#M000028">save_succeeded?</a>&nbsp;&nbsp;
+      <a href="#M000033">singular?</a>&nbsp;&nbsp;
+      <a href="#M000032">singular_action?</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -165,11 +165,11 @@ providing customized model lookup logic.
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000009" class="method-detail">
-        <a name="M000009"></a>
+      <div id="method-M000015" class="method-detail">
+        <a name="M000015"></a>
 
         <div class="method-heading">
-          <a href="#M000009" class="method-signature">
+          <a href="#M000015" class="method-signature">
           <span class="method-name">build_object</span><span class="method-args">()</span>
           </a>
         </div>
@@ -178,7 +178,7 @@ providing customized model lookup logic.
           <p>
 Creates a new object of the type of the current model with the current
 object&#8216;s parameters. <tt><a
-href="Accessors.html#M000007">current_object</a></tt> then returns this
+href="Accessors.html#M000013">current_object</a></tt> then returns this
 object for this action instead of looking up a new object.
 </p>
 <p>
@@ -196,8 +196,8 @@ automatically be a child of the parent object. For example, on POST
   current_object.person.id #=&gt; 4
 </pre>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000009-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000009-source">
+            onclick="toggleCode('M000015-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000015-source">
 <pre>
      <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/accessors.rb, line 124</span>
 124:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">build_object</span>
@@ -214,11 +214,11 @@ automatically be a child of the parent object. For example, on POST
         </div>
       </div>
 
-      <div id="method-M000013" class="method-detail">
-        <a name="M000013"></a>
+      <div id="method-M000019" class="method-detail">
+        <a name="M000019"></a>
 
         <div class="method-heading">
-          <a href="#M000013" class="method-signature">
+          <a href="#M000019" class="method-signature">
           <span class="method-name">current_model</span><span class="method-args">()</span>
           </a>
         </div>
@@ -239,8 +239,8 @@ to ensure that the object returned is actually a child of the parent, and
 so forth.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000013-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000013-source">
+            onclick="toggleCode('M000019-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000019-source">
 <pre>
      <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/accessors.rb, line 166</span>
 166:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">current_model</span>
@@ -255,11 +255,11 @@ so forth.
         </div>
       </div>
 
-      <div id="method-M000010" class="method-detail">
-        <a name="M000010"></a>
+      <div id="method-M000016" class="method-detail">
+        <a name="M000016"></a>
 
         <div class="method-heading">
-          <a href="#M000010" class="method-signature">
+          <a href="#M000016" class="method-signature">
           <span class="method-name">current_model_name</span><span class="method-args">()</span>
           </a>
         </div>
@@ -270,8 +270,8 @@ The string name of the current model. By default, this is derived from the
 name of the controller.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000010-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000010-source">
+            onclick="toggleCode('M000016-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000016-source">
 <pre>
      <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/accessors.rb, line 136</span>
 136:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">current_model_name</span>
@@ -282,11 +282,11 @@ name of the controller.
         </div>
       </div>
 
-      <div id="method-M000007" class="method-detail">
-        <a name="M000007"></a>
+      <div id="method-M000013" class="method-detail">
+        <a name="M000013"></a>
 
         <div class="method-heading">
-          <a href="#M000007" class="method-signature">
+          <a href="#M000013" class="method-signature">
           <span class="method-name">current_object</span><span class="method-args">()</span>
           </a>
         </div>
@@ -300,25 +300,25 @@ UsersController, it essentially runs <tt>User.find(params[:id])</tt>.
 <p>
 However, there are a few important differences. First, this method caches
 is results in the <tt>@<a
-href="Accessors.html#M000005">current_objects</a></tt> instance variable.
+href="Accessors.html#M000011">current_objects</a></tt> instance variable.
 That way, multiple calls won&#8216;t run multiple queries.
 </p>
 <p>
 Second, this method uses the <a
-href="Accessors.html#M000013">current_model</a> accessor, which provides a
+href="Accessors.html#M000019">current_model</a> accessor, which provides a
 lot of flexibility (see the documentation for <a
-href="Accessors.html#M000013">current_model</a> for details).
+href="Accessors.html#M000019">current_model</a> for details).
 </p>
 <p>
 Note that this is different for a singleton controller, where there&#8216;s
 only one resource per parent resource. Then this just returns that
 resource. For example, if Person has_one Hat, then in HatsController <a
-href="Accessors.html#M000007">current_object</a> essentially runs
+href="Accessors.html#M000013">current_object</a> essentially runs
 <tt>Person.find(params[:person_id]).hat</tt>.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000007-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000007-source">
+            onclick="toggleCode('M000013-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000013-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/accessors.rb, line 87</span>
 87:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">current_object</span>
@@ -333,11 +333,11 @@ href="Accessors.html#M000007">current_object</a> essentially runs
         </div>
       </div>
 
-      <div id="method-M000005" class="method-detail">
-        <a name="M000005"></a>
+      <div id="method-M000011" class="method-detail">
+        <a name="M000011"></a>
 
         <div class="method-heading">
-          <a href="#M000005" class="method-signature">
+          <a href="#M000011" class="method-signature">
           <span class="method-name">current_objects</span><span class="method-args">()</span>
           </a>
         </div>
@@ -351,18 +351,18 @@ controller. For UsersController, it essentially runs
 <p>
 However, there are a few important differences. First, this method caches
 is results in the <tt>@<a
-href="Accessors.html#M000005">current_objects</a></tt> instance variable.
+href="Accessors.html#M000011">current_objects</a></tt> instance variable.
 That way, multiple calls won&#8216;t run multiple queries.
 </p>
 <p>
 Second, this method uses the <a
-href="Accessors.html#M000013">current_model</a> accessor, which provides a
+href="Accessors.html#M000019">current_model</a> accessor, which provides a
 lot of flexibility (see the documentation for <a
-href="Accessors.html#M000013">current_model</a> for details).
+href="Accessors.html#M000019">current_model</a> for details).
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000005-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000005-source">
+            onclick="toggleCode('M000011-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000011-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/accessors.rb, line 53</span>
 53:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">current_objects</span>
@@ -373,11 +373,11 @@ href="Accessors.html#M000013">current_model</a> for details).
         </div>
       </div>
 
-      <div id="method-M000021" class="method-detail">
-        <a name="M000021"></a>
+      <div id="method-M000027" class="method-detail">
+        <a name="M000027"></a>
 
         <div class="method-heading">
-          <a href="#M000021" class="method-signature">
+          <a href="#M000027" class="method-signature">
           <span class="method-name">ensure_parent_exists</span><span class="method-args">()</span>
           </a>
         </div>
@@ -392,8 +392,8 @@ For example:
   before_filter :ensure_parent_exists, :only =&gt; [:create, :update]
 </pre>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000021-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000021-source">
+            onclick="toggleCode('M000027-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000027-source">
 <pre>
      <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/accessors.rb, line 284</span>
 284:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ensure_parent_exists</span>
@@ -406,11 +406,11 @@ For example:
         </div>
       </div>
 
-      <div id="method-M000012" class="method-detail">
-        <a name="M000012"></a>
+      <div id="method-M000018" class="method-detail">
+        <a name="M000018"></a>
 
         <div class="method-heading">
-          <a href="#M000012" class="method-signature">
+          <a href="#M000018" class="method-signature">
           <span class="method-name">instance_variable_name</span><span class="method-args">()</span>
           </a>
         </div>
@@ -418,12 +418,12 @@ For example:
         <div class="method-description">
           <p>
 The name of the instance variable that <a
-href="Accessors.html#M000008">load_object</a> and <a
-href="Accessors.html#M000006">load_objects</a> should assign to.
+href="Accessors.html#M000014">load_object</a> and <a
+href="Accessors.html#M000012">load_objects</a> should assign to.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000012-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000012-source">
+            onclick="toggleCode('M000018-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000018-source">
 <pre>
      <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/accessors.rb, line 150</span>
 150:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">instance_variable_name</span>
@@ -434,18 +434,18 @@ href="Accessors.html#M000006">load_objects</a> should assign to.
         </div>
       </div>
 
-      <div id="method-M000008" class="method-detail">
-        <a name="M000008"></a>
+      <div id="method-M000014" class="method-detail">
+        <a name="M000014"></a>
 
         <div class="method-heading">
-          <a href="#M000008" class="method-signature">
+          <a href="#M000014" class="method-signature">
           <span class="method-name">load_object</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Calls <a href="Accessors.html#M000007">current_object</a> and stores the
+Calls <a href="Accessors.html#M000013">current_object</a> and stores the
 result in an instance variable named after the controller.
 </p>
 <p>
@@ -455,12 +455,12 @@ action.
 </p>
 <p>
 For example, in UsersController, calling <tt><a
-href="Accessors.html#M000008">load_object</a></tt> sets <tt>@user = <a
-href="Accessors.html#M000007">current_object</a></tt>.
+href="Accessors.html#M000014">load_object</a></tt> sets <tt>@user = <a
+href="Accessors.html#M000013">current_object</a></tt>.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000008-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000008-source">
+            onclick="toggleCode('M000014-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000014-source">
 <pre>
      <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/accessors.rb, line 105</span>
 105:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load_object</span>
@@ -471,18 +471,18 @@ href="Accessors.html#M000007">current_object</a></tt>.
         </div>
       </div>
 
-      <div id="method-M000006" class="method-detail">
-        <a name="M000006"></a>
+      <div id="method-M000012" class="method-detail">
+        <a name="M000012"></a>
 
         <div class="method-heading">
-          <a href="#M000006" class="method-signature">
+          <a href="#M000012" class="method-signature">
           <span class="method-name">load_objects</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Calls <a href="Accessors.html#M000005">current_objects</a> and stores the
+Calls <a href="Accessors.html#M000011">current_objects</a> and stores the
 result in an instance variable named after the controller.
 </p>
 <p>
@@ -492,12 +492,12 @@ action.
 </p>
 <p>
 For example, in UsersController, calling <tt><a
-href="Accessors.html#M000006">load_objects</a></tt> sets <tt>@users = <a
-href="Accessors.html#M000005">current_objects</a></tt>.
+href="Accessors.html#M000012">load_objects</a></tt> sets <tt>@users = <a
+href="Accessors.html#M000011">current_objects</a></tt>.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000006-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000006-source">
+            onclick="toggleCode('M000012-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000012-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/accessors.rb, line 66</span>
 66:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load_objects</span>
@@ -508,11 +508,11 @@ href="Accessors.html#M000005">current_objects</a></tt>.
         </div>
       </div>
 
-      <div id="method-M000020" class="method-detail">
-        <a name="M000020"></a>
+      <div id="method-M000026" class="method-detail">
+        <a name="M000026"></a>
 
         <div class="method-heading">
-          <a href="#M000020" class="method-signature">
+          <a href="#M000026" class="method-signature">
           <span class="method-name">load_parent_object</span><span class="method-args">()</span>
           </a>
         </div>
@@ -521,15 +521,15 @@ href="Accessors.html#M000005">current_objects</a></tt>.
           <p>
 Assigns the current parent object, as given by parent_objects, to its
 proper instance variable, as given by <a
-href="Accessors.html#M000017">parent_name</a>.
+href="Accessors.html#M000023">parent_name</a>.
 </p>
 <p>
 This is automatically added as a before_filter. You shouldn&#8216;t need to
 use it directly unless you&#8216;re creating a new action.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000020-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000020-source">
+            onclick="toggleCode('M000026-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000026-source">
 <pre>
      <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/accessors.rb, line 273</span>
 273:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load_parent_object</span>
@@ -540,26 +540,26 @@ use it directly unless you&#8216;re creating a new action.
         </div>
       </div>
 
-      <div id="method-M000011" class="method-detail">
-        <a name="M000011"></a>
+      <div id="method-M000017" class="method-detail">
+        <a name="M000017"></a>
 
         <div class="method-heading">
-          <a href="#M000011" class="method-signature">
+          <a href="#M000017" class="method-signature">
           <span class="method-name">namespaces</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-An array of <a href="Accessors.html#M000011">namespaces</a> under which the
+An array of <a href="Accessors.html#M000017">namespaces</a> under which the
 current controller is. For example, in Admin::Content::PagesController:
 </p>
 <pre>
   namespaces #=&gt; [:admin, :content]
 </pre>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000011-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000011-source">
+            onclick="toggleCode('M000017-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000017-source">
 <pre>
      <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/accessors.rb, line 145</span>
 145:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">namespaces</span>
@@ -570,11 +570,11 @@ current controller is. For example, in Admin::Content::PagesController:
         </div>
       </div>
 
-      <div id="method-M000014" class="method-detail">
-        <a name="M000014"></a>
+      <div id="method-M000020" class="method-detail">
+        <a name="M000020"></a>
 
         <div class="method-heading">
-          <a href="#M000014" class="method-signature">
+          <a href="#M000020" class="method-signature">
           <span class="method-name">object_parameters</span><span class="method-args">()</span>
           </a>
         </div>
@@ -586,8 +586,8 @@ updated) attributes of the current object. This is only meaningful for
 <tt>create</tt> or <tt>update</tt>.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000014-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000014-source">
+            onclick="toggleCode('M000020-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000020-source">
 <pre>
      <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/accessors.rb, line 178</span>
 178:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">object_parameters</span>
@@ -598,11 +598,11 @@ updated) attributes of the current object. This is only meaningful for
         </div>
       </div>
 
-      <div id="method-M000016" class="method-detail">
-        <a name="M000016"></a>
+      <div id="method-M000022" class="method-detail">
+        <a name="M000022"></a>
 
         <div class="method-heading">
-          <a href="#M000016" class="method-signature">
+          <a href="#M000022" class="method-signature">
           <span class="method-name">parent?</span><span class="method-args">()</span>
           </a>
         </div>
@@ -629,8 +629,8 @@ Note that parents must be declared via <a
 href="../Builder.html#M000069">Builder#belongs_to</a>.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000016-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000016-source">
+            onclick="toggleCode('M000022-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000022-source">
 <pre>
      <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/accessors.rb, line 204</span>
 204:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parent?</span>
@@ -641,11 +641,11 @@ href="../Builder.html#M000069">Builder#belongs_to</a>.
         </div>
       </div>
 
-      <div id="method-M000018" class="method-detail">
-        <a name="M000018"></a>
+      <div id="method-M000024" class="method-detail">
+        <a name="M000024"></a>
 
         <div class="method-heading">
-          <a href="#M000018" class="method-signature">
+          <a href="#M000024" class="method-signature">
           <span class="method-name">parent_model</span><span class="method-args">()</span>
           </a>
         </div>
@@ -664,8 +664,8 @@ Note that parents must be declared via <a
 href="../Builder.html#M000069">Builder#belongs_to</a>.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000018-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000018-source">
+            onclick="toggleCode('M000024-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000024-source">
 <pre>
      <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/accessors.rb, line 250</span>
 250:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parent_model</span>
@@ -676,11 +676,11 @@ href="../Builder.html#M000069">Builder#belongs_to</a>.
         </div>
       </div>
 
-      <div id="method-M000017" class="method-detail">
-        <a name="M000017"></a>
+      <div id="method-M000023" class="method-detail">
+        <a name="M000023"></a>
 
         <div class="method-heading">
-          <a href="#M000017" class="method-signature">
+          <a href="#M000023" class="method-signature">
           <span class="method-name">parent_name</span><span class="method-args">()</span>
           </a>
         </div>
@@ -710,23 +710,23 @@ If both <tt>params[:rack_id]</tt> and <tt>params[:rack_id]</tt> are nil,
 There are several things to note about this method. First, make_resourceful
 only supports single-level model nesting. Thus, if neither
 <tt>params[:rack_id]</tt> nor <tt>params[:rack_id]</tt> are nil, the return
-value of <tt><a href="Accessors.html#M000017">parent_name</a></tt> is
+value of <tt><a href="Accessors.html#M000023">parent_name</a></tt> is
 undefined.
 </p>
 <p>
-Second, don&#8216;t use <a href="Accessors.html#M000017">parent_name</a> to
+Second, don&#8216;t use <a href="Accessors.html#M000023">parent_name</a> to
 check whether a parent id is given. It&#8216;s better to use the more
-semantic <a href="Accessors.html#M000016">parent?</a> method.
+semantic <a href="Accessors.html#M000022">parent?</a> method.
 </p>
 <p>
-Third, <a href="Accessors.html#M000017">parent_name</a> caches its return
-value in the <tt>@<a href="Accessors.html#M000017">parent_name</a></tt>
+Third, <a href="Accessors.html#M000023">parent_name</a> caches its return
+value in the <tt>@<a href="Accessors.html#M000023">parent_name</a></tt>
 variable, which you should keep in mind if you&#8216;re overriding it.
-However, because <tt>@<a href="Accessors.html#M000017">parent_name</a> ==
+However, because <tt>@<a href="Accessors.html#M000023">parent_name</a> ==
 nil</tt> could mean that there is no parent <em>or</em> that the method
 hasn&#8216;t been run yet, it uses <tt>defined?(@<a
-href="Accessors.html#M000017">parent_name</a>)</tt> to do the caching
-rather than <tt>@<a href="Accessors.html#M000017">parent_name</a> ||=</tt>.
+href="Accessors.html#M000023">parent_name</a>)</tt> to do the caching
+rather than <tt>@<a href="Accessors.html#M000023">parent_name</a> ||=</tt>.
 See the source code.
 </p>
 <p>
@@ -734,8 +734,8 @@ Finally, note that parents must be declared via <a
 href="../Builder.html#M000069">Builder#belongs_to</a>.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000017-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000017-source">
+            onclick="toggleCode('M000023-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000023-source">
 <pre>
      <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/accessors.rb, line 238</span>
 238:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parent_name</span>
@@ -747,11 +747,11 @@ href="../Builder.html#M000069">Builder#belongs_to</a>.
         </div>
       </div>
 
-      <div id="method-M000015" class="method-detail">
-        <a name="M000015"></a>
+      <div id="method-M000021" class="method-detail">
+        <a name="M000021"></a>
 
         <div class="method-heading">
-          <a href="#M000015" class="method-signature">
+          <a href="#M000021" class="method-signature">
           <span class="method-name">parent_names</span><span class="method-args">()</span>
           </a>
         </div>
@@ -770,8 +770,8 @@ Note that the parents must be declared via <a
 href="../Builder.html#M000069">Builder#belongs_to</a>.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000015-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000015-source">
+            onclick="toggleCode('M000021-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000021-source">
 <pre>
      <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/accessors.rb, line 189</span>
 189:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parent_names</span>
@@ -782,11 +782,11 @@ href="../Builder.html#M000069">Builder#belongs_to</a>.
         </div>
       </div>
 
-      <div id="method-M000019" class="method-detail">
-        <a name="M000019"></a>
+      <div id="method-M000025" class="method-detail">
+        <a name="M000025"></a>
 
         <div class="method-heading">
-          <a href="#M000019" class="method-signature">
+          <a href="#M000025" class="method-signature">
           <span class="method-name">parent_object</span><span class="method-args">()</span>
           </a>
         </div>
@@ -809,8 +809,8 @@ Note also that the results of this method are cached so that multiple calls
 don&#8216;t result in multiple SQL queries.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000019-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000019-source">
+            onclick="toggleCode('M000025-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000025-source">
 <pre>
      <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/accessors.rb, line 264</span>
 264:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parent_object</span>
@@ -821,11 +821,11 @@ don&#8216;t result in multiple SQL queries.
         </div>
       </div>
 
-      <div id="method-M000028" class="method-detail">
-        <a name="M000028"></a>
+      <div id="method-M000034" class="method-detail">
+        <a name="M000034"></a>
 
         <div class="method-heading">
-          <a href="#M000028" class="method-signature">
+          <a href="#M000034" class="method-signature">
           <span class="method-name">plural?</span><span class="method-args">()</span>
           </a>
         </div>
@@ -839,11 +839,11 @@ there are multiple resources for each parent resource.
 Note that the way this is determined is based on the singularity of the
 controller name, so it may yield false negatives for oddly-named
 controllers. If this is the case, the <a
-href="Accessors.html#M000027">singular?</a> method should be overridden.
+href="Accessors.html#M000033">singular?</a> method should be overridden.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000028-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000028-source">
+            onclick="toggleCode('M000034-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000034-source">
 <pre>
      <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/accessors.rb, line 341</span>
 341:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">plural?</span>
@@ -854,11 +854,11 @@ href="Accessors.html#M000027">singular?</a> method should be overridden.
         </div>
       </div>
 
-      <div id="method-M000025" class="method-detail">
-        <a name="M000025"></a>
+      <div id="method-M000031" class="method-detail">
+        <a name="M000031"></a>
 
         <div class="method-heading">
-          <a href="#M000025" class="method-signature">
+          <a href="#M000031" class="method-signature">
           <span class="method-name">plural_action?</span><span class="method-args">()</span>
           </a>
         </div>
@@ -869,8 +869,8 @@ Returns whether or not the current action acts upon multiple objects. By
 default, the only such action is <tt>index</tt>.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000025-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000025-source">
+            onclick="toggleCode('M000031-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000031-source">
 <pre>
      <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/accessors.rb, line 316</span>
 316:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">plural_action?</span>
@@ -881,11 +881,11 @@ default, the only such action is <tt>index</tt>.
         </div>
       </div>
 
-      <div id="method-M000024" class="method-detail">
-        <a name="M000024"></a>
+      <div id="method-M000030" class="method-detail">
+        <a name="M000030"></a>
 
         <div class="method-heading">
-          <a href="#M000024" class="method-signature">
+          <a href="#M000030" class="method-signature">
           <span class="method-name">save_failed!</span><span class="method-args">()</span>
           </a>
         </div>
@@ -894,7 +894,7 @@ default, the only such action is <tt>index</tt>.
           <p>
 Declares that the current databse update was not completed successfully.
 Causes subsequent calls to <tt><a
-href="Accessors.html#M000022">save_succeeded?</a></tt> to return
+href="Accessors.html#M000028">save_succeeded?</a></tt> to return
 <tt>false</tt>.
 </p>
 <p>
@@ -902,8 +902,8 @@ This is mostly meant to be used by the default actions, but it can be used
 by user-defined actions as well.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000024-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000024-source">
+            onclick="toggleCode('M000030-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000030-source">
 <pre>
      <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/accessors.rb, line 310</span>
 310:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">save_failed!</span>
@@ -914,11 +914,11 @@ by user-defined actions as well.
         </div>
       </div>
 
-      <div id="method-M000023" class="method-detail">
-        <a name="M000023"></a>
+      <div id="method-M000029" class="method-detail">
+        <a name="M000029"></a>
 
         <div class="method-heading">
-          <a href="#M000023" class="method-signature">
+          <a href="#M000029" class="method-signature">
           <span class="method-name">save_succeeded!</span><span class="method-args">()</span>
           </a>
         </div>
@@ -927,7 +927,7 @@ by user-defined actions as well.
           <p>
 Declares that the current databse update was completed successfully. Causes
 subsequent calls to <tt><a
-href="Accessors.html#M000022">save_succeeded?</a></tt> to return
+href="Accessors.html#M000028">save_succeeded?</a></tt> to return
 <tt>true</tt>.
 </p>
 <p>
@@ -935,8 +935,8 @@ This is mostly meant to be used by the default actions, but it can be used
 by user-defined actions as well.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000023-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000023-source">
+            onclick="toggleCode('M000029-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000029-source">
 <pre>
      <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/accessors.rb, line 301</span>
 301:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">save_succeeded!</span>
@@ -947,11 +947,11 @@ by user-defined actions as well.
         </div>
       </div>
 
-      <div id="method-M000022" class="method-detail">
-        <a name="M000022"></a>
+      <div id="method-M000028" class="method-detail">
+        <a name="M000028"></a>
 
         <div class="method-heading">
-          <a href="#M000022" class="method-signature">
+          <a href="#M000028" class="method-signature">
           <span class="method-name">save_succeeded?</span><span class="method-args">()</span>
           </a>
         </div>
@@ -962,8 +962,8 @@ Returns whether or not the database update in the <tt>create</tt>,
 <tt>update</tt>, and <tt>destroy</tt> was completed successfully.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000022-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000022-source">
+            onclick="toggleCode('M000028-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000028-source">
 <pre>
      <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/accessors.rb, line 292</span>
 292:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">save_succeeded?</span>
@@ -974,11 +974,11 @@ Returns whether or not the database update in the <tt>create</tt>,
         </div>
       </div>
 
-      <div id="method-M000027" class="method-detail">
-        <a name="M000027"></a>
+      <div id="method-M000033" class="method-detail">
+        <a name="M000033"></a>
 
         <div class="method-heading">
-          <a href="#M000027" class="method-signature">
+          <a href="#M000033" class="method-signature">
           <span class="method-name">singular?</span><span class="method-args">()</span>
           </a>
         </div>
@@ -994,8 +994,8 @@ controller name, so it may yield false positives for oddly-named
 controllers and need to be overridden.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000027-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000027-source">
+            onclick="toggleCode('M000033-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000033-source">
 <pre>
      <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/accessors.rb, line 331</span>
 331:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">singular?</span>
@@ -1006,11 +1006,11 @@ controllers and need to be overridden.
         </div>
       </div>
 
-      <div id="method-M000026" class="method-detail">
-        <a name="M000026"></a>
+      <div id="method-M000032" class="method-detail">
+        <a name="M000032"></a>
 
         <div class="method-heading">
-          <a href="#M000026" class="method-signature">
+          <a href="#M000032" class="method-signature">
           <span class="method-name">singular_action?</span><span class="method-args">()</span>
           </a>
         </div>
@@ -1021,8 +1021,8 @@ Returns whether or not the current action acts upon a single object. By
 default, this is the case for all actions but <tt>index</tt>.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000026-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000026-source">
+            onclick="toggleCode('M000032-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000032-source">
 <pre>
      <span class="ruby-comment cmt"># File vendor/plugins/make_resourceful/lib/resourceful/default/accessors.rb, line 322</span>
 322:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">singular_action?</span>

@@ -8,9 +8,9 @@
     <ul>
       <% @current_object.article_files.each do |af| %>
         <li>
-          <% if af.file_path %>
-            <%= af.file_path.split('/').last %>
-            <%= link_to  I18n.t('general.download'), url_for_file_column(af, :file_path) %>
+          <% if af.articlefile.file? %>
+            <%= af.articlefile.url.split('/').last.split("?")[0] %>
+            <%= link_to  I18n.t('general.download'), af.articlefile.url.split("?")[0] %>
           <% else %>
              <%=I18n.t('file.corrupted_file')%>
           <% end %>

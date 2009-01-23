@@ -12,8 +12,11 @@ class CreateUsers < ActiveRecord::Migration
       t.column :activity,                   :string, :limit => 255
 			t.column :nationality,								:string, :limit => 255
       t.column :edito,                      :text
-      # CHANGED: FileColumn instead of Attachment FU
-      t.column :image_path,                 :string, :limit => 500  
+      # CHANGED:  PaperClip instead of File Column
+      t.string :avatar_file_name
+      t.string :avatar_content_type
+      t.integer :avatar_file_size
+      t.datetime :avatar_updated_at
       t.column :crypted_password,           :string, :limit => 40
       t.column :salt,                       :string, :limit => 40
 			t.string :activation_code, :limit => 40

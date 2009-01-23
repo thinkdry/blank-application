@@ -52,8 +52,11 @@ class User < ActiveRecord::Base
 
   has_many :feed_items, :through => :feed_sources, :order => "last_updated"
   belongs_to :system_role
-  
-  file_column :image_path, :magick => {:size => "200x200>"}
+  has_attached_file :avatar,
+                                   :default_url => "/images/default_avatar.png",
+                                   :styles => {
+                                   :thumb=> "100x200>"}
+  #file_column :image_path, :magick => {:size => "200x200>"}
 
   validates_presence_of     :login
   validates_length_of       :login,     :within => 3..40
@@ -97,7 +100,7 @@ class User < ActiveRecord::Base
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :password, :password_confirmation, :firstname, :lastname, :address, :company, :phone, :mobile, :activity, :nationality,:edito, :image_path_temp, :image_path
+  attr_accessible :login, :email, :password, :password_confirmation, :firstname, :lastname, :address, :company, :phone, :mobile, :activity, :nationality,:edito, :avatar
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   #
