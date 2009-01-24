@@ -1,0 +1,9 @@
+<!--
+Description: normal modified with negative numeric timezone
+Expect:      not bozo and feed['modified_parsed'] == (2004, 1, 1, 16, 48, 21, 3, 1, 0)
+-->
+<feed version="0.3" xmlns="http://purl.org/atom/ns#">
+
+<modified>Thu, 01 Jan 2004 11:48:21 -0500</modified>
+
+</feed>

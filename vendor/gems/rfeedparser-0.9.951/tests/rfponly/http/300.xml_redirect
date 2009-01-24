@@ -1,0 +1,25 @@
+<feed xmlns="http://www.w3.org/2005/Atom">
+<title>Feed 300</title>
+<subtitle>Feed subtitle 300</subtitle>
+<link rel="alternate" type="text/html" href="http://example.com/300"/>
+<link rel="self" type="application/atom+xml" href="http://diveintomark.org/tests/client/http/300_redirect.xml"/>
+<id>http://diveintomark.org/tests/client/http/300_redirect.xml</id>
+<updated>2006-01-18T00:00:00Z</updated>
+<entry>
+<author>
+<name>Example feed author</name>
+<uri>http://url.example.com/</uri>
+<email>f8dy@example.com</email>
+</author>
+<updated>2006-01-18T00:00:00Z</updated>
+<published>2003-07-22T00:30:00Z</published>
+<title>Example item 300</title>
+<link rel="alternate" type="text/html" href="http://example.com/entry/link/300"/>
+<id>http://example.com/entry/id/300</id>
+<content type="html">
+&lt;p&gt;This is example 300, testing an HTTP 300 return code.  This feed has temporarily moved.  Since you're seeing this, the redirect has succeeded.  Now, the client should not update its address of this feed.  Subsequent polling should still be done at the old address, no matter how long that feed "temporarily" redirects to this address (or any other address).&lt;/p&gt;
+</content>
+</entry>
+</feed>
+
+

@@ -1,0 +1,8 @@
+<!--
+Status:      320
+Header:      Location: http://127.0.0.1:8097/tests/rfponly/http/320.xml_redirect 
+Description: return 320 status code
+Expect:      bozo and status == "320"
+-->
+<feed version="0.3" xmlns="http://purl.org/atom/ns#">
+</feed>

@@ -2,11 +2,17 @@
 sa_ws_types: 
 - public
 - closed
+
 ws_types: []
+
+
+sa_feed_items_importation_types: 
+- bookmark
 
 sa_items: 
 - article
 - audio
+- feed_source
 - cms_file
 - image
 - video

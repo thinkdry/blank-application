@@ -1,0 +1,66 @@
+=== Testing rFeedParser ===
+Simply run rake to run all of the FeedParser tests.
+
+Optionally, you can start up rfeedparserserver.rb and, in another shell, run rfeedparser.rb
+against "http://localhost:8097/tests/path/to/testcase.xml" if you want
+to try a test individually.  You can, of course, run rfeedparser.rb with
+the file path to the testcase, but there may be HTTP headers required for
+a successful run that can only be given by running rfeedparser against
+the HTTP server path. I'll probably merge feedparserserver.rb into
+rfeedparsertest.rb soon.  Note that there are many test failures that occur
+solely because of problems with a platforms iconv installation.  Inconsistency
+in iconv is the leading cause of errors in rfp's test cases.
+
+=== Last Count 20070321 ===
+By my last count, rfeedparsertest.rb says that there are 45 assertions
+that fail, and 4 that error out. I've included here a few tests that
+"Failed, Sort Of".  By that I mean, the behaviors the tests are meant to
+check are correct, but the test fails because of some other superficial
+or unrelated behavior.
+
+=== Tests Failed, Sort Of ===
+
+Problem: 
+    Hpricot adds end tags when it sees an unclosed tag.  This means that
+    certain tests that rely on feedparser.py's _HTMLSanitizer not closing
+    tags will fail.  Many of the tests affected (actually, all the ones
+    affected, AFAICT) would otherwise passed.
+
+Tests Affected:
+    * tests/wellformed/rss/item_description_not_a_doctype.xml  (extraneous trailing </a>)
+    * tests/illformed/rss/item_description_not_a_doctype.xml   (ditto)
+==
+Problem:
+    The Hpricot#scrub method I've written does not remove the dangerous
+    markup in the same way feedparser.py does, but the output is still safe.
+
+Tests Affected:
+    * tests/wellformed/sanitize/entry_content_crazy.xml
+    * tests/wellformed/sanitize/entry_summary_crazy.xml
+    * tests/wellformed/sanitize/entry_title_crazy.xml
+    * tests/wellformed/sanitize/feed_copyright_crazy.xml
+    * tests/wellformed/sanitize/feed_info_crazy.xml
+    * tests/wellformed/sanitize/feed_subtitle_crazy.xml
+    * tests/wellformed/sanitize/feed_tagline_crazy.xml
+    * tests/wellformed/sanitize/feed_title_crazy.xml
+    * tests/wellformed/sanitize/item_content_encoded_crazy.xml
+    * tests/wellformed/sanitize/item_description_crazy.xml
+    * tests/wellformed/sanitize/item_fullitem_crazy.xml
+    * tests/illformed/sanitize/entry_content_crazy.xml
+    * tests/illformed/sanitize/entry_summary_crazy.xml
+    * tests/illformed/sanitize/entry_title_crazy.xml
+    * tests/illformed/sanitize/feed_copyright_crazy.xml
+    * tests/illformed/sanitize/feed_info_crazy.xml
+    * tests/illformed/sanitize/feed_subtitle_crazy.xml
+    * tests/illformed/sanitize/feed_tagline_crazy.xml
+    * tests/illformed/sanitize/feed_title_crazy.xml
+    * tests/illformed/sanitize/item_content_encoded_crazy.xml
+    * tests/illformed/sanitize/item_description_crazy.xml
+    * tests/illformed/sanitize/item_fullitem_crazy.xml
+==
+
+Problem: 
+    My current system lacks a few encodings that rfeedparser and Iconv need.
+    This results in failures that will probably not occur on other machines.
+
+Tests Affected:
