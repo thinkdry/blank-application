@@ -3,6 +3,7 @@ class AudiosController < ApplicationController
   acts_as_item do
     after :create, :update do
       #Call the encoder method of ConverterWorker with Parameters
+      @current_object.update_attributes(:state=>"uploaded")
       MiddleMan.worker(:converter_worker).encoder(:arg=>{:type=>"audio", :id => @current_object.id, :enc=>"mp3"})
     end
   end
@@ -13,7 +14,7 @@ class AudiosController < ApplicationController
         page.reload
       end
    else
-     render :text => @current_object.state
+     render :text => @current_object.state.capitalize
    end
   end
 end

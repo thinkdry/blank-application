@@ -43,14 +43,15 @@ class SuperadministrationController < ApplicationController
 	def general_changing
 		if current_user.is_superadmin?
 			@conf = YAML.load_file("#{RAILS_ROOT}/config/sa_config.yml")
-			if !params[:general][:picture_path].blank?
-				@picture = Picture.new(params[:general][:picture])
+			if params[:picture]
+				@picture = Picture.new(params[:picture])
 				@picture.name = 'logo'
 				if Picture.find_by_name('logo')
 					Picture.find_by_name('logo').update_attributes(:name => 'old_logo')
 				end
 				@picture.save
 			end
+
 
 			['items', 'languages', 'feed_items_importation_types', 'ws_types'].each do |list|
 				@conf['sa_'+list] = check_to_tab(list)

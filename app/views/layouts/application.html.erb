@@ -2,7 +2,7 @@
 <html>
 <head>
   <% @logo = Picture.find_by_name('logo') %>
-  <link rel="shortcut icon" href="<%= (@logo.picture_file_name) ? (@logo.picture.url(:thumb)) : '/images/favicon.ico' %>"/>
+  <link rel="shortcut icon" href="<%= (@logo.favicon_file_name) ? (@logo.favicon.url(:thumb)) : '/images/favicon.ico' %>"/>
 
   <%= stylesheet_link_tag "application.css" %>
   <%= stylesheet_link_tag "form.css" %>
@@ -28,7 +28,7 @@
   <div id="header">
     <div id="logo">
 			<% if @logo.picture_file_name %>
-				<%= link_to image_tag(@logo.picture.url(:medium)), "/" %>
+				<%= link_to image_tag(@logo.picture.url(:large)), "/" %>
 			<% else %>
 				<%= link_to(image_tag('logo.png', :border => 0), "/") %>
 			<%end %>

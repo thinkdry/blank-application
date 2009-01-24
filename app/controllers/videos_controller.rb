@@ -29,7 +29,7 @@ class VideosController < ApplicationController
         page.reload
       end
    else
-     render :text => @current_object.state
+     render :text => @current_object.state.capitalize
    end
   end
 end

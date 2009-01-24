@@ -7,17 +7,17 @@
 		s1.addParam('allowfullscreen','true');
 		s1.addParam('allowscriptaccess','always');
 		s1.addParam('wmode','opaque');
-		s1.addParam('flashvars', '&file=<%=File.dirname(@current_object.audio.url)%>/audio.mp3');
+		s1.addParam('flashvars','&file=<%=File.dirname(@current_object.audio.url)%>/audio.flv&backcolor=#D86C27');
 		s1.write('preview');
 	</script>
     <% elsif @current_object.state=="error" %>
-          <%= @current_object.state=="error" %>
+          <%= @current_object.state.capitalize%> Encoding
     <% else %>
       <%= periodically_call_remote :update=> 'states',
                                                             :url => {:action=> 'get_progress', :id=>@current_object.id},
                                                             :frequency => 5 %>
        <div id="states">
-          <%=@current_object.state%>
+          <%=@current_object.state.capitalize%>
        </div>
           <%= image_tag "/images/loader.gif" %>
       <% end %>

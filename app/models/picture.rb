@@ -15,8 +15,15 @@ class Picture < ActiveRecord::Base
   has_attached_file :picture,
                                    :url =>    "/uploaded_files/picture/:id/:style/:basename.:extension",
                                    :path => ":rails_root/public/uploaded_files/picture/:id/:style/:basename.:extension",
-                                   :styles => { :medium => "480x80>",
-                                   :thumb => "16x16>" }
+                                   :styles => { :large => "480x80>",
+                                                     :medium=>"240x40>",
+                                                     :thumb => "16x16>" }
+                                                   
+  has_attached_file :favicon,
+                                   :url =>    "/uploaded_files/favicon/:id/:style/:basename.:extension",
+                                   :path => ":rails_root/public/uploaded_files/favicon/:id/:style/:basename.:extension",
+                                   :styles => { :medium=>"120x20>",
+                                                     :thumb => "16x16>" }
   #validates_attachment_presence :picture
   #validates_attachment_content_type :picture, :content_type => ['image/jpeg', 'image/png', 'image/gif']
   #validates_attachment_size(:picture, :less_than => 2.megabytes)

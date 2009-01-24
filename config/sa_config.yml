@@ -1,9 +1,9 @@
 --- 
-ws_types: []
-
 sa_ws_types: 
 - public
 - closed
+ws_types: []
+
 sa_items: 
 - article
 - audio
