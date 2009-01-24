@@ -89,6 +89,8 @@ Rails::Initializer.run do |config|
   # config.active_record.observers = :cacher, :garbage_collector
 
 	config.gem 'rfeedparser', :version => '0.9.951', :lib => 'rfeedparser'
+	config.gem 'packet', :version => '>=0.1.14', :lib => 'packet'
+	config.gem 'chronic', :version => '>=0.2.3', :lib => 'chronic'
 
   #config.action_mailer.delivery_method = :activerecord
 
