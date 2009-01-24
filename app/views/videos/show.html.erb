@@ -18,9 +18,8 @@
              <div id="states">
               <%=@current_object.state%>
              </div>
-            <% if !@current_object.state=="error" %>
-            <%= image_tag "/images/loader.gif" %>
-     <% end %>
+               <%= image_tag "/images/loader.gif" %>
+             <% end %>
 	
 	<%= link_to I18n.t('video.download_video'), (@current_object.video.url) %>
 <% end %>

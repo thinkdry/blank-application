@@ -5,7 +5,7 @@ class CreatePictures < ActiveRecord::Migration
       t.string :picture_path
       t.timestamps
     end
-    Picture.create(:name => 'logo')
+     Picture.create(:name => 'logo')
   end
 
   def self.down

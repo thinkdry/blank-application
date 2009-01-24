@@ -24,8 +24,8 @@
 	<body>
 		<div id="content_login">
 			<% @logo = Picture.find_by_name('logo') %>
-			<% if (@logo.picture_path) %>
-				<%= image_tag(url_for_file_column(@logo, 'picture_path', 'thumb')) %>
+			<% if @logo.picture_file_name %>
+				<%= image_tag(@logo.picture.url(:medium)) %>
 			<% else %> 
 				<img src="images/logo_intranet_login.png" alt="BLANK">
 			<% end %>

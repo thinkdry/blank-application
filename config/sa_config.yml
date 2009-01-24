@@ -11,7 +11,9 @@ sa_items:
 - audio
 - feed_source
 - cms_file
-- video
 - image
+- video
+sa_feed_items_importation_types: 
+- bookmark
 sa_languages: 
 - en-US
