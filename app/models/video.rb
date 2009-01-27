@@ -22,10 +22,10 @@
 class Video < ActiveRecord::Base
   
   acts_as_item
-  acts_as_xapian :texts => [:title, :description, :tags, :file_path]
+  acts_as_xapian :texts => [:title, :description, :tags, :video_file_name]
   has_attached_file :video,
-                                    :url =>    "/uploaded_files/video/:id/:style/:basename.:extension",
-                                    :path => ":rails_root/public/uploaded_files/video/:id/:style/:basename.:extension"
+		:url =>    "/uploaded_files/video/:id/:style/:basename.:extension",
+    :path => ":rails_root/public/uploaded_files/video/:id/:style/:basename.:extension"
   validates_attachment_presence :video
   validates_attachment_content_type :video, :content_type => ['video/quicktime','video/x-flash-video','video/mpeg','video/mp4']
   validates_attachment_size(:video, :less_than => 100.megabytes)
