@@ -28,7 +28,7 @@ dependencies:
   version_requirement: 
   version_requirements: !ruby/object:Gem::Requirement 
     requirements: 
-    - - "="
+    - - ">="
       - !ruby/object:Gem::Version 
         version: "0.6"
     version: 
