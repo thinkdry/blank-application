@@ -32,7 +32,7 @@ rescue LoadError
 end
 
 # TODO: require these in the files that need them, not in the toplevel
-gem 'hpricot', "=0.6"
+gem 'hpricot', ">=0.6"
 require 'hpricot'
 
 gem 'htmltools', ">=1.10"
