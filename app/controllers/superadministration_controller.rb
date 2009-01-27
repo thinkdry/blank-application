@@ -4,7 +4,11 @@ class SuperadministrationController < ApplicationController
 		if current_user.is_superadmin?
 			if params[:part] == "default"
 			elsif params[:part] == "general"
-				@conf = YAML.load_file("#{RAILS_ROOT}/config/sa_config.yml")
+				if File.exist?("#{RAILS_ROOT}/config/customs/sa_config.yml")
+					@conf = YAML.load_file("#{RAILS_ROOT}/config/customs/sa_config.yml")
+				else
+					@conf = YAML.load_file("#{RAILS_ROOT}/config/customs/default_config.yml")
+				end
 				@logo = Picture.find_by_name('logo')
 			elsif params[:part] == "css"
 				@elements = Element.find(:all, :conditions => {:template=>"current"})
@@ -42,7 +46,12 @@ class SuperadministrationController < ApplicationController
 	
 	def general_changing
 		if current_user.is_superadmin?
-			@conf = YAML.load_file("#{RAILS_ROOT}/config/sa_config.yml")
+			list = ['items', 'languages', 'feed_items_importation_types', 'ws_types']
+			if File.exist?("#{RAILS_ROOT}/config/customs/sa_config.yml")
+				@conf = YAML.load_file("#{RAILS_ROOT}/config/customs/sa_config.yml")
+			else
+				@conf = YAML.load_file("#{RAILS_ROOT}/config/customs/default_config.yml")
+			end
 			if !params[:general][:picture_path].blank?
 				@picture = Picture.new(params[:general][:picture])
 				@picture.name = 'logo'
@@ -52,13 +61,13 @@ class SuperadministrationController < ApplicationController
 				@picture.save
 			end
 
-			['items', 'languages', 'feed_items_importation_types', 'ws_types'].each do |list|
-				@conf['sa_'+list] = check_to_tab(list)
+			list.each do |l|
+				@conf['sa_'+l] = check_to_tab(l)
 			end
 
-			File.rename("#{RAILS_ROOT}/config/sa_config.yml", "#{RAILS_ROOT}/config/old_sa_config.yml")
-				@new=File.new("#{RAILS_ROOT}/config/sa_config.yml", "w+")
-				@new.syswrite(@conf.to_yaml)
+			#File.rename("#{RAILS_ROOT}/config/customs/sa_config.yml", "#{RAILS_ROOT}/config/customs/old_sa_config.yml")
+			@new=File.new("#{RAILS_ROOT}/config/customs/sa_config.yml", "w+")
+			@new.syswrite(@conf.to_yaml)
 			redirect_to '/superadministration/general'
 			flash[:notice] = "General settings updated"
 		else

@@ -4,7 +4,7 @@
   <% form_for :general, :url => general_changing_superadministration_path, :html => {:multipart => true} do |f| -%>
 
       Logo management :<br />
-      <%= image_tag(url_for_file_column(@logo, 'picture_path', 'thumb')) if (@logo && @logo.picture_path) %><br />
+      <%#= image_tag(url_for_file_column(@logo, 'picture_path', 'thumb')) if (@logo && @logo.picture_path) %><br />
       <%= file_column_field 'general', 'picture_path' %><br />
       <br />
       

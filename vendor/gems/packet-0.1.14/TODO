@@ -1,0 +1,10 @@
+* Overview *
+** TODO Implement ability to have a pool of workers.
+** TODO Remove class and class instance attributes from core classes.
+** TODO Cleanup callback mechanism
+** TODO Implement a sample worker, which provides capabilities to execute mysql statements async.
+** TODO Implement more cleaner write thingies.
+** TODO Implement more cleaner timers.
+
+
+
