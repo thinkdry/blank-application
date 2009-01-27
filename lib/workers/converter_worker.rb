@@ -14,6 +14,10 @@ class ConverterWorker < BackgrounDRb::MetaWorker
      if success && $?.exitstatus == 0
         object.update_attributes(:state=>"encoded")
         logger.info "Encoded #{args[:type]} on id #{args[:id]}"
+        if args[:type]=="video"
+          system(thumbnail(object,pic=4))
+           logger.info "Thumbnails Created #{args[:type]} on id #{args[:id]}"
+        end
      else
         object.update_attributes(:state=>"error")
         logger.info "Encoding #{args[:type]} Failed on Id #{args[:id]}"
@@ -34,6 +38,18 @@ class ConverterWorker < BackgrounDRb::MetaWorker
         ffmpeg -i #{ object.media_type.path } #{object.codec} #{ media }
         end_command
         command.gsub!(/\s+/, " ")
+    end
+  end
+
+  def thumbnail(object,pic)
+    (1..pic.to_i).each do |i|
+    i=i.to_s
+    thumb = File.join(File.dirname(object.media_type.path), "#{i}.png")
+    File.open(thumb, 'w')
+    command=<<-end_command
+  ffmpeg  -itsoffset -#{i.to_i*4}  -i #{File.dirname(object.media_type.path)}/video.flv -vcodec png -vframes 1 -an -f rawvideo -s 470x320 #{thumb}
+    end_command
+    command.gsub!(/\s+/, " ")
     end
   end
 end

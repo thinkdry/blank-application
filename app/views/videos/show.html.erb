@@ -11,16 +11,17 @@
                 so.write('player');
              </script>
              <% elsif @current_object.state=="error" %>
-                  <%= @current_object.state.capitalize %> Encoding 
-            <% else %>
+               <%= @current_object.state.capitalize %> Encoding 
+             <% else %>
             <%= periodically_call_remote :update=> 'states',
                                                                   :url => {:action=> 'get_progress', :id=>@current_object.id},
-                                                                  :frequency => 5 %>
+                                                                  :frequency => 10 %>
              <div id="states">
               <%=@current_object.state.capitalize%>
              </div>
-               <%= image_tag "/images/loader.gif" %>
-             <% end %>
+            <%= image_tag "/images/loader.gif" %>
+     <% end %>
+
 	
 	<%= link_to I18n.t('video.download_video'), (@current_object.video.url.split("?")[0]) %>
 <% end %>
