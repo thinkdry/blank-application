@@ -4,6 +4,8 @@ coverage/*
 nbproject/
 Capfile
 config/database_yml
+config/initializers/action_mailer.rb
+config/customs/sa_config.yml
 config/deploy.rb
 db/schema.rb
 db/cstore/**
@@ -13,6 +15,8 @@ doc/api
 doc/app
 doc/plugins
 doc/*.dot
-public/uploaded_files
+public/uploaded_files/**/*
+public/uploads/*
+
 
 

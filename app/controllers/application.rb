@@ -5,6 +5,7 @@ require "acts_as_item/url_helpers.rb"
 
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
+	helper_method :available_items_list, :available_languages
   before_filter :is_logged?
 	before_filter :set_locale
 
@@ -20,11 +21,21 @@ class ApplicationController < ActionController::Base
   end
 
 	def available_items_list
-		return YAML.load_file("#{RAILS_ROOT}/config/sa_config.yml")["sa_items"]
+		if File.exist?("#{RAILS_ROOT}/config/customs/sa_config.yml")
+			res=YAML.load_file("#{RAILS_ROOT}/config/customs/sa_config.yml")["sa_items"]
+		else
+			res=[]
+		end
+		return res
 	end
 
 	def available_languages
-		return YAML.load_file("#{RAILS_ROOT}/config/sa_config.yml")["sa_languages"]
+		if File.exist?("#{RAILS_ROOT}/config/customs/sa_config.yml")
+			res=YAML.load_file("#{RAILS_ROOT}/config/customs/sa_config.yml")["sa_languages"]
+		else
+			res = []
+		end
+		return res
 	end
 
   private
