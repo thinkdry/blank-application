@@ -88,7 +88,7 @@ Rails::Initializer.run do |config|
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
 
-	config.gem 'rfeedparser', :version => '=0.9.951', :lib => 'rfeedparser'
+	#config.gem 'rfeedparser', :version => '=0.9.951', :lib => 'rfeedparser'
 	config.gem 'packet', :version => '>=0.1.14', :lib => 'packet'
 	config.gem 'chronic', :version => '>=0.2.3', :lib => 'chronic'
 
