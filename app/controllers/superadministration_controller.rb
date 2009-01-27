@@ -52,6 +52,7 @@ class SuperadministrationController < ApplicationController
 			else
 				@conf = YAML.load_file("#{RAILS_ROOT}/config/customs/default_config.yml")
 			end
+
 			if params[:picture]
 				@picture = Picture.new(params[:picture])
 				@picture.name = 'logo'
@@ -60,7 +61,7 @@ class SuperadministrationController < ApplicationController
 				end
 				@picture.save
 			end
-      
+
 			list.each do |l|
 				@conf['sa_'+l] = check_to_tab(l)
 			end
