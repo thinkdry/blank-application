@@ -1,0 +1,10 @@
+<div id='player'></div>
+<script type='text/javascript'>
+        cancel=false;
+		var s1 = new SWFObject('/videoplayer/player.swf','ply','470','20','9','#000000');
+		s1.addParam('allowfullscreen','true');
+		s1.addParam('allowscriptaccess','always');
+		s1.addParam('wmode','opaque');
+		s1.addParam('flashvars','&file=<%=File.dirname(@current_object.audio.url)%>/audio.flv&backcolor=#D86C27');
+		s1.write('player');
+</script>

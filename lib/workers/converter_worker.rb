@@ -42,15 +42,15 @@ class ConverterWorker < BackgrounDRb::MetaWorker
   end
 
   def thumbnail(object,pic)
-    (1..pic.to_i).each do |i|
-    i=i.to_s
-    thumb = File.join(File.dirname(object.media_type.path), "#{i}.png")
+     thumb = File.join(File.dirname(object.media_type.path), "1.jpg")
     File.open(thumb, 'w')
     command=<<-end_command
-  ffmpeg  -itsoffset -#{i.to_i*4}  -i #{File.dirname(object.media_type.path)}/video.flv -vcodec png -vframes 1 -an -f rawvideo -s 470x320 #{thumb}
+    ffmpeg -i #{File.dirname(object.media_type.path)}/video.flv -an -ss 00:00:3 -an -r 1 -vframes 1 -y #{thumb}
     end_command
     command.gsub!(/\s+/, " ")
-    end
+    i=i+1
+    j=j*3
   end
 end
-
+#ffmpeg  -itsoffset -#{(i * j).to_s}  -i #{File.dirname(object.media_type.path)}/video.flv -vcodec png -vframes 1 -an -f rawvideo -s 470x320 #{thumb}
+ 

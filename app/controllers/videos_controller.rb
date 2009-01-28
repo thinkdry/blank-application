@@ -24,12 +24,12 @@ class VideosController < ApplicationController
 
   def get_progress
     @current_object=Video.find_by_id(params[:id])
-    if @current_object.state=="encoded" || @current_object.state=="error"
-      render :update do |page|
-        page.reload
-      end
-   else
-     render :text => @current_object.state.capitalize
+    if @current_object.state=="encoded"
+     render :partial=>"player"
+    elsif @current_object.state=="encoding"
+      render :partial=>"status"
+    else
+      render :nothing=>true
    end
   end
 end

@@ -1,25 +1,13 @@
 <% item_show( :title => I18n.t('general.audio'),  :object => @current_object ) do %>
 	<h2><%=I18n.t('general.audio')%></h2>
-    <div id='preview'></div>
-    <%if @current_object.state=="encoded"%>
-	<script type='text/javascript'>
-		var s1 = new SWFObject('/videoplayer/player.swf','ply','470','20','9','#000000');
-		s1.addParam('allowfullscreen','true');
-		s1.addParam('allowscriptaccess','always');
-		s1.addParam('wmode','opaque');
-		s1.addParam('flashvars','&file=<%=File.dirname(@current_object.audio.url)%>/audio.flv&backcolor=#D86C27');
-		s1.write('preview');
-	</script>
-    <% elsif @current_object.state=="error" %>
-          <%= @current_object.state.capitalize%> Encoding
-    <% else %>
-      <%= periodically_call_remote :update=> 'states',
-                                                            :url => {:action=> 'get_progress', :id=>@current_object.id},
-                                                            :frequency => 5 %>
-       <div id="states">
-          <%=@current_object.state.capitalize%>
-       </div>
-          <%= image_tag "/images/loader.gif" %>
-      <% end %>
-	<%= link_to I18n.t('general.download'), @current_object.audio.url.split("?")[0] %><br />
+        <div id ="progress">
+            <% if @current_object.state=="encoded" %>
+              <%= render :partial => "player" %>
+            <% elsif @current_object.state=="encoding"%>
+              <%= render :partial => "status" %>
+            <% else %>
+               <%= @current_object.state.capitalize %>
+           <% end %>
+          </div>
+	<br /><br /><%= link_to I18n.t('general.download'), @current_object.audio.url.split("?")[0] %><br />
 <% end %>
