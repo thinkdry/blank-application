@@ -52,8 +52,9 @@ class SuperadministrationController < ApplicationController
 			else
 				@conf = YAML.load_file("#{RAILS_ROOT}/config/customs/default_config.yml")
 			end
-			if !params[:general][:picture_path].blank?
-				@picture = Picture.new(params[:general][:picture])
+
+			if params[:picture]
+				@picture = Picture.new(params[:picture])
 				@picture.name = 'logo'
 				if Picture.find_by_name('logo')
 					Picture.find_by_name('logo').update_attributes(:name => 'old_logo')

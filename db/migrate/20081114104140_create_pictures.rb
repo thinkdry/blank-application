@@ -6,6 +6,10 @@ class CreatePictures < ActiveRecord::Migration
 			t.string :picture_content_type
 			t.integer :picture_file_size
 			t.datetime :picture_updated_at
+      t.string :favicon_file_name
+      t.string :favicon_content_type
+      t.integer :favicon_file_size
+      t.datetime :favicon_updated_at
       t.timestamps
     end
      Picture.create(:name => 'logo')

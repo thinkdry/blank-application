@@ -27,7 +27,7 @@
 			<% if @logo.picture_file_name %>
 				<%= image_tag(@logo.picture.url(:medium)) %>
 			<% else %> 
-				<img src="images/logo_intranet_login.png" alt="BLANK">
+				<img src="images/login_logo.png" alt="BlankLogin">
 			<% end %>
     	<% form_tag session_path do -%>
                 <p style="color:red"><%=flash[:error]%></p>

@@ -21,7 +21,7 @@ class Audio < ActiveRecord::Base
                                     :url =>    "/uploaded_files/audio/:id/:style/:basename.:extension",
                                    :path => ":rails_root/public/uploaded_files/audio/:id/:style/:basename.:extension"
   validates_attachment_presence :audio
-  validates_attachment_content_type :audio, :content_type => ['audio/x-wav', 'audio/mpeg']
+  validates_attachment_content_type :audio, :content_type => ['audio/wav','audio/x-wav', 'audio/mpeg']
   validates_attachment_size(:audio, :less_than => 5.megabytes)
   #file_column :file_path
    #validates_presence_of :file_path
