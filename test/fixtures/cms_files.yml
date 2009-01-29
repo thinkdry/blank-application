@@ -16,7 +16,7 @@
 
 #<% require 'file_path_utils' %>
 #
-<% #1.upto(300) do |i| %>
+#<% #1.upto(300) do |i| %>
   #  cms_file_<%#= i %>:
 #        user: quentin
 #        title: Schema base de donnee (<%#= i %>)

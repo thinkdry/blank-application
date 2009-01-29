@@ -49,7 +49,7 @@ class ConverterWorker < BackgrounDRb::MetaWorker
   end
 
   def thumbnail(i,j,object)
-     thumb = File.join(File.dirname(object.media_type.path), "#{i.to_s}.png")
+    thumb = File.join(File.dirname(object.media_type.path), "#{i.to_s}.png")
     File.open(thumb, 'w')
     command=<<-end_command
     ffmpeg  -itsoffset -#{(i*j).to_s}  -i #{File.dirname(object.media_type.path)}/video.flv -vcodec png -vframes 1 -an -f rawvideo -s 470x320 -y #{thumb}
