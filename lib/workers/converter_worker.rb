@@ -15,7 +15,14 @@ class ConverterWorker < BackgrounDRb::MetaWorker
         object.update_attributes(:state=>"encoded")
         logger.info "Encoded #{args[:type]} on id #{args[:id]}"
         if args[:type]=="video"
-          system(thumbnail(object,pic=4))
+          i=1
+          j=2
+          pic=4
+          while i<=pic do
+             system(thumbnail(i,j,object))
+             i=i+1
+             j=j*3
+          end
            logger.info "Thumbnails Created #{args[:type]} on id #{args[:id]}"
         end
      else
@@ -41,16 +48,15 @@ class ConverterWorker < BackgrounDRb::MetaWorker
     end
   end
 
-  def thumbnail(object,pic)
-     thumb = File.join(File.dirname(object.media_type.path), "1.jpg")
+  def thumbnail(i,j,object)
+     thumb = File.join(File.dirname(object.media_type.path), "#{i.to_s}.png")
     File.open(thumb, 'w')
     command=<<-end_command
-    ffmpeg -i #{File.dirname(object.media_type.path)}/video.flv -an -ss 00:00:3 -an -r 1 -vframes 1 -y #{thumb}
+    ffmpeg  -itsoffset -#{(i*j).to_s}  -i #{File.dirname(object.media_type.path)}/video.flv -vcodec png -vframes 1 -an -f rawvideo -s 470x320 -y #{thumb}
     end_command
     command.gsub!(/\s+/, " ")
-    i=i+1
-    j=j*3
   end
 end
-#ffmpeg  -itsoffset -#{(i * j).to_s}  -i #{File.dirname(object.media_type.path)}/video.flv -vcodec png -vframes 1 -an -f rawvideo -s 470x320 #{thumb}
- 
+
+#ffmpeg -i #{File.dirname(object.media_type.path)}/video.flv -an -ss 00:00:3 -an -r 1 -vframes 1 -y #{thumb}
+#ffmpeg  -itsoffset -4  -i public/videos/#{video_name} -vcodec mjpeg -vframes 1 -an -f rawvideo -s 160x120 public/images/thumbs/#{videoname}.jpg
