@@ -8,6 +8,9 @@
     <% if @user.new_record? %>
       <%= f.password_field :password, :label => I18n.t('user.password')+" * : " %>
       <%= f.password_field :password_confirmation, :label => I18n.t('user.confirm_password')+" * : " %>
+    <% else %>
+      <%= f.password_field :password, :label => I18n.t('user.password'), :hint => "Leave blank to keep old password" %>
+      <%= f.password_field :password_confirmation, :label => I18n.t('user.confirm_password'), :hint => "Leave blank to keep old password" %>
     <% end %>
     <%= f.text_field :lastname, :label => I18n.t('user.name')+" * : " %>
     <%= f.text_field :firstname, :label => I18n.t('user.first_name')+" * : " %>
