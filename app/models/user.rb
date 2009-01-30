@@ -53,9 +53,11 @@ class User < ActiveRecord::Base
   has_many :feed_items, :through => :feed_sources, :order => "last_updated"
   belongs_to :system_role
   has_attached_file :avatar,
-                                   :default_url => "/images/default_avatar.png",
-                                   :styles => {
-                                   :thumb=> "100x200>"}
+                    :default_url => "/images/default_avatar.png",
+                    :url =>  "/uploaded_files/user/:id/:style/:basename.:extension",
+                    :path => ":rails_root/public/uploaded_files/user/:id/:style/:basename.:extension",
+                    :styles => {
+                    :thumb=> "100x200>"}
   #file_column :image_path, :magick => {:size => "200x200>"}
 
   validates_presence_of     :login

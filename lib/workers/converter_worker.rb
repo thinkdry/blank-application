@@ -39,6 +39,11 @@ class ConverterWorker < BackgrounDRb::MetaWorker
          cp  #{ object.media_type.path } #{media}
          end_command
          command.gsub!(/\s+/, " ")
+      elsif object.media_type.content_type.include?("video/3gpp")
+         command = <<-end_command
+         ffmpeg -i #{ object.media_type.path } #{object.codec_3gp} #{ media }
+         end_command
+        command.gsub!(/\s+/, " ")
       else
         logger.info "Encoding #{type}"
         command = <<-end_command

@@ -4,11 +4,11 @@
   <% form_for :general, :url => general_changing_superadministration_path, :html => {:multipart => true} do |f| -%>
 
       Favicon Management :<br />
-      <%= image_tag(@logo.favicon.url(:medium)) if (@logo.favicon_file_name) %><br />
+      <%= image_tag(@logo.favicon.url(:medium)) %><br />
       <%= file_field 'picture', 'favicon' %><br />
       <br />
       Logo management :<br />
-      <%= image_tag(@logo.picture.url(:medium)) if (@logo.picture_file_name) %><br />
+      <%= image_tag(@logo.picture.url(:medium)) %><br />
       <%= file_field 'picture', 'picture' %><br />
       <br />
       

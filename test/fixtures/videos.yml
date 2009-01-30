@@ -16,3 +16,17 @@
 #  tags         :string(255)
 #
 
+<% require 'file_path_utils' %>
+
+<% 1.upto(50) do |i| %>
+    video_<%= i %>:
+        user: quentin
+        title: The Penguin
+        description: The Penguin Skill.
+        state: encoded
+        video_file_name: <%= file_path_import(:model => 'video', :id => Fixtures.identify("video_#{i}"), :file_name => 'video.flv') %>
+        video_content_type: video/mpeg
+        video_file_size: 590296
+        video_updated_at: <%= i.days.ago %>
+
+<% end %>

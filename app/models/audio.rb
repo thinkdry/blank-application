@@ -18,11 +18,11 @@ class Audio < ActiveRecord::Base
   acts_as_item
   acts_as_xapian :texts => [:title, :description, :tags, :audio_file_name]
   has_attached_file :audio,
-                                    :url =>    "/uploaded_files/audio/:id/:style/:basename.:extension",
-                                   :path => ":rails_root/public/uploaded_files/audio/:id/:style/:basename.:extension"
+                    :url =>  "/uploaded_files/audio/:id/:style/:basename.:extension",
+                    :path => ":rails_root/public/uploaded_files/audio/:id/:style/:basename.:extension"
   validates_attachment_presence :audio
-  validates_attachment_content_type :audio, :content_type => ['audio/wav','audio/x-wav', 'audio/mpeg']
-  validates_attachment_size(:audio, :less_than => 5.megabytes)
+  validates_attachment_content_type :audio, :content_type => ['audio/wav','audio/x-wav', 'audio/mpeg', 'audio/x-ms-wma', 'video/mp4' ]
+  validates_attachment_size(:audio, :less_than => 100.megabytes)
   #file_column :file_path
    #validates_presence_of :file_path
   #validates_file_format_of :file_path, :in => ["mp3", "wav"]

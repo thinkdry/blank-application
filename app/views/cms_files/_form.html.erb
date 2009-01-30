@@ -1,6 +1,6 @@
 <% form_for_item @current_object, title do |f| -%>
   <% f.field :cmsfile, :label => I18n.t('general.file')+ " :" do %>
-    <%= File.basename(@current_object.cmsfile.url) + '<br />' if @current_object.cmsfile.url %>
+    <%= File.basename(@current_object.cmsfile.url) + '<br />' if @current_object.cmsfile_file_name %>
     <%= file_field "cms_file", 'cmsfile' %>
   <% end %>
 <% end -%>
