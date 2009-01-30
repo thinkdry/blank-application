@@ -23,7 +23,7 @@ class Image < ActiveRecord::Base
                                    :styles => { :medium => "300x300>",
                                    :thumb => "100x100>" }
   validates_attachment_presence :image
-  validates_attachment_content_type :image, :content_type => ['image/jpeg', 'image/png', 'image/gif']
+  validates_attachment_content_type :image, :content_type => ['image/jpeg','image/jpg', 'image/png', 'image/gif','image/bmp']
   validates_attachment_size(:image, :less_than => 100.megabytes)
   #file_column :file_path, :magick => { :versions => { :thumb => "100x100", :web => "500x500" } }
  # validates_presence_of :file_path

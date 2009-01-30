@@ -27,7 +27,7 @@ class Video < ActiveRecord::Base
 		:url =>    "/uploaded_files/video/:id/:style/:basename.:extension",
     :path => ":rails_root/public/uploaded_files/video/:id/:style/:basename.:extension"
   validates_attachment_presence :video
-  validates_attachment_content_type :video, :content_type => ['video/quicktime','video/x-flash-video','video/mpeg','video/mp4']
+  validates_attachment_content_type :video, :content_type => ['video/quicktime','video/x-flash-video','video/mpeg','video/3gpp', 'video/x-msvideo']
   validates_attachment_size(:video, :less_than => 100.megabytes)
   #file_column :file_path
  # validates_presence_of :file_path
@@ -37,6 +37,10 @@ class Video < ActiveRecord::Base
 
   def codec
     "-ar 22050 -ab 32 -f flv -y"
+  end
+
+  def codec_3gp
+    "-ar 22050 -ab 32 -sameq -an -y"
   end
   
 end

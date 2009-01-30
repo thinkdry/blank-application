@@ -17,10 +17,15 @@
 
 <% require 'file_path_utils' %>
 
-<% 1.upto(300) do |i| %>
+<% 1.upto(50) do |i| %>
     audio_<%= i %>:
         user: quentin
-        title: How I Feel (<%= i %>)
-        description: WaxTailor
+        title: The Good the Bad the Ugly
+        description: The Audio Theme.
+        state: encoded
+        audio_file_name: <%= file_path_import(:model => 'audio', :id => Fixtures.identify("audio_#{i}"), :file_name => 'audio.mp3') %>
+        audio_content_type: audio/mpeg
+        audio_file_size: 98423
+        audio_updated_at: <%= i.days.ago %>
 <% end %>
 
