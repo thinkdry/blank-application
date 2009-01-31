@@ -7,12 +7,12 @@ h4{
 .notice {
 	padding: 10px 10px 10px 30px;
 	margin-bottom: 1em;
-	border: 2px solid #666;
+	border: 2px solid #1D9305;
 	font-size: 90%;
 	font-weight: bold;
 	color:#666;
 	line-height: 1;
-	background: <%=@header.bgcolor%> url(/images/accept.png) left no-repeat;
+	background: #3AC21F url(/images/accept.png) left no-repeat;
 	background-position: 10px 7px;
 }
 
@@ -141,7 +141,8 @@ img.avatar{
 
 #area_TITLE{
 	margin: 20px 0 20px 0;
-	border: 2px solid #fff;
+	border-bottom: 1px solid #f2f2f2;
+	padding-bottom:10px;
 }
 
 .area_LEFT{
@@ -155,7 +156,7 @@ img.avatar{
 }
 
 .area_BOTH{
-  
+  margin-top: 20px;
 }
 
 .area_LEFT ul{
@@ -184,6 +185,7 @@ img.avatar{
   border: 2px solid <%=@border.bgcolor%>;
   padding: 10px;
   margin-top:10px;
+  margin-bottom: 10px;
 }
 
 .area_WS h4{
@@ -402,16 +404,16 @@ ul.top_box li{
 	padding:0px 30px 20px;
 	margin-top:20px;
 	margin-left:0px;
-	width:550px !important;
 }
 
 #content_show #new_comment_form_box textarea {
-	width:550px;
+	width:100%;
 	margin:0px 0px 20px;
 }
 
 #content_show #new_comment_form_box .buttons button.alone {
-	margin-left:175px;
+	margin-right:0;
+	float:right;
 }
 
 #content_show #comment_list {
@@ -451,4 +453,8 @@ ul.top_box li{
 
 .pagination{
 	text-align:center;
+}
+
+.other_output_format{
+	float:right;
 }

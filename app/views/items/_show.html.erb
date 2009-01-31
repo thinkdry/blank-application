@@ -2,10 +2,6 @@
   <h1>
     <%= image_tag object.icon %>
     <%= object.title %>
-    <div align="right">
-      <%= link_to 'XML', item_path(object)+".xml" %>
-      <%= link_to 'JSON', item_path(object)+".json" %>
-    </div>
   </h1>
   <div class="undertitle">
     <%=I18n.t('general.by')%> <%= link_to_user object.user %>
@@ -20,7 +16,6 @@
   
   <%# FIXME: (integration) Its not an info box but an action box %>
   <div class="file_infos_box">
-    
     <%= image_tag 'icons/award_star_gold_1.png' %>
     <%= link_to I18n.t('general.rate'), '#', :id => :rate_action %>
     <div id="item_rate_modal_content">
@@ -55,13 +50,16 @@
       <%= link_to I18n.t('general.delete'), item_path(object), :method => :delete,
            :confirm => "Êtes vous sûr de vouloir supprimer cet item ?\nL'action est irréversible." %>
     <% end %>
-    
   </div>
   
   <h2><%=I18n.t('item.summary')%></h2>
   <%= object.description %>
   
   <%= capture(&block) %>
+  
+  <h4><%=I18n.t('item.output_format')%></h4>
+   <%= link_to 'XML', item_path(object)+".xml" %>, 
+   <%= link_to 'JSON', item_path(object)+".json" %>
   
   <div id="comment_list">
     <%= image_tag 'icons/comments.png' %>

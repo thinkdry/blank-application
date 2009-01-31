@@ -1,15 +1,15 @@
 <div id="content">
 	<%= display_tabs(params[:item_type])%>
-    <br />
-    <div align="right">
-      <%= link_to "XML", "/#{params[:item_type]}.xml" %>
-      <%= link_to "JSON", "/#{params[:item_type]}.json" %>
-      <%= link_to "ATOM 1.0", "/#{params[:item_type]}.atom" %>
-    </div>
 	<div id="object-list">
 		<%= display_item_list(params[:item_type])%>
 		<p>
 			<%= will_paginate @collection %>
 		</p>
 	</div>
+	<div class="other_output_format">
+		<%= I18n.t('general.get_in_another_format')%>:
+      	<%= link_to "XML", "/#{params[:item_type]}.xml" %>
+      	<%= link_to "JSON", "/#{params[:item_type]}.json" %>
+      	<%= link_to "ATOM 1.0", "/#{params[:item_type]}.atom" %>
+    </div>
 </div>

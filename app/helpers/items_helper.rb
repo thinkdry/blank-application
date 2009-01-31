@@ -146,7 +146,7 @@ module ItemsHelper
         options
       )
     end
-    
+
     content_tag(:ul, content, :id => :tabs)
 	end
   
