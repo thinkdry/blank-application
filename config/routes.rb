@@ -16,6 +16,7 @@ ActionController::Routing::Routes.draw do |map|
 	map.colors_changing_superadministration 'superadministration/colors_changing', :controller => 'superadministration', :action => 'colors_changing'
 	map.language_switching_superadministration 'superadministration/language_switching', :controller => 'superadministration', :action => 'language_switching'
 	map.translations_changing_superadministration 'superadministration/translations_changing', :controller => 'superadministration', :action => 'translations_changing'
+	map.update_permissions_for_role_superadministration 'superadministration/update_permissions_for_role', :controller => 'superadministration', :action => 'update_permissions_for_role'
 	map.superadministration '/superadministration/:part', :controller => 'superadministration', :action => 'superadministration'
 	map.content '/content/:item_type', :controller => 'items', :action => 'index'
   

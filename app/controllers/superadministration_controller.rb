@@ -24,12 +24,10 @@ class SuperadministrationController < ApplicationController
 				                       :home => ["home"], 
 				                       :workspace => ["workspace"] 
 				                     }
-			  @options = []
-			  @translation_names.each {|name| @options << name[0]}
+			  @options = []; @translation_names.each {|k,v| @options << k}
 			elsif params[:part] == "roles"
 				@roles = Role.all
-				@role_names = []
-				@roles.each { |role| @role_names << role.name }
+				@role_names = []; @roles.each { |role| @role_names << role.name }
 				@permissions = Permission.all
 			else
 				flash[:notice] = "Unexisting section"
@@ -152,6 +150,26 @@ class SuperadministrationController < ApplicationController
       flash[:notice] = "Update Failed"
      redirect_to '/superadministration/translations'
     end
+  end
+  
+  def new_role
+    
+  end
+  
+  def create_role
+    
+  end
+  
+  def new_permission
+    
+  end
+  
+  def create_permission
+    
+  end
+  
+  def update_permissions_for_role
+    
   end
   
 end

@@ -12,10 +12,10 @@
   <% form_for :res, :url => translations_changing_superadministration_path do |f| %>
    <input id="language" name="language" type="hidden" value=<%= @language.to_s %>>
    
-   <% for name in @translation_names %>
-     <div id="<%= name[0] %>" style="display:none">
+   <% @translation_names.each do |k,v| %>
+     <div id="<%= k %>" style="display:none">
        <table>
-         <% name[1].each do |type| %>
+         <% v.each do |type| %>
              <h1><%= type.capitalize %></h1>
              <%= render :partial => "elements", :locals => { :type => type } %>
          <% end %>
