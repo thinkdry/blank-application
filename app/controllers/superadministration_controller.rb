@@ -17,14 +17,7 @@ class SuperadministrationController < ApplicationController
 				@file = YAML.load_file("#{RAILS_ROOT}/config/locales/#{I18n.default_locale}.yml")
 				@res = @file[I18n.default_locale.to_s]
 				@language = I18n.default_locale.to_s
-				@translation_names = { :general => ["general"], 
-				                       :layout => ["layout"], 
-				                       :user => ["user","login","profil"], 
-				                       :item => ["item","article","audio","video","file","publication","bookmark","picture"], 
-				                       :home => ["home"], 
-				                       :workspace => ["workspace"] 
-				                     }
-			  @options = []; @translation_names.each {|k,v| @options << k}
+        translation_options
 			elsif params[:part] == "roles"
 				@roles = Role.all
 				@role_names = []; @roles.each { |role| @role_names << role.name }
@@ -41,17 +34,6 @@ class SuperadministrationController < ApplicationController
 			redirect_to ''
 		end
 	end
-
-	def check_to_tab(param)
-		@list = params[param.to_sym]
-		res = []
-		if @list
-				@list.each do |k, v|
-					res << k.to_s
-				end
-		end
-		return res
-	end
 	
 	def general_changing
 		if current_user.is_superadmin?
@@ -61,7 +43,6 @@ class SuperadministrationController < ApplicationController
 			else
 				@conf = YAML.load_file("#{RAILS_ROOT}/config/customs/default_config.yml")
 			end
-
 			if params[:picture]
 				@picture = Picture.new(params[:picture])
 				@picture.name = 'logo'
@@ -70,12 +51,9 @@ class SuperadministrationController < ApplicationController
 				end
 				@picture.save
 			end
-
 			list.each do |l|
 				@conf['sa_'+l] = check_to_tab(l)
 			end
-
-			#File.rename("#{RAILS_ROOT}/config/customs/sa_config.yml", "#{RAILS_ROOT}/config/customs/old_sa_config.yml")
 			@new=File.new("#{RAILS_ROOT}/config/customs/sa_config.yml", "w+")
 			@new.syswrite(@conf.to_yaml)
 			redirect_to '/superadministration/general'
@@ -110,20 +88,13 @@ class SuperadministrationController < ApplicationController
       redirect_to '/superadministration/css'
     end
   end
-    #if @element.update_attributes(params[:element])
-      #  flash[:notice]="Saved Sucessfully"
-
-      #else
-        # flash[:notice]="Changes not Saved"
-         #render :action => "/"
-      #end
-   #end
    	
 	def language_switching
 		@yaml = YAML.load_file("#{RAILS_ROOT}/config/locales/#{params[:locale_to_conf]}.yml")
 		@res = @yaml[params[:locale_to_conf].to_s]
 		@language = params[:locale_to_conf].to_s
 		if @yaml
+		  translation_options
 			render :partial => 'translations_tab'
 		else
 			render :text => "Impossible d'ouvrir le fichier de langue demandé."
@@ -169,7 +140,30 @@ class SuperadministrationController < ApplicationController
   end
   
   def update_permissions_for_role
-    
+    render :text => params
   end
   
+  private
+  def translation_options
+    @translation_names = { :general => ["general"], 
+		                       :layout => ["layout"], 
+		                       :user => ["user","login","profil"], 
+		                       :item => ["item","article","audio","video","file","publication","bookmark","picture"], 
+		                       :home => ["home"], 
+		                       :workspace => ["workspace"] 
+		                     }
+	  @options = []; @translation_names.each {|k,v| @options << k}
+  end
+  
+  def check_to_tab(param)
+		@list = params[param.to_sym]
+		res = []
+		if @list
+			@list.each do |k, v|
+				res << k.to_s
+			end
+		end
+		res
+	end
+	
 end

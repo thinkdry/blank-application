@@ -1,1 +1,17 @@
-Pas de champs pour cette partie.<br />
+<div>
+  Available permissions :<br />
+  <% for permission in Permission.all - role.permissions %>
+    <%= check_box_tag(role.name+"[#{permission.name}]", 0, checked=false) %>
+    <label><%= permission.name %></label>
+  <% end %>
+</div>
+
+<br />
+
+<div>
+  Current permissions :<br />
+  <% for permission in role.permissions %>
+    <%= check_box_tag(role.name+"[#{permission.name}]", 1, checked=true) %>
+    <label><%= permission.name %></label>
+  <% end %>
+</div>
