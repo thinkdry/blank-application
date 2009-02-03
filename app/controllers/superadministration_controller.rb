@@ -4,11 +4,7 @@ class SuperadministrationController < ApplicationController
 		if current_user.is_superadmin?
 			if params[:part] == "default"
 			elsif params[:part] == "general"
-				if File.exist?("#{RAILS_ROOT}/config/customs/sa_config.yml")
-					@conf = YAML.load_file("#{RAILS_ROOT}/config/customs/sa_config.yml")
-				else
-					@conf = YAML.load_file("#{RAILS_ROOT}/config/customs/default_config.yml")
-				end
+				@conf = get_sa_config
 				@logo = Picture.find_by_name('logo')
 			elsif params[:part] == "css"
 				@elements = Element.find(:all, :conditions => {:template=>"current"})
@@ -47,11 +43,7 @@ class SuperadministrationController < ApplicationController
 	def general_changing
 		if current_user.is_superadmin?
 			list = ['items', 'languages', 'feed_items_importation_types', 'ws_types']
-			if File.exist?("#{RAILS_ROOT}/config/customs/sa_config.yml")
-				@conf = YAML.load_file("#{RAILS_ROOT}/config/customs/sa_config.yml")
-			else
-				@conf = YAML.load_file("#{RAILS_ROOT}/config/customs/default_config.yml")
-			end
+			@conf = get_sa_config
 
 			if params[:picture]
 				@picture = Picture.new(params[:picture])
@@ -65,6 +57,9 @@ class SuperadministrationController < ApplicationController
 			list.each do |l|
 				@conf['sa_'+l] = check_to_tab(l)
 			end
+			# Update the default ws_config (with the id 1 normaly ...)
+			@default_conf = WsConfig.find(1)
+			@default_conf.update_attributes(:ws_items => check_to_tab('items').join(','), :ws_feed_items_importation_types => check_to_tab('feed_items_importation_types').join(','))
 
 			#File.rename("#{RAILS_ROOT}/config/customs/sa_config.yml", "#{RAILS_ROOT}/config/customs/old_sa_config.yml")
 			@new=File.new("#{RAILS_ROOT}/config/customs/sa_config.yml", "w+")

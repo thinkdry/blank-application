@@ -3,12 +3,21 @@
     <% form_for @workspace, :builder => BlankFormBuilder do |f| -%>
       <%= f.text_field :title, :label => "Nom de l'espace de travail * : " %>
       <%= f.advanced_editor :description, :label => 'Description : ' %>
-      <% if @workspace.state != 'private' %>
-        <%= f.select :state, ['Closed', 'Public', 'Autorisé', 'Archived'], :label => 'Type d\'espace de travail :' %>
-      <% else %>
-        <%= f.select :state, ['Private'], :label => 'Type d\'espace de travail :', :disabled => true %>
-      <% end %>
+      <%= f.select :state, ['Closed', 'Public', 'Autorisé', 'Archived'], :label => 'Type d\'espace de travail :', :disabled => (@workspace.state == 'private') %>
       <br /><br />
+
+      <% if right_conf %>
+      <%= f.label "Workspace configuration : " %><br />
+      Available items :<br />
+      <%= checkboxes_from_list(@sa_conf["sa_items"], "items", @ws_conf, "ws_") %>
+      
+      Feed items imporation types :<br />
+      <%= checkboxes_from_list(@sa_conf["sa_feed_items_importation_types"], "feed_items_importation_types", @ws_conf, "ws_") %>
+
+      <br />
+      <% end  %>
+
+      <br />
       
       <h4><%=I18n.t 'workspace.associated_users'%></h4>
       <div id="users">

@@ -8,10 +8,39 @@ class WorkspacesController < ApplicationController
       permit "consultation of current_object"
       params[:id] ||= params[:workspace_id]
     end
+
+		before :new do
+			@sa_conf = get_sa_config
+			@ws_conf = WsConfig.find(1)
+		end
+
+		before :edit do
+			@sa_conf = get_sa_config
+			# in case no ws_config found
+			if !@current_object.ws_config
+				@current_object.ws_config = WsConfig.new
+				@current_object.save
+			end
+			@ws_conf = @current_object.ws_config
+		end
         
     before :create do
+			params[:id] ||= params[:workspace_id]
       @current_object.creator = @current_user
+			@current_object
     end
+
+		after :create do
+			if current_user.is_superadmin?
+				@current_object.ws_config = WsConfig.create(:ws_items => check_to_tab(:items).join(","), :ws_feed_items_importation_types => check_to_tab(:feed_items_importation_types).join(","))
+			end
+		end
+
+		after :update do
+			if current_user.is_superadmin?
+				@current_object.ws_config.update_attributes(:ws_items => check_to_tab(:items).join(","), :ws_feed_items_importation_types => check_to_tab(:feed_items_importation_types).join(","))
+			end
+		end
     
     before :update do
       permit "edition of current_object"
@@ -69,6 +98,16 @@ class WorkspacesController < ApplicationController
 			flash[:error] = "Votre demande n'a pu être envoyée."
 			redirect_to workspace_path(params[:id])
 		end
+	end
+
+	def ws_config
+		if (@conf=WsConfig.find(params[:id]))
+		else
+			@conf = WsConfig.new
+		end
+		return unless request.post?
+		
+
 	end
  
 end

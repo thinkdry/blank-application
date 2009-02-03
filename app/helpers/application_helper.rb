@@ -53,4 +53,15 @@ module ApplicationHelper
 		return res
 	end
 
+	def checkboxes_from_list(var, param, conf, prefix)
+		res = ""
+		var.each do |l|
+			res += check_box_tag(param+"[#{l}]", "1", ((ref=conf[prefix+param]) ? ref.include?(l) : false))
+	      res += l+"<br />"
+    end
+		res += "<br />"
+		return res
+	end
+
+
 end
