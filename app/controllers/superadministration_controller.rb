@@ -17,9 +17,20 @@ class SuperadministrationController < ApplicationController
 				@file = YAML.load_file("#{RAILS_ROOT}/config/locales/#{I18n.default_locale}.yml")
 				@res = @file[I18n.default_locale.to_s]
 				@language = I18n.default_locale.to_s
+				@translation_names = { :general => ["general"], 
+				                       :layout => ["layout"], 
+				                       :user => ["user","login","profil"], 
+				                       :item => ["item","article","audio","video","file","publication","bookmark","picture"], 
+				                       :home => ["home"], 
+				                       :workspace => ["workspace"] 
+				                     }
+			  @options = []
+			  @translation_names.each {|name| @options << name[0]}
 			elsif params[:part] == "roles"
-				@roles
-				@permissions
+				@roles = Role.all
+				@role_names = []
+				@roles.each { |role| @role_names << role.name }
+				@permissions = Permission.all
 			else
 				flash[:notice] = "Unexisting section"
 				redirect_to '/'
@@ -114,7 +125,6 @@ class SuperadministrationController < ApplicationController
 		@yaml = YAML.load_file("#{RAILS_ROOT}/config/locales/#{params[:locale_to_conf]}.yml")
 		@res = @yaml[params[:locale_to_conf].to_s]
 		@language = params[:locale_to_conf].to_s
-    
 		if @yaml
 			render :partial => 'translations_tab'
 		else
@@ -123,7 +133,6 @@ class SuperadministrationController < ApplicationController
   end
 
 	def translations_changing
-
     @yaml = YAML.load_file("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml")
    	["general","layout", "user", "login","profil","home","workspace","article","item","file","audio","video","publication","bookmark","picture"].each do |type|
 			if params[type.to_sym] && @yaml[params[:language].to_s][type] 
@@ -134,15 +143,15 @@ class SuperadministrationController < ApplicationController
        end
       end
     end
-		
-  File.rename("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml", "#{RAILS_ROOT}/config/locales/old_#{params[:language]}.yml")
-  @new=File.new("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml", "w+")
-   if @new.syswrite(@yaml.to_yaml)
-     flash[:notice] = "Updated Sucessfully"
-    redirect_to '/superadministration/translations'
-  else
-    flash[:notice] = "Update Failed"
-   redirect_to '/superadministration/translations'
+    File.rename("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml", "#{RAILS_ROOT}/config/locales/old_#{params[:language]}.yml")
+    @new=File.new("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml", "w+")
+     if @new.syswrite(@yaml.to_yaml)
+       flash[:notice] = "Updated Sucessfully"
+      redirect_to '/superadministration/translations'
+    else
+      flash[:notice] = "Update Failed"
+     redirect_to '/superadministration/translations'
+    end
   end
-end
+  
 end

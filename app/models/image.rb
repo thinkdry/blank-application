@@ -3,15 +3,18 @@
 #
 # Table name: images
 #
-#  id          :integer(4)      not null, primary key
-#  user_id     :integer(4)
-#  title       :string(255)
-#  description :text
-#  state       :string(255)
-#  file_path   :string(255)
-#  created_at  :datetime
-#  updated_at  :datetime
-#  tags        :string(255)
+#  id                 :integer(4)      not null, primary key
+#  user_id            :integer(4)
+#  title              :string(255)
+#  description        :text
+#  state              :string(255)
+#  image_file_name    :string(255)
+#  image_content_type :string(255)
+#  image_file_size    :integer(4)
+#  image_updated_at   :datetime
+#  created_at         :datetime
+#  updated_at         :datetime
+#  tags               :string(255)
 #
 
 class Image < ActiveRecord::Base

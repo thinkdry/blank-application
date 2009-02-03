@@ -10,7 +10,7 @@
 #  description    :text
 #  state          :string(255)
 #  link           :string(1024)
-#  content        :string(255)
+#  enclosures     :string(255)
 #  authors        :string(255)
 #  date_published :datetime
 #  last_updated   :datetime

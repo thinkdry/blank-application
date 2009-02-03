@@ -1,64 +1,35 @@
 <fieldset class="myform">
   <legend><%= @language %></legend>
-       <% form_for :res, :url => translations_changing_superadministration_path do |f| %>
-             <label>Select a Section</label><%= select_tag "element", options_for_select([ "select","general" ,"layout", "user","item", "home","workspace" ], "Select"),:onchange=>"changer(this.value)"%>
-             <input id="language" name="language" type="hidden" value=<%= @language.to_s %>>
-               
-               <div id="general" style="display:none">
-                 <%type="general"%>
-                 <h1><%=type.capitalize%></h1>
-                 <table>
-                   
-                   <%=render :partial=>"elements" ,:locals=>{:type=>type}%>
-                 </table>
-               </div>
-               
-               <div id="layout" style="display:none">
-                 <%type="layout"%>
-                 <h1><%=type.capitalize%></h1>
-                 <table>
-                   <%=render :partial=>"elements" ,:locals=>{:type=>type}%>
-                 </table>
-               </div>
-
-               <div id="user" style="display:none">
-                 <table>
-                 <%["user","login","profil"].each do |type|%>
-                     <h1><%=type.capitalize%></h1>
-                       <%=render :partial=>"elements" ,:locals=>{:type=>type}%>
-                 <% end %>
-                 </table>
-               </div>
-
-                 <div id="workspace" style="display:none">
-                 <%type="workspace"%>
-                <h1> <%=type.capitalize%></h1>
-                 <table>
-                   <%=render :partial=>"elements" ,:locals=>{:type=>type}%>
-                 </table>
-               </div>
-
-               <div id="home" style="display:none">
-                 <%type="home"%>
-                 <h1><%=type.capitalize%></h1>
-                 <table>
-                   <%=render :partial=>"elements" ,:locals=>{:type=>type}%>
-                 </table>
-               </div>
-
-               <div id="item" style="display:none">
-                 <table>
-                   <%["item","article","audio","video","file","publication","bookmark","picture"].each do |type|%>
-                     <h1> <%=type.capitalize%></h1>
-                     <%=render :partial=>"elements" ,:locals=>{:type=>type}%>
-                 <% end %>
-                 </table>
-               </div>
-          <br />
-         <div class="buttons" id="area_BUTTONS" style="padding-top: 2em">
-            <button type="submit" class="positive"><img src="/images/tick.png" alt=""/>Mettre à jour</button>
-            <button type="reset" class="negative"><img src="/images/cross.png" alt=""/>Annuler</button>
-        </div><br><br>
-    <% end %>
-	
+  
+  <label>Select a Section</label>
+  <%= select_tag "element", 
+      options_for_select(
+                         %w(select) + @options, 
+                         "select"), 
+     :onchange=>"changer(this.value, '#{@options.to_json}')"
+  %>
+  
+  <% form_for :res, :url => translations_changing_superadministration_path do |f| %>
+   <input id="language" name="language" type="hidden" value=<%= @language.to_s %>>
+   
+   <% for name in @translation_names %>
+     <div id="<%= name[0] %>" style="display:none">
+       <table>
+         <% name[1].each do |type| %>
+             <h1><%= type.capitalize %></h1>
+             <%= render :partial => "elements", :locals => { :type => type } %>
+         <% end %>
+       </table>
+     </div>
+   <% end %>
+   
+   <br />
+   
+   <div class="buttons" id="area_BUTTONS" style="padding-top: 2em">
+      <button type="submit" class="positive"><img src="/images/tick.png" alt=""/>Mettre à jour</button>
+      <button type="reset" class="negative"><img src="/images/cross.png" alt=""/>Annuler</button>
+  </div><br><br>
+  
+  <% end %>
+  
 </fieldset>
