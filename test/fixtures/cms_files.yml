@@ -24,9 +24,6 @@
         user: quentin
         title: Schema base de donnee (<%= i %>)
         description: "Documentation<br>"
-        cmsfile_file_name: <%= file_path_import(:model => 'cms_file', :id => Fixtures.identify("cms_file_#{i}"), :cmsfile_file_name => 'Emails') %>
-        cmsfile_content_type: application/octet-stream
-        cmsfile_file_size: 234
         cmsfile_updated_at: <%= i.days.ago %>
         created_at: <%= i.days.ago %>
 <% end %>

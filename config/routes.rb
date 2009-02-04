@@ -27,7 +27,9 @@ ActionController::Routing::Routes.draw do |map|
   # TODO: Publishing, Bookmarks, Admin related controllers: rights...
 
   map.root :controller => 'home', :action => 'index'
-	
+
+	#map.resources :fronts, :member => { :load_page => :any }
+
   map.connect '/stylesheets/:action.:format', :controller => 'stylesheets'
 
   # Items are CMS component types

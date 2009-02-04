@@ -21,6 +21,7 @@ class Workspace < ActiveRecord::Base
   has_many_polymorphs :itemables, :from => ITEMS.map{ |item| item.pluralize.to_sym }, :through => :items
 	has_many :feed_items, :through => :feed_sources
 	belongs_to :creator, :class_name => 'User'
+	belongs_to :ws_config
 	
 	validates_presence_of :title
 	validates_associated :users_workspaces

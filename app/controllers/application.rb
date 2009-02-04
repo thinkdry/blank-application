@@ -5,7 +5,7 @@ require "acts_as_item/url_helpers.rb"
 
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
-	helper_method :available_items_list, :available_languages
+	helper_method :available_items_list, :available_languages, :get_current_config, :right_conf
   before_filter :is_logged?
 	before_filter :set_locale
 
@@ -34,6 +34,38 @@ class ApplicationController < ActionController::Base
 			res=YAML.load_file("#{RAILS_ROOT}/config/customs/sa_config.yml")["sa_languages"]
 		else
 			res = []
+		end
+		return res
+	end
+
+	def get_sa_config
+		if File.exist?("#{RAILS_ROOT}/config/customs/sa_config.yml")
+			conf = YAML.load_file("#{RAILS_ROOT}/config/customs/sa_config.yml")
+		else
+			conf = YAML.load_file("#{RAILS_ROOT}/config/customs/default_config.yml")
+		end
+		return conf
+	end
+
+	def get_current_config(ws_id=1)
+		# TODO to find a solution to know where we are
+		if (Workspace.exists?(params[:id]))
+			if (ws=Workspace.find(params[:id])).ws_config
+				ws_id = ws.ws_config
+			else
+				ws_id = 1
+			end
+		end
+		return WsConfig.find(ws_id)
+	end
+
+	def check_to_tab(param)
+		@list = params[param.to_sym]
+		res = []
+		if @list
+				@list.each do |k, v|
+					res << k.to_s
+				end
 		end
 		return res
 	end
