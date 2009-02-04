@@ -1,14 +1,10 @@
-
-                <% if @res[type] %>
-                 <% @res[type].each do |k, v| %>
-                   <tr>
-                      <td><%= k %></td>
-                      <td><%= text_field type.to_sym, k, :value => v %></td>
-                  </tr>
-                 <% end %>
-             <% else %>
-                 Pas de champs pour cette partie.<br />
-             <% end %>
-             
-             
- 
+<% if @res[type] %>
+  <% @res[type].each do |k, v| %>
+    <tr>
+      <td><%= k %></td>
+      <td><%= text_field type.to_sym, k, :value => v %></td>
+    </tr>
+  <% end %>
+<% else %>
+  Pas de champs pour cette partie.<br />
+<% end %>

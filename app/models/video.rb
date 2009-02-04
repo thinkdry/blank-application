@@ -3,17 +3,20 @@
 #
 # Table name: videos
 #
-#  id           :integer(4)      not null, primary key
-#  user_id      :integer(4)
-#  title        :string(255)
-#  description  :text
-#  state        :string(255)
-#  file_path    :string(255)
-#  encoded_file :string(255)
-#  thumbnail    :string(255)
-#  created_at   :datetime
-#  updated_at   :datetime
-#  tags         :string(255)
+#  id                 :integer(4)      not null, primary key
+#  user_id            :integer(4)
+#  title              :string(255)
+#  description        :text
+#  state              :string(255)     default("initial")
+#  video_file_name    :string(255)
+#  video_content_type :string(255)
+#  video_file_size    :integer(4)
+#  video_updated_at   :datetime
+#  encoded_file       :string(255)
+#  thumbnail          :string(255)
+#  created_at         :datetime
+#  updated_at         :datetime
+#  tags               :string(255)
 #
 
 #require 'heywatch'

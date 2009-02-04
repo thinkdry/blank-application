@@ -10,13 +10,12 @@
 #  description    :text
 #  state          :string(255)
 #  link           :string(255)
-#  content        :string(255)
+#  enclosures     :string(255)
 #  authors        :string(255)
 #  date_published :datetime
 #  last_updated   :datetime
 #  copyright      :string(255)
 #  categories     :string(255)
-#  file_path      :string(255)
 #  created_at     :datetime
 #  updated_at     :datetime
 #  tags           :string(255)

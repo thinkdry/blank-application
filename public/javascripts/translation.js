@@ -26,22 +26,20 @@
       alert("Please Add a Key Value Pair!");
 }
 
-function changer(pop)
+function changer(pop, objects)
   {
-    reset();
+    reset(objects);
     if(pop=="select")
     return
     else
     $(pop).show();
   }
   
-function reset()
+function reset(objects)
   {
-     $('home').hide();
-     $('workspace').hide();
-     $('user').hide();
-     $('layout').hide();
-     $('item').hide();
-     $('general').hide();
+		var nodes = objects.evalJSON();
+		nodes.each(function(node) {
+		  $(node).hide();
+		});
   }
   

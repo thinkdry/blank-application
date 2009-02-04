@@ -3,11 +3,18 @@
 #
 # Table name: pictures
 #
-#  id           :integer(4)      not null, primary key
-#  name         :string(255)
-#  picture_path :string(255)
-#  created_at   :datetime
-#  updated_at   :datetime
+#  id                   :integer(4)      not null, primary key
+#  name                 :string(255)
+#  picture_file_name    :string(255)
+#  picture_content_type :string(255)
+#  picture_file_size    :integer(4)
+#  picture_updated_at   :datetime
+#  favicon_file_name    :string(255)
+#  favicon_content_type :string(255)
+#  favicon_file_size    :integer(4)
+#  favicon_updated_at   :datetime
+#  created_at           :datetime
+#  updated_at           :datetime
 #
 
 class Picture < ActiveRecord::Base

@@ -1,0 +1,15 @@
+<h1>Editing <%= model.camelize %></h1>
+
+<% if !namespace.blank? %>
+<%% form_for([:<%= namespace %>, @<%= singular_name %>]) do |f| %>
+<% else %>
+<%% form_for(@<%= singular_name %>) do |f| %>
+<% end %>
+  <%%= render :partial => 'form', :locals => {:f => f} %>
+  <p>
+    <%%= f.submit "Update" %>
+  </p>
+<%% end %>
+
+<%%= link_to 'Show', <%= singular_name %>_path(@<%= singular_name %>) %> |
+<%%= link_to 'Back', <%= plural_name %>_path %>
