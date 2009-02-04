@@ -48,8 +48,9 @@ class ApplicationController < ActionController::Base
 	end
 
 	def get_current_config(ws_id=1)
-		if (ws=Workspace.find(params[:id]))
-			if ws.ws_config
+		# TODO to find a solution to know where we are
+		if (Workspace.exists?(params[:id]))
+			if (ws=Workspace.find(params[:id])).ws_config
 				ws_id = ws.ws_config
 			else
 				ws_id = 1

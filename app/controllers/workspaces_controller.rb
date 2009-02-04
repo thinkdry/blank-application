@@ -22,6 +22,7 @@ class WorkspacesController < ApplicationController
 				@current_object.save
 			end
 			@ws_conf = @current_object.ws_config
+			@front = @current_object.front
 		end
         
     before :create do
@@ -31,14 +32,18 @@ class WorkspacesController < ApplicationController
     end
 
 		after :create do
-			if current_user.is_superadmin?
-				@current_object.ws_config = WsConfig.create(:ws_items => check_to_tab(:items).join(","), :ws_feed_items_importation_types => check_to_tab(:feed_items_importation_types).join(","))
-			end
+			#if current_user.is_superadmin?
+				default = WsConfig.find(1)
+				@current_object.ws_config = WsConfig.create(:ws_items => default.ws_items, :ws_feed_items_importation_types => default.ws_feed_items_importation_types)
+				#@current_object.ws_config = WsConfig.create(:ws_items => check_to_tab(:items).join(","), :ws_feed_items_importation_types => check_to_tab(:feed_items_importation_types).join(","))
+				@current_object.save
+			#end
 		end
 
 		after :update do
 			if current_user.is_superadmin?
 				@current_object.ws_config.update_attributes(:ws_items => check_to_tab(:items).join(","), :ws_feed_items_importation_types => check_to_tab(:feed_items_importation_types).join(","))
+				@current_object.front.update_attributes(params[:front])
 			end
 		end
     

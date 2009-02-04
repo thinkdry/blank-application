@@ -6,7 +6,7 @@
       <%= f.select :state, ['Closed', 'Public', 'Autorisé', 'Archived'], :label => 'Type d\'espace de travail :', :disabled => (@workspace.state == 'private') %>
       <br /><br />
 
-      <% if right_conf %>
+      <% if current_user.is_superadmin? %>
       <%= f.label "Workspace configuration : " %><br />
       Available items :<br />
       <%= checkboxes_from_list(@sa_conf["sa_items"], "items", @ws_conf, "ws_") %>
@@ -16,8 +16,6 @@
 
       <br />
       <% end  %>
-
-      <br />
       
       <h4><%=I18n.t 'workspace.associated_users'%></h4>
       <div id="users">
