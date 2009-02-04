@@ -15,7 +15,10 @@
 #  activity                  :string(255)
 #  nationality               :string(255)
 #  edito                     :text
-#  image_path                :string(500)
+#  avatar_file_name          :string(255)
+#  avatar_content_type       :string(255)
+#  avatar_file_size          :integer(4)
+#  avatar_updated_at         :datetime
 #  crypted_password          :string(40)
 #  salt                      :string(40)
 #  activation_code           :string(40)
@@ -53,9 +56,11 @@ class User < ActiveRecord::Base
   has_many :feed_items, :through => :feed_sources, :order => "last_updated"
   belongs_to :system_role
   has_attached_file :avatar,
-                                   :default_url => "/images/default_avatar.png",
-                                   :styles => {
-                                   :thumb=> "100x200>"}
+                    :default_url => "/images/default_avatar.png",
+                    :url =>  "/uploaded_files/user/:id/:style/:basename.:extension",
+                    :path => ":rails_root/public/uploaded_files/user/:id/:style/:basename.:extension",
+                    :styles => {
+                    :thumb=> "100x200>"}
   #file_column :image_path, :magick => {:size => "200x200>"}
 
   validates_presence_of     :login

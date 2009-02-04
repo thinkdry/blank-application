@@ -135,8 +135,8 @@ module ItemsHelper
   def display_tabs(item_type)
     item_type ||= 'articles'
     content = String.new
-    
-    available_items_list.map{ |item| item.camelize }.each do |item_model|
+
+    get_current_config["ws_items"].split(',').map{ |item| item.camelize }.each do |item_model|
       item_page = item_model.underscore.pluralize
       options = {}
       options[:class] = 'selected' if (item_type == item_page)

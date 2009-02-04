@@ -5,7 +5,10 @@
 #
 #  id           :integer(4)      not null, primary key
 #  user_id      :integer(4)
-#  remote_id    :string(255)
+#  etag         :string(255)
+#  version      :string(255)
+#  encoding     :string(255)
+#  language     :string(255)
 #  title        :string(255)
 #  description  :text
 #  state        :string(255)
@@ -13,10 +16,10 @@
 #  link         :string(1024)
 #  last_updated :datetime
 #  authors      :string(255)
+#  categories   :string(255)
 #  copyright    :string(255)
-#  generator    :string(255)
 #  ttl          :integer(4)
-#  image_path   :string(255)
+#  image        :string(255)
 #  created_at   :datetime
 #  updated_at   :datetime
 #

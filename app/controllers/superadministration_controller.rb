@@ -4,11 +4,7 @@ class SuperadministrationController < ApplicationController
 		if current_user.is_superadmin?
 			if params[:part] == "default"
 			elsif params[:part] == "general"
-				if File.exist?("#{RAILS_ROOT}/config/customs/sa_config.yml")
-					@conf = YAML.load_file("#{RAILS_ROOT}/config/customs/sa_config.yml")
-				else
-					@conf = YAML.load_file("#{RAILS_ROOT}/config/customs/default_config.yml")
-				end
+				@conf = get_sa_config
 				@logo = Picture.find_by_name('logo')
 			elsif params[:part] == "css"
 				@elements = Element.find(:all, :conditions => {:template=>"current"})
@@ -17,9 +13,10 @@ class SuperadministrationController < ApplicationController
 				@file = YAML.load_file("#{RAILS_ROOT}/config/locales/#{I18n.default_locale}.yml")
 				@res = @file[I18n.default_locale.to_s]
 				@language = I18n.default_locale.to_s
+        translation_options
 			elsif params[:part] == "roles"
-				@roles
-				@permissions
+				@roles = Role.all
+				@role_names = []; @roles.each { |role| @role_names << role.name }
 			else
 				flash[:notice] = "Unexisting section"
 				redirect_to '/'
@@ -32,27 +29,11 @@ class SuperadministrationController < ApplicationController
 			redirect_to ''
 		end
 	end
-
-	def check_to_tab(param)
-		@list = params[param.to_sym]
-		res = []
-		if @list
-				@list.each do |k, v|
-					res << k.to_s
-				end
-		end
-		return res
-	end
 	
 	def general_changing
 		if current_user.is_superadmin?
 			list = ['items', 'languages', 'feed_items_importation_types', 'ws_types']
-			if File.exist?("#{RAILS_ROOT}/config/customs/sa_config.yml")
-				@conf = YAML.load_file("#{RAILS_ROOT}/config/customs/sa_config.yml")
-			else
-				@conf = YAML.load_file("#{RAILS_ROOT}/config/customs/default_config.yml")
-			end
-
+			@conf = get_sa_config
 			if params[:picture]
 				@picture = Picture.new(params[:picture])
 				@picture.name = 'logo'
@@ -61,12 +42,15 @@ class SuperadministrationController < ApplicationController
 				end
 				@picture.save
 			end
-
 			list.each do |l|
 				@conf['sa_'+l] = check_to_tab(l)
 			end
+			# Update the default ws_config (with the id 1 normaly ...)
+			@default_conf = WsConfig.find(1)
+			@default_conf.update_attributes(:ws_items => check_to_tab('items').join(','), :ws_feed_items_importation_types => check_to_tab('feed_items_importation_types').join(','))
 
 			#File.rename("#{RAILS_ROOT}/config/customs/sa_config.yml", "#{RAILS_ROOT}/config/customs/old_sa_config.yml")
+			
 			@new=File.new("#{RAILS_ROOT}/config/customs/sa_config.yml", "w+")
 			@new.syswrite(@conf.to_yaml)
 			redirect_to '/superadministration/general'
@@ -101,21 +85,13 @@ class SuperadministrationController < ApplicationController
       redirect_to '/superadministration/css'
     end
   end
-    #if @element.update_attributes(params[:element])
-      #  flash[:notice]="Saved Sucessfully"
-
-      #else
-        # flash[:notice]="Changes not Saved"
-         #render :action => "/"
-      #end
-   #end
    	
 	def language_switching
 		@yaml = YAML.load_file("#{RAILS_ROOT}/config/locales/#{params[:locale_to_conf]}.yml")
 		@res = @yaml[params[:locale_to_conf].to_s]
 		@language = params[:locale_to_conf].to_s
-    
 		if @yaml
+		  translation_options
 			render :partial => 'translations_tab'
 		else
 			render :text => "Impossible d'ouvrir le fichier de langue demandé."
@@ -123,7 +99,6 @@ class SuperadministrationController < ApplicationController
   end
 
 	def translations_changing
-
     @yaml = YAML.load_file("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml")
    	["general","layout", "user", "login","profil","home","workspace","article","item","file","audio","video","publication","bookmark","picture"].each do |type|
 			if params[type.to_sym] && @yaml[params[:language].to_s][type] 
@@ -134,15 +109,64 @@ class SuperadministrationController < ApplicationController
        end
       end
     end
-		
-  File.rename("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml", "#{RAILS_ROOT}/config/locales/old_#{params[:language]}.yml")
-  @new=File.new("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml", "w+")
-   if @new.syswrite(@yaml.to_yaml)
-     flash[:notice] = "Updated Sucessfully"
-    redirect_to '/superadministration/translations'
-  else
-    flash[:notice] = "Update Failed"
-   redirect_to '/superadministration/translations'
+    File.rename("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml", "#{RAILS_ROOT}/config/locales/old_#{params[:language]}.yml")
+    @new=File.new("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml", "w+")
+     if @new.syswrite(@yaml.to_yaml)
+       flash[:notice] = "Updated Sucessfully"
+      redirect_to '/superadministration/translations'
+    else
+      flash[:notice] = "Update Failed"
+     redirect_to '/superadministration/translations'
+    end
   end
-end
+  
+  def update_permissions_for_role
+    Role.all.each do |role|
+      if params["#{role.name}"] and params["#{role.name}"]["current"]
+        checked_current_permissions = []
+        params["#{role.name}"]["current"].each { |k,v| p = Permission.find_by_name(k); checked_current_permissions << p }
+        (role.permissions - checked_current_permissions).each do |permission|
+          # delete all permissions from role which are not-checked
+          role.permissions.delete(permission)
+        end
+      else
+        role.permissions.each do |p|
+          role.permissions.delete(p)
+        end
+      end
+      if params["#{role.name}"] and params["#{role.name}"]["available"]
+        params["#{role.name}"]["available"].each do |k,v|
+          # adds checked available permissions to role
+          p = Permission.find_by_name(k)
+          role.permissions << p if !role.permission_ids.include?(p.id)
+        end
+      end
+    end
+    flash[:notice] = "Updated Successfully"
+    redirect_to '/superadministration/roles'
+  end
+  
+  private
+  def translation_options
+    @translation_names = { :general => ["general"], 
+		                       :layout => ["layout"], 
+		                       :user => ["user","login","profil"], 
+		                       :item => ["item","article","audio","video","file","publication","bookmark","picture"], 
+		                       :home => ["home"], 
+		                       :workspace => ["workspace"] 
+		                     }
+	  @options = []; @translation_names.each {|k,v| @options << k}
+  end
+  
+  def check_to_tab(param)
+		@list = params[param.to_sym]
+		res = []
+		if @list
+			@list.each do |k, v|
+				res << k.to_s
+			end
+		end
+		res
+	end
+	
 end

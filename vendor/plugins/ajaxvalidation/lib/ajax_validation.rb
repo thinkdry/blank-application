@@ -2,7 +2,7 @@ module AjaxValidation
 
   module Helpers
     def ajax_validation(object, attribute)
-      "ajax_validation('#{object.class.to_s}', '#{attribute.to_s}', this.value, '#{url_for(:action => :validate)}')"
+      "ajax_validation('#{object.class.to_s}', '#{attribute.to_s}', this.value, '#{url_for(:action => :validate, :id => object.id)}')"
     end
   
     def ajax_error_message_on(object, attribute)
@@ -99,7 +99,7 @@ module AjaxValidation
     module InstanceMethods
       def validate
           model_class = params['model'].classify.constantize
-          @model_instance = model_class.new
+          @model_instance = params['id'] ? model_class.find(params['id']) : model_class.new
 
           @model_instance.send("#{params['attribute']}=", params['value'])
           @model_instance.valid?

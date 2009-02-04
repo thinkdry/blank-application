@@ -1,0 +1,13 @@
+<h1>Editing Permission</h1>
+
+
+<% form_for(@permission) do |f| %>
+
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', permission_path(@permission) %> |
+<%= link_to 'Back', permissions_path %>

@@ -5,13 +5,13 @@
 #
 #  id             :integer(4)      not null, primary key
 #  feed_source_id :integer(4)
-#  remote_id      :string(255)
+#  guid           :string(255)
 #  title          :string(255)
-#  content        :string(255)
 #  description    :text
 #  authors        :string(255)
 #  date_published :datetime
 #  last_updated   :datetime
+#  enclosures     :string(255)
 #  link           :string(1024)
 #  categories     :string(255)
 #  copyright      :string(255)

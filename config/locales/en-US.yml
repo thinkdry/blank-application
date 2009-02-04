@@ -1,5 +1,6 @@
 --- 
 en-US: 
+<<<<<<< HEAD:config/locales/en-US.yml
   message: 
     copyright_restriction: Some fields can't be modified as this element is copyright protected.
     error_during_file_transfer: Error during file transfer
@@ -50,12 +51,25 @@ en-US:
     edit_bookmark: Edit bookmark
     show_my_links: Show my links
     new_bookmark: New bookmark
+=======
+  number: 
+    format: 
+      separator: .
+      precision: 3
+      delimiter: ","
+    currency: 
+      format: 
+        format: "%u %n"
+        unit: $
+        precision: 2
+>>>>>>> b2f221b62c12b6007cfcf8909d93deb5256fde5d:config/locales/en-US.yml
   audio: 
     edit_audio: Edit audio
     add_a_new_audio: Add a new audio file
   article: 
     edit_article: Edit article
     add_a_new_article: Add a new article
+<<<<<<< HEAD:config/locales/en-US.yml
   search: 
     informations_on_searched_items: Informations on searched items
     advanced_search: Advanced search
@@ -117,6 +131,65 @@ en-US:
     all_elements: All elements
     associated_file: Associated file
     automatic_date_field: Field for publication date and modification date are automaticaly updated.
+=======
+  layout: 
+    footer_title: ThinkDRY Technologies 2008
+    faq: FAQ
+    new_workspace: New workspace
+    account_access: My account
+    welcome_message: Welcome
+    logout: Logout
+    first_page: Home
+    administration: Administration
+    title: Blank Engine
+    bye_message: Bye
+    superadministration: Superadministration
+    contact: Contact
+    add_content: Add content
+    map: Site map
+    advanced_search: Advanced search
+    search: Search
+    workspaces: Workspaces
+  workspace: 
+    create_a_new_workspace: Create a new workspace
+    modification_of_workspace: Modification of the workspace
+    associated_users: Associated users
+    save: Save
+    add_new_user: Ajouter un utilisateur
+    last_five_items: Last five items
+  bookmark: 
+    add_a_link: Add a link
+    url: url
+    edit_bookmark: Edit bookmark
+    new_bookmark: New bookmark
+    show_my_links: Show my links
+  active_record: 
+    error_messages: 
+      greater_than_or_equal_to: This field must be greater than or equal to {{count}}.
+      confirmation: This field does not match its confirmation.
+      less_than_or_equal_to: This field must be less than or equal to {{count}}.
+      blank: This field must be given.
+      invalid: This field is not valid.
+      exclusion: This field is not available.
+      odd: This field must be odd.
+      even: This field must be even.
+      empty: This field must be given.
+      too_short: This field is too short (no less than {{count}} characters).
+      wrong_length: This field is not the right length (must be {{count}} characters).
+      less_than: This field must be less than {{count}}.
+      greater_than: This field must be greater than {{count}}.
+      equal_to: This field must be equal to {{count}}.
+      too_long: This field is too long (no more than {{count}} characters).
+      accepted: This field must be accepted.
+      taken: This field is not available.
+      inclusion: This field is not included in the list.
+      not_a_number: This field is not a number.
+    error: 
+      header_message: 
+      - "Couldn't save this {{object_name}}: 1 error"
+      - "Couldn't save this {{object_name}}: {{count}} errors."
+      message: "Please check the following fields :"
+>>>>>>> b2f221b62c12b6007cfcf8909d93deb5256fde5d:config/locales/en-US.yml
   text: 
     reset_password: Enter your password and a reactivation link will be send to you by mail
   time: 
@@ -124,6 +197,7 @@ en-US:
     formats: 
       default: "%a %b %d %H:%M:%S %Z %Y"
       time: "%H:%M"
+<<<<<<< HEAD:config/locales/en-US.yml
       only_second: "%S"
       datetime: 
         formats: 
@@ -148,32 +222,63 @@ en-US:
     save: Save
     add_new_user: Ajouter un utilisateur
     last_five_items: Last five items
+=======
+      short: "%d %b %H:%M"
+      datetime: 
+        formats: 
+          default: "%Y-%m-%dT%H:%M:%S%Z"
+      only_second: "%S"
+      long: "%B %d, %Y %H:%M"
+    pm: pm
+  publication: 
+    edit_publication: Edit publication
+    add_a_new_publication: Add a new publication
+  txt: 
+    date_helper: 
+      date_time_title: Date/Time distance
+      forms_title: Forms
+    app_name: Demo Application
+    time_formats: 
+      rails_standards_work: "Rails standard formats (Time::DATE_FORMATS) still work:"
+    date_formats: 
+      rails_standards_work: "Rails standard formats (Date::DATE_FORMATS) still work:"
+    active_record: 
+      too_lazy: No examples here since I'm too lazy to think of attributes to show all custom error messages. ;-)
+      easy_to_understand: It's quite easy to understand, though.
+    sub_title: how to localize your app with Rails' new i18n features
+    about: 
+      author: This demo app was written by {{mail_1}}.
+      title: About this demo app
+      feedback: If you have any feedback, please feel free to drop me a line. Also visit {{blog_href}} where I regularly blog about Rails and other stuff.
+      licence: This demo app and all its contents are licensed under the {{licence_href}}. If you want to use it in ways prohibited by this license, please contact me and ask my permission.
+    number_helper: 
+      note_two: "Another note: number_to_currency, number_to_percentage and number_to_human_size all use number_with_precision internally and number_with_precision uses number_with_delimiter internally."
+      note_one: "Note: number_to_phone hasn't been localized yet and probably never will be - at least not in core. Look out for new internationalization/localization plugins like a new version of {{globalize}} as they will probably support stuff like that."
+    index: 
+      others: others
+      introduction: Lately, a lot of work has been done by {{sven_blog}} and {{sven_github}} to facilitate future internationalization and localization of Rails.
+      story_so_far: This demo app tries to show you how you can use the features that have been implemented so far to localize big parts of your Rails application.
+    setup: 
+      config_locale: Configuring the locale
+      best_place: The best place to put your locale configuration, in my opinion, is config/locales. The localized_dates plugin will copy two locales, en-US and de-AT, in this directory. You can extend or modify them and also create new locales.
+      freezing_edge_and_adding: Freezing Edge and installing the localized_dates plugin
+      you_need_to_be_on_edge: "You need to be on Edge Rails in order to use the Rails i18n features:"
+      locale_structure_date_time: "The same holds true for dates and times: If needed, :datetime and :time_with_zone can be used to specifically address formatting of their respective types instead of just relying on the settings for :time. Note, however, that usually you want to use the same formats as :time."
+      defaults: You also need to set up the default locale and/or locale in your environment.rb or an initializer.
+      locale: "Here's the demo locale that was used for this demo application:"
+      locale_structure_number: You may have noticed that inside the :number part of the locale, we defined :format and :currency. In general, locales are structured hierarchically - i.e. a currencies are numbers, percentages are numbers, etc. :currency can either override the basic :format settings (in our case, we set :precision to 2 instead of 3) or extend them (we add two new options, :unit and :format).
+      date_time_formats: "For date and time formats, you also need to install the {{localized_dates_link}}:"
+      locale_structure_title: A word on the structure of locales
+    contents: Contents
+    menu: 
+      time_formats: Time formats
+      date_formats: Date formats
+      about: About
+      setup: Setup
+      introduction: Introduction
+    main_title: Localizing Rails
+>>>>>>> b2f221b62c12b6007cfcf8909d93deb5256fde5d:config/locales/en-US.yml
   date: 
-    order: 
-    - :year
-    - :month
-    - :day
-    abbr_day_names: 
-    - Sun
-    - Mon
-    - Tue
-    - Wed
-    - Thu
-    - Fri
-    - Sat
-    formats: 
-      default: "%Y-%m-%d"
-      only_day: "%e"
-      short: "%e %b"
-      long: "%B %e, %Y"
-    day_names: 
-    - Sunday
-    - Monday
-    - Tuesday
-    - Wednesday
-    - Thursday
-    - Friday
-    - Saturday
     month_names: 
     - 
     - January
@@ -188,6 +293,51 @@ en-US:
     - October
     - November
     - December
+    abbr_day_names: 
+    - Sun
+    - Mon
+    - Tue
+    - Wed
+    - Thu
+    - Fri
+    - Sat
+    order: 
+    - :year
+    - :month
+    - :day
+    formats: 
+      only_day: "%e"
+<<<<<<< HEAD:config/locales/en-US.yml
+=======
+      default: "%Y-%m-%d"
+>>>>>>> b2f221b62c12b6007cfcf8909d93deb5256fde5d:config/locales/en-US.yml
+      short: "%e %b"
+      long: "%B %e, %Y"
+    day_names: 
+    - Sunday
+    - Monday
+    - Tuesday
+    - Wednesday
+    - Thursday
+    - Friday
+    - Saturday
+<<<<<<< HEAD:config/locales/en-US.yml
+    month_names: 
+    - 
+    - January
+    - February
+    - March
+    - April
+    - May
+    - June
+    - July
+    - August
+    - September
+    - October
+    - November
+    - December
+=======
+>>>>>>> b2f221b62c12b6007cfcf8909d93deb5256fde5d:config/locales/en-US.yml
     abbr_month_names: 
     - 
     - Jan
@@ -202,6 +352,7 @@ en-US:
     - Oct
     - Nov
     - Dec
+<<<<<<< HEAD:config/locales/en-US.yml
   active_record: 
     error: 
       message: "Please check the following fields :"
@@ -275,10 +426,26 @@ en-US:
     date_helper: 
       date_time_title: Date/Time distance
       forms_title: Forms
+=======
+  video: 
+    add_a_new_video: Add a new video
+    edit_video_params: Edit video params
+    download_video: Download original video
+  yaml: 
+    welcome_message: Welcome message
+    title: Title
+  file: 
+    edit_file_params: Edit file params
+    add_a_new_file: Add a new file
+    content: Content
+    corrupted_file: Corrupted file
+>>>>>>> b2f221b62c12b6007cfcf8909d93deb5256fde5d:config/locales/en-US.yml
   profil: 
+    location: Location
     landline: Landline
     activity: Activity
     email: email
+<<<<<<< HEAD:config/locales/en-US.yml
     location: Location
   yaml: 
     title: Title
@@ -306,49 +473,82 @@ en-US:
     add_a_new_video: Add a new video
     edit_video_params: Edit video params
     download_video: Download original video
+=======
+  login: 
+    password_forgotten: Password forgotten
+    connexion: Connexion
+    remember_me: Remember me
+    password: Password
+    login: Login
+>>>>>>> b2f221b62c12b6007cfcf8909d93deb5256fde5d:config/locales/en-US.yml
   home: 
     accordeon1: Last added documents
     filter: Filter
     accordeon2: Last added users
     accordeon3: Last added workspaces
+<<<<<<< HEAD:config/locales/en-US.yml
     show_my_feeds: Show my RSS feeds
     you_have_access_to_workspaces: You have access to worspaces
     accordeon4: Last received publications
     you_administrate: You administrate
     my_content: My content
+=======
+    accordeon4: Last received publications
+    my_content: My content
+    show_my_feeds: Show my RSS feeds
+    you_have_access_to_workspaces: You have access to worspaces
+    you_administrate: You administrate
+>>>>>>> b2f221b62c12b6007cfcf8909d93deb5256fde5d:config/locales/en-US.yml
     my_personnal_informations: My personnal informations
     my_workspaces: My workspaces
   datetime: 
     distance_in_words: 
       less_than_x_minutes: 
         one: 1 minute
-        zero: less than a minute
         other: "{{count}} minutes"
+        zero: less than a minute
       x_days: 
         one: 1 day
         other: "{{count}} days"
       x_seconds: 
+<<<<<<< HEAD:config/locales/en-US.yml
         one: 1 second
         other: "{{count}} seconds"
       x_minutes: 
         one: 1 minute
         other: "{{count}} minutes"
       less_than_x_seconds: 
+=======
+>>>>>>> b2f221b62c12b6007cfcf8909d93deb5256fde5d:config/locales/en-US.yml
         one: 1 second
         zero: less than 1 second
         other: "{{count}} seconds"
+<<<<<<< HEAD:config/locales/en-US.yml
+=======
+      less_than_x_seconds: 
+        one: 1 second
+        other: "{{count}} seconds"
+        zero: less than 1 second
+>>>>>>> b2f221b62c12b6007cfcf8909d93deb5256fde5d:config/locales/en-US.yml
       about_x_hours: 
         one: about 1 hour
         other: "{{count}} hours"
       x_months: 
         one: 1 month
+<<<<<<< HEAD:config/locales/en-US.yml
         other: "{{count}} months"
       about_x_months: 
         one: about 1 month
+=======
+>>>>>>> b2f221b62c12b6007cfcf8909d93deb5256fde5d:config/locales/en-US.yml
         other: "{{count}} months"
+      x_minutes: 
+        one: 1 minute
+        other: "{{count}} minutes"
       about_x_years: 
         one: about 1 year
         other: "{{count}} years"
+<<<<<<< HEAD:config/locales/en-US.yml
       half_a_minute: half a minute
       over_x_years: 
         one: over 1 year
@@ -432,3 +632,124 @@ en-US:
               blank: Description cannot be blank
             url:
               blank: Url cannot be blank
+=======
+      about_x_months: 
+        one: about 1 month
+        other: "{{count}} months"
+      over_x_years: 
+        one: over 1 year
+        other: "{{count}} years"
+      half_a_minute: half a minute
+  message: 
+    copyright_restriction: Some fields can't be modified as this element is copyright protected.
+    video_wip: Your video has been recorded for encoding. Please come bacl later.
+    error_during_file_transfer: Error during file transfer
+  user: 
+    photo: Photo
+    address: Address
+    name: Name
+    system_administrator: System administrator
+    logout: Log out
+    location: Location
+    reader: Reader
+    writer: Writer
+    administration: Administration
+    log_in: Log in
+    private_informations: Private informations
+    rights_to_manage: Rights to manage
+    confirm_new_password: Confirm new password
+    signup: Sign up
+    activity: Activity
+    confirm_password: Confirm password
+    edito: Edito
+    update_private_informations: Update private informations
+    readonly_access_to: Read only access to
+    manage_users_and_rights: Manage users and rights
+    moderator: Moderator
+    mobile: Mobile
+    your_private_informations: Your private informations
+    administrator: Administrator
+    validate_this_password: Validate this password
+    new_password: New password
+    phone: Phone
+    password_reset_request: Password reset request
+    add_a_new_user: Add a new user
+    password: Password
+    login: Login
+    create_this_user: Create this user
+    rights_to_be_moderator: Rights to be moderator
+    access_rights: Access rights
+    back_to_login: Back to login
+    nationality: Nationality
+    first_name: First name
+    email: Email
+    administration_configuration: Administation configuration
+  picture: 
+    add_a_new_picture: Add a new picture
+    edit_picture_params: Edit picture params
+  item: 
+    description_hint: Enter some description text
+    title: Title
+    title_hint: Enter a title
+    description: Description
+    summary: Summary
+  search: 
+    search_period: Search period
+    informations_on_searched_items: Informations on searched items
+    advanced_search: Advanced search
+    you_have_searched_for: you have searched for
+    your_search_result: Your search result
+  general: 
+    last_five_published_items: Last 5 published items
+    void: void
+    audio: Audio
+    article: Article
+    comment: Comment
+    name: name
+    false: false
+    from1: From
+    category: Category
+    workspace: Workspace
+    all_elements: All elements
+    edit: edit
+    download: Download
+    add: Add
+    by: by
+    author: Author
+    bookmark: Bookmark
+    cancel: Cancel
+    delete: Delete
+    true: true
+    separated_by_spaces: Separated by spaces
+    url: Url
+    rate: Rate
+    tag: Tag
+    filter: Filter
+    print: Print
+    publication: Publication
+    add_a_new_file: Add a new file
+    commentV: Comment
+    no1: false
+    to: To
+    in: In
+    publishing_date: Publishing date
+    type: Type
+    feed_source: RSS feed
+    last_update_date: Last update date
+    last_five_posted_comments: Last 5 posted comments
+    copyright: Copyright
+    content: Content
+    cms_file: File
+    video: Video
+    on1: "on"
+    link: Link
+    publish_my_comment: Publish my comment
+    description: description
+    send: Send
+    create: Create
+    image: Picture
+    update: Update
+    your_comment: Your Comment
+    associated_file: Associated file
+    search: Search
+>>>>>>> b2f221b62c12b6007cfcf8909d93deb5256fde5d:config/locales/en-US.yml

@@ -15,7 +15,10 @@
 #  activity                  :string(255)
 #  nationality               :string(255)
 #  edito                     :text
-#  image_path                :string(500)
+#  avatar_file_name          :string(255)
+#  avatar_content_type       :string(255)
+#  avatar_file_size          :integer(4)
+#  avatar_updated_at         :datetime
 #  crypted_password          :string(40)
 #  salt                      :string(40)
 #  activation_code           :string(40)

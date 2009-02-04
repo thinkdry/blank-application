@@ -4,25 +4,25 @@
   <% form_for :general, :url => general_changing_superadministration_path, :html => {:multipart => true} do |f| -%>
 
       Favicon Management :<br />
-      <%= image_tag(@logo.favicon.url(:medium)) if (@logo.favicon_file_name) %><br />
+      <%= image_tag(@logo.favicon.url(:medium)) %><br />
       <%= file_field 'picture', 'favicon' %><br />
       <br />
       Logo management :<br />
-      <%= image_tag(@logo.picture.url(:medium)) if (@logo.picture_file_name) %><br />
+      <%= image_tag(@logo.picture.url(:medium)) %><br />
       <%= file_field 'picture', 'picture' %><br />
       <br />
       
       Available items :<br />
-      <%= checkboxes_from_list(ITEMS, "items", @conf) %>
+      <%= checkboxes_from_list(ITEMS, "items", @conf, "sa_") %>
       
       Available languages :<br />
-      <%= checkboxes_from_list(LANGUAGES, "languages", @conf) %>
+      <%= checkboxes_from_list(LANGUAGES, "languages", @conf, "sa_") %>
 
       Workspaces types :<br />
-      <%= checkboxes_from_list(WS_TYPES, "ws_types", @conf) %>
+      <%= checkboxes_from_list(WS_TYPES, "ws_types", @conf, "sa_") %>
 
       Feed items imporation types :<br />
-      <%= checkboxes_from_list(FEED_ITEMS_IMPORTATION_TYPES, "feed_items_importation_types", @conf) %>
+      <%= checkboxes_from_list(FEED_ITEMS_IMPORTATION_TYPES, "feed_items_importation_types", @conf, "sa_") %>
       
       <br />
 
