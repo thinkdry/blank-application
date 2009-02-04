@@ -13,7 +13,6 @@
   
   <% form_for :res, :url => update_permissions_for_role_superadministration_path do |f| %>
     <% for role in @roles %>
-    <input id="role" name="role" type="hidden" value=<%= role.id %>>
      <div id="<%= role.name %>" style="display:none">
        <h1><%= role.name.capitalize %></h1>
        <table>
