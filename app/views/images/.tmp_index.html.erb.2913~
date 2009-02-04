@@ -1,2 +1,0 @@
-<%= render :partial => "/images/list" %>
-<%= render :partial => "/workspaces/menu" %>
