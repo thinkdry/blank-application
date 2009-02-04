@@ -1,0 +1,25 @@
+<h1>Displaying Permission</h1>
+
+<p>
+  <b>Name:</b>
+  <%=h @permission.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @permission.description %>
+</p>
+
+<p>
+  <b>Created at:</b>
+  <%=h @permission.created_at %>
+</p>
+
+<p>
+  <b>Updated at:</b>
+  <%=h @permission.updated_at %>
+</p>
+
+
+<%= link_to 'Edit', edit_permission_path(@permission) %> |
+<%= link_to 'Back', permissions_path %>

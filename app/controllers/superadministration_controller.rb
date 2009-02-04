@@ -148,22 +148,6 @@ class SuperadministrationController < ApplicationController
     redirect_to '/superadministration/roles'
   end
   
-  def new_role
-    
-  end
-  
-  def create_role
-    
-  end
-  
-  def new_permission
-    
-  end
-  
-  def create_permission
-    
-  end
-  
   private
   def translation_options
     @translation_names = { :general => ["general"], 
