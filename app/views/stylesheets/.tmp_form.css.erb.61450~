@@ -141,7 +141,6 @@ fieldset{
 	background-color: #EEEEEE;
 	padding: 1em;
 	border: 2px solid #C2C2C2;
-	margin:0;
 }
 .myformComments {
 	width:80%;

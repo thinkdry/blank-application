@@ -33,7 +33,7 @@ module ItemsHelper
   def advanced_editor_on(object, attribute)
     javascript_tag(%{
 
-        var oFCKeditor = new FCKeditor('#{object.class.to_s.underscore}_#{attribute}', '700px') ;
+        var oFCKeditor = new FCKeditor('#{object.class.to_s.underscore}_#{attribute}', '730px', '350px') ;
         oFCKeditor.BasePath = "/fckeditor/" ;
         oFCKeditor.ReplaceTextarea() ;
 
@@ -162,6 +162,20 @@ module ItemsHelper
     @collection = items.send(item_type, :order => 'created_at DESC').paginate(:page => params[:page])
     
     render(:partial => "items/item_in_list", :collection => @collection)
+  end
+  
+  def display_item_list_for_editor(item_type)
+    item_type ||= 'articles'
+    
+    items = if current_workspace
+      GenericItem.from_workspace(current_workspace.id)
+    else
+      GenericItem.consultable_by(@current_user.id)
+    end
+    
+    @collection = items.send(item_type, :order => 'created_at DESC').paginate(:page => params[:page])
+    
+    render(:partial => "items/item_in_list_for_editor", :collection => @collection)
   end
   
 end

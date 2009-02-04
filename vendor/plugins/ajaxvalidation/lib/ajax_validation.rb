@@ -6,9 +6,9 @@ module AjaxValidation
     end
   
     def ajax_error_message_on(object, attribute)
-      "<span id=\"errors_for_#{object.class.to_s}_#{attribute.to_s}\">
+      "<div id=\"errors_for_#{object.class.to_s}_#{attribute.to_s}\">
         #{error_message_on(object, attribute) if object.errors.on(attribute)}
-      </span>"
+      </div>"
 		end
     
     def ajax_hint_message_on(object, attribute, message)

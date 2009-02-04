@@ -22,11 +22,13 @@
  *
  * Follow this link for more information:
  * http://docs.fckeditor.net/FCKeditor_2.x/Developers_Guide/Configuration/Configuration_Options
+ * //FCKConfig.EditorAreaCSS = FCKConfig.BasePath + 'css/fck_editorarea.css' ;
  */
 
 FCKConfig.CustomConfigurationsPath = '' ;
 
-FCKConfig.EditorAreaCSS = FCKConfig.BasePath + 'css/fck_editorarea.css' ;
+
+FCKConfig.EditorAreaCSS = FCKConfig.BasePath + 'css/test_fck.css';
 FCKConfig.EditorAreaStyles = '' ;
 FCKConfig.ToolbarComboPreviewCSS = '' ;
 
@@ -64,7 +66,7 @@ FCKConfig.ContentLangDirection	= 'ltr' ;
 
 FCKConfig.ProcessHTMLEntities	= true ;
 FCKConfig.IncludeLatinEntities	= true ;
-FCKConfig.IncludeGreekEntities	= true ;
+FCKConfig.IncludeGreekEntities	= false ;
 
 FCKConfig.ProcessNumericEntities = false ;
 
@@ -80,7 +82,7 @@ FCKConfig.EMailProtection = 'none' ; // none | encode | function
 FCKConfig.EMailProtectionFunction = 'mt(NAME,DOMAIN,SUBJECT,BODY)' ;
 
 FCKConfig.StartupFocus	= false ;
-FCKConfig.ForcePasteAsPlainText	= false ;
+FCKConfig.ForcePasteAsPlainText	= true ;
 FCKConfig.AutoDetectPasteFromWord = true ;	// IE only.
 FCKConfig.ShowDropDialog = true ;
 FCKConfig.ForceSimpleAmpersand	= false ;
@@ -99,20 +101,7 @@ FCKConfig.TemplateReplaceCheckbox = true ;
 FCKConfig.ToolbarLocation = 'In' ;
 
 FCKConfig.ToolbarSets["Default"] = [
-	['Source','DocProps','-','Save','NewPage','Preview','-','Templates'],
-	['Cut','Copy','Paste','PasteText','PasteWord','-','Print','SpellCheck'],
-	['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
-	['Form','Checkbox','Radio','TextField','Textarea','Select','Button','ImageButton','HiddenField'],
-	'/',
-	['Bold','Italic','Underline','StrikeThrough','-','Subscript','Superscript'],
-	['OrderedList','UnorderedList','-','Outdent','Indent','Blockquote','CreateDiv'],
-	['JustifyLeft','JustifyCenter','JustifyRight','JustifyFull'],
-	['Link','Unlink','Anchor'],
-	['Image','Flash','Table','Rule','Smiley','SpecialChar','PageBreak'],
-	'/',
-	['Style','FontFormat','FontName','FontSize'],
-	['TextColor','BGColor'],
-	['FitWindow','ShowBlocks','-','About']		// No comma for the last row.
+	['Source','FitWindow','Bold','Italic','Underline','Indent','OrderedList','UnorderedList','TextColor','JustifyLeft','JustifyCenter','JustifyRight','JustifyFull','Link','Image','Flash','FontFormat','FontSize']
 ] ;
 
 FCKConfig.ToolbarSets["Basic"] = [
@@ -146,16 +135,16 @@ FCKConfig.Keystrokes = [
 	[ SHIFT + 32 /*SPACE*/, 'Nbsp' ]
 ] ;
 
-FCKConfig.ContextMenu = ['Generic','Link','Anchor','Image','Flash','Select','Textarea','Checkbox','Radio','TextField','HiddenField','ImageButton','Button','BulletedList','NumberedList','Table','Form','DivContainer'] ;
+FCKConfig.ContextMenu = ['Generic','Link','Anchor','Image','Flash','Select','BulletedList','NumberedList','Table','DivContainer'] ;
 FCKConfig.BrowserContextMenuOnCtrl = false ;
 FCKConfig.BrowserContextMenu = false ;
 
 FCKConfig.EnableMoreFontColors = true ;
 FCKConfig.FontColors = '000000,993300,333300,003300,003366,000080,333399,333333,800000,FF6600,808000,808080,008080,0000FF,666699,808080,FF0000,FF9900,99CC00,339966,33CCCC,3366FF,800080,999999,FF00FF,FFCC00,FFFF00,00FF00,00FFFF,00CCFF,993366,C0C0C0,FF99CC,FFCC99,FFFF99,CCFFCC,CCFFFF,99CCFF,CC99FF,FFFFFF' ;
 
-FCKConfig.FontFormats	= 'p;h1;h2;h3;h4;h5;h6;pre;address;div' ;
+FCKConfig.FontFormats	= 'h1;h2;h3;div;p' ;
 FCKConfig.FontNames		= 'Arial;Comic Sans MS;Courier New;Tahoma;Times New Roman;Verdana' ;
-FCKConfig.FontSizes		= 'smaller;larger;xx-small;x-small;small;medium;large;x-large;xx-large' ;
+FCKConfig.FontSizes		= 'small;medium;large;x-large;xx-large' ;
 
 FCKConfig.StylesXmlPath		= FCKConfig.EditorPath + 'fckstyles.xml' ;
 FCKConfig.TemplatesXmlPath	= FCKConfig.EditorPath + 'fcktemplates.xml' ;
@@ -171,10 +160,10 @@ FCKConfig.DisableObjectResizing = false ;
 FCKConfig.DisableFFTableHandles = true ;
 
 FCKConfig.LinkDlgHideTarget		= false ;
-FCKConfig.LinkDlgHideAdvanced	= false ;
+FCKConfig.LinkDlgHideAdvanced	= true ;
 
 FCKConfig.ImageDlgHideLink		= false ;
-FCKConfig.ImageDlgHideAdvanced	= false ;
+FCKConfig.ImageDlgHideAdvanced	= true ;
 
 FCKConfig.FlashDlgHideAdvanced	= false ;
 
@@ -184,7 +173,7 @@ FCKConfig.ProtectedTags = '' ;
 FCKConfig.BodyId = '' ;
 FCKConfig.BodyClass = '' ;
 
-FCKConfig.DefaultStyleLabel = '' ;
+FCKConfig.DefaultStyleLabel = 'normal' ;
 FCKConfig.DefaultFontFormatLabel = '' ;
 FCKConfig.DefaultFontLabel = '' ;
 FCKConfig.DefaultFontSizeLabel = '' ;
@@ -192,17 +181,18 @@ FCKConfig.DefaultFontSizeLabel = '' ;
 FCKConfig.DefaultLinkTarget = '' ;
 
 // The option switches between trying to keep the html structure or do the changes so the content looks like it was in Word
-FCKConfig.CleanWordKeepsStructure = false ;
+FCKConfig.CleanWordKeepsStructure = true ;
 
 // Only inline elements are valid.
 FCKConfig.RemoveFormatTags = 'b,big,code,del,dfn,em,font,i,ins,kbd,q,samp,small,span,strike,strong,sub,sup,tt,u,var' ;
 
 // Attributes that will be removed
-FCKConfig.RemoveAttributes = 'class,style,lang,width,height,align,hspace,valign' ;
+FCKConfig.RemoveAttributes = 'class,style,lang,width,height,align,hspace,valign, id' ;
 
 FCKConfig.CustomStyles =
 {
-	'Red Title'	: { Element : 'h3', Styles : { 'color' : 'Red' } }
+	'Title Two' : { Element : 'h1', Styles : { 'color' : '#F79646', 'font-size' : '175%', 'font-family' : 'Verdana, Arial, sans-serif'}},
+	'Title Two' : { Element : 'h2', Styles : { 'color' : '#9C9C9C', 'font-size' : '140%', 'font-family' : 'Verdana, Arial, sans-serif'}}
 };
 
 // Do not add, rename or remove styles here. Only apply definition changes.
@@ -282,14 +272,16 @@ var _FileBrowserExtension = _FileBrowserLanguage == 'perl' ? 'cgi' : _FileBrowse
 var _QuickUploadExtension = _QuickUploadLanguage == 'perl' ? 'cgi' : _QuickUploadLanguage ;
 
 FCKConfig.LinkBrowser = true ;
-FCKConfig.LinkBrowserURL = FCKConfig.BasePath + 'filemanager/browser/default/browser.html?Connector=' + encodeURIComponent( FCKConfig.BasePath + 'filemanager/connectors/' + _FileBrowserLanguage + '/connector.' + _FileBrowserExtension ) ;
-FCKConfig.LinkBrowserWindowWidth	= FCKConfig.ScreenWidth * 0.7 ;		// 70%
-FCKConfig.LinkBrowserWindowHeight	= FCKConfig.ScreenHeight * 0.7 ;	// 70%
+//FCKConfig.LinkBrowserURL = FCKConfig.BasePath + 'filemanager/browser/default/browser.html?Connector=' + encodeURIComponent( FCKConfig.BasePath + 'filemanager/connectors/' + _FileBrowserLanguage + '/connector.' + _FileBrowserExtension ) ;
+FCKConfig.LinkBrowserURL = '/display_content_list/articles'
+FCKConfig.LinkBrowserWindowWidth	= FCKConfig.ScreenWidth * 0.6 ;		// 70%
+FCKConfig.LinkBrowserWindowHeight	= FCKConfig.ScreenHeight * 0.6 ;	// 70%
 
 FCKConfig.ImageBrowser = true ;
-FCKConfig.ImageBrowserURL = FCKConfig.BasePath + 'filemanager/browser/default/browser.html?Type=Image&Connector=' + encodeURIComponent( FCKConfig.BasePath + 'filemanager/connectors/' + _FileBrowserLanguage + '/connector.' + _FileBrowserExtension ) ;
-FCKConfig.ImageBrowserWindowWidth  = FCKConfig.ScreenWidth * 0.7 ;	// 70% ;
-FCKConfig.ImageBrowserWindowHeight = FCKConfig.ScreenHeight * 0.7 ;	// 70% ;
+//FCKConfig.ImageBrowserURL = FCKConfig.BasePath + 'filemanager/browser/default/browser.html?Type=Image&Connector=' + encodeURIComponent( FCKConfig.BasePath + 'filemanager/connectors/' + _FileBrowserLanguage + '/connector.' + _FileBrowserExtension ) ;
+FCKConfig.ImageBrowserURL = '/display_content_list/images';
+FCKConfig.ImageBrowserWindowWidth  = FCKConfig.ScreenWidth * 0.5 ;	// 70% ;
+FCKConfig.ImageBrowserWindowHeight = FCKConfig.ScreenHeight * 0.5 ;	// 70% ;
 
 FCKConfig.FlashBrowser = true ;
 FCKConfig.FlashBrowserURL = FCKConfig.BasePath + 'filemanager/browser/default/browser.html?Type=Flash&Connector=' + encodeURIComponent( FCKConfig.BasePath + 'filemanager/connectors/' + _FileBrowserLanguage + '/connector.' + _FileBrowserExtension ) ;

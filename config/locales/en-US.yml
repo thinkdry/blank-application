@@ -80,7 +80,7 @@ en-US:
     by: by
     void: void
     true: true
-    workspace: "Sp\xC3\xA9ctacle"
+    workspace: Workspace
     edit: edit
     get_in_another_format: Get those items in another format
     publishing_date: Publishing date
@@ -116,6 +116,7 @@ en-US:
     publish_my_comment: Publish my comment
     all_elements: All elements
     associated_file: Associated file
+    automatic_date_field: Field for publication date and modification date are automaticaly updated.
   text: 
     reset_password: Enter your password and a reactivation link will be send to you by mail
   time: 
@@ -292,6 +293,9 @@ en-US:
     description: Description
     summary: Summary
     description_hint: Enter some description text
+    type:
+      video: Video file
+      audio: Audio file
   login: 
     password_forgotten: Password forgotten
     connexion: Connexion
@@ -361,6 +365,7 @@ en-US:
     account_access: My account
     search: Search
     workspaces: Workspaces
+    workspaces_selection: Select workspace
     first_page: Home
     administration: Administration
     title: Blank Engine
@@ -373,3 +378,57 @@ en-US:
     content: Content
     footer_title: ThinkDRY Technologies 2008
     welcome_message: Welcome
+    new_rss_feed: New RSS feed
+    new_rss_feed_option_one: 1. Add an existing feed
+    new_rss_feed_option_two: 2. Activate predifined feed
+    new_rss_feed_option_three: 3. Create personnal feed
+    new_rss_feed_check: Check this feed
+    new_rss_feed_create: Create
+    select_a_file: Click on the file to link
+  activerecord:
+    errors: 
+      models:
+        video:
+          attributes:
+            title:
+              blank: Title cannot be blank
+            description:
+              blank: Description cannot be blank
+        article: 
+          attributes: 
+            title:
+              blank: Title cannot be blank
+            description:
+              blank: Description cannot be blank
+        image:
+          attributes:
+            title:
+              blank: Title cannot be blank
+            description:
+              blank: Description cannot be blank
+        bookmark:
+          attributes:
+            title:
+              blank: Title cannot be blank
+            description:
+              blank: Description cannot be blank
+        audio:
+          attributes:
+            title:
+              blank: Title cannot be blank
+            description:
+              blank: Description cannot be blank
+        cms_file:
+          attributes:
+            title:
+              blank: Title cannot be blank
+            description:
+              blank: Description cannot be blank
+        feed_source:
+          attributes:
+            title:
+              blank: Title cannot be blank
+            description:
+              blank: Description cannot be blank
+            url:
+              blank: Url cannot be blank

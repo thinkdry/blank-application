@@ -1,0 +1,83 @@
+<div id="content_show">
+  <h1>
+    <%= image_tag object.icon %>
+    <%= object.title %>
+  </h1>
+  <div class="undertitle">
+    <%=I18n.t('general.by')%> <%= link_to_user object.user %>
+    <%=I18n.t('general.on1')%> <%= I18n.l object.created_at, :format =>:long %> -
+    <%= object.comments.size %> <%=I18n.t('general.comment').pluralize%> - <%=I18n.t('general.rate').pluralize%> :
+  </div>
+  <%= item_rate_locked(object) %>
+
+  <div class="tags">
+    <%= image_tag 'tag_blue.png' %> <%=I18n.t('general.tag').pluralize%> : <%= tag_list(object.tags) %>
+  </div>
+  
+  <%# FIXME: (integration) Its not an info box but an action box %>
+  <div class="file_infos_box">
+    <%= image_tag 'icons/award_star_gold_1.png' %>
+    <%= link_to I18n.t('general.rate'), '#', :id => :rate_action %>
+    <div id="item_rate_modal_content">
+      <div align="center">
+        <%= item_rate(object) %>
+      </div>
+    </div>
+    <script type="text/javascript" charset="utf-8">
+      content = $('item_rate_modal_content').remove().innerHTML;
+      new Tip($('rate_action'), content, {
+        showOn: 'click',
+        hook: { target: 'rightMiddle', tip: 'topLeft' },
+        hideOn: false,
+        hideAfter: 2,
+        width: 300
+      });
+    </script>
+    
+    <%= image_tag 'icons/comments.png' %>
+    <%= link_to I18n.t('general.commentV'), '#new_comment_form_box' %>
+    
+    <%= image_tag 'icons/printer.png' %>
+    <%= link_to I18n.t('general.print'), 'javascript:window.print();' %>
+    
+    <% if permit? 'edition of current_object' %>
+      <%= image_tag 'icons/pencil.png' %>
+      <%= link_to I18n.t('general.edit'), edit_item_path(object)%>
+    <% end %>
+    
+    <% if permit? 'deletion of current_object' %>
+      <%= image_tag 'icons/delete.png' %>
+      <%= link_to I18n.t('general.delete'), item_path(object), :method => :delete,
+           :confirm => "Êtes vous sûr de vouloir supprimer cet item ?\nL'action est irréversible." %>
+    <% end %>
+  </div>
+  
+  <h2><%=I18n.t('item.summary')%></h2>
+  <%= object.description %>
+  
+  <%= capture(&block) %>
+  
+  <h4><%=I18n.t('item.output_format')%></h4>
+   <%= link_to 'XML', item_path(object)+".xml" %>, 
+   <%= link_to 'JSON', item_path(object)+".json" %>
+  
+  <div id="comment_list">
+    <%= image_tag 'icons/comments.png' %>
+    <h2 id="comments"><%=I18n.t('general.comment').pluralize%></h2>
+    <table width="610px"  id="table_list">
+      <%= render :partial => "items/comment", :collection => object.comments %>
+    </table>
+  </div>
+  
+  <fieldset id="new_comment_form_box" class="myform"> 
+    <p><%=I18n.t('general.your_comment')%> :</p>
+      <% remote_form_for Comment.new, :url => comment_item_path(@current_object), :loading => "$('comment_box').writeAttribute('disabled')", :complete => "$('comment_box').writeAttribute('disabled', false);$('comment_box').value = ''" do |f| %>
+      <%= f.text_area :text, :size => "90x8",:class => :comment_box, :id => :comment_box %>
+        <div class="buttons">
+          <button type="submit" class="positive alone"><img src="/images/tick.png" alt=""/><%=I18n.t('general.publish_my_comment')%></button>
+        </div>
+        
+    <% end %>
+  </fieldset>
+
+</div>

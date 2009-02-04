@@ -18,11 +18,12 @@ ActionController::Routing::Routes.draw do |map|
 	map.translations_changing_superadministration 'superadministration/translations_changing', :controller => 'superadministration', :action => 'translations_changing'
 	map.superadministration '/superadministration/:part', :controller => 'superadministration', :action => 'superadministration'
 	map.content '/content/:item_type', :controller => 'items', :action => 'index'
+  map.display_content_list '/display_content_list/:item_type', :controller => 'items', :action => 'display_item_in_pop_up'
   
   # TODO: Publishing, Bookmarks, Admin related controllers: rights...
 
   map.root :controller => 'home', :action => 'index'
-	
+  
   map.connect '/stylesheets/:action.:format', :controller => 'stylesheets'
 
   # Items are CMS component types

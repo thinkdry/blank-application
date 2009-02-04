@@ -20,9 +20,9 @@
 			
 			# Out
             if (w.state == 'private')
-              check_box_tag(check_box_tag_name, w.id, true, :disabled => true) + ' ' + w.title + hidden_field_tag(check_box_tag_name, w.id.to_s)
+              check_box_tag(check_box_tag_name, w.id, true, option = {:disabled => true, :class => 'checkBoxElement'}) + ' ' + w.title + hidden_field_tag(check_box_tag_name, w.id.to_s)
               
             else
-              check_box_tag(check_box_tag_name, w.id, checked) + ' ' + w.title
+              check_box_tag(check_box_tag_name, w.id, checked, :class => 'checkBoxElement') + ' ' + w.title
             end
 		end.join('<br />') %>

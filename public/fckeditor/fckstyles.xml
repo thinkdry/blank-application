@@ -61,51 +61,24 @@
 	<Style name="Superscript" element="sup" />
 	-->
 
-	<Style name="Marker: Yellow" element="span">
-		<Style name="background-color" value="Yellow" />
+	<Style name="Normal" element="p" >
+		<Attribute name="style" value="font-family:Helvetica, Verdana, Arial, sans-serif" />
 	</Style>
-	<Style name="Marker: Green" element="span">
-		<Style name="background-color" value="Lime" />
+	<Style name="Document Block" element="div" />
+	<Style name="Title One" element="h1">
+		<Attribute name="class" value="bigTitle"/>
 	</Style>
-
-	<Style name="Big" element="big" />
-	<Style name="Small" element="small" />
-	<Style name="Typewriter" element="tt" />
-
-	<Style name="Computer Code" element="code" />
-	<Style name="Keyboard Phrase" element="kbd" />
-	<Style name="Sample Text" element="samp" />
-	<Style name="Variable" element="var" />
-
-	<Style name="Deleted Text" element="del" />
-	<Style name="Inserted Text" element="ins" />
-
-	<Style name="Cited Work" element="cite" />
-	<Style name="Inline Quotation" element="q" />
-
-	<Style name="Language: RTL" element="span">
-		<Attribute name="dir" value="rtl" />
-	</Style>
-	<Style name="Language: LTR" element="span">
-		<Attribute name="dir" value="ltr" />
-	</Style>
-	<Style name="Language: RTL Strong" element="bdo">
-		<Attribute name="dir" value="rtl" />
-	</Style>
-	<Style name="Language: LTR Strong" element="bdo">
-		<Attribute name="dir" value="ltr" />
-	</Style>
-
+	
 	<!-- Object Styles -->
 
 	<Style name="Image on Left" element="img">
 		<Attribute name="style" value="padding: 5px; margin-right: 5px" />
-		<Attribute name="border" value="2" />
+		<Attribute name="border" value="0" />
 		<Attribute name="align" value="left" />
 	</Style>
 	<Style name="Image on Right" element="img">
 		<Attribute name="style" value="padding: 5px; margin-left: 5px" />
-		<Attribute name="border" value="2" />
+		<Attribute name="border" value="0" />
 		<Attribute name="align" value="right" />
 	</Style>
 </Styles>

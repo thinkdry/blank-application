@@ -2,26 +2,16 @@ module ActionView::Base::CompiledTemplates
   class BlankFormBuilder < LabelFormBuilder
     def default_template(object)
       %{
-        <table>
-          <tr>
-            <td class="label"><label>#{object.label}</label></td>
-            <td>#{object}</td>
-          </tr>
-        </table>
+        <label>#{object.label}</label>
+        <div class="formElement">#{object}</div>
       }
     end
      
     def template_for_advanced_editor(object)
       %{
-        <table>
-          <tr>
-            <td class="label"><label>#{object.label}</label></td>
-            <td>#{@template.ajax_error_message_on(@object, object.method)}</td>
-          </tr>
-          <tr>
-            <td colspan="2">#{object}</td>
-          </tr>
-        </table>
+          <label>#{object.label}</label>
+          <div class="formElement">#{@template.ajax_error_message_on(@object, object.method)}</div>
+          <div class="advancedEditor">#{object}</div>
       }
     end
      

@@ -1,0 +1,6 @@
+<h3><%= I18n.t 'layout.select_a_file' %></h3>
+<%= display_item_list_for_editor(params[:item_type])%>
+<p>
+	<%= will_paginate @collection %>
+</p>
+

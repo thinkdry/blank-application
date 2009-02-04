@@ -4,10 +4,10 @@
     
     <%= f.text_field :url, :label => "URL : ", :readonly => is_copyright %>
     <%#= f.text_field :authors, :label => "Auteur(s) : ", :readonly => is_copyright %>
-    <% if is_copyright %>
+    <%= f.text_field :copyright, :label => "Copyright : ", :readonly => is_copyright %>
+	<% if is_copyright %>
       <%= f.datetime_select :last_updated, :label => "Dernière mise à jour :", :readonly => is_copyright %>
     <% else %>
-      (Le champ concernant la date de la dernière mise est géré automatiquement.)<br />
-    <% end %>
-    <%= f.text_field :copyright, :label => "Copyright : ", :readonly => is_copyright %>
+	    <div class="CommonMessage"><%=I18n.t('general.automatic_date_field')%></div>    
+	<% end %>
   <% end  %>
