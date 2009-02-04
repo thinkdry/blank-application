@@ -1,6 +1,6 @@
---- 
+---
 en-US: 
-  message: 
+  message:
     copyright_restriction: Some fields can't be modified as this element is copyright protected.
     error_during_file_transfer: Error during file transfer
     video_wip: Your video has been recorded for encoding. Please come bacl later.
@@ -215,12 +215,6 @@ en-US:
     save: Save
     add_new_user: Ajouter un utilisateur
     last_five_items: Last five items
-      short: "%d %b %H:%M"
-      datetime: 
-        formats: 
-          default: "%Y-%m-%dT%H:%M:%S%Z"
-      only_second: "%S"
-      long: "%B %d, %Y %H:%M"
     pm: pm
   publication: 
     edit_publication: Edit publication
