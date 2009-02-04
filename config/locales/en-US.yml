@@ -1,6 +1,5 @@
 --- 
 en-US: 
-<<<<<<< HEAD:config/locales/en-US.yml
   message: 
     copyright_restriction: Some fields can't be modified as this element is copyright protected.
     error_during_file_transfer: Error during file transfer
@@ -51,7 +50,6 @@ en-US:
     edit_bookmark: Edit bookmark
     show_my_links: Show my links
     new_bookmark: New bookmark
-=======
   number: 
     format: 
       separator: .
@@ -62,14 +60,12 @@ en-US:
         format: "%u %n"
         unit: $
         precision: 2
->>>>>>> b2f221b62c12b6007cfcf8909d93deb5256fde5d:config/locales/en-US.yml
   audio: 
     edit_audio: Edit audio
     add_a_new_audio: Add a new audio file
   article: 
     edit_article: Edit article
     add_a_new_article: Add a new article
-<<<<<<< HEAD:config/locales/en-US.yml
   search: 
     informations_on_searched_items: Informations on searched items
     advanced_search: Advanced search
@@ -131,7 +127,6 @@ en-US:
     all_elements: All elements
     associated_file: Associated file
     automatic_date_field: Field for publication date and modification date are automaticaly updated.
-=======
   layout: 
     footer_title: ThinkDRY Technologies 2008
     faq: FAQ
@@ -189,7 +184,6 @@ en-US:
       - "Couldn't save this {{object_name}}: 1 error"
       - "Couldn't save this {{object_name}}: {{count}} errors."
       message: "Please check the following fields :"
->>>>>>> b2f221b62c12b6007cfcf8909d93deb5256fde5d:config/locales/en-US.yml
   text: 
     reset_password: Enter your password and a reactivation link will be send to you by mail
   time: 
@@ -197,7 +191,6 @@ en-US:
     formats: 
       default: "%a %b %d %H:%M:%S %Z %Y"
       time: "%H:%M"
-<<<<<<< HEAD:config/locales/en-US.yml
       only_second: "%S"
       datetime: 
         formats: 
@@ -222,7 +215,6 @@ en-US:
     save: Save
     add_new_user: Ajouter un utilisateur
     last_five_items: Last five items
-=======
       short: "%d %b %H:%M"
       datetime: 
         formats: 
@@ -277,7 +269,6 @@ en-US:
       setup: Setup
       introduction: Introduction
     main_title: Localizing Rails
->>>>>>> b2f221b62c12b6007cfcf8909d93deb5256fde5d:config/locales/en-US.yml
   date: 
     month_names: 
     - 
@@ -307,10 +298,7 @@ en-US:
     - :day
     formats: 
       only_day: "%e"
-<<<<<<< HEAD:config/locales/en-US.yml
-=======
       default: "%Y-%m-%d"
->>>>>>> b2f221b62c12b6007cfcf8909d93deb5256fde5d:config/locales/en-US.yml
       short: "%e %b"
       long: "%B %e, %Y"
     day_names: 
@@ -321,7 +309,6 @@ en-US:
     - Thursday
     - Friday
     - Saturday
-<<<<<<< HEAD:config/locales/en-US.yml
     month_names: 
     - 
     - January
@@ -336,8 +323,6 @@ en-US:
     - October
     - November
     - December
-=======
->>>>>>> b2f221b62c12b6007cfcf8909d93deb5256fde5d:config/locales/en-US.yml
     abbr_month_names: 
     - 
     - Jan
@@ -352,7 +337,6 @@ en-US:
     - Oct
     - Nov
     - Dec
-<<<<<<< HEAD:config/locales/en-US.yml
   active_record: 
     error: 
       message: "Please check the following fields :"
@@ -426,7 +410,6 @@ en-US:
     date_helper: 
       date_time_title: Date/Time distance
       forms_title: Forms
-=======
   video: 
     add_a_new_video: Add a new video
     edit_video_params: Edit video params
@@ -439,13 +422,11 @@ en-US:
     add_a_new_file: Add a new file
     content: Content
     corrupted_file: Corrupted file
->>>>>>> b2f221b62c12b6007cfcf8909d93deb5256fde5d:config/locales/en-US.yml
   profil: 
     location: Location
     landline: Landline
     activity: Activity
     email: email
-<<<<<<< HEAD:config/locales/en-US.yml
     location: Location
   yaml: 
     title: Title
@@ -473,32 +454,27 @@ en-US:
     add_a_new_video: Add a new video
     edit_video_params: Edit video params
     download_video: Download original video
-=======
   login: 
     password_forgotten: Password forgotten
     connexion: Connexion
     remember_me: Remember me
     password: Password
     login: Login
->>>>>>> b2f221b62c12b6007cfcf8909d93deb5256fde5d:config/locales/en-US.yml
   home: 
     accordeon1: Last added documents
     filter: Filter
     accordeon2: Last added users
     accordeon3: Last added workspaces
-<<<<<<< HEAD:config/locales/en-US.yml
     show_my_feeds: Show my RSS feeds
     you_have_access_to_workspaces: You have access to worspaces
     accordeon4: Last received publications
     you_administrate: You administrate
     my_content: My content
-=======
     accordeon4: Last received publications
     my_content: My content
     show_my_feeds: Show my RSS feeds
     you_have_access_to_workspaces: You have access to worspaces
     you_administrate: You administrate
->>>>>>> b2f221b62c12b6007cfcf8909d93deb5256fde5d:config/locales/en-US.yml
     my_personnal_informations: My personnal informations
     my_workspaces: My workspaces
   datetime: 
@@ -511,36 +487,27 @@ en-US:
         one: 1 day
         other: "{{count}} days"
       x_seconds: 
-<<<<<<< HEAD:config/locales/en-US.yml
         one: 1 second
         other: "{{count}} seconds"
       x_minutes: 
         one: 1 minute
         other: "{{count}} minutes"
       less_than_x_seconds: 
-=======
->>>>>>> b2f221b62c12b6007cfcf8909d93deb5256fde5d:config/locales/en-US.yml
         one: 1 second
         zero: less than 1 second
         other: "{{count}} seconds"
-<<<<<<< HEAD:config/locales/en-US.yml
-=======
       less_than_x_seconds: 
         one: 1 second
         other: "{{count}} seconds"
         zero: less than 1 second
->>>>>>> b2f221b62c12b6007cfcf8909d93deb5256fde5d:config/locales/en-US.yml
       about_x_hours: 
         one: about 1 hour
         other: "{{count}} hours"
       x_months: 
         one: 1 month
-<<<<<<< HEAD:config/locales/en-US.yml
         other: "{{count}} months"
       about_x_months: 
         one: about 1 month
-=======
->>>>>>> b2f221b62c12b6007cfcf8909d93deb5256fde5d:config/locales/en-US.yml
         other: "{{count}} months"
       x_minutes: 
         one: 1 minute
@@ -548,7 +515,6 @@ en-US:
       about_x_years: 
         one: about 1 year
         other: "{{count}} years"
-<<<<<<< HEAD:config/locales/en-US.yml
       half_a_minute: half a minute
       over_x_years: 
         one: over 1 year
@@ -632,8 +598,6 @@ en-US:
               blank: Description cannot be blank
             url:
               blank: Url cannot be blank
-=======
-      about_x_months: 
         one: about 1 month
         other: "{{count}} months"
       over_x_years: 
@@ -752,4 +716,3 @@ en-US:
     your_comment: Your Comment
     associated_file: Associated file
     search: Search
->>>>>>> b2f221b62c12b6007cfcf8909d93deb5256fde5d:config/locales/en-US.yml
