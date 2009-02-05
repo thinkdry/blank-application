@@ -193,13 +193,15 @@ class User < ActiveRecord::Base
     @activated
   end
 
-  def has_permission?(permission)
+  def has_permission?(p)
     current_permissions = []
     self.roles.each do |role|
       role.permissions.each { |p| current_permissions << p }
     end
+    permission = Permission.find_by_name(p)
     current_permissions.include?(permission)
   end
+  
 #	# Encrypts some data with the salt.
 #  def self.encrypt(password, salt)
 #    Digest::SHA1.hexdigest("--#{salt}--#{password}--")

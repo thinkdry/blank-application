@@ -84,14 +84,11 @@ class ApplicationController < ActionController::Base
 	  # now we load default roles and permissions (if not in DB) on server start
 	  # -> here we write method to check current_user's role to get permissions available to him/her
 	  if %w(create read update delete).include?(params[:action])
-	    permission = Permission.find_by_name(params[:action])
+	    permission = params[:action]
     else
-      p_name = params[:controller]+"_"+params[:action]
-      permission = Permission.find_by_name(p_name)
+      permission = params[:controller]+"_"+params[:action]
     end
-    unless current_user.has_permission?(permission)
-      redirect_to '/422.html'
-    end
+    redirect_to '/422.html' unless current_user.has_permission?(permission)
   end
 	
 end
