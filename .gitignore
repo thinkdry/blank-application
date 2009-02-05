@@ -1,6 +1,7 @@
 .DS\_Store
 coverage/*
 *.tmproj
+.tmp*
 nbproject/
 Capfile
 config/database_yml
