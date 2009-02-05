@@ -1,29 +1,16 @@
 module Blank
   module Rights
     
-    def create_default_roles_if_empty
-      if File.exist?("#{RAILS_ROOT}/test/fixtures/roles.yml")
-        roles = YAML.load_file("#{RAILS_ROOT}/test/fixtures/roles.yml")
-        roles.each do |k,v|
-          aa_role = Role.find_by_name(k)
-          unless aa_role
-            role = Role.new(:name => v["name"], :description => v["description"])
-            role.save!
-            puts "Role #{v['name']} is created"
-          end
-        end
-      end
-    end
-    
-    def create_default_permissions_if_empty
-      if File.exist?("#{RAILS_ROOT}/test/fixtures/permissions.yml")
-        permissions = YAML.load_file("#{RAILS_ROOT}/test/fixtures/permissions.yml")
-        permissions.each do |k,v|
-          aa_permissions = Permission.find_by_name(k)
-          unless aa_permissions
-            permission = Permission.new(:name => v["name"], :description => v["description"])
-            permission.save!
-            puts "Permission #{v['name']} is created"
+    def create_default_if_empty(type)
+      sc_type = type.singularize.capitalize
+      if File.exist?("#{RAILS_ROOT}/test/fixtures/#{type}.yml")
+        objects = YAML.load_file("#{RAILS_ROOT}/test/fixtures/#{type}.yml")
+        objects.each do |k,v|
+          aa_object = sc_type.constantize.find_by_name(k)
+          unless aa_object
+            object = sc_type.constantize.new(:name => v["name"], :description => v["description"])
+            object.save!
+            puts "#{sc_type} #{v['name']} is created"
           end
         end
       end
