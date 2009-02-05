@@ -1,3 +1,0 @@
-
-<%= display_item_list_for_editor(params[:item_type])%>
-
