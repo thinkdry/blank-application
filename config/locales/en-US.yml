@@ -430,11 +430,12 @@ en-US:
     edit_picture_params: Edit picture params
   item: 
     title: Title
-    output_format: Choose another output format
+    output_format: output format
     title_hint: Enter a title
     description: Description
     summary: Summary
     description_hint: Enter some description text
+    delete_confirm: Are you sure you want to delete this file?
     type:
       video: Video file
       audio: Audio file

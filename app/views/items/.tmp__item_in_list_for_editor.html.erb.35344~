@@ -1,5 +1,10 @@
 <% div_for item_in_list_for_editor do %>
-	<%= item_display_for_pop_up(item_path(object), object) %><br/>
+	<%= image_tag object.icon %>
+	<%if object.class.to_s == 'Image' -%>
+		<%= link_to(image_tag(item_in_list_for_editor.image.url), item_in_list_for_editor.image.url.split("?")[0])%>
+	<%else -%>
+		<a href="javascript:SelectFile('<%=item_path(object)%>');"><%=object.title%></a><br/>
+	<%end -%>
 	<% if object.workspaces.size > 0 %>
 		 <%=I18n.t('general.in')%>&nbsp;<%= object.workspaces %>
 	<% end %>

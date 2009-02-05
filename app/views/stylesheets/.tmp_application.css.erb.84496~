@@ -67,9 +67,11 @@ a.add_item{
 #page #container h1 {
 	color: #F79646;
 	font-size: 175%;
+	line-height: 1;
 }
 #page #container h2 {
 	font-size: 125%;
+	line-height: 1;
 	color:#F79646;
 }
 
@@ -237,10 +239,11 @@ a.add_item{
 	width: 100%;
 	border-bottom-width: 1px;
 	border-bottom-style: solid;
-	border-bottom-color: #f2F2F2;
+	border-bottom-color: #666666;
 	padding-bottom: 0.3em;
 	font-size: 125%;
 	margin-top: 20px;
+	display: block;
 }
 
 #content h3{

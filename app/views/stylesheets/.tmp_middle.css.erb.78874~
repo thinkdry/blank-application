@@ -5,27 +5,35 @@ h4{
 }
 
 .notice {
-	background:transparent url(/images/icons/accept.png) no-repeat scroll 7px 50%;
-	color:#3AC21F;
-	margin-bottom:2em;
-	padding:20px 10px 20px 50px;
+	padding: 10px 10px 10px 30px;
+	margin-bottom: 1em;
+	border: 2px solid #1D9305;
+	font-size: 90%;
+	font-weight: bold;
+	color:#666;
+	line-height: 1;
+	background: #3AC21F url(/images/accept.png) left no-repeat;
+	background-position: 10px 7px;
 }
 
 .error {
-	padding:20px 10px 20px 50px;
-	margin-bottom: 2em;
-	color: #ff9999;
-	background: transparent url(/images/icons/error.png) no-repeat scroll 7px 50%;
+	padding: 10px 10px 10px 30px;
+	margin-bottom: 1em;
+	border: 2px solid #ff3333;
+	font-size: 90%;
+	font-weight: bold;
+	color: #d30000;
+	line-height: 1;
+	background: #ff9999 url(/images/cancel.png) left no-repeat;
+	background-position: 10px 7px;
 }
 
 .CommonMessage{
 	clear:both;
-	margin:5px 0 5px 190px;
-	padding-left:40px;
-	padding-top:20px;
-	padding-bottom:18px;
+	margin:5px 0;
+	padding-left:190px;
+	padding-top:10px;
 	width:460px;
-	background: transparent url(/images/icons/info.png) no-repeat scroll 0px 50%;
 }
 .red{
   color: red;
@@ -228,6 +236,7 @@ a.object{
 }
 
 .item-list{
+  margin-top: 1em;
   color: #555;
   overflow:hidden;
 }
@@ -323,7 +332,7 @@ ul.top_box li{
 
 #object-list{
   background: #fff url(/images/top_elems_bg.png) repeat-x;
-  padding:50px 20px 20px;
+  padding: 20px;
   border-bottom: 1px solid #ccc;
   border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;
@@ -338,7 +347,14 @@ ul.top_box li{
   overflow: hidden;
 }
 
+.file_infos_box {
+	padding:5px 10px;
+	margin:0px;
+}
+
 #page #container h1 {
+	color:#F79646;
+	font-size:175%;
 	padding-bottom:7px;
 	clear:both;
 }
@@ -355,27 +371,46 @@ ul.top_box li{
 	border-bottom: 1px #F2F2F2 solid;
 }
 
+#content_show .undertitle {
+	margin:2px 4px 0px 0px;
+	padding:0px;
+	float:left;	
+	color:#000;
+}
+
+#content_show .tags {
+	margin:5px 0px;
+	color:#000;
+}
+
 #content_show .file_infos_box {
-	float:left;
-	margin:7px 0 0;
-	width:253px;
+	padding:5px 10px;
+	margin-bottom:20px;
 }
 
 #content_show .file_infos_box img {
-	padding:0 3px;
+	position:relative;
+	top:2px;
+	margin: 0px 2px 0px 0px;
+	padding:0px;
+}
+
+#content_show .file_infos_box a {
+	margin:0px 13px 0px 0px;
+	padding:0px;
 }
 
 #content_show h2 {
+	font-size:110% !important;
 	margin-bottom:15px;
 	margin-top:25px;
-	clear: both;
+	color:#000000;
 }
 
 #content_show fieldset#new_comment_form_box {
 	padding:0px 30px 20px;
 	margin-top:20px;
 	margin-left:0px;
-	clear:both;
 }
 
 #content_show #new_comment_form_box textarea {
@@ -388,10 +423,21 @@ ul.top_box li{
 	float:right;
 }
 
+#content_show #comment_list {
+	margin-top:40px;
+	padding:0px;
+}
+
+#content_show #comment_list img {
+	float:left;
+	position:relative;
+	margin-right:10px;
+}
+
 #content_show h2#comments {
-	margin:0;
-	padding-bottom:7px;
-	height:32px;
+	font-size:100%;
+	margin:0px 0px 0px 0px;
+	padding:0px;
 }
 
 #content_show #comment_list table {
@@ -420,77 +466,6 @@ ul.top_box li{
 	float:right;
 }
 
-.file_infos_box p{
+.undertitle p{
 	margin:0;
-}
-
-.output_format{
-	margin-top:14px;
-	text-align:right;
-}
-.output_format_link{
-	margin:0 !important;
-}
-
-.file_infos{
-	padding-bottom:7px;
-	border-bottom:1px solid #F2F2F2;
-	overflow:auto;
-}
-
-.comment_info, .comment_text{
-	float:left;
-	margin-bottom:10px;
-}
-.comment_info{
-	clear:both;
-	margin-right:50px;
-}
-.comment_bloc{
-	margin-top:10px;
-	overflow:auto;
-}
-.comment_label{
-	padding-top:5px;
-}
-.object_title{
-	font-size:125%;
-	color:#F79646 !important;
-}
-#object-list p{
-	margin:0;
-}
-
-.item_list_icon{
-	clear:both;
-	float:left;
-	margin-right:10px;
-}
-.item_list_body{
-	float:left;
-}
-
-.itme_list_item_title{
-	float:left;
-	width:470px;
-}
-.item_list_item_infos{
-	float:left;
-	text-align:right;
-	width:200px;
-	font-size:80%;
-}
-.item_list_rate{
-	float:right;
-}
-#attachement, #comment_list{
-	overflow:auto;
-	padding-top:20px;
-}
-#attachement h2, #comment_list h2{
-	border-bottom:1px solid #F2F2F2;
-	padding-bottom:7px;
-}
-#progress{
-	margin-top:20px;
 }

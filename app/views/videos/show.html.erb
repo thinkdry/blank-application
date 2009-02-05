@@ -1,13 +1,13 @@
 <% item_show( :title => I18n.t('general.video'),  :object => @current_object ) do %>
-	<h2>Vidéo</h2>
-          <div id ="progress">
-            <% if @current_object.state=="encoded" %>
-              <%= render :partial => "player" %>
-            <% elsif @current_object.state=="encoding"%>
-              <%= render :partial => "status" %>
-            <% else %>
-               <%= @current_object.state.capitalize %>
-           <% end %>
-          </div>
-      <br /><br /><%= link_to I18n.t('video.download_video'), (@current_object.video.url.split("?")[0]) %>
+      <div id ="progress">
+        <% if @current_object.state=="encoded" %>
+          <%= render :partial => "player" %>
+        <% elsif @current_object.state=="encoding"%>
+          <%= render :partial => "status" %>
+        <% else %>
+           <%= @current_object.state.capitalize %>
+       <% end %>
+      </div>
+      <br /><br />
+	  <%= image_tag("icons/download.png")%><%= link_to I18n.t('video.download_video'), (@current_object.video.url.split("?")[0]) %>
 <% end %>

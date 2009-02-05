@@ -13,6 +13,13 @@ module ArticlesHelper
     update_page do |p|
       p.insert_html :bottom, 'files', :partial => 'file', :object => object
     end
-  end   
+  end  
+  
+  # override of acts_as_item helper.
+  # used in popup of fckeditor to display the item : 
+  # Link on title, for article, link on image for image etc.
+  def item_display_for_pop_up(url, object)
+    link_to_function object.title, "javascript:SelectFile('" + url + "')"
+  end
 	
 end
