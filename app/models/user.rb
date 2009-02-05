@@ -45,6 +45,7 @@ class User < ActiveRecord::Base
 
   has_many :users_workspaces, :dependent => :delete_all
   has_many :workspaces, :through => :users_workspaces
+  has_many :roles, :through => :users_workspaces
 
 	ITEMS.each do |item|
 		has_many item.pluralize.to_sym

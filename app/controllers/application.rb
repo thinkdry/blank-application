@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 	helper_method :available_items_list, :available_languages, :get_current_config, :right_conf
   before_filter :is_logged?
 	before_filter :set_locale
-	before_filter :validate_rights
+	# before_filter :validate_rights
 
 	include AuthenticatedSystem
 	include ActsAsItem::UrlHelpers
