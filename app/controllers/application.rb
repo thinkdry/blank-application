@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
 	helper_method :available_items_list, :available_languages, :get_current_config, :right_conf
   before_filter :is_logged?
 	before_filter :set_locale
+	before_filter :validate_rights
 
 	include AuthenticatedSystem
 	include ActsAsItem::UrlHelpers
@@ -82,6 +83,15 @@ class ApplicationController < ActionController::Base
 	def validate_rights
 	  # now we load default roles and permissions (if not in DB) on server start
 	  # -> here we write method to check current_user's role to get permissions available to him/her
+	  if %w(create read update delete).include?(params[:action])
+	    permission = Permission.find_by_name(params[:action])
+    else
+      p_name = params[:controller]+"_"+params[:action]
+      permission = Permission.find_by_name(p_name)
+    end
+    unless current_user.has_permission?(permission)
+      redirect_to '/422.html'
+    end
   end
 	
 end
