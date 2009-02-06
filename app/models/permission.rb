@@ -15,7 +15,7 @@ class Permission < ActiveRecord::Base
   # a role can have many permissions, and a permission can have many roles
   has_and_belongs_to_many :roles
   
-  validates_presence_of :name, :description
+  validates_presence_of :name
   validates_uniqueness_of :name
   
 end

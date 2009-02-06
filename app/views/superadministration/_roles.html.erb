@@ -1,34 +1,20 @@
 <fieldset class="myform spaces">
   <legend>Roles and Permissions</legend>
-  <%= link_to 'Add new Role', new_role_path %><br />
-  <%= link_to 'Add new Permission', new_permission_path %>
+  <%= link_to_remote 'New Role',
+    :update => 'permissions',
+    :url => '/roles/new'%><br /><br />
+  <%= link_to_remote 'Permission',
+    :update => 'permissions',
+    :url => '/permissions/index'%>
 </fieldset>
 <fieldset class="myform">
-  <legend>Rights Manager</legend>
+  <div id="permissions">
+  <div id="roles">
+    <%= render :partial => "select_roles" %>
+  </div>
+
+
+  </div>
   
-  <label>Select a Role</label>
-  
-  <%= select_tag "element", 
-      options_for_select(
-                         %w(select) + @role_names, 
-                         "select"), 
-     :onchange=>"changer(this.value, '#{@role_names.to_json}')"
-  %>
-  
-  <% form_for :res, :url => update_permissions_for_role_superadministration_path do |f| %>
-    <% for role in @roles %>
-     <div id="<%= role.name %>" style="display:none">
-       <h1><%= role.name.capitalize %></h1>
-       <table>
-         <%= render :partial => "permissions", :locals => { :role => role } %>
-       </table>
-     </div>
-    <% end %>
-    <br />
-    <div class="buttons" id="area_BUTTONS" style="padding-top: 2em">
-      <button type="submit" class="positive"><img src="/images/tick.png" alt=""/>Mettre à jour</button>
-      <button type="reset" class="negative"><img src="/images/cross.png" alt=""/>Annuler</button>
-    </div><br><br>
-  <% end %>
-  
+
 </fieldset>

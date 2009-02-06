@@ -1,0 +1,27 @@
+<% @role_names = [] %>
+<% @roles.each { |role| @role_names << role.name } %>
+<b>Select a Role</b>
+<%= select_tag "element",
+  options_for_select(
+  %w(select) + @role_names,
+  "select"),
+  :onchange=>"changer(this.value, '#{@role_names.to_json}')"
+%>
+
+<% form_for :res, :url => update_permissions_for_role_superadministration_path do |f| %>
+  <% for role in @roles %>
+    <div id="<%= role.name %>" style="display:none">
+      <h1><%= role.name.capitalize %></h1>
+      <div id="delete" align="right">
+        <b><%= link_to_remote "Delete Role",
+          :url => { :controller => "roles", :action => "destroy", :id => role.id}, :method => :delete %></b>
+      </div>
+      <%= render :partial => "superadministration/permissions", :locals => { :role => role } %>
+    </div>
+  <% end %>
+  <br />
+  <div class="buttons" id="area_BUTTONS" style="padding-top: 2em">
+    <button type="submit" class="positive"><img src="/images/tick.png" alt=""/>Mettre à jour</button>
+    <button type="reset" class="negative"><img src="/images/cross.png" alt=""/>Annuler</button>
+  </div><br><br>
+<% end %>

@@ -1,7 +1,7 @@
 <h1>Editing Role</h1>
 
 
-<% form_for(@role) do |f| %>
+<% remote_form_for(@role) do |f| %>
 
   <%= render :partial => 'form', :locals => {:f => f} %>
   <p>
@@ -9,5 +9,4 @@
   </p>
 <% end %>
 
-<%= link_to 'Show', role_path(@role) %> |
-<%= link_to 'Back', roles_path %>
+

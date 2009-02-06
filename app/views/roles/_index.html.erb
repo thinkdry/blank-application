@@ -1,0 +1,23 @@
+<h1>Listing Roles</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+  </tr>
+
+  <% for role in @roles %>
+    <tr>
+      <td><%=h role.name %></td>
+      <td><%=h role.description %></td>
+      <td><%= link_to_remote 'Edit', :update => "permissions", :url => { :action => "edit", :id => role.id}, :method => :get %></td>
+      <td><%= link_to_remote 'Delete', :update => "permissions", :url => { :action => "destroy", :id => role.id}, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<br />
+
+<%= link_to_remote "New Role",
+    :update => "permissions",
+    :url => {:action => "new"} %>
