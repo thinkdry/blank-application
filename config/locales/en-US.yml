@@ -392,7 +392,7 @@ en-US:
       defaults: You also need to set up the default locale and/or locale in your environment.rb or an initializer.
       locale_structure_title: A word on the structure of locales
       locale: "Here's the demo locale that was used for this demo application:"
-      locale_structure_number: You may have noticed that inside the :number part of the locale, we defined :format and :currency. In general, locales are structured hierarchically - i.e. a currencies are numbers, percentages are numbers, etc. :currency can either override the basic :format settings (in our case, we set :precision to 2 instead of 3) or extend them (we add two new options, :unit and :format).
+      locale_structure_number: "You may have noticed that inside the :number part of the locale, we defined :format and :currency. In general, locales are structured hierarchically - i.e. a currencies are numbers, percentages are numbers, etc. :currency can either override the basic :format settings (in our case, we set :precision to 2 instead of 3) or extend them (we add two new options, :unit and :format)."
       date_time_formats: "For date and time formats, you also need to install the {{localized_dates_link}}:"
     contents: Contents
     menu: 
@@ -430,11 +430,12 @@ en-US:
     edit_picture_params: Edit picture params
   item: 
     title: Title
-    output_format: Choose another output format
+    output_format: output format
     title_hint: Enter a title
     description: Description
     summary: Summary
     description_hint: Enter some description text
+    delete_confirm: Are you sure you want to delete this file?
     type:
       video: Video file
       audio: Audio file

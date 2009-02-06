@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
 	helper_method :available_items_list, :available_languages, :get_current_config, :right_conf
   before_filter :is_logged?
 	before_filter :set_locale
+	# Please uncomment following line to implement permissions based access to actions
+	# before_filter :validate_rights
 
 	include AuthenticatedSystem
 	include ActsAsItem::UrlHelpers
@@ -26,7 +28,6 @@ class ApplicationController < ActionController::Base
 		else
 			res=[]
 		end
-		return res
 	end
 
 	def available_languages
@@ -35,7 +36,6 @@ class ApplicationController < ActionController::Base
 		else
 			res = []
 		end
-		return res
 	end
 
 	def get_sa_config
@@ -44,7 +44,6 @@ class ApplicationController < ActionController::Base
 		else
 			conf = YAML.load_file("#{RAILS_ROOT}/config/customs/default_config.yml")
 		end
-		return conf
 	end
 
 	def get_current_config(ws_id=1)
@@ -59,18 +58,19 @@ class ApplicationController < ActionController::Base
 		return WsConfig.find(ws_id)
 	end
 
+  private
+  
 	def check_to_tab(param)
 		@list = params[param.to_sym]
 		res = []
 		if @list
-				@list.each do |k, v|
-					res << k.to_s
-				end
+			@list.each do |k, v|
+				res << k.to_s
+			end
 		end
-		return res
+		res
 	end
 
-  private
   def set_locale
 		if params[:locale]
 			I18n.locale = params[:locale]
@@ -81,6 +81,15 @@ class ApplicationController < ActionController::Base
 		end
   end
 
-	
+	def validate_rights
+	  # now we load default roles and permissions (if not in DB) on server start
+	  # -> here we write method to check current_user's role to get permissions available to him/her
+	  if %w(create read update delete).include?(params[:action])
+	    permission = params[:action]
+    else
+      permission = params[:controller]+"_"+params[:action]
+    end
+    redirect_to '/422.html' unless current_user.has_permission?(permission)
+  end
 	
 end

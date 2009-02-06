@@ -12,10 +12,10 @@ var Starboxes = {
     buttons: 5,                                  // amount of clickable areas
     className : 'default',                       // default class
     color: false,                                // would overwrite the css style to set color on the stars
-    duration: 0.6,                               // the duration of the revert effect, when effects are used
+    duration: 0.1,                               // the duration of the revert effect, when effects are used
     effect: {
       mouseover: false,                          // use effects on mouseover, default false
-      mouseout: (window.Effect && Effect.Morph)  // use effects on mouseout, default when available
+      mouseout: false							  // use effects on mouseout, default when available
     },
     hoverColor: false,                           // overwrites the css hover color
     hoverClass: 'hover',                         // the css hover class color
