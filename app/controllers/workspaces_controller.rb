@@ -18,11 +18,11 @@ class WorkspacesController < ApplicationController
 			@sa_conf = get_sa_config
 			# in case no ws_config found
 			if !@current_object.ws_config
-				@current_object.ws_config = WsConfig.new
+        default = WsConfig.find(1)
+				@current_object.ws_config = WsConfig.new(:ws_items => default.ws_items, :ws_feed_items_importation_types => default.ws_feed_items_importation_types)
 				@current_object.save
 			end
 			@ws_conf = @current_object.ws_config
-			@front = @current_object.front
 		end
         
     before :create do
@@ -43,7 +43,6 @@ class WorkspacesController < ApplicationController
 		after :update do
 			if current_user.is_superadmin?
 				@current_object.ws_config.update_attributes(:ws_items => check_to_tab(:items).join(","), :ws_feed_items_importation_types => check_to_tab(:feed_items_importation_types).join(","))
-				@current_object.front.update_attributes(params[:front])
 			end
 		end
     

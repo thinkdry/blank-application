@@ -1,6 +1,6 @@
---- 
+---
 en-US: 
-  message: 
+  message:
     copyright_restriction: Some fields can't be modified as this element is copyright protected.
     error_during_file_transfer: Error during file transfer
     video_wip: Your video has been recorded for encoding. Please come bacl later.

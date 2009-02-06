@@ -1,0 +1,9 @@
+moderator:
+  name: moderator
+  description: I am moderator
+writer:
+  name: writer
+  description: I am writer
+reader:
+  name: reader
+  description: I am reader

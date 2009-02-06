@@ -45,6 +45,7 @@ class User < ActiveRecord::Base
 
   has_many :users_workspaces, :dependent => :delete_all
   has_many :workspaces, :through => :users_workspaces
+  has_many :roles, :through => :users_workspaces
 
 	ITEMS.each do |item|
 		has_many item.pluralize.to_sym
@@ -193,6 +194,15 @@ class User < ActiveRecord::Base
     @activated
   end
 
+  def has_permission?(p)
+    current_permissions = []
+    self.roles.each do |role|
+      role.permissions.each { |p| current_permissions << p }
+    end
+    permission = Permission.find_by_name(p)
+    current_permissions.include?(permission)
+  end
+  
 #	# Encrypts some data with the salt.
 #  def self.encrypt(password, salt)
 #    Digest::SHA1.hexdigest("--#{salt}--#{password}--")

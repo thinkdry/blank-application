@@ -157,16 +157,5 @@ class SuperadministrationController < ApplicationController
 		                     }
 	  @options = []; @translation_names.each {|k,v| @options << k}
   end
-  
-  def check_to_tab(param)
-		@list = params[param.to_sym]
-		res = []
-		if @list
-			@list.each do |k, v|
-				res << k.to_s
-			end
-		end
-		res
-	end
 	
 end

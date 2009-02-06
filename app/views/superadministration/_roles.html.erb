@@ -4,18 +4,15 @@
   <%= link_to 'Add new Permission', new_permission_path %>
 </fieldset>
 <fieldset class="myform">
-  <legend>Rights Manager</legend>
-  
-  <label>Select a Role</label>
-  
+  <legend>Rights Manager</legend> 
+  Select a Role
   <%= select_tag "element", 
       options_for_select(
                          %w(select) + @role_names, 
                          "select"), 
      :onchange=>"changer(this.value, '#{@role_names.to_json}')"
-  %>
-  
-  <% form_for :res, :url => update_permissions_for_role_superadministration_path do |f| %>
+  %> 
+  <% form_for :roles, :url => update_permissions_for_role_superadministration_path do |f| %>
     <% for role in @roles %>
      <div id="<%= role.name %>" style="display:none">
        <h1><%= role.name.capitalize %></h1>

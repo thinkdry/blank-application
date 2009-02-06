@@ -1,8 +1,0 @@
-<% div_for item_in_list_for_editor do %>
-	<%= item_display_for_pop_up(item_path(object), object) %><br/>
-	<% if object.workspaces.size > 0 %>
-		 <%=I18n.t('general.in')%>&nbsp;<%= object.workspaces %>
-	<% end %>
-	<%=I18n.t('general.by') + ' '  + item_in_list_for_editor.user.firstname.capitalize + ' ' + item_in_list_for_editor.user.lastname.capitalize %>,&nbsp;
-	<%=I18n.t('general.on1')%> <%= I18n.l object.created_at, :format => :long %>
-<% end %>
