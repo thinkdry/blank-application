@@ -1,3 +1,6 @@
+<%#= javascript_tag render( :file => 'articles/fckconfig.js') %>
+<%# controller.response.content_type = Mime::HTML%>
+
 <% form_for_item @current_object, title do |f| -%>
 
   <%= f.advanced_editor(:body, :label => I18n.t('general.article')+ ' :', :hint => "message pour") %>

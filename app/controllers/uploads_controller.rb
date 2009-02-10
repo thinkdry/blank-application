@@ -1,12 +1,11 @@
 class UploadsController < ApplicationController
   def create
     begin
-      original_filename = params[:NewFile].original_filename
-      
+      #original_filename = params[:NewFile].original_filename
+      p params[:id]
       @dest_filename = "#{rand(1000)}_#{params[:NewFile].original_filename}"
-      @dest_url = File.join('/uploads', @dest_filename) 
+      @dest_url = File.join('/uploaded_files/fck/', @dest_filename)
       @dest_path = File.join(RAILS_ROOT, 'public', @dest_url)
-      
       File.open(@dest_path, "wb") { |f| f.write(params[:NewFile].read) }
       render :action => 'create', :layout => false
     rescue Exception => e

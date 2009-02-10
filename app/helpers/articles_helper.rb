@@ -23,3 +23,9 @@ module ArticlesHelper
   end
 	
 end
+
+#    if object.class == 'Image'
+#      obj= Image.find_by_id(object.id)
+#      url = '/uploaded_files/image/'+obj.id.to_s+'/original/'+obj.image_file_name
+#      link_to_function obj.title, "javascript:SelectFile('" + url + "')"
+#    else
