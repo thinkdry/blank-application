@@ -14,9 +14,9 @@
 #  tags        :string(255)
 #
 
-<% 1.upto(300) do |i| %>
+<% 1.upto(50) do |i| %>
     article_<%= i %>: 
-        user: quentin
+        user: boss
         title: Article (<%= i %>)
         description: Article vide
         body: C'est un bon article sur un peu rien mais aussi ps grand chose.

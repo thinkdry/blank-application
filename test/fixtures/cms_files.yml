@@ -19,11 +19,13 @@
 
 <% require 'file_path_utils' %>
 
-<% 1.upto(300) do |i| %>
-    cms_file_<%= i %>:
-        user: quentin
-        title: Schema base de donnee (<%= i %>)
-        description: "Documentation<br>"
+<% 1.upto(50) do |i| %>
+    cmsfile_<%= i %>:
+        user: boss
+        title: Blank Application (<%= i %>)
+        description: "Blank Application - Open Source Multimedia CMS"
+        cmsfile_file_name: <%= file_path_import(:model => 'cmsfile', :id => Fixtures.identify("cmsfile_#{i}"), :file_name => 'blank.pdf') %>
+        cmsfile_content_type: application/pdf
+        cmsfile_file_size: 32329
         cmsfile_updated_at: <%= i.days.ago %>
-        created_at: <%= i.days.ago %>
 <% end %>

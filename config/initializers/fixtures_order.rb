@@ -1,5 +1,10 @@
-fixtures = Array.new
+require 'fileutils'
 
+['image', 'audio', 'video', 'cmsfile', 'user', 'articlefile'].each do |item|
+  FileUtils.mkdir_p RAILS_ROOT+'/public/uploaded_files/'+item
+end
+
+fixtures = Array.new
 # Fixtures predecedence
 # => Load all items before assigning them workspaces (items table)
 #fixtures |= ['videos', 'publications', 'images', 'cms_files', 'articles', 'audios', 'feed_sources', 'bookmarks', 'my_items', 'items']

@@ -274,7 +274,7 @@ var _QuickUploadExtension = _QuickUploadLanguage == 'perl' ? 'cgi' : _QuickUploa
 FCKConfig.LinkBrowser = true ;
 //FCKConfig.LinkBrowserURL = FCKConfig.BasePath + 'filemanager/browser/default/browser.html?Connector=' + encodeURIComponent( FCKConfig.BasePath + 'filemanager/connectors/' + _FileBrowserLanguage + '/connector.' + _FileBrowserExtension ) ;
 //FCKConfig.LinkBrowserURL = FCKConfig.BasePath + 'filemanager/browser/default/browser.html?Connector=' + encodeURIComponent( FCKConfig.BasePath + 'filemanager/connectors/' + _FileBrowserLanguage + '/connector.' + _FileBrowserExtension ) ;
-FCKConfig.LinkBrowserURL = '/display_content_list/articles'
+FCKConfig.LinkBrowserURL = '/display_content_list/all'
 FCKConfig.LinkBrowserWindowWidth	= FCKConfig.ScreenWidth * 0.6 ;		// 70%
 FCKConfig.LinkBrowserWindowHeight	= FCKConfig.ScreenHeight * 0.6 ;	// 70%
 

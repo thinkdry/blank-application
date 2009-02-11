@@ -22,7 +22,7 @@
 
 <% 1.upto(50) do |i| %>
     audio_<%= i %>:
-        user: quentin
+        user: boss
         title: The Good the Bad the Ugly
         description: The Audio Theme.
         state: encoded

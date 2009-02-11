@@ -24,7 +24,7 @@ class Image < ActiveRecord::Base
                                    :url =>    "/uploaded_files/image/:id/:style/:basename.:extension",
                                    :path => ":rails_root/public/uploaded_files/image/:id/:style/:basename.:extension",
                                    :styles => { :medium => "300x300>",
-                                   :thumb => "100x100>" }
+                                   :thumb => "48x48>" }
   validates_attachment_presence :image
   validates_attachment_content_type :image, :content_type => ['image/jpeg','image/jpg', 'image/png', 'image/gif','image/bmp']
   validates_attachment_size(:image, :less_than => 100.megabytes)

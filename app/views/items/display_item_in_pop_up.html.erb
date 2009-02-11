@@ -1,11 +1,20 @@
 <h3><%= I18n.t 'layout.select_a_file' %></h3>
 <%#= display_item_list_for_editor(params[:item_type])%>
-	<%#= will_paginate @collection %>
-
-<% @object.each do |object| %>
-  <% if params[:item_type]=="images" || params[:item_type] =="videos" %>
-  <%= link_to_function object.title,"javascript:SelectFile('" + object.media_type.url + "')"  %> <br> <br>
-  <% else %>
-  <%= link_to_function object.title,"javascript:SelectFile('" + article_path(object.id) + "')"  %> <br> <br>
+<%#= will_paginate @collection %>
+<% if params[:item_type]=="images" || params[:item_type] =="videos" %>
+  <% @object.each do |object| %>
+    <%= image_tag object.media_type.url(:thumb)  %>
+    <%= link_to_function object.title,"javascript:SelectFile('" + object.media_type.url + "')"  %> <br> <br>
   <% end %>
-<% end %>`
+  
+<% else %>
+  <table>
+  <% available_items_list.each do |item_type| %>
+    <tr><th colspan="2"><h2><%= item_type.capitalize %></h2></th></tr>
+    <% @object.send(item_type.pluralize).each do |object| %>
+      <tr><td><%= link_to_function object.title,"javascript:SelectFile('" + item_path(object) + "')"  %></td></tr>
+    <% end %>
+  <% end %>
+  </table>
+<% end %>
+

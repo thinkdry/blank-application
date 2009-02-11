@@ -21,7 +21,7 @@
 
 <% 1.upto(50) do |i| %>
     image_<%= i %>:
-        user: quentin
+        user: boss
         title: Ubunu
         description: Safe, Easy & Beautiful
         image_file_name: <%= file_path_import(:model => 'image', :id => Fixtures.identify("image_#{i}"), :file_name => 'image.png') %>

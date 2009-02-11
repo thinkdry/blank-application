@@ -13,6 +13,10 @@
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+blank:
+  creator: boss
+  title: Blank Application
+  description: Ruby on Rails Multimedia CMS by ThinkDRY
 
 cancerologie:
   creator: quentin

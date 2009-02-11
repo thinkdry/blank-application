@@ -23,7 +23,7 @@
 
 <% 1.upto(50) do |i| %>
     video_<%= i %>:
-        user: quentin
+        user: boss
         title: The Penguin
         description: The Penguin Skill.
         state: encoded
