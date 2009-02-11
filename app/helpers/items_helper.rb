@@ -35,6 +35,7 @@ module ItemsHelper
 
         var oFCKeditor = new FCKeditor('#{object.class.to_s.underscore}_#{attribute}', '730px', '350px') ;
         oFCKeditor.BasePath = "/fckeditor/" ;
+				oFCKeditor.Config['ImageUploadURL'] = "/fckuploads?item_type=#{object.class}&id=#{object.new_record? ? current_user.login+'_'+current_user.id.to_s : object.id}&type=Image";
         oFCKeditor.ReplaceTextarea() ;
 
 		})
