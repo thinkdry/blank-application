@@ -8,13 +8,9 @@
   <%= stylesheet_link_tag "form.css" %>
   <%= stylesheet_link_tag "starbox.css" %>
   <%= stylesheet_link_tag "middle.css" %>
-  <%= stylesheet_link_tag "colorPicker.css" %>
   <link rel="stylesheet" type="text/css" href="/prototip2.0.4/css/prototip.css" />
-
-  <%= javascript_include_tag :all %>
-  <script type="text/javascript" src="/fckeditor/fckeditor.js"></script>
+  <%= javascript_include_tag :all, :cache => true %>
   <script type='text/javascript' src='/prototip2.0.4/js/prototip.js'></script>
-  
   <%= calendar_date_select_includes %>
   <title>
     <%= I18n.t 'layout.title' %> - 
