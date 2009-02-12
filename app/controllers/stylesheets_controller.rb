@@ -1,5 +1,8 @@
 class StylesheetsController < ApplicationController
-   
+
+  #caches_page :application
+  #caches_page :middle
+  
   def application
     @header=Element.find(:first,:conditions=>{:template=>"current",:name=>"header"})
     @body=Element.find(:first,:conditions=>{:template=>"current",:name=>"body"})
