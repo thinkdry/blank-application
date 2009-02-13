@@ -1,11 +1,20 @@
-  <%= f.error_messages %>
+<%= f.error_messages %>
 
-      <p>
-      <%= f.label :name %><br />
-      <%= f.text_field :name %>
-    </p>
-      <p>
-      <%= f.label :description %><br />
-      <%= f.text_area :description %>
-    </p>
-  
+<p>
+  <%= f.label :name %><br />
+  <%= f.text_field :name %>
+</p>
+<p>
+  <b>Select*</b><br />
+  <% RIGHT_TYPES.each do |role| %>
+    <% @role.type_role == role ? permission = true : permission = false %>
+    <%= role %>
+    <%=radio_button_tag("role[type_role]", role, permission) %>
+  <% end %>
+</p>
+<p>
+  <%= f.label :description %><br />
+  <%= f.text_area :description %>
+</p>
+
+

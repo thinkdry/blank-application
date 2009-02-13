@@ -1,9 +1,12 @@
 moderator:
   name: moderator
   description: I am moderator
+  type_role: workspace
 writer:
   name: writer
   description: I am writer
+  type_role: workspace
 reader:
   name: reader
   description: I am reader
+  type_role: workspace

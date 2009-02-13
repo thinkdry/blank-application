@@ -15,8 +15,10 @@ class SuperadministrationController < ApplicationController
 				@language = I18n.default_locale.to_s
         translation_options
 			elsif params[:part] == "roles"
-				@roles = Role.all
-				@role_names = []; @roles.each { |role| @role_names << role.name }
+        @roles = Role.all
+				@workspace_roles = Role.find(:all, :conditions => {:type_role => "workspace"})
+        @system_roles = Role.find(:all, :conditions => {:type_role => "system"})
+				#@role_names = []; @roles.each { |role| @role_names << role.name }
 			else
 				flash[:notice] = "Unexisting section"
 				redirect_to '/'
