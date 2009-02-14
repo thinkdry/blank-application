@@ -25,9 +25,17 @@ fieldset label{
 }
 
 fieldset legend{
-  margin-left: 10px;
-  font-size: 110%;
-  color: #000;
+	background:#FAFAFA none repeat scroll 0 0;
+	border:1px solid #C2C2C2;
+	color:#000000;
+	font-size:110%;
+	margin-bottom:15px;
+	margin-left:10px;
+	padding:5px;
+}
+
+fieldset legend img{ 
+	margin-right:5px;
 }
 
 fieldset .hint{
@@ -140,7 +148,7 @@ fieldset  #textfield_comments {
 fieldset{
 	background-color: #EEEEEE;
 	padding: 1em;
-	border: 2px solid #C2C2C2;
+	border: 1px solid #C2C2C2;
 	margin:0;
 }
 .myformComments {
@@ -154,107 +162,6 @@ fieldset{
 }
 
 /* BUTTONS */
-
-.buttons a, .buttons button{
-	display:block;
-	float:right;
-	background-color:#f5f5f5;
-	border:1px solid #dedede;
-	border-top:1px solid #eee;
-	border-left:1px solid #eee;
-	line-height:130%;
-	text-decoration:none;
-	font-weight:bold;
-	color:#565656;
-	cursor:pointer; /* Links */
-	font-size: 80%;
-	margin-top: 0;
-	margin-right: 0;
-	margin-bottom: 0;
-	margin-left: 0;
-	padding-top: 5px;
-	padding-right: 10px;
-	padding-bottom: 6px;
-	padding-left: 7px;
-}
-.buttons button{
-    width:auto;
-    overflow:visible;
-    padding:4px 10px 3px 7px; /* IE6 */
-}
-
-.buttons button.alone{
-  float: left;
-  margin-left: 310px;
-}
-
-.buttons button[type]{
-    padding:5px 10px 5px 7px; /* Firefox */
-    line-height:17px; /* Safari */
-}
-*:first-child+html button[type]{
-    padding:4px 10px 3px 7px; /* IE7 */
-}
-.buttons button img, .buttons a img{
-    margin:0 3px -3px 0 !important;
-    padding:0;
-    border:none;
-    width:16px;
-    height:16px;
-}
-
-/* STANDARD */
-
-.nicEdit-panelContain{
-	margin-left: 20px;
-}
-
-.nicEdit-main{
-	float: right;
-}
-
-button:hover, .buttons a:hover{
-    background-color:#dff4ff;
-    border:1px solid #c2e1ef;
-    color:#336699;
-}
-.buttons a:active{
-    background-color:#6299c5;
-    border:1px solid #6299c5;
-    color:#fff;
-}
-
-/* POSITIVE */
-
-button.positive, .buttons a.positive{
-    color:#529214;
-}
-.buttons a.positive:hover, button.positive:hover{
-    background-color:#E6EFC2;
-    border:1px solid #C6D880;
-    color:#529214;
-}
-.buttons a.positive:active{
-    background-color:#529214;
-    border:1px solid #529214;
-    color:#fff;
-}
-
-/* NEGATIVE */
-
-.buttons a.negative, button.negative{
-    color:#d12f19;
-}
-.buttons a.negative:hover, button.negative:hover{
-    background:#fbe3e4;
-    border:1px solid #fbc2c4;
-    color:#d12f19;
-}
-.buttons a.negative:active{
-    background-color:#d12f19;
-    border:1px solid #d12f19;
-    color:#fff;
-}
 
 #form_new{
 	width: 800px;
@@ -304,6 +211,16 @@ button.positive, .buttons a.positive{
 	float:left;
 	margin:5px 0;
 	background-color:#ffffff;
+}
+
+.submit_button{
+	background:transparent url(/images/button.png) no-repeat scroll 0 0;
+	border:0 none;
+	color:#FFFFFF;
+	font-weight:bold;
+	height:40px;
+	margin:20px 0 10px 235px;
+	width:250px;
 }
 
 #files{

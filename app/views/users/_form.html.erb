@@ -24,11 +24,8 @@
     <% f.field :avatar, :label => I18n.t('user.photo')+" : " do %>
       <%= file_field 'user', 'avatar' %>
     <% end %>
-    <div class="buttons" id="area_BUTTONS" style="padding-top: 2em">
-      <% button_text = current_object.new_record? ? I18n.t('user.create_this_user') : I18n.t('general.update') %>
-      <button type="submit" class="positive"><img src="/images/tick.png" alt=""/><%= button_text%></button>
-      <button type="reset" class="negative"><img src="/images/cross.png" alt=""/><%=I18n.t('general.cancel')%></button>
-    </div>
+	<% button_text = current_object.new_record? ? I18n.t('user.create_this_user') : I18n.t('general.update') %>
+    <button type="submit" class="submit_button"><%= button_text%></button>
   <% end %>
 
 </fieldset>

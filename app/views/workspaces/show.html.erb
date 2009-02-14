@@ -1,44 +1,18 @@
 <div id="area_TITLE">
-	<h1>
-		<%=I18n.t('general.workspace')%> <%= @current_object.title %>
-	</h1>
-	<span class="txt_80_666"><%= @current_object.description %></span>
 	<% if @workspace.creator == self.current_user %>
-      You are the administrator of this workspace, click <%= link_to "here", edit_workspace_path(@workspace.id) %> to manage it.<br/>
-    <% else %>
-    <% if user=@workspace.users_workspaces.find(:first, :conditions => { :user_id => self.current_user.id }) %>
-      <h2> Your subscription </h2>
-      Vous êtes déjà inscrit sur cet espace de travail en temps que <%= user.role %>.<br />
-      Vous pouvez vous désinscrire en cliquant sur le bouton ci-dessous.<br />
-      <%= link_to "Désinscription", unsubscription_workspace_path(@workspace.id) %><br />
-    <% else %>
-      <% if @current_object.state == 'Public' %>
-        <h2> Public workspace </h2>
-        Cet espace de travail est public, vous pouvez donc y souscrire en tant que lecteur en cliquant sur le lien ci-dessous.<br />
-        <%= link_to "Subscription as reader", subscription_workspace_path(@workspace.id) %><br />
-        Pour obtenir un rôle plus avancé sur cet espace de travail, veillez adresser une demande à l'administrateur (voir ci-dessous).<br />
-      <% end %>
-    <% end %>
-    <br />
-    <% if @current_object.state == 'Public' || @current_object.state == 'mi_public' %>
-      <h2> Request to the workspace administrator </h2>
-      Si vous voulez envoyez un demande particulière à l'administrateur de cet espace de travail, remplissez l'encadré ci-dessus afin de générer un email pour l'administrateur.<br />
-      <% form_for :question, :url => question_workspace_path(@workspace.id) do |f| %>
-        <%= f.select :type, ["Inscription", "Autre"] %><br />
-        <%= f.text_area :msg, :size => '50x5' %><br />
-        <%= f.submit "Envoyez votre demande" %><br />
-      <% end %>
-    <% end %>
-    <% end %>
+		<h1><%= link_to @current_object.title, edit_workspace_path(@workspace.id) %></h1>
+	<%else%>
+		<h1><%= @current_object.title %></h1>
+	<%end%>
+	<span class="txt_80_666"><%= @current_object.description %></span>
 </div>
-
  <div class="area_LEFT">
 	<h2><%=I18n.t('workspace.last_five_items')%></h2>
 	<ul>
 		<% GenericItem.from_workspace(@current_object.id).latest.each do |item| %>
 			<p>
 				<div>
-					<%= image_tag(item.icon) %>
+					<%= image_tag(item.icon, :align => 'left') %>
 					<%= link_to_item(item) %>
 				</div>
 				<div>
