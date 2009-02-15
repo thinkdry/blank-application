@@ -1,41 +1,60 @@
 <div id="area_TITLE">
 	<% if @workspace.creator == self.current_user %>
-		<h1><%= link_to @current_object.title, edit_workspace_path(@workspace.id) %></h1>
+		<h1><%= link_to @workspace.title, edit_workspace_path(@workspace.id) %></h1>
 	<%else%>
-		<h1><%= @current_object.title %></h1>
+		<h1><%= @workspace.title %></h1>
 	<%end%>
 	<span class="txt_80_666"><%= @current_object.description %></span>
 </div>
  <div class="area_LEFT">
 	<h2><%=I18n.t('workspace.last_five_items')%></h2>
 	<ul>
-		<% GenericItem.from_workspace(@current_object.id).latest.each do |item| %>
-			<p>
-				<div>
+		<% GenericItem.from_workspace(@workspace.id).latest.each do |item| %>
+			<li class="clear">
+				<div id="<%= item.id%>">
 					<%= image_tag(item.icon, :align => 'left') %>
 					<%= link_to_item(item) %>
 				</div>
-				<div>
-					par
-					<%= link_to_user(item.user) %>
-					le
-					<%= I18n.l item.created_at, :format => :long %>
+				<div id="tip_<%=item.id%>" style="display:none;">
+					<div class="tooltip_infos">
+						<p><%= link_to_user(item.user) %></p>
+						<p><%= I18n.l item.created_at, :format => :long %></p>
+						<p>
+							<%= item.comments.count%>
+						  	<%= item.comments.count > 1 ? I18n.t("general.comment").pluralize : I18n.t("general.comment")%>
+						</p>
+						<p><%= item_rate_locked(item) %></p>
+					</div>
+					<div class="tooltip_actions">
+						<%= link_to image_tag('icons/comments.png'), item_path(item) + "#new_comment_form_box" %>
+						<% if permit? 'edition of current_object'  %>
+							<%= link_to image_tag('icons/pencil.png'), edit_item_path(item)%>
+					    <% end %>					
+					</div>
 				</div>
-				<div style="float:left">
-					<%= item.comments.count %>
-					<%=I18n.t('general.comment')%> -
-				</div>
-				<div style="float:left"><%= item_rate_locked(item) %></div>
-				<div style="clear:both">
-				</div>
-			</p>
+				
+				<script type='text/javascript'>
+					//<![CDATA[
+						new Tip('<%= item.id%>',  $('tip_<%=item.id%>'), 
+								{ effect: 'appear',
+						 		  duration: 0.2,
+								  delay:0,
+								  hook: { target: 'topRight', tip: 'topLeft' },
+								  hideOn: { element: 'tip', event: 'mouseout' },
+								  stem: 'leftTop',
+								  hideOthers: 'true',
+								  hideAfter: 3,
+								  width: 300,
+								});
+					//]]>
+				</script>
+			</li>
 		<% end %>
 	</ul>
 </div>
 <div class="area_RIGHT">
   <%= render :partial => "items/top_box" %>
 </div>
-<div class="clear"></div>
-<div class="area_BOTH">
+<div class="area_BOTH" onmouseover="javascript:Tips.hideAll()">
   <%= render :partial => "items/tab_list" %>
 </div>

@@ -147,15 +147,18 @@ img.avatar{
 .area_LEFT{
   float: left;
   width: 370px;
+  margin-bottom:20px;
 }
 
 .area_RIGHT{
   float: right;
   width: 370px;
+  margin-bottom:20px;
 }
 
 .area_BOTH{
   margin-top: 20px;
+  clear:both;
 }
 
 .area_LEFT ul{
@@ -165,6 +168,7 @@ img.avatar{
 
 .area_LEFT ul li{
 	margin-top:10px;
+	min-height:35px;
 }
 
 #area_INFOS{
@@ -286,15 +290,14 @@ ul#tabs li.selected a, ul#top_elems li.selected a{
 }
 
 ul.without_img li a{
-  padding: 12px !important;
+  padding: 13px !important;
 }
 
 ul#tabs li a, ul#top_elems li a{
   text-decoration: none;
   display: block;
   padding: 2px 8px;
-  font-weight: bold;
-  font-size: 95%;
+  font-size: 80%;
 }
 
 ul#tabs li a img{
@@ -472,13 +475,18 @@ ul.top_box li{
 
 .itme_list_item_title{
 	float:left;
-	width:470px;
+	width:365px;
 }
 .item_list_item_infos{
 	float:left;
 	text-align:right;
-	width:200px;
-	font-size:80%;
+	width:300px;
+	line-height:20px;
+}
+.item_list_item_actions{
+	float:left;
+	width:32px;
+	margin-left:10px;
 }
 .item_list_rate{
 	float:right;
@@ -494,3 +502,7 @@ ul.top_box li{
 #progress{
 	margin-top:20px;
 }
+
+.tooltip_actions{float:left;width:35px;}
+.tooltip_infos{float:left;width:250px;text-align:left;}
+.tooltip_hidden{display:none;}
