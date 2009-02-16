@@ -73,10 +73,10 @@ class UsersController < ApplicationController
 		return unless request.post?
 		if @user = User.find_by_email(params[:user][:email])
 		  @user.create_reset_code
-		  flash.now[:notice_forgot] = "A link that allows you to change your password has been send by e-mail."
+		  flash.now[:notice_forgot] = I18n.t('user.reset_password.flash_notice')
 			render :action => "forgot_password"
 		else
-		  flash.now[:error_forgot] = "There is no user with this e-mail address."
+		  flash.now[:error_forgot] = I18n.t('user.reset_password.flash_error')
 			render :action => "forgot_password"
 		end
   end

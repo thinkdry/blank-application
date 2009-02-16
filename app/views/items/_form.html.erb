@@ -4,15 +4,15 @@
     <% is_copyright = (@current_object.state == 'copyright') ? true : false %>
     <% if is_copyright %>
     <%= f.hidden_field :state, :value => 'copyright' %>
-      <%=I18n.t('message.copyright_restriction')%><br />
+      <%=I18n.t('copyright.copyright_restriction')%><br />
     <% end %>
     
 
-    <%= f.text_field :title, :label => I18n.t('item.title') + " :", :hint => "Title", :readonly => is_copyright %>
-     <%= f.tags_field :string_tags, :label => I18n.t('general.tag').pluralize + " :", :hint => I18n.t('general.separated_by_spaces') %>
-    <%= f.text_field :description, :label => I18n.t('item.description') + ' :', :hint => "Description", :readonly => is_copyright %>
+    <%= f.text_field :title, :label => I18n.t('item.field.title_label') + " * :", :hint => "Title", :readonly => is_copyright %>
+     <%= f.tags_field :string_tags, :label => I18n.t('article.field.tags_label').pluralize + " :", :hint => I18n.t('article.field.tags_hint') %>
+    <%= f.text_field :description, :label => I18n.t('item.field.description_label') + ' * :', :hint => I18n.t('item.field.description_hint'), :readonly => is_copyright %>
     <%= capture(f, &block) %>
-    <% f.field :workspaces, :label => I18n.t('general.workspace') +' :' do %>
+    <% f.field :workspaces, :label => I18n.t('article.field.workspace_label') +' :' do %>
       <%= item_status_fields(f, @current_object) %>
       <%= error_message_on :current_object, :items %>
     <% end %>
@@ -20,7 +20,7 @@
 	<div id="area_BUTTONS_single" class="buttons">
 		<button class="positive_submit" type="submit">
 			<img alt="" src="/images/tick.png"/>
-			<%= current_object.new_record? ? I18n.t('general.create') : I18n.t('general.update')%>
+			<%= current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update')%>
 		</button>
 	</div>
 	

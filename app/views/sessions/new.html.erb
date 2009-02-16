@@ -32,20 +32,20 @@
 			<% end %>
     	<% form_tag session_path do -%>
                 <p style="color:red"><%=flash[:error]%></p>
-				<label><%=I18n.t('login.login')%><br>
+				<label><%=I18n.t('user.session.login_label')%><br>
 				<%= text_field_tag 'login', @login %></label>
 				<br>
 				<p>
-					<label><%=I18n.t('login.password')%><br>
+					<label><%=I18n.t('user.session.password_label')%><br>
     			<%= password_field_tag 'password' %></label>
 				</p>
 				<div id="area_BUTTONS" class="buttons">
 	        <button type="submit" class="positive">
-	        <img src="images/tick.png" alt=""/><%=I18n.t('login.connexion')%></button>
+	        <img src="images/tick.png" alt=""/><%=I18n.t('user.session.login_button')%></button>
 	      </div>
-          <label for="remember_me"><%=I18n.t('login.remember_me')%>:</label>
+          <label for="remember_me"><%=I18n.t('user.session.remember_me')%>:</label>
           <%= check_box_tag 'remember_me', '1', @remember_me %><br />
-          <%= link_to I18n.t('login.password_forgotten'), forgot_password_path %>
+          <%= link_to I18n.t('user.session.password_forgotten'), forgot_password_path %>
 			<% end %>
 		</div>
 	</body>

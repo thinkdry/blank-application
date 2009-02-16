@@ -24,9 +24,9 @@ class FeedSourcesController < ApplicationController
 						:image => @feed.image,
 						:state => 'copyright'
 					)
-					flash[:notice] = "Ce feed a retourné ces informations, validez-les pour y souscrire."
+					flash[:notice] = I18n.t('rss_feed.new.flash_notice_valid')
 				else
-					flash[:notice] = "Ce feed n'est pas valide."
+					flash[:notice] = I18n.t('rss_feed.new.flash_notice_invalid')
 					redirect_to 'feed_sources/what_to_to'
 				end
 			end
@@ -51,10 +51,10 @@ class FeedSourcesController < ApplicationController
   def check_feed
 		daurl = params[:daurl][:value]
 		if daurl.blank?
-			flash[:notice] = "Entrer une valeur pour le Web feed."
+			flash[:notice] = I18n.t('rss_feed.chek_feed.flash_notice_blank')
 			redirect_to '/feed_sources/what_to_do'
 		elsif (@feed=FeedSource.find(:first, :conditions => { :url => daurl, :user_id => current_user.id }))
-			flash[:notice] = "Déjà souscrit"
+			flash[:notice] = I18n.t('rss_feed.chek_feed.flash_notice_already_subscribed')
 			redirect_to feed_source_path(@feed.id)
 		else
 			redirect_to "/feed_sources/new?url=#{daurl}"

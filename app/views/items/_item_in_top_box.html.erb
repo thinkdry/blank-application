@@ -1,7 +1,7 @@
 <li>
 	<%= image_tag object.icon, :class => "test" %>
 	&nbsp;<%= link_to_item object %><br>
-	<%=I18n.t('general.on1')%> <%= I18n.l object.created_at, :format => :long %> - 
-	&nbsp;<%= object.comments.size %> <%=I18n.t('general.comment').pluralize%> 
+	<%=I18n.t('general.common_word.on1')%> <%= I18n.l object.created_at, :format => :long %> -
+	&nbsp;<%= object.comments.size %> <%=I18n.t('item.common_word.comment').pluralize%>
 	<%= item_rate_locked(object) %>
 </li>

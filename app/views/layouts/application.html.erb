@@ -17,7 +17,7 @@
   
   <%= calendar_date_select_includes %>
   <title>
-    <%= I18n.t 'layout.title' %> - 
+    <%= I18n.t 'layout.application.title' %> -
     <%= params[:action].capitalize if params[:action] != 'index' %>
     <%= params[:controller].capitalize %>
   </title>
@@ -31,14 +31,14 @@
 		</div>
     <div id="header_right">
       <div id="main_links">
-        <%= I18n.t('layout.welcome_message') %>
+        <%= I18n.t('layout.application.welcome_message') %>
         <b><%= @current_user.firstname.capitalize %></b> |
-        <%= link_to I18n.t('layout.account_access'), user_path(current_user) %> |
-        <%= link_to I18n.t('layout.administration'), administration_user_path(current_user) %> |
+        <%= link_to I18n.t('layout.application.my_account'), user_path(current_user) %> |
+        <%= link_to I18n.t('layout.application.administration'), administration_user_path(current_user) %> |
 		<% if current_user.is_superadmin? %>
-          <%= link_to I18n.t('layout.superadministration'), superadministration_path("default") %> |
+          <%= link_to I18n.t('layout.application.superadministration'), superadministration_path("default") %> |
 		<% end %>
-        <%= link_to I18n.t('layout.logout'), '/logout' %>
+        <%= link_to I18n.t('layout.application.logout'), '/logout' %>
         <%= select_languages %>
         <%# available_languages_list.each do |l| %>
           <%#= link_to_remote image_tag("countries/#{l.split('-').first}.jpg"), :url => change_language_session_path(:locale => l) %>
@@ -48,10 +48,10 @@
   </div>
   <div id="container">
     <div id="middle-right">
-    	<h3><%= I18n.t('layout.workspaces_selection') %></h3>
+    	<h3><%= I18n.t('layout.application.workspaces_selection') %></h3>
 	    <select name="slct_WS" onchange="document.location.href = this.value">
             <option selected="selected" value='#'>
-              <%= I18n.t('layout.workspaces') %>
+              <%= I18n.t('layout.application.workspaces') %>
             </option>
             <option selected="selected" value='#'>
               ----------
@@ -63,10 +63,10 @@
               ----------
             </option>
             <option value="<%= administration_user_path(current_user) %>#new_workspace">
-              <%= I18n.t('layout.new_workspace') %>
+              <%= I18n.t('layout.application.new_workspace') %>
             </option>
          </select>
-      <h3><%= I18n.t('layout.add_content') %></h3>
+      <h3><%= I18n.t('layout.application.add_content') %></h3>
       <form name="form1" method="post" action="" id="form1">
         <select name="slct_filtre" id="slct_filtre" onchange="document.location.href = this.value">
           <option selected="selected" value='#'>
@@ -75,11 +75,11 @@
           <% get_current_config["ws_items"].split(',').each do |type| %>
             <% if type=='feed_source' %>
               <option value="/feed_sources/what_to_do">
-                <%= I18n.t "general.#{type}" %>
+                <%= I18n.t "general.item.#{type}" %>
               </option>
             <% else %>
               <option value="<%= new_item_path(type.camelize) %>">
-                <%= I18n.t "general.#{type}" %>
+                <%= I18n.t "general.item.#{type}" %>
               </option>
             <% end %>
           <% end %>
@@ -88,8 +88,8 @@
 	  </br>
 	  <h3>Menu</h3>
 	  <div id="midle-right-menu">
-	  	<p><%= link_to I18n.t('general.content'), content_path("articles") %></p>
-	  	<p><%= link_to I18n.t('layout.first_page'), '/' %></p>
+	  	<p><%= link_to I18n.t('layout.application.content'), content_path("articles") %></p>
+	  	<p><%= link_to I18n.t('layout.application.home'), '/' %></p>
 	  </div>
     </div>
     <div id="middle-middle">
@@ -98,12 +98,12 @@
           <div id="search-bar-left"></div>
           <div id="search-bar-middle">
             <% form_tag search_path, :method => :get, :name => "search" do -%>
-              <%= text_field_tag :search, params[:search] || "Rechercher", :class => "style_text", :onfocus => '$(this).select()' %>
-              <p><%= I18n.t 'general.in'%></p>
-              <%= select_tag "model", options_for_select([[I18n.t('general.all_elements'), nil], [I18n.t('general.image'), 'Image'], [I18n.t('general.video'), 'Video'], [I18n.t('general.cms_file'), 'CmsFile'], [I18n.t('general.article'), 'Article'], [I18n.t('general.publication'), 'Publication'], [I18n.t('general.audio'), 'Audio']], params['model']) %>
+              <%= text_field_tag :search, params[:search] || "#{I18n.t 'layout.application.search'}", :class => "style_text", :onfocus => '$(this).select()' %>
+              <p><%= I18n.t 'general.common_word.in'%></p>
+              <%= select_tag "model", options_for_select([[I18n.t('layout.application.all_elements'), nil], [I18n.t('general.item.image'), 'Image'], [I18n.t('general.item.video'), 'Video'], [I18n.t('general.item.cms_file'), 'CmsFile'], [I18n.t('general.item.article'), 'Article'], [I18n.t('general.item.publication'), 'Publication'], [I18n.t('general.item.audio'), 'Audio']], params['model']) %>
               <%= link_to(image_tag("search_button.gif"), "javascript:void(1);", :onclick => "document.search.submit();", :class => "search_button") %>
               <br />
-              <%= link_to I18n.t('layout.advanced_search'), new_search_path, :class => "advanced_search" %>&nbsp;&nbsp;
+              <%= link_to I18n.t('layout.application.advanced_search'), new_search_path, :class => "advanced_search" %>&nbsp;&nbsp;
             <% end -%>
           </div>
           <div id="search-bar-right"></div>
@@ -117,12 +117,12 @@
     </div>
     <div id="footer">
       <div class="name">
-        <%=  I18n.t 'layout.footer_title' %>
+        <%=  I18n.t 'layout.footer.title' %>
       </div>
       <div class="menu">
-        <%= link_to I18n.t('layout.contact'), "#" %>&nbsp;|&nbsp;
-        <%= link_to I18n.t('layout.map'), "#" %>&nbsp;|&nbsp;
-        <%= link_to I18n.t('layout.faq'), "#" %>
+        <%= link_to I18n.t('layout.footer.contact'), "#" %>&nbsp;|&nbsp;
+        <%= link_to I18n.t('layout.footer.site_map'), "#" %>&nbsp;|&nbsp;
+        <%= link_to I18n.t('layout.footer.faq'), "#" %>
       </div>
       <div class="clear"></div>
     </div>

@@ -1,33 +1,34 @@
 <fieldset class="myform">
-  <legend><%=I18n.t('user.your_private_informations')%></legend>
+  <legend><%=I18n.t('user.new.title')%></legend>
 
   <% form_for @user,:builder => BlankFormBuilder, :html => {:multipart=> true} do |f| -%>
     <%= image_tag(@user.avatar.url(:thumb), :class => "avatar", :align => "right")%>
-    <%= f.text_field :login, :label => I18n.t('user.login')+" * : ", :hint => "Select name for logging in" %>
-    <%= f.text_field :email, :label => I18n.t('user.email')+" * : " %>
+    <%= f.text_field :login, :label => I18n.t('user.field.login_label')+" * : ", :hint => I18n.t('user.field.login_hint') %>
+    <%= f.text_field :email, :label => I18n.t('user.field.email_label')+" * : " %>
     <% if @user.new_record? %>
-      <%= f.password_field :password, :label => I18n.t('user.password')+" * : " %>
-      <%= f.password_field :password_confirmation, :label => I18n.t('user.confirm_password')+" * : " %>
+      <%= f.password_field :password, :label => I18n.t('user.field.password_label')+" * : " %>
+      <%= f.password_field :password_confirmation, :label => I18n.t('user.field.confirm_password_label')+" * : " %>
     <% else %>
-      <%= f.password_field :password, :label => I18n.t('user.password'), :hint => "Leave blank to keep old password" %>
-      <%= f.password_field :password_confirmation, :label => I18n.t('user.confirm_password'), :hint => "Leave blank to keep old password" %>
+      <%= f.password_field :password, :label => I18n.t('user.field.password_label'), :hint => I18n.t('user.field.password_hint') %>
+      <%= f.password_field :password_confirmation, :label => I18n.t('user.field.confirm_password_label'), :hint => I18n.t('user.field.confirm_password_hint') %>
     <% end %>
-    <%= f.text_field :lastname, :label => I18n.t('user.name')+" * : " %>
-    <%= f.text_field :firstname, :label => I18n.t('user.first_name')+" * : " %>
-    <%= f.country_select :nationality,:label => I18n.t('user.nationality')+" * : " %>
-    <%= f.text_area :address, :size => "40x6", :label => I18n.t('user.address')+" * : ", :hint => 'Votre adresse complète' %>
-    <%= f.text_field :phone, :label => I18n.t('user.phone')+" * : ", :hint => 'Numéro professionnel' %>
-    <%= f.text_field :mobile, :label => I18n.t('user.mobile')+" * : ", :hint => 'Numéro de téléphone portable' %>
-    <%= f.text_field :company, :label => I18n.t('user.location')+" * : ", :hint => 'Pour qui travaillez-vous ?' %>
-    <%= f.text_area :activity, :size => "40x6", :label => I18n.t('user.activity')+" * : " %>
-    <%= f.text_area :edito, :size => "40x6", :label => I18n.t('user.edito')+" : " %>
-    <% f.field :avatar, :label => I18n.t('user.photo')+" : " do %>
+    
+    <%= f.text_field :firstname, :label => I18n.t('user.field.first_name_label')+" * : " %>
+    <%= f.text_field :lastname, :label => I18n.t('user.field.last_name_label')+" * : " %>
+    <%= f.country_select :nationality,:label => I18n.t('user.field.nationality_label')+" * : " %>
+    <%= f.text_area :address, :size => "40x6", :label => I18n.t('user.field.address_label')+" * : ", :hint => I18n.t('user.field.address_hint')%>
+    <%= f.text_field :phone, :label => I18n.t('user.field.phone_label')+" * : ", :hint => I18n.t('user.field.phone_hint') %>
+    <%= f.text_field :mobile, :label => I18n.t('user.field.mobile_label')+" * : ", :hint => I18n.t('user.field.mobile_hint') %>
+    <%= f.text_field :company, :label => I18n.t('user.field.location_label')+" * : ", :hint => I18n.t('user.field.location_hint') %>
+    <%= f.text_area :activity, :size => "40x6", :label => I18n.t('user.field.activity_label')+" * : " %>
+    <%= f.text_area :edito, :size => "40x6", :label => I18n.t('user.field.edito_label')+" : " %>
+    <% f.field :avatar, :label => I18n.t('user.field.photo_label')+" : " do %>
       <%= file_field 'user', 'avatar' %>
     <% end %>
     <div class="buttons" id="area_BUTTONS" style="padding-top: 2em">
-      <% button_text = current_object.new_record? ? I18n.t('user.create_this_user') : I18n.t('general.update') %>
+      <% button_text = current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update') %>
       <button type="submit" class="positive"><img src="/images/tick.png" alt=""/><%= button_text%></button>
-      <button type="reset" class="negative"><img src="/images/cross.png" alt=""/><%=I18n.t('general.cancel')%></button>
+      <button type="reset" class="negative"><img src="/images/cross.png" alt=""/><%=I18n.t('general.button.cancel')%></button>
     </div>
   <% end %>
 

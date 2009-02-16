@@ -63,12 +63,14 @@ class User < ActiveRecord::Base
                     :styles => {
                     :thumb=> "100x200>"}
   #file_column :image_path, :magick => {:size => "200x200>"}
+  validates_attachment_content_type :avatar, :content_type => ['image/jpeg','image/jpg', 'image/png', 'image/gif','image/bmp']
+  validates_attachment_size(:avatar, :less_than => 5.megabytes)
+
 
   validates_presence_of     :login
   validates_length_of       :login,     :within => 3..40
   validates_uniqueness_of   :login,     :case_sensitive => false, :on => :create
-  validates_format_of       :login,     :with => /\A[a-z_-]+\z/,
-                                        :message => 'invalide : ne peut comporter que des lettres minuscules.'
+  validates_format_of       :login,     :with => /\A[a-z_-]+\z/
 
   validates_presence_of     :email
   validates_length_of       :email,    :within => 6..100

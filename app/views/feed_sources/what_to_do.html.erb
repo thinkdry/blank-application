@@ -1,15 +1,15 @@
 <fieldset>
-<legend><%=I18n.t('layout.new_rss_feed')%></legend>
-	<h1><%=I18n.t('layout.new_rss_feed_option_one')%></h1>
+<legend><%=I18n.t('rss_feed.new.title')%></legend>
+	<h1><%=I18n.t('rss_feed.what_to_do.new_rss_feed_option_one')%></h1>
     <% form_for :daurl, :url => '/feed_sources/check_feed' do |f| %>
       <%= f.text_field :value %>
-      <%= f.submit I18n.t("layout.new_rss_feed_check") %>
+      <%= f.submit I18n.t("rss_feed.what_to_do.new_rss_feed_check") %>
 	  <br/><br/>
 	  <p></p>
     <% end %>
 	
-    <h1><%=I18n.t('layout.new_rss_feed_option_two')%></h1>
+    <h1><%=I18n.t('rss_feed.what_to_do.new_rss_feed_option_two')%></h1>
     <p>(under construction, modal windows possibility or ajax div show)</p>
-	<h1><%=I18n.t('layout.new_rss_feed_option_three')%></h1>
-	<%= button_to I18n.t("layout.new_rss_feed_create"), '/feed_sources/new', :class => 'submitButton' %>
+	<h1><%=I18n.t('rss_feed.what_to_do.new_rss_feed_option_three')%></h1>
+	<%= button_to I18n.t("rss_feed.what_to_do.new_rss_feed_create"), '/feed_sources/new', :class => 'submitButton' %>
 </fieldset>

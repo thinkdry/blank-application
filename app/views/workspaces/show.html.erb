@@ -1,10 +1,10 @@
 <div id="area_TITLE">
 	<h1>
-		<%=I18n.t('general.workspace')%> <%= @current_object.title %>
+		<%=I18n.t('workspace.show.title')%> <%= @current_object.title %>
 	</h1>
 	<span class="txt_80_666"><%= @current_object.description %></span>
 	<% if @workspace.creator == self.current_user %>
-      You are the administrator of this workspace, click <%= link_to "here", edit_workspace_path(@workspace.id) %> to manage it.<br/>
+      <%= I18n.t('workspace.other.administrator_of_workspace') %>, <%= I18n.t('general.common_word.click') %> <%= link_to I18n.t('general.common_word.here'), edit_workspace_path(@workspace.id) %> <%= I18n.t('workspace.other.to_manage_it') %>.<br/>
     <% else %>
     <% if user=@workspace.users_workspaces.find(:first, :conditions => { :user_id => self.current_user.id }) %>
       <h2> Your subscription </h2>
@@ -33,7 +33,7 @@
 </div>
 
  <div class="area_LEFT">
-	<h2><%=I18n.t('workspace.last_five_items')%></h2>
+	<h2><%=I18n.t('workspace.show.last_five_item')%></h2>
 	<ul>
 		<% GenericItem.from_workspace(@current_object.id).latest.each do |item| %>
 			<p>
@@ -42,14 +42,14 @@
 					<%= link_to_item(item) %>
 				</div>
 				<div>
-					par
+					<%= I18n.t('general.common_word.by') %>
 					<%= link_to_user(item.user) %>
-					le
+					<%= I18n.t('general.common_word.on1') %>
 					<%= I18n.l item.created_at, :format => :long %>
 				</div>
 				<div style="float:left">
 					<%= item.comments.count %>
-					<%=I18n.t('general.comment')%> -
+					<%=I18n.t('item.common_word.comment').pluralize%> -
 				</div>
 				<div style="float:left"><%= item_rate_locked(item) %></div>
 				<div style="clear:both">

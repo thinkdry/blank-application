@@ -9,16 +9,16 @@
         <div>
           <p>
             <% if object.workspaces.size > 0 %>
-              <%=I18n.t('general.in')%>&nbsp;<%= links_to_workspace_collection object.workspaces %>
+              <%=I18n.t('general.common_word.in')%>&nbsp;<%= links_to_workspace_collection object.workspaces %>
             <% end %>
-            <%=I18n.t('general.by')%> <%= link_to_user item_in_list.user %></p>
-          <p><%=I18n.t('general.on1')%> <%= I18n.l object.created_at, :format => :long %></p>
+            <%=I18n.t('general.common_word.by')%> <%= link_to_user item_in_list.user %></p>
+          <p><%=I18n.t('general.common_word.on1')%> <%= I18n.l object.created_at, :format => :long %></p>
         </div>
         <div >
           <div class="item_list_rate" id="rating_<%= item_in_list.class.to_s.underscore %>_<%= item_in_list.id %>"></div>
           <div class="item_list_rate">
-            <%= object.comments.count %> <%=I18n.t('general.comment').pluralize%>
-            <%=I18n.t('general.rate').pluralize%> :
+            <%= object.comments.count %> <%=I18n.t('item.common_word.comment').pluralize%>
+            <%=I18n.t('item.common_word.rate').pluralize%> :
           </div>
         </div>
       </div>

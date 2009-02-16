@@ -1,4 +1,4 @@
-<% item_show( :title => I18n.t('general.video'),  :object => @current_object ) do %>
+<% item_show( :title => I18n.t('video.field.video_label'),  :object => @current_object ) do %>
       <div id ="progress">
         <% if @current_object.state=="encoded" %>
           <%= render :partial => "player" %>
@@ -9,5 +9,5 @@
        <% end %>
       </div>
       <br /><br />
-	  <%= image_tag("icons/download.png")%><%= link_to I18n.t('video.download_video'), (@current_object.video.url.split("?")[0]) %>
+	  <%= image_tag("icons/download.png")%><%= link_to I18n.t('general.button.download'), (@current_object.video.url.split("?")[0]) %>
 <% end %>

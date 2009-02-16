@@ -2,15 +2,15 @@
 
   <% is_copyright = (@current_object.state == 'copyright') ? true : false %>
   
-  <%= f.text_field :link, :label => I18n.t('general.link')+" : " , :readonly => is_copyright %>
-  <%#= f.text_field :authors, :label => I18n.t('general.author').pluralize + " : ", :readonly => is_copyright %>
-  <%= f.text_field :categories, :label => I18n.t('general.category').pluralize + " : ", :readonly => is_copyright %>
-  <%= f.text_field :copyright, :label => I18n.t('general.copyright') + " : ", :readonly => is_copyright %>
+  <%= f.text_field :link, :label => I18n.t('bookmark.field.link_label')+" : " , :readonly => is_copyright %>
+  <%#= f.text_field :authors, :label => I18n.t('bookmark.field.author_label').pluralize + " : ", :readonly => is_copyright %>
+  <%= f.text_field :categories, :label => I18n.t('bookmark.field.categories_label')+ " : ", :readonly => is_copyright %>
+  <%= f.text_field :copyright, :label => I18n.t('bookmark.field.copyright_label') + " : ", :readonly => is_copyright %>
   <% if is_copyright %>
-    <%= f.datetime_select :date_published, :label => I18n.t('general.publishing_date') + " :", :readonly => is_copyright %>
-    <%#= f.datetime_select :last_updated, :label => "Dernière mise à jour :", :readonly => is_copyright %>
+    <%= f.datetime_select :date_published, :label => I18n.t('bookmark.field.published_date_label') + " :", :readonly => is_copyright %>
+    <%#= f.datetime_select :last_updated, :label => I18n.t('bookmark.field.last_updated_label')+" :", :readonly => is_copyright %>
   <% else %>
-    <div class="CommonMessage"><%=I18n.t('general.automatic_date_field')%></div>
+    <div class="CommonMessage"><%=I18n.t('bookmark.new.automatic_date_field')%></div>
   <% end %>
 
 <% end %>

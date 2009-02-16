@@ -28,8 +28,4 @@ class CmsFile < ActiveRecord::Base
   validates_attachment_size(:cmsfile, :less_than => 5.megabytes)
   #file_column :file_path
    # validates_presence_of :file_path
-  
-  def self.label
-    "Fichier"
-  end
 end

@@ -8,11 +8,11 @@
 	end
  %>
 
-<h2>Mon TOP élément</h2>
+<h2><%=I18n.t('home.index.top_five_item')%></h2>
 <ul id="top_elems" class="subsection_tabs without_img">  
-	<li class="tabs"><a href="#one">Most commented</a></li>
-    <li class="tabs"><a href="#two">Best rates</a></li>
-    <li class="tabs"><a href="#three">Feed items</a></li>
+	<li class="tabs"><a href="#one"><%=I18n.t('home.index.most_commented')%></a></li>
+    <li class="tabs"><a href="#two"><%=I18n.t('home.index.best_rated')%></a></li>
+    <li class="tabs"><a href="#three"><%=I18n.t('home.index.feed_item')%></a></li>
 </ul>
 <div id="top_content">
   <div id="one">

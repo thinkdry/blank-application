@@ -1,10 +1,10 @@
 <div id="area_TITLE">
-  <h1><%=I18n.t('user.administration')%></h1>
+  <h1><%=I18n.t('user.administration.title')%></h1>
 </div>
 <% if current_user.is_admin? %>
 <fieldset style="margin-top: 20px;">
-	<legend><%=I18n.t('user.administration_configuration')%></legend>
-	<%= link_to I18n.t('user.add_a_new_user'), new_user_path %>
+	<legend><%=I18n.t('user.administration.administration_configuration')%></legend>
+	<%= link_to I18n.t('user.new.add_user'), new_user_path %>
 </fieldset>
 <% end %>
 <div id="new_workspace" style="margin-top: 20px;">
@@ -14,12 +14,12 @@
   <% @workspaces.each do |w| %>
     <div class="area_WS">
   		<h4><%= w.title %></h4>
-  		<%=I18n.t('general.workspace')%> <%=I18n.t('user.administrator').pluralize%> : 	<%= link_to_user(w.creator) %>		<br />
-  		<%=I18n.t('user.moderator').pluralize%> : 					<%= user_list_of(w, :moderators) %>	<br />
-  		<%=I18n.t('user.writer').pluralize%> : 					<%= user_list_of(w, :writters) %>	<br />
-  		<%=I18n.t('user.reader').pluralize%> : 						<%= user_list_of(w, :readers) %><br />
+  		<%=I18n.t('user.access_right.workspace_administrator')%> : 	<%= link_to_user(w.creator) %>		<br />
+  		<%=I18n.t('user.access_right.moderator').pluralize%> : 					<%= user_list_of(w, :moderators) %>	<br />
+  		<%=I18n.t('user.access_right.writer').pluralize%> : 					<%= user_list_of(w, :writters) %>	<br />
+  		<%=I18n.t('user.access_right.reader').pluralize%> : 						<%= user_list_of(w, :readers) %><br />
   		<br />
-  		<%= link_to I18n.t('user.manage_users_and_rights'), edit_workspace_path(w.id) %>
+  		<%= link_to I18n.t('workspace.edit.manage_users_and_rights'), edit_workspace_path(w.id) %>
   	</div>
   <% end %>
 </div>

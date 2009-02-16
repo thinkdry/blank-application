@@ -2,12 +2,12 @@
 
   <% is_copyright = (@current_object.state == 'copyright') ? true : false %>
     
-    <%= f.text_field :url, :label => "URL : ", :readonly => is_copyright %>
-    <%#= f.text_field :authors, :label => "Auteur(s) : ", :readonly => is_copyright %>
-    <%= f.text_field :copyright, :label => "Copyright : ", :readonly => is_copyright %>
+    <%= f.text_field :url, :label => I18n.t('rss_feed.field.url_label')+" : ", :readonly => is_copyright %>
+    <%#= f.text_field :authors, :label => I18n.t('rss_feed.field.author_label')+" : ", :readonly => is_copyright %>
+    <%= f.text_field :copyright, :label => I18n.t('rss_feed.field.copyright_label')+" : ", :readonly => is_copyright %>
 	<% if is_copyright %>
-      <%= f.datetime_select :last_updated, :label => "Dernière mise à jour :", :readonly => is_copyright %>
+      <%= f.datetime_select :last_updated, :label => I18n.t('rss_feed.field.last_updated_label')+" :", :readonly => is_copyright %>
     <% else %>
-	    <div class="CommonMessage"><%=I18n.t('general.automatic_date_field')%></div>    
+	    <div class="CommonMessage"><%=I18n.t('rss_feed.new.automatic_date_field')%></div>
 	<% end %>
   <% end  %>

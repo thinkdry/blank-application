@@ -1,14 +1,14 @@
-<% item_show(:title => I18n.t('general.publication'),  :object => @current_object ) do %>
+<% item_show(:title => I18n.t('publication.show.title'),  :object => @current_object ) do %>
   
 	<%#= @current_object.authors %>
 	
 	<% if @current_object.file_path %>
-		<h2><%=I18n.t('general.associated_file')%></h2>
+		<h2><%=I18n.t('publication.field.associated_file_label')%></h2>
 		<%= link_to File.basename(@current_object.file_path), url_for_file_column(@current_object, 'file_path') %>
 	<% end %>
 	
 	<% if @current_object.link %>
-		<h2><%=I18n.t('general.url')%></h2>
+		<h2><%=I18n.t('publication.field.link_label')%></h2>
 		<%= link_to @current_object.link, @current_object.link %>
 	<% end %>
 <% end %>
