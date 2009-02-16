@@ -1,11 +1,23 @@
-<% @role_names = [] %>
-<% @roles.each { |role| @role_names << role.name } %>
-<b>Select a Role</b>
+<% @system_roles=Role.find_by_type_role("system") %>
+<% @workspace_roles=Role.find_by_type_role("workspace") %>
+
+<% @system_role_names = [] %>
+<% @system_roles.each { |role| @system_role_names << role.name } if @system_roles %>
+<b>Select a System Role</b>
 <%= select_tag "element",
   options_for_select(
-  %w(select) + @role_names,
+  %w(select) + @system_role_names,
   "select"),
-  :onchange=>"changer(this.value, '#{@role_names.to_json}')"
+  :onchange=>"changer(this.value, '#{@system_role_names.to_json}')"
+%><br /><br />
+<% @workspace_role_names = [] %>
+<% @workspace_roles.each { |role| @workspace_role_names << role.name } if @workspace_roles %>
+<b>Select a Workspace Role</b>
+<%= select_tag "element",
+  options_for_select(
+  %w(select) + @workspace_role_names,
+  "select"),
+  :onchange=>"changer(this.value, '#{@workspace_role_names.to_json}')"
 %>
 
 <% form_for :res, :url => update_permissions_for_role_superadministration_path do |f| %>

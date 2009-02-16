@@ -7,11 +7,11 @@
 		<div class="file_infos_box">
 	    	<p><%= link_to_user object.user %></p>
 		    <p><%= I18n.l object.created_at, :format =>:long %></p>
-		    <p><%= object.comments.size %> <%=I18n.t('item.common_word.comment').pluralize%></p>
+		    <p><%= object.comments.size %> <%= object.comments.count > 1 ? I18n.t("item.common_word.comment").pluralize : I18n.t("item.common_word.comment")%></p>
 			<p><%= item_rate_locked(object) %></p>
 	   	</div>
 		<div class="file_infos_box">
-	   		<%= image_tag 'tag_blue.png', :align => "left"%> <%=I18n.t('article.field.tags_label')%> : <%= tag_list(object.tags) %>
+	   		<%= image_tag '/images/item_icons/tag_blue.png', :align => "left"%><%= tag_list(object.tags) %>
 		</div>
 		<div class="file_infos_box">
 			<div align="right">
@@ -24,9 +24,9 @@
 				      new Tip($('rate_action'), content, {
 				        showOn: 'click',
 				        hook: { target: 'rightMiddle', tip: 'topLeft' },
-				        hideOn: false,
-				        hideAfter: 2,
-				        width: 300
+				        hideOn: { element: 'tip', event: 'mouseout' },
+						 hideOn: { element: 'tip', event: 'click' },
+				        width: 100
 				      });
 			    </script>
 	  
@@ -46,10 +46,9 @@
   		</div>
 	</div>  
 	
-	<h2><%=I18n.t('item.common_word.summary')%></h2>
-  	<%= object.description %>
-  
-  	<%= capture(&block) %>
+	<div class="item_description"><%= object.description %></div>
+  	
+	<%= capture(&block) %>
   
 	<div id="comment_list">
     	<h2><%= image_tag 'icons/comments.png'%><%=I18n.t('item.common_word.comment').pluralize%></h2>
@@ -58,13 +57,11 @@
 		</div>
   	</div>
   
-	<fieldset id="new_comment_form_box" class="myform"> 
-    	<p><%=I18n.t('item.common_word.your_comment')%> :</p>
+	<fieldset id="new_comment_form_box"> 
+    	<p><%=I18n.t('general.your_comment')%> :</p>
 		<form id="new_comment" class="new_comment" onsubmit="if($('comment_box').value != 0){new Ajax.Request('<%=comment_item_path(@current_object)%>', {asynchronous:true, evalScripts:true, onComplete:function(request){$('comment_box').writeAttribute('disabled', false);$('comment_box').value = ''}, onLoading:function(request){$('comment_box').writeAttribute('disabled')}, parameters:Form.serialize(this)}); return false;}else{return false;}" method="post" action="<%=comment_item_path(@current_object)%>">
         <textarea id="comment_box" class="comment_box" rows="8" name="comment[text]" cols="90"></textarea>
-        <div class="buttons">
-        	<button type="submit" class="positive alone"><img src="/images/tick.png" alt=""/><%=I18n.t('general.button.publish_my_comment')%></button>
-        </div>
-	    </form>
+        <button type="submit" class="submit_button"><%=I18n.t('general.button.publish_my_comment')%></button>
+        </form>
 	</fieldset>
 </div>

@@ -19,15 +19,12 @@
       });
     </script>
     
-    
     <% f.field :date, :label => I18n.t('layout.advance_search.search_period_label') do %>
-      <%=I18n.t('general.common_word.from1')%> <%= f.calendar_date_select :created_after, :class => "advanced" %> <br>
-      <%=I18n.t('general.common_word.to1')%> <%= f.calendar_date_select :created_before, :class => "advanced" %>
+      <%=I18n.t('general.common_word.from1')%><br/><%= f.calendar_date_select :created_after, :class => "input_with_calendar" %> <br/>
+      <%=I18n.t('general.common_word.to1')%><br/><%= f.calendar_date_select :created_before, :class => "input_with_calendar" %>
     <% end %>
     
-  	<div class="buttons">
-      <button type="submit" class="positive alone"><img src="/images/tick.png" alt=""/><%=I18n.t('general.button.search')%></button>
-    </div>
+    <button type="submit" class="submit_button"><%=I18n.t('general.button.search')%></button>
     
 	<% end %>
 </fieldset>

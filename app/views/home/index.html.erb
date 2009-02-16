@@ -5,7 +5,6 @@
   	<%= links_to_workspace_collection(Workspace.administrated_by(@current_user)) || '- ' +I18n.t('general.common_word.none')+' -' %>
   	<br /><br />
   	<span class="label-txt"><%= I18n.t('home.index.you_have_access_to_workspace')%> :</span>
-  	<%= links_to_workspace_collection(Workspace.consulted_by(@current_user)) || '- ' + I18n.t('general.common_word.none')+ ' -' %>
   	<br />
   </div>
   <br />
@@ -27,8 +26,5 @@
 <div class="pubmed"><%= link_to image_tag("/images/item_icons/feed_source.png")+I18n.t('home.index.show_my_feeds'), feed_sources_path %></div>
 <br /><br>
 <div class="area_BOTH">
-  <% # @accordion.each do |object| %>
-    <%#=render :partial=>"accordion", :object=>object%>
-  <% # end %>
   <%= render :partial => "latest" %>
 </div>

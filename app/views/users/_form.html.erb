@@ -1,4 +1,4 @@
-<fieldset class="myform">
+<fieldset>
   <legend><%=I18n.t('user.new.title')%></legend>
 
   <% form_for @user,:builder => BlankFormBuilder, :html => {:multipart=> true} do |f| -%>
@@ -25,11 +25,8 @@
     <% f.field :avatar, :label => I18n.t('user.field.photo_label')+" : " do %>
       <%= file_field 'user', 'avatar' %>
     <% end %>
-    <div class="buttons" id="area_BUTTONS" style="padding-top: 2em">
-      <% button_text = current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update') %>
-      <button type="submit" class="positive"><img src="/images/tick.png" alt=""/><%= button_text%></button>
-      <button type="reset" class="negative"><img src="/images/cross.png" alt=""/><%=I18n.t('general.button.cancel')%></button>
-    </div>
+	<% button_text = current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update') %>
+    <button type="submit" class="submit_button"><%= button_text%></button>
   <% end %>
 
 </fieldset>

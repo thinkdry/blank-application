@@ -27,9 +27,7 @@
       <br /><br />
       
       <% text_button = (current_object.new_record? ?  I18n.t('workspace.create_a_new_workspace') : I18n.t('workspace.save') )%>
-      <div class="buttons">
-        <button type="submit" class="positive alone"><img src="/images/tick.png" alt=""/><%= text_button %></button>
-      </div>
+      <button type="submit" class="submit_button"><%= text_button %></button>
       
       <div class="clear"></div>
       

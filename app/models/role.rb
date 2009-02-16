@@ -21,9 +21,13 @@ class Role < ActiveRecord::Base
 	
 	validates_presence_of :name
 	validates_uniqueness_of :name
+  validates_presence_of :type_role
 	
-  # def to_s
-  #   name
-  # end
+  def self.find_by_type_role(role)
+    self.find(:all, :conditions => {:type_role => role})
+  end
+
+  
+
 	
 end

@@ -364,7 +364,7 @@ module ActionView
           options["onclick"] << "return #{confirm_javascript_function(confirm)};"
         end
 
-        tag :input, { "type" => "submit", "name" => "commit", "class" => "submitButton", "value" => value }.update(options.stringify_keys)
+        tag :input, { "type" => "submit", "name" => "commit", "class" => "submit_button", "value" => value }.update(options.stringify_keys)
       end
 
       # Displays an image which when clicked will submit the form.
