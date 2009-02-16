@@ -21,8 +21,8 @@
     
     
     <% f.field :date, :label => I18n.t('search.search_period') do %>
-      <%=I18n.t('general.from1')%> <%= f.calendar_date_select :created_after, :class => "advanced" %> <br>
-      <%=I18n.t('general.to')%> <%= f.calendar_date_select :created_before, :class => "advanced" %>
+      <%=I18n.t('general.from1')%><br/><%= f.calendar_date_select :created_after, :class => "input_with_calendar" %> <br/>
+      <%=I18n.t('general.to')%><br/><%= f.calendar_date_select :created_before, :class => "input_with_calendar" %>
     <% end %>
     
     <button type="submit" class="submit_button"><%=I18n.t('general.search')%></button>

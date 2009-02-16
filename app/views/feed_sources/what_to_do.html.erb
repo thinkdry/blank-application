@@ -4,8 +4,6 @@
     <% form_for :daurl, :url => '/feed_sources/check_feed' do |f| %>
       <%= f.text_field :value %>
       <%= f.submit I18n.t("layout.new_rss_feed_check"), :class => "submit_button" %>
-	  <br/><br/>
-	  <p></p>
     <% end %>
 	
     <h1><%=I18n.t('layout.new_rss_feed_option_two')%></h1>

@@ -1,20 +1,32 @@
-<h3><%= I18n.t 'layout.select_a_file' %></h3>
-<%#= display_item_list_for_editor(params[:item_type])%>
-<%#= will_paginate @collection %>
+<h1><%= I18n.t 'layout.select_a_file' %></h1>
+
 <% if params[:item_type]=="images" || params[:item_type] =="videos" %>
   <% @object.each do |object| %>
     <%= image_tag object.media_type.url(:thumb)  %>
     <%= link_to_function object.title,"javascript:SelectFile('" + object.media_type.url + "')"  %> <br> <br>
-  <% end %>
+<% end %>
   
 <% else %>
-  <table>
-  <% available_items_list.each do |item_type| %>
-    <tr><th colspan="2"><h2><%= item_type.capitalize %></h2></th></tr>
-    <% @object.send(item_type.pluralize).each do |object| %>
-      <tr><td><%= link_to_function object.title,"javascript:SelectFile('" + item_path(object) + "')"  %></td></tr>
-    <% end %>
-  <% end %>
-  </table>
+	<div id="item_type_link">
+		<%= link_to 'Articles', '/display_content_list/articles'%> | 
+		<%= link_to 'Bookmark', '/display_content_list/bookmarks'%> | 
+		<%= link_to 'Audio', '/display_content_list/audios'%> | 
+		<%= link_to 'Feed', '/display_content_list/feed_sources'%> | 
+		<%= link_to 'Files', '/display_content_list/cms_files'%> | 
+		<%= link_to 'Video', '/display_content_list/videos'%> | 
+		<%= link_to 'Image', '/display_content_list/images'%> | 
+	</div>
+    <%if params[:item_type]=="all" %>
+	   <% available_items_list.each do |item_type| %>
+	   <h3><%= image_tag "/images/item_icons/"+item_type.downcase+".pgn"%><%= item_type.capitalize %></h3>
+	   <% @object.send(item_type.pluralize).each do |object| %>
+	      <p><%= link_to_function object.title,"javascript:SelectFile('" + item_path(object) + "')"  %></p>
+	   <% end %>
+	  <% end %>
+	<%else%>
+		<% @object.each do |object| %>
+			<p><%= link_to_function object.title,"javascript:SelectFile('" + item_path(object) + "')"  %></p>
+		<% end%>
+	<%end%>
 <% end %>
 

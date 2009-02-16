@@ -1,5 +1,7 @@
 ---
-en-US: 
+en-US:
+  en-US: English 
+  fr-FR: Français
   message:
     copyright_restriction: Some fields can't be modified as this element is copyright protected.
     error_during_file_transfer: Error during file transfer
@@ -712,3 +714,4 @@ en-US:
     associated_file: Associated file
     search: Search
     get_in_another_format: Another format
+    yes: yes

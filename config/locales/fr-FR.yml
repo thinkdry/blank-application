@@ -1,5 +1,7 @@
 --- 
 fr-FR: 
+  en-US: English 
+  fr-FR: Français
   number: 
     format: 
       separator: .
@@ -378,3 +380,4 @@ fr-FR:
     picture: Picture
     your_comment: Your comment
     search: Search
+    yes: yes
