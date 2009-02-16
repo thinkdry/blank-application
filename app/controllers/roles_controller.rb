@@ -42,7 +42,6 @@ class RolesController < ApplicationController
   # POST /roles.xml
   def create
     @role = Role.new(params[:role])
-
     #respond_to do |format|
     if @role.save
       flash[:notice] = 'Role was successfully created.'
@@ -64,7 +63,6 @@ class RolesController < ApplicationController
   # PUT /roles/1.xml
   def update
     @role = Role.find(params[:id])
-
     #respond_to do |format|
     if @role.update_attributes(params[:role])
       flash[:notice] = 'Role was successfully updated.'

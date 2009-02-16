@@ -72,7 +72,7 @@ img.test{
 }
 #search-bar-container{
   width: 780px;
-  margin: 0px 0px 20px 0px;
+  margin: 0px 0px 40px 0px;
 }
 
 #search-bar-left, #search-bar-right, #search-bar-middle{
@@ -120,6 +120,7 @@ a.search_button{
   margin-left: 10px;
   margin-top: 13px;
   font-size: 140%;
+  color:#666666;
 }
 
 #search-bar-middle select{
@@ -135,9 +136,6 @@ a.search_button{
   font-size: 140%;
 }
 
-img.avatar{
-}
-
 #area_TITLE{
 	margin: 20px 0 20px 0;
 	border-bottom: 1px solid #f2f2f2;
@@ -147,15 +145,18 @@ img.avatar{
 .area_LEFT{
   float: left;
   width: 370px;
+  margin-bottom:20px;
 }
 
 .area_RIGHT{
   float: right;
   width: 370px;
+  margin-bottom:20px;
 }
 
 .area_BOTH{
   margin-top: 20px;
+  clear:both;
 }
 
 .area_LEFT ul{
@@ -165,18 +166,12 @@ img.avatar{
 
 .area_LEFT ul li{
 	margin-top:10px;
-}
-
-#area_INFOS{
+	min-height:35px;
 }
 
 #area_INFOS p{
   margin: 0px 0px 5px 0px;
   padding: 0;
-}
-
-#area_INFOS p.name{
-  font-size: 110%;
 }
 
 .area_WS{
@@ -185,6 +180,7 @@ img.avatar{
   padding: 10px;
   margin-top:10px;
   margin-bottom: 10px;
+  color:#666666;
 }
 
 .area_WS h4{
@@ -215,10 +211,6 @@ img.avatar{
   margin-top: 5px;
 }
 
-.label-txt{
-  color: #000;
-}
-
 .content-txt{
   color: #444;
 }
@@ -228,7 +220,7 @@ a.object{
 }
 
 .item-list{
-  color: #555;
+  color: #9C9C9C;
   overflow:hidden;
 }
 
@@ -282,19 +274,19 @@ ul#tabs li.selected, ul#top_elems li.selected{
 }
 
 ul#tabs li.selected a, ul#top_elems li.selected a{
-  color: #888;
+  color: #666;
 }
 
 ul.without_img li a{
-  padding: 12px !important;
+  padding: 13px !important;
 }
 
 ul#tabs li a, ul#top_elems li a{
   text-decoration: none;
   display: block;
   padding: 2px 8px;
-  font-weight: bold;
-  font-size: 95%;
+  font-size: 80%;
+  color:#9C9C9C;
 }
 
 ul#tabs li a img{
@@ -309,10 +301,7 @@ ul.top_box{
 
 ul.top_box li{
   margin-top: 10px;
-}
-
-.top_box a{
-	color:#F79646;
+  min-height:35px;
 }
 
 .pubmed_item {
@@ -383,27 +372,6 @@ ul.top_box li{
 	margin:0px 0px 20px;
 }
 
-#content_show #new_comment_form_box .buttons button.alone {
-	margin-right:0;
-	float:right;
-}
-
-#content_show h2#comments {
-	margin:0;
-	padding-bottom:7px;
-	height:32px;
-}
-
-#content_show #comment_list table {
-	font-size:100%;
-	clear:left;
-	margin:0px;
-	border-top:1px solid black;
-}
-
-#content_show #comment_list table tr {
-}
-
 .display_search_result{
 	border: 1px solid #F2F2F2;
 	padding: 0.5em;
@@ -418,6 +386,7 @@ ul.top_box li{
 
 .other_output_format{
 	float:right;
+	color:#9C9C9C;
 }
 
 .file_infos_box p{
@@ -470,15 +439,25 @@ ul.top_box li{
 	float:left;
 }
 
-.itme_list_item_title{
+.itme_list_item_title_large{
 	float:left;
-	width:470px;
+	width:365px;
 }
 .item_list_item_infos{
 	float:left;
 	text-align:right;
-	width:200px;
-	font-size:80%;
+	width:300px;
+	line-height:20px;
+}
+.item_list_item_actions{
+	float:left;
+	width:32px;
+	margin-left:10px;
+}
+
+.itme_list_item_title_small{
+	float:left;
+	width:335px;
 }
 .item_list_rate{
 	float:right;
@@ -493,4 +472,18 @@ ul.top_box li{
 }
 #progress{
 	margin-top:20px;
+}
+
+.tooltip_actions{float:left;width:35px;}
+.tooltip_infos{float:left;width:250px;text-align:left;}
+.tooltip_hidden{display:none;}
+
+.item_description{
+	font-size:115%;
+	color:#aaa;
+	margin:20px 0;
+}
+
+#files{
+	margin-top:3px;
 }

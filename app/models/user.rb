@@ -53,21 +53,22 @@ class User < ActiveRecord::Base
 
   has_many :rattings
   has_many :comments
-
   has_many :feed_items, :through => :feed_sources, :order => "last_updated"
   has_attached_file :avatar,
-                    :default_url => "/images/default_avatar.png",
-                    :url =>  "/uploaded_files/user/:id/:style/:basename.:extension",
-                    :path => ":rails_root/public/uploaded_files/user/:id/:style/:basename.:extension",
-                    :styles => {
-                    :thumb=> "100x200>"}
+    :default_url => "/images/default_avatar.png",
+    :url =>  "/uploaded_files/user/:id/:style/:basename.:extension",
+    :path => ":rails_root/public/uploaded_files/user/:id/:style/:basename.:extension",
+    :styles => {
+    :thumb=> "100x200>"}
+  validates_attachment_content_type :avatar, :content_type => ['image/jpeg','image/jpg', 'image/png', 'image/gif','image/bmp']
+  validates_attachment_size(:avatar, :less_than => 5.megabytes)
   #file_column :image_path, :magick => {:size => "200x200>"}
 
   validates_presence_of     :login
   validates_length_of       :login,     :within => 3..40
   validates_uniqueness_of   :login,     :case_sensitive => false, :on => :create
   validates_format_of       :login,     :with => /\A[a-z_-]+\z/,
-                                        :message => 'invalide : ne peut comporter que des lettres minuscules.'
+    :message => 'invalide : ne peut comporter que des lettres minuscules.'
 
   validates_presence_of     :email
   validates_length_of       :email,    :within => 6..100
@@ -89,15 +90,15 @@ class User < ActiveRecord::Base
 														:system_role
 
   validates_format_of       :firstname, 
-			                      :lastname,
-														:company,
-														:with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL})+\Z/
+    :lastname,
+    :company,
+    :with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL})+\Z/
 			  
   validates_format_of       :address, :with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL}|#{NUM})+\Z/
   
   validates_format_of       :phone, 
-                  			    :mobile,
-														:with => /\A(#{NUM}){10}\Z/
+    :mobile,
+    :with => /\A(#{NUM}){10}\Z/
   
 
 	before_save :encrypt_password
@@ -216,19 +217,19 @@ class User < ActiveRecord::Base
     @activated
   end
   
-#	# Encrypts some data with the salt.
-#  def self.encrypt(password, salt)
-#    Digest::SHA1.hexdigest("--#{salt}--#{password}--")
-#  end
-#
-#  # Encrypts the password with the user salt
-#  def encrypt(password)
-#    self.class.encrypt(password, salt)
-#  end
-#
-#  def authenticated?(password)
-#    crypted_password == encrypt(password)
-#  end
+  #	# Encrypts some data with the salt.
+  #  def self.encrypt(password, salt)
+  #    Digest::SHA1.hexdigest("--#{salt}--#{password}--")
+  #  end
+  #
+  #  # Encrypts the password with the user salt
+  #  def encrypt(password)
+  #    self.class.encrypt(password, salt)
+  #  end
+  #
+  #  def authenticated?(password)
+  #    crypted_password == encrypt(password)
+  #  end
 
   def remember_token?
     remember_token_expires_at && Time.now.utc < remember_token_expires_at
@@ -266,20 +267,20 @@ class User < ActiveRecord::Base
   end
 
   protected
-    # before filter
-    def encrypt_password
-      return if password.blank?
-      self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{login}--") if new_record?
-      self.crypted_password = encrypt(password)
-    end
+  # before filter
+  def encrypt_password
+    return if password.blank?
+    self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{login}--") if new_record?
+    self.crypted_password = encrypt(password)
+  end
 
-    def password_required?
-      crypted_password.blank? || !password.blank?
-    end
+  def password_required?
+    crypted_password.blank? || !password.blank?
+  end
 
-    def make_activation_code
-      self.activation_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
-    end
+  def make_activation_code
+    self.activation_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
+  end
 
 	def create_reset_code
     @reset = true

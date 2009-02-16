@@ -32,7 +32,7 @@ ITEMS = ['article', 'image', 'cms_file', 'video', 'audio', 'publication', 'feed_
 LANGUAGES = ['en-US', 'fr-FR', 'es-ES']
 FEED_ITEMS_IMPORTATION_TYPES = ['bookmark', 'publication']
 WS_TYPES = ['closed', 'public', 'authorized', 'archived']
-
+RIGHT_TYPES = ['system', 'workspace']
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers

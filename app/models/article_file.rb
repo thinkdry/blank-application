@@ -18,8 +18,8 @@ class ArticleFile < ActiveRecord::Base
   #file_column :file_path
   has_attached_file :articlefile
   validates_attachment_presence :articlefile,
-                                    :url =>    "/uploaded_files/articlefile/:id/:style/:basename.:extension",
-                                   :path => ":rails_root/public/uploaded_files/articlefile/:id/:style/:basename.:extension"
+    :url =>    "/uploaded_files/articlefile/:id/:style/:basename.:extension",
+    :path => ":rails_root/public/uploaded_files/articlefile/:id/:style/:basename.:extension"
   validates_attachment_size(:articlefile, :less_than => 100.megabytes)
   #validates_presence_of :file_path
 end

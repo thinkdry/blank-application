@@ -1,9 +1,8 @@
 <% item_show( :title => 'Article',  :object => @current_object ) do %>
-  <h2> <%=I18n.t('general.article')%></h2>
-  
   <%= @current_object.body %>
-  <div id="attachement">
+  
   <% if @current_object.article_files.size > 0 %>
+  <div id="attachement">
     <h2><%= image_tag 'icons/attach.png'%><%=I18n.t('general.associated_file')%></h2>
     <ul style="list-style-type:none;">
       <% @current_object.article_files.each do |af| %>
@@ -17,6 +16,6 @@
         </li>
       <% end %>
     </ul>
-	</div>
+  </div>
   <% end %>
 <% end %>

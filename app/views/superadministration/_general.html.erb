@@ -1,4 +1,4 @@
-<fieldset class="myform">
+<fieldset>
   <legend>General settings</legend>
 
   <% form_for :general, :url => general_changing_superadministration_path, :html => {:multipart => true} do |f| -%>
@@ -26,10 +26,7 @@
       
       <br />
 
-      <div class="buttons" id="area_BUTTONS" style="padding-top: 2em">
-      <button type="submit" class="positive"><img src="/images/tick.png" alt=""/>Mettre à jour</button>
-      <button type="reset" class="negative"><img src="/images/cross.png" alt=""/>Annuler</button>
-     </div>
+      <button type="submit" class="submit_button">Mettre à jour</button>
 <% end %>
 
 

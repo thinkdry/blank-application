@@ -1,10 +1,10 @@
 <div id="area_POST">
 	<div id="area_ADDED">
-		<div class="txt_100_000"><strong><%=I18n.t('general.last_five_published_items')%></strong></div><br>
+		<div><strong><%=I18n.t('general.last_five_published_items')%></strong></div>
 		<% list[0..5].each do |e| %>
 			<div class="item" onclick="window.location.href = '<%= item_path(e) %>'" onmouseout='this.removeClassName("over")' onmouseover='this.addClassName("over")'>
 				<%= image_tag(e.icon) %> <%= e.title %><br>
-				<span class="txt_80_666">par <%= link_to_user(e.user) %> le <%= e.created_at.l(:long) %>
+				par <%= link_to_user(e.user) %> le <%= e.created_at.l(:long) %>
 			</div>
 		<% end %>
 	</div>

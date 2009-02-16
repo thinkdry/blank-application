@@ -1,15 +1,7 @@
-
-#basic h1 {
-	font-size:14px;
-	font-weight:bold;
-	margin-bottom:8px;
-}
 fieldset p{
   font-size:11px;
-  color:#999999;
   font-weight: bold;
   margin-bottom:10px;
-  border-bottom:solid 1px #dedede;
   padding-bottom:10px;
 }
 
@@ -25,27 +17,30 @@ fieldset label{
 }
 
 fieldset legend{
-  margin-left: 10px;
-  font-size: 110%;
-  color: #000;
+	background:#FAFAFA none repeat scroll 0 0;
+	border:1px solid #C2C2C2;
+	font-size:110%;
+	margin-bottom:15px;
+	margin-left:10px;
+	padding:5px;
+}
+
+fieldset legend img{ 
+	margin-right:5px;
 }
 
 fieldset .hint{
-  color:#666666;
   display:block;
   font-size:11px;
   font-weight:normal;
   text-align:right;
   width:100%;
 }
+
 fieldset input, fieldset textarea{
 	border:1px solid #c2c2c2;
 	width:90%;
 	font-size:15px;
-}
-
-fieldset select{
-
 }
 
 .formElement{
@@ -54,220 +49,17 @@ fieldset select{
 	margin-top:10px;
 }
 
-.nicEdit-panelContain{
-  float:left;
-  margin:2px 10px 0px 20px;
-}
-
-fieldset .input_container{
-  float: left;
-  width: 290px;
-  margin: 2px 150px 20px 20px;
-}
-
-fieldset .input_container input{
-  float: none;
-  display: inline;
-  width: 15px;
-  margin: 0;
-}
-
-fieldset .input_container input.advanced{
-  width: 90px;
-}
-
-fieldset .input_files_container{
-  float: left;
-  width: 350px;
-  margin: 2px 10px 20px 20px;
-}
-
-fieldset .input_files_container input{
-  float: none;
-  display: inline;
-  width: 250px;
-  margin: 5px 0px 0px 0px;
-}
-
-fieldset .input_file_container{
-  float: left;
-  width: 480px;
-  margin: 2px 10px 20px 20px;
-}
-
-fieldset .input_file_container input{
-  float: none;
-  display: inline;
-  width: 250px;
-  margin: 0px 0px 0px 0px;
-}
-
-fieldset #textfield {
-	float:left;
-	width:250px;
-	margin:2px 150px 20px 20px;
-}
-fieldset  #textfield_comments {
-	float:left;
-	width:90%;
-	margin:2px 150px 20px 20px;
-}
-#basic2  button{
-	clear:left;
-	color:#FFFFFF;
-	font-size:11px;
-	font-weight:bold;
-	margin: 15px;
-	background-color: #AB5D7C;
-	padding: 1em;
-	border-top-width: 0px;
-	border-right-width: 0px;
-	border-bottom-width: 0px;
-	border-left-width: 0px;
-	border-top-style: solid;
-	border-right-style: solid;
-	border-bottom-style: solid;
-	border-left-style: solid;
-	}
-#bt_parcourir {
-	width: 120px;
-	clear: none;
-	float: right;
-	margin-right: 70px;
-}
 .spacer{clear:both; height:1px;}
-/* ----------- My Form ----------- */
+
 fieldset{
 	background-color: #EEEEEE;
 	padding: 1em;
-	border: 2px solid #C2C2C2;
+	border: 1px solid #C2C2C2;
 	margin:0;
-}
-.myformComments {
-	width:80%;
-	margin-top: 0;
-	margin-bottom: 0px;
-	background-color: #EEEEEE;
-	float: left;
-	clear: left;
-	padding: 0em;
+	color:#666;
 }
 
 /* BUTTONS */
-
-.buttons a, .buttons button{
-	display:block;
-	float:right;
-	background-color:#f5f5f5;
-	border:1px solid #dedede;
-	border-top:1px solid #eee;
-	border-left:1px solid #eee;
-	line-height:130%;
-	text-decoration:none;
-	font-weight:bold;
-	color:#565656;
-	cursor:pointer; /* Links */
-	font-size: 80%;
-	margin-top: 0;
-	margin-right: 0;
-	margin-bottom: 0;
-	margin-left: 0;
-	padding-top: 5px;
-	padding-right: 10px;
-	padding-bottom: 6px;
-	padding-left: 7px;
-}
-.buttons button{
-    width:auto;
-    overflow:visible;
-    padding:4px 10px 3px 7px; /* IE6 */
-}
-
-.buttons button.alone{
-  float: left;
-  margin-left: 310px;
-}
-
-.buttons button[type]{
-    padding:5px 10px 5px 7px; /* Firefox */
-    line-height:17px; /* Safari */
-}
-*:first-child+html button[type]{
-    padding:4px 10px 3px 7px; /* IE7 */
-}
-.buttons button img, .buttons a img{
-    margin:0 3px -3px 0 !important;
-    padding:0;
-    border:none;
-    width:16px;
-    height:16px;
-}
-
-/* STANDARD */
-
-.nicEdit-panelContain{
-	margin-left: 20px;
-}
-
-.nicEdit-main{
-	float: right;
-}
-
-button:hover, .buttons a:hover{
-    background-color:#dff4ff;
-    border:1px solid #c2e1ef;
-    color:#336699;
-}
-.buttons a:active{
-    background-color:#6299c5;
-    border:1px solid #6299c5;
-    color:#fff;
-}
-
-/* POSITIVE */
-
-button.positive, .buttons a.positive{
-    color:#529214;
-}
-.buttons a.positive:hover, button.positive:hover{
-    background-color:#E6EFC2;
-    border:1px solid #C6D880;
-    color:#529214;
-}
-.buttons a.positive:active{
-    background-color:#529214;
-    border:1px solid #529214;
-    color:#fff;
-}
-
-/* NEGATIVE */
-
-.buttons a.negative, button.negative{
-    color:#d12f19;
-}
-.buttons a.negative:hover, button.negative:hover{
-    background:#fbe3e4;
-    border:1px solid #fbc2c4;
-    color:#d12f19;
-}
-.buttons a.negative:active{
-    background-color:#d12f19;
-    border:1px solid #d12f19;
-    color:#fff;
-}
-
-#form_new{
-	width: 800px;
-	background-color: #F4F4F4;
-	margin-right: auto;
-	margin-left: auto;
-	padding: 3em;
-	border: 2px solid #C2C2C2;
-}
-
-#form_new label{
-}
-
 .user label{
   clear: left;
   width: 200px;
@@ -290,28 +82,20 @@ button.positive, .buttons a.positive{
   margin-left: 10px;
 }
 
-.form_titre{
-	text-align: center;
-	padding-bottom: 20px;
+.submit_button{
+	background:transparent url(/images/button.png) no-repeat scroll 0 20px;
+border:medium none;
+clear:both;
+color:#FFFFFF;
+display:block;
+font-weight:bold;
+height:auto;
+margin:0px 0 10px 235px;
+overflow:visible;
+padding:30px;
+width:250px;
 }
 
-.nicEdit-panelContain{
-	margin-left: 0px;
-}
-
-.submitButton{  
-	width:auto;
-	float:left;
-	margin:5px 0;
-	background-color:#ffffff;
-}
-
-#files{
-	margin-top:3px;
-}
-#errors_for_Article_title{
-	clear:both;
-}
 .checkBoxElement{
 	width:auto;
 	border:0;	
@@ -319,8 +103,4 @@ button.positive, .buttons a.positive{
 
 .ajax_hint_message{
 	margin-left:10px;
-}
-
-.positive_submit{
-	margin-right:0px;
 }

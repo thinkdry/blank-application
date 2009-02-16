@@ -4,6 +4,6 @@
 		<%= f.text_field :title, :label => I18n.t('general.name') + " :" %>
 		<%= f.advanced_editor :description, :label => I18n.t('general.description') + " :" %>
         <%= f.select :state, ['Closed', 'Public', 'Autorisé', 'Archived'], :label => 'Type d\'espace de travail :' %>
-		<%= f.submit I18n.t('general.create') %>
+		<%= f.submit I18n.t('general.create'), :class => "submit_button" %>
 	<% end %>
 </fieldset>

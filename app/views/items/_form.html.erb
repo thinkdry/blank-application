@@ -1,5 +1,5 @@
 <fieldset>
-  <legend><%= title %></legend>
+  <legend><img src="/images/item_icons/<%= @current_object.type %>_add.png"/><%= title %></legend>
   <% form_for @current_object, :builder => BlankFormBuilder, :html => {:multipart => true} do |f| -%>
     <% is_copyright = (@current_object.state == 'copyright') ? true : false %>
     <% if is_copyright %>
@@ -17,12 +17,10 @@
       <%= error_message_on :current_object, :items %>
     <% end %>
 
-	<div id="area_BUTTONS_single" class="buttons">
-		<button class="positive_submit" type="submit">
-			<img alt="" src="/images/tick.png"/>
-			<%= current_object.new_record? ? I18n.t('general.create') : I18n.t('general.update')%>
-		</button>
-	</div>
+	<button class="submit_button" type="submit">
+		<%= current_object.new_record? ? I18n.t('general.create') : I18n.t('general.update')%>
+	</button>
+
 	
   <% end -%>
 </fieldset>

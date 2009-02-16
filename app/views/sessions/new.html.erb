@@ -39,10 +39,7 @@
 					<label><%=I18n.t('login.password')%><br>
     			<%= password_field_tag 'password' %></label>
 				</p>
-				<div id="area_BUTTONS" class="buttons">
-	        <button type="submit" class="positive">
-	        <img src="images/tick.png" alt=""/><%=I18n.t('login.connexion')%></button>
-	      </div>
+		        <button type="submit" class="submit_button"><%=I18n.t('login.connexion')%></button>
           <label for="remember_me"><%=I18n.t('login.remember_me')%>:</label>
           <%= check_box_tag 'remember_me', '1', @remember_me %><br />
           <%= link_to I18n.t('login.password_forgotten'), forgot_password_path %>
