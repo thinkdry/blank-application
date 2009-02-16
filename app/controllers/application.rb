@@ -91,5 +91,16 @@ class ApplicationController < ActionController::Base
     end
     redirect_to '/422.html' unless current_user.has_permission?(permission)
   end
+
+	def user_can_access(controller, action)
+		if @current_user.has_system_permission(controller, action)
+			return true
+		elsif (cw_id = params[:workspace_id]) # do with @curren_workspace
+			return @current_user.has_permission(cw_id, controller, action)
+		else
+			flash[:error] = "You don't have the right to do this action."
+			redirect_to '/'
+		end
+	end
 	
 end

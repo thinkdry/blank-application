@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
 
   has_many :users_workspaces, :dependent => :delete_all
   has_many :workspaces, :through => :users_workspaces
-  has_many :roles, :through => :users_workspaces
+  has_many :workspace_roles, :through => :users_workspaces
 
 	ITEMS.each do |item|
 		has_many item.pluralize.to_sym
@@ -55,7 +55,6 @@ class User < ActiveRecord::Base
   has_many :comments
 
   has_many :feed_items, :through => :feed_sources, :order => "last_updated"
-  belongs_to :system_role
   has_attached_file :avatar,
                     :default_url => "/images/default_avatar.png",
                     :url =>  "/uploaded_files/user/:id/:style/:basename.:extension",
@@ -85,8 +84,9 @@ class User < ActiveRecord::Base
                             :company,
                             :phone,
                             :mobile,
-                            :activity
-                            :nationality
+                            :activity,
+                            :nationality,
+														:system_role
 
   validates_format_of       :firstname, 
 			                      :lastname,
@@ -131,6 +131,28 @@ class User < ActiveRecord::Base
     u = find_by_login(login) # need to get the salt
     u && u.authenticated?(password) ? u : nil
   end
+
+	def system_permissions
+		return Role.find(self.system_role_id).permissions
+	end
+
+	def workspace_permissions(workspace_id)
+		if UserWorkspace.exists?(:user_id => self.id, :workspace_id => workspace_id)
+			return UserWorkspace.first(:first, :conditions => {:user_id => self.id, :workspace_id => workspace_id}).role.permissions
+		else
+			return []
+		end
+	end
+
+	def has_system_permission(controller, action)
+		permission_name = controller+'_'+action
+		return self.system_permissions.exists?(permission_name)
+	end
+
+	def has_worskpace_permission(workspace_id, controller, action)
+		permission_name = controller+'_'+action
+		return self.workspace_permissions(workspace_id).exists?(permission_name)
+	end
     
   def has_role? role
     return (self.system_role && self.system_role.name.downcase == role.downcase)
@@ -192,15 +214,6 @@ class User < ActiveRecord::Base
   # Returns true if the user has just been activated.
   def pending?
     @activated
-  end
-
-  def has_permission?(p)
-    current_permissions = []
-    self.roles.each do |role|
-      role.permissions.each { |p| current_permissions << p }
-    end
-    permission = Permission.find_by_name(p)
-    current_permissions.include?(permission)
   end
   
 #	# Encrypts some data with the salt.
