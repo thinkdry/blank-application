@@ -44,7 +44,7 @@ module ApplicationHelper
 		if (available_languages.size > 1)
 			res = "<select name='languages' id='languages' onchange=\"new Ajax.Request('/session/change_language?locale='+this.value, {asynchronous:true, evalScripts:true}); return false;\">"
 			available_languages.each do |l|
-				res += "<option value='#{l}' selected='#{I18n.locale==l ? true : false}'>"+I18n.t('general.language.'+l)+"</option>"
+				res += "<option value='#{l}' selected=#{I18n.locale==l ? true : false}>"+I18n.t('general.language.'+l)+"</option>"
 			end
 			res += "</select>"
 		else
@@ -57,7 +57,7 @@ module ApplicationHelper
 		res = ""
 		var.each do |l|
 			res += check_box_tag(param+"[#{l}]", "1", ((ref=conf[prefix+param]) ? ref.include?(l) : false))
-	      res += l+"<br />"
+	      res += I18n.t('general.item.'+l)+"<br />"
     end
 		res += "<br />"
 		return res

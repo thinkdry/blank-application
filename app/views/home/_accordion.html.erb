@@ -6,7 +6,7 @@
 			<% if o.workspaces.size > 0 %>
 				dans <%= links_to_workspace_collection o.workspaces %>
 			<% end %>
-         	<%= I18n.t('general.by') %>
+         	<%= I18n.t('general.common_word.by') %>
             <%= link_to_user(o.user) %>
 		</p>
     <% end %>
@@ -29,5 +29,5 @@
      		<%= link_to_workspace(o) %>
 	 </p>
     <% end %>
-    <%= I18n.t('general.on1') %> <%= I18n.l o.created_at, :format => :long %>
+    <%= I18n.t('general.common_word.on1') %> <%= I18n.l o.created_at, :format => :long %>
 <%  end %>

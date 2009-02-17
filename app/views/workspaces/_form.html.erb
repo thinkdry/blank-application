@@ -11,13 +11,13 @@
       <%= I18n.t('workspace.edit.available_items') %> :<br />
       <%= checkboxes_from_list(@sa_conf["sa_items"], "items", @ws_conf, "ws_") %>
       
-      Feed items imporation types :<br />
+      <%= I18n.t('general.txt.feed_item_importation_type') %> :<br />
       <%= checkboxes_from_list(@sa_conf["sa_feed_items_importation_types"], "feed_items_importation_types", @ws_conf, "ws_") %>
 
       <br />
       <% end  %>
       
-      <h4><%=I18n.t 'workspace.associated_users'%></h4>
+      <h4><%=I18n.t 'workspace.edit.associated_user'%></h4>
       <div id="users">
         <% @current_object.users_workspaces.each do |object| %>
           <%= render :partial => 'user', :object => object %>
@@ -26,7 +26,7 @@
       <div class="clear"></div>
       <br /><br />
       
-      <% text_button = (current_object.new_record? ?  I18n.t('workspace.create_a_new_workspace') : I18n.t('workspace.save') )%>
+      <% text_button = (current_object.new_record? ?  I18n.t('general.button.create_a_new_workspace') : I18n.t('general.button.save') )%>
       <button type="submit" class="submit_button"><%= text_button %></button>
       
       <div class="clear"></div>
@@ -37,11 +37,11 @@
 
 <div id="newuser">
   <fieldset>
-  <legend><%=I18n.t('workspace.add_new_user')%></legend><br>
+  <legend><%= I18n.t('workspace.add_user.title') %></legend><br>
     
     <% form_for :user,  :builder => BlankFormBuilder do |f| %>
     
-      <%= f.text_field :login, :ajax => false, :label => 'Nom :' %>
+      <%= f.text_field :login, :ajax => false, :label => I18n.t('workspace.add_user.name')+' :' %>
       <div id="autocomplete_choices" class="autocomplete"></div>
       <script>
         new Ajax.Autocompleter("user_login", "autocomplete_choices","/users/index",{
@@ -49,13 +49,13 @@
         });
       </script>
   
-      <%= f.select(:role, Role.find(:all).collect { |r| [r.name, r.id]}) %>
+      <%= f.select(I18n.t('workspace.add_user.role'), Role.find(:all).collect { |r| [I18n.t('user.access_right.'+r.name), r.id]}) %>
     
-      <%= button_to_function "Add", %{
+      <%= button_to_function I18n.t('general.button.add'), %{
             new Ajax.Request("#{add_new_user_workspace_path(params[:id])}", {
               parameters: {
                 user_login: $('user_login').value,
-                user_role: $('user_role').value
+                user_role: $('user_Role').value
               },
               method: 'get',
               asynchronous:true,

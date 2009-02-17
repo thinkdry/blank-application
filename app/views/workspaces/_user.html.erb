@@ -7,11 +7,11 @@
 		<%= error_message_on user, :user, "L'utilisateur ", '<br />' %>
     <%= label_tag :role_id, object.user.login, :class => "user_role" %>
     <%= user_form.hidden_field :user_id, :value => object.user.id %>
-		<%= user_form.select :role_id, Role.find(:all).collect { |r| [r.name, r.id] } %>
+		<%= user_form.select :role_id, Role.find(:all).collect { |r| [I18n.t('user.access_right.'+r.name), r.id] } %>
                 
 	<% end %>
 	
-	<%= link_to_function 'Delete', "$(this).parentNode.remove()" %>
+	<%= link_to_function I18n.t('general.button.delete'), "$(this).parentNode.remove()" %>
 
 	<br/>
 </div>
