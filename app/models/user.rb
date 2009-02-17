@@ -89,7 +89,7 @@ class User < ActiveRecord::Base
                             :mobile,
                             :activity,
                             :nationality,
-														:system_role
+														:system_role_id
 
   validates_format_of       :firstname, 
     :lastname,
@@ -155,6 +155,10 @@ class User < ActiveRecord::Base
 	def has_worskpace_permission(workspace_id, controller, action)
 		permission_name = controller+'_'+action
 		return self.workspace_permissions(workspace_id).exists?(permission_name)
+	end
+
+	def system_role
+		return Role.find(self.system_role_id)
 	end
     
   def has_role? role

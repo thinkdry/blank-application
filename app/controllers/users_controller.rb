@@ -3,10 +3,21 @@ class UsersController < ApplicationController
 	
 	skip_before_filter :is_logged?, :only => [:forgot_password, :reset_password, :activate]
 
-	before_filter user_can_access('user', 'new'), :only => [:new, :create]
-	before_filter user_can_access('user', 'edit', (params[:id]=@current_user.id), false, false), :only => [:edit, :update]
-	before_filter user_can_access('user', 'destroy', (params[:id]=@current_user.id), false, false)), :only => [:destroy]
-	before_filter user_can_access('user', 'show', (params[:id]=@current_user.id), false, false), :only => [:show, :index]
+	before_filter :only => [:new, :create] do |controller|
+		controller.user_can_access('user', 'new', false, false, false)
+	end
+	before_filter :only => [:edit, :update] do |controller|
+		controller.user_can_access('user', 'edit', (controller.params['id']==@current_user.id), false, false)
+	end
+	before_filter :only => [:destroy] do |controller|
+		controller.user_can_access('user', 'destroy', (controller.params[:id]==@current_user.id), false, false)
+	end
+	before_filter :only => [:index] do |controller|
+		controller.user_can_access('user', 'index', false, false, false)
+	end
+	before_filter :only => [:show] do |controller|
+		controller.user_can_access('user', 'show', (params[:id]==@current_user.id), false, false)
+	end
 
 	layout "application", :except => [:forgot_password, :reset_password]
 
