@@ -23,6 +23,6 @@
 class Bookmark < ActiveRecord::Base
 	
 	acts_as_item
-  acts_as_xapian :texts => [:title, :description, :tags, :url]
+  acts_as_xapian :texts => [:title, :description, :tags, :link]
   
 end

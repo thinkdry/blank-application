@@ -37,15 +37,25 @@ class WorkspacesController < ApplicationController
 				@current_object.ws_config = WsConfig.create(:ws_items => default.ws_items, :ws_feed_items_importation_types => default.ws_feed_items_importation_types)
 				#@current_object.ws_config = WsConfig.create(:ws_items => check_to_tab(:items).join(","), :ws_feed_items_importation_types => check_to_tab(:feed_items_importation_types).join(","))
 				@current_object.save
+        flash[:notice] =I18n.t('workspace.new.flash_notice')
 			#end
 		end
+
+    after :create_fails do
+      flash[:error] =I18n.t('workspace.new.flash_error')
+    end
 
 		after :update do
 			if current_user.is_superadmin?
 				@current_object.ws_config.update_attributes(:ws_items => check_to_tab(:items).join(","), :ws_feed_items_importation_types => check_to_tab(:feed_items_importation_types).join(","))
+        flash[:notice] =I18n.t('workspace.edit.flash_notice')
 			end
 		end
     
+    after :update_fails do
+      flash[:error] =I18n.t('workspace.edit.flash_error')
+    end
+
     before :update do
       permit "edition of current_object"
       # Hack. Permit deletion of all assigned users (with roles).
