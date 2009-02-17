@@ -1,17 +1,21 @@
 <% item_show( :title => 'Article',  :object => @current_object ) do %>
+
+  <h2> <%=I18n.t('article.field.article_label')%></h2>
+  
+
   <%= @current_object.body %>
   
   <% if @current_object.article_files.size > 0 %>
+    <h2><%= image_tag 'icons/attach.png'%><%=I18n.t('article.field.assosiated_file_label')%></h2>
   <div id="attachement">
-    <h2><%= image_tag 'icons/attach.png'%><%=I18n.t('general.associated_file')%></h2>
     <ul style="list-style-type:none;">
       <% @current_object.article_files.each do |af| %>
         <li>
           <% if af.articlefile.file? %>
             <%= af.articlefile.url.split('/').last.split("?")[0] %>
-            <%= link_to  I18n.t('general.download'), af.articlefile.url.split("?")[0] %>
+            <%= link_to  I18n.t('general.button.download'), af.articlefile.url.split("?")[0] %>
           <% else %>
-             <%=I18n.t('file.corrupted_file')%>
+             <%=I18n.t('item.common_word.corrupted_file')%>
           <% end %>
         </li>
       <% end %>

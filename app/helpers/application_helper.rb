@@ -44,7 +44,7 @@ module ApplicationHelper
 		if (available_languages.size > 1)
 			res = "<select name='languages' id='languages' onchange=\"new Ajax.Request('/session/change_language?locale='+this.value, {asynchronous:true, evalScripts:true}); return false;\">"
 			available_languages.each do |l|
-				res += "<option value='#{l}' selected='#{I18n.locale==l ? true : false}'>"+I18n.t(l)+"</option>"
+				res += "<option value='#{l}' selected='#{I18n.locale==l ? true : false}'>"+I18n.t('general.language.'+l)+"</option>"
 			end
 			res += "</select>"
 		else

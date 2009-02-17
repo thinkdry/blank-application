@@ -1,14 +1,14 @@
 <div class="area_WS" style="margin-bottom:20px;">
   <fieldset>
     <% form_for @workspace, :builder => BlankFormBuilder do |f| -%>
-      <%= f.text_field :title, :label => "Nom de l'espace de travail * : " %>
-      <%= f.advanced_editor :description, :label => 'Description : ' %>
-      <%= f.select :state, ['Closed', 'Public', 'Autorisé', 'Archived'], :label => 'Type d\'espace de travail :', :disabled => (@workspace.state == 'private') %>
+      <%= f.text_field :title, :label => I18n.t('workspace.field.title_label')+" * : " %>
+      <%= f.advanced_editor :description, :label => I18n.t('workspace.field.description_label') +' : ' %>
+      <%= f.select :state, [I18n.t('workspace.type.closed'), I18n.t('workspace.type.public'), I18n.t('workspace.type.authorized'), I18n.t('workspace.type.archived')], :label => I18n.t('workspace.field.state_label')+' :', :disabled => (@workspace.state == 'private') %>
       <br /><br />
 
       <% if current_user.is_superadmin? %>
-      <%= f.label "Workspace configuration : " %><br />
-      Available items :<br />
+      <%= f.label I18n.t('workspace.edit.workspace_configuration')+" : " %><br />
+      <%= I18n.t('workspace.edit.available_items') %> :<br />
       <%= checkboxes_from_list(@sa_conf["sa_items"], "items", @ws_conf, "ws_") %>
       
       Feed items imporation types :<br />

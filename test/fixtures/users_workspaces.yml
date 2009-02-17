@@ -13,37 +13,37 @@
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  workspace: cancerologie
-  user: tintin
-  role_id: <%= Role.find_by_name('moderator').id %>
-
-two:
-  workspace: fun
-  user: milou
-  role_id: <%= Role.find_by_name('writer').id %>
-
-three:
-  workspace: test
-  user: tintin
-  role_id: <%= Role.find_by_name('reader').id %>
-
-four:
-  workspace: fun
-  user: tintin
-  role_id: <%= Role.find_by_name('writer').id %>
-
-five:
-  workspace: cancerologie
-  user: milou
-  role_id: <%= Role.find_by_name('reader').id %>
-
-six:
-  workspace: cancerologie
-  user: haddock
-  role_id: <%= Role.find_by_name('moderator').id %>
-
-seven:
-  workspace: fun
-  user: haddock
-  role_id: <%= Role.find_by_name('reader').id %>
+#one:
+#  workspace: cancerologie
+#  user: tintin
+#  role_id: <%#= Role.find_by_name('moderator').id %>
+#
+#two:
+#  workspace: fun
+#  user: milou
+#  role_id: <%#= Role.find_by_name('writer').id %>
+#
+#three:
+#  workspace: test
+#  user: tintin
+#  role_id: <%#= Role.find_by_name('reader').id %>
+#
+#four:
+#  workspace: fun
+#  user: tintin
+#  role_id: <%#= Role.find_by_name('writer').id %>
+#
+#five:
+#  workspace: cancerologie
+#  user: milou
+#  role_id: <%#= Role.find_by_name('reader').id %>
+#
+#six:
+#  workspace: cancerologie
+#  user: haddock
+#  role_id: <%#= Role.find_by_name('moderator').id %>
+#
+#seven:
+#  workspace: fun
+#  user: haddock
+#  role_id: <%#= Role.find_by_name('reader').id %>

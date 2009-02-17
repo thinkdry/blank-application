@@ -7,32 +7,31 @@
 	  </h2>
   	  
 	  <p>
-	  	<label><%=I18n.t('user.location')%>  : </label><%= @current_object.company %>
+	  	<label><%=I18n.t('user.field.location_label')%>  : </label><%= @current_object.company %>
 	  </p>
 	  <p>
-	    <label><%=I18n.t('user.activity')%> : </label><%= @current_object.activity %>
+	    <label><%=I18n.t('user.field.activity_label')%> : </label><%= @current_object.activity %>
 	  </p>
 	  <p>
-	  	<label><%=I18n.t('user.address')%> : </label><%= @current_object.address %>
+	  	<label><%=I18n.t('user.field.address_label')%> : </label><%= @current_object.address %>
 	  </p>
-	    <label><%=I18n.t('user.email')%> : </label> <%= @current_object.email %>
+	    <label><%=I18n.t('user.field.email_label')%> : </label> <%= @current_object.email %>
 	  </p>
 	  <p>	
-	    <label><%=I18n.t('user.phone')%> : </label><%= @current_object.phone %>	- <%= @current_object.mobile %>
+	    <label><%=I18n.t('user.field.phone_label')%> : </label><%= @current_object.phone %>	- <%= @current_object.mobile %>
 	  </p>
 	  <p><%= @current_object.edito %></p>
 	</div>
 </div>
 <div id="area_DROITS">
-	<h2><%=I18n.t('user.access_rights')%></h2>
+	<h2><%=I18n.t('user.access_right.title')%></h2>
 	<div class="item" >
-		<p><label><%=I18n.t('user.system_administrator')%> : </label><%= @is_admin ? I18n.t('general.yes') : I18n.t('general.no1') %></p>
-		<p><label><%=I18n.t('user.moderator')%> : </label><%= @moderated_ws.empty? ? I18n.t('general.yes') : I18n.t('general.no1') %></p>
-		<p><label><%=I18n.t('user.rights_to_be_moderator')%> : </label><%= links_to_workspace_collection(@moderated_ws) || '- ' + I18n.t('general.void') + ' -' %></p>
-		<p><label><%=I18n.t('user.writer')%> : </label><%= @writter_role_on_ws.empty? ? I18n.t('general.yes') : I18n.t('general.no1') %></p>
-		<p><label><%=I18n.t('user.rights_to_manage')%> <%=I18n.t('general.workspace')%> : </label><%= links_to_workspace_collection(@writter_role_on_ws) || '-' + I18n.t('general.void') + ' -' %></p>
-		<p><label><%=I18n.t('user.reader')%> : </label><%= @reader_role_on_ws.empty? ? I18n.t('general.yes') : I18n.t('general.no1') %></p>
-		<p><label><%=I18n.t('user.readonly_access_to')%> : </label> <%= links_to_workspace_collection(@reader_role_on_ws) || '- ' + I18n.t('general.void')+ ' -' %></p>
+		<p><label><%=I18n.t('user.access_right.system_administrator')%> : </label><%= @is_admin ? I18n.t('general.common_word.yes1') : I18n.t('general.common_word.no1') %></p>
+		<p><label><%=I18n.t('user.access_right.rights_to_be_moderator')%> : </label><%= @moderated_ws.empty? ? I18n.t('general.common_word.yes1') : I18n.t('general.common_word.no1') %></p>
+		<p><label><%=I18n.t('user.access_right.writer')%> : </label><%= @writter_role_on_ws.empty? ? I18n.t('general.common_word.yes1') : I18n.t('general.common_word.no1') %></p>
+		<p><label><%=I18n.t('user.access_right.rights_to_manage')%> <%=I18n.t('workspace.other.workspace')%> : </label><%= links_to_workspace_collection(@writter_role_on_ws) || '-' + I18n.t('general.common_word.none') + ' -' %></p>
+		<p><label><%=I18n.t('user.access_right.reader')%> : </label><%= @reader_role_on_ws.empty? ? I18n.t('general.common_word.yes1') : I18n.t('general.common_word.no1') %></p>
+		<p><label><%=I18n.t('user.access_right.readonly_access_to')%> : </label> <%= links_to_workspace_collection(@reader_role_on_ws) || '- ' + I18n.t('general.common_word.none')+ ' -' %></p>
 	</div>
 </div>
 <div class="clear"></div>

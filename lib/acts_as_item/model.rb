@@ -30,7 +30,7 @@ module ActsAsItem
       end
 
 			def label
-				I18n.t("general.#{self.model_name.underscore}")
+				I18n.t("general.item.#{self.model_name.underscore}")
 			end
 
     end

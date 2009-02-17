@@ -1,6 +1,6 @@
 <script type="text/javascript" src="/videoplayer/swfobject.js"></script>
-<% item_show( :title => I18n.t('general.audio'),  :object => @current_object ) do %>
-	<h2><%=I18n.t('general.audio')%></h2>
+<% item_show( :title => I18n.t('audio.field.audio_label'),  :object => @current_object ) do %>
+	<h2><%=I18n.t('audio.field.audio_label')%></h2>
         <div id ="progress">
             <% if @current_object.state=="encoded" %>
               <%= render :partial => "player" %>
@@ -10,5 +10,5 @@
                <%= @current_object.state.capitalize %>
            <% end %>
           </div>
-	<br /><br /><%= link_to I18n.t('general.download'), @current_object.audio.url.split("?")[0] %><br />
+	<br /><br /><%= link_to I18n.t('general.button.download'), @current_object.audio.url.split("?")[0] %><br />
 <% end %>

@@ -1,13 +1,38 @@
 <div id="area_TITLE">
+	<h1>
+		<%=I18n.t('workspace.show.title')%> <%= @current_object.title %>
+	</h1>
+	<span class="txt_80_666"><%= @current_object.description %></span>
 	<% if @workspace.creator == self.current_user %>
-		<h1><%= link_to @workspace.title, edit_workspace_path(@workspace.id) %></h1>
-	<%else%>
-		<h1><%= @workspace.title %></h1>
-	<%end%>
-	<p><%= @current_object.description %></p>
+      <%= I18n.t('workspace.other.administrator_of_workspace') %>, <%= I18n.t('general.common_word.click') %> <%= link_to I18n.t('general.common_word.here'), edit_workspace_path(@workspace.id) %> <%= I18n.t('workspace.other.to_manage_it') %>.<br/>
+    <% else %>
+    <% if user=@workspace.users_workspaces.find(:first, :conditions => { :user_id => self.current_user.id }) %>
+      <h2> Your subscription </h2>
+      Vous êtes déjà inscrit sur cet espace de travail en temps que <%= user.role %>.<br />
+      Vous pouvez vous désinscrire en cliquant sur le bouton ci-dessous.<br />
+      <%= link_to "Désinscription", unsubscription_workspace_path(@workspace.id) %><br />
+    <% else %>
+      <% if @current_object.state == 'Public' %>
+        <h2> Public workspace </h2>
+        Cet espace de travail est public, vous pouvez donc y souscrire en tant que lecteur en cliquant sur le lien ci-dessous.<br />
+        <%= link_to "Subscription as reader", subscription_workspace_path(@workspace.id) %><br />
+        Pour obtenir un rôle plus avancé sur cet espace de travail, veillez adresser une demande à l'administrateur (voir ci-dessous).<br />
+      <% end %>
+    <% end %>
+    <br />
+    <% if @current_object.state == 'Public' || @current_object.state == 'mi_public' %>
+      <h2> Request to the workspace administrator </h2>
+      Si vous voulez envoyez un demande particulière à l'administrateur de cet espace de travail, remplissez l'encadré ci-dessus afin de générer un email pour l'administrateur.<br />
+      <% form_for :question, :url => question_workspace_path(@workspace.id) do |f| %>
+        <%= f.select :type, ["Inscription", "Autre"] %><br />
+        <%= f.text_area :msg, :size => '50x5' %><br />
+        <%= f.submit "Envoyez votre demande" %><br />
+      <% end %>
+    <% end %>
+    <% end %>
 </div>
  <div class="area_LEFT">
-	<h2><%=I18n.t('workspace.last_five_items')%></h2>
+	<h2><%=I18n.t('workspace.show.last_five_item')%></h2>
 	<ul>
 		<% GenericItem.from_workspace(@workspace.id).latest.each do |item| %>
 			<li class="clear">
@@ -21,7 +46,7 @@
 						<p><%= I18n.l item.created_at, :format => :long %></p>
 						<p>
 							<%= item.comments.count%>
-						  	<%= item.comments.count > 1 ? I18n.t("general.comment").pluralize : I18n.t("general.comment")%>
+						  	<%= item.comments.count > 1 ? I18n.t("item.common_word.comment").pluralize : I18n.t("item.common_word.comment")%>
 						</p>
 						<p><%= item_rate_locked(item) %></p>
 					</div>
@@ -44,7 +69,7 @@
 								  stem: 'leftTop',
 								  hideOthers: 'true',
 								  hideAfter: 3,
-								  width: 300,
+								  width: 300
 								});
 					//]]>
 				</script>

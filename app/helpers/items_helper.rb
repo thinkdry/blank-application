@@ -111,24 +111,6 @@ module ItemsHelper
     item_tag tag, true
   end
   
-  # Resourceful helper. May be used in generic forms (acts_as_item).
-  def link_to_edit_item object
-    link_to(
-      image_tag('icons/pencil.png'),
-      item_path(object)
-    )
-  end
-  
-  # Resourceful helper. May be used in generic forms (acts_as_item).
-  def link_to_remove_item object
-    link_to(
-      image_tag('icons/delete.png'),
-      item_path(object),
-      :confirm => 'Êtes vous sur de vouloir supprimer cet élément ? Cette action est irréversible.',
-      :method => :delete
-    )
-  end
-  
   def link_to_item(object)
     link_to(object.title, item_path(object))
   end
