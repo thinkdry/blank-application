@@ -31,5 +31,5 @@
         title: $LABEL
         description: Les sujets qui disent bonjour
         url: http://eutils.ncbi.nlm.nih.gov/entrez/eutils/erss.cgi?rss_guid=1fK6RBI2YOGMyUFh8zFph_iJarKj9ywdpsn5xPxb5OW0skGQT
-        user: quentin
+        user: boss
 <% end %>

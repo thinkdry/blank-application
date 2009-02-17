@@ -5,9 +5,6 @@ class CreateRoles < ActiveRecord::Migration
 			t.text :description
       t.timestamps
     end
-    Role.create(:name => 'moderator')
-    Role.create(:name => 'writer')
-    Role.create(:name => 'reader')
   
 		create_table :permissions do |t|
 			t.string :name
