@@ -177,6 +177,7 @@ en-US:
       rate: Rate
       your_comment: Your Comment
       corrupted_file: Corrupted file
+      output_formate: Output format
     destroy:
       delete_conform: Are you sure you want to delete this item?
 
@@ -309,6 +310,7 @@ en-US:
     other:
       administrator_of_workspace: You are the administrator of this workspace
       to_manage_it: to manage it
+      workspace: Workspace
       
   home:
     index:
@@ -392,5 +394,8 @@ en-US:
       publication: Publication
       feed_source: RSS Feed
       bookmark: Bookmark
-     
+    language:
+      en-US: English(US)
+      fr-FR: French
+      es-ES: Spanish
   

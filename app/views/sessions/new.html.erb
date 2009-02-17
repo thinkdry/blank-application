@@ -39,10 +39,14 @@
 					<label><%=I18n.t('user.session.password_label')%><br>
     			<%= password_field_tag 'password' %></label>
 				</p>
-		        <button type="submit" class="submit_button"><%=I18n.t('user.session.login_button')%></button>
+
+           <button type="submit" class="submit_button"><%=I18n.t('user.session.login_button')%></button><br />
           <label for="remember_me"><%=I18n.t('user.session.remember_me')%>:</label>
           <%= check_box_tag 'remember_me', '1', @remember_me %><br />
           <%= link_to I18n.t('user.session.password_forgotten'), forgot_password_path %>
+		
+
+
 			<% end %>
 		</div>
 	</body>

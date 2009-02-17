@@ -29,7 +29,7 @@
 		<p><label><%=I18n.t('user.access_right.system_administrator')%> : </label><%= @is_admin ? I18n.t('general.common_word.yes1') : I18n.t('general.common_word.no1') %></p>
 		<p><label><%=I18n.t('user.access_right.rights_to_be_moderator')%> : </label><%= @moderated_ws.empty? ? I18n.t('general.common_word.yes1') : I18n.t('general.common_word.no1') %></p>
 		<p><label><%=I18n.t('user.access_right.writer')%> : </label><%= @writter_role_on_ws.empty? ? I18n.t('general.common_word.yes1') : I18n.t('general.common_word.no1') %></p>
-		<p><label><%=I18n.t('user.access_right.rights_to_manage')%> <%=I18n.t('general.workspace')%> : </label><%= links_to_workspace_collection(@writter_role_on_ws) || '-' + I18n.t('general.common_word.none') + ' -' %></p>
+		<p><label><%=I18n.t('user.access_right.rights_to_manage')%> <%=I18n.t('workspace.other.workspace')%> : </label><%= links_to_workspace_collection(@writter_role_on_ws) || '-' + I18n.t('general.common_word.none') + ' -' %></p>
 		<p><label><%=I18n.t('user.access_right.reader')%> : </label><%= @reader_role_on_ws.empty? ? I18n.t('general.common_word.yes1') : I18n.t('general.common_word.no1') %></p>
 		<p><label><%=I18n.t('user.access_right.readonly_access_to')%> : </label> <%= links_to_workspace_collection(@reader_role_on_ws) || '- ' + I18n.t('general.common_word.none')+ ' -' %></p>
 	</div>
