@@ -2,23 +2,29 @@ class UsersController < ApplicationController
   acts_as_ajax_validation
 	
 	skip_before_filter :is_logged?, :only => [:forgot_password, :reset_password, :activate]
+
+	before_filter user_can_access('user', 'new'), :only => [:new, :create]
+	before_filter user_can_access('user', 'edit', (params[:id]=@current_user.id), false, false), :only => [:edit, :update]
+	before_filter user_can_access('user', 'destroy', (params[:id]=@current_user.id), false, false)), :only => [:destroy]
+	before_filter user_can_access('user', 'show', (params[:id]=@current_user.id), false, false), :only => [:show, :index]
+
 	layout "application", :except => [:forgot_password, :reset_password]
 
   make_resourceful do
     actions :all
     
-    before :remove do
-      permit "deletion of user"
-    end
-    
-    before :edit, :update do
-      permit "edition of user"
-    end
-    
-    
-    before :new, :create do
-      permit "creation of user"
-    end
+#    before :destroy do
+#      permit "deletion of user"
+#    end
+#
+#    before :edit, :update do
+#      permit "edition of user"
+#    end
+#
+#
+#    before :new, :create do
+#      permit "creation of user"
+#    end
     
     before :show do
       @is_admin = @current_object.is_admin?

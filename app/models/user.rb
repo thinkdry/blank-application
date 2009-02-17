@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
   include Authentication::ByCookieToken
 
   acts_as_authorized_user
-  acts_as_authorizable	
+  acts_as_authorizable
 
   has_many :users_workspaces, :dependent => :delete_all
   has_many :workspaces, :through => :users_workspaces

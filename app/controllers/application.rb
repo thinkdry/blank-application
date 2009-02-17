@@ -24,17 +24,17 @@ class ApplicationController < ActionController::Base
 
 	def available_items_list
 		if File.exist?("#{RAILS_ROOT}/config/customs/sa_config.yml")
-			res=YAML.load_file("#{RAILS_ROOT}/config/customs/sa_config.yml")["sa_items"]
+			return YAML.load_file("#{RAILS_ROOT}/config/customs/sa_config.yml")["sa_items"]
 		else
-			res=[]
+			return []
 		end
 	end
 
 	def available_languages
 		if File.exist?("#{RAILS_ROOT}/config/customs/sa_config.yml")
-			res=YAML.load_file("#{RAILS_ROOT}/config/customs/sa_config.yml")["sa_languages"]
+			return YAML.load_file("#{RAILS_ROOT}/config/customs/sa_config.yml")["sa_languages"]
 		else
-			res = []
+			return []
 		end
 	end
 
@@ -56,6 +56,19 @@ class ApplicationController < ActionController::Base
 			end
 		end
 		return WsConfig.find(ws_id)
+	end
+
+	def user_can_access(controller, action, admin_condition=false, system_condition=false, ws_condition=false)
+		if @current_user.is_superadmin? || admin_condition
+			return true
+		elsif @current_user.has_system_permission(controller, action) || system_condition
+			return true
+		elsif (cw_id = params[:workspace_id]) # do with @curren_workspace
+			return @current_user.has_permission(cw_id, controller, action) || ws_condition
+		else
+			flash[:error] = "You don't have the right to do this action."
+			redirect_to '/'
+		end
 	end
 
   private
@@ -91,16 +104,5 @@ class ApplicationController < ActionController::Base
     end
     redirect_to '/422.html' unless current_user.has_permission?(permission)
   end
-
-	def user_can_access(controller, action)
-		if @current_user.has_system_permission(controller, action)
-			return true
-		elsif (cw_id = params[:workspace_id]) # do with @curren_workspace
-			return @current_user.has_permission(cw_id, controller, action)
-		else
-			flash[:error] = "You don't have the right to do this action."
-			redirect_to '/'
-		end
-	end
 	
 end
