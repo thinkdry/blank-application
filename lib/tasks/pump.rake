@@ -5,7 +5,8 @@ namespace :blank do
     # Drop All Pervious Roles & Permissions;
     sql =["TRUNCATE table roles;",
       "TRUNCATE table permissions;",
-      "TRUNCATE table permissions_roles;"
+      "TRUNCATE table permissions_roles;",
+      "TRUNCATE table elements"
     ]
     for i in sql
       query=<<-SQL

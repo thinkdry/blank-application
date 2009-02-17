@@ -76,30 +76,30 @@ class WorkspacesController < ApplicationController
 
 	def unsubscription
 		if UsersWorkspace.find(:first, :conditions => { :user_id => self.current_user.id, :workspace_id => params[:id] }).destroy
-			flash[:notice] = "Vous êtes désinscrit de cet espace de travail."
+			flash[:notice] = I18n.t('workspace.unsubscription.flash_notice')
 			redirect_to workspace_path(params[:id])
 		else
-			flash[:error] = "Vous n'avez pas été désinscrit de cet espace de travail."
+			flash[:error] = I18n.t('workspace.unsubscription.flash_error')
 			redirect_to workspace_path(params[:id])
 		end
 	end
 
 	def subscription
 		if UsersWorkspace.create(:user_id => self.current_user.id, :workspace_id => params[:id], :role_id => Role.find_by_name('reader').id)
-			flash[:notice] = "Vous êtes inscrit sur cet espace de travail."
+			flash[:notice] = I18n.t('workspace.subscription.flash_notice')
 			redirect_to workspace_path(params[:id])
 		else
-			flash[:error] = "Vous n'avez pas été inscrit sur cet espace de travail."
+			flash[:error] = I18n.t('workspace.subscription.flash_error')
 			redirect_to workspace_path(params[:id])
 		end
 	end
 
 	def question
 		if UserMailer.deliver_ws_administrator_request(Workspace.find(params[:id]).creator, @current_user.id, params[:question][:type], params[:question][:msg])
-			flash[:notice] = "Votre demande a bien été envoyée."
+			flash[:notice] = I18n.t('workspace.question.flash_notice')
 			redirect_to workspace_path(params[:id])
 		else
-			flash[:error] = "Votre demande n'a pu être envoyée."
+			flash[:error] = I18n.t('workspace.question.flash_error')
 			redirect_to workspace_path(params[:id])
 		end
 	end

@@ -102,7 +102,7 @@ en-US:
   user:
     new:
       add_user: Add a new user
-      title: Your private informations
+      title: Your private information
       flash_error: There was problem while creating user.
       flash_notice: User successfully created.
     field:
@@ -143,12 +143,20 @@ en-US:
     edit:
       flash_notice: Updated successfully.
       flash_error: Problem occured while updating.
-    reset_password:
+    forgot_password:
       title: Password reset request
       password_label: Enter your password and a reactivation link will be send to you by mail.
       back_to_login: Back to login
       flash_notice: A link that allows you to change your password has been send by e-mail.
       flash_error: There is no user with this e-mail address.
+    reset_password:
+      title: Reset your password
+      new_password: New password
+      confirm_new_password: Confirm new password
+      validate_this_password: Validate this password
+      flash_notice: Your password has been successfully changed.
+      flash_error: Your password has not been changed.
+      flash_error_link: This link is no more valid.
     access_right:
       title: Access rights
       system_administrator: System administrator
@@ -178,6 +186,7 @@ en-US:
       your_comment: Your Comment
       corrupted_file: Corrupted file
       output_formate: Output format
+      tag: Tag
     destroy:
       delete_conform: Are you sure you want to delete this item?
 
@@ -304,13 +313,39 @@ en-US:
       manage_users_and_rights: Manage users and rights
       workspace_configuration: Workspace configuration
       available_items: Available items
+      associated_user: Associated users
+    add_user:
+      title: Add a new user
+      name: Name
+      role: Role
     show:
       title: Workspace
       last_five_item: Last five items
+      unsubscription: Unsubscription
+      subscription_as_reader: Subscription as reader
+      your_subscription: Your subscription
+      public_workspace: Public workspace
+    unsubscription:
+      flash_notice: Vous êtes désinscrit de cet espace de travail.
+      flash_error: Vous n'avez pas été désinscrit de cet espace de travail.
+    subscription:
+      flash_notice: Vous êtes inscrit sur cet espace de travail.
+      flash_error: Vous n'avez pas été inscrit sur cet espace de travail.
+    question:
+      flash_notice: Votre demande a bien été envoyée.
+      flash_error: Votre demande n'a pu être envoyée.
     other:
       administrator_of_workspace: You are the administrator of this workspace
       to_manage_it: to manage it
       workspace: Workspace
+      public_workspace_txt1: Cet espace de travail est public, vous pouvez donc y souscrire en tant que lecteur en cliquant sur le lien ci-dessous
+      public_workspace_txt2: Pour obtenir un rôle plus avancé sur cet espace de travail, veillez adresser une demande à l'administrateur (voir ci-dessous)
+      subscription_txt1: Vous êtes déjà inscrit sur cet espace de travail en temps que
+      subscription_txt2: Vous pouvez vous désinscrire en cliquant sur le bouton ci-dessous
+      request_to_workspace_administrator: Request to the workspace administrator
+      request_to_workspace_administrator_txt1: Si vous voulez envoyez un demande particulière à l'administrateur de cet espace de travail, remplissez l'encadré ci-dessus afin de générer un email pour l'administrateur
+      request_to_workspace_administrator_option1: Inscription
+      request_to_workspace_administrator_option2: Autre
       
   home:
     index:
@@ -339,19 +374,23 @@ en-US:
       workspaces_selection: Select workspace
       workspaces: Workspaces
       new_workspace: New workspace
-      search: Search
       add_content: Add content
       content: Content
       home: Home
       all_elements: All elements
       advanced_search: Advanced search
-    advance_search:
-      title: Advanced search
-      sub_title: information on searched items
+    search:
+      search_label: Search
+      advance_search: Advanced search
+      information_on_searched_item: information on searched items
       title_label: Title
       type_label: Type
       author_label: Author
       search_period_label: Search period
+      your_search_result: Your search result
+      result: result
+      displaying: displaying
+      you_have_searched_for: you have searched for
     footer:
       title: ThinkDRY Technologies 2008
       contact: Contact
@@ -373,9 +412,10 @@ en-US:
       to1: To
       nxt: "Next"
       prev: "Previous"
-      get_in_another_format: Get in another format
       click: click
       here: here
+      of: of
+      found: found
     button:
       update: Update
       cancel: Cancel
@@ -385,6 +425,10 @@ en-US:
       delete: Delete
       download: Download
       publish_my_comment: Publish my comment
+      save: Save
+      add: Add
+      create_a_new_workspace: Create a new workspace
+      send_request: Send request
     item:
       article: Article
       audio: Audio
@@ -398,4 +442,6 @@ en-US:
       en-US: English(US)
       fr-FR: French
       es-ES: Spanish
-  
+    txt:
+      feed_item_importation_type: Feed items imporation types
+      select_a_file: Click on the file to link

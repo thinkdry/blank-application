@@ -90,10 +90,10 @@ class UsersController < ApplicationController
 		return unless request.post?
 		if @user = User.find_by_email(params[:user][:email])
 		  @user.create_reset_code
-		  flash.now[:notice_forgot] = I18n.t('user.reset_password.flash_notice')
+		  flash.now[:notice_forgot] = I18n.t('user.forgot_password.flash_notice')
 			render :action => "forgot_password"
 		else
-		  flash.now[:error_forgot] = I18n.t('user.reset_password.flash_error')
+		  flash.now[:error_forgot] = I18n.t('user.forgot_password.flash_error')
 			render :action => "forgot_password"
 		end
   end
@@ -105,15 +105,15 @@ class UsersController < ApplicationController
       if @user.update_attributes(:password => params[:user][:password], :password_confirmation => params[:user][:password_confirmation])
         self.current_user = @user
         @user.delete_reset_code
-        flash[:notice] = "#{@user.login}, Your password has been successfully changed"
+        flash[:notice] = "#{@user.login},"+I18n.t('user.reset_password.flash_notice')
         redirect_to "/login"
       else
-				flash[:error] = "Your password has not been changed."
+				flash[:error] = I18n.t('user.reset_password.flash_error')
         render :action => :reset_password
       end
 		end
     else
-			flash[:error] = "This link is no more valid."
+			flash[:error] = I18n.t('user.reset_password.flash_error_link')
 			redirect_to "/login"
 		end
   end  
