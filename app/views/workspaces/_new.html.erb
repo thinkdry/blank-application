@@ -1,7 +1,7 @@
 <fieldset>
 	<legend><%=I18n.t('workspace.new.title')%></legend>
 	<% form_for @workspace, :builder => BlankFormBuilder do |f| -%>
-		<%= f.text_field :title, :label => I18n.t('workspace.field.title_label') + " :" %>
+		<%= f.text_field :title, :label => I18n.t('workspace.field.title_label') + " * :" %>
 		<%= f.advanced_editor :description, :label => I18n.t('workspace.field.description_label') + " :" %>
         <%= f.select :state, [I18n.t('workspace.type.closed'), I18n.t('workspace.type.public'), I18n.t('workspace.type.authorized'), I18n.t('workspace.type.archived')], :label => I18n.t('workspace.field.state_label')+' :' %>
 		<%= f.submit I18n.t('general.button.create') %>
