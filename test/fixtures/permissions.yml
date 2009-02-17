@@ -12,19 +12,19 @@
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-#create:
-#  name: create
-#  description: can create all records
-#  type_permission: system
-#read:
-#  name: read
-#  description: can view all records
-#  type_permission: workspace
-#update:
-#  name: update
-#  description: can update all records
-#  type_permission: workspace
-#delete:
-#  name: delete
-#  description: can delete all records
-#  type_permission: system
+create:
+  name: create
+  description: can create all records
+  type_permission: system
+read:
+  name: read
+  description: can view all records
+  type_permission: workspace
+update:
+  name: update
+  description: can update all records
+  type_permission: workspace
+delete:
+  name: delete
+  description: can delete all records
+  type_permission: system
