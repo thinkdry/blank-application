@@ -179,6 +179,12 @@ en-US:
       description_hint: Description
     show:
       get_in_another_format: Get in another format
+    new:
+      flash_notice: Created successfully.
+      flash_error: Creation fail.
+    edit:
+      flash_notice: Updated successfully.
+      flash_error: Updation fail.
     common_word:
       summary: Summary
       comment: Comment
@@ -299,6 +305,8 @@ en-US:
   workspace:
     new:
       title: Create a new workspace
+      flash_notice: Workspace created successfully.
+      flash_error: Workspace creation fail.
     field:
       title_label: Title
       description_label: Description
@@ -314,6 +322,8 @@ en-US:
       workspace_configuration: Workspace configuration
       available_items: Available items
       associated_user: Associated users
+      flash_notice: Workspace updated successfully.
+      flash_error: Workspace update fail.
     add_user:
       title: Add a new user
       name: Name
@@ -361,7 +371,7 @@ en-US:
       latest_activity: Latest activities
       latest_user: Latest users
       latest_workspace: Latest workspaces
-      latest_feed: latest feeds
+      latest_feed: Latest feeds
 
   layout:
     application:
@@ -444,4 +454,4 @@ en-US:
       es-ES: Spanish
     txt:
       feed_item_importation_type: Feed items imporation types
-      select_a_file: Click on the file to link
+      select_a_file: Select a link

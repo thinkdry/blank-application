@@ -18,7 +18,23 @@ module ActsAsItem
           before :create, :update do
             @current_object.workspace_ids = [] unless params[:workspace_ids]
           end
+
+          after :create do
+            flash[:notice] = current_model.to_s+' '+I18n.t('item.new.flash_notice')
+          end
+
+          after :create_fails do
+            flash[:error] = current_model.to_s+' '+I18n.t('item.new.flash_error')
+          end
+
+          after :update do
+            flash[:notice] = current_model.to_s+' '+I18n.t('item.edit.flash_notice')
+          end
           
+           after :update_fails do
+            flash[:error] = current_model.to_s+' '+I18n.t('item.edit.flash_error')
+          end
+
           before :new, :create do
             permit 'creation of current_object'
           end
