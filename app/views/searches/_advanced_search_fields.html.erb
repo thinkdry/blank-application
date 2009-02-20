@@ -8,7 +8,7 @@
     
     <%# OPTIMIZE: Use lib with user friendly multiple select %>
     <%= f.select  :item_type_equals,
-                  %W(Article Image Video Audio Publication CmsFile Bookmaark FeedSource),
+                  %W(Article Image Video Audio Publication CmsFile Bookmark FeedSource),
                   :label => I18n.t('layout.search.type_label') %>
 
     <%= f.text_field :user_name_contains, :label => I18n.t('layout.search.author_label') %>

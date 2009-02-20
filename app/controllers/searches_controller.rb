@@ -19,7 +19,7 @@ class SearchesController < ApplicationController
     @header = 'advanced_search_fields'
     @search = Search.new(params[:search])
     render(:action => :new) and return unless @search.valid?
-    @items = GenericItem.consultable_by(current_user).all(:conditions => @search.attributes.delete_if { |k, v| v.nil? })
+    @items = GenericItem.consultable_by(@current_user.id).all(:conditions => @search.attributes.delete_if { |k, v| v.nil? })
   end
   
   def full_text_search
@@ -31,7 +31,7 @@ class SearchesController < ApplicationController
       models = [Article, CmsFile, Audio, Image, Publication, Video]
     end
     
-    search = ActsAsXapian::Search.new(models, params[:search], :limit => 300)
+    search = ActsAsXapian::Search.new(models, params[:search], :limit => 30)
     @items = search.results.collect { |r| r[:model] }.delete_if do |e|
       !permit?("consultation of item", { :item => e })
     end

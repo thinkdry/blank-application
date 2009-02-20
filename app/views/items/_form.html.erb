@@ -10,7 +10,7 @@
 
     <%= f.text_field :title, :label => I18n.t('item.field.title_label') + " * :", :hint => "Title", :readonly => is_copyright %>
      <%= f.tags_field :string_tags, :label => I18n.t('article.field.tags_label').pluralize + " :", :hint => I18n.t('article.field.tags_hint') %>
-    <%= f.text_field :description, :label => I18n.t('item.field.description_label') + ' * :', :hint => I18n.t('item.field.description_hint'), :readonly => is_copyright %>
+    <%= f.text_field :description, :label => I18n.t('item.field.description_label') + ' * :', :hint => I18n.t('item.field.description_hint') %>
     <%= capture(f, &block) %>
     <% f.field :workspaces, :label => I18n.t('article.field.workspace_label') +' :' do %>
       <%= item_status_fields(f, @current_object) %>
