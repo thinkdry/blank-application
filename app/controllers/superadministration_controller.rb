@@ -102,15 +102,25 @@ class SuperadministrationController < ApplicationController
 
 	def translations_changing
     @yaml = YAML.load_file("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml")
-   	["general","layout", "user", "login","profil","home","workspace","article","item","file","audio","video","publication","bookmark","picture"].each do |type|
-			if params[type.to_sym] && @yaml[params[:language].to_s][type] 
-				params[type.to_sym].each do |k, v|
-					if @yaml[params[:language]][type][k]
-            @yaml[params[:language]][type][k] = v.to_s
-          end
-       end
-      end
-    end
+   	['general', 'layout', 'user', 'workspace', 'item']+ITEMS+['superadministration', 'others'].each do |section|
+			if params[section.to_sym] && @yaml[params[:language]][section]
+				params[section.to_sym].each do |subsection, list|
+					if @yaml[params[:language]][section][subsection]
+						list.each do |key, value|
+							if @yaml[params[:language]][section][subsection][key]
+								@yaml[params[:language]][section][subsection][key] = value.to_s
+							else
+								#flash[:error] = "Unknown key"
+							end
+						end
+					else
+						#flash[:error] = "Unknown subsection"
+					end
+				end
+			else
+				#flash[:error] = "Unknown section"
+			end
+		end
     File.rename("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml", "#{RAILS_ROOT}/config/locales/old_#{params[:language]}.yml")
     @new=File.new("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml", "w+")
      if @new.syswrite(@yaml.to_yaml)
@@ -150,14 +160,7 @@ class SuperadministrationController < ApplicationController
   
   private
   def translation_options
-    @translation_names = { :general => ["general"], 
-		                       :layout => ["layout"], 
-		                       :user => ["user","login","profil"], 
-		                       :item => ["item","article","audio","video","file","publication","bookmark","picture"], 
-		                       :home => ["home"], 
-		                       :workspace => ["workspace"] 
-		                     }
-	  @options = []; @translation_names.each {|k,v| @options << k}
+		@translation_sections = ['general', 'layout', 'user', 'workspace', 'item']+ITEMS+['superadministration', 'others']
   end
 	
 end
