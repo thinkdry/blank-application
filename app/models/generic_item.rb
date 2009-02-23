@@ -47,7 +47,7 @@ class GenericItem < ActiveRecord::Base
   }
   
   named_scope :most_commented,
-    :order => 'generic_items.nb_commentaire DESC',
+    :order => 'generic_items.number_of_comments DESC',
     :limit => 5
     
   named_scope :best_rated,
