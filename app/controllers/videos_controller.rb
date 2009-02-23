@@ -4,7 +4,7 @@ class VideosController < ApplicationController
     after :create, :update do
       #Call the encoder method of ConverterWorker with parameters
       @current_object.update_attributes(:state=>"uploaded")
-      MiddleMan.worker(:converter_worker).async_encoder(:arg=>{:type=>"video", :id => @current_object.id, :enc=>"flv"})
+      MiddleMan.worker(:converter_worker).async_newthread(:arg=>{:type=>"video", :id => @current_object.id, :enc=>"flv"})
    end
   end
 
