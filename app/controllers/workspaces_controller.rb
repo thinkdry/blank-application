@@ -1,6 +1,23 @@
 class WorkspacesController < ApplicationController
   acts_as_ajax_validation
 
+	# Right management
+	before_filter :only => [:new, :create] do |controller|
+		controller.user_can_access(controller.params[:controller].singularize, 'new', false, false, false)
+	end
+	before_filter :only => [:edit, :update] do |controller|
+		controller.user_can_access(controller.params[:controller].singularize, 'edit', false, false, false)
+	end
+	before_filter :only => [:destroy] do |controller|
+		controller.user_can_access(controller.params[:controller].singularize, 'destroy', false, false, false)
+	end
+	before_filter :only => [:index] do |controller|
+		controller.user_can_access(controller.params[:controller].singularize, 'index', false, false, false)
+	end
+	before_filter :only => [:show] do |controller|
+		controller.user_can_access(controller.params[:controller].singularize, 'show', false, (controller.params[:controller].singularize.classify.constantize.find(controller.params[:id].to_i).creator_id==controller.session[:user_id]), false)
+	end
+
   make_resourceful do
     actions :show, :create, :new, :edit, :update
     

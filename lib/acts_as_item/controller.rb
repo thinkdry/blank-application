@@ -8,6 +8,23 @@ module ActsAsItem
     module ClassMethods
       def acts_as_item &block
         include ActsAsItem::ControllerMethods::InstanceMethods
+
+				# Right management
+				before_filter :only => [:new, :create] do |controller|
+					controller.user_can_access(controller.params[:controller].singularize, 'new', false, false, false)
+				end
+				before_filter :only => [:edit, :update] do |controller|
+					controller.user_can_access(controller.params[:controller].singularize, 'edit', false, false, (controller.params[:controller].singularize.classify.constantize.find(controller.params[:id].to_i).user_id==controller.session[:user_id]))
+				end
+				before_filter :only => [:destroy] do |controller|
+					controller.user_can_access(controller.params[:controller].singularize, 'destroy', false, false, (controller.params[:controller].singularize.classify.constantize.find(controller.params[:id].to_i).user_id==controller.session[:user_id]))
+				end
+				before_filter :only => [:index] do |controller|
+					controller.user_can_access(controller.params[:controller].singularize, 'index', false, false, false)
+				end
+				before_filter :only => [:show] do |controller|
+					controller.user_can_access(controller.params[:controller].singularize, 'show', false, false, false)
+				end
         
         make_resourceful do
           actions :all
@@ -35,21 +52,21 @@ module ActsAsItem
             flash[:error] = current_model.to_s+' '+I18n.t('item.edit.flash_error')
           end
 
-          before :new, :create do
-            permit 'creation of current_object'
-          end
-          
-          before :show do
-            permit 'consultation of current_object'
-          end
-          
-          before :edit, :update do
-            permit 'edition of current_object'
-          end
-          
-          before :destroy do
-            permit 'deletion of current_object'
-          end
+#          before :new, :create do
+#            permit 'creation of current_object'
+#          end
+#
+#          before :show do
+#            permit 'consultation of current_object'
+#          end
+#
+#          before :edit, :update do
+#            permit 'edition of current_object'
+#          end
+#
+#          before :destroy do
+#            permit 'deletion of current_object'
+#          end
 
 					after :index do
 						@current_objects = @current_objects.paginate(:per_page => 20, :page => params[:page])

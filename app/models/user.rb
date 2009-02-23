@@ -149,12 +149,12 @@ class User < ActiveRecord::Base
 
 	def has_system_permission(controller, action)
 		permission_name = controller+'_'+action
-		return self.system_permissions.exists?(permission_name)
+		return self.system_permissions.exists?(:name => permission_name)
 	end
 
 	def has_worskpace_permission(workspace_id, controller, action)
 		permission_name = controller+'_'+action
-		return self.workspace_permissions(workspace_id).exists?(permission_name)
+		return self.workspace_permissions(workspace_id).exists?(:name => permission_name)
 	end
 
 	def system_role

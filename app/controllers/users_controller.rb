@@ -1,22 +1,22 @@
 class UsersController < ApplicationController
   acts_as_ajax_validation
-	
-	skip_before_filter :is_logged?, :only => [:forgot_password, :reset_password, :activate]
 
+	# Right management
+	skip_before_filter :is_logged?, :only => [:forgot_password, :reset_password, :activate]
 	before_filter :only => [:new, :create] do |controller|
-		controller.user_can_access('user', 'new', false, false, false)
+		controller.user_can_access(controller.params[:controller].singularize, 'new', false, false, false)
 	end
 	before_filter :only => [:edit, :update] do |controller|
-		controller.user_can_access('user', 'edit', (controller.params['id']==@current_user.id), false, false)
+		controller.user_can_access(controller.params[:controller].singularize, 'edit', (controller.params[:id].to_i==controller.session[:user_id]), false, false)
 	end
 	before_filter :only => [:destroy] do |controller|
-		controller.user_can_access('user', 'destroy', (controller.params[:id]==@current_user.id), false, false)
+		controller.user_can_access(controller.params[:controller].singularize, 'destroy', (controller.params[:id].to_i==controller.session[:user_id]), false, false)
 	end
 	before_filter :only => [:index] do |controller|
-		controller.user_can_access('user', 'index', false, false, false)
+		controller.user_can_access(controller.params[:controller].singularize, 'index', false, false, false)
 	end
 	before_filter :only => [:show] do |controller|
-		controller.user_can_access('user', 'show', (params[:id]==@current_user.id), false, false)
+		controller.user_can_access(controller.params[:controller].singularize, 'show', (controller.params[:id].to_i==controller.session[:user_id]), false, false)
 	end
 
 	layout "application", :except => [:forgot_password, :reset_password]
@@ -63,6 +63,10 @@ class UsersController < ApplicationController
       format.html { render :layout => false }
     end
   end
+
+#	def edit
+#		@current_object = User.find(params[:id])
+#	end
  
   def current_objects
      conditions = if params['login']

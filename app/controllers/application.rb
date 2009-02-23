@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
 	# before_filter :validate_rights
 
 	include AuthenticatedSystem
+
 	include ActsAsItem::UrlHelpers
 	
 	def is_logged?
@@ -59,12 +60,12 @@ class ApplicationController < ActionController::Base
 	end
 
 	def user_can_access(controller, action, admin_condition=false, system_condition=false, ws_condition=false)
-		if @current_user.is_superadmin? || admin_condition
+		if current_user.is_superadmin? || admin_condition
 			return true
-		elsif @current_user.has_system_permission(controller, action) || system_condition
+		elsif current_user.has_system_permission(controller, action) || system_condition
 			return true
 		elsif (cw_id = params[:workspace_id]) # do with @curren_workspace
-			return @current_user.has_permission(cw_id, controller, action) || ws_condition
+			return current_user.has_permission(cw_id, controller, action) && ws_condition
 		else
 			flash[:error] = "You don't have the right to do this action."
 			redirect_to '/'
