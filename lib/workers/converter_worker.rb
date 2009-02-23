@@ -1,15 +1,21 @@
 class ConverterWorker < BackgrounDRb::MetaWorker
 
   set_worker_name :converter_worker
+  pool_size 50
   def create(args = nil)
     puts "Started BackgrounDRb for Encoding"
+  end
+
+  def newthread(args)
+    object=args[:type].classify.constantize.find_by_sql("Select * from #{args[:type].pruralize} where id=#{args[:id]} ")
+    object.update_attributes(:state=>"encoding")
+    thread_pool.defer(:encoder,args)
   end
   
   def encoder(args)
     logger.info "Encoder Called"
     logger.info  "#{args[:type].capitalize} Encoding"
     object=args[:type].classify.constantize.find_by_id(args[:id])
-    object.update_attributes(:state=>"encoding")
     success = system(convert_media(args[:type], object, args[:enc]))
     if success && $?.exitstatus == 0
       object.update_attributes(:state=>"encoded")
@@ -29,6 +35,7 @@ class ConverterWorker < BackgrounDRb::MetaWorker
       object.update_attributes(:state=>"error")
       logger.info "Encoding #{args[:type]} Failed on Id #{args[:id]}"
     end
+  
   end
  
   def convert_media(type, object, enc)

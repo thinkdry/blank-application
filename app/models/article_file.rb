@@ -16,6 +16,7 @@
 class ArticleFile < ActiveRecord::Base
   belongs_to :article
   #file_column :file_path
+  acts_as_xapian :texts => [:articlefile_file_name]
   has_attached_file :articlefile
   validates_attachment_presence :articlefile,
     :url =>    "/uploaded_files/articlefile/:id/:style/:basename.:extension",

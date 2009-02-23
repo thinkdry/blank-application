@@ -47,26 +47,26 @@ DEFAULTS: &DEFAULTS
       activity:        Chercheur
       nationality:        India
       activated_at: <%= Time.now.to_s :db %>
-#
-#quentin:
-#    system_role_id: <%#= SystemRole.find_by_name('admin').id %>
-#    <<: *DEFAULTS
-#
-#anup:
-#    <<: *DEFAULTS
-#
-#yvon:
-#    <<: *DEFAULTS
-#
-#tintin:
-#    <<: *DEFAULTS
-#
-#haddock:
-#    <<: *DEFAULTS
-#
-#milou:
-#    <<: *DEFAULTS
-#
+
+quentin:
+    system_role_id: <%#= SystemRole.find_by_name('admin').id %>
+    <<: *DEFAULTS
+
+anup:
+    <<: *DEFAULTS
+
+yvon:
+    <<: *DEFAULTS
+
+tintin:
+    <<: *DEFAULTS
+
+haddock:
+    <<: *DEFAULTS
+
+milou:
+    <<: *DEFAULTS
+
 boss:
-    system_role_id: <%= Role.find_by_name('superadmin').id %>
+    system_role_id: <%= SystemRole.find_by_name('superadmin').id %>
     <<: *DEFAULTS

@@ -4,7 +4,7 @@ class AudiosController < ApplicationController
     after :create, :update do
       #Call the encoder method of ConverterWorker with Parameters
       @current_object.update_attributes(:state=>"uploaded")
-      MiddleMan.worker(:converter_worker).async_encoder(:arg=>{:type=>"audio", :id => @current_object.id, :enc=>"mp3"})
+      MiddleMan.worker(:converter_worker).async_newthread(:arg=>{:type=>"audio", :id => @current_object.id, :enc=>"mp3"})
     end
   end
   def get_progress

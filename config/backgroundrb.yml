@@ -3,8 +3,11 @@
   :ip: 0.0.0.0
   :port: 11006
   :environment: <%= RAILS_ENV %>
+  :result_storage: memcache
 :memcache: "10.0.0.1:11211,10.0.0.2:11211"
-#:schedules:
-#  :converter_worker:
-  #  :encoder:
-  #    :trigger_args: 1 * * * *
+:schedules:
+  :cronjob_worker:
+    :update_feed_source:
+      :trigger_args: * 10 * * * *
+    :update_xapian_index:
+      :trigger_args: 20 * * * * *
