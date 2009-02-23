@@ -89,14 +89,14 @@ class SuperadministrationController < ApplicationController
   end
    	
 	def language_switching
-		@yaml = YAML.load_file("#{RAILS_ROOT}/config/locales/#{params[:locale_to_conf]}.yml")
-		@res = @yaml[params[:locale_to_conf].to_s]
-		@language = params[:locale_to_conf].to_s
-		if @yaml
+		if params[:locale_to_conf] == 'translation_addition'
+			render :partial => 'translation_addition'
+		else
+			yaml = YAML.load_file("#{RAILS_ROOT}/config/locales/#{params[:locale_to_conf]}.yml")
+			@res = yaml[params[:locale_to_conf].to_s]
+			@language = params[:locale_to_conf].to_s
 		  translation_options
 			render :partial => 'translations_tab'
-		else
-			render :text => "Impossible d'ouvrir le fichier de langue demandé."
 		end
   end
 
