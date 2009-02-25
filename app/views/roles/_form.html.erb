@@ -5,16 +5,17 @@
   <%= f.text_field :name %>
 </p>
 <p>
-  <b>Select*</b><br />
-  <% RIGHT_TYPES.each do |role| %>
-    <% @role.type_role == role ? permission = true : permission = false %>
-    <%= role %>
-    <%=radio_button_tag("role[type_role]", role, permission) %>
-  <% end %>
+  <b>Role type : </b>
+  <%= @role.type_role %><br />
 </p>
 <p>
   <%= f.label :description %><br />
   <%= f.text_area :description %>
 </p>
-
+<p>
+  <b>Permissions selection : </b><br />
+  <% @permissions.each do |p| %>
+    (<%= p.type_permission %>) <%= p.name %> <%= check_box_tag("permissions[#{p.id}]", "1", @role.permissions.include?(p)) %><br />
+  <% end %>
+</p>
 

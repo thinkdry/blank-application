@@ -1,0 +1,19 @@
+<fieldset class="myform">
+  <legend>Add a key in the translations files</legend>
+
+  <% form_for :res, :url => translations_changing_superadministration_path do |f| %>
+
+    Key definition :<br />
+
+    SECTION                    SUBSECTION                   KEY
+    <%= f.text_field :section %><%= f.text_field :subsection %><%= f.text_field :key %>
+    <br /><br />
+    Translations for the different languages :<br />
+    <% LANGUAGES.each do |l| %>
+      For <%= l %> : <%= f.text_field "translations[#{l}]" %><br />
+    <% end %>  
+
+
+  <% end %>
+
+</fieldset>

@@ -18,6 +18,7 @@ class BookmarksController < ApplicationController
 		after :create do
 			if !(@current_object.state == 'copyright')
 				@current_object.date_published = Time.now
+				@current_object.save
 			end
 		end
 

@@ -18,7 +18,6 @@ class SuperadministrationController < ApplicationController
         @roles = Role.all
 				@workspace_roles = Role.find(:all, :conditions => {:type_role => "workspace"})
         @system_roles = Role.find(:all, :conditions => {:type_role => "system"})
-				#@role_names = []; @roles.each { |role| @role_names << role.name }
 			else
 				flash[:notice] = "Unexisting section"
 				redirect_to '/'
@@ -131,33 +130,7 @@ class SuperadministrationController < ApplicationController
      redirect_to '/superadministration/translations'
     end
   end
-  
-  def update_permissions_for_role
-    Role.all.each do |role|
-      if params["#{role.name}"] and params["#{role.name}"]["current"]
-        checked_current_permissions = []
-        params["#{role.name}"]["current"].each { |k,v| p = Permission.find_by_name(k); checked_current_permissions << p }
-        (role.permissions - checked_current_permissions).each do |permission|
-          # delete all permissions from role which are not-checked
-          role.permissions.delete(permission)
-        end
-      else
-        role.permissions.each do |p|
-          role.permissions.delete(p)
-        end
-      end
-      if params["#{role.name}"] and params["#{role.name}"]["available"]
-        params["#{role.name}"]["available"].each do |k,v|
-          # adds checked available permissions to role
-          p = Permission.find_by_name(k)
-          role.permissions << p if !role.permission_ids.include?(p.id)
-        end
-      end
-    end
-    flash[:notice] = "Updated Successfully"
-    redirect_to '/superadministration/roles'
-  end
-  
+
   private
   def translation_options
 		@translation_sections = ['general', 'layout', 'user', 'workspace', 'item']+ITEMS+['superadministration', 'others']

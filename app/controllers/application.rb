@@ -8,12 +8,11 @@ class ApplicationController < ActionController::Base
 	helper_method :available_items_list, :available_languages, :get_current_config, :right_conf
   before_filter :is_logged?
 	before_filter :set_locale
-	# Please uncomment following line to implement permissions based access to actions
-	# before_filter :validate_rights
 
 	include AuthenticatedSystem
 
 	include ActsAsItem::UrlHelpers
+	include ActsAsItem::HelperMethods
 	
 	def is_logged?
     if logged_in?
@@ -41,9 +40,9 @@ class ApplicationController < ActionController::Base
 
 	def get_sa_config
 		if File.exist?("#{RAILS_ROOT}/config/customs/sa_config.yml")
-			conf = YAML.load_file("#{RAILS_ROOT}/config/customs/sa_config.yml")
+			return YAML.load_file("#{RAILS_ROOT}/config/customs/sa_config.yml")
 		else
-			conf = YAML.load_file("#{RAILS_ROOT}/config/customs/default_config.yml")
+			return YAML.load_file("#{RAILS_ROOT}/config/customs/default_config.yml")
 		end
 	end
 
@@ -59,20 +58,13 @@ class ApplicationController < ActionController::Base
 		return WsConfig.find(ws_id)
 	end
 
-	def user_can_access(controller, action, admin_condition=false, system_condition=false, ws_condition=false)
-		if current_user.is_superadmin? || admin_condition
-			return true
-		elsif current_user.has_system_permission(controller, action) || system_condition
-			return true
-		elsif (cw_id = params[:workspace_id]) # do with @curren_workspace
-			return current_user.has_permission(cw_id, controller, action) && ws_condition
-		else
-			flash[:error] = "You don't have the right to do this action."
-			redirect_to '/'
-		end
+	def no_permission_redirection
+		flash[:error] = "Permission denied"
+		redirect_to '/'
 	end
 
-  private
+
+	private
   
 	def check_to_tab(param)
 		@list = params[param.to_sym]
@@ -95,15 +87,4 @@ class ApplicationController < ActionController::Base
 		end
   end
 
-	def validate_rights
-	  # now we load default roles and permissions (if not in DB) on server start
-	  # -> here we write method to check current_user's role to get permissions available to him/her
-	  if %w(create read update delete).include?(params[:action])
-	    permission = params[:action]
-    else
-      permission = params[:controller]+"_"+params[:action]
-    end
-    redirect_to '/422.html' unless current_user.has_permission?(permission)
-  end
-	
 end

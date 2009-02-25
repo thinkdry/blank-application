@@ -40,9 +40,6 @@ class User < ActiveRecord::Base
   include Authentication::ByPassword
   include Authentication::ByCookieToken
 
-  acts_as_authorized_user
-  acts_as_authorizable
-
   has_many :users_workspaces, :dependent => :delete_all
   has_many :workspaces, :through => :users_workspaces
   has_many :workspace_roles, :through => :users_workspaces
@@ -140,8 +137,8 @@ class User < ActiveRecord::Base
 	end
 
 	def workspace_permissions(workspace_id)
-		if UserWorkspace.exists?(:user_id => self.id, :workspace_id => workspace_id)
-			return UserWorkspace.first(:first, :conditions => {:user_id => self.id, :workspace_id => workspace_id}).role.permissions
+		if UsersWorkspace.exists?(:user_id => self.id, :workspace_id => workspace_id)
+			return UsersWorkspace.find(:first, :conditions => {:user_id => self.id, :workspace_id => workspace_id}).role.permissions
 		else
 			return []
 		end
@@ -152,7 +149,7 @@ class User < ActiveRecord::Base
 		return self.system_permissions.exists?(:name => permission_name)
 	end
 
-	def has_worskpace_permission(workspace_id, controller, action)
+	def has_workspace_permission(workspace_id, controller, action)
 		permission_name = controller+'_'+action
 		return self.workspace_permissions(workspace_id).exists?(:name => permission_name)
 	end
@@ -162,7 +159,7 @@ class User < ActiveRecord::Base
 	end
     
   def has_role? role
-    return (self.system_role && self.system_role.name.downcase == role.downcase)
+    return (Role.find(self.system_role_id).name == role)
   end
   
   def is_admin?
@@ -172,34 +169,49 @@ class User < ActiveRecord::Base
 	def is_superadmin?
     has_role?('superadmin')
   end
+
+	def accepts_index_for? user
+		return accepting_action(user, 'index', false, false, true)
+	end
+
+	def accepts_show_for? user
+		return accepting_action(user, 'show', (self.id==user.id), false, true)
+	end
   
-  def accepts_role? role, user
-    begin
-      auth_method = "accepts_#{role.downcase}?"
-      return (send(auth_method, user)) if defined?(auth_method)
-      raise("Auth method not defined")
-    rescue Exception => e
-      p(e)
-      puts e.backtrace[0..20].join("\n")
-      raise
-    end
+  def accepts_destroy_for? user
+    return accepting_action(user, 'edit', (self.id==user.id), false, true)
   end
   
-  def accepts_deletion? user
-    return true if user.is_admin?
-    false
+  def accepts_edit_for? user
+    return accepting_action(user, 'edit', (self.id==user.id), false, true)
   end
   
-  def accepts_edition? user
-    return true if user.is_admin?
-    return true if user == self
-    false
+  def accepts_new_for? user
+    return accepting_action(user, 'new', false, false, true)
   end
-  
-  def accepts_creation? user
-    return true if user.is_admin?
-    false
-  end
+
+	def accepting_action(user, action, spe_cond, sys_cond, ws_cond)
+		# Special access
+		if user.is_superadmin? || spe_cond
+			return true
+		end
+		# System access
+		if user.has_system_permission(self.class.to_s.downcase, action) || sys_cond
+			return true
+		end
+		# Workspace access
+		# The only permission linked to an user in a workspace is 'show'
+		if action=='show'
+			self.workspaces.each do |ws|
+				if ws.users.include?(user)
+					if user.has_workspace_permission(ws.id, self.class.to_s.downcase, action) && ws_cond
+						return true
+					end
+				end
+			end
+		end
+		false
+	end
 	 
 	def full_name
 		return self.lastname+" "+self.firstname
