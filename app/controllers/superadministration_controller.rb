@@ -89,6 +89,7 @@ class SuperadministrationController < ApplicationController
    	
 	def language_switching
 		if params[:locale_to_conf] == 'translation_addition'
+			translation_options
 			render :partial => 'translation_addition'
 		else
 			yaml = YAML.load_file("#{RAILS_ROOT}/config/locales/#{params[:locale_to_conf]}.yml")
@@ -130,6 +131,25 @@ class SuperadministrationController < ApplicationController
      redirect_to '/superadministration/translations'
     end
   end
+
+	def translations_new
+		if params[:res][:section] && params[:res][:subsection] && params[:res][:key]
+			LANGUAGES.each do |l|
+				@yaml = YAML.load_file("#{RAILS_ROOT}/config/locales/#{l}.yml")
+				if @yaml[l][params[:res][:section]][params[:res][:subsection]]
+					tmp = { params[:res][:key] => params[:translations][l] }
+					@yaml[l][params[:res][:section]][params[:res][:subsection]].merge!(tmp)
+				else
+					tmp = { params[:res][:subsection] => { params[:res][:key] => params[:translations][l] } }
+					@yaml[l][params[:res][:section]].merge!(tmp)
+				end
+				@new=File.new("#{RAILS_ROOT}/config/locales/#{l}.yml", "w+")
+				@new.syswrite(@yaml.to_yaml)
+			end
+		end
+		redirect_to '/superadministration/translations'
+	end
+
 
   private
   def translation_options
