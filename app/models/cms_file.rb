@@ -19,7 +19,7 @@
 
 class CmsFile < ActiveRecord::Base
   acts_as_item
-  acts_as_xapian :texts => [:title, :description, :tags, :cmsfile_file_name]
+  acts_as_xapian :texts => [:title, :description, :tags, :cmsfile_file_name, :cmsfile_content_type]
   has_attached_file :cmsfile,
     :url =>    "/uploaded_files/cmsfile/:id/:style/:basename.:extension",
     :path => ":rails_root/public/uploaded_files/cmsfile/:id/:style/:basename.:extension"

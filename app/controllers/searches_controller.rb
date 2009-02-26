@@ -36,16 +36,16 @@ class SearchesController < ApplicationController
       models = [params[:model].constantize]
       gitem=GenericItem.consultable_by(@current_user.id).send(params[:model].downcase.pluralize).send(filter).collect{|l| l.id}
     else
-      models = [Article, CmsFile, Audio, Image, Publication, Video, FeedSource]
+      models = [Article, CmsFile, Audio, Image, Publication, Video, FeedSource, Bookmark]
       gitem=GenericItem.consultable_by(@current_user.id).send(filter).all.collect{|l| l.id}
+      p gitem
     end
-        search = ActsAsXapian::Search.new(models, params[:search], :limit => 50)
+        search = ActsAsXapian::Search.new(models, params[:search], :limit => 30)
         search_results = search.results.select do |r|
           gitem.include?(r[:model].id)
         end
         @items = search_results.collect { |r| r[:model]}.delete_if do |e|
-          !permit?("consultation of item", { :item => e
-            })
+          !e.accepts_show_for?(@current_user)
         end
     @corrections = search.spelling_correction
     @similar_items = ActsAsXapian::Similar.new(models, @items, :limit =>5).results.collect {|r| r[:model]}

@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
 	include AuthenticatedSystem
 
 	include ActsAsItem::UrlHelpers
-	include ActsAsItem::HelperMethods
+	#include ActsAsItem::HelperMethods
 	
 	def is_logged?
     if logged_in?

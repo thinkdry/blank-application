@@ -25,7 +25,7 @@
 class Video < ActiveRecord::Base
   
   acts_as_item
-  acts_as_xapian :texts => [:title, :description, :tags, :video_file_name]
+  acts_as_xapian :texts => [:title, :description, :tags, :video_file_name, :video_content_type]
   has_attached_file :video,
 		:url =>    "/uploaded_files/video/:id/:style/:basename.:extension",
     :path => ":rails_root/public/uploaded_files/video/:id/:style/:basename.:extension"

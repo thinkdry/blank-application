@@ -275,9 +275,9 @@ en-US:
 
   rss_feed:
     new:
-      title: New Web feed
+      title: New RSS Feed
       automatic_date_field: Automatic Date Field
-      flash_notice_valid: The Web feed has given these Details, Validate them to Subscribe to this Feed.
+      flash_notice_valid: The RSS feed has given these Details, Validate them to Subscribe to this Feed.
       flash_notice_invalid: Invalid Feed
     what_to_do:
       new_rss_feed_option_one: 1. Add an Existing Feed
@@ -364,7 +364,7 @@ en-US:
       you_have_access_to_workspace: You have Access to Workspaces
       my_personnal_information: My Personnal Information
       show_my_feeds: Show my RSS feeds
-      top_five_item: Top Five items
+      top_five_item: Top Five Items
       most_commented: Most Commented
       best_rated: Best Rated
       feed_item: Feed Items

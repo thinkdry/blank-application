@@ -19,7 +19,7 @@
 
 class Audio < ActiveRecord::Base
   acts_as_item
-  acts_as_xapian :texts => [:title, :description, :tags, :audio_file_name]
+  acts_as_xapian :texts => [:title, :description, :tags, :audio_file_name, :audio_content_type]
   has_attached_file :audio,
     :url =>  "/uploaded_files/audio/:id/:style/:basename.:extension",
     :path => ":rails_root/public/uploaded_files/audio/:id/:style/:basename.:extension"

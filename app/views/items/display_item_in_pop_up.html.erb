@@ -5,7 +5,6 @@
     <%= image_tag object.media_type.url(:thumb)  %>
     <%= link_to_function object.title,"javascript:SelectFile('" + object.media_type.url + "')"  %> <br> <br>
   <% end %>
-
 <% else %>
   <div id="item_type_link">
     <b>
@@ -24,11 +23,16 @@
       <%= image_tag "/images/item_icons/article.png"%>
       <p><%= link_to_function object.title,"javascript:SelectFile('" + item_path(object) + "')"  %></p>
     <% end %>
+  <% elsif params[:item_type]== "bookmark" %>
+    <% @object.each do |object| %>
+      <%= image_tag "/images/item_icons/bookmark.png"%>
+      <p><%= link_to_function object.title, "javascript:SelectFile('" + object.link + "')"  %> </p>
+    <% end %>
   <%else%>
     <h3><%= params[:item_type].capitalize %></h3>
     <% @object.each do |object| %>
-        <%= image_tag "/images/item_icons/"+params[:item_type].downcase+".png"%>
-        <p><%= link_to_function object.title,"javascript:SelectFile('" + item_path(object) + "')" %></p>
+      <%= image_tag "/images/item_icons/"+params[:item_type].downcase+".png"%>
+      <p><%= link_to_function object.title,"javascript:SelectFile('" + item_path(object) + "')" %></p>
     <% end%>
   <%end%>
 <% end %>

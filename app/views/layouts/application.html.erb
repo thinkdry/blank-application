@@ -22,44 +22,44 @@
 <div id="page">
   <div id="header">
     <div id="logo">
-			<%= link_to image_tag(@logo.picture.url(:large)), "/" %>
-		</div>
+      <%= link_to image_tag(@logo.picture.url(:large)), "/" %>
+    </div>
     <div id="header_right">
       <div id="main_links">
         <%= I18n.t('layout.application.welcome_message') %>
         <b><%= link_to @current_user.firstname.capitalize, user_path(current_user) %></b> |
         <%= link_to I18n.t('layout.application.administration'), administration_user_path(current_user) %> |
-		<% if current_user.is_superadmin? %>
+        <% if current_user.is_superadmin? %>
           <%= link_to I18n.t('layout.application.superadministration'), superadministration_path("default") %> |
-		<% end %>
+        <% end %>
         <%= link_to I18n.t('layout.application.logout'), '/logout' %>
         <%= select_languages %>
         <%# available_languages_list.each do |l| %>
-          <%#= link_to_remote image_tag("countries/#{l.split('-').first}.jpg"), :url => change_language_session_path(:locale => l) %>
+        <%#= link_to_remote image_tag("countries/#{l.split('-').first}.jpg"), :url => change_language_session_path(:locale => l) %>
         <%# end %>
       </div>
     </div>
   </div>
   <div id="container">
     <div id="middle-right">
-    	<h3><%= I18n.t('layout.application.workspaces_selection') %></h3>
-	    <select name="slct_WS" onchange="document.location.href = this.value">
-            <option selected="selected" value='#'>
-              <%= I18n.t('layout.application.workspaces') %>
-            </option>
-            <option selected="selected" value='#'>
-              ----------
-            </option>
-            <% (Workspace.administrated_by(@current_user) + Workspace.consulted_by(@current_user)).each do |w| %>
-              <%= content_tag(:option, w.title, :value => workspace_path(w)) %>
-            <% end %>
-            <option selected="selected" value='#'>
-              ----------
-            </option>
-            <option value="<%= administration_user_path(current_user) %>#new_workspace">
-              <%= I18n.t('layout.application.new_workspace') %>
-            </option>
-         </select>
+      <h3><%= I18n.t('layout.application.workspaces_selection') %></h3>
+      <select name="slct_WS" onchange="document.location.href = this.value">
+        <option selected="selected" value='#'>
+          <%= I18n.t('layout.application.workspaces') %>
+        </option>
+        <option selected="selected" value='#'>
+          ----------
+        </option>
+        <% (Workspace.administrated_by(@current_user) + Workspace.consulted_by(@current_user)).each do |w| %>
+          <%= content_tag(:option, w.title, :value => workspace_path(w)) %>
+        <% end %>
+        <option selected="selected" value='#'>
+          ----------
+        </option>
+        <option value="<%= administration_user_path(current_user) %>#new_workspace">
+          <%= I18n.t('layout.application.new_workspace') %>
+        </option>
+      </select>
       <h3><%= I18n.t('layout.application.add_content') %></h3>
       <form name="form1" method="post" action="" id="form1">
         <select name="slct_filtre" id="slct_filtre" onchange="document.location.href = this.value">
@@ -79,12 +79,11 @@
           <% end %>
         </select>
       </form>
-	  </br>
-	  <h3>Menu</h3>
-	  <div id="midle-right-menu">
-	  	<p><%= link_to I18n.t('layout.application.content'), content_path("articles") %></p>
-	  	<p><%= link_to I18n.t('layout.application.home'), '/' %></p>
-	  </div>
+      <h3>Menu</h3>
+      <div id="midle-right-menu">
+        <%= image_tag "/images/icons/home.png" %><p><%= link_to I18n.t('layout.application.home'), '/' %></p>
+        <%= image_tag "/images/icons/content.png" %><p><%= link_to I18n.t('layout.application.content'), content_path("articles") %></p>
+      </div>
     </div>
     <div id="middle-middle">
       <% unless @hide_full_text_search %>
@@ -107,7 +106,7 @@
       <%= content_tag(:div, flash[:notice], :class => 'notice') if flash[:notice] %>
       <%= content_tag(:div, flash[:error], :class => 'error') if flash[:error] %>
       <%= yield %>
- 
+
     </div>
     <div id="footer">
       <div class="name">

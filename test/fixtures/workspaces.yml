@@ -36,5 +36,5 @@
 private:
   creator: boss
   title: Private for boss
-  description: ppp
+  description: This is private workspace for boss dont touch!!!!!
   state: private

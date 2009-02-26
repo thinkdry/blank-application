@@ -19,7 +19,7 @@
 
 class Image < ActiveRecord::Base
   acts_as_item
-  acts_as_xapian :texts => [:title, :description, :tags, :image_file_name]
+  acts_as_xapian :texts => [:title, :description, :tags, :image_file_name, :image_content_type]
   has_attached_file :image,
     :url =>    "/uploaded_files/image/:id/:style/:basename.:extension",
     :path => ":rails_root/public/uploaded_files/image/:id/:style/:basename.:extension",

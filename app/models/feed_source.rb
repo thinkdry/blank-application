@@ -33,7 +33,7 @@ require 'rfeedparser'
 class FeedSource < ActiveRecord::Base
 
   acts_as_item
-  acts_as_xapian :texts => [:title, :description, :tags, :authors]
+  acts_as_xapian :texts => [:title, :description, :tags, :authors, :url, :link]
   	
 	has_many :feed_items , :dependent => :delete_all
 	
