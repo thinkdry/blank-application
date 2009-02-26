@@ -17,7 +17,8 @@
 <% 1.upto(50) do |i| %>
     article_<%= i %>: 
         user: boss
-        title: Article (<%= i %>)
+        title: Article<%= i %>
         description: Article vide
         body: C'est un bon article sur un peu rien mais aussi ps grand chose.
+        created_at: <%= (Time.parse("2/3,5:#{i}")).to_s :db %>
 <% end %>

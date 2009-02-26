@@ -57,5 +57,14 @@ class GenericItem < ActiveRecord::Base
   named_scope :latest,
     :order => 'generic_items.created_at DESC',
     :limit => 5
+
+  named_scope :created,
+    :order => 'generic_items.created_at DESC'
+
+  named_scope :commented,
+    :order => 'generic_items.number_of_comments DESC'
+
+  named_scope :rated,
+    :order => 'generic_items.average_rate DESC'
 	
 end

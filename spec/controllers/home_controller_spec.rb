@@ -18,9 +18,9 @@ describe HomeController do
       assigns[:latest_users].should_not be_nil
     end
     
-    it "should assigns latest_pubmed" do
-      assigns[:latest_pubmed].should_not be_nil
-    end
+#    it "should assigns latest_pubmed" do
+#      assigns[:latest_pubmed].should_not be_nil
+#    end
     
     it "should assigns latest_ws" do
       assigns[:latest_ws].should_not be_nil
@@ -36,17 +36,17 @@ describe HomeController do
       
     end
     
-    describe "Latest pubmed imports" do
-      fixtures :feed_sources, :feed_items
-      
-      it "should not display items from sources user is not the owner" do
-        accessible_items = feed_sources(:created_by_luc).feed_items
-        assigns[:latest_pubmed].each do |feed_item|
-          accessible_items.should include(feed_item)
-        end
-      end
-      
-    end
+#    describe "Latest pubmed imports" do
+#      fixtures :feed_sources, :feed_items
+#
+#      it "should not display items from sources user is not the owner" do
+#        accessible_items = feed_sources(:created_by_luc).feed_items
+#        assigns[:latest_pubmed].each do |feed_item|
+#          accessible_items.should include(feed_item)
+#        end
+#      end
+#
+#    end
     
   end
   

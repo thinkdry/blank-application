@@ -142,7 +142,7 @@ module ItemsHelper
       GenericItem.consultable_by(@current_user.id)
     end
     
-    @collection = items.send(item_type, :order => 'created_at DESC').paginate(:page => params[:page])
+    @collection = items.send(item_type).created.paginate(:page => params[:page])
     
     render(:partial => "items/item_in_list", :collection => @collection)
   end
@@ -156,7 +156,7 @@ module ItemsHelper
       GenericItem.consultable_by(@current_user.id)
     end
     
-    @collection = items.send(item_type, :order => 'created_at DESC').paginate(:page => params[:page])
+    @collection = items.send(item_type).created.paginate(:page => params[:page])
     
     render(:partial => "items/item_in_list_for_editor", :collection => @collection)
   end
