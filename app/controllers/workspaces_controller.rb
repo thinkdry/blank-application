@@ -3,18 +3,20 @@ class WorkspacesController < ApplicationController
 
   make_resourceful do
     actions :show, :create, :new, :edit, :update
-    
+
     before :show do
-      permit "consultation of current_object"
+      no_permission_redirection unless @current_object.accepts_show_for?(@current_user)
       params[:id] ||= params[:workspace_id]
     end
 
 		before :new do
+			no_permission_redirection unless @current_object.accepts_new_for?(@current_user)
 			@sa_conf = get_sa_config
 			@ws_conf = WsConfig.find(1)
 		end
 
 		before :edit do
+			no_permission_redirection unless @current_object.accepts_edit_for?(@current_user)
 			@sa_conf = get_sa_config
 			# in case no ws_config found
 			if !@current_object.ws_config
@@ -24,13 +26,13 @@ class WorkspacesController < ApplicationController
 			end
 			@ws_conf = @current_object.ws_config
 		end
-        
+
     before :create do
+			no_permission_redirection unless @current_object.accepts_new_for?(@current_user)
 			params[:id] ||= params[:workspace_id]
       @current_object.creator = @current_user
 			@current_object
     end
-
 		after :create do
 			#if current_user.is_superadmin?
 				default = WsConfig.find(1)
@@ -40,28 +42,26 @@ class WorkspacesController < ApplicationController
         flash[:notice] =I18n.t('workspace.new.flash_notice')
 			#end
 		end
-
     after :create_fails do
       flash[:error] =I18n.t('workspace.new.flash_error')
     end
 
+		before :update do
+      no_permission_redirection unless @current_object.accepts_edit_for?(@current_user)
+      # Hack. Permit deletion of all assigned users (with roles).
+      params["workspace"]["existing_user_attributes"] ||= {}
+    end
 		after :update do
 			if current_user.is_superadmin?
 				@current_object.ws_config.update_attributes(:ws_items => check_to_tab(:items).join(","), :ws_feed_items_importation_types => check_to_tab(:feed_items_importation_types).join(","))
         flash[:notice] =I18n.t('workspace.edit.flash_notice')
 			end
 		end
-    
     after :update_fails do
       flash[:error] =I18n.t('workspace.edit.flash_error')
     end
 
-    before :update do
-      permit "edition of current_object"
-      # Hack. Permit deletion of all assigned users (with roles).
-      params["workspace"]["existing_user_attributes"] ||= {}
-    end
-  end
+	end
 
   def add_new_user
     @user = User.find_by_login(params[:user_login])

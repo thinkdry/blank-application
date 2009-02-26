@@ -25,7 +25,13 @@ class RolesController < ApplicationController
   # GET /roles/new.xml
   def new
     @role = Role.new
-    render :partial => "new"
+		@role.type_role = params[:type_role]
+		if params[:type_role]=='system'
+			@permissions = Permission.find(:all)
+		else
+			@permissions = Permission.find(:all, :conditions => { :type_permission => 'workspace' })
+		end
+    render :partial => "new", :layout => false
     #    respond_to do |format|
     #      format.html # new.html.erb
     #      format.xml  { render :xml => @role }
@@ -34,7 +40,13 @@ class RolesController < ApplicationController
 
   # GET /roles/1/edit
   def edit
-    @role = Role.find(params[:id])
+    @role = Role.find_by_name(params[:role_name])
+		if @role.type_role=="system"
+			@permissions = Permission.find(:all)
+		else
+			@permissions = Permission.find(:all)
+			#@permissions = Permission.find(:all, :conditions => { :type_permission => 'workspace' })
+		end
     render :partial => "edit"
   end
 
@@ -53,9 +65,8 @@ class RolesController < ApplicationController
       #        format.xml  { render :xml => @role.errors, :status => :unprocessable_entity }
     end
     #end
-    @roles = Role.all
     render :update do |page|
-      page.replace_html  'permissions', :partial => 'superadministration/select_roles', :object=> @roles
+      page.replace_html  'roles', :nothing => true
     end
   end
 
@@ -65,6 +76,13 @@ class RolesController < ApplicationController
     @role = Role.find(params[:id])
     #respond_to do |format|
     if @role.update_attributes(params[:role])
+			@role.permissions.delete_all
+			if params[:permissions]
+				params[:permissions].each do |k, v|
+					@role.permissions << Permission.find(k.to_i)
+				end
+			end
+			@role.save
       flash[:notice] = 'Role was successfully updated.'
       #        format.html { redirect_to(role_path(@role)) }
       #        format.xml  { head :ok }
@@ -73,9 +91,8 @@ class RolesController < ApplicationController
       #        format.xml  { render :xml => @role.errors, :status => :unprocessable_entity }
     end
     #end
-    @roles= Role.all
     render :update do |page|
-      page.replace_html  'permissions', :partial => 'superadministration/select_roles', :object=> @roles
+      page.replace_html  'roles', :nothing => true
     end
   end
 
@@ -84,9 +101,8 @@ class RolesController < ApplicationController
   def destroy
     @role = Role.find(params[:id])
     @role.destroy
-    @roles= Role.find(:all)
     render :update do |page|
-      page.replace_html  'permissions', :partial => 'superadministration/select_roles', :object=> @roles
+      page.replace_html  'roles', :nothing => true
     end
     #    respond_to do |format|
     #      format.html { redirect_to(roles_url) }

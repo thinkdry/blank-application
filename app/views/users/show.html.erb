@@ -3,7 +3,7 @@
 	  <%= image_tag @current_object.avatar.url(:thumb), :class => "avatar", :align => "left"%>
 	  <h2>
 	  	<%= @current_object.firstname %> <%= @current_object.lastname %>
-		<%= link_to image_tag('icons/pencil.png'), edit_user_path, :class => "pencil" if permit? "edition of user" %>
+		<%= link_to image_tag('icons/pencil.png'), edit_user_path, :class => "pencil" if @current_object.accepts_edit_for?(self.current_user) %>
 	  </h2>
   	  
 	  <p>

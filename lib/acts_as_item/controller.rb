@@ -20,35 +20,35 @@ module ActsAsItem
           end
 
           after :create do
-            flash[:notice] = current_model.to_s+' '+I18n.t('item.new.flash_notice')
+            flash[:notice] = @current_object.class.label+' '+I18n.t('item.new.flash_notice')
           end
 
           after :create_fails do
-            flash[:error] = current_model.to_s+' '+I18n.t('item.new.flash_error')
+            flash[:error] = @current_object.class.label+' '+I18n.t('item.new.flash_error')
           end
 
           after :update do
-            flash[:notice] = current_model.to_s+' '+I18n.t('item.edit.flash_notice')
+            flash[:notice] = @current_object.class.label+' '+I18n.t('item.edit.flash_notice')
           end
           
            after :update_fails do
-            flash[:error] = current_model.to_s+' '+I18n.t('item.edit.flash_error')
+            flash[:error] = @current_object.class.label+' '+I18n.t('item.edit.flash_error')
           end
 
           before :new, :create do
-            permit 'creation of current_object'
+            no_permission_redirection unless @current_object.accepts_new_for?(@current_user)
           end
-          
-          before :show do
-            permit 'consultation of current_object'
+
+          before :show, :index do
+            no_permission_redirection unless @current_object.accepts_show_for?(@current_user)
           end
-          
+
           before :edit, :update do
-            permit 'edition of current_object'
+            no_permission_redirection unless @current_object.accepts_edit_for?(@current_user)
           end
-          
+
           before :destroy do
-            permit 'deletion of current_object'
+            no_permission_redirection unless @current_object.accepts_destroy_for?(@current_user)
           end
 
 					after :index do

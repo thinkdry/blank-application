@@ -40,12 +40,9 @@ class User < ActiveRecord::Base
   include Authentication::ByPassword
   include Authentication::ByCookieToken
 
-  acts_as_authorized_user
-  acts_as_authorizable	
-
   has_many :users_workspaces, :dependent => :delete_all
   has_many :workspaces, :through => :users_workspaces
-  has_many :roles, :through => :users_workspaces
+  has_many :workspace_roles, :through => :users_workspaces
 
 	ITEMS.each do |item|
 		has_many item.pluralize.to_sym
@@ -54,7 +51,6 @@ class User < ActiveRecord::Base
   has_many :rattings
   has_many :comments
   has_many :feed_items, :through => :feed_sources, :order => "last_updated"
-  belongs_to :system_role
   has_attached_file :avatar,
     :default_url => "/images/default_avatar.png",
     :url =>  "/uploaded_files/user/:id/:style/:basename.:extension",
@@ -83,13 +79,14 @@ class User < ActiveRecord::Base
 	validates_confirmation_of :password, :on => :create
 
   validates_presence_of     :firstname, 
-    :lastname,
-    :address,
-    :company,
-    :phone,
-    :mobile,
-    :activity
-  :nationality
+                            :lastname,
+                            :address,
+                            :company,
+                            :phone,
+                            :mobile,
+                            :activity,
+                            :nationality,
+														:system_role_id
 
   validates_format_of       :firstname, 
     :lastname,
@@ -134,9 +131,35 @@ class User < ActiveRecord::Base
     u = find_by_login(login) # need to get the salt
     u && u.authenticated?(password) ? u : nil
   end
+
+	def system_permissions
+		return Role.find(self.system_role_id).permissions
+	end
+
+	def workspace_permissions(workspace_id)
+		if UsersWorkspace.exists?(:user_id => self.id, :workspace_id => workspace_id)
+			return UsersWorkspace.find(:first, :conditions => {:user_id => self.id, :workspace_id => workspace_id}).role.permissions
+		else
+			return []
+		end
+	end
+
+	def has_system_permission(controller, action)
+		permission_name = controller+'_'+action
+		return self.system_permissions.exists?(:name => permission_name)
+	end
+
+	def has_workspace_permission(workspace_id, controller, action)
+		permission_name = controller+'_'+action
+		return self.workspace_permissions(workspace_id).exists?(:name => permission_name)
+	end
+
+	def system_role
+		return Role.find(self.system_role_id)
+	end
     
   def has_role? role
-    return (self.system_role && self.system_role.name.downcase == role.downcase)
+    return (Role.find(self.system_role_id).name == role)
   end
   
   def is_admin?
@@ -146,34 +169,49 @@ class User < ActiveRecord::Base
 	def is_superadmin?
     has_role?('superadmin')
   end
+
+	def accepts_index_for? user
+		return accepting_action(user, 'index', false, false, true)
+	end
+
+	def accepts_show_for? user
+		return accepting_action(user, 'show', (self.id==user.id), false, true)
+	end
   
-  def accepts_role? role, user
-    begin
-      auth_method = "accepts_#{role.downcase}?"
-      return (send(auth_method, user)) if defined?(auth_method)
-      raise("Auth method not defined")
-    rescue Exception => e
-      p(e)
-      puts e.backtrace[0..20].join("\n")
-      raise
-    end
+  def accepts_destroy_for? user
+    return accepting_action(user, 'edit', (self.id==user.id), false, true)
   end
   
-  def accepts_deletion? user
-    return true if user.is_admin?
-    false
+  def accepts_edit_for? user
+    return accepting_action(user, 'edit', (self.id==user.id), false, true)
   end
   
-  def accepts_edition? user
-    return true if user.is_admin?
-    return true if user == self
-    false
+  def accepts_new_for? user
+    return accepting_action(user, 'new', false, false, true)
   end
-  
-  def accepts_creation? user
-    return true if user.is_admin?
-    false
-  end
+
+	def accepting_action(user, action, spe_cond, sys_cond, ws_cond)
+		# Special access
+		if user.is_superadmin? || spe_cond
+			return true
+		end
+		# System access
+		if user.has_system_permission(self.class.to_s.downcase, action) || sys_cond
+			return true
+		end
+		# Workspace access
+		# The only permission linked to an user in a workspace is 'show'
+		if action=='show'
+			self.workspaces.each do |ws|
+				if ws.users.include?(user)
+					if user.has_workspace_permission(ws.id, self.class.to_s.downcase, action) && ws_cond
+						return true
+					end
+				end
+			end
+		end
+		false
+	end
 	 
 	def full_name
 		return self.lastname+" "+self.firstname
@@ -195,15 +233,6 @@ class User < ActiveRecord::Base
   # Returns true if the user has just been activated.
   def pending?
     @activated
-  end
-
-  def has_permission?(p)
-    current_permissions = []
-    self.roles.each do |role|
-      role.permissions.each { |p| current_permissions << p }
-    end
-    permission = Permission.find_by_name(p)
-    current_permissions.include?(permission)
   end
   
   #	# Encrypts some data with the salt.

@@ -1,26 +1,27 @@
 class UsersController < ApplicationController
-  acts_as_ajax_validation
 	
-	skip_before_filter :is_logged?, :only => [:forgot_password, :reset_password, :activate]
+  acts_as_ajax_validation
+
 	layout "application", :except => [:forgot_password, :reset_password]
 
   make_resourceful do
     actions :all
-    
-    before :remove do
-      permit "deletion of user"
+
+    before :destroy do
+      no_permission_redirection unless @current_object.accepts_destroy_for?(@current_user)
     end
-    
+
     before :edit, :update do
-      permit "edition of user"
+      no_permission_redirection unless @current_object.accepts_edit_for?(@current_user)
     end
-    
-    
+
+
     before :new, :create do
-      permit "creation of user"
+      no_permission_redirection unless @current_object.accepts_new_for?(@current_user)
     end
-    
+
     before :show do
+			no_permission_redirection unless @current_object.accepts_show_for?(@current_user)
       @is_admin = @current_object.is_admin?
       @moderated_ws =
         Workspace.with_moderator_role_for(@current_object) |
@@ -28,35 +29,32 @@ class UsersController < ApplicationController
       @writter_role_on_ws = Workspace.with_writter_role_for(@current_object)
       @reader_role_on_ws = Workspace.with_reader_role_for(@current_object)
     end
-		
+
 		before :index do
+			no_permission_redirection unless @current_objects.first.accepts_index_for?(@current_user)
 			@current_objects = current_objects.paginate(
-     	:page => params[:page],
-			:order => :title,
-			:per_page => 20
-		)
+					:page => params[:page],
+					:order => :title,
+					:per_page => 20
+			)
     end
 
 		after :create do
 			# Creation of the private workspace fur the user
 			Workspace.create(:title => "Private space of #{@current_object.login}", :creator_id => @current_object.id, :state => 'private')
 		end
-		
-    response_for :index do |format|
-      format.html { render :layout => false }
-    end
+
   end
  
   def current_objects
      conditions = if params['login']
-       ["login LIKE :login OR firstname LIKE :login OR lastname LIKE :login", 
+       ["login LIKE :login OR firstname LIKE :login OR lastname LIKE :login",
          { :login => "%#{params['login']}%"}]
      else
        {}
      end
      @current_objects ||= current_model.find(:all, :conditions => conditions)
    end
-
 	
 	# Function allowing to activate the user with the RESTful authentification plugin
   def activate
@@ -100,7 +98,8 @@ class UsersController < ApplicationController
 			redirect_to "/login"
 		end
   end  
-	
+
+	# permit 'administration of user'
 	def administration
 		@current_object = current_user
 		@workspace = Workspace.new

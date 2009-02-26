@@ -1,9 +1,10 @@
 <h1>Editing Role</h1>
 
-
 <% remote_form_for(@role) do |f| %>
 
-  <%= render :partial => 'form', :locals => {:f => f} %>
+  <%= hidden_field_tag :id, @role.id %>
+
+  <%= render :partial => 'roles/form', :locals => {:f => f} %>
   <p>
     <%= f.submit "Update" %>
   </p>

@@ -132,33 +132,46 @@ class Workspace < ActiveRecord::Base
       uw.save(false) 
     end 
   end 
-  
-  def accepts_role? role, user
-    begin
-      auth_method = "accepts_#{role.downcase}?"
-      return (send(auth_method, user)) if defined?(auth_method)
-      raise("Auth method not defined")
-    rescue Exception => e
-      p(e)
-      puts e.backtrace[0..20].join("\n")
-      raise
-    end
+
+	def accepts_show_for? user
+		return accepting_action(user, 'show', (self.creator_id==user.id), false, true)
+	end
+
+  def accepts_destroy_for? user
+    return accepting_action(user, 'edit', (self.creator_id==user.id), false, true)
   end
+
+  def accepts_edit_for? user
+    return accepting_action(user, 'edit', (self.creator_id==user.id), false, true)
+  end
+
+  def accepts_new_for? user
+    return accepting_action(user, 'new', false, false, true)
+  end
+
+	private
+	def accepting_action(user, action, spe_cond, sys_cond, ws_cond)
+				 # Special access
+				if user.is_superadmin? || spe_cond
+					return true
+				end
+        # System access
+				if user.has_system_permission(self.class.to_s.downcase, action) || sys_cond
+					return true
+				end
+        # Workspace access
+				# Not for new and index normally ...
+				if self.users.include?(user)
+					if user.has_workspace_permission(self.id, self.class.to_s.downcase, action) && ws_cond
+						return true
+					end
+				end
+			  false
+	end
 
   private
   def downcase_user_attributes(attributes)
     attributes.each { |value| value['user_login'].downcase! }
   end
   
-  def accepts_edition?(user)
-    # TODO: Check if edition of WS is allowed
-    true
-  end
-  
-  def accepts_consultation?(user)
-    return true if user.is_admin?
-    return true if self.creator == user
-    return true if self.users.include?(user) 
-    return false
-  end
 end

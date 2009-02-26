@@ -28,7 +28,7 @@
         <b><%= link_to_remote "Delete Role",
           :url => { :controller => "roles", :action => "destroy", :id => role.id}, :method => :delete %></b>
       </div>
-      <%= render :partial => "superadministration/permissions", :locals => { :role => role } %>
+      <%= render :partial => "roles/edit", :locals => { :role => role } %>
     </div>
   <% end %>
   <br />

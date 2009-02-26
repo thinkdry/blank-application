@@ -1,32 +1,49 @@
-<fieldset>
+<fieldset class="myform">
   <legend><%= @language %></legend>
-  
+
   <label>Select a Section</label>
-  <%= select_tag "element", 
-      options_for_select(
-                         %w(select) + @options, 
-                         "select"), 
-     :onchange=>"changer(this.value, '#{@options.to_json}')"
+
+  <%= select_tag "element", options_for_select(%w(select) + @translation_sections, "select"),
+     :onchange=>"var nodes='#{@translation_sections.to_json}'.evalJSON(); nodes.each(function(node) {$(node).hide();}); if (this.value=='select') return; else $(this.value).show();"
   %>
-  
-  <% form_for :res, :url => translations_changing_superadministration_path do |f| %>
+
+  <% form_for @res, :url => translations_changing_superadministration_path do |f| %>
+
    <input id="language" name="language" type="hidden" value=<%= @language.to_s %>>
-   
-   <% @translation_names.each do |k,v| %>
-     <div id="<%= k %>" style="display:none">
+
+   <% @translation_sections.each do |section| %>
+     <div id="<%= section %>" style="display:none">
        <table>
-         <% v.each do |type| %>
-             <h1><%= type.capitalize %></h1>
-             <%= render :partial => "elements", :locals => { :type => type } %>
+         <% if @res[section] %>
+         <% @res[section].each do |subsection| %>
+             <% if (subsection.size < 3) %>
+             <h1><%= subsection.first.capitalize %></h1>
+             <% if subsection.second %>
+              <% subsection.second.each do |key, value| %>
+                <tr>
+                  <td><%= key %></td>
+                  <td><%= text_field "#{section}[#{subsection.first}]", key, :value => value %></td>
+                </tr>
+              <% end %>
+            <% else %>
+              Pas de champs pour cette partie.<br />
+            <% end %>
+            <% else %>
+            Pas de sous-section pour cette partie.<br />
+            <% end %>
+         <% end %>
          <% end %>
        </table>
      </div>
    <% end %>
-   
+
    <br />
-   
-  <button type="submit" class="submit_button">Mettre à jour</button>
-  
+
+   <div class="buttons" id="area_BUTTONS" style="padding-top: 2em">
+      <button type="submit" class="positive"><img src="/images/tick.png" alt=""/>Mettre à jour</button>
+      <button type="reset" class="negative"><img src="/images/cross.png" alt=""/>Annuler</button>
+  </div><br><br>
+
   <% end %>
-  
+
 </fieldset>

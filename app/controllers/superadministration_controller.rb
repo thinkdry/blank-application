@@ -18,7 +18,6 @@ class SuperadministrationController < ApplicationController
         @roles = Role.all
 				@workspace_roles = Role.find(:all, :conditions => {:type_role => "workspace"})
         @system_roles = Role.find(:all, :conditions => {:type_role => "system"})
-				#@role_names = []; @roles.each { |role| @role_names << role.name }
 			else
 				flash[:notice] = "Unexisting section"
 				redirect_to '/'
@@ -89,28 +88,39 @@ class SuperadministrationController < ApplicationController
   end
    	
 	def language_switching
-		@yaml = YAML.load_file("#{RAILS_ROOT}/config/locales/#{params[:locale_to_conf]}.yml")
-		@res = @yaml[params[:locale_to_conf].to_s]
-		@language = params[:locale_to_conf].to_s
-		if @yaml
+		if params[:locale_to_conf] == 'translation_addition'
+			translation_options
+			render :partial => 'translation_addition'
+		else
+			yaml = YAML.load_file("#{RAILS_ROOT}/config/locales/#{params[:locale_to_conf]}.yml")
+			@res = yaml[params[:locale_to_conf].to_s]
+			@language = params[:locale_to_conf].to_s
 		  translation_options
 			render :partial => 'translations_tab'
-		else
-			render :text => "Impossible d'ouvrir le fichier de langue demandé."
 		end
   end
 
 	def translations_changing
     @yaml = YAML.load_file("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml")
-   	["general","layout", "user", "login","profil","home","workspace","article","item","file","audio","video","publication","bookmark","picture"].each do |type|
-			if params[type.to_sym] && @yaml[params[:language].to_s][type] 
-				params[type.to_sym].each do |k, v|
-					if @yaml[params[:language]][type][k]
-            @yaml[params[:language]][type][k] = v.to_s
-          end
-       end
-      end
-    end
+   	['general', 'layout', 'user', 'workspace', 'item']+ITEMS+['superadministration', 'others'].each do |section|
+			if params[section.to_sym] && @yaml[params[:language]][section]
+				params[section.to_sym].each do |subsection, list|
+					if @yaml[params[:language]][section][subsection]
+						list.each do |key, value|
+							if @yaml[params[:language]][section][subsection][key]
+								@yaml[params[:language]][section][subsection][key] = value.to_s
+							else
+								#flash[:error] = "Unknown key"
+							end
+						end
+					else
+						#flash[:error] = "Unknown subsection"
+					end
+				end
+			else
+				#flash[:error] = "Unknown section"
+			end
+		end
     File.rename("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml", "#{RAILS_ROOT}/config/locales/old_#{params[:language]}.yml")
     @new=File.new("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml", "w+")
      if @new.syswrite(@yaml.to_yaml)
@@ -121,43 +131,29 @@ class SuperadministrationController < ApplicationController
      redirect_to '/superadministration/translations'
     end
   end
-  
-  def update_permissions_for_role
-    Role.all.each do |role|
-      if params["#{role.name}"] and params["#{role.name}"]["current"]
-        checked_current_permissions = []
-        params["#{role.name}"]["current"].each { |k,v| p = Permission.find_by_name(k); checked_current_permissions << p }
-        (role.permissions - checked_current_permissions).each do |permission|
-          # delete all permissions from role which are not-checked
-          role.permissions.delete(permission)
-        end
-      else
-        role.permissions.each do |p|
-          role.permissions.delete(p)
-        end
-      end
-      if params["#{role.name}"] and params["#{role.name}"]["available"]
-        params["#{role.name}"]["available"].each do |k,v|
-          # adds checked available permissions to role
-          p = Permission.find_by_name(k)
-          role.permissions << p if !role.permission_ids.include?(p.id)
-        end
-      end
-    end
-    flash[:notice] = "Updated Successfully"
-    redirect_to '/superadministration/roles'
-  end
-  
+
+	def translations_new
+		if params[:res][:section] && params[:res][:subsection] && params[:res][:key]
+			LANGUAGES.each do |l|
+				@yaml = YAML.load_file("#{RAILS_ROOT}/config/locales/#{l}.yml")
+				if @yaml[l][params[:res][:section]][params[:res][:subsection]]
+					tmp = { params[:res][:key] => params[:translations][l] }
+					@yaml[l][params[:res][:section]][params[:res][:subsection]].merge!(tmp)
+				else
+					tmp = { params[:res][:subsection] => { params[:res][:key] => params[:translations][l] } }
+					@yaml[l][params[:res][:section]].merge!(tmp)
+				end
+				@new=File.new("#{RAILS_ROOT}/config/locales/#{l}.yml", "w+")
+				@new.syswrite(@yaml.to_yaml)
+			end
+		end
+		redirect_to '/superadministration/translations'
+	end
+
+
   private
   def translation_options
-    @translation_names = { :general => ["general"], 
-		                       :layout => ["layout"], 
-		                       :user => ["user","login","profil"], 
-		                       :item => ["item","article","audio","video","file","publication","bookmark","picture"], 
-		                       :home => ["home"], 
-		                       :workspace => ["workspace"] 
-		                     }
-	  @options = []; @translation_names.each {|k,v| @options << k}
+		@translation_sections = ['general', 'layout', 'user', 'workspace', 'item']+ITEMS+['superadministration', 'others']
   end
 	
 end

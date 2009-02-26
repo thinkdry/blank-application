@@ -10,7 +10,8 @@ module ActsAsItem
         false
       end
       
-      def acts_as_item        
+      def acts_as_item
+        
         acts_as_rateable
         
         belongs_to :user
@@ -69,53 +70,52 @@ module ActsAsItem
         self.items = workspace_ids.collect { |id| self.items.build(:workspace_id => id) }
       end
       
-      def accepts_role? role, user
-        begin
-          auth_method = "accepts_#{role.downcase}?"
-          return (send(auth_method, user)) if defined?(auth_method)
-          raise("Auth method not defined")
-        rescue Exception => e
-          p(e) and raise(e)
-        end
-      end
-      
-      private
       # Is user authorized to consult this item?
-      def accepts_consultation? user
-        # Admin
-        return true if user.is_admin?
-        # Author
-        return true if self.user == user
-        # Member of one assigned WS
-        self.workspaces.each do |ws|
-          return true if ws.users.include?(user)
-        end
-        false
+      def accepts_show_for? user
+        return accepting_action(user, 'show', false, false, true)
       end
-      
+
       # Is user authorized to delete this item?
-      def accepts_deletion? user
-        # Admin
-        return true if user.is_admin?
-        # Author
-        return true if self.user == user
-        false
+      def accepts_destroy_for? user
+        return accepting_action(user, 'show', false, false, (self.user == user))
       end
       
       # Is user authorized to edit this item?
-      def accepts_edition? user
-        # Admin
-        return true if user.is_admin?
-        # Author
-        return true if self.user == user
-        # TODO: Allow creator or moderator of WS to edit items
-        false
+      def accepts_edit_for? user
+        return accepting_action(user, 'show', false, false, (self.user == user))
       end
       
       # Is user authorized to create one item?
-      def accepts_creation? user
-        true if user
-      end
+      def accepts_new_for? user
+        return accepting_action(user, 'new', false, false, true)
+			end
+
+			private
+			def accepting_action(user, action, spe_cond, sys_cond, ws_cond)
+				 # Special access
+				if user.is_superadmin? || spe_cond
+					return true
+				end
+        # System access
+				if user.has_system_permission(self.class.to_s.downcase, action) || sys_cond
+					return true
+				end
+        # Workspace access
+				if action=='new'
+					ws = user.workspaces
+				else
+					ws = self.workspaces
+				end
+        ws.each do |ws|
+          if ws.users.include?(user)
+						if user.has_workspace_permission(ws.id, self.class.to_s.downcase, action) && ws_cond
+							return true
+						end
+					end
+        end
+        false
+			end
+			
     end
   end
 end

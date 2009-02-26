@@ -32,10 +32,10 @@
 	  
 	    		<%= link_to image_tag('icons/comments.png'), '#new_comment_form_box' %>  
 			    <%= link_to image_tag('icons/printer.png'), 'javascript:window.print();' %>
-	    		<% if permit? 'edition of current_object'  %>
+	    		<% if @current_object.accepts_edit_for?(self.current_user)  %>
 					<%= link_to image_tag('icons/pencil.png'), edit_item_path(object)%>
 			    <% end %>
-	    		<% if permit? 'deletion of current_object' %>
+	    		<% if @current_object.accepts_destroy_for?(self.current_user) %>
 					<%= link_to image_tag('icons/delete.png'), item_path(object), :method => :delete,
 								           :confirm =>  I18n.t('item.destroy.delete_conform')%>
 	    		<% end %>
