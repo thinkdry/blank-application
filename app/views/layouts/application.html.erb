@@ -29,7 +29,7 @@
         <%= I18n.t('layout.application.welcome_message') %>
         <b><%= link_to @current_user.firstname.capitalize, user_path(current_user) %></b> |
         <%= link_to I18n.t('layout.application.administration'), administration_user_path(current_user) %> |
-        <% if current_user.is_superadmin? %>
+		<% if current_user.has_role('superadmin') %>
           <%= link_to I18n.t('layout.application.superadministration'), superadministration_path("default") %> |
         <% end %>
         <%= link_to I18n.t('layout.application.logout'), '/logout' %>

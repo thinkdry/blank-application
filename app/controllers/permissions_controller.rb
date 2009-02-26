@@ -1,4 +1,7 @@
 class PermissionsController < ApplicationController
+
+	before_filter :is_superadmin?
+
   # GET /permissions
   # GET /permissions.xml
   def index

@@ -42,7 +42,20 @@ class UsersController < ApplicationController
 		after :create do
 			# Creation of the private workspace fur the user
 			Workspace.create(:title => "Private space of #{@current_object.login}", :creator_id => @current_object.id, :state => 'private')
+			flash[:notice] = I18n.t('user.new.flash_notice')
 		end
+
+		after :create_fails do
+			flash[:error] = I18n.t('user.new.flash_error')
+    end
+
+    after :update do
+			flash[:notice] = I18n.t('user.edit.flash_notice')
+    end
+
+    after :update_fails do
+			flash[:error] = I18n.t('user.edit.flash_error')
+    end
 
   end
  

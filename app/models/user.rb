@@ -132,6 +132,14 @@ class User < ActiveRecord::Base
     u && u.authenticated?(password) ? u : nil
   end
 
+	def system_role
+		return Role.find(self.system_role_id)
+	end
+
+	def has_role(role)
+		return self.system_role.name == role
+	end
+
 	def system_permissions
 		return Role.find(self.system_role_id).permissions
 	end
@@ -153,22 +161,6 @@ class User < ActiveRecord::Base
 		permission_name = controller+'_'+action
 		return self.workspace_permissions(workspace_id).exists?(:name => permission_name)
 	end
-
-	def system_role
-		return Role.find(self.system_role_id)
-	end
-    
-  def has_role? role
-    return (Role.find(self.system_role_id).name == role)
-  end
-  
-  def is_admin?
-    has_role?('admin') or has_role?('superadmin')
-  end
-	
-	def is_superadmin?
-    has_role?('superadmin')
-  end
 
 	def accepts_index_for? user
 		return accepting_action(user, 'index', false, false, true)

@@ -1,7 +1,8 @@
 class SuperadministrationController < ApplicationController
 
+	before_filter :is_superadmin?
+
 	def superadministration
-		if current_user.is_superadmin?
 			if params[:part] == "default"
 			elsif params[:part] == "general"
 				@conf = get_sa_config
@@ -25,10 +26,6 @@ class SuperadministrationController < ApplicationController
 			if request.post?
 				render :partial => params[:part], :layout => false
 			end
-		else
-			flash[:notice] = "Vous n'avez pas ce droit."
-			redirect_to ''
-		end
 	end
 	
 	def general_changing
