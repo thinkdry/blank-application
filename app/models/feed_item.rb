@@ -61,7 +61,7 @@ class FeedItem < ActiveRecord::Base
 
   named_scope :consultable_by, lambda { |user_id|
     raise 'User expected' unless user_id
-    return { } if User.find(user_id).is_admin?
+    return { } if User.find(user_id).has_role('superadmin')
     { :select => 'feed_items.*',
       :joins => "LEFT JOIN items ON items.workspace_id = #{user_id} AND items.itemable_type = 'FeedSource' LEFT JOIN feed_sources ON feed_sources.id = items.itemable_id ",
       :conditions => "feed_items.feed_source_id = feed_sources.id"

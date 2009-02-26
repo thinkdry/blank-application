@@ -58,6 +58,10 @@ class ApplicationController < ActionController::Base
 		return WsConfig.find(ws_id)
 	end
 
+	def is_superadmin?
+		no_permission_redirection unless self.current_user.has_role('superadmin')
+	end
+
 	def no_permission_redirection
 		flash[:error] = "Permission denied"
 		redirect_to '/'

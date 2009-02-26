@@ -1,4 +1,7 @@
 class RolesController < ApplicationController
+
+	before_filter :is_superadmin?
+
   # GET /roles
   # GET /roles.xml
   def index
