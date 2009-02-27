@@ -1,12 +1,15 @@
 class UserMailer < ActionMailer::Base
 	
 	def daurl
-		#return "http://localhost:3000"
-		return "http://blank.thinkdry.com"
+		return get_sa_config[:sa_application_url]
   end
 
 	def site_name
-		return "ThinkDRY Blank Application"
+		return get_sa_config[:sa_application_name]
+	end
+
+	def contact_email
+		return get_sa_config[:sa_contact_email]
 	end
 	
 	def signup_notification(user)
@@ -36,7 +39,7 @@ class UserMailer < ActionMailer::Base
   protected
     def setup_email(user)
       recipients user.email
-      from "blank@thinkdry.com"
+      from self.contact_email
       sent_on Time.now
     end
 		

@@ -3,6 +3,9 @@
 
   <% form_for :general, :url => general_changing_superadministration_path, :html => {:multipart => true} do |f| -%>
 
+      Application name :<br />
+      <%= text_field_tag 'conf[sa_application_name]', @conf['sa_application_name'] %><br />
+
       Favicon Management :<br />
       <%= image_tag(@logo.favicon.url(:medium)) %><br />
       <%= file_field 'picture', 'favicon' %><br />
@@ -10,6 +13,14 @@
       Logo management :<br />
       <%= image_tag(@logo.picture.url(:medium)) %><br />
       <%= file_field 'picture', 'picture' %><br />
+      <br />
+
+      Application URL :<br />
+      <%= text_field_tag 'conf[sa_application_url]', @conf['sa_application_url'] %><br />
+
+      Contact email :<br />
+      <%= text_field_tag 'conf[sa_contact_email]', @conf['sa_contact_email'] %><br />
+
       <br />
       
       Available items :<br />
