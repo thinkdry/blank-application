@@ -29,7 +29,6 @@ class SuperadministrationController < ApplicationController
 	end
 	
 	def general_changing
-		if current_user.is_superadmin?
 			list = ['items', 'languages', 'feed_items_importation_types', 'ws_types']
 			@conf = get_sa_config
 			if params[:picture]
@@ -39,7 +38,7 @@ class SuperadministrationController < ApplicationController
 					Picture.find_by_name('logo').update_attributes(:name => 'old_logo')
 				end
 				@picture.save
-			end
+			@conf[:sa_application_name] = params[:conf][:sa_application_name]
 			list.each do |l|
 				@conf['sa_'+l] = check_to_tab(l)
 			end

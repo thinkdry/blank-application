@@ -93,7 +93,7 @@ module ActsAsItem
 			private
 			def accepting_action(user, action, spe_cond, sys_cond, ws_cond)
 				 # Special access
-				if user.is_superadmin? || spe_cond
+				if user.has_role('superadmin') || spe_cond
 					return true
 				end
         # System access

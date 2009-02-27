@@ -80,6 +80,7 @@ module ActsAsItem
     module InstanceMethods
       def rate
         current_object.add_rating(Rating.new(:rating => params[:rated].to_i))
+				# TODO : refresh the rate box ...
         render :nothing => true
       end
       
