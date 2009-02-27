@@ -1,0 +1,5 @@
+ITEMS = ['article', 'image', 'cms_file', 'video', 'audio', 'publication', 'feed_source', 'bookmark']
+LANGUAGES = ['en-US', 'fr-FR', 'es-ES']
+FEED_ITEMS_IMPORTATION_TYPES = ['bookmark', 'publication']
+WS_TYPES = ['closed', 'public', 'authorized', 'archived']
+RIGHT_TYPES = ['system', 'workspace']
