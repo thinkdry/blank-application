@@ -23,7 +23,7 @@
 
 <% 1.upto(50) do |i| %>
     video_<%= i %>:
-        user: boss
+        user_id: <%= User.find_by_login("boss").id%>
         title: The Penguin
         description: The Penguin Skill.
         state: encoded
@@ -31,5 +31,5 @@
         video_content_type: video/mpeg
         video_file_size: 590296
         video_updated_at: <%= i.days.ago %>
-
+        created_at: <%= (Time.parse("2/3,5:#{i}")).to_s :db %>
 <% end %>

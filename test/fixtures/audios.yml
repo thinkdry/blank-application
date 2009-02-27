@@ -22,7 +22,7 @@
 
 <% 1.upto(50) do |i| %>
     audio_<%= i %>:
-        user: boss
+        user_id: <%= User.find_by_login("boss").id%>
         title: The Good the Bad the Ugly
         description: The Audio Theme.
         state: encoded
@@ -30,5 +30,6 @@
         audio_content_type: audio/mpeg
         audio_file_size: 98423
         audio_updated_at: <%= i.days.ago %>
+        created_at: <%= (Time.parse("2/3,5:#{i}")).to_s :db %>
 <% end %>
 

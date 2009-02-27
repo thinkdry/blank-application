@@ -21,11 +21,12 @@
 
 <% 1.upto(50) do |i| %>
     cmsfile_<%= i %>:
-        user: boss
+        user_id: <%= User.find_by_login("boss").id%>
         title: Blank Application (<%= i %>)
         description: "Blank Application - Open Source Multimedia CMS"
         cmsfile_file_name: <%= file_path_import(:model => 'cmsfile', :id => Fixtures.identify("cmsfile_#{i}"), :file_name => 'blank.pdf') %>
         cmsfile_content_type: application/pdf
         cmsfile_file_size: 32329
         cmsfile_updated_at: <%= i.days.ago %>
+        created_at: <%= (Time.parse("2/3,5:#{i}")).to_s :db %>
 <% end %>

@@ -11,14 +11,14 @@
 #  updated_at    :datetime
 #
 
-#<% ITEMS.map{ |item| item.camelize }.each do |model| %>
-#    <% puts "#{model.to_s} : #{Kernel.const_get(model).count} elements" %>
-#    <% Kernel.const_get(model).all.each do |instance| %>
-#        <% Workspace.all.delete_if { rand < 0.5 }.each do |workspace| %>
-#            <%= model.to_s.underscore %>_<%= instance.id %>_on_<%= workspace.title %>:
-#                itemable_type: <%= model %>
-#                itemable_id: <%= instance.id %>
-#                workspace_id: <%= workspace.id %>
-#        <% end %>
-#    <% end %>
-#<% end %>
+#<% #ITEMS.map{ |item| item.camelize }.each do |model| %>
+#    <% #puts "#{model.to_s} : #{Kernel.const_get(model).count} elements" %>
+#    <%# Kernel.const_get(model).all.each do |instance| %>
+#        <% #Workspace.all.delete_if { rand < 0.5 }.each do |workspace| %>
+#            <%#= model.to_s.underscore %>_<%#= instance.id %>_on_<%#= workspace.title %>:
+#                itemable_type: <%#= model %>
+#                itemable_id: <%#= instance.id %>
+#                workspace_id: <%#= workspace.id %>
+#        <%# end %>
+#    <%# end %>
+#<%# end %>

@@ -18,17 +18,19 @@ namespace :blank do
     p "Loading Roles ..."
     @superadmin=Role.create(:name =>'superadmin', :description=> 'SuperAdministration', :type_role =>'system')
     @admin=Role.create(:name =>'admin', :description=> 'Administration', :type_role =>'system')
-    @userr = Role.create(:name =>'user', :description=> 'User', :type_role =>'system')
+    @user = Role.create(:name =>'user', :description=> 'User', :type_role =>'system')
     Role.create(:name =>'ws_admin', :description=> 'Workspace Administrator', :type_role =>'workspace')
     Role.create(:name =>'moderator', :description=> 'Moderator of Workspace', :type_role =>'workspace')
     Role.create(:name =>'writer', :description=> 'Writer on Workspace', :type_role =>'workspace')
     Role.create(:name =>'reader', :description=> 'Reader on Workspace', :type_role =>'workspace')
     p "Done"
-    p "Setting Up 'Boss' superadmin user"
-    @user=User.find_by_login('boss')
-    if @user.nil?
-      sql =[ "insert into users(id, login, firstname, lastname, email, address, company, phone, mobile, activity, nationality, edito, avatar_file_name, avatar_content_type, avatar_file_size, avatar_updated_at, crypted_password, salt, activation_code, activated_at, password_reset_code, system_role_id, created_at, updated_at, remember_token, remember_token_expires_at)values(1,'boss', 'Boss', 'Dupond', 'contact@thinkdry.com', '15 rue Leonard', 'ThinkDRY Technologies', '0112345678', '0612345678', 'Developer', 'France', '',null, null, null, null, 'a2c297302eb67e8f981a0f9bfae0e45e4d0e4317', '356a192b7913b04c54574d18c28d46e6395428ab', null, CURRENT_TIMESTAMP, null, #{@superadmin.id}, CURRENT_TIMESTAMP,CURRENT_TIMESTAMP, null, null);",
-				"insert into users(id, login, firstname, lastname, email, address, company, phone, mobile, activity, nationality, edito, avatar_file_name, avatar_content_type, avatar_file_size, avatar_updated_at, crypted_password, salt, activation_code, activated_at, password_reset_code, system_role_id, created_at, updated_at, remember_token, remember_token_expires_at)values(2,'quentin', 'Boss', 'Dupond', 'contact@thinkdry.com', '15 rue Leonard', 'ThinkDRY Technologies', '0112345678', '0612345678', 'Developer', 'France', '',null, null, null, null, 'a2c297302eb67e8f981a0f9bfae0e45e4d0e4317', '356a192b7913b04c54574d18c28d46e6395428ab', null, CURRENT_TIMESTAMP, null, #{@userr.id}, CURRENT_TIMESTAMP,CURRENT_TIMESTAMP, null, null);"
+    p "Enter the SuperAdmin login name"
+    sa_user=STDIN.gets.chomp
+    sa_user="boss" if sa_user.blank?
+    p "Setting Up #{sa_user} as Superadmin"
+    @sauser=User.find_by_login(sa_user)
+    if @sauser.nil?
+      sql =[ "insert into users(id, login, firstname, lastname, email, address, company, phone, mobile, activity, nationality, edito, avatar_file_name, avatar_content_type, avatar_file_size, avatar_updated_at, crypted_password, salt, activation_code, activated_at, password_reset_code, system_role_id, created_at, updated_at, remember_token, remember_token_expires_at)values(1,'#{sa_user}', 'Boss', 'Dupond', 'contact@thinkdry.com', '15 rue Leonard', 'ThinkDRY Technologies', '0112345678', '0612345678', 'Developer', 'France', '',null, null, null, null, 'a2c297302eb67e8f981a0f9bfae0e45e4d0e4317', '356a192b7913b04c54574d18c28d46e6395428ab', null, CURRENT_TIMESTAMP, null, #{@superadmin.id}, CURRENT_TIMESTAMP,CURRENT_TIMESTAMP, null, null);"
       ]
       for i in sql
         query=<<-SQL
@@ -37,8 +39,23 @@ namespace :blank do
         ActiveRecord::Base.connection.execute(query)
       end
     else
-      @user.system_role_id=@superadmin.id
-      @user.save
+      @sauser.system_role_id=@superadmin.id
+      @sauser.save
+    end
+    p "Setting Up 'quentin' as User"
+    @auser=User.find_by_login('quentin')
+    if @auser.nil?
+      sql =[ "insert into users(id, login, firstname, lastname, email, address, company, phone, mobile, activity, nationality, edito, avatar_file_name, avatar_content_type, avatar_file_size, avatar_updated_at, crypted_password, salt, activation_code, activated_at, password_reset_code, system_role_id, created_at, updated_at, remember_token, remember_token_expires_at)values(2,'quentin', 'Quentin', 'Dupond', 'contact@thinkdry.com', '15 rue Leonard', 'ThinkDRY Technologies', '0112345678', '0612345678', 'Developer', 'France', '',null, null, null, null, 'a2c297302eb67e8f981a0f9bfae0e45e4d0e4317', '356a192b7913b04c54574d18c28d46e6395428ab', null, CURRENT_TIMESTAMP, null, #{@user.id}, CURRENT_TIMESTAMP,CURRENT_TIMESTAMP, null, null);"
+      ]
+      for i in sql
+        query=<<-SQL
+        #{i}
+        SQL
+        ActiveRecord::Base.connection.execute(query)
+      end
+    else
+      @auser.system_role_id=@admin.id
+      @auser.save
     end
     p "Done"
     p "Loading Permissions ..."
@@ -75,7 +92,7 @@ namespace :blank do
     Permission.find(:all).each do |p|
       @role_admin.permissions << p
     end
-		# Permissions for USER
+		# Permissions for USER ROLES
 		@role_user.permissions << Permission.find_by_name("workspace_new")
     # Permissions for WORKSPACE ROLES
     Permission.find(:all, :conditions => 'name LIKE "workspace%" AND type_permission="workspace"').each do |p|
@@ -105,8 +122,11 @@ namespace :blank do
     @role_wri.permissions << Permission.find(:all, :conditions =>{:name => 'workspace_show'})
     p "Done"
     p "Creating Default Workspace"
-    @user=User.find_by_login("boss")
-    Workspace.create(:creator_id => @user.id, :description => "Private Workspace for Boss", :title=> "Private for Boss", :state => "private")
+    @superadmin=User.find_by_login("boss")
+    Workspace.create(:creator_id => @superadmin.id, :description => "Private Workspace for Boss", :title=> "Private for Boss", :state => "private")
+    @user=User.find_by_login("quentin")
+    @ws=Workspace.create(:creator_id => @user.id, :description => "Private Workspace for Quentin", :title=> "Private for Quentin", :state => "private")
+    UsersWorkspace.create(:workspace_id => @ws.id, :role_id => Role.find_by_name("ws_admin").id, :user_id => @user.id )
     p "Done"
     p "Loading Styles if blank ..."
 		if Element.find(:all).blank?
