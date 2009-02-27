@@ -21,11 +21,12 @@
 
 <% 1.upto(50) do |i| %>
     image_<%= i %>:
-        user: boss
+        user_id: <%= User.find_by_login("boss").id%>
         title: Ubuntu
         description: Safe, Easy & Beautiful
         image_file_name: <%= file_path_import(:model => 'image', :id => Fixtures.identify("image_#{i}"), :file_name => 'image.png') %>
         image_content_type: image/png
         image_file_size: 215640
         image_updated_at: <%= i.days.ago %>
+        created_at: <%= (Time.parse("2/3,5:#{i}")).to_s :db %>
 <% end %>

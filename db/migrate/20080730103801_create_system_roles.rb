@@ -4,8 +4,6 @@ class CreateSystemRoles < ActiveRecord::Migration
       t.string  :name
       t.timestamps
     end
-    SystemRole.create(:name => 'admin')
-    SystemRole.create(:name => 'superadmin')
   end
 
   def self.down

@@ -16,7 +16,7 @@
 
 <% 1.upto(50) do |i| %>
     article_<%= i %>: 
-        user: boss
+        user_id: <%= User.find_by_login("boss").id%>
         title: Article<%= i %>
         description: Article vide
         body: C'est un bon article sur un peu rien mais aussi ps grand chose.
