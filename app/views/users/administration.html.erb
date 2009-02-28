@@ -1,7 +1,7 @@
 <div id="area_TITLE">
   <h1><%=I18n.t('user.administration.title')%></h1>
 </div>
-<% if current_user.is_admin? %>
+<% if current_user.has_system_permission('user', 'new') %>
 <fieldset style="margin-top: 20px;">
 	<legend><%=I18n.t('user.administration.administration_configuration')%></legend>
 	<%= link_to I18n.t('user.new.add_user'), new_user_path %>
@@ -11,16 +11,6 @@
 	<%= render :partial => "workspaces/new" %>
 </div>
 <div class="area_BOTH">
-  <% @workspaces.each do |w| %>
-    <div class="area_WS">
-  		<h4><%= w.title %></h4>
-  		<%=I18n.t('user.access_right.workspace_administrator')%> : 	<%= link_to_user(w.creator) %>		<br />
-  		<%=I18n.t('user.access_right.moderator').pluralize%> : 					<%= user_list_of(w, :moderators) %>	<br />
-  		<%=I18n.t('user.access_right.writer').pluralize%> : 					<%= user_list_of(w, :writters) %>	<br />
-  		<%=I18n.t('user.access_right.reader').pluralize%> : 						<%= user_list_of(w, :readers) %><br />
-  		<br />
-  		<%= link_to I18n.t('workspace.edit.manage_users_and_rights'), edit_workspace_path(w.id) %>
-  	</div>
-  <% end %>
+  <%= render :partial => 'workspaces/users_by_roles' %>
 </div>
 

@@ -106,6 +106,7 @@ en-US:
       flash_error: There was Problem While Creating the User.
       flash_notice: User Successfully Created.
     field:
+      system_role_id_label: System role
       login_label: Login
       login_hint: Enter Login Details
       email_label: Email
@@ -157,16 +158,6 @@ en-US:
       flash_notice: Password has been Successfully Changed.
       flash_error: Password not Changed.
       flash_error_link: Invalid Link.
-    access_right:
-      title: Access Rights
-      system_administrator: System Administrator
-      moderator:  Moderator
-      writer: Writer
-      reader: Reader
-      rights_to_be_moderator: Right to be Moderator
-      rights_to_manage: Rights to Manage
-      readonly_access_to: Readonly Access to
-      workspace_administrator: Workspace Administrator
     administration:
       title: Administration
       administration_configuration: Administation Configuration
@@ -177,6 +168,8 @@ en-US:
       title_hint: Title of Item
       description_label: Description
       description_hint: Description of Item
+      tags_label: Tags
+      tags_hint: Separated by Spaces
     show:
       get_in_another_format: Other format
     new:
@@ -200,15 +193,10 @@ en-US:
     new:
       title: Add a New Article
     field:
-      tags_label: Tags
-      tags_hint: Separated by Spaces
       article_label: Article
       article_hint: Name of Article
       assosiated_file_label: Associated File
       add_new_file: Add a New File
-      workspace_label: Workspace
-      private_for_boss: Private for boss
-      blank_application: Blank Application
     edit:
       title: Edit Article
 
@@ -217,7 +205,6 @@ en-US:
       title: Add a New audio
     field:
       audio_label: Audio
-      tags_label: Tags
     edit:
       title: Edit audio
 
@@ -360,8 +347,6 @@ en-US:
   home:
     index:
       title: My Workspaces
-      you_administor: You Administer
-      you_have_access_to_workspace: You have Access to Workspaces
       my_personnal_information: My Personnal Information
       show_my_feeds: Show my RSS feeds
       top_five_item: Top Five Items
@@ -426,6 +411,9 @@ en-US:
       here: here
       of: of
       found: found
+      with: with
+      role: role
+      workspace: workspace
     button:
       update: Update
       cancel: Cancel
@@ -452,6 +440,14 @@ en-US:
       en-US: English(US)
       fr-FR: French(FRA)
       es-ES: Spanish(ESP)
+    role:
+      superadmin: Superadministrator
+      admin: System administrator
+      user: User
+      ws_admin: Workspace administrator
+      moderator: Moderator
+      writer: Writer
+      reader: Reader
     txt:
       feed_item_importation_type: Feed Items Imporation Types
       select_a_file: Select a Link

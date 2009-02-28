@@ -16,6 +16,7 @@ class Workspace < ActiveRecord::Base
 	
 	has_many :users_workspaces, :dependent => :delete_all
 	has_many :roles, :through => :users_workspaces
+	#has_many :permissions, :through => :roles, :source => :permissions_roles
 	has_many :users, :through => :users_workspaces
 	has_many :items, :dependent => :delete_all
   has_many_polymorphs :itemables, :from => ITEMS.map{ |item| item.pluralize.to_sym }, :through => :items
@@ -32,61 +33,24 @@ class Workspace < ActiveRecord::Base
   named_scope :latest,
     :order => 'created_at DESC',
     :limit => 5
-  
-  # Must be called from User.
-  # Example : User.first.workspaces.moderated
-  named_scope :moderated, {
-    :include => [ :roles ],
-    :conditions => "roles.name = 'moderator'"
-  }
-  
-  # Must be called from User.
-  # Example : User.first.workspaces.written
-  named_scope :written, {
-    :include => [ :roles ],
-    :conditions => "roles.name = 'writer'"
-  }
-  
-  # Must be called from User.
-  # Example : User.first.workspaces.read
-  named_scope :read, {
-    :include => [ :roles ],
-    :conditions => "roles.name = 'reader'"
-  }
-	
-	named_scope :administrated_by, lambda { |user|
-	  raise 'User required' unless user
-	  { :conditions => "creator_id = #{user.id}" }
-  }
-  
-  named_scope :consulted_by, lambda { |user|
-    raise 'User required' unless user
-    { :include => [ :users_workspaces ],
-      :conditions => "users_workspaces.user_id = #{user.id}" }
-  }
-  
-  named_scope :by_user_and_role, lambda { |user, role|
-    raise 'Args missing' if user.nil? || role.nil?
-    { :include => [ :users_workspaces, :roles ],
-      :conditions => "users_workspaces.user_id = #{user.id} AND roles.name = '#{role}'" }
-  }
 
-  def self.moderated_by user
-    self.by_user_and_role(user, 'moderator')
-	end
-	
-	def self.with_moderator_role_for user
-	  self.moderated_by user
-  end
-	
-	def self.with_writter_role_for user
-	  self.by_user_and_role(user, 'writer')
-	end
-	
-	def self.with_reader_role_for user
-	  self.by_user_and_role(user, 'reader')
-	end
-	
+	named_scope :allowed_user_with_permission, lambda { |user_id, permission_name|
+		raise 'User required' unless user_id
+		raise 'Permission name' unless permission_name
+		{ :joins => "LEFT JOIN users_workspaces ON users_workspaces.workspace_id = workspaces.id AND users_workspaces.user_id = #{user_id.to_i} "+
+					"LEFT JOIN permissions_roles ON permissions_roles.role_id = users_workspaces.role_id "+
+					"LEFT JOIN permissions ON permissions_roles.permission_id = permissions.id",
+			:conditions => "permissions.name = '#{permission_name.to_s}'" }
+	}
+
+	named_scope :allowed_user_with_ws_role, lambda { |user_id, role_name|
+		raise 'User required' unless user_id
+		raise 'Role name' unless role_name
+		{ :joins => "LEFT JOIN users_workspaces ON users_workspaces.workspace_id = workspaces.id AND users_workspaces.user_id = #{user_id.to_i} "+
+					"LEFT JOIN roles ON roles.id = users_workspaces.role_id",
+			:conditions => "roles.name = '#{role_name.to_s}'" }
+	}
+
 	def uniqueness_of_users
 	  new_users = self.users_workspaces.reject { |e| ! e.new_record? }.collect { |e| e.user }
 	  new_users.size.times do
@@ -96,19 +60,14 @@ class Workspace < ActiveRecord::Base
 	
 	def users_by_role role_name
 	  role = self.roles.find_by_name(role_name)
-	  role ? role.users : []
-  end
-  
-	def moderators
-	  users_by_role('moderator')
-  end
-  
-	def writters
-	  users_by_role('writer')
-  end
-  
-	def readers
-	  users_by_role('reader')
+	  res = []
+		if role
+			uw = UsersWorkspace.find(:all, :conditions => { :role_id => role.id, :workspace_id => self.id })
+			uw.each do |e|
+				res << e.user
+			end
+		end
+		return res
   end
 	
 	# Link the attributes directly from the form
@@ -152,7 +111,7 @@ class Workspace < ActiveRecord::Base
 	private
 	def accepting_action(user, action, spe_cond, sys_cond, ws_cond)
 				 # Special access
-				if user.has_role('superadmin') || spe_cond
+				if user.has_system_role('superadmin') || spe_cond
 					return true
 				end
         # System access

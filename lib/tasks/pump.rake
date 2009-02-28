@@ -24,13 +24,14 @@ namespace :blank do
     Role.create(:name =>'writer', :description=> 'Writer on Workspace', :type_role =>'workspace')
     Role.create(:name =>'reader', :description=> 'Reader on Workspace', :type_role =>'workspace')
     p "Done"
-    p "Enter the SuperAdmin login name"
-    sa_user=STDIN.gets.chomp
-    sa_user="boss" if sa_user.blank?
-    p "Setting Up #{sa_user} as Superadmin"
-    @sauser=User.find_by_login(sa_user)
+#    Accept User names from console
+#    sa_user=STDIN.gets.chomp
+#    sa_user="boss" if sa_user.blank?
+#    p "Setting Up #{sa_user} as Superadmin"
+    p "Setting 'boss' as SuperAdmin"
+    @sauser=User.find_by_login("boss")
     if @sauser.nil?
-      sql =[ "insert into users(id, login, firstname, lastname, email, address, company, phone, mobile, activity, nationality, edito, avatar_file_name, avatar_content_type, avatar_file_size, avatar_updated_at, crypted_password, salt, activation_code, activated_at, password_reset_code, system_role_id, created_at, updated_at, remember_token, remember_token_expires_at)values(1,'#{sa_user}', 'Boss', 'Dupond', 'contact@thinkdry.com', '15 rue Leonard', 'ThinkDRY Technologies', '0112345678', '0612345678', 'Developer', 'France', '',null, null, null, null, 'a2c297302eb67e8f981a0f9bfae0e45e4d0e4317', '356a192b7913b04c54574d18c28d46e6395428ab', null, CURRENT_TIMESTAMP, null, #{@superadmin.id}, CURRENT_TIMESTAMP,CURRENT_TIMESTAMP, null, null);"
+      sql =[ "insert into users(id, login, firstname, lastname, email, address, company, phone, mobile, activity, nationality, edito, avatar_file_name, avatar_content_type, avatar_file_size, avatar_updated_at, crypted_password, salt, activation_code, activated_at, password_reset_code, system_role_id, created_at, updated_at, remember_token, remember_token_expires_at)values(1,'boss', 'Boss', 'Dupond', 'contact@thinkdry.com', '15 rue Leonard', 'ThinkDRY Technologies', '0112345678', '0612345678', 'Developer', 'France', '',null, null, null, null, 'a2c297302eb67e8f981a0f9bfae0e45e4d0e4317', '356a192b7913b04c54574d18c28d46e6395428ab', null, CURRENT_TIMESTAMP, null, #{@superadmin.id}, CURRENT_TIMESTAMP,CURRENT_TIMESTAMP, null, null);"
       ]
       for i in sql
         query=<<-SQL
@@ -123,10 +124,15 @@ namespace :blank do
     p "Done"
     p "Creating Default Workspace"
     @superadmin=User.find_by_login("boss")
-    Workspace.create(:creator_id => @superadmin.id, :description => "Private Workspace for Boss", :title=> "Private for Boss", :state => "private")
-    @user=User.find_by_login("quentin")
-    @ws=Workspace.create(:creator_id => @user.id, :description => "Private Workspace for Quentin", :title=> "Private for Quentin", :state => "private")
-    UsersWorkspace.create(:workspace_id => @ws.id, :role_id => Role.find_by_name("ws_admin").id, :user_id => @user.id )
+		if Workspace.find_by_creator_id_and_state(@superadmin.id, "private").blank?
+			@ws=Workspace.create(:creator_id => @superadmin.id, :description => "Private Workspace for Boss", :title=> "Private for Boss", :state => "private")
+			UsersWorkspace.create(:workspace_id => @ws.id, :role_id => Role.find_by_name("ws_admin").id, :user_id => @superadmin.id )
+		end
+		@user=User.find_by_login("quentin")
+    if Workspace.find_by_creator_id_and_state(@user.id, "private").blank?
+      @ws=Workspace.create(:creator_id => @user.id, :description => "Private Workspace for Quentin", :title=> "Private for Quentin", :state => "private")
+      UsersWorkspace.create(:workspace_id => @ws.id, :role_id => Role.find_by_name("ws_admin").id, :user_id => @user.id )
+    end
     p "Done"
     p "Loading Styles if blank ..."
 		if Element.find(:all).blank?

@@ -38,7 +38,9 @@ class SuperadministrationController < ApplicationController
 					Picture.find_by_name('logo').update_attributes(:name => 'old_logo')
 				end
 				@picture.save
-			@conf[:sa_application_name] = params[:conf][:sa_application_name]
+			@conf['sa_application_name'] = params[:conf][:sa_application_name]
+			@conf['sa_application_url'] = params[:conf][:sa_application_url]
+			@conf['sa_contact_email'] = params[:conf][:sa_contact_email]
 			list.each do |l|
 				@conf['sa_'+l] = check_to_tab(l)
 			end
