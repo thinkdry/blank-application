@@ -19,18 +19,23 @@ class Article < ActiveRecord::Base
 
   acts_as_item
   acts_as_xapian :texts => [:title, :description, :tags, :body],
-                 :values => [ [ :created_at, 0, "created_at", :date ] ]
+                 :values => [[:created_at, 0, "created_at", :number],[:title, 1, "title", :string], [:comment_size, 2, "comment_size", :number], [:rate_size, 3, "rate_size", :number]]
 
-  	
   has_many :article_files, :dependent => :delete_all
   validates_presence_of :body
-  def cdate
-    created_at.to_i
-  end
+  
   def new_file_attributes= file_attributes
     file_attributes.each do |file_path| 
       article_files.build(:article_id => self.id, :articlefile => file_path)
     end
+  end
+
+  def comment_size
+    self.comments.size
+  end
+
+  def rate_size
+    self.rating.to_i
   end
   
 end

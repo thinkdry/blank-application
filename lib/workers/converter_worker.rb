@@ -7,7 +7,7 @@ class ConverterWorker < BackgrounDRb::MetaWorker
   end
 
   def newthread(args)
-    object=args[:type].classify.constantize.find_by_sql("Select * from #{args[:type].pruralize} where id=#{args[:id]} ")
+    object=args[:type].classify.constantize.find_by_id(args[:id])
     object.update_attributes(:state=>"encoding")
     thread_pool.defer(:encoder,args)
   end

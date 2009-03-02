@@ -33,7 +33,8 @@ require 'rfeedparser'
 class FeedSource < ActiveRecord::Base
 
   acts_as_item
-  acts_as_xapian :texts => [:title, :description, :tags, :authors, :url, :link]
+  acts_as_xapian :texts => [:title, :description, :tags, :authors, :url, :link],
+                 :values => [[:created_at, 0, "created_at", :number], [:title, 1, "title", :string], [:comment_size, 2, "comment_size", :number], [:rate_size, 3, "rate_size", :number]]
   	
 	has_many :feed_items , :dependent => :delete_all
 	
@@ -131,5 +132,12 @@ class FeedSource < ActiveRecord::Base
 	    self.errors.add(:url, "The url entered is not a compliant RSS/Atom Feed") 
     end
   end
-  
+
+  def comment_size
+    self.comments.size
+  end
+
+  def rate_size
+    self.rating.to_i
+  end
 end
