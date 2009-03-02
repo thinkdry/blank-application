@@ -29,7 +29,6 @@ ActionController::Routing::Routes.draw do |map|
   # TODO: Publishing, Bookmarks, Admin related controllers: rights...
   map.root :controller => 'home', :action => 'index'
 
-	#map.resources :fronts, :member => { :load_page => :any }
   map.connect '/stylesheets/:action.:format', :controller => 'stylesheets'
 
   # Items are CMS component types
@@ -67,7 +66,7 @@ ActionController::Routing::Routes.draw do |map|
   #end
 	
   #map.add_new_user '/add_new_user', :controller => 'workspaces', :action => 'add_new_user'
-  map.resource :search
+  map.resource :search, :collection => { :advanced => :any }
   map.connect '/fckuploads', :controller => 'fck_uploads', :action => 'create'
 
   # Install the default routes as the lowest priority.
