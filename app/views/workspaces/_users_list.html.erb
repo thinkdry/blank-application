@@ -7,7 +7,7 @@
 		<%= error_message_on user, :user, "L'utilisateur ", '<br />' %>
     <%= label_tag :role_id, object.user.login, :class => "user_role" %>
     <%= user_form.hidden_field :user_id, :value => object.user.id %>
-		<%= user_form.select :role_id, Role.find(:all).collect { |r| [I18n.t('user.access_right.'+r.name), r.id] } %>
+		<%= user_form.select :role_id, Role.find(:all, :conditions => { :type_role => 'workspace'}).collect { |r| [I18n.t('general.role.'+r.name), r.id] } %>
                 
 	<% end %>
 	

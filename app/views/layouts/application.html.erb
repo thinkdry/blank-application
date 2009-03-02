@@ -29,7 +29,7 @@
         <%= I18n.t('layout.application.welcome_message') %>
         <b><%= link_to @current_user.firstname.capitalize, user_path(current_user) %></b> |
         <%= link_to I18n.t('layout.application.administration'), administration_user_path(current_user) %> |
-		<% if current_user.has_role('superadmin') %>
+		<% if current_user.has_system_role('superadmin') %>
           <%= link_to I18n.t('layout.application.superadministration'), superadministration_path("default") %> |
         <% end %>
         <%= link_to I18n.t('layout.application.logout'), '/logout' %>
@@ -50,15 +50,17 @@
         <option selected="selected" value='#'>
           ----------
         </option>
-        <% (Workspace.administrated_by(@current_user) + Workspace.consulted_by(@current_user)).each do |w| %>
+        <% Workspace.allowed_user_with_permission(@current_user.id, 'workspace_show').each do |w| %>
           <%= content_tag(:option, w.title, :value => workspace_path(w)) %>
         <% end %>
-        <option selected="selected" value='#'>
-          ----------
-        </option>
-        <option value="<%= administration_user_path(current_user) %>#new_workspace">
-          <%= I18n.t('layout.application.new_workspace') %>
-        </option>
+        <% if @current_user.has_system_permission('workspace', 'create') %>
+          <option selected="selected" value='#'>
+            ----------
+          </option>
+          <option value="<%= administration_user_path(current_user) %>#new_workspace">
+            <%= I18n.t('layout.application.new_workspace') %>
+          </option>
+        <% end %>
       </select>
       <h3><%= I18n.t('layout.application.add_content') %></h3>
       <form name="form1" method="post" action="" id="form1">
@@ -66,7 +68,7 @@
           <option selected="selected" value='#'>
             --------
           </option>
-          <% get_current_config["ws_items"].split(',').each do |type| %>
+          <% available_items_list.each do |type| %>
             <% if type=='feed_source' %>
               <option value="/feed_sources/what_to_do">
                 <%= I18n.t "general.item.#{type}" %>

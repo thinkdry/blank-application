@@ -52,10 +52,10 @@ class WorkspacesController < ApplicationController
       params["workspace"]["existing_user_attributes"] ||= {}
     end
 		after :update do
-			if current_user.is_superadmin?
+			#if current_user.is_superadmin?
 				@current_object.ws_config.update_attributes(:ws_items => check_to_tab(:items).join(","), :ws_feed_items_importation_types => check_to_tab(:feed_items_importation_types).join(","))
         flash[:notice] =I18n.t('workspace.edit.flash_notice')
-			end
+			#end
 		end
     after :update_fails do
       flash[:error] =I18n.t('workspace.edit.flash_error')
@@ -115,7 +115,8 @@ class WorkspacesController < ApplicationController
 	end
 
 	def ws_config
-		if (@conf=WsConfig.find(params[:id]))
+		if (WsConfig.exists?(params[:id]))
+			@conf = WsConfig.find(params[:id])
 		else
 			@conf = WsConfig.new
 		end

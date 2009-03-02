@@ -1,7 +1,7 @@
 <% item_class_name =  item.class.to_s.underscore %> 
 	<%=	check_box_tag_name = "#{item_class_name}[associated_workspaces][]"
 		# Checkboxes for associated WorkSpaces
-		 (Workspace.administrated_by(@current_user) + Workspace.consulted_by(@current_user)).collect do |w|
+		 (Workspace.allowed_user_with_permission(@current_user.id, item_class_name+"_new")).map{ |w| w.ws_config.ws_items.include?(item_class_name) ? w : nil }.collect do |w|
 
 			checked =
 				# Checked if related params...

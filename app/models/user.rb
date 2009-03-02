@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
 
   has_many :users_workspaces, :dependent => :delete_all
   has_many :workspaces, :through => :users_workspaces
-  has_many :workspace_roles, :through => :users_workspaces
+  has_many :workspace_roles, :through => :users_workspaces, :source => :role
 
 	ITEMS.each do |item|
 		has_many item.pluralize.to_sym
@@ -136,12 +136,16 @@ class User < ActiveRecord::Base
 		return Role.find(self.system_role_id)
 	end
 
-	def has_role(role)
-		return self.system_role.name == role
+	def has_system_role(role_name)
+		return self.system_role.name == role_name
+	end
+
+	def has_workspace_role(workspace_id, role_name)
+		return UsersWorkspace.exists?(:user_id => self.id, :workspace_id => workspace_id, :role_id => Role.find_by_name(role_name).id)
 	end
 
 	def system_permissions
-		return Role.find(self.system_role_id).permissions
+		return self.system_role.permissions
 	end
 
 	def workspace_permissions(workspace_id)
@@ -184,7 +188,7 @@ class User < ActiveRecord::Base
 
 	def accepting_action(user, action, spe_cond, sys_cond, ws_cond)
 		# Special access
-		if user.has_role('superadmin') || spe_cond
+		if user.has_system_role('superadmin') || spe_cond
 			return true
 		end
 		# System access

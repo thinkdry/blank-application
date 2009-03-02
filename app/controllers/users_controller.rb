@@ -22,12 +22,6 @@ class UsersController < ApplicationController
 
     before :show do
 			no_permission_redirection unless @current_object.accepts_show_for?(@current_user)
-      @is_admin = @current_object.is_admin?
-      @moderated_ws =
-        Workspace.with_moderator_role_for(@current_object) |
-        Workspace.administrated_by(@current_object)
-      @writter_role_on_ws = Workspace.with_writter_role_for(@current_object)
-      @reader_role_on_ws = Workspace.with_reader_role_for(@current_object)
     end
 
 		before :index do
@@ -39,7 +33,22 @@ class UsersController < ApplicationController
 			)
     end
 
+		before :new, :edit do
+			if (@current_user.has_system_role('superadmin') || @current_user.has_system_role('admin'))
+				@roles = Role.find(:all, :conditions => { :type_role => 'system' })
+			else
+				@roles = [Role.find_by_name('user')]
+			end
+		end
+
 		after :create do
+			# System role secure check
+			if (@current_user.has_system_role('superadmin') || @current_user.has_system_role('admin'))
+				@current_object.system_role_id = params[:user][:system_role_id].to_i
+			else
+				@current_object.system_role_id = Role.find_by_name('user')
+			end
+			@current_object.save
 			# Creation of the private workspace for the user
 			ws = Workspace.create(:title => "Private space of #{@current_object.login}", :creator_id => @current_object.id, :state => 'private')
 			# To assign the 'ws_admin' role to the user in his privte workspace
@@ -48,14 +57,31 @@ class UsersController < ApplicationController
 		end
 
 		after :create_fails do
+			if (@current_user.has_system_role('superadmin') || @current_user.has_system_role('admin'))
+				@roles = Role.find(:all, :conditions => { :type_role => 'system' })
+			else
+				@roles = [Role.find_by_name('user')]
+			end
 			flash[:error] = I18n.t('user.new.flash_error')
     end
 
     after :update do
+			# System role secure check
+			if (@current_user.has_system_role('superadmin') || @current_user.has_system_role('admin'))
+				@current_object.system_role_id = params[:user][:system_role_id].to_i
+			else
+				@current_object.system_role_id = Role.find_by_name('user')
+			end
+			@current_object.save
 			flash[:notice] = I18n.t('user.edit.flash_notice')
     end
 
     after :update_fails do
+			if (@current_user.has_system_role('superadmin') || @current_user.has_system_role('admin'))
+				@roles = Role.find(:all, :conditions => { :type_role => 'system' })
+			else
+				@roles = [Role.find_by_name('user')]
+			end
 			flash[:error] = I18n.t('user.edit.flash_error')
     end
 
@@ -118,10 +144,10 @@ class UsersController < ApplicationController
 	def administration
 		@current_object = current_user
 		@workspace = Workspace.new
-		@workspaces = if (current_user.system_role == "Admin")
+		@workspaces = if (current_user.has_system_permission('workspace', 'show'))
 		  Workspace.find(:all)
 	  else
-	    Workspace.administrated_by(current_user) + Workspace.moderated_by(current_user)
+	    Workspace.allowed_user_with_permission(@current_user.id, 'workspace_show')
     end
   end
  

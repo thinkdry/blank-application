@@ -6,7 +6,7 @@
       <%= f.select :state, [I18n.t('workspace.type.closed'), I18n.t('workspace.type.public'), I18n.t('workspace.type.authorized'), I18n.t('workspace.type.archived')], :label => I18n.t('workspace.field.state_label')+' :', :disabled => (@workspace.state == 'private') %>
       <br /><br />
 
-      <% if current_user.is_superadmin? %>
+      <%# if current_user.has_workspace_permission(@workspace.id, ) %>
       <%= f.label I18n.t('workspace.edit.workspace_configuration')+" : " %><br />
       <%= I18n.t('workspace.edit.available_items') %> :<br />
       <%= checkboxes_from_list(@sa_conf["sa_items"], "items", @ws_conf, "ws_") %>
@@ -15,12 +15,12 @@
       <%= checkboxes_from_list(@sa_conf["sa_feed_items_importation_types"], "feed_items_importation_types", @ws_conf, "ws_") %>
 
       <br />
-      <% end  %>
+      <%# end  %>
       
       <h4><%=I18n.t 'workspace.edit.associated_user'%></h4>
       <div id="users">
         <% @current_object.users_workspaces.each do |object| %>
-          <%= render :partial => 'user', :object => object %>
+          <%= render :partial => 'users_list', :object => object %>
         <% end %>
       </div>
       <div class="clear"></div>

@@ -1,0 +1,12 @@
+<div class="area_WS">
+  <h4><%= I18n.t('home.index.title')%> </h4>
+  <% @current_user.workspace_roles.uniq.each do |r| %>
+    <span class="label-txt"><%= '- ' + I18n.t('general.common_word.with') + ' \'' + I18n.t('general.role.'+r.name) + '\' ' + I18n.t('general.common_word.role') %>:</span>
+    <%#= links_to_workspace_collection(Workspace.allowed_for_user_with_(@current_user, )) || '- ' +I18n.t('general.common_word.none')+' -' %>
+    <% Workspace.allowed_user_with_ws_role(@current_user.id, r.name).each do |ws| %>
+      <%= link_to ws.title, workspace_path(ws.id) + ', ' %>
+    <% end %>
+    <br /><br />
+  <% end %>
+  <br />
+</div>

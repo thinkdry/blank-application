@@ -1,12 +1,5 @@
 <div class="area_LEFT">
-  <div class="area_WS">
-  	<h4><%= I18n.t('home.index.title')%> </h4>
-  	<span class="label-txt"><%= I18n.t('home.index.you_administor')%>:</span>
-  	<%= links_to_workspace_collection(Workspace.administrated_by(@current_user)) || '- ' +I18n.t('general.common_word.none')+' -' %>
-  	<br /><br />
-  	<span class="label-txt"><%= I18n.t('home.index.you_have_access_to_workspace')%> :</span>
-  	<br />
-  </div>
+  <%= render :partial => 'users/workspaces' %>
   <br />
   <div id="area_INFOS">
   	<h4><%= I18n.t('home.index.my_personnal_information')%></h4>

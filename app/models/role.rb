@@ -12,7 +12,6 @@
 
 class Role < ActiveRecord::Base
 	
-	# a role can have many permissions, and a permission can have many roles
   has_and_belongs_to_many :permissions
   # a user can have many workspaces with different roles
   has_many :users_workspaces, :dependent => :delete_all

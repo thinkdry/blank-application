@@ -23,5 +23,7 @@ class CreateRoles < ActiveRecord::Migration
 
   def self.down
     drop_table :roles
+		drop_table :permissions
+		drop_table :permissions_roles
   end
 end

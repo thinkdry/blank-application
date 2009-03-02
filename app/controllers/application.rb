@@ -23,19 +23,11 @@ class ApplicationController < ActionController::Base
   end
 
 	def available_items_list
-		if File.exist?("#{RAILS_ROOT}/config/customs/sa_config.yml")
-			return YAML.load_file("#{RAILS_ROOT}/config/customs/sa_config.yml")["sa_items"]
-		else
-			return []
-		end
+		return get_sa_config['sa_items']
 	end
 
 	def available_languages
-		if File.exist?("#{RAILS_ROOT}/config/customs/sa_config.yml")
-			return YAML.load_file("#{RAILS_ROOT}/config/customs/sa_config.yml")["sa_languages"]
-		else
-			return []
-		end
+		return get_sa_config['sa_languages']
 	end
 
 	def get_sa_config
@@ -59,7 +51,7 @@ class ApplicationController < ActionController::Base
 	end
 
 	def is_superadmin?
-		no_permission_redirection unless self.current_user.has_role('superadmin')
+		no_permission_redirection unless self.current_user.has_system_role('superadmin')
 	end
 
 	def no_permission_redirection

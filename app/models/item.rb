@@ -12,6 +12,22 @@
 #
 
 class Item < ActiveRecord::Base
+
   belongs_to :workspace
   belongs_to :itemable, :polymorphic => true, :include => :user
+
+
+	def get_item
+		return self.itemable_type.classify.constantize.find(self.itemable_id)
+	end
+
+	def title
+		return self.get_item.title
+	end
+
+	def description
+		return self.get_item.description
+	end
+
 end
+

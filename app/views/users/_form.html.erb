@@ -12,6 +12,8 @@
       <%= f.password_field :password, :label => I18n.t('user.field.password_label'), :hint => I18n.t('user.field.password_hint') %>
       <%= f.password_field :password_confirmation, :label => I18n.t('user.field.confirm_password_label'), :hint => I18n.t('user.field.confirm_password_hint') %>
     <% end %>
+
+    <%= f.select :system_role_id, @roles.map{ |e| [I18n.t('general.role.'+e.name), e.id] }, :label => I18n.t('user.field.system_role_id_label')+" * : " %>
     
     <%= f.text_field :firstname, :label => I18n.t('user.field.first_name_label')+" * : " %>
     <%= f.text_field :lastname, :label => I18n.t('user.field.last_name_label')+" * : " %>

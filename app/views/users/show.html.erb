@@ -5,7 +5,9 @@
 	  	<%= @current_object.firstname %> <%= @current_object.lastname %>
 		<%= link_to image_tag('icons/pencil.png'), edit_user_path, :class => "pencil" if @current_object.accepts_edit_for?(self.current_user) %>
 	  </h2>
-  	  
+  	  <p>
+	  	<label><%=I18n.t('user.field.system_role_id_label')%>  : </label><%= I18n.t('general.role.'+@current_object.system_role.name) %>
+	  </p>
 	  <p>
 	  	<label><%=I18n.t('user.field.location_label')%>  : </label><%= @current_object.company %>
 	  </p>
@@ -23,16 +25,8 @@
 	  <p><%= @current_object.edito %></p>
 	</div>
 </div>
-<div id="area_DROITS">
-	<h2><%=I18n.t('user.access_right.title')%></h2>
-	<div class="item" >
-		<p><label><%=I18n.t('user.access_right.system_administrator')%> : </label><%= @is_admin ? I18n.t('general.common_word.yes1') : I18n.t('general.common_word.no1') %></p>
-		<p><label><%=I18n.t('user.access_right.rights_to_be_moderator')%> : </label><%= @moderated_ws.empty? ? I18n.t('general.common_word.yes1') : I18n.t('general.common_word.no1') %></p>
-		<p><label><%=I18n.t('user.access_right.writer')%> : </label><%= @writter_role_on_ws.empty? ? I18n.t('general.common_word.yes1') : I18n.t('general.common_word.no1') %></p>
-		<p><label><%=I18n.t('user.access_right.rights_to_manage')%> <%=I18n.t('workspace.other.workspace')%> : </label><%= links_to_workspace_collection(@writter_role_on_ws) || '-' + I18n.t('general.common_word.none') + ' -' %></p>
-		<p><label><%=I18n.t('user.access_right.reader')%> : </label><%= @reader_role_on_ws.empty? ? I18n.t('general.common_word.yes1') : I18n.t('general.common_word.no1') %></p>
-		<p><label><%=I18n.t('user.access_right.readonly_access_to')%> : </label> <%= links_to_workspace_collection(@reader_role_on_ws) || '- ' + I18n.t('general.common_word.none')+ ' -' %></p>
-	</div>
-</div>
+
+<%= render :partial => 'workspaces' %>
+
 <div class="clear"></div>
 
