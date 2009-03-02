@@ -1,16 +1,29 @@
+<fieldset>
+  <legend><%=I18n.t('layout.search.advance_search')%></legend>
+  <% form_for :search, :url => search_path, :builder => BlankFormBuilder, :html => {:method => :get} do |f| %>
+  
     <p><%=I18n.t('layout.search.information_on_searched_item')%></p>
     
-    <%= select :search, :item_type_equals, available_items_list.map{ |e| e.camelize }, :label => I18n.t('layout.search.type_label') %>
-    <br /><br />
-    <%= text_field_tag :search_user_name_contains, nil, :label => I18n.t('layout.search.author_label') %>
+    <%= f.text_field :title_contains, :label => I18n.t('layout.search.title_label') %>
+    
+    <%= f.select  :item_type_equals,
+                  %W(Article Image Video Audio Publication CmsFile Bookmark FeedSource),
+                  :label => I18n.t('layout.search.type_label') %>
+
+    <%= f.text_field :user_name_contains, :label => I18n.t('layout.search.author_label') %>
     <div id="autocomplete_choices" class="autocomplete"></div>
     <script type="text/javascript">
       new Ajax.Autocompleter("search_user_name_contains", "autocomplete_choices", "/users/index",{
         method: 'post', paramName: 'login'
       });
     </script>
-    <br /><br />
-    <% text_field_tag :seach, :date, :label => I18n.t('layout.search.search_period_label') do %>
-      <%=I18n.t('general.common_word.from1')%><br/><%= calendar_date_select :search, :created_after, :class => "input_with_calendar" %> <br/>
-      <%=I18n.t('general.common_word.to1')%><br/><%= calendar_date_select :search, :created_before, :class => "input_with_calendar" %>
+    
+    <% f.field :date, :label => I18n.t('layout.search.search_period_label') do %>
+      <%=I18n.t('general.common_word.from1')%><br/><%= f.calendar_date_select :created_after, :class => "input_with_calendar" %> <br/>
+      <%=I18n.t('general.common_word.to1')%><br/><%= f.calendar_date_select :created_before, :class => "input_with_calendar" %>
     <% end %>
+    
+    <button type="submit" class="submit_button"><%=I18n.t('general.button.search')%></button>
+    
+	<% end %>
+</fieldset>

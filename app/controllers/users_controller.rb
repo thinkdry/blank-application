@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 	
   acts_as_ajax_validation
 
-	layout "application", :except => [:forgot_password, :reset_password, :index]
+	layout "application", :except => [:forgot_password, :reset_password]
 
   make_resourceful do
     actions :all
