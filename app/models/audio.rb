@@ -19,7 +19,8 @@
 
 class Audio < ActiveRecord::Base
   acts_as_item
-  acts_as_xapian :texts => [:title, :description, :tags, :audio_file_name, :audio_content_type]
+  acts_as_xapian :texts => [:title, :description, :tags, :audio_file_name, :audio_content_type],
+                 :values => [[:created_at, 0, "created_at", :number], [:title, 1, "title", :string], [:comment_size, 2, "comment_size", :number], [:rate_size, 3, "rate_size", :number]]
   has_attached_file :audio,
     :url =>  "/uploaded_files/audio/:id/:style/:basename.:extension",
     :path => ":rails_root/public/uploaded_files/audio/:id/:style/:basename.:extension"
@@ -38,4 +39,11 @@ class Audio < ActiveRecord::Base
     "-acodec libmp3lame -y"
   end
 
+  def comment_size
+    self.comments.size
+  end
+
+  def rate_size
+    self.rating.to_i
+  end
 end

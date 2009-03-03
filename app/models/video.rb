@@ -25,7 +25,8 @@
 class Video < ActiveRecord::Base
   
   acts_as_item
-  acts_as_xapian :texts => [:title, :description, :tags, :video_file_name, :video_content_type]
+  acts_as_xapian :texts => [:title, :description, :tags, :video_file_name, :video_content_type],
+                 :values => [[:created_at, 0, "created_at", :number], [:title, 1, "title", :string], [:comment_size, 2, "comment_size", :number], [:rate_size, 3, "rate_size", :number]]
   has_attached_file :video,
 		:url =>    "/uploaded_files/video/:id/:style/:basename.:extension",
     :path => ":rails_root/public/uploaded_files/video/:id/:style/:basename.:extension"
@@ -45,5 +46,13 @@ class Video < ActiveRecord::Base
   def codec_3gp
     "-ar 22050 -ab 32 -sameq -an -y"
   end
-  
+
+  def comment_size
+    self.comments.size
+  end
+
+  def rate_size
+    self.rating.to_i
+  end
+
 end
