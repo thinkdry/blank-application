@@ -17,13 +17,19 @@ class Search < ActiveRecord::Base
   def self.column(name, sql_type = nil, default = nil, null = true)
     columns << ActiveRecord::ConnectionAdapters::Column.new(name.to_s, default, sql_type.to_s, null)
   end
- 
-  column :item_type_equals, :string
-  column :title_contains, :string
-  column :description_contains, :string
-  column :user_name_contains, :string
+
+	
+	column :category, :string
+	column :models, :string
+	# Text plain search
+	column :full_text_field, :string
+  # Advanced search
+	column :creator, :string
   column :created_after, :datetime
   column :created_before, :datetime
+	# Filter
+	column :scope
+	column :sort
   
   validates_date :created_after, :created_before, :allow_nil => true
 end

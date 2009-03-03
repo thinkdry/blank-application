@@ -1,16 +1,19 @@
 class SearchesController < ApplicationController
+	
   acts_as_ajax_validation
   
   def new
     @hide_full_text_search = true
     @search = Search.new
-    # By default, search into every type of items
-    @search.item_type_equals = %W(Article Image Video Audio Publication CmsFile FeedSource)
+		@result = nil
   end
   
-  def show
-    params[:search].is_a?(Hash) ? advanced_search : full_text_search
-    @items = @items.paginate(:page => params[:page])
+  def index
+		@items ||= params[:items]
+		if params[:search][:category]=='item' && @items.nil?
+			do_search_on_item
+		end
+		@items = @items.paginate(:page => params[:page])
   end
 
   def filter
@@ -20,34 +23,42 @@ class SearchesController < ApplicationController
   end
   
   private
-  def advanced_search
-    @hide_full_text_search = true
-    @header = 'advanced_search_fields'
-    @search = Search.new(params[:search])
-    render(:action => :new) and return unless @search.valid?
-    @items = GenericItem.consultable_by(@current_user.id).all(:conditions => @search.attributes.delete_if { |k, v| v.nil? })
+	def do_search_on_item
+		@search = Search.new(params[:search])
+		#
+		if params[:item_types]
+			@search.models = params[:item_types].keys.map{ |k| k.camelize.classify.constantize }.join(',')
+			@hide_full_text_search = true
+		else
+			@search.models = available_items_list.map{ |e| e.camelize.classify.constantize }.join(',')
+			p @search.models
+		end
+		# FULL TEXT
+		if !params[:search][:full_text_field].blank?
+			@header = 'full_text_search_header'
+			search = ActsAsXapian::Search.new(@search.models, @search.full_text_field, :limit => 30)
+			@xapian = search.results.select{ |r| r[:model] }
+			@corrections = search.spelling_correction
+		else
+			@xapian = nil
+		end
+		# ADVANCED condition
+		@cond = {}
+		@cond.merge!({:item_type_equals => @search.models.split(',')}) unless @search.models.blank?
+		@cond.merge!({:user_name_equals => @search.creator}) unless @search.creator.blank?
+		@cond.merge!({:created_after => @search.created_after}) unless @search.created_after.blank?
+		@cond.merge!({:created_before => @search.created_before}) unless @search.created_before.blank?
+		# Items to GenericItems = BULLSHIT
+		if @xapian.nil?
+			@items = GenericItem.consultable_by(@current_user.id).rated(:conditions => @cond)
+		else
+			@xapian = @xapian.map{ |e| GenericItem.find(:item_type => e.class.to_s, :id => e.id) }
+			p @xapian
+			@items = @xapian.consultable_by(@current_user.id).all(:conditions => @cond)
+		end
+		# Object
+		#@similar_items = ActsAsXapian::Similar.new(@search.models, @items, :limit =>5).results.collect {|r| r[:model]}
   end
-  
-  def full_text_search
-    @header = 'full_text_search_header'
-    filter ='created'
-    filter =params[:filter] if !params[:filter].nil?
-    if params[:model] && !params[:model].empty?
-      models = [params[:model].constantize]
-      gitem=GenericItem.consultable_by(@current_user.id).send(params[:model].downcase.pluralize).send(filter).collect{|l| l.id}
-    else
-      models = [Article, CmsFile, Audio, Image, Publication, Video, FeedSource, Bookmark]
-      gitem=GenericItem.consultable_by(@current_user.id).send(filter).all.collect{|l| l.id}
-      p gitem
-    end
-        search = ActsAsXapian::Search.new(models, params[:search], :limit => 30)
-        search_results = search.results.select do |r|
-          gitem.include?(r[:model].id)
-        end
-        @items = search_results.collect { |r| r[:model]}.delete_if do |e|
-          !e.accepts_show_for?(@current_user)
-        end
-    @corrections = search.spelling_correction
-    @similar_items = ActsAsXapian::Similar.new(models, @items, :limit =>5).results.collect {|r| r[:model]}
-  end
+
+	
 end
