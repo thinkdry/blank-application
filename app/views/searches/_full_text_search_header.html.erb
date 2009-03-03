@@ -1,8 +1,8 @@
 <div class="display_search_result">
   <h1><%=I18n.t('layout.search.your_search_result')%></h1>
-  <h3><%=I18n.t('layout.search.you_have_searched_for')%>&nbsp;<%= params[:search] %></h3>
-  <% if @corrections %>
-    <h3>Did You Mean<%=link_to " <b><u>"+@corrections+"</u></b> " ,"/searches/show?search="+@corrections if !@corrections.nil? %><br /></h3>
+  <h3><%=I18n.t('layout.search.you_have_searched_for')%>&nbsp;<%= @search.full_text_field %></h3>
+  <% if @correction %>
+    <h3>Did You Mean<%=link_to "<b><u>"+@correction+"</u></b>" ,"/searches/index?search[full_text_field]="+@correction+"&search[category]="+@search.category %><br /></h3>
   <% end %>
   <% if !@similar_items.nil? %>
     <h3>Similar Results</h3>

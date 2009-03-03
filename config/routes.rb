@@ -67,7 +67,7 @@ ActionController::Routing::Routes.draw do |map|
   #end
 	
   #map.add_new_user '/add_new_user', :controller => 'workspaces', :action => 'add_new_user'
-  map.resource :search
+  map.resources :searches
   map.connect '/fckuploads', :controller => 'fck_uploads', :action => 'create'
 
   # Install the default routes as the lowest priority.

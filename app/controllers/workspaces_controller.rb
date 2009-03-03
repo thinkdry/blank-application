@@ -31,7 +31,7 @@ class WorkspacesController < ApplicationController
 			no_permission_redirection unless @current_object.accepts_new_for?(@current_user)
 			params[:id] ||= params[:workspace_id]
       @current_object.creator = @current_user
-			@current_object
+			@current_object.ws_config_id = WsConfig.first.id
     end
 		after :create do
 			#if current_user.is_superadmin?
@@ -53,10 +53,8 @@ class WorkspacesController < ApplicationController
       params["workspace"]["existing_user_attributes"] ||= {}
     end
 		after :update do
-			#if current_user.is_superadmin?
-				@current_object.ws_config.update_attributes(:ws_items => check_to_tab(:items).join(","), :ws_feed_items_importation_types => check_to_tab(:feed_items_importation_types).join(","))
-        flash[:notice] =I18n.t('workspace.edit.flash_notice')
-			#end
+			@current_object.ws_config.update_attributes(:ws_items => check_to_tab(:items).join(","), :ws_feed_items_importation_types => check_to_tab(:feed_items_importation_types).join(","))
+      flash[:notice] =I18n.t('workspace.edit.flash_notice')
 		end
     after :update_fails do
       flash[:error] =I18n.t('workspace.edit.flash_error')
