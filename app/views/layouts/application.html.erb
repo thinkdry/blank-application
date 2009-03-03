@@ -98,7 +98,7 @@
               <%= select_tag "search[category]", options_for_select([[I18n.t('general.common_word.item').camelize.pluralize, 'item'], [I18n.t('general.common_word.workspace').camelize.pluralize, 'workspace'], [I18n.t('general.common_word.user').camelize.pluralize, 'user']]) %>
               <%= link_to(image_tag("search_button.gif"), "javascript:void(1);", :onclick => "document.search.submit();", :class => "search_button") %>
               <br />
-              <a class="advanced_search" onclick="document.location.href='/searches/new?category='+$('search_category').value;"><%= I18n.t('layout.application.advanced_search') %></a>&nbsp;&nbsp;
+              <a class="advanced_search" onclick="document.location.href='/searches/new?search[category]='+$('search_category').value;"><%= I18n.t('layout.application.advanced_search') %></a>&nbsp;&nbsp;
             <% end -%>
           </div>
           <div id="search-bar-right"></div>

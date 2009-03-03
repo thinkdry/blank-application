@@ -18,7 +18,7 @@
 
 class GenericItem < ActiveRecord::Base
 
-	#self.inheritance_column = :item_type
+	self.inheritance_column = :item_type
 
 	ITEMS.each do |item|
 		named_scope item.pluralize.to_sym,
@@ -37,7 +37,6 @@ class GenericItem < ActiveRecord::Base
     raise 'User expected' unless user_id
     return { } if User.find(user_id).has_system_role('superadmin')
     { :conditions => %{
-        user_id = #{user_id} OR
         ( SELECT count(*)
           FROM items, users_workspaces
           WHERE

@@ -28,8 +28,9 @@ class Search < ActiveRecord::Base
   column :created_after, :datetime
   column :created_before, :datetime
 	# Filter
-	column :scope
+	column :filter
 	column :sort
+	column :limit
   
   validates_date :created_after, :created_before, :allow_nil => true
 end
