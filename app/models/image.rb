@@ -18,9 +18,8 @@
 #
 
 class Image < ActiveRecord::Base
+
   acts_as_item
-  acts_as_xapian :texts => [:title, :description, :tags, :image_file_name, :image_content_type],
-                 :values => [[:created_at, 0, "created_at", :number], [:title, 1, "title", :string], [:comment_size, 2, "comment_size", :number], [:rate_size, 3, "rate_size", :number]]
                
   has_attached_file :image,
     :url =>    "/uploaded_files/image/:id/:style/:basename.:extension",
@@ -36,14 +35,6 @@ class Image < ActiveRecord::Base
 
   def media_type
     image
-  end
-
-  def comment_size
-    self.comments.size
-  end
-
-  def rate_size
-    self.rating.to_i
   end
  
 end

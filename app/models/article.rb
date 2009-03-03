@@ -18,8 +18,6 @@ class Article < ActiveRecord::Base
   include ActionView::Helpers::SanitizeHelper
 
   acts_as_item
-  acts_as_xapian :texts => [:title, :description, :tags, :body],
-                 :values => [[:created_at, 0, "created_at", :number],[:title, 1, "title", :string], [:comment_size, 2, "comment_size", :number], [:rate_size, 3, "rate_size", :number]]
 
   has_many :article_files, :dependent => :delete_all
   validates_presence_of :body
@@ -30,12 +28,4 @@ class Article < ActiveRecord::Base
     end
   end
 
-  def comment_size
-    self.comments.size
-  end
-
-  def rate_size
-    self.rating.to_i
-  end
-  
 end

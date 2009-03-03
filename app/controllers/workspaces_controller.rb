@@ -35,6 +35,7 @@ class WorkspacesController < ApplicationController
     end
 		after :create do
 			#if current_user.is_superadmin?
+				UsersWorkspace.create(:user_id => @current_user.id, :workspace_id => @current_object.id, :role_id => Role.find_by_name('ws_admin').id)
 				default = WsConfig.find(1)
 				@current_object.ws_config = WsConfig.create(:ws_items => default.ws_items, :ws_feed_items_importation_types => default.ws_feed_items_importation_types)
 				#@current_object.ws_config = WsConfig.create(:ws_items => check_to_tab(:items).join(","), :ws_feed_items_importation_types => check_to_tab(:feed_items_importation_types).join(","))

@@ -36,7 +36,6 @@ class GenericItem < ActiveRecord::Base
     raise 'User expected' unless user_id
     return { } if User.find(user_id).has_system_role('superadmin')
     { :conditions => %{
-        user_id = #{user_id} OR
         ( SELECT count(*)
           FROM items, users_workspaces
           WHERE
@@ -45,7 +44,7 @@ class GenericItem < ActiveRecord::Base
             users_workspaces.workspace_id = items.workspace_id AND
             users_workspaces.user_id = #{user_id} ) > 0 }}
   }
-  
+	
   named_scope :most_commented,
     :order => 'generic_items.number_of_comments DESC',
     :limit => 5

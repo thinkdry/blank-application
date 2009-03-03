@@ -30,8 +30,8 @@ class SearchesController < ApplicationController
   
   def full_text_search
     @header = 'full_text_search_header'
-    filter ='created_at'
-    filter =params[:filter].to_s unless params[:filter].nil?
+    filter = 'created_at'
+    filter = params[:filter].to_s unless params[:filter].nil?
     if params[:model] && !params[:model].empty?
       models = [params[:model].constantize]
       #gitem=GenericItem.consultable_by(@current_user.id).send(params[:model].downcase.pluralize).send(filter).collect{|l| l.id}

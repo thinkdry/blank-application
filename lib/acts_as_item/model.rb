@@ -13,7 +13,12 @@ module ActsAsItem
       def acts_as_item
         
         acts_as_rateable
-        
+
+				acts_as_xapian :texts => [:title, :description, :tags],
+                 :values => [[:created_at, 0, "created_at", :number],[:title, 1, "title", :string], [:comment_size, 2, "comment_size", :number], [:rate_average, 3, "rate_average", :number]]
+
+				has_many :items
+				has_many :workspaces, :through => :items
         belongs_to :user
         has_many :taggings, :as => :taggable
         has_many :tags,     :through => :taggings
@@ -37,6 +42,19 @@ module ActsAsItem
     end
     
     module InstanceMethods
+
+			def comment_size
+				self.comments.size
+			end
+
+			def rate_average
+				self.rating.to_i
+			end
+
+			def workspace_titles
+				self.workspaces.map{ |e| e.title }.join(',')
+			end
+
       def icon
          self.class.icon
       end

@@ -137,11 +137,11 @@ class User < ActiveRecord::Base
 	end
 
 	def has_system_role(role_name)
-		return self.system_role.name == role_name
+		return (self.system_role.name == role_name) || self.has_system_role('superadmin')
 	end
 
 	def has_workspace_role(workspace_id, role_name)
-		return UsersWorkspace.exists?(:user_id => self.id, :workspace_id => workspace_id, :role_id => Role.find_by_name(role_name).id)
+		return UsersWorkspace.exists?(:user_id => self.id, :workspace_id => workspace_id, :role_id => Role.find_by_name(role_name).id) || self.has_system_role('superadmin')
 	end
 
 	def system_permissions
@@ -158,12 +158,12 @@ class User < ActiveRecord::Base
 
 	def has_system_permission(controller, action)
 		permission_name = controller+'_'+action
-		return self.system_permissions.exists?(:name => permission_name)
+		return self.system_permissions.exists?(:name => permission_name) || self.has_system_role('superadmin')
 	end
 
 	def has_workspace_permission(workspace_id, controller, action)
 		permission_name = controller+'_'+action
-		return self.workspace_permissions(workspace_id).exists?(:name => permission_name)
+		return self.workspace_permissions(workspace_id).exists?(:name => permission_name) || self.has_system_role('superadmin')
 	end
 
 	def accepts_index_for? user
