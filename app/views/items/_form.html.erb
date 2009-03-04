@@ -9,10 +9,10 @@
     
 
     <%= f.text_field :title, :label => I18n.t('item.field.title_label') + " * :", :hint => "Title", :readonly => is_copyright %>
-     <%= f.tags_field :string_tags, :label => I18n.t('article.field.tags_label').pluralize + " :", :hint => I18n.t('article.field.tags_hint') %>
+     <%= f.tags_field :string_tags, :label => I18n.t('item.field.tags_label').pluralize + " :", :hint => I18n.t('article.field.tags_hint') %>
     <%= f.text_field :description, :label => I18n.t('item.field.description_label') + ' * :', :hint => I18n.t('item.field.description_hint') %>
     <%= capture(f, &block) %>
-    <% f.field :workspaces, :label => I18n.t('general.common_word.workspace') +' :' do %>
+    <% f.field :workspaces, :label => I18n.t('general.common_word.workspace').camelize+'(s) :' do %>
       <%= item_status_fields(f, @current_object) %>
       <%= error_message_on :current_object, :items %>
     <% end %>

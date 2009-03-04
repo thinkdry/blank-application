@@ -414,6 +414,8 @@ en-US:
       with: with
       role: role
       workspace: workspace
+      item: item
+      user: user
     button:
       update: Update
       cancel: Cancel
