@@ -15,10 +15,6 @@ module ActsAsItem
 
           self.instance_eval &block if block_given?
           
-          before :create, :update do
-            @current_object.workspace_ids = [] unless params[:workspace_ids]
-          end
-
           after :create do
             flash[:notice] = @current_object.class.label+' '+I18n.t('item.new.flash_notice')
           end

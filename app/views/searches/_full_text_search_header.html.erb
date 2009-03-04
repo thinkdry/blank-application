@@ -14,7 +14,7 @@
   <br><br>
   <h3>Filter Results By</h3>
   <%= radio_button("filter", "item", "latest",:onclick => remote_function(:url => "/searches/filter?search=#{params[:search]}&filter=created_at", :update => "results"))%>Date
-  <%= radio_button("filter", "item", "alpha", :onclick => remote_function(:url => "/searches/filter?search=#{params[:search]}&filter=title", :update => "results"))%>Title
-  <%= radio_button("filter", "item", "most_commented", :onclick => remote_function(:url => "/searches/filter?search=#{params[:search]}&filter=comment_size", :update => "results")) %>Comments
-  <%= radio_button("filter", "item", "best_rated", :onclick => remote_function(:url => "/searches/filter?search=#{params[:search]}&filter=rate_average", :update => "results")) %>Rating
+  <%= radio_button("filter", "item", "title", :onclick => remote_function(:url => "/searches/filter?search=#{params[:search]}&filter=title", :update => "results"))%>Title
+  <%= radio_button("filter", "item", "most_commented", :onclick => remote_function(:url => "/searches/filter?search=#{params[:search]}&filter=commented", :update => "results")) %>Comments
+  <%= radio_button("filter", "item", "best_rated", :onclick => remote_function(:url => "/searches/filter?search=#{params[:search]}&filter=rated", :update => "results")) %>Rating
 </div>

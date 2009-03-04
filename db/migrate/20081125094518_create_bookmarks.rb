@@ -6,6 +6,7 @@ class CreateBookmarks < ActiveRecord::Migration
 			t.integer	:feed_source_id
       t.string  :title
 			t.text    :description
+      t.string  :category
 			t.string	:state
       t.string  :link, :limit => 1024
 			t.string	:enclosures

@@ -1,0 +1,6 @@
+<% item_class_name = item.class.to_s.underscore %>
+<%  check_box_tag_name = "#{item_class_name}[category][]"%>
+
+<% ITEM_CATEGORIES.each do |cat| %>
+  <%= cat + check_box_tag(check_box_tag_name, cat, @current_object.category.to_s.include?(cat)) %>
+<% end %>
