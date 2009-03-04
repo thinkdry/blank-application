@@ -122,17 +122,22 @@ namespace :blank do
     @role_red.permissions << Permission.find(:all, :conditions =>{:name => 'workspace_show'})
     @role_wri.permissions << Permission.find(:all, :conditions =>{:name => 'workspace_show'})
     p "Done"
+    p "Loading Default Configuration for Workspace"
+    @default_conf = YAML.load_file("#{RAILS_ROOT}/config/customs/default_config.yml")
+    @ws_conf=WsConfig.create(:ws_items =>@default_conf['sa_items'], :ws_feed_items_importation_types =>@default_conf['sa_feed_items_importation_types'])
+    p "Done"
     p "Creating Default Workspace"
     @superadmin=User.find_by_login("boss")
 		if Workspace.find_by_creator_id_and_state(@superadmin.id, "private").blank?
-			@ws=Workspace.create(:creator_id => @superadmin.id, :description => "Private Workspace for Boss", :title=> "Private for Boss", :state => "private")
+			@ws=Workspace.create(:creator_id => @superadmin.id, :description => "Private Workspace for Boss", :title=> "Private for Boss", :state => "private",  :ws_config_id =>@ws_conf.id)
 			UsersWorkspace.create(:workspace_id => @ws.id, :role_id => Role.find_by_name("ws_admin").id, :user_id => @superadmin.id )
 		end
 		@user=User.find_by_login("quentin")
     if Workspace.find_by_creator_id_and_state(@user.id, "private").blank?
-      @ws=Workspace.create(:creator_id => @user.id, :description => "Private Workspace for Quentin", :title=> "Private for Quentin", :state => "private")
+      @ws=Workspace.create(:creator_id => @user.id, :description => "Private Workspace for Quentin", :title=> "Private for Quentin", :state => "private", :ws_config_id =>@ws_conf.id)
       UsersWorkspace.create(:workspace_id => @ws.id, :role_id => Role.find_by_name("ws_admin").id, :user_id => @user.id )
     end
+    
     p "Done"
     p "Loading Styles if blank ..."
 		if Element.find(:all).blank?

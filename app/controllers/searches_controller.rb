@@ -34,14 +34,10 @@ class SearchesController < ApplicationController
     filter = params[:filter].to_s unless params[:filter].nil?
     if params[:model] && !params[:model].empty?
       models = [params[:model].constantize]
-      #gitem=GenericItem.consultable_by(@current_user.id).send(params[:model].downcase.pluralize).send(filter).collect{|l| l.id}
     else
-      models = [Article, Audio, Image, CmsFile, Bookmark, FeedSource, Video, Publication]
-     # gitem=GenericItem.consultable_by(@current_user.id).articles.created.collect{|l| l.id}
+      models = available_items_list.map{|e| e.classify.constantize}
     end
     search = ActsAsXapian::Search.new(models, params[:search], :limit => 50, :sort_by_prefix => "#{filter}", :sort_by_ascending => true)
-    # search_results = search.results.select{|r|
-    # gitem.include?(r[:model].id)}
     @items = search.results.collect { |r| r[:model]}.delete_if do |e|
       !e.accepts_show_for?(@current_user)
     end
