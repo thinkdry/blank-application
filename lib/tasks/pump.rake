@@ -124,7 +124,7 @@ namespace :blank do
     p "Done"
     p "Loading Default Configuration for Workspace"
     @default_conf = YAML.load_file("#{RAILS_ROOT}/config/customs/default_config.yml")
-    @ws_conf=WsConfig.create(:ws_items =>@default_conf['sa_items'], :ws_feed_items_importation_types =>@default_conf['sa_feed_items_importation_types'])
+    @ws_conf=WsConfig.create(:ws_items =>@default_conf['sa_items'].join(','), :ws_feed_items_importation_types =>@default_conf['sa_feed_items_importation_types'].join(','))
     p "Done"
     p "Creating Default Workspace"
     @superadmin=User.find_by_login("boss")
