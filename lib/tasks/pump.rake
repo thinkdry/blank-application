@@ -24,10 +24,10 @@ namespace :blank do
     Role.create(:name =>'writer', :description=> 'Writer on Workspace', :type_role =>'workspace')
     Role.create(:name =>'reader', :description=> 'Reader on Workspace', :type_role =>'workspace')
     p "Done"
-#    Accept User names from console
-#    sa_user=STDIN.gets.chomp
-#    sa_user="boss" if sa_user.blank?
-#    p "Setting Up #{sa_user} as Superadmin"
+    #    Accept User names from console
+    #    sa_user=STDIN.gets.chomp
+    #    sa_user="boss" if sa_user.blank?
+    #    p "Setting Up #{sa_user} as Superadmin"
     p "Setting 'boss' as SuperAdmin"
     @sauser=User.find_by_login("boss")
     if @sauser.nil?
@@ -123,7 +123,11 @@ namespace :blank do
     @role_wri.permissions << Permission.find(:all, :conditions =>{:name => 'workspace_show'})
     p "Done"
     p "Loading Default Configuration for Workspace"
-    @default_conf = YAML.load_file("#{RAILS_ROOT}/config/customs/default_config.yml")
+    if File.exist?("#{RAILS_ROOT}/config/customs/sa_config.yml")
+			@default_conf= YAML.load_file("#{RAILS_ROOT}/config/customs/sa_config.yml")
+		else
+			@default_conf= YAML.load_file("#{RAILS_ROOT}/config/customs/default_config.yml")
+		end
     @ws_conf=WsConfig.create(:ws_items =>@default_conf['sa_items'].join(','), :ws_feed_items_importation_types =>@default_conf['sa_feed_items_importation_types'].join(','))
     p "Done"
     p "Creating Default Workspace"

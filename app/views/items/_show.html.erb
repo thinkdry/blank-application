@@ -47,9 +47,9 @@
 	</div>  
 	 <h2> <%=I18n.t('item.common_word.summary')%></h2>
 	<div class="item_description"><%= object.description %></div>
-  	
+  <h2>Category</h2>
+  <div><%= object.category %></div>
 	<%= capture(&block) %>
-  
 	<div id="comment_list">
     	<h2><%= image_tag 'icons/comments.png'%><%=I18n.t('item.common_word.comment').pluralize%></h2>
 		<div class="comment_bloc">

@@ -15,7 +15,7 @@ module ActsAsItem
         acts_as_rateable
 
 				acts_as_xapian :texts => [:title, :description, :tags],
-                 :values => [[:created_at, 0, "created_at", :number],[:title, 1, "title", :string], [:comment_size, 2, "comment_size", :number], [:rate_average, 3, "rate_average", :number]]
+                 :values => [[:created_at, 0, "created_at", :number],[:title, 1, "title", :string], [:comment_size, 2, "commented", :number], [:rate_average, 3, "rated", :number]]
 
 				has_many :items
 				has_many :workspaces, :through => :items
@@ -43,11 +43,11 @@ module ActsAsItem
     
     module InstanceMethods
 
-			def comment_size
+			def commented
 				self.comments.size
 			end
 
-			def rate_average
+			def rated
 				self.rating.to_i
 			end
 
@@ -61,6 +61,10 @@ module ActsAsItem
       
       def flat_tags
         self[:tags] = self.taggings.collect { |t| t.tag.name }.join(' ')
+      end
+
+      def category= category=""
+        self[:category] = category.join(",")
       end
       
       # Take a list of tag, space separated and assign them to the object
@@ -78,7 +82,7 @@ module ActsAsItem
         end
         flat_tags
       end
-      
+
       def string_tags # Return space separated tag names
         return @string_tags if @string_tags
         self[:tags]

@@ -95,6 +95,10 @@ module ItemsHelper
   def item_status_fields(form, item)
     render :partial => "items/status", :locals => { :f => form, :item => item }
   end
+
+  def item_category_fields(form, item)
+    render :partial => "items/category", :locals => { :f => form, :item => item }
+  end
   
   # Tag. Item's author is allowed to remove it by Ajax action.
   def item_tag tag, editable = false
