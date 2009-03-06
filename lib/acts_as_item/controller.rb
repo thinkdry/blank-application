@@ -54,6 +54,11 @@ module ActsAsItem
 					after :index do
 						@current_objects = @current_objects.paginate(:per_page => 20, :page => params[:page])
 					end
+
+					after :show do
+						@current_object.viewed_number += 1
+						@current_object.save
+					end
                     
           # Makes `current_user` as author for the current_object
           before :create do
@@ -80,6 +85,8 @@ module ActsAsItem
     module InstanceMethods
       def rate
         current_object.add_rating(Rating.new(:rating => params[:rated].to_i))
+				current_object.rates_average = current_object.rating
+				current_object.save
 				# TODO : refresh the rate box ...
         render :nothing => true
       end
@@ -95,6 +102,8 @@ module ActsAsItem
       
       def comment
         comment = current_object.comments.create(params[:comment].merge(:user => @current_user))
+				current_object.comments_number += 1
+				current_object.save
         render :update do |page|
           page.insert_html :bottom, 'comment_list', :partial => "items/comment", :object => comment
         end

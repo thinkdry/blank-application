@@ -54,6 +54,10 @@ class ApplicationController < ActionController::Base
 		no_permission_redirection unless self.current_user.has_system_role('superadmin')
 	end
 
+	def is_admin?
+		no_permission_redirection unless self.current_user.has_system_role('admin')
+	end
+
 	def no_permission_redirection
 		flash[:error] = "Permission denied"
 		redirect_to '/'
