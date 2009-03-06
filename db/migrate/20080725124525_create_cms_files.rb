@@ -5,7 +5,6 @@ class CreateCmsFiles < ActiveRecord::Migration
       t.string :title
       t.text :description
       t.string :state
-      t.string :category
       t.string :cmsfile_file_name
       t.string :cmsfile_content_type
       t.integer :cmsfile_file_size

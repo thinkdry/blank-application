@@ -51,8 +51,8 @@ module ActsAsItem
 						@current_objects = @current_objects.paginate(:per_page => 20, :page => params[:page])
 					end
 
-					after :show do
-						@current_object.viewed_number += 1
+					before :show do
+						@current_object.viewed_number = @current_object.viewed_number.to_i + 1
 						@current_object.save
 					end
                     
@@ -98,7 +98,7 @@ module ActsAsItem
       
       def comment
         comment = current_object.comments.create(params[:comment].merge(:user => @current_user))
-				current_object.comments_number += 1
+				current_object.comments_number = current_object.comments_number.to_i + 1
 				current_object.save
         render :update do |page|
           page.insert_html :bottom, 'comment_list', :partial => "items/comment", :object => comment

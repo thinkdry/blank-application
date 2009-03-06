@@ -4,7 +4,6 @@ class CreateAudios < ActiveRecord::Migration
       t.integer :user_id
       t.string :title
       t.text :description
-      t.string :category
      	t.string :state, :default=>"initial"
       t.string :audio_file_name
       t.string :audio_content_type

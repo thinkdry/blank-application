@@ -8,7 +8,6 @@ class CreateFeedSources < ActiveRecord::Migration
 			t.string		:language
       t.string    :title
       t.text      :description
-      t.string    :category
 			t.string		:state
       t.string    :url, :limit => 1024
 			t.string		:link, :limit => 1024

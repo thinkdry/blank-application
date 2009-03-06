@@ -4,7 +4,6 @@ class CreateVideos < ActiveRecord::Migration
 			t.integer :user_id
       t.string :title
       t.text :description
-      t.string :category
 			t.string :state, :default=>"initial"
       t.string :video_file_name
       t.string :video_content_type
