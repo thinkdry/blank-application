@@ -13,8 +13,12 @@
       <%= f.password_field :password_confirmation, :label => I18n.t('user.field.confirm_password_label'), :hint => I18n.t('user.field.confirm_password_hint') %>
     <% end %>
 
-    <%= f.select :system_role_id, @roles.map{ |e| [I18n.t('general.role.'+e.name), e.id] }, :label => I18n.t('user.field.system_role_id_label')+" * : " %>
-    
+    <% if !current_object.new_record? %>
+      <%= f.select :system_role_id, @roles.map{ |e| [I18n.t('general.role.'+e.name), e.id] }, :label => I18n.t('user.field.system_role_id_label')+" * : " %>
+    <% else %>
+      <%= f.select :system_role_id, [I18n.t('general.role.user'), Role.find(:first, :conditions => { :name => 'user' }).id], :label => I18n.t('user.field.system_role_id_label')+" * : " %>
+    <% end %>
+
     <%= f.text_field :firstname, :label => I18n.t('user.field.first_name_label')+" * : " %>
     <%= f.text_field :lastname, :label => I18n.t('user.field.last_name_label')+" * : " %>
     <%= f.country_select :nationality,:label => I18n.t('user.field.nationality_label')+" * : " %>

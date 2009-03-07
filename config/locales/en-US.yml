@@ -136,6 +136,7 @@ en-US:
       remember_me: Remember me
       login_button: Login
       password_forgotten: Password Forgotten
+      inscription: Create an account
       flash_notice: Logged in Successfully.
       flash_error: Invalid Login or Password.
     show:

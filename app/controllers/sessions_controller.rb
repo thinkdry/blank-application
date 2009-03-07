@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
   skip_before_filter :is_logged?
   skip_before_filter :validate_rights
   
-  layout              false
+  layout 'no_logged'
 
   # render new.rhtml
   def new

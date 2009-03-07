@@ -5,7 +5,7 @@ require "acts_as_item/url_helpers.rb"
 
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
-	helper_method :available_items_list, :available_languages, :get_current_config, :right_conf
+	helper_method :available_items_list, :available_languages, :get_current_config, :right_conf, :is_allowed_free_user_creation?
   before_filter :is_logged?
 	before_filter :set_locale
 
@@ -21,6 +21,10 @@ class ApplicationController < ActionController::Base
       redirect_to login_path
     end
   end
+
+	def is_allowed_free_user_creation?
+		return true
+	end
 
 	def available_items_list
 		return get_sa_config['sa_items']

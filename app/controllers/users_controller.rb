@@ -2,7 +2,11 @@ class UsersController < ApplicationController
 	
   acts_as_ajax_validation
 
+	skip_before_filter :is_logged?, :only => [:new, :create, :validate]
+
 	layout "application", :except => [:forgot_password, :reset_password, :index]
+	layout "application", :except => [:new], :if => :is_allowed_free_user_creation?
+	layout "no_logged", :only => [:new], :if => :is_allowed_free_user_creation?
 
   make_resourceful do
     actions :all
@@ -15,9 +19,14 @@ class UsersController < ApplicationController
       no_permission_redirection unless @current_object.accepts_edit_for?(@current_user)
     end
 
-
     before :new, :create do
-      no_permission_redirection unless @current_object.accepts_new_for?(@current_user)
+			if !is_allowed_free_user_creation?
+				if logged_in?
+					no_permission_redirection unless @current_object.accepts_new_for?(@current_user)
+				else
+					redirect_to login_url
+				end
+			end
     end
 
     before :show do
@@ -33,7 +42,7 @@ class UsersController < ApplicationController
 			)
     end
 
-		before :new, :edit do
+		before :edit do
 			if (@current_user.has_system_role('superadmin') || @current_user.has_system_role('admin'))
 				@roles = Role.find(:all, :conditions => { :type_role => 'system' })
 			else
@@ -42,12 +51,8 @@ class UsersController < ApplicationController
 		end
 
 		after :create do
-			# System role secure check
-			if (@current_user.has_system_role('superadmin') || @current_user.has_system_role('admin'))
-				@current_object.system_role_id = params[:user][:system_role_id].to_i
-			else
-				@current_object.system_role_id = Role.find_by_name('user')
-			end
+			# System role by default, secure assignement
+			@current_object.system_role_id = Role.find_by_name('user')
 			@current_object.save
 			# Creation of the private workspace for the user
 			ws = Workspace.create(:title => "Private space of #{@current_object.login}", :creator_id => @current_object.id, :state => 'private')
@@ -56,17 +61,20 @@ class UsersController < ApplicationController
 			flash[:notice] = I18n.t('user.new.flash_notice')
 		end
 
+		response_for :create do |format|
+			format.html { redirect_to login_url }
+		end
+
 		after :create_fails do
-			if (@current_user.has_system_role('superadmin') || @current_user.has_system_role('admin'))
-				@roles = Role.find(:all, :conditions => { :type_role => 'system' })
-			else
-				@roles = [Role.find_by_name('user')]
-			end
 			flash[:error] = I18n.t('user.new.flash_error')
     end
 
+		response_for :create_fails do |format|
+			format.html { render :action => 'new', :layout => 'no_logged' }
+		end
+
     after :update do
-			# System role secure check
+			# System role secure check on Update
 			if (@current_user.has_system_role('superadmin') || @current_user.has_system_role('admin'))
 				@current_object.system_role_id = params[:user][:system_role_id].to_i
 			else
@@ -77,11 +85,6 @@ class UsersController < ApplicationController
     end
 
     after :update_fails do
-			if (@current_user.has_system_role('superadmin') || @current_user.has_system_role('admin'))
-				@roles = Role.find(:all, :conditions => { :type_role => 'system' })
-			else
-				@roles = [Role.find_by_name('user')]
-			end
 			flash[:error] = I18n.t('user.edit.flash_error')
     end
 
@@ -138,7 +141,23 @@ class UsersController < ApplicationController
 			flash[:error] = I18n.t('user.reset_password.flash_error_link')
 			redirect_to "/login"
 		end
-  end  
+  end
+
+	# Overwritting the AjaxValidation plugin to manage the permission
+	def validate
+#		if !is_allowed_free_user_creation?
+#			if logged_in?
+#				no_permission_redirection unless @current_object.accepts_new_for?(@current_user)
+#			else
+#				redirect_to login_url
+#			end
+#		end
+    model_class = params['model'].classify.constantize
+    @model_instance = params['id'] ? model_class.find(params['id']) : model_class.new
+    @model_instance.send("#{params['attribute']}=", params['value'])
+    @model_instance.valid?
+    render :inline => "<%= error_message_on(@model_instance, params['attribute']) %>"
+  end
 
 	# permit 'administration of user'
 	def administration

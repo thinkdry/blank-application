@@ -1,15 +1,23 @@
 class UserMailer < ActionMailer::Base
+
+	def get_sa_config
+		if File.exist?("#{RAILS_ROOT}/config/customs/sa_config.yml")
+			return YAML.load_file("#{RAILS_ROOT}/config/customs/sa_config.yml")
+		else
+			return YAML.load_file("#{RAILS_ROOT}/config/customs/default_config.yml")
+		end
+	end
 	
 	def daurl
-		return get_sa_config[:sa_application_url]
+		return get_sa_config['sa_application_url']
   end
 
 	def site_name
-		return get_sa_config[:sa_application_name]
+		return get_sa_config['sa_application_name']
 	end
 
 	def contact_email
-		return get_sa_config[:sa_contact_email]
+		return get_sa_config['sa_contact_email']
 	end
 	
 	def signup_notification(user)

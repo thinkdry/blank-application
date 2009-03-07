@@ -85,8 +85,7 @@ class User < ActiveRecord::Base
                             :phone,
                             :mobile,
                             :activity,
-                            :nationality,
-														:system_role_id
+                            :nationality
 
   validates_format_of       :firstname, 
     :lastname,

@@ -44,10 +44,11 @@
           <label for="remember_me"><%=I18n.t('user.session.remember_me')%>:</label>
           <%= check_box_tag 'remember_me', '1', @remember_me %><br />
           <%= link_to I18n.t('user.session.password_forgotten'), forgot_password_path %>
-		
+          <% if is_allowed_free_user_creation? %>
+            <br /><%= link_to I18n.t('user.session.inscription'), new_user_path %>
+          <% end %>
 
-
-			<% end %>
+    	<% end %>
 		</div>
 	</body>
 </html>
