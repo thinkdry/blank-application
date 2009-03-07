@@ -4,9 +4,7 @@ class UsersController < ApplicationController
 
 	skip_before_filter :is_logged?, :only => [:new, :create, :validate]
 
-	layout "application", :except => [:forgot_password, :reset_password, :index]
-	layout "application", :except => [:new], :if => :is_allowed_free_user_creation?
-	layout "no_logged", :only => [:new], :if => :is_allowed_free_user_creation?
+	layout "application", :except => [:new, :forgot_password, :reset_password, :index]
 
   make_resourceful do
     actions :all
@@ -22,10 +20,13 @@ class UsersController < ApplicationController
     before :new, :create do
 			if !is_allowed_free_user_creation?
 				if logged_in?
+					layout 'application'
 					no_permission_redirection unless @current_object.accepts_new_for?(@current_user)
 				else
 					redirect_to login_url
 				end
+			else
+				layout 'no_logged'
 			end
     end
 

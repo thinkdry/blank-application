@@ -33,7 +33,7 @@ class AddColumns < ActiveRecord::Migration
 		add_column :videos, :comments_number, :integer
 		add_column :videos, :category, :string
 
-		add_column :users, :newsletter, :boolean
+		add_column :users, :newsletter, :boolean, :default => 0
   end
 
   def self.down

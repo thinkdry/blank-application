@@ -28,6 +28,7 @@
     <%= f.text_field :company, :label => I18n.t('user.field.location_label')+" * : ", :hint => I18n.t('user.field.location_hint') %>
     <%= f.text_area :activity, :size => "40x6", :label => I18n.t('user.field.activity_label')+" * : " %>
     <%= f.text_area :edito, :size => "40x6", :label => I18n.t('user.field.edito_label')+" : " %>
+    <%= I18n.t('user.field.newsletter_label')+" : " %> <%= check_box :user, :newsletter, { :checked => @user.newsletter }, "true", "false" %><br />
     <% f.field :avatar, :label => I18n.t('user.field.photo_label')+" : " do %>
       <%= file_field 'user', 'avatar' %>
     <% end %>

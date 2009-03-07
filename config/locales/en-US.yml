@@ -127,6 +127,7 @@ en-US:
       location_hint: Where are you?
       activity_label: Activity
       edito_label: Edito
+      newsletter_label: Receive the newsletter?
       photo_label: Photo
     session:
       login_label: Login
