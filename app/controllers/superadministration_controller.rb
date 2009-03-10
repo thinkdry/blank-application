@@ -29,15 +29,11 @@ class SuperadministrationController < ApplicationController
 	end
 	
 	def general_changing
-			list = ['items', 'languages', 'feed_items_importation_types', 'ws_types']
-			@conf = get_sa_config
-			if params[:picture]
-				@picture = Picture.new(params[:picture])
-				@picture.name = 'logo'
-				if Picture.find_by_name('logo')
-					Picture.find_by_name('logo').update_attributes(:name => 'old_logo')
-				end
-				@picture.save
+		list = ['items', 'languages', 'feed_items_importation_types', 'ws_types']
+		@conf = get_sa_config
+		if params[:picture]
+				upload_photo(params[:picture][:picture],240,55,@conf['sa_logo_path']) if !params[:picture][:picture].blank? and (@@image_types.include?params[:picture][:picture].content_type.chomp)
+        upload_photo(params[:picture][:favicon],16,16,@conf['sa_favicon_path']) if !params[:picture][:favicon].blank? and (@@image_types.include?params[:picture][:favicon].content_type.chomp)
 			@conf['sa_application_name'] = params[:conf][:sa_application_name]
 			@conf['sa_application_url'] = params[:conf][:sa_application_url]
 			@conf['sa_contact_email'] = params[:conf][:sa_contact_email]

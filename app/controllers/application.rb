@@ -2,10 +2,15 @@
 # Likewise, all the methods added will be available for all controllers.
 
 require "acts_as_item/url_helpers.rb"
-
+require 'rubygems'
+require 'RMagick'
 class ApplicationController < ActionController::Base
+  
+  @@image_types = ["image/jpeg", "image/pjpeg", "image/gif", "image/png", "image/x-png", "image/ico"]
+
+  
   helper :all # include all helpers, all the time
-	helper_method :available_items_list, :available_languages, :get_current_config, :right_conf, :is_allowed_free_user_creation?
+	helper_method :available_items_list, :available_languages, :get_current_config, :right_conf, :is_allowed_free_user_creation?,:get_sa_config
   before_filter :is_logged?
 	before_filter :set_locale
 
@@ -89,6 +94,26 @@ class ApplicationController < ActionController::Base
 		else
 			I18n.locale = I18n.default_locale
 		end
+  end
+
+  def upload_photo(photo,crop_width,crop_height,path_name)
+    photo.rewind
+    pic = Magick::Image.from_blob(photo.read)[0]
+    width = pic.columns
+     height = pic.rows
+     if (width > height)
+       pic.scale!((crop_width/width.to_f))
+     else
+       pic.scale!((crop_height/height.to_f))
+     end
+#     back = Magick::Image.new(crop_width,crop_height) {
+#						 self.background_color = 'white'
+##						 self.format = 'JPG'
+#					 }
+     pic.composite!(pic, Magick::CenterGravity, Magick::InCompositeOp)
+     File.open(RAILS_ROOT + path_name, "wb") do |f|
+						 f.write(pic.to_blob)
+     end
   end
 
 end
