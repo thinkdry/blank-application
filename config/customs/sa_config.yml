@@ -1,0 +1,29 @@
+--- 
+sa_ws_types: 
+- public
+- closed
+- archived
+- authorized
+sa_logo_url: /config/logo.jpg
+sa_favicon_path: /public/config/favicon.ico
+sa_logo_path: /public/config/logo.jpg
+sa_contact_email: ""
+sa_application_name: ""
+sa_application_url: ""
+sa_feed_items_importation_types: 
+- bookmark
+- publication
+sa_items: 
+- article
+- audio
+- bookmark
+- publication
+- feed_source
+- cms_file
+- video
+- image
+sa_favicon_url: /config/favicon.ico
+sa_languages: 
+- en-US
+- fr-FR
+- es-ES
