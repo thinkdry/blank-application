@@ -6,7 +6,7 @@ class SuperadministrationController < ApplicationController
 			if params[:part] == "default"
 			elsif params[:part] == "general"
 				@conf = get_sa_config
-				@logo = Picture.find_by_name('logo')
+#				@logo = Picture.find_by_name('logo')
 			elsif params[:part] == "css"
 				@elements = Element.find(:all, :conditions => {:template=>"current"})
 				@temp=Element.find( :all, :select => 'DISTINCT template' )
