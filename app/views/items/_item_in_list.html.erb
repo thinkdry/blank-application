@@ -29,9 +29,9 @@
 	  <% if params[:workspace_id] != nil %>
 	  <div class="item_list_item_actions">
 	  	<%= link_to image_tag('icons/comments.png'), item_path(object) + "#new_comment_form_box" %>
-		<% if permit? 'edition of current_object'  %>
+		<%# if permit? 'edition of current_object'  %>
 			<%= link_to image_tag('icons/pencil.png'), edit_item_path(object)%>
-	    <% end %>
+	    <%# end %>
 	  </div>
 	  <% end %>
     </div>

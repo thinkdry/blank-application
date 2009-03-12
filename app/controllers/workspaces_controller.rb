@@ -59,7 +59,10 @@ class WorkspacesController < ApplicationController
     after :update_fails do
       flash[:error] =I18n.t('workspace.edit.flash_error')
     end
-
+    after :show do
+			@current_object.ws_config.update_attributes(:ws_items => check_to_tab(:items).join(","), :ws_feed_items_importation_types => check_to_tab(:feed_items_importation_types).join(","))
+      flash[:notice] =I18n.t('workspace.edit.flash_notice')
+		end
 	end
 
   def add_new_user
@@ -71,7 +74,7 @@ class WorkspacesController < ApplicationController
       page.insert_html :bottom, 'users', :partial => 'user',  :object => @uw
     end
   end
-  
+
   def current_object
     @current_object ||= @workspace =
       if params[:id]
@@ -120,8 +123,12 @@ class WorkspacesController < ApplicationController
 			@conf = WsConfig.new
 		end
 		return unless request.post?
-		
+
 
 	end
- 
+
+  def ajax_show 
+      params[:id] ||= params[:workspace_id]
+      render :partial=>"items/tab_list", :layout=>false
+    end
 end

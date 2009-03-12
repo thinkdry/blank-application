@@ -11,7 +11,8 @@ module ActsAsItem
     	  :rate_item_path,
     	  :add_tag_item_path,
     	  :remove_tag_item_path,
-    	  :comment_item_path
+    	  :comment_item_path,
+        :ajax_items_path
     end
 
     def current_workspace
@@ -58,6 +59,15 @@ module ActsAsItem
         workspace_content_url(:workspace_id => current_workspace.id, :item_type => model)
       else
         content_url(:item_type => model)
+      end
+    end
+
+    def ajax_items_path(model)
+      model = model.table_name unless model.is_a?(String)
+      if current_workspace
+        workspace_ajax_content_url(:workspace_id => current_workspace.id, :item_type => model)
+      else
+        ajax_content_url(:item_type => model)
       end
     end
 

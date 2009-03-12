@@ -16,22 +16,23 @@
 		<div class="tooltip_actions">
 			<%= link_to image_tag('icons/comments.png'), item_path(object) + "#new_comment_form_box" %>
 			<% if params[:workspace_id] != nil %>
-			<% if permit? 'edition of current_object'  %>
+			<%# if permit? 'edition of current_object'  %>
 				<%= link_to image_tag('icons/pencil.png'), edit_item_path(object)%>
-		    <% end %><% end %>
+		    <%# end %>
+            <% end %>
 		</div>
 	</div>
 	<script type='text/javascript'>
 		//<![CDATA[
-			new Tip('right<%= object.id%>',  $('tip_right_<%=object.id%>'), 
+			new Tip('right<%= object.id%>',  $('tip_right_<%=object.id%>'),
 					{ effect: 'appear',
-			 		  duration: 0.2,
+			 		  duration: 0,
 					  delay:0,
 					  hook: { target: 'topLeft', tip: 'topRight' },
 					  hideOn: { element: 'tip', event: 'mouseout' },
 					  stem: 'rightTop',
 					  hideOthers: 'true',
-					  hideAfter: 3,
+					  hideAfter: 0,
 					  width: 300
 					});
 		//]]>

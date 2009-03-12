@@ -20,6 +20,7 @@ ActionController::Routing::Routes.draw do |map|
 	map.translations_new_superadministration 'superadministration/translations_new', :controller => 'superadministration', :action => 'translations_new'
 	map.superadministration '/superadministration/:part', :controller => 'superadministration', :action => 'superadministration'
 	map.content '/content/:item_type', :controller => 'items', :action => 'index'
+  map.ajax_content '/ajax_content/:item_type', :controller => 'items', :action => 'ajax_index'
   map.display_content_list '/display_content_list/:item_type', :controller => 'items', :action => 'display_item_in_pop_up'
 	
   map.resources :roles
@@ -58,7 +59,7 @@ ActionController::Routing::Routes.draw do |map|
     workspaces.content '/:item_type', :controller => 'workspaces', :action => 'show', :conditions => { :method => :get }
     items_resources(workspaces)
   end
-  
+  map.workspace_ajax_content 'workspace_ajax_content', :controller => 'workspaces', :action => 'ajax_show', :conditions => { :method => :get }
   # Project management
   #map.resources :projects  do |projects|
   #  projects.resources :meetings do |meetings|

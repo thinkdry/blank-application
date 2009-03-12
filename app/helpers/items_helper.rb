@@ -7,20 +7,20 @@ module ItemsHelper
   				parameters: info
   			})}"
   		} if params.empty?
-    
+
     params_to_js_hash = '{' + params.collect { |k, v| "#{k}: #{v}" }.join(', ') + '}'
     div_id = "rating_#{object.class.to_s.underscore}_#{object.id}_#{rand(1000)}"
-    
+
     content_tag(:div, nil, { :id => div_id, :class => :rating }) +
 		javascript_tag(%{
-			new Starbox("#{div_id}", #{object.rating}, #{params_to_js_hash});	
+			new Starbox("#{div_id}", #{object.rating}, #{params_to_js_hash});
 		})
   end
-  
+
   def item_rate_locked(object)
     item_rate(object, :locked => true)
   end
-  
+
   def item_show(parameters, &block)
     concat\
       render( :partial => "items/show",
@@ -29,7 +29,7 @@ module ItemsHelper
                             :block => block                 } ),
       block.binding
   end
-  
+
   def advanced_editor_on(object, attribute)
     '<script type="text/javascript" src="/fckeditor/fckeditor.js"></script>' +
     javascript_tag(%{
@@ -40,7 +40,7 @@ module ItemsHelper
 
 		})
   end
-  
+
   # Container of tags that include modal window. Contains the javascript events.
   # Please apply 'hidden' class on each child you want to be displayed on mouseover.
   def item_reactive_content_tag(tag, object, &block)
@@ -54,16 +54,16 @@ module ItemsHelper
         :onclick      => "window.location.href = '#{item_path(object)}'"),
       block.binding
   end
-  
+
   def form_for_item(object, title = '', &block)
 		concat(render(:partial => "items/form", :locals => { :block => block, :title => title }), block.binding)
   end
-  
+
   # Render a lisf of recent items, recent comments and recent publications.
   # (Uses the `small_item_list` helper)
   def item_list
     items = [] # List being rendered
-    
+
     # 1st: Collect items in workspaces
     conditions = [ "workspace_id IN (?)", current_workspace || current_user.all_workspaces ]
     items = Item.find(:all,
@@ -71,26 +71,26 @@ module ItemsHelper
       :limit => 10,
       :conditions => conditions)
     items.collect! { |item| item.itemable }
-    
+
     # 2nd: Include private item
     unless current_workspace
       available_items_list.map{ |item| item.pluralize.to_sym }.each do |itemable_type|
         items |= current_user.send(itemable_type)
       end
     end
-    
+
     # Sort by CREATED_AT DESC
     items.sort! {|a, b| b.created_at <=> a.created_at }
-    
+
     render :partial => "items/list", :object => items[0..10]
   end
-  
+
   # Item. Title and descriptions.
   # Modal window on mouseover, displaying additionnal informations
   def item_in_list(object, thumb = nil)
     render :partial => "items/item_in_list", :object => object
   end
-  
+
   # Footer of each item form. Status, comments, tags...
   def item_status_fields(form, item)
     render :partial => "items/status", :locals => { :f => form, :item => item }
@@ -99,7 +99,7 @@ module ItemsHelper
   def item_category_fields(form, item)
     render :partial => "items/category", :locals => { :f => form, :item => item }
   end
-  
+
   # Tag. Item's author is allowed to remove it by Ajax action.
   def item_tag tag, editable = false
     content = tag.name
@@ -107,62 +107,89 @@ module ItemsHelper
       :url => remove_tag_item_path(@current_object, :tag_id => tag.id),
       :loading => "$('ajax_loader').show()",
       :complete => "$('ajax_loader').hide()") if editable
-    
+
     content_tag :span, content, :id => "tag_#{tag.id}"
   end
-  
+
   def item_editable_tag tag
     item_tag tag, true
   end
-  
+
   def link_to_item(object)
     link_to(object.title, item_path(object))
   end
-  
+
   def display_tabs(item_type)
     item_type ||= 'articles'
     content = String.new
 
     get_current_config["ws_items"].split(',').map{ |item| item.camelize }.each do |item_model|
+       url = ajax_items_path(item_model.classify.constantize)
       item_page = item_model.underscore.pluralize
       options = {}
       options[:class] = 'selected' if (item_type == item_page)
+      options[:id] = item_model.underscore
       content += content_tag(
         :li,
-        link_to(image_tag(item_model.classify.constantize.icon) + item_model.classify.constantize.label, items_path(item_model.classify.constantize)),
+        link_to_remote(image_tag(item_model.classify.constantize.icon) + item_model.classify.constantize.label,:method=>:get, :update => "content", :url => url),
         options
       )
     end
-
     content_tag(:ul, content, :id => :tabs)
 	end
-  
+
   def display_item_list(item_type)
     item_type ||= 'articles'
-    
+
     items = if current_workspace
       GenericItem.from_workspace(current_workspace.id)
     else
       GenericItem.consultable_by(@current_user.id)
     end
-    
-    @collection = items.send(item_type).created.paginate(:page => params[:page])
-    
+
+    @collection = items.send(item_type).created.paginate(:page => params[:page],:per_page=>5)
+
     render(:partial => "items/item_in_list", :collection => @collection)
   end
-  
+
   def display_item_list_for_editor(item_type)
     item_type ||= 'articles'
-    
+
     items = if current_workspace
       GenericItem.from_workspace(current_workspace.id)
     else
       GenericItem.consultable_by(@current_user.id)
     end
-    
+
     @collection = items.send(item_type).created.paginate(:page => params[:page])
-    
+
     render(:partial => "items/item_in_list_for_editor", :collection => @collection)
   end
-  
+
+  def remote_pagination(collection)
+    if collection.total_pages != 0
+    content = String.new
+    params[:item_type].nil? ? item_type = 'articles' : item_type = params[:item_type]
+    url =  ajax_items_path(item_type)
+    current_page = params[:page] ? params[:page].to_i : 1
+    if current_page == 1
+      content = "&laquo; Previous "
+    else
+     content = content + link_to_remote("&laquo; Previous  ", :update => "content",:method=>:get, :url =>url+"/?page=#{current_page - 1}")
+    end
+    (1..collection.total_pages).collect {|page|
+        if current_page == page
+          content = content+"  " + page.to_s
+        else
+          content = content+"  " + link_to_remote(page.to_s+" ", :update => "content",:method=>:get, :url =>url+"/?page=#{page}")
+        end
+      }
+    if current_page == collection.total_pages
+      content = content +"  Next &raquo;"
+    else
+      content = content + link_to_remote("  Next &raquo;", :update => "content",:method=>:get, :url =>url+"/?layout=false&page=#{(current_page+1)}")
+    end
+    return content_tag(:div, content, :align=>"center")
+    end
+  end
 end

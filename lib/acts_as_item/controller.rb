@@ -36,7 +36,7 @@ module ActsAsItem
           end
 
           before :show, :index do
-            no_permission_redirection unless @current_object.accepts_show_for?(@current_user)
+#            no_permission_redirection unless @current_object.accepts_show_for?(@current_user)
           end
 
           before :edit, :update do
