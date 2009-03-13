@@ -22,7 +22,13 @@
       <%= text_field_tag 'conf[sa_contact_email]', @conf['sa_contact_email'] %><br />
 
       <br />
-      
+
+      Allowed free user creation ?
+      <%= check_box :conf, :sa_allowed_free_user_creation, { :checked => (@conf['sa_allowed_free_user_creation']=='true') }, true, false %>
+      <br /><br />
+      Automatic private worskpace creation ?
+      <%= check_box :conf, :sa_automatic_private_workspace, { :checked => (@conf['sa_automatic_private_workspace']=='true') }, true, false %>
+      <br /><br />
       Available items :<br />
       <%= checkboxes_from_list(ITEMS, "items", @conf, "sa_") %>
       
@@ -31,6 +37,9 @@
 
       Workspaces types :<br />
       <%= checkboxes_from_list(WS_TYPES, "ws_types", @conf, "sa_") %>
+
+      Item categories :<br />
+      <%= checkboxes_from_list(ITEM_CATEGORIES, "item_categories", @conf, "sa_") %>
 
       Feed items imporation types :<br />
       <%= checkboxes_from_list(FEED_ITEMS_IMPORTATION_TYPES, "feed_items_importation_types", @conf, "sa_") %>

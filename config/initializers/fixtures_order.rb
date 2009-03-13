@@ -1,6 +1,6 @@
 require 'fileutils'
 
-['image', 'audio', 'video', 'cmsfile', 'user', 'articlefile'].each do |item|
+['image', 'audio', 'video', 'cmsfile', 'user', 'articlefile', 'workspace'].each do |item|
   FileUtils.mkdir_p RAILS_ROOT+'/public/uploaded_files/'+item
 end
 

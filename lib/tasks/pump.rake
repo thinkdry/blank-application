@@ -55,13 +55,18 @@ namespace :blank do
         ActiveRecord::Base.connection.execute(query)
       end
     else
-      @auser.system_role_id=@admin.id
+      @auser.system_role_id=@user.id
       @auser.save
     end
     p "Done"
     p "Loading Permissions ..."
+		ITEM_CATEGORIES.each do |cat|
+			['new','edit', 'show', 'destroy'].each do |action|
+				Permission.create(:name => 'item_cat_'+cat+'_'+action,  :type_permission => 'workspace')
+			end
+		end
     (['users', 'workspaces']+ITEMS).each do |controller|
-      ['new','edit','index','show', 'destroy'].each do |action|
+      ['new','edit', 'show', 'destroy'].each do |action|
         if controller=="users"
           if action=="show" || action=="index"
             Permission.create(:name=>controller.singularize+'_'+action,  :type_permission =>'workspace')
@@ -128,17 +133,16 @@ namespace :blank do
 		else
 			@default_conf= YAML.load_file("#{RAILS_ROOT}/config/customs/default_config.yml")
 		end
-    @ws_conf=WsConfig.create(:ws_items =>@default_conf['sa_items'].join(','), :ws_feed_items_importation_types =>@default_conf['sa_feed_items_importation_types'].join(','))
     p "Done"
     p "Creating Default Workspace"
     @superadmin=User.find_by_login("boss")
 		if Workspace.find_by_creator_id_and_state(@superadmin.id, "private").blank?
-			@ws=Workspace.create(:creator_id => @superadmin.id, :description => "Private Workspace for Boss", :title=> "Private for Boss", :state => "private",  :ws_config_id =>@ws_conf.id)
-			UsersWorkspace.create(:workspace_id => @ws.id, :role_id => Role.find_by_name("ws_admin").id, :user_id => @superadmin.id )
+			@ws=Workspace.create(:creator_id => @superadmin.id, :description => "Private Workspace for Boss", :title=> "Private for Boss", :state => "private", :ws_items => @default_conf['sa_items'].join(','), :ws_item_categories => @default_conf['sa_item_categories'].join(','))
+			UsersWorkspace.create(:workspace_id => @ws.id, :role_id => Role.find_by_name("ws_admin").id, :user_id => @superadmin.id)
 		end
 		@user=User.find_by_login("quentin")
     if Workspace.find_by_creator_id_and_state(@user.id, "private").blank?
-      @ws=Workspace.create(:creator_id => @user.id, :description => "Private Workspace for Quentin", :title=> "Private for Quentin", :state => "private", :ws_config_id =>@ws_conf.id)
+      @ws=Workspace.create(:creator_id => @user.id, :description => "Private Workspace for Quentin", :title=> "Private for Quentin", :state => "private", :ws_items => @default_conf['sa_items'].join(','), :ws_item_categories => @default_conf['sa_item_categories'].join(','))
       UsersWorkspace.create(:workspace_id => @ws.id, :role_id => Role.find_by_name("ws_admin").id, :user_id => @user.id )
     end
     

@@ -20,13 +20,13 @@ class UsersController < ApplicationController
     before :new, :create do
 			if !is_allowed_free_user_creation?
 				if logged_in?
-					layout 'application'
+					#layout 'application'
 					no_permission_redirection unless @current_object.accepts_new_for?(@current_user)
 				else
 					redirect_to login_url
 				end
 			else
-				layout 'no_logged'
+				#layout 'no_logged'
 			end
     end
 
@@ -55,10 +55,12 @@ class UsersController < ApplicationController
 			# System role by default, secure assignement
 			@current_object.system_role_id = Role.find_by_name('user')
 			@current_object.save
-			# Creation of the private workspace for the user
-			ws = Workspace.create(:title => "Private space of #{@current_object.login}", :creator_id => @current_object.id, :state => 'private')
-			# To assign the 'ws_admin' role to the user in his privte workspace
-			UserWorkspace.create(:user_id => @current_object.id, :worskpace_id => ws.id, :role_id => Role.find_by_name('ws_admin'))
+			if is_given_private_workspace
+				# Creation of the private workspace for the user
+				ws = Workspace.create(:title => "Private space of #{@current_object.login}", :creator_id => @current_object.id, :state => 'private')
+				# To assign the 'ws_admin' role to the user in his privte workspace
+				UserWorkspace.create(:user_id => @current_object.id, :worskpace_id => ws.id, :role_id => Role.find_by_name('ws_admin'))
+			end
 			flash[:notice] = I18n.t('user.new.flash_notice')
 		end
 

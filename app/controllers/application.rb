@@ -5,7 +5,7 @@ require "acts_as_item/url_helpers.rb"
 
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
-	helper_method :available_items_list, :available_languages, :get_current_config, :right_conf, :is_allowed_free_user_creation?
+	helper_method :available_items_list, :available_languages, :get_sa_config, :get_current_items, :right_conf, :is_allowed_free_user_creation?
   before_filter :is_logged?
 	before_filter :set_locale
 
@@ -23,7 +23,11 @@ class ApplicationController < ActionController::Base
   end
 
 	def is_allowed_free_user_creation?
-		return true
+		return get_sa_config['sa_allowed_free_user_creation']=='true'
+	end
+
+	def is_given_private_workspace
+		return get_sa_config['automatic_private_workspace']=='true'
 	end
 
 	def available_items_list
@@ -42,16 +46,13 @@ class ApplicationController < ActionController::Base
 		end
 	end
 
-	def get_current_config(ws_id=1)
+	def get_current_items
 		# TODO to find a solution to know where we are
 		if (Workspace.exists?(params[:id]))
-			if (ws=Workspace.find(params[:id])).ws_config
-				ws_id = ws.ws_config
-			else
-				ws_id = 1
-			end
+			return Workspace.find(params[:id]).ws_items.split(',')
+		else
+			return get_sa_config['sa_items']
 		end
-		return WsConfig.find(ws_id)
 	end
 
 	def is_superadmin?

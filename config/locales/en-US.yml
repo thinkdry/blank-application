@@ -294,10 +294,12 @@ en-US:
   workspace:
     new:
       title: Create a New Workspace
+      add_user_text: In order to add users to this workspace, you have first to save it to check the integrity of that workspace.
       flash_notice: Workspace Created Successfully
       flash_error: Workspace Creation Failed
     field:
       title_label: Title
+      logo_label: Logo
       description_label: Description
       state_label: Select Type of Workspace
     type:
@@ -376,6 +378,7 @@ en-US:
       home: Home
       all_elements: All Elements
       advanced_search: Advanced Search
+      no_add_content: You need to create a workspace or to have rights inside one before to add content.
     search:
       search_label: Search
       advance_search: Advanced Search

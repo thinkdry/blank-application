@@ -136,11 +136,11 @@ class User < ActiveRecord::Base
 	end
 
 	def has_system_role(role_name)
-		return (self.system_role.name == role_name) || self.has_system_role('superadmin')
+		return (self.system_role.name == role_name) || self.system_role.name == 'superadmin'
 	end
 
 	def has_workspace_role(workspace_id, role_name)
-		return UsersWorkspace.exists?(:user_id => self.id, :workspace_id => workspace_id, :role_id => Role.find_by_name(role_name).id) || self.has_system_role('superadmin')
+		return UsersWorkspace.exists?(:user_id => self.id, :workspace_id => workspace_id, :role_id => Role.find_by_name(role_name).id) || self.system_role.name == 'superadmin'
 	end
 
 	def system_permissions

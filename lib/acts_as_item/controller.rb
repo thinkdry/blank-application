@@ -35,7 +35,11 @@ module ActsAsItem
             no_permission_redirection unless @current_object.accepts_new_for?(@current_user)
           end
 
-          before :show, :index do
+					before :index do
+						@current_objects = current_model.list_items_with_permission_for(@current_user, 'show', current_workspace)
+					end
+
+          before :show do
             no_permission_redirection unless @current_object.accepts_show_for?(@current_user)
           end
 
@@ -63,14 +67,14 @@ module ActsAsItem
 					
 					response_for :show do |format|
 						format.html # index.html.erb
-						format.xml { render :xml=>@current_object }
-						format.json { render :json=>@current_object }
+						format.xml { render :xml => @current_object }
+						format.json { render :json => @current_object }
 	        end
 
 					response_for :index do |format|
 						format.html { redirect_to(items_path(params[:controller])) }
-						format.xml { render :xml=>@current_objects }
-						format.json { render :json=>@current_objects }
+						format.xml { render :xml => @current_objects }
+						format.json { render :json => @current_objects }
 						format.atom # index.atom.builder
 	        end
 					

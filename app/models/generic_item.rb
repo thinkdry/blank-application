@@ -35,8 +35,10 @@ class GenericItem < ActiveRecord::Base
   
   named_scope :consultable_by, lambda { |user_id|
     raise 'User expected' unless user_id
-    return { } if User.find(user_id).has_system_role('superadmin')
-    { :conditions => %{
+    if User.find(user_id).has_system_role('superadmin')
+			{ }
+		else
+			{ :conditions => %{
         ( SELECT count(*)
           FROM items, users_workspaces
           WHERE
@@ -44,7 +46,8 @@ class GenericItem < ActiveRecord::Base
             items.itemable_id = generic_items.id AND
             users_workspaces.workspace_id = items.workspace_id AND
             users_workspaces.user_id = #{user_id} ) > 0 }}
-  }
+		end
+	}
 	
   named_scope :most_commented,
     :order => 'generic_items.number_of_comments DESC',

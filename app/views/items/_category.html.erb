@@ -1,6 +1,12 @@
-<% item_class_name = item.class.to_s.underscore %>
-<%  check_box_tag_name = "#{item_class_name}[category][]"%>
+<% res=get_sa_config['sa_item_categories'] %>
+<% if res.blank? %>
 
-<% ITEM_CATEGORIES.each do |cat| %>
-  <%= cat + check_box_tag(check_box_tag_name, cat, @current_object.category.to_s.include?(cat)) %>
+<% else %>
+  <% item_class_name = item.class.to_s.underscore %>
+  <% f.field :category, :label => 'Category :' do %>
+    <% res.each do |cat| %>
+      <%= cat + check_box_tag("#{item_class_name}[category][]", cat, @current_object.category.to_s.include?(cat)) %>
+    <% end %>
+  <% end %>
+  
 <% end %>

@@ -16,13 +16,19 @@ class Workspace < ActiveRecord::Base
 	
 	has_many :users_workspaces, :dependent => :delete_all
 	has_many :roles, :through => :users_workspaces
-	#has_many :permissions, :through => :roles, :source => :permissions_roles
 	has_many :users, :through => :users_workspaces
 	has_many :items, :dependent => :delete_all
   has_many_polymorphs :itemables, :from => ITEMS.map{ |item| item.pluralize.to_sym }, :through => :items
 	has_many :feed_items, :through => :feed_sources
 	belongs_to :creator, :class_name => 'User'
 	belongs_to :ws_config
+
+	has_attached_file :logo,
+    :url =>  "/uploaded_files/workspace/:id/:style/:basename.:extension",
+    :path => ":rails_root/public/uploaded_files/workspace/:id/:style/:basename.:extension",
+		:styles => { :medium => "300x300>", :thumb => "48x48>" }
+  validates_attachment_content_type :logo, :content_type => ['image/jpeg','image/jpg', 'image/png', 'image/gif','image/bmp' ]
+  validates_attachment_size :logo, :less_than => 2.megabytes
 	
 	validates_presence_of :title, :description
 	validates_associated :users_workspaces

@@ -29,7 +29,8 @@ class SuperadministrationController < ApplicationController
 	end
 	
 	def general_changing
-			list = ['items', 'languages', 'feed_items_importation_types', 'ws_types']
+			list = ['items', 'languages', 'feed_items_importation_types', 'ws_types', 'item_categories']
+			list2 = ['sa_application_name', 'sa_application_url', 'sa_contact_email', 'sa_allowed_free_user_creation', 'sa_automatic_private_workspace']
 			@conf = get_sa_config
 			if params[:picture]
 				@picture = Picture.new(params[:picture])
@@ -38,15 +39,15 @@ class SuperadministrationController < ApplicationController
 					Picture.find_by_name('logo').update_attributes(:name => 'old_logo')
 				end
 				@picture.save
-			@conf['sa_application_name'] = params[:conf][:sa_application_name]
-			@conf['sa_application_url'] = params[:conf][:sa_application_url]
-			@conf['sa_contact_email'] = params[:conf][:sa_contact_email]
+			list2.each do |l|
+				@conf[l] = params[:conf][l.to_sym]
+			end
 			list.each do |l|
 				@conf['sa_'+l] = check_to_tab(l)
 			end
 			# Update the default ws_config (with the id 1 normaly ...)
-			@default_conf = WsConfig.find(1)
-			@default_conf.update_attributes(:ws_items => check_to_tab('items').join(','), :ws_feed_items_importation_types => check_to_tab('feed_items_importation_types').join(','))
+			#@default_conf = WsConfig.find(1)
+			#@default_conf.update_attributes(:ws_items => check_to_tab('items').join(','), :ws_feed_items_importation_types => check_to_tab('feed_items_importation_types').join(','))
 
 			#File.rename("#{RAILS_ROOT}/config/customs/sa_config.yml", "#{RAILS_ROOT}/config/customs/old_sa_config.yml")
 			
