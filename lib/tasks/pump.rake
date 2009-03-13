@@ -137,12 +137,12 @@ namespace :blank do
     p "Creating Default Workspace"
     @superadmin=User.find_by_login("boss")
 		if Workspace.find_by_creator_id_and_state(@superadmin.id, "private").blank?
-			@ws=Workspace.create(:creator_id => @superadmin.id, :description => "Private Workspace for Boss", :title=> "Private for Boss", :state => "private", :ws_items => @default_conf['sa_items'].join(','), :ws_item_categories => @default_conf['sa_item_categories'].join(','))
+			@ws=Workspace.create(:creator_id => @superadmin.id, :description => "Private Workspace for Boss", :title=> "Private for Boss", :state => "private", :ws_items => @default_conf['sa_items'].to_s.join(','), :ws_item_categories => @default_conf['sa_item_categories'].to_s.join(','))
 			UsersWorkspace.create(:workspace_id => @ws.id, :role_id => Role.find_by_name("ws_admin").id, :user_id => @superadmin.id)
 		end
 		@user=User.find_by_login("quentin")
     if Workspace.find_by_creator_id_and_state(@user.id, "private").blank?
-      @ws=Workspace.create(:creator_id => @user.id, :description => "Private Workspace for Quentin", :title=> "Private for Quentin", :state => "private", :ws_items => @default_conf['sa_items'].join(','), :ws_item_categories => @default_conf['sa_item_categories'].join(','))
+      @ws=Workspace.create(:creator_id => @user.id, :description => "Private Workspace for Quentin", :title=> "Private for Quentin", :state => "private", :ws_items => @default_conf['sa_items'].to_s.join(','), :ws_item_categories => @default_conf['sa_item_categories'].to_s.join(','))
       UsersWorkspace.create(:workspace_id => @ws.id, :role_id => Role.find_by_name("ws_admin").id, :user_id => @user.id )
     end
     
