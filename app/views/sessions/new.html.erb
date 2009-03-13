@@ -25,7 +25,7 @@
 	</head>
 	<body>
 		<div id="content_login">
-			<%= image_tag(get_sa_config['sa_logo_url']) %>
+			<%= image_tag(get_sa_config['sa_logo_url'].to_s) %>
     	<% form_tag session_path do -%>
                 <p style="color:red"><%=flash[:error]%></p>
 				<label><%=I18n.t('user.session.login_label')%><br>

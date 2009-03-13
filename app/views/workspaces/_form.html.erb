@@ -10,7 +10,7 @@
       <% if @workspace.state != 'private' %>
         <%= f.select :state, get_sa_config['sa_ws_types'].map{ |e| [I18n.t('workspace.type.'+e), e] }, :label => I18n.t('workspace.field.state_label')+' :' %>
       <% else %>
-        <%= f.select :state, [I18n.t('workspace.type.private')], :label => I18n.t('workspace.field.state_label')+' :', :disabled => (@workspace.state == 'private') %>
+        <%= f.select :state, [I18n.t('workspace.type.private'), 'private'], :label => I18n.t('workspace.field.state_label')+' :', :disabled => (@workspace.state == 'private') %>
       <% end %>
       <br /><br />
       <%= f.label I18n.t('workspace.edit.workspace_configuration')+" : " %><br />

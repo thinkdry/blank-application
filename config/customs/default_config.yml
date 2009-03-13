@@ -8,3 +8,6 @@ sa_feed_items_importation_types: []
 sa_ws_types: []
 
 sa_item_categories: []
+
+sa_favicon_url: /config_files/favicon.ico
+sa_logo_url: /config_files/logo.jpg

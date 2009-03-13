@@ -32,9 +32,13 @@ class SuperadministrationController < ApplicationController
 			list = ['items', 'languages', 'feed_items_importation_types', 'ws_types', 'item_categories']
 			list2 = ['sa_application_name', 'sa_application_url', 'sa_contact_email', 'sa_allowed_free_user_creation', 'sa_automatic_private_workspace']
 			@conf = get_sa_config
-			if params[:picture]
-				upload_photo(params[:picture][:picture],240,55,@conf['sa_logo_path']) if !params[:picture][:picture].blank? and (IMAGE_TYPES.include?params[:picture][:picture].content_type.chomp)
-        upload_photo(params[:picture][:favicon],16,16,@conf['sa_favicon_path']) if !params[:picture][:favicon].blank? and (IMAGE_TYPES.include?params[:picture][:favicon].content_type.chomp)
+			if params[:pictures]
+				if !params[:pictures][:logo].blank? && (IMAGE_TYPES.include?(params[:pictures][:logo].content_type.chomp))
+					upload_photo(params[:pictures][:logo],240,55, '/public/config_files/logo.jpg')
+				end
+				if !params[:pictures][:favicon].blank? && (IMAGE_TYPES.include?(params[:pictures][:favicon].content_type.chomp))
+					upload_photo(params[:pictures][:favicon],16,16, '/public/config_files/favicon.ico')
+				end
 			end
 			list2.each do |l|
 				@conf[l] = params[:conf][l.to_sym]

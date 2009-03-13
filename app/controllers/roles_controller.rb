@@ -47,8 +47,8 @@ class RolesController < ApplicationController
 		if @role.type_role=="system"
 			@permissions = Permission.find(:all)
 		else
-			@permissions = Permission.find(:all)
-			#@permissions = Permission.find(:all, :conditions => { :type_permission => 'workspace' })
+			#@permissions = Permission.find(:all)
+			@permissions = Permission.find(:all, :conditions => { :type_permission => 'workspace' })
 		end
     render :partial => "edit"
   end

@@ -1,7 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-  <%# @logo = Picture.find_by_name('logo') %>
   <link rel="shortcut icon" href="<%= get_sa_config['sa_favicon_url'] %>"/>
   <%= stylesheet_link_tag "application.css" %>
   <%= stylesheet_link_tag "form.css" %>
@@ -22,7 +21,7 @@
 <div id="page">
   <div id="header">
     <div id="logo">
-      <%= link_to image_tag(get_sa_config['sa_logo_url']), "/" %>
+      <%= link_to image_tag(get_sa_config['sa_logo_url'].to_s), "/" %>
     </div>
     <div id="header_right">
       <div id="main_links">

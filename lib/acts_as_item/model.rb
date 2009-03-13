@@ -16,7 +16,7 @@ module ActsAsItem
 							if user.has_system_permission(self.model_name.underscore, action)
 								@current_objects = workspace.send(self.model_name.underscore.pluralize.to_sym)
 							# Workspace permission checked
-							elsif user.has_system_permission(self.model_name.underscore, 'show')
+							elsif user.has_system_permission(self.model_name.underscore, action)
 								@current_objects = workspace.send(self.model_name.underscore.pluralize.to_sym)
 							# Category permission checked
 							elsif !(cats=workspace.ws_item_categories).blank?
@@ -39,17 +39,18 @@ module ActsAsItem
 								res = []
 								wsl.each do |ws|
 									if user.has_workspace_permission(ws.id, self.model_name.underscore, action)
-										res << ws.send(self.underscore.pluralize.to_sym)
+										res = res + ws.send(self.underscore.pluralize.to_sym)
 									else
 										# lazyness...
 										cats = ITEM_CATEGORIES & ws.ws_item_categories.split(',')
 										# Check if user can access to, at least, one category of the item in that workspace
 										cats.each do |cat|
 											if user.has_workspace_permission(ws.id, 'item_cat_'+cat, action)
-												res << self.find_by_sql("SELECT * FROM #{self.model_name.underscore.pluralize} LEFT JOIN items ON items.itemable='#{self.model_name}' AND items.workspace_id=#{ws.id} WHERE #{self.model_name.underscore.pluralize}.category LIKE #{cat}")
+												res = res + self.find_by_sql("SELECT * FROM #{self.model_name.underscore.pluralize} LEFT JOIN items ON items.itemable='#{self.model_name}' AND items.workspace_id=#{ws.id} WHERE #{self.model_name.underscore.pluralize}.category LIKE #{cat}")
 											end
 										end
 									end
+									@current_objects = res.uniq
 								end
 							else
 								@current_objects = []

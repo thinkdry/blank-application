@@ -4,14 +4,13 @@
 require "acts_as_item/url_helpers.rb"
 require 'rubygems'
 require 'RMagick'
+
 class ApplicationController < ActionController::Base
   
   IMAGE_TYPES = ["image/jpeg", "image/pjpeg", "image/gif", "image/png", "image/x-png", "image/ico"]
-
   
   helper :all # include all helpers, all the time
 	helper_method :available_items_list, :available_languages, :get_sa_config, :get_current_items, :right_conf, :is_allowed_free_user_creation?
-	helper_method :available_items_list, :available_languages, :get_current_config, :right_conf, :is_allowed_free_user_creation?,:get_sa_config
   before_filter :is_logged?
 	before_filter :set_locale
 
@@ -98,7 +97,7 @@ class ApplicationController < ActionController::Base
 		end
   end
 
-  def upload_photo(photo,crop_width,crop_height,path_name)
+  def upload_photo(photo, crop_width, crop_height, path_name)
     photo.rewind
     pic = Magick::Image.from_blob(photo.read)[0]
     width = pic.columns
@@ -114,7 +113,7 @@ class ApplicationController < ActionController::Base
 #					 }
      pic.composite!(pic, Magick::CenterGravity, Magick::InCompositeOp)
      File.open(RAILS_ROOT + path_name, "wb") do |f|
-						 f.write(pic.to_blob)
+			f.write(pic.to_blob)
      end
   end
 

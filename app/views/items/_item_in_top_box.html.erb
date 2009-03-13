@@ -16,7 +16,7 @@
 		<div class="tooltip_actions">
 			<%= link_to image_tag('icons/comments.png'), item_path(object) + "#new_comment_form_box" %>
 			<%# if params[:workspace_id] != nil %>
-			<% if @object.accepts_edit_for?(@current_user) %>
+			<% if object.accepts_edit_for?(@current_user) %>
               <%= link_to image_tag('icons/pencil.png'), edit_item_path(object)%>
             <% end %>
 		</div>
