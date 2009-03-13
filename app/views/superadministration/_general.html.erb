@@ -7,11 +7,11 @@
       <%= text_field_tag 'conf[sa_application_name]', @conf['sa_application_name'] %><br />
 
       Favicon Management :<br />
-      <%= image_tag(@logo.favicon.url(:medium)) %><br />
+      <%= image_tag(@conf['sa_favicon_url']) %><br />
       <%= file_field 'picture', 'favicon' %><br />
       <br />
       Logo management :<br />
-      <%= image_tag(@logo.picture.url(:medium)) %><br />
+      <%= image_tag(@conf['sa_logo_url']) %><br />
       <%= file_field 'picture', 'picture' %><br />
       <br />
 

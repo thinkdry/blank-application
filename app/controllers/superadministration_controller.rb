@@ -6,7 +6,7 @@ class SuperadministrationController < ApplicationController
 			if params[:part] == "default"
 			elsif params[:part] == "general"
 				@conf = get_sa_config
-				@logo = Picture.find_by_name('logo')
+#				@logo = Picture.find_by_name('logo')
 			elsif params[:part] == "css"
 				@elements = Element.find(:all, :conditions => {:template=>"current"})
 				@temp=Element.find( :all, :select => 'DISTINCT template' )
@@ -33,12 +33,9 @@ class SuperadministrationController < ApplicationController
 			list2 = ['sa_application_name', 'sa_application_url', 'sa_contact_email', 'sa_allowed_free_user_creation', 'sa_automatic_private_workspace']
 			@conf = get_sa_config
 			if params[:picture]
-				@picture = Picture.new(params[:picture])
-				@picture.name = 'logo'
-				if Picture.find_by_name('logo')
-					Picture.find_by_name('logo').update_attributes(:name => 'old_logo')
-				end
-				@picture.save
+				upload_photo(params[:picture][:picture],240,55,@conf['sa_logo_path']) if !params[:picture][:picture].blank? and (IMAGE_TYPES.include?params[:picture][:picture].content_type.chomp)
+        upload_photo(params[:picture][:favicon],16,16,@conf['sa_favicon_path']) if !params[:picture][:favicon].blank? and (IMAGE_TYPES.include?params[:picture][:favicon].content_type.chomp)
+			end
 			list2.each do |l|
 				@conf[l] = params[:conf][l.to_sym]
 			end
@@ -55,10 +52,6 @@ class SuperadministrationController < ApplicationController
 			@new.syswrite(@conf.to_yaml)
 			redirect_to '/superadministration/general'
 			flash[:notice] = "General settings updated"
-		else
-			redirect_to '/'
-			flash[:notice] = "Vous n'avez pas ce droit."
-		end
 	end
 
 	def check_color

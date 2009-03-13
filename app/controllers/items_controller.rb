@@ -3,6 +3,10 @@ class ItemsController < ApplicationController
   def index
   end
 
+  def ajax_index
+    render :partial => "items/tab_list" , :layout=>false
+  end
+
   def display_item_in_pop_up
     if params[:item_type] == "all"
      @object = GenericItem.consultable_by(@current_user.id).articles

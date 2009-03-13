@@ -1,8 +1,8 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 	<head>
-		<% @logo = Picture.find_by_name('logo') %>
-		<link rel="shortcut icon" href="<%= (@logo.favicon_file_name) ? (@logo.favicon.url(:thumb)) : '/images/favicon.ico' %>"/>
+		<%# @logo = Picture.find_by_name('logo') %>
+		<link rel="shortcut icon" href="<%= get_sa_config['sa_favicon_url'] %>"/>
 		
 		<%= stylesheet_link_tag "middle.css" %>
 		<%= stylesheet_link_tag "pop_up.css" %>

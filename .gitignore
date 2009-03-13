@@ -20,6 +20,6 @@ doc/*.dot
 public/uploaded_files/**/*
 public/uploads/*
 public/javascripts/all.js
-
+public/config/
 
 
