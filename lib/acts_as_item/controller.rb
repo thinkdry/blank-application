@@ -35,12 +35,10 @@ module ActsAsItem
             no_permission_redirection unless @current_object.accepts_new_for?(@current_user)
           end
 
-					before :index do
-						@current_objects = current_model.list_items_with_permission_for(@current_user, 'show', current_workspace)
-					end
-
           before :show do
             no_permission_redirection unless @current_object.accepts_show_for?(@current_user)
+						@current_object.viewed_number = @current_object.viewed_number.to_i + 1
+						@current_object.save
           end
 
           before :edit, :update do
@@ -52,14 +50,9 @@ module ActsAsItem
           end
 
 					after :index do
-						@current_objects = @current_objects.paginate(:per_page => 20, :page => params[:page])
+						@current_objects = current_model.list_items_with_permission_for(@current_user, 'show', current_workspace).paginate(:per_page => 20, :page => params[:page])
 					end
 
-					before :show do
-						@current_object.viewed_number = @current_object.viewed_number.to_i + 1
-						@current_object.save
-					end
-                    
           # Makes `current_user` as author for the current_object
           before :create do
             current_object.user_id = current_user.id

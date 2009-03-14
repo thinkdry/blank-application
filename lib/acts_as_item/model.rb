@@ -12,12 +12,13 @@ module ActsAsItem
 
 			def list_items_with_permission_for(user, action, workspace=false)
 				if (workspace)
+					if workspace.ws_items.include?(self.model_name.underscore)
 							# System permission checked
 							if user.has_system_permission(self.model_name.underscore, action)
-								@current_objects = workspace.send(self.model_name.underscore.pluralize.to_sym)
+								current_objects = workspace.send(self.model_name.underscore.pluralize.to_sym)
 							# Workspace permission checked
 							elsif user.has_system_permission(self.model_name.underscore, action)
-								@current_objects = workspace.send(self.model_name.underscore.pluralize.to_sym)
+								current_objects = workspace.send(self.model_name.underscore.pluralize.to_sym)
 							# Category permission checked
 							elsif !(cats=workspace.ws_item_categories).blank?
 								res = []
@@ -26,14 +27,18 @@ module ActsAsItem
 										res = res + workspace.send(self.model_name.underscore.pluralize.to_sym)
 									end
 								end
-								@current_objects = res
+								current_objects = res
 							else
-								@current_objects = []
+								current_objects = []
 							end
-						else
+					else
+						current_objects = []
+					end
+				else
+					if get_sa_config['sa_items'].include?(self.model_name.underscore)
 							# System permission checked
 							if user.has_system_permission(self.model_name.underscore, action)
-								@current_objects = self.find(:all)
+								current_objects = self.find(:all)
 							# Workspace permission checked
 							elsif !(wsl=user.workspaces).blank?
 								res = []
@@ -50,13 +55,16 @@ module ActsAsItem
 											end
 										end
 									end
-									@current_objects = res.uniq
+									current_objects = res.uniq
 								end
 							else
-								@current_objects = []
+								current_objects = []
 							end
-						end
-						return @current_objects
+					else
+						current_objects = []
+					end
+				end
+				return current_objects
 			end
       
       def acts_as_item
@@ -162,9 +170,22 @@ module ActsAsItem
 			end
 
 			private
+			def get_sa_config
+				if File.exist?("#{RAILS_ROOT}/config/customs/sa_config.yml")
+					return YAML.load_file("#{RAILS_ROOT}/config/customs/sa_config.yml")
+				else
+					return YAML.load_file("#{RAILS_ROOT}/config/customs/default_config.yml")
+				end
+			end
+
 			def accepting_action(user, action)
+				model_name = self.class.to_s
+				# Special stuff
+				if !get_sa_config['sa_items'].include?(model_name.underscore)
+					return false
+				end
         # System access
-				if user.has_system_permission(self.class.to_s.downcase, action)
+				if user.has_system_permission(model_name.downcase, action)
 					return true
 				end
         # Workspace access
@@ -177,25 +198,20 @@ module ActsAsItem
 					cats = self.category.split(',')
 				end
         wsl.each do |ws|
-					# First with workspace full access
-					if user.has_workspace_permission(ws.id, self.class.to_s.downcase, action)
-						return true
-					else
-					# And else with the workspace category access
-						# restriction with ws item categories
-						cats = cats & ws.ws_item_categories.split(',')
-						p '###############################'
-						p cats
-						p ws.id
-						# Check if user can access to, at least, one category of the item in that workspace
-						cats.each do |cat|
-							p '###############################'
-							p action
-							p cat
-							p user.login
-							p user.has_workspace_permission(ws.id, 'item_cat_'+cat, action)
-							if user.has_workspace_permission(ws.id, 'item_cat_'+cat, action)
-								return true
+					# First of all, to check if this workspace accpets these items
+					if ws.ws_items.split(',').include?(model_name.underscore)
+						# Then with workspace full access
+						if user.has_workspace_permission(ws.id, model_name.underscore, action)
+							return true
+						else
+						# And else with the workspace category access
+							# restriction with ws item categories
+							cats = cats & ws.ws_item_categories.split(',')
+							# Check if user can access to, at least, one category of the item in that workspace
+							cats.each do |cat|
+								if user.has_workspace_permission(ws.id, 'item_cat_'+cat, action)
+									return true
+								end
 							end
 						end
 					end

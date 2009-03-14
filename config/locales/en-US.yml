@@ -196,12 +196,25 @@ en-US:
     new:
       title: Add a New Article
     field:
-      article_label: Article
-      article_hint: Name of Article
+      article_label: Body
+      article_hint: Body of this article
       assosiated_file_label: Associated File
       add_new_file: Add a New File
     edit:
       title: Edit Article
+
+  page:
+    new:
+      title: Add a New Page
+    field:
+      body_label: Body
+      body_hint: Body of this page
+      keywords_label: Keywords
+      keywords_hint: Enter your keywords for this page
+      page_title_label: Title of the page
+      page_title_hint: Enter the title for this page
+    edit:
+      title: Edit the Page
 
   audio:
     new:
@@ -444,6 +457,7 @@ en-US:
       publication: Publication
       feed_source: RSS Feed
       bookmark: Bookmark
+      page: Page
     language:
       en-US: English(US)
       fr-FR: French(FRA)
