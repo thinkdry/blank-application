@@ -3,14 +3,19 @@
 </div>
 <% if current_user.has_system_permission('user', 'new') %>
 <fieldset style="margin-top: 20px;">
-	<legend><%=I18n.t('user.administration.administration_configuration')%></legend>
+	<legend><%=I18n.t('user.administration.user_management')%></legend>
 	<%= link_to I18n.t('user.new.add_user'), new_user_path %>
 </fieldset>
 <% end %>
-<div id="new_workspace" style="margin-top: 20px;">
-	<%= render :partial => "workspaces/new" %>
-</div>
-<div class="area_BOTH">
-  <%= render :partial => 'workspaces/users_by_roles' %>
-</div>
+
+<fieldset style="margin-top: 20px;">
+	<legend><%=I18n.t('user.administration.workspace_management')%></legend>
+    <% if current_user.has_system_permission('workspace', 'new') %>
+      <%= link_to I18n.t('workspace.new.title'), new_workspace_path %>
+    <% end %>
+    <div class="area_BOTH">
+      <%= render :partial => 'workspaces/users_by_roles' %>
+    </div>
+</fieldset>
+
 

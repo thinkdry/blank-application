@@ -165,7 +165,6 @@ class UsersController < ApplicationController
 	# permit 'administration of user'
 	def administration
 		@current_object = current_user
-		@workspace = Workspace.new
 		@workspaces = if (current_user.has_system_permission('workspace', 'show'))
 		  Workspace.find(:all)
 	  else

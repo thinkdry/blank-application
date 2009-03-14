@@ -8,6 +8,8 @@
       <% end %><br />
   	<% end %>
     <br />
-  	<%= link_to I18n.t('workspace.edit.manage_users_and_rights'), edit_workspace_path(w.id) %>
+    <% if w.accepts_administration_for?(@current_user) %>
+      <%= link_to I18n.t('workspace.edit.manage_users_and_rights'), edit_workspace_path(w.id) %>
+    <% end %>
   	</div>
   <% end %>

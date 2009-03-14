@@ -126,6 +126,9 @@ namespace :blank do
     end
     @role_red.permissions << Permission.find(:all, :conditions =>{:name => 'workspace_show'})
     @role_wri.permissions << Permission.find(:all, :conditions =>{:name => 'workspace_show'})
+		@admin_ws = Permission.create(:name => 'workspace_administration', :type_permission => 'workspace')
+		@role_ws.permissions << @admin_ws
+		@role_mod.permissions << @admin_ws
     p "Done"
     p "Loading Default Configuration for Workspace"
     if File.exist?("#{RAILS_ROOT}/config/customs/sa_config.yml")

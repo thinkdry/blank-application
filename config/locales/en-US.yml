@@ -162,7 +162,8 @@ en-US:
       flash_error_link: Invalid Link.
     administration:
       title: Administration
-      administration_configuration: Administation Configuration
+      user_management: User management
+      workspace_management: Workspace management
       administrator: Administrator
   item:
     field:

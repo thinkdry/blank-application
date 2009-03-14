@@ -13,21 +13,37 @@
         <%= f.select :state, [I18n.t('workspace.type.private'), 'private'], :label => I18n.t('workspace.field.state_label')+' :', :disabled => (@workspace.state == 'private') %>
       <% end %>
       <br /><br />
-      <%= f.label I18n.t('workspace.edit.workspace_configuration')+" : " %><br />
-      <%= I18n.t('workspace.edit.available_items') %> :<br />
-      <%= checkboxes_from_list(@sa_conf["sa_items"], "items", @current_object, "ws_") %>
-      <br />
+      <% if @current_object.new_record? || check=@current_object.accepts_administration_for?(@current_user) %>
+          <%= f.label I18n.t('workspace.edit.workspace_configuration')+" : " %><br />
+          <%= I18n.t('workspace.edit.available_items') %> :<br />
+          <%= checkboxes_from_list(@sa_conf["sa_items"], "items", @current_object, "ws_") %>
+          <br />
+          <%= I18n.t('workspace.edit.available_item_categories')+" : " %><br />
+          <%= checkboxes_from_list(@sa_conf["sa_item_categories"], "item_categories", @current_object, "ws_") %>
+          <br />
+      <% end %>
 
-      
       <h4><%=I18n.t 'workspace.edit.associated_user'%></h4>
       <% if !@current_object.new_record? %>
-      <div id="users">
-          <% @current_object.users_workspaces.each do |object| %>
-            <%= render :partial => 'user', :object => object %>
-          <% end %>
-      </div>
+        <% if check %>
+          <div id="users">
+            <% @current_object.users_workspaces.each do |object| %>
+              <%= render :partial => 'user', :object => object %>
+            <% end %>
+          </div>
+        <% else %>
+          <div id="users">
+            <% @current_object.roles.uniq.each do |r| %>
+              <%= I18n.t('general.role.'+r.name)%> :
+              <% @current_object.users_by_role(r.name).each do |u| %>
+                <%= link_to u.full_name+', ', user_path(u.id) %>
+              <% end %><br />
+            <% end %>
+          </div>
+        <% end %>
       <div class="clear"></div>
       <% else %>
+        <h4><%=I18n.t 'workspace.edit.associated_user'%></h4>
         <%=I18n.t 'workspace.new.add_user_text'%>
       <% end %>
       
@@ -43,6 +59,7 @@
 </div>
 
 <% if !@current_object.new_record? %>
+<% if @current_object.accepts_administration_for?(@current_user) %>
 <div id="newuser">
   <fieldset>
   <legend><%= I18n.t('workspace.add_user.title') %></legend><br>
@@ -75,4 +92,4 @@
   </fieldset>
 </div>
 <% end %>
-
+<% end %>
