@@ -1,6 +1,6 @@
 <div class="area_WS" style="margin-bottom:20px;">
   <fieldset>
-    <% form_for @workspace, :builder => BlankFormBuilder do |f| -%>
+    <% form_for @workspace, :builder => BlankFormBuilder ,:html => { :multipart => true } do |f| -%>
       <% f.field :logo, :label => I18n.t('workspace.field.logo_label') + " :" do %>
         <%= File.basename(@workspace.logo_file_name) + '<br />' if @workspace.logo_file_name %>
         <%= file_field 'workspace', 'logo' %>
