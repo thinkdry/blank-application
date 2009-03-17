@@ -38,11 +38,10 @@ module ActsAsItem
       helper_name += prefix + '_' if prefix
       helper_name += 'workspace_' if current_workspace
       helper_name += object.class.to_s.underscore + '_path'
-
       args = [object, params]
       args.insert(0, current_workspace) if current_workspace
 
-      send helper_name, *args
+      send helper_name.split('/').last, *args
     end
 
     def new_item_path(model)

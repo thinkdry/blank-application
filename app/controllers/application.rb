@@ -4,6 +4,8 @@
 require "acts_as_item/url_helpers.rb"
 require 'rubygems'
 require 'RMagick'
+#require 'items/articles_controller.rb'
+#include Items
 
 class ApplicationController < ActionController::Base
   
