@@ -24,6 +24,7 @@ class Workspace < ActiveRecord::Base
 	belongs_to :ws_config
 
 	has_attached_file :logo,
+    :default_url => "/images/logo.png",
     :url =>  "/uploaded_files/workspace/:id/:style/:basename.:extension",
     :path => ":rails_root/public/uploaded_files/workspace/:id/:style/:basename.:extension",
 		:styles => { :medium => "300x300>", :thumb => "48x48>" }

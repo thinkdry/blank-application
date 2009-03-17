@@ -20,8 +20,13 @@
 <body>
 <div id="page">
   <div id="header">
+
     <div id="logo">
+      <%if current_workspace.nil? %>
       <%= link_to image_tag(get_sa_config['sa_logo_url'].to_s), "/" %>
+      <%else%>
+      <%= link_to image_tag(current_workspace.logo.url(:medium)), workspace_path(current_workspace) %>
+      <%end%>
     </div>
     <div id="header_right">
       <div id="main_links">
