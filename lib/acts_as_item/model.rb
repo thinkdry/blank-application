@@ -169,6 +169,18 @@ module ActsAsItem
         return accepting_action(user, 'new')
 			end
 
+			def accepts_comment_for?(user)
+				return accepting_action(user, 'comment')
+			end
+
+			def accepts_rate_for?(user)
+				return accepting_action(user, 'rate')
+			end
+
+			def accepts_tag_for?(user)
+				return accepting_action(user, 'tag')
+			end
+
 			private
 			def get_sa_config
 				if File.exist?("#{RAILS_ROOT}/config/customs/sa_config.yml")
@@ -178,10 +190,10 @@ module ActsAsItem
 				end
 			end
 
-			def accepting_action(user, action)
+			def accepting_action(user, action, active=true)
 				model_name = self.class.to_s
 				# Special stuff
-				if !get_sa_config['sa_items'].include?(model_name.underscore)
+				if !get_sa_config['sa_items'].include?(model_name.underscore) && active
 					return false
 				end
         # System access

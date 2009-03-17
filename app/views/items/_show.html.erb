@@ -15,6 +15,7 @@
 		</div>
 		<div class="file_infos_box">
 			<div align="right">
+              <% if @current_object.accepts_rate_for?(@current_user) %>
 		    	<%= link_to image_tag('icons/rate.png'), '#', :id => :rate_action %>
 			    <div id="item_rate_modal_content" style="float:left;" align="center">
 			        <%= item_rate(object) %>
@@ -29,39 +30,47 @@
 				        width: 100
 				      });
 			    </script>
-	  
-	    		<%= link_to image_tag('icons/comments.png'), '#new_comment_form_box' %>  
-			    <%= link_to image_tag('icons/printer.png'), 'javascript:window.print();' %>
-	    		<% if @current_object.accepts_edit_for?(self.current_user)  %>
-					<%= link_to image_tag('icons/pencil.png'), edit_item_path(object)%>
-			    <% end %>
-	    		<% if @current_object.accepts_destroy_for?(self.current_user) %>
-					<%= link_to image_tag('icons/delete.png'), item_path(object), :method => :delete,
-								           :confirm =>  I18n.t('item.destroy.delete_conform')%>
-	    		<% end %>
+              <% end %>
+              <% if @current_object.accepts_comment_for?(@current_user) %>
+	    		<%= link_to image_tag('icons/comments.png'), '#new_comment_form_box' %>
+              <% end %>
+			  <%= link_to image_tag('icons/printer.png'), 'javascript:window.print();' %>
+              <% if @current_object.accepts_edit_for?(@current_user)  %>
+				<%= link_to image_tag('icons/pencil.png'), edit_item_path(object)%>
+			  <% end %>
+              <% if @current_object.accepts_destroy_for?(@current_user) %>
+				<%= link_to image_tag('icons/delete.png'), item_path(object), :method => :delete, :confirm =>  I18n.t('item.destroy.delete_conform')%>
+              <% end %>
 			</div>
 			<div class="output_format">
-				<%=I18n.t('item.common_word.output_formate') %>: <%= link_to 'XML', item_path(object)+".xml", :class => 'output_format_link' %>,	<%= link_to 'JSON', item_path(object)+".json", :class => 'output_format_link' %>
+              <%=I18n.t('item.common_word.output_formate') %>: <%= link_to 'XML', item_path(object)+".xml", :class => 'output_format_link' %>,	<%= link_to 'JSON', item_path(object)+".json", :class => 'output_format_link' %>
 			</div>
   		</div>
 	</div>  
 	 <h2> <%=I18n.t('item.common_word.summary')%></h2>
 	<div class="item_description"><%= object.description %></div>
-  <h2>Category</h2>
-  <div><%= object.category %></div>
+
+  <% if get_sa_config['sa_item_categories'] %>
+    <h2>Categories :</h2>
+    <div><%= object.category %></div>
+  <% end %>
+
 	<%= capture(&block) %>
+
 	<div id="comment_list">
     	<h2><%= image_tag 'icons/comments.png'%><%=I18n.t('item.common_word.comment').pluralize%></h2>
 		<div class="comment_bloc">
 	   		<%= render :partial => "items/comment", :collection => object.comments %>
 		</div>
   	</div>
-  
-	<fieldset id="new_comment_form_box"> 
+
+    <% if @current_object.accepts_comment_for?(@current_user) %>
+      <fieldset id="new_comment_form_box">
     	<p><%=I18n.t('item.common_word.your_comment')%> :</p>
 		<form id="new_comment" class="new_comment" onsubmit="if($('comment_box').value != 0){new Ajax.Request('<%=comment_item_path(@current_object)%>', {asynchronous:true, evalScripts:true, onComplete:function(request){$('comment_box').writeAttribute('disabled', false);$('comment_box').value = ''}, onLoading:function(request){$('comment_box').writeAttribute('disabled')}, parameters:Form.serialize(this)}); return false;}else{return false;}" method="post" action="<%=comment_item_path(@current_object)%>">
         <textarea id="comment_box" class="comment_box" rows="8" name="comment[text]" cols="90"></textarea>
         <button type="submit" class="submit_button"><%=I18n.t('general.button.publish_my_comment')%></button>
         </form>
-	</fieldset>
+      </fieldset>
+    <% end %>
 </div>

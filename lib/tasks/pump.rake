@@ -84,6 +84,11 @@ namespace :blank do
         end
       end
     end
+		ITEMS.each do |controller|
+			['comment', 'rate', 'tag'].each do |action|
+				Permission.create(:name => controller.singularize+'_'+action, :type_permission => 'workspace')
+			end
+		end
     p "Done"
     p "Assigning Permissions to Roles ..."
     @role_admin=Role.find_by_name("admin")
