@@ -193,7 +193,7 @@ module ActsAsItem
 			def accepting_action(user, action, active=true)
 				model_name = self.class.to_s
 				# Special stuff
-				if !get_sa_config['sa_items'].include?(model_name.underscore) && active
+				if !get_sa_config['sa_items'].include?(model_name.underscore) || !active
 					return false
 				end
         # System access
