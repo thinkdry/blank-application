@@ -37,7 +37,7 @@ ActionController::Routing::Routes.draw do |map|
   # => Those items may be scoped to different resources
   def items_resources(parent)  	
  		(ITEMS+['item']).each do |name|
-      parent.resources name.pluralize.to_sym, :controller => 'items/'+name, :member => {
+      parent.resources name.pluralize.to_sym, :member => {
         :rate => :any,
         :add_tag => :any,
         :remove_tag => :any,
@@ -45,8 +45,8 @@ ActionController::Routing::Routes.draw do |map|
       }
     end
   end
-	map.check_feed '/feed_sources/check_feed', :controller => 'items/feed_sources', :action => 'check_feed'
-  map.what_to_do '/feed_sources/what_to_do', :controller => 'items/feed_sources', :action => 'what_to_do'
+	map.check_feed '/feed_sources/check_feed', :controller => 'feed_sources', :action => 'check_feed'
+  map.what_to_do '/feed_sources/what_to_do', :controller => 'feed_sources', :action => 'what_to_do'
 	#map.resources :feed_items
 	
   # Items created outside any workspace are private or fully public.

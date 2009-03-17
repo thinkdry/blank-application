@@ -1,5 +1,4 @@
-class HomeController < ApplicationController
-	
+class HomeController < ApplicationController 
   # Root page ('/')
   def index
     @latest_items = GenericItem.consultable_by(current_user.id).latest

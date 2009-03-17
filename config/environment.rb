@@ -26,11 +26,6 @@ PERMISSION_DENIED_REDIRECTION = { :controller => '/home', :action => 'index' }
 STORE_LOCATION_METHOD = :store_location
 
 Rails::Initializer.run do |config|
-
-	config.load_paths += %W(
-			#{RAILS_ROOT}/app/models/items
-			#{RAILS_ROOT}/app/controllers/items
-	)
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
   # -- all .rb files in that directory are automatically loaded.

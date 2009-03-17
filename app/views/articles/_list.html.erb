@@ -1,0 +1,11 @@
+<div id="content_bis">
+	<div id="area_CONTENUS">
+		<div class="titre"><%= image_tag Article.icon %><strong><%= I18n.t('general.item.article').pluralize %></strong></div>
+		<% @current_objects.each do |co| %>
+			<%= item_in_list co %>
+		<% end %>
+		<%= will_paginate @current_objects %><br />
+		<%= link_to  I18n.t('article.field.add_new_file'), new_item_path(Article), :class => "add_item" %>
+	</div>
+</div>
+
