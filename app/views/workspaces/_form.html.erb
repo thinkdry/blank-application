@@ -15,12 +15,16 @@
       <br /><br />
       <% if @current_object.new_record? || check=@current_object.accepts_administration_for?(@current_user) %>
           <%= f.label I18n.t('workspace.edit.workspace_configuration')+" : " %><br />
-          <%= I18n.t('workspace.edit.available_items') %> :<br />
-          <%= checkboxes_from_list(@sa_conf["sa_items"], "items", @current_object, "ws_") %>
-          <br />
-          <%= I18n.t('workspace.edit.available_item_categories')+" : " %><br />
-          <%= checkboxes_from_list(@sa_conf["sa_item_categories"], "item_categories", @current_object, "ws_") %>
-          <br />
+          <% if @sa_conf["sa_items"].size > 0 %>
+            <%= I18n.t('workspace.edit.available_items') %> :<br />
+            <%= checkboxes_from_list(@sa_conf["sa_items"], "items", @current_object, "ws_") %>
+            <br />
+          <% end %>
+          <% if @sa_conf["sa_item_categories"].size > 0 %>
+            <%= I18n.t('workspace.edit.available_item_categories')+" : " %><br />
+            <%= checkboxes_from_list(@sa_conf["sa_item_categories"], "item_categories", @current_object, "ws_") %>
+            <br />
+          <% end %>
       <% end %>
 
       <h4><%=I18n.t 'workspace.edit.associated_user'%></h4>

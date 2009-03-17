@@ -206,6 +206,7 @@ en-US:
   page:
     new:
       title: Add a New Page
+      body_after_creation: The body of the page will be accessible after the creation.
     field:
       body_label: Body
       body_hint: Body of this page
@@ -326,6 +327,7 @@ en-US:
       manage_users_and_rights: Manage Users and Rights
       workspace_configuration: Workspace Configuration
       available_items: Available Items
+      available_item_categories: Available item categories
       associated_user: Associated Users
       flash_notice: Workspace Updated Successfully
       flash_error: Workspace Update Failed

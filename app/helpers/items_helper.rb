@@ -139,17 +139,19 @@ module ItemsHelper
 	end
 
   def display_item_list(item_type)
-    item_type ||= 'articles'
-
     items = if current_workspace
+			item_type ||= current_workspace.ws_items.split(',').first
       GenericItem.from_workspace(current_workspace.id)
     else
+			item_type ||= get_sa_config.sa_items.first
       GenericItem.consultable_by(@current_user.id)
     end
-
-    @collection = items.send(item_type).created.paginate(:page => params[:page],:per_page=>5)
-
-    render(:partial => "items/item_in_list", :collection => @collection)
+		if !item_type.blank?
+			@collection = items.send(item_type).created.paginate(:page => params[:page],:per_page=>5)
+	    render(:partial => "items/item_in_list", :collection => @collection)
+		else
+			render :text => "()"
+		end
   end
 
   def display_item_list_for_editor(item_type)
