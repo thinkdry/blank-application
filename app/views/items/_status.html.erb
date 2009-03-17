@@ -9,7 +9,7 @@ end %>
 %>
 <%=	check_box_tag_name = "#{item_class_name}[associated_workspaces][]"
 # Checkboxes for associated WorkSpaces
-  (list.delete_if{ |w| !w.ws_items.split(',').include?(item_class_name) }.collect do |w|
+  (list.delete_if{ |w| !w.ws_items.to_s.split(',').include?(item_class_name) }.collect do |w|
 	checked = Item.exists?(:workspace_id => w.id, :itemable_id => item.id, :itemable_type => item.class.to_s)
     # Out
     if ((w.state == 'private') && (w.creator_id == @current_user.id) && (item.new_record? || item.user_id==@current_user.id))

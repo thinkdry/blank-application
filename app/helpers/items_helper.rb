@@ -140,10 +140,10 @@ module ItemsHelper
 
   def display_item_list(item_type)
     if current_workspace
-			item_type ||= current_workspace.ws_items.split(',').first.pluralize
+			item_type ||= current_workspace.ws_items.to_s.split(',').first.to_s.pluralize
       items = GenericItem.from_workspace(current_workspace.id)
     else
-			item_type ||= get_sa_config.sa_items.first.pluralize
+			item_type ||= get_sa_config.sa_items.first.to_s.pluralize
       items = GenericItem.consultable_by(@current_user.id)
     end
 		if !item_type.blank?
@@ -156,10 +156,10 @@ module ItemsHelper
 
   def display_item_list_for_editor(item_type)
     if current_workspace
-			item_type ||= current_workspace.ws_items.split(',').first.pluralize
+			item_type ||= current_workspace.ws_items.to_s.split(',').first.to_s.pluralize
       items = GenericItem.from_workspace(current_workspace.id)
     else
-			item_type ||= get_sa_config.sa_items.first.pluralize
+			item_type ||= get_sa_config.sa_items.first.to_s.pluralize
       items = GenericItem.consultable_by(@current_user.id)
     end
 
