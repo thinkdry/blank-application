@@ -139,12 +139,12 @@ module ItemsHelper
 	end
 
   def display_item_list(item_type)
-    items = if current_workspace
+    if current_workspace
 			item_type ||= current_workspace.ws_items.split(',').first
-      GenericItem.from_workspace(current_workspace.id)
+      items = GenericItem.from_workspace(current_workspace.id)
     else
 			item_type ||= get_sa_config.sa_items.first
-      GenericItem.consultable_by(@current_user.id)
+      items = GenericItem.consultable_by(@current_user.id)
     end
 		if !item_type.blank?
 			@collection = items.send(item_type).created.paginate(:page => params[:page],:per_page=>5)
