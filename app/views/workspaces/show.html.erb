@@ -2,7 +2,7 @@
 	<h1>
 		<%=I18n.t('workspace.show.title')%> <%= @current_object.title %>
 	</h1>
-	<span class="txt_80_666"><%= @current_object.description %></span>
+	<span class="txt_80_666"><%= @current_object.description %></span><br /><br />
 
 	<% if @workspace.creator == self.current_user %>
       <%= I18n.t('workspace.other.administrator_of_workspace') %>, <%= I18n.t('general.common_word.click') %> <%= link_to I18n.t('general.common_word.here'), edit_workspace_path(@workspace.id) %> <%= I18n.t('workspace.other.to_manage_it') %>.<br/>

@@ -27,7 +27,7 @@ class Workspace < ActiveRecord::Base
     :default_url => "/images/logo.png",
     :url =>  "/uploaded_files/workspace/:id/:style/:basename.:extension",
     :path => ":rails_root/public/uploaded_files/workspace/:id/:style/:basename.:extension",
-		:styles => { :medium => "300x300>", :thumb => "48x48>" }
+		:styles => { :medium => "450x100>", :thumb => "48x48>" }
   validates_attachment_content_type :logo, :content_type => ['image/jpeg','image/jpg', 'image/png', 'image/gif','image/bmp' ]
   validates_attachment_size :logo, :less_than => 2.megabytes
 	

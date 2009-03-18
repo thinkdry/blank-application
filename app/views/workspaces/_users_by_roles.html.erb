@@ -1,6 +1,12 @@
  <% @workspaces.each do |w| %>
   <div class="area_WS">
     <h4><%= w.title %></h4>
+    <% if w.accepts_edit_for?(@current_user) %>
+      <%= link_to 'edit', edit_workspace_path(w.id) %>
+    <% end %>
+    <% if w.accepts_destroy_for?(@current_user) %>
+      <%= link_to 'delete', workspace_path(w.id), :method => :delete, :confirm =>  I18n.t('item.destroy.delete_conform')%>
+    <% end %>
     <% w.roles.uniq.each do |r| %>
       <%= I18n.t('general.role.'+r.name)%> :
       <% w.users_by_role(r.name).each do |u| %>
@@ -10,9 +16,6 @@
     <br />
     <% if w.accepts_administration_for?(@current_user) %>
       <%= link_to I18n.t('workspace.edit.manage_users_and_rights'), edit_workspace_path(w.id) %><br />
-    <% end %>
-    <% if w.accepts_destroy_for?(@current_user) %>
-      <%= link_to I18n.t('general.button.delete'), workspace_path(w.id), :method => :delete, :confirm =>  I18n.t('item.destroy.delete_conform')%>
     <% end %>
   	</div>
   <% end %>
