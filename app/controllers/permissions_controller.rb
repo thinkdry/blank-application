@@ -60,7 +60,7 @@ class PermissionsController < ApplicationController
     end
     @permissions= Permission.find(:all)
     render :update do |page|
-      page.replace_html  'permissions', :partial => 'index', :object=> @permissions
+      page.replace_html  'roles', :partial => 'index', :object=> @permissions
     end
     #end
   end
@@ -81,7 +81,7 @@ class PermissionsController < ApplicationController
     end
     @permissions= Permission.find(:all)
     render :update do |page|
-      page.replace_html  'permissions', :partial => 'index', :object=> @permissions
+      page.replace_html  'roles', :partial => 'index', :object=> @permissions
     end
     #end
   end

@@ -13,8 +13,8 @@
       <td><%=h permission.description %></td>
       <td><%=h permission.type_permission %>
       <td><%#= link_to 'Show', permission_path(permission) %></td>
-      <td><%= link_to_remote 'Edit', :update => "permissions", :url => { :action => "edit", :id => permission.id}, :method => :get %></td>
-      <td><%= link_to_remote 'Delete', :update => "permissions", :url => { :action => "destroy", :id => permission.id}, :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= link_to_remote 'Edit', :update => "roles", :url => { :action => "edit", :id => permission.id}, :method => :get %></td>
+      <td><%= link_to_remote 'Delete', :update => "roles", :url => { :action => "destroy", :id => permission.id}, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
@@ -22,5 +22,5 @@
 <br />
 
 <%= link_to_remote "New Permission",
-    :update => "permissions",
+    :update => "roles",
     :url => {:action => "new"} %>

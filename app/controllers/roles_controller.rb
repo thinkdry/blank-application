@@ -68,9 +68,7 @@ class RolesController < ApplicationController
       #        format.xml  { render :xml => @role.errors, :status => :unprocessable_entity }
     end
     #end
-    render :update do |page|
-      page.replace_html  'roles', :nothing => true
-    end
+    redirect_to '/superadministration/rights'
   end
 
   # PUT /roles/1
@@ -94,9 +92,7 @@ class RolesController < ApplicationController
       #        format.xml  { render :xml => @role.errors, :status => :unprocessable_entity }
     end
     #end
-    render :update do |page|
-      page.replace_html  'roles', :nothing => true
-    end
+    redirect_to '/superadministration/rights'
   end
 
   # DELETE /roles/1

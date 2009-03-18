@@ -14,7 +14,7 @@ class SuperadministrationController < ApplicationController
 				@res = @file[I18n.default_locale.to_s]
 				@language = I18n.default_locale.to_s
         translation_options
-			elsif params[:part] == "roles"
+			elsif params[:part] == "rights"
         @roles = Role.all
 				@workspace_roles = Role.find(:all, :conditions => {:type_role => "workspace"})
         @system_roles = Role.find(:all, :conditions => {:type_role => "system"})

@@ -7,6 +7,7 @@
 <p>
   <b>Role type : </b>
   <%= @role.type_role %><br />
+  <%= f.hidden_field :type_role, :value => @role.type_role %>
 </p>
 <p>
   <%= f.label :description %><br />

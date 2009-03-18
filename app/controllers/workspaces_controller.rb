@@ -3,7 +3,7 @@ class WorkspacesController < ApplicationController
   acts_as_ajax_validation
 
   make_resourceful do
-    actions :show, :create, :new, :edit, :update
+    actions :show, :create, :new, :edit, :update, :destroy
 
     before :show do
       no_permission_redirection unless @current_object.accepts_show_for?(@current_user)
@@ -55,6 +55,10 @@ class WorkspacesController < ApplicationController
     after :show do
 			@current_object.ws_config.update_attributes(:ws_items => check_to_tab(:items).join(","), :ws_feed_items_importation_types => check_to_tab(:feed_items_importation_types).join(","))
       flash[:notice] =I18n.t('workspace.edit.flash_notice')
+		end
+
+		response_for :destroy do |format|
+			format.html { redirect_to administration_user_url(@current_user.id) }
 		end
 	end
 

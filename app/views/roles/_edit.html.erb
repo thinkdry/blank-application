@@ -1,6 +1,6 @@
 <h1>Editing Role</h1>
 
-<% remote_form_for(@role) do |f| %>
+<% form_for @role, :url => role_path(@role.id), :method => :put do |f| %>
 
   <%= hidden_field_tag :id, @role.id %>
 

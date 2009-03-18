@@ -120,7 +120,11 @@ module ItemsHelper
   end
 
   def display_tabs(item_type)
-    item_type ||= 'articles'
+    if current_workspace
+			item_type ||= current_workspace.ws_items.to_s.split(',').first.to_s.pluralize
+    else
+			item_type ||= get_sa_config.sa_items.first.to_s.pluralize
+    end
     content = String.new
 
     get_current_items.map{ |item| item.camelize }.each do |item_model|
@@ -171,7 +175,11 @@ module ItemsHelper
   def remote_pagination(collection)
     if collection.total_pages != 0
     content = String.new
-    params[:item_type].nil? ? item_type = 'articles' : item_type = params[:item_type]
+    if current_workspace
+			item_type ||= current_workspace.ws_items.to_s.split(',').first.to_s.pluralize
+    else
+			item_type ||= get_sa_config.sa_items.first.to_s.pluralize
+    end
     url =  ajax_items_path(item_type)
     current_page = params[:page] ? params[:page].to_i : 1
     if current_page == 1
