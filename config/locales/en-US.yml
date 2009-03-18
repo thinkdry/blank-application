@@ -216,7 +216,8 @@ en-US:
       page_title_hint: Enter the title for this page
     edit:
       title: Edit the Page
-
+      more_than_one_ws_linked: There are more on workspace linked to this page, it will make conflict with fronts.
+      no_website_linked: There is no website linked to the workspace choosen, link one before to can edit your page.
   audio:
     new:
       title: Add a New audio
@@ -472,6 +473,8 @@ en-US:
       moderator: Moderator
       writer: Writer
       reader: Reader
+      site_manager: Site manager
     txt:
       feed_item_importation_type: Feed Items Imporation Types
       select_a_file: Select a Link
+      select_from_file: Select from file system

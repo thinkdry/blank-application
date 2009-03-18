@@ -88,6 +88,11 @@ class UsersController < ApplicationController
     end
 
     after :update_fails do
+			if (@current_user.has_system_role('superadmin') || @current_user.has_system_role('admin'))
+				@roles = Role.find(:all, :conditions => { :type_role => 'system' })
+			else
+				@roles = [Role.find_by_name('user')]
+			end
 			flash[:error] = I18n.t('user.edit.flash_error')
     end
 

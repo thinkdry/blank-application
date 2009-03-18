@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   IMAGE_TYPES = ["image/jpeg", "image/pjpeg", "image/gif", "image/png", "image/x-png", "image/ico"]
   
   helper :all # include all helpers, all the time
-	helper_method :available_items_list, :available_languages, :get_sa_config, :get_current_items, :right_conf, :is_allowed_free_user_creation?
+	helper_method :available_items_list, :available_languages, :get_sa_config, :right_conf, :is_allowed_free_user_creation?
   before_filter :is_logged?
 	before_filter :set_locale
 
@@ -48,15 +48,6 @@ class ApplicationController < ActionController::Base
 			return YAML.load_file("#{RAILS_ROOT}/config/customs/sa_config.yml")
 		else
 			return YAML.load_file("#{RAILS_ROOT}/config/customs/default_config.yml")
-		end
-	end
-
-	def get_current_items
-		# TODO to find a solution to know where we are
-		if (Workspace.exists?(params[:id]))
-			return Workspace.find(params[:id]).ws_items.split(',')
-		else
-			return get_sa_config['sa_items']
 		end
 	end
 

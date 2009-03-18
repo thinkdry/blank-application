@@ -121,13 +121,15 @@ module ItemsHelper
 
   def display_tabs(item_type)
     if current_workspace
-			item_type ||= current_workspace.ws_items.to_s.split(',').first.to_s.pluralize
+			item_types = current_workspace.ws_items.to_s.split(',')
+			item_type ||= item_types.first.to_s.pluralize
     else
-			item_type ||= get_sa_config.sa_items.first.to_s.pluralize
+			item_types = get_sa_config['sa_items']
+			item_type ||= item_types.first.to_s.pluralize
     end
     content = String.new
 
-    get_current_items.map{ |item| item.camelize }.each do |item_model|
+    item_types.map{ |item| item.camelize }.each do |item_model|
       url = ajax_items_path(item_model.classify.constantize)
       item_page = item_model.underscore.pluralize
       options = {}
@@ -147,7 +149,7 @@ module ItemsHelper
 			item_type ||= current_workspace.ws_items.to_s.split(',').first.to_s.pluralize
       items = GenericItem.from_workspace(current_workspace.id)
     else
-			item_type ||= get_sa_config.sa_items.first.to_s.pluralize
+			item_type ||= get_sa_config['sa_items'].first.to_s.pluralize
       items = GenericItem.consultable_by(@current_user.id)
     end
 		if !item_type.blank?
@@ -163,7 +165,7 @@ module ItemsHelper
 			item_type ||= current_workspace.ws_items.to_s.split(',').first.to_s.pluralize
       items = GenericItem.from_workspace(current_workspace.id)
     else
-			item_type ||= get_sa_config.sa_items.first.to_s.pluralize
+			item_type ||= get_sa_config['sa_items'].first.to_s.pluralize
       items = GenericItem.consultable_by(@current_user.id)
     end
 
