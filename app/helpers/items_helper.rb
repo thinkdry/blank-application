@@ -180,7 +180,7 @@ module ItemsHelper
     if current_workspace
 			item_type ||= current_workspace.ws_items.to_s.split(',').first.to_s.pluralize
     else
-			item_type ||= get_sa_config.sa_items.first.to_s.pluralize
+			item_type ||= get_sa_config['sa_items'].first.to_s.pluralize
     end
     url =  ajax_items_path(item_type)
     current_page = params[:page] ? params[:page].to_i : 1
