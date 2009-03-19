@@ -175,6 +175,7 @@ fr-FR:
       title: Administration
       administration_configuration:  Configuration de l'Administation
       administrator: Administrateur
+      user_management: Gestion des utilisateurs
   item:
     field:
       title_label: Titre
@@ -433,7 +434,7 @@ fr-FR:
   general:
     common_word:
       and: et
-      on1: "sur"
+      on1: "en"
       in: dans
       by: par
       yes1: "oui"
