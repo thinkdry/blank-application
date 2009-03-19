@@ -153,7 +153,7 @@ module ItemsHelper
       items = GenericItem.consultable_by(@current_user.id)
     end
 		if !item_type.blank?
-			@collection = items.send(item_type.to_sym).created.paginate(:page => params[:page],:per_page=>5)
+			@collection = items.send(item_type.to_sym).created.paginate(:page => params[:page],:per_page=>15)
 	    render(:partial => "items/item_in_list", :collection => @collection)
 		else
 			render :text => "()"
@@ -175,33 +175,57 @@ module ItemsHelper
   end
 
   def remote_pagination(collection)
-    if collection.total_pages != 0
+    if !collection.nil? and collection.total_pages != 0
     content = String.new
-    if current_workspace
-			item_type ||= current_workspace.ws_items.to_s.split(',').first.to_s.pluralize
-    else
-			item_type ||= get_sa_config['sa_items'].first.to_s.pluralize
-    end
-    url =  ajax_items_path(item_type)
+		item_type =  params[:item_type].nil? ? (current_workspace ? current_workspace.ws_items.to_s.split(',').first.to_s.pluralize : get_sa_config.sa_items.first.to_s.pluralize) : params[:item_type]
+    url = current_workspace ? ajax_items_path(item_type) +"&page=" : ajax_items_path(item_type) +"?page="
     current_page = params[:page] ? params[:page].to_i : 1
     if current_page == 1
       content = "&laquo; Previous "
     else
-     content = content + link_to_remote("&laquo; Previous  ", :update => "content",:method=>:get, :url =>url+"/?page=#{current_page - 1}")
+     content = content + link_to_remote("&laquo; Previous  ", :update => "content",:method=>:get, :url =>url+"#{current_page - 1}")
     end
-    (1..collection.total_pages).collect {|page|
-        if current_page == page
-          content = content+"  " + page.to_s
+    prev = nil
+    visible_page_numbers(current_page,collection.total_pages).each do |page_no|
+        content = content+((prev and page_no > prev + 1) ? "&hellip;" : " ")
+        prev = page_no
+        if current_page == page_no
+          content = content+content_tag(:b,page_no.to_s)
         else
-          content = content+"  " + link_to_remote(page.to_s+" ", :update => "content",:method=>:get, :url =>url+"/?page=#{page}")
+          content = content+ link_to_remote(page_no.to_s, :update => "content",:method=>:get, :url =>url+"#{page_no}")
         end
-      }
+    end
     if current_page == collection.total_pages
       content = content +"  Next &raquo;"
     else
-      content = content + link_to_remote("  Next &raquo;", :update => "content",:method=>:get, :url =>url+"/?layout=false&page=#{(current_page+1)}")
+      content = content + link_to_remote("  Next &raquo;", :update => "content",:method=>:get, :url =>url+"#{(current_page+1)}")
     end
     return content_tag(:div, content, :align=>"center")
     end
+  end
+
+  def visible_page_numbers(current_page,total_pages)
+      inner_window, outer_window = 4, 1
+      window_from = current_page - inner_window
+      window_to = current_page + inner_window
+
+      # adjust lower or upper limit if other is out of bounds
+      if window_to > total_pages
+        window_from -= window_to - total_pages
+        window_to = total_pages
+      end
+      if window_from < 1
+        window_to += 1 - window_from
+        window_from = 1
+        window_to = total_pages if window_to > total_pages
+      end
+
+      visible   = (1..total_pages).to_a
+      left_gap  = (2 + outer_window)...window_from
+      right_gap = (window_to + 1)...(total_pages - outer_window)
+      visible  -= left_gap.to_a  if left_gap.last - left_gap.first > 1
+      visible  -= right_gap.to_a if right_gap.last - right_gap.first > 1
+
+      visible
   end
 end
