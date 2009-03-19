@@ -228,8 +228,9 @@ fr-FR:
       page_title_label: Titre de la page
       page_title_hint: Saisissez le titre de cette page
     edit:
-      title: Editer la Page
-
+      title: Editer la page
+      more_than_one_ws_linked: Il y a plusieurs espaces de travail reliés à cette page, ce qui peut engendrer des conflits avec le front.
+      no_website_linked: L'espace de travail selectionné n'est relié à aucun site web. Liez en un pour pouvoir l'éditer.
   audio:
     new:
       title: Ajouter un nouveau fichier audio
@@ -238,8 +239,7 @@ fr-FR:
       tags_label: Etiquettes
     edit:
       title: Editer le fichier audio
-      more_than_one_ws_linked: Il y a plusieurs espaces de travail reliés à cette page, ce qui peut engendrer des conflits avec le front.
-      no_website_linked: L'espace de travail selectionné n'est relié à aucun site web. Liez en un pour pouvoir l'éditer.
+     
   video:
     new:
       title: Ajouter une nouvelle video
@@ -475,7 +475,7 @@ fr-FR:
       publication: Publication
       feed_source: Flux RSS
       bookmark: Marque-page
-      Page: Page
+      page: Page
     language:
       en-US: English(US)
       fr-FR: French(FR)
