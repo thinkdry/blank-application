@@ -216,8 +216,8 @@ en-US:
       page_title_hint: Enter the title for this page
     edit:
       title: Edit the Page
-      more_than_one_ws_linked: There are more on workspace linked to this page, it will make conflict with fronts.
-      no_website_linked: There is no website linked to the workspace choosen, link one before to can edit your page.
+      more_than_one_ws_linked: There are more than one workspace linked to this page, it will make conflict with fronts.
+      no_website_linked: There is no website linked to the choosen workspace, link one in order to edit your page.
   audio:
     new:
       title: Add a New audio

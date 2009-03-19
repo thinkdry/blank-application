@@ -106,6 +106,7 @@ fr-FR:
       flash_error: Il ya eu une erreur durant la création de l'utilisateur.
       flash_notice: Utilisateur créé.
     field:
+      system_role_id_label: Rôle système
       login_label: Identifiant
       login_hint: Entez vos identifiants
       email_label: Courriel
@@ -126,7 +127,9 @@ fr-FR:
       location_hint: Ou êtes vous?
       activity_label: Activité
       edito_label: Edito
+      newsletter_label: Recevoir la newsletter ?
       photo_label: Photo
+
     session:
       login_label: Identifiant
       login_hint: Entez vos identifiants
@@ -135,6 +138,7 @@ fr-FR:
       remember_me: Mémoriser
       login_button: Mot de passe
       password_forgotten: Mot de passe oublié
+      inscription: Créer un compte
       flash_notice: Connecté.
       flash_error: Combinaison adresse électronique/mot de passe incorrecte.
     show:
@@ -211,6 +215,19 @@ fr-FR:
       blank_application: Blank Application
     edit:
       title: Editer l'Article
+  page:
+    new:
+      title: Ajouter une nouvelle page
+      body_after_création: Le corps de la page sera accessible une fois la création terminée
+    field:
+      body_label: Corps
+      body_hint: Corps de la page
+      keywords_label: Mot-clés
+      keywords_hint: Saisissez les mot-clés pour cette page
+      page_title_label: Titre de la page
+      page_title_hint: Saisissez le titre de cette page
+    edit:
+      title: Editer la Page
 
   audio:
     new:
@@ -220,7 +237,8 @@ fr-FR:
       tags_label: Etiquettes
     edit:
       title: Editer le fichier audio
-
+      more_than_one_ws_linked: Il y a plusieurs espaces de travail reliés à cette page, ce qui peut engendrer des conflits avec le front.
+      no_website_linked: L'espace de travail selectionné n'est relié à aucun site web. Liez en un pour pouvoir l'éditer.
   video:
     new:
       title: Ajouter une nouvelle video
@@ -309,6 +327,7 @@ fr-FR:
       flash_error: L'espace de travail n'a pas pu être créé
     field:
       title_label: Titre
+      logo_label: Logo
       description_label: Description
       state_label: Choisir le type d'espace de travail
     type:
@@ -321,6 +340,7 @@ fr-FR:
       manage_users_and_rights: Gérer les droits et utilisateurs
       workspace_configuration: Configuration de l'espae de travail
       available_items: Objets disponibles
+      available_item_categories: Catégories d'objet disponibles
       associated_user: Utilisateurs associés
       flash_notice: L'espace de travail a été mis à jour
       flash_error: L'espace de travail n'a pas pu être mis à jour
@@ -389,6 +409,7 @@ fr-FR:
       home: Acceuil
       all_elements: Tous les élements
       advanced_search: Recherche avancée
+      no_add_content: Vous devez créer un espace de travail ou posséder des droits dans un autre pour ajouter du contenu.
     search:
       search_label: Recherche
       advance_search: Recherche avancée
@@ -426,6 +447,11 @@ fr-FR:
       here: ici
       of: de
       found: trouvé
+      with: avec
+      role: rôle
+      workspace: espace de travail
+      item: objet
+      user: utilisateur
     button:
       update: Mettre à jour
       cancel: Annuler
@@ -448,10 +474,21 @@ fr-FR:
       publication: Publication
       feed_source: Flux RSS
       bookmark: Marque-page
+      Page: Page
     language:
       en-US: English(US)
       fr-FR: French(FR)
       es-ES: Spanish(ESP)
+    role:
+      superadmin: Superadministrateur
+      admin:  Administrateur système
+      user: Utilisateur
+      ws_admin: Administrateur d'espace de travail
+      moderator: Moderateur
+      writer: Rédacteur
+      reader: Lecteur
+      site_manager: Administrateur de site
     txt:
       feed_item_importation_type: Type d'import
       select_a_file: Choisir un lien
+      select_from_file: Selectionner depuis le file system
