@@ -177,7 +177,7 @@ module ItemsHelper
   def remote_pagination(collection)
     if !collection.nil? and collection.total_pages != 0
     content = String.new
-		item_type =  params[:item_type].nil? ? (current_workspace ? current_workspace.ws_items.to_s.split(',').first.to_s.pluralize : get_sa_config.sa_items.first.to_s.pluralize) : params[:item_type]
+		item_type =  params[:item_type].nil? ? (current_workspace ? current_workspace.ws_items.to_s.split(',').first.to_s.pluralize : get_sa_config['sa_items'].first.to_s.pluralize) : params[:item_type]
     url = current_workspace ? ajax_items_path(item_type) +"&page=" : ajax_items_path(item_type) +"?page="
     current_page = params[:page] ? params[:page].to_i : 1
     if current_page == 1
