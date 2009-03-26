@@ -6,7 +6,7 @@
   			  <%= remote_pagination @collection %>
   			</div><!-- pagination -->
 	</div>
-	<% if @collection.length > 0%>
+	<% if @collection and @collection.length > 0%>
 		<div class="other_output_format">
 			<%= I18n.t('item.show.get_in_another_format')%>:
 	      	<%= link_to "XML", "#{current_workspace.nil? ? params[:item_type] : items_path(!params[:item_type].nil?  ? params[:item_type] : "articles" )}.xml" %>
