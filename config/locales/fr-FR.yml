@@ -136,7 +136,7 @@ fr-FR:
       password_label: Mot de passe
       password_hint: Votre mot de passe
       remember_me: Mémoriser
-      login_button: Mot de passe
+      login_button: Se connecter
       password_forgotten: Mot de passe oublié
       inscription: Créer un compte
       flash_notice: Connecté.
@@ -176,12 +176,15 @@ fr-FR:
       administration_configuration:  Configuration de l'Administation
       administrator: Administrateur
       user_management: Gestion des utilisateurs
+      workspace_management: Gestion de l'espace de travail
   item:
     field:
       title_label: Titre
       title_hint: Titre de l'Objet
       description_label: Description
       description_hint: Description de l'Objet
+      tags_label: Etiquettes
+      tags_hint: Séparer par des espaces
     show:
       get_in_another_format: Autre format
     new:
@@ -219,12 +222,12 @@ fr-FR:
   page:
     new:
       title: Ajouter une nouvelle page
-      body_after_création: Le corps de la page sera accessible une fois la création terminée
+      body_after_creation: Le corps de la page sera accessible une fois la création terminée
     field:
       body_label: Corps
       body_hint: Corps de la page
-      keywords_label: Mot-clés
-      keywords_hint: Saisissez les mot-clés pour cette page
+      keywords_label: Keywords
+      keywords_hint: Saisissez les keywords pour cette page
       page_title_label: Titre de la page
       page_title_hint: Saisissez le titre de cette page
     edit:
@@ -403,7 +406,7 @@ fr-FR:
       administration: Administration
       superadministration: SuperAdministration
       workspaces_selection: Choisir un espace de travail
-      workspaces: Espaces de travail
+      workspaces: Espace de travail(s)
       new_workspace: Nouvel espace de travail
       add_content: Ajouter du contenu
       content: Contenu
