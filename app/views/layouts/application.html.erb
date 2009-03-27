@@ -92,7 +92,7 @@
       <h3>Menu</h3>
       <div id="midle-right-menu">
         <%= image_tag "/images/icons/home.png" %><p><%= link_to I18n.t('layout.application.home'), '/' %></p>
-        <%= image_tag "/images/icons/content.png" %><p><%= link_to I18n.t('layout.application.content'), content_path("articles") %></p>
+        <%= image_tag "/images/icons/content.png" %><p><%= link_to I18n.t('layout.application.content'), content_path(current_workspace ? current_workspace.ws_items.split(',').first.to_s.pluralize : get_sa_config['sa_items'].first.to_s.pluralize) %></p>
       </div>
     </div>
     <div id="middle-middle">

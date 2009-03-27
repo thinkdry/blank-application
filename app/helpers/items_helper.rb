@@ -121,7 +121,7 @@ module ItemsHelper
 
   def display_tabs(item_type)
     if current_workspace
-			item_types = current_workspace.ws_items.to_s.split(',')
+			item_types = current_workspace.ws_items.split(',')
 			item_type ||= item_types.first.to_s.pluralize
     else
 			item_types = get_sa_config['sa_items']
@@ -146,7 +146,7 @@ module ItemsHelper
 
   def display_item_list(item_type)
     if current_workspace
-			item_type ||= current_workspace.ws_items.to_s.split(',').first.to_s.pluralize
+			item_type ||= current_workspace.ws_items.split(',').first.to_s.pluralize
       items = GenericItem.from_workspace(current_workspace.id)
     else
 			item_type ||= get_sa_config['sa_items'].first.to_s.pluralize
@@ -162,7 +162,7 @@ module ItemsHelper
 
   def display_item_list_for_editor(item_type)
     if current_workspace
-			item_type ||= current_workspace.ws_items.to_s.split(',').first.to_s.pluralize
+			item_type ||= current_workspace.ws_items.split(',').first.to_s.pluralize
       items = GenericItem.from_workspace(current_workspace.id)
     else
 			item_type ||= get_sa_config['sa_items'].first.to_s.pluralize
@@ -177,7 +177,7 @@ module ItemsHelper
   def remote_pagination(collection)
     if !collection.nil? and collection.total_pages != 0
     content = String.new
-		item_type =  params[:item_type].nil? ? (current_workspace ? current_workspace.ws_items.to_s.split(',').first.to_s.pluralize : get_sa_config['sa_items'].first.to_s.pluralize) : params[:item_type]
+		item_type =  params[:item_type].nil? ? (current_workspace ? current_workspace.ws_items.split(',').first.to_s.pluralize : get_sa_config['sa_items'].first.to_s.pluralize) : params[:item_type]
     url = current_workspace ? ajax_items_path(item_type) +"&page=" : ajax_items_path(item_type) +"?page="
     current_page = params[:page] ? params[:page].to_i : 1
     if current_page == 1
