@@ -15,12 +15,14 @@ class ArticlesController < ApplicationController
 	end
 
 	def removeFile
-	  permit "edition of article"
-		if ArticleFile.find(params[:id]).destroy
-			render :nothing => true
-		else
-			render :nothing => true
-    end
+	  object = ArticleFile.find(params[:id])
+		if object.article.accepts_edit_for?(@current_user)
+			if ArticleFile.find(params[:id]).destroy
+				render :nothing => true
+			else
+				render :nothing => true
+			end
+		end
   end
 
 end

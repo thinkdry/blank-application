@@ -1,4 +1,21 @@
 namespace :blank do
+
+	desc "From drop to pump"
+	task(:pumper => :environment) do
+		Rake::Task['db:drop'].invoke
+		Rake::Task['db:create'].invoke
+		Rake::Task['db:migrate'].invoke
+		Rake::Task['blank:pump'].invoke
+	end
+
+	desc "From drop to pump"
+	task(:pumper => :environment) do
+		Rake::Task['db:drop'].invoke
+		Rake::Task['db:create'].invoke
+		Rake::Task['db:migrate'].invoke
+		Rake::Task['blank:pump'].invoke
+	end
+	
   desc "Create Basic Settings for BLANK"
   task(:pump => :environment) do
     ActiveRecord::Base.establish_connection

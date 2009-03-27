@@ -461,6 +461,8 @@ en-US:
       feed_source: RSS Feed
       bookmark: Bookmark
       page: Page
+      advert: Advert
+      programme: Programme
     language:
       en-US: English(US)
       fr-FR: French(FRA)

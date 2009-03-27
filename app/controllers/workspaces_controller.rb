@@ -30,6 +30,9 @@ class WorkspacesController < ApplicationController
     end
 		after :create do
 			UsersWorkspace.create(:user_id => @current_user.id, :workspace_id => @current_object.id, :role_id => Role.find_by_name('ws_admin').id)
+			@current_object.ws_items = check_to_tab(:items).join(",")
+			@current_object.ws_item_categories = check_to_tab(:item_categories).join(",")
+			@current_object.ws_available_types = check_to_tab(:available_types).join(",")
 			flash[:notice] =I18n.t('workspace.new.flash_notice')
 		end
     after :create_fails do
@@ -41,6 +44,8 @@ class WorkspacesController < ApplicationController
 		before :update do
       no_permission_redirection unless @current_object.accepts_edit_for?(@current_user)
 			@current_object.ws_items = check_to_tab(:items).join(",")
+			@current_object.ws_item_categories = check_to_tab(:item_categories).join(",")
+			@current_object.ws_available_types = check_to_tab(:available_types).join(",")
       # Hack. Permit deletion of all assigned users (with roles).
       params["workspace"]["existing_user_attributes"] ||= {}
     end

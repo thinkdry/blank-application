@@ -204,29 +204,32 @@ module ActsAsItem
 				if action=='new'
 					wsl = user.workspaces
 					# no good, but lazy today
-					cats = ITEM_CATEGORIES
+					cats = get_sa_config['sa_items']
 				else
 					wsl = self.workspaces & user.workspaces
-					cats = self.category.split(',')
+					#p self.category
+					#cats = self.category.to_s.split(',')
 				end
         wsl.each do |ws|
 					# First of all, to check if this workspace accpets these items
-					if ws.ws_items.split(',').include?(model_name.underscore)
+					if ws.ws_items.to_s.split(',').include?(model_name.underscore)
 						# Then with workspace full access
 						if user.has_workspace_permission(ws.id, model_name.underscore, action)
 							return true
-						else
-						# And else with the workspace category access
-							# restriction with ws item categories
-							cats = cats & ws.ws_item_categories.split(',')
-							# Check if user can access to, at least, one category of the item in that workspace
-							cats.each do |cat|
-								if user.has_workspace_permission(ws.id, 'item_cat_'+cat, action)
-									return true
-								end
-							end
+#						else
+#							if cats
+#								# And else with the workspace category access
+#								# restriction with ws item categories
+#								cats = ws.ws_item_categories.to_s.split(',') #& cats
+#								# Check if user can access to, at least, one category of the item in that workspace
+#								cats.each do |cat|
+#									if user.has_workspace_permission(ws.id, 'item_cat_'+cat, action)
+#										return true
+#									end
+#								end
+#							end # if cats
 						end
-					end
+					end # if item available in ws
 				end
 				# go away
 				false
