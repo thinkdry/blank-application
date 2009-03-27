@@ -157,12 +157,12 @@ class User < ActiveRecord::Base
 
 	def has_system_permission(controller, action)
 		permission_name = controller+'_'+action
-		return self.system_permissions.exists?(:name => permission_name) || self.has_system_role('superadmin')
+		return !self.system_permissions.delete_if{ |e| e.name == permission_name}.blank? || self.has_system_role('superadmin')
 	end
 
 	def has_workspace_permission(workspace_id, controller, action)
 		permission_name = controller+'_'+action
-		return self.workspace_permissions(workspace_id).exists?(:name => permission_name) || self.has_system_role('superadmin')
+		return !self.workspace_permissions(workspace_id).delete_if{ |e| e.name == permission_name}.blank? || self.has_system_role('superadmin')
 	end
 
 	def accepts_index_for? user
