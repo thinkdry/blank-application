@@ -112,7 +112,7 @@ class Workspace < ActiveRecord::Base
 	end
 
   def accepts_destroy_for? user
-    return accepting_action(user, 'edit', (self.creator_id==user.id), false, true)
+    return accepting_action(user, 'destroy', (self.creator_id==user.id), false, true)
   end
 
   def accepts_edit_for? user

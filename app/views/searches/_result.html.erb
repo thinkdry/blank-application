@@ -1,7 +1,7 @@
 <div class="item-list">
   <div style="clear:left">
     <%= image_tag object.icon %>
-    <%= link_to_item(object) %>
+    <%= link_to object.title, item_path(object) %>
     <%=I18n.t('general.common_word.in')%> <%= links_to_workspace_collection(object.workspaces) %>
     <%=I18n.t('general.common_word.by')%> <%= link_to_user(object.user) %>
   </div>

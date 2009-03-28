@@ -57,15 +57,15 @@
 
 	<%= capture(&block) %>
 
-    <% if object.comments.size > 0 %>
 	<div id="comment_list">
+      <% if object.comments.size > 0 %>
     	<h2><%= image_tag 'icons/comments.png'%><%=I18n.t('item.common_word.comment').pluralize%></h2>
 		<div class="comment_bloc">
 	   		<%= render :partial => "items/comment", :collection => object.comments %>
 		</div>
+      <% end %>
   	</div>
-    <% end %>
-
+    
     <% if @current_object.accepts_comment_for?(@current_user) %>
       <fieldset id="new_comment_form_box">
     	<p><%=I18n.t('item.common_word.your_comment')%> :</p>

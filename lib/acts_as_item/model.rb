@@ -42,9 +42,10 @@ module ActsAsItem
 							# Workspace permission checked
 							elsif !(wsl=user.workspaces).blank?
 								res = []
+								# TODO : directly with custom SQL
 								wsl.each do |ws|
 									if user.has_workspace_permission(ws.id, self.model_name.underscore, action)
-										res = res + ws.send(self.underscore.pluralize.to_sym)
+										res = res + ws.send(self.model_name.underscore.pluralize.to_sym)
 									else
 										# lazyness...
 										cats = ITEM_CATEGORIES & ws.ws_item_categories.split(',')
@@ -55,7 +56,7 @@ module ActsAsItem
 											end
 										end
 									end
-									current_objects = res.uniq
+									current_objects = res.sort{ |e1, e2| e2.created_at <=> e1.created_at }.uniq
 								end
 							else
 								current_objects = []
@@ -94,6 +95,15 @@ module ActsAsItem
 
 			def label
 				I18n.t("general.item.#{self.model_name.underscore}")
+			end
+
+			private
+			def get_sa_config
+				if File.exist?("#{RAILS_ROOT}/config/customs/sa_config.yml")
+					return YAML.load_file("#{RAILS_ROOT}/config/customs/sa_config.yml")
+				else
+					return YAML.load_file("#{RAILS_ROOT}/config/customs/default_config.yml")
+				end
 			end
 
     end

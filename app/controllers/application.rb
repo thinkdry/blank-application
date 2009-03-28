@@ -10,7 +10,8 @@ class ApplicationController < ActionController::Base
   IMAGE_TYPES = ["image/jpeg", "image/pjpeg", "image/gif", "image/png", "image/x-png", "image/ico"]
   
   helper :all # include all helpers, all the time
-	helper_method :available_items_list, :available_languages, :get_sa_config, :right_conf, :is_allowed_free_user_creation?
+	helper_method :available_items_list, :available_languages, :get_sa_config, :right_conf,
+		:is_allowed_free_user_creation?, :get_default_item_type
   before_filter :is_logged?
 	before_filter :set_locale
 
@@ -48,6 +49,14 @@ class ApplicationController < ActionController::Base
 			return YAML.load_file("#{RAILS_ROOT}/config/customs/sa_config.yml")
 		else
 			return YAML.load_file("#{RAILS_ROOT}/config/customs/default_config.yml")
+		end
+	end
+
+	def get_default_item_type
+		if current_workspace
+			return current_workspace.ws_items.split(',').first.to_s.pluralize
+		else
+			return get_sa_config['sa_items'].first.to_s.pluralize
 		end
 	end
 

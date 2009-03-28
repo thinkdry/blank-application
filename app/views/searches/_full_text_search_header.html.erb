@@ -8,7 +8,7 @@
     <h3>Similar Results</h3>
     <% @similar_items.each do |si| %>
       <%= image_tag si.icon %>
-      <%= link_to_item(si) %>
+      <%= link_to si.title, item_path(si) %>
     <% end %>
   <% end %>
   <br><br>

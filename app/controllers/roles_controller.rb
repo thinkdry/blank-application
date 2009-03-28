@@ -59,6 +59,11 @@ class RolesController < ApplicationController
     @role = Role.new(params[:role])
     #respond_to do |format|
     if @role.save
+			if params[:permissions]
+				params[:permissions].each do |k, v|
+					@role.permissions << Permission.find(k.to_i)
+				end
+			end
       flash[:notice] = 'Role was successfully created.'
       #        format.html { redirect_to(role_path(@role)) }
       #        format.xml  { render :xml => @role, :status => :created, :location => role_path(@role) }

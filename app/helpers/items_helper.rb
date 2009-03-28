@@ -1,4 +1,20 @@
 module ItemsHelper
+
+	 # Tag. Item's author is allowed to remove it by Ajax action.
+  def item_tag tag, editable = false
+    content = tag.name
+    content += link_to_remote(image_tag('icons/delete.png'),
+      :url => remove_tag_item_path(@current_object, :tag_id => tag.id),
+      :loading => "$('ajax_loader').show()",
+      :complete => "$('ajax_loader').hide()") if editable
+
+    content_tag :span, content, :id => "tag_#{tag.id}"
+  end
+
+  def item_editable_tag tag
+    item_tag tag, true
+  end
+
   def item_rate(object, params = {})
     params = {
       :rerate => false,
@@ -21,26 +37,6 @@ module ItemsHelper
     item_rate(object, :locked => true)
   end
 
-  def item_show(parameters, &block)
-    concat\
-      render( :partial => "items/show",
-              :locals => {  :object => parameters[:object],
-                            :title => parameters[:title],
-                            :block => block                 } ),
-      block.binding
-  end
-
-  def advanced_editor_on(object, attribute)
-    '<script type="text/javascript" src="/fckeditor/fckeditor.js"></script>' +
-    javascript_tag(%{
-        var oFCKeditor = new FCKeditor('#{object.class.to_s.underscore}_#{attribute}', '730px', '350px') ;
-        oFCKeditor.BasePath = "/fckeditor/" ;
-				oFCKeditor.Config['ImageUploadURL'] = "/fckuploads?item_type=#{object.class}&id=#{object.new_record? ? current_user.login+'_'+current_user.id.to_s : object.id}&type=Image";
-        oFCKeditor.ReplaceTextarea() ;
-
-		})
-  end
-
   # Container of tags that include modal window. Contains the javascript events.
   # Please apply 'hidden' class on each child you want to be displayed on mouseover.
   def item_reactive_content_tag(tag, object, &block)
@@ -55,40 +51,33 @@ module ItemsHelper
       block.binding
   end
 
+	##################"
+
+	# Define the common fields of the form of an item
   def form_for_item(object, title = '', &block)
 		concat(render(:partial => "items/form", :locals => { :block => block, :title => title }), block.binding)
   end
 
-  # Render a lisf of recent items, recent comments and recent publications.
-  # (Uses the `small_item_list` helper)
-  def item_list
-    items = [] # List being rendered
-
-    # 1st: Collect items in workspaces
-    conditions = [ "workspace_id IN (?)", current_workspace || current_user.all_workspaces ]
-    items = Item.find(:all,
-      :order => 'created_at DESC',
-      :limit => 10,
-      :conditions => conditions)
-    items.collect! { |item| item.itemable }
-
-    # 2nd: Include private item
-    unless current_workspace
-      available_items_list.map{ |item| item.pluralize.to_sym }.each do |itemable_type|
-        items |= current_user.send(itemable_type)
-      end
-    end
-
-    # Sort by CREATED_AT DESC
-    items.sort! {|a, b| b.created_at <=> a.created_at }
-
-    render :partial => "items/list", :object => items[0..10]
+	# Define the common information of the show of an item
+	def item_show(parameters, &block)
+    concat\
+      render( :partial => "items/show",
+              :locals => {  :object => parameters[:object],
+                            :title => parameters[:title],
+                            :block => block                 } ),
+      block.binding
   end
 
-  # Item. Title and descriptions.
-  # Modal window on mouseover, displaying additionnal informations
-  def item_in_list(object, thumb = nil)
-    render :partial => "items/item_in_list", :object => object
+	# Form part for FCKEditor field
+	def advanced_editor_on(object, attribute)
+    '<script type="text/javascript" src="/fckeditor/fckeditor.js"></script>' +
+    javascript_tag(%{
+        var oFCKeditor = new FCKeditor('#{object.class.to_s.underscore}_#{attribute}', '730px', '350px') ;
+        oFCKeditor.BasePath = "/fckeditor/" ;
+				oFCKeditor.Config['ImageUploadURL'] = "/fckuploads?item_type=#{object.class}&id=#{object.new_record? ? current_user.login+'_'+current_user.id.to_s : object.id}&type=Image";
+        oFCKeditor.ReplaceTextarea() ;
+
+		})
   end
 
   # Footer of each item form. Status, comments, tags...
@@ -96,29 +85,12 @@ module ItemsHelper
     render :partial => "items/status", :locals => { :f => form, :item => item }
   end
 
+	# Form part for the categories
   def item_category_fields(form, item)
     render :partial => "items/category", :locals => { :f => form, :item => item }
-  end
+	end
 
-  # Tag. Item's author is allowed to remove it by Ajax action.
-  def item_tag tag, editable = false
-    content = tag.name
-    content += link_to_remote(image_tag('icons/delete.png'),
-      :url => remove_tag_item_path(@current_object, :tag_id => tag.id),
-      :loading => "$('ajax_loader').show()",
-      :complete => "$('ajax_loader').hide()") if editable
-
-    content_tag :span, content, :id => "tag_#{tag.id}"
-  end
-
-  def item_editable_tag tag
-    item_tag tag, true
-  end
-
-  def link_to_item(object)
-    link_to(object.title, item_path(object))
-  end
-
+	# Displays the tabs link to items
   def display_tabs(item_type)
     if current_workspace
 			item_types = current_workspace.ws_items.split(',')
@@ -144,40 +116,30 @@ module ItemsHelper
     content_tag(:ul, content, :id => :tabs)
 	end
 
-  def display_item_list(item_type)
-    if current_workspace
-			item_type ||= current_workspace.ws_items.split(',').first.to_s.pluralize
-      items = GenericItem.from_workspace(current_workspace.id)
-    else
-			item_type ||= get_sa_config['sa_items'].first.to_s.pluralize
-      items = GenericItem.consultable_by(@current_user.id)
-    end
+	# Displays the list of items
+  def display_item_list(item_type=get_default_item_type, partial_used='items/item_in_list')
+		item_type ||= get_default_item_type
+    items = item_type.classify.constantize.list_items_with_permission_for(@current_user, 'show', current_workspace)
 		if !item_type.blank?
-			@collection = items.send(item_type.to_sym).created.paginate(:page => params[:page],:per_page=>15)
-	    render(:partial => "items/item_in_list", :collection => @collection)
+			@collection = items.paginate(:page => params[:page],:per_page=>15)
+	    render(:partial => partial_used, :collection => @collection)
 		else
 			render :text => "()"
 		end
   end
 
-  def display_item_list_for_editor(item_type)
-    if current_workspace
-			item_type ||= current_workspace.ws_items.split(',').first.to_s.pluralize
-      items = GenericItem.from_workspace(current_workspace.id)
-    else
-			item_type ||= get_sa_config['sa_items'].first.to_s.pluralize
-      items = GenericItem.consultable_by(@current_user.id)
-    end
+	def display_item_in_list_for_editor
+		display_item_list(nil, 'items/item_in_list_for_editor')
+	end
 
-    @collection = items.send(item_type).created.paginate(:page => params[:page])
+	###############################
 
-    render(:partial => "items/item_in_list_for_editor", :collection => @collection)
-  end
+	# TODO enhance, test and include in library
 
   def remote_pagination(collection)
     if !collection.nil? and collection.total_pages != 0
     content = String.new
-		item_type =  params[:item_type].nil? ? (current_workspace ? current_workspace.ws_items.split(',').first.to_s.pluralize : get_sa_config['sa_items'].first.to_s.pluralize) : params[:item_type]
+		item_type =  params[:item_type].nil? ? get_default_item_type : params[:item_type]
     url = current_workspace ? ajax_items_path(item_type) +"&page=" : ajax_items_path(item_type) +"?page="
     current_page = params[:page] ? params[:page].to_i : 1
     if current_page == 1

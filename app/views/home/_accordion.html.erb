@@ -2,7 +2,7 @@
     <%if object==(@latest_items)%>
       <p>
 			<%= image_tag o.icon %>
-         	<%= link_to_item o %>
+         	<%= link_to item.title, item_path(item) %>
 			<% if o.workspaces.size > 0 %>
 				dans <%= links_to_workspace_collection o.workspaces %>
 			<% end %>

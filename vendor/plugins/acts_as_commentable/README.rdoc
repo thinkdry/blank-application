@@ -1,0 +1,15 @@
+= ActsAsCommentable
+
+== Installation
+
+1. Install the plugin.
+
+ $ ./script/plugin install git://
+
+2. Specify the link to the 'comments' table in the model
+
+ $ has_many :comments, :as => :commentable, :order => 'created_at ASC'
+
+3. Add the member 'comment' to the resources defining the routes linked to your object.
+
+ $ map.resources :object, :member => { :comment => :any }

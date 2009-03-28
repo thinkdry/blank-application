@@ -4,7 +4,7 @@
     <% @latest_items.each do |l|%>
 		<p>
 			<%= image_tag l.icon %>
-         	<%= link_to_item l %>
+         	<%= link_to l.title, item_path(l) %>
 			<% if l.workspaces.size > 0 %>
 				<%= I18n.t('general.common_word.in') %> <%= links_to_workspace_collection l.workspaces %>
 			<% end %>

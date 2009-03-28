@@ -8,6 +8,8 @@ module ActsAsItem
     module ClassMethods
       def acts_as_item &block
         include ActsAsItem::ControllerMethods::InstanceMethods
+
+				acts_as_commentable
         
         make_resourceful do
           actions :all
@@ -90,15 +92,6 @@ module ActsAsItem
         current_object.taggings.create(:tag => tag)
         render :update do |page|
           page.insert_html :bottom, 'tag_list', ' ' + item_tag(tag)
-        end
-      end
-      
-      def comment
-        comment = current_object.comments.create(params[:comment].merge(:user => @current_user))
-				current_object.comments_number = current_object.comments_number.to_i + 1
-				current_object.save
-        render :update do |page|
-          page.insert_html :bottom, 'comment_list', :partial => "items/comment", :object => comment
         end
       end
       

@@ -57,7 +57,7 @@
         <% Workspace.allowed_user_with_permission(@current_user.id, 'workspace_show').each do |w| %>
           <%= content_tag(:option, w.title, :value => workspace_path(w)) %>
         <% end %>
-        <% if @current_user.has_system_permission('workspace', 'create') %>
+        <% if @current_user.has_system_permission('workspace', 'new') %>
           <option selected="selected" value='#'>
             ----------
           </option>
@@ -92,7 +92,7 @@
       <h3>Menu</h3>
       <div id="midle-right-menu">
         <%= image_tag "/images/icons/home.png" %><p><%= link_to I18n.t('layout.application.home'), '/' %></p>
-        <%= image_tag "/images/icons/content.png" %><p><%= link_to I18n.t('layout.application.content'), content_path(current_workspace ? current_workspace.ws_items.split(',').first.to_s.pluralize : get_sa_config['sa_items'].first.to_s.pluralize) %></p>
+        <%= image_tag "/images/icons/content.png" %><p><%= link_to I18n.t('layout.application.content'), content_path(get_default_item_type) %></p>
       </div>
     </div>
     <div id="middle-middle">
