@@ -15,10 +15,10 @@ module ActsAsItem
 					if workspace.ws_items.include?(self.model_name.underscore)
 							# System permission checked
 							if user.has_system_permission(self.model_name.underscore, action)
-								current_objects = workspace.send(self.model_name.underscore.pluralize.to_sym)
+								return workspace.send(self.model_name.underscore.pluralize.to_sym)
 							# Workspace permission checked
-							elsif user.has_system_permission(self.model_name.underscore, action)
-								current_objects = workspace.send(self.model_name.underscore.pluralize.to_sym)
+							elsif user.has_workspace_permission(workspace.id, self.model_name.underscore, action)
+								return workspace.send(self.model_name.underscore.pluralize.to_sym)
 							# Category permission checked
 							elsif !(cats=workspace.ws_item_categories).blank?
 								res = []
@@ -27,18 +27,20 @@ module ActsAsItem
 										res = res + workspace.send(self.model_name.underscore.pluralize.to_sym)
 									end
 								end
-								current_objects = res
+								return res
 							else
-								current_objects = []
+								p "=========================no perm"
+								return []
 							end
 					else
-						current_objects = []
+						p "==========================no type"
+						return []
 					end
 				else
 					if get_sa_config['sa_items'].include?(self.model_name.underscore)
 							# System permission checked
 							if user.has_system_permission(self.model_name.underscore, action)
-								current_objects = self.find(:all)
+								return self.find(:all)
 							# Workspace permission checked
 							elsif !(wsl=user.workspaces).blank?
 								res = []
@@ -56,16 +58,15 @@ module ActsAsItem
 											end
 										end
 									end
-									current_objects = res.sort{ |e1, e2| e2.created_at <=> e1.created_at }.uniq
 								end
+								return res.sort{ |e1, e2| e2.created_at <=> e1.created_at }.uniq
 							else
-								current_objects = []
+								return []
 							end
 					else
-						current_objects = []
+						return []
 					end
 				end
-				return current_objects
 			end
       
       def acts_as_item
