@@ -8,7 +8,6 @@ module ActsAsItem
     module ClassMethods
       def acts_as_item &block
         include ActsAsItem::ControllerMethods::InstanceMethods
-
 				acts_as_commentable
         
         make_resourceful do

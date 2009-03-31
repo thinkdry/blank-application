@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html 
      PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <title>Class: BackgrounDRb::ClusterConnection</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Script-Type" content="text/javascript" />
   <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
   <script type="text/javascript">
@@ -86,19 +86,19 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000018">all_worker_info</a>&nbsp;&nbsp;
-      <a href="#M000020">choose_server</a>&nbsp;&nbsp;
-      <a href="#M000011">discover_server_periodically</a>&nbsp;&nbsp;
-      <a href="#M000010">establish_connections</a>&nbsp;&nbsp;
-      <a href="#M000013">find_connection</a>&nbsp;&nbsp;
-      <a href="#M000014">find_local</a>&nbsp;&nbsp;
-      <a href="#M000012">find_next_except_these</a>&nbsp;&nbsp;
-      <a href="#M000009">initialize_memcache</a>&nbsp;&nbsp;
-      <a href="#M000008">new</a>&nbsp;&nbsp;
-      <a href="#M000019">new_worker</a>&nbsp;&nbsp;
-      <a href="#M000017">time_to_discover?</a>&nbsp;&nbsp;
-      <a href="#M000016">update_stats</a>&nbsp;&nbsp;
-      <a href="#M000015">worker</a>&nbsp;&nbsp;
+      <a href="#M000017">all_worker_info</a>&nbsp;&nbsp;
+      <a href="#M000019">choose_server</a>&nbsp;&nbsp;
+      <a href="#M000010">discover_server_periodically</a>&nbsp;&nbsp;
+      <a href="#M000009">establish_connections</a>&nbsp;&nbsp;
+      <a href="#M000012">find_connection</a>&nbsp;&nbsp;
+      <a href="#M000013">find_local</a>&nbsp;&nbsp;
+      <a href="#M000011">find_next_except_these</a>&nbsp;&nbsp;
+      <a href="#M000008">initialize_memcache</a>&nbsp;&nbsp;
+      <a href="#M000007">new</a>&nbsp;&nbsp;
+      <a href="#M000018">new_worker</a>&nbsp;&nbsp;
+      <a href="#M000016">time_to_discover?</a>&nbsp;&nbsp;
+      <a href="#M000015">update_stats</a>&nbsp;&nbsp;
+      <a href="#M000014">worker</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -160,11 +160,11 @@
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000008" class="method-detail">
-        <a name="M000008"></a>
+      <div id="method-M000007" class="method-detail">
+        <a name="M000007"></a>
 
         <div class="method-heading">
-          <a href="#M000008" class="method-signature">
+          <a href="#M000007" class="method-signature">
           <span class="method-name">new</span><span class="method-args">()</span>
           </a>
         </div>
@@ -174,8 +174,8 @@
 initialize cluster connection
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000008-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000008-source">
+            onclick="toggleCode('M000007-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000007-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/backgroundrb/lib/backgroundrb/bdrb_cluster_connection.rb, line 9</span>
  9:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
@@ -197,23 +197,23 @@ initialize cluster connection
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000018" class="method-detail">
-        <a name="M000018"></a>
+      <div id="method-M000017" class="method-detail">
+        <a name="M000017"></a>
 
         <div class="method-heading">
-          <a href="#M000018" class="method-signature">
+          <a href="#M000017" class="method-signature">
           <span class="method-name">all_worker_info</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Send <a href="ClusterConnection.html#M000015">worker</a> information of all
+Send <a href="ClusterConnection.html#M000014">worker</a> information of all
 currently running workers from all configured bdrb servers
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000018-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000018-source">
+            onclick="toggleCode('M000017-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000017-source">
 <pre>
      <span class="ruby-comment cmt"># File vendor/plugins/backgroundrb/lib/backgroundrb/bdrb_cluster_connection.rb, line 119</span>
 119:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">all_worker_info</span>
@@ -229,11 +229,11 @@ currently running workers from all configured bdrb servers
         </div>
       </div>
 
-      <div id="method-M000020" class="method-detail">
-        <a name="M000020"></a>
+      <div id="method-M000019" class="method-detail">
+        <a name="M000019"></a>
 
         <div class="method-heading">
-          <a href="#M000020" class="method-signature">
+          <a href="#M000019" class="method-signature">
           <span class="method-name">choose_server</span><span class="method-args">()</span>
           </a>
         </div>
@@ -243,8 +243,8 @@ currently running workers from all configured bdrb servers
 choose a server in round robin manner.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000020-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000020-source">
+            onclick="toggleCode('M000019-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000019-source">
 <pre>
      <span class="ruby-comment cmt"># File vendor/plugins/backgroundrb/lib/backgroundrb/bdrb_cluster_connection.rb, line 143</span>
 143:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">choose_server</span>
@@ -262,11 +262,11 @@ choose a server in round robin manner.
         </div>
       </div>
 
-      <div id="method-M000011" class="method-detail">
-        <a name="M000011"></a>
+      <div id="method-M000010" class="method-detail">
+        <a name="M000010"></a>
 
         <div class="method-heading">
-          <a href="#M000011" class="method-signature">
+          <a href="#M000010" class="method-signature">
           <span class="method-name">discover_server_periodically</span><span class="method-args">()</span>
           </a>
         </div>
@@ -277,8 +277,8 @@ every 10 request or 10 seconds it will try to reconnect to bdrb servers
 which were down
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000011-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000011-source">
+            onclick="toggleCode('M000010-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000010-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/backgroundrb/lib/backgroundrb/bdrb_cluster_connection.rb, line 56</span>
 56:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">discover_server_periodically</span>
@@ -298,11 +298,11 @@ which were down
         </div>
       </div>
 
-      <div id="method-M000010" class="method-detail">
-        <a name="M000010"></a>
+      <div id="method-M000009" class="method-detail">
+        <a name="M000009"></a>
 
         <div class="method-heading">
-          <a href="#M000010" class="method-signature">
+          <a href="#M000009" class="method-signature">
           <span class="method-name">establish_connections</span><span class="method-args">()</span>
           </a>
         </div>
@@ -312,8 +312,8 @@ which were down
 initialize all backend server connections
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000010-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000010-source">
+            onclick="toggleCode('M000009-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000009-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/backgroundrb/lib/backgroundrb/bdrb_cluster_connection.rb, line 38</span>
 38:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">establish_connections</span>
@@ -337,11 +337,11 @@ initialize all backend server connections
         </div>
       </div>
 
-      <div id="method-M000013" class="method-detail">
-        <a name="M000013"></a>
+      <div id="method-M000012" class="method-detail">
+        <a name="M000012"></a>
 
         <div class="method-heading">
-          <a href="#M000013" class="method-signature">
+          <a href="#M000012" class="method-signature">
           <span class="method-name">find_connection</span><span class="method-args">(host_info)</span>
           </a>
         </div>
@@ -351,8 +351,8 @@ initialize all backend server connections
 Fina a connection by host name and port
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000013-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000013-source">
+            onclick="toggleCode('M000012-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000012-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/backgroundrb/lib/backgroundrb/bdrb_cluster_connection.rb, line 84</span>
 84:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find_connection</span> <span class="ruby-identifier">host_info</span>
@@ -365,11 +365,11 @@ Fina a connection by host name and port
         </div>
       </div>
 
-      <div id="method-M000014" class="method-detail">
-        <a name="M000014"></a>
+      <div id="method-M000013" class="method-detail">
+        <a name="M000013"></a>
 
         <div class="method-heading">
-          <a href="#M000014" class="method-signature">
+          <a href="#M000013" class="method-signature">
           <span class="method-name">find_local</span><span class="method-args">()</span>
           </a>
         </div>
@@ -379,8 +379,8 @@ Fina a connection by host name and port
 find the local configured connection
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000014-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000014-source">
+            onclick="toggleCode('M000013-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000013-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/backgroundrb/lib/backgroundrb/bdrb_cluster_connection.rb, line 91</span>
 91:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find_local</span>
@@ -391,11 +391,11 @@ find the local configured connection
         </div>
       </div>
 
-      <div id="method-M000012" class="method-detail">
-        <a name="M000012"></a>
+      <div id="method-M000011" class="method-detail">
+        <a name="M000011"></a>
 
         <div class="method-heading">
-          <a href="#M000012" class="method-signature">
+          <a href="#M000011" class="method-signature">
           <span class="method-name">find_next_except_these</span><span class="method-args">(connections)</span>
           </a>
         </div>
@@ -406,8 +406,8 @@ Find live connections except those mentioned in array, because they are
 already dead.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000012-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000012-source">
+            onclick="toggleCode('M000011-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000011-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/backgroundrb/lib/backgroundrb/bdrb_cluster_connection.rb, line 71</span>
 71:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find_next_except_these</span> <span class="ruby-identifier">connections</span>
@@ -426,11 +426,11 @@ already dead.
         </div>
       </div>
 
-      <div id="method-M000009" class="method-detail">
-        <a name="M000009"></a>
+      <div id="method-M000008" class="method-detail">
+        <a name="M000008"></a>
 
         <div class="method-heading">
-          <a href="#M000009" class="method-signature">
+          <a href="#M000008" class="method-signature">
           <span class="method-name">initialize_memcache</span><span class="method-args">()</span>
           </a>
         </div>
@@ -440,8 +440,8 @@ already dead.
 initialize memache if client is storing results in memcache
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000009-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000009-source">
+            onclick="toggleCode('M000008-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000008-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/backgroundrb/lib/backgroundrb/bdrb_cluster_connection.rb, line 23</span>
 23:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize_memcache</span>
@@ -462,11 +462,11 @@ initialize memache if client is storing results in memcache
         </div>
       </div>
 
-      <div id="method-M000019" class="method-detail">
-        <a name="M000019"></a>
+      <div id="method-M000018" class="method-detail">
+        <a name="M000018"></a>
 
         <div class="method-heading">
-          <a href="#M000019" class="method-signature">
+          <a href="#M000018" class="method-signature">
           <span class="method-name">new_worker</span><span class="method-args">(options = {})</span>
           </a>
         </div>
@@ -474,11 +474,11 @@ initialize memache if client is storing results in memcache
         <div class="method-description">
           <p>
 one of the backend connections are chosen and <a
-href="ClusterConnection.html#M000015">worker</a> is started on it
+href="ClusterConnection.html#M000014">worker</a> is started on it
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000019-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000019-source">
+            onclick="toggleCode('M000018-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000018-source">
 <pre>
      <span class="ruby-comment cmt"># File vendor/plugins/backgroundrb/lib/backgroundrb/bdrb_cluster_connection.rb, line 129</span>
 129:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">new_worker</span>(<span class="ruby-identifier">options</span> = {})
@@ -498,11 +498,11 @@ href="ClusterConnection.html#M000015">worker</a> is started on it
         </div>
       </div>
 
-      <div id="method-M000017" class="method-detail">
-        <a name="M000017"></a>
+      <div id="method-M000016" class="method-detail">
+        <a name="M000016"></a>
 
         <div class="method-heading">
-          <a href="#M000017" class="method-signature">
+          <a href="#M000016" class="method-signature">
           <span class="method-name">time_to_discover?</span><span class="method-args">()</span>
           </a>
         </div>
@@ -510,11 +510,11 @@ href="ClusterConnection.html#M000015">worker</a> is started on it
         <div class="method-description">
           <p>
 Check if, we should try to discover <a
-href="ClusterConnection.html#M000008">new</a> bdrb servers
+href="ClusterConnection.html#M000007">new</a> bdrb servers
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000017-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000017-source">
+            onclick="toggleCode('M000016-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000016-source">
 <pre>
      <span class="ruby-comment cmt"># File vendor/plugins/backgroundrb/lib/backgroundrb/bdrb_cluster_connection.rb, line 108</span>
 108:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">time_to_discover?</span>
@@ -530,11 +530,11 @@ href="ClusterConnection.html#M000008">new</a> bdrb servers
         </div>
       </div>
 
-      <div id="method-M000016" class="method-detail">
-        <a name="M000016"></a>
+      <div id="method-M000015" class="method-detail">
+        <a name="M000015"></a>
 
         <div class="method-heading">
-          <a href="#M000016" class="method-signature">
+          <a href="#M000015" class="method-signature">
           <span class="method-name">update_stats</span><span class="method-args">()</span>
           </a>
         </div>
@@ -542,11 +542,11 @@ href="ClusterConnection.html#M000008">new</a> bdrb servers
         <div class="method-description">
           <p>
 Update the stats and discover <a
-href="ClusterConnection.html#M000008">new</a> nodes if they came up.
+href="ClusterConnection.html#M000007">new</a> nodes if they came up.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000016-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000016-source">
+            onclick="toggleCode('M000015-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000015-source">
 <pre>
      <span class="ruby-comment cmt"># File vendor/plugins/backgroundrb/lib/backgroundrb/bdrb_cluster_connection.rb, line 102</span>
 102:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update_stats</span>
@@ -558,22 +558,22 @@ href="ClusterConnection.html#M000008">new</a> nodes if they came up.
         </div>
       </div>
 
-      <div id="method-M000015" class="method-detail">
-        <a name="M000015"></a>
+      <div id="method-M000014" class="method-detail">
+        <a name="M000014"></a>
 
         <div class="method-heading">
-          <a href="#M000015" class="method-signature">
+          <a href="#M000014" class="method-signature">
           <span class="method-name">worker</span><span class="method-args">(worker_name,worker_key = nil)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-return the <a href="ClusterConnection.html#M000015">worker</a> proxy
+return the <a href="ClusterConnection.html#M000014">worker</a> proxy
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000015-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000015-source">
+            onclick="toggleCode('M000014-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000014-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/backgroundrb/lib/backgroundrb/bdrb_cluster_connection.rb, line 96</span>
 96:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">worker</span>(<span class="ruby-identifier">worker_name</span>,<span class="ruby-identifier">worker_key</span> = <span class="ruby-keyword kw">nil</span>)

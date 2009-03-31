@@ -6,7 +6,7 @@ require 'rubygems'
 require 'RMagick'
 
 class ApplicationController < ActionController::Base
-  
+  include YacaphHelper
   IMAGE_TYPES = ["image/jpeg", "image/pjpeg", "image/gif", "image/png", "image/x-png", "image/ico"]
   
   helper :all # include all helpers, all the time
