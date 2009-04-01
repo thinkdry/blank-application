@@ -1,34 +1,50 @@
-<html>
-	<head>
-		<%= stylesheet_link_tag "application.css" %>
-		<%= stylesheet_link_tag "login.css" %>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <%# @logo = Picture.find_by_name('logo') %>
-    <link rel="shortcut icon" href="<%= get_sa_config['sa_favicon_url'] %>"/>
-		<title>BLANK - Login</title>
-	</head>
-	<body>
+		<div id="headerForm"></div>
 		<div id="content_login">
-			<%= image_tag(get_sa_config['sa_logo_url'].to_s) %>
-    	<% form_tag session_path do -%>
+			<div id="logoDiv"><%= image_tag(get_sa_config['sa_logo_url'].to_s) %></div>
+		    <% form_tag session_path do -%>
                 <p style="color:red"><%=flash[:error]%></p>
-				<label><%=I18n.t('user.session.login_label')%><br>
-				<%= text_field_tag 'login', @login %></label>
-				<br>
-				<p>
-					<label><%=I18n.t('user.session.password_label')%><br>
-    			<%= password_field_tag 'password' %></label>
-				</p>
+				
+					<label width="100"><%=I18n.t('user.session.login_label')%></label>
+					<%= text_field_tag 'login', @login %>
+				
+				
+					<label width="100"><%=I18n.t('user.session.password_label')%></label>
+    				<%= password_field_tag 'password' %>
+				
 
-           <button type="submit" class="submit_button"><%=I18n.t('user.session.login_button')%></button>
-		         <label for="remember_me"><%=I18n.t('user.session.remember_me')%>:</label>
-          <%= check_box_tag 'remember_me', '1', @remember_me %><br />
-          <%= link_to I18n.t('user.session.password_forgotten'), forgot_password_path %>
-          <% if is_allowed_free_user_creation? %>
-            <br /><%= link_to I18n.t('user.session.inscription'), new_user_path %>
-          <% end %>
-
-    	<% end %>
+           			<div id="sub_but"><button type="submit" class="submit_button"><%=I18n.t('user.session.login_button')%></button></div>
+					<div id="actionlogin">
+						<div id="bottomLogin">
+							<p>
+								<%= image_tag '/images/login_icons/life_saver.png'%>
+								<%=I18n.t('user.session.remember_me')%>:
+								<%= check_box_tag 'remember_me', '1', @remember_me %>	
+							</p>
+							<p>
+								<%= image_tag('/images/login_icons/French.png')%>
+								<%= select_languages %>
+							</p>
+							<p>
+								<%= image_tag('/images/login_icons/Keychain.png')%>
+								<%= link_to I18n.t('user.session.password_forgotten'), forgot_password_path %>
+							</p>	
+						</div>
+						<div id="languageLogin">
+							<p>
+								<%= image_tag('/images/login_icons/contact.png')%>
+								<%= link_to I18n.t('layout.footer.contact'), "#" %>	
+							</p>
+							<p>
+								<%= image_tag('/images/login_icons/question.png')%>
+								<%= link_to I18n.t('layout.footer.faq'), "#" %>	
+							</p>			        
+							<% if is_allowed_free_user_creation? %>
+					           <br /><%= link_to I18n.t('user.session.inscription'), new_user_path %>
+							<%end%>
+						</div>
+					</div>
+    		<% end %>
 		</div>
-	</body>
-</html>
+		<div id="footerLogin">
+			<p><%=  I18n.t 'layout.footer.title' %></p>
+		</div>
