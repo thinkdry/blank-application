@@ -6,10 +6,10 @@
 
  $ ./script/plugin install git://
 
-2. Specify the link to the 'comments' table in the model
-
- $ has_many :comments, :as => :commentable, :order => 'created_at ASC'
+2. Put the class methods 'acts_as_item' inside the model and the controller of the object you want to get commentable.
 
 3. Add the member 'comment' to the resources defining the routes linked to your object.
 
  $ map.resources :object, :member => { :comment => :any }
+
+4. Define the fields in the views and linked it to the good methods or good urls.

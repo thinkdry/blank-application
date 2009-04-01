@@ -11,7 +11,7 @@ module ActsAsItem
     	  :rate_item_path,
     	  :add_tag_item_path,
     	  :remove_tag_item_path,
-    	  :comment_item_path,
+    	  :add_comment_item_path,
         :ajax_items_path
     end
 
@@ -74,7 +74,7 @@ module ActsAsItem
     private
     def self.define_prefixed_item_paths(base)
       # OPTIMIZE: Import prefix list from a conf file
-       ['edit', 'rate', 'add_tag', 'remove_tag', 'comment'].each do |prefix|
+       ['edit', 'rate', 'add_tag', 'remove_tag', 'add_comment'].each do |prefix|
          base.send(:define_method, "#{prefix}_item_path") do |*args|
            object, params = args[0], args[1] || {}
            params[:prefix] = prefix

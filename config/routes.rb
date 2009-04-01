@@ -43,7 +43,7 @@ ActionController::Routing::Routes.draw do |map|
         :rate => :any,
         :add_tag => :any,
         :remove_tag => :any,
-        :comment => :any
+        :add_comment => :any
       }
     end
   end

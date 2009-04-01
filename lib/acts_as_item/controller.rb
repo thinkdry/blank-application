@@ -9,7 +9,7 @@ module ActsAsItem
       def acts_as_item &block
         include ActsAsItem::ControllerMethods::InstanceMethods
 				acts_as_commentable
-				acts_as_taggable
+				acts_as_keywordable
         
         make_resourceful do
           actions :all
@@ -57,14 +57,14 @@ module ActsAsItem
 
           # Makes `current_user` as author for the current_object
           before :create do
-						params[@current_object.class.to_s.underscore][:tags_field] ||= []
 						params[@current_object.class.to_s.underscore][:categories_field] ||= []
+						params[@current_object.class.to_s.underscore][:keywords_field] ||= []
             current_object.user_id = current_user.id
           end
 
 					before :update do
-						params[@current_object.class.to_s.underscore][:tags_field] ||= []
 						params[@current_object.class.to_s.underscore][:categories_field] ||= []
+						params[@current_object.class.to_s.underscore][:keywords_field] ||= []
 					end
 					
 					response_for :show do |format|

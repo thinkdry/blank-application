@@ -13,7 +13,7 @@ module ActsAsItem
       def acts_as_item
         
         acts_as_rateable
-				acts_as_taggable
+				acts_as_keywordable
 
 				acts_as_xapian :texts => [:title, :description, :tags],
                  :values => [[:created_at, 0, "created_at", :number],[:title, 1, "title", :string], [:comment_size, 2, "commented", :number], [:rate_average, 3, "rated", :number]]
