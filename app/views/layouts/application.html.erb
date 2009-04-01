@@ -67,7 +67,7 @@
         <% end %>
       </select>
       <% if @current_user.users_workspaces.blank? %>
-        <br /><%= I18n.t('layout.application.no_add_content') %><br />
+        <p><%= I18n.t('layout.application.no_add_content') %><p>
       <% else %>
       <h3><%= I18n.t('layout.application.add_content') %></h3>
       <form name="form1" method="post" action="" id="form1">
@@ -91,8 +91,8 @@
       <% end %>
       <h3>Menu</h3>
       <div id="midle-right-menu">
-        <%= image_tag "/images/icons/home.png" %><p><%= link_to I18n.t('layout.application.home'), '/' %></p>
-        <%= image_tag "/images/icons/content.png" %><p><%= link_to I18n.t('layout.application.content'), content_path("articles") %></p>
+        <p><%= image_tag "/images/icons/home.png"%><%= link_to I18n.t('layout.application.home'), '/' %></p>
+        <p><%= image_tag "/images/icons/content.png" %><%= link_to I18n.t('layout.application.content'), content_path("articles") %></p>
       </div>
     </div>
     <div id="middle-middle">
