@@ -105,20 +105,23 @@ module ItemsHelper
 			item_type ||= item_types.first.to_s.pluralize
     end
     content = String.new
-
-    item_types.map{ |item| item.camelize }.each do |item_model|
-      url = ajax_items_path(item_model.classify.constantize)
-      item_page = item_model.underscore.pluralize
-      options = {}
-      options[:class] = 'selected' if (item_type == item_page)
-      options[:id] = item_model.underscore
-      content += content_tag(
-        :li,
-        link_to_remote(image_tag(item_model.classify.constantize.icon) + item_model.classify.constantize.label,:method=>:get, :update => "content", :url => url),
-        options
-      )
-    end
-    content_tag(:ul, content, :id => :tabs)
+		if item_type.nil?
+			"(no items selected)"
+		else
+			item_types.map{ |item| item.camelize }.each do |item_model|
+				url = ajax_items_path(item_model.classify.constantize)
+				item_page = item_model.underscore.pluralize
+				options = {}
+				options[:class] = 'selected' if (item_type == item_page)
+				options[:id] = item_model.underscore
+				content += content_tag(
+					:li,
+					link_to_remote(image_tag(item_model.classify.constantize.icon) + item_model.classify.constantize.label,:method=>:get, :update => "content", :url => url),
+					options
+				)
+			end
+			content_tag(:ul, content, :id => :tabs)
+		end
 	end
 
 	# Displays the list of items
