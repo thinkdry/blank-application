@@ -142,7 +142,7 @@ module ItemsHelper
 	# TODO enhance, test and include in library
 
   def remote_pagination(collection)
-    if !collection.nil? and collection.total_pages != 0
+    if !collection.nil? and collection.total_pages > 1
     content = String.new
 		item_type =  params[:item_type].nil? ? get_default_item_type : params[:item_type]
     url = current_workspace ? ajax_items_path(item_type) +"&page=" : ajax_items_path(item_type) +"?page="

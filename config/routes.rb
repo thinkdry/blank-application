@@ -27,7 +27,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :roles
   map.resources :permissions
-
   
   # TODO: Publishing, Bookmarks, Admin related controllers: rights...
   map.root :controller => 'home', :action => 'index'

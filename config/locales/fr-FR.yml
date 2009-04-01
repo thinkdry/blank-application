@@ -183,8 +183,12 @@ fr-FR:
       title_hint: Titre de l'Objet
       description_label: Description
       description_hint: Description de l'Objet
-      tags_label: Etiquettes
-      tags_hint: Séparer par des espaces
+      keyword_label: Keywords
+      keyword_hint: Saisissez les keywords pour cette page
+      tag_label: Etiquettes
+      tag_hint: Tagger cet item avec un mot-clé
+      add_keyword: Ajouter un keyword
+      add_tag: Ajouter une étiquette
     show:
       get_in_another_format: Autre format
     new:
@@ -208,8 +212,6 @@ fr-FR:
     new:
       title: Ajouter un nouvel article
     field:
-      tags_label: Etiquettes
-      tags_hint: Separer par des espaces
       article_label: Article
       article_hint: Nom de l'Article
       assosiated_file_label: Fichier associé
@@ -226,8 +228,6 @@ fr-FR:
     field:
       body_label: Corps
       body_hint: Corps de la page
-      keywords_label: Keywords
-      keywords_hint: Saisissez les keywords pour cette page
       page_title_label: Titre de la page
       page_title_hint: Saisissez le titre de cette page
     edit:

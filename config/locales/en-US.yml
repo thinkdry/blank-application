@@ -174,7 +174,7 @@ en-US:
       keyword_label: Keywords
       keyword_hint: Specified keywords for searching that item
       tag_label: Tags
-      tag_label:
+      tag_hint: Give a tag defining this item
       add_keyword: Add a keyword
       add_tag: Add a tag
     show:
@@ -214,8 +214,6 @@ en-US:
     field:
       body_label: Body
       body_hint: Body of this page
-      keywords_label: Keywords
-      keywords_hint: Enter your keywords for this page
       page_title_label: Title of the page
       page_title_hint: Enter the title for this page
     edit:

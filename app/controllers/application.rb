@@ -88,13 +88,8 @@ class ApplicationController < ActionController::Base
 	end
 
   def set_locale
-		if params[:locale]
-			I18n.locale = params[:locale]
-		elsif session[:locale]
-			I18n.locale = session[:locale]
-		else
-			I18n.locale = I18n.default_locale
-		end
+		I18n.locale = params[:locale] || session[:locale] || I18n.default_locale
+		session[:locale] = I18n.locale
   end
 
   def upload_photo(photo, crop_width, crop_height, path_name)
