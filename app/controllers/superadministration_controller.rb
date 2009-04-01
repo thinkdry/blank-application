@@ -33,7 +33,8 @@ class SuperadministrationController < ApplicationController
 			@conf = get_sa_config
 			if params[:pictures]
 				if !params[:pictures][:logo].blank? && (IMAGE_TYPES.include?(params[:pictures][:logo].content_type.chomp))
-					upload_photo(params[:pictures][:logo],240,55, '/public/config_files/logo.jpg')
+#					upload_photo(params[:pictures][:logo],240,55, '/public/config_files/logo.jpg')
+          File.open(RAILS_ROOT+'/public/config_files/logo.jpg', "wb") { |f| f.write(params[:pictures][:logo].read) }
 				end
 				if !params[:pictures][:favicon].blank? && (IMAGE_TYPES.include?(params[:pictures][:favicon].content_type.chomp))
 					upload_photo(params[:pictures][:favicon],16,16, '/public/config_files/favicon.ico')

@@ -3,7 +3,6 @@
   <%= f.advanced_editor(:body, :label => I18n.t('article.field.article_label')+ ' * :', :hint => I18n.t('article.field.article_hint')) %>
 
   <% f.field :article_files, :label => I18n.t('article.field.assosiated_file_label')+ ' :' do %>
-  
     <div id="files">
       <% @current_object.article_files.each do |af| %>
         <div id="file<%= af.id.to_s %>">
