@@ -1,0 +1,79 @@
+= Yacaph
+
+Yacaph, which stands for "Yet Another CAPtcha Helper". It's a lean and
+mean captcha processor. The reason it's lean is because it doesn't
+need to create images on the fly nor store any information in the
+users session. Everything required to validate the captcha is 
+provided by the user request.
+
+Using Yacaph is a five step process
+
+  1. Install RMagick
+  2. Install the plugin 
+  3. Generate a bunch of images off-line
+  4. Use the helper method(s)
+  5. Validate user input
+
+== Install the RMagic
+
+Follow the instructions on their site: 
+http://rmagick.rubyforge.org/install-faq.html
+
+
+== Install the Plugin
+
+Installing the plugin is as simple as issuing this command from the
+root of your rails application directory:
+
+  script/plugin install svn://rubyforge.org//var/svn/yacaph/trunk
+
+== Generate a bunch of images off-line
+
+The reason why you don't need to generate images on the fly is that
+they have been generated in advance and all you do is pick one at 
+random. To do this you run the rake task:
+
+   rake yacaph:generate COUNT=250
+
+This will create the '/public/images/captcha' directory if it doesn't
+already exist and put 250 randomly generated captcha gifs. This can
+take a while so you might as well get something to drink. Feel free
+to toy around with the settings within the yacaph.rb file to get just
+the right look/size for your images.
+
+== Use the helper methods
+
+In your forms all you need to do is:
+
+  <%= yacaph_block %>
+
+and add a little bit of CSS styling to get a nice looking captcha
+validation text field and image. If you don't like the way it's
+setup then use the other helper methods, which are more granular.
+
+
+== Validate user input
+
+In your controller, you will need to do the following:
+
+PostController < ApplicationController
+
+   include YacaphHelper
+
+   def create
+      ...
+      if yacaph_validated?
+         ...
+      else
+         ...
+      end
+   end
+end
+
+That's it. Did I tell you that it flies? It's really fast
+(of course it's got nothing to do!)
+
+Enjoy!
+
+
+Copyright (c) 2007 Eric Methot, released under the MIT license

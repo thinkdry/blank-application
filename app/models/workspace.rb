@@ -80,6 +80,18 @@ class Workspace < ActiveRecord::Base
 		end
 		return res
   end
+
+	def ws_items= params
+		self[:ws_items] = params.join(',')
+	end
+
+	def ws_item_categories= params
+		self[:ws_item_categories] = params.join(',')
+	end
+
+	def ws_available_types= params
+		self[:available_types] = params.join(',')
+	end
 	
 	# Link the attributes directly from the form
 	def new_user_attributes= user_attributes
@@ -112,7 +124,7 @@ class Workspace < ActiveRecord::Base
 	end
 
   def accepts_destroy_for? user
-    return accepting_action(user, 'edit', (self.creator_id==user.id), false, true)
+    return accepting_action(user, 'destroy', (self.creator_id==user.id), false, true)
   end
 
   def accepts_edit_for? user

@@ -57,7 +57,7 @@
         <% Workspace.allowed_user_with_permission(@current_user.id, 'workspace_show').each do |w| %>
           <%= content_tag(:option, w.title, :value => workspace_path(w)) %>
         <% end %>
-        <% if @current_user.has_system_permission('workspace', 'create') %>
+        <% if @current_user.has_system_permission('workspace', 'new') %>
           <option selected="selected" value='#'>
             ----------
           </option>
@@ -75,7 +75,7 @@
           <option selected="selected" value='#'>
             --------
           </option>
-          <% available_items_list.each do |type| %>
+          <% (current_workspace ? current_workspace.ws_items.split(',').delete_if{ |e| !@current_user.has_workspace_permission(current_workspace.id, e, 'new') } : available_items_list).each do |type| %>
             <% if type=='feed_source' %>
               <option value="/feed_sources/what_to_do">
                 <%= I18n.t "general.item.#{type}" %>

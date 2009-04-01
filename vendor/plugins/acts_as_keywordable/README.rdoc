@@ -1,0 +1,11 @@
+= ActsAsKeywordable
+
+== Installation
+
+1. Install the plugin.
+
+ $ ./script/plugin install git://
+
+2. Put the class methods 'acts_as_keywordable' inside the model of the object you want to get keywordable.
+
+3. Define the fields in the views and linked it to the good methods or good urls.

@@ -6,11 +6,12 @@ require 'rubygems'
 require 'RMagick'
 
 class ApplicationController < ActionController::Base
-  
+  include YacaphHelper
   IMAGE_TYPES = ["image/jpeg", "image/pjpeg", "image/gif", "image/png", "image/x-png", "image/ico"]
   
   helper :all # include all helpers, all the time
-	helper_method :available_items_list, :available_languages, :get_sa_config, :right_conf, :is_allowed_free_user_creation?
+	helper_method :available_items_list, :available_languages, :get_sa_config, :right_conf,
+		:is_allowed_free_user_creation?, :get_default_item_type
   before_filter :is_logged?
 	before_filter :set_locale
 
@@ -51,6 +52,14 @@ class ApplicationController < ActionController::Base
 		end
 	end
 
+	def get_default_item_type
+		if current_workspace
+			return current_workspace.ws_items.split(',').first.to_s.pluralize
+		else
+			return get_sa_config['sa_items'].first.to_s.pluralize
+		end
+	end
+
 	def is_superadmin?
 		no_permission_redirection unless self.current_user.has_system_role('superadmin')
 	end
@@ -79,13 +88,8 @@ class ApplicationController < ActionController::Base
 	end
 
   def set_locale
-		if params[:locale]
-			I18n.locale = params[:locale]
-		elsif session[:locale]
-			I18n.locale = session[:locale]
-		else
-			I18n.locale = I18n.default_locale
-		end
+		I18n.locale = params[:locale] || session[:locale] || I18n.default_locale
+		session[:locale] = I18n.locale
   end
 
   def upload_photo(photo, crop_width, crop_height, path_name)

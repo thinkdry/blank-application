@@ -7,23 +7,28 @@
       <% end %>
       <%= f.text_field :title, :label => I18n.t('workspace.field.title_label')+" * : " %>
       <%= f.advanced_editor :description, :label => I18n.t('workspace.field.description_label') +' : ' %>
-      <% if @workspace.state != 'private' %>
-        <%= f.select :state, get_sa_config['sa_ws_types'].map{ |e| [I18n.t('workspace.type.'+e), e] }, :label => I18n.t('workspace.field.state_label')+' :' %>
-      <% else %>
-        <%= f.select :state, [I18n.t('workspace.type.private'), 'private'], :label => I18n.t('workspace.field.state_label')+' :', :disabled => (@workspace.state == 'private') %>
+      <% if (list=@workspace.ws_available_types.split(',')).size > 1 %>
+        <%= f.select :state, list.map{ |e| [I18n.t('workspace.type.'+e), e] }, :label => I18n.t('workspace.field.state_label')+' :' %>
       <% end %>
       <br /><br />
       <% if @current_object.new_record? || check=@current_object.accepts_administration_for?(@current_user) %>
           <%= f.label I18n.t('workspace.edit.workspace_configuration')+" : " %><br />
           <% if @sa_conf["sa_items"].size > 0 %>
             <%= I18n.t('workspace.edit.available_items') %> :<br />
-            <%= checkboxes_from_list(@sa_conf["sa_items"], "items", @current_object, "ws_") %>
+            <%= checkboxes_from_list(@sa_conf["sa_items"], "ws_items", @current_object, 'workspace') %>
             <br />
           <% end %>
           <% if @sa_conf["sa_item_categories"].size > 0 %>
             <%= I18n.t('workspace.edit.available_item_categories')+" : " %><br />
-            <%= checkboxes_from_list(@sa_conf["sa_item_categories"], "item_categories", @current_object, "ws_") %>
+            <%= checkboxes_from_list(@sa_conf["sa_item_categories"], "ws_item_categories", @current_object, 'workspace') %>
             <br />
+          <% end %>
+          <% if @workspace.state != 'private' %>
+            <% if @sa_conf["sa_ws_types"].size > 0 %>
+              <%= I18n.t('workspace.edit.available_ws_types')+" : " %><br />
+              <%= checkboxes_from_list(@sa_conf["sa_ws_types"], "ws_available_types", @current_object, 'workspace') %>
+              <br />
+            <% end %>
           <% end %>
       <% end %>
 
@@ -77,13 +82,14 @@
         });
       </script>
   
-      <%= f.select(I18n.t('workspace.add_user.role'), @roles.collect { |r| [I18n.t('general.role.'+r.name), r.id]}) %>
-    
+      <label><%= I18n.t('workspace.add_user.role') %></label>
+      <%= f.select :role, @roles.collect { |r| [I18n.t('general.role.'+r.name), r.id]} %>
+      
       <%= button_to_function I18n.t('general.button.add'), %{
             new Ajax.Request("#{add_new_user_workspace_path(params[:id])}", {
               parameters: {
                 user_login: $('user_login').value,
-                user_role: $('user_Role').value
+                user_role: $('user_role').value
               },
               method: 'get',
               asynchronous:true,

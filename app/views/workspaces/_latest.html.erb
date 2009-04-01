@@ -4,7 +4,7 @@
 			<li class="clear">
 				<div id="<%= item.id%>">
 					<%= image_tag(item.icon, :align => 'left') %>
-					<%= link_to_item(item) %>
+					<%= link_to item.title, item_path(item) %>
 				</div>
 				<div id="tip_<%=item.id%>" style="display:none;">
 					<div class="tooltip_infos">

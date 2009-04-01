@@ -7,6 +7,7 @@
     <% if w.accepts_destroy_for?(@current_user) %>
       <%= link_to 'delete', workspace_path(w.id), :method => :delete, :confirm =>  I18n.t('item.destroy.delete_conform')%>
     <% end %>
+    <br /><br />
     <% w.roles.uniq.each do |r| %>
       <%= I18n.t('general.role.'+r.name)%> :
       <% w.users_by_role(r.name).each do |u| %>

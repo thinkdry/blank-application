@@ -22,10 +22,11 @@ ActionController::Routing::Routes.draw do |map|
 	map.content '/content/:item_type', :controller => 'items', :action => 'index'
   map.ajax_content '/ajax_content/:item_type', :controller => 'items', :action => 'ajax_index'
   map.display_content_list '/display_content_list/:item_type', :controller => 'items', :action => 'display_item_in_pop_up'
-	
+
+	map.autocomplete_on '/home/autocomplete_on', :controller => 'home', :action => 'autocomplete_on'
+
   map.resources :roles
   map.resources :permissions
-
   
   # TODO: Publishing, Bookmarks, Admin related controllers: rights...
   map.root :controller => 'home', :action => 'index'
@@ -41,7 +42,7 @@ ActionController::Routing::Routes.draw do |map|
         :rate => :any,
         :add_tag => :any,
         :remove_tag => :any,
-        :comment => :any
+        :add_comment => :any
       }
     end
   end

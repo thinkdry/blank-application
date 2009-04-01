@@ -35,7 +35,8 @@ class UsersController < ApplicationController
     end
 
 		before :index do
-			no_permission_redirection unless @current_objects.first.accepts_index_for?(@current_user)
+			# TODO : check in the controller
+			#no_permission_redirection unless @current_objects.first.accepts_index_for?(@current_user)
 			@current_objects = current_objects.paginate(
 					:page => params[:page],
 					:order => :title,

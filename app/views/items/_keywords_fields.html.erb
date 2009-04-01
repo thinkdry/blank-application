@@ -1,0 +1,28 @@
+<% f.field :keywords, :label => I18n.t('item.field.keyword_label').pluralize + " :" do %>
+    <div class="formElement" id="keywords_list">
+    <% @current_object.keywords.each do |k| %>
+      <div id="<%= k.name %>"><%= k.name+' '+link_to_function('(delete)', "this.parentNode.remove()") %><%= hidden_field_tag "#{@current_object.class.to_s.underscore}[keywords_field][]", k.name %></div>
+    <% end %>
+    </div>
+    <div class="formElement" id="add_keyword">
+    <%= text_field :keyword, :value, :hint => I18n.t('item.field.keyword_hint') %>
+    <div id="autocomplete_choices" class="autocomplete"></div>
+      <script>
+        new Ajax.Autocompleter("keyword_value", "autocomplete_choices","/home/autocomplete_on?model_name=keyword",{
+          method: 'post', paramName: 'name'
+        });
+      </script>
+    <%= button_to_function(I18n.t('item.field.add_keyword'), "dodo($('keyword_value').value, '#{@current_object.class.to_s.underscore}', 'keywords_list'); $('keyword_value').value=''") %>
+    </div>
+<% end %>
+
+<script type="text/javascript">
+function dodo(name, model_name, place_id) {
+  var dadiv = new Element('div', { 'id': name }).insert(name)
+  var dadelete = new Element('a', { 'onclick': 'this.parentNode.remove(); return false;' }).insert('(delete)')
+  var dahidden = new Element('input', { 'id': model_name+'_keywords_', 'type': 'hidden', 'value': name, 'name': model_name+'[keywords_field][]' })
+  dadiv.appendChild(dadelete)
+  dadiv.appendChild(dahidden)
+  $(place_id).insert(dadiv)
+}
+</script>

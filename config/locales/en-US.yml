@@ -171,8 +171,12 @@ en-US:
       title_hint: Title of Item
       description_label: Description
       description_hint: Description of Item
-      tags_label: Tags
-      tags_hint: Separated by Spaces
+      keyword_label: Keywords
+      keyword_hint: Specified keywords for searching that item
+      tag_label: Tags
+      tag_hint: Give a tag defining this item
+      add_keyword: Add a keyword
+      add_tag: Add a tag
     show:
       get_in_another_format: Other format
     new:
@@ -210,8 +214,6 @@ en-US:
     field:
       body_label: Body
       body_hint: Body of this page
-      keywords_label: Keywords
-      keywords_hint: Enter your keywords for this page
       page_title_label: Title of the page
       page_title_hint: Enter the title for this page
     edit:
@@ -461,6 +463,8 @@ en-US:
       feed_source: RSS Feed
       bookmark: Bookmark
       page: Page
+      advert: Advert
+      programme: Programme
     language:
       en-US: English(US)
       fr-FR: French(FRA)

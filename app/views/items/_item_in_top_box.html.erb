@@ -1,7 +1,7 @@
 <li>
 	<div id="right<%= object.id%>">
 		<%= image_tag object.icon, :class => "test" %>
-		&nbsp;<%= link_to_item object %><br>
+		&nbsp;<%= link_to object.title, item_path(object) %><br>
 	</div>
 	<div id="tip_right_<%=object.id%>" style="display:none;">
 		<div class="tooltip_infos">
