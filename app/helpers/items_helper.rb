@@ -90,6 +90,11 @@ module ItemsHelper
     render :partial => "items/category", :locals => { :f => form, :item => item }
 	end
 
+	# Form part managing keywords
+	def item_keywords_fields(form, item)
+    render :partial => "items/keywords_fields", :locals => { :f => form, :item => item }
+	end
+
 	# Displays the tabs link to items
   def display_tabs(item_type)
     if current_workspace
@@ -119,8 +124,8 @@ module ItemsHelper
 	# Displays the list of items
   def display_item_list(item_type=get_default_item_type, partial_used='items/item_in_list')
 		item_type ||= get_default_item_type
-    items = item_type.classify.constantize.list_items_with_permission_for(@current_user, 'show', current_workspace)
 		if !item_type.blank?
+			items = item_type.classify.constantize.list_items_with_permission_for(@current_user, 'show', current_workspace)
 			@collection = items.paginate(:page => params[:page],:per_page=>15)
 	    render(:partial => partial_used, :collection => @collection)
 		else

@@ -171,8 +171,12 @@ en-US:
       title_hint: Title of Item
       description_label: Description
       description_hint: Description of Item
-      tags_label: Tags
-      tags_hint: Separated by Spaces
+      keyword_label: Keywords
+      keyword_hint: Specified keywords for searching that item
+      tag_label: Tags
+      tag_label:
+      add_keyword: Add a keyword
+      add_tag: Add a tag
     show:
       get_in_another_format: Other format
     new:

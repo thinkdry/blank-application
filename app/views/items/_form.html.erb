@@ -8,15 +8,17 @@
       <%=I18n.t('copyright.copyright_restriction')%><br />
     <% end %>
 
-    <%= f.text_field :title, :label => I18n.t('item.field.title_label') + " * :", :hint => "Title", :readonly => is_copyright %>
+    <%= f.text_field :title, :label => I18n.t('item.field.title_label') + " * :", :hint => I18n.t('item.field.title_hint'), :readonly => is_copyright %>
 
     <%= item_category_fields(f, @current_object) %>
+
+    <%= item_keywords_fields(f, @current_object) %>
     
-    <%= f.tags_field :string_tags, :label => I18n.t('item.field.tags_label').pluralize + " :", :hint => I18n.t('article.field.tags_hint') %>
     <%= f.text_field :description, :label => I18n.t('item.field.description_label') + ' * :', :hint => I18n.t('item.field.description_hint') %>
     <%= capture(f, &block) %>
     
     <%= item_status_fields(f, @current_object) %>
+    
     <%= error_message_on :current_object, :items %>
 
     <br />

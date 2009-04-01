@@ -30,19 +30,19 @@
       <%= check_box :conf, :sa_automatic_private_workspace, { :checked => (@conf['sa_automatic_private_workspace']=='true') }, true, false %>
       <br /><br />
       Available items :<br />
-      <%= checkboxes_from_list(ITEMS, "items", @conf, "sa_") %>
+      <%= checkboxes_from_list(ITEMS, "sa_items", @conf, "conf") %>
       
       Available languages :<br />
-      <%= checkboxes_from_list(LANGUAGES, "languages", @conf, "sa_") %>
+      <%= checkboxes_from_list(LANGUAGES, "sa_languages", @conf, "conf") %>
 
       Workspaces types :<br />
-      <%= checkboxes_from_list(WS_TYPES, "ws_types", @conf, "sa_") %>
+      <%= checkboxes_from_list(WS_TYPES, "sa_ws_types", @conf, "conf") %>
 
       Item categories :<br />
-      <%= checkboxes_from_list(ITEM_CATEGORIES, "item_categories", @conf, "sa_") %>
+      <%= checkboxes_from_list(ITEM_CATEGORIES, "sa_item_categories", @conf, "conf") %>
 
       Feed items imporation types :<br />
-      <%= checkboxes_from_list(FEED_ITEMS_IMPORTATION_TYPES, "feed_items_importation_types", @conf, "sa_") %>
+      <%= checkboxes_from_list(FEED_ITEMS_IMPORTATION_TYPES, "sa_feed_items_importation_types", @conf, "conf") %>
       
       <br />
 

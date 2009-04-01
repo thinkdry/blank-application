@@ -3,12 +3,76 @@ module ActsAsItem
     def self.included(base)
       base.extend ClassMethods
     end
-    
+
     module ClassMethods
       def item?
         return true if self.respond_to?(:item)
         false
       end
+
+      def acts_as_item
+        
+        acts_as_rateable
+				acts_as_taggable
+
+				acts_as_xapian :texts => [:title, :description, :tags],
+                 :values => [[:created_at, 0, "created_at", :number],[:title, 1, "title", :string], [:comment_size, 2, "commented", :number], [:rate_average, 3, "rated", :number]]
+
+				has_many :items
+				has_many :workspaces, :through => :items
+        belongs_to :user
+        
+        has_many :comments, :as => :commentable, :order => 'created_at ASC'
+        
+        validates_presence_of	:title, :description, :user
+        # Ensure that item is associated to one or more workspaces throught items table
+        validates_presence_of :items, :message => "Sélectionner au moins un espace de travail"
+
+				named_scope :full_text,
+					lambda { |text| { :conditions => ["#{self.model_name.underscore.pluralize}.id in (?)", ActsAsXapian::Search.new([self.model_name.constantize.classify], text, :limit => 10).results.collect{|x| x[:model].id}] } }
+
+				# Build the mandatory condition checking the fields of that model
+				named_scope :advanced_on_fields,
+					lambda { |condition| { :conditions => condition }	}
+
+#				named_scope :advanced_on_polymorphic_jointure,
+#					lambda { |join_table, join_field, join_model, ids_list|
+#						{ :condition => %{
+#							SELECT *
+#								FROM #{join_table}
+#								WHERE
+#									#{join_table}.#{join_field}_id = #{self.id} AND
+#									#{join_table}.#{join_field}_type = #{self.model_name} AND
+#									#{join_table}.#{join_model}_id IN [#{ids_list.split(',')}]
+#							}
+#						} }
+
+				named_scope :most_viewed,
+					lambda { |way, limit| {:order => "#{self.model_name.underscore.pluralize}.viewed_number #{way}", :limit => limit.to_i}}
+
+				named_scope :best_rated,
+					lambda { |way, limit| {:order => "#{self.model_name.underscore.pluralize}.rates_average #{way}", :limit => limit.to_i}}
+
+				named_scope :latest,
+					lambda { |way, limit| {:order => "#{self.model_name.underscore.pluralize}.created_at #{way}", :limit => limit.to_i}}
+
+				named_scope :alpha_ordered,
+					lambda { |way, limit| { :order => "#{self.model_name.underscore.pluralize}.title #{way}", :limit => limit.to_i }}
+
+				named_scope :most_commented,
+					lambda { |way, limit| {:order => "#{self.model_name.underscore.pluralize}.comments_number #{way}", :limit => limit.to_i}}
+
+        include ActsAsItem::ModelMethods::InstanceMethods
+
+      end
+			
+      def icon
+        'item_icons/' + self.to_s.underscore + '.png'
+      end
+
+			def label
+				I18n.t("general.item.#{self.model_name.underscore}")
+			end
 
 			def list_items_with_permission_for(user, action, workspace=false)
 				if (workspace)
@@ -68,35 +132,6 @@ module ActsAsItem
 					end
 				end
 			end
-      
-      def acts_as_item
-        
-        acts_as_rateable
-
-				acts_as_xapian :texts => [:title, :description, :tags],
-                 :values => [[:created_at, 0, "created_at", :number],[:title, 1, "title", :string], [:comment_size, 2, "commented", :number], [:rate_average, 3, "rated", :number]]
-
-				has_many :items
-				has_many :workspaces, :through => :items
-        belongs_to :user
-        has_many :taggings, :as => :taggable
-        has_many :tags,     :through => :taggings
-        has_many :comments, :as => :commentable, :order => 'created_at ASC'
-        
-        validates_presence_of	:title, :description, :user
-        # Ensure that item is associated to one or more workspaces throught items table
-        validates_presence_of :items, :message => "Sélectionner au moins un espace de travail"
-        
-        include ActsAsItem::ModelMethods::InstanceMethods
-      end
-      
-      def icon
-        'item_icons/' + self.to_s.underscore + '.png'
-      end
-
-			def label
-				I18n.t("general.item.#{self.model_name.underscore}")
-			end
 
 			private
 			def get_sa_config
@@ -126,34 +161,9 @@ module ActsAsItem
       def icon
          self.class.icon
       end
-      
-      def flat_tags
-        self[:tags] = self.taggings.collect { |t| t.tag.name }.join(' ')
-      end
 
-      def category= category=""
-        self[:category] = category.join(",")
-      end
-      
-      # Take a list of tag, space separated and assign them to the object
-      def string_tags= arg
-        @string_tags = arg
-        tag_names = arg.split(' ').uniq
-        # Delete all tags that are no more associated
-        taggings.each do |tagging|
-          tagging.destroy unless tag_names.delete(tagging.tag.name)
-        end
-        # Insert new tags
-        tag_names.each do |tag_name|
-          tag = Tag.find_by_name(tag_name) || Tag.new(:name => tag_name)
-          self.taggings.build(:tag => tag)
-        end
-        flat_tags
-      end
-
-      def string_tags # Return space separated tag names
-        return @string_tags if @string_tags
-        self[:tags]
+      def categories_field= params
+        self[:category] = params.join(",")
       end
       
       def associated_workspaces= workspace_ids

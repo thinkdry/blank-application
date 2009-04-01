@@ -80,6 +80,18 @@ class Workspace < ActiveRecord::Base
 		end
 		return res
   end
+
+	def ws_items= params
+		self[:ws_items] = params.join(',')
+	end
+
+	def ws_item_categories= params
+		self[:ws_item_categories] = params.join(',')
+	end
+
+	def ws_available_types= params
+		self[:available_types] = params.join(',')
+	end
 	
 	# Link the attributes directly from the form
 	def new_user_attributes= user_attributes

@@ -20,6 +20,10 @@ module ActsAsCommentable
           page.insert_html :bottom, 'comment_list', :partial => "items/comment", :object => comment
         end
       end
+
+			def change_state(new_state)
+				
+			end
      
     end
   end

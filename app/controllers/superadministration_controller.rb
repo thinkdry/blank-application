@@ -43,7 +43,7 @@ class SuperadministrationController < ApplicationController
 				@conf[l] = params[:conf][l.to_sym]
 			end
 			list.each do |l|
-				@conf['sa_'+l] = check_to_tab(l)
+				@conf['sa_'+l] = params[:conf]['sa_'+l] || []
 			end
 			# Update the default ws_config (with the id 1 normaly ...)
 			#@default_conf = WsConfig.find(1)

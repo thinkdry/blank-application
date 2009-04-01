@@ -10,6 +10,7 @@ module ActsAsItem
         include ActsAsItem::ControllerMethods::InstanceMethods
 
 				acts_as_commentable
+				acts_as_taggable
         
         make_resourceful do
           actions :all
@@ -57,8 +58,15 @@ module ActsAsItem
 
           # Makes `current_user` as author for the current_object
           before :create do
+						params[@current_object.class.to_s.underscore][:tags_field] ||= []
+						params[@current_object.class.to_s.underscore][:categories_field] ||= []
             current_object.user_id = current_user.id
           end
+
+					before :update do
+						params[@current_object.class.to_s.underscore][:tags_field] ||= []
+						params[@current_object.class.to_s.underscore][:categories_field] ||= []
+					end
 					
 					response_for :show do |format|
 						format.html # index.html.erb
@@ -86,23 +94,6 @@ module ActsAsItem
         render :nothing => true
       end
       
-      def add_tag
-        tag_name = params[:tag]['name']
-        tag = Tag.find_by_name(tag_name) || Tag.create(:name => tag_name)
-        current_object.taggings.create(:tag => tag)
-        render :update do |page|
-          page.insert_html :bottom, 'tag_list', ' ' + item_tag(tag)
-        end
-      end
-      
-      def remove_tag
-        tag = current_object.taggings.find_by_tag_id(params[:tag_id].to_i)
-        tag_dom_id = "tag_#{tag.tag_id}"
-        tag.destroy
-        render :update do |page|
-          page.remove tag_dom_id
-        end
-      end
     end
   end
 end
