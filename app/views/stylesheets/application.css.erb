@@ -4,7 +4,7 @@ body {
 	padding: 0px;
 	font-size: 10pt;
 	color: #9C9C9C;
-	background-color: #eee;
+	background-color: #2B2D2C;
 	text-align: center;
 }
 
@@ -31,7 +31,7 @@ a.add_item{
   margin: 10px 0px 20px 0px;
 }
 
-#page {
+#page_container {
 	width: 1000px;
 	margin: 0 auto;
 	background-color:<%=@body.bgcolor%>;
@@ -47,6 +47,8 @@ a.add_item{
 	background-color:<%=@header.bgcolor%>;
 	color: white;
 	height: 103px;
+	padding-top:20px;
+	background:url('/images/backheader.jpg') no-repeat;
 }
 
 #header_right{
@@ -57,7 +59,7 @@ a.add_item{
 	height:80px;
 }
 
-#page #container h1 {
+#page_container #container h1 {
 	color: #F79646; 
 	font-size: 175%;
 }
@@ -72,7 +74,7 @@ a.add_item{
 	color: #9C9C9C;
 }
 
-#page #container h2 {
+#page_container #container h2 {
 	font-size: 125%;
 	color:#F79646;
 }
@@ -337,9 +339,12 @@ a img {
 }
 
 #footer{
-  background-color:#dbdcdb;
-  color: #fff;
-  padding: 15px;
+	color:#2B2D2C;
+	height:12px;
+	margin-bottom:20px;
+	margin-top:10px;
+	padding:15px;
+	background:#eee url('/images/backfooter.jpg') no-repeat 0px 27px;
 }
 
 #footer a{
@@ -353,4 +358,5 @@ a img {
 #footer .menu{
   float: right;
   font-size: 90%;
+  color:#F79646;
 }

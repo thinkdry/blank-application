@@ -1,4 +1,3 @@
-
 body {
 	margin: 0px 0px 0px 0px;
 	padding: 0px 0px 0px 0px;
@@ -119,4 +118,7 @@ form  {
 #actionlogin p{
 	margin:5px 0;
 	font-size:80%;
+}
+select{
+	margin-top:-3px;
 }

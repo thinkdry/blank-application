@@ -2,8 +2,7 @@
 class SessionsController < ApplicationController
   
   skip_before_filter :is_logged?
-
-  layout 'no_logged'
+  layout 'login'
 
   # render new.rhtml
   def new
