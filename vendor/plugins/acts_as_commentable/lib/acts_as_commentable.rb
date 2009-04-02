@@ -13,20 +13,29 @@ module ActsAsCommentable
     
     module InstanceMethods
       def add_comment
-        if yacaph_validated?
-          comment = current_object.comments.create(params[:comment].merge(:user => @current_user))
+        if logged_in?
+          current_object.comments.create(params[:comment].merge(:user => @current_user))
           current_object.comments_number = current_object.comments_number.to_i + 1
           current_object.save
           render :update do |page|
-            page.insert_html :bottom, 'comments_list', :partial => "items/comment", :object => comment
-            page.replace_html 'captcha',  :partial => "items/captcha"
+            page.replace_html "_info", :text =>"Votre message est enregistré, nous vous remercions de votre participation"
           end
         else
-          render :update do |page|
-            page.replace_html 'captcha',  :partial => "items/captcha"
+          if yacaph_validated?
+            current_object.comments.create(params[:comment])
+            current_object.comments_number = current_object.comments_number.to_i + 1
+            current_object.save
+            render :update do |page|
+              page.replace_html "ajax_info", :text =>"Votre message est enregistré, nous vous remercions de votre participation"
+              page.replace_html "comment_captcha",  :partial => "items/captcha"
+            end
+          else
+            render :update do |page|
+              page.replace_html "ajax_info", :text => "Le code de vérification est incorrect"
+              page.replace_html "comment_captcha",  :partial => "items/captcha"
+            end
           end
         end
-      end
 
 			def update_comment(new_state)
 				

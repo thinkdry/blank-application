@@ -1,6 +1,5 @@
 class NewWsConfig < ActiveRecord::Migration
   def self.up
-    drop_table :ws_configs
 		remove_column :workspaces, :ws_config_id
 		add_column :workspaces, :ws_items, :string
 		add_column :workspaces, :ws_item_categories, :string
