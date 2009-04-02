@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+  <link rel="shortcut icon" href="<%= get_sa_config['sa_favicon_url'] %>"/>
+  <%= stylesheet_link_tag "login.css" %>
+  <link rel="stylesheet" type="text/css" href="/prototip2.0.4/css/prototip.css" />
+  <title>
+    <%= I18n.t 'layout.application.title' %> -
+    <%= params[:action].capitalize if params[:action] != 'index' %>
+    <%= params[:controller].capitalize %>
+  </title>
+</head>
+
+
+<body>
+<div id="page">
+  <div id="container">      
+      <%= content_tag(:div, flash[:notice], :class => 'notice') if flash[:notice] %>
+      <%= content_tag(:div, flash[:error], :class => 'error') if flash[:error] %>
+      <%= yield %>
+  </div>
+</div>
+</body>
