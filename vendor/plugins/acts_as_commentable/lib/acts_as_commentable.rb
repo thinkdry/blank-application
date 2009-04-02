@@ -18,7 +18,7 @@ module ActsAsCommentable
           current_object.comments_number = current_object.comments_number.to_i + 1
           current_object.save
           render :update do |page|
-            page.replace_html "_info", :text =>"Votre message est enregistré, nous vous remercions de votre participation"
+            page.replace_html "ajax_info", :text =>"Votre message est enregistré, nous vous remercions de votre participation"
           end
         else
           if yacaph_validated?
@@ -36,6 +36,7 @@ module ActsAsCommentable
             end
           end
         end
+			end
 
 			def update_comment(new_state)
 				
