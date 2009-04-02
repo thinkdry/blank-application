@@ -64,7 +64,7 @@ class ApplicationController < ActionController::Base
 		if current_workspace
 			(current_workspace.ws_items.split(',') & get_sa_config['sa_items']).delete_if{ |e| !user.has_workspace_permission(current_workspace.id, e, action) }
 		else
-			available_items_list.delete_if{ |e| Workspace.allowed_user_with_permission(user, e+'_'+action).size == 0 }
+			available_items_list.delete_if{ |e| Workspace.allowed_user_with_permission(user.id, e+'_'+action).size == 0 }
 		end
 	end
 
