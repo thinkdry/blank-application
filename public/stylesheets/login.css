@@ -1,3 +1,5 @@
+
+
 body {
 	margin: 0px 0px 0px 0px;
 	padding: 0px 0px 0px 0px;
@@ -19,9 +21,11 @@ a:link {
 	text-decoration: none;
 }
 a:visited {
+	color: #7B003B;
 	text-decoration: none;
 }
 a:hover {
+	color: #7B003B;
 	text-decoration: underline;
 }
 a:active {
@@ -117,7 +121,7 @@ form  {
 }
 #actionlogin p{
 	margin:5px 0;
-	font-size:80%;
+	font-size:70%;
 }
 select{
 	margin-top:-3px;
