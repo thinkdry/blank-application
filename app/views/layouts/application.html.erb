@@ -18,7 +18,7 @@
 </head>
 
 <body>
-<div id="page">
+<div id="page_container">
   <div id="header">
 
     <div id="logo">
@@ -116,9 +116,9 @@
       <%= content_tag(:div, flash[:notice], :class => 'notice') if flash[:notice] %>
       <%= content_tag(:div, flash[:error], :class => 'error') if flash[:error] %>
       <%= yield %>
-
     </div>
-    <div id="footer">
+  </div>
+      <div id="footer">
       <div class="name">
         <%=  I18n.t 'layout.footer.title' %>
       </div>
@@ -127,7 +127,8 @@
         <%= link_to I18n.t('layout.footer.site_map'), "#" %>&nbsp;|&nbsp;
         <%= link_to I18n.t('layout.footer.faq'), "#" %>
       </div>
-      <div class="clear"></div>
     </div>
-  </div>
 </div>
+</body>
+</html>
+	
