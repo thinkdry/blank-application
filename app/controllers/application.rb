@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   
   helper :all # include all helpers, all the time
 	helper_method :available_items_list, :available_languages, :get_sa_config, :right_conf,
-		:is_allowed_free_user_creation?, :get_default_item_type
+		:is_allowed_free_user_creation?, :get_default_item_type, :item_types_allowed_to
   before_filter :is_logged?
 	before_filter :set_locale
 
@@ -54,9 +54,17 @@ class ApplicationController < ActionController::Base
 
 	def get_default_item_type
 		if current_workspace
-			return current_workspace.ws_items.split(',').first.to_s.pluralize
+			return (current_workspace.ws_items.split(',') & get_sa_config['sa_items']).first.to_s.pluralize
 		else
 			return get_sa_config['sa_items'].first.to_s.pluralize
+		end
+	end
+
+	def item_types_allowed_to(user, action)
+		if current_workspace
+			(current_workspace.ws_items.split(',') & get_sa_config['sa_items']).delete_if{ |e| !user.has_workspace_permission(current_workspace.id, e, action) }
+		else
+			available_items_list.delete_if{ |e| Workspace.allowed_user_with_permission(user.id, e+'_'+action).size == 0 }
 		end
 	end
 
