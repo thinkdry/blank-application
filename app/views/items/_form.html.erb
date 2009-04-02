@@ -15,6 +15,7 @@
     <%= item_keywords_fields(f, @current_object) %>
     
     <%= f.text_field :description, :label => I18n.t('item.field.description_label') + ' * :', :hint => I18n.t('item.field.description_hint') %>
+
     <%= capture(f, &block) %>
     
     <%= item_status_fields(f, @current_object) %>
