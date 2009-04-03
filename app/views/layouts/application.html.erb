@@ -103,7 +103,7 @@
             <% form_tag searches_path, :method => :get, :name => "search" do -%>
               <%= text_field_tag "search[full_text_field]", (params[:search] ? params[:search][:full_text_field] : I18n.t('layout.search.search_label')), :class => "style_text", :onfocus => '$(this).select()' %>
               <p><%= I18n.t 'general.common_word.in'%></p>
-              <%= select_tag "search[category]", options_for_select([[I18n.t('general.common_word.item').camelize.pluralize, 'item'], [I18n.t('general.common_word.workspace').camelize.pluralize, 'workspace'], [I18n.t('general.common_word.user').camelize.pluralize, 'user']]) %>
+              <%= select_tag "search[category]", options_for_select([[I18n.t('general.object.item').camelize.pluralize, 'item'], [I18n.t('general.object.workspace').camelize.pluralize, 'workspace'], [I18n.t('general.object.user').camelize.pluralize, 'user']]) %>
               <%= link_to(image_tag("search_button.gif"), "javascript:void(1);", :onclick => "document.search.submit();", :class => "search_button") %>
               <br />
               <a class="advanced_search" onclick="document.location.href='/searches/new?search[category]='+$('search_category').value;"><%= I18n.t('layout.application.advanced_search') %></a>&nbsp;&nbsp;

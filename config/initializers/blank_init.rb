@@ -17,6 +17,7 @@ FEED_ITEMS_IMPORTATION_TYPES = ['bookmark', 'publication']
 WS_TYPES = ['closed', 'public', 'authorized', 'archived']
 RIGHT_TYPES = ['system', 'workspace']
 ITEM_CATEGORIES = ['cat1', 'cat2', 'cat3']
+DEFAULT_COMMENT_STATE = 'posted'
 
 # Setting the locales files and the default language
 I18n.default_locale = "en-US"

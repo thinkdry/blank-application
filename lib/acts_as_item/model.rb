@@ -14,6 +14,7 @@ module ActsAsItem
         
         acts_as_rateable
 				acts_as_keywordable
+				acts_as_commentable
 
 				acts_as_xapian :texts => [:title, :description, :tags],
                  :values => [[:created_at, 0, "created_at", :number],[:title, 1, "title", :string], [:comment_size, 2, "commented", :number], [:rate_average, 3, "rated", :number]]
@@ -21,9 +22,7 @@ module ActsAsItem
 				has_many :items
 				has_many :workspaces, :through => :items
         belongs_to :user
-        
-        has_many :comments, :as => :commentable, :order => 'created_at ASC'
-        
+
         validates_presence_of	:title, :description, :user
         # Ensure that item is associated to one or more workspaces throught items table
         validates_presence_of :items, :message => "Sélectionner au moins un espace de travail"

@@ -199,9 +199,7 @@ fr-FR:
       flash_error: La mise a jour n'a pas pu être effectuée
     common_word:
       summary: Sommaire
-      comment: Commentaire
       rate: Note
-      your_comment: Votre commentaire
       corrupted_file: Fichier corrompu
       output_formate: Format de d'affichage
       tag: Etiquette
@@ -323,7 +321,27 @@ fr-FR:
       print_item: Imprimer les Objets
       add_publication: Importer dans les Publications
       add_bookmark: Importer dans les Marque-pages
-
+  comment:
+    field:
+      text: Corps
+      state: Etat
+    edit:
+      title: Mise à jour du commentaire
+      flash_notice: Commentaire mis à jour avec succès
+      flash_error: Erreur durant la mise à jour
+    index:
+      title: Liste des commentaires
+    state:
+      all: Tous
+      posted: Postés
+      validated: Validés
+      rejected: Rejectés
+      validate: Valider
+      reject: Rejeter
+    add_comment:
+      ajax_message_comment_published: Votre commentaire a été publié.
+      ajax_message_comment_submited: Votre message est enregistré, nous vous remercions de votre participation.
+      button_publish: Publier mon commentaire
   workspace:
     new:
       title: Créer un nouvel espace de travail
@@ -453,9 +471,10 @@ fr-FR:
       found: trouvé
       with: avec
       role: rôle
-      workspace: espace de travail
-      item: objet
-      user: utilisateur
+      confirmation: Êtes-vous sûr ?
+      captcha_field: Entrez les caractères figurant sur l'image
+      ajax_message_captcha_invalid: Le code de vérification est incorrect.
+      your: votre
     button:
       update: Mettre à jour
       cancel: Annuler
@@ -464,7 +483,6 @@ fr-FR:
       search: Recherche
       delete: Supprimer
       download: Telecharger
-      publish_my_comment: Publier mon commentaire
       save: Sauvegarder
       add: Ajouter
       create_a_new_workspace: Créer un nouvel espace de travail
@@ -481,6 +499,11 @@ fr-FR:
       page: Page
       advert: Spot publicitaire
       programme: Emission
+    object:
+      workspace: espace de travail
+      item: objet
+      user: utilisateur
+      comment: commentaire
     language:
       en-US: English(US)
       fr-FR: French(FR)
