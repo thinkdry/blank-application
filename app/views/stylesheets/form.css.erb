@@ -5,7 +5,7 @@ fieldset p{
   padding-bottom:10px;
 }
 
-fieldset label{
+fieldset label, .fieldsetSimulation label{
 	padding-top:13px;
 	text-align:right;
 	vertical-align:top;
@@ -37,7 +37,7 @@ fieldset .hint{
   width:100%;
 }
 
-fieldset input, fieldset textarea{
+fieldset input, fieldset textarea, .fieldsetSimulation input, .fieldsetSimulation textarea{
 	border:1px solid #c2c2c2;
 	width:90%;
 	font-size:15px;
@@ -90,10 +90,14 @@ color:#FFFFFF;
 display:block;
 font-weight:bold;
 height:auto;
-margin:0px 0 10px 235px;
+margin:0 auto;
 overflow:visible;
 padding:30px;
 width:250px;
+}
+
+.centerButton{
+	width:100%;
 }
 
 .checkBoxElement{
@@ -103,4 +107,7 @@ width:250px;
 
 .ajax_hint_message{
 	margin-left:10px;
+}
+.formElement img {
+	margin:10px 0;
 }

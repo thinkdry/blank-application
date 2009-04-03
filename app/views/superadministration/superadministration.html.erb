@@ -4,18 +4,41 @@
   <h1>Super Administration</h1>
 </div>
 <ul id="top_elems" class="subsection_tabs without_img">  
-	<li class="tab"><%= link_to_remote "General settings", :update => 'top_box', :url => superadministration_path(:part => 'general') %></li>
-  <li class="tab"><%= link_to_remote "CSS manager", :update => 'top_box', :url => superadministration_path(:part => 'css') %></li>
-	<li class="tab"><%= link_to_remote "Translations manager", :update => 'top_box', :url => superadministration_path(:part => 'translations') %></li>
-  <li class="tab"><%= link_to_remote "Roles manager", :update => 'top_box', :url => superadministration_path(:part => 'rights') %></li>
+	<li class="tab">
+		<%= link_to_remote "General settings", 
+							:html => { :id => 'general_setting', :class => params[:part] == 'general' ? 'active' : '' },
+							:before => "selectTab('general_setting')",
+							:update => 'top_box', 
+							:url => superadministration_path(:part => 'general') %>
+	</li>
+    <li class="tab">
+    	<%= link_to_remote "CSS manager", 
+							:html => { :id  => 'css', :class => params[:part] == 'css' ? 'active' : '' }, 
+							:before => "selectTab('css')",
+							:update => 'top_box', 
+							:url => superadministration_path(:part => 'css') %>
+	</li>
+	<li class="tab">
+		<%= link_to_remote "Translations manager",
+							:html => { :id  => 'translations', :class => params[:part] == 'translations' ? 'active' : '' },
+							:before => "selectTab('translations')",
+							:update => 'top_box', 
+							:url => superadministration_path(:part => 'translations') %>
+	</li>
+    <li class="tab">
+    	<%= link_to_remote "Roles manager",
+							:html => { :id => 'rights', :class => params[:part] == 'rights' ? 'active' : '' },
+							:before => "selectTab('rights')",
+							:update => 'top_box', 
+							:url => superadministration_path(:part => 'rights') %>
+	</li>
 </ul>
 
 <div id="top_content">
   <div id="one">
-    <ul class="top_box" id="top_box" >
-      <%= render :partial => (params[:part] ? params[:part] : 'default'), :layout => false %>
-    </ul>
+    <div class="top_box" id="top_box" >
+      <%= render :partial => (params[:part] ? params[:part] : 'general'), :layout => false %>
+    </div>
   </div>
 </div>
-
 

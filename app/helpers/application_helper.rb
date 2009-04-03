@@ -59,7 +59,7 @@ module ApplicationHelper
 		var.each do |l|
 			res << check_box_tag(object+'['+param+']'+"[]", "#{l}", ((ref=conf[param]) ? ref.include?(l) : false))+' '+I18n.t('general.item.'+l)
     end
-		return res.join(' | ')+'</br>'
+		return res.join(' | ')
 	end
 
 
