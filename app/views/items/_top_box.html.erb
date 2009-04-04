@@ -10,9 +10,72 @@
 
 <h2><%=I18n.t('home.index.top_five_item')%></h2>
 <ul id="top_elems" class="subsection_tabs without_img">  
-	<li class="tabs"><a href="#one"><%=I18n.t('home.index.most_commented')%></a></li>
-    <li class="tabs"><a href="#two"><%=I18n.t('home.index.best_rated')%></a></li>
-    <li class="tabs"><a href="#three"><%=I18n.t('home.index.feed_item')%></a></li>
+	<li class="tabs" id="commented">
+		<a href="#one"><%= image_tag('/images/icons/comments.png')%></a>
+		<div id="commented_tip" style="display:none;" class="tipTitle"><%=I18n.t('home.index.most_commented')%></div>
+		<script type='text/javascript'>
+                      //<![CDATA[
+                        new Tip('commented',  $('commented_tip'),
+                            { effect: 'appear',
+                              duration: 1,
+                              delay:0,
+                              hook: { target: 'topMiddle', tip: 'bottomMiddle' },
+                              hideOn: { element: 'tip', event: 'mouseout' },
+                              stem: 'bottomMiddle',
+                              hideOthers: 'true',
+                              hideAfter: 1,
+                              width: 'auto',
+                              border: 1,
+                              offset: { x: 0, y: 3 },
+                              radius: 0
+                            });
+                      //]]>
+                    </script>
+	</li>
+    <li class="tabs" id="rated">
+    	<a href="#two"><%= image_tag('/images/icons/rate.png')%></a>
+		<div id="rated_tip" style="display:none;" class="tipTitle"><%=I18n.t('home.index.best_rated')%></div>
+		<script type='text/javascript'>
+                      //<![CDATA[
+                        new Tip('rated',  $('rated_tip'),
+                            { effect: 'appear',
+                              duration: 1,
+                              delay:0,
+                              hook: { target: 'topMiddle', tip: 'bottomMiddle' },
+                              hideOn: { element: 'tip', event: 'mouseout' },
+                              stem: 'bottomMiddle',
+                              hideOthers: 'true',
+                              hideAfter: 1,
+                              width: 'auto',
+                              border: 1,
+                              offset: { x: 0, y: 3 },
+                              radius: 0
+                            });
+                      //]]>
+                    </script>
+	</li>
+    <li class="tabs" id="feed">
+    	<a href="#three"><%= image_tag('/images/item_icons/feed_source.png')%></a>
+		<div id="feed_tip" style="display:none;" class="tipTitle"><%=I18n.t('home.index.feed_item')%></div>
+		<script type='text/javascript'>
+                      //<![CDATA[
+                        new Tip('feed',  $('feed_tip'),
+                            { effect: 'appear',
+                              duration: 1,
+                              delay:0,
+                              hook: { target: 'topMiddle', tip: 'bottomMiddle' },
+                              hideOn: { element: 'tip', event: 'mouseout' },
+                              stem: 'bottomMiddle',
+                              hideOthers: 'true',
+                              hideAfter: 1,
+                              width: 'auto',
+                              border: 1,
+                              offset: { x: 0, y: 3 },
+                              radius: 0
+                            });
+                      //]]>
+                    </script>
+	</li>
 </ul>
 <div id="top_content">
   <div id="one">
