@@ -1,0 +1,17 @@
+<%=I18n.t('layout.search.advance_search')%>
+
+    <% if category == 'item' || available_items_list.include?(category) %>
+      <%= render :partial => 'items/advanced_search', :locals => { :category => category } %>
+    <% end %>
+    <br />
+
+    <% fields_for :date, :label => I18n.t('layout.search.search_period_label') do %>
+      <%=I18n.t('general.common_word.from1')%><br/><%= calendar_date_select_tag 'search[conditions][created_after]', @search.conditions['created_after'], :class => "input_with_calendar" %> <br/>
+      <%=I18n.t('general.common_word.to1')%><br/><%= calendar_date_select_tag 'search[conditions][created_before]', @search.conditions['created_before'], :class => "input_with_calendar" %>
+    <% end %>
+
+    <br /><br />
+    Filtering part :<br/>
+    <%= select_tag 'search[filter_name]', options_for_select(SEARCH_FILTERS.map{ |e| [I18n.t('search.filter.'+e), e] }) %><br />
+    <%= radio_button_tag 'search[filter_way]', 'desc', (@search.filter_way == 'desc') %><%= I18n.t('search.filter.desc') %>
+    <%= radio_button_tag 'search[filter_way]', 'asc', (@search.filter_way == 'asc') %><%= I18n.t('search.filter.asc') %><br />

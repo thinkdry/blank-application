@@ -62,5 +62,21 @@ module ApplicationHelper
 		return res.join(' | ')+'</br>'
 	end
 
+	def select_search_models
+		res = "<select name='search[category]' id='search_category'>"
+		#res += "<option value='all'>"+I18n.t('general.common_word.all').upcase+"</option>"
+		#res += "<option value=''>----------</option>"
+		res += "<option value='item'>"+I18n.t('general.object.item').pluralize.upcase+"</option>"
+		available_items_list.each do |i|
+			res += "<option value='#{i}'>"+I18n.t('general.item.'+i).pluralize+"</option>"
+		end
+		#res += "<option value=''>----------</option>"
+		#res += "<option value='workspace'>"+I18n.t('general.object.workspace').pluralize.upcase+"</option>"
+		#res += "<option value=''>----------</option>"
+		#res += "<option value='user'>"+I18n.t('general.object.user').pluralize.upcase+"</option>"
+		res += "</select>"
+		return res
+	end
+
 
 end

@@ -459,6 +459,7 @@ en-US:
       captcha_field: Enter the value on the image
       ajax_message_captcha_invalid: The verification code is incorrect.
       your: your
+      all: all
     button:
       update: Update
       cancel: Cancel

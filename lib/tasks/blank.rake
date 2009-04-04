@@ -1,12 +1,11 @@
 namespace :blank do
 
-	desc "From drop to pump"
-	task(:pumper => :environment) do
-		Rake::Task['db:drop'].invoke
-		Rake::Task['db:create'].invoke
-		Rake::Task['db:migrate'].invoke
-		Rake::Task['blank:pump'].invoke
+	desc "Initializing Blank Engine"
+	task(:init => :environment) do
+		Rake::Task['blank:captcha'].invoke
+		Rake::Task['blank:xapian'].invoke
 	end
+		
 
 	desc "From drop to pump"
 	task(:pumper => :environment) do
@@ -15,7 +14,7 @@ namespace :blank do
 		Rake::Task['db:migrate'].invoke
 		Rake::Task['blank:pump'].invoke
 	end
-	
+
   desc "Create Basic Settings for BLANK"
   task(:pump => :environment) do
     ActiveRecord::Base.establish_connection
@@ -188,6 +187,26 @@ namespace :blank do
     p "Done"
     p"------>>>Ready to Launch<<<------"
   end
+
+	desc "Building Xapian indexes"
+	task(:xapian => :environment) do
+		p "Building Xapian indexes ......"
+		system("rake xapian:rebuild_index models='#{ITEMS.map{ |e| e.camelize }.join(' ')} User Workspace'")
+		#Rake::Task['xapian:rebuild_index'].invoke("models=\"#{ITEMS.map{ |e| e.camelize }.join(' ')} User Workspace\"")
+		p "Done"
+	end
+
+	desc "Checking Captcha images"
+	task(:captcha => :environment) do
+		if !File.exists?(RAILS_ROOT+'/public/images/captcha/')
+			p "Generating the Catcha images ......"
+			system('rake yacaph:generate COUNT=25')
+			p "done"
+		else
+			p "Captcha images already generated"
+		end
+	end
+
 end
 #insert into roles(id, name, description, type_role, created_at, updated_at)values(1, 'superadmin', 'SuperAdministration', 'system' CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);",
 #"insert into workspaces(id, creator_id, description, title, state, created_at, updated_at, ws_config_id)values(1, 1, 'Private Workspace for BOSS', 'Private for Boss', 'private', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,1);"

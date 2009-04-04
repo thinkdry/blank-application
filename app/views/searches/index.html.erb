@@ -1,7 +1,4 @@
-<%= render :partial => @header %>
-<h2><%= page_entries_info @items %></h2>
 <div id="results">
-<%= render :partial => 'result', :collection => @items %>
+<%= render :partial => 'result', :collection => @results %>
 </div>
-<%= will_paginate @items %>
 

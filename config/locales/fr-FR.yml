@@ -475,6 +475,7 @@ fr-FR:
       captcha_field: Entrez les caractères figurant sur l'image
       ajax_message_captcha_invalid: Le code de vérification est incorrect.
       your: votre
+      all: Tout
     button:
       update: Mettre à jour
       cancel: Annuler
@@ -501,7 +502,7 @@ fr-FR:
       programme: Emission
     object:
       workspace: espace de travail
-      item: objet
+      item: item
       user: utilisateur
       comment: commentaire
     language:
