@@ -34,7 +34,7 @@
         <b><%= link_to @current_user.firstname.capitalize, user_path(current_user) %></b> |
         <%= link_to I18n.t('layout.application.administration'), administration_user_path(current_user) %> |
 		<% if current_user.has_system_role('superadmin') %>
-          <%= link_to I18n.t('layout.application.superadministration'), superadministration_path("default") %> |
+          <%= link_to I18n.t('layout.application.superadministration'), superadministration_path("general") %> |
         <% end %>
         <%= link_to I18n.t('layout.application.logout'), '/logout' %>
         <%= select_languages %>

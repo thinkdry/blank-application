@@ -124,8 +124,9 @@ module ItemsHelper
         tip_option = {}
         tip_option[:id] = "tip_" + item_model.underscore
         tip_option[:style] = "display:none;"
+        tip_option[:class] = "tipTitle"
         
-        li_content += link_to_remote(image_tag(item_model.classify.constantize.icon),:method=>:get, :update => "content", :url => url)
+        li_content += link_to_remote(image_tag(item_model.classify.constantize.icon_48),:method=>:get, :update => "content", :url => url)
         li_content += content_tag(:div, item_model.classify.constantize.label , tip_option)
         li_content += "<script type='text/javascript'>
                       //<![CDATA[

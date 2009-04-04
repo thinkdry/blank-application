@@ -1,10 +1,12 @@
 <% f.field :keywords, :label => I18n.t('item.field.keyword_label').pluralize + " :" do %>
-    <div class="formElement" id="keywords_list">
-    <% @current_object.keywords.each do |k| %>
-      <div id="<%= k.name %>"><%= k.name+' '+link_to_function('(delete)', "this.parentNode.remove()") %><%= hidden_field_tag "#{@current_object.class.to_s.underscore}[keywords_field][]", k.name %></div>
-    <% end %>
-    </div>
-    <div class="formElement" id="add_keyword">
+	
+	    <div id="keywords_list">
+	    <% @current_object.keywords.each do |k| %>
+	      <div id="<%= k.name %>"><%= k.name+' '+link_to_function('(delete)', "this.parentNode.remove()") %><%= hidden_field_tag "#{@current_object.class.to_s.underscore}[keywords_field][]", k.name %></div>
+	    <% end %>
+	    </div>
+	
+    <div id="add_keyword">
     <%= text_field :keyword, :value, :hint => I18n.t('item.field.keyword_hint') %>
     <div id="autocomplete_choices" class="autocomplete"></div>
       <script>
@@ -12,7 +14,12 @@
           method: 'post', paramName: 'name'
         });
       </script>
-    <%= button_to_function(I18n.t('item.field.add_keyword'), "dodo($('keyword_value').value, '#{@current_object.class.to_s.underscore}', 'keywords_list'); $('keyword_value').value=''") %>
+    <%= button_to_function(I18n.t('item.field.add_keyword'), 
+						  "dodo($('keyword_value').value, 
+						  '#{@current_object.class.to_s.underscore}', 
+						  'keywords_list'); 
+						  $('keyword_value').value=''",
+						  :class => 'smallSubmit leftAlign') %>
     </div>
 <% end %>
 

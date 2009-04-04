@@ -1,21 +1,73 @@
-<div id="area_TITLE">
-  <h1><%=I18n.t('user.administration.title')%></h1>
+<h1><%=I18n.t('user.administration.title')%></h1>
+
+<ul id="top_elems" class="subsection_tabs">  
+	<% if current_user.has_system_permission('user', 'new') %>
+		<li class="tabs" id="users">
+			<a href="#one"><%= image_tag '/images/icons/user_48.png'%></a>
+			<div id="users_tip" style="display:none;" class="tipTitle"><%=I18n.t('user.administration.user_management')%></div>
+			<script type='text/javascript'>
+                      //<![CDATA[
+                        new Tip('users',  $('users_tip'),
+                            { effect: 'appear',
+                              duration: 1,
+                              delay:0,
+                              hook: { target: 'topMiddle', tip: 'bottomMiddle' },
+                              hideOn: { element: 'tip', event: 'mouseout' },
+                              stem: 'bottomMiddle',
+                              hideOthers: 'true',
+                              hideAfter: 1,
+                              width: 'auto',
+                              border: 1,
+                              offset: { x: 0, y: 3 },
+                              radius: 0
+                            });
+                      //]]>
+                    </script>
+		</li>
+	<% end %>
+    <li class="tabs" id="workspaces">
+    	<a href="#two"><%= image_tag('/images/icons/collaboration_48.png')%></a>
+		<div id="workspaces_tip" style="display:none;" class="tipTitle"><%=I18n.t('user.administration.workspace_management')%></div>
+		<script type='text/javascript'>
+                      //<![CDATA[
+                        new Tip('workspaces',  $('workspaces_tip'),
+                            { effect: 'appear',
+                              duration: 1,
+                              delay:0,
+                              hook: { target: 'topMiddle', tip: 'bottomMiddle' },
+                              hideOn: { element: 'tip', event: 'mouseout' },
+                              stem: 'bottomMiddle',
+                              hideOthers: 'true',
+                              hideAfter: 1,
+                              width: 'auto',
+                              border: 1,
+                              offset: { x: 0, y: 3 },
+                              radius: 0
+                            });
+                      //]]>
+                    </script>
+	</li>
+</ul>
+
+<div id="top_content">
+	<% if current_user.has_system_permission('user', 'new') %>
+	<div id="one">
+		<%= link_to I18n.t('user.new.add_user'), new_user_path %>
+	</div>
+	<% end %>
+
+	<div id="two">
+	    <% if current_user.has_system_permission('workspace', 'new') %>
+	      <%= link_to I18n.t('workspace.new.title'), new_workspace_path %>
+	    <% end %>
+	    <div class="area_BOTH">
+	      <%= render :partial => 'workspaces/users_by_roles' %>
+	    </div>
+	</div>
 </div>
-<% if current_user.has_system_permission('user', 'new') %>
-<fieldset style="margin-top: 20px;">
-	<legend><%=I18n.t('user.administration.user_management')%></legend>
-	<%= link_to I18n.t('user.new.add_user'), new_user_path %>
-</fieldset>
-<% end %>
 
-<fieldset style="margin-top: 20px;">
-	<legend><%=I18n.t('user.administration.workspace_management')%></legend>
-    <% if current_user.has_system_permission('workspace', 'new') %>
-      <%= link_to I18n.t('workspace.new.title'), new_workspace_path %>
-    <% end %>
-    <div class="area_BOTH">
-      <%= render :partial => 'workspaces/users_by_roles' %>
-    </div>
-</fieldset>
 
+<script type="text/javascript" charset="utf-8">
+	new Control.Tabs('top_elems'); 
+</script>
 
