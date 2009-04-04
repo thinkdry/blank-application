@@ -22,7 +22,7 @@ module YacaphHelper
       hidden_field_tag(:captcha_validation, @yacaph_image.gsub(/.png$/,''))
    end
    
-   def yacaph_block(label = 'Insert Image Value:')
+   def yacaph_block(label = I18n.t('general.common_word.captcha_field'))
       content_tag('div', yacaph_hidden_text + yacaph_input_text(label) + yacaph_image, {:class => 'yacaph'})
    end
    

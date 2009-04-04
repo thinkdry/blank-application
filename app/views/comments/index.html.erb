@@ -1,0 +1,32 @@
+<h1><%= I18n.t('comment.index.title') %></h1>
+<%= ['all', 'posted', 'validated', 'rejected'].map{ |s| link_to(I18n.t('comment.state.'+s), comments_url(:on_state => s))}.join(' | ') %>
+
+<table>
+  <tr>
+    <th>Date</th>
+    <th>Object type</th>
+    <th>Object title</th>
+    <th>Char num</th>
+    <th>Email</th>
+    <th>Nickname</th>
+    <th>State</th>
+  </tr>
+
+<% @current_objects.each do |co| %>
+  <tr>
+    <td><%=h I18n.l(co.created_at) %></td>
+    <td><%=h co.commentable_type %></td>
+    <td><%=h co.commentable.title %></td>
+    <td><%=h co.text.size %></td>
+    <td><%= %></td>
+    <td><%= %></td>
+    <td><%=h co.state %></td>
+    <td><%= link_to('edit', edit_comment_path(co.id)) %>
+    <td><%= link_to(I18n.t('comment.state.validate'), "/comments/#{co.id}/change_state?new_state=validated") unless (co.state == 'validated')%></td>
+    <td><%= link_to(I18n.t('comment.state.reject'), "/comments/#{co.id}/change_state?new_state=rejected") unless (co.state == 'rejected')%></td>
+
+    <td><%= link_to('delete', comment_path(co.id), :method => :delete, :confirm => 'general.common_word.confim') %></td>
+
+  </tr>
+<% end %>
+</table>
