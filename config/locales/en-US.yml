@@ -98,7 +98,7 @@ en-US:
               invalid: "{{attribute}} invalid: can take only letters."
             avatar:
               content_type: "Image is not one of the allowed file types."
-        
+
   user:
     new:
       add_user: Add a New User
@@ -384,7 +384,7 @@ en-US:
       request_to_workspace_administrator_txt1: Si vous voulez envoyez un demande particulière à l'administrateur de cet espace de travail, remplissez l'encadré ci-dessus afin de générer un email pour l'administrateur
       request_to_workspace_administrator_option1: Inscription
       request_to_workspace_administrator_option2: Autre
-      
+
   home:
     index:
       title: My Workspaces
@@ -459,7 +459,6 @@ en-US:
       captcha_field: Enter the value on the image
       ajax_message_captcha_invalid: The verification code is incorrect.
       your: your
-      all: all
     button:
       update: Update
       cancel: Cancel

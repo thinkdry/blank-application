@@ -1,56 +1,62 @@
-<fieldset>
-  <legend>General settings</legend>
+  <% form_for :general, :url => general_changing_superadministration_path, :html => {:multipart => true, :class => "fieldsetSimulation"} do |f| -%>
 
-  <% form_for :general, :url => general_changing_superadministration_path, :html => {:multipart => true} do |f| -%>
+      <label>Application name:</label>
+      <div class="formElement"><%= text_field_tag 'conf[sa_application_name]', @conf['sa_application_name'] %></div>
 
-      Application name :<br />
-      <%= text_field_tag 'conf[sa_application_name]', @conf['sa_application_name'] %><br />
-
-      Favicon Management :<br />
-      <%= image_tag(@conf['sa_favicon_url'].to_s) %><br />
-      <%= file_field 'pictures', 'favicon' %><br />
-      <br />
-      Logo management :<br />
-      <%= image_tag(@conf['sa_logo_url'].to_s) %><br />
-      <%= file_field 'pictures', 'logo' %><br />
-      <br />
-
-      Application URL :<br />
-      <%= text_field_tag 'conf[sa_application_url]', @conf['sa_application_url'] %><br />
-
-      Contact email :<br />
-      <%= text_field_tag 'conf[sa_contact_email]', @conf['sa_contact_email'] %><br />
-
-      <br />
-
-      Allowed free user creation ?
-      <%= check_box :conf, :sa_allowed_free_user_creation, { :checked => (@conf['sa_allowed_free_user_creation']=='true') }, true, false %>
-      <br /><br />
-      Automatic private worskpace creation ?
-      <%= check_box :conf, :sa_automatic_private_workspace, { :checked => (@conf['sa_automatic_private_workspace']=='true') }, true, false %>
-      <br /><br />
-      Available items :<br />
-      <%= checkboxes_from_list(ITEMS, "sa_items", @conf, "conf") %>
+      <label>Favicon Management :</label>
+      <div class="formElement">
+			<%= file_field 'pictures', 'favicon' %><br/>
+			<%= image_tag(@conf['sa_favicon_url'].to_s) %>
+	  </div>
       
-      Available languages :<br />
-      <%= checkboxes_from_list(LANGUAGES, "sa_languages", @conf, "conf") %>
+      <label>Logo management :</label>
+      <div class="formElement">
+      		<%= file_field 'pictures', 'logo' %>
+      		<%= image_tag(@conf['sa_logo_url'].to_s) %>
+      </div>
 
-      Workspaces types :<br />
-      <%= checkboxes_from_list(WS_TYPES, "sa_ws_types", @conf, "conf") %>
+      <label>Application URL :</label>
+      <div class="formElement"><%= text_field_tag 'conf[sa_application_url]', @conf['sa_application_url'] %></div>
 
-      Item categories :<br />
-      <%= checkboxes_from_list(ITEM_CATEGORIES, "sa_item_categories", @conf, "conf") %>
+      <label>Contact email :</label>
+      <div class="formElement"><%= text_field_tag 'conf[sa_contact_email]', @conf['sa_contact_email'] %></div>
 
-      Feed items imporation types :<br />
-      <%= checkboxes_from_list(FEED_ITEMS_IMPORTATION_TYPES, "sa_feed_items_importation_types", @conf, "conf") %>
+
+      <label>Allowed free user creation</label>
+      <div class="formElement">
+      	<%= check_box :conf, :sa_allowed_free_user_creation, { :checked => (@conf['sa_allowed_free_user_creation']=='true') }, true, false %>
+	  </div>
       
-      <br />
+      <label>Automatic private worskpace creation</label>
+      <div class="formElement">
+      	<%= check_box :conf, :sa_automatic_private_workspace, { :checked => (@conf['sa_automatic_private_workspace']=='true') }, true, false %>
+	  </div>
 
-      <button type="submit" class="submit_button">Mettre à jour</button>
+      <label>Available items :</label>
+      <div class="formElement">
+      	<%= checkboxes_from_list(ITEMS, "sa_items", @conf, "conf") %>
+	  </div>
+      
+      <label>Available languages :</label>
+      <div class="formElement">
+      	<%= checkboxes_from_list(LANGUAGES, "sa_languages", @conf, "conf") %>
+	  </div>
+
+      <label>Workspaces types :</label>
+	  <div class="formElement">
+	      <%= checkboxes_from_list(WS_TYPES, "sa_ws_types", @conf, "conf") %>
+	  </div>	
+		
+      <label>Item categories :</label>
+	  <div class="formElement">
+	      <%= checkboxes_from_list(ITEM_CATEGORIES, "sa_item_categories", @conf, "conf") %>
+	  </div>
+
+	  
+      <label>Feed items imporation types :</label>
+      <div class="formElement">
+    	  <%= checkboxes_from_list(FEED_ITEMS_IMPORTATION_TYPES, "sa_feed_items_importation_types", @conf, "conf") %>
+      </div>
+
+      <div class="centerButton"><button type="submit" class="submit_button">Mettre à jour</button></div>
 <% end %>
-
-
-
-
-
-</fieldset>

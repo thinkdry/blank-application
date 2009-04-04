@@ -3,9 +3,10 @@ fieldset p{
   font-weight: bold;
   margin-bottom:10px;
   padding-bottom:10px;
+  clear:both;
 }
 
-fieldset label{
+fieldset label, .fieldsetSimulation label{
 	padding-top:13px;
 	text-align:right;
 	vertical-align:top;
@@ -19,7 +20,7 @@ fieldset label{
 fieldset legend{
 	background:#FAFAFA none repeat scroll 0 0;
 	border:1px solid #C2C2C2;
-	font-size:110%;
+	font-size:200%;
 	margin-bottom:15px;
 	margin-left:10px;
 	padding:5px;
@@ -37,7 +38,7 @@ fieldset .hint{
   width:100%;
 }
 
-fieldset input, fieldset textarea{
+fieldset input, fieldset textarea, .fieldsetSimulation input, .fieldsetSimulation textarea{
 	border:1px solid #c2c2c2;
 	width:90%;
 	font-size:15px;
@@ -84,16 +85,40 @@ fieldset{
 
 .submit_button{
 	background:transparent url(/images/button.png) no-repeat scroll 0 20px;
-border:medium none;
-clear:both;
-color:#FFFFFF;
-display:block;
-font-weight:bold;
-height:auto;
-margin:0px 0 10px 235px;
-overflow:visible;
-padding:30px;
-width:250px;
+	border:medium none;
+	clear:both;
+	color:#FFFFFF;
+	display:block;
+	font-weight:bold;
+	height:auto;
+	margin:0 auto;
+	overflow:visible;
+	padding:30px;
+	width:250px;
+	font-size:90%;
+}
+
+.smallSubmit{
+	background:transparent url('/images/smallButton.png') no-repeat;
+	border:none;
+	clear:both;
+	color:#fff;
+	text-align:center;
+	width:125px;
+	height:20px;
+	font-size:80%;
+	margin-top:15px;
+}
+
+.smallSubmitContainer{
+	width:125px;
+	margin:0 auto;
+	clear:both;
+}
+
+
+.centerButton{
+	width:100%;
 }
 
 .checkBoxElement{
@@ -103,4 +128,20 @@ width:250px;
 
 .ajax_hint_message{
 	margin-left:10px;
+}
+.formElement img {
+	margin:10px 0;
+}
+form br{
+	clear:both;
+}
+
+#keyword_value{
+	width:315px;
+	float:left;
+}
+
+.leftAlign{
+	margin-top:1px;
+	margin-left:20px;
 }

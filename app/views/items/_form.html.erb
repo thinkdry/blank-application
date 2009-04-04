@@ -22,12 +22,9 @@
     
     <%= error_message_on :current_object, :items %>
 
-    <br />
-    <div id="area_BUTTONS_single" class="buttons">
-      <button class="submit_button" type="submit">
-        <img alt="" src="/images/tick.png"/>
+    <button class="submit_button" type="submit">
         <%= current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update')%>
-      </button>
-    </div>
+    </button>
+
   <% end -%>
 </fieldset>

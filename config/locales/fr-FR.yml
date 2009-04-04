@@ -240,7 +240,7 @@ fr-FR:
       tags_label: Etiquettes
     edit:
       title: Editer le fichier audio
-     
+
   video:
     new:
       title: Ajouter une nouvelle video
@@ -475,7 +475,6 @@ fr-FR:
       captcha_field: Entrez les caractères figurant sur l'image
       ajax_message_captcha_invalid: Le code de vérification est incorrect.
       your: votre
-      all: Tout
     button:
       update: Mettre à jour
       cancel: Annuler
@@ -502,7 +501,7 @@ fr-FR:
       programme: Emission
     object:
       workspace: espace de travail
-      item: item
+      item: objet
       user: utilisateur
       comment: commentaire
     language:

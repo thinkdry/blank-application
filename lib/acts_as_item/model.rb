@@ -56,6 +56,10 @@ module ActsAsItem
       def icon
         'item_icons/' + self.to_s.underscore + '.png'
       end
+    
+      def icon_48
+        'item_icons/' + self.to_s.underscore + '_48.png'
+      end
 
 			def label
 				I18n.t("general.item.#{self.model_name.underscore}")

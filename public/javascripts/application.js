@@ -61,3 +61,28 @@ function reset(objects)
 		  $(node).hide();
 		});
   }
+
+  function selectTab(idSelected){
+		
+		var content = document.getElementById('top_box');
+		
+		var HTMLNewContent = '<div width="100%" align="center"><img src="/images/ajax-loader.gif" align="center"/></div>';
+		
+		content.innerHTML = HTMLNewContent;
+		
+		
+		// get the container witch contains the tabs
+		var tabsElement = document.getElementById('top_elems');
+		
+		// get the tabs links on witch we should change the class
+		var tabsElements = tabsElement.getElementsByTagName('a');
+		
+		for (var i = 0 ; i < tabsElements.length ; ++i){
+			if (tabsElements[i].id == idSelected){
+				tabsElements[i].className = 'active';	
+			}
+			else{
+				tabsElements[i].className = '';
+			}	
+		}
+	}
