@@ -46,16 +46,15 @@
               <%=I18n.t('item.common_word.output_formate') %>: <%= link_to 'XML', item_path(object)+".xml", :class => 'output_format_link' %>,	<%= link_to 'JSON', item_path(object)+".json", :class => 'output_format_link' %>
 			</div>
   		</div>
-	</div>  
-	 <h2> <%=I18n.t('item.common_word.summary')%></h2>
+	</div>
 	<div class="item_description"><%= object.description %></div>
 
-  <% if get_sa_config['sa_item_categories'] %>
-    <h2>Categories :</h2>
-    <div><%= object.category %></div>
-  <% end %>
-
 	<%= capture(&block) %>
+	
+	<% if get_sa_config['sa_item_categories'] %>
+	    <h2>Categories :</h2>
+	    <div><%= object.category %></div>
+	<% end %>
 
 	<div id="comments_list">
       <% if object.comments.size > 0 %>
@@ -71,10 +70,6 @@
     	<p><%=I18n.t('item.common_word.your_comment')%> :</p>
 		<form id="new_comment" class="new_comment" onsubmit="if($('comment_box').value != 0){new Ajax.Request('<%=add_comment_item_path(@current_object)%>', {asynchronous:true, evalScripts:true, onComplete:function(request){$('comment_box').writeAttribute('disabled', false);$('comment_box').value = ''}, onLoading:function(request){$('comment_box').writeAttribute('disabled')}, parameters:Form.serialize(this)}); return false;}else{return false;}" method="post" action="<%=add_comment_item_path(@current_object)%>">
         <textarea id="comment_box" class="comment_box" rows="8" name="comment[text]" cols="90"></textarea>
-
-        <div id="captcha" style="width:30%">
-        <%= render :partial => "/items/captcha" %>
-        </div>
         <button type="submit" class="submit_button"><%=I18n.t('general.button.publish_my_comment')%></button>
         </form>
       </fieldset>
