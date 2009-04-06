@@ -1,0 +1,21 @@
+
+<h2> <%= I18n.t('groups.index.title') %> </h2> <%= link_to I18n.t('groups.index.add_new_group'), new_group_path %>
+<br /><br />
+<table cellpadding="5">
+  <tr>
+    <th><%= I18n.t('groups.field.title_label') %> </th>
+    <th><%= I18n.t('groups.field.description_label') %> </th>
+    <th></th>
+  </tr>
+  <% @current_objects.each do |group| %>
+     <tr>
+        <td><%= group.title  %> </td>
+        <td><%= group.description  %> </td>
+        <td>| <%= link_to I18n.t('general.link.display'), group_path(group) %> | <%= link_to I18n.t('general.link.edit'), edit_group_path(group) %> | <%= link_to I18n.t('general.link.delete'), group_path(group), :method => :get, :confirm => I18n.t('groups.index.delete_confirm') %> |</td>
+     </tr>
+	<% end %>
+  
+ </table>
+	
+	<%#= will_paginate @current_objects %>
+

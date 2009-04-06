@@ -1,0 +1,51 @@
+<fieldset>
+  <legend><%= I18n.t('groups.new.title') %></legend>
+
+  <% form_for @group,:builder => BlankFormBuilder, :html => {:multipart=> true} do |f| -%>
+    <%= f.text_field :title, :label => I18n.t('groups.field.title_label')+" * : " %>
+    <%= f.text_field :description, :label => I18n.t('groups.field.description_label')+" : " %>
+    <% f.field :people, :label => I18n.t('groups.field.people_label')+' :' do %>
+      <input type="hidden" name="group_id" id="group_id" value="<%=@group.id%>">
+        <div id="select_boxes">
+          <%a =[]; @group.people.collect{|person| a << person.person_id} %>
+         <input type="hidden" name="selected_Options" id="selected_Options" value="<%= a.join(',').to_s%>">
+          <div id="left_select_box">
+        	<div class="optionAssignmentLabel">
+               <%= I18n.t('groups.field.available_people_label') %>
+              <select id="start_with" name="start_with" style="width: 50px;" onchange="show_people();" >
+                <% ('a'..'z').each do |alpha| %>
+                  <option value="<%=alpha%>"><%= alpha.capitalize%></option>
+                <% end %>
+                <option value="0-9">0-9</option>
+              </select>
+              <script type='text/javascript'>
+                function show_people(){
+                  new Ajax.Request('/people/filter/?start_with='+$('start_with').value+'&group_id='+$('group_id').value, {asynchronous:true, evalScripts:true})
+                }
+              </script>
+            </div>
+            <select name="assignedPeople" id="assignedOptions" size="5" multiple class="theatreSelection" >
+	          <% for person in @people = Person.find(:all,:conditions=>["email REGEXP ?","^([a])"])%>
+    	          <%= content_tag(:option, person.email, :value => person.id) if !@group.people.exists?(person)%>
+        	  <% end %>
+        	</select>
+          </div>
+		  <div id="left_right_buttons">
+            <input type="button" value=">>" onclick="shiftLeft('assignedOptions','availableOptions', false)" class="theatreAssignment"/>
+			<br /><br />
+			<input type="button" value="<<" onclick="shiftRight('availableOptions','assignedOptions', true)" class="theatreAssignment"/>
+          </div>
+		  <div id="right_select_box" >
+            <div class="optionAssignmentLabel"> <%= I18n.t('groups.field.assigned_people_label') %></div>
+            <select name="availableOptions" id="availableOptions" size="5" multiple >
+                <% for person in @group.people %>
+                  <%= content_tag(:option, person.email, :value => person.person_id) %>
+                <% end %>
+            </select>
+          </div>
+     <% end %>
+	<% button_text = current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update') %>
+    <button type="submit" class="submit_button"><%= button_text%></button>
+  <% end %>
+
+</fieldset>
