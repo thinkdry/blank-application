@@ -1,14 +1,11 @@
-<fieldset class="myform">
-  <legend>Translations manager</legend>
-
-  Cliquez un pays pour configurer les différents champs et textes du site.<br />
+  <h3>Select one country to configure the differents fields et text of the website:</h3>
+  <ul>
   <% LANGUAGES.each do |l| %>
-    <%= link_to_remote image_tag("countries/#{l.split('-').first}.jpg"), :update => 'tablo', :url => language_switching_superadministration_path(:locale_to_conf => l.to_s) %>
+    <li><%= link_to_remote image_tag("countries/#{l.split('-').first}.jpg"), :update => 'languageConfiguration', :url => language_switching_superadministration_path(:locale_to_conf => l.to_s) %></li>
   <% end %>
-  <%= link_to_remote 'Add a new translation', :update => 'tablo', :url => language_switching_superadministration_path(:locale_to_conf => 'translation_addition') %>
+  </ul>
+  <%= image_tag('/images/icons/add.png')%><%= link_to_remote 'Add a new translation', :update => 'languageConfiguration', :url => language_switching_superadministration_path(:locale_to_conf => 'translation_addition') %>
 
-  <div id='tablo'>
+  <div id='languageConfiguration'>
     <%= render :partial => 'superadministration/translations_tab', :locals => {:file => @file} %>
   </div>
-
-</fieldset>

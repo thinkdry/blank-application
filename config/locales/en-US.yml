@@ -98,7 +98,7 @@ en-US:
               invalid: "{{attribute}} invalid: can take only letters."
             avatar:
               content_type: "Image is not one of the allowed file types."
-        
+
   user:
     new:
       add_user: Add a New User
@@ -187,9 +187,7 @@ en-US:
       flash_error: Updation Failed
     common_word:
       summary: Summary
-      comment: Comment
       rate: Rate
-      your_comment: Your Comment
       corrupted_file: Corrupted File
       output_formate: Output Format
       tag: Tag
@@ -308,7 +306,27 @@ en-US:
       print_item: Print Items
       add_publication: Import to Publications
       add_bookmark: Import to Bookmarks
-
+  comment:
+    field:
+      text: Body
+      state: State
+    edit:
+      title: Comment edition
+      flash_notice: Comment successfully updated
+      flash_error: Error during update
+    index:
+      title: Comments list
+    state:
+      all: All
+      posted: Posted
+      validated: Validated
+      rejected: Rejected
+      validate: Validate
+      reject: Reject
+    add_comment:
+      ajax_message_comment_published: Your comment has been added successfully.
+      ajax_message_comment_submited: Your comment has been submited to the Administrator, you will receive an email for its publication.
+      button_publish: Publish my comment
   workspace:
     new:
       title: Create a New Workspace
@@ -366,7 +384,7 @@ en-US:
       request_to_workspace_administrator_txt1: Si vous voulez envoyez un demande particulière à l'administrateur de cet espace de travail, remplissez l'encadré ci-dessus afin de générer un email pour l'administrateur
       request_to_workspace_administrator_option1: Inscription
       request_to_workspace_administrator_option2: Autre
-      
+
   home:
     index:
       title: My Workspaces
@@ -437,9 +455,10 @@ en-US:
       found: found
       with: with
       role: role
-      workspace: workspace
-      item: item
-      user: user
+      confirmation: Are you sure ?
+      captcha_field: Enter the value on the image
+      ajax_message_captcha_invalid: The verification code is incorrect.
+      your: your
     button:
       update: Update
       cancel: Cancel
@@ -448,7 +467,6 @@ en-US:
       search: Search
       delete: Delete
       download: Download
-      publish_my_comment: Publish my Comment
       save: Save
       add: Add
       create_a_new_workspace: Create a New Workspace
@@ -467,6 +485,11 @@ en-US:
       advert: Advert
       programme: Programme
       newsletter: Newsletter
+    object:
+      comment: comment
+      workspace: workspace
+      item: item
+      user: user
     language:
       en-US: English(US)
       fr-FR: French(FRA)

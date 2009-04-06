@@ -34,7 +34,7 @@
         <b><%= link_to @current_user.firstname.capitalize, user_path(current_user) %></b> |
         <%= link_to I18n.t('layout.application.administration'), administration_user_path(current_user) %> |
 		<% if current_user.has_system_role('superadmin') %>
-          <%= link_to I18n.t('layout.application.superadministration'), superadministration_path("default") %> |
+          <%= link_to I18n.t('layout.application.superadministration'), superadministration_path("general") %> |
         <% end %>
         <%= link_to I18n.t('layout.application.logout'), '/logout' %>
         <%= select_languages %>
@@ -98,19 +98,23 @@
     <div id="middle-middle">
       <% unless @hide_full_text_search %>
         <div id="search-bar-container">
-          <div id="search-bar-left"></div>
-          <div id="search-bar-middle">
-            <% form_tag searches_path, :method => :get, :name => "search" do -%>
+          <div id="search_top"></div>
+          <div id="search_middle">
+            <% form_for :search, @search, :url => searches_path, :html => { :method => :get, :name => 'search' } do -%>
               <%= text_field_tag "search[full_text_field]", (params[:search] ? params[:search][:full_text_field] : I18n.t('layout.search.search_label')), :class => "style_text", :onfocus => '$(this).select()' %>
               <p><%= I18n.t 'general.common_word.in'%></p>
-              <%= select_tag "search[category]", options_for_select([[I18n.t('general.common_word.item').camelize.pluralize, 'item'], [I18n.t('general.common_word.workspace').camelize.pluralize, 'workspace'], [I18n.t('general.common_word.user').camelize.pluralize, 'user']]) %>
+              <%= select_search_models %>
               <%= link_to(image_tag("search_button.gif"), "javascript:void(1);", :onclick => "document.search.submit();", :class => "search_button") %>
               <br />
-              <a class="advanced_search" onclick="document.location.href='/searches/new?search[category]='+$('search_category').value;"><%= I18n.t('layout.application.advanced_search') %></a>&nbsp;&nbsp;
+              <a class="advanced_search" onclick="new Ajax.Updater('advanced_search', '/searches/print_advanced?search[category]='+$('search_category').value);"><%= I18n.t('layout.application.advanced_search') %></a>&nbsp;&nbsp;
+              <div id="advanced_search">
+                <% if @search %>
+                  <%= render :partial => 'searches/advanced_search', :locals => { :category => @search.category } %>
+                <% end %>
+              </div>
             <% end -%>
           </div>
-          <div id="search-bar-right"></div>
-          <div class="clear"></div>
+          <div id="search_bottom"></div>
         </div>
       <% end %>
       <%= content_tag(:div, flash[:notice], :class => 'notice') if flash[:notice] %>
@@ -118,7 +122,7 @@
       <%= yield %>
     </div>
   </div>
-      <div id="footer">
+  <div id="footer">
       <div class="name">
         <%=  I18n.t 'layout.footer.title' %>
       </div>

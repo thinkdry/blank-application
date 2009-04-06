@@ -1,38 +1,34 @@
-<div class="area_WS" style="margin-bottom:20px;">
-  <fieldset>
+
     <% form_for @workspace, :builder => BlankFormBuilder ,:html => { :multipart => true } do |f| -%>
+	  <%= File.basename(@workspace.logo_file_name) + '<br />' if @workspace.logo_file_name %>	
+	  <%= f.text_field :title, :label => I18n.t('workspace.field.title_label')+" * : " %>	
       <% f.field :logo, :label => I18n.t('workspace.field.logo_label') + " :" do %>
-        <%= File.basename(@workspace.logo_file_name) + '<br />' if @workspace.logo_file_name %>
         <%= file_field 'workspace', 'logo' %>
       <% end %>
-      <%= f.text_field :title, :label => I18n.t('workspace.field.title_label')+" * : " %>
       <%= f.advanced_editor :description, :label => I18n.t('workspace.field.description_label') +' : ' %>
       <% if (list=@workspace.ws_available_types.split(',')).size > 1 %>
         <%= f.select :state, list.map{ |e| [I18n.t('workspace.type.'+e), e] }, :label => I18n.t('workspace.field.state_label')+' :' %>
       <% end %>
-      <br /><br />
       <% if @current_object.new_record? || check=@current_object.accepts_administration_for?(@current_user) %>
-          <%= f.label I18n.t('workspace.edit.workspace_configuration')+" : " %><br />
+          <h4><%= I18n.t('workspace.edit.workspace_configuration') %></h4>
           <% if @sa_conf["sa_items"].size > 0 %>
-            <%= I18n.t('workspace.edit.available_items') %> :<br />
-            <%= checkboxes_from_list(@sa_conf["sa_items"], "ws_items", @current_object, 'workspace') %>
-            <br />
+            <label><%= I18n.t('workspace.edit.available_items') %> :</label>
+            <div class="formElement"><%= checkboxes_from_list(@sa_conf["sa_items"], "ws_items", @current_object, 'workspace') %></div>
           <% end %>
           <% if @sa_conf["sa_item_categories"].size > 0 %>
-            <%= I18n.t('workspace.edit.available_item_categories')+" : " %><br />
-            <%= checkboxes_from_list(@sa_conf["sa_item_categories"], "ws_item_categories", @current_object, 'workspace') %>
-            <br />
+            <label><%= I18n.t('workspace.edit.available_item_categories')+" : " %></label>
+            <div class="formElement"><%= checkboxes_from_list(@sa_conf["sa_item_categories"], "ws_item_categories", @current_object, 'workspace') %></div>
+            
           <% end %>
           <% if @workspace.state != 'private' %>
             <% if @sa_conf["sa_ws_types"].size > 0 %>
-              <%= I18n.t('workspace.edit.available_ws_types')+" : " %><br />
-              <%= checkboxes_from_list(@sa_conf["sa_ws_types"], "ws_available_types", @current_object, 'workspace') %>
-              <br />
+              <label><%= I18n.t('workspace.edit.available_ws_types')+" : " %></label>
+              <div class="formElement"><%= checkboxes_from_list(@sa_conf["sa_ws_types"], "ws_available_types", @current_object, 'workspace') %></div>
             <% end %>
           <% end %>
       <% end %>
-
-      <h4><%=I18n.t 'workspace.edit.associated_user'%></h4>
+	<br/>
+	  <h4><%=I18n.t 'workspace.edit.associated_user'%></h4>
       <% if !@current_object.new_record? %>
         <% if check %>
           <div id="users">
@@ -50,30 +46,19 @@
             <% end %>
           </div>
         <% end %>
-      <div class="clear"></div>
       <% else %>
-        <%=I18n.t 'workspace.new.add_user_text'%>
+		  <div class="CommonMessageFull"><%=I18n.t 'workspace.new.add_user_text'%></div>
       <% end %>
-      
-      <br /><br />
       
       <% text_button = (current_object.new_record? ?  I18n.t('general.button.create_a_new_workspace') : I18n.t('general.button.save') )%>
       <button type="submit" class="submit_button"><%= text_button %></button>
-      
-      <div class="clear"></div>
-      
     <% end -%>
-  </fieldset>
-</div>
 
 <% if !@current_object.new_record? %>
 <% if @current_object.accepts_administration_for?(@current_user) %>
-<div id="newuser">
-  <fieldset>
-  <legend><%= I18n.t('workspace.add_user.title') %></legend><br>
+ 	<h4><%= I18n.t('workspace.add_user.title') %></h4>
     
     <% form_for :user,  :builder => BlankFormBuilder do |f| %>
-    
       <%= f.text_field :login, :ajax => false, :label => I18n.t('workspace.add_user.name')+' :' %>
       <div id="autocomplete_choices" class="autocomplete"></div>
       <script>
@@ -81,11 +66,9 @@
           method: 'post', paramName: 'login'
         });
       </script>
-  
-      <label><%= I18n.t('workspace.add_user.role') %></label>
-      <%= f.select :role, @roles.collect { |r| [I18n.t('general.role.'+r.name), r.id]} %>
-      
-      <%= button_to_function I18n.t('general.button.add'), %{
+
+      <%= f.select :role, @roles.collect { |r| [I18n.t('general.role.'+r.name), r.id]}, :label => 'Role :' %> 
+     <div class="smallSubmitContainer"><%= button_to_function I18n.t('general.button.add'), %{
             new Ajax.Request("#{add_new_user_workspace_path(params[:id])}", {
               parameters: {
                 user_login: $('user_login').value,
@@ -95,10 +78,8 @@
               asynchronous:true,
               evalScripts:true
             })
-          } %>
-      
+          }, :class => "smallSubmit"%>
+	 </div>  
     <% end %>
-  </fieldset>
-</div>
 <% end %>
 <% end %>

@@ -24,13 +24,39 @@ class Search < ActiveRecord::Base
 	# Text plain search
 	column :full_text_field, :string
   # Advanced search
-	column :creator, :string
+	column :conditions, :string
   column :created_after, :datetime
   column :created_before, :datetime
 	# Filter
-	column :filter
-	column :sort
-	column :limit
+	column :filter_name, :string
+	column :filter_way, :string
+	column :filter_limit, :integer
   
   validates_date :created_after, :created_before, :allow_nil => true
+
+	def models= params
+		self[:models] = params.join(',')
+	end
+
+	def conditions= params
+		conditions = []
+		params.each do |k, v|
+			if (v.nil? || v.blank?)
+				conditions << "#{k} == #{(v.is_a?(Array) ? v.join(',') : v)}"
+			end
+		end
+		self[:conditions] = conditions.join(' && ')
+	end
+
+	def conditions
+		res = Hash.new
+		if self[:conditions]
+			self[:conditions].split(' && ').each do |e|
+				tmp = e.split(' == ')
+				res.merge({ tmp.first => tmp.last })
+			end
+		end
+		return res
+	end
+
 end

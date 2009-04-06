@@ -1,7 +1,8 @@
 h4{
-  font-size: 110%;
+  font-size: 120%;
   margin: 10px 0 10px 0;
   padding: 0;
+  clear:both;
 }
 
 .notice {
@@ -18,7 +19,7 @@ h4{
 	background: transparent url(/images/icons/error.png) no-repeat scroll 7px 50%;
 }
 
-.CommonMessage{
+.CommonMessage, .CommonMessageFull{
 	clear:both;
 	margin:5px 0 5px 190px;
 	padding-left:40px;
@@ -27,6 +28,12 @@ h4{
 	width:460px;
 	background: transparent url(/images/icons/info.png) no-repeat scroll 0px 50%;
 }
+
+.CommonMessageFull{
+	margin-left:0px !important;
+	width:100%;
+}
+
 .red{
   color: red;
 }
@@ -37,7 +44,6 @@ img.test{
 } 
 
 #middle-middle{
-  margin-right: 180px;
   padding: 20px 20px 40px 20px;
   font-size: 95%;
   width: 760px;
@@ -80,10 +86,11 @@ img.test{
 }
 #midle-right-menu a{
 	margin-bottom:5px;
+	font-size:130%;
 }
 #search-bar-container{
   width: 780px;
-  margin: 0px 0px 40px 0px;
+  margin: 0px 0px 45px 0px;
 }
 
 #search-bar-left, #search-bar-right, #search-bar-middle{
@@ -108,6 +115,28 @@ img.test{
   color: #fff;
   text-align: right;
   width:740px;
+  min-height:67px;
+  height:100%;
+}
+
+#search_top{
+	width:780px;
+	height:10px;
+	background:url(/images/search_top.png) no-repeat;
+}
+#search_bottom{
+	width:780px;
+	height:10px;
+	background:url(/images/search_bottom.png) no-repeat;
+	margin:0;
+}
+#search_middle{
+	width:780px;
+	background:#6C6C6C url(/images/search_middle.png) no-repeat 0 0;
+	height:100%;
+	color: #fff;
+	text-align: right;
+	margin:0;
 }
 
 a.advanced_search, a:hover.advanced_search, a:link.advanced_search, a:active.advanced_search, a:visited.advanced_search{
@@ -117,28 +146,28 @@ a.advanced_search, a:hover.advanced_search, a:link.advanced_search, a:active.adv
 
 a.search_button{
   float: left;
-  margin: 13px 12px 0px 17px;
+  margin: 5px 12px 0px 17px;
 }
 
-#search-bar-middle form{
+#search-bar-middle form, #search_middle form{
   margin: 0;
   padding: 0px;
 }
 
-#search-bar-middle input.style_text, #search-bar-middle select{
+#search-bar-middle input.style_text, #search-bar-middle select, #search_middle input.style_text, #search_middle select{
   float: left;
-  width: 310px;
+  width: 300px;
   margin-left: 10px;
-  margin-top: 13px;
+  margin-top: 5px;
   font-size: 140%;
   color:#666666;
 }
 
-#search-bar-middle select{
+#search-bar-middle select, #search_middle select{
   height:31px;
 }
 
-#search-bar-middle p{
+#search-bar-middle p, #search_middle p{
   margin: 15px 0 0 0;
   padding: 0;
   display: block;
@@ -192,6 +221,7 @@ a.search_button{
   margin-top:10px;
   margin-bottom: 10px;
   color:#666666;
+  float:left;
 }
 
 .area_WS h4{
@@ -261,7 +291,7 @@ a.blok_selected{
 
 ul#tabs, ul#top_elems{
   margin: 0;
-  padding: 0 0 39px 0;
+  padding: 0 0 58px 0;
   border-bottom: 1px solid #ccc;
 }
 
@@ -276,7 +306,7 @@ ul#tabs li, ul#top_elems li{
   border-top: 1px solid #ccc;
   border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;
-  height:39px;
+  height:58px;
 }
 
 ul#tabs li.selected, ul#top_elems li.selected{
@@ -295,7 +325,7 @@ ul.without_img li a{
 ul#tabs li a, ul#top_elems li a{
   text-decoration: none;
   display: block;
-  padding: 2px 8px;
+  padding: 5px 8px;
   font-size: 80%;
   color:#9C9C9C;
 }
@@ -442,9 +472,14 @@ ul.top_box li{
 }
 
 .item_list_icon{
+	background:transparent url(/images/item_indicator.png) no-repeat scroll 0 2px;
+	border-left:1px solid #EAEAEA;
 	clear:both;
 	float:left;
+	height:100%;
 	margin-right:10px;
+	min-height:93px;
+	width:5px;
 }
 .item_list_body{
 	float:left;
@@ -468,7 +503,7 @@ ul.top_box li{
 
 .itme_list_item_title_small{
 	float:left;
-	width:335px;
+	width:330px;
 }
 .item_list_rate{
 	float:right;
@@ -476,6 +511,9 @@ ul.top_box li{
 #attachement, #comment_list{
 	overflow:auto;
 	padding-top:20px;
+}
+#attachement ul{
+	list-style-type:none;
 }
 #attachement h2, #comment_list h2{
 	border-bottom:1px solid #F2F2F2;
@@ -524,4 +562,24 @@ ul.top_box li{
 
 #person_details_row{
   margin-top:20px;
+}
+#languageConfiguration{
+	margin-top:20px;
+}
+.languageLogicalPart{
+	
+}
+.listOfTranslations{
+	margin:10px 0 0 0;
+	padding:0;
+	height:100%;
+	overflow:hidden;
+	display:block;
+}
+.tab img{
+	margin:3px;
+}
+
+.tipTitle{
+	font-size:140%;
 }

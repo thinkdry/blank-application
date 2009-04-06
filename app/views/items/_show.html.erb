@@ -11,7 +11,7 @@
 			<p><%= item_rate_locked(object) %></p>
 	   	</div>
 		<div class="file_infos_box">
-	   		<%= image_tag '/images/item_icons/tag_blue.png', :align => "left"%><%= @current_object.keywords_list %>
+	   		<%= image_tag '/images/icons/tag_blue.png', :align => "left"%><%= @current_object.keywords_list %>
 		</div>
 		<div class="file_infos_box">
 			<div align="right">
@@ -46,20 +46,19 @@
               <%=I18n.t('item.common_word.output_formate') %>: <%= link_to 'XML', item_path(object)+".xml", :class => 'output_format_link' %>,	<%= link_to 'JSON', item_path(object)+".json", :class => 'output_format_link' %>
 			</div>
   		</div>
-	</div>  
-	 <h2> <%=I18n.t('item.common_word.summary')%></h2>
+	</div>
 	<div class="item_description"><%= object.description %></div>
 
-  <% if get_sa_config['sa_item_categories'] %>
-    <h2>Categories :</h2>
-    <div><%= object.category %></div>
-  <% end %>
-
 	<%= capture(&block) %>
+	
+	<% if get_sa_config['sa_item_categories'] %>
+	    <h2>Categories :</h2>
+	    <div><%= object.category %></div>
+	<% end %>
 
 	<div id="comments_list">
       <% if object.comments.size > 0 %>
-    	<h2><%= image_tag 'icons/comments.png'%><%=I18n.t('item.common_word.comment').pluralize%></h2>
+    	<h2><%= image_tag 'icons/comments.png'%><%=I18n.t('general.object.comment').pluralize.camelize %></h2>
 		<div class="comment_bloc">
 	   		<%= render :partial => "items/comment", :collection => object.comments %>
 		</div>
@@ -68,14 +67,16 @@
     
     <% if @current_object.accepts_comment_for?(@current_user) %>
       <fieldset id="new_comment_form_box">
-    	<p><%=I18n.t('item.common_word.your_comment')%> :</p>
+    	<p><%= I18n.t('general.common_word.your').camelize+' '+I18n.t('general.object.comment')%> :</p>
+        <div id="ajax_info"></div>
 		<form id="new_comment" class="new_comment" onsubmit="if($('comment_box').value != 0){new Ajax.Request('<%=add_comment_item_path(@current_object)%>', {asynchronous:true, evalScripts:true, onComplete:function(request){$('comment_box').writeAttribute('disabled', false);$('comment_box').value = ''}, onLoading:function(request){$('comment_box').writeAttribute('disabled')}, parameters:Form.serialize(this)}); return false;}else{return false;}" method="post" action="<%=add_comment_item_path(@current_object)%>">
         <textarea id="comment_box" class="comment_box" rows="8" name="comment[text]" cols="90"></textarea>
-
-        <div id="captcha" style="width:30%">
-        <%= render :partial => "/items/captcha" %>
-        </div>
-        <button type="submit" class="submit_button"><%=I18n.t('general.button.publish_my_comment')%></button>
+        <% if !current_user %>
+          <div id="captcha" style="width:30%">
+          <%= render :partial => "/items/captcha" %>
+          </div>
+        <% end %>
+        <button type="submit" class="submit_button"><%=I18n.t('comment.add_comment.button_publish')%></button>
         </form>
       </fieldset>
     <% end %>

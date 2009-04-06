@@ -23,7 +23,7 @@ class UsersController < ApplicationController
 					#layout 'application'
 					no_permission_redirection unless @current_object.accepts_new_for?(@current_user)
 				else
-					redirect_to login_url
+					redirect_to login_url, :layout => "application"
 				end
 			else
 				#layout 'no_logged'

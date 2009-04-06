@@ -14,6 +14,7 @@ module ActsAsItem
         
         acts_as_rateable
 				acts_as_keywordable
+				acts_as_commentable
 
 				acts_as_xapian :texts => [:title, :description, :tags],
                  :values => [[:created_at, 0, "created_at", :number],[:title, 1, "title", :string], [:comment_size, 2, "commented", :number], [:rate_average, 3, "rated", :number]]
@@ -21,15 +22,13 @@ module ActsAsItem
 				has_many :items
 				has_many :workspaces, :through => :items
         belongs_to :user
-        
-        has_many :comments, :as => :commentable, :order => 'created_at ASC'
-        
+
         validates_presence_of	:title, :description, :user
         # Ensure that item is associated to one or more workspaces throught items table
         validates_presence_of :items, :message => "Sélectionner au moins un espace de travail"
 
-				named_scope :full_text,
-					lambda { |text| { :conditions => ["#{self.model_name.underscore.pluralize}.id in (?)", ActsAsXapian::Search.new([self.model_name.constantize.classify], text, :limit => 10).results.collect{|x| x[:model].id}] } }
+				named_scope :full_text_with_xapian,
+					lambda { |text| { :conditions => ["#{self.class_name.underscore.pluralize}.id in (?)", ActsAsXapian::Search.new([self.class_name.classify.constantize], text, :limit => 10).results.collect{|x| x[:model].id}] } }
 
 				# Build the mandatory condition checking the fields of that model
 				named_scope :advanced_on_fields,
@@ -47,20 +46,8 @@ module ActsAsItem
 #							}
 #						} }
 
-				named_scope :most_viewed,
-					lambda { |way, limit| {:order => "#{self.model_name.underscore.pluralize}.viewed_number #{way}", :limit => limit.to_i}}
-
-				named_scope :best_rated,
-					lambda { |way, limit| {:order => "#{self.model_name.underscore.pluralize}.rates_average #{way}", :limit => limit.to_i}}
-
-				named_scope :latest,
-					lambda { |way, limit| {:order => "#{self.model_name.underscore.pluralize}.created_at #{way}", :limit => limit.to_i}}
-
-				named_scope :alpha_ordered,
-					lambda { |way, limit| { :order => "#{self.model_name.underscore.pluralize}.title #{way}", :limit => limit.to_i }}
-
-				named_scope :most_commented,
-					lambda { |way, limit| {:order => "#{self.model_name.underscore.pluralize}.comments_number #{way}", :limit => limit.to_i}}
+				named_scope :filtering_on_field,
+					lambda { |field_name, way, limit| {:order => "#{self.class_name.underscore.pluralize}.#{field_name} #{way}", :limit => limit.to_i}}
 
         include ActsAsItem::ModelMethods::InstanceMethods
 
@@ -68,6 +55,10 @@ module ActsAsItem
 			
       def icon
         'item_icons/' + self.to_s.underscore + '.png'
+      end
+    
+      def icon_48
+        'item_icons/' + self.to_s.underscore + '_48.png'
       end
 
 			def label

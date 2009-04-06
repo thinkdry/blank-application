@@ -14,11 +14,16 @@ module ActsAsCommentable
     module InstanceMethods
       def add_comment
         if logged_in?
-          current_object.comments.create(params[:comment].merge(:user => @current_user))
+          current_object.comments.create(params[:comment].merge(:user => @current_user, :state => DEFAULT_COMMENT_STATE))
           current_object.comments_number = current_object.comments_number.to_i + 1
           current_object.save
           render :update do |page|
-            page.replace_html "ajax_info", :text =>"Votre message est enregistré, nous vous remercions de votre participation"
+						if current_object.state == 'validated'
+							page.insert_html :bottom, 'comment_list', :partial => "items/comment", :object => comment
+							page.replace_html "ajax_info", :text => I18n.t('comment.add_comment.ajax_message_comment_published')
+						else
+							page.replace_html "ajax_info", :text => I18n.t('comment.add_comment.ajax_message_comment_submited')
+						end
           end
         else
           if yacaph_validated?
@@ -26,22 +31,18 @@ module ActsAsCommentable
             current_object.comments_number = current_object.comments_number.to_i + 1
             current_object.save
             render :update do |page|
-              page.replace_html "ajax_info", :text =>"Votre message est enregistré, nous vous remercions de votre participation"
+              page.replace_html "ajax_info", :text => I18n.t('comment.add_comment.ajax_message_comment_submited')
               page.replace_html "comment_captcha",  :partial => "items/captcha"
             end
           else
             render :update do |page|
-              page.replace_html "ajax_info", :text => "Le code de vérification est incorrect"
+              page.replace_html "ajax_info", :text => I18n.t('general.common_word.ajax_message_captcha_invalid')
               page.replace_html "comment_captcha",  :partial => "items/captcha"
             end
           end
         end
 			end
 
-			def update_comment(new_state)
-				
-			end
-     
     end
   end
 
@@ -53,7 +54,7 @@ module ActsAsCommentable
 
 		module ClassMethods
 			def acts_as_commentable
-				has_many :comments, :as => :commentable, :order => 'created_at ASC'
+				has_many :comments, :as => :commentable, :order => 'created_at ASC', :conditions => { :state => 'validated'}
 				include ActsAsTaggable::ModelMethods::InstanceMethods
 			end
 		end

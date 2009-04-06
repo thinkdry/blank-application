@@ -17,6 +17,9 @@ FEED_ITEMS_IMPORTATION_TYPES = ['bookmark', 'publication']
 WS_TYPES = ['closed', 'public', 'authorized', 'archived']
 RIGHT_TYPES = ['system', 'workspace']
 ITEM_CATEGORIES = ['cat1', 'cat2', 'cat3']
+DEFAULT_COMMENT_STATE = 'posted'
+
+SEARCH_FILTERS = ['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title']
 
 # Setting the locales files and the default language
 I18n.default_locale = "en-US"
@@ -31,9 +34,4 @@ LOCALES_DIRECTORY = "#{RAILS_ROOT}/config/locales"
 #end.uniq.sort
 LANGUAGES.each do |l|
 	I18n.load_path << "#{LOCALES_DIRECTORY}/#{l}.yml"
-end
-
-# Generate the Captcha images if these files don't exist already
-if !File.exists?(RAILS_ROOT+'/public/images/captcha/')
-	system('rake yacaph:generate COUNT=25')
 end

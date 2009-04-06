@@ -1,14 +1,10 @@
 <% div_for item_in_list do %>
   <div class="item-list" style="margin-bottom:15px;">
     <div class="item_list_icon">
-      <%= image_tag object.icon %>
+     
     </div>
     <div class="item_list_body">
-      <% if params[:workspace_id] != nil %>
       <div class="itme_list_item_title_small"><%= link_to object.title, item_path(object), :class => 'object_title' %></div>
-	  <% else %>
-	  <div class="itme_list_item_title_large"><%= link_to object.title, item_path(object), :class => 'object_title' %></div>
-	  <% end %>
       <div class="item_list_item_infos">
         <div>
           <p>

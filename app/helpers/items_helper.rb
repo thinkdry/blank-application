@@ -103,23 +103,54 @@ module ItemsHelper
     else
 			item_types = get_sa_config['sa_items']
 			item_type ||= item_types.first.to_s.pluralize
-    end
+	  end
+ 
     content = String.new
+    
 		if item_type.nil?
 			"(no items selected)"
 		else
 			item_types.map{ |item| item.camelize }.each do |item_model|
+     
+        # each li got a different content
+        li_content = String.new
+        
 				url = ajax_items_path(item_model.classify.constantize)
 				item_page = item_model.underscore.pluralize
 				options = {}
 				options[:class] = 'selected' if (item_type == item_page)
 				options[:id] = item_model.underscore
-				content += content_tag(
-					:li,
-					link_to_remote(image_tag(item_model.classify.constantize.icon) + item_model.classify.constantize.label,:method=>:get, :update => "content", :url => url),
-					options
-				)
-			end
+
+        tip_option = {}
+        tip_option[:id] = "tip_" + item_model.underscore
+        tip_option[:style] = "display:none;"
+        tip_option[:class] = "tipTitle"
+        
+        li_content += link_to_remote(image_tag(item_model.classify.constantize.icon_48),:method=>:get, :update => "content", :url => url)
+        li_content += content_tag(:div, item_model.classify.constantize.label , tip_option)
+        li_content += "<script type='text/javascript'>
+                      //<![CDATA[
+                        new Tip('" + item_model.underscore + "',  $('tip_" + item_model.underscore + "'),
+                            { effect: 'appear',
+                              duration: 1,
+                              delay:0,
+                              hook: { target: 'topMiddle', tip: 'bottomMiddle' },
+                              hideOn: { element: 'tip', event: 'mouseout' },
+                              stem: 'bottomMiddle',
+                              hideOthers: 'true',
+                              hideAfter: 1,
+                              width: 'auto',
+                              border: 1,
+                              offset: { x: 0, y: 3 },
+                              radius: 0
+                            });
+                      //]]>
+                    </script>"
+        
+				content += content_tag(:li,	li_content,	options)
+        
+		  end
+      
 			content_tag(:ul, content, :id => :tabs)
 		end
 	end
