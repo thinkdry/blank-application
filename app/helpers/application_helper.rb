@@ -63,7 +63,7 @@ module ApplicationHelper
 	end
 
 	def select_search_models
-		res = "<select name='search[category]' id='search_category'>"
+		res = "<select name='search[category]' id='search_category' onchange=\"if ($('advanced_search').visible()) new Ajax.Updater('advanced_search', '/searches/print_advanced?search[category]='+$('search_category').value);\">"
 		#res += "<option value='all'>"+I18n.t('general.common_word.all').upcase+"</option>"
 		#res += "<option value=''>----------</option>"
 		res += "<option value='item'>"+I18n.t('general.object.item').pluralize.upcase+"</option>"
