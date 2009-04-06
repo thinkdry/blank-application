@@ -77,7 +77,7 @@ module ActsAsItem
 						format.html { redirect_to(items_path(params[:controller])) }
 						format.xml { render :xml => @current_objects }
 						format.json { render :json => @current_objects }
-						format.atom # index.atom.builder
+						format.atom { render :template => 'adverts/index.atom.builder', :layout => false }
 	        end
 					
         end

@@ -108,7 +108,7 @@
               <br />
               <a class="advanced_search" onclick="new Ajax.Updater('advanced_search', '/searches/print_advanced?search[category]='+$('search_category').value);"><%= I18n.t('layout.application.advanced_search') %></a>&nbsp;&nbsp;
               <div id="advanced_search">
-                <% if @search.new_record? %>
+                <% if !@search.new_record? %>
                   <%= render :partial => 'searches/advanced_search', :locals => { :category => @search.category } %>
                 <% end %>
               </div>

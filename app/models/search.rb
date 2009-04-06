@@ -17,22 +17,19 @@ class Search < ActiveRecord::Base
   def self.column(name, sql_type = nil, default = nil, null = true)
     columns << ActiveRecord::ConnectionAdapters::Column.new(name.to_s, default, sql_type.to_s, null)
   end
-
 	
 	column :category, :string
 	column :models, :string
 	# Text plain search
-	column :full_text_field, :string
+	column :full_text_field, :text_area
   # Advanced search
 	column :conditions, :string
-  column :created_after, :datetime
-  column :created_before, :datetime
 	# Filter
 	column :filter_name, :string
 	column :filter_way, :string
 	column :filter_limit, :integer
   
-  validates_date :created_after, :created_before, :allow_nil => true
+#  validates_date :created_after, :created_before, :allow_nil => true
 
 	def models= params
 		self[:models] = params.join(',')
@@ -41,7 +38,7 @@ class Search < ActiveRecord::Base
 	def conditions= params
 		conditions = []
 		params.each do |k, v|
-			if (v.nil? || v.blank?)
+			if !v.blank?
 				conditions << "#{k} == #{(v.is_a?(Array) ? v.join(',') : v)}"
 			end
 		end
@@ -53,7 +50,7 @@ class Search < ActiveRecord::Base
 		if self[:conditions]
 			self[:conditions].split(' && ').each do |e|
 				tmp = e.split(' == ')
-				res.merge({ tmp.first => tmp.last })
+				res.merge!({ tmp.first => tmp.last })
 			end
 		end
 		return res

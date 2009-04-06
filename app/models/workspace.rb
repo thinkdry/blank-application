@@ -23,6 +23,8 @@ class Workspace < ActiveRecord::Base
 	belongs_to :creator, :class_name => 'User'
 	belongs_to :ws_config
 
+	acts_as_xapian :texts => [:title, :description]
+
 	has_attached_file :logo,
     :default_url => "/images/logo.png",
     :url =>  "/uploaded_files/workspace/:id/:style/:basename.:extension",
