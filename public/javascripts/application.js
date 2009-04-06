@@ -61,3 +61,51 @@ function reset(objects)
 		  $(node).hide();
 		});
   }
+
+
+  // to move option value from one select box to another select box
+
+  function shiftRight(removeOptions,addOptions,saveFlag)
+              {
+                  var availableOptions = document.getElementById(removeOptions);
+                  var assignedOptions = document.getElementById(addOptions);
+                  var selcted_Options = new Array();
+                   for(i=availableOptions.options.length-1;i>=0;i--)
+                      {
+                          if(availableOptions.options[i].selected){
+                              var optn = document.createElement("OPTION");
+                            optn.text = availableOptions.options[i].text;
+                            optn.value = availableOptions.options[i].value;
+                            assignedOptions.options.add(optn);
+                              availableOptions.remove(i);
+                          }else{
+                              selcted_Options.push(availableOptions.options[i].value);
+                          }
+                      }
+
+                  document.getElementById('selected_Options').value = selcted_Options
+              }
+              function shiftLeft(removeOptions,addOptions,saveFlag)
+              {
+                  var availableOptions = document.getElementById(removeOptions);
+                  var assignedOptions = document.getElementById(addOptions);
+                  var selcted_Options = new Array();
+                  for (i=0;i<assignedOptions.options.length; i++){
+                      selcted_Options.push(assignedOptions.options[i].value);
+                  }
+                  for (i=0; i<availableOptions.options.length; i++){
+                      if (selcted_Options.indexOf(availableOptions.options[i].value) <0 && availableOptions.options[i].selected) {
+                          selcted_Options.push(availableOptions.options[i].value);
+                            var optn = document.createElement("OPTION");
+                            optn.text = availableOptions.options[i].text;
+                            optn.value = availableOptions.options[i].value;
+                            assignedOptions.options.add(optn);
+                      }
+                  }
+                  for(i=availableOptions.options.length-1;i>=0;i--)
+                  {
+                      if(availableOptions.options[i].selected)
+                          availableOptions.remove(i);
+                  }
+                  document.getElementById('selected_Options').value = selcted_Options;
+              }

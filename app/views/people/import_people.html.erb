@@ -1,0 +1,11 @@
+<% form_for :people, :url=>{:controller=>"people", :action=>"import_people"}, :html => { :multipart => true } do |f| -%>
+    <div>
+      <h2><%= I18n.t('people.import_people.note_label') %></h2> <%= I18n.t('people.import_people.note_description') %>
+    </div>
+    <br /><br />
+      <label for="dump_file">
+        <%= I18n.t('people.import_people.select_csv_file_label') %> :
+      </label>
+       <%= f.file_field :csv -%>
+       <%= submit_tag I18n.t('general.button.submit') -%>
+<% end -%>

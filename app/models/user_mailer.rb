@@ -43,7 +43,13 @@ class UserMailer < ActionMailer::Base
 		subject self.site_name+" : "+type
 		body :msg => msg
   end
-   
+  
+  def send_newsletter(newsletter,person)
+    setup_email(person)
+		subject self.site_name+" : Newsletter"
+		body :newsletter => newsletter,:site => self.site_name
+  end
+
   protected
     def setup_email(user)
       recipients user.email

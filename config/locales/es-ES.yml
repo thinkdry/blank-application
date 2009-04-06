@@ -448,6 +448,7 @@ es-ES:
       publication: Publication
       feed_source: RSS Feed
       bookmark: Bookmark
+      newsletter: Newsletter
     language:
       en-US: English(US)
       fr-FR: French(FRA)

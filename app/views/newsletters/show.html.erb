@@ -1,0 +1,27 @@
+<% item_show( :title => 'Newsletter',  :object => @current_object ) do %>
+
+  <%= @current_object.body %>
+
+  <br /><br />
+  <div id="sent_to">
+    <h2><%= I18n.t('newsletter.send_newsletter.sent_to') %></h2>
+    <% for g_n in @current_object.groups_newsletters %>
+      <%= link_to g_n.group.title, group_path(g_n.group) %> <%= I18n.t('general.common_word.on1') %> <%= I18n.l g_n.sent_on, :format => :long %>
+    <% end %>
+  </div>
+  <br /><br />
+  <fieldset id="send_newsletter_form">
+    <p> <%= I18n.t('newsletter.send_newsletter.send_newsletter_to_user_list') %> </p>
+    <form id="send_newsletter" class="new_comment" method="post" action="/send_newsletter/" >
+      <%= I18n.t('newsletter.send_newsletter.send_to') %>
+      <input type="hidden" name="newsletter_id" value="<%= @current_object.id %>">
+      <select name="group_id" id="group_id">
+        <option value="0">--------------</option>
+        <%for group in Group.all%>
+          <option value="<%=group.id%>"> <%=group.title%> </option>
+        <% end %>
+      </select>
+      <button type="submit" class="submit_button" onclick="if($('group_id').value == 0){return false;}" > <%= I18n.t('newsletter.send_newsletter.send_newsletter') %></button>
+    </form>
+  </fieldset>
+<% end %>

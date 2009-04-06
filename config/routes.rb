@@ -11,7 +11,12 @@ ActionController::Routing::Routes.draw do |map|
   map.reset_password '/reset_password/:password_reset_code', :controller => 'users', :action => 'reset_password'
   map.resources :users, :member => { :administration => :any }
 	map.resource :session, :member => { :change_language => :any }
-	
+	map.resources :people
+  map.resources :groups
+  map.export_people '/export_people', :controller => 'people', :action => 'export_people'
+  map.import_people '/import_people', :controller => 'people', :action => 'import_people'
+  map.send_newsletter '/send_newsletter', :controller => 'newsletters', :action => 'send_newsletter'
+  
 	map.general_changing_superadministration 'superadministration/general_changing', :controller => 'superadministration', :action => 'general_changing'
 	map.check_color_superadministration 'superadministration/check_color', :controller => 'superadministration', :action => 'check_color'
 	map.colors_changing_superadministration 'superadministration/colors_changing', :controller => 'superadministration', :action => 'colors_changing'
