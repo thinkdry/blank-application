@@ -88,7 +88,7 @@ Rails::Initializer.run do |config|
 	#config.gem 'rfeedparser', :version => '=0.9.951', :lib => 'rfeedparser'
 	#config.gem 'packet', :version => '>=0.1.14', :lib => 'packet'
 	#config.gem 'chronic', :version => '>=0.2.3', :lib => 'chronic'
-  config.action_mailer.delivery_method = :activerecord
+#  config.action_mailer.delivery_method = :activerecord
 
   # RESTful authentification observer
   config.active_record.observers = :user_observer

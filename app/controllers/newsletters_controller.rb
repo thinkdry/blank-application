@@ -9,7 +9,11 @@ class NewslettersController < ApplicationController
     
     if GroupsNewsletter.new(:group_id => @group.id,:newsletter_id => @newsletter.id,:sent_on=>Time.now).save
       for person in @group.people
-        UserMailer.deliver_send_newsletter(@newsletter,person)
+#        NewsletterMailer.deliver_send_newsletter(@newsletter,person)
+#        Email.new(:from=>get_sa_config['sa_contact_email'],:to=>person.email,:mail=>@newsletter.body,:subject=>"Newsletter - "+@newsletter.title, :created_on=>Time.now).save
+         args = [person.email,"contact@thinkdry.com",@newsletter.title, @newsletter.description, @newsletter.body]
+         QueuedMail.add("UserMailer","send_newsletter", args, 0)
+        
       end
       redirect_to newsletter_path(@newsletter)
     end
