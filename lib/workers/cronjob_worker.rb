@@ -22,5 +22,15 @@ class CronjobWorker < BackgrounDRb::MetaWorker
     logger.info "Updated Xapian Indexes"
   end
 
+	def send_newsletter
+		logger.info "Sending the newsletter"
+		command=<<-end_command
+    rake blank:send_newsletter RAILS_ENV=#{RAILS_ENV}
+    end_command
+    command.gsub!(/\s+/, " ")
+    system(command)
+    logger.info "Sending the newsletter"
+	end
+
 end
 
