@@ -22,6 +22,7 @@ class ApplicationController < ActionController::Base
 	
 	def is_logged?
     if logged_in?
+			@search ||= Search.new
       return true
     else
       redirect_to login_path
