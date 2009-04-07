@@ -46,7 +46,7 @@ class UserMailer < ActionMailer::Base
 
   def send_newsletter(to,from, title, description, newsletter_body)
     recipients to
-    from from
+    from self.contact_email
 		subject self.site_name+" : Newsletter - "+title
 		body :description => description, :newsletter_body => newsletter_body, :site => self.site_name
     sent_on Time.now
