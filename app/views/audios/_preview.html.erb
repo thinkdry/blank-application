@@ -1,0 +1,15 @@
+<script type="text/javascript" src="/videoplayer/swfobject.js"></script>
+<% item_preview( :title => I18n.t('audio.field.audio_label'),  :object => object ) do %>
+
+  <h2><%=I18n.t('audio.field.audio_label')%></h2>
+        <div id ="progress">
+            <% if obejct.state=="encoded" %>
+              <%= render :partial => "player" %>
+            <% elsif obejct.state=="encoding"%>
+              <%= render :partial => "status" %>
+            <% else %>
+               <%= obejct.state.capitalize %>
+           <% end %>
+          </div>
+	<br /><br /><%= link_to I18n.t('general.button.download'), @current_object.audio.url.split("?")[0] %><br />
+<% end %>

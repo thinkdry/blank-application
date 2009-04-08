@@ -86,3 +86,27 @@ function reset(objects)
 			}	
 		}
 	}
+	
+	
+	function toggleAccordion(idClicked){
+		
+		var listOfItemForToggle = document.getElementsByName('itemInformations');
+		
+		for (var i=0 ; i < listOfItemForToggle.length ; ++i){
+			
+			if (listOfItemForToggle[i].id == idClicked){
+				if (listOfItemForToggle[i].style.display == ''){
+					listOfItemForToggle[i].style.display = 'none';
+					listOfItemForToggle[i].parentNode.className = 'item_in_list';
+				}
+				else{
+					listOfItemForToggle[i].style.display = '';
+					listOfItemForToggle[i].parentNode.className = 'selected_item_in_list';	
+				}
+			}
+			else {
+				listOfItemForToggle[i].style.display = 'none';
+				listOfItemForToggle[i].parentNode.className = 'item_in_list';
+			}
+		}	
+	}

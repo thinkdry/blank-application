@@ -2,9 +2,10 @@
 	<%= display_tabs(params[:item_type]) %>
 	<div id="object-list">
 		<%= display_item_list(params[:item_type])%>
-		 <div id="pagination">
+		<div class="last_item_in_list">&nbsp;</div>
+		<div id="pagination">
   			  <%= remote_pagination @collection %>
-  			</div><!-- pagination -->
+  		</div><!-- pagination -->
 	</div>
 	<% if @collection and @collection.length > 0%>
 		<div class="other_output_format">

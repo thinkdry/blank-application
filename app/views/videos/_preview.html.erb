@@ -1,0 +1,14 @@
+<script type="text/javascript" src="/videoplayer/swfobject.js"></script>
+<% item_preview( :title => I18n.t('video.field.video_label'),  :object => object ) do %>
+      <div id ="progress">
+        <% if object.state=="encoded" %>
+          <%= render :partial => "player" %>
+        <% elsif object.state=="encoding"%>
+          <%= render :partial => "status" %>
+        <% else %>
+           <%= object.state.capitalize %>
+       <% end %>
+      </div>
+      <br /><br />
+	  <%= image_tag("icons/download.png")%><%= link_to I18n.t('general.button.download'), (@current_object.video.url.split("?")[0]) %>
+<% end %>

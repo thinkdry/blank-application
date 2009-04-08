@@ -1,0 +1,16 @@
+<% item_preview( :title => 'I18n.t('bookmark.field.link_label')',  :object => object ) do %>
+		<h2><%=I18n.t('bookmark.field.link_label')%></h2>
+		<%= link_to object.link, object.link %>
+		
+		<%#=I18n.t('bookmark.field.author_label').pluralize%>
+		<%#= @current_object.authors %>
+		
+		<h2><%=I18n.t('bookmark.field.published_date_label')%></h2>
+		<%= I18n.l object.date_published, :format => :long %>
+		
+		<h2><%=I18n.t('bookmark.field.categories_label')%></h2>
+		<%= object.categories %>
+		
+		<h2><%=I18n.t('bookmark.field.copyright_label')%></h2>
+		<%= object.copyright %>
+<% end %>
