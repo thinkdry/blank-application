@@ -2,11 +2,22 @@ class PeopleController < ApplicationController
   require 'fastercsv'
   require 'csv'
 
-
+  before_filter :get_people, :only=>[:index,:ajax_index]
+  PER_PAGE = 10
   acts_as_ajax_validation
+    acts_as_item
 
   make_resourceful do
-    actions :all
+    actions :show, :create, :new, :edit, :update, :destroy
+  end
+
+  def index
+
+  end
+  
+  def ajax_index
+    
+    render :partial=> 'person' ,:layout=>false
   end
 
   def filter
@@ -88,10 +99,10 @@ class PeopleController < ApplicationController
               @unsaved_emails << person.email
             end
           else
-             if !(row == ["First name", "Last name", "Email", "Gender", "Primary phone", "Mobile phone", "Fax", "Street", "City", "Postal code", "Country", "Company", "Web page", "Job title", "Notes"])
+            if !(row == ["First name", "Last name", "Email", "Gender", "Primary phone", "Mobile phone", "Fax", "Street", "City", "Postal code", "Country", "Company", "Web page", "Job title", "Notes"])
               flash[:error] = I18n.t('people.import_people.title_order_flash_error')
               return
-             end
+            end
           end
           i += 1
         end
@@ -101,5 +112,15 @@ class PeopleController < ApplicationController
         flash[:error] = I18n.t('people.import_people.wrong_file_flash_error')
       end
     end
+  end
+
+  private
+
+  def get_people
+    @people = Person.paginate(
+      :page => params[:page],
+      :order => :email,
+      :per_page => PER_PAGE
+    )
   end
 end
