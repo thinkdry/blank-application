@@ -25,11 +25,11 @@ class CronjobWorker < BackgrounDRb::MetaWorker
 	def send_newsletter
 		logger.info "Sending the newsletter"
 		command=<<-end_command
-    rake blank:send_newsletter RAILS_ENV=#{RAILS_ENV}
+      ruby script/runner QueuedMail.send_email
     end_command
     command.gsub!(/\s+/, " ")
     system(command)
-    logger.info "Sending the newsletter"
+    logger.info "Sent the newsletter"
 	end
 
 end

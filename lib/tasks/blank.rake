@@ -6,11 +6,6 @@ namespace :blank do
 		Rake::Task['blank:xapian'].invoke
 	end
 
-	desc "Send newsletter"
-	task(:send_newsletter => :environment) do
-		QueuedMail.send_email
-	end
-
 	desc "From drop to pump"
 	task(:pumper => :environment) do
 		Rake::Task['db:drop'].invoke
