@@ -1,0 +1,29 @@
+
+<table  cellspacing="5" border="0">
+  <tr>
+    <th> <%= I18n.t('people.field.email_label') %> </th>
+    <th><%= I18n.t('people.index.name') %></th>
+    <th><%= I18n.t('people.index.subscribed_on') %></th>
+    <th> </th>
+  </tr>
+
+  <% @people.each do |person| %>
+    <tr>
+      <td> <%= person.email %></td>
+      <td><%=person.first_name%> <%= person.last_name%></td>
+      <td> <%= I18n.l person.created_at, :format => :long %> </td>
+      <td align="right"> | <%= link_to I18n.t('general.link.display'), person_path(person) %> | <%= link_to I18n.t('general.link.edit'), edit_person_path(person) %> | <%= link_to I18n.t('general.link.delete'), person_path(person), :method => :delete, :confirm => I18n.t('people.index.delete_confirm') %> | </td>
+    </tr>
+  <% end %>
+  <tr>
+    <td colspan="4" align="center" style="padding-top:20px;">
+      <div id="pagination">
+        <%= remote_pagination(@people,'/ajax_people/?page=') %>
+      </div><!-- pagination -->
+    </td>
+  </tr>
+</table>
+
+
+
+<%#= will_paginate @current_objects %>

@@ -22,5 +22,15 @@ class CronjobWorker < BackgrounDRb::MetaWorker
     logger.info "Updated Xapian Indexes"
   end
 
+	def send_newsletter
+		logger.info "Sending the newsletter"
+		command=<<-end_command
+      ruby script/runner QueuedMail.send_email
+    end_command
+    command.gsub!(/\s+/, " ")
+    system(command)
+    logger.info "Sent the newsletter"
+	end
+
 end
 

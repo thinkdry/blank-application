@@ -16,9 +16,8 @@ module ActsAsItem
 				acts_as_keywordable
 				acts_as_commentable
 
-				acts_as_xapian :texts => [:title, :description, :tags],
-                 :values => [[:created_at, 0, "created_at", :number],[:title, 1, "title", :string], [:comment_size, 2, "commented", :number], [:rate_average, 3, "rated", :number]]
-
+				acts_as_xapian :texts => [:title, :description, :keywords_list]
+				
 				has_many :items
 				has_many :workspaces, :through => :items
         belongs_to :user
@@ -27,27 +26,23 @@ module ActsAsItem
         # Ensure that item is associated to one or more workspaces throught items table
         validates_presence_of :items, :message => "Sélectionner au moins un espace de travail"
 
+				# Retrieve the results matching with Xapian indewes and ordered by weight
 				named_scope :full_text_with_xapian,
-					lambda { |text| { :conditions => ["#{self.class_name.underscore.pluralize}.id in (?)", ActsAsXapian::Search.new([self.class_name.classify.constantize], text, :limit => 10).results.collect{|x| x[:model].id}] } }
+					lambda { |text| { :conditions => ["#{self.class_name.underscore.pluralize}.id in (?)", ActsAsXapian::Search.new([self.class_name.classify.constantize], text, :limit => 10).results.sort{ |x, y| x[:weight] <=> y[:weight]}.collect{|x| x[:model].id}] } }
 
-				# Build the mandatory condition checking the fields of that model
+				# Retrieve the results matching the Hash conditions passed
 				named_scope :advanced_on_fields,
 					lambda { |condition| { :conditions => condition }	}
 
-#				named_scope :advanced_on_polymorphic_jointure,
-#					lambda { |join_table, join_field, join_model, ids_list|
-#						{ :condition => %{
-#							SELECT *
-#								FROM #{join_table}
-#								WHERE
-#									#{join_table}.#{join_field}_id = #{self.id} AND
-#									#{join_table}.#{join_field}_type = #{self.model_name} AND
-#									#{join_table}.#{join_model}_id IN [#{ids_list.split(',')}]
-#							}
-#						} }
-
+				# Retrieve the results ordered following the paramaters given
 				named_scope :filtering_on_field,
-					lambda { |field_name, way, limit| {:order => "#{self.class_name.underscore.pluralize}.#{field_name} #{way}", :limit => limit.to_i}}
+					lambda { |field_name, way, limit|
+							if (field_name!='weight')
+								{:order => "#{self.class_name.underscore.pluralize}.#{field_name} #{way}", :limit => limit.to_i}
+							else
+								{ :limit => limit.to_i }
+							end
+					}
 
         include ActsAsItem::ModelMethods::InstanceMethods
 
@@ -136,14 +131,6 @@ module ActsAsItem
     end
     
     module InstanceMethods
-
-			def commented
-				self.comments.size
-			end
-
-			def rated
-				self.rating.to_i
-			end
 
 			def workspace_titles
 				self.workspaces.map{ |e| e.title }.join(',')

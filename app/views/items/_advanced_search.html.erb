@@ -1,7 +1,7 @@
 <% if (category == 'item') %>
   <br />Item categories<br />
   <% available_items_list.each do |i| %>
-    <%= I18n.t('general.item.'+i.to_s) %> <%= check_box_tag "search[models][]", i, @search.models.split(',').include?(i) %>
+    <%= I18n.t('general.item.'+i.to_s) %> <%= check_box_tag "search[models][]", i, @search.models.to_s.split(',').include?(i) %>
   <% end %>
   <br /><br />
 <% end %>

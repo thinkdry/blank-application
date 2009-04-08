@@ -471,6 +471,7 @@ en-US:
       add: Add
       create_a_new_workspace: Create a New Workspace
       send_request: Send Request
+      submit: Submit
     item:
       article: Article
       audio: Audio
@@ -483,6 +484,7 @@ en-US:
       page: Page
       advert: Advert
       programme: Programme
+      newsletter: Newsletter
     object:
       comment: comment
       workspace: workspace
@@ -505,3 +507,77 @@ en-US:
       feed_item_importation_type: Feed Items Imporation Types
       select_a_file: Select a Link
       select_from_file: Select from file system
+    link:
+      display: Display
+      edit: Edit
+      delete: Delete
+
+  newsletter:
+    new:
+      title: Add Newsletter
+    field:
+      body_label: Body
+      body_hint: Body of this Newsletter
+    edit:
+      title: Edit Newsletter
+    send_newsletter:
+      sent_to: Sent to
+      send_to: Send to
+      send_newsletter_to_user_list: Send this Newsletter to user list
+      send_newsletter: Send Newsletter
+
+  people:
+    new:
+      title: New Person
+    field:
+      first_name_label: First name
+      last_name_label: Last name
+      email_label: E-mail
+      gender_label: Gender
+      primary_phone_label: Primary phone
+      mobile_phone_label: Mobile phone
+      fax_label: Fax
+      street_label: Street
+      city_label: City
+      postal_code_label: Postal code
+      country_label: Country
+      company_label: Company
+      job_title_label: Job title
+      web_page_label: Web page
+      notes_label: Notes
+    index:
+      title: People
+      add_new_person: Add a new person
+      import_people_from_csv: Import people from csv
+      export_people_to_csv: Export people to csv
+      name: Name
+      subscribed_on: Subscribed on
+      delete_confirm: Are you sure!
+    import_people:
+      note_label: Note
+      note_description: Please upload csv file and first row of csv file showld be titles(must be [First name, Last name, Email, Gender, Primary phone, Mobile phone, Fax, Street, City, Postal code, Country, Company, Web page, Job title, Notes] only and email should be mandatory, even if you are not providing any of these values) and subsequent rows are values.
+      select_csv_file_label: Select a CSV File
+      wrong_file_flash_error: Please select .csv file only.
+      title_order_flash_error: Please read <b>Note</b> and provide proper csv, first row is titles and order should be as shown in Note.
+      saved_records_flash_notice1: Saved records which has 
+      saved_records_flash_notice2:  email ids.
+      unsaved_records_flash_notice1: Failed to save records which has 
+      unsaved_records_flash_notice2: email ids. Because of invalid email formate or those are already exist.
+
+  groups:
+    new:
+      title: New Group
+    field:
+      title_label: Title
+      description_label: Description
+      people_label: People
+      available_people_label: Available People
+      assigned_people_label: Assigned People
+    index:
+      title: Groups
+      add_new_group: Add a new group
+      delete_confirm: Are you sure!
+
+
+      
+

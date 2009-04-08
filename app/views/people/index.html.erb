@@ -1,0 +1,7 @@
+
+<h2> <%= I18n.t('people.index.title') %> </h2> <%= link_to I18n.t('people.index.add_new_person'), new_person_path %> | <%= link_to I18n.t('people.index.import_people_from_csv'), import_people_path  %> | <%= link_to I18n.t('people.index.export_people_to_csv') , export_people_path %>
+<br /><br />
+
+<div id="content">
+  <%= render :partial => 'person' %>
+</div>

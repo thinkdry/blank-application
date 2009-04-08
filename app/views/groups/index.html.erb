@@ -1,0 +1,11 @@
+
+<h2> <%= I18n.t('groups.index.title') %> </h2> <%= link_to I18n.t('groups.index.add_new_group'), new_group_path %>
+<br /><br />
+
+<div id="content">
+  <%= render :partial => 'groups' %>
+</div>
+
+	
+	<%#= will_paginate @current_objects %>
+

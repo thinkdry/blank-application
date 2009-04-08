@@ -1,0 +1,4 @@
+<% form_for_item @current_object, title do |f| -%>
+  <%= f.advanced_editor(:body, :label => I18n.t('newsletter.field.body_label')+ ' * :', :hint => I18n.t('newsletter.field.body_hint')) %>
+
+<% end -%>

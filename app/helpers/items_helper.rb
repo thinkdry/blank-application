@@ -181,62 +181,10 @@ module ItemsHelper
 		display_item_list(nil, 'items/item_in_list_for_editor')
 	end
 
-	###############################
-
-	# TODO enhance, test and include in library
-
-  def remote_pagination(collection)
-    if !collection.nil? and collection.total_pages > 1
-    content = String.new
-		item_type =  params[:item_type].nil? ? get_default_item_type : params[:item_type]
+  def get_ajax_item_path(item_type)
+    item_type =  params[:item_type].nil? ? get_default_item_type : params[:item_type]
     url = current_workspace ? ajax_items_path(item_type) +"&page=" : ajax_items_path(item_type) +"?page="
-    current_page = params[:page] ? params[:page].to_i : 1
-    if current_page == 1
-      content = "&laquo; Previous "
-    else
-     content = content + link_to_remote("&laquo; Previous  ", :update => "content",:method=>:get, :url =>url+"#{current_page - 1}")
-    end
-    prev = nil
-    visible_page_numbers(current_page,collection.total_pages).each do |page_no|
-        content = content+((prev and page_no > prev + 1) ? "&hellip;" : " ")
-        prev = page_no
-        if current_page == page_no
-          content = content+content_tag(:b,page_no.to_s)
-        else
-          content = content+ link_to_remote(page_no.to_s, :update => "content",:method=>:get, :url =>url+"#{page_no}")
-        end
-    end
-    if current_page == collection.total_pages
-      content = content +"  Next &raquo;"
-    else
-      content = content + link_to_remote("  Next &raquo;", :update => "content",:method=>:get, :url =>url+"#{(current_page+1)}")
-    end
-    return content_tag(:div, content, :align=>"center")
-    end
+    return url
   end
-
-  def visible_page_numbers(current_page,total_pages)
-      inner_window, outer_window = 4, 1
-      window_from = current_page - inner_window
-      window_to = current_page + inner_window
-
-      # adjust lower or upper limit if other is out of bounds
-      if window_to > total_pages
-        window_from -= window_to - total_pages
-        window_to = total_pages
-      end
-      if window_from < 1
-        window_to += 1 - window_from
-        window_from = 1
-        window_to = total_pages if window_to > total_pages
-      end
-
-      visible   = (1..total_pages).to_a
-      left_gap  = (2 + outer_window)...window_from
-      right_gap = (window_to + 1)...(total_pages - outer_window)
-      visible  -= left_gap.to_a  if left_gap.last - left_gap.first > 1
-      visible  -= right_gap.to_a if right_gap.last - right_gap.first > 1
-
-      visible
-  end
+	
 end

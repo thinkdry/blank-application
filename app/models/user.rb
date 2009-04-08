@@ -51,6 +51,9 @@ class User < ActiveRecord::Base
   has_many :rattings
   has_many :comments
   has_many :feed_items, :through => :feed_sources, :order => "last_updated"
+
+	acts_as_xapian :texts => [:login, :firstname, :lastname]
+
   has_attached_file :avatar,
     :default_url => "/images/default_avatar.png",
     :url =>  "/uploaded_files/user/:id/:style/:basename.:extension",

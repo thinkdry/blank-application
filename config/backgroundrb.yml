@@ -11,3 +11,5 @@
       :trigger_args: * 10 * * * *
     :update_xapian_index:
       :trigger_args: 20 * * * * *
+    :send_newsletter:
+      :trigger_args: 30 * * * * *

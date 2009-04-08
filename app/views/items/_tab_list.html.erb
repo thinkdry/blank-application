@@ -4,7 +4,7 @@
 		<%= display_item_list(params[:item_type])%>
 		<div class="last_item_in_list">&nbsp;</div>
 		<div id="pagination">
-  			  <%= remote_pagination @collection %>
+  			<%= remote_pagination(@collection,get_ajax_item_path(params[:item_type]))%>
   		</div><!-- pagination -->
 	</div>
 	<% if @collection and @collection.length > 0%>

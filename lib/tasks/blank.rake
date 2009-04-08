@@ -5,7 +5,6 @@ namespace :blank do
 		Rake::Task['blank:captcha'].invoke
 		Rake::Task['blank:xapian'].invoke
 	end
-		
 
 	desc "From drop to pump"
 	task(:pumper => :environment) do
