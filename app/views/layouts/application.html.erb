@@ -92,7 +92,9 @@
       <h3>Menu</h3>
       <div id="midle-right-menu">
         <p><%= image_tag "/images/icons/home.png"%><%= link_to I18n.t('layout.application.home'), '/' %></p>
-        <p><%= image_tag "/images/icons/content.png" %><%= link_to I18n.t('layout.application.content'), content_path(get_default_item_type) %></p>
+        <% if (tmp=get_default_item_type) %>
+          <p><%= image_tag "/images/icons/content.png" %><%= link_to I18n.t('layout.application.content'), content_path(tmp) %></p>
+        <% end %>
       </div>
     </div>
     <div id="middle-middle">
