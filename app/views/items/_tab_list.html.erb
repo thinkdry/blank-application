@@ -1,18 +1,19 @@
 <div id="content">
+    <% params[:item_type] ||= get_default_item_type %>
 	<%= display_tabs(params[:item_type]) %>
 	<div id="object-list">
 		<%= display_item_list(params[:item_type])%>
 		<div class="last_item_in_list">&nbsp;</div>
 		<div id="pagination">
-  			<%= remote_pagination(@collection,get_ajax_item_path(params[:item_type]))%>
+  			<%= remote_pagination(@collection, get_ajax_item_path(params[:item_type]))%>
   		</div><!-- pagination -->
 	</div>
-	<% if @collection and @collection.length > 0%>
+	<% if @collection && params[:item_type] && @collection.length > 0%>
 		<div class="other_output_format">
 			<%= I18n.t('item.show.get_in_another_format')%>:
-	      	<%= link_to "XML", "#{current_workspace.nil? ? params[:item_type] : items_path(!params[:item_type].nil?  ? params[:item_type] : "articles" )}.xml" %>
-	      	<%= link_to "JSON", "#{current_workspace.nil? ? params[:item_type] : items_path(!params[:item_type].nil?  ? params[:item_type] : "articles" )}.json" %>
-	      	<%= link_to "ATOM 1.0", "#{current_workspace.nil? ? params[:item_type] : items_path(!params[:item_type].nil?  ? params[:item_type] : "articles" )}.atom" %>
+	      	<%= link_to "XML", "#{current_workspace.nil? ? '/'+params[:item_type] : items_path(params[:item_type])}.xml" %>
+	      	<%= link_to "JSON", "#{current_workspace.nil? ? '/'+params[:item_type] : items_path(params[:item_type])}.json" %>
+	      	<%= link_to "ATOM 1.0", "#{current_workspace.nil? ? '/'+params[:item_type] : items_path(params[:item_type])}.atom" %>
 	    </div>
 	<%end%>
 </div>
