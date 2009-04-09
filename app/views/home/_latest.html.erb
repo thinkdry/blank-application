@@ -1,4 +1,4 @@
-<a href="#" id="items_link" class="blok" onclick="Effect.toggle('items', 'slide'); return false;"><%=I18n.t('home.index.latest_activity')%></a>
+<a href="#" id="items_link" class="blok" onclick="Effect.toggle('items', 'Appear'); return false;"><%=I18n.t('home.index.latest_activity')%></a>
 <div id="items" style="display:none; width:600px;">
   <div class="lift_items">
     <% @latest_items.each do |l|%>
@@ -14,7 +14,7 @@
     <%end%>
   </div>
 </div>
-<a href="#" id="users_link" class="blok" onclick="Effect.toggle('users', 'slide'); return false;"><%=I18n.t('home.index.latest_user')%></a>
+<a href="#" id="users_link" class="blok" onclick="Effect.toggle('users', 'Appear'); return false;"><%=I18n.t('home.index.latest_user')%></a>
 <div id="users" style="display:none; width:600px;">
   <div class="lift_items">
     <%@latest_users.each do |u|%>
@@ -27,7 +27,7 @@
   </div>
 </div>
 
-<a href="#" id="ws_link" class="blok" onclick="Effect.toggle('workspaces', 'slide'); return false;"><%=I18n.t('home.index.latest_workspace')%></a>
+<a href="#" id="ws_link" class="blok" onclick="Effect.toggle('workspaces', 'Appear',{duration:0}); return false;"><%=I18n.t('home.index.latest_workspace')%></a>
 <div id="workspaces" style="display:none; width:600px">
   <div class="lift_items">
      <%@latest_ws.each do |ws|%>
@@ -40,7 +40,7 @@
   </div>
 </div>
 
-<a href="#" id="pubs_link" class="blok" onclick="Effect.toggle('publications', 'slide'); return false;"><%=I18n.t('home.index.latest_feed')%></a>
+<a href="#" id="pubs_link" class="blok" onclick="Effect.toggle('publications', 'Appear',{duration:0}); return false;"><%=I18n.t('home.index.latest_feed')%></a>
 <div id="publications" style="display:none; width:600px;">
   <div class="lift_items">
     <%@latest_feeds.each do |pm|%>

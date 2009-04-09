@@ -20,24 +20,8 @@
 								<%=I18n.t('user.session.remember_me')%>:
 								<%= check_box_tag 'remember_me', '1', @remember_me %>	
 							</p>
-							<p>
-								<%= image_tag('/images/login_icons/french.png')%>
-								<%= select_languages %>
-							</p>
-							<p>
-								<%= image_tag('/images/login_icons/keychain.png')%>
-								<%= link_to I18n.t('user.session.password_forgotten'), forgot_password_path %>
-							</p>	
 						</div>
-						<div id="languageLogin">
-							<p>
-								<%= image_tag('/images/login_icons/contact.png')%>
-								<%= link_to I18n.t('layout.footer.contact'), "#" %>	
-							</p>
-							<p>
-								<%= image_tag('/images/login_icons/question.png')%>
-								<%= link_to I18n.t('layout.footer.faq'), "#" %>	
-							</p>			        
+						<div id="languageLogin">			        
 							<% if is_allowed_free_user_creation? %>
 					           <br /><%= link_to I18n.t('user.session.inscription'), new_user_path %>
 							<%end%>

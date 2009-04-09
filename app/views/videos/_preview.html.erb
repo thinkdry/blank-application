@@ -1,12 +1,12 @@
 <script type="text/javascript" src="/videoplayer/swfobject.js"></script>
-<% item_show( :title => I18n.t('video.field.video_label'),  :object => @current_object ) do %>
+<% item_preview( :title => I18n.t('video.field.video_label'),  :object => object ) do %>
       <div id ="progress">
-        <% if @current_object.state=="encoded" %>
+        <% if object.state=="encoded" %>
           <%= render :partial => "player" %>
-        <% elsif @current_object.state=="encoding"%>
+        <% elsif object.state=="encoding"%>
           <%= render :partial => "status" %>
         <% else %>
-           <%= @current_object.state.capitalize %>
+           <%= object.state.capitalize %>
        <% end %>
       </div>
       <br /><br />

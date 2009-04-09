@@ -67,6 +67,16 @@ module ItemsHelper
                             :block => block                 } ),
       block.binding
   end
+  
+    # Define the common information of the show of an item
+  def item_preview(parameters, &block)
+    concat\
+      render( :partial => "items/preview",
+              :locals => {  :object => parameters[:object],
+                            :title => parameters[:title],
+                            :block => block                 } ),
+      block.binding
+  end
 
 	# Form part for FCKEditor field
 	def advanced_editor_on(object, attribute)
