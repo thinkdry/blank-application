@@ -1,11 +1,11 @@
 <% div_for(item_in_list, :class => "item_in_list") do %>
 	<div class="sensor_in_list">
 		<div class="left_part_sensor">
-			<a id="items_link" onclick="toggleAccordion('items<%=object.id %>');"><%= object.title%></a>
+			<a id="items_link" onclick="toggleAccordion('items_<%=object.type%>_<%=object.id %>');"><%= object.title%></a>
 		</div>
 		<div class="right_part_sensor"><%= I18n.l object.created_at, :format =>:verb %></div>
 	</div>
-	<div id="items<%=object.id %>" style="display:none;" name="itemInformations">
+	<div id="items_<%=object.type%>_<%=object.id %>" style="display:none;" name="itemInformations">
   		<div class="lift_items">
           <% if File.exists?(RAILS_ROOT+'/app/views/'+object.class.to_s.pluralize.underscore+"/_preview.html.erb") %>
 			<%= render :partial => object.class.to_s.pluralize.underscore + "/preview", :object => object %>
