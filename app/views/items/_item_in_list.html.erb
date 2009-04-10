@@ -3,7 +3,7 @@
 		<div class="left_part_sensor">
 			<a id="items_link"  onclick="toggleAccordion('items<%=object.id %>');"><%= object.title%></a>
 		</div>
-		<div class="right_part_sensor"><%= I18n.l object.created_at, :format =>:short %></div>
+		<div class="right_part_sensor"><%= I18n.l object.created_at, :format =>:verb %></div>
 	</div>
 	<div id="items<%=object.id %>" style="display:none;" name="itemInformations">
   		<div class="lift_items">

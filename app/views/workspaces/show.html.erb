@@ -32,12 +32,11 @@
     <% end %>
     <% end %>
 </div>
- <div class="area_LEFT">
-  <%= render :partial => "workspaces/latest" %>
+
+ <div class="area_top_five">
+	<%= render :partial => "workspaces/top_five"%>
 </div>
-<div class="area_RIGHT">
-  <%= render :partial => "items/top_box" %>
-</div>
-<div class="area_BOTH" onmouseover="javascript:Tips.hideAll()">
-  <%= render :partial => "items/tab_list" %>
+
+<div class="area_BOTH">
+  <%= render :partial => "items/tab_list", :object =>  @current_object%>
 </div>

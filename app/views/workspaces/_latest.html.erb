@@ -1,13 +1,12 @@
-<h2><%=I18n.t('workspace.show.last_five_item')%></h2>
-	<ul>
 		<% GenericItem.from_workspace(@workspace.id).latest.each do |item| %>
 			<li class="clear">
-				<div id="<%= item.id%>">
-					<%= image_tag(item.icon, :align => 'left') %>
-					<%= link_to item.title, item_path(item) %>
+				<div>
+					<%= image_tag(item.icon, :align => 'left', :width => '20') %>
+					<a href="<%=item_path(item)%>" id="<%=item.type%>_<%=item.id%>"><%=item.title%></a>
 				</div>
-				<div id="tip_<%=item.id%>" style="display:none;">
+				<div id="tip_<%= item.type%>_<%=item.id%>" style="display:none;">
 					<div class="tooltip_infos">
+						<p class="title_tip"><%= item.title%></p>
 						<p><%= link_to_user(item.user) %></p>
 						<p><%= I18n.l item.created_at, :format => :long %></p>
 						<p>
@@ -15,6 +14,7 @@
 						  	<%= item.comments.count > 1 ? I18n.t("item.common_word.comment").pluralize : I18n.t("item.common_word.comment")%>
 						</p>
 						<p><%= item_rate_locked(item) %></p>
+						<p class="description_tip"><%= item.description%></p>
 					</div>
 					<div class="tooltip_actions">
 						<%= link_to image_tag('icons/comments.png'), item_path(item) + "#new_comment_form_box" %>
@@ -26,19 +26,19 @@
 
 				<script type='text/javascript'>
 					//<![CDATA[
-						new Tip('<%= item.id%>',  $('tip_<%=item.id%>'),
-								{ effect: 'appear',
+						new Tip('<%= item.type%>_<%= item.id%>', $('tip_<%= item.type%>_<%=item.id%>'),
+								{ target:  $('tip_<%= item.type%>_<%=item.id%>').up('div'),
+								  effect: 'appear',
 						 		  duration: 0.2,
 								  delay:0,
-								  hook: { target: 'topRight', tip: 'topLeft' },
+								  hook: { target: 'rightTop', tip: 'leftMiddle' },
 								  hideOn: { element: 'tip', event: 'mouseout' },
-								  stem: 'leftTop',
 								  hideOthers: 'true',
 								  hideAfter: 3,
+								  offset:{ x: 0, y: 0 },
 								  width: 300
 								});
 					//]]>
 				</script>
 			</li>
 		<% end %>
-	</ul>

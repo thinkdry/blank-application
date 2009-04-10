@@ -167,7 +167,7 @@ module ItemsHelper
 
 	# Displays the list of items
   def display_item_list(item_type=get_default_item_type, partial_used='items/item_in_list')
-		item_type ||= get_default_item_type
+		item_type ||= params[:item_type] ||= get_default_item_type
 		if !item_type.blank?
 			items = item_type.classify.constantize.list_items_with_permission_for(@current_user, 'show', current_workspace)
 			@collection = items.paginate(:page => params[:page],:per_page=>15)

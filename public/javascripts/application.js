@@ -120,7 +120,7 @@ function selectTab(idSelected){
 		
 		
     // get the container witch contains the tabs
-    var tabsElement = document.getElementById('top_elems');
+    var tabsElement = document.getElementById('tabs');
 		
     // get the tabs links on witch we should change the class
     var tabsElements = tabsElement.getElementsByTagName('a');

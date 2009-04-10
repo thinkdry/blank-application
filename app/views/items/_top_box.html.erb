@@ -81,12 +81,14 @@
   <div id="one">
     <ul class="top_box">
   	<%= render 	:partial => "items/item_in_top_box",
+				:locals =>{:type_of_list => 'comment'},
   				:collection => items.most_commented.to_a %>
   	</ul>
   </div>
   <div id="two">
     <ul class="top_box">
   	<%= render 	:partial => "items/item_in_top_box",
+				:locals =>{:type_of_list => 'rated'},
   				:collection => items.best_rated.to_a %>
   	</ul>
   </div>

@@ -1,9 +1,10 @@
 <% if (category == 'item') %>
-  <br />Item categories<br />
-  <% available_items_list.each do |i| %>
-    <%= I18n.t('general.item.'+i.to_s) %> <%= check_box_tag "search[models][]", i, @search.models.to_s.split(',').include?(i) %>
-  <% end %>
-  <br /><br />
+  <label><%=I18n.t('layout.search.item_category')%>:</label>
+  <div class="formElement">
+	  <% available_items_list.each do |i| %>
+	    <%= check_box_tag "search[models][]", i, @search.models.to_s.split(',').include?(i) %><%= I18n.t('general.item.'+i.to_s) %>
+	  <% end %>
+  </div>
 <% end %>
 
 <% if available_items_list.include?(category) %>
