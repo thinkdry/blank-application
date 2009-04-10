@@ -2,7 +2,10 @@
   <label><%=I18n.t('layout.search.item_category')%>:</label>
   <div class="formElement">
 	  <% available_items_list.each do |i| %>
-	    <%= check_box_tag "search[models][]", i, @search.models.to_s.split(',').include?(i) %><%= I18n.t('general.item.'+i.to_s) %>
+	    <div class="checkbox_list_horizontal">
+	    	<%= check_box_tag "search[models][]", i, @search.models.to_s.split(',').include?(i) %>
+			<%= I18n.t('general.item.'+i.to_s) %>
+		</div>
 	  <% end %>
   </div>
 <% end %>
@@ -10,8 +13,6 @@
 <% if available_items_list.include?(category) %>
   <% if File.exists?(RAILS_ROOT+"/app/views/#{category.pluralize}/_advanced_search.html.erb") %>
     <%= render :partial => category.pluralize+'/advanced_search' %>
-  <% else %>
-    <%= render :text => 'no advanced search for this item' %>
   <% end %>
 <% end %>
 
