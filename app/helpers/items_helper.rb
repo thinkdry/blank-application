@@ -68,7 +68,7 @@ module ItemsHelper
       block.binding
   end
   
-    # Define the common information of the show of an item
+  # Define the common information of the show of an item
   def item_preview(parameters, &block)
     concat\
       render( :partial => "items/preview",

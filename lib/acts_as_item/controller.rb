@@ -53,6 +53,10 @@ module ActsAsItem
 
 					after :index do
 						@current_objects = current_model.list_items_with_permission_for(@current_user, 'show', current_workspace).paginate(:per_page => 20, :page => params[:page])
+						if params[:filter_name]
+							@current_objects = @current_objects.sort{ |x, y| y.send(params[:filter_name].to_sym) <=> x.send(params[:filter_name].to_sym) }
+						end
+						@current_objects = @current_objects.paginate(:per_page => 20, :page => params[:page])
 					end
 
           # Makes `current_user` as author for the current_object

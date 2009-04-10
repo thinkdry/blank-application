@@ -1,4 +1,22 @@
 <div id="results">
-<%= render :partial => 'result', :collection => @results %>
+  <%#= render :partial => 'result', :collection => @results %>
 </div>
 
+<div id="content">
+	<div id="object-list">
+        <%= render(:partial => 'items/item_in_list', :collection => @results) %>
+		<%#= display_item_list(params[:item_type])%>
+		<div class="last_item_in_list">&nbsp;</div>
+		<div id="pagination">
+          <%#= remote_pagination(@results, get_ajax_item_path(params[:item_type]))%>
+  		</div><!-- pagination -->
+	</div>
+	<% if @results && @results.length > 0%>
+		<div class="other_output_format">
+			<%= I18n.t('item.show.get_in_another_format')%>:
+	      	<%= link_to "XML", "/searches.xml" %>
+	      	<%= link_to "JSON", "/searches.json" %>
+	      	<%= link_to "ATOM 1.0", "/searches.atom" %>
+	    </div>
+	<%end%>
+</div>

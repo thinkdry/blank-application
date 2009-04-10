@@ -7,7 +7,12 @@
 	</div>
 	<div id="items<%=object.id %>" style="display:none;" name="itemInformations">
   		<div class="lift_items">
-			<%= render :partial => params[:item_type] + "/preview", :object => object %>
+          <% if File.exists?(RAILS_ROOT+'/app/views/'+object.class.to_s.pluralize.underscore+"/_preview.html.erb") %>
+			<%= render :partial => object.class.to_s.pluralize.underscore + "/preview", :object => object %>
+          <% else %>
+            <%#= render :partial => "items/preview", :object => object %>
+            <% item_preview( :title => 'default',  :object => object ) do %><% end %>
+          <% end %>
 		</div>		
 	</div> 
 <% end %>

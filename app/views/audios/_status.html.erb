@@ -3,9 +3,9 @@
 </script>
 <%= periodically_call_remote             :update=> 'progress',
   :condition=>"cancel==true",
-  :url => {:action=> 'get_progress', :id=>@current_object.id},
+  :url => {:action=> 'get_progress', :id=>object.id},
   :frequency => 10%>
 <div id="states">
-  <%=@current_object.state.capitalize%>
+  <%=object.state.capitalize%>
 </div>
 <%= image_tag "/images/loader.gif" %>
