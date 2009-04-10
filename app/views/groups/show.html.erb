@@ -1,24 +1,14 @@
-<div id="area_POST_bis">
-	<div id="area_PROFIL">
-	  <h2>
-	  	<%= @current_object.title %> 
-        <%= link_to image_tag('icons/pencil.png'), edit_group_path, :class => "pencil"  %>
-	  </h2>
-  	  <p>
-	  	<label>Description  : </label><%= @current_object.description %>
-	  </p>
-      <p>
-	  	<label>People  : </label>
+<% item_show( :title => 'Group',  :object => @current_object ) do %>
+
+<br /><br />
+<div id="group_members">
+    <h2>Members</h2>
         <ul>
         <%for person in @current_object.people %>
           <li> <%= person.email %>(<%= person.first_name %> <%= person.last_name %>) </li>
         <% end %>
         </ul>
-	  </p>
-      
-	</div>
-</div>
+  </div>
+  <br /><br />
 
-
-<div class="clear"></div>
-
+<% end %>

@@ -11,7 +11,7 @@ p 'done'
 #ApplicationHelper.send(:include, ActsAsItem::HelperMethods)
 
 # Defining the global variable
-ITEMS = ['article', 'image', 'cms_file', 'video', 'audio', 'publication', 'feed_source', 'bookmark','newsletter']
+ITEMS = ['article', 'image', 'cms_file', 'video', 'audio', 'publication', 'feed_source', 'bookmark','newsletter','group']
 LANGUAGES = ['en-US', 'fr-FR']
 FEED_ITEMS_IMPORTATION_TYPES = ['bookmark', 'publication']
 WS_TYPES = ['closed', 'public', 'authorized', 'archived']

@@ -11,14 +11,8 @@ ActionController::Routing::Routes.draw do |map|
   map.reset_password '/reset_password/:password_reset_code', :controller => 'users', :action => 'reset_password'
   map.resources :users, :member => { :administration => :any }
 	map.resource :session, :member => { :change_language => :any }
-	map.resources :people
-  map.resources :groups
-  map.export_people '/export_people', :controller => 'people', :action => 'export_people'
-  map.import_people '/import_people', :controller => 'people', :action => 'import_people'
-  map.send_newsletter '/send_newsletter', :controller => 'newsletters', :action => 'send_newsletter'
-  map.ajax_people '/ajax_people', :controller => 'people', :action => 'ajax_index'
-  map.ajax_people '/ajax_groups', :controller => 'groups', :action => 'ajax_index'
-
+	map.resources :people, :collection => {:export_people=>:any, :import_people => :any,:ajax_index => :get }
+  
 	map.general_changing_superadministration 'superadministration/general_changing', :controller => 'superadministration', :action => 'general_changing'
 	map.check_color_superadministration 'superadministration/check_color', :controller => 'superadministration', :action => 'check_color'
 	map.colors_changing_superadministration 'superadministration/colors_changing', :controller => 'superadministration', :action => 'colors_changing'
@@ -55,6 +49,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 	map.check_feed '/feed_sources/check_feed', :controller => 'feed_sources', :action => 'check_feed'
   map.what_to_do '/feed_sources/what_to_do', :controller => 'feed_sources', :action => 'what_to_do'
+  map.send_newsletter '/send_newsletter', :controller => 'newsletters', :action => 'send_newsletter'
 	#map.resources :feed_items
 	
   # Items created outside any workspace are private or fully public.
