@@ -1,6 +1,5 @@
 <li>
-	<%= image_tag 'item_icons/feed_item.png', :class => "test" %>
-	&nbsp;<%= link_to object.title, object.link %><br />
-    <%=I18n.t('general.common_word.on1')%> <%= I18n.l object.updated_at, :format => :long %><br />
-    
+	<%= image_tag 'item_icons/feed_item.png', :class => "test", :width => '20' %>
+	&nbsp;<%= link_to object.title, object.link %>
+    <p><%=I18n.t('general.common_word.on1')%> <%= I18n.l object.updated_at, :format => :long %></p>
 </li>

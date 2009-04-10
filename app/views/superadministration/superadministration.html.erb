@@ -3,8 +3,8 @@
 
 <h1>Super Administration</h1>
 
-<ul id="top_elems" class="subsection_tabs">  
-	<li class="tab">
+<ul id="tabs" class="subsection_tabs">  
+	<li>
 		<%= link_to_remote image_tag ('/images/icons/settings.png'), 
 							:html => { :id => 'general_setting', :class => params[:part] == 'general' ? 'active' : '' },
 							:before => "selectTab('general_setting')",
@@ -31,7 +31,7 @@
                       //]]>
                     </script>
 	</li>
-    <li class="tab">
+    <li>
     	<%= link_to_remote image_tag ('/images/icons/color.png'), 
 							:html => { :id  => 'css', :class => params[:part] == 'css' ? 'active' : '' }, 
 							:before => "selectTab('css')",
@@ -57,7 +57,7 @@
                       //]]>
                     </script>
 	</li>
-	<li class="tab">
+	<li>
 		<%= link_to_remote image_tag ('/images/icons/french.png'),
 							:html => { :id  => 'translations', :class => params[:part] == 'translations' ? 'active' : '' },
 							:before => "selectTab('translations')",
@@ -83,7 +83,7 @@
                       //]]>
                     </script>
 	</li>
-    <li class="tab">
+    <li>
     	<%= link_to_remote image_tag ('/images/icons/keychain.png'),
 							:html => { :id => 'rights', :class => params[:part] == 'rights' ? 'active' : '' },
 							:before => "selectTab('rights')",

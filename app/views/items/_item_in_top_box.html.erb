@@ -1,39 +1,43 @@
-<li>
-	<div id="right<%= object.id%>">
-		<%= image_tag object.icon, :class => "test" %>
-		&nbsp;<%= link_to object.title, item_path(object) %><br>
+<li class="clear">
+	<div>
+		<%= image_tag(object.icon, :align => 'left', :width => '20') %>
+		<a href="<%=item_path(object)%>" id="<%= type_of_list%>_<%=object.type%>_<%=object.id%>"><%=object.title%></a>
 	</div>
-	<div id="tip_right_<%=object.id%>" style="display:none;">
+	<div id="tip_<%= type_of_list%>_<%= object.type%>_<%=object.id%>" style="display:none;">
 		<div class="tooltip_infos">
+			<p class="title_tip"><%= object.title%></p>
 			<p><%= link_to_user(object.user) %></p>
-			<p><%=I18n.t('general.common_word.on1')%> <%= I18n.l object.created_at, :format => :long %> -</p>
+			<p><%= I18n.l object.created_at, :format => :long %></p>
 			<p>
 				<%= object.comments.count%>
 			  	<%= object.comments.count > 1 ? I18n.t("item.common_word.comment").pluralize : I18n.t("item.common_word.comment")%>
 			</p>
 			<p><%= item_rate_locked(object) %></p>
+			<p class="description_tip"><%= object.description%></p>
 		</div>
 		<div class="tooltip_actions">
 			<%= link_to image_tag('icons/comments.png'), item_path(object) + "#new_comment_form_box" %>
-			<%# if params[:workspace_id] != nil %>
-			<% if object.accepts_edit_for?(@current_user) %>
-              <%= link_to image_tag('icons/pencil.png'), edit_item_path(object)%>
-            <% end %>
+			<% if object.accepts_edit_for?(@current_user)  %>
+				<%= link_to image_tag('icons/pencil.png'), edit_item_path(object)%>
+		    <% end %>
 		</div>
 	</div>
+
 	<script type='text/javascript'>
 		//<![CDATA[
-			new Tip('right<%= object.id%>',  $('tip_right_<%=object.id%>'),
-					{ effect: 'appear',
-			 		  duration: 0,
+			new Tip('<%= type_of_list%>_<%= object.type%>_<%= object.id%>', $('tip_<%= type_of_list%>_<%= object.type%>_<%=object.id%>'),
+					{ target:  $('tip_<%= type_of_list%>_<%= object.type%>_<%=object.id%>').up('div'),
+					  effect: 'appear',
+			 		  duration: 0.2,
 					  delay:0,
-					  hook: { target: 'topLeft', tip: 'topRight' },
+					  hook: { target: 'rightTop', tip: 'leftMiddle' },
 					  hideOn: { element: 'tip', event: 'mouseout' },
-					  stem: 'rightTop',
 					  hideOthers: 'true',
-					  hideAfter: 0,
+					  hideAfter: 3,
+					  offset:{ x: 0, y: 0 },
 					  width: 300
 					});
 		//]]>
 	</script>
 </li>
+

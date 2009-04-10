@@ -1,3 +1,13 @@
-<% item_preview( :title => 'Newsletter',  :object => object ) do %>
+<% item_preview( :title => I18n.t('newsletter.field.newsletter_label'),  :object => object ) do %>
 
+  <%= object.body %>
+
+  <% if object.groups_newsletters.size > 0 -%>
+  <div id="sent_to">
+    <h2><%= I18n.t('newsletter.send_newsletter.sent_to') %></h2>
+    <% for g_n in object.groups_newsletters %>
+      <%= link_to g_n.group.title, group_path(g_n.group) %> <%= I18n.t('general.common_word.on1') %> <%= I18n.l g_n.sent_on, :format => :long %> <br />
+    <% end %>
+  </div>
+  <% end -%>
 <% end %>
