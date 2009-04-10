@@ -166,6 +166,7 @@ fr-FR:
       image: Image
       video: Video
       authorized: "Autoris\xC3\xA9"
+      group: Groupe
       programme: Emission
     common_word: 
       to1: au
@@ -264,6 +265,7 @@ fr-FR:
     edit: 
       flash_notice: "L'espace de travail a \xC3\xA9t\xC3\xA9 mis \xC3\xA0 jour"
       title: Modifier l'espace de travail
+      available_ws_types: Types de workspace disponibles
       workspace_configuration: Configuration de l'espae de travail
       manage_users_and_rights: "G\xC3\xA9rer les droits et utilisateurs"
       flash_error: "L'espace de travail n'a pas pu \xC3\xAAtre mis \xC3\xA0 jour"

@@ -198,6 +198,7 @@ en-US:
       video: Video
       image: Image
       authorized: Authorized
+      group: Group
       programme: Programme
     link: 
       delete: Delete
@@ -304,6 +305,7 @@ en-US:
     edit: 
       flash_notice: Workspace Updated Successfully
       title: Modifiy Workspace
+      available_ws_types: Available workspace types
       manage_users_and_rights: Manage Users and Rights
       workspace_configuration: Workspace Configuration
       available_item_categories: Available item categories

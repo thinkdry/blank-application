@@ -10,7 +10,7 @@
         <%= f.select :state, list.map{ |e| [I18n.t('workspace.type.'+e), e] }, :label => I18n.t('workspace.field.state_label')+' :' %>
       <% end %>
       <% if @current_object.new_record? || check=@current_object.accepts_administration_for?(@current_user) %>
-          <h4><%= I18n.t('workspace.edit.workspace_configuration') %></h4>
+          <h2><%= I18n.t('workspace.edit.workspace_configuration') %></h2>
           <% if @sa_conf["sa_items"].size > 0 %>
             <label><%= I18n.t('workspace.edit.available_items') %> :</label>
             <div class="formElement"><%= checkboxes_from_list(@sa_conf["sa_items"], "ws_items", @current_object, 'workspace') %></div>
@@ -28,7 +28,7 @@
           <% end %>
       <% end %>
 	<br/>
-	  <h4><%=I18n.t 'workspace.edit.associated_user'%></h4>
+	  <h2><%=I18n.t 'workspace.edit.associated_user'%></h2>
       <% if !@current_object.new_record? %>
         <% if check %>
           <div id="users">
@@ -56,7 +56,7 @@
 
 <% if !@current_object.new_record? %>
 <% if @current_object.accepts_administration_for?(@current_user) %>
- 	<h4><%= I18n.t('workspace.add_user.title') %></h4>
+ 	<h2><%= I18n.t('workspace.add_user.title') %></h2>
     
     <% form_for :user,  :builder => BlankFormBuilder do |f| %>
       <%= f.text_field :login, :ajax => false, :label => I18n.t('workspace.add_user.name')+' :' %>
