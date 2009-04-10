@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 	
   acts_as_ajax_validation
 
-	skip_before_filter :is_logged?, :only => [:new, :create, :validate]
+	skip_before_filter :is_logged?, :only => [:new, :create, :validate, :forgot_password]
 
 	layout "application", :except => [:new, :forgot_password, :reset_password, :index]
 

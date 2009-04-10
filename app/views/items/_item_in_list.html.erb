@@ -1,38 +1,13 @@
-<% div_for item_in_list do %>
-  <div class="item-list" style="margin-bottom:15px;">
-    <div class="item_list_icon">
-     
-    </div>
-    <div class="item_list_body">
-      <div class="itme_list_item_title_small"><%= link_to object.title, item_path(object), :class => 'object_title' %></div>
-      <div class="item_list_item_infos">
-        <div>
-          <p>
-            <% if object.workspaces.size > 0 %>
-              <%=I18n.t('general.common_word.in')%>&nbsp;<%= links_to_workspace_collection object.workspaces %>
-            <% end %>
-            <%=I18n.t('general.common_word.by')%> <%= link_to_user item_in_list.user %></p>
-          <p><%=I18n.t('general.common_word.on1')%> <%= I18n.l object.created_at, :format => :long %></p>
-        </div>
-        <div >
-          <div class="item_list_rate" id="rating_<%= item_in_list.class.to_s.underscore %>_<%= item_in_list.id %>"></div>
-          <div class="item_list_rate">
-            <%= object.comments.count %> <%=I18n.t('item.common_word.comment').pluralize%>
-            <%=I18n.t('item.common_word.rate').pluralize%> :
-          </div>
-        </div>
-      </div>
-	  <div class="item_list_item_actions">
-	  	<% if object.accepts_edit_for?(@current_user) %>
-          <%= link_to(image_tag('icons/pencil.png'), edit_item_path(object)) %>
-        <% end %>
-        <% if object.accepts_destroy_for?(@current_user) %>
-          <%= link_to image_tag('icons/delete.png'), item_path(object), :method => :delete, :confirm =>  I18n.t('item.destroy.delete_conform')%>
-        <% end %>
-	  </div>
-    </div>
-  </div>
-  <script type="text/javascript" charset="utf-8">
-    new Starbox("rating_<%= item_in_list.class.to_s.underscore %>_<%= item_in_list.id %>", <%= item_in_list.rating %>, { locked: true });
-  </script>
+<% div_for(item_in_list, :class => "item_in_list") do %>
+	<div class="sensor_in_list">
+		<div class="left_part_sensor">
+			<a id="items_link" onclick="toggleAccordion('items<%=object.id %>');"><%= object.title%></a>
+		</div>
+		<div class="right_part_sensor"><%= I18n.l object.created_at, :format =>:short %></div>
+	</div>
+	<div id="items<%=object.id %>" style="display:none;" name="itemInformations">
+  		<div class="lift_items">
+			<%= render :partial => params[:item_type] + "/preview", :object => object %>
+		</div>		
+	</div> 
 <% end %>
