@@ -361,7 +361,7 @@ ul.top_box li{
 
 #object-list{
   background: #fff url(/images/top_elems_bg.png) repeat-x;
-  padding:50px 20px 20px;
+  padding-top:15px;
   border-bottom: 1px solid #ccc;
   border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;
@@ -440,6 +440,7 @@ ul.top_box li{
 .other_output_format{
 	float:right;
 	color:#9C9C9C;
+	padding-top:5px;
 }
 
 .file_infos_box p{
@@ -601,10 +602,10 @@ ul.top_box li{
 	height:100%;
 	clear:both;
 }
-.selected_item_in_list .sensor_in_list a{
+.selected_item_in_list .sensor_in_list a, .selected_item_in_list .sensor_in_list_alternate a{
 	color:#ffffff;
 }
-.selected_item_in_list .sensor_in_list{
+.selected_item_in_list .sensor_in_list, .selected_item_in_list .sensor_in_list_alternate{
 	background:#F79646;
 	border-top:1px solid #F79646;
 	border-left:1px solid #F79646;
@@ -615,23 +616,28 @@ ul.top_box li{
 	border:2px solid #F79646;
 }
 
-.sensor_in_list{
-	border-top:1px solid #999;
-	border-left:1px solid #999;
-	border-right:1px solid #999;
+.sensor_in_list,.sensor_in_list_alternate{
 	padding: 5px;
 	height:16px;
 }
-
+.sensor_in_list_alternate{
+	background-color:#eee;
+}
+.sensor_in_list:hover, .sensor_in_list_alternate:hover{
+	background-color:#F79646;
+	color=#fff;
+}
 .last_item_in_list{
 	border-top:1px solid #999;
 }
 
 .left_part_sensor{
 	float:left;
+	padding-left:5px;
 }
 .right_part_sensor{
 	float:right;
+	padding-right:10px;
 }
 .selected_item_in_list .right_part_sensor{
 	color:#fff;
@@ -654,7 +660,7 @@ ul.top_box li{
 }
 #top_five_content li{
 	list-style-type:none;
-	height:35px;
+	height:27px;
 }
 #top_five_tabs{
 	height:40px;
@@ -667,4 +673,7 @@ ul.top_box li{
 }
 .title_tip{
 	color:#F79646;
+}
+#classify_bar{
+	padding:0 10px 15px;
 }

@@ -7,8 +7,6 @@
         feed_items = FeedItem.consultable_by(current_user.id)
 	end
  %>
- 
-<h2><%=I18n.t('home.index.top_five_item')%></h2>
  <ul id="top_five_tabs">  
 	<li class="top_tabs" id="last">
 		<%= image_tag('/images/icons/last.png')%>
