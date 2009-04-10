@@ -19,7 +19,7 @@ class SearchesController < ApplicationController
 		params[:filter_name] ||= 'created_at'
 		params[:filter_way] ||= 'desc'
 		params[:filter_limit] ||= 15
-		params[:search].merge(params[:filter_name], params[:filter_way], params[:filter_limit])
+		params[:search].merge(:filter_name => params[:filter_name], :filter_way => params[:filter_way], :filter_limit => params[:filter_limit])
 		@search = Search.new(params[:search])
 		
 		@results = @search.do_search
