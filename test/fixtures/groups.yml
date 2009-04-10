@@ -1,7 +1,1501 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-# one:
-#   column: value
-#
-# two:
-#   column: value
+    Group_1:
+        user: quentin
+        title: Group (1)
+        description: Group empty for fixtures
+
+    Group_2:
+        user: quentin
+        title: Group (2)
+        description: Group empty for fixtures
+
+    Group_3:
+        user: quentin
+        title: Group (3)
+        description: Group empty for fixtures
+
+    Group_4:
+        user: quentin
+        title: Group (4)
+        description: Group empty for fixtures
+
+    Group_5:
+        user: quentin
+        title: Group (5)
+        description: Group empty for fixtures
+
+    Group_6:
+        user: quentin
+        title: Group (6)
+        description: Group empty for fixtures
+
+    Group_7:
+        user: quentin
+        title: Group (7)
+        description: Group empty for fixtures
+
+    Group_8:
+        user: quentin
+        title: Group (8)
+        description: Group empty for fixtures
+
+    Group_9:
+        user: quentin
+        title: Group (9)
+        description: Group empty for fixtures
+
+    Group_10:
+        user: quentin
+        title: Group (10)
+        description: Group empty for fixtures
+
+    Group_11:
+        user: quentin
+        title: Group (11)
+        description: Group empty for fixtures
+
+    Group_12:
+        user: quentin
+        title: Group (12)
+        description: Group empty for fixtures
+
+    Group_13:
+        user: quentin
+        title: Group (13)
+        description: Group empty for fixtures
+
+    Group_14:
+        user: quentin
+        title: Group (14)
+        description: Group empty for fixtures
+
+    Group_15:
+        user: quentin
+        title: Group (15)
+        description: Group empty for fixtures
+
+    Group_16:
+        user: quentin
+        title: Group (16)
+        description: Group empty for fixtures
+
+    Group_17:
+        user: quentin
+        title: Group (17)
+        description: Group empty for fixtures
+
+    Group_18:
+        user: quentin
+        title: Group (18)
+        description: Group empty for fixtures
+
+    Group_19:
+        user: quentin
+        title: Group (19)
+        description: Group empty for fixtures
+
+    Group_20:
+        user: quentin
+        title: Group (20)
+        description: Group empty for fixtures
+
+    Group_21:
+        user: quentin
+        title: Group (21)
+        description: Group empty for fixtures
+
+    Group_22:
+        user: quentin
+        title: Group (22)
+        description: Group empty for fixtures
+
+    Group_23:
+        user: quentin
+        title: Group (23)
+        description: Group empty for fixtures
+
+    Group_24:
+        user: quentin
+        title: Group (24)
+        description: Group empty for fixtures
+
+    Group_25:
+        user: quentin
+        title: Group (25)
+        description: Group empty for fixtures
+
+    Group_26:
+        user: quentin
+        title: Group (26)
+        description: Group empty for fixtures
+
+    Group_27:
+        user: quentin
+        title: Group (27)
+        description: Group empty for fixtures
+
+    Group_28:
+        user: quentin
+        title: Group (28)
+        description: Group empty for fixtures
+
+    Group_29:
+        user: quentin
+        title: Group (29)
+        description: Group empty for fixtures
+
+    Group_30:
+        user: quentin
+        title: Group (30)
+        description: Group empty for fixtures
+
+    Group_31:
+        user: quentin
+        title: Group (31)
+        description: Group empty for fixtures
+
+    Group_32:
+        user: quentin
+        title: Group (32)
+        description: Group empty for fixtures
+
+    Group_33:
+        user: quentin
+        title: Group (33)
+        description: Group empty for fixtures
+
+    Group_34:
+        user: quentin
+        title: Group (34)
+        description: Group empty for fixtures
+
+    Group_35:
+        user: quentin
+        title: Group (35)
+        description: Group empty for fixtures
+
+    Group_36:
+        user: quentin
+        title: Group (36)
+        description: Group empty for fixtures
+
+    Group_37:
+        user: quentin
+        title: Group (37)
+        description: Group empty for fixtures
+
+    Group_38:
+        user: quentin
+        title: Group (38)
+        description: Group empty for fixtures
+
+    Group_39:
+        user: quentin
+        title: Group (39)
+        description: Group empty for fixtures
+
+    Group_40:
+        user: quentin
+        title: Group (40)
+        description: Group empty for fixtures
+
+    Group_41:
+        user: quentin
+        title: Group (41)
+        description: Group empty for fixtures
+
+    Group_42:
+        user: quentin
+        title: Group (42)
+        description: Group empty for fixtures
+
+    Group_43:
+        user: quentin
+        title: Group (43)
+        description: Group empty for fixtures
+
+    Group_44:
+        user: quentin
+        title: Group (44)
+        description: Group empty for fixtures
+
+    Group_45:
+        user: quentin
+        title: Group (45)
+        description: Group empty for fixtures
+
+    Group_46:
+        user: quentin
+        title: Group (46)
+        description: Group empty for fixtures
+
+    Group_47:
+        user: quentin
+        title: Group (47)
+        description: Group empty for fixtures
+
+    Group_48:
+        user: quentin
+        title: Group (48)
+        description: Group empty for fixtures
+
+    Group_49:
+        user: quentin
+        title: Group (49)
+        description: Group empty for fixtures
+
+    Group_50:
+        user: quentin
+        title: Group (50)
+        description: Group empty for fixtures
+
+    Group_51:
+        user: quentin
+        title: Group (51)
+        description: Group empty for fixtures
+
+    Group_52:
+        user: quentin
+        title: Group (52)
+        description: Group empty for fixtures
+
+    Group_53:
+        user: quentin
+        title: Group (53)
+        description: Group empty for fixtures
+
+    Group_54:
+        user: quentin
+        title: Group (54)
+        description: Group empty for fixtures
+
+    Group_55:
+        user: quentin
+        title: Group (55)
+        description: Group empty for fixtures
+
+    Group_56:
+        user: quentin
+        title: Group (56)
+        description: Group empty for fixtures
+
+    Group_57:
+        user: quentin
+        title: Group (57)
+        description: Group empty for fixtures
+
+    Group_58:
+        user: quentin
+        title: Group (58)
+        description: Group empty for fixtures
+
+    Group_59:
+        user: quentin
+        title: Group (59)
+        description: Group empty for fixtures
+
+    Group_60:
+        user: quentin
+        title: Group (60)
+        description: Group empty for fixtures
+
+    Group_61:
+        user: quentin
+        title: Group (61)
+        description: Group empty for fixtures
+
+    Group_62:
+        user: quentin
+        title: Group (62)
+        description: Group empty for fixtures
+
+    Group_63:
+        user: quentin
+        title: Group (63)
+        description: Group empty for fixtures
+
+    Group_64:
+        user: quentin
+        title: Group (64)
+        description: Group empty for fixtures
+
+    Group_65:
+        user: quentin
+        title: Group (65)
+        description: Group empty for fixtures
+
+    Group_66:
+        user: quentin
+        title: Group (66)
+        description: Group empty for fixtures
+
+    Group_67:
+        user: quentin
+        title: Group (67)
+        description: Group empty for fixtures
+
+    Group_68:
+        user: quentin
+        title: Group (68)
+        description: Group empty for fixtures
+
+    Group_69:
+        user: quentin
+        title: Group (69)
+        description: Group empty for fixtures
+
+    Group_70:
+        user: quentin
+        title: Group (70)
+        description: Group empty for fixtures
+
+    Group_71:
+        user: quentin
+        title: Group (71)
+        description: Group empty for fixtures
+
+    Group_72:
+        user: quentin
+        title: Group (72)
+        description: Group empty for fixtures
+
+    Group_73:
+        user: quentin
+        title: Group (73)
+        description: Group empty for fixtures
+
+    Group_74:
+        user: quentin
+        title: Group (74)
+        description: Group empty for fixtures
+
+    Group_75:
+        user: quentin
+        title: Group (75)
+        description: Group empty for fixtures
+
+    Group_76:
+        user: quentin
+        title: Group (76)
+        description: Group empty for fixtures
+
+    Group_77:
+        user: quentin
+        title: Group (77)
+        description: Group empty for fixtures
+
+    Group_78:
+        user: quentin
+        title: Group (78)
+        description: Group empty for fixtures
+
+    Group_79:
+        user: quentin
+        title: Group (79)
+        description: Group empty for fixtures
+
+    Group_80:
+        user: quentin
+        title: Group (80)
+        description: Group empty for fixtures
+
+    Group_81:
+        user: quentin
+        title: Group (81)
+        description: Group empty for fixtures
+
+    Group_82:
+        user: quentin
+        title: Group (82)
+        description: Group empty for fixtures
+
+    Group_83:
+        user: quentin
+        title: Group (83)
+        description: Group empty for fixtures
+
+    Group_84:
+        user: quentin
+        title: Group (84)
+        description: Group empty for fixtures
+
+    Group_85:
+        user: quentin
+        title: Group (85)
+        description: Group empty for fixtures
+
+    Group_86:
+        user: quentin
+        title: Group (86)
+        description: Group empty for fixtures
+
+    Group_87:
+        user: quentin
+        title: Group (87)
+        description: Group empty for fixtures
+
+    Group_88:
+        user: quentin
+        title: Group (88)
+        description: Group empty for fixtures
+
+    Group_89:
+        user: quentin
+        title: Group (89)
+        description: Group empty for fixtures
+
+    Group_90:
+        user: quentin
+        title: Group (90)
+        description: Group empty for fixtures
+
+    Group_91:
+        user: quentin
+        title: Group (91)
+        description: Group empty for fixtures
+
+    Group_92:
+        user: quentin
+        title: Group (92)
+        description: Group empty for fixtures
+
+    Group_93:
+        user: quentin
+        title: Group (93)
+        description: Group empty for fixtures
+
+    Group_94:
+        user: quentin
+        title: Group (94)
+        description: Group empty for fixtures
+
+    Group_95:
+        user: quentin
+        title: Group (95)
+        description: Group empty for fixtures
+
+    Group_96:
+        user: quentin
+        title: Group (96)
+        description: Group empty for fixtures
+
+    Group_97:
+        user: quentin
+        title: Group (97)
+        description: Group empty for fixtures
+
+    Group_98:
+        user: quentin
+        title: Group (98)
+        description: Group empty for fixtures
+
+    Group_99:
+        user: quentin
+        title: Group (99)
+        description: Group empty for fixtures
+
+    Group_100:
+        user: quentin
+        title: Group (100)
+        description: Group empty for fixtures
+
+    Group_101:
+        user: quentin
+        title: Group (101)
+        description: Group empty for fixtures
+
+    Group_102:
+        user: quentin
+        title: Group (102)
+        description: Group empty for fixtures
+
+    Group_103:
+        user: quentin
+        title: Group (103)
+        description: Group empty for fixtures
+
+    Group_104:
+        user: quentin
+        title: Group (104)
+        description: Group empty for fixtures
+
+    Group_105:
+        user: quentin
+        title: Group (105)
+        description: Group empty for fixtures
+
+    Group_106:
+        user: quentin
+        title: Group (106)
+        description: Group empty for fixtures
+
+    Group_107:
+        user: quentin
+        title: Group (107)
+        description: Group empty for fixtures
+
+    Group_108:
+        user: quentin
+        title: Group (108)
+        description: Group empty for fixtures
+
+    Group_109:
+        user: quentin
+        title: Group (109)
+        description: Group empty for fixtures
+
+    Group_110:
+        user: quentin
+        title: Group (110)
+        description: Group empty for fixtures
+
+    Group_111:
+        user: quentin
+        title: Group (111)
+        description: Group empty for fixtures
+
+    Group_112:
+        user: quentin
+        title: Group (112)
+        description: Group empty for fixtures
+
+    Group_113:
+        user: quentin
+        title: Group (113)
+        description: Group empty for fixtures
+
+    Group_114:
+        user: quentin
+        title: Group (114)
+        description: Group empty for fixtures
+
+    Group_115:
+        user: quentin
+        title: Group (115)
+        description: Group empty for fixtures
+
+    Group_116:
+        user: quentin
+        title: Group (116)
+        description: Group empty for fixtures
+
+    Group_117:
+        user: quentin
+        title: Group (117)
+        description: Group empty for fixtures
+
+    Group_118:
+        user: quentin
+        title: Group (118)
+        description: Group empty for fixtures
+
+    Group_119:
+        user: quentin
+        title: Group (119)
+        description: Group empty for fixtures
+
+    Group_120:
+        user: quentin
+        title: Group (120)
+        description: Group empty for fixtures
+
+    Group_121:
+        user: quentin
+        title: Group (121)
+        description: Group empty for fixtures
+
+    Group_122:
+        user: quentin
+        title: Group (122)
+        description: Group empty for fixtures
+
+    Group_123:
+        user: quentin
+        title: Group (123)
+        description: Group empty for fixtures
+
+    Group_124:
+        user: quentin
+        title: Group (124)
+        description: Group empty for fixtures
+
+    Group_125:
+        user: quentin
+        title: Group (125)
+        description: Group empty for fixtures
+
+    Group_126:
+        user: quentin
+        title: Group (126)
+        description: Group empty for fixtures
+
+    Group_127:
+        user: quentin
+        title: Group (127)
+        description: Group empty for fixtures
+
+    Group_128:
+        user: quentin
+        title: Group (128)
+        description: Group empty for fixtures
+
+    Group_129:
+        user: quentin
+        title: Group (129)
+        description: Group empty for fixtures
+
+    Group_130:
+        user: quentin
+        title: Group (130)
+        description: Group empty for fixtures
+
+    Group_131:
+        user: quentin
+        title: Group (131)
+        description: Group empty for fixtures
+
+    Group_132:
+        user: quentin
+        title: Group (132)
+        description: Group empty for fixtures
+
+    Group_133:
+        user: quentin
+        title: Group (133)
+        description: Group empty for fixtures
+
+    Group_134:
+        user: quentin
+        title: Group (134)
+        description: Group empty for fixtures
+
+    Group_135:
+        user: quentin
+        title: Group (135)
+        description: Group empty for fixtures
+
+    Group_136:
+        user: quentin
+        title: Group (136)
+        description: Group empty for fixtures
+
+    Group_137:
+        user: quentin
+        title: Group (137)
+        description: Group empty for fixtures
+
+    Group_138:
+        user: quentin
+        title: Group (138)
+        description: Group empty for fixtures
+
+    Group_139:
+        user: quentin
+        title: Group (139)
+        description: Group empty for fixtures
+
+    Group_140:
+        user: quentin
+        title: Group (140)
+        description: Group empty for fixtures
+
+    Group_141:
+        user: quentin
+        title: Group (141)
+        description: Group empty for fixtures
+
+    Group_142:
+        user: quentin
+        title: Group (142)
+        description: Group empty for fixtures
+
+    Group_143:
+        user: quentin
+        title: Group (143)
+        description: Group empty for fixtures
+
+    Group_144:
+        user: quentin
+        title: Group (144)
+        description: Group empty for fixtures
+
+    Group_145:
+        user: quentin
+        title: Group (145)
+        description: Group empty for fixtures
+
+    Group_146:
+        user: quentin
+        title: Group (146)
+        description: Group empty for fixtures
+
+    Group_147:
+        user: quentin
+        title: Group (147)
+        description: Group empty for fixtures
+
+    Group_148:
+        user: quentin
+        title: Group (148)
+        description: Group empty for fixtures
+
+    Group_149:
+        user: quentin
+        title: Group (149)
+        description: Group empty for fixtures
+
+    Group_150:
+        user: quentin
+        title: Group (150)
+        description: Group empty for fixtures
+
+    Group_151:
+        user: quentin
+        title: Group (151)
+        description: Group empty for fixtures
+
+    Group_152:
+        user: quentin
+        title: Group (152)
+        description: Group empty for fixtures
+
+    Group_153:
+        user: quentin
+        title: Group (153)
+        description: Group empty for fixtures
+
+    Group_154:
+        user: quentin
+        title: Group (154)
+        description: Group empty for fixtures
+
+    Group_155:
+        user: quentin
+        title: Group (155)
+        description: Group empty for fixtures
+
+    Group_156:
+        user: quentin
+        title: Group (156)
+        description: Group empty for fixtures
+
+    Group_157:
+        user: quentin
+        title: Group (157)
+        description: Group empty for fixtures
+
+    Group_158:
+        user: quentin
+        title: Group (158)
+        description: Group empty for fixtures
+
+    Group_159:
+        user: quentin
+        title: Group (159)
+        description: Group empty for fixtures
+
+    Group_160:
+        user: quentin
+        title: Group (160)
+        description: Group empty for fixtures
+
+    Group_161:
+        user: quentin
+        title: Group (161)
+        description: Group empty for fixtures
+
+    Group_162:
+        user: quentin
+        title: Group (162)
+        description: Group empty for fixtures
+
+    Group_163:
+        user: quentin
+        title: Group (163)
+        description: Group empty for fixtures
+
+    Group_164:
+        user: quentin
+        title: Group (164)
+        description: Group empty for fixtures
+
+    Group_165:
+        user: quentin
+        title: Group (165)
+        description: Group empty for fixtures
+
+    Group_166:
+        user: quentin
+        title: Group (166)
+        description: Group empty for fixtures
+
+    Group_167:
+        user: quentin
+        title: Group (167)
+        description: Group empty for fixtures
+
+    Group_168:
+        user: quentin
+        title: Group (168)
+        description: Group empty for fixtures
+
+    Group_169:
+        user: quentin
+        title: Group (169)
+        description: Group empty for fixtures
+
+    Group_170:
+        user: quentin
+        title: Group (170)
+        description: Group empty for fixtures
+
+    Group_171:
+        user: quentin
+        title: Group (171)
+        description: Group empty for fixtures
+
+    Group_172:
+        user: quentin
+        title: Group (172)
+        description: Group empty for fixtures
+
+    Group_173:
+        user: quentin
+        title: Group (173)
+        description: Group empty for fixtures
+
+    Group_174:
+        user: quentin
+        title: Group (174)
+        description: Group empty for fixtures
+
+    Group_175:
+        user: quentin
+        title: Group (175)
+        description: Group empty for fixtures
+
+    Group_176:
+        user: quentin
+        title: Group (176)
+        description: Group empty for fixtures
+
+    Group_177:
+        user: quentin
+        title: Group (177)
+        description: Group empty for fixtures
+
+    Group_178:
+        user: quentin
+        title: Group (178)
+        description: Group empty for fixtures
+
+    Group_179:
+        user: quentin
+        title: Group (179)
+        description: Group empty for fixtures
+
+    Group_180:
+        user: quentin
+        title: Group (180)
+        description: Group empty for fixtures
+
+    Group_181:
+        user: quentin
+        title: Group (181)
+        description: Group empty for fixtures
+
+    Group_182:
+        user: quentin
+        title: Group (182)
+        description: Group empty for fixtures
+
+    Group_183:
+        user: quentin
+        title: Group (183)
+        description: Group empty for fixtures
+
+    Group_184:
+        user: quentin
+        title: Group (184)
+        description: Group empty for fixtures
+
+    Group_185:
+        user: quentin
+        title: Group (185)
+        description: Group empty for fixtures
+
+    Group_186:
+        user: quentin
+        title: Group (186)
+        description: Group empty for fixtures
+
+    Group_187:
+        user: quentin
+        title: Group (187)
+        description: Group empty for fixtures
+
+    Group_188:
+        user: quentin
+        title: Group (188)
+        description: Group empty for fixtures
+
+    Group_189:
+        user: quentin
+        title: Group (189)
+        description: Group empty for fixtures
+
+    Group_190:
+        user: quentin
+        title: Group (190)
+        description: Group empty for fixtures
+
+    Group_191:
+        user: quentin
+        title: Group (191)
+        description: Group empty for fixtures
+
+    Group_192:
+        user: quentin
+        title: Group (192)
+        description: Group empty for fixtures
+
+    Group_193:
+        user: quentin
+        title: Group (193)
+        description: Group empty for fixtures
+
+    Group_194:
+        user: quentin
+        title: Group (194)
+        description: Group empty for fixtures
+
+    Group_195:
+        user: quentin
+        title: Group (195)
+        description: Group empty for fixtures
+
+    Group_196:
+        user: quentin
+        title: Group (196)
+        description: Group empty for fixtures
+
+    Group_197:
+        user: quentin
+        title: Group (197)
+        description: Group empty for fixtures
+
+    Group_198:
+        user: quentin
+        title: Group (198)
+        description: Group empty for fixtures
+
+    Group_199:
+        user: quentin
+        title: Group (199)
+        description: Group empty for fixtures
+
+    Group_200:
+        user: quentin
+        title: Group (200)
+        description: Group empty for fixtures
+
+    Group_201:
+        user: quentin
+        title: Group (201)
+        description: Group empty for fixtures
+
+    Group_202:
+        user: quentin
+        title: Group (202)
+        description: Group empty for fixtures
+
+    Group_203:
+        user: quentin
+        title: Group (203)
+        description: Group empty for fixtures
+
+    Group_204:
+        user: quentin
+        title: Group (204)
+        description: Group empty for fixtures
+
+    Group_205:
+        user: quentin
+        title: Group (205)
+        description: Group empty for fixtures
+
+    Group_206:
+        user: quentin
+        title: Group (206)
+        description: Group empty for fixtures
+
+    Group_207:
+        user: quentin
+        title: Group (207)
+        description: Group empty for fixtures
+
+    Group_208:
+        user: quentin
+        title: Group (208)
+        description: Group empty for fixtures
+
+    Group_209:
+        user: quentin
+        title: Group (209)
+        description: Group empty for fixtures
+
+    Group_210:
+        user: quentin
+        title: Group (210)
+        description: Group empty for fixtures
+
+    Group_211:
+        user: quentin
+        title: Group (211)
+        description: Group empty for fixtures
+
+    Group_212:
+        user: quentin
+        title: Group (212)
+        description: Group empty for fixtures
+
+    Group_213:
+        user: quentin
+        title: Group (213)
+        description: Group empty for fixtures
+
+    Group_214:
+        user: quentin
+        title: Group (214)
+        description: Group empty for fixtures
+
+    Group_215:
+        user: quentin
+        title: Group (215)
+        description: Group empty for fixtures
+
+    Group_216:
+        user: quentin
+        title: Group (216)
+        description: Group empty for fixtures
+
+    Group_217:
+        user: quentin
+        title: Group (217)
+        description: Group empty for fixtures
+
+    Group_218:
+        user: quentin
+        title: Group (218)
+        description: Group empty for fixtures
+
+    Group_219:
+        user: quentin
+        title: Group (219)
+        description: Group empty for fixtures
+
+    Group_220:
+        user: quentin
+        title: Group (220)
+        description: Group empty for fixtures
+
+    Group_221:
+        user: quentin
+        title: Group (221)
+        description: Group empty for fixtures
+
+    Group_222:
+        user: quentin
+        title: Group (222)
+        description: Group empty for fixtures
+
+    Group_223:
+        user: quentin
+        title: Group (223)
+        description: Group empty for fixtures
+
+    Group_224:
+        user: quentin
+        title: Group (224)
+        description: Group empty for fixtures
+
+    Group_225:
+        user: quentin
+        title: Group (225)
+        description: Group empty for fixtures
+
+    Group_226:
+        user: quentin
+        title: Group (226)
+        description: Group empty for fixtures
+
+    Group_227:
+        user: quentin
+        title: Group (227)
+        description: Group empty for fixtures
+
+    Group_228:
+        user: quentin
+        title: Group (228)
+        description: Group empty for fixtures
+
+    Group_229:
+        user: quentin
+        title: Group (229)
+        description: Group empty for fixtures
+
+    Group_230:
+        user: quentin
+        title: Group (230)
+        description: Group empty for fixtures
+
+    Group_231:
+        user: quentin
+        title: Group (231)
+        description: Group empty for fixtures
+
+    Group_232:
+        user: quentin
+        title: Group (232)
+        description: Group empty for fixtures
+
+    Group_233:
+        user: quentin
+        title: Group (233)
+        description: Group empty for fixtures
+
+    Group_234:
+        user: quentin
+        title: Group (234)
+        description: Group empty for fixtures
+
+    Group_235:
+        user: quentin
+        title: Group (235)
+        description: Group empty for fixtures
+
+    Group_236:
+        user: quentin
+        title: Group (236)
+        description: Group empty for fixtures
+
+    Group_237:
+        user: quentin
+        title: Group (237)
+        description: Group empty for fixtures
+
+    Group_238:
+        user: quentin
+        title: Group (238)
+        description: Group empty for fixtures
+
+    Group_239:
+        user: quentin
+        title: Group (239)
+        description: Group empty for fixtures
+
+    Group_240:
+        user: quentin
+        title: Group (240)
+        description: Group empty for fixtures
+
+    Group_241:
+        user: quentin
+        title: Group (241)
+        description: Group empty for fixtures
+
+    Group_242:
+        user: quentin
+        title: Group (242)
+        description: Group empty for fixtures
+
+    Group_243:
+        user: quentin
+        title: Group (243)
+        description: Group empty for fixtures
+
+    Group_244:
+        user: quentin
+        title: Group (244)
+        description: Group empty for fixtures
+
+    Group_245:
+        user: quentin
+        title: Group (245)
+        description: Group empty for fixtures
+
+    Group_246:
+        user: quentin
+        title: Group (246)
+        description: Group empty for fixtures
+
+    Group_247:
+        user: quentin
+        title: Group (247)
+        description: Group empty for fixtures
+
+    Group_248:
+        user: quentin
+        title: Group (248)
+        description: Group empty for fixtures
+
+    Group_249:
+        user: quentin
+        title: Group (249)
+        description: Group empty for fixtures
+
+    Group_250:
+        user: quentin
+        title: Group (250)
+        description: Group empty for fixtures
+
+    Group_251:
+        user: quentin
+        title: Group (251)
+        description: Group empty for fixtures
+
+    Group_252:
+        user: quentin
+        title: Group (252)
+        description: Group empty for fixtures
+
+    Group_253:
+        user: quentin
+        title: Group (253)
+        description: Group empty for fixtures
+
+    Group_254:
+        user: quentin
+        title: Group (254)
+        description: Group empty for fixtures
+
+    Group_255:
+        user: quentin
+        title: Group (255)
+        description: Group empty for fixtures
+
+    Group_256:
+        user: quentin
+        title: Group (256)
+        description: Group empty for fixtures
+
+    Group_257:
+        user: quentin
+        title: Group (257)
+        description: Group empty for fixtures
+
+    Group_258:
+        user: quentin
+        title: Group (258)
+        description: Group empty for fixtures
+
+    Group_259:
+        user: quentin
+        title: Group (259)
+        description: Group empty for fixtures
+
+    Group_260:
+        user: quentin
+        title: Group (260)
+        description: Group empty for fixtures
+
+    Group_261:
+        user: quentin
+        title: Group (261)
+        description: Group empty for fixtures
+
+    Group_262:
+        user: quentin
+        title: Group (262)
+        description: Group empty for fixtures
+
+    Group_263:
+        user: quentin
+        title: Group (263)
+        description: Group empty for fixtures
+
+    Group_264:
+        user: quentin
+        title: Group (264)
+        description: Group empty for fixtures
+
+    Group_265:
+        user: quentin
+        title: Group (265)
+        description: Group empty for fixtures
+
+    Group_266:
+        user: quentin
+        title: Group (266)
+        description: Group empty for fixtures
+
+    Group_267:
+        user: quentin
+        title: Group (267)
+        description: Group empty for fixtures
+
+    Group_268:
+        user: quentin
+        title: Group (268)
+        description: Group empty for fixtures
+
+    Group_269:
+        user: quentin
+        title: Group (269)
+        description: Group empty for fixtures
+
+    Group_270:
+        user: quentin
+        title: Group (270)
+        description: Group empty for fixtures
+
+    Group_271:
+        user: quentin
+        title: Group (271)
+        description: Group empty for fixtures
+
+    Group_272:
+        user: quentin
+        title: Group (272)
+        description: Group empty for fixtures
+
+    Group_273:
+        user: quentin
+        title: Group (273)
+        description: Group empty for fixtures
+
+    Group_274:
+        user: quentin
+        title: Group (274)
+        description: Group empty for fixtures
+
+    Group_275:
+        user: quentin
+        title: Group (275)
+        description: Group empty for fixtures
+
+    Group_276:
+        user: quentin
+        title: Group (276)
+        description: Group empty for fixtures
+
+    Group_277:
+        user: quentin
+        title: Group (277)
+        description: Group empty for fixtures
+
+    Group_278:
+        user: quentin
+        title: Group (278)
+        description: Group empty for fixtures
+
+    Group_279:
+        user: quentin
+        title: Group (279)
+        description: Group empty for fixtures
+
+    Group_280:
+        user: quentin
+        title: Group (280)
+        description: Group empty for fixtures
+
+    Group_281:
+        user: quentin
+        title: Group (281)
+        description: Group empty for fixtures
+
+    Group_282:
+        user: quentin
+        title: Group (282)
+        description: Group empty for fixtures
+
+    Group_283:
+        user: quentin
+        title: Group (283)
+        description: Group empty for fixtures
+
+    Group_284:
+        user: quentin
+        title: Group (284)
+        description: Group empty for fixtures
+
+    Group_285:
+        user: quentin
+        title: Group (285)
+        description: Group empty for fixtures
+
+    Group_286:
+        user: quentin
+        title: Group (286)
+        description: Group empty for fixtures
+
+    Group_287:
+        user: quentin
+        title: Group (287)
+        description: Group empty for fixtures
+
+    Group_288:
+        user: quentin
+        title: Group (288)
+        description: Group empty for fixtures
+
+    Group_289:
+        user: quentin
+        title: Group (289)
+        description: Group empty for fixtures
+
+    Group_290:
+        user: quentin
+        title: Group (290)
+        description: Group empty for fixtures
+
+    Group_291:
+        user: quentin
+        title: Group (291)
+        description: Group empty for fixtures
+
+    Group_292:
+        user: quentin
+        title: Group (292)
+        description: Group empty for fixtures
+
+    Group_293:
+        user: quentin
+        title: Group (293)
+        description: Group empty for fixtures
+
+    Group_294:
+        user: quentin
+        title: Group (294)
+        description: Group empty for fixtures
+
+    Group_295:
+        user: quentin
+        title: Group (295)
+        description: Group empty for fixtures
+
+    Group_296:
+        user: quentin
+        title: Group (296)
+        description: Group empty for fixtures
+
+    Group_297:
+        user: quentin
+        title: Group (297)
+        description: Group empty for fixtures
+
+    Group_298:
+        user: quentin
+        title: Group (298)
+        description: Group empty for fixtures
+
+    Group_299:
+        user: quentin
+        title: Group (299)
+        description: Group empty for fixtures
+
+    Group_300:
+        user: quentin
+        title: Group (300)
+        description: Group empty for fixtures
+

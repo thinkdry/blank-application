@@ -4,12 +4,12 @@
   <h2><%=I18n.t('audio.field.audio_label')%></h2>
         <div id ="progress">
             <% if obejct.state=="encoded" %>
-              <%= render :partial => "player" %>
+              <%= render :partial => "audios/player", :object => object %>
             <% elsif obejct.state=="encoding"%>
-              <%= render :partial => "status" %>
+              <%= render :partial => "audios/status", :object => object %>
             <% else %>
                <%= obejct.state.capitalize %>
            <% end %>
           </div>
-	<br /><br /><%= link_to I18n.t('general.button.download'), @current_object.audio.url.split("?")[0] %><br />
+	<br /><br /><%= link_to I18n.t('general.button.download'), object.audio.url.split("?")[0] %><br />
 <% end %>

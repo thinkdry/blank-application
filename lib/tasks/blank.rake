@@ -2,8 +2,10 @@ namespace :blank do
 
 	desc "Initializing Blank Engine"
 	task(:init => :environment) do
-		Rake::Task['blank:captcha'].invoke
-		Rake::Task['blank:xapian'].invoke
+		#Rake::Task['blank:captcha'].invoke
+		Rake::Task['blank:xapian_create'].invoke
+		system("./script/backgroundrb stop")
+		system("./script/backgroundrb start")
 	end
 
 	desc "From drop to pump"
@@ -188,7 +190,7 @@ namespace :blank do
   end
 
 	desc "Building Xapian indexes"
-	task(:xapian => :environment) do
+	task(:xapian_create => :environment) do
 		p "Building Xapian indexes ......"
 		system("rake xapian:rebuild_index models='#{ITEMS.map{ |e| e.camelize }.join(' ')} User Workspace'")
 		#Rake::Task['xapian:rebuild_index'].invoke("models=\"#{ITEMS.map{ |e| e.camelize }.join(' ')} User Workspace\"")

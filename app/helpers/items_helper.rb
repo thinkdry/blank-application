@@ -68,7 +68,7 @@ module ItemsHelper
       block.binding
   end
   
-    # Define the common information of the show of an item
+  # Define the common information of the show of an item
   def item_preview(parameters, &block)
     concat\
       render( :partial => "items/preview",
@@ -166,7 +166,9 @@ module ItemsHelper
 	end
 
 	# Displays the list of items
-  def display_item_list(item_type=get_default_item_type, partial_used='items/item_in_list')
+  def display_item_list(item_type, partial_used='items/item_in_list')
+		# When the params[:item_type] is not define previously (by default for workspace)
+
 		item_type ||= params[:item_type] ||= get_default_item_type
 		if !item_type.blank?
 			items = item_type.classify.constantize.list_items_with_permission_for(@current_user, 'show', current_workspace)

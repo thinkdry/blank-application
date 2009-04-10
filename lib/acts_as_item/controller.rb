@@ -53,6 +53,10 @@ module ActsAsItem
 
 					after :index do
 						@current_objects = current_model.list_items_with_permission_for(@current_user, 'show', current_workspace).paginate(:per_page => 20, :page => params[:page])
+						if params[:filter_name]
+							@current_objects = @current_objects.sort{ |x, y| y.send(params[:filter_name].to_sym) <=> x.send(params[:filter_name].to_sym) }
+						end
+						@current_objects = @current_objects.paginate(:per_page => 20, :page => params[:page])
 					end
 
           # Makes `current_user` as author for the current_object
@@ -77,7 +81,7 @@ module ActsAsItem
 						format.html { redirect_to(items_path(params[:controller])) }
 						format.xml { render :xml => @current_objects }
 						format.json { render :json => @current_objects }
-						format.atom { render :template => 'adverts/index.atom.builder', :layout => false }
+						format.atom { render :template => "#{params[:controller]}/index.atom.builder", :layout => false }
 	        end
 					
         end
