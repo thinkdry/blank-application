@@ -3,6 +3,7 @@ namespace :blank do
 	desc "Initializing Blank Engine"
 	task(:init => :environment) do
 		#Rake::Task['blank:captcha'].invoke
+		Rake::Task['db:migrate'].invoke
 		Rake::Task['blank:xapian_create'].invoke
 		system("./script/backgroundrb stop")
 		system("./script/backgroundrb start")

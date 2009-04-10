@@ -8,6 +8,8 @@ class WorkspacesController < ApplicationController
     before :show do
       no_permission_redirection unless @current_object.accepts_show_for?(@current_user)
       params[:id] ||= params[:workspace_id]
+			params[:item_type] ||= (@current_object.ws_items.split(',') & get_sa_config['sa_items']).first.to_s.pluralize
+			@current_objects = get_item_list(params[:item_type])
     end
 
 		before :new do
@@ -58,6 +60,7 @@ class WorkspacesController < ApplicationController
 		response_for :destroy do |format|
 			format.html { redirect_to administration_user_url(@current_user.id) }
 		end
+		
 	end
 
   def add_new_user
@@ -122,6 +125,8 @@ class WorkspacesController < ApplicationController
 	
   def ajax_show 
       params[:id] ||= params[:workspace_id]
+			params[:item_type] ||= (@current_object.ws_items.split(',') & get_sa_config['sa_items']).first.to_s.pluralize
+			@current_objects = get_item_list(params[:item_type])
       render :partial=>"items/tab_list", :layout=>false
     end
 end

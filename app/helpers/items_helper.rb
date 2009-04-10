@@ -171,8 +171,16 @@ module ItemsHelper
 
 		item_type ||= params[:item_type] ||= get_default_item_type
 		if !item_type.blank?
-			items = item_type.classify.constantize.list_items_with_permission_for(@current_user, 'show', current_workspace)
-			@collection = items.paginate(:page => params[:page],:per_page=>15)
+#			items = item_type.classify.constantize.list_items_with_permission_for(@current_user, 'show', current_workspace)
+#			@collection = items.paginate(:page => params[:page],:per_page=>15)
+#			if params[:filter_name]
+#				params[:filter_way] ||= 'desc'
+#				if params[:filter_way] == 'desc'
+#					@collection = @collection.sort{ |x, y| y.send(params[:filter_name].to_sym) <=> x.send(params[:filter_name].to_sym) }
+#				else
+#					@collection = @collection.sort{ |x, y| x.send(params[:filter_name].to_sym) <=> y.send(params[:filter_name].to_sym) }
+#				end
+#			end
 	    render(:partial => partial_used, :collection => @collection)
 		else
 			render :text => "()"

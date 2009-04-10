@@ -1,10 +1,20 @@
 class ItemsController < ApplicationController
   
   def index
+		params[:item_type] ||= get_sa_config['sa_items'].first.to_s.pluralize
+		@current_objects = get_item_list(params[:item_type])
+		respond_to do |format|
+			format.html {  }
+			format.xml { render :xml => @current_objects }
+			format.json { render :json => @current_objects }
+			format.atom { render :template => "#{params[:controller]}/index.atom.builder", :layout => false }
+		end
   end
 
   def ajax_index
-    render :partial => "items/tab_list" , :layout=>false
+		params[:item_type] ||= get_sa_config['sa_items'].first.to_s.pluralize
+		@current_objects = get_item_list(params[:item_type])
+    render :partial => "items/tab_list" , :layout => false
   end
 
   def display_item_in_pop_up

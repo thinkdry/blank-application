@@ -8,7 +8,7 @@ class CreateKeywords < ActiveRecord::Migration
 
 		create_table :keywordings, :id => false do |t|
 			t.integer :keywordable_id
-			t.integer :keywordable_type
+			t.string :keywordable_type
 			t.integer :keyword_id
 			t.integer :user_id
 			t.timestamps

@@ -4,19 +4,22 @@
 
 <div id="content">
 	<div id="object-list">
-        <%= render(:partial => 'items/item_in_list', :collection => @results) %>
+        <%= render(:partial => 'items/item_in_list', :collection => @paginated_results) %>
 		<%#= display_item_list(params[:item_type])%>
 		<div class="last_item_in_list">&nbsp;</div>
 		<div id="pagination">
-          <%#= remote_pagination(@results, get_ajax_item_path(params[:item_type]))%>
+          <%= will_paginate @paginated_results %>
+          <%#= remote_pagination(@paginated_results, searches_url+'?page=') %>
   		</div><!-- pagination -->
 	</div>
 	<% if @results && @results.length > 0%>
 		<div class="other_output_format">
-			<%= I18n.t('item.show.get_in_another_format')%>:
-	      	<%= link_to "XML", "/searches.xml" %>
-	      	<%= link_to "JSON", "/searches.json" %>
-	      	<%= link_to "ATOM 1.0", "/searches.atom" %>
+          <% fn = (params[:filter_name].blank? ? '' : '&filter_name='+params[:filter_name]) %>
+          <% fw = (params[:filter_way].blank? ? '' : '&filter_way='+params[:filter_way]) %>
+            <%= I18n.t('item.show.get_in_another_format')%>:
+	      	<%= link_to "XML", "/searches?format=xml"+fn+fw %>
+	      	<%= link_to "JSON", "/searches?format=json"+fn+fw %>
+	      	<%= link_to "ATOM 1.0", "/searches?format=atom"+fn+fw %>
 	    </div>
 	<%end%>
 </div>

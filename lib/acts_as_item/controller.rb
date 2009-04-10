@@ -52,11 +52,19 @@ module ActsAsItem
           end
 
 					after :index do
-						@current_objects = current_model.list_items_with_permission_for(@current_user, 'show', current_workspace).paginate(:per_page => 20, :page => params[:page])
-						if params[:filter_name]
-							@current_objects = @current_objects.sort{ |x, y| y.send(params[:filter_name].to_sym) <=> x.send(params[:filter_name].to_sym) }
-						end
-						@current_objects = @current_objects.paginate(:per_page => 20, :page => params[:page])
+#						if params[:format]
+#							# ACTUALLY, the work for html is done in the item helper (take a look to response_for) ...
+#							@current_objects = current_model.list_items_with_permission_for(@current_user, 'show', current_workspace).paginate(:per_page => 20, :page => params[:page])
+#							if params[:filter_name]
+#								params[:filter_way] ||= 'desc'
+#								if params[:filter_way] == 'desc'
+#									@current_objects = @current_objects.sort{ |x, y| y.send(params[:filter_name].to_sym) <=> x.send(params[:filter_name].to_sym) }
+#								else
+#									@current_objects = @current_objects.sort{ |x, y| x.send(params[:filter_name].to_sym) <=> y.send(params[:filter_name].to_sym) }
+#								end
+#							end
+#							@current_objects = @current_objects.paginate(:per_page => 20, :page => params[:page])
+#						end
 					end
 
           # Makes `current_user` as author for the current_object
@@ -79,9 +87,9 @@ module ActsAsItem
 
 					response_for :index do |format|
 						format.html { redirect_to(items_path(params[:controller])) }
-						format.xml { render :xml => @current_objects }
-						format.json { render :json => @current_objects }
-						format.atom { render :template => "#{params[:controller]}/index.atom.builder", :layout => false }
+#						format.xml { render :xml => @current_objects }
+#						format.json { render :json => @current_objects }
+#						format.atom { render :template => "#{params[:controller]}/index.atom.builder", :layout => false }
 	        end
 					
         end
