@@ -1,7 +1,11 @@
 <% div_for(item_in_list, :class => "item_in_list") do %>
-	<div class="sensor_in_list">
+	<% if @i%2 == 0 -%>
+	<div class="sensor_in_list_alternate" onclick="toggleAccordion('items_<%=object.type%>_<%=object.id %>');">
+	<% else -%>
+	<div class="sensor_in_list" onclick="toggleAccordion('items_<%=object.type%>_<%=object.id %>');">
+	<% end -%>
 		<div class="left_part_sensor">
-			<a id="items_link" onclick="toggleAccordion('items_<%=object.type%>_<%=object.id %>');"><%= object.title%></a>
+			<a id="items_link" ><%= object.title%></a>
 		</div>
 		<div class="right_part_sensor"><%= I18n.l object.created_at, :format =>:verb %></div>
 	</div>
@@ -14,5 +18,6 @@
             <% item_preview( :title => 'default',  :object => object ) do %><% end %>
           <% end %>
 		</div>		
-	</div> 
+	</div>
+	<% @i += 1%>
 <% end %>

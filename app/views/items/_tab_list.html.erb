@@ -1,9 +1,10 @@
 <div id="content">
+	<% @i = 0%>
     <% params[:item_type] ||= get_default_item_type %>
 	<%= display_tabs(params[:item_type]) %>
 	<div id="object-list">
 
-      <%= link_to "alpha_asc", "#{items_path(params[:item_type])+'?filter_name=title&filter_way=asc'}" %>
+        <%= render :partial => 'items/classify_bar'%>
       
 		<%  if @current_objects %>
           <%= render :partial => 'items/item_in_list', :collection => @current_objects %>
@@ -12,6 +13,9 @@
         <% end %>
         <%#= display_item_list(params[:item_type])%>
 		<div class="last_item_in_list">&nbsp;</div>
+		
+		<%= display_item_list(params[:item_type])%>
+
 		<div id="pagination">
   			<%= remote_pagination(@current_objects, get_ajax_item_path(params[:item_type]))%>
   		</div><!-- pagination -->
@@ -21,9 +25,9 @@
           <% fn = (params[:filter_name].blank? ? '' : '&filter_name='+params[:filter_name]) %>
           <% fw = (params[:filter_way].blank? ? '' : '&filter_way='+params[:filter_way]) %>
 			<%= I18n.t('item.show.get_in_another_format')%>:
-	      	<%= link_to "XML", "#{items_path(params[:item_type])+'?format=xml'+fn+fw}" %>
-	      	<%= link_to "JSON", "#{items_path(params[:item_type])+'?format=json'+fn+fw}" %>
-	      	<%= link_to "ATOM 1.0", "#{items_path(params[:item_type])+'?format=atom'+fn+fw}" %>
+	      	<%= link_to image_tag('/images/icons/xml.png'), "#{items_path(params[:item_type])+'?format=xml'+fn+fw}" %>
+	      	<%= link_to image_tag('/images/icons/json.png'), "#{items_path(params[:item_type])+'?format=json'+fn+fw}" %>
+	      	<%= link_to image_tag('/images/icons/atom.png'), "#{items_path(params[:item_type])+'?format=atom'+fn+fw}" %>
 	    </div>
 	<%end%>
 </div>

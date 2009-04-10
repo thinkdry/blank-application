@@ -2,10 +2,10 @@
 	<h1>
 		<%=I18n.t('workspace.show.title')%> <%= @current_object.title %>
 	</h1>
-	<span class="txt_80_666"><%= @current_object.description %></span><br /><br />
+	<%= @current_object.description %>
 
 	<% if @workspace.creator == self.current_user %>
-      <%= I18n.t('workspace.other.administrator_of_workspace') %>, <%= I18n.t('general.common_word.click') %> <%= link_to I18n.t('general.common_word.here'), edit_workspace_path(@workspace.id) %> <%= I18n.t('workspace.other.to_manage_it') %>.<br/>
+      <%= I18n.t('workspace.other.administrator_of_workspace') %>, <%= I18n.t('general.common_word.click') %> <%= link_to I18n.t('general.common_word.here'), edit_workspace_path(@workspace.id) %> <%= I18n.t('workspace.other.to_manage_it') %>.
     <% else %>
     <% if false %>
       <h2> <%= I18n.t('workspace.show.your_subscription')%> </h2>
@@ -20,7 +20,6 @@
         <%= I18n.t('workspace.other.public_workspace_txt2')%>.<br />
       <% end %>
     <% end %>
-    <br />
     <% if @current_object.state == 'Public' || @current_object.state == 'mi_public' %>
       <h2><%= I18n.t('workspace.other.request_to_workspace_administrator')%> </h2>
       <%= I18n.t('workspace.other.request_to_workspace_administrator_txt1')%>.<br />
