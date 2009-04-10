@@ -23,11 +23,11 @@
 	    		<script type="text/javascript" charset="utf-8">
 				      content = $('item_rate_modal_content').remove().innerHTML;
 				      new Tip($('rate_action'), content, {
-				        showOn: 'click',
-				        hook: { target: 'rightMiddle', tip: 'topLeft' },
-				        hideOn: { element: 'tip', event: 'mouseout' },
-						 hideOn: { element: 'tip', event: 'click' },
-				        width: 100
+				         showOn: 'click',
+				         hook: { target: 'rightMiddle', tip: 'topLeft' },
+				         hideOn: { element: 'tip', event: 'mouseout' },
+						 hideAfter: 1,
+				         width: 100
 				      });
 			    </script>
               <% end %>

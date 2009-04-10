@@ -61,10 +61,14 @@ module ApplicationHelper
 
 	def checkboxes_from_list(var, param, conf, object)
 		res = []
-		var.each do |l|
-			res << check_box_tag(object+'['+param+']'+"[]", "#{l}", ((ref=conf[param]) ? ref.include?(l) : false))+' '+I18n.t('general.item.'+l)
+		var.each do |l|  
+      content = '<div class="checkbox_list_horizontal">'
+      content += check_box_tag(object+'['+param+']'+"[]", "#{l}", ((ref=conf[param]) ? ref.include?(l) : false))+' '+I18n.t('general.item.'+l)
+      content += "</div>"
+    
+			res << content 
     end
-		return res.join(' | ')
+		return res
 	end
 
 	def select_search_models
