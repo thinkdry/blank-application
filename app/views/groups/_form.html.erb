@@ -1,10 +1,6 @@
-<fieldset>
-  <legend><%= I18n.t('groups.new.title') %></legend>
+<% form_for_item @current_object, title do |f| -%>
 
-  <% form_for @group,:builder => BlankFormBuilder, :html => {:multipart=> true} do |f| -%>
-    <%= f.text_field :title, :label => I18n.t('groups.field.title_label')+" * : " %>
-    <%= f.text_field :description, :label => I18n.t('groups.field.description_label')+" : " %>
-    <% f.field :people, :label => I18n.t('groups.field.people_label')+' :' do %>
+  <% f.field :people, :label => I18n.t('groups.field.people_label')+' :' do %>
       <input type="hidden" name="group_id" id="group_id" value="<%=@group.id%>">
         <div id="select_boxes">
           <%a =[]; @group.people.collect{|person| a << person.person_id} %>
@@ -44,8 +40,4 @@
             </select>
           </div>
      <% end %>
-	<% button_text = current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update') %>
-    <button type="submit" class="submit_button"><%= button_text%></button>
-  <% end %>
-
-</fieldset>
+<% end -%>

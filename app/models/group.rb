@@ -4,8 +4,15 @@ class Group < ActiveRecord::Base
   has_many :groups_people
   has_and_belongs_to_many :newsletters
   has_many :groups_newsletters
+  
+	acts_as_item
+  acts_as_xapian :texts => [:title, :description, :tags]
 
   validates_presence_of     :title
+  
+  def self.label
+    "Group"
+  end
 
   def group_people= people_ids
     people_ids = people_ids.split(',')
@@ -18,5 +25,4 @@ class Group < ActiveRecord::Base
         g_p.destroy if !people_ids.include?(g_p.person_id.to_s)
     end
   end
-
 end
