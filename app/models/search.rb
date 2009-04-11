@@ -76,6 +76,7 @@ class Search < ActiveRecord::Base
 					results += model_const.advanced_on_fields(self.conditions)
 				end
 				# Filer in Ruby, not top, need to find a MySQL way
+				#raise results.inspect
 				if self[:filter_name] != 'weight'
 					results = results.sort do |x, y|
 						if (self[:filter_way] == 'desc')

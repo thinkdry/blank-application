@@ -18,13 +18,20 @@ class SearchesController < ApplicationController
 		end
 		params[:filter_name] ||= 'created_at'
 		params[:filter_way] ||= 'desc'
-		params[:filter_limit] ||= 15
+		params[:filter_limit] ||= PER_PAGE_VALUE*3
 		params[:search].merge(:filter_name => params[:filter_name], :filter_way => params[:filter_way], :filter_limit => params[:filter_limit])
 		@search = Search.new(params[:search])
 		
-		@results = @search.do_search
-		@results = @results.delete_if{ |e| !e.accepts_show_for?(@current_user)}
-		@paginated_results = @results.paginate(:page => params[:page], :per_page => 2)
+		@current_objects = @search.do_search
+		@current_objects = @current_objects.delete_if{ |e| !e.accepts_show_for?(@current_user)}
+		@paginated_objects = @current_objects.paginate(:page => params[:page], :per_page => PER_PAGE_VALUE)
+
+		respond_to do |format|
+			format.html {  }
+			format.xml { render :xml => @current_objects }
+			format.json { render :json => @current_objects }
+			format.atom { render :template => "#{params[:controller]}/index.atom.builder", :layout => false }
+		end
   end
 
 	def print_advanced

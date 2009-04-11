@@ -12,17 +12,4 @@
 		  	<%= calendar_date_select_tag 'search[conditions][created_before]', @search.conditions['created_before'], :class => "input_with_calendar" %>
 		  </div>
 	    <% end %>
-
-    	<label>Filtering part:</label>
-		<div class="formElement">
-	    	<div><%= select_tag 'search[filter_name]', options_for_select(SEARCH_FILTERS.map{ |e| [I18n.t('layout.search.filter_'+e), e] }, :class => 'advanced_search_select') %></div>
-	    	<div style="clear:both;">
-				<%= image_tag ('/images/icons/asc.png'), :width => '16'%>
-				<%= radio_button_tag 'search[filter_way]', 'asc', (@search.filter_way == 'asc') %><%= I18n.t('layout.search.filter_asc') %>
-			</div>
-		    <div>
-		    	<%= image_tag ('/images/icons/desc.png'), :width => '16'%>
-				<%= radio_button_tag 'search[filter_way]', 'desc', (@search.filter_way == 'desc') %><%= I18n.t('layout.search.filter_desc') %>
-			</div>
-		</div>
 	</div>

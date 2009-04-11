@@ -10,6 +10,7 @@ class WorkspacesController < ApplicationController
       params[:id] ||= params[:workspace_id]
 			params[:item_type] ||= (@current_object.ws_items.split(',') & get_sa_config['sa_items']).first.to_s.pluralize
 			@current_objects = get_item_list(params[:item_type])
+			@paginated_objects = @current_objects.paginate(:per_page => PER_PAGE_VALUE, :page => params[:page])
     end
 
 		before :new do
