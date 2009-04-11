@@ -17,12 +17,10 @@
     
 	<% if @paginated_objects && @paginated_objects.length > 0%>
 		<div class="other_output_format">
-          <% fn = (params[:filter_name].blank? ? '' : '&filter_name='+params[:filter_name]) %>
-          <% fw = (params[:filter_way].blank? ? '' : '&filter_way='+params[:filter_way]) %>
-            <%= I18n.t('item.show.get_in_another_format')%>:
-	      	<%= link_to image_tag('/images/icons/xml.png'), "/searches?format=xml"+fn+fw %>
-	      	<%= link_to image_tag('/images/icons/json.png'), "/searches?format=json"+fn+fw %>
-	      	<%= link_to image_tag('/images/icons/atom.png'), "/searches?format=atom"+fn+fw %>
+          <%= I18n.t('item.show.get_in_another_format')%>:
+          <%= link_to_function image_tag('/images/icons/xml.png'), "params('format=xml')" %>
+	      <%= link_to_function image_tag('/images/icons/json.png'), "params('format=json')" %>
+	      <%= link_to_function image_tag('/images/icons/atom.png'), "params('format=atom')" %>
 	    </div>
 	<%end%>
 </div>

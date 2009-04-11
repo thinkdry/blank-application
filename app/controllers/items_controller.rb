@@ -8,7 +8,7 @@ class ItemsController < ApplicationController
 			format.html {  }
 			format.xml { render :xml => @current_objects }
 			format.json { render :json => @current_objects }
-			format.atom { render :template => "#{params[:controller]}/index.atom.builder", :layout => false }
+			format.atom { render :template => "#{params[:item_type]}/index.atom.builder", :layout => false }
 		end
   end
 

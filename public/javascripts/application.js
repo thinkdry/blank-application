@@ -158,3 +158,36 @@ function selectTab(idSelected){
 			}
 		}	
 	}
+
+  // To add a params from the current url and reload the page
+  function params(parent_id){
+    if (window.location.href.indexOf('?') > 1){
+      window.location.href = window.location.href + "&" + parent_id ;
+    }else{
+      window.location.href = window.location.href + "?" + parent_id ;
+    }
+  }
+
+  // To add or replace a filter in the current url and reload the page
+  function params_filter(parent_id){
+    var f = ['viewed_number', 'rates_average', 'created_at', 'top_rank'];
+    if (window.location.href.indexOf('?') > 1 ){
+      for(var i=0; i < f.length; i++)
+      {
+        if (window.location.href.indexOf(f[i]) > 1) {
+          window.location.href = window.location.href.replace(f[i],parent_id);
+        }
+      }
+    }else{
+      window.location.href = window.location.href + "?filter=" + parent_id ;
+    }
+  }
+
+  // To remove a param from the current url and reload the page
+  function remove_param(parent_id){
+    if (window.location.href.indexOf('?'+parent_id) > 1){
+      window.location.href = window.location.href.replace("?"+parent_id,"");
+    }else{
+      window.location.href = window.location.href.replace("&"+parent_id,"");
+    }
+  }

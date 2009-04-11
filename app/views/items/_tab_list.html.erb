@@ -18,11 +18,9 @@
 	</div>
 	<% if @paginated_objects && params[:item_type] && @paginated_objects.length > 0%>
 		<div class="other_output_format">
-            <% fn = (params[:filter_name].blank? ? '' : '&filter_name='+params[:filter_name]) %>
-            <% fw = (params[:filter_way].blank? ? '' : '&filter_way='+params[:filter_way]) %>
-	      	<%= link_to image_tag('/images/icons/xml.png'), "#{items_path(params[:item_type])+'?format=xml'+fn+fw}" %>
-	      	<%= link_to image_tag('/images/icons/json.png'), "#{items_path(params[:item_type])+'?format=json'+fn+fw}" %>
-	      	<%= link_to image_tag('/images/icons/atom.png'), "#{items_path(params[:item_type])+'?format=atom'+fn+fw}" %>
+          <%= link_to_function image_tag('/images/icons/xml.png'), "params('format=xml')" %>
+	      <%= link_to_function image_tag('/images/icons/json.png'), "params('format=json')" %>
+	      <%= link_to_function image_tag('/images/icons/atom.png'), "params('format=atom')" %>
 	    </div>
 	<%end%>
 </div>
