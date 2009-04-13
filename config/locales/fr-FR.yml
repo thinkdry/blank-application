@@ -172,7 +172,7 @@ fr-FR:
       to1: au
       from1: du
       of: de
-      prev: "Pr\xC3\xA9c\xC3\xA9dant"
+      prev: "Pr\xC3\xA9c\xC3\xA9dent"
       by: par
       and: et
       found: "trouv\xC3\xA9"
@@ -506,6 +506,8 @@ fr-FR:
       summary: Sommaire
       corrupted_file: Fichier corrompu
       comment: Commentaire(s)
+    index:
+      no_item: Il n'y a pas d'item de ce type.
   home: 
     index: 
       latest_workspace: derniers espaces de travail
@@ -574,9 +576,11 @@ fr-FR:
       your_search_result: "R\xC3\xA9sultat de votre recherche"
       type_label: Type
       information_on_searched_item: "D\xC3\xA9tail de la recherche"
-      filer_viewed_number: Nombre de visites
+      filter_viewed_number: Nombre de visites
       item_category: Type d'item
       filter_title: Titre
+      order_by: Ordonner suivant
+      no_result: Pas de résultats avec ces critères de recherche.
     application: 
       no_add_content: "Vous devez cr\xC3\xA9er un espace de travail ou poss\xC3\xA9der des droits dans un autre pour ajouter du contenu."
       new_workspace: Nouvel espace de travail
@@ -592,7 +596,7 @@ fr-FR:
       content: Contenu
       home: Acceuil
       all_elements: "Tous les \xC3\xA9lements"
-      welcome_message: Bienvenu
+      welcome_message: Bienvenue
     footer: 
       faq: FAQ
       title: ThinkDRY Technologies 2008

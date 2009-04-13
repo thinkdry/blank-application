@@ -38,13 +38,9 @@ class SessionsController < ApplicationController
   end
 	
 	def change_language
-		if session[:locale] == params[:locale]
-			render :nothing => :true
-    else
-			session[:locale] = params[:locale]
-			render(:update) { |page| page.call 'location.reload' }
-			#redirect_back_or_default('/')
-		end
+		session[:locale] = params[:locale]
+		render(:update) { |page| page.call 'location.reload' }
+		#redirect_back_or_default('/')
   end
 
 protected

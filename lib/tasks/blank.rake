@@ -5,8 +5,8 @@ namespace :blank do
 		#Rake::Task['blank:captcha'].invoke
 		Rake::Task['db:migrate'].invoke
 		Rake::Task['blank:xapian_create'].invoke
-		system("./script/backgroundrb stop")
-		system("./script/backgroundrb start")
+		system("./script/backgroundrb stop -e #{RAILS_ENV}")
+		system("./script/backgroundrb start -e #{RAILS_ENV}")
 	end
 
 	desc "From drop to pump"

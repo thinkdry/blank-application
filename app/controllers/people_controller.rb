@@ -119,7 +119,7 @@ class PeopleController < ApplicationController
     @people = Person.paginate(
       :page => params[:page],
       :order => :email,
-      :per_page => PER_PAGE
+      :per_page => PER_PAGE_VALUE
     )
   end
 end

@@ -18,6 +18,7 @@ WS_TYPES = ['closed', 'public', 'authorized', 'archived']
 RIGHT_TYPES = ['system', 'workspace']
 ITEM_CATEGORIES = ['cat1', 'cat2', 'cat3']
 DEFAULT_COMMENT_STATE = 'posted'
+PER_PAGE_VALUE = 2
 
 SEARCH_FILTERS = ['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title']
 

@@ -2,7 +2,6 @@
 :backgroundrb:
   :ip: 0.0.0.0
   :port: 11006
-  :environment: <%= RAILS_ENV %>
   :result_storage: memcache
 :memcache: "10.0.0.1:11211,10.0.0.2:11211"
 :schedules:
@@ -13,3 +12,6 @@
       :trigger_args: 20 * * * * *
     :send_newsletter:
       :trigger_args: 30 * * * * *
+:production:
+  :backgroundrb:
+    :environment: production

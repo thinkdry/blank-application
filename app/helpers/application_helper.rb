@@ -50,7 +50,6 @@ module ApplicationHelper
         else
           res += "<option value='#{l}'>"+I18n.t('general.language.'+l)+"</option>"
         end
-				
 			end
 			res += "</select>"
 		else
@@ -98,9 +97,9 @@ module ApplicationHelper
 #    url = current_workspace ? ajax_items_path(item_type) +"&page=" : ajax_items_path(item_type) +"?page="
     current_page = params[:page] ? params[:page].to_i : 1
     if current_page == 1
-      content = "&laquo; Previous "
+      content = "&laquo; #{I18n.t('general.common_word.prev')} "
     else
-     content = content + link_to_remote("&laquo; Previous  ", :update => "content",:method=>:get, :url =>url+"#{current_page - 1}")
+     content = content + link_to_remote("&laquo; #{I18n.t('general.common_word.prev')} ", :update => "content",:method=>:get, :url =>url+"#{current_page - 1}")
     end
     prev = nil
     visible_page_numbers(current_page,collection.total_pages).each do |page_no|
@@ -113,9 +112,9 @@ module ApplicationHelper
         end
     end
     if current_page == collection.total_pages
-      content = content +"  Next &raquo;"
+      content = content +"  #{I18n.t('general.common_word.next')} &raquo;"
     else
-      content = content + link_to_remote("  Next &raquo;", :update => "content",:method=>:get, :url =>url+"#{(current_page+1)}")
+      content = content + link_to_remote("  #{I18n.t('general.common_word.next')} &raquo;", :update => "content",:method=>:get, :url =>url+"#{(current_page+1)}")
     end
     return content_tag(:div, content, :align=>"center")
     end

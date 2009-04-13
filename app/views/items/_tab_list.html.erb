@@ -1,30 +1,26 @@
 <div id="content">
-	<% @i = 0%>
     <% params[:item_type] ||= get_default_item_type %>
 	<%= display_tabs(params[:item_type]) %>
 	<div id="object-list">
 
-        <%= render :partial => 'items/classify_bar'%>
-      
-		<%  if @current_objects %>
-          <%= render :partial => 'items/item_in_list', :collection => @current_objects %>
+		<%  if @paginated_objects %>
+          <%= render :partial => 'items/classify_bar', :locals => { :url => items_path(params[:item_type]) } %>
+          <% @i = 0%>
+          <%= render :partial => 'items/item_in_list', :collection => @paginated_objects %>
         <% else %>
-          <% render :text => I18n.l ('item.show.no_item') %>
+          <%= render :text => I18n.t('item.index.no_item') %>
         <% end %>
-				
-		<%= display_item_list(params[:item_type])%>
 
 		<div id="pagination">
-  			<%= remote_pagination(@current_objects, get_ajax_item_path(params[:item_type]))%>
+          <%= will_paginate @paginated_objects %>
+          <%#= remote_pagination(@paginated_objects, get_ajax_item_path(params[:item_type]))%>
   		</div><!-- pagination -->
 	</div>
-	<% if @current_objects && params[:item_type] && @current_objects.length > 0%>
+	<% if @paginated_objects && params[:item_type] && @paginated_objects.length > 0%>
 		<div class="other_output_format">
-            <% fn = (params[:filter_name].blank? ? '' : '&filter_name='+params[:filter_name]) %>
-            <% fw = (params[:filter_way].blank? ? '' : '&filter_way='+params[:filter_way]) %>
-	      	<%= link_to image_tag('/images/icons/xml.png'), "#{items_path(params[:item_type])+'?format=xml'+fn+fw}" %>
-	      	<%= link_to image_tag('/images/icons/json.png'), "#{items_path(params[:item_type])+'?format=json'+fn+fw}" %>
-	      	<%= link_to image_tag('/images/icons/atom.png'), "#{items_path(params[:item_type])+'?format=atom'+fn+fw}" %>
+          <%= link_to_function image_tag('/images/icons/xml.png'), "params('format=xml')" %>
+	      <%= link_to_function image_tag('/images/icons/json.png'), "params('format=json')" %>
+	      <%= link_to_function image_tag('/images/icons/atom.png'), "params('format=atom')" %>
 	    </div>
 	<%end%>
 </div>

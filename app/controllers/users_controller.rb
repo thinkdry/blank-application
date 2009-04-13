@@ -40,7 +40,7 @@ class UsersController < ApplicationController
 			@current_objects = current_objects.paginate(
 					:page => params[:page],
 					:order => :title,
-					:per_page => 20
+					:per_page => PER_PAGE_VALUE
 			)
     end
 

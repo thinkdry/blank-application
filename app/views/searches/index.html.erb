@@ -1,25 +1,26 @@
-<div id="results">
-  <%#= render :partial => 'result', :collection => @results %>
-</div>
-
 <div id="content">
+    <%= I18n.t('layout.search.your_search_result')+' : ' %><br /><br />
 	<div id="object-list">
-        <%= render(:partial => 'items/item_in_list', :collection => @paginated_results) %>
-		<%#= display_item_list(params[:item_type])%>
-		<div class="last_item_in_list">&nbsp;</div>
+        <%  if @paginated_objects.size > 0 %>
+          <%= render :partial => 'items/classify_bar', :locals => { :url => searches_path } %>
+          <% @i = 0%>
+          <%= render :partial => 'items/item_in_list', :collection => @paginated_objects %>
+        <% else %>
+          <%= render :text => I18n.t('layout.search.no_result') %>
+        <% end %>
+
 		<div id="pagination">
-          <%= will_paginate @paginated_results %>
-          <%#= remote_pagination(@paginated_results, searches_url+'?page=') %>
+          <%= will_paginate @paginated_objects %>
+          <%#= remote_pagination(@paginated_objects, searches_url+'?page=') %>
   		</div><!-- pagination -->
 	</div>
-	<% if @results && @results.length > 0%>
+    
+	<% if @paginated_objects && @paginated_objects.length > 0%>
 		<div class="other_output_format">
-          <% fn = (params[:filter_name].blank? ? '' : '&filter_name='+params[:filter_name]) %>
-          <% fw = (params[:filter_way].blank? ? '' : '&filter_way='+params[:filter_way]) %>
-            <%= I18n.t('item.show.get_in_another_format')%>:
-	      	<%= link_to "XML", "/searches?format=xml"+fn+fw %>
-	      	<%= link_to "JSON", "/searches?format=json"+fn+fw %>
-	      	<%= link_to "ATOM 1.0", "/searches?format=atom"+fn+fw %>
+          <%= I18n.t('item.show.get_in_another_format')%>:
+          <%= link_to_function image_tag('/images/icons/xml.png'), "params('format=xml')" %>
+	      <%= link_to_function image_tag('/images/icons/json.png'), "params('format=json')" %>
+	      <%= link_to_function image_tag('/images/icons/atom.png'), "params('format=atom')" %>
 	    </div>
 	<%end%>
 </div>
