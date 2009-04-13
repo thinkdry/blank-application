@@ -19,7 +19,7 @@ class SearchesController < ApplicationController
 		params[:filter_name] ||= 'created_at'
 		params[:filter_way] ||= 'desc'
 		params[:filter_limit] ||= PER_PAGE_VALUE*3
-		params[:search].merge(:filter_name => params[:filter_name], :filter_way => params[:filter_way], :filter_limit => params[:filter_limit])
+		params[:search].merge!(:filter_name => params[:filter_name], :filter_way => params[:filter_way], :filter_limit => params[:filter_limit])
 		@search = Search.new(params[:search])
 		
 		@current_objects = @search.do_search

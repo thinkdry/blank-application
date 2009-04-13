@@ -4,6 +4,6 @@
   var so = new SWFObject('/videoplayer/player.swf','mpl','470','320','9','#666666');
   so.addParam('allowscriptaccess','always');
   so.addParam('allowfullscreen','true');
-  so.addParam('flashvars','&file=<%=File.dirname(object.video.url)%>/video.flv&logo=/images/videologo.png&backcolor=#D86C27');
+  so.addParam('flashvars','&file=<%=File.dirname(player.video.url)%>/video.flv&logo=/images/videologo.png&backcolor=#D86C27');
   so.write('player');
 </script>
