@@ -256,6 +256,8 @@ en-US:
       only_day: "%e"
       short: "%e %b"
       long: "%B %e, %Y"
+      short1: "%d %B %Y"
+      long1: "%d %B %Y at %H:%M:%S"
     day_names: 
     - Sunday
     - Monday

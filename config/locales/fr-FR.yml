@@ -329,6 +329,8 @@ fr-FR:
       only_day: "%e"
       long: "%B %e, %Y"
       short: "%e %b"
+      short1: "%d %B %Y"
+      long1: "%d %B %Y à %H:%M:%S"
     abbr_month_names: 
     - 
     - Jan
