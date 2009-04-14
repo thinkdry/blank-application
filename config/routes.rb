@@ -21,7 +21,7 @@ ActionController::Routing::Routes.draw do |map|
 	map.translations_new_superadministration 'superadministration/translations_new', :controller => 'superadministration', :action => 'translations_new'
 	map.superadministration '/superadministration/:part', :controller => 'superadministration', :action => 'superadministration'
 	
-	map.resources :home, :only => [:index], :collection => { :autocomplete_on => :any, :autocomplete_on_user => :any }
+	map.resources :home, :only => [:index], :collection => { :autocomplete_on => :any }
 
   map.resources :roles
   map.resources :permissions

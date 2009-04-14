@@ -54,7 +54,7 @@ class ApplicationController < ActionController::Base
 	end
 
 	def get_per_page_value
-		return get_sa_config['sa_per_page_default']
+		return get_sa_config['sa_per_page_default'].to_i || 10
 	end
 
 	def get_default_item_type

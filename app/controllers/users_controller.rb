@@ -117,7 +117,7 @@ class UsersController < ApplicationController
        {}
      end
      @objects ||= User.find(:all, :conditions => conditions)
-		 render :text => '<ul>'+@objects.map{ |e| '<li>'+e.name+'</li>' }.join(' ')+'</ul>'
+		 render :text => '<ul>'+@objects.map{ |e| "<li>#{e.login} (#{e.full_name})</li>" }.join(' ')+'</ul>'
 	end
 	
 	# Function allowing to activate the user with the RESTful authentification plugin
