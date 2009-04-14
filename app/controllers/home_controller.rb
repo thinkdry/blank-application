@@ -16,7 +16,6 @@ class HomeController < ApplicationController
        {}
      end
 		 @objects=params[:model_name].classify.constantize.find(:all, :conditions => conditions)
-		 p @objects
 		 render :text => '<ul>'+@objects.map{ |e| '<li>'+e.name+'</li>' }.join(' ')+'</ul>'
 	end
 

@@ -18,13 +18,12 @@ class SearchesController < ApplicationController
 		end
 		params[:filter_name] ||= 'created_at'
 		params[:filter_way] ||= 'desc'
-		params[:filter_limit] ||= PER_PAGE_VALUE*3
 		params[:search].merge!(:filter_name => params[:filter_name], :filter_way => params[:filter_way], :filter_limit => params[:filter_limit])
 		@search = Search.new(params[:search])
 		
 		@current_objects = @search.do_search
 		@current_objects = @current_objects.delete_if{ |e| !e.accepts_show_for?(@current_user)}
-		@paginated_objects = @current_objects.paginate(:page => params[:page], :per_page => PER_PAGE_VALUE)
+		@paginated_objects = @current_objects.paginate(:page => params[:page], :per_page => get_per_page_value)
 
 		respond_to do |format|
 			format.html {  }

@@ -11,7 +11,7 @@
 			<p><%= item_rate_locked(object) %></p>
 	   	</div>
 		<div class="file_infos_box">
-	   		<%= image_tag '/images/icons/tag_blue.png', :align => "left"%><%= @current_object.keywords_list %>
+	   		<%= image_tag '/images/icons/tag_blue.png', :align => "left"%><%= ((l=@current_object.keywords_list).size > 0) ? l.split(',').map{ |e| link_to(e, searches_path('search[full_text_field]' => e))}.join(', ') : I18n.t('general.common_word.none') %>
 		</div>
 		<div class="file_infos_box">
 			<div align="right">
