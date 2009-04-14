@@ -1,10 +1,17 @@
 <div id="classify_bar">
-	<span style="font-size:120%; font-weight:bold;"><%= I18n.t('layout.search.order_by') %></span>
-
     <% ['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title'].each do |filter| %>
       <%= I18n.t('layout.search.filter_'+filter) %>
-      <%= link_to image_tag('/images/icons/asc.png', :width => '16'), url+'?filter_name='+filter+'&filter_way=asc' %>
-      <%= link_to image_tag('/images/icons/desc.png', :width => '16'), url+'?filter_name='+filter+'&filter_way=desc' %>
+	  <% if (params[:filter_name] == filter && params[:filter_way] == 'asc') -%>
+	    <%= image_tag('/images/icons/asc_selected.png', :width => '10') %>
+	  <% else -%>
+      	<%= link_to image_tag('/images/icons/asc.png', :width => '10'), 
+			  		url+'?filter_name='+filter+'&filter_way=asc'%>
+	  <% end -%>
+	  <% if (params[:filter_name] == filter && params[:filter_way] == 'desc') -%>
+	  	<%= image_tag('/images/icons/desc_selected.png', :width => '10')%>
+	  <% else -%>
+        <%= link_to image_tag('/images/icons/desc.png', :width => '10'), 
+				  	url+'?filter_name='+filter+'&filter_way=desc'%>
+	  <% end -%>
     <% end %>
-	
 </div>
