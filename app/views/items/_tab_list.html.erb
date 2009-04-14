@@ -12,8 +12,8 @@
         <% end %>
 
 		<div id="pagination">
-          <%= will_paginate @paginated_objects %>
-          <%#= remote_pagination(@paginated_objects, get_ajax_item_path(params[:item_type]))%>
+          <%#= will_paginate @paginated_objects %>
+          <%= remote_pagination(@paginated_objects, get_ajax_item_path(params[:item_type]))%>
   		</div><!-- pagination -->
 	</div>
 	<% if @paginated_objects && params[:item_type] && @paginated_objects.length > 0%>

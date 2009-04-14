@@ -3,8 +3,8 @@
 </script>
 <%= periodically_call_remote :update=> 'progress',
     :condition=>"cancel==true",
-    :url => {:action=> 'get_progress', :id=>object.id},
-    :frequency => 10%>
+    :url => {:action=> 'get_progress', :id => object.id},
+    :frequency => 10 %>
 <div id="states">
    <%=object.state.capitalize%>
 </div>

@@ -9,13 +9,13 @@ class VideosController < ApplicationController
   end
 
   def get_progress
-    @current_object=Video.find_by_id(params[:id])
-    if @current_object.state=="encoded"
-     render :partial=>"player"
-    elsif @current_object.state=="encoding"
-      render :partial=>"status"
+    @current_object = Video.find(:first, :conditions => { :id => params[:id].to_i })
+    if @current_object.state == "encoded"
+     render :partial => "player", :object => @current_object
+    elsif @current_object.state == "encoding"
+      render :partial => "status", :object => @current_object
     else
-      render :nothing=>true
+      render :nothing => true
    end
   end
 end

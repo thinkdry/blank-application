@@ -4,7 +4,7 @@
     <% ['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title'].each do |filter| %>
       <%= I18n.t('layout.search.filter_'+filter) %>
       <%= link_to image_tag('/images/icons/asc.png', :width => '16'), url+'?filter_name='+filter+'&filter_way=asc' %>
-      <%= link_to image_tag('/images/icons/desc.png', :width => '16'), url+'?filter_name='+filter+'&filter_way=asc' %>
+      <%= link_to image_tag('/images/icons/desc.png', :width => '16'), url+'?filter_name='+filter+'&filter_way=desc' %>
     <% end %>
 	
 </div>
