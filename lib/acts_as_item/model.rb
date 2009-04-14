@@ -28,7 +28,7 @@ module ActsAsItem
 
 				# Retrieve the results matching with Xapian indewes and ordered by weight
 				named_scope :full_text_with_xapian,
-					lambda { |text| { :conditions => ["#{self.class_name.underscore.pluralize}.id in (?)", ActsAsXapian::Search.new([self.class_name.classify.constantize], text, :limit => 10).results.sort{ |x, y| x[:weight] <=> y[:weight]}.collect{|x| x[:model].id}] } }
+					lambda { |text| { :conditions => ["#{self.class_name.underscore.pluralize}.id in (?)", ActsAsXapian::Search.new([self.class_name.classify.constantize], text, :limit => 100000).results.sort{ |x, y| x[:weight] <=> y[:weight]}.collect{|x| x[:model].id}] } }
 
 				# Retrieve the results matching the Hash conditions passed
 				named_scope :advanced_on_fields,
@@ -38,9 +38,9 @@ module ActsAsItem
 				named_scope :filtering_on_field,
 					lambda { |field_name, way, limit|
 							if (field_name!='weight')
-								{:order => "#{self.class_name.underscore.pluralize}.#{field_name} #{way}", :limit => limit.to_i}
+								{ :order => "#{self.class_name.underscore.pluralize}.#{field_name} #{way}", :limit => limit }
 							else
-								{ :limit => limit.to_i }
+								{ :limit => limit }
 							end
 					}
 
