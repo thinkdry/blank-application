@@ -256,6 +256,8 @@ en-US:
       only_day: "%e"
       short: "%e %b"
       long: "%B %e, %Y"
+      short1: "%d %B %Y"
+      long1: "%d %B %Y at %H:%M:%S"
     day_names: 
     - Sunday
     - Monday
@@ -490,6 +492,7 @@ en-US:
       last_name_label: Last name
       email_label: E-mail
       primary_phone_label: Primary phone
+      newsletter_lable: Receive newsletters?
     index: 
       add_new_person: Add a new person
       name: Name
