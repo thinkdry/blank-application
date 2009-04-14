@@ -40,7 +40,7 @@ class UsersController < ApplicationController
 			@current_objects = current_objects.paginate(
 					:page => params[:page],
 					:order => :title,
-					:per_page => PER_PAGE_VALUE
+					:per_page => get_per_page_value
 			)
     end
 
@@ -99,15 +99,26 @@ class UsersController < ApplicationController
 
   end
  
-  def current_objects
-     conditions = if params['login']
+#  def current_objects
+#     conditions = if params['login']
+#       ["login LIKE :login OR firstname LIKE :login OR lastname LIKE :login",
+#         { :login => "%#{params['login']}%"}]
+#     else
+#       {}
+#     end
+#     @current_objects ||= current_model.find(:all, :conditions => conditions)
+#   end
+
+	def autocomplete_on
+		conditions = if params['login']
        ["login LIKE :login OR firstname LIKE :login OR lastname LIKE :login",
          { :login => "%#{params['login']}%"}]
      else
        {}
      end
-     @current_objects ||= current_model.find(:all, :conditions => conditions)
-   end
+     @objects ||= User.find(:all, :conditions => conditions)
+		 render :text => '<ul>'+@objects.map{ |e| '<li>'+e.name+'</li>' }.join(' ')+'</ul>'
+	end
 	
 	# Function allowing to activate the user with the RESTful authentification plugin
   def activate

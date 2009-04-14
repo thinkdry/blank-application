@@ -62,7 +62,7 @@
       <%= f.text_field :login, :ajax => false, :label => I18n.t('workspace.add_user.name')+' :' %>
       <div id="autocomplete_choices" class="autocomplete"></div>
       <script>
-        new Ajax.Autocompleter("user_login", "autocomplete_choices","/users/index",{
+        new Ajax.Autocompleter("user_login", "autocomplete_choices","/users/autocomplete_on",{
           method: 'post', paramName: 'login'
         });
       </script>

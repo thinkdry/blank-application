@@ -1,5 +1,6 @@
 <div id="content">
-    <% params[:item_type] ||= get_default_item_type %>
+  <% params[:item_type] ||= get_default_item_type %>
+  <% if !params[:item_type].blank? %>
 	<%= display_tabs(params[:item_type]) %>
 	<div id="object-list">
 
@@ -23,4 +24,7 @@
 	      <%= link_to_function image_tag('/images/icons/atom.png'), "params('format=atom')" %>
 	    </div>
 	<%end%>
+  <% else %>
+    No item types available.
+  <% end %>
 </div>
