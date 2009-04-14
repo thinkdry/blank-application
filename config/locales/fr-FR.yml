@@ -188,7 +188,7 @@ fr-FR:
       click: clic
       ajax_message_captcha_invalid: "Le code de v\xC3\xA9rification est incorrect."
       with: avec
-      nxt: Suivant
+      next: Suivant
       yes1: oui
     object: 
       user: utilisateur
