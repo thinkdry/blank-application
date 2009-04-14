@@ -2,10 +2,10 @@
 
 <br /><br />
 <div id="group_members">
-    <h2>Members</h2>
+    <h2><%= I18n.t('groups.index.members')  %> </h2>
         <ul>
-        <%for person in @current_object.people %>
-          <li> <%= person.email %>(<%= person.first_name %> <%= person.last_name %>) </li>
+        <%for member in @current_object.members %>
+          <li> <%= member.email %> (<%= member.full_name %>) </li>
         <% end %>
         </ul>
   </div>

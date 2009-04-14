@@ -235,6 +235,9 @@ en-US:
       title: Groups
       delete_confirm: Are you sure!
       add_new_group: Add a new group
+      members: Members
+    edit:
+      title: Edit Group
   date: 
     order: 
     - :year
@@ -412,6 +415,8 @@ en-US:
       sent_to: Sent to
       send_newsletter: Send Newsletter
       send_newsletter_to_user_list: Send this Newsletter to user list
+    unsubscribe:
+      flash_notice: Unsubscribed successfully.
   item: 
     new: 
       flash_notice: Created Successfully

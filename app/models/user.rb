@@ -52,6 +52,9 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :feed_items, :through => :feed_sources, :order => "last_updated"
 
+  has_many :groupings, :as => :groupable
+  has_many :member_in, :through => :groupings, :source => :group
+
 	acts_as_xapian :texts => [:login, :firstname, :lastname]
 
   has_attached_file :avatar,

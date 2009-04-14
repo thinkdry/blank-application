@@ -135,7 +135,7 @@ function selectTab(idSelected){
 		}
 	}
 	
-	
+	//display the good tiem in a item list, google way of displaying.
 	function toggleAccordion(idClicked){
 		
 		var listOfItemForToggle = document.getElementsByName('itemInformations');
@@ -191,3 +191,5 @@ function selectTab(idSelected){
       window.location.href = window.location.href.replace("&"+parent_id,"");
     }
   }
+  
+  

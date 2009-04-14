@@ -48,6 +48,7 @@ ActionController::Routing::Routes.draw do |map|
 	map.check_feed '/feed_sources/check_feed', :controller => 'feed_sources', :action => 'check_feed'
   map.what_to_do '/feed_sources/what_to_do', :controller => 'feed_sources', :action => 'what_to_do'
   map.send_newsletter '/send_newsletter', :controller => 'newsletters', :action => 'send_newsletter'
+  map.unsubscribe_for_newsletter '/unsubscribe_for_newsletter', :controller => 'newsletters', :action => 'unsubscribe'
 	#map.resources :feed_items
 	map.content '/content/:item_type', :controller => 'items', :action => 'index'
   map.ajax_content '/ajax_content/:item_type', :controller => 'items', :action => 'ajax_index'

@@ -4,7 +4,7 @@
 	<%= display_tabs(params[:item_type]) %>
 	<div id="object-list">
 
-		<%  if @paginated_objects %>
+		<%  if @paginated_objects.size > 0 %>
           <%= render :partial => 'items/classify_bar', :locals => { :url => items_path(params[:item_type]) } %>
           <% @i = 0%>
           <%= render :partial => 'items/item_in_list', :collection => @paginated_objects %>
