@@ -460,6 +460,7 @@ fr-FR:
       last_name_label: Last name
       primary_phone_label: Primary phone
       email_label: E-mail
+      newsletter_lable: Receive newsletters?
     index: 
       name: Name
       add_new_person: Add a new person

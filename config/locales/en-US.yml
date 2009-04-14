@@ -490,6 +490,7 @@ en-US:
       last_name_label: Last name
       email_label: E-mail
       primary_phone_label: Primary phone
+      newsletter_lable: Receive newsletters?
     index: 
       add_new_person: Add a new person
       name: Name
