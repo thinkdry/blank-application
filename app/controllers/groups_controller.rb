@@ -4,7 +4,7 @@ class GroupsController < ApplicationController
   acts_as_item do
 
     after :create, :update do
-      @group.group_people = params[:selected_Options]
+      @group.group_people(params[:selected_Options],current_user)
     end
   end
 	

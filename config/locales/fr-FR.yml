@@ -237,6 +237,9 @@ fr-FR:
       title: Groups
       delete_confirm: Are you sure!
       add_new_group: Add a new group
+      members: Members
+    edit:
+      title: Edit Group
   time: 
     am: am
     formats: 
@@ -416,6 +419,8 @@ fr-FR:
       sent_to: Sent to
       send_newsletter: Send Newsletter
       send_newsletter_to_user_list: Send this Newsletter to user list
+    unsubscribe:
+      flash_notice: Unsubscribed successfully.
   copyright: 
     copyright_restriction: "Certains \xC3\xA9l\xC3\xA9ments sont prot\xC3\xA9g\xC3\xA9s par le Copyright et ne peuvent \xC3\xAAtre modifi\xC3\xA9s."
     copyright: Copyright

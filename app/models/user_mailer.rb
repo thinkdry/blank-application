@@ -44,11 +44,11 @@ class UserMailer < ActionMailer::Base
 		body :msg => msg
   end
 
-  def send_newsletter(to,from, title, description, newsletter_body)
+  def send_newsletter(to,member_type,from, title, description, newsletter_body)
     recipients to
     from self.contact_email
 		subject self.site_name+" : Newsletter - "+title
-		body :description => description, :newsletter_body => newsletter_body, :site => self.site_name
+		body :description => description, :newsletter_body => newsletter_body, :site => self.site_name,:member_type => member_type,:email => to,:url => self.daurl
     sent_on Time.now
     content_type "text/html"
 

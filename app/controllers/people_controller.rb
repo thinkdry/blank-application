@@ -21,11 +21,10 @@ class PeopleController < ApplicationController
 
   def filter
     @group = Group.find(params[:group_id]) if !params[:group_id].blank?
-    @people = Person.find(:all,:conditions=>["email REGEXP ?","^([#{params[:start_with]}])"])
     options = ""
-    for person in @people
-      if @group.nil? or !@group.people.exists?(person)
-        options = options+ "<option value = '#{person.id}'>#{person.email}</option>"
+    for mem in Group.members_to_subscribe(params[:start_with])
+      if @group.nil? or !@group.members.include?(mem)
+        options = options+ "<option value = '#{mem.class.to_s.downcase}_#{mem.id}'>#{mem.email}</option>"
       end
     end
     render :update do |page|
