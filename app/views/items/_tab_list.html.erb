@@ -1,9 +1,10 @@
 <div id="content">
-    <% params[:item_type] ||= get_default_item_type %>
+  <% params[:item_type] ||= get_default_item_type %>
+  <% if !params[:item_type].blank? %>
 	<%= display_tabs(params[:item_type]) %>
 	<div id="object-list">
 
-		<%  if @paginated_objects %>
+		<%  if @paginated_objects.size > 0 %>
           <%= render :partial => 'items/classify_bar', :locals => { :url => items_path(params[:item_type]) } %>
           <% @i = 0%>
           <%= render :partial => 'items/item_in_list', :collection => @paginated_objects %>
@@ -12,8 +13,8 @@
         <% end %>
 
 		<div id="pagination">
-          <%= will_paginate @paginated_objects %>
-          <%#= remote_pagination(@paginated_objects, get_ajax_item_path(params[:item_type]))%>
+          <%#= will_paginate @paginated_objects %>
+          <%= remote_pagination(@paginated_objects, get_ajax_item_path(params[:item_type]))%>
   		</div><!-- pagination -->
 	</div>
 	<% if @paginated_objects && params[:item_type] && @paginated_objects.length > 0%>
@@ -23,4 +24,7 @@
 	      <%= link_to_function image_tag('/images/icons/atom.png'), "params('format=atom')" %>
 	    </div>
 	<%end%>
+  <% else %>
+    No item types available.
+  <% end %>
 </div>

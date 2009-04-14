@@ -1,5 +1,7 @@
 <div id="content">
-    <%= I18n.t('layout.search.your_search_result')+' : ' %><br /><br />
+    <div id="search_header">
+    	<h2><%= image_tag('/images/icons/search.png')%><%= I18n.t('layout.search.your_search_result') %></h2>
+	</div>
 	<div id="object-list">
         <%  if @paginated_objects.size > 0 %>
           <%= render :partial => 'items/classify_bar', :locals => { :url => searches_path } %>

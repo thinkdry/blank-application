@@ -4,7 +4,7 @@
         <% if object.state=="encoded" %>
           <%= render :partial => "videos/player", :object => object %>
         <% elsif object.state=="encoding"%>
-          <%= render :partial => "videos/status" %>
+          <%= render :partial => "videos/status", :object => object %>
         <% else %>
            <%= object.state.capitalize %>
        <% end %>

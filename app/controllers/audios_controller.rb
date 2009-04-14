@@ -10,9 +10,9 @@ class AudiosController < ApplicationController
   def get_progress
     @current_object=Audio.find_by_id(params[:id])
      if @current_object.state=="encoded"
-     render :partial=>"player"
+     render :partial=>"player", :object => @current_object
     elsif @current_object.state=="encoding"
-      render :partial=>"status"
+      render :partial=>"status", :object => @current_object
     else
       render :nothing=>true
    end

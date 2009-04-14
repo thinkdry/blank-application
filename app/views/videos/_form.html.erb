@@ -1,6 +1,6 @@
 <% form_for_item @current_object, title do |f| -%>
   <% f.field :video, :label => I18n.t('video.field.video_label')+' :' do %>
     <%= File.basename(@current_object.video.url.split("?")[0]) + '<br />' if @current_object.video.file? %>
-    <%= file_field "video", 'video', :onChange=>"LimitAttach(this.form, this.form.video_video.value,'video')" %>
- <% end %>
+    <%= file_field "video", 'video', :onChange => "LimitAttach(this.form, this.form.video_video.value,'video')" %>
+  <% end %>
 <% end -%>

@@ -40,7 +40,7 @@ module ActsAsKeywordable
 				if self.keywords.size > 0
 					return self.keywords.collect { |t| t.name }.join(', ')
 				else
-					return I18n.t('general.common_word.none') || 'none'
+					return []
 				end
 			end
 

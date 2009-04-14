@@ -2,11 +2,14 @@ namespace :blank do
 
 	desc "Initializing Blank Engine"
 	task(:init => :environment) do
+		p "===== ENVIRONMENT : "+RAILS_ENV
 		#Rake::Task['blank:captcha'].invoke
 		Rake::Task['db:migrate'].invoke
 		Rake::Task['blank:xapian_create'].invoke
+		p "Restarting BackgroundRB daemon ..."
 		system("./script/backgroundrb stop -e #{RAILS_ENV}")
 		system("./script/backgroundrb start -e #{RAILS_ENV}")
+		p "Done."
 	end
 
 	desc "From drop to pump"

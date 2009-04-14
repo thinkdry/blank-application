@@ -9,7 +9,7 @@ ActionController::Routing::Routes.draw do |map|
   map.forgot_password '/forgot_password', :controller => 'users', :action => 'forgot_password'
   #map.change_password '/change_password', :controller => 'users', :action => 'change_password'
   map.reset_password '/reset_password/:password_reset_code', :controller => 'users', :action => 'reset_password'
-  map.resources :users, :member => { :administration => :any }
+  map.resources :users, :member => { :administration => :any }, :collection => { :autocomplete_on => :any }
 	map.resource :session, :member => { :change_language => :any }
 	map.resources :people, :collection => {:export_people=>:any, :import_people => :any,:ajax_index => :get }
   
@@ -20,10 +20,8 @@ ActionController::Routing::Routes.draw do |map|
 	map.translations_changing_superadministration 'superadministration/translations_changing', :controller => 'superadministration', :action => 'translations_changing'
 	map.translations_new_superadministration 'superadministration/translations_new', :controller => 'superadministration', :action => 'translations_new'
 	map.superadministration '/superadministration/:part', :controller => 'superadministration', :action => 'superadministration'
-	map.content '/content/:item_type', :controller => 'items', :action => 'index'
-  map.ajax_content '/ajax_content/:item_type', :controller => 'items', :action => 'ajax_index'
-  map.display_content_list '/display_content_list/:item_type', :controller => 'items', :action => 'display_item_in_pop_up'
-	map.autocomplete_on '/home/autocomplete_on', :controller => 'home', :action => 'autocomplete_on'
+	
+	map.resources :home, :only => [:index], :collection => { :autocomplete_on => :any }
 
   map.resources :roles
   map.resources :permissions
@@ -52,6 +50,9 @@ ActionController::Routing::Routes.draw do |map|
   map.send_newsletter '/send_newsletter', :controller => 'newsletters', :action => 'send_newsletter'
   map.unsubscribe_for_newsletter '/unsubscribe_for_newsletter', :controller => 'newsletters', :action => 'unsubscribe'
 	#map.resources :feed_items
+	map.content '/content/:item_type', :controller => 'items', :action => 'index'
+  map.ajax_content '/ajax_content/:item_type', :controller => 'items', :action => 'ajax_index'
+  map.display_content_list '/display_content_list/:item_type', :controller => 'items', :action => 'display_item_in_pop_up'
 	
   # Items created outside any workspace are private or fully public.
   # Items may be acceded by a list that gives all items the user can consult.
