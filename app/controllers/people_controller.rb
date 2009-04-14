@@ -5,7 +5,6 @@ class PeopleController < ApplicationController
   before_filter :get_people, :only=>[:index,:ajax_index]
   PER_PAGE = 10
   acts_as_ajax_validation
-    acts_as_item
 
   make_resourceful do
     actions :show, :create, :new, :edit, :update, :destroy

@@ -38,7 +38,7 @@ class FeedSourcesController < ApplicationController
     end
     
     before :show do
-      permit "consultation of current_object"
+#      permit "consultation of current_object"
 			@feed_items = @current_object.feed_items.paginate(:page => params[:page], :per_page => PER_PAGE_VALUE)
     end
 		
