@@ -190,6 +190,11 @@ fr-FR:
       with: avec
       next: Suivant
       yes1: oui
+      Mr: M.
+      Ms: Mme.
+      Miss: Mlle.
+      Male: Male
+      Female: Female
     object: 
       user: utilisateur
       workspace: espace de travail
@@ -252,6 +257,8 @@ fr-FR:
           default: "%Y-%m-%dT%H:%M:%S%Z"
       long: "%B %d, %Y %H:%M"
       short: time"%d %b %H:%M"
+      short1: "%d %B %Y"
+      long1: "%d %B %Y à %H:%M:%S"
     pm: pm
   workspace: 
     unsubscription: 
@@ -329,8 +336,6 @@ fr-FR:
       only_day: "%e"
       long: "%B %e, %Y"
       short: "%e %b"
-      short1: "%d %B %Y"
-      long1: "%d %B %Y à %H:%M:%S"
     abbr_month_names: 
     - 
     - Jan
@@ -463,6 +468,8 @@ fr-FR:
       primary_phone_label: Primary phone
       email_label: E-mail
       newsletter_lable: Receive newsletters?
+      date_of_birth_label: Date de naissance
+      salutation_label: Civilité
     index: 
       name: Name
       add_new_person: Add a new person
