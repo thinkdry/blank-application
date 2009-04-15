@@ -180,6 +180,11 @@ en-US:
       yes1: "yes"
       next: Next
       with: with
+      Mr: Mr.
+      Ms: Ms.
+      Miss: Miss.
+      Male: Male
+      Female: Female
     item: 
       article: Article
       audio: Audio
@@ -221,6 +226,8 @@ en-US:
           default: "%Y-%m-%dT%H:%M:%S%Z"
       short: time"%d %b %H:%M"
       long: "%B %d, %Y %H:%M"
+      short1: "%d %B %Y"
+      long1: "%d %B %Y at %H:%M:%S"
     pm: pm
   groups: 
     new: 
@@ -256,8 +263,6 @@ en-US:
       only_day: "%e"
       short: "%e %b"
       long: "%B %e, %Y"
-      short1: "%d %B %Y"
-      long1: "%d %B %Y at %H:%M:%S"
     day_names: 
     - Sunday
     - Monday
@@ -493,6 +498,8 @@ en-US:
       email_label: E-mail
       primary_phone_label: Primary phone
       newsletter_lable: Receive newsletters?
+      date_of_birth_label: Date of birth
+      salutation_label: Salutation
     index: 
       add_new_person: Add a new person
       name: Name
