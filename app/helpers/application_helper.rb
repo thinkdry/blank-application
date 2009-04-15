@@ -74,9 +74,9 @@ module ApplicationHelper
 		res = "<select name='search[category]' id='search_category' onchange=\"if ($('advanced_search').visible()) new Ajax.Updater('advanced_search', '/searches/print_advanced?search[category]='+$('search_category').value);\">"
 		#res += "<option value='all'>"+I18n.t('general.common_word.all').upcase+"</option>"
 		#res += "<option value=''>----------</option>"
-		res += "<option value='item'>"+I18n.t('general.object.item').pluralize.upcase+"</option>"
+		res += "<option value='item'#{(@search.category == 'item') ? ' selected=selected' : ''}'>"+I18n.t('general.object.item').pluralize.upcase+"</option>"
 		available_items_list.each do |i|
-			res += "<option value='#{i}'>"+I18n.t('general.item.'+i).pluralize+"</option>"
+			res += "<option value='#{i}'#{(@search.category == i) ? ' selected=selected' : ''}'>"+I18n.t('general.item.'+i).pluralize+"</option>"
 		end
 		#res += "<option value=''>----------</option>"
 		#res += "<option value='workspace'>"+I18n.t('general.object.workspace').pluralize.upcase+"</option>"

@@ -11,6 +11,7 @@
 #  created_before       :datetime
 #
 
+
 class Search < ActiveRecord::Base
   # Tableless model
   def self.columns() @columns ||= []; end
@@ -24,6 +25,8 @@ class Search < ActiveRecord::Base
 	column :full_text_field, :text_area
   # Advanced search
 	column :conditions, :string
+	column :created_at_before, :datetime
+	column :created_at_after, :datetime
 	# Filter
 	column :filter_name, :string
 	column :filter_way, :string
@@ -53,6 +56,9 @@ class Search < ActiveRecord::Base
 				res.merge!({ tmp.first => tmp.last })
 			end
 		end
+		res.merge!({ 'created_at_before' => self[:created_at_before] })
+		res.merge!({ 'created_at_after' => self[:created_at_after] })
+		#raise res.inspect
 		return res
 	end
 
@@ -84,7 +90,7 @@ class Search < ActiveRecord::Base
 						else
 							y.send(self[:filter_name].to_sym) <=> x.send(self[:filter_name].to_sym)
 						end
-					end[0..self[:filter_limit].to_i] # TODO limit
+					end # TODO limit
 				end
 			end
 		end

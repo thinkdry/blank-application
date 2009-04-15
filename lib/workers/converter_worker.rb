@@ -41,7 +41,7 @@ class ConverterWorker < BackgrounDRb::MetaWorker
   def convert_media(type, object, enc)
     media = File.join(File.dirname(object.media_type.path), "#{type}.#{enc}")
     File.open(media, 'w')
-    if object.media_type.content_type.include?("audio/mpeg") || object.media_type.content_type.include?("video/x-flash-video")
+    if object.media_type.content_type.include?("audio/mpeg") || object.media_type.content_type.include?("video/x-flash-video") || object.media_type.content_type.include?("video/x-flv")
       command=<<-end_command
          cp  #{ object.media_type.path } #{media}
       end_command

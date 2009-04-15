@@ -2,14 +2,12 @@
 		<div><%= render :partial => 'items/advanced_search', :locals => { :category => category } %></div>
     <% end %>
 	<div class="dateSelection">
-	    <% fields_for :date, :label => I18n.t('layout.search.search_period_label') do %>
 	      <label><%=I18n.t('general.common_word.from1')%>: </label>
 		  <div class="formElement">
-		  	<%= calendar_date_select_tag 'search[conditions][created_after]', @search.conditions['created_after'], :class => "input_with_calendar" %>
+		  	<%= calendar_date_select_tag 'search[created_at_after]', @search.created_at_after, :class => "input_with_calendar" %>
 		  </div>
 	      <label><%=I18n.t('general.common_word.to1')%>: </label>
 		  <div class="formElement">
-		  	<%= calendar_date_select_tag 'search[conditions][created_before]', @search.conditions['created_before'], :class => "input_with_calendar" %>
+		  	<%= calendar_date_select_tag 'search[created_at_before]', @search.created_at_before, :class => "input_with_calendar" %>
 		  </div>
-	    <% end %>
 	</div>

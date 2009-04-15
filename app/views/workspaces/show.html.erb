@@ -32,10 +32,14 @@
     <% end %>
 </div>
 
- <div class="area_top_five">
+<% if !params[:item_type].blank? %>
+  <div class="area_top_five">
 	<%= render :partial => "workspaces/top_five"%>
-</div>
+  </div>
 
-<div class="area_BOTH">
-  <%= render :partial => "items/tab_list", :object =>  @current_object%>
-</div>
+  <div class="area_BOTH">
+    <%= render :partial => "items/tab_list", :object =>  @current_object%>
+  </div>
+<% else %>
+    No item types available.
+  <% end %>

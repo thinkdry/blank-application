@@ -4,6 +4,7 @@
 require "acts_as_item/url_helpers.rb"
 require 'rubygems'
 require 'RMagick'
+#require 'json'
 
 class ApplicationController < ActionController::Base
   include YacaphHelper
@@ -87,16 +88,20 @@ class ApplicationController < ActionController::Base
 	end
 
 	def get_item_list(item_type)
-		current_objects = item_type.camelize.classify.constantize.list_items_with_permission_for(@current_user, 'show', current_workspace)
-		if params[:filter_name]
-			params[:filter_way] ||= 'desc'
-			if params[:filter_way] == 'desc'
-				current_objects = current_objects.sort{ |x, y| y.send(params[:filter_name].to_sym) <=> x.send(params[:filter_name].to_sym) }
-			else
-				current_objects = current_objects.sort{ |x, y| x.send(params[:filter_name].to_sym) <=> y.send(params[:filter_name].to_sym) }
+		if !item_type.blank?
+			current_objects = item_type.camelize.classify.constantize.list_items_with_permission_for(@current_user, 'show', current_workspace)
+			if params[:filter_name]
+				params[:filter_way] ||= 'desc'
+				if params[:filter_way] == 'desc'
+					current_objects = current_objects.sort{ |x, y| y.send(params[:filter_name].to_sym) <=> x.send(params[:filter_name].to_sym) }
+				else
+					current_objects = current_objects.sort{ |x, y| x.send(params[:filter_name].to_sym) <=> y.send(params[:filter_name].to_sym) }
+				end
 			end
+			return current_objects
+		else
+			return []
 		end
-		return current_objects
 	end
 
 

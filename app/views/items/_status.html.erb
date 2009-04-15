@@ -8,7 +8,7 @@ list = (res + Workspace.allowed_user_with_permission(@current_user.id, item_clas
 list2 = list.delete_if{ |w| !w.ws_items.to_s.split(',').include?(item_class_name) }
 %>
 <% if (list2.size > 0)
-  f.field :workspaces, :label => I18n.t('general.common_word.workspace').camelize+'(s) :' do %>
+  f.field :workspaces, :label => I18n.t('general.object.workspace').camelize+'(s) :' do %>
      <%= (list2.collect do |w|
         checked = Item.exists?(:workspace_id => w.id, :itemable_id => item.id, :itemable_type => item.class.to_s)
         # Out
