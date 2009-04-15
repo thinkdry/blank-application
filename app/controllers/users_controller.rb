@@ -74,7 +74,7 @@ class UsersController < ApplicationController
     end
 
 		response_for :create_fails do |format|
-			format.html { render :action => 'new', :layout => 'no_logged' }
+			format.html { render :action => 'new', :layout => 'login' }
 		end
 
     after :update do
