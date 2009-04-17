@@ -5,7 +5,7 @@
 #ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.2.1' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.2' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -26,6 +26,10 @@ PERMISSION_DENIED_REDIRECTION = { :controller => '/home', :action => 'index' }
 STORE_LOCATION_METHOD = :store_location
 
 Rails::Initializer.run do |config|
+
+	# Uncomment if you want to use the default blank views
+	#config.view_path = 'app/views_blank'
+	
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
   # -- all .rb files in that directory are automatically loaded.
@@ -83,12 +87,6 @@ Rails::Initializer.run do |config|
 
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
-
-
-	#config.gem 'rfeedparser', :version => '=0.9.951', :lib => 'rfeedparser'
-	#config.gem 'packet', :version => '>=0.1.14', :lib => 'packet'
-	#config.gem 'chronic', :version => '>=0.2.3', :lib => 'chronic'
-#  config.action_mailer.delivery_method = :activerecord
 
   # RESTful authentification observer
   config.active_record.observers = :user_observer
