@@ -47,7 +47,7 @@
   </div>
   <div id="three">
     <ul>
-    <% if feed_items.latest.size > 0 -%>	
+    <% if feed_items.latest.to_a.size > 0 -%>
   	<%= render 	:partial => "items/feed_item_in_top_box",
   				:collection => feed_items.latest.to_a -%>
 	<% else -%>
