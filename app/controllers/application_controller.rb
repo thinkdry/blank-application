@@ -12,14 +12,13 @@ class ApplicationController < ActionController::Base
   
   helper :all # include all helpers, all the time
 	helper_method :available_items_list, :available_languages, :get_sa_config, :right_conf,
-		:is_allowed_free_user_creation?, :get_default_item_type, :item_types_allowed_to, :get_per_page_value
+		:is_allowed_free_user_creation?, :get_default_item_type, :item_types_allowed_to, :get_per_page_value, :admin?
   before_filter :is_logged?
 	before_filter :set_locale
 
 	include AuthenticatedSystem
 
 	include ActsAsItem::UrlHelpers
-	#include ActsAsItem::HelperMethods
 	
 	def is_logged?
     if logged_in?
@@ -55,7 +54,11 @@ class ApplicationController < ActionController::Base
 	end
 
 	def get_per_page_value
-		return get_sa_config['sa_per_page_default'].to_i || 10
+		if (res=get_sa_config['sa_per_page_default'].to_i) > 0
+			return res
+		else
+			return 10
+		end
 	end
 
 	def get_default_item_type
@@ -102,6 +105,16 @@ class ApplicationController < ActionController::Base
 		else
 			return []
 		end
+	end
+
+	def display_name
+			@current_user.login
+	end
+	def admin?
+			true
+	end
+	def currently_online
+			false
 	end
 
 

@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
 
   has_many :rattings
   has_many :comments
-  has_many :feed_items, :through => :feed_sources, :order => "last_updated"
+  has_many :feed_items, :through => :feed_sources, :order => "last_updated DESC"
 
   has_many :groupings, :as => :groupable
   has_many :member_in, :through => :groupings, :source => :group
@@ -66,9 +66,6 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :avatar, :content_type => ['image/jpeg','image/jpg', 'image/png', 'image/gif','image/bmp']
   validates_attachment_size(:avatar, :less_than => 5.megabytes)
   #file_column :image_path, :magick => {:size => "200x200>"}
-  validates_attachment_content_type :avatar, :content_type => ['image/jpeg','image/jpg', 'image/png', 'image/gif','image/bmp']
-  validates_attachment_size(:avatar, :less_than => 5.megabytes)
-
 
   validates_presence_of     :login
   validates_length_of       :login,     :within => 3..40
@@ -136,6 +133,8 @@ class User < ActiveRecord::Base
     u = find_by_login(login) # need to get the salt
     u && u.authenticated?(password) ? u : nil
   end
+
+	include SavageBeast::UserInit
 
 	def system_role
 		return Role.find(self.system_role_id)

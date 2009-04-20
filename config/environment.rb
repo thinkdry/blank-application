@@ -28,7 +28,7 @@ STORE_LOCATION_METHOD = :store_location
 Rails::Initializer.run do |config|
 
 	# Uncomment if you want to use the default blank views
-	#config.view_path = 'app/views_blank'
+	# config.view_path = 'app/views_blank'
 	
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
@@ -53,6 +53,8 @@ Rails::Initializer.run do |config|
   # in vendor/plugins are loaded in alphabetical order.
   # :all can be used as a placeholder for all plugins not explicitly named
   # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
+	config.plugin_paths += %W( #{RAILS_ROOT}/blank_modules )
+	config.plugin_paths += %W( #{RAILS_ROOT}/blank_modules/aep_beast/plugins )
 
   # Add additional load paths for your own custom dirs
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
@@ -79,11 +81,6 @@ Rails::Initializer.run do |config|
   # which shouldn't be used to store highly confidential information
   # (create the session table with "rake db:sessions:create")
   config.action_controller.session_store = :active_record_store
-
-  # Use SQL instead of Active Record's schema dumper when creating the test database.
-  # This is necessary if your schema can't be completely dumped by the schema dumper,
-  # like if you have constraints or database-specific column types
-  # config.active_record.schema_format = :sql
 
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
