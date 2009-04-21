@@ -1,0 +1,226 @@
+<ul id="topMenu">
+	<li id="add">
+		<img src="/images/icons/white_down.png"/><div class="textWithImage">Add</div>
+		<div id="addTip" style="display:none;">
+			<div class="headerTip headerTipOne">
+				<div class="headerTipCol smallCol">
+					<img src="/images/icons/add_128.png"/>
+					<p>This menu helps you to add content</p>
+				</div>
+
+				<div class="headerTipCol">
+					<h3><%= I18n.t('layout.application.add_content') %></h3>
+					<div class="headerTipContent">
+						<form name="form1" method="post" action="" id="form1">
+							<ul>
+								<% item_types_allowed_to(@current_user, 'new').each do |type| %>
+					              <li>
+					              	<!--%= image_tag '/images/item_icons/' + type + '.png', :width => "20"%-->
+									<% if type=='feed_source' -%>
+						                <%= link_to I18n.t('general.item.' + type), "/feed_sources/what_to_do" %>
+									<% else -%>
+										<%= link_to I18n.t('general.item.' + type), new_item_path(type.camelize)%>
+									<% end -%>
+					              </li>
+					          <% end %>
+							</ul>
+						</form>
+					</div>
+				</div>
+				<div class="headerTipCol">
+					<h3>Other</h3>
+					<div class="headerTipContent">
+						<ul>
+						<% if @current_user.has_system_permission('workspace', 'new') -%>
+							<li><%= link_to I18n.t('layout.application.new_workspace'), new_workspace_path%></li>
+						<% end -%>
+						<% if current_user.has_system_permission('user', 'new') -%>
+							<li><%= link_to I18n.t('user.new.add_user'), new_user_path %></li>
+						<% end -%>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>	
+		<script type='text/javascript'>
+          //<![CDATA[
+            new Tip('add',  $('addTip'),
+                { effect: 'appear',
+                  duration: 1,
+                  delay:0,
+                  hook: { target: 'bottomLeft', tip: 'topLeft' },
+                  hideOn: { element: 'tip', event: 'mouseout' },
+                  hideOthers: 'true',
+                  hideAfter: 1,
+                  width: 'auto',
+                  border: 0,
+                  offset: { x: -10, y: 8 },
+                  radius: 0
+                });
+          //]]>
+        </script>
+	</li>
+	<li id="display">
+		<img src="/images/icons/white_down.png"/><div class="textWithImage">Content</div>
+		<div id="displayTip" style="display:none;">
+			<div class="headerTip headerTipTwo">
+				<div class="headerTipCol smallCol">
+					<img src="/images/icons/documents_128.png"/>
+					<p>This menu let you access to all your content</p>
+				</div>
+				<div class="headerTipCol">
+					<h3>Other</h3>
+					<div class="headerTipContent">
+						<ul>
+							<li><%= link_to I18n.t('layout.application.home'), '/' %></li>
+							<li><%= link_to I18n.t('layout.application.content'), content_path('articles') %></li>
+							<li><%= link_to 'Subscribers', '/people' %></li>
+						</ul>
+					</div>
+				</div>
+				<div class="headerTipCol">
+					<h3>Workspace</h3>
+					<div class="headerTipContent workspacesList">
+						<ul>
+						<% Workspace.allowed_user_with_permission(@current_user.id, 'workspace_show').each do |w| -%>
+							<li><%= link_to w.title, workspace_path(w)%></li>
+				        <% end -%>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type='text/javascript'>
+          //<![CDATA[
+            new Tip('display',  $('displayTip'),
+                { effect: 'appear',
+                  duration: 1,
+                  delay:0,
+                  hook: { target: 'bottomLeft', tip: 'topLeft' },
+                  hideOn: { element: 'tip', event: 'mouseout' },
+                  hideOthers: 'true',
+                  hideAfter: 1,
+                  width: 'auto',
+                  border: 0,
+                  offset: { x: -20, y: 8 },
+                  radius: 0
+                });
+          //]]>
+        </script>
+	</li>
+	<li id="search">
+		<img src="/images/icons/white_down.png"/><div class="textWithImage">Search</div>
+		<div id="searchTip" style="display:none;">
+			<div class="headerTip headerTipTree">
+				<div id="searchTipContainer">
+					<div class="headerTipCol smallCol">
+					<img src="/images/icons/search_128.png"/>
+					<p>Can't find what you searching for? Use advanced search</p>
+					<p></p>
+					<img src="/images/icons/advanced_search.png"/><a class="advanced_search" onclick="new Ajax.Updater('advanced_search', '/searches/print_advanced?search[category]='+$('search_category').value);"><%= I18n.t('layout.application.advanced_search') %></a>
+				</div>
+					<div class="fieldsetSimulation" id="searchFieldSet">
+					<% unless @hide_full_text_search %>
+			            <% form_for :search, @search, :url => searches_path, :html => { :method => :get, :name => 'search' } do -%>
+							<label>Search for : </label>
+							<div class="formElement">
+				              <%= text_field_tag "search[full_text_field]", (params[:search] ? params[:search][:full_text_field] : I18n.t('layout.search.search_label')), :class => "style_text", :onfocus => '$(this).select()' %>
+							 </div>
+			                <label><%= I18n.t 'general.common_word.in'%></label>
+							<div class="formElement">
+					              <%= select_search_models %>
+							</div>
+			                <div id="advanced_search" class="fieldsetSimulation">
+			                  <% if @search.category %>
+			                    <%= render :partial => 'searches/advanced_search', :locals => { :category => @search.category } %>
+			                  <% end %>
+			                </div>
+						    <div class="clear"></div>
+			                <button type="submit" class="submit_button" onclick="document.search.submit();">Search</button>
+			              
+			            <% end -%>
+			      	  <% end %>
+				  </div>
+				</div>
+			</div>
+		</div>
+			
+		<script type='text/javascript'>
+          //<![CDATA[
+            new Tip('search',  $('searchTip'),
+                { effect: 'appear',
+                  duration: 1,
+                  delay:0,
+                  hook: { target: 'bottomLeft', tip: 'topLeft' },
+                  hideOn: { element: 'tip', event: 'mouseout' },
+                  hideOthers: 'true',
+                  hideAfter: 1,
+                  width: 'auto',
+                  border: 0,
+                  offset: { x: -250, y: 8 },
+                  radius: 0
+                });
+          //]]>
+        </script>
+	</li>
+	<li id="configure">
+		<img src="/images/icons/white_down.png"/><div class="textWithImage">Configure</div>
+		<div id="configureTip" style="display:none;">		
+			<div class="headerTip headerTipFour">
+				<div class="headerTipCol smallCol">
+					<img src="/images/icons/settings_128.png"/>
+					<p>This menu helps you to change BA settings</p>
+					<br/><br/>
+					<p>Change language:<%= select_languages %></p>
+					<p><%= link_to I18n.t('layout.application.logout'), '/logout' %></p>
+				</div>
+				<div class="headerTipCol">
+					<h3>Administration</h3>
+					<div class="headerTipContent">
+						<ul>
+							<% if current_user.has_system_permission('user', 'new') %>
+							<li>
+								<%= link_to I18n.t('user.new.add_user'), new_user_path %>
+							</li>
+							<% end %>
+							<li>
+								<%=I18n.t('user.administration.workspace_management')%>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<% if current_user.has_system_role('superadmin') -%>
+					<div class="headerTipCol">
+						<h3>Superadmin</h3>
+						<div class="headerTipContent">
+							<ul>
+								<li><%= link_to "General settings", :url => superadministration_path(:part => 'general') %></li>
+								<li><%= link_to "Color management", :url => superadministration_path(:part => 'css') %></li>
+								<li><%= link_to "Translation manager", :url => superadministration_path(:part => 'translations') %></li>
+								<li><%= link_to "Role manager", :url => superadministration_path(:part => 'rights') %></li>
+							</ul>
+						</div
+					</div>
+				<% end -%>
+			</div>
+		</div>
+		
+		<script type='text/javascript'>
+          //<![CDATA[
+            new Tip('configure',  $('configureTip'),
+                { effect: 'appear',
+                  duration: 1,
+                  delay:0,
+                  hook: { target: 'bottomLeft', tip: 'topLeft' },
+                  hideOn: { element: 'tip', event: 'mouseout' },
+                  hideOthers: 'true',
+                  hideAfter: 1,
+                  width: 'auto',
+                  border: 0,
+                  offset: { x: -200, y: 8 },
+                  radius: 0
+                });
+          //]]>
+        </script>
+	</li>
+</ul>	
