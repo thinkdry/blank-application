@@ -1,12 +1,6 @@
 class UserMailer < ActionMailer::Base
 
-	def get_sa_config
-		if File.exist?("#{RAILS_ROOT}/config/customs/sa_config.yml")
-			return YAML.load_file("#{RAILS_ROOT}/config/customs/sa_config.yml")
-		else
-			return YAML.load_file("#{RAILS_ROOT}/config/customs/default_config.yml")
-		end
-	end
+	include Configuration
 	
 	def daurl
 		return get_sa_config['sa_application_url']

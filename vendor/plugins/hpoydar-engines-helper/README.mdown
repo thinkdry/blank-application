@@ -1,0 +1,69 @@
+# Engines Helper
+
+A Rails 2.3+ plugin that provides database migrations and asset support for 'engine' type plugins. Based on the original 'Engines' plugin for Rails prior to version 2.3. (Rails 2.3+ currently supports the loading of the entire plugin/app directory and plugin/config/routes.rb file natively.)
+
+More information about engines in Rails 2.3 from James Adam: http://rails-engines.org/news/2009/02/02/engines-in-rails-2-3/
+
+## Requirements
+
+* A Rails 2.3+ application
+* *nix environment with rsync
+* Engine-ified plugin(s), or plugins that have /app, /public and/or config/routes.rb paths
+
+## Usage
+
+### Migrations
+
+Use the provided rake task to sync up all migrations in plugins/**/db/migrate with the parent application:
+
+    rake engines:sync:migrations
+
+### Asset management
+
+There are two ways the plugin loads plugin assets into the parent application:
+
+**1.) The assets are auto loaded into the public directory (default)**
+
+This is the default behavior. On initialization, the contents of each plugin public directory is moved into a separate folder in the parent application:
+
+    public/plugin_assets/<plugin name>/<public directories>
+    
+If you keep your assets within the Rails standards of /images, /stylesheets and /javascripts, then the following helper methods are available in the parent application:
+
+    image_tag( source, :plugin => 'plugin name' )
+    javascript_include_tag( source, :plugin => 'plugin name' )
+    stylesheet_link_tag( source, :plugin => 'plugin name' )
+
+The code for these Rails extensions is from the original engines plugin.
+
+If you are using the Haml gem or plugin and want to extend Sass to work with the
+stylesheets in your public folder, you must use Haml 2.1+.
+
+*Note: you probably want to add public/plugin_assets to your .gitignore file*
+
+**2.) The assets are synced into the public directory on demand**
+
+To use this method, turn autoloading off in environment.rb:
+
+    EnginesHelper.autoload_assets = false
+    
+Then fire up the rake task when ever you need it to update the assets:
+
+    rake engines:sync:assets
+
+*Note: there is no namespace partitioning to this method. In other words, assets of the same name/path from different plugins will overwrite each other. Be careful.*
+
+
+## Notes
+
+Windows is not supported right now due to the dependency on rsync.
+
+## Further development
+
+This plugin has been spec'd and tested using Rspec.  For spec runs and further development, an Rspec enabled Rails 2.3+ application is required.
+
+## License
+
+Copyright (c) 2009 Henry Poydar, released under the MIT license
+
+Portions copyright (c) James Adam

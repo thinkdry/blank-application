@@ -67,7 +67,7 @@ class WorkspacesController < ApplicationController
   def add_new_user
 		@current_object = Workspace.find(params[:id])
 		no_permission_redirection unless @current_object.accepts_edit_for?(@current_user)
-    @user = User.find(:first, :conditions => { :login => params[:user_login] })
+    @user = User.find(:first, :conditions => { :login => params[:user_login].split(' (').first })
     @uw = UsersWorkspace.new
     @uw.role_id = params[:user_role]
     @uw.user = @user

@@ -360,11 +360,11 @@ module ActionView
         end
 
         if confirm = options.delete("confirm")
-          options["onclick"] ||= ''
-          options["onclick"] << "return #{confirm_javascript_function(confirm)};"
+          options["onclick"] ||= 'return true;'
+          options["onclick"] = "if (!#{confirm_javascript_function(confirm)}) return false; #{options['onclick']}"
         end
 
-        tag :input, { "type" => "submit", "name" => "commit", "class" => "submit_button", "value" => value }.update(options.stringify_keys)
+        tag :input, { "type" => "submit", "name" => "commit", "value" => value }.update(options.stringify_keys)
       end
 
       # Displays an image which when clicked will submit the form.

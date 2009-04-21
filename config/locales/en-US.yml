@@ -55,6 +55,7 @@ en-US:
       login_button: Login
       password_label: Password
       remember_me: Remember me
+      no_workspace_linked: No workpace linked. Contact the administrator.
     reset_password: 
       flash_notice: Password has been Successfully Changed.
       title: Reset Password

@@ -5,7 +5,7 @@
 #ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.2.1' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.2' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -26,6 +26,10 @@ PERMISSION_DENIED_REDIRECTION = { :controller => '/home', :action => 'index' }
 STORE_LOCATION_METHOD = :store_location
 
 Rails::Initializer.run do |config|
+
+	# Uncomment if you want to use the default blank views
+	# config.view_path = 'app/views_blank'
+	
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
   # -- all .rb files in that directory are automatically loaded.
@@ -43,12 +47,15 @@ Rails::Initializer.run do |config|
 	#config.gem 'chronic', :version => '>=0.2.3', :lib => 'chronic'
 	#config.gem 'packet', :version => '>=0.1.14', :lib => 'packet'
 	config.gem 'rfeedparser', :version => '=0.9.951', :lib => 'rfeedparser'
+	config.gem 'RedCloth', :version => '>=4.0.0', :lib => 'redcloth'
 	
 
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.
   # :all can be used as a placeholder for all plugins not explicitly named
   # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
+	config.plugin_paths += %W( #{RAILS_ROOT}/blank_modules )
+	config.plugin_paths += %W( #{RAILS_ROOT}/blank_modules/aep_beast/plugins )
 
   # Add additional load paths for your own custom dirs
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
@@ -76,19 +83,8 @@ Rails::Initializer.run do |config|
   # (create the session table with "rake db:sessions:create")
   config.action_controller.session_store = :active_record_store
 
-  # Use SQL instead of Active Record's schema dumper when creating the test database.
-  # This is necessary if your schema can't be completely dumped by the schema dumper,
-  # like if you have constraints or database-specific column types
-  # config.active_record.schema_format = :sql
-
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
-
-
-	#config.gem 'rfeedparser', :version => '=0.9.951', :lib => 'rfeedparser'
-	#config.gem 'packet', :version => '>=0.1.14', :lib => 'packet'
-	#config.gem 'chronic', :version => '>=0.2.3', :lib => 'chronic'
-#  config.action_mailer.delivery_method = :activerecord
 
   # RESTful authentification observer
   config.active_record.observers = :user_observer

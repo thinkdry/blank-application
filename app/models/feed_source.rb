@@ -81,7 +81,7 @@ class FeedSource < ActiveRecord::Base
 		#feed.clean!
 		feed.entries.each do |item|
 			# Be sure that the item hasnt been imported before
-			#if self.feed_items.count(:conditions => { :link => item.url, :feed_source_id => self.id }) <= 0
+			if self.feed_items.count(:conditions => { :guid => item.guid, :feed_source_id => self.id }) <= 0
 				FeedItem.create({
 					:feed_source_id => self.id,
 					:guid						=> item.guid,
@@ -94,7 +94,7 @@ class FeedSource < ActiveRecord::Base
 					:categories			=> item.tags ? item.tags.map{ |tag| tag["term"]}.to_s : nil,
 					:link           => item.url,
 					:copyright			=> item.rights })
-			#end
+			end
 		end
 	end
 

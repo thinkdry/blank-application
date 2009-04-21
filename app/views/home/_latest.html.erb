@@ -43,7 +43,7 @@
 <a href="#" id="pubs_link" class="blok" onclick="Effect.toggle('publications', 'Appear',{duration:0}); return false;"><%=I18n.t('home.index.latest_feed')%></a>
 <div id="publications" style="display:none; width:600px;">
   <div class="lift_items">
-    <%@latest_feeds.each do |pm|%>
+    <% @latest_feeds.each do |pm|%>
 		<p>
 			<%= image_tag 'icons/rss.png' %>
 			<%= link_to pm.feed_source.title, feed_source_path(pm.feed_source) %> :
