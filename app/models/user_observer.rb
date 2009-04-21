@@ -1,7 +1,14 @@
 class UserObserver < ActiveRecord::Observer
 
+	include Configuration
+
 	def after_create(user)
-		UserMailer.deliver_signup_notification(user)
+		if is_mandatory_user_activation?
+			UserMailer.deliver_signup_notification(user)
+		else
+			user.activated_at = Time.now
+			user.save
+		end
 	end
 
   def after_save(user)

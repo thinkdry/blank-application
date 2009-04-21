@@ -11,6 +11,7 @@ sa_item_categories: []
 
 sa_allowed_free_user_creation: "false"
 sa_automatic_private_workspace: "true"
+sa_mandatory_user_activation: "true"
 
 sa_application_name: ThinkDRY BLANK Application
 sa_application_url: http://blank.thinkdry.com

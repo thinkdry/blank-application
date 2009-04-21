@@ -71,7 +71,7 @@ class UsersController < ApplicationController
 				# Creation of the private workspace for the user
 				ws = Workspace.create(:title => "Private space of #{@current_object.login}", :creator_id => @current_object.id, :state => 'private')
 				# To assign the 'ws_admin' role to the user in his privte workspace
-				UserWorkspace.create(:user_id => @current_object.id, :worskpace_id => ws.id, :role_id => Role.find_by_name('ws_admin'))
+				UsersWorkspace.create(:user_id => @current_object.id, :workspace_id => ws.id, :role_id => Role.find_by_name('ws_admin'))
 			end
 			flash[:notice] = I18n.t('user.new.flash_notice')
 		end

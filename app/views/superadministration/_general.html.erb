@@ -32,6 +32,11 @@
       	<%= check_box :conf, :sa_automatic_private_workspace, { :checked => (@conf['sa_automatic_private_workspace']=='true') }, true, false %>
 	  </div>
 
+      <label>Mandatory user activation</label>
+      <div class="formElement">
+      	<%= check_box :conf, :sa_mandatory_user_activation, { :checked => (@conf['sa_mandatory_user_activation']=='true') }, true, false %>
+	  </div>
+
       <label>Available items :</label>
       <div class="formElement">
       	<%= checkboxes_from_list(ITEMS, "sa_items", @conf, "conf") %>
