@@ -134,7 +134,18 @@ class User < ActiveRecord::Base
     u && u.authenticated?(password) ? u : nil
   end
 
-	#include SavageBeast::UserInit
+	include SavageBeast::UserInit
+
+	def display_name
+    login
+	end
+	def admin?
+			true
+	end
+	def currently_online
+			true
+	end 
+
 
 	def system_role
 		return Role.find(self.system_role_id)
@@ -168,10 +179,6 @@ class User < ActiveRecord::Base
 	def has_workspace_permission(workspace_id, controller, action)
 		permission_name = controller+'_'+action
 		return !self.workspace_permissions(workspace_id).delete_if{ |e| e.name != permission_name}.blank? || self.has_system_role('superadmin')
-	end
-
-	def accepts_index_for? user
-		return accepting_action(user, 'index', false, false, true)
 	end
 
 	def accepts_show_for? user

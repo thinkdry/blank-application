@@ -107,16 +107,9 @@ class ApplicationController < ActionController::Base
 		end
 	end
 
-	def display_name
-			@current_user.login
-	end
 	def admin?
-			true
+		true
 	end
-	def currently_online
-			false
-	end
-
 
 	private
   

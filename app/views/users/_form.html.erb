@@ -1,11 +1,11 @@
 <fieldset>
   <legend><%=I18n.t('user.new.title')%></legend>
 
-  <% form_for @user,:builder => BlankFormBuilder, :html => {:multipart=> true} do |f| -%>
-    <%= image_tag(@user.avatar.url(:thumb), :class => "avatar", :align => "right")%>
+  <% form_for @current_object,:builder => BlankFormBuilder, :html => {:multipart=> true} do |f| -%>
+    <%= image_tag(@current_object.avatar.url(:thumb), :class => "avatar", :align => "right")%>
     <%= f.text_field :login, :label => I18n.t('user.field.login_label')+" * : ", :hint => I18n.t('user.field.login_hint') %>
     <%= f.text_field :email, :label => I18n.t('user.field.email_label')+" * : " %>
-    <% if @user.new_record? %>
+    <% if @current_object.new_record? %>
       <%= f.password_field :password, :label => I18n.t('user.field.password_label')+" * : " %>
       <%= f.password_field :password_confirmation, :label => I18n.t('user.field.confirm_password_label')+" * : " %>
     <% else %>
@@ -13,15 +13,15 @@
       <%= f.password_field :password_confirmation, :label => I18n.t('user.field.confirm_password_label'), :hint => I18n.t('user.field.confirm_password_hint') %>
     <% end %>
 
-    <% if !current_object.new_record? %>
+    <% if !@current_object.new_record? %>
       <%= f.select :system_role_id, @roles.map{ |e| [I18n.t('general.role.'+e.name), e.id] }, :label => I18n.t('user.field.system_role_id_label')+" * : " %>
     <% else %>
-      <%= f.select :system_role_id, [I18n.t('general.role.user'), Role.find(:first, :conditions => { :name => 'user' }).id], :label => I18n.t('user.field.system_role_id_label')+" * : " %>
+      <%= f.select :system_role_id, [[I18n.t('general.role.user'), Role.find(:first, :conditions => { :name => 'user' }).id]], :label => I18n.t('user.field.system_role_id_label')+" * : " %>
     <% end %>
 
     <%= f.text_field :firstname, :label => I18n.t('user.field.first_name_label')+" * : " %>
     <%= f.text_field :lastname, :label => I18n.t('user.field.last_name_label')+" * : " %>
-    <%= f.country_select :nationality,:label => I18n.t('user.field.nationality_label')+" * : " %>
+    <%= f.country_select :nationality, nil, {}, { :label => I18n.t('user.field.nationality_label')+" * : " } %>
     <%= f.text_area :address, :size => "40x6", :label => I18n.t('user.field.address_label')+" * : ", :hint => I18n.t('user.field.address_hint')%>
     <%= f.text_field :phone, :label => I18n.t('user.field.phone_label')+" * : ", :hint => I18n.t('user.field.phone_hint') %>
     <%= f.text_field :mobile, :label => I18n.t('user.field.mobile_label')+" * : ", :hint => I18n.t('user.field.mobile_hint') %>

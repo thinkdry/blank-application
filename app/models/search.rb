@@ -18,6 +18,8 @@ class Search < ActiveRecord::Base
   def self.column(name, sql_type = nil, default = nil, null = true)
     columns << ActiveRecord::ConnectionAdapters::Column.new(name.to_s, default, sql_type.to_s, null)
   end
+
+	serialize :conditions, Hash
 	
 	column :category, :string
 	column :models, :string
@@ -25,8 +27,8 @@ class Search < ActiveRecord::Base
 	column :full_text_field, :text_area
   # Advanced search
 	column :conditions, :string
-	column :created_at_before, :datetime
-	column :created_at_after, :datetime
+	column :created_at_before, :date
+	column :created_at_after, :date
 	# Filter
 	column :filter_name, :string
 	column :filter_way, :string
@@ -38,28 +40,31 @@ class Search < ActiveRecord::Base
 		self[:models] = params.join(',')
 	end
 
-	def conditions= params
-		conditions = []
-		params.each do |k, v|
-			if !v.blank?
-				conditions << "#{k} == #{(v.is_a?(Array) ? v.join(',') : v)}"
-			end
-		end
-		self[:conditions] = conditions.join(' && ')
+#	def conditions= params
+#		conditions = []
+#		params.each do |k, v|
+#			if !v.blank?
+#				conditions << "#{k} == #{(v.is_a?(Array) ? v.join(',') : v)}"
+#			end
+#		end
+#		self[:conditions] = conditions.join(' && ')
+#	end
+
+	def get_value_of_param(param_name)
+		return self[:conditions][param_name]
 	end
 
 	def conditions
-		res = Hash.new
+		res = []
 		if self[:conditions]
-			self[:conditions].split(' && ').each do |e|
-				tmp = e.split(' == ')
-				res.merge!({ tmp.first => tmp.last })
+			self[:conditions].each do |k, v|
+				res << ["#{k} == #{v}"]
 			end
 		end
-		res.merge!({ 'created_at_before' => self[:created_at_before] })
-		res.merge!({ 'created_at_after' => self[:created_at_after] })
-		#raise res.inspect
-		return res
+		res << ["created_at < '#{self[:created_at_before].to_date}'"] if self[:created_at_before]
+		res << ["created_at > '#{self[:created_at_after].to_date}'"] if self[:created_at_after]
+		#raise res.join(' AND ').inspect
+		return res.join(' AND ')
 	end
 
 	def do_search

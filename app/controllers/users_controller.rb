@@ -2,9 +2,22 @@ class UsersController < ApplicationController
 	
   acts_as_ajax_validation
 
-	skip_before_filter :is_logged?, :only => [:new, :create, :validate, :forgot_password]
+	skip_before_filter :is_logged?, :only => [:new, :create, :validate, :forgot_password, :reset_password]
 
-	layout "application", :except => [:new, :forgot_password, :reset_password, :index]
+	#layout 'application', :expect => [:new, :create]
+	layout :give_da_layout
+
+	def give_da_layout
+		if params[:action]== 'new' || params[:action]== 'forgot_password' || params[:action] == 'reset_password'
+			if logged_in?
+				return 'application'
+			else
+				return 'login'
+			end
+		else
+			return 'application'
+		end
+	end
 
   make_resourceful do
     actions :all
@@ -18,15 +31,13 @@ class UsersController < ApplicationController
     end
 
     before :new, :create do
-			if !is_allowed_free_user_creation?
-				if logged_in?
-					#layout 'application'
-					no_permission_redirection unless @current_object.accepts_new_for?(@current_user)
-				else
-					redirect_to login_url, :layout => "application"
-				end
+			if logged_in?
+				@search ||= Search.new
+				no_permission_redirection unless @current_object.accepts_new_for?(@current_user)
+			elsif is_allowed_free_user_creation?
+				
 			else
-				#layout 'no_logged'
+				no_permission_redirection
 			end
     end
 
@@ -36,7 +47,7 @@ class UsersController < ApplicationController
 
 		before :index do
 			# TODO : check in the controller
-			#no_permission_redirection unless @current_objects.first.accepts_index_for?(@current_user)
+			no_permission_redirection unless @current_user.has_system_role('superadmin')
 			@current_objects = current_objects.paginate(
 					:page => params[:page],
 					:order => :title,
@@ -66,7 +77,7 @@ class UsersController < ApplicationController
 		end
 
 		response_for :create do |format|
-			format.html { redirect_to login_url }
+			format.html { redirect_to((@current_user ? users_path : '/')) }
 		end
 
 		after :create_fails do
@@ -74,7 +85,7 @@ class UsersController < ApplicationController
     end
 
 		response_for :create_fails do |format|
-			format.html { render :action => 'new', :layout => 'login' }
+			format.html { render :action => 'new', :layout => (@current_user ? 'application' : 'login') }
 		end
 
     after :update do
@@ -99,16 +110,6 @@ class UsersController < ApplicationController
 
   end
  
-#  def current_objects
-#     conditions = if params['login']
-#       ["login LIKE :login OR firstname LIKE :login OR lastname LIKE :login",
-#         { :login => "%#{params['login']}%"}]
-#     else
-#       {}
-#     end
-#     @current_objects ||= current_model.find(:all, :conditions => conditions)
-#   end
-
 	def autocomplete_on
 		conditions = if params['login']
        ["login LIKE :login OR firstname LIKE :login OR lastname LIKE :login",
@@ -165,13 +166,6 @@ class UsersController < ApplicationController
 
 	# Overwritting the AjaxValidation plugin to manage the permission
 	def validate
-#		if !is_allowed_free_user_creation?
-#			if logged_in?
-#				no_permission_redirection unless @current_object.accepts_new_for?(@current_user)
-#			else
-#				redirect_to login_url
-#			end
-#		end
     model_class = params['model'].classify.constantize
     @model_instance = params['id'] ? model_class.find(params['id']) : model_class.new
     @model_instance.send("#{params['attribute']}=", params['value'])
