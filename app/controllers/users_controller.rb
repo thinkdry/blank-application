@@ -65,7 +65,7 @@ class UsersController < ApplicationController
 
 		after :create do
 			# System role by default, secure assignement
-			@current_object.system_role_id = Role.find_by_name('user')
+			@current_object.system_role_id = Role.find(:first, :conditions => {:name => 'user'}).id
 			@current_object.save
 			if is_given_private_workspace
 				# Creation of the private workspace for the user

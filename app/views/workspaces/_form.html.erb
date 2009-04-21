@@ -67,7 +67,7 @@
         });
       </script>
 
-      <%= f.select :role, @roles.collect { |r| [I18n.t('general.role.'+r.name), r.id]}, :label => 'Role :' %> 
+     <%= f.select :role, @roles.collect { |r| [I18n.t('general.role.'+r.name), r.id]}, :label => 'Role :' %> 
      <div class="smallSubmitContainer"><%= button_to_function I18n.t('general.button.add'), %{
             new Ajax.Request("#{add_new_user_workspace_path(params[:id])}", {
               parameters: {
