@@ -1,0 +1,50 @@
+Aep Beast: yet another Savage Beast fork, by Aenima.
+
+Preface
+===========
+Savage Beast is (was) way cool, but has (had) some compatibility issues with Rails 2.1 (and above) and used some outdated plugins: will_paginate and gibberish for translation. Besides that its HTML and CSS left some to be desired. It's still some great code though, so we decided to fork it and correct aforementioned shortcomings.
+
+Installation
+===========
+Based on Savage Beast installation procedure from http://www.williambharding.com/blog/rails/savage-beast-20/
+
+0. Create your app so that it has a User (or user-like) model. We heartily recommend restful_authentication "classic" (included in tested_plugins) for that. It needs some correction with pluralizing names of session controller (i.e. rename to "sessions" whenever necessary, excluding routes.rb)
+1. Install required gems (see below)
+2. Install required plugins (see below) or just copy them from tested_plugins directory
+3. For the engines plugin to work, add this line to the top of your environment.rb, right after the require of boot: require File.join(File.dirname(__FILE__), '../vendor/plugins/engines/boot')
+4. Copy the migration in /vendor/plugins/aep_beast/db/migrate into your own migration directory (and run it)
+5. Implement in your User model the four methods in plugins/aep_beast/lib/savage_beast/user_init that are marked as "#implement in your user model"
+6. Add the line "map.from_plugin :aep_beast" to your routes.rb. Location shouldn’t matter unless you intend to override it. (but it's best to add it on the top)
+7. Add the line "include SavageBeast::UserInit" to your User model. Location shouldn’t matter unless you intend to override it.
+8. Implement versions of the methods in SavageBeast::AuthenticationSystem (located in /plugins/savage_beast/lib) in your application controller if they aren’t already there (note: technically, I believe only "login_required" and "current_user" are necessary, the others give you more functionality). Helpful commenter Adam says that if you have the "helper :all" line in your application controller, be sure to add the "SavageBeast::AuthenticationSystem" line after that.
+8 Alternative: Make sure your ApplicationController class definition begins with
+  helper :all # include all helpers, all the time
+  include SavageBeast::AuthenticationSystem
+  include AuthenticatedSystem # from Restful Authentication
+9. Check out aep_beast/lib/savage_beast/authentication_system.rb for methods not yet implemented in your site (like admin?) and implement them in your ApplicationController. Actually admin? may be the only one of interest to you if you use restful_authentication.
+
+
+  
+Required plugins 
+=============
+Rails Engines (http://www.rails-engines.org/download)
+white_list, white_list_formatted_content 
+acts_as_list
+gibberish (will be removed soon in favor of Rails 2.2 i18n framework)
+
+All of the above plugins are included in tested and working versions in tested_plugins directory.
+
+Required gems
+=============
+mislav-will_paginate (http://github.com/mislav/will_paginate/tree/master/) (remember about adding proper line in config/environment.rb for loading the gem!)
+RedCloth (gem install RedCloth)
+
+
+TODO
+=============
+- drop gibberish in favor of Rails 2.2 i18n framework
+- correct html and css
+- switch to liquid templating system
+- make installation quick and easy (simple rake task maybe?)
+
+Copyright (c) 2008 Aenima, released under the MIT license, based on William B. Harding's "Savage Beast" plugin
