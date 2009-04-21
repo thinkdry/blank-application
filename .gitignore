@@ -20,3 +20,4 @@ doc/*.dot
 public/uploaded_files/**/*
 public/uploads/*
 public/images/captcha
+public/javascripts/all.js
