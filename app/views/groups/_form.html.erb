@@ -27,9 +27,9 @@
         	</select>
           </div>
 		  <div id="left_right_buttons">
-            <input type="button" value=">>" onclick="shiftLeft('assignedOptions','availableOptions', false)" class="theatreAssignment"/>
+            <input type="button" class="sendLeftButton" onclick="shiftLeft('assignedOptions','availableOptions', false)" class="theatreAssignment"/>
 			<br /><br />
-			<input type="button" value="<<" onclick="shiftRight('availableOptions','assignedOptions', true)" class="theatreAssignment"/>
+			<input type="button" class="sendRightButton" onclick="shiftRight('availableOptions','assignedOptions', true)" class="theatreAssignment"/>
           </div>
 		  <div id="right_select_box" >
             <div class="optionAssignmentLabel"> <%= I18n.t('groups.field.assigned_people_label') %></div>

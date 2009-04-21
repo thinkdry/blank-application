@@ -10,6 +10,7 @@
 		</div>
 		<div class="file_infos_box">
 			<div align="right">
+				<%= link_to image_tag('icons/play.png'), item_path(object) %>
               <% if object.accepts_rate_for?(@current_user) %>
 				<a href="#" id="rate_action<%= object.id%>">
 					<%= image_tag('icons/rate.png')%>

@@ -7,6 +7,9 @@ require 'RMagick'
 #require 'json'
 
 class ApplicationController < ActionController::Base
+  
+  layout 'app_fat_menu'
+  
   include YacaphHelper
   IMAGE_TYPES = ["image/jpeg", "image/pjpeg", "image/gif", "image/png", "image/x-png", "image/ico"]
   
