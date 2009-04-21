@@ -76,6 +76,7 @@ fr-FR:
       login_button: Se connecter
       password_label: Mot de passe
       remember_me: "M\xC3\xA9moriser"
+      no_workspace_linked: Aucun espace de travail lié. Veuillez contacter l'administrateur.
     field: 
       photo_label: Photo
       password_hint: Laisser vide pour garder l'ancien mot de passe
