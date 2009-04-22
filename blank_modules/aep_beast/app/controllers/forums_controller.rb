@@ -1,5 +1,5 @@
 class ForumsController < ApplicationController
-	before_filter :login_required, :except => [:index, :show]
+	skip_before_filter :is_logged?, :only => [:index, :show]
   before_filter :find_or_initialize_forum, :except => :index
 	before_filter :admin?, :except => [:show, :index]
 
