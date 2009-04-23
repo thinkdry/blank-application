@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
 	include YacaphHelper
   
   #layout 'app_fat_menu'
-	layout 'application'
+	layout :get_da_layout
   
   IMAGE_TYPES = ["image/jpeg", "image/pjpeg", "image/gif", "image/png", "image/x-png", "image/ico"]
   
@@ -34,6 +34,10 @@ class ApplicationController < ActionController::Base
       redirect_to login_path
     end
   end
+
+	def get_da_layout
+		return @configuration['sa_layout'] || 'application'
+	end
 
 	def get_default_item_type
 		if current_workspace

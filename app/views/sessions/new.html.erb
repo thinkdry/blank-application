@@ -1,6 +1,6 @@
 		<div id="headerForm"></div>
 		<div id="content_login">
-			<div id="logoDiv"><%= image_tag(get_sa_config['sa_logo_url'].to_s) %></div>
+			<div id="logoDiv"><%= image_tag(@configuration['sa_logo_url'].to_s) %></div>
 		    <% form_tag session_path do -%>
                 <p style="color:red"><%=flash[:error]%></p>
 				

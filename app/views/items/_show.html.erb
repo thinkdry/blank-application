@@ -51,7 +51,7 @@
 
 	<%= capture(&block) %>
 	
-	<% if get_sa_config['sa_item_categories'].size > 0 %>
+	<% if @configuration['sa_item_categories'].size > 0 %>
 	    <h2>Categories :</h2>
 	    <div><%= object.category %></div>
 	<% end %>

@@ -113,10 +113,10 @@ module ItemsHelper
 	# Displays the tabs link to items
   def display_tabs(item_type)
     if current_workspace
-			item_types = current_workspace.ws_items.split(',') & get_sa_config['sa_items']
+			item_types = current_workspace.ws_items.split(',') & @configuration['sa_items']
 			item_type ||= item_types.first.to_s.pluralize
     else
-			item_types = get_sa_config['sa_items']
+			item_types = @configuration['sa_items']
 			item_type ||= item_types.first.to_s.pluralize
 	  end
  

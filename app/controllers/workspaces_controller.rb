@@ -8,20 +8,18 @@ class WorkspacesController < ApplicationController
     before :show do
       no_permission_redirection unless @current_object.accepts_show_for?(@current_user)
       params[:id] ||= params[:workspace_id]
-			params[:item_type] ||= (@current_object.ws_items.split(',') & get_sa_config['sa_items']).first.to_s.pluralize
+			params[:item_type] ||= (@current_object.ws_items.split(',') & @configuration['sa_items']).first.to_s.pluralize
 			@current_objects = get_items_list(params[:item_type])
 			@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
     end
 
 		before :new do
 			no_permission_redirection unless @current_object.accepts_new_for?(@current_user)
-			@sa_conf = get_sa_config
 			@roles = Role.find(:all, :conditions => { :type_role => 'workspace' })
 		end
 
 		before :edit do
 			no_permission_redirection unless @current_object.accepts_edit_for?(@current_user)
-			@sa_conf = get_sa_config
 			@roles = Role.find(:all, :conditions => { :type_role => 'workspace' })
 		end
 
@@ -35,7 +33,6 @@ class WorkspacesController < ApplicationController
 			flash[:notice] =I18n.t('workspace.new.flash_notice')
 		end
     after :create_fails do
-			@sa_conf = get_sa_config
 			@roles = Role.find(:all, :conditions => { :type_role => 'system' })
       flash[:error] =I18n.t('workspace.new.flash_error')
     end
@@ -49,7 +46,6 @@ class WorkspacesController < ApplicationController
       flash[:notice] =I18n.t('workspace.edit.flash_notice')
 		end
     after :update_fails do
-			@sa_conf = get_sa_config
 			@roles = Role.find(:all, :conditions => { :type_role => 'system' })
       flash[:error] =I18n.t('workspace.edit.flash_error')
     end

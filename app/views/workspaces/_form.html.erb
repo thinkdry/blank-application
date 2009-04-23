@@ -13,17 +13,17 @@
           <h2><%= I18n.t('workspace.edit.workspace_configuration') %></h2>
           <% if @sa_conf["sa_items"].size > 0 %>
             <label><%= I18n.t('workspace.edit.available_items') %> :</label>
-            <div class="formElement"><%= checkboxes_from_list(@sa_conf["sa_items"], "ws_items", @current_object, 'workspace') %></div>
+            <div class="formElement"><%= checkboxes_from_list(@configuration["sa_items"], "ws_items", @current_object, 'workspace') %></div>
           <% end %>
           <% if @sa_conf["sa_item_categories"].size > 0 %>
             <label><%= I18n.t('workspace.edit.available_item_categories')+" : " %></label>
-            <div class="formElement"><%= checkboxes_from_list(@sa_conf["sa_item_categories"], "ws_item_categories", @current_object, 'workspace') %></div>
+            <div class="formElement"><%= checkboxes_from_list(@configuration["sa_item_categories"], "ws_item_categories", @current_object, 'workspace') %></div>
             
           <% end %>
           <% if @workspace.state != 'private' %>
             <% if @sa_conf["sa_ws_types"].size > 0 %>
               <label><%= I18n.t('workspace.edit.available_ws_types')+" : " %></label>
-              <div class="formElement"><%= checkboxes_from_list(@sa_conf["sa_ws_types"], "ws_available_types", @current_object, 'workspace') %></div>
+              <div class="formElement"><%= checkboxes_from_list(@configuration["sa_ws_types"], "ws_available_types", @current_object, 'workspace') %></div>
             <% end %>
           <% end %>
       <% end %>

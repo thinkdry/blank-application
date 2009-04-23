@@ -66,5 +66,8 @@
       <label>Per page default value :</label>
       <div class="formElement"><%= text_field_tag 'conf[sa_per_page_default]', @conf['sa_per_page_default'] %></div>
 
+      <label>Default layout :</label>
+      <div class="formElement"><%= select_tag 'conf[sa_layout]', options_for_select(LAYOUTS_AVAILABLE) %></div>
+
       <div class="centerButton"><button type="submit" class="submit_button">Mettre à jour</button></div>
 <% end %>

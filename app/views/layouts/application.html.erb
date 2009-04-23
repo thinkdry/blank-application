@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-  <link rel="shortcut icon" href="<%= get_sa_config['sa_favicon_url'] %>"/>
+  <link rel="shortcut icon" href="<%= @configuration['sa_favicon_url'] %>"/>
   <%= stylesheet_link_tag "application.css" %>
   <%= stylesheet_link_tag "form.css" %>
   <%= stylesheet_link_tag "starbox.css" %>
@@ -26,7 +26,7 @@
 
     <div id="logo">
       <%if current_workspace.nil? %>
-      <%= link_to image_tag(get_sa_config['sa_logo_url'].to_s), "/" %>
+      <%= link_to image_tag(@configuration['sa_logo_url'].to_s), "/" %>
       <%else%>
       <%= link_to image_tag(current_workspace.logo.url(:medium)), workspace_path(current_workspace) %>
       <%end%>
