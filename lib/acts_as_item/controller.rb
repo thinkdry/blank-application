@@ -68,14 +68,14 @@ module ActsAsItem
 						@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
 					end
 
-					response_for :new do |format|
+					response_for :new, :create_fails do |format|
 						format.html { render(:template => (File.exists?(RAILS_ROOT+'/app/views/'+params[:controller]+'/new.html.erb') ? params[:controller]+'/new.html.erb' : 'items/new.html.erb')) }
 					end
 
-					response_for :edit do |format|
+					response_for :edit, :update_fails do |format|
 						format.html { render(:template => (File.exists?(RAILS_ROOT+'/app/views/'+params[:controller]+'/edit.html.erb') ? params[:controller]+'/edit.html.erb' : 'items/edit.html.erb')) }
 					end
-					
+
 					response_for :show do |format|
 						format.html # index.html.erb
 						format.xml { render :xml => @current_object }

@@ -22,11 +22,11 @@ class ItemsController < ApplicationController
 	# TODO do something clean, this is too much, take a look in the view to understand ...
   def display_item_in_pop_up
     if params[:item_type] == "all"
-     @object = GenericItem.consultable_by(@current_user.id).articles
+     @current_objects = GenericItem.consultable_by(@current_user.id).articles
       #@object = Article.find(:all, :conditions =>{ :user_id => @current_user.id}, :order => "updated_at DESC" )
     else
-      @object = (params[:item_type].classify.constantize).find(:all, :conditions =>{ :user_id => @current_user.id}, :order => "updated_at DESC" )
+      @current_objects = (params[:item_type].classify.constantize).find(:all, :conditions =>{ :user_id => @current_user.id}, :order => "updated_at DESC" )
     end
-    render :layout => 'pop_up', :object => @object
+    render :layout => 'pop_up', :object => @current_objects
   end
 end
