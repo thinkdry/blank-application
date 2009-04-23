@@ -38,7 +38,7 @@ module ActsAsItem
 					lambda { |condition| { :conditions => condition }	}
 
 				# Retrieve the results ordered following the paramaters given
-				named_scope :filtering_on_field,
+				named_scope :filtering_with,
 					lambda { |field_name, way, limit|
 							if (field_name!='weight')
 								{ :order => "#{self.class_name.underscore.pluralize}.#{field_name} #{way}", :limit => limit }
@@ -63,62 +63,65 @@ module ActsAsItem
 				I18n.t("general.item.#{self.model_name.underscore}")
 			end
 
-			def list_items_with_permission_for(user, action, workspace=false)
-				if (workspace)
-					if workspace.ws_items.include?(self.model_name.underscore)
-							# System permission checked
-							if user.has_system_permission(self.model_name.underscore, action)
-								return workspace.send(self.model_name.underscore.pluralize.to_sym)
-							# Workspace permission checked
-							elsif user.has_workspace_permission(workspace.id, self.model_name.underscore, action)
-								return workspace.send(self.model_name.underscore.pluralize.to_sym)
-							# Category permission checked
-							elsif !(cats=workspace.ws_item_categories).blank?
-								res = []
-								cats.each do |cat|
-									if user.has_workspace_permission(workspace.id, 'item_cat_'+cat, action)
-										res = res + workspace.send(self.model_name.underscore.pluralize.to_sym)
-									end
-								end
-								return res
-							else
-								p "=========================no perm"
-								return []
-							end
-					else
-						p "==========================no type"
-						return []
-					end
+			def get_items_list_for_user_with_permission_in_workspace(user, action, workspace, filter_name, filter_way, filter_limit)
+				filter_name ||= 'created_at'
+				filter_way ||= 'desc'
+				# System permission checked
+				if user.has_system_permission(self.model_name.underscore, action)
+					return workspace.send(self.model_name.underscore.pluralize.to_sym).all(:order => filter_name+' '+filter_way, :limit => filter_limit)
+				# Workspace permission checked
+				elsif user.has_workspace_permission(workspace.id, self.model_name.underscore, action)
+					return workspace.send(self.model_name.underscore.pluralize.to_sym).all(:order => filter_name+' '+filter_way, :limit => filter_limit)
+				# Category permission checked
+#				elsif !(cats=workspace.ws_item_categories).blank?
+#					res = []
+#					cats.each do |cat|
+#						if user.has_workspace_permission(workspace.id, 'item_cat_'+cat, action)
+#							res = res + workspace.send(self.model_name.underscore.pluralize.to_sym)
+#						end
+#					end
+#					return res
 				else
-					if get_sa_config['sa_items'].include?(self.model_name.underscore)
-							# System permission checked
-							if user.has_system_permission(self.model_name.underscore, action)
-								return self.find(:all)
-							# Workspace permission checked
-							elsif !(wsl=user.workspaces).blank?
-								res = []
-								# TODO : directly with custom SQL
-								wsl.each do |ws|
-									if user.has_workspace_permission(ws.id, self.model_name.underscore, action)
-										res = res + ws.send(self.model_name.underscore.pluralize.to_sym)
-									else
-										# lazyness...
-										cats = ITEM_CATEGORIES & ws.ws_item_categories.split(',')
-										# Check if user can access to, at least, one category of the item in that workspace
-										cats.each do |cat|
-											if user.has_workspace_permission(ws.id, 'item_cat_'+cat, action)
-												res = res + self.find_by_sql("SELECT * FROM #{self.model_name.underscore.pluralize} LEFT JOIN items ON items.itemable='#{self.model_name}' AND items.workspace_id=#{ws.id} WHERE #{self.model_name.underscore.pluralize}.category LIKE #{cat}")
-											end
-										end
-									end
-								end
-								return res.sort{ |e1, e2| e2.created_at <=> e1.created_at }.uniq
-							else
-								return []
-							end
-					else
-						return []
+					return []
+				end
+			end
+
+			def get_items_list_for_user_with_permission(user, action, filter_name, filter_way, filter_limit)
+				filter_name ||= 'created_at'
+				filter_way ||= 'desc'
+				# System permission checked
+				if user.has_system_permission(self.model_name.underscore, action)
+					return self.all(:order => filter_name+' '+filter_way, :limit => filter_limit)
+				# Workspace permission checked
+				#raise user.workspaces.inspect
+				elsif !(wsl=user.workspaces).blank?
+					res = []
+					# TODO : directly with custom SQL
+					wsl.each do |ws|
+						if user.has_workspace_permission(ws.id, self.model_name.underscore, action)
+							res = res + ws.send(self.model_name.underscore.pluralize.to_sym)
+#						else
+#							# lazyness...
+#							cats = ITEM_CATEGORIES & ws.ws_item_categories.split(',')
+#							# Check if user can access to, at least, one category of the item in that workspace
+#							cats.each do |cat|
+#								if user.has_workspace_permission(ws.id, 'item_cat_'+cat, action)
+#									res = res + self.find_by_sql("SELECT * FROM #{self.model_name.underscore.pluralize} LEFT JOIN items ON items.itemable='#{self.model_name}' AND items.workspace_id=#{ws.id} WHERE #{self.model_name.underscore.pluralize}.category LIKE #{cat}")
+#								end
+#							end
+						end
 					end
+					if filter_way == 'desc'
+						res = res.sort{ |x, y| y.send(filter_name.to_sym) <=> x.send(filter_name.to_sym) }
+					else
+						res = res.sort{ |x, y| x.send(filter_name.to_sym) <=> y.send(filter_name.to_sym) }
+					end
+					if filter_limit
+						res = res[0..filter_limit]
+					end
+					return res
+				else
+					return []
 				end
 			end
 

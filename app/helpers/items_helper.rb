@@ -58,6 +58,11 @@ module ItemsHelper
 		concat(render(:partial => "items/form", :locals => { :block => block, :title => title }), block.binding)
   end
 
+	# Define the common information of the index of an item
+#	def index_for_item
+#		render(:partial => "items/index", :object => @current_objects)
+#	end
+
 	# Define the common information of the show of an item
 	def item_show(parameters, &block)
     concat\

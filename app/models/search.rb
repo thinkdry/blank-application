@@ -73,9 +73,9 @@ class Search < ActiveRecord::Base
 			# Research on ONE model
 			model_const = self[:models].split(',').first.classify.constantize
 			if !self[:full_text_field].blank? && (self[:full_text_field] != I18n.t('layout.search.search_label'))
-				results += model_const.full_text_with_xapian(self[:full_text_field]).advanced_on_fields(self.conditions).filtering_on_field(self[:filter_name], self[:filter_way], self[:filter_limit])
+				results += model_const.full_text_with_xapian(self[:full_text_field]).advanced_on_fields(self.conditions).filtering_with(self[:filter_name], self[:filter_way], self[:filter_limit])
 			else
-				results += model_const.advanced_on_fields(self.conditions).filtering_on_field(self[:filter_name], self[:filter_way], self[:filter_limit])
+				results += model_const.advanced_on_fields(self.conditions).filtering_with(self[:filter_name], self[:filter_way], self[:filter_limit])
 			end
 		else
 			# Research on VARIOUS models

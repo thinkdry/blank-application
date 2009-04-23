@@ -1,8 +1,8 @@
 class ItemsController < ApplicationController
   
   def index
-		params[:item_type] ||= get_sa_config['sa_items'].first.to_s.pluralize
-		@current_objects = get_item_list(params[:item_type])
+		params[:item_type] ||= get_default_item_type
+		@current_objects = get_items_list(params[:item_type])
 		@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
 		respond_to do |format|
 			format.html
@@ -13,8 +13,8 @@ class ItemsController < ApplicationController
   end
 
   def ajax_index
-		params[:item_type] ||= get_sa_config['sa_items'].first.to_s.pluralize
-		@current_objects = get_item_list(params[:item_type])
+		params[:item_type] ||= get_default_item_type
+		@current_objects = get_items_list(params[:item_type])
 		@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
     render :partial => "items/tab_list" , :layout => false
   end
