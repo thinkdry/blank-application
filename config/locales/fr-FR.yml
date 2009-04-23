@@ -443,15 +443,15 @@ fr-FR:
     new: 
       title: New Person
     import_people: 
-      unsaved_records_flash_notice2: email ids. Because of invalid email formate or those are already exist.
-      saved_records_flash_notice2: email ids.
+      unsaved_records_flash_error2: email ids. Because of invalid email formate or those are already exist.
       note_label: Note
       wrong_file_flash_error: Please select .csv file only.
       select_csv_file_label: Select a CSV File
       title_order_flash_error: Please read <b>Note</b> and provide proper csv, first row is titles and order should be as shown in Note.
       note_description: Please upload csv file and first row of csv file showld be titles(must be [First name, Last name, Email, Gender, Primary phone, Mobile phone, Fax, Street, City, Postal code, Country, Company, Web page, Job title, Notes] only and email should be mandatory, even if you are not providing any of these values) and subsequent rows are values.
-      unsaved_records_flash_notice1: Failed to save records which has
-      saved_records_flash_notice1: Saved records which has
+      unsaved_records_flash_error1: Failed to save records which has
+      saved_records_flash_notice: Saved records successfully
+      csv_parser_error: There was an error while parsing your CSV file
     field: 
       job_title_label: Job title
       country_label: Country
