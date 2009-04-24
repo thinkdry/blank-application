@@ -75,6 +75,7 @@ class Workspace < ActiveRecord::Base
 	  role = self.roles.find_by_name(role_name)
 	  res = []
 		if role
+			# TODO find_by_mysql
 			uw = UsersWorkspace.find(:all, :conditions => { :role_id => role.id, :workspace_id => self.id })
 			uw.each do |e|
 				res << e.user

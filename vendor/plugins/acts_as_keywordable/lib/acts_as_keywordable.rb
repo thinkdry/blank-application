@@ -28,7 +28,7 @@ module ActsAsKeywordable
 
 		module ClassMethods
 			def acts_as_keywordable
-				has_many :keywordings, :as => :keywordable, :dependent => :destroy
+				has_many :keywordings, :as => :keywordable, :dependent => :delete_all
 				has_many :keywords, :through => :keywordings
 				# Scope allowing to get the object linked to a specific keyword (not really well implemented
 				named_scope :matching_with_keyword,

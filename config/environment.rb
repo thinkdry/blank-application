@@ -98,10 +98,6 @@ Rails::Initializer.run do |config|
 	
 end
 
-ExceptionNotifier.exception_recipients = [
-  'paco@thinkdry.com',
-  'anup@thinkdry.com',
-	'nagarjuna@thinkdry.com'
-]
+ExceptionNotifier.exception_recipients = APPLICATION_ADMINS
 ExceptionNotifier.sender_address = 'admin@thinkdry.com'
-ExceptionNotifier.email_prefix = '[BLANK BANG BANG]'
+ExceptionNotifier.email_prefix = APPLICATION_NAME
