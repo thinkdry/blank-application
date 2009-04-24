@@ -12,6 +12,24 @@ namespace :blank do
 		p "Done."
 	end
 
+	desc "Run Production Log Analyzer"
+	task(:planalyze => :environment) do
+		system("pl_analyze log/#{RAILS_ENV}.log")
+#		require 'production_log/analyzer'
+#		p "Beginning production logs analysis ..."
+#		a = Analyzer.new('log/production.log')
+#		a.process
+#		# See also a.db_times and a.render_times
+#		a.request_times.map do |resource, times|
+#			next if resource.nil?
+#			# times is an array of floats for each
+#			# request to the resource.
+#			# Here is where you would save some values
+#			# to the database.
+#			puts "#{resource} => #{times.join(", ")}"
+#		end
+	end
+
 	desc "From drop to pump"
 	task(:pumper => :environment) do
 		Rake::Task['db:drop'].invoke

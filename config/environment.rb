@@ -47,6 +47,7 @@ Rails::Initializer.run do |config|
 	#config.gem 'chronic', :version => '>=0.2.3', :lib => 'chronic'
 	#config.gem 'packet', :version => '>=0.1.14', :lib => 'packet'
 	config.gem 'rfeedparser', :version => '=0.9.951', :lib => 'rfeedparser'
+	# for Savage Beast forum
 	config.gem 'RedCloth', :version => '>=4.0.0', :lib => 'redcloth'
 	
 
@@ -88,5 +89,19 @@ Rails::Initializer.run do |config|
 
   # RESTful authentification observer
   config.active_record.observers = :user_observer
+
+	# Need the production_log_analyze gem
+	# Use for example : pl_analyze log/production.log -e recipient@example.com
+	# TODO special logs files for pl_analyze
+	#	require 'hodel_3000_compliant_logger'
+	#	config.logger = Hodel3000CompliantLogger.new(config.log_path)
 	
 end
+
+ExceptionNotifier.exception_recipients = [
+  'paco@thinkdry.com',
+  'anup@thinkdry.com',
+	'nagarjuna@thinkdry.com'
+]
+ExceptionNotifier.sender_address = 'admin@thinkdry.com'
+ExceptionNotifier.email_prefix = '[BLANK BANG BANG]'

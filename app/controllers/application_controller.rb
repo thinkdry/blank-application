@@ -4,11 +4,12 @@
 require "acts_as_item/url_helpers.rb"
 require 'rubygems'
 require 'RMagick'
-#require 'json'
 
 class ApplicationController < ActionController::Base
 
 	include AuthenticatedSystem
+	include ExceptionNotifiable
+	# local_addresses.clear # always send email notifications instead of displaying the error
 	include Configuration
 	include ActsAsItem::UrlHelpers
 	include YacaphHelper
