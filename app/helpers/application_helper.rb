@@ -93,7 +93,7 @@ module ApplicationHelper
   def remote_pagination(collection,url)
     if !collection.nil? and collection.total_pages > 1
     content = String.new
-#		item_type =  params[:item_type].nil? ? get_default_item_type : params[:item_type]
+#		item_type =  params[:item_type].nil? ? get_default_item_type(current_workspace) : params[:item_type]
 #    url = current_workspace ? ajax_items_path(item_type) +"&page=" : ajax_items_path(item_type) +"?page="
     current_page = params[:page] ? params[:page].to_i : 1
     if current_page == 1

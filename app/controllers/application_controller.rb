@@ -40,9 +40,9 @@ class ApplicationController < ActionController::Base
 		return @configuration['sa_layout'] || 'application'
 	end
 
-	def get_default_item_type
-		if current_workspace
-			return (current_workspace.ws_items.split(',') & @configuration['sa_items']).first.to_s.pluralize
+	def get_default_item_type(workspace=nil)
+		if workspace
+			return (Workspace.find(workspace_id).ws_items.split(',') & @configuration['sa_items']).first.to_s.pluralize
 		else
 			return @configuration['sa_items'].first.to_s.pluralize
 		end
@@ -69,10 +69,10 @@ class ApplicationController < ActionController::Base
 		redirect_to '/'
 	end
 
-	def get_items_list(item_type)
-		#item_type ||= get_default_item_type
-		if (ws=current_workspace)
-			if (@configuration['sa_items'] & ws.ws_items.split(',')).include?(item_type.singularize)
+	def get_items_list(item_type, workspace=nil)
+		#item_type ||= get_default_item_type(current_workspace)
+		if workspace_id
+			if (@configuration['sa_items'] & workspace.ws_items.split(',')).include?(item_type.singularize)
 				current_objects = item_type.classify.constantize.get_items_list_for_user_with_permission_in_workspace(@current_user, 'show', ws, params[:filter_name], params[:filter_way], params[:filter_limit])
 			else
 				current_objects = []

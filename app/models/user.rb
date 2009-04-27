@@ -134,7 +134,7 @@ class User < ActiveRecord::Base
     u && u.authenticated?(password) ? u : nil
   end
 
-	include SavageBeast::UserInit
+	#include SavageBeast::UserInit
 
 	def display_name
     login
