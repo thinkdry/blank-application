@@ -39,6 +39,7 @@ class User < ActiveRecord::Base
   include Authentication
   include Authentication::ByPassword
   include Authentication::ByCookieToken
+	include Configuration
 
   has_many :users_workspaces, :dependent => :delete_all
   has_many :workspaces, :through => :users_workspaces
@@ -223,6 +224,19 @@ class User < ActiveRecord::Base
 	def full_name
 		return self.lastname+" "+self.firstname
   end
+
+	def create_private_workspace
+		# Creation of the private workspace for the user
+		ws = Workspace.create(:title => "Private space of #{self.login}",
+				:description => "Worksapce containing all the content created by #{self.full_name}",
+				:creator_id => self.id,
+				:ws_items => get_configuration['sa_items'],
+				:state => 'private')
+		# To assign the 'ws_admin' role to the user in his privte workspace
+		UsersWorkspace.create(:user_id => self.id,
+				:workspace_id => ws.id,
+				:role_id => Role.find_by_name('ws_admin').id)
+	end
 
 	# Activates the user in the database.
   def activate
