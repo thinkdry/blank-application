@@ -9,7 +9,7 @@ class WorkspacesController < ApplicationController
       no_permission_redirection unless @current_object.accepts_show_for?(@current_user)
       params[:id] ||= params[:workspace_id]
 			params[:item_type] ||= (@current_object.ws_items.split(',') & @configuration['sa_items']).first.to_s.pluralize
-			@current_objects = get_items_list(params[:item_type])
+			@current_objects = get_items_list(params[:item_type], @current_object)
 			@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
     end
 

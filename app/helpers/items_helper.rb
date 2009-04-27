@@ -174,7 +174,7 @@ module ItemsHelper
   def display_item_list(item_type, partial_used='items/item_in_list')
 		# When the params[:item_type] is not define previously (by default for workspace)
 
-		item_type ||= params[:item_type] ||= get_default_item_type
+		item_type ||= params[:item_type] ||= get_default_item_type(current_workspace)
 		if !item_type.blank?
 #			items = item_type.classify.constantize.list_items_with_permission_for(@current_user, 'show', current_workspace)
 #			@collection = items.paginate(:page => params[:page],:per_page=>PER_PAGE_VALUE)
@@ -197,7 +197,7 @@ module ItemsHelper
 	end
 
   def get_ajax_item_path(item_type)
-    item_type =  params[:item_type].nil? ? get_default_item_type : params[:item_type]
+    item_type =  params[:item_type].nil? ? get_default_item_type(current_workspace) : params[:item_type]
     url = current_workspace ? ajax_items_path(item_type) +"&page=" : ajax_items_path(item_type) +"?page="
     return url
   end

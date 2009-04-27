@@ -1,5 +1,5 @@
 <div id="content">
-  <% params[:item_type] ||= get_default_item_type %>
+  <% params[:item_type] ||= get_default_item_type(current_workspace) %>
 	<%= display_tabs(params[:item_type]) %>
 	<div id="object-list">
 
