@@ -71,7 +71,7 @@ class UsersController < ApplicationController
 			if is_given_private_workspace
 				# Creation of the private workspace for the user
 				ws = Workspace.create(:title => "Private space of #{@current_object.login}",
-						:description => "Worksapce containing all the content created by #{@current_user.full_name}",
+						:description => "Worksapce containing all the content created by #{@current_object.full_name}",
 						:creator_id => @current_object.id,
 						:state => 'private')
 				# To assign the 'ws_admin' role to the user in his privte workspace
@@ -102,6 +102,17 @@ class UsersController < ApplicationController
 				@current_object.system_role_id = Role.find_by_name('user')
 			end
 			@current_object.save
+			if is_given_private_workspace && !Workspace.exists?(:creator_id => @current_object.id, :state => 'private')
+				# Creation of the private workspace for the user
+				ws = Workspace.create(:title => "Private space of #{@current_object.login}",
+						:description => "Worksapce containing all the content created by #{@current_object.full_name}",
+						:creator_id => @current_object.id,
+						:state => 'private')
+				# To assign the 'ws_admin' role to the user in his privte workspace
+				UsersWorkspace.create(:user_id => @current_object.id,
+						:workspace_id => ws.id,
+						:role_id => Role.find_by_name('ws_admin').id)
+			end
 			flash[:notice] = I18n.t('user.edit.flash_notice')
     end
 
