@@ -91,7 +91,7 @@ class UsersController < ApplicationController
 			if (@current_user.has_system_role('superadmin') || @current_user.has_system_role('admin'))
 				@current_object.system_role_id = params[:user][:system_role_id].to_i
 			else
-				@current_object.system_role_id = Role.find_by_name('user')
+				@current_object.system_role_id = Role.find_by_name('user').id
 			end
 			@current_object.save
 			if is_given_private_workspace && !Workspace.exists?(:creator_id => @current_object.id, :state => 'private')
