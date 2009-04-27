@@ -171,7 +171,9 @@
 					<img src="/images/icons/settings_128.png"/>
 					<p>This menu helps you to change BA settings</p>
 					<br/><br/>
+					<%if (available_languages.size > 1) -%>
 					<p>Change language:<%= select_languages %></p>
+					<%end-%>
 					<p><%= link_to I18n.t('layout.application.logout'), '/logout' %></p>
 				</div>
 				<div class="headerTipCol">
