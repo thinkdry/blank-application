@@ -83,13 +83,13 @@ class User < ActiveRecord::Base
 	validates_confirmation_of :password, :on => :create
 
   validates_presence_of     :firstname, 
-                            :lastname,
-                            :address,
-                            :company,
-                            :phone,
-                            :mobile,
-                            :activity,
-                            :nationality
+                            :lastname
+                            #:address,
+                            #:company,
+                            #:phone,
+                            #:mobile,
+                            #:activity,
+                            #:nationality
 
   validates_format_of       :firstname, 
     :lastname,
@@ -122,13 +122,13 @@ class User < ActiveRecord::Base
     :order => 'created_at DESC',
     :limit => 5
   
-  def items
-		@items = []
-		ITEMS.map{ |item| item.pluralize }.each do |item|
-			@items + self.send(item)
-		end
-		@items.sort { |a, b| a.created_at <=> b.created_at }
-  end
+#  def items
+#		@items = []
+#		ITEMS.map{ |item| item.pluralize }.each do |item|
+#			@items + self.send(item)
+#		end
+#		@items.sort { |a, b| a.created_at <=> b.created_at }
+#  end
   
   def self.authenticate(login, password)
     u = find_by_login(login) # need to get the salt
