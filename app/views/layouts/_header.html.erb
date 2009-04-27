@@ -171,7 +171,9 @@
 					<img src="/images/icons/settings_128.png"/>
 					<p>This menu helps you to change BA settings</p>
 					<br/><br/>
+					<%if (available_languages.size > 1) -%>
 					<p>Change language:<%= select_languages %></p>
+					<%end-%>
 					<p><%= link_to I18n.t('layout.application.logout'), '/logout' %></p>
 				</div>
 				<div class="headerTipCol">
@@ -194,10 +196,10 @@
 						<h3>Superadmin</h3>
 						<div class="headerTipContent">
 							<ul>
-								<li><%= link_to "General settings", :url => superadministration_path(:part => 'general') %></li>
-								<li><%= link_to "Color management", :url => superadministration_path(:part => 'css') %></li>
-								<li><%= link_to "Translation manager", :url => superadministration_path(:part => 'translations') %></li>
-								<li><%= link_to "Role manager", :url => superadministration_path(:part => 'rights') %></li>
+								<li><%= link_to "General settings", superadministration_path(:part => 'general') %></li>
+								<li><%= link_to "Color management", superadministration_path(:part => 'css') %></li>
+								<li><%= link_to "Translation manager", superadministration_path(:part => 'translations') %></li>
+								<li><%= link_to "Role manager", superadministration_path(:part => 'rights') %></li>
 							</ul>
 						</div
 					</div>
