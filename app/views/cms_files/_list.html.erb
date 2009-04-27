@@ -1,9 +1,0 @@
-<div id="content_bis">
-	<div id="area_CONTENUS">
-		<div class="titre"><%= image_tag CmsFile.icon%><strong><%=I18n.t('general.cms_file')%></strong></div>
-		<% @current_objects.each do |co| %>
-			<%= item_in_list co %>
-		<% end %>
-		<%= link_to I18n.t('file.add_a_file'), new_item_path(CmsFile), :class => "add_item" %>
-	</div>
-</div>

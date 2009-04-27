@@ -51,7 +51,7 @@ ActionController::Routing::Routes.draw do |map|
   map.reset_password '/reset_password/:password_reset_code', :controller => 'users', :action => 'reset_password'
   map.resources :users, :member => { :administration => :any }, :collection => { :autocomplete_on => :any }
 	map.resource :session, :member => { :change_language => :any }
-	map.resources :people, :collection => {:export_people=>:any, :import_people => :any,:ajax_index => :get }
+	map.resources :people, :collection => {:export_people=>:any, :import_people => :any,:ajax_index => :get,:get_empty_csv => :get }
   
 	map.general_changing_superadministration 'superadministration/general_changing', :controller => 'superadministration', :action => 'general_changing'
 	map.check_color_superadministration 'superadministration/check_color', :controller => 'superadministration', :action => 'check_color'

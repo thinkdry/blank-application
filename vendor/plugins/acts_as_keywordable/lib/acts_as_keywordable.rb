@@ -28,8 +28,14 @@ module ActsAsKeywordable
 
 		module ClassMethods
 			def acts_as_keywordable
-				has_many :keywordings, :as => :keywordable
+				has_many :keywordings, :as => :keywordable, :dependent => :delete_all
 				has_many :keywords, :through => :keywordings
+				# Scope allowing to get the object linked to a specific keyword (not really well implemented
+				named_scope :matching_with_keyword,
+					lambda { |keyword_id| 
+					{ :joins => "LEFT JOIN keywordings ON (keywordings.keywordable_type = '#{self.class_name}' "+
+							"AND keywordings.keywordable_id = #{self.class_name.underscore.pluralize}.id) "+
+							"WHERE keywordings.keyword_id = #{keyword_id}" } }
 				include ActsAsKeywordable::ModelMethods::InstanceMethods
 			end
 		end

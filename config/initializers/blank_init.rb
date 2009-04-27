@@ -1,3 +1,5 @@
+include Configuration
+
 # Loading the library Acts_as_item
 #p "Loading ActsAsItem model methods"
 require "acts_as_item/model.rb"
@@ -19,8 +21,13 @@ RIGHT_TYPES = ['system', 'workspace']
 ITEM_CATEGORIES = ['cat1', 'cat2', 'cat3']
 COMMENT_STATE = ['posted', 'validated', 'rejected']
 DEFAULT_COMMENT_STATE = 'posted'
+LAYOUTS_AVAILABLE = ['application', 'app_fat_menu']
 
 SEARCH_FILTERS = ['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title']
+
+APPLICATION_ADMINS = ['paco@thinkdry.com', 'anup.nivargi@thinkdry.com',	'nagarjuna@thinkdry.com', 'sylvain@thinkdry.com',
+	'david.lehureau@thinkdry.com']
+APPLICATION_NAME = get_sa_config['sa_application_name']
 
 # Setting the locales files and the default language
 I18n.default_locale = "en-US"

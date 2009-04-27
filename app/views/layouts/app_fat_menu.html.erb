@@ -1,13 +1,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
+  <link rel="shortcut icon" href="<%= @configuration['sa_favicon_url'] %>"/>
   <%= stylesheet_link_tag "application_bis.css" %>
   <%= stylesheet_link_tag "form.css" %>
   <%= stylesheet_link_tag "starbox.css" %>
   <%= stylesheet_link_tag "middle_bis.css" %>
   <link rel="stylesheet" type="text/css" href="/prototip2.0.4/css/prototip.css" />
-  
-  <link rel="shortcut icon" href="<%= get_sa_config['sa_favicon_url'] %>"/>
 
   <title>
     <%= I18n.t 'layout.application.title' %> -

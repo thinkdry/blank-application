@@ -1,7 +1,7 @@
 <% item_class_name = item.class.to_s.underscore
 check_box_tag_name = "#{item_class_name}[associated_workspaces][]"
 res=[]
-get_sa_config['sa_item_categories'].each do |cat|
+@configuration['sa_item_categories'].each do |cat|
   res = res + Workspace.allowed_user_with_permission(@current_user.id, "item_cat_"+cat+"_new")
 end
 list = (res + Workspace.allowed_user_with_permission(@current_user.id, item_class_name+"_new")).uniq

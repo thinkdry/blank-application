@@ -2,7 +2,7 @@
 	
 	    <div id="keywords_list">
 	    <% @current_object.keywords.each do |k| %>
-	      <div id="<%= k.name %>"><%= k.name+' '+link_to_function('(delete)', "this.parentNode.remove()") %><%= hidden_field_tag "#{@current_object.class.to_s.underscore}[keywords_field][]", k.name %></div>
+	      <div id="<%= k.name+"_000" %>"><%= k.name+' '+link_to_function('(delete)', "this.parentNode.remove()") %><%= hidden_field_tag "#{@current_object.class.to_s.underscore}[keywords_field][]", k.name %></div>
 	    <% end %>
 	    </div>
 	
@@ -25,7 +25,7 @@
 
 <script type="text/javascript">
 function dodo(name, model_name, place_id) {
-  var dadiv = new Element('div', { 'id': name }).insert(name)
+  var dadiv = new Element('div', { 'id': name+'_000' }).insert(name)
   var dadelete = new Element('a', { 'onclick': 'this.parentNode.remove(); return false;' }).insert('(delete)')
   var dahidden = new Element('input', { 'id': model_name+'_keywords_', 'type': 'hidden', 'value': name, 'name': model_name+'[keywords_field][]' })
   dadiv.appendChild(dadelete)

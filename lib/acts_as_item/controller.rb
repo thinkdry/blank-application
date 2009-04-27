@@ -51,24 +51,9 @@ module ActsAsItem
             no_permission_redirection unless @current_object.accepts_destroy_for?(@current_user)
           end
 
-					after :index do
-#						if params[:format]
-#							# ACTUALLY, the work for html is done in the item helper (take a look to response_for) ...
-#							@current_objects = current_model.list_items_with_permission_for(@current_user, 'show', current_workspace).paginate(:per_page => 20, :page => params[:page])
-#							if params[:filter_name]
-#								params[:filter_way] ||= 'desc'
-#								if params[:filter_way] == 'desc'
-#									@current_objects = @current_objects.sort{ |x, y| y.send(params[:filter_name].to_sym) <=> x.send(params[:filter_name].to_sym) }
-#								else
-#									@current_objects = @current_objects.sort{ |x, y| x.send(params[:filter_name].to_sym) <=> y.send(params[:filter_name].to_sym) }
-#								end
-#							end
-#							@current_objects = @current_objects.paginate(:per_page => 20, :page => params[:page])
-#						end
-					end
-
           # Makes `current_user` as author for the current_object
           before :create do
+						# Trick used in case there is no params (meaning none is selected)
 						params[@current_object.class.to_s.underscore][:categories_field] ||= []
 						params[@current_object.class.to_s.underscore][:keywords_field] ||= []
             current_object.user_id = current_user.id
@@ -78,7 +63,19 @@ module ActsAsItem
 						params[@current_object.class.to_s.underscore][:categories_field] ||= []
 						params[@current_object.class.to_s.underscore][:keywords_field] ||= []
 					end
-					
+
+					before :index do
+						@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
+					end
+
+					response_for :new, :create_fails do |format|
+						format.html { render(:template => (File.exists?(RAILS_ROOT+'/app/views/'+params[:controller]+'/new.html.erb') ? params[:controller]+'/new.html.erb' : 'items/new.html.erb')) }
+					end
+
+					response_for :edit, :update_fails do |format|
+						format.html { render(:template => (File.exists?(RAILS_ROOT+'/app/views/'+params[:controller]+'/edit.html.erb') ? params[:controller]+'/edit.html.erb' : 'items/edit.html.erb')) }
+					end
+
 					response_for :show do |format|
 						format.html # index.html.erb
 						format.xml { render :xml => @current_object }
@@ -86,13 +83,18 @@ module ActsAsItem
 	        end
 
 					response_for :index do |format|
-						format.html { redirect_to(items_path(params[:controller])) }
-#						format.xml { render :xml => @current_objects }
-#						format.json { render :json => @current_objects }
-#						format.atom { render :template => "#{params[:controller]}/index.atom.builder", :layout => false }
+						format.html { render(:template => 'items/index_for_item.html.erb') }
+						format.xml { render :xml => @current_objects }
+						format.json { render :json => @current_objects }
+						format.atom { render :template => "#{params[:controller]}/index.atom.builder", :layout => false }
 	        end
 					
         end
+
+				def current_objects
+					@current_objects = get_items_list(params[:controller])
+				end
+
       end
     end
     

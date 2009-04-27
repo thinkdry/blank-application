@@ -7,5 +7,7 @@
         <%= I18n.t('people.import_people.select_csv_file_label') %> :
       </label>
        <%= f.file_field :csv -%>
+       
        <%= submit_tag I18n.t('general.button.submit') -%>
 <% end -%>
+<%= link_to 'Get empty csv file',:controller=>'people',:action=>'get_empty_csv' %>

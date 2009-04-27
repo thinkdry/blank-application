@@ -1,6 +1,6 @@
 class TopicsController < ApplicationController
   before_filter :find_forum_and_topic, :except => :index
-  before_filter :login_required, :only => [:new, :create, :edit, :update, :destroy]
+  skip_before_filter :is_logged?, :except => [:new, :create, :edit, :update, :destroy]
 
 	# @WBH@ TODO: This uses the caches_formatted_page method.  In the main Beast project, this is implemented via a Config/Initializer file.  Not
 	# sure what analogous place to put it in this plugin.  It don't work in the init.rb  

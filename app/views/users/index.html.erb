@@ -1,14 +1,3 @@
-<ul>
-	<% @current_objects.each do |user| %>
-		<%=	content_tag(
-				:li,
-				user.login +
-				content_tag(:span, " (#{user.firstname} #{user.lastname})", :class => "informal")
-			)
-		%>
-		
-	<% end %>
-	
-	<%= will_paginate @current_objects %>
+<h1>USERS LIST</h1><br>
 
-</ul>
+<%= render :partial => 'user_in_list', :collection => @current_objects %>
