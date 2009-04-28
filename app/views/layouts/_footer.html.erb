@@ -1,0 +1,53 @@
+ <div id="footerSearch">
+      	<div id="search_middle">
+      	<% unless @hide_full_text_search %>
+            <% form_for :search, @search, :url => searches_path, :html => { :method => :get, :name => 'search' } do -%>				
+				<p>Search </p>
+	            <%= text_field_tag "search[full_text_field]", (params[:search] ? params[:search][:full_text_field] : I18n.t('layout.search.search_label')), :class => "style_text", :onfocus => '$(this).select()' %>
+				<p><%= I18n.t 'general.common_word.in'%></p>
+	            <%= select_search_models %>
+              	<%= link_to(image_tag("search_button.gif"), "javascript:void(1);", :onclick => "document.search.submit();", :class => "search_button") %>			              
+            <% end -%>
+      	  <% end %>
+		 	</div>
+      </div>
+	  <div id="footerBody">
+	  	<div class="footerCol">
+	  		<h3>Last Content</h3>
+			<% GenericItem.consultable_by(current_user.id).latest.each do |l|%>
+				<p><%= link_to l.title, item_path(l) %></p>
+    		<%end%>
+	  	</div>
+		<div class="footerCol">
+	  		<h3>configuration</h3>
+			<% if (available_languages.size > 1) -%>
+			<p><img src="/images/icons/lang.png"/>language : <%= select_languages %></p>
+			<%end-%>
+			<p><img src="/images/item_icons/rss_feed.png" width="20"/>rss subscription</p>
+			<p><a href="mailtp:contact@thinkdry.com">contact</a></p>
+			<p><%= link_to "My account", user_path(current_user) %></p>
+			<p><%= link_to I18n.t('layout.application.logout'), '/logout' %></p>
+	  	</div>
+		<div class="footerCol">
+	  		<h3>Tag Wall</h3>
+			<p>dans mon tag wall faut que je mette du contenu comme ça ça fait passer le reste plus bas.</p>
+	  	</div>
+		<div class="clear" style="height: 50px;"></div>
+	  	<div class="footerCol">
+	  		<h3>Last comments</h3>
+			<% GenericItem.consultable_by(current_user.id).latest.each do |l|%>
+				<p><%= link_to l.title, item_path(l) %></p>
+    		<%end%>
+	  	</div>
+		<div class="footerCol">
+	  		<h3>last workspaces</h3>
+			<% GenericItem.consultable_by(current_user.id).latest.each do |l|%>
+				<p><%= link_to l.title, item_path(l) %></p>
+    		<%end%>
+	  	</div>
+		<div class="footerCol">
+	  		<h3>Tag Wall</h3>
+	  	</div>
+	  </div>
+
+	  <p id="footerP">©thinkDRY 2007 - 2009 Trademarks belong to their respective owners. All rights reserved.</p>
