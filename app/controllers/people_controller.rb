@@ -73,7 +73,7 @@ class PeopleController < ApplicationController
           @parsed_file=CSV::Reader.parse(params[:people][:csv]).to_a
           first_name =['first name','firstname','first-name','name','prénom']
           last_name =['last name','lastname','last-name','nom']
-          email = ['email','e-mail','e mail']
+          email = ['email','e-mail','e mail','email address','email-address','e-mail address','emailaddress']
           gender = ['gender']
           primary_phone = ['primary phone','primaryphone','primary-phone']
           mobile_phone = ['mobile phone','mobilephone','mobile-phone']
@@ -88,7 +88,9 @@ class PeopleController < ApplicationController
           notes = ['notes']
           cols_order =[]
           @parsed_file[0].each do |col|
-            col = col.downcase
+            col = col.scan(/\w+/).to_s.downcase
+            puts ">>>>>>>>>>"
+            puts col
             if first_name.include?(col)
               cols_order << 'first_name'
             elsif last_name.include?(col)
@@ -134,9 +136,12 @@ class PeopleController < ApplicationController
                 end
                 i+=1
               end
-              person = Person.new(details)
-              if !person.save
-                @unsaved_emails << person.email
+              if !details['email'].nil? 
+                person = Person.new(details)
+                person.user_id = current_user.id
+                if !person.save
+                  @unsaved_emails << person.email
+                end
               end
             end
           end
