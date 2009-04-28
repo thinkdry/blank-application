@@ -26,6 +26,8 @@ module ActsAsItem
           end
 
           after :update do
+            session[:fck_item_id] = nil
+            session[:fck_item_type] = nil
             flash[:notice] = @current_object.class.label+' '+I18n.t('item.edit.flash_notice')
           end
           
@@ -44,7 +46,9 @@ module ActsAsItem
           end
 
           before :edit, :update do
-            no_permission_redirection unless @current_object && @current_object.accepts_edit_for?(@current_user)
+            no_permission_redirection unless @current_object.accepts_edit_for?(@current_user)
+						session[:fck_item_id] = @current_object.id
+            session[:fck_item_type] = @current_object.class.to_s
           end
 
           before :destroy do

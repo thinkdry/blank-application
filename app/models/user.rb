@@ -94,13 +94,13 @@ class User < ActiveRecord::Base
   validates_format_of       :firstname, 
     :lastname,
     :company,
-    :with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL})+\Z/
+    :with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL})+\Z/, :allow_blank => true
 			  
-  validates_format_of       :address, :with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL}|#{NUM})+\Z/
+  validates_format_of       :address, :with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL}|#{NUM})+\Z/, :allow_blank => true
   
   validates_format_of       :phone, 
     :mobile,
-    :with => /\A(#{NUM}){10}\Z/
+    :with => /\A(#{NUM}){10}\Z/, :allow_blank => true
   
 
 	before_save :encrypt_password

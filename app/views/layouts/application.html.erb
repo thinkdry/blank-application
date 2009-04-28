@@ -78,7 +78,7 @@
           <option selected="selected" value='#'>
             --------
           </option>
-          <% item_types_allowed_to(@current_user, 'new').each do |type| %>
+          <% item_types_allowed_to(@current_user, 'new', current_workspace).each do |type| %>
             <% if type=='feed_source' %>
               <option value="/feed_sources/what_to_do">
                 <%= I18n.t "general.item.#{type}" %>
