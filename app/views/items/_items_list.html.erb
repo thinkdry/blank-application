@@ -1,6 +1,6 @@
 <div id="object-list">
 
-  <%= render :partial => 'items/classify_bar', :locals => { :url => "#{params[:controller]+'_path'}" } %>
+  <%= render :partial => 'items/classify_bar' %>
   <% @i = 0%>
   <%= display_item_in_list(@paginated_objects) %>
   

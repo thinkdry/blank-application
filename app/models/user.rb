@@ -147,7 +147,6 @@ class User < ActiveRecord::Base
 			true
 	end 
 
-
 	def system_role
 		return Role.find(self.system_role_id)
 	end
