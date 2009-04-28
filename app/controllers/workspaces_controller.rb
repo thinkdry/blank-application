@@ -6,7 +6,7 @@ class WorkspacesController < ApplicationController
     actions :show, :create, :new, :edit, :update, :destroy
 
     before :show do
-      no_permission_redirection unless @current_object.accepts_show_for?(@current_user)
+      no_permission_redirection unless @current_object && @current_object.accepts_show_for?(@current_user)
       params[:id] ||= params[:workspace_id]
 			params[:item_type] ||= (@current_object.ws_items.split(',') & @configuration['sa_items']).first.to_s.pluralize
 			@current_objects = get_items_list(params[:item_type], @current_object)
@@ -14,17 +14,17 @@ class WorkspacesController < ApplicationController
     end
 
 		before :new do
-			no_permission_redirection unless @current_object.accepts_new_for?(@current_user)
+			no_permission_redirection unless @current_object && @current_object.accepts_new_for?(@current_user)
 			@roles = Role.find(:all, :conditions => { :type_role => 'workspace' })
 		end
 
 		before :edit do
-			no_permission_redirection unless @current_object.accepts_edit_for?(@current_user)
+			no_permission_redirection unless @current_object && @current_object.accepts_edit_for?(@current_user)
 			@roles = Role.find(:all, :conditions => { :type_role => 'workspace' })
 		end
 
     before :create do
-			no_permission_redirection unless @current_object.accepts_new_for?(@current_user)
+			no_permission_redirection unless @current_object && @current_object.accepts_new_for?(@current_user)
 			params[:id] ||= params[:workspace_id]
       @current_object.creator = @current_user
     end
@@ -38,7 +38,7 @@ class WorkspacesController < ApplicationController
     end
 
 		before :update do
-      no_permission_redirection unless @current_object.accepts_edit_for?(@current_user)
+      no_permission_redirection unless @current_object && @current_object.accepts_edit_for?(@current_user)
       # Hack. Permit deletion of all assigned users (with roles).
       #params["workspace"]["existing_user_attributes"] ||= {}
     end
