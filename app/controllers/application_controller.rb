@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
 
 	def get_default_item_type(workspace=nil)
 		if workspace
-			return (Workspace.find(workspace_id).ws_items.split(',') & @configuration['sa_items']).first.to_s.pluralize
+			return (workspace.ws_items.split(',') & @configuration['sa_items']).first.to_s.pluralize
 		else
 			return @configuration['sa_items'].first.to_s.pluralize
 		end
