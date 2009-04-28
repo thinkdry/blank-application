@@ -92,7 +92,7 @@ ActionController::Routing::Routes.draw do |map|
 	#map.resources :feed_items
 	map.content '/content/:item_type', :controller => 'items', :action => 'index'
   map.ajax_content '/ajax_content/:item_type', :controller => 'items', :action => 'ajax_index'
-  map.display_content_list '/display_content_list/:item_type', :controller => 'items', :action => 'display_item_in_pop_up'
+  map.display_content_list '/display_content_list/:selected_item', :controller => 'items', :action => 'display_item_in_pop_up'
 	
   # Items created outside any workspace are private or fully public.
   # Items may be acceded by a list that gives all items the user can consult.

@@ -42,13 +42,13 @@ class ApplicationController < ActionController::Base
 
 	def get_default_item_type(workspace=nil)
 		if workspace
-			return (Workspace.find(workspace_id).ws_items.split(',') & @configuration['sa_items']).first.to_s.pluralize
+			return (workspace.ws_items.split(',') & @configuration['sa_items']).first.to_s.pluralize
 		else
 			return @configuration['sa_items'].first.to_s.pluralize
 		end
 	end
 
-	def item_types_allowed_to(user, action)
+	def item_types_allowed_to(user, action,current_workspace = nil)
 		if current_workspace
 			(current_workspace.ws_items.split(',') & @configuration['sa_items']).delete_if{ |e| !user.has_workspace_permission(current_workspace.id, e, action) }
 		else
@@ -73,7 +73,7 @@ class ApplicationController < ActionController::Base
 		#item_type ||= get_default_item_type(current_workspace)
 		if workspace
 			if (@configuration['sa_items'] & workspace.ws_items.split(',')).include?(item_type.singularize)
-				current_objects = item_type.classify.constantize.get_items_list_for_user_with_permission_in_workspace(@current_user, 'show', workspace, params[:filter_name], params[:filter_way], params[:filter_limit])
+				current_objects = item_type.classify.constantize.get_items_list_for_user_with_permission_in_workspace(@current_user, 'show',workspace, params[:filter_name], params[:filter_way], params[:filter_limit])
 			else
 				current_objects = []
 			end
