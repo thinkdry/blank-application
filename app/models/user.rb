@@ -117,6 +117,11 @@ class User < ActiveRecord::Base
   # We really need a Dispatch Chain here or something.
   # This will also let us return a human error message.
   #
+
+	named_scope :workspaces_with_permission,
+		lambda { |user_id, permission_name|
+		 { :joins => "LEFT JOIN users_workspaces ON users_workspaces.user_id = "}
+		}
   
   named_scope :latest,
     :order => 'created_at DESC',
