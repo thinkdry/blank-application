@@ -12,7 +12,8 @@ require "rubygems"
 require "yaml"
 require "erb"
 require "logger"
-require "packet"
+# Trick of the year by Paco ;)
+require RAILS_HOME + "/vendor/gems/packet-0.1.14/lib/packet"
 require "optparse"
 
 require "bdrb_config"

@@ -170,16 +170,10 @@ function selectTab(idSelected){
 
   // To add or replace a filter in the current url and reload the page
   function params_filter(parent_id){
-    var f = ['viewed_number', 'rates_average', 'created_at', 'top_rank'];
-    if (window.location.href.indexOf('?') > 1 ){
-      for(var i=0; i < f.length; i++)
-      {
-        if (window.location.href.indexOf(f[i]) > 1) {
-          window.location.href = window.location.href.replace(f[i],parent_id);
-        }
-      }
-    }else{
-      window.location.href = window.location.href + "?filter=" + parent_id ;
+    if (window.location.href.indexOf('?') > 1 ) {
+      window.location.href = window.location.href.split('?')[0] + "?" + parent_id ;
+    } else {
+      window.location.href = window.location.href + "?" + parent_id ;
     }
   }
 

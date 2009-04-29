@@ -84,8 +84,8 @@ class ApplicationController < ActionController::Base
 			else
 				current_objects = []
 			end
-			return current_objects
 		end
+		return current_objects
 	end
 
 	def admin?

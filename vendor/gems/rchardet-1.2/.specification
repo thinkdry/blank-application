@@ -1,0 +1,91 @@
+--- !ruby/object:Gem::Specification 
+name: rchardet
+version: !ruby/object:Gem::Version 
+  version: "1.2"
+platform: ruby
+authors: 
+- Jeff Hodges
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2008-08-22 00:00:00 +05:30
+default_executable: 
+dependencies: []
+
+description: 
+email: jeff at somethingsimilar dot com
+executables: []
+
+extensions: []
+
+extra_rdoc_files: 
+- README
+- COPYING
+files: 
+- lib/rchardet
+- lib/rchardet/big5freq.rb
+- lib/rchardet/big5prober.rb
+- lib/rchardet/chardistribution.rb
+- lib/rchardet/charsetgroupprober.rb
+- lib/rchardet/charsetprober.rb
+- lib/rchardet/codingstatemachine.rb
+- lib/rchardet/constants.rb
+- lib/rchardet/escprober.rb
+- lib/rchardet/escsm.rb
+- lib/rchardet/eucjpprober.rb
+- lib/rchardet/euckrfreq.rb
+- lib/rchardet/euckrprober.rb
+- lib/rchardet/euctwfreq.rb
+- lib/rchardet/euctwprober.rb
+- lib/rchardet/gb2312freq.rb
+- lib/rchardet/gb2312prober.rb
+- lib/rchardet/hebrewprober.rb
+- lib/rchardet/jisfreq.rb
+- lib/rchardet/jpcntx.rb
+- lib/rchardet/langbulgarianmodel.rb
+- lib/rchardet/langcyrillicmodel.rb
+- lib/rchardet/langgreekmodel.rb
+- lib/rchardet/langhebrewmodel.rb
+- lib/rchardet/langhungarianmodel.rb
+- lib/rchardet/langthaimodel.rb
+- lib/rchardet/latin1prober.rb
+- lib/rchardet/mbcharsetprober.rb
+- lib/rchardet/mbcsgroupprober.rb
+- lib/rchardet/mbcssm.rb
+- lib/rchardet/sbcharsetprober.rb
+- lib/rchardet/sbcsgroupprober.rb
+- lib/rchardet/sjisprober.rb
+- lib/rchardet/universaldetector.rb
+- lib/rchardet/utf8prober.rb
+- lib/rchardet.rb
+- README
+- COPYING
+has_rdoc: false
+homepage: http://github.com/jmhodges/rchardet/tree/master
+post_install_message: 
+rdoc_options: []
+
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+requirements: []
+
+rubyforge_project: rchardet
+rubygems_version: 1.3.1
+signing_key: 
+specification_version: 2
+summary: Character encoding auto-detection in Ruby. As smart as your browser. Open source.
+test_files: []
+

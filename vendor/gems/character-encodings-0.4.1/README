@@ -1,0 +1,26 @@
+To compile:
+
+$ rake
+
+To test:
+
+$ rake spec
+
+Take a look at the files in “specifications” to see some examples of how to
+load the library and use the methods.
+
+It’s basically the following:
+
+require 'encoding/character/utf-8'
+
+str = +"äbc"
+str_that_is_the_same_as_previous_str = u"äbc"
+
+There’s no install task yet, so until then, just load Ruby as follows:
+
+$ ruby -Ilib:ext
+
+and you’ll be able to require the library as shown above.
+
+I’ll try to learn Ruby Gems tonight, so hopefully there’ll be a way to install
+this library as a gem by tomorrow!
