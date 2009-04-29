@@ -55,6 +55,7 @@ class User < ActiveRecord::Base
 
   has_many :groupings, :as => :groupable
   has_many :member_in, :through => :groupings, :source => :group
+  has_many :people
 
 	acts_as_xapian :texts => [:login, :firstname, :lastname]
 
@@ -222,7 +223,7 @@ class User < ActiveRecord::Base
 	end
 	 
 	def full_name
-		return self.lastname+" "+self.firstname
+		return self.lastname.to_s+" "+self.firstname.to_s
   end
 
 	def create_private_workspace

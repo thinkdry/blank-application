@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
   
   helper :all # include all helpers, all the time
 	helper_method :available_items_list, :available_languages, :get_sa_config, :right_conf,
-		:is_allowed_free_user_creation?, :get_default_item_type, :item_types_allowed_to, :get_per_page_value, :admin?
+		:is_allowed_free_user_creation?, :get_default_item_type, :item_types_allowed_to, :get_per_page_value, :admin?, :groups_of_workspaces_of_item
   before_filter :is_logged?
 	before_filter :set_locale
 	before_filter :get_configuration
@@ -92,6 +92,12 @@ class ApplicationController < ActionController::Base
 		true
 	end
 
+  def groups_of_workspaces_of_item(item)
+    groups =[]
+    item.workspaces.each {|ws| groups << ws.groups}
+    return groups.flatten.uniq.sort! { |a,b| a.title.downcase <=> b.title.downcase }
+  end
+  
 	private
   
 	def check_to_tab(param)

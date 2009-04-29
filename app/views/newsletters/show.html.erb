@@ -9,7 +9,7 @@
 	  <div class="formElement">
 	      <select name="group_id" id="group_id">
 	        <option value="0">--------------</option>
-	        <%for group in Group.all%>
+	        <%for group in groups_of_workspaces_of_item(@current_object)%>
 	          <option value="<%=group.id%>"> <%=group.title%> </option>
 	        <% end %>
 	      </select>

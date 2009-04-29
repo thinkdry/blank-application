@@ -7,9 +7,20 @@ class PeopleController < ApplicationController
   acts_as_ajax_validation
 
   make_resourceful do
-    actions :show, :create, :new, :edit, :update, :destroy
+    actions :show, :new, :edit, :update, :destroy
+   
   end
 
+  def create
+    @person = Person.new(params[:person])
+    @person.user_id = current_user.id
+    if @person.validate_uniqueness_of_email && @person.save
+      redirect_to person_path(@person)
+    else
+      render :action=>'new'
+    end
+  end
+  
   def index
 
   end
@@ -22,9 +33,9 @@ class PeopleController < ApplicationController
   def filter
     @group = Group.find(params[:group_id]) if !params[:group_id].blank?
     options = ""
-    for mem in Group.members_to_subscribe(params[:start_with])
+    for mem in Group.members_to_subscribe(params[:start_with],current_user)
       if @group.nil? or !@group.members.include?(mem)
-        options = options+ "<option value = '#{mem.class.to_s.downcase}_#{mem.id}'>#{mem.email}</option>"
+        options = options+ "<option value = '#{mem.class.to_s.downcase}_#{mem.class.to_s.downcase == 'person' ? mem.id : mem.user_id}'>#{mem.email}</option>"
       end
     end
     render :update do |page|
@@ -33,7 +44,7 @@ class PeopleController < ApplicationController
   end
 
   def export_people
-    @people = Person.find(:all)
+    @people = Person.find(:all,:conditions=>['user_id = ?',current_user.id])
     @outfile = "people_" + Time.now.strftime("%m-%d-%Y") + ".csv"
     csv_data = FasterCSV.generate do |csv|
       csv << ["First name", "Last name", "Email", "Gender", "Primary phone", "Mobile phone", "Fax", "Street", "City", "Postal code", "Country", "Company", "Web page", "Job title", "Notes","Subscribed on","Updated at"]
@@ -89,8 +100,6 @@ class PeopleController < ApplicationController
           cols_order =[]
           @parsed_file[0].each do |col|
             col = col.scan(/\w+/).to_s.downcase
-            puts ">>>>>>>>>>"
-            puts col
             if first_name.include?(col)
               cols_order << 'first_name'
             elsif last_name.include?(col)

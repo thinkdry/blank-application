@@ -21,15 +21,15 @@
               </script>
             </div>
             <select name="assignedPeople" id="assignedOptions" size="5" multiple class="theatreSelection" >
-              <% for m in Group.members_to_subscribe('a') %>
-                <%= content_tag(:option, m.email, :value => m.class.to_s.downcase+'_'+m.id.to_s) if !@group.members.include?(m)%>
+              <% for mem in Group.members_to_subscribe('a',current_user) %>
+                <%= content_tag(:option, mem.email, :value => mem.class.to_s.downcase+'_'+(mem.class.to_s.downcase == 'person' ? mem.id.to_s : mem.user_id.to_s)) if !@group.members.include?(mem)%>
               <% end %>
         	</select>
           </div>
 		  <div id="left_right_buttons">
-            <input type="button" class="sendLeftButton" onclick="shiftLeft('assignedOptions','availableOptions', false)" class="theatreAssignment"/>
+            <input type="button" class="sendLeftButton" onclick="shiftRight('availableOptions','assignedOptions', true)" class="theatreAssignment"/>
 			<br /><br />
-			<input type="button" class="sendRightButton" onclick="shiftRight('availableOptions','assignedOptions', true)" class="theatreAssignment"/>
+			<input type="button" class="sendRightButton" onclick="shiftLeft('assignedOptions','availableOptions', false)" class="theatreAssignment"/>
           </div>
 		  <div id="right_select_box" >
             <div class="optionAssignmentLabel"> <%= I18n.t('groups.field.assigned_people_label') %></div>
