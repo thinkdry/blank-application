@@ -2,27 +2,5 @@
     <div id="search_header">
     	<h2><%= image_tag('/images/icons/search.png')%><%= I18n.t('layout.search.your_search_result') %></h2>
 	</div>
-	<div id="object-list">
-        <%  if @paginated_objects.size > 0 %>
-          <%= render :partial => 'items/classify_bar', :locals => { :url => searches_path } %>
-          <% @i = 0%>
-          <%= render :partial => 'items/item_in_list', :collection => @paginated_objects %>
-        <% else %>
-          <%= render :text => I18n.t('layout.search.no_result') %>
-        <% end %>
-
-		<div id="pagination">
-          <%= will_paginate @paginated_objects %>
-          <%#= remote_pagination(@paginated_objects, searches_url+'?page=') %>
-  		</div><!-- pagination -->
-	</div>
-    
-	<% if @paginated_objects && @paginated_objects.length > 0%>
-		<div class="other_output_format">
-          <%= I18n.t('item.show.get_in_another_format')%>:
-          <%= link_to_function image_tag('/images/icons/xml.png'), "params('format=xml')" %>
-	      <%= link_to_function image_tag('/images/icons/json.png'), "params('format=json')" %>
-	      <%= link_to_function image_tag('/images/icons/atom.png'), "params('format=atom')" %>
-	    </div>
-	<%end%>
+	<%= display_items_list(@paginated_objects) %>
 </div>

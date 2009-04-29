@@ -111,19 +111,12 @@ module ItemsHelper
 	end
 
 	# Displays the tabs link to items
-  def display_tabs(item_type)
-    if current_workspace
-			item_types = current_workspace.ws_items.split(',') & @configuration['sa_items']
-			item_type ||= item_types.first.to_s.pluralize
-    else
-			item_types = @configuration['sa_items']
-			item_type ||= item_types.first.to_s.pluralize
-	  end
- 
+  def display_tabs_items_list(item_type, items_list)
+		item_types = get_default_item_type(current_workspace)
+		item_type ||= item_types.first.to_s.pluralize
     content = String.new
-    
 		if item_type.nil?
-			"(no items selected)"
+			"No items type available"
 		else
 			item_types.map{ |item| item.camelize }.each do |item_model|
      
@@ -163,37 +156,27 @@ module ItemsHelper
                     </script>"
         
 				content += content_tag(:li,	li_content,	options)
-        
 		  end
-      
 			content_tag(:ul, content, :id => :tabs)
+			display_items_list(items_list)
+		end
+	end
+
+	def display_items_list(items_list, partial_used='items/items_list')
+		if items_list
+	    render :partial => partial_used
+		else
+			render :text => I18n.t('layout.search.no_result')
 		end
 	end
 
 	# Displays the list of items
-  def display_item_list(item_type, partial_used='items/item_in_list')
-		# When the params[:item_type] is not define previously (by default for workspace)
-
-		item_type ||= params[:item_type] ||= get_default_item_type(current_workspace)
-		if !item_type.blank?
-#			items = item_type.classify.constantize.list_items_with_permission_for(@current_user, 'show', current_workspace)
-#			@collection = items.paginate(:page => params[:page],:per_page=>PER_PAGE_VALUE)
-#			if params[:filter_name]
-#				params[:filter_way] ||= 'desc'
-#				if params[:filter_way] == 'desc'
-#					@collection = @collection.sort{ |x, y| y.send(params[:filter_name].to_sym) <=> x.send(params[:filter_name].to_sym) }
-#				else
-#					@collection = @collection.sort{ |x, y| x.send(params[:filter_name].to_sym) <=> y.send(params[:filter_name].to_sym) }
-#				end
-#			end
-	    render(:partial => partial_used, :collection => @collection)
-		else
-			render :text => "()"
-		end
+  def display_item_in_list(items_list, partial_used='items/item_in_list')
+	  render(:partial => partial_used, :collection => items_list)
   end
 
 	def display_item_in_list_for_editor
-		display_item_list(nil, 'items/item_in_list_for_editor')
+		display_item_list('items/item_in_list_for_editor')
 	end
 
   def get_ajax_item_path(item_type)

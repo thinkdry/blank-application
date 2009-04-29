@@ -89,8 +89,6 @@ class PeopleController < ApplicationController
           cols_order =[]
           @parsed_file[0].each do |col|
             col = col.scan(/\w+/).to_s.downcase
-            puts ">>>>>>>>>>"
-            puts col
             if first_name.include?(col)
               cols_order << 'first_name'
             elsif last_name.include?(col)
