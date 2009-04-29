@@ -1,0 +1,65 @@
+break.o: break.c unicode.h data/break.h
+decompose.o: decompose.c unicode.h private.h data/decompose.h \
+  data/compose.h
+private.o: private.c private.h
+properties.o: properties.c unicode.h private.h data/character-tables.h
+rb_utf_aref.o: rb_utf_aref.c rb_includes.h unicode.h private.h \
+  rb_methods.h
+rb_utf_aset.o: rb_utf_aset.c rb_includes.h unicode.h private.h \
+  rb_methods.h
+rb_utf_casecmp.o: rb_utf_casecmp.c rb_includes.h unicode.h private.h \
+  rb_methods.h
+rb_utf_chomp.o: rb_utf_chomp.c rb_includes.h unicode.h private.h \
+  rb_methods.h
+rb_utf_chop.o: rb_utf_chop.c rb_includes.h unicode.h private.h \
+  rb_methods.h
+rb_utf_collate.o: rb_utf_collate.c rb_includes.h unicode.h private.h \
+  rb_methods.h
+rb_utf_count.o: rb_utf_count.c rb_includes.h unicode.h private.h \
+  rb_methods.h rb_utf_internal_tr.h
+rb_utf_delete.o: rb_utf_delete.c rb_includes.h unicode.h private.h \
+  rb_methods.h rb_utf_internal_tr.h
+rb_utf_downcase.o: rb_utf_downcase.c rb_includes.h unicode.h private.h \
+  rb_methods.h
+rb_utf_each_char.o: rb_utf_each_char.c rb_includes.h unicode.h private.h \
+  rb_methods.h
+rb_utf_foldcase.o: rb_utf_foldcase.c rb_includes.h unicode.h private.h \
+  rb_methods.h
+rb_utf_hex.o: rb_utf_hex.c rb_includes.h unicode.h private.h rb_methods.h \
+  rb_utf_internal_bignum.h
+rb_utf_index.o: rb_utf_index.c rb_includes.h unicode.h private.h \
+  rb_methods.h
+rb_utf_insert.o: rb_utf_insert.c rb_includes.h unicode.h private.h \
+  rb_methods.h
+rb_utf_internal_bignum.o: rb_utf_internal_bignum.c rb_includes.h \
+  unicode.h private.h rb_methods.h rb_utf_internal_bignum.h
+rb_utf_internal_tr.o: rb_utf_internal_tr.c rb_includes.h unicode.h \
+  private.h rb_methods.h rb_utf_internal_tr.h
+rb_utf_justify.o: rb_utf_justify.c rb_includes.h unicode.h private.h \
+  rb_methods.h
+rb_utf_length.o: rb_utf_length.c rb_includes.h unicode.h private.h \
+  rb_methods.h
+rb_utf_lstrip.o: rb_utf_lstrip.c rb_includes.h unicode.h private.h \
+  rb_methods.h
+rb_utf_normalize.o: rb_utf_normalize.c rb_includes.h unicode.h private.h \
+  rb_methods.h
+rb_utf_oct.o: rb_utf_oct.c rb_includes.h unicode.h private.h rb_methods.h \
+  rb_utf_internal_bignum.h
+rb_utf_reverse.o: rb_utf_reverse.c rb_includes.h unicode.h private.h \
+  rb_methods.h
+rb_utf_rindex.o: rb_utf_rindex.c rb_includes.h unicode.h private.h \
+  rb_methods.h
+rb_utf_rstrip.o: rb_utf_rstrip.c rb_includes.h unicode.h private.h \
+  rb_methods.h
+rb_utf_squeeze.o: rb_utf_squeeze.c rb_includes.h unicode.h private.h \
+  rb_methods.h rb_utf_internal_tr.h
+rb_utf_strip.o: rb_utf_strip.c rb_includes.h unicode.h private.h \
+  rb_methods.h
+rb_utf_to_i.o: rb_utf_to_i.c rb_includes.h unicode.h private.h \
+  rb_methods.h rb_utf_internal_bignum.h
+rb_utf_tr.o: rb_utf_tr.c rb_includes.h unicode.h private.h rb_methods.h \
+  rb_utf_internal_tr.h
+rb_utf_upcase.o: rb_utf_upcase.c rb_includes.h unicode.h private.h \
+  rb_methods.h
+unicode.o: unicode.c unicode.h private.h rb_methods.h
+utf.o: utf.c unicode.h private.h

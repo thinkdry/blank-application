@@ -1,0 +1,71 @@
+--- !ruby/object:Gem::Specification 
+name: htmltools
+version: !ruby/object:Gem::Version 
+  version: "1.10"
+platform: ruby
+authors: 
+- Johannes Brodwall
+autorequire: html/tree
+bindir: bin
+cert_chain: 
+date: 2006-07-25 00:00:00 +05:30
+default_executable: 
+dependencies: []
+
+description: 
+email: johannes@brodwall.com
+executables: []
+
+extensions: []
+
+extra_rdoc_files: []
+
+files: 
+- demo/degolive.rb
+- demo/ebaySearch.rb
+- demo/xpath.rb
+- INSTALL
+- lib/html/element.rb
+- lib/html/rexml-nodepath.rb
+- lib/html/sgml-parser.rb
+- lib/html/stparser.rb
+- lib/html/tags.rb
+- lib/html/tree.rb
+- lib/html/xmltree.rb
+- lib/html/xpath.rb
+- README
+- test/tc_html-element.rb
+- test/tc_html-tree.rb
+- test/tc_stacking-parser.rb
+- test/tc_xpath.rb
+- test/tc_source-parser.rb
+- test/suite.rb
+has_rdoc: false
+homepage: http://ruby-htmltools.rubyforge.org/
+post_install_message: 
+rdoc_options: []
+
+require_paths: 
+- lib
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">"
+    - !ruby/object:Gem::Version 
+      version: 0.0.0
+  version: 
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+requirements: []
+
+rubyforge_project: 
+rubygems_version: 1.3.1
+signing_key: 
+specification_version: 1
+summary: This is a Ruby library for building trees representing HTML structure.
+test_files: 
+- test/suite.rb

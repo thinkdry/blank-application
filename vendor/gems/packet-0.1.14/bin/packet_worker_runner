@@ -1,0 +1,50 @@
+#!/usr/bin/env ruby
+PACKET_LIB_PATH = File.expand_path(File.dirname(__FILE__))
+["lib"].each { |x| $LOAD_PATH.unshift(File.join(PACKET_LIB_PATH,"..",x))}
+
+require "packet"
+
+module Packet
+  class WorkerRunner
+    include Packet::NbioHelper
+    def initialize args
+      cmd_args = args.split(':')
+      worker_name = cmd_args[2]
+      initial_arg_data_length = cmd_args[3].to_i
+      @worker_root = cmd_args[4]
+      @worker_load_env = cmd_args[5]
+
+
+      @worker_read_fd = UNIXSocket.for_fd(cmd_args[0].to_i)
+
+      @worker_write_fd = UNIXSocket.for_fd(cmd_args[1].to_i)
+
+      initial_arg_data = @worker_read_fd.read(initial_arg_data_length)
+
+      Packet::WorkerRunner.const_set(:WORKER_OPTIONS,Marshal.load(initial_arg_data))
+      require @worker_load_env if @worker_load_env && !@worker_load_env.empty?
+      load_worker worker_name
+    end
+
+    def load_worker worker_name
+      if @worker_root && (File.file? "#{@worker_root}/#{worker_name}.rb")
+        require "#{@worker_root}/#{worker_name}"
+        worker_klass = Object.const_get(packet_classify(worker_name))
+        worker_klass.start_worker(:read_end => @worker_read_fd,:write_end => @worker_write_fd,:options => WORKER_OPTIONS)
+      else
+        require worker_name
+        worker_klass = Object.const_get(packet_classify(worker_name))
+        if worker_klass.is_worker?
+          worker_klass.start_worker(:read_end => @worker_read_fd,:write_end => @worker_write_fd,:options => WORKER_OPTIONS)
+        else
+          raise Packet::InvalidWorker.new(worker_name)
+        end
+      end
+    end
+  end
+end
+
+Packet::WorkerRunner.new(ARGV[0])
+
+
+
