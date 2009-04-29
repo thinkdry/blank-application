@@ -46,20 +46,20 @@ Rails::Initializer.run do |config|
   # config.gem "aws-s3", :lib => "aws/s3"
 	# For BackgroundRb
 	config.gem 'chronic', :version => '>=0.2.3', :lib => 'chronic'
-		config.gem 'hoe', :version => '>=1.2.1', :lib => 'hoe'
-			config.gem 'rubyforge', :version => '>=1.0.1'
-			config.gem 'rake', :version => '>=0.8.3'
+#		config.gem 'hoe', :version => '>=1.2.1', :lib => 'hoe'
+#			config.gem 'rubyforge', :version => '>=1.0.1'
+#			config.gem 'rake', :version => '>=0.8.3'
 	config.gem 'packet', :version => '>=0.1.14', :lib => 'packet'
-	#config.gem 'rfeedparser', :version => '=0.9.951', :lib => 'rfeedparser'
-		config.gem 'fastercsv', :version => '>=1.4.0', :lib => 'fastercsv'
-		config.gem 'rchardet', :version => '>=1.1'
-		config.gem 'hpricot', :version => '>=0.6'
-		config.gem 'character-encodings', :version => '>=0.2.0', :lib => false
-		config.gem 'htmltools', :version => '>=1.10', :lib => false
-		config.gem 'htmlentities', :version => '>=4.0.0'
-		config.gem 'mongrel', :version => '>=1.0.1'
-		config.gem 'addressable', :version => '>=1.0.4', :lib => false
+	config.gem 'rfeedparser', :version => '=0.9.951', :lib => 'rfeedparser'
+#		config.gem 'rchardet', :version => '>=1.1'
+#		config.gem 'hpricot', :version => '>=0.6'
+#		config.gem 'character-encodings', :version => '>=0.2.0', :lib => false
+#		config.gem 'htmltools', :version => '>=1.10', :lib => false
+#		config.gem 'htmlentities', :version => '>=4.0.0'
+#		config.gem 'mongrel', :version => '>=1.0.1'
+#		config.gem 'addressable', :version => '>=1.0.4', :lib => false
 	# for Savage Beast forum
+	config.gem 'fastercsv', :version => '>=1.4.0', :lib => 'fastercsv'
 	config.gem 'RedCloth', :version => '>=4.0.0', :lib => 'redcloth'
 	
 
@@ -109,7 +109,3 @@ Rails::Initializer.run do |config|
 	#	config.logger = Hodel3000CompliantLogger.new(config.log_path)
 	
 end
-
-ExceptionNotifier.exception_recipients = APPLICATION_ADMINS
-ExceptionNotifier.sender_address = 'admin@thinkdry.com'
-ExceptionNotifier.email_prefix = APPLICATION_NAME
