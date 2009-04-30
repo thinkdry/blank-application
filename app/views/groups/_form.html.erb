@@ -22,7 +22,7 @@
             </div>
             <select name="assignedPeople" id="assignedOptions" size="5" multiple class="theatreSelection" >
               <% for mem in Group.members_to_subscribe('a',current_user) %>
-                <%= content_tag(:option, mem.email, :value => mem.class.to_s.downcase+'_'+(mem.class.to_s.downcase == 'person' ? mem.id.to_s : mem.user_id.to_s)) if !@group.members.include?(mem)%>
+                <%= content_tag(:option, mem.email, :value => mem.class.to_s.downcase+'_'+mem.id.to_s) if !@group.members.include?(mem)%>
               <% end %>
         	</select>
           </div>

@@ -35,7 +35,7 @@ class PeopleController < ApplicationController
     options = ""
     for mem in Group.members_to_subscribe(params[:start_with],current_user)
       if @group.nil? or !@group.members.include?(mem)
-        options = options+ "<option value = '#{mem.class.to_s.downcase}_#{mem.class.to_s.downcase == 'person' ? mem.id : mem.user_id}'>#{mem.email}</option>"
+        options = options+ "<option value = '#{mem.class.to_s.downcase}_#{mem.id.to_s}'>#{mem.email}</option>"
       end
     end
     render :update do |page|
@@ -148,7 +148,7 @@ class PeopleController < ApplicationController
               if !details['email'].nil? 
                 person = Person.new(details)
                 person.user_id = current_user.id
-                if !person.save
+                if !person.validate_uniqueness_of_email || !person.save
                   @unsaved_emails << person.email
                 end
               end
@@ -180,6 +180,7 @@ class PeopleController < ApplicationController
 
   def get_people
     @people = Person.paginate(
+      :conditions =>['user_id = ?',current_user.id],
       :page => params[:page],
       :order => :email,
       :per_page => get_per_page_value

@@ -41,11 +41,11 @@ class Group < ActiveRecord::Base
       people = Person.find(:all,:conditions=>["email REGEXP ? and user_id = ?","^([#{alpha}])",user.id])
       users = []
       people_email_ids = people.map{|p| "'"+p.email+"'"}
-      !people_email_ids.empty? ? email_id_filter = " AND email NOT IN (#{people_email_ids.join(',')})" : ''
+      !people_email_ids.empty? ? email_id_filter = " AND u.email NOT IN (#{people_email_ids.join(',')})" : ''
       Workspace.allowed_user_with_permission(user.id,'group_edit').each do |ws|
-        users << User.find_by_sql("SELECT * FROM users  INNER JOIN users_workspaces ON users.id = users_workspaces.user_id    WHERE (email REGEXP '^([#{alpha}])' AND newsletter = true#{email_id_filter} ) AND (users_workspaces.workspace_id = #{ws.id}) ")
+#        users << User.find_by_sql("SELECT * FROM users u INNER JOIN users_workspaces ON u.id = users_workspaces.user_id    WHERE ((u.email REGEXP '^([#{alpha}])' AND newsletter = true#{email_id_filter} ) AND (users_workspaces.workspace_id = #{ws.id})) ")
+          users << User.find_by_sql("SELECT * FROM users u WHERE u.id IN (SELECT user_id FROM users_workspaces WHERE workspace_id = #{ws.id}) AND u.email REGEXP '^([#{alpha}])' AND newsletter = true#{email_id_filter} ")
       end
-
       return (people + users.flatten.uniq).sort!{ |a,b| a.email.downcase <=> b.email.downcase }
     else
       []
