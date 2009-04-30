@@ -94,6 +94,8 @@ files:
 - tests/unicodedatatestbase.rb
 has_rdoc: false
 homepage: http://git.bitwi.se/?p=ruby-character-encodings.git;a=summary
+licenses: []
+
 post_install_message: 
 rdoc_options: []
 
@@ -114,7 +116,7 @@ required_rubygems_version: !ruby/object:Gem::Requirement
 requirements: []
 
 rubyforge_project: 
-rubygems_version: 1.3.1
+rubygems_version: 1.3.2
 signing_key: 
 specification_version: 1
 summary: A pluggable character-encoding library

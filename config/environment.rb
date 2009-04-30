@@ -61,6 +61,7 @@ Rails::Initializer.run do |config|
 	# for Savage Beast forum
 	config.gem 'fastercsv', :version => '>=1.4.0', :lib => 'fastercsv'
 	config.gem 'RedCloth', :version => '>=4.0.0', :lib => 'redcloth'
+	config.gem 'rmagick', :version => '>=2.9.1', :lib => 'RMagick'
 	
 
   # Only load the plugins named here, in the order given. By default, all plugins 

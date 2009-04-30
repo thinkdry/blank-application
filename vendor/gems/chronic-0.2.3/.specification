@@ -81,6 +81,8 @@ files:
 - test/test_parsing.rb
 has_rdoc: true
 homepage: "\thttp://chronic.rubyforge.org/"
+licenses: []
+
 post_install_message: 
 rdoc_options: 
 - --main
@@ -102,7 +104,7 @@ required_rubygems_version: !ruby/object:Gem::Requirement
 requirements: []
 
 rubyforge_project: chronic
-rubygems_version: 1.3.1
+rubygems_version: 1.3.2
 signing_key: 
 specification_version: 1
 summary: A natural language date parser
