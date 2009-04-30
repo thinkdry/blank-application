@@ -109,16 +109,15 @@ module Packet
         [worker_read_end,worker_write_end].each { |x| enable_nonblock(x) }
         begin
           if(ARGV[0] == 'start' && Object.const_defined?(:SERVER_LOGGER))
-            log_file = File.open(SERVER_LOGGER,"a+")
-            [STDIN, STDOUT, STDERR].each {|desc| desc.reopen(log_file)}
+            redirect_io(SERVER_LOGGER)
           end
-        rescue; end
+        rescue
+          puts $!.backtrace
+        end
         exec form_cmd_line(worker_read_end.fileno,worker_write_end.fileno,t_worker_name,option_dump_length)
       end
       Process.detach(pid)
       [master_read_end,master_write_end].each { |x| enable_nonblock(x) }
-
-
 
       if worker_pimp && !worker_pimp.empty?
         require worker_pimp
@@ -128,6 +127,7 @@ module Packet
         t_pimp = Packet::MetaPimp.new(master_write_end,pid,self)
         t_pimp.worker_key = worker_name_key
         t_pimp.worker_name = t_worker_name
+        t_pimp.invokable_worker_methods = worker_klass.instance_methods
         @live_workers[worker_name_key,master_read_end.fileno] = t_pimp
       end
 
@@ -135,6 +135,27 @@ module Packet
       worker_write_end.close
       read_ios << master_read_end
     end # end of fork_and_load method
+
+    # Free file descriptors and
+    # point them somewhere sensible
+    # STDOUT/STDERR should go to a logfile
+    def redirect_io(logfile_name)
+      begin; STDIN.reopen "/dev/null"; rescue ::Exception; end
+
+      if logfile_name
+        begin
+          STDOUT.reopen logfile_name, "a"
+          STDOUT.sync = true
+        rescue ::Exception
+          begin; STDOUT.reopen "/dev/null"; rescue ::Exception; end
+        end
+      else
+        begin; STDOUT.reopen "/dev/null"; rescue ::Exception; end
+      end
+
+      begin; STDERR.reopen STDOUT; rescue ::Exception; end
+      STDERR.sync = true
+    end
 
     def form_cmd_line *args
       min_string = "packet_worker_runner #{args[0]}:#{args[1]}:#{args[2]}:#{args[3]}"

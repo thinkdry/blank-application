@@ -6,6 +6,8 @@ class Packet::MetaPimp < Packet::Pimp
   # initializer of pimp
   attr_accessor :callback_hash
   attr_accessor :worker_status, :worker_key,:worker_name
+  attr_accessor :invokable_worker_methods
+
   def pimp_init
     @callback_hash ||= {}
     @worker_status = nil

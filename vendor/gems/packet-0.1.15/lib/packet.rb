@@ -29,5 +29,5 @@ require "packet/packet_worker"
 PACKET_APP = File.expand_path'../' unless defined?(PACKET_APP)
 
 module Packet
-  VERSION='0.1.14'
+  VERSION='0.1.15'
 end

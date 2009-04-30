@@ -1,7 +1,7 @@
 --- !ruby/object:Gem::Specification 
 name: packet
 version: !ruby/object:Gem::Version 
-  version: 0.1.14
+  version: 0.1.15
 platform: ruby
 authors: 
 - Hemant Kumar
@@ -9,7 +9,7 @@ autorequire:
 bindir: bin
 cert_chain: []
 
-date: 2008-10-04 00:00:00 +05:30
+date: 2009-04-07 00:00:00 +05:30
 default_executable: packet_worker_runner
 dependencies: []
 
@@ -48,6 +48,7 @@ files:
 - lib/packet/packet_event.rb
 - lib/packet/packet_nbio.rb
 - lib/packet.rb
+- lib/packet.rbc
 - lib/packet_mongrel.rb
 - examples/concurrent_thread.c
 - examples/sample_server.rb
