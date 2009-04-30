@@ -21,4 +21,5 @@ public/uploaded_files/**/*
 public/uploads/*
 public/images/captcha
 public/javascripts/all.js
-vendor/gems/**/ext
+vendor/gems/**/ext/**/*
+
