@@ -1,6 +1,5 @@
-<div id="content">
-    <div id="search_header">
-    	<h2><%= image_tag('/images/icons/search.png')%><%= I18n.t('layout.search.your_search_result') %></h2>
-	</div>
-	<%= display_items_list(@paginated_objects) %>
+<div id="search_header">
+  <h2><%= image_tag('/images/icons/search.png')%><%= I18n.t('layout.search.your_search_result') %></h2>
 </div>
+
+<%= display_items_list(@paginated_objects) %>
