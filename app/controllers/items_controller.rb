@@ -16,8 +16,9 @@ class ItemsController < ApplicationController
 		params[:item_type] ||= get_allowed_item_types(current_workspace).first.pluralize
 		@current_objects = get_items_list(params[:item_type])
 		@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
-    #render :partial => "items/item_in_list" , :collection => @paginated_objects, :layout => false
-		render :text => display_item_in_list(@paginated_objects), :layout => false
+    @i = 0
+		render :partial => "items/item_in_list" , :collection => @paginated_objects, :layout => false
+		#render :text => display_item_in_list(@paginated_objects), :layout => false
   end
 
 	# TODO do something clean, this is too much, take a look in the view to understand ...

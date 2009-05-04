@@ -92,6 +92,10 @@ module ActsAsItem
 						format.json { render :json => @current_objects }
 						format.atom { render :template => "#{params[:controller]}/index.atom.builder", :layout => false }
 	        end
+
+					response_for :destroy do |format|
+						format.html { redirect_to((ws=current_workspace) ? "/workspaces/#{ws.id}/#{@current_object.class.to_s.underscore.pluralize}" : "/content/#{@current_object.class.to_s.underscore.pluralize}") }
+					end
 					
         end
 

@@ -113,7 +113,7 @@ module ItemsHelper
 	# Displays the tabs link to items
   def display_tabs_items_list(item_type, items_list)
 		item_types = get_allowed_item_types(current_workspace)
-		item_type ||= item_types.first.pluralize
+		item_type ||= item_types.first.to_s.pluralize
     content = String.new
 		#raise item_types.inspect
 		if item_type.nil?

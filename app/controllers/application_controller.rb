@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
 
 	def get_allowed_item_types(workspace=nil)
 		if workspace
-			return (workspace.ws_items.split(',') & @configuration['sa_items'])
+			return (workspace.ws_items.to_s.split(',') & @configuration['sa_items'])
 		else
 			return @configuration['sa_items']
 		end
@@ -50,7 +50,7 @@ class ApplicationController < ActionController::Base
 
 	def item_types_allowed_to(user, action,current_workspace = nil)
 		if current_workspace
-			(current_workspace.ws_items.split(',') & @configuration['sa_items']).delete_if{ |e| !user.has_workspace_permission(current_workspace.id, e, action) }
+			(current_workspace.ws_items.to_s.split(',') & @configuration['sa_items']).delete_if{ |e| !user.has_workspace_permission(current_workspace.id, e, action) }
 		else
 			available_items_list.delete_if{ |e| Workspace.allowed_user_with_permission(user.id, e+'_'+action).size == 0 }
 		end

@@ -21,7 +21,7 @@ module ActsAsItem
 
 				acts_as_xapian :texts => [:title, :description, :keywords_list]
 				
-				has_many :items
+				has_many :items, :as => :itemable, :dependent => :delete_all
 				has_many :workspaces, :through => :items
         belongs_to :user
 
