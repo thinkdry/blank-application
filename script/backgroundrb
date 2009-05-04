@@ -13,7 +13,8 @@ require "yaml"
 require "erb"
 require "logger"
 # Trick of the year by Paco ;)
-require RAILS_HOME + "/vendor/gems/packet-0.1.15/lib/packet"
+#require RAILS_HOME + "/vendor/gems/packet-0.1.15/lib/packet"
+require 'packet'
 
 require "optparse"
 
