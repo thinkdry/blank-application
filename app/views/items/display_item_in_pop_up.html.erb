@@ -4,7 +4,7 @@
 | <% for ws in @current_user.workspaces %>
   <%= link_to ws.title , '/display_content_list/'+get_allowed_item_types(ws).first.pluralize+'?workspace_id='+ws.id.to_s+'&item_type=all' %> |
 <% end %>
-<%= link_to 'content','/display_content_list/'+get_default_item_type(nil).first.pluralize+'?content=all'+'&item_type=all' %>
+<%= link_to 'content','/display_content_list/'+get_allowed_item_types(nil).first.pluralize+'?content=all'+'&item_type=all' %>
 |
 <br />
 <div id="item_type_link">
