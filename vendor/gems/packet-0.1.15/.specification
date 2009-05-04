@@ -1,0 +1,92 @@
+--- !ruby/object:Gem::Specification 
+name: packet
+version: !ruby/object:Gem::Version 
+  version: 0.1.15
+platform: ruby
+authors: 
+- Hemant Kumar
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2009-04-07 00:00:00 +05:30
+default_executable: packet_worker_runner
+dependencies: []
+
+description: Packet, A Pure Ruby library for Event Driven Network Programming.
+email: mail@gnufied.org
+executables: 
+- packet_worker_runner
+extensions: []
+
+extra_rdoc_files: 
+- README
+- MIT-LICENSE
+- TODO
+files: 
+- MIT-LICENSE
+- README
+- Rakefile
+- TODO
+- lib/packet
+- lib/packet/disconnect_error.rb
+- lib/packet/packet_pimp.rb
+- lib/packet/packet_invalid_worker.rb
+- lib/packet/packet_connection.rb
+- lib/packet/packet_guid.rb
+- lib/packet/double_keyed_hash.rb
+- lib/packet/packet_master.rb
+- lib/packet/packet_parser.rb
+- lib/packet/packet_periodic_event.rb
+- lib/packet/packet_callback.rb
+- lib/packet/packet_worker.rb
+- lib/packet/packet_core.rb
+- lib/packet/packet_meta_pimp.rb
+- lib/packet/packet_mongrel.rb
+- lib/packet/packet_helper.rb
+- lib/packet/timer_store.rb
+- lib/packet/packet_event.rb
+- lib/packet/packet_nbio.rb
+- lib/packet.rb
+- lib/packet.rbc
+- lib/packet_mongrel.rb
+- examples/concurrent_thread.c
+- examples/sample_server.rb
+- examples/write_bulk.rb
+- examples/asteroid.h
+- examples/persistent_print.rb
+- examples/use_stuff.rb
+- examples/extconf.h
+- examples/asteroid.c
+- examples/extconf.rb
+- bin/packet_worker_runner
+has_rdoc: true
+homepage: http://code.google.com/p/packet/
+licenses: []
+
+post_install_message: 
+rdoc_options: []
+
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: 1.8.5
+  version: 
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+requirements: []
+
+rubyforge_project: 
+rubygems_version: 1.3.2
+signing_key: 
+specification_version: 2
+summary: Packet, A Pure Ruby library for Event Driven Network Programming.
+test_files: []
+
