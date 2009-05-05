@@ -21,7 +21,7 @@ module ActsAsItem
 
 				acts_as_xapian :texts => [:title, :description, :keywords_list]
 				
-				has_many :items
+				has_many :items, :as => :itemable, :dependent => :delete_all
 				has_many :workspaces, :through => :items
         belongs_to :user
 
@@ -36,6 +36,9 @@ module ActsAsItem
 				# Retrieve the results matching the Hash conditions passed
 				named_scope :advanced_on_fields,
 					lambda { |condition| { :conditions => condition }	}
+
+				named_scope :in_workspaces,
+					lambda { |workspace_ids| { :select => "DISTINCT *", :joins => "LEFT JOIN items ON (items.itemable_type = '#{self.class_name}' AND items.workspace_id IN ['1'])" } }
 
 				# Retrieve the results ordered following the paramaters given
 				named_scope :filtering_with,

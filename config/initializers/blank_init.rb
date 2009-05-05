@@ -25,10 +25,6 @@ LAYOUTS_AVAILABLE = ['application', 'app_fat_menu']
 
 SEARCH_FILTERS = ['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title']
 
-APPLICATION_ADMINS = ['paco@thinkdry.com', 'anup.nivargi@thinkdry.com',	'nagarjuna@thinkdry.com', 'sylvain@thinkdry.com',
-	'david.lehureau@thinkdry.com']
-APPLICATION_NAME = get_sa_config['sa_application_name']
-
 # Setting the locales files and the default language
 I18n.default_locale = "en-US"
 #I18n.locale = 'fr-FR'
@@ -43,3 +39,11 @@ LOCALES_DIRECTORY = "#{RAILS_ROOT}/config/locales"
 LANGUAGES.each do |l|
 	I18n.load_path << "#{LOCALES_DIRECTORY}/#{l}.yml"
 end
+
+APPLICATION_ADMINS = ['paco@thinkdry.com', 'anup.nivargi@thinkdry.com',	'nagarjuna@thinkdry.com', 'sylvain@thinkdry.com',
+	'david.lehureau@thinkdry.com']
+APPLICATION_NAME = get_sa_config['sa_application_name']
+
+ExceptionNotifier.exception_recipients = APPLICATION_ADMINS
+ExceptionNotifier.sender_address = 'admin@thinkdry.com'
+ExceptionNotifier.email_prefix = APPLICATION_NAME

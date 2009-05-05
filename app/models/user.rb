@@ -55,6 +55,7 @@ class User < ActiveRecord::Base
 
   has_many :groupings, :as => :groupable
   has_many :member_in, :through => :groupings, :source => :group
+  has_many :people
 
 	acts_as_xapian :texts => [:login, :firstname, :lastname]
 
@@ -117,6 +118,11 @@ class User < ActiveRecord::Base
   # We really need a Dispatch Chain here or something.
   # This will also let us return a human error message.
   #
+
+	named_scope :workspaces_with_permission,
+		lambda { |user_id, permission_name|
+		 { :joins => "LEFT JOIN users_workspaces ON users_workspaces.user_id = "}
+		}
   
   named_scope :latest,
     :order => 'created_at DESC',
@@ -221,7 +227,7 @@ class User < ActiveRecord::Base
 	end
 	 
 	def full_name
-		return self.lastname+" "+self.firstname
+		return self.lastname.to_s+" "+self.firstname.to_s
   end
 
 	def create_private_workspace
