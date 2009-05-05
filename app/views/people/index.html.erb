@@ -1,7 +1,15 @@
 
-<h2> <%= I18n.t('people.index.title') %> </h2> <%= link_to I18n.t('people.index.add_new_person'), new_person_path %> | <%= link_to I18n.t('people.index.import_people_from_csv'), import_people_people_path %> | <%= link_to I18n.t('people.index.export_people_to_csv') , export_people_people_path %>
+<h2> <%= I18n.t('people.index.title') %> </h2> <%= link_to I18n.t('people.index.add_new_person'), new_person_path %> | <%= link_to I18n.t('people.index.import_people_from_csv'), import_people_people_path %> 
 <br /><br />
 
 <div id="content">
   <%= render :partial => 'person' %>
 </div>
+
+<h2><%= I18n.t('people.index.export_people_to_csv') %> </h2>
+<% form_for :type, :url=>{:controller=>"people", :action=>"export_people"} do |f| -%>
+    <br />
+        <%= f.check_box :creation %> Created from back <br />
+        <%= f.check_box :imported_from_csv %> Imported from CSV <br /><br />
+       <%= submit_tag "Export" %>
+<% end %>
