@@ -5,10 +5,10 @@ class WorkspacesController < ApplicationController
   make_resourceful do
     actions :show, :create, :new, :edit, :update, :destroy
 
-    before :show do
+    after :show do
       no_permission_redirection unless @current_object && @current_object.accepts_show_for?(@current_user)
       params[:id] ||= params[:workspace_id]
-			params[:item_type] ||= (@current_object.ws_items.split(',') & @configuration['sa_items']).first.to_s.pluralize
+			params[:item_type] ||= get_allowed_item_types(@current_object).first.to_s.pluralize
 			@current_objects = get_items_list(params[:item_type], @current_object)
 			@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
     end
@@ -49,10 +49,6 @@ class WorkspacesController < ApplicationController
 			@roles = Role.find(:all, :conditions => { :type_role => 'system' })
       flash[:error] =I18n.t('workspace.edit.flash_error')
     end
-    after :show do
-			@current_object.ws_config.update_attributes(:ws_items => check_to_tab(:items).join(","), :ws_feed_items_importation_types => check_to_tab(:feed_items_importation_types).join(","))
-      flash[:notice] =I18n.t('workspace.edit.flash_notice')
-		end
 
 		response_for :destroy do |format|
 			format.html { redirect_to administration_user_url(@current_user.id) }
@@ -122,9 +118,11 @@ class WorkspacesController < ApplicationController
 	
   def ajax_show 
       params[:id] ||= params[:workspace_id]
-			params[:item_type] ||= (@current_object.ws_items.split(',') & @configuration['sa_items']).first.to_s.pluralize
+			params[:item_type] ||= get_allowed_item_types(current_workspace).first.to_s.pluralize
 			@current_objects = get_items_list(params[:item_type])
 			@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
-      render :partial=>"items/tab_list", :layout=>false
+      @i = 0
+			render :partial => "items/item_in_list" , :collection => @paginated_objects, :layout => false
+			#render :text => display_item_in_list(@paginated_objects), :layout => false
     end
 end

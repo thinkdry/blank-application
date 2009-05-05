@@ -9,7 +9,7 @@ autorequire:
 bindir: bin
 cert_chain: []
 
-date: 2008-08-03 00:00:00 +02:00
+date: 2008-08-03 00:00:00 +05:30
 default_executable: 
 dependencies: 
 - !ruby/object:Gem::Dependency 
@@ -3508,6 +3508,8 @@ files:
 - RUBY-TESTING
 has_rdoc: false
 homepage: http://rfeedparser.rubyforge.org/
+licenses: []
+
 post_install_message: 
 rdoc_options: []
 
@@ -3528,7 +3530,7 @@ required_rubygems_version: !ruby/object:Gem::Requirement
 requirements: 
 - Ruby bindings to the Expat XML parser or libxml2 (version 0.8.3 or greater)
 rubyforge_project: rfeedparser
-rubygems_version: 1.3.1
+rubygems_version: 1.3.2
 signing_key: 
 specification_version: 2
 summary: Parse RSS and Atom feeds in Ruby
