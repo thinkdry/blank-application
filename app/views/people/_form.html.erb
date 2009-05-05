@@ -27,6 +27,7 @@
     <%= f.text_field :web_page, :label => I18n.t('people.field.web_page_label') +" : " %>
     <%= f.text_area :notes, :size => "40x6", :label => I18n.t('people.field.notes_label') +" : "%>
     <%= f.check_box :newsletter ,:label => I18n.t('people.field.newsletter_lable')+" : "%>
+    <%= f.hidden_field :origin,:value=>"Creation"  %>
 	<% button_text = @person.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update') %>
     <button type="submit" class="submit_button"><%= button_text%></button>
   <% end %>

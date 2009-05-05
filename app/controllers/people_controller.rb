@@ -79,7 +79,7 @@ class PeopleController < ApplicationController
   def import_people
 
     unless request.get?
-      if !params[:people][:csv].blank? and File.extname(params[:people][:csv].original_filename) == '.csv'
+      if !params[:people].blank? and !params[:people][:csv].blank? and File.extname(params[:people][:csv].original_filename) == '.csv'
         begin
           @parsed_file=CSV::Reader.parse(params[:people][:csv]).to_a
           first_name =['first name','firstname','first-name','name','prénom']
@@ -148,6 +148,7 @@ class PeopleController < ApplicationController
               if !details['email'].nil? 
                 person = Person.new(details)
                 person.user_id = current_user.id
+                person.origin = "CSV importation"
                 if !person.validate_uniqueness_of_email || !person.save
                   @unsaved_emails << person.email
                 end
