@@ -1,6 +1,6 @@
 module ItemsHelper
 
-	 # Tag. Item's author is allowed to remove it by Ajax action.
+	# Tag. Item's author is allowed to remove it by Ajax action.
   def item_tag tag, editable = false
     content = tag.name
     content += link_to_remote(image_tag('icons/delete.png'),
@@ -51,7 +51,7 @@ module ItemsHelper
       block.binding
   end
 
-	##################"
+	##################
 
 	# Define the common fields of the form of an item
   def form_for_item(object, title = '', &block)
@@ -112,9 +112,10 @@ module ItemsHelper
 
 	# Displays the tabs link to items
   def display_tabs_items_list(item_type, items_list)
-		item_types = get_default_item_type(current_workspace)
+		item_types = get_allowed_item_types(current_workspace)
 		item_type ||= item_types.first.to_s.pluralize
     content = String.new
+		#raise item_types.inspect
 		if item_type.nil?
 			"No items type available"
 		else
@@ -154,11 +155,9 @@ module ItemsHelper
                             });
                       //]]>
                     </script>"
-        
 				content += content_tag(:li,	li_content,	options)
-		  end
-			content_tag(:ul, content, :id => :tabs)
-			display_items_list(items_list)
+			end
+			return content_tag(:ul, content, :id => :tabs) + display_items_list(items_list)
 		end
 	end
 
@@ -172,7 +171,8 @@ module ItemsHelper
 
 	# Displays the list of items
   def display_item_in_list(items_list, partial_used='items/item_in_list')
-	  render(:partial => partial_used, :collection => items_list)
+		@i = 0
+	  render :partial => partial_used, :collection => items_list
   end
 
 	def display_item_in_list_for_editor
@@ -180,7 +180,7 @@ module ItemsHelper
 	end
 
   def get_ajax_item_path(item_type)
-    item_type =  params[:item_type].nil? ? get_default_item_type(current_workspace) : params[:item_type]
+    item_type ||=  get_allowed_item_types(current_workspace).first.pluralize
     url = current_workspace ? ajax_items_path(item_type) +"&page=" : ajax_items_path(item_type) +"?page="
     return url
   end

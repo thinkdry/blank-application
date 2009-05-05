@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
-  
+
   def index
-		params[:item_type] ||= get_default_item_type
+		params[:item_type] ||= get_allowed_item_types(current_workspace).first.pluralize
 		@current_objects = get_items_list(params[:item_type])
 		@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
 		respond_to do |format|
@@ -13,10 +13,12 @@ class ItemsController < ApplicationController
   end
 
   def ajax_index
-		params[:item_type] ||= get_default_item_type
+		params[:item_type] ||= get_allowed_item_types(current_workspace).first.pluralize
 		@current_objects = get_items_list(params[:item_type])
 		@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
-    render :partial => "items/tab_list" , :layout => false
+    @i = 0
+		render :partial => "items/item_in_list" , :collection => @paginated_objects, :layout => false
+		#render :text => display_item_in_list(@paginated_objects), :layout => false
   end
 
 	# TODO do something clean, this is too much, take a look in the view to understand ...
@@ -27,7 +29,7 @@ class ItemsController < ApplicationController
     if params[:content] != 'all'
       params[:workspace_id] ||= session[:fck_item_type].classify.constantize.find(session[:fck_item_id]).workspaces.first.id
       @workspace = Workspace.find(params[:workspace_id])
-      params[:selected_item] = get_default_item_type(@workspace) if params[:selected_item].nil? || params[:selected_item] == 'all'
+      params[:selected_item] = get_allowed_item_types(@workspace).first.pluralize if params[:selected_item].nil? || params[:selected_item] == 'all'
       if !params[:workspace_id].to_s.blank?
         @current_objects = get_items_list(params[:selected_item], @workspace)
       else

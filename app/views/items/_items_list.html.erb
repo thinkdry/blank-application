@@ -1,19 +1,21 @@
 <div id="object-list">
 
   <%= render :partial => 'items/classify_bar' %>
-  <% @i = 0%>
-  <%= display_item_in_list(@paginated_objects) %>
+
+  <div id="content">
+    <%= display_item_in_list(@paginated_objects) %>
+  </div>
   
   <div id="pagination">
     <%= will_paginate @paginated_objects %>
     <%#= remote_pagination(@paginated_objects, searches_url+'?page=') %>
   </div>
-</div>
 
 <div class="other_output_format">
   <%= I18n.t('item.show.get_in_another_format')%>:
   <%= link_to_function image_tag('/images/icons/xml.png'), "params('format=xml')" %>
   <%= link_to_function image_tag('/images/icons/json.png'), "params('format=json')" %>
   <%= link_to_function image_tag('/images/icons/atom.png'), "params('format=atom')" %>
-  
+</div>
+
 </div>
