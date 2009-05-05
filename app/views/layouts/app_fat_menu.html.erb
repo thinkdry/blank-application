@@ -13,8 +13,9 @@
     <%= params[:action].capitalize if params[:action] != 'index' %>
     <%= params[:controller].capitalize %>
   </title>
-   <%= javascript_include_tag :all, :cache => true %>  
-  <script type='text/javascript' src='/prototip2.0.4/js/prototip.js'></script>
+   <%= javascript_include_tag :all, :cache => true %>
+   
+   <script type='text/javascript' src='/prototip2.0.4/js/prototip.js'></script>
   <%= calendar_date_select_includes %>
 </head>
 

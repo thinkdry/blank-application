@@ -80,7 +80,7 @@
 				</div>
 				<div class="headerTipCol">
 					<h3>Workspace</h3>
-					<div class="headerTipContent workspacesList">
+					<div class="headerTipContent">
 						<ul>
 						<% Workspace.allowed_user_with_permission(@current_user.id, 'workspace_show').each do |w| -%>
 							<li><%= link_to w.title, workspace_path(w)%></li>
@@ -116,8 +116,10 @@
 					<div class="headerTipCol smallCol">
 					<img src="/images/icons/search_128.png"/>
 					<p>Can't find what you searching for? Use advanced search</p>
-					<p></p>
-					<img src="/images/icons/advanced_search.png"/><a class="advanced_search" onclick="new Ajax.Updater('advanced_search', '/searches/print_advanced?search[category]='+$('search_category').value);"><%= I18n.t('layout.application.advanced_search') %></a>
+					<p>
+						<img src="/images/icons/advanced_search.png"/>
+						<a class="advanced_search" onclick="new Ajax.Updater('advanced_search', '/searches/print_advanced?search[category]='+$('search_category').value);"><%= I18n.t('layout.application.advanced_search') %></a>
+					</p>
 				</div>
 					<div class="fieldsetSimulation" id="searchFieldSet">
 					<% unless @hide_full_text_search %>

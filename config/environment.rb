@@ -45,11 +45,11 @@ Rails::Initializer.run do |config|
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   # config.gem "aws-s3", :lib => "aws/s3"
 	# For BackgroundRb
-	config.gem 'chronic', :version => '>=0.2.3', :lib => 'chronic'
+	#config.gem 'chronic', :version => '>=0.2.3', :lib => 'chronic'
 #		config.gem 'hoe', :version => '>=1.2.1', :lib => 'hoe'
 #			config.gem 'rubyforge', :version => '>=1.0.1'
 #			config.gem 'rake', :version => '>=0.8.3'
-	config.gem 'packet', :version => '>=0.1.14', :lib => 'packet'
+	#config.gem 'packet', :version => '>=0.1.14', :lib => 'packet'
 	config.gem 'rfeedparser', :version => '=0.9.951', :lib => 'rfeedparser'
 #		config.gem 'rchardet', :version => '>=1.1'
 #		config.gem 'hpricot', :version => '>=0.6'
@@ -59,8 +59,8 @@ Rails::Initializer.run do |config|
 #		config.gem 'mongrel', :version => '>=1.0.1'
 #		config.gem 'addressable', :version => '>=1.0.4', :lib => false
 	# for Savage Beast forum
-	config.gem 'fastercsv', :version => '>=1.4.0', :lib => 'fastercsv'
-	config.gem 'RedCloth', :version => '>=4.0.0', :lib => 'redcloth'
+#	config.gem 'fastercsv', :version => '>=1.4.0', :lib => 'fastercsv'
+	#config.gem 'RedCloth', :version => '>=4.0.0', :lib => 'redcloth'
 	
 
   # Only load the plugins named here, in the order given. By default, all plugins 

@@ -1,23 +1,8 @@
 <div class="area_LEFT">
-  <%= render :partial => 'users/workspaces' %>
-  <br />
-  <div id="area_INFOS">
-  	<h4><%= I18n.t('home.index.my_personnal_information')%></h4>
-     	  <%= image_tag @current_user.avatar.url(:thumb), :class => "avatar", :align => "right"%>
-     	<p><span class="label-txt"><%= I18n.t('user.field.location_label')%>  :</span> <span class="content-txt"><%= @current_user.company %></span></p>
-  	<p><span class="label-txt"><%= I18n.t('user.field.activity_label')%> : </span><span class="content-txt"><%= @current_user.activity %></span></p>
-	<br>
-  	<p><span class="label-txt"><%= I18n.t('user.field.email_label')%> :</span> <span class="content-txt"><%= @current_user.email %></span></p>
-  	<p><span class="label-txt"><%= I18n.t('user.field.phone_label')%> :</span> <span class="content-txt"><%= @current_user.phone %></span></p>
-  </div>
+  <%= render :partial => "items/top_box" %>
 </div>
-<div class="area_RIGHT">
-	<%= render :partial => "items/top_box" %>
+<div class="area_LEFT">
+	<%= render :partial => 'users/workspaces' %>
 </div>
 <div class="clear"></div>
-<br>
-<div class="pubmed"><%= link_to image_tag("/images/item_icons/feed_source.png")+I18n.t('home.index.show_my_feeds'), feed_sources_path %></div>
-<br /><br>
-<div class="area_BOTH">
-  <%= render :partial => "latest" %>
-</div>
+<%= render :partial => "latest" %>
