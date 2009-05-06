@@ -44,36 +44,47 @@ class PeopleController < ApplicationController
   end
 
   def export_people
-    @people = Person.find(:all,:conditions=>['user_id = ?',current_user.id])
-    @outfile = "people_" + Time.now.strftime("%m-%d-%Y") + ".csv"
-    csv_data = FasterCSV.generate do |csv|
-      csv << ["First name", "Last name", "Email", "Gender", "Primary phone", "Mobile phone", "Fax", "Street", "City", "Postal code", "Country", "Company", "Web page", "Job title", "Notes","Subscribed on","Updated at"]
-      @people.each do |person|
-        csv << [
-          person.first_name,
-          person.last_name,
-          person.email,
-          person.gender,
-          person.primary_phone,
-          person.mobile_phone,
-          person.fax,
-          person.street,
-          person.city,
-          person.postal_code,
-          person.country,
-          person.company,
-          person.web_page,
-          person.job_title,
-          person.notes,
-          person.created_at,
-          person.updated_at
-        ]
+    unless request.get?
+      if params[:type][:imported_from_csv] != "0" || params[:type][:creation] != "0"
+      filters = ''
+      filters = filters + "AND origin = 'CSV importation'"  if params[:type][:imported_from_csv] != "0"
+      filters = filters + ((params[:type][:imported_from_csv] != "0" && params[:type][:creation] != "0") ? " OR " : (params[:type][:creation] != "0" ? " AND " : ""))
+      filters = filters + "origin = 'Creation'" if params[:type][:creation] != "0"
+      @people = Person.find(:all,:conditions=>["user_id = ? #{filters}",current_user.id])
+      @outfile = "people_" + Time.now.strftime("%m-%d-%Y") + ".csv"
+      csv_data = FasterCSV.generate do |csv|
+        csv << ["First name", "Last name", "Email", "Gender", "Primary phone", "Mobile phone", "Fax", "Street", "City", "Postal code", "Country", "Company", "Web page", "Job title", "Notes","Newsletter","Salutation","Date of birth","Subscribed on","Updated at"]
+        @people.each do |person|
+          csv << [
+            person.first_name,
+            person.last_name,
+            person.email,
+            person.gender,
+            person.primary_phone,
+            person.mobile_phone,
+            person.fax,
+            person.street,
+            person.city,
+            person.postal_code,
+            person.country,
+            person.company,
+            person.web_page,
+            person.job_title,
+            person.notes,
+            person.newsletter,
+            person.salutation,
+            person.date_of_birth,
+            person.created_at,
+            person.updated_at
+          ]
+        end
+      end
+      send_data csv_data,
+        :type => 'text/csv; charset=iso-8859-1; header=present',
+        :disposition => "attachment; filename=#{@outfile}"
+      #    flash[:notice] = "Export complete!"
       end
     end
-    send_data csv_data,
-      :type => 'text/csv; charset=iso-8859-1; header=present',
-      :disposition => "attachment; filename=#{@outfile}"
-    #    flash[:notice] = "Export complete!"
   end
 
   def import_people
