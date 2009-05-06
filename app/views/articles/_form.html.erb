@@ -1,6 +1,10 @@
 <% form_for_item @current_object, title do |f| -%>
 
-  <%= f.advanced_editor(:body, :label => I18n.t('article.field.article_label')+ ' * :', :hint => I18n.t('article.field.article_hint')) %>
+  <% if @current_object.new_record? %>
+    <%= I18n.t('page.new.body_after_creation') %>
+  <% else %>
+    <%= f.advanced_editor(:body, :label => I18n.t('article.field.article_label')+ ' * :', :hint => I18n.t('article.field.article_hint')) %>
+  <% end %>
 
   <% f.field :article_files, :label => I18n.t('article.field.assosiated_file_label')+ ' :' do %>
     <div id="files">

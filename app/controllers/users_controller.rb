@@ -10,12 +10,12 @@ class UsersController < ApplicationController
 	def give_da_layout
 		if params[:action]== 'new' || params[:action]== 'forgot_password' || params[:action] == 'reset_password'
 			if logged_in?
-				return 'application'
+				return get_da_layout
 			else
 				return 'login'
 			end
 		else
-			return 'application'
+			return get_da_layout
 		end
 	end
 

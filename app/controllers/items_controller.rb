@@ -27,7 +27,9 @@ class ItemsController < ApplicationController
       params[:item_type] = 'all'
     end
     if params[:content] != 'all'
-      params[:workspace_id] ||= session[:fck_item_type].classify.constantize.find(session[:fck_item_id]).workspaces.first.id
+			# why params[:workspace_id] ???
+      params[:workspace_id] ||= session[:fck_item_type].classify.constantize.find(session[:fck_item_id]).workspaces.first
+			#raise params[:workspace_id].workspaces.size.inspect
       @workspace = Workspace.find(params[:workspace_id])
       params[:selected_item] = get_allowed_item_types(@workspace).first.pluralize if params[:selected_item].nil? || params[:selected_item] == 'all'
       if !params[:workspace_id].to_s.blank?

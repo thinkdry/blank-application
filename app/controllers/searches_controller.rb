@@ -3,6 +3,7 @@ class SearchesController < ApplicationController
   acts_as_ajax_validation
   
   def index
+		params[:search] ||= Search.new(:category => 'all')
 		# Initialisation : default params
 		if !params[:search][:models]
 			if (params[:search][:category] == 'all')

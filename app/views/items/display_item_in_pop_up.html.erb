@@ -2,11 +2,14 @@
 
 <% if params[:item_type] == 'all' %>
 | <% for ws in @current_user.workspaces %>
-  <%= link_to ws.title , '/display_content_list/'+get_allowed_item_types(ws).first.pluralize+'?workspace_id='+ws.id.to_s+'&item_type=all' %> |
+  <% if get_allowed_item_types(ws).first %>
+    <%= link_to ws.title , '/display_content_list/'+get_allowed_item_types(ws).first.pluralize+'?workspace_id='+ws.id.to_s+'&item_type=all' %> |
+  <% end %>
 <% end %>
 <%= link_to 'content','/display_content_list/'+get_allowed_item_types(nil).first.pluralize+'?content=all'+'&item_type=all' %>
 |
 <br />
+<br >
 <div id="item_type_link">
   |
   <%  for item in item_types_allowed_to(current_user, 'show',@workspace) %>
@@ -32,6 +35,11 @@
     <% @current_objects.each do |object| %>
       <%= image_tag "/images/item_icons/bookmark.png"%>
       <p><%= link_to_function object.title, "javascript:SelectFile('" + object.link + "')"  %> </p>
+    <% end %>
+<% elsif params[:selected_item] == "cms_file" %>
+    <% @current_objects.each do |object| %>
+      <%= image_tag "/images/item_icons/bookmark.png"%>
+      <p><%= link_to_function object.title, "javascript:SelectFile('" + object.cmsfile.url + "')"  %> </p>
     <% end %>
   <%else%>
     <% @current_objects.each do |object| %>
