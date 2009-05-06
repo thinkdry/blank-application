@@ -1,7 +1,8 @@
-<%= "#{object.login} (#{object.full_name})" %>
-<%= link_to 'show', user_path(object.id) %>
-<% if @current_user.has_system_role('superadmin') %>
-  <%= link_to 'edit', edit_user_path(object.id) %>
-  <%= link_to 'delete', user_path(object.id), :method => :delete, :confirm => 'Really ?' %>
-<% end %>
-<br ><br >
+<div class="user_item">
+	<%= "#{object.login} (#{object.full_name})" %>
+	<%= link_to image_tag('/images/icons/play.png', :width => "20"), user_path(object.id) %>
+	<% if @current_user.has_system_role('superadmin') %>
+	  <%= link_to image_tag('/images/icons/pencil.png', :width => "20"), edit_user_path(object.id) %>
+	  <%= link_to image_tag('/images/icons/delete.png', :width => "20"), user_path(object.id), :method => :delete, :confirm => 'Really ?' %>
+	<% end %>
+</div>
