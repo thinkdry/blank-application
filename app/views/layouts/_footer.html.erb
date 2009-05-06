@@ -2,7 +2,7 @@
       	<div id="search_middle">
       	<% unless @hide_full_text_search %>
             <% form_for :search, @search, :url => searches_path, :html => { :method => :get, :name => 'search' } do -%>				
-				<p>Search </p>
+				<p><%= I18n.t('layout.search.search_label')%></p>
 	            <%= text_field_tag "search[full_text_field]", (params[:search] ? params[:search][:full_text_field] : I18n.t('layout.search.search_label')), :class => "style_text", :onfocus => '$(this).select()' %>
 				<p><%= I18n.t 'general.common_word.in'%></p>
 	            <%= select_search_models %>

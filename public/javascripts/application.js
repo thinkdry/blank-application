@@ -111,13 +111,15 @@ function shiftLeft(removeOptions,addOptions,saveFlag)
 }
               
 function selectTab(idSelected){
+	
+//	if (ajax) {
+		//to_box is the id of the container div of the tabs.
+		var content = document.getElementById('top_box');
 		
-    var content = document.getElementById('top_box');
+		var HTMLNewContent = '<div width="100%" align="center"><img src="/images/ajax-loader.gif" align="center"/></div>';
 		
-    var HTMLNewContent = '<div width="100%" align="center"><img src="/images/ajax-loader.gif" align="center"/></div>';
-		
-    content.innerHTML = HTMLNewContent;
-		
+		content.innerHTML = HTMLNewContent;
+//	}
 		
     // get the container witch contains the tabs
     var tabsElement = document.getElementById('tabs');

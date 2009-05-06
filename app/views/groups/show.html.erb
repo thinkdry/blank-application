@@ -1,6 +1,5 @@
 <% item_show( :title => 'Group',  :object => @current_object ) do %>
 
-<br /><br />
 <div id="group_members">
     <h2><%= I18n.t('groups.index.members')  %> </h2>
         <ul>
@@ -9,6 +8,7 @@
         <% end %>
         </ul>
   </div>
-  <br /><br />
+
+  <%= link_to "Export this group to CSV", export_group_path(@current_object.id) %>
 
 <% end %>

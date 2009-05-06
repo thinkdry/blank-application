@@ -1,11 +1,11 @@
 <ul id="topMenu">
 	<li id="add">
-		<img src="/images/icons/white_down.png"/><div class="textWithImage">Add</div>
+		<img src="/images/icons/white_down.png"/><div class="textWithImage"><%= I18n.t('layout.menu.add') %></div>
 		<div id="addTip" style="display:none;">
 			<div class="headerTip headerTipOne">
 				<div class="headerTipCol smallCol">
 					<img src="/images/icons/add_128.png"/>
-					<p>This menu helps you to add content</p>
+					<p><%= I18n.t('layout.menu.add_help') %></p>
 				</div>
 
 				<div class="headerTipCol">
@@ -28,7 +28,7 @@
 					</div>
 				</div>
 				<div class="headerTipCol">
-					<h3>Other</h3>
+					<h3><%= I18n.t('layout.general.other') %></h3>
 					<div class="headerTipContent">
 						<ul>
 						<% if @current_user.has_system_permission('workspace', 'new') -%>
@@ -61,26 +61,27 @@
         </script>
 	</li>
 	<li id="display">
-		<img src="/images/icons/white_down.png"/><div class="textWithImage">Content</div>
+		<img src="/images/icons/white_down.png"/><div class="textWithImage"><%= I18n.t('layout.menu.content') %></div>
 		<div id="displayTip" style="display:none;">
 			<div class="headerTip headerTipTwo">
 				<div class="headerTipCol smallCol">
 					<img src="/images/icons/documents_128.png"/>
-					<p>This menu let you access to all your content</p>
+					<p><%= I18n.t('layout.menu.content_help') %></p>
 				</div>
 				<div class="headerTipCol">
-					<h3>Other</h3>
+					<h3><%= I18n.t('layout.general.other') %></h3>
 					<div class="headerTipContent">
 						<ul>
 							<li><%= link_to I18n.t('layout.application.home'), '/' %></li>
 							<li><%= link_to I18n.t('layout.application.content'), content_path('articles') %></li>
-							<li><%= link_to 'Subscribers', '/people' %></li>
+							<li><%= link_to I18n.t('layout.application.subscribers'), '/people' %></li>
+							<li><%= link_to I18n.t('layout.application.users'), '/users' %></li>
 						</ul>
 					</div>
 				</div>
 				<div class="headerTipCol">
-					<h3>Workspace</h3>
-					<div class="headerTipContent workspacesList">
+					<h3><%= I18n.t('layout.applicaton.workspaces') %></h3>
+					<div class="headerTipContent">
 						<ul>
 						<% Workspace.allowed_user_with_permission(@current_user.id, 'workspace_show').each do |w| -%>
 							<li><%= link_to w.title, workspace_path(w)%></li>
@@ -109,20 +110,22 @@
         </script>
 	</li>
 	<li id="search">
-		<img src="/images/icons/white_down.png"/><div class="textWithImage">Search</div>
+		<img src="/images/icons/white_down.png"/><div class="textWithImage"><%= I18n.t('layout.menu.search') %></div>
 		<div id="searchTip" style="display:none;">
 			<div class="headerTip headerTipTree">
 				<div id="searchTipContainer">
 					<div class="headerTipCol smallCol">
 					<img src="/images/icons/search_128.png"/>
-					<p>Can't find what you searching for? Use advanced search</p>
-					<p></p>
-					<img src="/images/icons/advanced_search.png"/><a class="advanced_search" onclick="new Ajax.Updater('advanced_search', '/searches/print_advanced?search[category]='+$('search_category').value);"><%= I18n.t('layout.application.advanced_search') %></a>
+					<p><%= I18n.t('layout.menu.search_help') %></p>
+					<p>
+						<img src="/images/icons/advanced_search.png"/>
+						<a class="advanced_search" onclick="new Ajax.Updater('advanced_search', '/searches/print_advanced?search[category]='+$('search_category').value);"><%= I18n.t('layout.application.advanced_search') %></a>
+					</p>
 				</div>
 					<div class="fieldsetSimulation" id="searchFieldSet">
 					<% unless @hide_full_text_search %>
 			            <% form_for :search, @search, :url => searches_path, :html => { :method => :get, :name => 'search' } do -%>
-							<label>Search for : </label>
+							<label><%=I18n.t('layout.search.search_label')%></label>
 							<div class="formElement">
 				              <%= text_field_tag "search[full_text_field]", (params[:search] ? params[:search][:full_text_field] : I18n.t('layout.search.search_label')), :class => "style_text", :onfocus => '$(this).select()' %>
 							 </div>
@@ -164,15 +167,15 @@
         </script>
 	</li>
 	<li id="configure">
-		<img src="/images/icons/white_down.png"/><div class="textWithImage">Configure</div>
+		<img src="/images/icons/white_down.png"/><div class="textWithImage"><%= I18n.t('layout.menu.configure') %></div>
 		<div id="configureTip" style="display:none;">		
 			<div class="headerTip headerTipFour">
 				<div class="headerTipCol smallCol">
 					<img src="/images/icons/settings_128.png"/>
-					<p>This menu helps you to change BA settings</p>
+					<p><%= I18n.t('layout.menu.configure_help') %></p>
 					<br/><br/>
 					<%if (available_languages.size > 1) -%>
-					<p>Change language:<%= select_languages %></p>
+					<p><%= I18n.t('layout.application.change_language')%><%= select_languages %></p>
 					<%end-%>
 					<p><%= link_to I18n.t('layout.application.logout'), '/logout' %></p>
 				</div>
@@ -180,11 +183,6 @@
 					<h3>Administration</h3>
 					<div class="headerTipContent">
 						<ul>
-							<% if current_user.has_system_permission('user', 'new') %>
-							<li>
-								<%= link_to I18n.t('user.new.add_user'), new_user_path %>
-							</li>
-							<% end %>
 							<li>
 								<%=I18n.t('user.administration.workspace_management')%>
 							</li>

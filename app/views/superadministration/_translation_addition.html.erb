@@ -1,5 +1,5 @@
 <fieldset>
-  <legend>Add a key in the translations files xs</legend>
+  <legend>Add a key in the translations files</legend>
 
   <% form_for :res, :url => translations_new_superadministration_path do |f| %>
 
@@ -14,6 +14,6 @@
 	  <div class="formElement"><%= text_field_tag "translations[#{l}]" %></div>
     <% end %>  
 
-    <%= f.submit %>
+    <div class="centerButton"><button type="submit" class="submit_button"><%=I18n.t('general.Button.add')%></button></div>
   <% end %>
 </fieldset>
