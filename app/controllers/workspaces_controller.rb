@@ -5,7 +5,7 @@ class WorkspacesController < ApplicationController
   make_resourceful do
     actions :show, :create, :new, :edit, :update, :destroy
 
-    after :show do
+    before :show do
       no_permission_redirection unless @current_object && @current_object.accepts_show_for?(@current_user)
       params[:id] ||= params[:workspace_id]
 			params[:item_type] ||= get_allowed_item_types(@current_object).first.to_s.pluralize

@@ -458,6 +458,8 @@ en-US:
       summary: Summary
       corrupted_file: Corrupted File
       comment: Comment(s)
+      no_item_types: No item types are available.
+      list_empty: That list is empty.
   page: 
     new: 
       title: Add a New Page

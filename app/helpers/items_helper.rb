@@ -116,8 +116,8 @@ module ItemsHelper
 		item_type ||= item_types.first.to_s.pluralize
     content = String.new
 		#raise item_types.inspect
-		if item_type.nil?
-			"No items type available"
+		if item_type.blank?
+			return I18n.t('item.common_word.no_item_types')
 		else
 			item_types.map{ |item| item.camelize }.each do |item_model|
      
@@ -162,10 +162,10 @@ module ItemsHelper
 	end
 
 	def display_items_list(items_list, partial_used='items/items_list')
-		if items_list
+		if items_list.first
 	    render :partial => partial_used
 		else
-			render :text => I18n.t('layout.search.no_result')
+			render :text => "<br /><br />"+I18n.t('item.common_word.list_empty')
 		end
 	end
 

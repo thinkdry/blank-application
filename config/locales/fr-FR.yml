@@ -475,6 +475,8 @@ fr-FR:
       summary: Sommaire
       corrupted_file: Fichier corrompu
       comment: Commentaire(s)
+      no_item_types: Aucun type d'item n'est disponible.
+      list_empty: Cette liste est vide.
   page: 
     new: 
       title: Ajouter une nouvelle page
