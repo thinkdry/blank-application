@@ -1,35 +1,37 @@
 <h1><%= I18n.t 'general.txt.select_a_file' %></h1>
+<% if params[:item_type] == 'all' %>
 <div class="popup_header">
 	<div class="popup_column_pic">
 		<img src="/images/icons/filter_128.png"/>
 	</div>
 	<div class="popup_column">
-		<% if params[:item_type] == 'all' %>
-			<p><%= I18n.t 'layout.popup.filter_help' %></p>
-			<br/>
-			<label><%= I18n.t 'layout.popup.filter_by_workspace' %>:</label>
-			<p>
-				<% for ws in @current_user.workspaces %>
-			  		<% if get_allowed_item_types(ws).first %>
-						<%= link_to ws.title , '/display_content_list/'+get_allowed_item_types(ws).first.pluralize+'?workspace_id='+ws.id.to_s+'&item_type=all' %> |
-				  	<% end %>
-				<% end %>
-				<%= link_to 'content','/display_content_list/'+get_allowed_item_types(nil).first.pluralize+'?content=all'+'&item_type=all' %>
-			</p>
-			
-			<label><%= I18n.t 'layout.popup.filter_by_item_type' %>:</label>
-			<p>
-			  	<%  for item in item_types_allowed_to(current_user, 'show',@workspace) %>
-			    	<% if params[:content]=='all' %>
-			      		<%= link_to item ,'/display_content_list/'+item.pluralize+'?item_type=all&content=all' %> |
-				    <% else %>
-			      		<%= link_to item ,'/display_content_list/'+item.pluralize+'?workspace_id='+params[:workspace_id].to_s+'&item_type=all' %> |
-				    <% end %>
-				<% end %>
-			</p>
-		<% end %>
+		<p><%= I18n.t 'layout.popup.filter_help' %></p>
+		<br/>
+		<label><%= I18n.t 'layout.popup.filter_by_workspace' %>:</label>
+		<p>
+			<% for ws in @current_user.workspaces %>
+		  		<% if get_allowed_item_types(ws).first %>
+					<%= link_to ws.title , '/display_content_list/'+get_allowed_item_types(ws).first.pluralize+'?workspace_id='+ws.id.to_s+'&item_type=all' %> |
+			  	<% end %>
+			<% end %>
+			<%= link_to 'content','/display_content_list/'+get_allowed_item_types(nil).first.pluralize+'?content=all'+'&item_type=all' %>
+		</p>
+		
+		<label><%= I18n.t 'layout.popup.filter_by_item_type' %>:</label>
+		<p>
+		  	<%  for item in item_types_allowed_to(current_user, 'show',@workspace) %>
+		    	<% if params[:content]=='all' %>
+		      		<%= link_to item ,'/display_content_list/'+item.pluralize+'?item_type=all&content=all' %> |
+			    <% else %>
+		      		<%= link_to item ,'/display_content_list/'+item.pluralize+'?workspace_id='+@workspace.id.to_s+'&item_type=all' %> |
+			    <% end %>
+			<% end %>
+		</p>
 	</div>
 </div>
+<%else%>
+	<img src="/images/icons/filter_128.png" width="20"/><%= link_to I18n.t ('layout.popup.display_all_picure'), '/display_content_list/images?content=all' %>
+<% end %>
 <h3><%= I18n.t('general.item.'+params[:selected_item].singularize).capitalize.pluralize %> <%=  params[:content] != 'all' ? I18n.t('general.common_word.of') +' '+@workspace.title : '' %> </h3>
 <div class="popup_item_list">
 		<% i=0 %>

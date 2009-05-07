@@ -1,8 +1,7 @@
 <fieldset>
-  <legend><%=I18n.t('user.new.title')%></legend>
+  <legend><%= image_tag(@current_object.avatar.url(:thumb), :class => "avatar")%><%=I18n.t('user.new.title')%></legend>
 
   <% form_for @current_object,:builder => BlankFormBuilder, :html => {:multipart=> true} do |f| -%>
-    <%= image_tag(@current_object.avatar.url(:thumb), :class => "avatar", :align => "right")%>
     <%= f.text_field :login, :label => I18n.t('user.field.login_label')+" * : ", :hint => I18n.t('user.field.login_hint') %>
     <%= f.text_field :email, :label => I18n.t('user.field.email_label')+" * : " %>
     <% if @current_object.new_record? %>
@@ -28,7 +27,7 @@
     <%= f.text_field :company, :label => I18n.t('user.field.location_label')+" : ", :hint => I18n.t('user.field.location_hint') %>
     <%= f.text_area :activity, :size => "40x6", :label => I18n.t('user.field.activity_label')+" : " %>
     <%= f.text_area :edito, :size => "40x6", :label => I18n.t('user.field.edito_label')+" : " %>
-    <%= I18n.t('user.field.newsletter_label')+" : " %> <%= check_box :user, :newsletter, { :checked => @user.newsletter }, "true", "false" %><br />
+    <label><%= I18n.t('user.field.newsletter_label')+" : " %></label><div class="formElement"><%= check_box :user, :newsletter, { :checked => @user.newsletter }, "true", "false" %></div>
     <% f.field :avatar, :label => I18n.t('user.field.photo_label')+" : " do %>
       <%= file_field 'user', 'avatar' %>
     <% end %>
