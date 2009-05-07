@@ -8,11 +8,11 @@
   <%= stylesheet_link_tag "middle.css" %>
  
   <link rel="stylesheet" type="text/css" href="/prototip2.0.4/css/prototip.css" />
-  <%= javascript_include_tag :all, :cache => true %>
+  <%= javascript_include_tag :all, :cache => 'application_all' %>
   <script type='text/javascript' src='/prototip2.0.4/js/prototip.js'></script>
   <%= calendar_date_select_includes %>
   <%#= stylesheet_link_tag "display.css", :plugin => 'aep_beast' %>
-  <%= javascript_include_tag "application.js", :plugin => 'aep_beast' %>
+  <%#= javascript_include_tag "application.js", :plugin => 'aep_beast' %>
   <title>
     <%= I18n.t 'layout.application.title' %> -
     <%= params[:action].capitalize if params[:action] != 'index' %>

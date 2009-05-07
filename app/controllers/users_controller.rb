@@ -35,7 +35,9 @@ class UsersController < ApplicationController
 				@search ||= Search.new
 				no_permission_redirection unless @current_object.accepts_new_for?(@current_user)
 			elsif is_allowed_free_user_creation?
-				
+				if @current_object.login
+          no_permission_redirection unless yacaph_validated?
+        end
 			else
 				no_permission_redirection
 			end

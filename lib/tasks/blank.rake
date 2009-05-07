@@ -223,7 +223,7 @@ namespace :blank do
 	task(:captcha => :environment) do
 		if !File.exists?(RAILS_ROOT+'/public/images/captcha/')
 			p "Generating the Catcha images ......"
-			system('rake yacaph:generate COUNT=25')
+			system('rake yacaph:generate COUNT=10')
 			p "done"
 		else
 			p "Captcha images already generated"
