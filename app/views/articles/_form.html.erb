@@ -1,7 +1,7 @@
 <% form_for_item @current_object, title do |f| -%>
 
   <% if @current_object.new_record? %>
-    <%= I18n.t('page.new.body_after_creation') %>
+     <div class="CommonMessage"><%= I18n.t('page.new.body_after_creation') %></div>
   <% else %>
     <%= f.advanced_editor(:body, :label => I18n.t('article.field.article_label')+ ' * :', :hint => I18n.t('article.field.article_hint')) %>
   <% end %>

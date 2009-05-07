@@ -61,7 +61,7 @@
         </script>
 	</li>
 	<li id="display">
-		<img src="/images/icons/white_down.png"/><div class="textWithImage"><%= I18n.t('layout.menu.content') %></div>
+		<img src="/images/icons/white_down.png"/><div class="textWithImage"><%= I18n.t('layout.menu.display') %></div>
 		<div id="displayTip" style="display:none;">
 			<div class="headerTip headerTipTwo">
 				<div class="headerTipCol smallCol">
@@ -80,7 +80,7 @@
 					</div>
 				</div>
 				<div class="headerTipCol">
-					<h3><%= I18n.t('layout.applicaton.workspaces') %></h3>
+					<h3><%= I18n.t('layout.application.workspaces') %></h3>
 					<div class="headerTipContent">
 						<ul>
 						<% Workspace.allowed_user_with_permission(@current_user.id, 'workspace_show').each do |w| -%>

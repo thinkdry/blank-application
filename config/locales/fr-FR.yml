@@ -14,6 +14,7 @@ fr-FR:
       password_label: "Entrez votre mot de passe et un lien de r\xC3\xA9activation de votre compte vous sera envoy\xC3\xA9 \xC3\xA0 votre adresse e-mail."
     administration: 
       user_management: Gestion des utilisateurs
+      list_title: Liste des utilisateurs
       title: Administration
       administrator: Administrateur
       workspace_management: Gestion de l'espace de travail
@@ -578,6 +579,10 @@ fr-FR:
       show_my_feeds: Montrer mes flux RSS
       feed_item: Flux
   layout: 
+    popup: 
+      filter_by_workspace: Filtrer par workspace
+      filter_by_item_type: Filtrer par type
+      filter_help: "Ce menu vous permet de filter la liste d'item affich\xC3\xA9e ci-dessous."
     general: 
       other: Autre
     search: 
@@ -603,6 +608,7 @@ fr-FR:
       filter_title: Titre
       item_category: Type d'item
     application: 
+      change_language: Changer la langue
       new_workspace: Nouvel espace de travail
       no_add_content: "Vous devez cr\xC3\xA9er un espace de travail ou poss\xC3\xA9der des droits dans un autre pour ajouter du contenu."
       administration: Administration
@@ -631,6 +637,7 @@ fr-FR:
       configure_help: "Ce menu vous permet de modifier les r\xC3\xA9glages de la BA"
       search_help: "Si vous ne trouvez pas ce que vous cherchez, utilisez la recherche avanc\xC3\xA9e"
       configure: Configurer
+      display: Afficher
       content: Contenu
       content_help: "Ce menu vous permet d'acc\xC3\xA9der \xC3\xA0 votre contenu"
       add_help: Ce menu vous permet d'ajouter du contenu

@@ -14,18 +14,18 @@
 	  <div id="footerBody">
 	  	<div class="footerCol">
 	  		<h3>Last Content</h3>
-			<%# Item.allowed_user_with_permission_in_workspaceseach do |l| %>
+			<%# Item.allowed_user_with_permission_in_workspaces.each do |l| %>
 				<p><%#= link_to l.title, item_path(l) %></p>
     		<%# end %>
 	  	</div>
 		<div class="footerCol">
 	  		<h3>configuration</h3>
 			<% if (available_languages.size > 1) -%>
-			<p><img src="/images/icons/lang.png"/>language : <%= select_languages %></p>
+			<p><%= I18n.t('layout.application.change_language')%>&nbsp;<%= select_languages %></p>
 			<%end-%>
 			<p><img src="/images/item_icons/rss_feed.png" width="20"/>rss subscription</p>
 			<p><a href="mailtp:contact@thinkdry.com">contact</a></p>
-			<p><%= link_to "My account", user_path(current_user) %></p>
+			<p><%= link_to I18n.t('layout.application.my_account'), user_path(current_user) %></p>
 			<p><%= link_to I18n.t('layout.application.logout'), '/logout' %></p>
 	  	</div>
 		<div class="footerCol">

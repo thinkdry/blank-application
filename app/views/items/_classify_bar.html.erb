@@ -1,4 +1,5 @@
 <div id="classify_bar">
+	<img src="/images/icons/filter.png" width="20"/>
     <% ['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title'].each do |filter| %>
       <%= I18n.t('layout.search.filter_'+filter) %>
 	  <% if (params[:filter_name] == filter && params[:filter_way] == 'asc') -%>
