@@ -35,7 +35,10 @@ class UsersController < ApplicationController
 				@search ||= Search.new
 				no_permission_redirection unless @current_object && @current_object.accepts_new_for?(@current_user)
 			elsif is_allowed_free_user_creation?
-				
+        # TODO double render in case captcha failing, remove make resourceful, refactoring
+				if @current_object.login # captcha just on create
+          render :action => 'new', :layout => 'login' unless yacaph_validated?
+        end
 			else
 				no_permission_redirection
 			end
@@ -94,9 +97,9 @@ class UsersController < ApplicationController
 				@current_object.system_role_id = Role.find_by_name('user').id
 			end
 			@current_object.save
-			if is_given_private_workspace && !Workspace.exists?(:creator_id => @current_object.id, :state => 'private')
-				@current_object.create_private_workspace
-			end
+#			if is_given_private_workspace && !Workspace.exists?(:creator_id => @current_object.id, :state => 'private')
+#				@current_object.create_private_workspace
+#			end
 			flash[:notice] = I18n.t('user.edit.flash_notice')
     end
 

@@ -32,6 +32,9 @@
       <%= file_field 'user', 'avatar' %>
     <% end %>
 	<% button_text = current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update') %>
+    <% if is_allowed_free_user_creation? && @current_object.new_record? && !@current_user %>
+      <%= yacaph_block %><br />
+    <% end %>
     <button type="submit" class="submit_button"><%= button_text%></button>
   <% end %>
 

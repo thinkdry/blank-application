@@ -310,6 +310,12 @@ class User < ActiveRecord::Base
     save(false)
   end
 
+  def create_reset_code
+    @reset = true
+    self.password_reset_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
+    save(false)
+  end
+
   protected
   # before filter
   def encrypt_password
@@ -326,11 +332,7 @@ class User < ActiveRecord::Base
     self.activation_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
   end
 
-	def create_reset_code
-    @reset = true
-    self.password_reset_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
-    save(false)
-  end
+	
   
   
 	
