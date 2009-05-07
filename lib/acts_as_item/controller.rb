@@ -26,6 +26,8 @@ module ActsAsItem
           end
 
           after :update do
+            session[:fck_item_id] = nil
+            session[:fck_item_type] = nil
             flash[:notice] = @current_object.class.label+' '+I18n.t('item.edit.flash_notice')
           end
           
@@ -34,21 +36,23 @@ module ActsAsItem
           end
 
           before :new, :create do
-            no_permission_redirection unless @current_object.accepts_new_for?(@current_user)
+            no_permission_redirection unless @current_object && @current_object.accepts_new_for?(@current_user)
           end
 
           before :show do
-            no_permission_redirection unless @current_object.accepts_show_for?(@current_user)
+            no_permission_redirection unless @current_object && @current_object.accepts_show_for?(@current_user)
 						@current_object.viewed_number = @current_object.viewed_number.to_i + 1
 						@current_object.save
           end
 
           before :edit, :update do
             no_permission_redirection unless @current_object.accepts_edit_for?(@current_user)
+						session[:fck_item_id] = @current_object.id
+            session[:fck_item_type] = @current_object.class.to_s
           end
 
           before :destroy do
-            no_permission_redirection unless @current_object.accepts_destroy_for?(@current_user)
+            no_permission_redirection unless @current_object && @current_object.accepts_destroy_for?(@current_user)
           end
 
           # Makes `current_user` as author for the current_object
@@ -88,6 +92,10 @@ module ActsAsItem
 						format.json { render :json => @current_objects }
 						format.atom { render :template => "#{params[:controller]}/index.atom.builder", :layout => false }
 	        end
+
+					response_for :destroy do |format|
+						format.html { redirect_to((ws=current_workspace) ? "/workspaces/#{ws.id}/#{@current_object.class.to_s.underscore.pluralize}" : "/content/#{@current_object.class.to_s.underscore.pluralize}") }
+					end
 					
         end
 

@@ -14,6 +14,12 @@ class ArticlesController < ApplicationController
 			end
 		end
 
+		response_for :create do |format|
+			format.html { redirect_to edit_item_path(@current_object) }
+			format.xml { render :xml => @current_object }
+			format.json { render :json => @current_object }
+		end
+
 	end
 
 	def removeFile

@@ -7,9 +7,20 @@ class PeopleController < ApplicationController
   acts_as_ajax_validation
 
   make_resourceful do
-    actions :show, :create, :new, :edit, :update, :destroy
+    actions :show, :new, :edit, :update, :destroy
+   
   end
 
+  def create
+    @person = Person.new(params[:person])
+    @person.user_id = current_user.id
+    if @person.validate_uniqueness_of_email && @person.save
+      redirect_to person_path(@person)
+    else
+      render :action=>'new'
+    end
+  end
+  
   def index
 
   end
@@ -22,9 +33,9 @@ class PeopleController < ApplicationController
   def filter
     @group = Group.find(params[:group_id]) if !params[:group_id].blank?
     options = ""
-    for mem in Group.members_to_subscribe(params[:start_with])
+    for mem in Group.members_to_subscribe(params[:start_with],current_user)
       if @group.nil? or !@group.members.include?(mem)
-        options = options+ "<option value = '#{mem.class.to_s.downcase}_#{mem.id}'>#{mem.email}</option>"
+        options = options+ "<option value = '#{mem.class.to_s.downcase}_#{mem.id.to_s}'>#{mem.email}</option>"
       end
     end
     render :update do |page|
@@ -33,42 +44,53 @@ class PeopleController < ApplicationController
   end
 
   def export_people
-    @people = Person.find(:all)
-    @outfile = "people_" + Time.now.strftime("%m-%d-%Y") + ".csv"
-    csv_data = FasterCSV.generate do |csv|
-      csv << ["First name", "Last name", "Email", "Gender", "Primary phone", "Mobile phone", "Fax", "Street", "City", "Postal code", "Country", "Company", "Web page", "Job title", "Notes","Subscribed on","Updated at"]
-      @people.each do |person|
-        csv << [
-          person.first_name,
-          person.last_name,
-          person.email,
-          person.gender,
-          person.primary_phone,
-          person.mobile_phone,
-          person.fax,
-          person.street,
-          person.city,
-          person.postal_code,
-          person.country,
-          person.company,
-          person.web_page,
-          person.job_title,
-          person.notes,
-          person.created_at,
-          person.updated_at
-        ]
+    unless request.get?
+      if params[:type][:imported_from_csv] != "0" || params[:type][:creation] != "0"
+      filters = ''
+      filters = filters + "AND origin = 'CSV importation'"  if params[:type][:imported_from_csv] != "0"
+      filters = filters + ((params[:type][:imported_from_csv] != "0" && params[:type][:creation] != "0") ? " OR " : (params[:type][:creation] != "0" ? " AND " : ""))
+      filters = filters + "origin = 'Creation'" if params[:type][:creation] != "0"
+      @people = Person.find(:all,:conditions=>["user_id = ? #{filters}",current_user.id])
+      @outfile = "people_" + Time.now.strftime("%m-%d-%Y") + ".csv"
+      csv_data = FasterCSV.generate do |csv|
+        csv << ["First name", "Last name", "Email", "Gender", "Primary phone", "Mobile phone", "Fax", "Street", "City", "Postal code", "Country", "Company", "Web page", "Job title", "Notes","Newsletter","Salutation","Date of birth","Subscribed on","Updated at"]
+        @people.each do |person|
+          csv << [
+            person.first_name,
+            person.last_name,
+            person.email,
+            person.gender,
+            person.primary_phone,
+            person.mobile_phone,
+            person.fax,
+            person.street,
+            person.city,
+            person.postal_code,
+            person.country,
+            person.company,
+            person.web_page,
+            person.job_title,
+            person.notes,
+            person.newsletter,
+            person.salutation,
+            person.date_of_birth,
+            person.created_at,
+            person.updated_at
+          ]
+        end
+      end
+      send_data csv_data,
+        :type => 'text/csv; charset=iso-8859-1; header=present',
+        :disposition => "attachment; filename=#{@outfile}"
+      #    flash[:notice] = "Export complete!"
       end
     end
-    send_data csv_data,
-      :type => 'text/csv; charset=iso-8859-1; header=present',
-      :disposition => "attachment; filename=#{@outfile}"
-    #    flash[:notice] = "Export complete!"
   end
 
   def import_people
 
     unless request.get?
-      if !params[:people][:csv].blank? and File.extname(params[:people][:csv].original_filename) == '.csv'
+      if !params[:people].blank? and !params[:people][:csv].blank? and File.extname(params[:people][:csv].original_filename) == '.csv'
         begin
           @parsed_file=CSV::Reader.parse(params[:people][:csv]).to_a
           first_name =['first name','firstname','first-name','name','prénom']
@@ -89,8 +111,6 @@ class PeopleController < ApplicationController
           cols_order =[]
           @parsed_file[0].each do |col|
             col = col.scan(/\w+/).to_s.downcase
-            puts ">>>>>>>>>>"
-            puts col
             if first_name.include?(col)
               cols_order << 'first_name'
             elsif last_name.include?(col)
@@ -139,7 +159,8 @@ class PeopleController < ApplicationController
               if !details['email'].nil? 
                 person = Person.new(details)
                 person.user_id = current_user.id
-                if !person.save
+                person.origin = "CSV importation"
+                if !person.validate_uniqueness_of_email || !person.save
                   @unsaved_emails << person.email
                 end
               end
@@ -171,6 +192,7 @@ class PeopleController < ApplicationController
 
   def get_people
     @people = Person.paginate(
+      :conditions =>['user_id = ?',current_user.id],
       :page => params[:page],
       :order => :email,
       :per_page => get_per_page_value

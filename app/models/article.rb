@@ -20,7 +20,7 @@ class Article < ActiveRecord::Base
   acts_as_item
 
   has_many :article_files, :dependent => :delete_all
-  validates_presence_of :body
+  validates_presence_of :body, :on => :update
   
   def new_file_attributes= file_attributes
     file_attributes.each do |file_path| 

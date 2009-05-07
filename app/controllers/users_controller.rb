@@ -10,12 +10,12 @@ class UsersController < ApplicationController
 	def give_da_layout
 		if params[:action]== 'new' || params[:action]== 'forgot_password' || params[:action] == 'reset_password'
 			if logged_in?
-				return 'application'
+				return get_da_layout
 			else
 				return 'login'
 			end
 		else
-			return 'application'
+			return get_da_layout
 		end
 	end
 
@@ -23,17 +23,17 @@ class UsersController < ApplicationController
     actions :all
 
     before :destroy do
-      no_permission_redirection unless @current_object.accepts_destroy_for?(@current_user)
+      no_permission_redirection unless @current_object && @current_object.accepts_destroy_for?(@current_user)
     end
 
     before :edit, :update do
-      no_permission_redirection unless @current_object.accepts_edit_for?(@current_user)
+      no_permission_redirection unless @current_object && @current_object.accepts_edit_for?(@current_user)
     end
 
     before :new, :create do
 			if logged_in?
 				@search ||= Search.new
-				no_permission_redirection unless @current_object.accepts_new_for?(@current_user)
+				no_permission_redirection unless @current_object && @current_object.accepts_new_for?(@current_user)
 			elsif is_allowed_free_user_creation?
 				if @current_object.login
           no_permission_redirection unless yacaph_validated?
@@ -44,7 +44,7 @@ class UsersController < ApplicationController
     end
 
     before :show do
-			no_permission_redirection unless @current_object.accepts_show_for?(@current_user)
+			no_permission_redirection unless @current_object && @current_object.accepts_show_for?(@current_user)
     end
 
 		before :index do

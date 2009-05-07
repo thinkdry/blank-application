@@ -110,14 +110,16 @@ function shiftLeft(removeOptions,addOptions,saveFlag)
     document.getElementById('selected_Options').value = selcted_Options;
 }
               
-function selectTab(idSelected){
+function selectTab(idSelected, ajax){
+
+	if (ajax==undefined) {
+		//to_box is the id of the container div of the tabs, where content is displayed.
+		var content = document.getElementById('top_box');
 		
-    var content = document.getElementById('top_box');
+		var HTMLNewContent = '<div width="100%" align="center"><img src="/images/ajax-loader.gif" align="center"/></div>';
 		
-    var HTMLNewContent = '<div width="100%" align="center"><img src="/images/ajax-loader.gif" align="center"/></div>';
-		
-    content.innerHTML = HTMLNewContent;
-		
+		content.innerHTML = HTMLNewContent;
+	}
 		
     // get the container witch contains the tabs
     var tabsElement = document.getElementById('tabs');
@@ -134,6 +136,22 @@ function selectTab(idSelected){
 			}	
 		}
 	}
+	
+function selectItemTab(idSelected){
+		
+    // get the tabs links on witch we should change the class
+    var tabsElements = document.getElementById('tabs').getElementsByTagName('li');
+		
+		for (var i = 0 ; i < tabsElements.length ; ++i){
+			if (tabsElements[i].id == idSelected){
+				tabsElements[i].className = 'selected';	
+			}
+			else{
+				tabsElements[i].className = '';
+			}	
+		}
+	}
+	
 	
 	//display the good tiem in a item list, google way of displaying.
 	function toggleAccordion(idClicked){
@@ -170,16 +188,10 @@ function selectTab(idSelected){
 
   // To add or replace a filter in the current url and reload the page
   function params_filter(parent_id){
-    var f = ['viewed_number', 'rates_average', 'created_at', 'top_rank'];
-    if (window.location.href.indexOf('?') > 1 ){
-      for(var i=0; i < f.length; i++)
-      {
-        if (window.location.href.indexOf(f[i]) > 1) {
-          window.location.href = window.location.href.replace(f[i],parent_id);
-        }
-      }
-    }else{
-      window.location.href = window.location.href + "?filter=" + parent_id ;
+    if (window.location.href.indexOf('?') > 1 ) {
+      window.location.href = window.location.href.split('?')[0] + "?" + parent_id ;
+    } else {
+      window.location.href = window.location.href + "?" + parent_id ;
     }
   }
 

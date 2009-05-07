@@ -36,10 +36,9 @@
   <div class="area_top_five">
 	<%= render :partial => "workspaces/top_five"%>
   </div>
+<% end %>
 
-  <div class="area_BOTH">
-    <%= render :partial => "items/tab_list", :object =>  @current_object %>
-  </div>
-<% else %>
-    No item types available.
-  <% end %>
+<div class="area_BOTH">
+  <%= display_tabs_items_list(params[:item_type], @paginated_objects) %>
+</div>
+

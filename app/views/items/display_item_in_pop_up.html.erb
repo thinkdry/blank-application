@@ -1,39 +1,83 @@
 <h1><%= I18n.t 'general.txt.select_a_file' %></h1>
-
-<% if params[:item_type]=="images" || params[:item_type] =="videos" %>
-  <% @current_objects.each do |object| %>
-    <%= image_tag object.media_type.url(:thumb)  %>
-    <%= link_to_function object.title,"javascript:SelectFile('" + object.media_type.url + "')"  %> <br> <br>
-  <% end %>
-<% else %>
-  <div id="item_type_link">
-    <b>
-      <%= link_to 'Articles', '/display_content_list/all'%> |
-      <%= link_to 'Bookmarks', '/display_content_list/bookmark'%> |
-      <%= link_to 'Audios', '/display_content_list/audio'%> |
-      <%= link_to 'Feeds', '/display_content_list/feed_source'%> |
-      <%= link_to 'Files', '/display_content_list/cms_file'%> |
-      <%= link_to 'Videos', '/display_content_list/video'%> |
-      <%= link_to 'Images', '/display_content_list/image'%> |
-    </b><br /><br />
-  </div>
-  <%if params[:item_type]=="all" %>
-    <h3>Articles</h3>
-    <% @current_objects.articles.each do |object| %>
-      <%= image_tag "/images/item_icons/article.png"%>
-      <p><%= link_to_function object.title,"javascript:SelectFile('" + item_path(object) + "')"  %></p>
-    <% end %>
-  <% elsif params[:item_type]== "bookmark" %>
-    <% @current_objects.each do |object| %>
-      <%= image_tag "/images/item_icons/bookmark.png"%>
-      <p><%= link_to_function object.title, "javascript:SelectFile('" + object.link + "')"  %> </p>
-    <% end %>
-  <%else%>
-    <h3><%= params[:item_type].capitalize %></h3>
-    <% @current_objects.each do |object| %>
-      <%= image_tag "/images/item_icons/"+params[:item_type].downcase+".png"%>
-      <p><%= link_to_function object.title,"javascript:SelectFile('" + item_path(object) + "')" %></p>
-    <% end%>
-  <%end%>
-<% end %>
-
+<div class="popup_header">
+	<div class="popup_column_pic">
+		<img src="/images/icons/filter_128.png"/>
+	</div>
+	<div class="popup_column">
+		<% if params[:item_type] == 'all' %>
+			<p><%= I18n.t 'layout.popup.filter_help' %></p>
+			<br/>
+			<label><%= I18n.t 'layout.popup.filter_by_workspace' %>:</label>
+			<p>
+				<% for ws in @current_user.workspaces %>
+			  		<% if get_allowed_item_types(ws).first %>
+						<%= link_to ws.title , '/display_content_list/'+get_allowed_item_types(ws).first.pluralize+'?workspace_id='+ws.id.to_s+'&item_type=all' %> |
+				  	<% end %>
+				<% end %>
+				<%= link_to 'content','/display_content_list/'+get_allowed_item_types(nil).first.pluralize+'?content=all'+'&item_type=all' %>
+			</p>
+			
+			<label><%= I18n.t 'layout.popup.filter_by_item_type' %>:</label>
+			<p>
+			  	<%  for item in item_types_allowed_to(current_user, 'show',@workspace) %>
+			    	<% if params[:content]=='all' %>
+			      		<%= link_to item ,'/display_content_list/'+item.pluralize+'?item_type=all&content=all' %> |
+				    <% else %>
+			      		<%= link_to item ,'/display_content_list/'+item.pluralize+'?workspace_id='+params[:workspace_id].to_s+'&item_type=all' %> |
+				    <% end %>
+				<% end %>
+			</p>
+		<% end %>
+	</div>
+</div>
+<h3><%= I18n.t('general.item.'+params[:selected_item].singularize).capitalize.pluralize %> <%=  params[:content] != 'all' ? I18n.t('general.common_word.of') +' '+@workspace.title : '' %> </h3>
+<div class="popup_item_list">
+		<% i=0 %>
+		<% if params[:selected_item]=="images" || params[:selected_item] =="videos" %>
+			
+		    <% @current_objects.each do |object| %>
+				<% if i%2 == 0 -%>
+					<div class="list_alternate">
+				<% else -%>
+					<div class="list">
+				<% end -%>
+		    		<%= link_to_function object.title,"javascript:SelectFile('" + object.media_type.url + "')"  %>
+				</div>
+				<% i= i+1%>
+			<% end %>
+		<% elsif params[:selected_item] == "bookmark" %>
+		    <% @current_objects.each do |object| %>
+				<% if i%2 == 0 -%>
+					<div class="list_alternate">
+				<% else -%>
+					<div class="list">
+				<% end -%>
+		      		<%= link_to_function object.title, "javascript:SelectFile('" + object.link + "')"  %>
+				</div>
+				<% i= i+1%>
+		    <% end %>
+		<% elsif params[:selected_item] == "cms_file" %>
+		    <% @current_objects.each do |object| %>
+				<% if i%2 == 0 -%>
+					<div class="list_alternate">
+				<% else -%>
+					<div class="list">
+				<% end -%>
+			      <%= link_to_function object.title, "javascript:SelectFile('" + object.cmsfile.url + "')"  %>
+				</div>
+				<% i= i+1%>
+		    <% end %>
+		<%else%>
+		    <% @current_objects.each do |object| %>
+				<% if i%2 == 0 -%>
+					<div class="list_alternate">
+				<% else -%>
+					<div class="list">
+				<% end -%>
+		      		<%= link_to_function object.title,"javascript:SelectFile('" + item_path(object) + "')" %>
+				</div>
+				<% i= i+1%>
+		    <% end%>
+		<%end%>
+	</div>
+</div>

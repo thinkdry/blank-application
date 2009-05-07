@@ -55,6 +55,7 @@ class User < ActiveRecord::Base
 
   has_many :groupings, :as => :groupable
   has_many :member_in, :through => :groupings, :source => :group
+  has_many :people
 
 	acts_as_xapian :texts => [:login, :firstname, :lastname]
 
@@ -94,13 +95,13 @@ class User < ActiveRecord::Base
   validates_format_of       :firstname, 
     :lastname,
     :company,
-    :with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL})+\Z/
+    :with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL})+\Z/, :allow_blank => true
 			  
-  validates_format_of       :address, :with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL}|#{NUM})+\Z/
+  validates_format_of       :address, :with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL}|#{NUM})+\Z/, :allow_blank => true
   
   validates_format_of       :phone, 
     :mobile,
-    :with => /\A(#{NUM}){10}\Z/
+    :with => /\A(#{NUM}){10}\Z/, :allow_blank => true
   
 
 	before_save :encrypt_password
@@ -117,6 +118,11 @@ class User < ActiveRecord::Base
   # We really need a Dispatch Chain here or something.
   # This will also let us return a human error message.
   #
+
+	named_scope :workspaces_with_permission,
+		lambda { |user_id, permission_name|
+		 { :joins => "LEFT JOIN users_workspaces ON users_workspaces.user_id = "}
+		}
   
   named_scope :latest,
     :order => 'created_at DESC',
@@ -146,7 +152,6 @@ class User < ActiveRecord::Base
 	def currently_online
 			true
 	end 
-
 
 	def system_role
 		return Role.find(self.system_role_id)
@@ -222,7 +227,7 @@ class User < ActiveRecord::Base
 	end
 	 
 	def full_name
-		return self.lastname+" "+self.firstname
+		return self.lastname.to_s+" "+self.firstname.to_s
   end
 
 	def create_private_workspace

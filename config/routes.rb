@@ -52,7 +52,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users, :member => { :administration => :any }, :collection => { :autocomplete_on => :any }
 	map.resource :session, :member => { :change_language => :any }
 	map.resources :people, :collection => {:export_people=>:any, :import_people => :any,:ajax_index => :get,:get_empty_csv => :get }
-  
+
+  map.export_group '/export_group/:id', :controller => 'groups', :action => 'export_group'
 	map.general_changing_superadministration 'superadministration/general_changing', :controller => 'superadministration', :action => 'general_changing'
 	map.check_color_superadministration 'superadministration/check_color', :controller => 'superadministration', :action => 'check_color'
 	map.colors_changing_superadministration 'superadministration/colors_changing', :controller => 'superadministration', :action => 'colors_changing'
@@ -92,7 +93,7 @@ ActionController::Routing::Routes.draw do |map|
 	#map.resources :feed_items
 	map.content '/content/:item_type', :controller => 'items', :action => 'index'
   map.ajax_content '/ajax_content/:item_type', :controller => 'items', :action => 'ajax_index'
-  map.display_content_list '/display_content_list/:item_type', :controller => 'items', :action => 'display_item_in_pop_up'
+  map.display_content_list '/display_content_list/:selected_item', :controller => 'items', :action => 'display_item_in_pop_up'
 	
   # Items created outside any workspace are private or fully public.
   # Items may be acceded by a list that gives all items the user can consult.
