@@ -105,7 +105,7 @@ ActionController::Routing::Routes.draw do |map|
     workspaces.content '/:item_type', :controller => 'workspaces', :action => 'show', :conditions => { :method => :get }
     items_resources(workspaces)
   end
-  map.workspace_ajax_content 'workspace_ajax_content', :controller => 'workspaces', :action => 'ajax_show', :conditions => { :method => :get }
+  map.workspace_ajax_content 'workspace_ajax_content', :controller => 'workspaces', :action => 'ajax_content', :conditions => { :method => :get }
   # Project management
   #map.resources :projects  do |projects|
   #  projects.resources :meetings do |meetings|

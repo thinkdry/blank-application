@@ -111,7 +111,7 @@ module ItemsHelper
 	end
 
 	# Displays the tabs link to items
-  def display_tabs_items_list(item_type, items_list)
+  def display_tabs_items_list(item_type, items_list, ajax_url)
 		item_types = get_allowed_item_types(current_workspace)
 		item_type ||= item_types.first.to_s.pluralize
     content = String.new
@@ -135,7 +135,7 @@ module ItemsHelper
         tip_option[:style] = "display:none;"
         tip_option[:class] = "tipTitle"
         
-        li_content += link_to_remote(image_tag(item_model.classify.constantize.icon_48),:method=>:get, :update => "content", :url => url, :before => "selectItemTab('" + item_model.underscore + "')")
+        li_content += link_to_remote(image_tag(item_model.classify.constantize.icon_48),:method=>:get, :update => "object-list", :url => url, :before => "selectItemTab('" + item_model.underscore + "')")
         li_content += content_tag(:div, item_model.classify.constantize.label , tip_option)
         li_content += "<script type='text/javascript'>
                       //<![CDATA[
@@ -157,13 +157,13 @@ module ItemsHelper
                     </script>"
 				content += content_tag(:li,	li_content,	options)
 			end
-			return content_tag(:ul, content, :id => :tabs) + display_items_list(items_list)
+			return content_tag(:ul, content, :id => :tabs) + display_items_list(items_list, ajax_url)
 		end
 	end
 
-	def display_items_list(items_list, partial_used='items/items_list')
+	def display_items_list(items_list, ajax_url, partial_used='items/items_list')
 		if items_list.first
-	    render :partial => partial_used
+	    render :partial => partial_used, :locals => { :ajax_url => ajax_url }
 		else
 			render :text => "<br /><br />"+I18n.t('item.common_word.list_empty')
 		end

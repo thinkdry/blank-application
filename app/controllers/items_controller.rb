@@ -17,7 +17,7 @@ class ItemsController < ApplicationController
 		@current_objects = get_items_list(params[:item_type])
 		@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
     @i = 0
-		render :partial => "items/item_in_list" , :collection => @paginated_objects, :layout => false
+		render :partial => "items/items_list", :layout => false, :locals => { :ajax_url => '/ajax_content/'+params[:item_type] }
 		#render :text => display_item_in_list(@paginated_objects), :layout => false
   end
 

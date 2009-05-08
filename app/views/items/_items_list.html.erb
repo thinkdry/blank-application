@@ -7,8 +7,8 @@
   </div>
   
   <div id="pagination">
-    <%= will_paginate @paginated_objects %>
-    <%#= remote_pagination(@paginated_objects, searches_url+'?page=') %>
+    <%#= will_paginate @paginated_objects %>
+    <%= remote_pagination(@paginated_objects, ajax_url,  'object-list') %>
   </div>
 
 <div class="other_output_format">
