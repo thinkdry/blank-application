@@ -3,7 +3,7 @@ namespace :blank do
 	desc "Initializing Blank Engine"
 	task(:init => :environment) do
 		p "===== ENVIRONMENT : "+RAILS_ENV
-		#Rake::Task['blank:captcha'].invoke
+		Rake::Task['blank:captcha'].invoke
 		Rake::Task['db:migrate'].invoke
 		Rake::Task['blank:xapian_create'].invoke
 		p "Restarting BackgroundRB daemon ..."
@@ -221,12 +221,18 @@ namespace :blank do
 
 	desc "Checking Captcha images"
 	task(:captcha => :environment) do
-		if !File.exists?(RAILS_ROOT+'/public/images/captcha/')
+		if File.exists?(RAILS_ROOT+'/public/images/captcha/')
+			if Dir.entries(RAILS_ROOT+'/public/images/captcha/').size < 10
+				p "Generating the Catcha images ......"
+				system('rake yacaph:generate COUNT=10')
+				p "done"
+			else
+				p "Captcha images already generated"
+			end
+		else
 			p "Generating the Catcha images ......"
 			system('rake yacaph:generate COUNT=10')
 			p "done"
-		else
-			p "Captcha images already generated"
 		end
 	end
 

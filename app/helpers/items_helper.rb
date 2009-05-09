@@ -179,10 +179,26 @@ module ItemsHelper
 		display_item_list('items/item_in_list_for_editor')
 	end
 
+	def display_classify_bar(ordering_fields_list, ajax_url, refreshed_div, partial_used='items/classify_bar')
+		render :partial => partial_used, :locals => {
+				:ordering_fields_list => ordering_fields_list,
+				:ajax_url => ajax_url,
+				:refreshed_div => refreshed_div
+		}
+	end
+
   def get_ajax_item_path(item_type)
     item_type ||=  get_allowed_item_types(current_workspace).first.pluralize
     url = current_workspace ? ajax_items_path(item_type) +"&page=" : ajax_items_path(item_type) +"?page="
     return url
   end
+
+	def safe_url(url, params)
+		# TODO generic allowing to replace params in url
+		# trick, work just for classify_bar case
+		prev_params = (a=request.url.split('?')).size > 1 ? '?'+a.last : ''
+		#raise request.url.split('?').size.inspect
+		return (url+prev_params).split(params.first.split('=').first).first + ((url+prev_params).include?('?') ? '&' : '?') +params.join('&')
+	end
 	
 end

@@ -50,7 +50,7 @@ class UsersController < ApplicationController
 
 		before :index do
 			# TODO : check in the controller
-			no_permission_redirection unless @current_user.has_system_role('superadmin')
+			no_permission_redirection unless @current_object && @current_user.has_system_role('superadmin')
 			@current_objects = current_objects.paginate(
 					:page => params[:page],
 					:order => :title,
