@@ -5,7 +5,7 @@ class WorkspacesController < ApplicationController
   make_resourceful do
     actions :show, :create, :new, :edit, :update, :destroy
 
-    after :show do
+    before :show do
       no_permission_redirection unless @current_object && @current_object.accepts_show_for?(@current_user)
       params[:id] ||= params[:workspace_id]
 			params[:item_type] ||= get_allowed_item_types(@current_object).first.to_s.pluralize
@@ -115,14 +115,14 @@ class WorkspacesController < ApplicationController
 		end
 	end
 
-	
-  def ajax_show 
+  def ajax_content
       params[:id] ||= params[:workspace_id]
+			@current_object = Workspace.find(params[:id])
 			params[:item_type] ||= get_allowed_item_types(current_workspace).first.to_s.pluralize
-			@current_objects = get_items_list(params[:item_type])
+			@current_objects = get_items_list(params[:item_type], @current_object)
 			@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
       @i = 0
-			render :partial => "items/item_in_list" , :collection => @paginated_objects, :layout => false
+			render :partial => "items/items_list", :locals => { :ajax_url => ajax_items_path(params[:item_type]) }, :layout => false
 			#render :text => display_item_in_list(@paginated_objects), :layout => false
     end
 end

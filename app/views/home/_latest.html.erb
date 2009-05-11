@@ -1,4 +1,4 @@
-<a href="#" id="items_link" class="blok" onclick="Effect.toggle('items', 'Appear'); return false;"><%=I18n.t('home.index.latest_activity')%></a>
+<!--a href="#" id="items_link" class="blok" onclick="Effect.toggle('items', 'Appear'); return false;"><%=I18n.t('home.index.latest_activity')%></a>
 <div id="items" style="display:none; width:600px;">
   <div class="lift_items">
     <% @latest_items.each do |l|%>
@@ -52,4 +52,24 @@
 		</p>
     <%end%>
   </div>
+</div-->
+<div class="area_LEFT">
+	<h1><%=I18n.t('home.index.latest_user')%></h1>
+	<%@latest_users.each do |u|%>
+		<p>
+			<%= image_tag 'icons/user_48.png', :width => "24" %>
+			<%=	link_to_user(u) %>
+			<%= I18n.t('general.common_word.on1') %> <%= I18n.l u.created_at, :format => :long %>
+		</p>
+	<%end%>
+</div>
+<div class="area_LEFT">
+	<h1><%=I18n.t('home.index.latest_workspace')%></h1>
+	<%@latest_ws.each do |ws|%>
+		<p>
+			<%= image_tag 'icons/workspace_48.png', :width => "24" %>
+				<%= link_to_workspace(ws) %>
+			<%= I18n.t('general.common_word.on1') %> <%= I18n.l ws.created_at, :format => :long %>
+		</p>
+	<%end%>
 </div>

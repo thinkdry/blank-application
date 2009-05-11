@@ -7,9 +7,9 @@
         feed_items = FeedItem.consultable_by(current_user.id)
 	end
  %>
-<ul id="top_elems" class="subsection_tabs without_img">  
+<ul id="top_elems" class="subsection_tabs">  
 	<li class="tabs" id="commented">
-		<a href="#one"><%= image_tag('/images/icons/comments.png')%></a>
+		<a href="#one"><%= image_tag('/images/icons/comments_48.png')%></a>
 		<div id="commented_tip" style="display:none;" class="tipTitle"><%=I18n.t('home.index.most_commented')%></div>
 		<script type='text/javascript'>
                       //<![CDATA[
@@ -31,7 +31,7 @@
                     </script>
 	</li>
     <li class="tabs" id="rated">
-    	<a href="#two"><%= image_tag('/images/icons/rate.png')%></a>
+    	<a href="#two"><%= image_tag('/images/icons/rate_48.png')%></a>
 		<div id="rated_tip" style="display:none;" class="tipTitle"><%=I18n.t('home.index.best_rated')%></div>
 		<script type='text/javascript'>
                       //<![CDATA[
@@ -53,7 +53,7 @@
                     </script>
 	</li>
     <li class="tabs" id="feed">
-    	<a href="#three"><%= image_tag('/images/item_icons/feed_source.png')%></a>
+    	<a href="#three"><%= image_tag('/images/item_icons/feed_source_48.png')%></a>
 		<div id="feed_tip" style="display:none;" class="tipTitle"><%=I18n.t('home.index.feed_item')%></div>
 		<script type='text/javascript'>
                       //<![CDATA[

@@ -1,17 +1,18 @@
 <div id="classify_bar">
-    <% ['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title'].each do |filter| %>
+	<img src="/images/icons/filter.png" width="20"/>
+    <% ordering_fields_list.each do |filter| %>
       <%= I18n.t('layout.search.filter_'+filter) %>
 	  <% if (params[:filter_name] == filter && params[:filter_way] == 'asc') -%>
 	    <%= image_tag('/images/icons/asc_selected.png', :width => '10') %>
 	  <% else -%>
       	<%= link_to_function image_tag('/images/icons/asc.png', :width => '10'),
-			 "params_filter('filter_name=#{filter}&filter_way=asc')" %>
+			 "new Ajax.Updater('#{refreshed_div}', '#{safe_url(ajax_url, ["filter_name=#{filter}", "filter_way=asc"])}', {method:'get', asynchronous:true, evalScripts:true})" %>
 	  <% end -%>
 	  <% if (params[:filter_name] == filter && params[:filter_way] == 'desc') -%>
 	  	<%= image_tag('/images/icons/desc_selected.png', :width => '10')%>
 	  <% else -%>
         <%= link_to_function image_tag('/images/icons/desc.png', :width => '10'),
-              "params_filter('filter_name=#{filter}&filter_way=desc')" %>
+              "new Ajax.Updater('#{refreshed_div}', '#{safe_url(ajax_url, ["filter_name=#{filter}", "filter_way=desc"])}', {method:'get', asynchronous:true, evalScripts:true})" %>
 	  <% end -%>
     <% end %>
 </div>

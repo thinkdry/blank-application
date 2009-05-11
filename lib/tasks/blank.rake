@@ -242,24 +242,33 @@ namespace :blank do
   end
   p"------>>> Ready to Launch Blank <<<------"
 
-  desc "Building Xapian indexes"
-  task(:xapian_create => :environment) do
-    p "Building Xapian indexes ......"
-    system("rake xapian:rebuild_index models='#{ITEMS.map{ |e| e.camelize }.join(' ')} User Workspace'")
-    #Rake::Task['xapian:rebuild_index'].invoke("models=\"#{ITEMS.map{ |e| e.camelize }.join(' ')} User Workspace\"")
-    p "Done"
-  end
 
-  desc "Checking Captcha images"
-  task(:captcha => :environment) do
-    if !File.exists?(RAILS_ROOT+'/public/images/captcha/')
-      p "Generating the Catcha images ......"
-      system('rake yacaph:generate COUNT=25')
-      p "done"
-    else
-      p "Captcha images already generated"
-    end
-  end
+	desc "Building Xapian indexes"
+	task(:xapian_create => :environment) do
+		p "Building Xapian indexes ......"
+		system("rake xapian:rebuild_index models='#{ITEMS.map{ |e| e.camelize }.join(' ')} User Workspace'")
+		#Rake::Task['xapian:rebuild_index'].invoke("models=\"#{ITEMS.map{ |e| e.camelize }.join(' ')} User Workspace\"")
+		p "Done"
+	end
+
+	desc "Checking Captcha images"
+	task(:captcha => :environment) do
+		if File.exists?(RAILS_ROOT+'/public/images/captcha/')
+			if Dir.entries(RAILS_ROOT+'/public/images/captcha/').size < 10
+				p "Generating the Catcha images ......"
+				system('rake yacaph:generate COUNT=10')
+				p "done"
+			else
+				p "Captcha images already generated"
+			end
+		else
+			p "Generating the Catcha images ......"
+			system('rake yacaph:generate COUNT=10')
+			p "done"
+		end
+	end
+
+  
 end
 
 #insert into roles(id, name, description, type_role, created_at, updated_at)values(1, 'superadmin', 'SuperAdministration', 'system' CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);",

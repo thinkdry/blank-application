@@ -13,6 +13,7 @@ en-US:
       flash_error: There is no User with this Mail address.
       password_label: Enter your Password and a Reactivation Link will be sent to you by Mail.
     administration: 
+      list_title: Users list
       user_management: User management
       title: Administration
       workspace_management: Workspace management
@@ -50,12 +51,12 @@ en-US:
       password_forgotten: Password Forgotten
       flash_notice: Logged in Successfully.
       login_label: Login
+      no_workspace_linked: No workpace linked. Contact the administrator.
       inscription: Create an account
       flash_error: Invalid Login or Password.
       login_button: Login
       password_label: Password
       remember_me: Remember me
-      no_workspace_linked: No workpace linked. Contact the administrator.
     reset_password: 
       flash_notice: Password has been Successfully Changed.
       title: Reset Password
@@ -168,24 +169,24 @@ en-US:
       of: of
       none: none
       found: found
+      Male: Male
       confirmation: Are you sure ?
       captcha_field: Enter the value on the image
       role: role
       in: in
       no1: "no"
       here: here
+      Mr: Mr.
+      Female: Female
+      Ms: Ms.
+      Miss: Miss.
       on1: "on"
       click: click
       your: your
+      next: Next
       ajax_message_captcha_invalid: The verification code is incorrect.
       yes1: "yes"
-      next: Next
       with: with
-      Mr: Mr.
-      Ms: Ms.
-      Miss: Miss.
-      Male: Male
-      Female: Female
     item: 
       article: Article
       audio: Audio
@@ -213,24 +214,29 @@ en-US:
       workspace: workspace
       item: item
       comment: comment
+    menu: 
+      add: Add
+      add_help: This menu helps you to add content
   time: 
     am: am
     formats: 
       default: "%a %b %d %H:%M:%S %Z %Y"
       time: "%H:%M"
       verb: "%B %d %Y"
+      short1: "%d %B %Y"
       only_second: "%S"
       datetime: 
         formats: 
           default: "%Y-%m-%dT%H:%M:%S%Z"
       short: time"%d %b %H:%M"
       long: "%B %d, %Y %H:%M"
-      short1: "%d %B %Y"
       long1: "%d %B %Y at %H:%M:%S"
     pm: pm
   groups: 
     new: 
       title: New Group
+    edit: 
+      title: Edit Group
     field: 
       people_label: People
       available_people_label: Available People
@@ -242,8 +248,6 @@ en-US:
       delete_confirm: Are you sure!
       add_new_group: Add a new group
       members: Members
-    edit:
-      title: Edit Group
   date: 
     order: 
     - :year
@@ -421,7 +425,7 @@ en-US:
       sent_to: Sent to
       send_newsletter: Send Newsletter
       send_newsletter_to_user_list: Send this Newsletter to user list
-    unsubscribe:
+    unsubscribe: 
       flash_notice: Unsubscribed successfully.
   item: 
     new: 
@@ -445,6 +449,8 @@ en-US:
       delete_conform: Are you Dure you want to Delete this Item?
     show: 
       get_in_another_format: Other format
+    index: 
+      no_item: There is no item of this type.
     common_word: 
       rate: Rate
       tag: Tag
@@ -452,8 +458,8 @@ en-US:
       summary: Summary
       corrupted_file: Corrupted File
       comment: Comment(s)
-    index:
-      no_item: There is no item of this type.
+      no_item_types: No item types are available.
+      list_empty: That list is empty.
   page: 
     new: 
       title: Add a New Page
@@ -476,15 +482,18 @@ en-US:
       wrong_file_flash_error: Please select .csv file only.
       select_csv_file_label: Select a CSV File
       title_order_flash_error: Please read <b>Note</b> and provide proper csv, first row is titles and order should be as shown in Note.
-      note_description: Please upload csv file and first row of csv file showld be titles(must be [First name, Last name, Email, Gender, Primary phone, Mobile phone, Fax, Street, City, Postal code, Country, Company, Web page, Job title, Notes] only and email should be mandatory, even if you are not providing any of these values) and subsequent rows are values.
-      saved_records_flash_notice: Saved records successfully
-      unsaved_records_flash_error1: Failed to save records which has
       csv_parser_error: There was an error while parsing your CSV file
+      saved_records_flash_notice: Saved records successfully
+      note_description: Please upload csv file and first row of csv file showld be titles(must be [First name, Last name, Email, Gender, Primary phone, Mobile phone, Fax, Street, City, Postal code, Country, Company, Web page, Job title, Notes] only and email should be mandatory, even if you are not providing any of these values) and subsequent rows are values.
+      unsaved_records_flash_error1: Failed to save records which has
     field: 
       fax_label: Fax
       postal_code_label: Postal code
       country_label: Country
       job_title_label: Job title
+      newsletter_lable: Receive newsletters?
+      date_of_birth_label: Date of birth
+      salutation_label: Salutation
       first_name_label: First name
       gender_label: Gender
       city_label: City
@@ -496,9 +505,6 @@ en-US:
       last_name_label: Last name
       email_label: E-mail
       primary_phone_label: Primary phone
-      newsletter_lable: Receive newsletters?
-      date_of_birth_label: Date of birth
-      salutation_label: Salutation
     index: 
       add_new_person: Add a new person
       name: Name
@@ -556,9 +562,14 @@ en-US:
       show_my_feeds: Show my RSS feeds
       feed_item: Feed Items
   layout: 
+    popup: 
+      filter_by_workspace: Filter by workspace
+      filter_by_item_type: Filter by type
+      filter_help: This menu helps you to filter the list of item displayed above.
     search: 
       result: Result
       displaying: Displaying
+      filter_viewed_number: Number of view
       filter_comments_number: Number of comments
       filter_asc: Ascending order
       filter_rates_average: Rate
@@ -573,12 +584,14 @@ en-US:
       type_label: Type
       your_search_result: Your Search Result
       you_have_searched_for: You Searched
-      filter_viewed_number: Number of view
-      filter_title: Title
-      item_category: Item types
       order_by: Order by
       no_result: No results found with your criterions.
+      filter_title: Title
+      item_category: Item types
+    general: 
+      other: Other
     application: 
+      change_language: Change language
       new_workspace: New Workspace
       no_add_content: You need to create a workspace or to have rights inside one before to add content.
       administration: Administration
@@ -588,12 +601,25 @@ en-US:
       superadministration: Superadministration
       my_account: My account
       workspaces_selection: Select Workspace
+      subscribers: Subscribers
       add_content: Add Content
       advanced_search: Advanced Search
       content: Content
+      users: Users
       home: Home
       welcome_message: Welcome
       all_elements: All Elements
+    menu: 
+      add: Add
+      search: Search
+      configure_help: This menu helps you to change BA settings
+      search_help: Can't find what you searching for? Use advanced search
+      configure: Configure
+      display: Display
+      content: Content
+      content_help: This menu let you access to all your content
+      other: Other
+      add_help: This menu helps you to add content
     footer: 
       faq: FAQ
       title: ThinkDRY Technologies 2008

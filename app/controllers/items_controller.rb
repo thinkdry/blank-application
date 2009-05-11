@@ -17,7 +17,7 @@ class ItemsController < ApplicationController
 		@current_objects = get_items_list(params[:item_type])
 		@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
     @i = 0
-		render :partial => "items/item_in_list" , :collection => @paginated_objects, :layout => false
+		render :partial => "items/items_list", :layout => false, :locals => { :ajax_url => '/ajax_content/'+params[:item_type] }
 		#render :text => display_item_in_list(@paginated_objects), :layout => false
   end
 
@@ -27,7 +27,9 @@ class ItemsController < ApplicationController
       params[:item_type] = 'all'
     end
     if params[:content] != 'all'
-      params[:workspace_id] ||= session[:fck_item_type].classify.constantize.find(session[:fck_item_id]).workspaces.first.id
+			# why params[:workspace_id] ???
+      params[:workspace_id] ||= session[:fck_item_type].classify.constantize.find(session[:fck_item_id]).workspaces.first
+			#raise params[:workspace_id].workspaces.size.inspect
       @workspace = Workspace.find(params[:workspace_id])
       params[:selected_item] = get_allowed_item_types(@workspace).first.pluralize if params[:selected_item].nil? || params[:selected_item] == 'all'
       if !params[:workspace_id].to_s.blank?

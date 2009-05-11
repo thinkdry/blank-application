@@ -2,7 +2,7 @@
       	<div id="search_middle">
       	<% unless @hide_full_text_search %>
             <% form_for :search, @search, :url => searches_path, :html => { :method => :get, :name => 'search' } do -%>				
-				<p>Search </p>
+				<p><%= I18n.t('layout.search.search_label')%></p>
 	            <%= text_field_tag "search[full_text_field]", (params[:search] ? params[:search][:full_text_field] : I18n.t('layout.search.search_label')), :class => "style_text", :onfocus => '$(this).select()' %>
 				<p><%= I18n.t 'general.common_word.in'%></p>
 	            <%= select_search_models %>
@@ -14,18 +14,18 @@
 	  <div id="footerBody">
 	  	<div class="footerCol">
 	  		<h3>Last Content</h3>
-			<% GenericItem.consultable_by(current_user.id).latest.each do |l|%>
-				<p><%= link_to l.title, item_path(l) %></p>
-    		<%end%>
+			<%# Item.allowed_user_with_permission_in_workspaces.each do |l| %>
+				<p><%#= link_to l.title, item_path(l) %></p>
+    		<%# end %>
 	  	</div>
 		<div class="footerCol">
 	  		<h3>configuration</h3>
 			<% if (available_languages.size > 1) -%>
-			<p><img src="/images/icons/lang.png"/>language : <%= select_languages %></p>
+			<p><%= I18n.t('layout.application.change_language')%>&nbsp;<%= select_languages %></p>
 			<%end-%>
 			<p><img src="/images/item_icons/rss_feed.png" width="20"/>rss subscription</p>
 			<p><a href="mailtp:contact@thinkdry.com">contact</a></p>
-			<p><%= link_to "My account", user_path(current_user) %></p>
+			<p><%= link_to I18n.t('layout.application.my_account'), user_path(current_user) %></p>
 			<p><%= link_to I18n.t('layout.application.logout'), '/logout' %></p>
 	  	</div>
 		<div class="footerCol">
@@ -35,15 +35,15 @@
 		<div class="clear" style="height: 50px;"></div>
 	  	<div class="footerCol">
 	  		<h3>Last comments</h3>
-			<% GenericItem.consultable_by(current_user.id).latest.each do |l|%>
-				<p><%= link_to l.title, item_path(l) %></p>
-    		<%end%>
+			<% Comment.find(:all, :conditions => { :state => 'validated' }, :order => 'created_at DESC', :limit => 5).each do |e| %>
+              <p><%= link_to e.commentable_type.classify.constantize.find(e.commentable_id).title, item_path(e) %></p>
+            <% end %>
 	  	</div>
 		<div class="footerCol">
 	  		<h3>last workspaces</h3>
-			<% GenericItem.consultable_by(current_user.id).latest.each do |l|%>
-				<p><%= link_to l.title, item_path(l) %></p>
-    		<%end%>
+			<% Workspace.allowed_user_with_permission(@current_user.id, 'workspace_show').all(:order => 'created_at DESC', :limit => 5).each do |w|%>
+				<p><%= link_to w.title, workspace_path(w) %></p>
+    		<% end %>
 	  	</div>
 		<div class="footerCol">
 	  		<h3>Tag Wall</h3>

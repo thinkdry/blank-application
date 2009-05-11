@@ -1,14 +1,14 @@
 <div id="object-list">
 
-  <%= render :partial => 'items/classify_bar' %>
+  <%= display_classify_bar(['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title'], ajax_url, 'object-list') %>
 
   <div id="content">
     <%= display_item_in_list(@paginated_objects) %>
   </div>
   
   <div id="pagination">
-    <%= will_paginate @paginated_objects %>
-    <%#= remote_pagination(@paginated_objects, searches_url+'?page=') %>
+    <%#= will_paginate @paginated_objects %>
+    <%= remote_pagination(@paginated_objects, ajax_url,  'object-list') %>
   </div>
 
 <div class="other_output_format">

@@ -110,14 +110,16 @@ function shiftLeft(removeOptions,addOptions,saveFlag)
     document.getElementById('selected_Options').value = selcted_Options;
 }
               
-function selectTab(idSelected){
+function selectTab(idSelected, ajax){
+
+	if (ajax==undefined) {
+		//to_box is the id of the container div of the tabs, where content is displayed.
+		var content = document.getElementById('top_box');
 		
-    var content = document.getElementById('top_box');
+		var HTMLNewContent = '<div width="100%" align="center"><img src="/images/ajax-loader.gif" align="center"/></div>';
 		
-    var HTMLNewContent = '<div width="100%" align="center"><img src="/images/ajax-loader.gif" align="center"/></div>';
-		
-    content.innerHTML = HTMLNewContent;
-		
+		content.innerHTML = HTMLNewContent;
+	}
 		
     // get the container witch contains the tabs
     var tabsElement = document.getElementById('tabs');
@@ -134,6 +136,22 @@ function selectTab(idSelected){
 			}	
 		}
 	}
+	
+function selectItemTab(idSelected){
+		
+    // get the tabs links on witch we should change the class
+    var tabsElements = document.getElementById('tabs').getElementsByTagName('li');
+		
+		for (var i = 0 ; i < tabsElements.length ; ++i){
+			if (tabsElements[i].id == idSelected){
+				tabsElements[i].className = 'selected';	
+			}
+			else{
+				tabsElements[i].className = '';
+			}	
+		}
+	}
+	
 	
 	//display the good tiem in a item list, google way of displaying.
 	function toggleAccordion(idClicked){

@@ -52,4 +52,10 @@ class Group < ActiveRecord::Base
     end
   end
 
+  def self.user_to_people(user)
+    return Person.new(:first_name => user.firstname,:last_name => user.lastname,:email => user.email,
+      :primary_phone => user.phone,:mobile_phone => user.mobile,:city => user.address,
+      :country => user.nationality,:company => user.company,:job_title => user.activity,
+      :newsletter => user.newsletter,:created_at => user.created_at,:updated_at => user.updated_at)
+  end
 end

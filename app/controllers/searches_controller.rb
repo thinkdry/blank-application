@@ -3,6 +3,11 @@ class SearchesController < ApplicationController
   acts_as_ajax_validation
   
   def index
+		# Params link to AJAX calls
+		if params[:page] || params[:filter_name] || params[:layout]
+			no_layout = true
+		end
+		#params[:search] ||= {:category => 'all'}
 		# Initialisation : default params
 		if !params[:search][:models]
 			if (params[:search][:category] == 'all')
@@ -25,11 +30,15 @@ class SearchesController < ApplicationController
 		@current_objects = @current_objects.delete_if{ |e| !e.accepts_show_for?(@current_user)}
 		@paginated_objects = @current_objects.paginate(:page => params[:page], :per_page => get_per_page_value)
 
-		respond_to do |format|
-			format.html {  }
-			format.xml { render :xml => @current_objects }
-			format.json { render :json => @current_objects }
-			format.atom { render :template => "#{params[:controller]}/index.atom.builder", :layout => false }
+		if no_layout.nil?
+			respond_to do |format|
+				format.html {  }
+				format.xml { render :xml => @current_objects }
+				format.json { render :json => @current_objects }
+				format.atom { render :template => "#{params[:controller]}/index.atom.builder", :layout => false }
+			end
+		else
+			render :partial => 'items/items_list', :locals => { :ajax_url => searches_path }
 		end
   end
 

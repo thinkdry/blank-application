@@ -52,7 +52,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users, :member => { :administration => :any }, :collection => { :autocomplete_on => :any }
 	map.resource :session, :member => { :change_language => :any }
 	map.resources :people, :collection => {:export_people=>:any, :import_people => :any,:ajax_index => :get,:get_empty_csv => :get }
-  
+
+  map.export_group '/export_group/:id', :controller => 'groups', :action => 'export_group'
 	map.general_changing_superadministration 'superadministration/general_changing', :controller => 'superadministration', :action => 'general_changing'
 	map.check_color_superadministration 'superadministration/check_color', :controller => 'superadministration', :action => 'check_color'
 	map.colors_changing_superadministration 'superadministration/colors_changing', :controller => 'superadministration', :action => 'colors_changing'
@@ -104,7 +105,7 @@ ActionController::Routing::Routes.draw do |map|
     workspaces.content '/:item_type', :controller => 'workspaces', :action => 'show', :conditions => { :method => :get }
     items_resources(workspaces)
   end
-  map.workspace_ajax_content 'workspace_ajax_content', :controller => 'workspaces', :action => 'ajax_show', :conditions => { :method => :get }
+  map.workspace_ajax_content 'workspace_ajax_content', :controller => 'workspaces', :action => 'ajax_content', :conditions => { :method => :get }
   # Project management
   #map.resources :projects  do |projects|
   #  projects.resources :meetings do |meetings|
