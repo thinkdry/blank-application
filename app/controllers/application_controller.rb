@@ -57,11 +57,11 @@ class ApplicationController < ActionController::Base
 	end
 
 	def is_superadmin?
-		no_permission_redirection unless self.current_user.has_system_role('superadmin')
+		no_permission_redirection unless self.current_user && self.current_user.has_system_role('superadmin')
 	end
 
 	def is_admin?
-		no_permission_redirection unless self.current_user.has_system_role('admin')
+		no_permission_redirection unless self.current_user && self.current_user.has_system_role('admin')
 	end
 
 	def no_permission_redirection
