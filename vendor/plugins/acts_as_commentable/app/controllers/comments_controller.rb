@@ -1,14 +1,16 @@
 class CommentsController < ApplicationController
 
+	unloadable
+
 	#before_filter :is_superadmin?
 
   # GET /comments
   # GET /comments.xml
   def index
 		if params[:on_state] && (params[:on_state] != 'all')
-			@current_objects = Comment.find(:all, :order => 'created_at DESC', :conditions => { :state => params[:on_state] })
+			@current_objects = Comment.find(:all, :order => 'created_at DESC', :conditions => { :state => params[:on_state] }).paginate(:per_page => get_per_page_value, :page => params[:page])
 		else
-			@current_objects = Comment.find(:all, :order => 'created_at DESC')
+			@current_objects = Comment.find(:all, :order => 'created_at DESC').paginate(:per_page => get_per_page_value, :page => params[:page])
 		end
     respond_to do |format|
 			format.html
