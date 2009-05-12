@@ -72,10 +72,6 @@ module ActsAsItem
 						@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
 					end
 
-					after :new, :edit do
-						params[:workspace_id] = params[:workspace_id]
-					end
-
 					response_for :new, :create_fails do |format|
 						format.html { render(:template => (File.exists?(RAILS_ROOT+'/app/views/'+params[:controller]+'/new.html.erb') ? params[:controller]+'/new.html.erb' : 'items/new.html.erb')) }
 					end
@@ -97,9 +93,22 @@ module ActsAsItem
 						format.atom { render :template => "#{params[:controller]}/index.atom.builder", :layout => false }
 	        end
 
-					response_for :create, :update, :destroy do |format|
-						format.html { redirect_to((ws=current_workspace) ? workspace_path(ws.id)+"/#{@current_object.class.to_s.underscore.pluralize}" : "/content/#{@current_object.class.to_s.underscore.pluralize}") }
-					end
+#					response_for :update do |format|
+#						#format.html { redirect_to item_path(@current_object)}
+#						format.html { redirect_to((ws=current_workspace) ? workspace_path(ws.id)+"/#{@current_object.class.to_s.underscore.pluralize}" : "/content/#{@current_object.class.to_s.underscore.pluralize}") }
+#					end
+
+#					response_for :create do |format|
+#							format.html {
+#								#redirect_to( ((@current_object.class.to_s == 'Article') || (@current_object.class.to_s == 'Page')) ? ((ws=current_workspace) ? edit_item_path(@current_object.class.to_s) : "/content/#{@current_object.class.to_s.underscore.pluralize}/#{@current_object.id}/edit") : ((ws=current_workspace) ? workspace_path(ws.id)+"/#{@current_object.class.to_s.underscore.pluralize}"+"/#{@current_object.id}/edit" : "/content/#{@current_object.class.to_s.underscore.pluralize}"+"/#{@current_object.id}/edit") )
+#								#raise @current_object.class.to_s.inspect
+#								if ((@current_object.class.to_s == 'Article') || (@current_object.class.to_s == 'Page'))
+#									redirect_to((ws=current_workspace) ? workspace_path(ws.id)+"/#{@current_object.class.to_s.underscore.pluralize}/#{@current_object.id}/edit" : "/#{@current_object.class.to_s.underscore.pluralize}/#{@current_object.id}/edit")
+#								else
+#									redirect_to((ws=current_workspace) ? workspace_path(ws.id)+"/#{@current_object.class.to_s.underscore.pluralize}"+"/#{@current_object.id}" : "/#{@current_object.class.to_s.underscore.pluralize}"+"/#{@current_object.id}")
+#								end
+#							}
+#					end
 					
         end
 
