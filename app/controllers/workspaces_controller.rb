@@ -6,7 +6,7 @@ class WorkspacesController < ApplicationController
     actions :show, :create, :new, :edit, :update, :destroy
 
     before :show do
-      no_permission_redirection unless @current_object && @current_object.accepts_show_for?(@current_user)
+      no_permission_redirection unless @current_user && @current_object.accepts_show_for?(@current_user)
       params[:id] ||= params[:workspace_id]
 			params[:item_type] ||= get_allowed_item_types(@current_object).first.to_s.pluralize
 			@current_objects = get_items_list(params[:item_type], @current_object)
@@ -14,17 +14,17 @@ class WorkspacesController < ApplicationController
     end
 
 		before :new do
-			no_permission_redirection unless @current_object && @current_object.accepts_new_for?(@current_user)
+			no_permission_redirection unless @current_user && @current_object.accepts_new_for?(@current_user)
 			@roles = Role.find(:all, :conditions => { :type_role => 'workspace' })
 		end
 
 		before :edit do
-			no_permission_redirection unless @current_object && @current_object.accepts_edit_for?(@current_user)
+			no_permission_redirection unless @current_user && @current_object.accepts_edit_for?(@current_user)
 			@roles = Role.find(:all, :conditions => { :type_role => 'workspace' })
 		end
 
     before :create do
-			no_permission_redirection unless @current_object && @current_object.accepts_new_for?(@current_user)
+			no_permission_redirection unless @current_user && @current_object.accepts_new_for?(@current_user)
 			params[:id] ||= params[:workspace_id]
       @current_object.creator = @current_user
     end
@@ -38,7 +38,7 @@ class WorkspacesController < ApplicationController
     end
 
 		before :update do
-      no_permission_redirection unless @current_object && @current_object.accepts_edit_for?(@current_user)
+      no_permission_redirection unless @current_user && @current_object.accepts_edit_for?(@current_user)
       # Hack. Permit deletion of all assigned users (with roles).
       #params["workspace"]["existing_user_attributes"] ||= {}
     end
@@ -49,6 +49,10 @@ class WorkspacesController < ApplicationController
 			@roles = Role.find(:all, :conditions => { :type_role => 'system' })
       flash[:error] =I18n.t('workspace.edit.flash_error')
     end
+
+		before :destroy do
+			no_permission_redirection unless @current_user && @current_object.accepts_destroy_for?(@current_user)
+		end
 
 		response_for :destroy do |format|
 			format.html { redirect_to administration_user_url(@current_user.id) }

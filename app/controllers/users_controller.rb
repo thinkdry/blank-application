@@ -23,17 +23,17 @@ class UsersController < ApplicationController
     actions :all
 
     before :destroy do
-      no_permission_redirection unless @current_object && @current_object.accepts_destroy_for?(@current_user)
+      no_permission_redirection unless @current_user && @current_object.accepts_destroy_for?(@current_user)
     end
 
     before :edit, :update do
-      no_permission_redirection unless @current_object && @current_object.accepts_edit_for?(@current_user)
+      no_permission_redirection unless @current_user && @current_object.accepts_edit_for?(@current_user)
     end
 
     before :new, :create do
 			if logged_in?
 				@search ||= Search.new
-				no_permission_redirection unless @current_object && @current_object.accepts_new_for?(@current_user)
+				no_permission_redirection unless @current_user && @current_object.accepts_new_for?(@current_user)
 			elsif is_allowed_free_user_creation?
         # TODO double render in case captcha failing, remove make resourceful, refactoring
 				if @current_object.login # captcha just on create
@@ -45,12 +45,12 @@ class UsersController < ApplicationController
     end
 
     before :show do
-			no_permission_redirection unless @current_object && @current_object.accepts_show_for?(@current_user)
+			no_permission_redirection unless @current_user && @current_object.accepts_show_for?(@current_user)
     end
 
 		before :index do
 			# TODO : check in the controller
-			no_permission_redirection unless @current_object && @current_user.has_system_role('superadmin')
+			no_permission_redirection unless @current_user && @current_user.has_system_role('superadmin')
 			@current_objects = current_objects.paginate(
 					:page => params[:page],
 					:order => :title,
