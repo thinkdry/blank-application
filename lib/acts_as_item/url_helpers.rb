@@ -56,9 +56,9 @@ module ActsAsItem
     def items_path(model)
       model = model.table_name unless model.is_a?(String)  
       if current_workspace
-        workspace_content_url(:workspace_id => current_workspace.id, :item_type => model)
+        workspace_content_url(:workspace_id => current_workspace.id, :item_type => model.underscore.pluralize)
       else
-        content_url(:item_type => model)
+        content_url(:item_type => model.underscore.pluralize)
       end
     end
 
