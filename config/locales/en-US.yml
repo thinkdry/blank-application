@@ -446,7 +446,7 @@ en-US:
       description_hint: Description of Item
       add_tag: Add a tag
     destroy: 
-      delete_conform: Are you Dure you want to Delete this Item?
+      delete_conform: Are you sure you want to delete this item?
     show: 
       get_in_another_format: Other format
     index: 
@@ -486,6 +486,7 @@ en-US:
       saved_records_flash_notice: Saved records successfully
       note_description: Please upload csv file and first row of csv file showld be titles(must be [First name, Last name, Email, Gender, Primary phone, Mobile phone, Fax, Street, City, Postal code, Country, Company, Web page, Job title, Notes] only and email should be mandatory, even if you are not providing any of these values) and subsequent rows are values.
       unsaved_records_flash_error1: Failed to save records which has
+      get_empty_csv_file: Get empty csv file
     field: 
       fax_label: Fax
       postal_code_label: Postal code
@@ -513,6 +514,8 @@ en-US:
       import_people_from_csv: Import people from csv
       export_people_to_csv: Export people to csv
       subscribed_on: Subscribed on
+      created_from_back: Created from back
+      imported_from_csv: Imported from CSV
   video: 
     new: 
       title: Add a New Video
