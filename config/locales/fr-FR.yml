@@ -501,7 +501,7 @@ fr-FR:
       csv_parser_error: Il ya eu une erreur pendant l'importation.
       title_order_flash_error: Veuillez lire la <b>Note</b> et procurer un fichier csv tel que décrit.
       saved_records_flash_notice: Les données ont bien été enregistrées
-      note_description: Pour charger un fichier CSV, il est essentiel de respecter l'ordre suivant. La première ligne doit être recopiée comme ceci : "First name, Last name, Email, Gender, Primary phone, Mobile phone, Fax, Street, City, Postal code, Country, Company, Web page, Job title, Notes". Chaque autre ligne représentera un nouveau contact. La colonne e-mail est la seule obligatoire. Les autres peuvent être laissées vides.
+      note_description: Pour charger un fichier CSV, il est essentiel de respecter l'ordre suivant. La première ligne doit être recopiée comme ceci "First name, Last name, Email, Gender, Primary phone, Mobile phone, Fax, Street, City, Postal code, Country, Company, Web page, Job title, Notes". Chaque autre ligne représentera un nouveau contact. La colonne e-mail est la seule obligatoire. Les autres peuvent être laissées vides.
       unsaved_records_flash_error1: Les emails
       get_empty_csv_file: Récupérer un fichier CSV vierge prêt à la saisie.
     field: 
