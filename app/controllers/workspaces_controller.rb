@@ -129,4 +129,13 @@ class WorkspacesController < ApplicationController
 			render :partial => "items/items_list", :locals => { :ajax_url => ajax_items_path(params[:item_type]) }, :layout => false
 			#render :text => display_item_in_list(@paginated_objects), :layout => false
     end
+
+  def management
+    @workspaces=Workspace.all
+    respond_to do |format|
+      format.html  { render :template => '/workspaces/management'}
+  end
+
+  end
+
 end

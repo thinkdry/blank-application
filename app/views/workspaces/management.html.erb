@@ -1,0 +1,6 @@
+<% if current_user.has_system_permission('workspace', 'new') %>
+  <%= link_to I18n.t('workspace.new.title'), new_workspace_path %>
+<% end %>
+<div class="area_BOTH">
+  <%= render :partial => 'workspaces/users_by_roles' %>
+</div>
