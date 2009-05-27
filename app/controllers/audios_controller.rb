@@ -7,14 +7,13 @@ class AudiosController < ApplicationController
       MiddleMan.worker(:converter_worker).async_newthread(:arg=>{:type=>"audio", :id => @current_object.id, :enc=>"mp3"})
     end
   end
+  
   def get_progress
     @current_object=Audio.find_by_id(params[:id])
-     if @current_object.state=="encoded"
-     render :partial=>"player", :object => @current_object
-    elsif @current_object.state=="encoding"
-      render :partial=>"status", :object => @current_object
+    if params[:check] && params[:check] == 'true'
+      render :text => @current_object.state
     else
-      render :nothing=>true
-   end
+      render :partial=>"player", :object => @current_object
+    end
   end
 end
