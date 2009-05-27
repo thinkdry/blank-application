@@ -2,14 +2,12 @@
 <% item_preview( :title => I18n.t('audio.field.audio_label'),  :object => object ) do %>
 
   <h2><%=I18n.t('audio.field.audio_label')%></h2>
-        <div id ="progress">
-            <% if object.state=="encoded" %>
-              <%= render :partial => "audios/player", :object => object %>
-            <% elsif object.state=="encoding"%>
-              <%= render :partial => "audios/status", :object => object %>
-            <% else %>
-               <%= object.state.capitalize %>
-           <% end %>
-          </div>
-	<br /><br /><%= link_to I18n.t('general.button.download'), object.audio.url.split("?")[0] %><br />
+  <div id ="progress">
+    <% if object.state=="encoded" %>
+      <%= render :partial => "audios/player", :object => object %>
+    <% else %>
+      <%= object.state.capitalize %>
+    <% end %>
+  </div>
+  <br /><br /><%= link_to I18n.t('general.button.download'), object.audio.url.split("?")[0] %><br />
 <% end %>

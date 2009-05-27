@@ -1,9 +1,9 @@
-<div id="player"></div>
+<div id="player_<%= object.class.to_s + "_" + object.id.to_s%>"></div>
 <script type="text/javascript">
-  cancel=false;
+  //cancel=false;
   var so = new SWFObject('/videoplayer/player.swf','mpl','470','320','9','#666666');
   so.addParam('allowscriptaccess','always');
   so.addParam('allowfullscreen','true');
   so.addParam('flashvars','&file=<%=File.dirname(object.video.url)%>/video.flv&logo=/images/videologo.png&backcolor=#D86C27');
-  so.write('player');
+  so.write("player_<%= object.class.to_s + "_" + object.id.to_s%>");
 </script>
