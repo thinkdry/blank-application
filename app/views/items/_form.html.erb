@@ -28,7 +28,7 @@
     
     <%= error_message_on :current_object, :items %>
 
-    <button class="submit_button" type="submit">
+    <button id="submit_button" class="submit_button" type="submit">
         <%= current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update')%>
     </button>
 

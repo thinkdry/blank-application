@@ -1,10 +1,22 @@
 <script type="text/javascript">
-  var cancel=true;
+  // var cancel=true;
+  var item_id = '<%= object.id %>';
+  get_progress();
+  function get_progress(){
+    new Ajax.Request("/audios/get_progress?check=true&id="+item_id, {asynchronous:true, evalScripts:true,
+      onSuccess: function(transport){
+        if(transport.responseText == 'encoded'){
+          new Ajax.Updater("progress","/audios/get_progress?check=false&id="+item_id, {asynchronous:true, evalScripts:true});
+        }else{
+          setTimeout("get_progress()", 10000);
+        }
+      }});
+  }
 </script>
-<%= periodically_call_remote             :update=> 'progress',
-  :condition=>"cancel==true",
-  :url => {:action=> 'get_progress', :id=>object.id},
-  :frequency => 10%>
+<%#= periodically_call_remote             :update=> 'progress',
+:condition=>"cancel==true",
+:url => {:action=> 'get_progress', :id=>object.id},
+:frequency => 10%>
 <div id="states">
   <%=object.state.capitalize%>
 </div>

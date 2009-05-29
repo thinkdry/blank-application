@@ -24,4 +24,15 @@ class Person < ActiveRecord::Base
   def full_name
 		return self.last_name.to_s+" "+self.first_name.to_s
   end
+
+  def to_people
+    return self
+  end
+
+  def to_group_member
+    return { :model => 'Person', :id => self.id, :email => self.email }
+  end
+
+
+
 end

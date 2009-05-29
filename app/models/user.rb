@@ -141,6 +141,28 @@ class User < ActiveRecord::Base
     u && u.authenticated?(password) ? u : nil
   end
 
+  #TODO check for duplicate email in the user query, and duplicate emails between users email and people emails
+  def get_member_for_groups
+      people = Person.find(:all, :conditions => ["user_id = ?",self.id])
+      users = []
+      Workspace.allowed_user_with_permission(self.id,'group_edit').each do |ws|
+         users += ws.users.delete_if{ |e| !e.newsletter }
+      end
+      return (people + users.uniq).map{ |e| e.to_group_member }.sort!{ |a,b| a[:email].downcase <=> b[:email].downcase }
+  end
+
+  def to_people
+    return Person.new(:first_name => self.firstname, :last_name => self.lastname,:email => self.email,
+      :primary_phone => self.phone, :mobile_phone => self.mobile,:city => self.address,
+      :country => self.nationality,:company => self.company,:job_title => self.activity,
+      :newsletter => self.newsletter,:created_at => self.created_at,:updated_at => self.updated_at)
+  end
+
+  def to_group_member
+    return { :model => 'User', :id => self.id, :email => self.email }
+  end
+
+
 	#include SavageBeast::UserInit
 
 	def display_name
@@ -316,6 +338,8 @@ class User < ActiveRecord::Base
     save(false)
   end
 
+  
+
   protected
   # before filter
   def encrypt_password
@@ -337,3 +361,4 @@ class User < ActiveRecord::Base
   
 	
 end
+

@@ -33,9 +33,9 @@ class PeopleController < ApplicationController
   def filter
     @group = Group.find(params[:group_id]) if !params[:group_id].blank?
     options = ""
-    for mem in Group.members_to_subscribe(params[:start_with],current_user)
-      if @group.nil? or !@group.members.include?(mem)
-        options = options+ "<option value = '#{mem.class.to_s.downcase}_#{mem.id.to_s}'>#{mem.email}</option>"
+    for mem in @current_user.get_member_for_groups.delete_if{ |e| e[:email].first != params[:start_with] && params[:start_with] != "tous"}
+      if @group.nil? or !@group.groupings.map{ |e| e.member.to_group_member}.include?(mem)
+        options = options+ "<option value = '#{mem[:model]}_#{mem[:id].to_s}'>#{mem[:email]}</option>"
       end
     end
     render :update do |page|

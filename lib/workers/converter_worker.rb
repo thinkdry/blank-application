@@ -1,9 +1,11 @@
 class ConverterWorker < BackgrounDRb::MetaWorker
 
   set_worker_name :converter_worker
-  pool_size 50
+  pool_size 5
+  
   def create(args = nil)
     puts "Started BackgrounDRb for Encoding"
+    @retried = false
   end
 
   def newthread(args)
