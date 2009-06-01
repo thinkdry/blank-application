@@ -41,7 +41,7 @@
     <% else -%>
       <div class="list">
       <% end -%>
-      <%= link_to_function object.title,"javascript:SelectFile('" + @base_url + object.media_type.url + "')"  %>
+      <%= link_to_function object.title,"javascript:SelectFile('" + @base_url + object.media_type.url.split("?")[0] + "')"  %>
     </div>
     <% i= i+1%>
   <% end %>
@@ -59,25 +59,25 @@
     <% end %>
 
   <% end %>
-<% elsif params[:selected_item] == "bookmark" %>
+<% elsif params[:selected_item] == "bookmarks" %>
   <% @current_objects.each do |object| %>
     <% if i%2 == 0 -%>
       <div class="list_alternate">
     <% else -%>
       <div class="list">
       <% end -%>
-      <%= link_to_function object.title, "javascript:SelectFile('" + @base_url + object.link + "')"  %>
+      <%= link_to_function object.title, "javascript:SelectFile('" + object.link + "')"  %>
     </div>
     <% i= i+1%>
   <% end %>
-<% elsif params[:selected_item] == "cms_file" %>
+<% elsif params[:selected_item] == "cms_files" %>
   <% @current_objects.each do |object| %>
     <% if i%2 == 0 -%>
       <div class="list_alternate">
       <% else -%>
         <div class="list">
         <% end -%>
-        <%= link_to_function object.title, "javascript:SelectFile('" + @base_url + object.cmsfile.url + "')"  %>
+        <%= link_to_function object.title, "javascript:SelectFile('" + @base_url.split("://")[1] + object.cmsfile.url.split("?")[0] + "')"  %>
       </div>
       <% i= i+1%>
     <% end %>
@@ -88,7 +88,7 @@
         <% else -%>
           <div class="list">
           <% end -%>
-          <%= link_to_function object.title,"javascript:SelectFile('" + item_path(object) + "')" %>
+          <%= link_to_function object.title,"javascript:SelectFile('" + @base_url + item_path(object) + "')" %>
         </div>
         <% i= i+1%>
       <% end%>
