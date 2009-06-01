@@ -11,7 +11,7 @@ class FckUploadsController < ApplicationController
 			FileUtils.makedirs(dest_full_path)
 			dest_full_file = File.join(dest_full_path, dest_filename)
       File.open(dest_full_file, "wb") { |f| f.write(params[:NewFile].read) }
-      render :text => "<script type='text/javascript'>window.parent.OnUploadCompleted(0, #{dest_file.inspect})</script>", :layout => false
+      render :text => "<script type='text/javascript'>window.parent.OnUploadCompleted(0, #{(request.url.split(request.request_uri())[0]+dest_file).inspect})</script>", :layout => false
     rescue Exception => e
       logger.error(e.to_s + "\n" + e.backtrace.collect { |trace|' ' + trace + "\n" }.to_s)
       render :text => "<script type='text/javascript'>window.parent.OnUploadCompleted(1, '', '', #{I18n.t('message.error_during_file_transfer')})</script>", :layout => false

@@ -1,7 +1,13 @@
 class NewslettersController < ApplicationController
 
   acts_as_ajax_validation
-  acts_as_item
+  acts_as_item do
+    response_for :create do |format|
+			format.html { redirect_to edit_item_path(@current_object) }
+			format.xml { render :xml => @current_object }
+			format.json { render :json => @current_object }
+		end
+  end
   skip_before_filter :is_logged?, :only => ['unsubscribe']
   def send_newsletter
     @group = Group.find(params[:group_id])

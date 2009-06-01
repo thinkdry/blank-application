@@ -28,7 +28,7 @@ class ItemsController < ApplicationController
     end
     if params[:content] != 'all'
 			# why params[:workspace_id] ???
-      params[:workspace_id] ||= session[:fck_item_type].classify.constantize.find(session[:fck_item_id]).workspaces.first
+      params[:workspace_id] ||= session[:fck_item_type].classify.constantize.find(session[:fck_item_id]).workspaces.first.id
 			#raise params[:workspace_id].workspaces.size.inspect
       @workspace = Workspace.find(params[:workspace_id])
       params[:selected_item] = get_allowed_item_types(@workspace).first.pluralize if params[:selected_item].nil? || params[:selected_item] == 'all'
@@ -41,6 +41,9 @@ class ItemsController < ApplicationController
     else
        @current_objects = get_items_list(params[:selected_item], nil)
     end
+    @base_url = request.url.split(request.request_uri())[0]
+    puts ">>>>>>>>>>>"
+    puts params[:selected_item]
     render :layout => 'pop_up', :object => @current_objects
   end
 end
