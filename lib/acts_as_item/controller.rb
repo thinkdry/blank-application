@@ -93,6 +93,10 @@ module ActsAsItem
 						format.atom { render :template => "#{params[:controller]}/index.atom.builder", :layout => false }
 	        end
 
+          response_for :destroy do |format|
+            format.html { redirect_to(items_path(params[:controller])) }
+          end
+          
 #					response_for :update do |format|
 #						#format.html { redirect_to item_path(@current_object)}
 #						format.html { redirect_to((ws=current_workspace) ? workspace_path(ws.id)+"/#{@current_object.class.to_s.underscore.pluralize}" : "/content/#{@current_object.class.to_s.underscore.pluralize}") }

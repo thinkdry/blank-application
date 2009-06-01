@@ -1,4 +1,6 @@
+<% if !request.xml_http_request?() %>
 <div id="object-list">
+<% end %>
 
   <%= display_classify_bar(['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title'], ajax_url, 'object-list') %>
 
@@ -18,4 +20,6 @@
   <%= link_to_function image_tag('/images/icons/atom.png'), "params('format=atom')" %>
 </div>
 
+<% if !request.xml_http_request?() %>
 </div>
+<% end %>
