@@ -15,8 +15,10 @@ class NewslettersController < ApplicationController
     
     if GroupsNewsletter.new(:group_id => @group.id,:newsletter_id => @newsletter.id,:sent_on=>Time.now).save
       for member in @group.members
-         args = [member.email,member.class.to_s.downcase,@configuration['sa_contact_email'],@newsletter.title, @newsletter.description, @newsletter.body]
-         QueuedMail.add("UserMailer","send_newsletter", args, 0)
+        if member.newsletter
+          args = [member.email,member.class.to_s.downcase,@newsletter.from_email,@newsletter.subject, @newsletter.description, @newsletter.body]
+          QueuedMail.add("UserMailer","send_newsletter", args, 0)
+        end
       end
       redirect_to newsletter_path(@newsletter)
     end

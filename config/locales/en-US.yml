@@ -430,6 +430,10 @@ en-US:
     field: 
       body_label: Body
       body_hint: Body of this Newsletter
+      from_email_label: From email
+      from_email_hint: From email address
+      subject_label: Subject
+      subject_hint: Email subject
     send_newsletter: 
       send_to: Send to
       sent_to: Sent to
