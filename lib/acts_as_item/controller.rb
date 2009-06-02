@@ -87,10 +87,10 @@ module ActsAsItem
 	        end
 
 					response_for :index do |format|
-						format.html { render(:template => 'items/index_for_item.html.erb') }
+						format.html { render :template => 'items/index_for_item.html.erb' }
 						format.xml { render :xml => @current_objects }
 						format.json { render :json => @current_objects }
-						format.atom { render :template => "#{params[:controller]}/index.atom.builder", :layout => false }
+						format.atom { render :template => "items/index.atom.builder", :layout => false }
 	        end
 
           response_for :destroy do |format|

@@ -1,4 +1,4 @@
-<% item_preview( :title => I18n.t('cms_file.field.file_label'),  :object => object ) do %>
+<%# item_preview( :title => I18n.t('cms_file.field.file_label'),  :object => object ) do %>
 	<h2><%=I18n.t('cms_file.field.file_label')%> : <%= File.basename(object.cmsfile.url.split("?")[0]) %></h2>
 	<%= image_tag("icons/download.png")%> <%= link_to I18n.t('general.button.download'),(object.cmsfile.url.split("?")[0]) %><br />
-<% end %>
+<%# end %>

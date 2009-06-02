@@ -2,13 +2,13 @@ class ItemsController < ApplicationController
 
   def index
 		params[:item_type] ||= get_allowed_item_types(current_workspace).first.pluralize
-		@current_objects = get_items_list(params[:item_type])
+		@current_objects = get_items_list(params[:item_type], current_workspace)
 		@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
 		respond_to do |format|
 			format.html
 			format.xml { render :xml => @current_objects }
 			format.json { render :json => @current_objects }
-			format.atom { render :template => "#{params[:item_type]}/index.atom.builder", :layout => false }
+			format.atom { render :template => "items/index.atom.builder", :layout => false }
 		end
   end
 

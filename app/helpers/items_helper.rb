@@ -74,14 +74,14 @@ module ItemsHelper
   end
   
   # Define the common information of the show of an item
-  def item_preview(parameters, &block)
-    concat\
-      render( :partial => "items/preview",
-              :locals => {  :object => parameters[:object],
-                            :title => parameters[:title],
-                            :block => block                 } ),
-      block.binding
-  end
+#  def item_preview(parameters, &block)
+#    concat\
+#      render( :partial => "items/preview",
+#              :locals => {  :object => parameters[:object],
+#                            :title => parameters[:title],
+#                            :block => block                 } ),
+#      block.binding
+#  end
 
 	# Form part for FCKEditor field
 	def advanced_editor_on(object, attribute)
@@ -200,5 +200,13 @@ module ItemsHelper
 		#raise request.url.split('?').size.inspect
 		return (url+prev_params).split(params.first.split('=').first).first + ((url+prev_params).include?('?') ? '&' : '?') +params.join('&')
 	end
+
+  def get_specific_partial(item_type, partial, object)
+     if File.exists?(RAILS_ROOT+'/app/views/'+object.class.to_s.pluralize.underscore+"/_#{partial}.html.erb")
+			 render :partial => "#{item_type}/#{partial}", :object => object
+     else
+       render :nothing => true
+     end
+  end
 	
 end
