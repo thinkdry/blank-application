@@ -249,6 +249,16 @@ fr-FR:
       short: time"%d %b %H:%M"
       long: "%B %d, %Y %H:%M"
     pm: pm
+  datetime:
+    distance_in_words:
+        less_than_a_minute: less than a minute ago
+        one_minute_ago: 1 minute ago
+        x_minutes_ago: "{{count}} minutes ago"
+        one_hour_ago: 1 hour ago
+        x_hours_ago: "{{count}} hours ago"
+        one_day_ago: 1 day ago
+        x_days_ago: "{{count}} days ago"
+        default: "%d %B %Y at %H:%M:%S"
   groups: 
     new: 
       title: Nouveau groupe

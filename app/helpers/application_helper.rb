@@ -13,7 +13,7 @@ module ApplicationHelper
         
   def flash_messages
 		return unless messages = flash.keys.select{|k| FLASH_NOTICE_KEYS.include?(k)}
-			formatted_messages = messages.map do |type|      
+    formatted_messages = messages.map do |type|
 			content_tag :div, :class => type.to_s do
 				message_for_item(flash[type], flash["#{type}_item".to_sym])
 			end
@@ -88,4 +88,20 @@ module ApplicationHelper
 		return res
 	end
 
+  def distance_of_time_in_words(from_time, to_time = 0, include_seconds = false,options = {})
+    from_time = from_time.to_time if from_time.respond_to?(:to_time)
+    to_time = to_time.to_time if to_time.respond_to?(:to_time)
+    distance_in_minutes = (((to_time - from_time).abs)/60).round
+    I18n.with_options :locale => options[:locale], :scope => :'datetime.distance_in_words' do |locale|
+    case distance_in_minutes
+    when 0..1           then (distance_in_minutes==0) ? (locale.t :less_than_a_minute, :count => 5) : (locale.t :one_minute_ago, :count => distance_in_minutes)
+    when 2..59          then locale.t :x_minutes_ago, :count => distance_in_minutes 
+    when 60..90         then locale.t :one_hour_ago, :count => distance_in_minutes
+    when 90..1440       then locale.t :x_hours_ago, :count => (distance_in_minutes.to_f / 60.0).round
+    when 1440..2160     then locale.t :one_day_ago, :count => distance_in_minutes # 1 day to 1.5 days
+    when 2160..2880     then locale.t :x_days_ago, :count => (distance_in_minutes.to_f / 1440.0).round # 1.5 days to 2 days
+    else locale.t :default, :count => distance_in_minutes
+    end
+  end
+  end
 end
