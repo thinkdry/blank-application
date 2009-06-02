@@ -42,8 +42,6 @@ class ItemsController < ApplicationController
        @current_objects = get_items_list(params[:selected_item], nil)
     end
     @base_url = request.url.split(request.request_uri())[0]
-    puts ">>>>>>>>>>>"
-    puts params[:selected_item]
     render :layout => 'pop_up', :object => @current_objects
   end
 end
