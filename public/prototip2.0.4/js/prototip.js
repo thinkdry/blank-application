@@ -82,6 +82,6 @@ function newTip(elementId){
 			  effect: 'appear',
 			  duration: 0.2,
 			  hook: { target: 'bottomMiddle', tip: 'topRight' },
-			  hideAfter: { element: '.close', event: 'click'},
+			  hideAfter: { element: '.close', event: 'click'}
 			});
 }
