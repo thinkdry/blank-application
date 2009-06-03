@@ -1,21 +1,26 @@
-<div id="object-list">
 
-  <%= render :partial => 'items/classify_bar' %>
+<% if !request.xml_http_request?() %>
+<div id="object-list">
+<% end %>
+
+  <%= display_classify_bar(['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title'], ajax_url, 'object-list') %>
 
   <div id="content">
     <%= display_item_in_list(@paginated_objects) %>
   </div>
   
   <div id="pagination">
-    <%= will_paginate @paginated_objects %>
-    <%#= remote_pagination(@paginated_objects, searches_url+'?page=') %>
+    <%#= will_paginate @paginated_objects %>
+    <%= remote_pagination(@paginated_objects, ajax_url,  'object-list') %>
   </div>
 
 <div class="other_output_format">
   <%= I18n.t('item.show.get_in_another_format')%>:
-  <%= link_to_function image_tag('/images/icons/xml.png'), "params('format=xml')" %>
-  <%= link_to_function image_tag('/images/icons/json.png'), "params('format=json')" %>
-  <%= link_to_function image_tag('/images/icons/atom.png'), "params('format=atom')" %>
+  <%= link_to_function image_tag('/images/icons/xml.png'), "params('#{items_path(params[:item_type])}','format=xml')" %>
+  <%= link_to_function image_tag('/images/icons/json.png'), "params('#{items_path(params[:item_type])}','format=json')" %>
+  <%= link_to_function image_tag('/images/icons/atom.png'), "params('#{items_path(params[:item_type])}','format=atom')" %>
 </div>
 
+<% if !request.xml_http_request?() %>
 </div>
+<% end %>

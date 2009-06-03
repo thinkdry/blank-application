@@ -1,5 +1,4 @@
-<h1>Editing Role</h1>
-
+<h1>Editing Role <%= link_to "Delete Role", role_path(@role.id), :method => :delete, :confirm => 'Really ?', :style => "float: right;font-size: 50%;" if @role.name != 'superadmin'%></h1>
 <% form_for @role, :url => role_path(@role.id), :method => :put do |f| %>
 
   <%= hidden_field_tag :id, @role.id %>

@@ -1,1 +1,1 @@
-<%= display_items_list(@paginated_objects) %>
+<%= display_items_list(@paginated_objects, request.path+'?'+request.url.split('?').last) %>

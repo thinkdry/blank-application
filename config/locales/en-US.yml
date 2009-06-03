@@ -217,6 +217,34 @@ en-US:
               content_type: Image is not one of the allowed file types.
             login: 
               invalid: "{{attribute}} invalid: can take only letters."
+    menu: 
+      add: Add
+      add_help: This menu helps you to add content
+  time: 
+    am: am
+    formats: 
+      default: "%a %b %d %H:%M:%S %Z %Y"
+      time: "%H:%M"
+      verb: "%B %d %Y"
+      short1: "%d %B %Y"
+      only_second: "%S"
+      datetime:
+        formats: 
+          default: "%Y-%m-%dT%H:%M:%S%Z"
+      short: time"%d %b %H:%M"
+      long: "%B %d, %Y %H:%M"
+      long1: "%d %B %Y at %H:%M:%S"
+    pm: pm
+  datetime:
+    distance_in_words:
+        less_than_a_minute: less than a minute ago
+        one_minute_ago: 1 minute ago
+        x_minutes_ago: "{{count}} minutes ago"
+        one_hour_ago: 1 hour ago
+        x_hours_ago: "{{count}} hours ago"
+        one_day_ago: 1 day ago
+        x_days_ago: "{{count}} days ago"
+        default: "%d %B %Y at %H:%M:%S"
   groups: 
     new: 
       title: New Group
@@ -410,6 +438,10 @@ en-US:
     field: 
       body_label: Body
       body_hint: Body of this Newsletter
+      from_email_label: From email
+      from_email_hint: From email address
+      subject_label: Subject
+      subject_hint: Email subject
     send_newsletter: 
       send_to: Send to
       sent_to: Sent to
@@ -440,6 +472,7 @@ en-US:
       saved_records_flash_notice: Saved records successfully
       note_description: Please upload csv file and first row of csv file showld be titles(must be [First name, Last name, Email, Gender, Primary phone, Mobile phone, Fax, Street, City, Postal code, Country, Company, Web page, Job title, Notes] only and email should be mandatory, even if you are not providing any of these values) and subsequent rows are values.
       unsaved_records_flash_error1: Failed to save records which has
+      get_empty_csv_file: Get empty csv file
     field: 
       date_of_birth_label: Date of birth
       newsletter_lable: Receive newsletters?
@@ -467,7 +500,42 @@ en-US:
       export_people_to_csv: Export people to csv
       import_people_from_csv: Import people from csv
       subscribed_on: Subscribed on
-  page: 
+      created_from_back: Created from back
+    imported_from_csv: Imported from CSV
+item: 
+  new: 
+    flash_notice: Created Successfully
+    flash_error: Creation Failed
+  edit: 
+    flash_notice: Updated Successfully
+    flash_error: Updation Failed
+  field: 
+    keyword_hint: Specified keywords for searching that item
+    add_keyword: Add a keyword
+    tag_hint: Give a tag defining this item
+    title_hint: Title of Item
+    tag_label: Tags
+    title_label: Title
+    description_label: Description
+    keyword_label: Keywords
+    description_hint: Description of Item
+    add_tag: Add a tag
+  destroy: 
+    delete_conform: Are you sure you want to delete this item?
+  show: 
+    get_in_another_format: Other format
+  index: 
+    no_item: There is no item of this type.
+  common_word: 
+    rate: Rate
+    tag: Tag
+    output_formate: Output Format
+    summary: Summary
+    corrupted_file: Corrupted File
+    comment: Comment(s)
+    no_item_types: No item types are available.
+    list_empty: That list is empty.
+page:
     new: 
       title: Add a New Page
       body_after_creation: The body of the page will be accessible after the creation.

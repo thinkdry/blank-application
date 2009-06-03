@@ -57,11 +57,11 @@ class ApplicationController < ActionController::Base
 	end
 
 	def is_superadmin?
-		no_permission_redirection unless self.current_user.has_system_role('superadmin')
+		no_permission_redirection unless self.current_user && self.current_user.has_system_role('superadmin')
 	end
 
 	def is_admin?
-		no_permission_redirection unless self.current_user.has_system_role('admin')
+		no_permission_redirection unless self.current_user && self.current_user.has_system_role('admin')
 	end
 
 	def no_permission_redirection
@@ -72,12 +72,11 @@ class ApplicationController < ActionController::Base
 	def get_items_list(item_type, workspace=nil)
 		if workspace
 			if (@configuration['sa_items'] & workspace.ws_items.split(',')).include?(item_type.singularize)
-				current_objects = item_type.classify.constantize.get_items_list_for_user_with_permission_in_workspace(@current_user, 'show',workspace, params[:filter_name], params[:filter_way], params[:filter_limit])
+				current_objects = item_type.classify.constantize.get_items_list_for_user_with_permission_in_workspace(@current_user, 'show', workspace, params[:filter_name], params[:filter_way], params[:filter_limit])
 			else
 				current_objects = []
 			end
 		else
-			#raise @configuration['sa_items'].inspect
 			if @configuration['sa_items'].include?(item_type.singularize)
 				current_objects = item_type.classify.constantize.get_items_list_for_user_with_permission(@current_user, 'show', params[:filter_name], params[:filter_way], params[:filter_limit])
 			else

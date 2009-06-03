@@ -32,6 +32,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    User.find(current_user.id).update_attributes(:last_connected_at => Time.now)
     logout_killing_session!
     flash[:notice] = "Vous avez été déconnecté"
     redirect_back_or_default('/')

@@ -104,13 +104,18 @@ class RolesController < ApplicationController
   # DELETE /roles/1.xml
   def destroy
     @role = Role.find(params[:id])
-    @role.destroy
-    render :update do |page|
-      page.replace_html  'roles', :nothing => true
+    if @role.name == 'superadmin'
+      flash[:notice] = "SuperAdministrator Cannot Be Deleted!"
+      redirect_to '/superadministration/rights'
+    else
+      @role.destroy
+      redirect_to '/superadministration/rights'
     end
-    #    respond_to do |format|
-    #      format.html { redirect_to(roles_url) }
-    #      format.xml  { head :ok }
-    #    end
+
   end
+    
+  #    respond_to do |format|
+  #      format.html { redirect_to(roles_url) }
+  #      format.xml  { head :ok }
+  #    end
 end

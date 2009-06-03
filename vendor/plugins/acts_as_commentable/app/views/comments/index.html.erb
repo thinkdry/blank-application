@@ -16,7 +16,7 @@
   <tr>
     <td><%=h I18n.l(co.created_at) %></td>
     <td><%=h co.commentable_type %></td>
-    <td><%=h co.commentable.title %></td>
+    <td><%=h co.commentable_type.classify.constantize.find(co.commentable_id).title %></td>
     <td><%=h co.text.size %></td>
     <td><%= %></td>
     <td><%= %></td>
@@ -30,3 +30,5 @@
   </tr>
 <% end %>
 </table>
+<br />
+<%= will_paginate @current_objects %>

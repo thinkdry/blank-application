@@ -1,5 +1,7 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+
+	include AjaxPagination
 	
   FLASH_NOTICE_KEYS = [:error, :notice, :warning]
 	def small_item_in_list(item)
@@ -11,7 +13,7 @@ module ApplicationHelper
         
   def flash_messages
 		return unless messages = flash.keys.select{|k| FLASH_NOTICE_KEYS.include?(k)}
-			formatted_messages = messages.map do |type|      
+    formatted_messages = messages.map do |type|
 			content_tag :div, :class => type.to_s do
 				message_for_item(flash[type], flash["#{type}_item".to_sym])
 			end
@@ -86,62 +88,20 @@ module ApplicationHelper
 		return res
 	end
 
-  ###############################
-
-	# TODO enhance, test and include in library
-  # Needs two arguments one is collection objec and another is url. url should look like '/people/ajax_index/?page=' last parameter in the url should be 'page='
-  def remote_pagination(collection,url)
-    if !collection.nil? and collection.total_pages > 1
-    content = String.new
-#		item_type =  params[:item_type].nil? ? get_default_item_type(current_workspace) : params[:item_type]
-#    url = current_workspace ? ajax_items_path(item_type) +"&page=" : ajax_items_path(item_type) +"?page="
-    current_page = params[:page] ? params[:page].to_i : 1
-    if current_page == 1
-      content = "&laquo; #{I18n.t('general.common_word.prev')} "
-    else
-     content = content + link_to_remote("&laquo; #{I18n.t('general.common_word.prev')} ", :update => "content",:method=>:get, :url =>url+"#{current_page - 1}")
-    end
-    prev = nil
-    visible_page_numbers(current_page,collection.total_pages).each do |page_no|
-        content = content+((prev and page_no > prev + 1) ? "&hellip;" : " ")
-        prev = page_no
-        if current_page == page_no
-          content = content+content_tag(:b,page_no.to_s)
-        else
-          content = content+ link_to_remote(page_no.to_s, :update => "content",:method=>:get, :url =>url+"#{page_no}")
-        end
-    end
-    if current_page == collection.total_pages
-      content = content +"  #{I18n.t('general.common_word.next')} &raquo;"
-    else
-      content = content + link_to_remote("  #{I18n.t('general.common_word.next')} &raquo;", :update => "content",:method=>:get, :url =>url+"#{(current_page+1)}")
-    end
-    return content_tag(:div, content, :align=>"center")
+  def distance_of_time_in_words(from_time, to_time = 0, include_seconds = false,options = {})
+    from_time = from_time.to_time if from_time.respond_to?(:to_time)
+    to_time = to_time.to_time if to_time.respond_to?(:to_time)
+    distance_in_minutes = (((to_time - from_time).abs)/60).round
+    I18n.with_options :locale => options[:locale], :scope => :'datetime.distance_in_words' do |locale|
+    case distance_in_minutes
+    when 0..1           then (distance_in_minutes==0) ? (locale.t :less_than_a_minute, :count => 5) : (locale.t :one_minute_ago, :count => distance_in_minutes)
+    when 2..59          then locale.t :x_minutes_ago, :count => distance_in_minutes 
+    when 60..90         then locale.t :one_hour_ago, :count => distance_in_minutes
+    when 90..1440       then locale.t :x_hours_ago, :count => (distance_in_minutes.to_f / 60.0).round
+    when 1440..2160     then locale.t :one_day_ago, :count => distance_in_minutes # 1 day to 1.5 days
+    when 2160..2880     then locale.t :x_days_ago, :count => (distance_in_minutes.to_f / 1440.0).round # 1.5 days to 2 days
+    else locale.t :default, :count => distance_in_minutes
     end
   end
-
-  def visible_page_numbers(current_page,total_pages)
-      inner_window, outer_window = 4, 1
-      window_from = current_page - inner_window
-      window_to = current_page + inner_window
-
-      # adjust lower or upper limit if other is out of bounds
-      if window_to > total_pages
-        window_from -= window_to - total_pages
-        window_to = total_pages
-      end
-      if window_from < 1
-        window_to += 1 - window_from
-        window_from = 1
-        window_to = total_pages if window_to > total_pages
-      end
-
-      visible   = (1..total_pages).to_a
-      left_gap  = (2 + outer_window)...window_from
-      right_gap = (window_to + 1)...(total_pages - outer_window)
-      visible  -= left_gap.to_a  if left_gap.last - left_gap.first > 1
-      visible  -= right_gap.to_a if right_gap.last - right_gap.first > 1
-
-      visible
   end
 end

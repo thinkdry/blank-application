@@ -5,26 +5,27 @@ class WorkspacesController < ApplicationController
   make_resourceful do
     actions :show, :create, :new, :edit, :update, :destroy
 
-    after :show do
-      no_permission_redirection unless @current_object && @current_object.accepts_show_for?(@current_user)
+    before :show do
+      no_permission_redirection unless @current_user && @current_object.accepts_show_for?(@current_user)
       params[:id] ||= params[:workspace_id]
-			params[:item_type] ||= get_allowed_item_types(@current_object).first.to_s.pluralize
+			# Just for the first load of the show, means without item selected
+      params[:item_type] ||= get_allowed_item_types(@current_object).first.to_s.pluralize
 			@current_objects = get_items_list(params[:item_type], @current_object)
 			@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
     end
 
 		before :new do
-			no_permission_redirection unless @current_object && @current_object.accepts_new_for?(@current_user)
+			no_permission_redirection unless @current_user && @current_object.accepts_new_for?(@current_user)
 			@roles = Role.find(:all, :conditions => { :type_role => 'workspace' })
 		end
 
 		before :edit do
-			no_permission_redirection unless @current_object && @current_object.accepts_edit_for?(@current_user)
+			no_permission_redirection unless @current_user && @current_object.accepts_edit_for?(@current_user)
 			@roles = Role.find(:all, :conditions => { :type_role => 'workspace' })
 		end
 
     before :create do
-			no_permission_redirection unless @current_object && @current_object.accepts_new_for?(@current_user)
+			no_permission_redirection unless @current_user && @current_object.accepts_new_for?(@current_user)
 			params[:id] ||= params[:workspace_id]
       @current_object.creator = @current_user
     end
@@ -38,7 +39,7 @@ class WorkspacesController < ApplicationController
     end
 
 		before :update do
-      no_permission_redirection unless @current_object && @current_object.accepts_edit_for?(@current_user)
+      no_permission_redirection unless @current_user && @current_object.accepts_edit_for?(@current_user)
       # Hack. Permit deletion of all assigned users (with roles).
       #params["workspace"]["existing_user_attributes"] ||= {}
     end
@@ -50,10 +51,19 @@ class WorkspacesController < ApplicationController
       flash[:error] =I18n.t('workspace.edit.flash_error')
     end
 
+		before :destroy do
+			no_permission_redirection unless @current_user && @current_object.accepts_destroy_for?(@current_user)
+		end
+
 		response_for :destroy do |format|
 			format.html { redirect_to administration_user_url(@current_user.id) }
 		end
-		
+		response_for :show do |format|
+      format.html { render :action => "show" }
+      format.xml { render :xml => @current_objects }
+      format.json { render :json => @current_objects }
+      format.atom { render :template => "items/index.atom.builder", :layout => false }
+    end                   
 	end
 
   def add_new_user
@@ -71,12 +81,12 @@ class WorkspacesController < ApplicationController
   def current_object
     @current_object ||= @workspace =
       if params[:id]
-        Workspace.find(params[:id])
-      elsif params[:workspace_id]
-        Workspace.find(params[:workspace_id])
-      else
-        nil
-      end
+      Workspace.find(params[:id])
+    elsif params[:workspace_id]
+      Workspace.find(params[:workspace_id])
+    else
+      nil
+    end
   end
 
 	def unsubscription
@@ -115,14 +125,23 @@ class WorkspacesController < ApplicationController
 		end
 	end
 
-	
-  def ajax_show 
-      params[:id] ||= params[:workspace_id]
-			params[:item_type] ||= get_allowed_item_types(current_workspace).first.to_s.pluralize
-			@current_objects = get_items_list(params[:item_type])
-			@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
-      @i = 0
-			render :partial => "items/item_in_list" , :collection => @paginated_objects, :layout => false
-			#render :text => display_item_in_list(@paginated_objects), :layout => false
+  def ajax_content
+    params[:id] ||= params[:workspace_id]
+    @current_object = Workspace.find(params[:id])
+    params[:item_type] ||= get_allowed_item_types(current_workspace).first.to_s.pluralize
+    @current_objects = get_items_list(params[:item_type], @current_object)
+    @paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
+    @i = 0
+    render :partial => "items/items_list", :locals => { :ajax_url => ajax_items_path(params[:item_type]) }, :layout => false
+    #render :text => display_item_in_list(@paginated_objects), :layout => false
+  end
+
+  def management
+    @workspaces=Workspace.all
+    respond_to do |format|
+      format.html  { render :template => '/workspaces/management'}
     end
+
+  end
+
 end

@@ -74,14 +74,14 @@ module ItemsHelper
   end
   
   # Define the common information of the show of an item
-  def item_preview(parameters, &block)
-    concat\
-      render( :partial => "items/preview",
-              :locals => {  :object => parameters[:object],
-                            :title => parameters[:title],
-                            :block => block                 } ),
-      block.binding
-  end
+#  def item_preview(parameters, &block)
+#    concat\
+#      render( :partial => "items/preview",
+#              :locals => {  :object => parameters[:object],
+#                            :title => parameters[:title],
+#                            :block => block                 } ),
+#      block.binding
+#  end
 
 	# Form part for FCKEditor field
 	def advanced_editor_on(object, attribute)
@@ -111,13 +111,13 @@ module ItemsHelper
 	end
 
 	# Displays the tabs link to items
-  def display_tabs_items_list(item_type, items_list)
+  def display_tabs_items_list(item_type, items_list, ajax_url)
 		item_types = get_allowed_item_types(current_workspace)
 		item_type ||= item_types.first.to_s.pluralize
     content = String.new
 		#raise item_types.inspect
-		if item_type.nil?
-			"No items type available"
+		if item_type.blank?
+			return I18n.t('item.common_word.no_item_types')
 		else
 			item_types.map{ |item| item.camelize }.each do |item_model|
      
@@ -135,7 +135,7 @@ module ItemsHelper
         tip_option[:style] = "display:none;"
         tip_option[:class] = "tipTitle"
         
-        li_content += link_to_remote(image_tag(item_model.classify.constantize.icon_48),:method=>:get, :update => "content", :url => url, :before => "selectItemTab('" + item_model.underscore + "')")
+        li_content += link_to_remote(image_tag(item_model.classify.constantize.icon_48),:method=>:get, :update => "object-list", :url => url, :before => "selectItemTab('" + item_model.underscore + "')")
         li_content += content_tag(:div, item_model.classify.constantize.label , tip_option)
         li_content += "<script type='text/javascript'>
                       //<![CDATA[
@@ -157,15 +157,15 @@ module ItemsHelper
                     </script>"
 				content += content_tag(:li,	li_content,	options)
 			end
-			return content_tag(:ul, content, :id => :tabs) + display_items_list(items_list)
+			return content_tag(:ul, content, :id => :tabs) + display_items_list(items_list, ajax_url)
 		end
 	end
 
-	def display_items_list(items_list, partial_used='items/items_list')
-		if items_list
-	    render :partial => partial_used
+	def display_items_list(items_list, ajax_url, partial_used='items/items_list')
+		if items_list.first
+	    render :partial => partial_used, :locals => { :ajax_url => ajax_url }
 		else
-			render :text => I18n.t('layout.search.no_result')
+			render :text => "<br /><br />"+I18n.t('item.common_word.list_empty')
 		end
 	end
 
@@ -179,10 +179,34 @@ module ItemsHelper
 		display_item_list('items/item_in_list_for_editor')
 	end
 
+	def display_classify_bar(ordering_fields_list, ajax_url, refreshed_div, partial_used='items/classify_bar')
+		render :partial => partial_used, :locals => {
+				:ordering_fields_list => ordering_fields_list,
+				:ajax_url => ajax_url,
+				:refreshed_div => refreshed_div
+		}
+	end
+
   def get_ajax_item_path(item_type)
     item_type ||=  get_allowed_item_types(current_workspace).first.pluralize
     url = current_workspace ? ajax_items_path(item_type) +"&page=" : ajax_items_path(item_type) +"?page="
     return url
+  end
+
+	def safe_url(url, params)
+		# TODO generic allowing to replace params in url
+		# trick, work just for classify_bar case
+		prev_params = (a=request.url.split('?')).size > 1 ? '?'+a.last : ''
+		#raise request.url.split('?').size.inspect
+		return (url+prev_params).split(params.first.split('=').first).first + ((url+prev_params).include?('?') ? '&' : '?') +params.join('&')
+	end
+
+  def get_specific_partial(item_type, partial, object)
+     if File.exists?(RAILS_ROOT+'/app/views/'+object.class.to_s.pluralize.underscore+"/_#{partial}.html.erb")
+			 render :partial => "#{item_type}/#{partial}", :object => object
+     else
+       render :nothing => true
+     end
   end
 	
 end

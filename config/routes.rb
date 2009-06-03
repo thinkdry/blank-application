@@ -99,13 +99,13 @@ ActionController::Routing::Routes.draw do |map|
   # Items may be acceded by a list that gives all items the user can consult.
   # => (his items, the public items, and items in workspaces he has permissions)
   items_resources(map)
-
+  map.connect '/workspaces/management', :controller => 'workspaces', :action => 'management'
   # Items in context of workspaces
   map.resources :workspaces, :member => { :add_new_user => :any, :subscription => :any, :unsubscription => :any, :question => :any } do |workspaces|
     workspaces.content '/:item_type', :controller => 'workspaces', :action => 'show', :conditions => { :method => :get }
     items_resources(workspaces)
   end
-  map.workspace_ajax_content 'workspace_ajax_content', :controller => 'workspaces', :action => 'ajax_show', :conditions => { :method => :get }
+  map.workspace_ajax_content 'workspace_ajax_content', :controller => 'workspaces', :action => 'ajax_content', :conditions => { :method => :get }
   # Project management
   #map.resources :projects  do |projects|
   #  projects.resources :meetings do |meetings|

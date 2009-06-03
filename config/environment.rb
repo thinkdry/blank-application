@@ -110,7 +110,7 @@ Rails::Initializer.run do |config|
 	# Need the production_log_analyze gem
 	# Use for example : pl_analyze log/production.log -e recipient@example.com
 	# TODO special logs files for pl_analyze
-	#	require 'hodel_3000_compliant_logger'
-	#	config.logger = Hodel3000CompliantLogger.new(config.log_path)
+	require 'hodel_3000_compliant_logger'
+	config.logger = Hodel3000CompliantLogger.new(config.log_path)
 	
 end

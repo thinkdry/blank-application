@@ -1,4 +1,9 @@
 <% form_for_item @current_object, title do |f| -%>
-  <%= f.advanced_editor(:body, :label => I18n.t('newsletter.field.body_label')+ ' * :', :hint => I18n.t('newsletter.field.body_hint')) %>
-
+  <%= f.text_field :from_email, :label => I18n.t('newsletter.field.from_email_label')+ ' * :', :hint => I18n.t('newsletter.field.from_email_hint') %>
+  <%= f.text_field :subject, :label => I18n.t('newsletter.field.subject_label')+ ' :', :hint => I18n.t('newsletter.field.subject_hint') %>
+<% if @current_object.new_record? %>
+    <div class="CommonMessage"><%= I18n.t('page.new.body_after_creation') %></div>
+  <% else %>
+    <%= f.advanced_editor(:body, :label => I18n.t('newsletter.field.body_label')+ ' * :', :hint => I18n.t('newsletter.field.body_hint')) %>
+  <% end %>
 <% end -%>

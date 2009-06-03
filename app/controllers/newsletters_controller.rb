@@ -1,7 +1,13 @@
 class NewslettersController < ApplicationController
 
   acts_as_ajax_validation
-  acts_as_item
+  acts_as_item do
+    response_for :create do |format|
+			format.html { redirect_to edit_item_path(@current_object) }
+			format.xml { render :xml => @current_object }
+			format.json { render :json => @current_object }
+		end
+  end
   skip_before_filter :is_logged?, :only => ['unsubscribe']
   def send_newsletter
     @group = Group.find(params[:group_id])
@@ -10,8 +16,8 @@ class NewslettersController < ApplicationController
     if GroupsNewsletter.new(:group_id => @group.id,:newsletter_id => @newsletter.id,:sent_on=>Time.now).save
       for member in @group.members
         if member.newsletter
-         args = [member.email,member.class.to_s.downcase,@configuration['sa_contact_email'],@newsletter.title, @newsletter.description, @newsletter.body]
-         QueuedMail.add("UserMailer","send_newsletter", args, 0)
+          args = [member.email,member.class.to_s.downcase,@newsletter.from_email,@newsletter.subject, @newsletter.description, @newsletter.body]
+          QueuedMail.add("UserMailer","send_newsletter", args, 0)
         end
       end
       redirect_to newsletter_path(@newsletter)

@@ -2,13 +2,13 @@ class ItemsController < ApplicationController
 
   def index
 		params[:item_type] ||= get_allowed_item_types(current_workspace).first.pluralize
-		@current_objects = get_items_list(params[:item_type])
+		@current_objects = get_items_list(params[:item_type], current_workspace)
 		@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
 		respond_to do |format|
 			format.html
 			format.xml { render :xml => @current_objects }
 			format.json { render :json => @current_objects }
-			format.atom { render :template => "#{params[:item_type]}/index.atom.builder", :layout => false }
+			format.atom { render :template => "items/index.atom.builder", :layout => false }
 		end
   end
 
@@ -17,7 +17,7 @@ class ItemsController < ApplicationController
 		@current_objects = get_items_list(params[:item_type])
 		@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
     @i = 0
-		render :partial => "items/item_in_list" , :collection => @paginated_objects, :layout => false
+		render :partial => "items/items_list", :layout => false, :locals => { :ajax_url => '/ajax_content/'+params[:item_type] }
 		#render :text => display_item_in_list(@paginated_objects), :layout => false
   end
 
@@ -28,7 +28,7 @@ class ItemsController < ApplicationController
     end
     if params[:content] != 'all'
 			# why params[:workspace_id] ???
-      params[:workspace_id] ||= session[:fck_item_type].classify.constantize.find(session[:fck_item_id]).workspaces.first
+      params[:workspace_id] ||= session[:fck_item_type].classify.constantize.find(session[:fck_item_id]).workspaces.first.id
 			#raise params[:workspace_id].workspaces.size.inspect
       @workspace = Workspace.find(params[:workspace_id])
       params[:selected_item] = get_allowed_item_types(@workspace).first.pluralize if params[:selected_item].nil? || params[:selected_item] == 'all'
@@ -41,6 +41,7 @@ class ItemsController < ApplicationController
     else
        @current_objects = get_items_list(params[:selected_item], nil)
     end
+    @base_url = request.url.split(request.request_uri())[0]
     render :layout => 'pop_up', :object => @current_objects
   end
 end

@@ -1,49 +1,50 @@
 <div class="file_infos">
-		<div class="file_infos_box">
-	    	<p><%= link_to_user object.user %></p>
-		    <p><%= I18n.l object.created_at, :format =>:long %></p>
-		    <p><%= object.comments.size %> <%= object.comments.count > 1 ? I18n.t("item.common_word.comment").pluralize : I18n.t("item.common_word.comment")%></p>
-			<p><%= item_rate_locked(object) %></p>
-	   	</div>
-		<div class="file_infos_box">
-	   		<%= image_tag '/images/icons/tag_blue.png', :align => "left"%><%= ((l=object.keywords_list).size > 0) ? l.split(',').map{ |e| link_to(e, searches_path('search[full_text_field]' => e, 'search[category]' => 'item'))}.join(', ') : I18n.t('general.common_word.none') %>
-		</div>
-		<div class="file_infos_box">
-			<div align="right">
-				<%= link_to image_tag('icons/play.png'), item_path(object) %>
-              <% if object.accepts_rate_for?(@current_user) %>
-				<a href="#" id="rate_action<%= object.id%>">
-					<%= image_tag('icons/rate.png')%>
-					<div id="item_rate_modal_content<%= object.id%>" style="display:none;" align="center">
-				        <%= item_rate(object) %>
-					</div>
-					<script type="text/javascript" charset="utf-8">
-				      new Tip('rate_action<%= object.id%>',  $('item_rate_modal_content<%= object.id%>'), {
-				        showOn: 'click',
-				        hook: { target: 'rightMiddle', tip: 'topLeft' },
-				        hideOn: { element: 'tip', event: 'mouseout' },
-						hideOn: { element: 'tip', event: 'click' },
-				        width: 100,
-						border: 1
-				      });
-			    </script>
-				</a>
-              <% end %>
-              <% if object.accepts_comment_for?(@current_user) %>
-	    		<%= link_to image_tag('icons/comments.png'), item_path(object) + '#new_comment_form_box' %>
-              <% end %>
-			  <%= link_to image_tag('icons/printer.png'), 'javascript:window.print();' %>
-              <% if object.accepts_edit_for?(@current_user)  %>
-				<%= link_to image_tag('icons/pencil.png'), edit_item_path(object)%>
-			  <% end %>
-              <% if object.accepts_destroy_for?(@current_user) %>
-				<%= link_to image_tag('icons/delete.png'), item_path(object), :method => :delete, :confirm =>  I18n.t('item.destroy.delete_conform')%>
-              <% end %>
-			</div>
-			<div class="output_format">
-              <%=I18n.t('item.common_word.output_formate') %>: <%= link_to 'XML', item_path(object)+".xml", :class => 'output_format_link' %>,	<%= link_to 'JSON', item_path(object)+".json", :class => 'output_format_link' %>
-			</div>
-  		</div>
-	</div>
-	<div class="item_description"><%= object.description %></div>
-	<%= capture(&block) %>
+  <div class="file_infos_box">
+    <p><%= link_to_user object.user %></p>
+    <p><%= I18n.l object.created_at, :format =>:long %></p>
+    <p><%= object.comments.size %> <%= object.comments.count > 1 ? I18n.t("item.common_word.comment").pluralize : I18n.t("item.common_word.comment")%></p>
+    <p><%= item_rate_locked(object) %></p>
+  </div>
+  <div class="file_infos_box">
+    <%= image_tag '/images/icons/tag_blue.png', :align => "left"%><%= ((l=object.keywords_list).size > 0) ? l.split(',').map{ |e| link_to(e, searches_path('search[full_text_field]' => e, 'search[category]' => 'item'))}.join(', ') : I18n.t('general.common_word.none') %>
+  </div>
+  <div class="file_infos_box">
+    <div align="right">
+      <%= link_to image_tag('icons/play.png'), item_path(object) %>
+      <% if object.accepts_rate_for?(@current_user) %>
+        <a href="#" id="rate_action<%= object.id%>">
+          <%= image_tag('icons/rate.png')%>
+          <div id="item_rate_modal_content<%= object.id%>" style="display:none;" align="center">
+            <%= item_rate(object) %>
+          </div>
+          <script type="text/javascript" charset="utf-8">
+            new Tip('rate_action<%= object.id%>',  $('item_rate_modal_content<%= object.id%>'), {
+              showOn: 'click',
+              hook: { target: 'rightMiddle', tip: 'topLeft' },
+              hideOn: { element: 'tip', event: 'mouseout' },
+              hideOn: { element: 'tip', event: 'click' },
+              width: 100,
+              border: 1
+            });
+          </script>
+        </a>
+      <% end %>
+      <% if object.accepts_comment_for?(@current_user) %>
+        <%= link_to image_tag('icons/comments.png'), item_path(object) + '#new_comment_form_box' %>
+      <% end %>
+      <%= link_to image_tag('icons/printer.png'), 'javascript:window.print();' %>
+      <% if object.accepts_edit_for?(@current_user)  %>
+        <%= link_to image_tag('icons/pencil.png'), edit_item_path(object)%>
+      <% end %>
+      <% if object.accepts_destroy_for?(@current_user) %>
+        <%= link_to image_tag('icons/delete.png'), item_path(object), :method => :delete, :confirm =>  I18n.t('item.destroy.delete_conform')%>
+      <% end %>
+    </div>
+    <div class="output_format">
+      <%=I18n.t('item.common_word.output_formate') %>: <%= link_to 'XML', item_path(object)+".xml", :class => 'output_format_link' %>,	<%= link_to 'JSON', item_path(object)+".json", :class => 'output_format_link' %>
+    </div>
+  </div>
+</div>
+<div class="item_description"><%= object.description %></div>
+<%#= capture(&block) %>
+<%=  get_specific_partial(params[:item_type], 'preview', object)  %>

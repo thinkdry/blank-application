@@ -234,11 +234,36 @@ fr-FR:
               content_type: "L'image n'est pas un type de fichier autoris\xC3\xA9"
             login: 
               invalid: "{{attribute}} invalide : ne doit contenir que des lettres."
+  time: 
+    am: am
+    formats: 
+      default: "%a %b %d %H:%M:%S %Z %Y"
+      time: "%H:%M"
+      verb: "%d %B %Y"
+      short1: "%d %B %Y"
+      only_second: "%S"
+      datetime: 
+        formats: 
+          default: "%Y-%m-%dT%H:%M:%S%Z"
+      long1: "%d %B %Y \xC3\xA0 %H:%M:%S"
+      short: time"%d %b %H:%M"
+      long: "%B %d, %Y %H:%M"
+    pm: pm
+  datetime:
+    distance_in_words:
+        less_than_a_minute: less than a minute ago
+        one_minute_ago: 1 minute ago
+        x_minutes_ago: "{{count}} minutes ago"
+        one_hour_ago: 1 hour ago
+        x_hours_ago: "{{count}} hours ago"
+        one_day_ago: 1 day ago
+        x_days_ago: "{{count}} days ago"
+        default: "%d %B %Y at %H:%M:%S"
   groups: 
     new: 
-      title: New Group
+      title: Nouveau groupe
     edit: 
-      title: Edit Group
+      title: Editer le groupe
     field: 
       available_people_label: Available People
       people_label: People
@@ -250,8 +275,29 @@ fr-FR:
       delete_confirm: Are you sure!
       add_new_group: Add a new group
       members: Members
-  time: 
-    am: am
+      people_label: Contacts
+      available_people_label: Contacts à disposition
+      title_label: Titre
+      description_label: Description
+      assigned_people_label: Contacts désignés
+    index: 
+      title: Groupes
+      delete_confirm: Etes vous sûr?
+      add_new_group: Ajouter un nouveau groupe
+      members: Membres
+  date: 
+    order: 
+    - :year
+    - :month
+    - :day
+    abbr_day_names: 
+    - Dim
+    - Lun
+    - Mar
+    - Mer
+    - jeu
+    - Ven
+    - Sam
     formats: 
       default: "%a %b %d %H:%M:%S %Z %Y"
       verb: "%d %B %Y"
@@ -426,6 +472,10 @@ fr-FR:
     field: 
       body_label: Body
       body_hint: Body of this Newsletter
+      from_email_label: Depuis l'email 
+      from_email_hint: Evoyer l'email depuis cette adresse
+      subject_label: Sujet
+      subject_hint: Sujet de l'email
     send_newsletter: 
       send_to: Send to
       sent_to: Sent to
@@ -445,7 +495,7 @@ fr-FR:
       file_label: fichier
   people: 
     new: 
-      title: New Person
+      title: Nouveau contact
     import_people: 
       unsaved_records_flash_error2: email ids. Because of invalid email formate or those are already exist.
       note_label: Note
@@ -483,7 +533,80 @@ fr-FR:
       export_people_to_csv: Export people to csv
       import_people_from_csv: Import people from csv
       subscribed_on: Subscribed on
-  page: 
+      note_label: Note
+      unsaved_records_flash_error2: n'ont pas pu être sauvegardés. Soit l'email est déjà présent dans la base, soit le format n'est pas valide.
+      wrong_file_flash_error: Veuillez sélectionner un fichier au format .csv uniquement.
+      select_csv_file_label: Selectionnez un fichier CSV.
+      csv_parser_error: Il ya eu une erreur pendant l'importation.
+      title_order_flash_error: Veuillez lire la <b>Note</b> et procurer un fichier csv tel que décrit.
+      saved_records_flash_notice: Les données ont bien été enregistrées
+      note_description: Pour charger un fichier CSV, il est essentiel de respecter l'ordre suivant. La première ligne doit être recopiée comme ceci "First name, Last name, Email, Gender, Primary phone, Mobile phone, Fax, Street, City, Postal code, Country, Company, Web page, Job title, Notes". Chaque autre ligne représentera un nouveau contact. La colonne e-mail est la seule obligatoire. Les autres peuvent être laissées vides.
+      unsaved_records_flash_error1: Les emails
+      get_empty_csv_file: Récupérer un fichier CSV vierge prêt à la saisie.
+    field: 
+      date_of_birth_label: Date de naissance
+      newsletter_lable: Recevoir la newsletter ?
+      fax_label: Fax
+      postal_code_label: Code postal
+      country_label: Pays
+      job_title_label: Activité
+      salutation_label: "Civilit\xC3\xA9"
+      first_name_label: Prénom
+      gender_label: Sexe
+      city_label: Ville
+      web_page_label: Page web
+      notes_label: Notes
+      mobile_phone_label: Téléphone portable
+      street_label: Rue
+      company_label: Companie
+      last_name_label: Nom
+      email_label: E-mail
+      primary_phone_label: Téléphone fixe
+    index: 
+      add_new_person: Ajouter un nouveau contact
+      name: Nom
+      title: Contacts
+      delete_confirm: Etes vous sûr!
+      import_people_from_csv: Importer une liste de contact depuis un fichier csv.
+      export_people_to_csv: Exporter une liste de contact au format csv.
+      subscribed_on: Souscris à
+      created_from_back: Créé depuis le Back
+      imported_from_csv: Importé depuis un CSV
+ item: 
+   new: 
+     flash_notice: "Cr\xC3\xA9\xC3\xA9 avec succ\xC3\xA8s"
+     flash_error: "Erreur dans la cr\xC3\xA9ation"
+   edit: 
+     flash_notice: "Mise a jour effectu\xC3\xA9e"
+     flash_error: "La mise a jour n'a pas pu \xC3\xAAtre effectu\xC3\xA9e"
+   field: 
+     keyword_hint: Saisissez les keywords pour cette page
+     add_keyword: Ajouter un keyword
+     tag_hint: "Tagger cet item avec un mot-cl\xC3\xA9"
+     title_hint: Titre de l'Objet
+     tag_label: Etiquettes
+     title_label: Titre
+     description_label: Description
+     keyword_label: Keywords
+     description_hint: Description de l'Objet
+     add_tag: "Ajouter une \xC3\xA9tiquette"
+   destroy: 
+     delete_conform: "\xC3\x8Ates-vous s\xC3\xBBr de vouloir supprimer cet objet?"
+   index: 
+     no_item: Il n'y a pas d'item de ce type.
+   show: 
+     get_in_another_format: Autre format
+     no_item: Il n'y a pas d'item de ce type.
+   common_word: 
+     rate: Note
+     tag: Etiquette
+     output_formate: Format de d'affichage
+     summary: Sommaire
+     corrupted_file: Fichier corrompu
+     comment: Commentaire(s)
+     no_item_types: Aucun type d'item n'est disponible.
+     list_empty: Cette liste est vide.
+ page:
     new: 
       title: Ajouter une nouvelle page
       body_after_creation: "Le corps de la page sera accessible une fois la cr\xC3\xA9ation termin\xC3\xA9e"

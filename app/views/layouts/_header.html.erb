@@ -188,7 +188,9 @@
 					<h3>Administration</h3>
 					<div class="headerTipContent">
 						<ul>
-							<li><%=I18n.t('user.administration.workspace_management')%></li>
+							<li>
+								<%=link_to I18n.t('user.administration.workspace_management'),"/workspaces/management"  %>
+							</li>
 						</ul>
 					</div>
 				</div>
@@ -199,7 +201,7 @@
 							<ul>
 								<li><%= link_to "General settings", superadministration_path(:part => 'general') %></li>
 								<li><%= link_to "Color management", superadministration_path(:part => 'css') %></li>
-								<li><%= link_to "Translation manager", superadministration_path(:part => 'translations') %></li>
+								<li><%#= link_to "Translation manager", superadministration_path(:part => 'translations') %></li>
 								<li><%= link_to "Role manager", superadministration_path(:part => 'rights') %></li>
 							</ul>
 						</div

@@ -5,7 +5,7 @@ class GroupsController < ApplicationController
   acts_as_item do
 
     after :create, :update do
-      @group.group_people(params[:selected_Options],current_user)
+      @current_object.groupable_objects = params[:selected_Options]
     end
   end
 
@@ -16,7 +16,6 @@ class GroupsController < ApplicationController
     csv_data = FasterCSV.generate do |csv|
       csv << ["First name", "Last name", "Email", "Gender", "Primary phone", "Mobile phone", "Fax", "Street", "City", "Postal code", "Country", "Company", "Web page", "Job title", "Notes","Newsletter","Salutation","Date of birth","Subscribed on","Updated at"]
         @members.each do |member|
-          member = Group.user_to_people(member) if member.class.to_s == "User"
           csv << [
             member.first_name,
             member.last_name,
