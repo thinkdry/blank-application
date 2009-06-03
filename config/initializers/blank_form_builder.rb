@@ -19,7 +19,7 @@ module ActionView::Base::CompiledTemplates
       options = args.extract_options!
       options = options.merge(:ajax => false, :template => :template_for_advanced_editor)
 
-      '<br' +
+      
         text_area(field, options) +
         @template.advanced_editor_on(@object, field)
     end

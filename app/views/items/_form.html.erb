@@ -1,5 +1,5 @@
 <fieldset>
-  <legend><img src="/images/item_icons/<%= @current_object.type %>_add.png"/><%= title %></legend>
+  <legend><img src="/images/item_icons/<%= @current_object.class.to_s %>_add.png"/><%= title %></legend>
   <% form_for @current_object,
       :builder => BlankFormBuilder,
       #:url => (@current_object.new_record? ? items_path(@current_object.class.to_s) : item_path(@current_object)),
