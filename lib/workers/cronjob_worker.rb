@@ -1,7 +1,13 @@
 class CronjobWorker < BackgrounDRb::MetaWorker
   set_worker_name :cronjob_worker
+  pool_size 5
+
   def create(args = nil)
-    puts "Started Worker for FeedSource & Xapian Updation"
+    puts "Started Worker for FeedSource & Xapian Updation & Newsletter"
+  end
+
+  def newthread(args)
+    thread_pool.defer(:send_newsletter)
   end
 
   def update_feed_source
