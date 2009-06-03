@@ -18,8 +18,10 @@ class NewslettersController < ApplicationController
         if member.newsletter
           args = [member.email,member.class.to_s.downcase,@newsletter.from_email,@newsletter.subject, @newsletter.description, @newsletter.body]
           QueuedMail.add("UserMailer","send_newsletter", args, 0)
+
         end
       end
+      MiddleMan.worker(:cronjob_worker).async_newthread
       redirect_to newsletter_path(@newsletter)
     end
   end

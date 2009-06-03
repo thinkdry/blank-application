@@ -58,11 +58,12 @@ class WorkspacesController < ApplicationController
 		response_for :destroy do |format|
 			format.html { redirect_to administration_user_url(@current_user.id) }
 		end
+    
 		response_for :show do |format|
       format.html { render :action => "show" }
-      format.xml { render :xml => @current_objects }
-      format.json { render :json => @current_objects }
-      format.atom { render :template => "items/index.atom.builder", :layout => false }
+      format.xml { render :xml => @current_object }
+      format.json { render :json => @current_object }
+      #format.atom { render :template => "items/index.atom.builder", :layout => false }
     end                   
 	end
 
@@ -125,16 +126,16 @@ class WorkspacesController < ApplicationController
 		end
 	end
 
-  def ajax_content
-    params[:id] ||= params[:workspace_id]
-    @current_object = Workspace.find(params[:id])
-    params[:item_type] ||= get_allowed_item_types(current_workspace).first.to_s.pluralize
-    @current_objects = get_items_list(params[:item_type], @current_object)
-    @paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
-    @i = 0
-    render :partial => "items/items_list", :locals => { :ajax_url => ajax_items_path(params[:item_type]) }, :layout => false
-    #render :text => display_item_in_list(@paginated_objects), :layout => false
-  end
+#  def ajax_content
+#    params[:id] ||= params[:workspace_id]
+#    @current_object = Workspace.find(params[:id])
+#    params[:item_type] ||= get_allowed_item_types(current_workspace).first.to_s.pluralize
+#    @current_objects = get_items_list(params[:item_type], @current_object)
+#    @paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
+#    @i = 0
+#    render :partial => "items/items_list", :locals => { :ajax_url => ajax_items_path(params[:item_type]) }, :layout => false
+#    #render :text => display_item_in_list(@paginated_objects), :layout => false
+#  end
 
   def management
     @workspaces=Workspace.all

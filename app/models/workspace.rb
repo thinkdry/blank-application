@@ -47,12 +47,14 @@ class Workspace < ActiveRecord::Base
 		raise 'User required' unless user_id
 		raise 'Permission name' unless permission_name
 		if User.find(user_id).has_system_role('superadmin')
-			{ }
+			{ :order => "workspaces.title ASC" }
 		else
 			{ :joins => "LEFT JOIN users_workspaces ON users_workspaces.workspace_id = workspaces.id AND users_workspaces.user_id = #{user_id.to_i} "+
 						"LEFT JOIN permissions_roles ON permissions_roles.role_id = users_workspaces.role_id "+
 						"LEFT JOIN permissions ON permissions_roles.permission_id = permissions.id",
-				:conditions => "permissions.name = '#{permission_name.to_s}'" }
+				:conditions => "permissions.name = '#{permission_name.to_s}'" ,
+        :order => "workspaces.title ASC"
+        }
 		end
 	}
 
