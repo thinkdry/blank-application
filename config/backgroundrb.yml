@@ -11,7 +11,7 @@
     :update_xapian_index:
       :trigger_args: 0 0 1 * * *
     :send_newsletter:
-      :trigger_args: 0 0 1 * *
+      :trigger_args: 0 0 * * * * *
 :production:
   :backgroundrb:
     :environment: production
