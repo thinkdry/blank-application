@@ -36,7 +36,7 @@
 	  	<div class="footerCol">
 	  		<h3>Last comments</h3>
 			<% Comment.find(:all, :conditions => { :state => 'validated' }, :order => 'created_at DESC', :limit => 5).each do |e| %>
-              <p><%= link_to e.commentable_type.classify.constantize.find(e.commentable_id).title, item_path(e) %></p>
+              <p><%= link_to e.commentable_type.classify.constantize.find(e.commentable_id).title, item_path(e.commentable_type.classify.constantize.find(e.commentable_id)) %></p>
             <% end %>
 	  	</div>
 		<div class="footerCol">
