@@ -36,26 +36,17 @@ a.add_item{
 #page_container {
 	width: 1000px;
 	margin: 0 auto;
-	background-color:#fff;
 	text-align:left;
+	overflow:auto;
 }
 
 #container {
-  width: 1000px;
-  text-align: left;
-  /*padding-top:80px;*/
-  padding-top:40px;
+  background:#fff;
 }
 
 #header {
-	height: 60px;
 	padding-top:10px;
 	background:#fff url('/images/backHeader.jpg') no-repeat;
-	/*position:fixed;
-	top:0px;
-	left:50%;
-	margin-left:-500px;
-	width:1000px;*/
 }
 
 #header ul{
@@ -90,6 +81,10 @@ a.add_item{
 	padding:10px;
 }
 
+.deconnect{
+	font-size: 110%;
+	font-weight: bold;
+}
 
 .headerTipOne{
 	border:1px solid #f89f36;
@@ -99,6 +94,7 @@ a.add_item{
 .headerTipTwo{
 	border:1px solid #f49029;
 	border-top:5px solid #f49029;
+	overflow:auto;
 }
 
 .headerTipTree{
@@ -451,8 +447,8 @@ a img {
 #footer{
 	color:#2B2D2C;
 	margin-bottom:10px;
-	margin-top:10px;
-	background:url('/images/backfooter.jpg') no-repeat bottom;
+	padding-top:50px;
+	background:#fff url('/images/backfooter.jpg') no-repeat bottom;
 	overflow:auto;
 	font-size:85%;
 }
