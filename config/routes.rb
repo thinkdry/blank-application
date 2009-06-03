@@ -49,11 +49,11 @@ ActionController::Routing::Routes.draw do |map|
   map.forgot_password '/forgot_password', :controller => 'users', :action => 'forgot_password'
   #map.change_password '/change_password', :controller => 'users', :action => 'change_password'
   map.reset_password '/reset_password/:password_reset_code', :controller => 'users', :action => 'reset_password'
-  map.resources :users, :member => { :administration => :any }, :collection => { :autocomplete_on => :any }
+  map.resources :users, :member => { :administration => :any }, :collection => { :autocomplete_on => :any, :validate => :any }
 	map.resource :session, :member => { :change_language => :any }
 	map.resources :people, :collection => {:export_people=>:any, :import_people => :any,:ajax_index => :get,:get_empty_csv => :get }
 
-  map.export_group '/export_group/:id', :controller => 'groups', :action => 'export_group'
+  # Routes Related to SuperAdministrator
 	map.general_changing_superadministration 'superadministration/general_changing', :controller => 'superadministration', :action => 'general_changing'
 	map.check_color_superadministration 'superadministration/check_color', :controller => 'superadministration', :action => 'check_color'
 	map.colors_changing_superadministration 'superadministration/colors_changing', :controller => 'superadministration', :action => 'colors_changing'
@@ -61,17 +61,22 @@ ActionController::Routing::Routes.draw do |map|
 	map.translations_changing_superadministration 'superadministration/translations_changing', :controller => 'superadministration', :action => 'translations_changing'
 	map.translations_new_superadministration 'superadministration/translations_new', :controller => 'superadministration', :action => 'translations_new'
 	map.superadministration '/superadministration/:part', :controller => 'superadministration', :action => 'superadministration'
-	
+
+  # Route for HomePage
 	map.resources :home, :only => [:index], :collection => { :autocomplete_on => :any }
 
+  # Routes for Roles and Permissions in BA
   map.resources :roles
   map.resources :permissions
+
+  # Routes for Comments
 	map.resources :comments, :only => [:index, :edit, :update], :member => { :change_state => :any }
   
   # TODO: Publishing, Bookmarks, Admin related controllers: rights...
   map.root :controller => 'home', :action => 'index'
 
 	#map.resources :fronts, :member => { :load_page => :any }
+  # Route for generating Dynamic CSS
   map.connect '/stylesheets/:action.:format', :controller => 'stylesheets'
 
   # Items are CMS component types
@@ -83,16 +88,26 @@ ActionController::Routing::Routes.draw do |map|
         :add_tag => :any,
         :remove_tag => :any,
         :add_comment => :any
-      }
+      }, :collection => {:validate => :any}
     end
+    # Displaying Items
+    parent.content '/content/:item_type', :controller => 'items', :action => 'index'
+    # Ajax Pagination on Content
+    parent.ajax_content '/ajax_content/:item_type', :controller => 'items', :action => 'ajax_index'
   end
+
+  # Feed related routes
 	map.check_feed '/feed_sources/check_feed', :controller => 'feed_sources', :action => 'check_feed'
   map.what_to_do '/feed_sources/what_to_do', :controller => 'feed_sources', :action => 'what_to_do'
+
+  # Newsletter related routes
   map.send_newsletter '/send_newsletter', :controller => 'newsletters', :action => 'send_newsletter'
   map.unsubscribe_for_newsletter '/unsubscribe_for_newsletter', :controller => 'newsletters', :action => 'unsubscribe'
 	#map.resources :feed_items
-	map.content '/content/:item_type', :controller => 'items', :action => 'index'
-  map.ajax_content '/ajax_content/:item_type', :controller => 'items', :action => 'ajax_index'
+	#map.content '/content/:item_type', :controller => 'items', :action => 'index'
+  #map.ajax_content '/ajax_content/:item_type', :controller => 'items', :action => 'ajax_index'
+
+  # Displaying items in POP UP for fck editor
   map.display_content_list '/display_content_list/:selected_item', :controller => 'items', :action => 'display_item_in_pop_up'
 	
   # Items created outside any workspace are private or fully public.
@@ -100,12 +115,13 @@ ActionController::Routing::Routes.draw do |map|
   # => (his items, the public items, and items in workspaces he has permissions)
   items_resources(map)
   map.connect '/workspaces/management', :controller => 'workspaces', :action => 'management'
+  
   # Items in context of workspaces
-  map.resources :workspaces, :member => { :add_new_user => :any, :subscription => :any, :unsubscription => :any, :question => :any } do |workspaces|
-    workspaces.content '/:item_type', :controller => 'workspaces', :action => 'show', :conditions => { :method => :get }
+  map.resources :workspaces, :member => { :add_new_user => :any, :subscription => :any, :unsubscription => :any, :question => :any }, :collection => {:validate => :any} do |workspaces|
+    #workspaces.content '/content/:item_type', :controller => 'workspaces', :action => 'show', :conditions => { :method => :get }
     items_resources(workspaces)
   end
-  map.workspace_ajax_content 'workspace_ajax_content', :controller => 'workspaces', :action => 'ajax_content', :conditions => { :method => :get }
+  #map.workspace_ajax_content 'workspace_ajax_content', :controller => 'workspaces', :action => 'ajax_content', :conditions => { :method => :get }
   # Project management
   #map.resources :projects  do |projects|
   #  projects.resources :meetings do |meetings|
@@ -114,10 +130,16 @@ ActionController::Routing::Routes.draw do |map|
   #end
 	
   #map.add_new_user '/add_new_user', :controller => 'workspaces', :action => 'add_new_user'
+  # Search related routes
   map.resources :searches, :collection => { :print_advanced => :any }
+ 
+  # Route to export Group Members
+  map.export_group '/export_group/:id', :controller => 'groups', :action => 'export_group'
+
+  # FCKUPLOAD route for uploads throught fckeditor
   map.connect '/fckuploads', :controller => 'fck_uploads', :action => 'create'
 
   # Install the default routes as the lowest priority.
-	map.connect ':controller/:action/:id'
-  map.connect ':controller/:action/:id.:format'
+	#map.connect ':controller/:action/:id'
+  #map.connect ':controller/:action/:id.:format'
 end

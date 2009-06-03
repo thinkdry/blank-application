@@ -5,11 +5,7 @@ module AjaxPagination
   def remote_pagination(collection, url, refreshed_div)
 		paramss = request.url.split('?').last
 		paramss = (paramss.split('&').size > 1) ? paramss.split('&page=').first+'&page=' : 'page='
-    if params[:controller] == 'workspaces' && params[:action] == 'show'
-      url = url+'&'+paramss
-    else
       url = url+'?'+paramss
-    end
     if !collection.nil? and collection.total_pages > 1
     content = String.new
 #		item_type =  params[:item_type].nil? ? get_default_item_type(current_workspace) : params[:item_type]
