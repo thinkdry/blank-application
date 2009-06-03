@@ -502,83 +502,52 @@ en-US:
       subscribed_on: Subscribed on
       created_from_back: Created from back
     imported_from_csv: Imported from CSV
-item: 
-  new: 
-    flash_notice: Created Successfully
-    flash_error: Creation Failed
-  edit: 
-    flash_notice: Updated Successfully
-    flash_error: Updation Failed
-  field: 
-    keyword_hint: Specified keywords for searching that item
-    add_keyword: Add a keyword
-    tag_hint: Give a tag defining this item
-    title_hint: Title of Item
-    tag_label: Tags
-    title_label: Title
-    description_label: Description
-    keyword_label: Keywords
-    description_hint: Description of Item
-    add_tag: Add a tag
-  destroy: 
-    delete_conform: Are you sure you want to delete this item?
-  show: 
-    get_in_another_format: Other format
-  index: 
-    no_item: There is no item of this type.
-  common_word: 
-    rate: Rate
-    tag: Tag
-    output_formate: Output Format
-    summary: Summary
-    corrupted_file: Corrupted File
-    comment: Comment(s)
-    no_item_types: No item types are available.
-    list_empty: That list is empty.
-page:
-    new: 
-      title: Add a New Page
-      body_after_creation: The body of the page will be accessible after the creation.
-    edit: 
-      title: Edit the Page
-      no_website_linked: There is no website linked to the choosen workspace, link one in order to edit your page.
-      more_than_one_ws_linked: There are more than one workspace linked to this page, it will make conflict with fronts.
-    field: 
-      page_title_hint: Enter the title for this page
-      body_label: Body
-      page_title_label: Title of the page
-      body_hint: Body of this page
-  item: 
-    new: 
+  item:
+    new:
       flash_notice: Created Successfully
       flash_error: Creation Failed
-    edit: 
+    edit:
       flash_notice: Updated Successfully
       flash_error: Updation Failed
-    destroy: 
-      delete_conform: Are you Dure you want to Delete this Item?
-    field: 
-      add_keyword: Add a keyword
+    field:
       keyword_hint: Specified keywords for searching that item
+      add_keyword: Add a keyword
       tag_hint: Give a tag defining this item
       title_hint: Title of Item
       tag_label: Tags
-      description_label: Description
       title_label: Title
+      description_label: Description
       keyword_label: Keywords
-      add_tag: Add a tag
       description_hint: Description of Item
-    index: 
-      no_item: There is no item of this type.
-    show: 
+      add_tag: Add a tag
+    destroy:
+      delete_conform: Are you sure you want to delete this item?
+    show:
       get_in_another_format: Other format
-    common_word: 
-      tag: Tag
+    index:
+      no_item: There is no item of this type.
+    common_word:
       rate: Rate
+      tag: Tag
       output_formate: Output Format
       summary: Summary
       corrupted_file: Corrupted File
       comment: Comment(s)
+      no_item_types: No item types are available.
+      list_empty: That list is empty.
+  page:
+    new:
+      title: Add a New Page
+      body_after_creation: The body of the page will be accessible after the creation.
+    edit:
+      title: Edit the Page
+      no_website_linked: There is no website linked to the choosen workspace, link one in order to edit your page.
+      more_than_one_ws_linked: There are more than one workspace linked to this page, it will make conflict with fronts.
+    field:
+      page_title_hint: Enter the title for this page
+      body_label: Body
+      page_title_label: Title of the page
+      body_hint: Body of this page
   home: 
     index: 
       latest_workspace: Latest Workspaces

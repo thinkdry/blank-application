@@ -572,87 +572,55 @@ fr-FR:
       subscribed_on: Souscris à
       created_from_back: Créé depuis le Back
       imported_from_csv: Importé depuis un CSV
- item: 
-   new: 
-     flash_notice: "Cr\xC3\xA9\xC3\xA9 avec succ\xC3\xA8s"
-     flash_error: "Erreur dans la cr\xC3\xA9ation"
-   edit: 
-     flash_notice: "Mise a jour effectu\xC3\xA9e"
-     flash_error: "La mise a jour n'a pas pu \xC3\xAAtre effectu\xC3\xA9e"
-   field: 
-     keyword_hint: Saisissez les keywords pour cette page
-     add_keyword: Ajouter un keyword
-     tag_hint: "Tagger cet item avec un mot-cl\xC3\xA9"
-     title_hint: Titre de l'Objet
-     tag_label: Etiquettes
-     title_label: Titre
-     description_label: Description
-     keyword_label: Keywords
-     description_hint: Description de l'Objet
-     add_tag: "Ajouter une \xC3\xA9tiquette"
-   destroy: 
-     delete_conform: "\xC3\x8Ates-vous s\xC3\xBBr de vouloir supprimer cet objet?"
-   index: 
-     no_item: Il n'y a pas d'item de ce type.
-   show: 
-     get_in_another_format: Autre format
-     no_item: Il n'y a pas d'item de ce type.
-   common_word: 
-     rate: Note
-     tag: Etiquette
-     output_formate: Format de d'affichage
-     summary: Sommaire
-     corrupted_file: Fichier corrompu
-     comment: Commentaire(s)
-     no_item_types: Aucun type d'item n'est disponible.
-     list_empty: Cette liste est vide.
- page:
-    new: 
-      title: Ajouter une nouvelle page
-      body_after_creation: "Le corps de la page sera accessible une fois la cr\xC3\xA9ation termin\xC3\xA9e"
-    edit: 
-      title: Editer la page
-      no_website_linked: "L'espace de travail selectionn\xC3\xA9 n'est reli\xC3\xA9 \xC3\xA0 aucun site web. Liez en un pour pouvoir l'\xC3\xA9diter."
-      more_than_one_ws_linked: "Il y a plusieurs espaces de travail reli\xC3\xA9s \xC3\xA0 cette page, ce qui peut engendrer des conflits avec le front."
-    field: 
-      page_title_hint: Saisissez le titre de cette page
-      body_label: Corps
-      page_title_label: Titre de la page
-      body_hint: Corps de la page
-  item: 
-    new: 
+  item:
+    new:
       flash_notice: "Cr\xC3\xA9\xC3\xA9 avec succ\xC3\xA8s"
       flash_error: "Erreur dans la cr\xC3\xA9ation"
-    edit: 
+    edit:
       flash_notice: "Mise a jour effectu\xC3\xA9e"
       flash_error: "La mise a jour n'a pas pu \xC3\xAAtre effectu\xC3\xA9e"
-    destroy: 
-      delete_conform: "\xC3\x8Ates-vous s\xC3\xBBr de vouloir supprimer cet objet?"
-    field: 
-      add_keyword: Ajouter un keyword
+    field:
       keyword_hint: Saisissez les keywords pour cette page
+      add_keyword: Ajouter un keyword
       tag_hint: "Tagger cet item avec un mot-cl\xC3\xA9"
       title_hint: Titre de l'Objet
       tag_label: Etiquettes
-      description_label: Description
       title_label: Titre
+      description_label: Description
       keyword_label: Keywords
-      add_tag: "Ajouter une \xC3\xA9tiquette"
       description_hint: Description de l'Objet
-    show: 
+      add_tag: "Ajouter une \xC3\xA9tiquette"
+    destroy:
+      delete_conform: "\xC3\x8Ates-vous s\xC3\xBBr de vouloir supprimer cet objet?"
+    index:
+      no_item: Il n'y a pas d'item de ce type.
+    show:
       get_in_another_format: Autre format
       no_item: Il n'y a pas d'item de ce type.
-    index: 
-      no_item: Il n'y a pas d'item de ce type.
-    common_word: 
-      tag: Etiquette
+    common_word:
       rate: Note
+      tag: Etiquette
       output_formate: Format de d'affichage
       summary: Sommaire
       corrupted_file: Fichier corrompu
       comment: Commentaire(s)
-  home: 
-    index: 
+      no_item_types: Aucun type d'item n'est disponible.
+      list_empty: Cette liste est vide.
+  page:
+    new:
+      title: Ajouter une nouvelle page
+      body_after_creation: "Le corps de la page sera accessible une fois la cr\xC3\xA9ation termin\xC3\xA9e"
+    edit:
+      title: Editer la page
+      no_website_linked: "L'espace de travail selectionn\xC3\xA9 n'est reli\xC3\xA9 \xC3\xA0 aucun site web. Liez en un pour pouvoir l'\xC3\xA9diter."
+      more_than_one_ws_linked: "Il y a plusieurs espaces de travail reli\xC3\xA9s \xC3\xA0 cette page, ce qui peut engendrer des conflits avec le front."
+    field:
+      page_title_hint: Saisissez le titre de cette page
+      body_label: Corps
+      page_title_label: Titre de la page
+      body_hint: Corps de la page
+  home:
+    index:
       latest_workspace: derniers espaces de travail
       top_five_item: Top 5 Objets
       best_rated: "Le mieux not\xC3\xA9"
@@ -666,43 +634,43 @@ fr-FR:
       my_personnal_information: Mes informations personnelles
       you_administor: Vous administrez
       feed_item: Flux
-  comment: 
-    add_comment: 
+  comment:
+    add_comment:
       ajax_message_comment_submited: "Votre message est enregistr\xC3\xA9, nous vous remercions de votre participation."
       ajax_message_comment_published: "Votre commentaire a \xC3\xA9t\xC3\xA9 publi\xC3\xA9."
       button_publish: Publier mon commentaire
-    edit: 
+    edit:
       flash_notice: "Commentaire mis \xC3\xA0 jour avec succ\xC3\xA8s"
       title: "Mise \xC3\xA0 jour du commentaire"
       flash_error: "Erreur durant la mise \xC3\xA0 jour"
-    field: 
+    field:
       text: Corps
       state: Etat
-    index: 
+    index:
       title: Liste des commentaires
-    state: 
+    state:
       all: Tous
       validate: Valider
       validated: "Valid\xC3\xA9s"
       rejected: "Reject\xC3\xA9s"
       reject: Rejeter
       posted: "Post\xC3\xA9s"
-  image: 
-    new: 
+  image:
+    new:
       title: Ajouter une nouvelle image
-    edit: 
+    edit:
       title: Editer l'image
-    field: 
+    field:
       image_label: Image
-  video: 
-    new: 
+  video:
+    new:
       title: Ajouter une nouvelle video
-    edit: 
+    edit:
       title: Editer la video
-    field: 
+    field:
       video_label: Video
-  layout: 
-    search: 
+  layout:
+    search:
       displaying: Afficher
       result: Resultat
       filter_viewed_number: Nombre de visites
@@ -724,14 +692,14 @@ fr-FR:
       no_result: "Pas de r\xC3\xA9sultats avec ces crit\xC3\xA8res de recherche."
       item_category: Type d'item
       filter_title: Titre
-    general: 
+    general:
       other: Autre
-    popup: 
+    popup:
       filter_by_workspace: Filtrer par workspace
       filter_by_item_type: Filtrer par type
       display_all_picure: Afficher toutes les images
       filter_help: "Ce menu vous permet de filter la liste d'item affich\xC3\xA9e ci-dessous."
-    application: 
+    application:
       no_add_content: "Vous devez cr\xC3\xA9er un espace de travail ou poss\xC3\xA9der des droits dans un autre pour ajouter du contenu."
       new_workspace: Nouvel espace de travail
       change_language: Changer la langue
@@ -750,7 +718,7 @@ fr-FR:
       home: Acceuil
       all_elements: "Tous les \xC3\xA9lements"
       welcome_message: Bienvenue
-    menu: 
+    menu:
       add: Ajouter
       search: Chercher
       configure_help: "Ce menu vous permet de modifier les r\xC3\xA9glages de la BA"
@@ -761,7 +729,7 @@ fr-FR:
       content: Contenu
       other: Autre
       add_help: Ce menu vous permet d'ajouter du contenu
-    footer: 
+    footer:
       faq: FAQ
       title: ThinkDRY Technologies 2008
       site_map: Plan du site
