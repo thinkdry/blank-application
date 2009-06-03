@@ -162,11 +162,11 @@ module ItemsHelper
 	end
 
 	def display_items_list(items_list, ajax_url, partial_used='items/items_list')
-		if items_list.first
+#		if items_list.first
 	    render :partial => partial_used, :locals => { :ajax_url => ajax_url }
-		else
-			render :text => "<br /><br />"+I18n.t('item.common_word.list_empty')
-		end
+#		else
+#			render :text => "<br /><br />"+I18n.t('item.common_word.list_empty')
+#		end
 	end
 
 	# Displays the list of items
