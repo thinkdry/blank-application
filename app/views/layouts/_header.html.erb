@@ -75,7 +75,9 @@
 							<li><%= link_to I18n.t('layout.application.home'), '/' %></li>
 							<li><%= link_to I18n.t('layout.application.content'), content_path('articles') %></li>
 							<li><%= link_to I18n.t('layout.application.subscribers'), '/people' %></li>
+							<% if current_user.has_system_permission('user', 'show') -%>
 							<li><%= link_to I18n.t('layout.application.users'), '/users' %></li>
+							<% end -%>
 						</ul>
 					</div>
 				</div>
@@ -177,15 +179,16 @@
 					<%if (available_languages.size > 1) -%>
 					<p><%= I18n.t('layout.application.change_language')%><%= select_languages %></p>
 					<%end-%>
-					<p><%= link_to I18n.t('layout.application.logout'), '/logout' %></p>
+					<p>
+						<img src="/images/icons/exit.png">
+						<%= link_to I18n.t('layout.application.logout'), '/logout', :class => 'deconnect' %>`
+					</p>
 				</div>
 				<div class="headerTipCol">
 					<h3>Administration</h3>
 					<div class="headerTipContent">
 						<ul>
-							<li>
-								<%=I18n.t('user.administration.workspace_management')%>
-							</li>
+							<li><%=I18n.t('user.administration.workspace_management')%></li>
 						</ul>
 					</div>
 				</div>
