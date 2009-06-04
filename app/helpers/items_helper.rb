@@ -204,8 +204,8 @@ module ItemsHelper
 	end
 
   def get_specific_partial(item_type, partial, object)
-     if File.exists?(RAILS_ROOT+'/app/views/'+object.class.to_s.pluralize.underscore+"/_#{partial}.html.erb")
-			 render :partial => "#{item_type}/#{partial}", :object => object
+     if File.exists?(RAILS_ROOT+'/app/views/'+object.class.to_s.downcase.pluralize.underscore+"/_#{partial}.html.erb")
+			 render :partial => "#{object.class.to_s.downcase.pluralize.underscore}/#{partial}", :object => object
      else
        render :nothing => true
      end
