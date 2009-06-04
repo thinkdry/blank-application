@@ -1,5 +1,25 @@
 namespace :blank do
 
+	desc "Initializing Blank Engine"
+	task :init => :environment do
+		p "===== ENVIRONMENT : "+RAILS_ENV
+		Rake::Task['captcha:generate'].invoke
+	end
+
+	desc "Initializing Blank Engine"
+	task :update => :environment do
+		Rake::Task['db:migrate'].invoke
+		Rake::Task['blank:xapian_rebuild'].invoke
+	end
+
+	desc "Building Xapian indexes"
+	task :xapian_rebuild => :environment do
+		p "Building Xapian indexes ......"
+		system("rake xapian:rebuild_index models='#{ITEMS.map{ |e| e.camelize }.join(' ')} User Workspace' RAILS_ENV=#{RAILS_ENV}")
+		#Rake::Task['xapian:rebuild_index'].invoke("models=\"#{ITEMS.map{ |e| e.camelize }.join(' ')} User Workspace\"")
+		p "Done"
+	end
+
   desc "Create Basic Settings for BLANK"
   task(:pump => :environment) do
     Rake::Task['blank:drop_rights'].invoke
@@ -17,6 +37,8 @@ namespace :blank do
 		Rake::Task['db:migrate'].invoke
 		Rake::Task['blank:pump'].invoke
 	end
+
+	### Pump subtasks
 
   desc "Drop Roles & Permissions"
   task(:drop_rights => :environment) do

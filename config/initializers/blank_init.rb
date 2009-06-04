@@ -12,6 +12,8 @@ ActionController::Base.send(:include, ActsAsItem::ControllerMethods)
 #require "acts_as_item/helper.rb"
 #ApplicationHelper.send(:include, ActsAsItem::HelperMethods)
 
+CAPTCHA_IMAGES_NUMBER = 10
+
 # Defining the global variable
 ITEMS = ['article', 'image', 'cms_file', 'video', 'audio', 'publication', 'feed_source', 'bookmark','newsletter','group']
 LANGUAGES = ['en-US', 'fr-FR']
