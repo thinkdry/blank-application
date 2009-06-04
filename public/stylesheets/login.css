@@ -14,7 +14,7 @@ body {
 	padding:25px 25px 0;
 	text-align:left;
 	width:400px;
-	height:100%;
+	height:320px;
 }
 a:link {
 	color: #7B003B;
@@ -106,7 +106,7 @@ form  {
 }
 #headerForm{
 	margin-top:10px;
-	background:url(/images/backloginheader.jpg) no-repeat;
+	background:url(/images/backloginheader.jpg) no-repeat bottom;
 	height:10px;
 	width:400px;
 	margin:30px auto 0;
@@ -125,4 +125,8 @@ form  {
 }
 select{
 	margin-top:-3px;
+}
+.checkboxes{
+	width:15px !important;
+	border:none !important;
 }

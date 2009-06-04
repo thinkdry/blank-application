@@ -29,13 +29,13 @@ class CronjobWorker < BackgrounDRb::MetaWorker
   end
 
 	def send_newsletter
-		logger.info "Sending the newsletter"
+		logger.info "Sending the newsletters"
 		command=<<-end_command
       ruby script/runner QueuedMail.send_email
     end_command
     command.gsub!(/\s+/, " ")
     system(command)
-    logger.info "Sent the newsletter"
+    logger.info "Sent the newsletters on #{Time.now}"
 	end
 
 end
