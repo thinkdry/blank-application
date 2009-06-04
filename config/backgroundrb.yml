@@ -1,17 +1,13 @@
 --- 
 :backgroundrb:
   :ip: 0.0.0.0
-  :port: 11006
-  :result_storage: memcache
-:memcache: "10.0.0.1:11211,10.0.0.2:11211"
+  :port: 11007 
+  :persistent_delay: 60
 :schedules:
   :cronjob_worker:
     :update_feed_source:
       :trigger_args: 0 0 1 * * *
     :update_xapian_index:
-      :trigger_args: 0 0 1 * * *
+      :trigger_args: 0 0 * * * * *
     :send_newsletter:
       :trigger_args: 0 0 * * * * *
-:production:
-  :backgroundrb:
-    :environment: production
