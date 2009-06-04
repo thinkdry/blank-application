@@ -28,6 +28,7 @@ class SearchesController < ApplicationController
 		
 		@current_objects = @search.do_search
 		@current_objects = @current_objects.delete_if{ |e| !e.accepts_show_for?(@current_user)}
+    params[:item_type] ||= @current_objects.first.class.to_s.downcase.pluralize
 		@paginated_objects = @current_objects.paginate(:page => params[:page], :per_page => get_per_page_value)
 
 		if no_layout.nil?
@@ -35,7 +36,8 @@ class SearchesController < ApplicationController
 				format.html {  }
 				format.xml { render :xml => @current_objects }
 				format.json { render :json => @current_objects }
-				format.atom { render :template => "#{params[:controller]}/index.atom.builder", :layout => false }
+        puts "?????????????????????????????????????????//"
+				format.atom { render :template => "items/index.atom.builder", :layout => false }
 			end
 		else
 			render :partial => 'items/items_list', :locals => { :ajax_url => searches_path }
