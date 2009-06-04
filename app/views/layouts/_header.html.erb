@@ -59,6 +59,7 @@
                 });
           //]]>
         </script>
+
 	</li>
 	<li id="display">
 		<img src="/images/icons/white_down.png"/><div class="textWithImage"><%= I18n.t('layout.menu.display') %></div>
@@ -75,13 +76,15 @@
 							<li><%= link_to I18n.t('layout.application.home'), '/' %></li>
 							<li><%= link_to I18n.t('layout.application.content'), content_path('articles') %></li>
 							<li><%= link_to I18n.t('layout.application.subscribers'), '/people' %></li>
+							<% if current_user.has_system_permission('user', 'show') -%>
 							<li><%= link_to I18n.t('layout.application.users'), '/users' %></li>
+							<% end -%>
 						</ul>
 					</div>
 				</div>
-				<div class="headerTipCol">
+				<div class="headerTipCol workspaces_header">
 					<h3><%= I18n.t('layout.application.workspaces') %></h3>
-					<div class="headerTipContent">
+					<div class="headerTipContent small">
 						<ul>
 						<% Workspace.allowed_user_with_permission(@current_user.id, 'workspace_show').each do |w| -%>
 							<li><%= link_to w.title, workspace_path(w)%></li>
@@ -155,9 +158,9 @@
                   duration: 1,
                   delay:0,
                   hook: { target: 'bottomLeft', tip: 'topLeft' },
-                  hideOn: { element: 'tip', event: 'mouseout' },
+                  //hideOn: { element: 'tip', event: 'mouseout' },
                   hideOthers: 'true',
-                  hideAfter: 1,
+                  hideAfter: 0.1,
                   width: 'auto',
                   border: 0,
                   offset: { x: -250, y: 8 },
@@ -177,7 +180,6 @@
 					<%if (available_languages.size > 1) -%>
 					<p><%= I18n.t('layout.application.change_language')%><%= select_languages %></p>
 					<%end-%>
-					<p><%= link_to I18n.t('layout.application.logout'), '/logout' %></p>
 				</div>
 				<div class="headerTipCol">
 					<h3>Administration</h3>
@@ -187,6 +189,8 @@
 								<%=link_to I18n.t('user.administration.workspace_management'),"/workspaces/management"  %>
 							</li>
 						</ul>
+						<br/><br/>
+						<p><img src="/images/icons/exit.png" width="20px" style="margin-right:5px"/><%= link_to I18n.t('layout.application.logout'), '/logout', :class => 'bigLink' %></p>
 					</div>
 				</div>
 				<% if current_user.has_system_role('superadmin') -%>
@@ -212,9 +216,9 @@
                   duration: 1,
                   delay:0,
                   hook: { target: 'bottomLeft', tip: 'topLeft' },
-                  hideOn: { element: 'tip', event: 'mouseout' },
+                  //hideOn: { element: 'tip', event: 'mouseout' },
                   hideOthers: 'true',
-                  hideAfter: 1,
+                  hideAfter: 0.1,
                   width: 'auto',
                   border: 0,
                   offset: { x: -200, y: 8 },

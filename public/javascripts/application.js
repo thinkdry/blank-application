@@ -185,11 +185,11 @@ function toggleAccordion(idClicked){
 }
 
 // To add a params from the current url and reload the page
-function params(parent_id){
- if (window.location.href.indexOf('?') > 1){
-  window.location.href = window.location.href + "&" + parent_id ;
+function params(item_url, parent_id){
+ if (item_url.indexOf('?') > 1){
+  window.location.href = item_url + "&" + parent_id ;
  }else{
-  window.location.href = window.location.href + "?" + parent_id ;
+  window.location.href = item_url + "?" + parent_id ;
  }
 }
 

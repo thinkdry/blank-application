@@ -446,6 +446,10 @@ fr-FR:
     field: 
       body_label: Body
       body_hint: Body of this Newsletter
+      from_email_label: Depuis l'email 
+      from_email_hint: Evoyer l'email depuis cette adresse
+      subject_label: Sujet
+      subject_hint: Sujet de l'email
     send_newsletter: 
       send_to: Send to
       sent_to: Sent to

@@ -1,4 +1,5 @@
 <h1><%= I18n.t 'general.txt.select_a_file' %></h1>
+<% if params[:item_type] == 'all' %>
 <div class="popup_header">
   <div class="popup_column_pic">
     <img src="/images/icons/filter_128.png"/>
@@ -30,6 +31,9 @@
     <% end %>
   </div>
 </div>
+<%else%>
+	<img src="/images/icons/filter_128.png" width="20"/><%= link_to I18n.t ('layout.popup.display_all_picure'), '/display_content_list/images?content=all' %>
+<% end %>
 <h3><%= I18n.t('general.item.'+params[:selected_item].singularize).capitalize.pluralize %> <%=  params[:content] != 'all' ? I18n.t('general.common_word.of') +' '+@workspace.title : '' %> </h3>
 <div class="popup_item_list">
 <% i=0 %>

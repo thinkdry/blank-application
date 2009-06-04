@@ -2,13 +2,13 @@ class ItemsController < ApplicationController
 
   def index
 		params[:item_type] ||= get_allowed_item_types(current_workspace).first.pluralize
-		@current_objects = get_items_list(params[:item_type])
+		@current_objects = get_items_list(params[:item_type], current_workspace)
 		@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
 		respond_to do |format|
 			format.html
 			format.xml { render :xml => @current_objects }
 			format.json { render :json => @current_objects }
-			format.atom { render :template => "#{params[:item_type]}/index.atom.builder", :layout => false }
+			format.atom { render :template => "items/index.atom.builder", :layout => false }
 		end
   end
 
@@ -17,7 +17,7 @@ class ItemsController < ApplicationController
 		@current_objects = get_items_list(params[:item_type])
 		@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
     @i = 0
-		render :partial => "items/items_list", :layout => false, :locals => { :ajax_url => '/ajax_content/'+params[:item_type] }
+		render :partial => "items/items_list", :layout => false, :locals => { :ajax_url => current_workspace ? "/workspaces/#{current_workspace.id}/ajax_content/"+params[:item_type] : "/ajax_content/#{params[:item_type]}" }
 		#render :text => display_item_in_list(@paginated_objects), :layout => false
   end
 
@@ -35,11 +35,11 @@ class ItemsController < ApplicationController
       if !params[:workspace_id].to_s.blank?
         @current_objects = get_items_list(params[:selected_item], @workspace)
       else
-         render :text => "No workspace"
-      return
+        render :text => "No workspace"
+        return
       end
     else
-       @current_objects = get_items_list(params[:selected_item], nil)
+      @current_objects = get_items_list(params[:selected_item], nil)
     end
     @base_url = request.url.split(request.request_uri())[0]
     render :layout => 'pop_up', :object => @current_objects
