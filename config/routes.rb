@@ -135,10 +135,10 @@ ActionController::Routing::Routes.draw do |map|
  
   # Route to export Group Members
   map.export_group '/export_group/:id', :controller => 'groups', :action => 'export_group'
-
+  map.get_audio_progress '/get_audio_progress', :controller => 'audios', :action => 'get_audio_progress'
+  map.get_video_progress '/get_video_progress', :controller => 'videos', :action => 'get_video_progress'
   # FCKUPLOAD route for uploads throught fckeditor
   map.connect '/fckuploads', :controller => 'fck_uploads', :action => 'create'
-
   # Install the default routes as the lowest priority.
 	#map.connect ':controller/:action/:id'
   #map.connect ':controller/:action/:id.:format'
