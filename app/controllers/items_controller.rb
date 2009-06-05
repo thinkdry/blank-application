@@ -14,7 +14,7 @@ class ItemsController < ApplicationController
 
   def ajax_index
 		params[:item_type] ||= get_allowed_item_types(current_workspace).first.pluralize
-		@current_objects = get_items_list(params[:item_type])
+		@current_objects = get_items_list(params[:item_type], current_workspace)
 		@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
     @i = 0
 		render :partial => "items/items_list", :layout => false, :locals => { :ajax_url => current_workspace ? "/workspaces/#{current_workspace.id}/ajax_content/"+params[:item_type] : "/ajax_content/#{params[:item_type]}" }
