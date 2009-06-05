@@ -6,7 +6,9 @@
   <div id="sent_to">
     <h2><%= I18n.t('newsletter.send_newsletter.sent_to') %></h2>
     <% for g_n in object.groups_newsletters %>
-      <%= link_to g_n.group.title, group_path(g_n.group) %> <%= I18n.t('general.common_word.on1') %> <%= I18n.l g_n.sent_on, :format => :long %> <br />
+      <% if g_n.group %>
+        <%= link_to g_n.group.title, group_path(g_n.group) %> <%= I18n.t('general.common_word.on1') %> <%= I18n.l g_n.sent_on, :format => :long %> <br />
+      <% end %>
     <% end %>
   </div>
   <% end -%>
