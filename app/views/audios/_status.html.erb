@@ -3,10 +3,10 @@
   var item_id = '<%= object.id %>';
   get_progress();
   function get_progress(){
-    new Ajax.Request("/audios/get_progress?check=true&id="+item_id, {asynchronous:true, evalScripts:true,
+    new Ajax.Request("/get_audio_progress?check=true&id="+item_id, {method: 'get', asynchronous:true, evalScripts:true,
       onSuccess: function(transport){
         if(transport.responseText == 'encoded'){
-          new Ajax.Updater("progress","/audios/get_progress?check=false&id="+item_id, {asynchronous:true, evalScripts:true});
+          new Ajax.Updater("progress","/get_audio_progress?check=false&id="+item_id, {method: 'get',asynchronous:true, evalScripts:true});
         }else{
           setTimeout("get_progress()", 10000);
         }

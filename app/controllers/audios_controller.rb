@@ -8,7 +8,7 @@ class AudiosController < ApplicationController
     end
   end
   
-  def get_progress
+  def get_audio_progress
     @current_object=Audio.find_by_id(params[:id])
     if params[:check] && params[:check] == 'true'
       render :text => @current_object.state

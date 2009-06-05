@@ -8,7 +8,7 @@ class VideosController < ApplicationController
     end
   end
 
-  def get_progress
+  def get_video_progress
     @current_object = Video.find(:first, :conditions => { :id => params[:id].to_i })
     if params[:check] && params[:check] == 'true'
       render :text => @current_object.state
