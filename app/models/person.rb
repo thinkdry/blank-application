@@ -1,7 +1,7 @@
 class Person < ActiveRecord::Base
   include Authentication
 
-  has_many :groupings, :as => :groupable
+  has_many :groupings, :as => :groupable, :dependent => :delete_all
   has_many :member_in, :through => :groupings, :source => :group
 
 

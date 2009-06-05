@@ -1,7 +1,7 @@
 class Group < ActiveRecord::Base
 
   has_and_belongs_to_many :newsletters
-  has_many :groups_newsletters
+  has_many :groups_newsletters, :dependent => :delete_all
 
   has_many :groupings, :dependent => :delete_all
   has_many :users, :through => :groupings, :source => :user,

@@ -53,7 +53,7 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :feed_items, :through => :feed_sources, :order => "last_updated DESC"
 
-  has_many :groupings, :as => :groupable
+  has_many :groupings, :as => :groupable, :dependent => :delete_all
   has_many :member_in, :through => :groupings, :source => :group
   has_many :people
 
