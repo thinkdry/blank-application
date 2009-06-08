@@ -12,9 +12,9 @@
       <%= f.password_field :password_confirmation, :label => I18n.t('user.field.confirm_password_label'), :hint => I18n.t('user.field.confirm_password_hint') %>
     <% end %>
 
-    <% if !@current_object.new_record? %>
+    <% if !@current_object.new_record? || (@current_user && @current_user.has_system_role("superadmin")) %>
       <%= f.select :system_role_id, @roles.map{ |e| [I18n.t('general.role.'+e.name), e.id] }, :label => I18n.t('user.field.system_role_id_label')+" * : " %>
-    <% else %>
+    <% elsif !@current_object.new_record? || (@current_user && @current_user.has_system_role("admin")) %>
       <%= f.select :system_role_id, [[I18n.t('general.role.user'), Role.find(:first, :conditions => { :name => 'user' }).id]], :label => I18n.t('user.field.system_role_id_label')+" * : " %>
     <% end %>
 
@@ -27,13 +27,18 @@
     <%= f.text_field :company, :label => I18n.t('user.field.location_label')+" : ", :hint => I18n.t('user.field.location_hint') %>
     <%= f.text_area :activity, :size => "40x6", :label => I18n.t('user.field.activity_label')+" : " %>
     <%= f.text_area :edito, :size => "40x6", :label => I18n.t('user.field.edito_label')+" : " %>
-    <label><%= I18n.t('user.field.newsletter_label')+" : " %></label><div class="formElement"><%= check_box :user, :newsletter, { :checked => @user.newsletter }, "true", "false" %></div>
+    <label><%= I18n.t('user.field.newsletter_label')+" : " %></label><div class="formElement"><%= check_box :user, :newsletter, { :checked => @current_object.newsletter }, "true", "false" %></div>
     <% f.field :avatar, :label => I18n.t('user.field.photo_label')+" : " do %>
       <%= file_field 'user', 'avatar' %>
     <% end %>
-	<% button_text = current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update') %>
+    <% button_text = current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update') %>
     <% if is_allowed_free_user_creation? && @current_object.new_record? && !@current_user %>
-      <%= yacaph_block %><br />
+      <%= yacaph_block %>
+      <% if @captcha_valid == false %>
+        <div id="errors_for_captcha">
+          <div class="formError"><%= I18n.t("general.common_word.ajax_message_captcha_invalid") %></div>
+        </div>
+      <% end %>
     <% end %>
     <button type="submit" class="submit_button"><%= button_text%></button>
   <% end %>
