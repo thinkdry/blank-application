@@ -55,7 +55,7 @@ module ActsAsCommentable
 		module ClassMethods
 			def acts_as_commentable
 				has_many :all_comments, :class_name => 'Comment', :as => :commentable, :dependent => :delete_all
-				has_many :comments, :as => :commentable, :order => 'created_at ASC', :conditions => { :state => 'validated'}
+				has_many :comments, :as => :commentable, :order => 'created_at ASC', :conditions => { :state => 'validated', :parent_id => nil}
 				include ActsAsTaggable::ModelMethods::InstanceMethods
 			end
 		end

@@ -47,6 +47,28 @@
                       //]]>
                     </script>
 	</li>
+    <li class="tabs" id="comments">
+    	<a href="#three"><%= image_tag('/images/icons/comments_48.png')%></a>
+		<div id="comments_tip" style="display:none;" class="tipTitle">Validate Comments</div>
+		<script type='text/javascript'>
+                      //<![CDATA[
+                        new Tip('comments',  $('comments_tip'),
+                            { effect: 'appear',
+                              duration: 1,
+                              delay:0,
+                              hook: { target: 'topMiddle', tip: 'bottomMiddle' },
+                              hideOn: { element: 'tip', event: 'mouseout' },
+                              stem: 'bottomMiddle',
+                              hideOthers: 'true',
+                              hideAfter: 1,
+                              width: 'auto',
+                              border: 1,
+                              offset: { x: 0, y: 3 },
+                              radius: 0
+                            });
+                      //]]>
+                    </script>
+	</li>
 </ul>
 
 <div id="top_content">
@@ -62,6 +84,11 @@
 	    <% end %>
 	    <div class="area_BOTH">
 	      <%= render :partial => 'workspaces/users_by_roles' %>
+	    </div>
+	</div>
+    <div id="three">
+	    <div class="area_BOTH">
+          <%= link_to "Comments Management", comments_path %>
 	    </div>
 	</div>
 </div>

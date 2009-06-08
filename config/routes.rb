@@ -70,7 +70,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :permissions
 
   # Routes for Comments
-	map.resources :comments, :only => [:index, :edit, :update], :member => { :change_state => :any }
+	map.resources :comments, :only => [:index, :edit, :update, :destroy], :member => { :change_state => :any, :add_reply => :any}
   
   # TODO: Publishing, Bookmarks, Admin related controllers: rights...
   map.root :controller => 'home', :action => 'index'
