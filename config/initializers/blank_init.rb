@@ -22,7 +22,7 @@ WS_TYPES = ['closed', 'public', 'authorized', 'archived']
 RIGHT_TYPES = ['system', 'workspace']
 ITEM_CATEGORIES = ['cat1', 'cat2', 'cat3']
 COMMENT_STATE = ['posted', 'validated', 'rejected']
-DEFAULT_COMMENT_STATE = 'posted'
+DEFAULT_COMMENT_STATE = 'validated'
 LAYOUTS_AVAILABLE = ['application', 'app_fat_menu']
 
 SEARCH_FILTERS = ['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title']

@@ -1,83 +1,108 @@
 <div id="content_show">
-	<h1>
-    	<%= image_tag object.icon %>
-	    <%= object.title %>
-	</h1>
-	<div class="file_infos">
-		<div class="file_infos_box">
-	    	<p><%= link_to_user object.user %></p>
-		    <p><%= I18n.l object.created_at, :format =>:long %></p>
-		    <p><%= object.comments.size %> <%= object.comments.count > 1 ? I18n.t("item.common_word.comment").pluralize : I18n.t("item.common_word.comment")%></p>
-			<p><%= item_rate_locked(object) %></p>
-	   	</div>
-		<div class="file_infos_box">
-	   		<%= image_tag '/images/icons/tag_blue.png', :align => "left"%><%= ((l=@current_object.keywords_list).size > 0) ? l.split(',').map{ |e| link_to(e, searches_path('search[full_text_field]' => e))}.join(', ') : I18n.t('general.common_word.none') %>
-		</div>
-		<div class="file_infos_box">
-			<div align="right">
-              <% if @current_object.accepts_rate_for?(@current_user) %>
-		    	<%= link_to image_tag('icons/rate.png'), '#', :id => :rate_action %>
-			    <div id="item_rate_modal_content" style="float:left;" align="center">
-			        <%= item_rate(object) %>
-				</div>
-	    		<script type="text/javascript" charset="utf-8">
-				      content = $('item_rate_modal_content').remove().innerHTML;
-				      new Tip($('rate_action'), content, {
-				         showOn: 'click',
-				         hook: { target: 'rightMiddle', tip: 'topLeft' },
-				         hideOn: { element: 'tip', event: 'mouseout' },
-						 hideAfter: 1,
-				         width: 100
-				      });
-			    </script>
-              <% end %>
-              <% if @current_object.accepts_comment_for?(@current_user) %>
-	    		<%= link_to image_tag('icons/comments.png'), '#new_comment_form_box' %>
-              <% end %>
-			  <%= link_to image_tag('icons/printer.png'), 'javascript:window.print();' %>
-              <% if @current_object.accepts_edit_for?(@current_user)  %>
-				<%= link_to image_tag('icons/pencil.png'), edit_item_path(object)%>
-			  <% end %>
-              <% if @current_object.accepts_destroy_for?(@current_user) %>
-				<%= link_to image_tag('icons/delete.png'), item_path(object), :method => :delete, :confirm =>  I18n.t('item.destroy.delete_conform')%>
-              <% end %>
-			</div>
-			<div class="output_format">
-              <%=I18n.t('item.common_word.output_formate') %>: <%= link_to 'XML', item_path(object)+".xml", :class => 'output_format_link' %>,	<%= link_to 'JSON', item_path(object)+".json", :class => 'output_format_link' %>
-			</div>
-  		</div>
-	</div>
-	<div class="item_description"><%= object.description %></div>
+  <h1>
+    <%= image_tag object.icon %>
+    <%= object.title %>
+  </h1>
+  <div class="file_infos">
+    <div class="file_infos_box">
+      <p><%= link_to_user object.user %></p>
+      <p><%= I18n.l object.created_at, :format =>:long %></p>
+      <p><%= object.comments.size %> <%= object.comments.count > 1 ? I18n.t("item.common_word.comment").pluralize : I18n.t("item.common_word.comment")%></p>
+      <p><%= item_rate_locked(object) %></p>
+    </div>
+    <div class="file_infos_box">
+      <%= image_tag '/images/icons/tag_blue.png', :align => "left"%><%= ((l=@current_object.keywords_list).size > 0) ? l.split(',').map{ |e| link_to(e, searches_path('search[full_text_field]' => e))}.join(', ') : I18n.t('general.common_word.none') %>
+    </div>
+    <div class="file_infos_box">
+      <div align="right">
+        <% if @current_object.accepts_rate_for?(@current_user) %>
+          <%= link_to image_tag('icons/rate.png'), '#', :id => :rate_action %>
+          <div id="item_rate_modal_content" style="float:left;" align="center">
+            <%= item_rate(object) %>
+          </div>
+          <script type="text/javascript" charset="utf-8">
+            content = $('item_rate_modal_content').remove().innerHTML;
+            new Tip($('rate_action'), content, {
+              showOn: 'click',
+              hook: { target: 'rightMiddle', tip: 'topLeft' },
+              hideOn: { element: 'tip', event: 'mouseout' },
+              hideAfter: 1,
+              width: 100
+            });
+          </script>
+        <% end %>
+        <% if @current_object.accepts_comment_for?(@current_user) %>
+          <%= link_to image_tag('icons/comments.png'), '#new_comment_form_box' %>
+        <% end %>
+        <%= link_to image_tag('icons/printer.png'), 'javascript:window.print();' %>
+        <% if @current_object.accepts_edit_for?(@current_user)  %>
+          <%= link_to image_tag('icons/pencil.png'), edit_item_path(object)%>
+        <% end %>
+        <% if @current_object.accepts_destroy_for?(@current_user) %>
+          <%= link_to image_tag('icons/delete.png'), item_path(object), :method => :delete, :confirm =>  I18n.t('item.destroy.delete_conform')%>
+        <% end %>
+      </div>
+      <div class="output_format">
+        <%=I18n.t('item.common_word.output_formate') %>: <%= link_to 'XML', item_path(object)+".xml", :class => 'output_format_link' %>,	<%= link_to 'JSON', item_path(object)+".json", :class => 'output_format_link' %>
+      </div>
+    </div>
+  </div>
+  <div class="item_description"><%= object.description %></div>
 
-	<%= capture(&block) %>
-	
-	<% if @configuration['sa_item_categories'].size > 0 %>
-	    <h2>Categories :</h2>
-	    <div><%= object.category %></div>
-	<% end %>
+  <%= capture(&block) %>
 
-	<div id="comments_list">
-      <% if object.comments.size > 0 %>
-    	<h2><%= image_tag 'icons/comments.png'%><%=I18n.t('general.object.comment').pluralize.camelize %></h2>
-		<div class="comment_bloc">
-	   		<%= render :partial => "items/comment", :collection => object.comments %>
-		</div>
-      <% end %>
-  	</div>
-    
-    <% if @current_object.accepts_comment_for?(@current_user) %>
+  <% if @configuration['sa_item_categories'].size > 0 %>
+    <h2>Categories :</h2>
+    <div><%= object.category %></div>
+  <% end %>
+  <script type="text/javascript">
+    function add_reply(parent){
+      if($('reply')){
+        $('reply').style.display = 'block';
+        $('comment_parent_id').value = parent;
+      }
+    }
+  </script>
+  <div id="comments_list">
+    <% if object.comments.size > 0 %>
+      <h2><%= image_tag 'icons/comments.png'%><%=I18n.t('general.object.comment').pluralize.camelize %></h2>
+      <div class="comment_bloc">
+        <%= render :partial => "items/comment", :collection => object.comments %>
+      </div>
+    <% end %>
+  </div>
+  <div id="ajax_info"></div>
+  <% if @current_object.accepts_comment_for?(@current_user) %>
+    <div id ="reply" style="display:none">
       <fieldset id="new_comment_form_box">
-    	<p><%= I18n.t('general.common_word.your').camelize+' '+I18n.t('general.object.comment')%> :</p>
+        <p><%= I18n.t('general.common_word.your').camelize+ ' Reply'%> :</p>
         <div id="ajax_info"></div>
-		<form id="new_comment" class="new_comment" onsubmit="if($('comment_box').value != 0){new Ajax.Request('<%=add_comment_item_path(@current_object)%>', {asynchronous:true, evalScripts:true, onComplete:function(request){$('comment_box').writeAttribute('disabled', false);$('comment_box').value = ''}, onLoading:function(request){$('comment_box').writeAttribute('disabled')}, parameters:Form.serialize(this)}); return false;}else{return false;}" method="post" action="<%=add_comment_item_path(@current_object)%>">
+        <form id="new_comment" class="new_comment" onsubmit="if($('reply_box').value != 0){new Ajax.Request('<%=add_reply_comment_path(@current_object)%>', {asynchronous:true, evalScripts:true, onComplete:function(request){$('reply_box').writeAttribute('disabled', false);$('reply_box').value = ''}, onLoading:function(request){$('reply_box').writeAttribute('disabled')}, parameters:Form.serialize(this)}); return false;}else{return false;}" method="post" action="<%=add_reply_comment_path(@current_object)%>">
+          <textarea id="reply_box" class="comment_box" rows="4" name="comment[text]" cols="90"></textarea>
+          <% if !current_user %>
+            <div id="captcha" style="width:30%">
+              <%= render :partial => "/items/captcha" %>
+            </div>
+          <% end %>
+          <input type="hidden" id ="comment_parent_id" name="comment[parent_id]">
+          <button type="submit" class="submit_button"><%=I18n.t('comment.add_comment.button_publish')%></button>
+        </form>
+      </fieldset>
+    </div>
+  <% end %>
+  <% if @current_object.accepts_comment_for?(@current_user) %>
+    <fieldset id="new_comment_form_box">
+      <p><%= I18n.t('general.common_word.your').camelize+' '+I18n.t('general.object.comment')%> :</p>
+      <form id="new_comment" class="new_comment" onsubmit="if($('comment_box').value != 0){new Ajax.Request('<%=add_comment_item_path(@current_object)%>', {asynchronous:true, evalScripts:true, onComplete:function(request){$('comment_box').writeAttribute('disabled', false);$('comment_box').value = ''}, onLoading:function(request){$('comment_box').writeAttribute('disabled')}, parameters:Form.serialize(this)}); return false;}else{return false;}" method="post" action="<%=add_comment_item_path(@current_object)%>">
         <textarea id="comment_box" class="comment_box" rows="8" name="comment[text]" cols="90"></textarea>
         <% if !current_user %>
           <div id="captcha" style="width:30%">
-          <%= render :partial => "/items/captcha" %>
+            <%= render :partial => "/items/captcha" %>
           </div>
         <% end %>
         <button type="submit" class="submit_button"><%=I18n.t('comment.add_comment.button_publish')%></button>
-        </form>
-      </fieldset>
-    <% end %>
+      </form>
+    </fieldset>
+  <% end %>
+
 </div>

@@ -16,7 +16,7 @@ class Comment < ActiveRecord::Base
 	
   belongs_to :user
   belongs_to :commentable, :polymorphic => true
-  
+  has_many :replies, :foreign_key => :parent_id, :class_name => 'Comment', :dependent => :delete_all
   validates_presence_of :text
 	
 end

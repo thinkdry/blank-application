@@ -2,15 +2,16 @@ class CommentsController < ApplicationController
 
 	unloadable
 
-	#before_filter :is_superadmin?
+	before_filter :is_superadmin?, :only => ['index', 'edit', 'update', 'destroy']
+  before_filter :is_admin?, :only => ['index', 'edit', 'update', 'destroy']
 
   # GET /comments
   # GET /comments.xml
   def index
 		if params[:on_state] && (params[:on_state] != 'all')
-			@current_objects = Comment.find(:all, :order => 'created_at DESC', :conditions => { :state => params[:on_state] }).paginate(:per_page => get_per_page_value, :page => params[:page])
+			@current_objects = Comment.find(:all, :order => 'created_at DESC', :conditions => { :state => params[:on_state], :parent_id => nil }).paginate(:per_page => get_per_page_value, :page => params[:page])
 		else
-			@current_objects = Comment.find(:all, :order => 'created_at DESC').paginate(:per_page => get_per_page_value, :page => params[:page])
+			@current_objects = Comment.find(:all, :conditions => {:parent_id => nil}, :order => 'created_at DESC').paginate(:per_page => get_per_page_value, :page => params[:page])
 		end
     respond_to do |format|
 			format.html
@@ -96,5 +97,35 @@ class CommentsController < ApplicationController
 		@current_object.save
 		redirect_to comments_url
 	end
+
+  def add_reply
+    if logged_in?
+      @current_object = Comment.create(params[:comment].merge(:user => @current_user, :state => DEFAULT_COMMENT_STATE))
+      @current_object.save
+      render :update do |page|
+        if @current_object.state == 'validated'
+          page.insert_html :bottom, "reply_for_comment_#{@current_object.parent_id}", :partial => "items/reply", :object => @current_object
+          page.replace_html "ajax_info", :text => I18n.t('comment.add_comment.ajax_message_comment_published')
+        else
+          page.replace_html "ajax_info", :text => I18n.t('comment.add_comment.ajax_message_comment_submited')
+        end
+      end
+    else
+      if yacaph_validated?
+        current_object.comments.create(params[:comment])
+        current_object.comments_number = current_object.comments_number.to_i + 1
+        current_object.save
+        render :update do |page|
+          page.replace_html "ajax_info", :text => I18n.t('comment.add_comment.ajax_message_comment_submited')
+          page.replace_html "comment_captcha",  :partial => "items/captcha"
+        end
+      else
+        render :update do |page|
+          page.replace_html "ajax_info", :text => I18n.t('general.common_word.ajax_message_captcha_invalid')
+          page.replace_html "comment_captcha",  :partial => "items/captcha"
+        end
+      end
+    end
+  end
 	
 end
