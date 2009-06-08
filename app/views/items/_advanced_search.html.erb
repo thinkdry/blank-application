@@ -3,7 +3,7 @@
   <div class="formElement">
 	  <% available_items_list.each do |i| %>
 	    <div class="checkbox_list_horizontal">
-	    	<%= check_box_tag "search[models][]", i, @search.models.to_s.split(',').include?(i) %>
+	    	<%= check_box_tag "search[models][]", i, @search.models.to_s.split(',').include?(i) ,:class => "checkboxes"%>
 			<%= I18n.t('general.item.'+i.to_s) %>
 		</div>
 	  <% end %>

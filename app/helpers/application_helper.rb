@@ -64,7 +64,7 @@ module ApplicationHelper
 		res = []
 		var.each do |l|  
       content = '<div class="checkbox_list_horizontal">'
-      content += check_box_tag(object+'['+param+']'+"[]", "#{l}", ((ref=conf[param]) ? ref.include?(l) : false))+' '+I18n.t('general.item.'+l)
+      content += check_box_tag(object+'['+param+']'+"[]", "#{l}", ((ref=conf[param]) ? ref.include?(l) : false), :class => "checkboxes")+' '+I18n.t('general.item.'+l)
       content += "</div>"
     
 			res << content 

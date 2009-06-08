@@ -16,7 +16,7 @@
 <p>
   <b>Permissions selection : </b><br />
   <% @permissions.each do |p| %>
-    (<%= p.type_permission %>) <%= p.name %> <%= check_box_tag("permissions[#{p.id}]", "1", @role.permissions.include?(p)) %><br />
+    (<%= p.type_permission %>) <%= p.name %> <%= check_box_tag("permissions[#{p.id}]", "1", @role.permissions.include?(p), :class => "checkboxes") %><br />
   <% end %>
 </p>
 

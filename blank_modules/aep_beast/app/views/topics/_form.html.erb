@@ -4,11 +4,11 @@
 
 <% if admin? or current_user.moderator_of?(@topic.forum) %>
 <label style="margin-left:1em;">
-<%= form.check_box :sticky %> <%= 'Sticky'[:sticky_title] %>
+<%= form.check_box :sticky , :class => "checkboxes"%> <%= 'Sticky'[:sticky_title] %>
 </label>
 
 <label style="margin-left:1em;">
-<%= form.check_box :locked %> <%= 'Locked'[:locked_title] %>
+<%= form.check_box :locked, :class => "checkboxes" %> <%= 'Locked'[:locked_title] %>
 </label>
 
 <% end %>
