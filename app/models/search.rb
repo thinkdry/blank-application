@@ -27,14 +27,14 @@ class Search < ActiveRecord::Base
 	column :full_text_field, :text_area
   # Advanced search
 	column :conditions, :string
-	column :created_at_before, :date
-	column :created_at_after, :date
+	column :created_before, :date
+	column :created_after, :date
 	# Filter
 	column :filter_name, :string
 	column :filter_way, :string
 	column :filter_limit, :integer
   
-#  validates_date :created_after, :created_before, :allow_nil => true
+  validates_date :created_after, :created_before, :allow_nil => true
 
 	def models= params
 		self[:models] = params.join(',')
@@ -61,8 +61,8 @@ class Search < ActiveRecord::Base
 				res << ["#{k} == #{v}"]
 			end
 		end
-		res << ["created_at < '#{self[:created_at_before].to_date}'"] if self[:created_at_before]
-		res << ["created_at > '#{self[:created_at_after].to_date}'"] if self[:created_at_after]
+		res << ["created_at < '#{self[:created_before].to_date}'"] if self[:created_before]
+		res << ["created_at > '#{self[:created_after].to_date}'"] if self[:created_after]
 		#raise res.join(' AND ').inspect
 		return res.join(' AND ')
 	end
