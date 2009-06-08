@@ -17,7 +17,7 @@
               </select>
               <script type='text/javascript'>
                 function show_people(){
-                  new Ajax.Request('/people/filter/?start_with='+$('start_with').value+'&group_id='+$('group_id').value, {asynchronous:true, evalScripts:true})
+                  new Ajax.Request('/people/filter/?start_with='+$('start_with').value+'&group_id='+$('group_id').value, {method: "get" ,asynchronous:true, evalScripts:true})
                 }
               </script>
             </div>
@@ -57,7 +57,7 @@
                 <% end %>
             </select>
             <div id="send_all_buttons">
-              <input type="button" onclick="selectAll($('availableOptions'),'availableOptions')" value ="Tout sélectionner" style="width:180px;"/>
+              <input type="button" onclick="selectAll($('availableOptions'),'availableOptions')" value ="Tout sélectionner" style="width:180px;" />
             </div>
           </div>
      <% end %>
