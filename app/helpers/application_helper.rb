@@ -100,7 +100,7 @@ module ApplicationHelper
     when 90..1440       then locale.t :x_hours_ago, :count => (distance_in_minutes.to_f / 60.0).round
     when 1440..2160     then locale.t :one_day_ago, :count => distance_in_minutes # 1 day to 1.5 days
     when 2160..2880     then locale.t :x_days_ago, :count => (distance_in_minutes.to_f / 1440.0).round # 1.5 days to 2 days
-    else locale.t :default, :count => distance_in_minutes
+    else I18n.l from_time, :format => :long1
     end
   end
   end
