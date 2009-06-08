@@ -18,9 +18,9 @@ list2 = list.delete_if{ |w| !w.ws_items.to_s.split(',').include?(item_class_name
         
         # Out
         if ((w.state == 'private') && (w.creator_id == @current_user.id) && (item.new_record? || item.user_id==@current_user.id)) || (list.size==1)
-          check_box_tag(check_box_tag_name, w.id, true, :disabled => true, :class => 'checkBoxElement') + ' ' + w.title + hidden_field_tag(check_box_tag_name, w.id.to_s)
+          check_box_tag(check_box_tag_name, w.id, true, :disabled => true, :class => 'checkboxes') + ' ' + w.title + hidden_field_tag(check_box_tag_name, w.id.to_s)
         else
-          check_box_tag(check_box_tag_name, w.id, checked, :class => 'checkBoxElement') + ' ' + w.title
+          check_box_tag(check_box_tag_name, w.id, checked, :class => 'checkboxes') + ' ' + w.title
         end
       end).join('<br />')
     %>

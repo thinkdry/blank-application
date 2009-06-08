@@ -5,7 +5,7 @@
   <% item_class_name = item.class.to_s.underscore %>
   <% f.field :category, :label => 'Category :' do %>
     <% res.each do |cat| %>
-      <%= cat + check_box_tag("#{item_class_name}[category][]", cat, @current_object.category.to_s.include?(cat)) %>
+      <%= cat + check_box_tag("#{item_class_name}[category][]", cat, @current_object.category.to_s.include?(cat),:class => "checkboxes") %>
     <% end %>
   <% end %>
   

@@ -12,7 +12,7 @@
     <% if params[:category]=='item' %>
       <br />Item categories<br />
       <% available_items_list.each do |i| %>
-        <%= I18n.t('general.item.'+i.to_s) %> <%= check_box_tag "item_types[#{i}]", 1, true %>
+        <%= I18n.t('general.item.'+i.to_s) %> <%= check_box_tag "item_types[#{i}]", 1, true, :class => "checkboxes" %>
       <% end %>
     <% end %>
 
