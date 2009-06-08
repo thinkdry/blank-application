@@ -33,7 +33,9 @@ module Configuration
 	end
 
 	def get_per_page_value
-		if (res=@configuration['sa_per_page_default']).to_i > 0
+    if current_user.u_per_page
+      current_user.u_per_page
+		elsif (res=@configuration['sa_per_page_default']).to_i > 0
 			return res
 		else
 			return 10

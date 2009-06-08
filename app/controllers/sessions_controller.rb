@@ -39,7 +39,7 @@ class SessionsController < ApplicationController
   end
 	
 	def change_language
-		session[:locale] = params[:locale]
+    current_user.update_attributes(:u_language => params[:locale])
 		render(:update) { |page| page.call 'location.reload' }
 		#redirect_back_or_default('/')
   end

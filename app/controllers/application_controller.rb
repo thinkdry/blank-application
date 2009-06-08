@@ -37,7 +37,11 @@ class ApplicationController < ActionController::Base
   end
 
 	def get_da_layout
-		return @configuration['sa_layout'] || 'application'
+    if current_user.u_layout
+      current_user.u_layout
+    else
+      return @configuration['sa_layout'] || 'application'
+    end
 	end
 
 	def get_allowed_item_types(workspace=nil)
@@ -110,8 +114,7 @@ class ApplicationController < ActionController::Base
 	end
 
   def set_locale
-		I18n.locale = params[:locale] || session[:locale] || I18n.default_locale
-		session[:locale] = I18n.locale
+		I18n.locale = params[:locale] || ((current_user && current_user.u_language) ? current_user.u_language : I18n.default_locale)
   end
 
   def upload_photo(photo, crop_width, crop_height, path_name)
