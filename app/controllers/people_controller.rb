@@ -188,6 +188,18 @@ class PeopleController < ApplicationController
       :disposition => "attachment; filename=contact.csv"
   end
 
+  def update_newsletter_column
+    @object = params[:type].classify.constantize.find(params[:id])
+    @object.update_attribute(:newsletter, params[:newsletter])
+    render :update do |page|
+      if params[:newsletter] == "true"
+        page.alert("#{@object.email} will receive newsletters from now onwards")
+      else
+        page.alert("#{@object.email} will not receive newsletters from now onwards")
+      end
+    end
+  end
+  
   private
 
   def get_people

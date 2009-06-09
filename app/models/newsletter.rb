@@ -8,7 +8,6 @@ include Authentication
 
   validates_presence_of     :from_email
   validates_length_of       :from_email,    :within => 6..100
-  validates_uniqueness_of   :from_email,    :case_sensitive => false
   validates_format_of       :from_email,    :with => RE_EMAIL_OK
 
   def self.label

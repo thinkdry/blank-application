@@ -31,7 +31,7 @@ module AjaxPagination
     else
       content = content + link_to_remote("  #{I18n.t('general.common_word.next')} &raquo;", :update => refreshed_div,:method=>:get, :url =>url+"#{(current_page+1)}")
     end
-    return content_tag(:div, content, :align=>"center")
+    return content_tag(:div, content_tag(:div, content, :align=>"center"), :id => "pagination")
     end
   end
 
