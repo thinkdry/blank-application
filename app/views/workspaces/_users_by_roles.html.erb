@@ -1,22 +1,21 @@
- <% @workspaces.each do |w| %>
-  <div class="area_WS">
-    <h4><%= w.title %></h4>
-    <% if w.accepts_edit_for?(@current_user) %>
-      <%= link_to 'edit', edit_workspace_path(w.id) %>
-    <% end %>
-    <% if w.accepts_destroy_for?(@current_user) %>
-      <%= link_to 'delete', workspace_path(w.id), :method => :delete, :confirm =>  I18n.t('item.destroy.delete_conform')%>
-    <% end %>
-    <br /><br />
+<% @workspaces.each do |w| %>
+    <h4>
+		<%= w.title %>
+    	<% if w.accepts_edit_for?(@current_user) %>
+      		<%= link_to image_tag("/images/icons/pencil.png", :width => "20"), edit_workspace_path(w.id) %>
+    	<% end %>
+    	<% if w.accepts_destroy_for?(@current_user) %>
+      		<%= link_to image_tag("/images/icons/delete.png", :width => "20"), workspace_path(w.id), :method => :delete, :confirm =>  I18n.t('item.destroy.delete_conform')%>
+    	<% end %>
+	</h4>
+	<ul>
     <% w.roles.uniq.each do |r| %>
-      <%= I18n.t('general.role.'+r.name)%> :
-      <% w.users_by_role(r.name).each do |u| %>
-        <%= link_to u.full_name+', ', user_path(u.id) %>
-      <% end %><br />
+		<li>
+      		<%= I18n.t('general.role.'+r.name)%> :
+      		<% w.users_by_role(r.name).each do |u| %>
+        		<%= link_to u.full_name+', ', user_path(u.id) %>
+      		<% end %>
+		</li>
   	<% end %>
-    <br />
-    <% if w.accepts_administration_for?(@current_user) %>
-      <%= link_to I18n.t('workspace.edit.manage_users_and_rights'), edit_workspace_path(w.id) %><br />
-    <% end %>
-  	</div>
-  <% end %>
+    </ul>
+<% end %>
