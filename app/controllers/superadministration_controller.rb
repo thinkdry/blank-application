@@ -99,9 +99,11 @@ class SuperadministrationController < ApplicationController
 
 	def translations_changing
     @yaml = YAML.load_file("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml")
-   	['general', 'layout', 'user', 'workspace', 'item']+ITEMS+['superadministration', 'others'].each do |section|
-			if params[section.to_sym] && @yaml[params[:language]][section]
-				params[section.to_sym].each do |subsection, list|
+   	(['general', 'layout', 'user', 'workspace', 'item']+ITEMS+['superadministration', 'others']).each do |section|
+			p "============================= "+section
+			p "============================= "+(!params[section].nil? && !@yaml[params[:language]][section].nil?).inspect
+			if !params[section].nil? && !@yaml[params[:language]][section].nil?
+				params[section].each do |subsection, list|
 					if @yaml[params[:language]][section][subsection]
 						list.each do |key, value|
 							if @yaml[params[:language]][section][subsection][key]
@@ -118,6 +120,7 @@ class SuperadministrationController < ApplicationController
 				#flash[:error] = "Unknown section"
 			end
 		end
+		#raise @yaml['en-US']['general'].inspect
     File.rename("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml", "#{RAILS_ROOT}/config/locales/old_#{params[:language]}.yml")
     @new=File.new("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml", "w+")
      if @new.syswrite(@yaml.to_yaml)
