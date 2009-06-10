@@ -144,7 +144,7 @@ class UsersController < ApplicationController
   end
   def ajax_index
     get_users
-    render :partial => 'user_in_list', :collection => @current_objects
+    render :partial => 'user_in_list'
   end
 
   def autocomplete_on
