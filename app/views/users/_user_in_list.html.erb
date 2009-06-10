@@ -8,3 +8,4 @@
       <i><%=" - Last Connected: " + time_ago_in_words(object.last_connected_at) if object.last_connected_at %></i>
 	<% end %>
 </div>
+<%= remote_pagination(@current_objects, ajax_index_users_path,  'users_list') %>

@@ -1,5 +1,7 @@
 <h1><%=I18n.t('user.administration.list_title')%></h1>
 
-<%= render :partial => 'user_in_list', :collection => @current_objects %>
+<div id="users_list">
+  <%= render :partial => 'user_in_list', :collection => @current_objects %>
+</div>
 
-<%= will_paginate(@current_objects) %>
+

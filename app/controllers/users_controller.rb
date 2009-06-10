@@ -20,7 +20,7 @@ class UsersController < ApplicationController
 	end
 
   make_resourceful do
-    actions :all
+    actions :all, :except =>[:index]
 
     before :destroy do
       no_permission_redirection unless @current_user && @current_object.accepts_destroy_for?(@current_user)
@@ -49,15 +49,15 @@ class UsersController < ApplicationController
 			no_permission_redirection unless @current_user && @current_object.accepts_show_for?(@current_user)
     end
 
-		before :index do
-			# TODO : check in the controller
-			no_permission_redirection unless @current_user && @current_user.has_system_role('superadmin')
-			@current_objects = current_objects.paginate(
-        :page => params[:page],
-        :order => :title,
-        :per_page => get_per_page_value
-			)
-    end
+#		before :index do
+#			# TODO : check in the controller
+#			no_permission_redirection unless @current_user && @current_user.has_system_role('superadmin')
+#			@current_objects = current_objects.paginate(
+#        :page => params[:page],
+#        :order => :title,
+#        :per_page => get_per_page_value
+#			)
+#    end
 
 		before :edit do
 			get_roles
@@ -137,6 +137,14 @@ class UsersController < ApplicationController
         format.html { render :action => 'new', :layout => (current_user ? get_da_layout : 'login') }
       end
     end
+  end
+
+  def index
+    get_users
+  end
+  def ajax_index
+    get_users
+    render :partial => 'user_in_list', :collection => @current_objects
   end
 
   def autocomplete_on
@@ -220,5 +228,12 @@ class UsersController < ApplicationController
     else
       @roles = [Role.find_by_name('user')]
     end
+  end
+  def get_users
+    @current_objects = User.paginate(
+        :page => params[:page],
+        :order => :login,
+        :per_page => get_per_page_value
+			)
   end
 end

@@ -49,7 +49,7 @@ ActionController::Routing::Routes.draw do |map|
   map.forgot_password '/forgot_password', :controller => 'users', :action => 'forgot_password'
   #map.change_password '/change_password', :controller => 'users', :action => 'change_password'
   map.reset_password '/reset_password/:password_reset_code', :controller => 'users', :action => 'reset_password'
-  map.resources :users, :member => { :administration => :any }, :collection => { :autocomplete_on => :any, :validate => :any }
+  map.resources :users, :member => { :administration => :any }, :collection => { :autocomplete_on => :any, :validate => :any,:ajax_index => :get }
 	map.resource :session, :member => { :change_language => :any }
 	map.resources :people, :collection => {:export_people=>:any, :import_people => :any,:ajax_index => :get,:get_empty_csv => :get, :validate => :any ,:filter => :get, :update_newsletter_column => :any}
 

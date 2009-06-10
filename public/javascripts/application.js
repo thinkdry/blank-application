@@ -211,6 +211,7 @@ function remove_param(parent_id){
     }
 }
 
+// to check to date is grater than from or not if to date is present
 function do_search(){
     var valid = true;
     if ($("search[created_after]") && $("search[created_before]")){
