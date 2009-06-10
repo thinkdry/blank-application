@@ -11,6 +11,8 @@
       :trigger_args: 0 0 * * * * *
     :send_newsletter:
       :trigger_args: 0 0 * * * * *
+    :reencode:
+      :trigger_args: 0 0 * * * * *
 :production:
   :backgroundrb:
     :environment: production
