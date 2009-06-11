@@ -10,5 +10,5 @@
        <% end %>
       </div>
       <br /><br />
-	  <%= image_tag("icons/download.png")%><%= link_to I18n.t('general.button.download'), (@current_object.video.url.split("?")[0]) %>
+	  <%= image_tag("icons/download.png")%><%= link_to I18n.t('general.button.download'), "/videos/download/#{@current_object.id}" %>
 <% end %>

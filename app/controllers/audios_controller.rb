@@ -16,4 +16,9 @@ class AudiosController < ApplicationController
       render :partial=>"player", :object => @current_object
     end
   end
+
+  def download
+    @audio = Audio.find(params[:id])
+    send_file(RAILS_ROOT+"/public"+@audio.audio.url.split("?")[0], :disposition => 'inline', :stream => false)
+  end
 end

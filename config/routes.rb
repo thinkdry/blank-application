@@ -138,6 +138,8 @@ ActionController::Routing::Routes.draw do |map|
   map.get_audio_progress '/get_audio_progress', :controller => 'audios', :action => 'get_audio_progress'
   map.get_video_progress '/get_video_progress', :controller => 'videos', :action => 'get_video_progress'
   map.remove_article_file '/articles/removeFile', :controller => 'articles', :action => 'removeFile'
+  map.download_audio '/audios/download/:id', :controller => 'audios', :action => 'download'
+  map.download_audio '/videos/download/:id', :controller => 'videos', :action => 'download'
   # FCKUPLOAD route for uploads throught fckeditor
   map.connect '/fckuploads', :controller => 'fck_uploads', :action => 'create'
   # Install the default routes as the lowest priority.

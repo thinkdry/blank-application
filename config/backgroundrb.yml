@@ -12,7 +12,7 @@
     :send_newsletter:
       :trigger_args: 0 0 * * * * *
     :reencode:
-      :trigger_args: 0 0 * * * * *
+      :trigger_args: 0 0 1 * * *
 :production:
   :backgroundrb:
     :environment: production
