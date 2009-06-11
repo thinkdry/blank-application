@@ -28,7 +28,7 @@ class CmsFile < ActiveRecord::Base
   # TODO check all the content types allowed for the validation
   #	validates_attachment_content_type :cmsfile, :content_type => [
   #	'application/pdf', 'text/plain','application/octet-stream','application/msword', 'application/rtf']
-  validates_attachment_size(:cmsfile, :less_than => 5.megabytes)
+  validates_attachment_size(:cmsfile, :less_than => 25.megabytes)
   #file_column :file_path
    # validates_presence_of :file_path
   # validates_presence_of :file_path
