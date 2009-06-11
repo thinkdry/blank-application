@@ -10,7 +10,14 @@ module ActsAsItem
         include ActsAsItem::ControllerMethods::InstanceMethods
 				acts_as_commentable
 				acts_as_keywordable
-        
+
+				# Filter allowing to update the Xapian index with the delta brought by that object (Superfast solution, but performance less)
+				after_filter :only => [:create, :update, :destroy] do
+					Thread.new do
+						system("rake xapian:update_index RAILS_ENV=#{RAILS_ENV}")
+					end
+				end
+
         make_resourceful do
           actions :all
           belongs_to :workspace
@@ -120,7 +127,10 @@ module ActsAsItem
 					@current_objects = get_items_list(params[:controller])
 				end
 
+				
+
       end
+
     end
     
     module InstanceMethods
