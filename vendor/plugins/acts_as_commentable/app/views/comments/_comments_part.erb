@@ -2,7 +2,7 @@
     <% if object.comments.size > 0 %>
       <h2><%= image_tag 'icons/comments.png'%><%=I18n.t('general.object.comment').pluralize.camelize %></h2>
       <div class="comment_bloc">
-        <%= render :partial => "items/comment", :collection => object.comments %>
+        <%= render :partial => "comments/comment_in_list", :collection => object.comments %>
       </div>
     <% end %>
 </div>
