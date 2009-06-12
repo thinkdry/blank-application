@@ -2,9 +2,9 @@
 			<li class="clear">
 				<div>
 					<%= image_tag(item.icon, :align => 'left', :width => '20') %>
-					<a href="<%=item_path(item)%>" id="<%=item.type%>_<%=item.id%>"><%=item.title%></a>
+					<a href="<%=item_path(item)%>" id="<%= item.class.to_s %>_<%=item.id%>"><%=item.title%></a>
 				</div>
-				<div id="tip_<%= item.type%>_<%=item.id%>" style="display:none;">
+				<div id="tip_<%= item.class.to_s %>_<%=item.id%>" style="display:none;">
 					<div class="tooltip_infos">
 						<p class="title_tip"><%= item.title%></p>
 						<p><%= link_to_user(item.user) %></p>
@@ -26,8 +26,8 @@
 
 				<script type='text/javascript'>
 					//<![CDATA[
-						new Tip('<%= item.type%>_<%= item.id%>', $('tip_<%= item.type%>_<%=item.id%>'),
-								{ target:  $('tip_<%= item.type%>_<%=item.id%>').up('div'),
+						new Tip('<%= item.class.to_s %>_<%= item.id%>', $('tip_<%= item.class.to_s %>_<%=item.id%>'),
+								{ target:  $('tip_<%= item.class.to_s %>_<%=item.id%>').up('div'),
 								  effect: 'appear',
 						 		  duration: 0.2,
 								  delay:0,
