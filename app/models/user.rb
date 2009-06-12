@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
 
   has_many :groupings, :as => :groupable, :dependent => :delete_all
   has_many :member_in, :through => :groupings, :source => :group
-  has_many :people
+  has_many :people, :order => 'email ASC'
 
 	acts_as_xapian :texts => [:login, :firstname, :lastname]
 

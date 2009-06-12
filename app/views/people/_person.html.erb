@@ -10,12 +10,12 @@
   <% @people.each do |person| %>
     <tr>
       	<td> <%= person.email %></td>
-      	<td><%=person.first_name%> <%= person.last_name%></td>
+      	<td> <%= person.first_name%> <%= person.last_name%></td>
       	<td> <%= I18n.l person.created_at, :format => :long %> </td>
       	<td>
-			<%= link_to image_tag("/images/icons/play.png", :width => "20", :alt => I18n.t('general.link.display')), person_path(person) %>
-			<%= link_to image_tag("/images/icons/pencil.png", :width => "20", :alt => I18n.t('general.link.edit')), edit_person_path(person) %>
-			<%= link_to image_tag("/images/icons/delete.png", :width => "20", :alt => I18n.t('general.link.delete')), person_path(person), :method => :delete, :confirm => I18n.t('people.index.delete_confirm') %>
+			<%= link_to image_tag("/images/icons/play.png", :width => "20", :alt => I18n.t('general.link.display')), person_path(person.id) %>
+			<%= link_to image_tag("/images/icons/pencil.png", :width => "20", :alt => I18n.t('general.link.edit')), edit_person_path(person.id) %>
+			<%= link_to image_tag("/images/icons/delete.png", :width => "20", :alt => I18n.t('general.link.delete')), person_path(person.id), :method => :delete, :confirm => I18n.t('people.index.delete_confirm') %>
 			<span style="vertical-align:baseline;"><%= I18n.t('user.field.newsletter_label')%><%= check_box_tag("person_#{person.id}","1",person.newsletter ,:class => "checkboxes", :onclick => remote_function(:url => {:controller => "people", :action => "update_newsletter_column" },  :with => "'id=#{person.id}&type=person&newsletter='+$('person_#{person.id}').checked", :complete => "document.body.style.cursor = 'default';", :loading => "document.body.style.cursor = 'wait';" ))%></span>
 		</td>
     </tr>

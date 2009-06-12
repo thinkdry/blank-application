@@ -1,14 +1,12 @@
 class PeopleController < ApplicationController
-  require 'fastercsv'
+
+	require 'fastercsv'
   require 'csv'
   
-  before_filter :get_people, :only=>[:index,:ajax_index]
-  PER_PAGE = 10
   acts_as_ajax_validation
 
   make_resourceful do
     actions :show, :new, :edit, :update, :destroy
-   
   end
 
   def create
@@ -22,11 +20,11 @@ class PeopleController < ApplicationController
   end
   
   def index
-
+		@people = get_people
   end
   
   def ajax_index
-    
+    @people = get_people
     render :partial=> 'person' ,:layout=>false
   end
 
@@ -203,11 +201,10 @@ class PeopleController < ApplicationController
   private
 
   def get_people
-    @people = Person.paginate(
-      :conditions =>['user_id = ?',current_user.id],
-      :page => params[:page],
-      :order => :email,
-      :per_page => get_per_page_value
-    )
+    if @current_user.has_system_role('superadmin')
+			return Person.all(:order => 'email ASC').paginate(:per_page => get_per_page_value, :page => params[:page])
+		else
+			return @current_user.people.paginate(:per_page => get_per_page_value, :page => params[:page])
+		end
   end
 end

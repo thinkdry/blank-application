@@ -234,7 +234,7 @@ namespace :blank do
   end
   p"------>>> Ready to Launch Blank <<<------"
 
-  namespace :maintining do
+  namespace :maintaining do
     task(:video_reencode => :environment) do
       @videos = Video.find(:all, :conditions =>["state = 'uploaded' OR state = 'encoding_error' OR state = 'error'"])
       for video in @videos
