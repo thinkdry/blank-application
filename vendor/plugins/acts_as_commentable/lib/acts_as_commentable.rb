@@ -14,12 +14,12 @@ module ActsAsCommentable
     module InstanceMethods
       def add_comment
         if logged_in?
-          current_object.comments.create(params[:comment].merge(:user => @current_user, :state => DEFAULT_COMMENT_STATE))
+          comment = current_object.comments.create(params[:comment].merge(:user => @current_user, :state => DEFAULT_COMMENT_STATE))
           current_object.comments_number = current_object.comments_number.to_i + 1
           current_object.save
           render :update do |page|
-						if current_object.state == 'validated'
-							page.insert_html :bottom, 'comment_list', :partial => "items/comment", :object => comment
+						if comment.state == 'validated'
+							page.insert_html :bottom, 'comments_list', :partial => "items/comment", :object => comment
 							page.replace_html "ajax_info", :text => I18n.t('comment.add_comment.ajax_message_comment_published')
 						else
 							page.replace_html "ajax_info", :text => I18n.t('comment.add_comment.ajax_message_comment_submited')
