@@ -38,17 +38,5 @@ class CronjobWorker < BackgrounDRb::MetaWorker
     logger.info "Sent the newsletters on #{Time.now}"
 	end
 
-  def reencode
-    @videos = Video.find(:all, :conditions =>["state = 'uploaded' OR state = 'encoding_error' OR state = 'error'"])
-    for video in @videos
-      logger.info "Reencoding started for video #{video.id} on #{Time.now}"
-      MiddleMan.worker(:converter_worker).async_newthread(:arg=>{:type=>"video", :id => video.id, :enc=>"flv"})
-    end
-    @audios = Audio.find(:all, :conditions =>["state = 'uploaded' OR state = 'encoding_error' OR state = 'error'"])
-    for audio in @audios
-      logger.info "Reencoding started for audio #{audio.id} on #{Time.now}"
-      MiddleMan.worker(:converter_worker).async_newthread(:arg=>{:type=>"audio", :id => audio.id, :enc=>"mp3"})
-    end
-  end
 end
 

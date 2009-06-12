@@ -233,8 +233,27 @@ namespace :blank do
     p "Done"
   end
   p"------>>> Ready to Launch Blank <<<------"
-  
+
+  namespace :maintining do
+    task(:video_reencode => :environment) do
+      @videos = Video.find(:all, :conditions =>["state = 'uploaded' OR state = 'encoding_error' OR state = 'error'"])
+      for video in @videos
+        puts "---->Reencoding started for video #{video.id}"
+        MiddleMan.worker(:converter_worker).async_newthread(:arg=>{:type=>"video", :id => video.id, :enc=>"flv"})
+      end
+    end
+
+    task(:audio_reencode => :environment) do
+      @audios = Audio.find(:all, :conditions =>["state = 'uploaded' OR state = 'encoding_error' OR state = 'error'"])
+      for audio in @audios
+        puts "---->Reencoding started for audio #{audio.id}"
+        MiddleMan.worker(:converter_worker).async_newthread(:arg=>{:type=>"audio", :id => audio.id, :enc=>"mp3"})
+      end
+    end
+  end
+
 end
+
 
 #insert into roles(id, name, description, type_role, created_at, updated_at)values(1, 'superadmin', 'SuperAdministration', 'system' CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);",
 #"insert into workspaces(id, creator_id, description, title, state, created_at, updated_at, ws_config_id)values(1, 1, 'Private Workspace for BOSS', 'Private for Boss', 'private', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,1);"
