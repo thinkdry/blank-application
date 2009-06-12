@@ -235,22 +235,24 @@ namespace :blank do
   p"------>>> Ready to Launch Blank <<<------"
 
   namespace :maintaining do
-    task(:video_reencode => :environment) do
-      @videos = Video.find(:all, :conditions =>["state = 'uploaded' OR state = 'encoding_error' OR state = 'error'"])
-      for video in @videos
-        puts "---->Reencoding started for video #{video.id}"
-        MiddleMan.worker(:converter_worker).async_newthread(:arg=>{:type=>"video", :id => video.id, :enc=>"flv"})
-      end
-    end
-
-    task(:audio_reencode => :environment) do
-      @audios = Audio.find(:all, :conditions =>["state = 'uploaded' OR state = 'encoding_error' OR state = 'error'"])
-      for audio in @audios
-        puts "---->Reencoding started for audio #{audio.id}"
-        MiddleMan.worker(:converter_worker).async_newthread(:arg=>{:type=>"audio", :id => audio.id, :enc=>"mp3"})
-      end
+  desc "To Reencode videos"
+  task(:video_reencode => :environment) do
+    @videos = Video.find(:all, :conditions =>["state = 'uploaded' OR state = 'encoding_error' OR state = 'error'"])
+    for video in @videos
+      puts "---->Reencoding started for video #{video.id}"
+      MiddleMan.worker(:converter_worker).async_newthread(:arg=>{:type=>"video", :id => video.id, :enc=>"flv"})
     end
   end
+
+  desc "To Reencode audios"
+  task(:audio_reencode => :environment) do
+    @audios = Audio.find(:all, :conditions =>["state = 'uploaded' OR state = 'encoding_error' OR state = 'error'"])
+    for audio in @audios
+      puts "---->Reencoding started for audio #{audio.id}"
+      MiddleMan.worker(:converter_worker).async_newthread(:arg=>{:type=>"audio", :id => audio.id, :enc=>"mp3"})
+    end
+  end
+end
 
 end
 
