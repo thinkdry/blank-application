@@ -142,14 +142,40 @@ class User < ActiveRecord::Base
   end
 
   #TODO check for duplicate email in the user query, and duplicate emails between users email and people emails
-  def get_member_for_groups
-      people = Person.find(:all, :conditions => ["user_id = ?",self.id])
-      users = []
-      Workspace.allowed_user_with_permission(self.id,'group_edit').each do |ws|
-         users += ws.users.delete_if{ |e| !e.newsletter }
-      end
-      return (people + users.uniq).map{ |e| e.to_group_member }.sort!{ |a,b| a[:email].downcase <=> b[:email].downcase }
-  end
+#  def get_member_for_groups
+#      people = Person.find(:all, :conditions => ["user_id = ?",self.id])
+#      users = []
+#      Workspace.allowed_user_with_permission(self.id,'group_edit').each do |ws|
+#         users += ws.users.delete_if{ |e| !e.newsletter }
+#      end
+#      return (people + users.uniq).map{ |e| e.to_group_member }.sort!{ |a,b| a[:email].downcase <=> b[:email].downcase }
+#  end
+	def get_contacts_list(restriction, output_format, newsletter)
+		people = []
+		users = []
+		conditions = {}
+		if newsletter
+			conditions.merge!({:newsletter => true})
+		end
+		if self.has_system_role('superadmin')
+			people = Person.all(:conditions => conditions) if restriction == 'all' || restriction == 'people'
+			users = User.all(:conditions => {:newsletter => true}) if restriction == 'all' || restriction == 'users'
+		else
+			if restriction == 'all' || restriction == 'people'
+				people = self.people.all(:conditions => conditions)
+			end
+			if restriction == 'all' || restriction == 'users'
+				Workspace.allowed_user_with_permission(self.id,'group_edit').each do |ws|
+					 users += ws.users.all(:conditions => conditions)#.delete_if{ |e| !e.newsletter }
+				end
+			end
+		end
+		if output_format
+			return (people + users.uniq).map{ |e| e.send("to_#{output_format}".to_sym) }.sort!{ |a,b| a[:email].downcase <=> b[:email].downcase }
+		else
+			return (people + users.uniq).sort!{ |a,b| a[:email].downcase <=> b[:email].downcase }
+		end
+	end
 
   def to_people
     return Person.new(:first_name => self.firstname, :last_name => self.lastname,:email => self.email,
@@ -159,7 +185,7 @@ class User < ActiveRecord::Base
   end
 
   def to_group_member
-    return { :model => 'User', :id => self.id, :email => self.email }
+    return { :model => 'User', :id => self.id, :email => self.email, :first_name => self.firstname, :last_name => self.lastname, :origin => 'user registred', :created_at => self.created_at, :newsletter => self.newsletter }
   end
 
 

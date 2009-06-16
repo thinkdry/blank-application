@@ -537,6 +537,7 @@ fr-FR:
       last_name_label: Nom
       email_label: E-mail
       primary_phone_label: Téléphone fixe
+      origin_label: Origine
     index: 
       add_new_person: Ajouter un nouveau contact
       name: Nom
