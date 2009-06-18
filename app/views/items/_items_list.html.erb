@@ -1,11 +1,12 @@
 <script type="text/javascript" src="/videoplayer/swfobject.js"></script>
 <%= display_classify_bar(['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title'], ajax_url, 'object-list') %>
 <div id="content">
+  <input type="hidden" id="total_items" value="<%= @paginated_objects.length %>">
   <%= display_item_in_list(@paginated_objects) %>
 </div>
 
-  <%#= will_paginate @paginated_objects %>
-  <%= remote_pagination(@paginated_objects, ajax_url,  'object-list') %>
+<%#= will_paginate @paginated_objects %>
+<%= remote_pagination(@paginated_objects, ajax_url,  'object-list') %>
 
 <div class="other_output_format">
   <%= I18n.t('item.show.get_in_another_format')%>:
