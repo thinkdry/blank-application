@@ -10,6 +10,11 @@
       <p><%= I18n.l object.created_at, :format =>:long %></p>
       <p><%= object.comments.size %> <%= object.comments.count > 1 ? I18n.t("item.common_word.comment").pluralize : I18n.t("item.common_word.comment")%></p>
       <p><%= item_rate_locked(object) %></p>
+	  <p>
+	  	<% for ws in object.workspaces -%>
+			<%= link_to ws.title, workspace_path(ws) %><br/>
+		<% end -%>
+	  </p>	
     </div>
     <div class="file_infos_box">
       <%= image_tag '/images/icons/tag_blue.png', :align => "left"%><%= ((l=@current_object.keywords_list).size > 0) ? l.split(',').map{ |e| link_to(e, searches_path('search[full_text_field]' => e))}.join(', ') : I18n.t('general.common_word.none') %>
