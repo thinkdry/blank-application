@@ -1,0 +1,12 @@
+fieldset {
+	position: relative;
+}
+legend {
+	position: absolute;
+	top: -30px;
+	left: 20px;
+}
+
+form{
+	margin-top:20px;
+}
