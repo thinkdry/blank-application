@@ -22,7 +22,7 @@
               </script>
             </div>
             <select name="assignedPeople" id="assignedOptions" size="5" multiple class="theatreSelection" >
-              <% for mem in @current_user.get_member_for_groups %>
+              <% for mem in @current_user.get_contacts_list('all', 'group_member', true) %>
                 <%= content_tag(:option, mem[:email], :value => mem[:model]+'_'+mem[:id].to_s) if !@group.groupings.include?(Grouping.find(:first, :conditions => {:group_id => @group.id,:groupable_id => mem[:id], :groupable_type => mem[:model] }))%>
               <% end %>
         	</select>

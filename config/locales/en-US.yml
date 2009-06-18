@@ -492,6 +492,7 @@ en-US:
       last_name_label: Last name
       primary_phone_label: Primary phone
       email_label: E-mail
+      origin_label: Origin
     index: 
       name: Name
       add_new_person: Add a new person
