@@ -177,10 +177,6 @@ function toggleAccordion(idClicked){
                 listOfItemForToggle[i].parentNode.className = 'selected_item_in_list';
             }
         }
-        else {
-            listOfItemForToggle[i].style.display = 'none';
-            listOfItemForToggle[i].parentNode.className = 'item_in_list';
-        }
     }
 
 //    var items_length = document.getElementById("total_items").value
