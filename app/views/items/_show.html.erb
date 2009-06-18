@@ -11,6 +11,7 @@
       <p><%= object.comments.size %> <%= object.comments.count > 1 ? I18n.t("item.common_word.comment").pluralize : I18n.t("item.common_word.comment")%></p>
       <p><%= item_rate_locked(object) %></p>
 	  <p>
+		<%= I18n.t("item.show.associated_workspace") %><br/>
 	  	<% for ws in object.workspaces -%>
 			<%= link_to ws.title, workspace_path(ws) %><br/>
 		<% end -%>
