@@ -17,6 +17,11 @@ class AudiosController < ApplicationController
     end
   end
 
+	def get_file_url
+		@current_object = Audio.find(params[:id])
+		redirect_to @current_object.image.url
+	end
+
   def download
     @audio = Audio.find(params[:id])
     send_file(RAILS_ROOT+"/public"+@audio.audio.url.split("?")[0], :disposition => 'inline', :stream => false)

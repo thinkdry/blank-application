@@ -235,6 +235,10 @@ class User < ActiveRecord::Base
 		return !self.workspace_permissions(workspace_id).delete_if{ |e| e.name != permission_name}.blank? || self.has_system_role('superadmin')
 	end
 
+	def accepts_configure_for? user
+		return accepting_action(user, 'configure', (self.id==user.id), false, true)
+	end
+
 	def accepts_show_for? user
 		return accepting_action(user, 'show', (self.id==user.id), false, true)
 	end
