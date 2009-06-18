@@ -46,7 +46,7 @@
       <div class="list">
       <% end -%>
       <%=  image_tag(object.image.url(:thumb).split("?")[0], :border=>0, :width => "50") if params[:selected_item]=="images" %>
-      <%= link_to_function object.title,"javascript:SelectFile('" + @base_url + object.media_type.url.split("?")[0] + "')"  %>
+      <%= link_to_function object.title,"javascript:SelectFile('/#{object.class.to_s.underscore.pluralize}/#{object.id}/get_file_url')"  %>
     </div>
     <% i= i+1%>
   <% end %>
@@ -71,7 +71,7 @@
     <% else -%>
       <div class="list">
       <% end -%>
-      <%= link_to_function object.title, "javascript:SelectFile('" + object.link + "')"  %>
+      <%= link_to_function object.title, "javascript:SelectFile('#{object.link}')"  %>
     </div>
     <% i= i+1%>
   <% end %>
@@ -82,7 +82,7 @@
       <% else -%>
         <div class="list">
         <% end -%>
-        <%= link_to_function object.title, "javascript:SelectFile('" + @base_url.split("://")[1] + object.cmsfile.url.split("?")[0] + "')"  %>
+        <%= link_to_function object.title, "javascript:SelectFile('/#{object.class.to_s.underscore.pluralize}/#{object.id}/get_file_url')"  %>
       </div>
       <% i= i+1%>
     <% end %>

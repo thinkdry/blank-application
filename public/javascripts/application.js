@@ -164,9 +164,9 @@ function selectItemTab(idSelected){
 function toggleAccordion(idClicked){
 		
     var listOfItemForToggle = document.getElementsByName('itemInformations');
-		
+
     for (var i=0 ; i < listOfItemForToggle.length ; ++i){
-			
+
         if (listOfItemForToggle[i].id == idClicked){
             if (listOfItemForToggle[i].style.display == ''){
                 listOfItemForToggle[i].style.display = 'none';
@@ -182,6 +182,23 @@ function toggleAccordion(idClicked){
             listOfItemForToggle[i].parentNode.className = 'item_in_list';
         }
     }
+
+//    var items_length = document.getElementById("total_items").value
+//    for (var i=0 ; i < items_length ; ++i){
+//        var item_element = document.getElementById("itemInformations_"+i);
+//        if ("itemInformations_"+i != idClicked){
+//            item_element.style.display = 'none';
+//            item_element.parentNode.className = 'item_in_list';
+//        }else{
+//            if(item_element.style.display == 'none'){
+//                item_element.style.display = '';
+//                item_element.parentNode.className = 'selected_item_in_list';
+//            }else{
+//                item_element.style.display = 'none';
+//                item_element.parentNode.className = 'item_in_list';
+//            }
+
+
 }
 
 // To add a params from the current url and reload the page
