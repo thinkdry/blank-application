@@ -1,5 +1,6 @@
 <div id="content_show">
   <h1>
+	<%= link_to image_tag("/images/icons/left.png"), workspace_path(object.workspaces[0])%>
     <%= image_tag object.icon %>
     <%= object.title %>
   </h1>
@@ -43,8 +44,13 @@
         <% end %>
       </div>
       <div class="output_format">
-        <%=I18n.t('item.common_word.output_formate') %>: <%= link_to 'XML', item_path(object)+".xml", :class => 'output_format_link' %>,	<%= link_to 'JSON', item_path(object)+".json", :class => 'output_format_link' %>
+        <%=I18n.t('item.common_word.output_formate') %>: 
+		<%= link_to image_tag('/images/icons/xml.png'), item_path(object)+".xml", :class => 'output_format_link' %>
+		<%= link_to image_tag('/images/icons/json.png'), item_path(object)+".json", :class => 'output_format_link' %>
       </div>
+	  <div class="add_item_type">
+		<p><%= image_tag "/images/icons/add.png", :width => "30"%><a href="<%=  new_item_path(object.type)%>"><%= I18n.t('layout.application.add_content')%></a></p>
+	  </div>	
     </div>
   </div>
   <div class="item_description"><%= object.description %></div>
