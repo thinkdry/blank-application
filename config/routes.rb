@@ -49,9 +49,9 @@ ActionController::Routing::Routes.draw do |map|
   map.forgot_password '/forgot_password', :controller => 'users', :action => 'forgot_password'
   #map.change_password '/change_password', :controller => 'users', :action => 'change_password'
   map.reset_password '/reset_password/:password_reset_code', :controller => 'users', :action => 'reset_password'
-  map.resources :users, :member => { :administration => :any }, :collection => { :autocomplete_on => :any, :validate => :any }
+  map.resources :users, :member => { :administration => :any }, :collection => { :autocomplete_on => :any, :validate => :any,:ajax_index => :get }
 	map.resource :session, :member => { :change_language => :any }
-	map.resources :people, :collection => {:export_people=>:any, :import_people => :any,:ajax_index => :get,:get_empty_csv => :get, :validate => :any ,:filter => :get}
+	map.resources :people, :collection => {:export_people=>:any, :import_people => :any,:ajax_index => :get,:get_empty_csv => :get, :validate => :any ,:filter => :get, :update_newsletter_column => :any}
 
   # Routes Related to SuperAdministrator
 	map.general_changing_superadministration 'superadministration/general_changing', :controller => 'superadministration', :action => 'general_changing'
@@ -87,7 +87,8 @@ ActionController::Routing::Routes.draw do |map|
         :rate => :any,
         :add_tag => :any,
         :remove_tag => :any,
-        :add_comment => :any
+        :add_comment => :any,
+				:get_file_url => :any
       }, :collection => {:validate => :any}
     end
     # Displaying Items
@@ -137,6 +138,9 @@ ActionController::Routing::Routes.draw do |map|
   map.export_group '/export_group/:id', :controller => 'groups', :action => 'export_group'
   map.get_audio_progress '/get_audio_progress', :controller => 'audios', :action => 'get_audio_progress'
   map.get_video_progress '/get_video_progress', :controller => 'videos', :action => 'get_video_progress'
+  map.remove_article_file '/articles/removeFile', :controller => 'articles', :action => 'removeFile'
+  map.download_audio '/audios/download/:id', :controller => 'audios', :action => 'download'
+  map.download_audio '/videos/download/:id', :controller => 'videos', :action => 'download'
   # FCKUPLOAD route for uploads throught fckeditor
   map.connect '/fckuploads', :controller => 'fck_uploads', :action => 'create'
   # Install the default routes as the lowest priority.

@@ -16,4 +16,9 @@ class VideosController < ApplicationController
       render :partial => "player", :object => @current_object
     end
   end
+
+  def download
+    @video = Video.find(params[:id])
+    send_file(RAILS_ROOT+"/public"+@video.video.url.split("?")[0], :disposition => 'inline', :stream => false)
+  end
 end

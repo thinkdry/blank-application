@@ -3,9 +3,10 @@ module AjaxPagination
 # TODO enhance, test and include in library
   # Needs two arguments one is collection objec and another is url. url should look like '/people/ajax_index/?page=' last parameter in the url should be 'page='
   def remote_pagination(collection, url, refreshed_div)
-		paramss = request.url.split('?').last
+		#url = request.url.split('?').first
+		paramss = request.url.split('?').last # why use request.url and not url in param
 		paramss = (paramss.split('&').size > 1) ? paramss.split('&page=').first+'&page=' : 'page='
-      url = url+'?'+paramss
+    url = url+'?'+paramss
     if !collection.nil? and collection.total_pages > 1
     content = String.new
 #		item_type =  params[:item_type].nil? ? get_default_item_type(current_workspace) : params[:item_type]
@@ -31,7 +32,7 @@ module AjaxPagination
     else
       content = content + link_to_remote("  #{I18n.t('general.common_word.next')} &raquo;", :update => refreshed_div,:method=>:get, :url =>url+"#{(current_page+1)}")
     end
-    return content_tag(:div, content, :align=>"center")
+    return content_tag(:div, content_tag(:div, content, :align=>"center"), :id => "pagination")
     end
   end
 

@@ -1,14 +1,12 @@
 class PeopleController < ApplicationController
-  require 'fastercsv'
+
+	require 'fastercsv'
   require 'csv'
   
-  before_filter :get_people, :only=>[:index,:ajax_index]
-  PER_PAGE = 10
   acts_as_ajax_validation
 
   make_resourceful do
     actions :show, :new, :edit, :update, :destroy
-   
   end
 
   def create
@@ -22,18 +20,22 @@ class PeopleController < ApplicationController
   end
   
   def index
-
+		params[:restriction] ||= 'people'
+		params[:type] ||= {'newsletter' => '0'}
+		@people = @current_user.get_contacts_list(params[:restriction], 'group_member', params[:type][:newsletter] == '1').paginate(:per_page => get_per_page_value, :page => params[:page])
   end
   
   def ajax_index
-    
-    render :partial=> 'person' ,:layout=>false
+		params[:restriction] ||= 'people'
+		params[:type] ||= {'newsletter' => '0'}
+    @people = @current_user.get_contacts_list(params[:restriction], 'group_member', params[:type][:newsletter] == '1').paginate(:per_page => get_per_page_value, :page => params[:page])
+    render :partial => 'people_list', :layout => false
   end
 
   def filter
     @group = Group.find(params[:group_id]) if !params[:group_id].blank?
     options = ""
-    for mem in @current_user.get_member_for_groups.delete_if{ |e| e[:email].first != params[:start_with] && params[:start_with] != "tous"}
+    for mem in @current_user.get_contacts_list('all', 'group_member', true).delete_if{ |e| e[:email].first != params[:start_with] && params[:start_with] != "tous"}
       if @group.nil? or !@group.groupings.map{ |e| e.member.to_group_member}.include?(mem)
         options = options+ "<option value = '#{mem[:model]}_#{mem[:id].to_s}'>#{mem[:email]}</option>"
       end
@@ -44,47 +46,18 @@ class PeopleController < ApplicationController
   end
 
   def export_people
-    unless request.get?
-      if params[:type][:imported_from_csv] != "0" || params[:type][:creation] != "0"
-      filters = ''
-      filters = filters + "AND origin = 'CSV importation'"  if params[:type][:imported_from_csv] != "0"
-      filters = filters + ((params[:type][:imported_from_csv] != "0" && params[:type][:creation] != "0") ? " OR " : (params[:type][:creation] != "0" ? " AND " : ""))
-      filters = filters + "origin = 'Creation'" if params[:type][:creation] != "0"
-      @people = Person.find(:all,:conditions=>["user_id = ? #{filters}",current_user.id])
-      @outfile = "people_" + Time.now.strftime("%m-%d-%Y") + ".csv"
-      csv_data = FasterCSV.generate do |csv|
-        csv << ["First name", "Last name", "Email", "Gender", "Primary phone", "Mobile phone", "Fax", "Street", "City", "Postal code", "Country", "Company", "Web page", "Job title", "Notes","Newsletter","Salutation","Date of birth","Subscribed on","Updated at"]
-        @people.each do |person|
-          csv << [
-            person.first_name,
-            person.last_name,
-            person.email,
-            person.gender,
-            person.primary_phone,
-            person.mobile_phone,
-            person.fax,
-            person.street,
-            person.city,
-            person.postal_code,
-            person.country,
-            person.company,
-            person.web_page,
-            person.job_title,
-            person.notes,
-            person.newsletter,
-            person.salutation,
-            person.date_of_birth,
-            person.created_at,
-            person.updated_at
-          ]
-        end
-      end
-      send_data csv_data,
-        :type => 'text/csv; charset=iso-8859-1; header=present',
-        :disposition => "attachment; filename=#{@outfile}"
-      #    flash[:notice] = "Export complete!"
-      end
-    end
+		params[:restriction] ||= 'people'
+		params[:type] ||= {'newsletter' => '0'}
+		@people = @current_user.get_contacts_list(params[:restriction], 'people', params[:type][:newsletter] == '1')
+		@outfile = "people_" + Time.now.strftime("%m-%d-%Y") + ".csv"
+		csv_data = FasterCSV.generate do |csv|
+			csv << ["First name", "Last name", "Email", "Gender", "Primary phone", "Mobile phone", "Fax", "Street", "City", "Postal code", "Country", "Company", "Web page", "Job title", "Notes","Newsletter","Salutation","Date of birth","Subscribed on","Updated at"]
+			@people.each do |person|
+				csv << [person.first_name, person.last_name, person.email, person.gender, person.primary_phone, person.mobile_phone, person.fax, person.street, person.city, person.postal_code, person.country, person.company, person.web_page, person.job_title, person.notes, person.newsletter, person.salutation, person.date_of_birth, person.created_at, person.updated_at]
+			end
+		end
+		send_data csv_data, :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment; filename=#{@outfile}"
+		#flash[:notice] = "Export complete!"
   end
 
   def import_people
@@ -188,14 +161,16 @@ class PeopleController < ApplicationController
       :disposition => "attachment; filename=contact.csv"
   end
 
-  private
-
-  def get_people
-    @people = Person.paginate(
-      :conditions =>['user_id = ?',current_user.id],
-      :page => params[:page],
-      :order => :email,
-      :per_page => get_per_page_value
-    )
+  def update_newsletter_column
+    @object = params[:type].classify.constantize.find(params[:id])
+    @object.update_attribute(:newsletter, params[:newsletter])
+    render :update do |page|
+      if params[:newsletter] == "true"
+        page.alert("#{@object.email} will receive newsletters from now onwards")
+      else
+        page.alert("#{@object.email} will not receive newsletters from now onwards")
+      end
+    end
   end
+  
 end

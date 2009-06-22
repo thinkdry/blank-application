@@ -1,38 +1,38 @@
- <div id="footerSearch">
-      	<div id="search_middle">
-      	<% unless @hide_full_text_search %>
-            <% form_for :search, @search, :url => searches_path, :html => { :method => :get, :name => 'search' } do -%>				
-				<p><%= I18n.t('layout.search.search_label')%></p>
-	            <%= text_field_tag "search[full_text_field]", (params[:search] ? params[:search][:full_text_field] : I18n.t('layout.search.search_label')), :class => "style_text", :onfocus => '$(this).select()' %>
-				<p><%= I18n.t 'general.common_word.in'%></p>
-	            <%= select_search_models %>
-              	<%= link_to(image_tag("search_button.gif"), "javascript:void(1);", :onclick => "document.search.submit();", :class => "search_button") %>			              
-            <% end -%>
-      	  <% end %>
-		 	</div>
-      </div>
-	  <div id="footerBody">
-	  	<div class="footerCol">
-	  		<h3>Last Content</h3>
-			<%# Item.allowed_user_with_permission_in_workspaces.each do |l| %>
-				<p><%#= link_to l.title, item_path(l) %></p>
-    		<%# end %>
-	  	</div>
-		<div class="footerCol">
-	  		<h3>configuration</h3>
-			<% if (available_languages.size > 1) -%>
-			<p><%= I18n.t('layout.application.change_language')%>&nbsp;<%= select_languages %></p>
-			<%end-%>
-			<p><img src="/images/item_icons/feed_item.png" width="20"/>rss subscription</p>
-			<p><a href="mailtp:contact@thinkdry.com">contact</a></p>
-			<p><%= link_to I18n.t('layout.application.my_account'), user_path(current_user) %></p>
-			<p><%= link_to I18n.t('layout.application.logout'), '/logout' %></p>
-	  	</div>
-		<div class="footerCol">
-	  		<h3>last workspaces</h3>
-			<% Workspace.allowed_user_with_permission(@current_user.id, 'workspace_show').all(:order => 'created_at DESC', :limit => 5).each do |w|%>
-				<p><%= link_to w.title, workspace_path(w) %></p>
-	    	<% end %>
-	  	</div>
-	  </div>
-	  <p id="footerP">©thinkDRY 2007 - 2009 Trademarks belong to their respective owners. All rights reserved.</p>
+<div id="footerSearch">
+  <div id="search_middle">
+    <% unless @hide_full_text_search %>
+      <% form_for :search, @search, :url => searches_path, :html => { :method => :get, :name => 'footer_search' } do -%>
+        <p><%= I18n.t('layout.search.search_label')%></p>
+        <%= text_field_tag "search[full_text_field]", (params[:search] ? params[:search][:full_text_field] : I18n.t('layout.search.search_label')), :class => "style_text", :onfocus => '$(this).select()' %>
+        <p><%= I18n.t 'general.common_word.in'%></p>
+        <%= select_search_models %>
+        <%= link_to(image_tag("search_button.gif"), "javascript:void(1);", :onclick => "document.footer_search.submit();", :class => "search_button") %>
+      <% end -%>
+    <% end %>
+  </div>
+</div>
+<div id="footerBody">
+  <div class="footerCol">
+    <h3>Last Content</h3>
+    <%# Item.allowed_user_with_permission_in_workspaces.each do |l| %>
+    <p><%#= link_to l.title, item_path(l) %></p>
+    <%# end %>
+  </div>
+  <div class="footerCol">
+    <h3>configuration</h3>
+    <% if (available_languages.size > 1) -%>
+      <p><%= I18n.t('layout.application.change_language')%>&nbsp;<%= select_languages %></p>
+    <%end-%>
+    <p><img src="/images/item_icons/feed_item.png" width="20"/>rss subscription</p>
+    <p><a href="mailtp:contact@thinkdry.com">contact</a></p>
+    <p><%= link_to I18n.t('layout.application.my_account'), user_path(current_user) %></p>
+    <p><%= link_to I18n.t('layout.application.logout'), '/logout' %></p>
+  </div>
+  <div class="footerCol">
+    <h3>last workspaces</h3>
+    <% Workspace.allowed_user_with_permission(@current_user.id, 'workspace_show').all(:order => 'created_at DESC', :limit => 5).each do |w|%>
+      <p><%= link_to w.title, workspace_path(w) %></p>
+    <% end %>
+  </div>
+</div>
+<p id="footerP">©thinkDRY 2007 - 2009 Trademarks belong to their respective owners. All rights reserved.</p>

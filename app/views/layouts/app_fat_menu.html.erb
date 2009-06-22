@@ -2,10 +2,15 @@
 <html>
 <head>
   <link rel="shortcut icon" href="<%= @configuration['sa_favicon_url'] %>"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=7" />
   <%= stylesheet_link_tag "application_bis.css" %>
   <%= stylesheet_link_tag "form.css" %>
   <%= stylesheet_link_tag "starbox.css" %>
   <%= stylesheet_link_tag "middle_bis.css" %>
+  
+  <!--[if IE]>
+	<link rel="stylesheet" type="text/css" href="/stylesheets/ie.css" />
+  <![endif]--> 
   <link rel="stylesheet" type="text/css" href="/prototip2.0.4/css/prototip.css" />
 
   <title>
@@ -13,8 +18,9 @@
     <%= params[:action].capitalize if params[:action] != 'index' %>
     <%= params[:controller].capitalize %>
   </title>
-   <%= javascript_include_tag :all, :cache => true %>
-   
+   <%#= javascript_include_tag :all, :cache => true %>
+   <%= javascript_include_tag 'prototype', 'effects', 'controls', 'ajax_validation', 'application', 'livepipe', 'tabs', 'scriptaculous', 'starbox', :cache => "all" %>
+
    <script type='text/javascript' src='/prototip2.0.4/js/prototip.js'></script>
   <%= calendar_date_select_includes %>
 </head>

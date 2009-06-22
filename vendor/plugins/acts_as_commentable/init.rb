@@ -2,6 +2,8 @@ ActionView::Base.send                     :include, ActsAsCommentable::Helpers
 ActionController::Base.send               :include, ActsAsCommentable::ControllerMethods
 ActiveRecord::Base.send                   :include, ActsAsCommentable::ModelMethods
 
+ActionView::Base.send :include, CommentsHelper
+
 #require 'acts_as_commentable'
 
 #%w{ models controllers helpers }.each do |dir|

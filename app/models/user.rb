@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
 
   has_many :groupings, :as => :groupable, :dependent => :delete_all
   has_many :member_in, :through => :groupings, :source => :group
-  has_many :people
+  has_many :people, :order => 'email ASC'
 
 	acts_as_xapian :texts => [:login, :firstname, :lastname]
 
@@ -142,14 +142,40 @@ class User < ActiveRecord::Base
   end
 
   #TODO check for duplicate email in the user query, and duplicate emails between users email and people emails
-  def get_member_for_groups
-      people = Person.find(:all, :conditions => ["user_id = ?",self.id])
-      users = []
-      Workspace.allowed_user_with_permission(self.id,'group_edit').each do |ws|
-         users += ws.users.delete_if{ |e| !e.newsletter }
-      end
-      return (people + users.uniq).map{ |e| e.to_group_member }.sort!{ |a,b| a[:email].downcase <=> b[:email].downcase }
-  end
+#  def get_member_for_groups
+#      people = Person.find(:all, :conditions => ["user_id = ?",self.id])
+#      users = []
+#      Workspace.allowed_user_with_permission(self.id,'group_edit').each do |ws|
+#         users += ws.users.delete_if{ |e| !e.newsletter }
+#      end
+#      return (people + users.uniq).map{ |e| e.to_group_member }.sort!{ |a,b| a[:email].downcase <=> b[:email].downcase }
+#  end
+	def get_contacts_list(restriction, output_format, newsletter)
+		people = []
+		users = []
+		conditions = {}
+		if newsletter
+			conditions.merge!({:newsletter => true})
+		end
+		if self.has_system_role('superadmin')
+			people = Person.all(:conditions => conditions) if restriction == 'all' || restriction == 'people'
+			users = User.all(:conditions => {:newsletter => true}) if restriction == 'all' || restriction == 'users'
+		else
+			if restriction == 'all' || restriction == 'people'
+				people = self.people.all(:conditions => conditions)
+			end
+			if restriction == 'all' || restriction == 'users'
+				Workspace.allowed_user_with_permission(self.id,'group_edit').each do |ws|
+					 users += ws.users.all(:conditions => conditions)#.delete_if{ |e| !e.newsletter }
+				end
+			end
+		end
+		if output_format
+			return (people + users.uniq).map{ |e| e.send("to_#{output_format}".to_sym) }.sort!{ |a,b| a[:email].downcase <=> b[:email].downcase }
+		else
+			return (people + users.uniq).sort!{ |a,b| a[:email].downcase <=> b[:email].downcase }
+		end
+	end
 
   def to_people
     return Person.new(:first_name => self.firstname, :last_name => self.lastname,:email => self.email,
@@ -159,7 +185,7 @@ class User < ActiveRecord::Base
   end
 
   def to_group_member
-    return { :model => 'User', :id => self.id, :email => self.email }
+    return { :model => 'User', :id => self.id, :email => self.email, :first_name => self.firstname, :last_name => self.lastname, :origin => 'user registred', :created_at => self.created_at, :newsletter => self.newsletter }
   end
 
 
@@ -207,6 +233,10 @@ class User < ActiveRecord::Base
 	def has_workspace_permission(workspace_id, controller, action)
 		permission_name = controller+'_'+action
 		return !self.workspace_permissions(workspace_id).delete_if{ |e| e.name != permission_name}.blank? || self.has_system_role('superadmin')
+	end
+
+	def accepts_configure_for? user
+		return accepting_action(user, 'configure', (self.id==user.id), false, true)
 	end
 
 	def accepts_show_for? user

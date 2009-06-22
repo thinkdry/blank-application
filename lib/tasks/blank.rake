@@ -119,6 +119,7 @@ namespace :blank do
   desc "Load Permissions"
   task(:create_permissions => :environment) do
     p "Loading Permissions ..."
+		Permission.delete_all
     ITEM_CATEGORIES.each do |cat|
       ['new','edit', 'show', 'destroy'].each do |action|
         Permission.create(:name => 'item_cat_'+cat+'_'+action,  :type_permission => 'workspace') unless Permission.exists?(:name => 'item_cat_'+cat+'_'+action,  :type_permission => 'workspace')
@@ -148,6 +149,8 @@ namespace :blank do
         Permission.create(:name => controller.singularize+'_'+action, :type_permission => 'workspace') unless Permission.exists?(:name => controller.singularize+'_'+action, :type_permission => 'workspace')
       end
     end
+		Permission.create(:name => 'user_configure', :type_permission => 'system')
+		Permission.create(:name => 'workspace_administrate', :type_permission => 'workspace')
     p "Done"
   end
 
@@ -233,8 +236,29 @@ namespace :blank do
     p "Done"
   end
   p"------>>> Ready to Launch Blank <<<------"
-  
+
+  namespace :maintaining do
+  desc "To Reencode videos"
+  task(:video_reencode => :environment) do
+    @videos = Video.find(:all, :conditions =>["state = 'uploaded' OR state = 'encoding_error' OR state = 'error'"])
+    for video in @videos
+      puts "---->Reencoding started for video #{video.id}"
+      MiddleMan.worker(:converter_worker).async_newthread(:arg=>{:type=>"video", :id => video.id, :enc=>"flv"})
+    end
+  end
+
+  desc "To Reencode audios"
+  task(:audio_reencode => :environment) do
+    @audios = Audio.find(:all, :conditions =>["state = 'uploaded' OR state = 'encoding_error' OR state = 'error'"])
+    for audio in @audios
+      puts "---->Reencoding started for audio #{audio.id}"
+      MiddleMan.worker(:converter_worker).async_newthread(:arg=>{:type=>"audio", :id => audio.id, :enc=>"mp3"})
+    end
+  end
 end
+
+end
+
 
 #insert into roles(id, name, description, type_role, created_at, updated_at)values(1, 'superadmin', 'SuperAdministration', 'system' CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);",
 #"insert into workspaces(id, creator_id, description, title, state, created_at, updated_at, ws_config_id)values(1, 1, 'Private Workspace for BOSS', 'Private for Boss', 'private', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,1);"

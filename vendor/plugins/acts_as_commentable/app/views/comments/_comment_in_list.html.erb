@@ -1,6 +1,6 @@
 <div class="comment_info">
   <%#= link_to_user object.user %><br /><%=I18n.t('general.common_word.on1')%> <%= I18n.l object.created_at, :format => :long %>
-  <%= link_to_function 'Reply', :onclick => "add_reply('#{object.id}')" %>
+  <%#= link_to_function 'Reply', :onclick => "add_reply('#{object.id}')" %>
 </div>
 <div class="comment_text">
   <%= object.text %>
@@ -8,5 +8,5 @@
 <br />
 <br />
 <div id="reply_for_comment_<%= object.id %>">
-<%= render :partial => 'items/reply', :collection => object.replies %>
+  <%= render :partial => 'comments/reply', :collection => object.replies %>
 </div>

@@ -12,7 +12,7 @@
         <div id="file<%= af.id.to_s %>">
           <%= af.articlefile.url.split('/').last.split("?")[0] %>
           <%= link_to I18n.t('general.button.download'), af.articlefile.url.split("?")[0] %>
-          <%= link_to_remote I18n.t('general.button.delete'), :url => { :action => "removeFile", :id => af.id }, :success => "$(file#{af.id.to_s}.remove())" %>
+          <%= link_to_remote I18n.t('general.button.delete'), :url => { :controller =>"articles", :action => "removeFile", :id => af.id }, :success => "$('file#{af.id.to_s}').remove()" %>
         </div>
       <% end %>
     </div>

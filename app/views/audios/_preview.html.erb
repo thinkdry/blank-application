@@ -8,5 +8,5 @@
       <%= object.state.capitalize %>
     <% end %>
   </div>
-  <br /><br /><%= link_to I18n.t('general.button.download'), object.audio.url.split("?")[0] %><br />
+  <br /><br /><%= link_to I18n.t('general.button.download'), "/audios/download/#{object.id}" %><br />
 <%# end %>

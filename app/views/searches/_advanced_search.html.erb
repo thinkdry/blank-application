@@ -4,12 +4,12 @@
 	<div class="dateSelection">
 	      <label><%=I18n.t('general.common_word.from1')%>: </label>
 		  <div class="formElement">
-		  	<%= calendar_date_select_tag 'search[created_after]', @search.created_after, :class => "input_with_calendar" %>
+		  	<%= calendar_date_select_tag 'search[created_after]', @search.created_after, :class => "input_with_calendar", :popup => :force %>
             <%#= f.calendar_date_select :created_after, :class => "advanced" %>
 		  </div>
 	      <label><%=I18n.t('general.common_word.to1')%>: </label>
 		  <div class="formElement">
-		  	<%= calendar_date_select_tag 'search[created_before]', @search.created_before, :class => "input_with_calendar" %>
+		  	<%= calendar_date_select_tag 'search[created_before]', @search.created_before, :class => "input_with_calendar", :popup => :force %>
             <%#= f.calendar_date_select :created_before, :class => "advanced" %>
 		  </div>
 	</div>

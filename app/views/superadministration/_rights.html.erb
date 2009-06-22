@@ -3,7 +3,7 @@
   <%= link_to_remote 'New System Role', :update => 'roles', :url => '/roles/new?type_role=system', :method => :get %><br />
   <%= link_to_remote 'New Workspace Role', :update => 'roles', :url => '/roles/new?type_role=workspace', :method => :get %><br /><br />
   <%= link_to_remote 'Permissions List', :update => 'roles', :url => permissions_path, :method => :get %><br /><br />
-  <b>Select a System Role</b>
+  <b>Select a role</b>
 <%= select_tag "element",
   options_for_select(
   %w(Select_a_system_role) + @system_roles.map{ |e| e.name }),

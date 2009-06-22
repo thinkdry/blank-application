@@ -10,5 +10,5 @@
                <%= @current_object.state.capitalize %>
            <% end %>
           </div>
-	<br /><br /><%= link_to I18n.t('general.button.download'), @current_object.audio.url.split("?")[0] %><br />
+	<br /><br /><%= link_to I18n.t('general.button.download'), "/audios/download/#{@current_object.id}" %><br />
 <% end %>

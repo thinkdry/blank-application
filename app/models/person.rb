@@ -30,7 +30,7 @@ class Person < ActiveRecord::Base
   end
 
   def to_group_member
-    return { :model => 'Person', :id => self.id, :email => self.email }
+    return { :model => 'Person', :id => self.id, :email => self.email, :first_name => self.first_name, :last_name => self.last_name, :origin => self.origin, :created_at => self.created_at, :newsletter => self.newsletter }
   end
 
 

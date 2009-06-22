@@ -1,9 +1,9 @@
 <li class="clear">
 	<div>
 		<%= image_tag(object.icon, :align => 'left', :width => '20') %>
-		<a href="<%=item_path(object)%>" id="<%= type_of_list%>_<%=object.type%>_<%=object.id%>"><%=object.title%></a>
+		<a href="<%=item_path(object)%>" id="<%= type_of_list%>_<%=object.class.to_s %>_<%=object.id%>"><%=object.title%></a>
 	</div>
-	<div id="tip_<%= type_of_list%>_<%= object.type%>_<%=object.id%>" style="display:none;">
+	<div id="tip_<%= type_of_list%>_<%= object.class.to_s %>_<%=object.id%>" style="display:none;">
 		<div class="tooltip_infos">
 			<p class="title_tip"><%= object.title%></p>
 			<p><%= link_to_user(object.user) %></p>
@@ -25,8 +25,8 @@
 
 	<script type='text/javascript'>
 		//<![CDATA[
-			new Tip('<%= type_of_list%>_<%= object.type%>_<%= object.id%>', $('tip_<%= type_of_list%>_<%= object.type%>_<%=object.id%>'),
-					{ target:  $('tip_<%= type_of_list%>_<%= object.type%>_<%=object.id%>').up('div'),
+			new Tip('<%= type_of_list%>_<%= object.class.to_s %>_<%= object.id%>', $('tip_<%= type_of_list%>_<%= object.class.to_s %>_<%=object.id%>'),
+					{ target:  $('tip_<%= type_of_list%>_<%= object.class.to_s %>_<%=object.id%>').up('div'),
 					  effect: 'appear',
 			 		  duration: 0.2,
 					  delay:0,

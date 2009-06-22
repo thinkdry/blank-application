@@ -1,4 +1,5 @@
 <div class="user_item">
+  <% for object in @current_objects %>
   <br />
 	<b><%= "#{object.login} (#{object.full_name}) " %></b>
 	<%= link_to image_tag('/images/icons/play.png', :width => "20"), user_path(object.id) %>
@@ -7,4 +8,6 @@
 	  <%= link_to image_tag('/images/icons/delete.png', :width => "20"), user_path(object.id), :method => :delete, :confirm => 'Really ?' %><br />
       <i><%=" - Last Connected: " + time_ago_in_words(object.last_connected_at) if object.last_connected_at %></i>
 	<% end %>
+   <% end %>
 </div>
+<%= remote_pagination(@current_objects, ajax_index_users_path,  'users_list') %>

@@ -21,7 +21,7 @@
     <%= f.text_field :street, :label => I18n.t('people.field.street_label') +" : " %>
     <%= f.text_field :city, :label => I18n.t('people.field.city_label') +" : " %>
     <%= f.text_field :postal_code, :label => I18n.t('people.field.postal_code_label') +" : " %>
-    <%= f.country_select :country,:label => I18n.t('people.field.country_label') +" : " %>
+    <%= f.country_select :country, nil, {}, :label => I18n.t('people.field.country_label') +" : " %>
     <%= f.text_field :company, :label => I18n.t('people.field.company_label') +" : " %>
     <%= f.text_field :job_title, :label => I18n.t('people.field.job_title_label') +" : " %>
     <%= f.text_field :web_page, :label => I18n.t('people.field.web_page_label') +" : " %>

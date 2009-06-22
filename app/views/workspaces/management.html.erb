@@ -1,6 +1,7 @@
-<% if current_user.has_system_permission('workspace', 'new') %>
-  <%= link_to I18n.t('workspace.new.title'), new_workspace_path %>
-<% end %>
-<div class="area_BOTH">
-  <%= render :partial => 'workspaces/users_by_roles' %>
-</div>
+<h1>
+	<%= I18n.t('layout.application.workspaces') %>
+	<% if current_user.has_system_permission('workspace', 'new') %>
+  		<%= link_to image_tag("/images/icons/add.png"), new_workspace_path %>
+	<% end %>
+</h1>
+<%= render :partial => 'workspaces/users_by_roles' %>

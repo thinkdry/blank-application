@@ -34,7 +34,7 @@ class ConverterWorker < BackgrounDRb::MetaWorker
         logger.info "Thumbnails Created #{args[:type]} on id #{args[:id]}"
       end
     else
-      object.update_attributes(:state=>"error")
+      object.update_attributes(:state=>"encoding_error")
       logger.info "Encoding #{args[:type]} Failed on Id #{args[:id]}"
     end
   
