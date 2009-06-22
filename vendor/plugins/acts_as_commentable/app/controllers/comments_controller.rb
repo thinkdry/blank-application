@@ -104,7 +104,7 @@ class CommentsController < ApplicationController
       @current_object.save
       render :update do |page|
         if @current_object.state == 'validated'
-          page.insert_html :bottom, "reply_for_comment_#{@current_object.parent_id}", :partial => "items/reply", :object => @current_object
+          page.insert_html :bottom, "reply_for_comment_#{@current_object.parent_id}", :partial => "comments/reply", :object => @current_object
           page.replace_html "ajax_info", :text => I18n.t('comment.add_comment.ajax_message_comment_published')
         else
           page.replace_html "ajax_info", :text => I18n.t('comment.add_comment.ajax_message_comment_submited')

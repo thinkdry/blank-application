@@ -1,6 +1,7 @@
+<link href="/stylesheets/comments.css" media="screen" rel="stylesheet" type="text/css" />
 <div id="content_show">
   <h1>
-	<%= link_to image_tag("/images/icons/left.png"), workspace_path(object.workspaces[0])%>
+    <%= link_to image_tag("/images/icons/left.png"), workspace_path(object.workspaces[0])%>
     <%= image_tag object.icon %>
     <%= object.title %>
   </h1>
@@ -10,12 +11,12 @@
       <p><%= I18n.l object.created_at, :format =>:long %></p>
       <p><%= object.comments.size %> <%= object.comments.count > 1 ? I18n.t("item.common_word.comment").pluralize : I18n.t("item.common_word.comment")%></p>
       <p><%= item_rate_locked(object) %></p>
-	  <p>
-		<%= I18n.t("item.show.associated_workspace") %><br/>
-	  	<% for ws in object.workspaces -%>
-			<%= link_to ws.title, workspace_path(ws) %><br/>
-		<% end -%>
-	  </p>	
+      <p>
+        <%= I18n.t("item.show.associated_workspace") %><br/>
+        <% for ws in object.workspaces -%>
+          <%= link_to ws.title, workspace_path(ws) %><br/>
+        <% end -%>
+      </p>
     </div>
     <div class="file_infos_box">
       <%= image_tag '/images/icons/tag_blue.png', :align => "left"%><%= ((l=@current_object.keywords_list).size > 0) ? l.split(',').map{ |e| link_to(e, searches_path('search[full_text_field]' => e))}.join(', ') : I18n.t('general.common_word.none') %>
@@ -50,13 +51,13 @@
         <% end %>
       </div>
       <div class="output_format">
-        <%=I18n.t('item.common_word.output_formate') %>: 
-		<%= link_to image_tag('/images/icons/xml.png'), item_path(object)+".xml", :class => 'output_format_link' %>
-		<%= link_to image_tag('/images/icons/json.png'), item_path(object)+".json", :class => 'output_format_link' %>
+        <%=I18n.t('item.common_word.output_formate') %>:
+        <%= link_to image_tag('/images/icons/xml.png'), item_path(object)+".xml", :class => 'output_format_link' %>
+        <%= link_to image_tag('/images/icons/json.png'), item_path(object)+".json", :class => 'output_format_link' %>
       </div>
-	  <div class="add_item_type">
-		<p><%= image_tag "/images/icons/add.png", :width => "30"%><a href="<%=  new_item_path(object.type)%>"><%= I18n.t('layout.application.add_content')%></a></p>
-	  </div>	
+      <div class="add_item_type">
+        <p><%= image_tag "/images/icons/add.png", :width => "30"%><a href="<%=  new_item_path(object.type)%>"><%= I18n.t('layout.application.add_content')%></a></p>
+      </div>
     </div>
   </div>
   <div class="item_description"><%= object.description %></div>
