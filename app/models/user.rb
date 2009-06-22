@@ -236,7 +236,7 @@ class User < ActiveRecord::Base
 	end
 
 	def accepts_configure_for? user
-		return accepting_action(user, 'configure', (self.id==user.id), false, true)
+		return accepting_action(user, 'configure', false, false, true)
 	end
 
 	def accepts_show_for? user

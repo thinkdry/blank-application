@@ -12,7 +12,7 @@ en-US:
       back_to_login: Back to Login
       flash_error: There is no User with this Mail address.
       password_label: Enter your Password and a Reactivation Link will be sent to you by Mail.
-    administration: 
+    administration:
       list_title: Users list
       user_management: User management
       title: Administration

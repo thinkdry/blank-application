@@ -3,6 +3,7 @@ module AjaxPagination
 # TODO enhance, test and include in library
   # Needs two arguments one is collection objec and another is url. url should look like '/people/ajax_index/?page=' last parameter in the url should be 'page='
   def remote_pagination(collection, url, refreshed_div)
+		p "=========================== "+url
 		#url = request.url.split('?').first
 		paramss = request.url.split('?').last # why use request.url and not url in param
 		paramss = (paramss.split('&').size > 1) ? paramss.split('&page=').first+'&page=' : 'page='

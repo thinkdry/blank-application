@@ -1,6 +1,9 @@
 <% @workspaces.each do |w| %>
     <h4>
 		<%= w.title %>
+        <% if w.accepts_show_for?(@current_user) %>
+      		<%= link_to image_tag("/images/icons/play.png", :width => "20"), workspace_path(w.id) %>
+    	<% end %>
     	<% if w.accepts_edit_for?(@current_user) %>
       		<%= link_to image_tag("/images/icons/pencil.png", :width => "20"), edit_workspace_path(w.id) %>
     	<% end %>
