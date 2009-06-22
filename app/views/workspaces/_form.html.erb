@@ -69,6 +69,7 @@
 
      <%= f.select :role, @roles.collect { |r| [I18n.t('general.role.'+r.name), r.id]}, :label => 'Role :' %> 
      <div class="smallSubmitContainer"><%= button_to_function I18n.t('general.button.add'), %{
+            if($('user_login').value != 0){
             new Ajax.Request("#{add_new_user_workspace_path(params[:id])}", {
               parameters: {
                 user_login: $('user_login').value,
@@ -76,9 +77,11 @@
               },
               method: 'get',
               asynchronous:true,
-              evalScripts:true
+              evalScripts:true,
+              onSuccess:function(request){ $('user_login').value = '';}
             })
-          }, :class => "smallSubmit"%>
+          }}, :class => "smallSubmit"%>
+
 	 </div>  
     <% end %>
 <% end %>
