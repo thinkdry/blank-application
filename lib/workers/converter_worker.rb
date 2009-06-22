@@ -39,6 +39,34 @@ class ConverterWorker < BackgrounDRb::MetaWorker
     end
   
   end
+
+  def encode_uploaded_media
+    logger.info "Retry Encoding of Uploaded Videos"
+    ['audio','video'].each do |type|
+      @objects = type.classify.constantize.find(:all, :conditions => {:state => 'uploaded'})
+      @objects.each do |object|
+        success = system(convert_media(type, object, type == 'audio' ? 'mp3' : 'flv'))
+        if success && $?.exitstatus == 0
+          @object.update_attributes(:state=>"encoded")
+          logger.info "Encoded #{type} on id #{object.id}"
+          if type == 'video'
+            i=1
+            j=2
+            pic=4
+            while i<=pic do
+              system(thumbnail(i,j,object))
+              i=i+1
+              j=j*3
+            end
+            logger.info "Thumbnails Created #{type} on id #{object.id}"
+          end
+        else
+          object.update_attributes(:state=>"error")
+          logger.info "Encoding #{type} Failed on Id #{object.id}"
+        end
+      end
+    end
+  end
  
   def convert_media(type, object, enc)
     media = File.join(File.dirname(object.media_type.path), "#{type}.#{enc}")
@@ -71,6 +99,8 @@ class ConverterWorker < BackgrounDRb::MetaWorker
     command.gsub!(/\s+/, " ")
   end
 end
+
+
 
 #ffmpeg -i #{File.dirname(object.media_type.path)}/video.flv -an -ss 00:00:3 -an -r 1 -vframes 1 -y #{thumb}
 #ffmpeg  -itsoffset -4  -i public/videos/#{video_name} -vcodec mjpeg -vframes 1 -an -f rawvideo -s 160x120 public/images/thumbs/#{videoname}.jpg

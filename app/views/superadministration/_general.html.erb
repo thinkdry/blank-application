@@ -67,7 +67,7 @@
       <div class="formElement"><%= text_field_tag 'conf[sa_per_page_default]', @conf['sa_per_page_default'] %></div>
 
       <label>Default layout :</label>
-      <div class="formElement"><%= select_tag 'conf[sa_layout]', options_for_select(LAYOUTS_AVAILABLE) %></div>
+      <div class="formElement"><%= select_tag 'conf[sa_layout]', options_for_select(LAYOUTS_AVAILABLE,@conf['sa_layout']) %></div>
 
       <div class="centerButton"><button type="submit" class="submit_button"><%=I18n.t('general.button.update')%></button></div>
 <% end %>

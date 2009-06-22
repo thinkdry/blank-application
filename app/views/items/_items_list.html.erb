@@ -1,7 +1,10 @@
 <script type="text/javascript" src="/videoplayer/swfobject.js"></script>
 <%= display_classify_bar(['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title'], ajax_url, 'object-list') %>
 <% if params[:controller] != 'searches' %>
-<a href="<%=  new_item_path(params[:item_type].downcase.singularize)%>"><%= image_tag "/images/icons/add.png", :width => "20"%><%= I18n.t('layout.application.add_content')%></a>
+  <% @obj = params[:item_type].classify.constantize.new %>
+  <% if @obj.accepts_new_for?(@current_user) %>
+    <a href="<%=  new_item_path(params[:item_type].downcase.singularize)%>"><%= image_tag "/images/icons/add.png", :width => "20"%><%= I18n.t('layout.application.add_content')%></a>
+  <% end %>
 <% end %>
 <div id="content">
   <%= display_item_in_list(@paginated_objects) %>

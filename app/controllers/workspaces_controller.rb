@@ -75,7 +75,11 @@ class WorkspacesController < ApplicationController
     @uw.role_id = params[:user_role]
     @uw.user = @user
     render :update do |page|
-      page.insert_html :bottom, 'users', :partial => 'user',  :object => @uw
+      if @user
+        page.insert_html :bottom, 'users', :partial => 'user',  :object => @uw
+      else
+        page.call "alert","No user exist with #{params[:user_login]}"
+      end
     end
   end
 
