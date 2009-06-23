@@ -2,7 +2,7 @@
   <%= object.text %>
 </div>
 <div class="commentfooter">
-  <%#= link_to_user object.user %>&nbsp;<%=I18n.t('general.common_word.on1')%> <%= I18n.l object.created_at, :format => :short1 %>&nbsp;<b><%= link_to_function 'Reply', :onclick => "add_reply('#{object.id}')" %></b>
+  <%= link_to_user object.user %>&nbsp;<%=I18n.t('general.common_word.on1')%> <%= I18n.l object.created_at, :format => :short1 %>&nbsp;<b><%= link_to_function 'Reply', :onclick => "add_reply('#{object.id}')" %></b>
 </div>
 <div id="reply_for_comment_<%= object.id %>">
   <% if object.replies.size > 0 %>
