@@ -45,6 +45,8 @@ en-US:
       email_label: Email
       nationality_label: Nationality
       location_label: Location
+      date_of_birth_label: Date of birth
+      gender_label: Gender
     session: 
       login_hint: Enter Login Details
       password_hint: Your password
@@ -190,6 +192,7 @@ en-US:
       ajax_message_captcha_invalid: The verification code is incorrect.
       yes1: "yes"
       with: with
+      select_country: Select country
     item: 
       article: Article
       audio: Audio

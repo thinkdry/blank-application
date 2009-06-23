@@ -102,6 +102,8 @@ fr-FR:
       location_label: Emplacement
       nationality_label: "Nationalit\xC3\xA9"
       email_label: Courriel
+      date_of_birth_label: Date de naissance
+      gender_label: Sexe
     access_right: 
       system_administrator: "Administrateur syst\xC3\xA8me"
       rights_to_manage: Droits de gestion
@@ -197,6 +199,7 @@ fr-FR:
       ajax_message_captcha_invalid: "Le code de v\xC3\xA9rification est incorrect."
       with: avec
       yes1: oui
+      select_country: Sélectionner le pays
     object: 
       user: utilisateur
       workspace: espace de travail

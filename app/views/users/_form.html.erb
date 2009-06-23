@@ -20,7 +20,9 @@
 
     <%= f.text_field :firstname, :label => I18n.t('user.field.first_name_label')+" * : " %>
     <%= f.text_field :lastname, :label => I18n.t('user.field.last_name_label')+" * : " %>
-    <%= f.country_select :nationality, nil, {}, { :label => I18n.t('user.field.nationality_label')+" : " } %>
+    <%= f.select :gender, ["#{I18n.t('general.common_word.Male')}", "#{I18n.t('general.common_word.Female')}"], :label => I18n.t('user.field.gender_label')+" : "  %>
+    <%= f.date_select :date_of_birth, :label => I18n.t('user.field.date_of_birth_label')+" : " , :start_year => (Time.now.year - 100), :end_year => Time.now.year , :order => [:month , :day, :year ]%>
+    <%= f.country_select :nationality, {I18n.t('general.common_word.select_country')=>''}, { :label => I18n.t('user.field.nationality_label')+" : " } %>
     <%= f.text_area :address, :size => "40x6", :label => I18n.t('user.field.address_label')+" : ", :hint => I18n.t('user.field.address_hint')%>
     <%= f.text_field :phone, :label => I18n.t('user.field.phone_label')+" : ", :hint => I18n.t('user.field.phone_hint') %>
     <%= f.text_field :mobile, :label => I18n.t('user.field.mobile_label')+" : ", :hint => I18n.t('user.field.mobile_hint') %>
