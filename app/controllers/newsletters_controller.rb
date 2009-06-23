@@ -9,6 +9,7 @@ class NewslettersController < ApplicationController
 		end
   end
   skip_before_filter :is_logged?, :only => ['unsubscribe']
+	
   def send_newsletter
     @group = Group.find(params[:group_id])
     @newsletter = Newsletter.find(params[:newsletter_id])

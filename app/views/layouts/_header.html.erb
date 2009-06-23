@@ -34,7 +34,7 @@
 						<% if @current_user.has_system_permission('workspace', 'new') -%>
 							<li><%= link_to I18n.t('layout.application.new_workspace'), new_workspace_path%></li>
 						<% end -%>
-						<% if current_user.has_system_permission('user', 'new') -%>
+						<% if @current_user.has_system_permission('user', 'new') -%>
 							<li><%= link_to I18n.t('user.new.add_user'), new_user_path %></li>
 						<% end -%>
 						</ul>
@@ -76,9 +76,7 @@
 							<li><%= link_to I18n.t('layout.application.home'), '/' %></li>
 							<li><%= link_to I18n.t('layout.application.content'), content_path('articles') %></li>
 							<li><%= link_to I18n.t('layout.application.subscribers'), '/people' %></li>
-							<% if current_user.has_system_permission('user', 'show') -%>
 							<li><%= link_to I18n.t('layout.application.users'), '/users' %></li>
-							<% end -%>
 						</ul>
 					</div>
 				</div>
@@ -131,7 +129,7 @@
 							<label><%=I18n.t('layout.search.search_label')%></label>
 							<div class="formElement">
 				              <%= text_field_tag "search[full_text_field]", (params[:search] ? params[:search][:full_text_field] : I18n.t('layout.search.search_label')), :class => "style_text", :onfocus => '$(this).select()' %>
-							 </div>
+							</div>
 			                <label><%= I18n.t 'general.common_word.in'%></label>
 							<div class="formElement">
 					              <%= select_search_models %>
@@ -177,7 +175,7 @@
 					<img src="/images/icons/settings_128.png"/>
 					<p><%= I18n.t('layout.menu.configure_help') %></p>
 					<br/><br/>
-					<%if (available_languages.size > 1) -%>
+					<%  if (available_languages.size > 1) -%>
 					<p><%= I18n.t('layout.application.change_language')%><%= select_languages %></p>
 					<%end-%>
 				</div>
@@ -185,9 +183,8 @@
 					<h3>Administration</h3>
 					<div class="headerTipContent">
 						<ul>
-							<li>
-								<%=link_to I18n.t('user.administration.workspace_management'),"/workspaces/management"  %>
-							</li>
+                          <li><%= link_to I18n.t('layout.application.my_account'),"/users/#{@current_user.id}" %></li>
+                          <li><%= link_to I18n.t('user.administration.workspace_management'),"/workspaces" %></li>
 						</ul>
 						<br/><br/>
 						<p><img src="/images/icons/exit.png" width="20px" style="margin-right:5px"/><%= link_to I18n.t('layout.application.logout'), '/logout', :class => 'bigLink' %></p>

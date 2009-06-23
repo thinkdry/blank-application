@@ -3,7 +3,7 @@ class WorkspacesController < ApplicationController
   acts_as_ajax_validation
 
   make_resourceful do
-    actions :show, :create, :new, :edit, :update, :destroy
+    actions :show, :create, :new, :edit, :update, :destroy, :index
 
     before :show do
       no_permission_redirection unless @current_user && @current_object.accepts_show_for?(@current_user)
@@ -67,6 +67,21 @@ class WorkspacesController < ApplicationController
     end                   
 	end
 
+	def current_object
+    @current_object ||= @workspace =
+      if params[:id]
+      Workspace.find(params[:id])
+    elsif params[:workspace_id]
+      Workspace.find(params[:workspace_id])
+    else
+      nil
+    end
+  end
+	
+	def current_objects
+		@current_objects ||= @workspaces = Workspace.allowed_user_with_permission(@current_user.id, 'workspace_show')
+	end
+
   def add_new_user
 		@current_object = Workspace.find(params[:id])
 		no_permission_redirection unless @current_object.accepts_edit_for?(@current_user)
@@ -80,17 +95,6 @@ class WorkspacesController < ApplicationController
       else
         page.call "alert","No user exist with #{params[:user_login]}"
       end
-    end
-  end
-
-  def current_object
-    @current_object ||= @workspace =
-      if params[:id]
-      Workspace.find(params[:id])
-    elsif params[:workspace_id]
-      Workspace.find(params[:workspace_id])
-    else
-      nil
     end
   end
 
@@ -141,12 +145,12 @@ class WorkspacesController < ApplicationController
 #    #render :text => display_item_in_list(@paginated_objects), :layout => false
 #  end
 
-  def management
-    @workspaces=Workspace.all
-    respond_to do |format|
-      format.html  { render :template => '/workspaces/management'}
-    end
-
-  end
+#  def management
+#    @workspaces=Workspace.all
+#    respond_to do |format|
+#      format.html  { render :template => '/workspaces/management'}
+#    end
+#
+#  end
 
 end

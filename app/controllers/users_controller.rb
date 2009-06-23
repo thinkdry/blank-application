@@ -20,7 +20,7 @@ class UsersController < ApplicationController
 	end
 
   make_resourceful do
-    actions :all, :except =>[:index]
+    actions :all
 
     before :destroy do
       no_permission_redirection unless @current_user && @current_object.accepts_destroy_for?(@current_user)
@@ -48,16 +48,6 @@ class UsersController < ApplicationController
     before :show do
 			no_permission_redirection unless @current_user && @current_object.accepts_show_for?(@current_user)
     end
-
-#		before :index do
-#			# TODO : check in the controller
-#			no_permission_redirection unless @current_user && @current_user.has_system_role('superadmin')
-#			@current_objects = current_objects.paginate(
-#        :page => params[:page],
-#        :order => :title,
-#        :per_page => get_per_page_value
-#			)
-#    end
 
 		before :edit do
 			get_roles
@@ -138,14 +128,26 @@ class UsersController < ApplicationController
       end
     end
   end
-
-  def index
-    get_users
-  end
+	
   def ajax_index
-    get_users
+    current_objects
     render :partial => 'user_in_list'
   end
+
+	def current_objects
+		if @current_user.has_system_role('superadmin')
+			tmp = User.all
+		elsif @current_user.has_system_role('admin')
+			tmp = User.find_by_sql("SELECT users.* FROM users, roles WHERE users.system_role_id=roles.id AND roles.name!='superadmin'")
+		else
+			tmp = []
+			Workspace.allowed_user_with_permission(@current_user.id, 'user_show').each do |w|
+				tmp << w.users
+			end
+			tmp = tmp.uniq
+		end
+		@current_objects ||= @users = tmp.paginate(:page => params[:page], :order => :login, :per_page => get_per_page_value)
+	end
 
   def autocomplete_on
     conditions = if params['login']
@@ -210,7 +212,7 @@ class UsersController < ApplicationController
     render :inline => "<%= error_message_on(@model_instance, params['attribute']) %>"
   end
 
-  # permit 'administration of user'
+  # TODO remove it, just direct links in the old layout, to hell ajax my zob
   def administration
     @current_object = current_user
     @workspaces = if (current_user.has_system_permission('workspace', 'show'))
@@ -229,11 +231,5 @@ class UsersController < ApplicationController
       @roles = [Role.find_by_name('user')]
     end
   end
-  def get_users
-    @current_objects = User.paginate(
-        :page => params[:page],
-        :order => :login,
-        :per_page => get_per_page_value
-			)
-  end
+
 end

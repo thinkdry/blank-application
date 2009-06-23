@@ -115,7 +115,6 @@ ActionController::Routing::Routes.draw do |map|
   # Items may be acceded by a list that gives all items the user can consult.
   # => (his items, the public items, and items in workspaces he has permissions)
   items_resources(map)
-  map.connect '/workspaces/management', :controller => 'workspaces', :action => 'management'
   
   # Items in context of workspaces
   map.resources :workspaces, :member => { :add_new_user => :any, :subscription => :any, :unsubscription => :any, :question => :any }, :collection => {:validate => :any} do |workspaces|

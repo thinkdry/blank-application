@@ -238,23 +238,44 @@ namespace :blank do
   p"------>>> Ready to Launch Blank <<<------"
 
   namespace :maintaining do
-  desc "To Reencode videos"
-  task(:video_reencode => :environment) do
-    @videos = Video.find(:all, :conditions =>["state = 'uploaded' OR state = 'encoding_error' OR state = 'error'"])
-    for video in @videos
-      puts "---->Reencoding started for video #{video.id}"
-      MiddleMan.worker(:converter_worker).async_newthread(:arg=>{:type=>"video", :id => video.id, :enc=>"flv"})
-    end
-  end
 
-  desc "To Reencode audios"
-  task(:audio_reencode => :environment) do
-    @audios = Audio.find(:all, :conditions =>["state = 'uploaded' OR state = 'encoding_error' OR state = 'error'"])
-    for audio in @audios
-      puts "---->Reencoding started for audio #{audio.id}"
-      MiddleMan.worker(:converter_worker).async_newthread(:arg=>{:type=>"audio", :id => audio.id, :enc=>"mp3"})
-    end
-  end
+		desc "To Reencode videos"
+		task(:video_reencode => :environment) do
+			@videos = Video.find(:all, :conditions =>["state = 'uploaded' OR state = 'encoding_error' OR state = 'error'"])
+			for video in @videos
+				puts "---->Reencoding started for video #{video.id}"
+				MiddleMan.worker(:converter_worker).async_newthread(:arg=>{:type=>"video", :id => video.id, :enc=>"flv"})
+			end
+		end
+
+		desc "To Reencode audios"
+		task(:audio_reencode => :environment) do
+			@audios = Audio.find(:all, :conditions =>["state = 'uploaded' OR state = 'encoding_error' OR state = 'error'"])
+			for audio in @audios
+				puts "---->Reencoding started for audio #{audio.id}"
+				MiddleMan.worker(:converter_worker).async_newthread(:arg=>{:type=>"audio", :id => audio.id, :enc=>"mp3"})
+			end
+		end
+	
+		desc "To set items default values (comments number, ...)"
+		task :default_values_for_items => :environment do
+			#['article', 'image', 'cms_file', 'video', 'audio', 'publication', 'feed_source', 'bookmark','newsletter','group'].each do |item|
+			ITEMS.each do |item|
+				(item.classify.constantize).all.each do |e|
+					if e.comments_number.nil?
+						e.comments_number = 0
+					end
+					if e.rates_average.nil?
+						e.rates_average = 0
+					end
+					if e.viewed_number.nil?
+						e.viewed_number = 0
+					end
+					e.save
+				end
+			end
+		end
+
 end
 
 end
