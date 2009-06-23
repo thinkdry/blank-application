@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../../spec_helper.rb'
 
-module HaveSpecHelper
+share_as :HaveSpecHelper do
   def create_collection_owner_with(n)
     owner = Spec::Expectations::Helper::CollectionOwner.new
     (1..n).each do |n|
@@ -9,7 +9,20 @@ module HaveSpecHelper
     end
     owner
   end
+  before(:each) do
+    unless defined?(::ActiveSupport::Inflector)
+      @active_support_was_not_defined
+      module ::ActiveSupport
+        class Inflector
+          def self.pluralize(string)
+            string.to_s + 's'
+          end
+        end
+      end
+    end
+  end
 end
+
 
 describe "should have(n).items" do
   include HaveSpecHelper
@@ -50,19 +63,6 @@ end
 describe 'should have(1).item when ActiveSupport::Inflector is defined' do
   include HaveSpecHelper
   
-  before(:each) do
-    unless defined?(ActiveSupport::Inflector)
-      @active_support_was_not_defined
-      module ActiveSupport
-        class Inflector
-          def self.pluralize(string)
-            string.to_s + 's'
-          end
-        end
-      end
-    end
-  end
-  
   it 'should pluralize the collection name' do
     owner = create_collection_owner_with(1)
     owner.should have(1).item
@@ -70,7 +70,7 @@ describe 'should have(1).item when ActiveSupport::Inflector is defined' do
   
   after(:each) do
     if @active_support_was_not_defined
-      Object.send :remove_const, :ActiveSupport
+      Object.__send__ :remove_const, :ActiveSupport
     end
   end
 end
@@ -96,7 +96,7 @@ describe 'should have(1).item when Inflector is defined' do
 
   after(:each) do
     if @inflector_was_not_defined
-      Object.send :remove_const, :Inflector
+      Object.__send__ :remove_const, :Inflector
     end
   end
 end
@@ -212,7 +212,7 @@ describe "should have_at_least(n).items" do
     size_matcher.matches?(owner)
     
     #then
-    length_matcher.negative_failure_message.should == <<-EOF
+    length_matcher.failure_message_for_should_not.should == <<-EOF
 Isn't life confusing enough?
 Instead of having to figure out the meaning of this:
   should_not have_at_least(3).items_in_collection_with_length_method
@@ -220,7 +220,7 @@ We recommend that you use this instead:
   should have_at_most(2).items_in_collection_with_length_method
 EOF
 
-    size_matcher.negative_failure_message.should == <<-EOF
+    size_matcher.failure_message_for_should_not.should == <<-EOF
 Isn't life confusing enough?
 Instead of having to figure out the meaning of this:
   should_not have_at_least(3).items_in_collection_with_size_method
@@ -266,7 +266,7 @@ describe "should have_at_most(n).items" do
     size_matcher.matches?(owner)
     
     #then
-    length_matcher.negative_failure_message.should == <<-EOF
+    length_matcher.failure_message_for_should_not.should == <<-EOF
 Isn't life confusing enough?
 Instead of having to figure out the meaning of this:
   should_not have_at_most(3).items_in_collection_with_length_method
@@ -274,7 +274,7 @@ We recommend that you use this instead:
   should have_at_least(4).items_in_collection_with_length_method
 EOF
     
-    size_matcher.negative_failure_message.should == <<-EOF
+    size_matcher.failure_message_for_should_not.should == <<-EOF
 Isn't life confusing enough?
 Instead of having to figure out the meaning of this:
   should_not have_at_most(3).items_in_collection_with_size_method
@@ -327,7 +327,7 @@ end
 
 describe Spec::Matchers::Have, "for a collection owner that implements #send" do
   include HaveSpecHelper
-
+  
   before(:each) do
     @collection = Object.new
     def @collection.floozles; [1,2] end
@@ -356,9 +356,7 @@ end
 module Spec
   module Matchers
     describe Have do
-      it "should have method_missing as private" do
-        Have.private_instance_methods.should include("method_missing")
-      end
+      treats_method_missing_as_private :noop => false
       
       describe "respond_to?" do
         before :each do

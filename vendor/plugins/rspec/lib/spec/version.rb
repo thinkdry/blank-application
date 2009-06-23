@@ -1,11 +1,12 @@
-module Spec
-  module VERSION
+module Spec # :nodoc:
+  module VERSION # :nodoc:
     unless defined? MAJOR
       MAJOR  = 1
-      MINOR  = 1
-      TINY   = 11
-
-      STRING = [MAJOR, MINOR, TINY].join('.')
+      MINOR  = 2
+      TINY   = 7
+      PRE    = nil
+      
+      STRING = [MAJOR, MINOR, TINY, PRE].compact.join('.')
 
       SUMMARY = "rspec #{STRING}"
     end

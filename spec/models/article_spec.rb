@@ -25,23 +25,23 @@ describe Article do
   end
   
   def article_attributes
-    item_attributes.merge(
-      :body => 'My body content'
-    )
+    item_attributes
   end
   
   before(:each) do
     @article = item
   end
+
+  #item_specs(@article)
   
   it "should be valid" do
     @article.attributes = article_attributes
     @article.should be_valid
   end
   
-  it "should require body" do
+  it "should require body on update" do
     @article.attributes = article_attributes.except(:body)
-    @article.should have(1).error_on(:body)
+    @article.should have(1).error_on(:body) if !@article.new_record?
   end
   
   describe "attachements" do
@@ -53,7 +53,7 @@ describe Article do
         'image/png'
       @article.new_file_attributes = [file_path]
       @article.article_files.size.should == 1
-      @article.article_files.first.file_path.should_not be_nil
+      @article.article_files.first.articlefile.should_not be_nil
     end
     
     it "should accepts file names with spaces" do
@@ -63,7 +63,7 @@ describe Article do
          'image/png'
        @article.new_file_attributes = [file_path]
        @article.article_files.size.should == 1
-       @article.article_files.first.file_path.should_not be_nil
+       @article.article_files.first.articlefile.should_not be_nil
     end
     
   end

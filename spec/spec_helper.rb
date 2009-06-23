@@ -44,12 +44,25 @@ Spec::Runner.configure do |config|
   # == Notes
   # 
   # For more information take a look at Spec::Example::Configuration and Spec::Runner
+  def upload_filepath_file(filename)
+    upload(url_to_filepath_file(filename))
+  end
+
+  def url_to_filepath_file(filename)
+    File.expand_path(File.dirname(__FILE__) + "/file_path/#{filename}")
+  end
 end
 
-def upload_filepath_file(filename)
-  upload(url_to_filepath_file(filename))
-end
-
-def url_to_filepath_file(filename)
-  File.expand_path(File.dirname(__FILE__) + "/file_path/#{filename}")
-end
+module ActiveRecord
+    module Reflection
+      class AssociationReflection
+        def to_hash
+          {
+            :macro => @macro,
+            :options => @options,
+            :class_name => @class_name || @name.to_s.singularize.camelize
+          }
+        end
+      end
+    end
+  end 

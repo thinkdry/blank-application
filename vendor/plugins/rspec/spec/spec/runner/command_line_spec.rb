@@ -11,7 +11,7 @@ module Spec
         end
       
         it "should run directory" do
-          file = File.dirname(__FILE__) + '/../../../examples/pure'
+          file = File.dirname(__FILE__) + '/../../../examples/passing'
           run_with(OptionParser.parse([file,"-p","**/*_spec.rb,**/*_example.rb"], @err, @out))
 
           @out.rewind
@@ -19,7 +19,7 @@ module Spec
         end
 
         it "should run file" do
-          file = File.dirname(__FILE__) + '/../../../failing_examples/predicate_example.rb'
+          file = File.dirname(__FILE__) + '/../../../examples/failing/predicate_example.rb'
           run_with(OptionParser.parse([file], @err, @out))
 
           @out.rewind
@@ -106,7 +106,7 @@ module Spec
           options.add_example_group(example_group)
 
           ::Spec::Runner::Options.should_receive(:new).with(@err, @out).and_return(options)
-          options.reporter.should_receive(:add_example_group).with(example_group)
+          options.reporter.should_receive(:add_example_group).with(Spec::Example::ExampleGroupProxy.new(example_group))
         
           Spec::Runner::CommandLine.run(OptionParser.parse([], @err, @out))
         end
@@ -127,7 +127,7 @@ module Spec
             end
           end
 
-          options.reporter.should_receive(:add_example_group).with(example_group)
+          options.reporter.should_receive(:add_example_group).with(Spec::Example::ExampleGroupProxy.new(example_group))
 
           options.add_example_group example_group
           run_with(options)

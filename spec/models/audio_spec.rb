@@ -37,8 +37,8 @@ describe Audio do
     @audio.should be_valid
   end
   
-  it "should require file_path" do
+  it "should require audio file" do
     @audio.attributes = item_attributes
-    @audio.should have(1).error_on(:file_path)
+    @audio.should have(1).error_on(:audio)
   end
 end
