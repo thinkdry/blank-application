@@ -43,6 +43,7 @@ describe Article do
     @article.attributes = article_attributes.except(:body)
     @article.should have(1).error_on(:body) if !@article.new_record?
   end
+
   
   describe "attachements" do
     
@@ -58,12 +59,12 @@ describe Article do
     
     it "should accepts file names with spaces" do
       @article.attributes = article_attributes
-       file_path = ActionController::TestUploadedFile.new \
-         url_to_filepath_file('filename with spaces.txt'),
-         'image/png'
-       @article.new_file_attributes = [file_path]
-       @article.article_files.size.should == 1
-       @article.article_files.first.articlefile.should_not be_nil
+      file_path = ActionController::TestUploadedFile.new \
+        url_to_filepath_file('filename with spaces.txt'),
+        'image/png'
+      @article.new_file_attributes = [file_path]
+      @article.article_files.size.should == 1
+      @article.article_files.first.articlefile.should_not be_nil
     end
     
   end
