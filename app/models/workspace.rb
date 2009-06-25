@@ -124,7 +124,7 @@ class Workspace < ActiveRecord::Base
 		return accepting_action(user, 'show', (self.creator_id==user.id), false, true)
 	end
 
-	def accepts_administration_for? user
+	def accepts_administrate_for? user
 		return accepting_action(user, 'administrate', (self.creator_id==user.id), false, true)
 	end
 
