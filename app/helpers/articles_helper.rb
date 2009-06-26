@@ -1,9 +1,12 @@
 module ArticlesHelper
-	
+
+
+
   def new_file(object)
     javascript_tag js_add_new_file(object)
   end
-  
+
+  # 'Add a New File' Link for the Article, will generate a file input box for file assocaition
   def link_to_new_file(name)
     link_to_function name, js_add_new_file(ArticleFile.new)
   end

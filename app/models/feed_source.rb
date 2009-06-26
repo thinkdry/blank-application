@@ -32,16 +32,24 @@ require 'rfeedparser'
 
 class FeedSource < ActiveRecord::Base
 
+  # Item specific Library - /lib/acts_as_item
   acts_as_item
-  	
+  
 	has_many :feed_items , :dependent => :delete_all
-	
-  validates_presence_of :title, :description, :url
+
+  # Validations
+  validates_presence_of :url
+
 	#validates_uniqueness_of :title, :message => "Ce nom est déjà utilisé."
+  
 	#validates_uniqueness_of :url, :message => "Ce feed est déjà utilisé."
+
 	validates_format_of :url, :with => /#{URL}/ix, :message=>"The format of the url is not valid."
+  
 	validate :feed_compliance
-	
+
+
+
   def validate
     rss_valid?
   end
@@ -54,6 +62,7 @@ class FeedSource < ActiveRecord::Base
     end
   end
 
+  # Check if RSS/Atom Feed can be Parsed for Reading
   def rss_content
 		return @rss if @rss
     content = String.new # raw content of rss feed will be loaded here
@@ -71,11 +80,7 @@ class FeedSource < ActiveRecord::Base
 		end
   end
 	
-	def rss_content2
-		#return (FeedNormalizer::FeedNormalizer.parse open(self.url), :force_parser => FeedNormalizer::SimpleRssParser)
-		return FeedParser.parse(open(self.url))
-  end
-
+  # Import the Latest Updates of the Saved Feeds
 	def import_latest_items
 		feed = self.rss_content2
 		#feed.clean!
@@ -98,27 +103,7 @@ class FeedSource < ActiveRecord::Base
 		end
 	end
 
-  def import_latest_items2
-		feed = self.rss_content2
-		feed.clean!
-		feed.entries.each do |item|
-			# Be sure that the item hasnt been imported before
-			if self.feed_items.count(:conditions => { :link => item.url, :feed_source_id => self.id }) <= 0
-				self.feed_items.create({
-					:remote_id			=> item.id,
-					:title					=> item.title,
-					:description		=> item.description,
-					:content				=> item.content,
-					:authors				=> item.authors.join(' ,'),
-					:date_published => item.date_published,
-					:last_updated		=> item.last_updated,
-					:categories			=> item.categories.join(' ,'),
-					:link           => item.url,
-					:copyright			=> item.copyright })
-			end
-		end
-	end
-	
+  #Check If the given URL is RSS/Atom compliant to Fetch Feed's
 	def feed_compliance
 	  begin
 		  open(self.url) do |http|

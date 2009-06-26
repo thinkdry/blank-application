@@ -23,8 +23,7 @@
 
 class Publication < ActiveRecord::Base
 
+  # Item specific Library - /lib/acts_as_item
   acts_as_item
   
-  file_column :file_path
-
 end

@@ -21,7 +21,8 @@
 #
 
 class Bookmark < ActiveRecord::Base
-	
+  
+	# Item specific Library - /lib/acts_as_item
 	acts_as_item
 
 end

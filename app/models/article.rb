@@ -17,11 +17,17 @@
 class Article < ActiveRecord::Base
   include ActionView::Helpers::SanitizeHelper
 
+  # Item specific Library - /lib/acts_as_item
   acts_as_item
 
   has_many :article_files, :dependent => :delete_all
+
+  # Validation's
   validates_presence_of :body, :on => :update
   
+  # Manage Association of Files to Article using PaperClip
+  # 
+  # file_attributes are the associated files using paperclip attachment
   def new_file_attributes= file_attributes
     file_attributes.each do |file_path| 
       article_files.build(:article_id => self.id, :articlefile => file_path)

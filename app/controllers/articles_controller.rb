@@ -22,6 +22,8 @@ class ArticlesController < ApplicationController
 
 	end
 
+  
+  # Remove File Associated with the Article
 	def removeFile
 	  object = ArticleFile.find(params[:id])
 		if object.article.accepts_edit_for?(@current_user)
@@ -32,5 +34,5 @@ class ArticlesController < ApplicationController
 			end
 		end
   end
-
+# TODO 'removeFile' should be made to ruby style method name ex: remove_associated_file
 end

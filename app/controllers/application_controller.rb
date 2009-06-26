@@ -44,6 +44,7 @@ class ApplicationController < ActionController::Base
     end
 	end
 
+  # Retun Allowed Item Types Depending on Workspace or User
 	def get_allowed_item_types(workspace=nil)
 		if workspace
 			return (workspace.ws_items.to_s.split(',') & @configuration['sa_items'])
@@ -52,6 +53,7 @@ class ApplicationController < ActionController::Base
 		end
 	end
 
+  # Return item_types allowed to User with given action or workspace
 	def item_types_allowed_to(user, action,current_workspace = nil)
 		if current_workspace
 			(current_workspace.ws_items.to_s.split(',') & @configuration['sa_items']).delete_if{ |e| !user.has_workspace_permission(current_workspace.id, e, action) }
@@ -60,19 +62,23 @@ class ApplicationController < ActionController::Base
 		end
 	end
 
+  # Check if User if SuperAdministrator
 	def is_superadmin?
 		no_permission_redirection unless self.current_user && self.current_user.has_system_role('superadmin')
 	end
 
+  # Check if User is Administrator
 	def is_admin?
 		no_permission_redirection unless self.current_user && self.current_user.has_system_role('admin')
 	end
 
+  # Default Redirection in Case of Denied Permission
 	def no_permission_redirection
 		flash[:error] = "Permission denied"
 		redirect_to '/'
 	end
 
+  # Return List of item types depending on user or workspace
 	def get_items_list(item_type, workspace=nil)
 		if workspace
 			if (@configuration['sa_items'] & workspace.ws_items.split(',')).include?(item_type.singularize)
@@ -90,10 +96,12 @@ class ApplicationController < ActionController::Base
 		return current_objects
 	end
 
+  # Check is User is admin(Not used relly)
 	def admin?
 		true
 	end
 
+  # Return Group of Workspaces given Item
   def groups_of_workspaces_of_item(item)
     groups =[]
     item.workspaces.each {|ws| groups << ws.groups}

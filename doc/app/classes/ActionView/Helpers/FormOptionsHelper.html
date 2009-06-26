@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: ActionView::Helpers::FormOptionsHelper</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">ActionView::Helpers::FormOptionsHelper</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/lib/country_select_rb.html">
+                lib/country_select.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000249">country_options_for_select</a>&nbsp;&nbsp;
+      <a href="#M000248">country_select</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">COUNTRIES</td>
+          <td>=</td>
+          <td class="context-item-value">[&quot;Afghanistan&quot;, &quot;Aland Islands&quot;, &quot;Albania&quot;, &quot;Algeria&quot;, &quot;American Samoa&quot;, &quot;Andorra&quot;, &quot;Angola&quot;,         &quot;Anguilla&quot;, &quot;Antarctica&quot;, &quot;Antigua And Barbuda&quot;, &quot;Argentina&quot;, &quot;Armenia&quot;, &quot;Aruba&quot;, &quot;Australia&quot;, &quot;Austria&quot;,         &quot;Azerbaijan&quot;, &quot;Bahamas&quot;, &quot;Bahrain&quot;, &quot;Bangladesh&quot;, &quot;Barbados&quot;, &quot;Belarus&quot;, &quot;Belgium&quot;, &quot;Belize&quot;, &quot;Benin&quot;,         &quot;Bermuda&quot;, &quot;Bhutan&quot;, &quot;Bolivia&quot;, &quot;Bosnia and Herzegowina&quot;, &quot;Botswana&quot;, &quot;Bouvet Island&quot;, &quot;Brazil&quot;,         &quot;British Indian Ocean Territory&quot;, &quot;Brunei Darussalam&quot;, &quot;Bulgaria&quot;, &quot;Burkina Faso&quot;, &quot;Burundi&quot;, &quot;Cambodia&quot;,         &quot;Cameroon&quot;, &quot;Canada&quot;, &quot;Cape Verde&quot;, &quot;Cayman Islands&quot;, &quot;Central African Republic&quot;, &quot;Chad&quot;, &quot;Chile&quot;, &quot;China&quot;,         &quot;Christmas Island&quot;, &quot;Cocos (Keeling) Islands&quot;, &quot;Colombia&quot;, &quot;Comoros&quot;, &quot;Congo&quot;,         &quot;Congo, the Democratic Republic of the&quot;, &quot;Cook Islands&quot;, &quot;Costa Rica&quot;, &quot;Cote d'Ivoire&quot;, &quot;Croatia&quot;, &quot;Cuba&quot;,         &quot;Cyprus&quot;, &quot;Czech Republic&quot;, &quot;Denmark&quot;, &quot;Djibouti&quot;, &quot;Dominica&quot;, &quot;Dominican Republic&quot;, &quot;Ecuador&quot;, &quot;Egypt&quot;,         &quot;El Salvador&quot;, &quot;Equatorial Guinea&quot;, &quot;Eritrea&quot;, &quot;Estonia&quot;, &quot;Ethiopia&quot;, &quot;Falkland Islands (Malvinas)&quot;,         &quot;Faroe Islands&quot;, &quot;Fiji&quot;, &quot;Finland&quot;, &quot;France&quot;, &quot;French Guiana&quot;, &quot;French Polynesia&quot;,         &quot;French Southern Territories&quot;, &quot;Gabon&quot;, &quot;Gambia&quot;, &quot;Georgia&quot;, &quot;Germany&quot;, &quot;Ghana&quot;, &quot;Gibraltar&quot;, &quot;Greece&quot;, &quot;Greenland&quot;, &quot;Grenada&quot;, &quot;Guadeloupe&quot;, &quot;Guam&quot;, &quot;Guatemala&quot;, &quot;Guernsey&quot;, &quot;Guinea&quot;,         &quot;Guinea-Bissau&quot;, &quot;Guyana&quot;, &quot;Haiti&quot;, &quot;Heard and McDonald Islands&quot;, &quot;Holy See (Vatican City State)&quot;,         &quot;Honduras&quot;, &quot;Hong Kong&quot;, &quot;Hungary&quot;, &quot;Iceland&quot;, &quot;India&quot;, &quot;Indonesia&quot;, &quot;Iran, Islamic Republic of&quot;, &quot;Iraq&quot;,         &quot;Ireland&quot;, &quot;Isle of Man&quot;, &quot;Israel&quot;, &quot;Italy&quot;, &quot;Jamaica&quot;, &quot;Japan&quot;, &quot;Jersey&quot;, &quot;Jordan&quot;, &quot;Kazakhstan&quot;, &quot;Kenya&quot;,         &quot;Kiribati&quot;, &quot;Korea, Democratic People's Republic of&quot;, &quot;Korea, Republic of&quot;, &quot;Kuwait&quot;, &quot;Kyrgyzstan&quot;,         &quot;Lao People's Democratic Republic&quot;, &quot;Latvia&quot;, &quot;Lebanon&quot;, &quot;Lesotho&quot;, &quot;Liberia&quot;, &quot;Libyan Arab Jamahiriya&quot;,         &quot;Liechtenstein&quot;, &quot;Lithuania&quot;, &quot;Luxembourg&quot;, &quot;Macao&quot;, &quot;Macedonia, The Former Yugoslav Republic Of&quot;,         &quot;Madagascar&quot;, &quot;Malawi&quot;, &quot;Malaysia&quot;, &quot;Maldives&quot;, &quot;Mali&quot;, &quot;Malta&quot;, &quot;Marshall Islands&quot;, &quot;Martinique&quot;,         &quot;Mauritania&quot;, &quot;Mauritius&quot;, &quot;Mayotte&quot;, &quot;Mexico&quot;, &quot;Micronesia, Federated States of&quot;, &quot;Moldova, Republic of&quot;,         &quot;Monaco&quot;, &quot;Mongolia&quot;, &quot;Montenegro&quot;, &quot;Montserrat&quot;, &quot;Morocco&quot;, &quot;Mozambique&quot;, &quot;Myanmar&quot;, &quot;Namibia&quot;, &quot;Nauru&quot;,         &quot;Nepal&quot;, &quot;Netherlands&quot;, &quot;Netherlands Antilles&quot;, &quot;New Caledonia&quot;, &quot;New Zealand&quot;, &quot;Nicaragua&quot;, &quot;Niger&quot;,         &quot;Nigeria&quot;, &quot;Niue&quot;, &quot;Norfolk Island&quot;, &quot;Northern Mariana Islands&quot;, &quot;Norway&quot;, &quot;Oman&quot;, &quot;Pakistan&quot;, &quot;Palau&quot;,         &quot;Palestinian Territory, Occupied&quot;, &quot;Panama&quot;, &quot;Papua New Guinea&quot;, &quot;Paraguay&quot;, &quot;Peru&quot;, &quot;Philippines&quot;,         &quot;Pitcairn&quot;, &quot;Poland&quot;, &quot;Portugal&quot;, &quot;Puerto Rico&quot;, &quot;Qatar&quot;, &quot;Reunion&quot;, &quot;Romania&quot;, &quot;Russian Federation&quot;,         &quot;Rwanda&quot;, &quot;Saint Barthelemy&quot;, &quot;Saint Helena&quot;, &quot;Saint Kitts and Nevis&quot;, &quot;Saint Lucia&quot;,         &quot;Saint Pierre and Miquelon&quot;, &quot;Saint Vincent and the Grenadines&quot;, &quot;Samoa&quot;, &quot;San Marino&quot;,         &quot;Sao Tome and Principe&quot;, &quot;Saudi Arabia&quot;, &quot;Senegal&quot;, &quot;Serbia&quot;, &quot;Seychelles&quot;, &quot;Sierra Leone&quot;, &quot;Singapore&quot;,         &quot;Slovakia&quot;, &quot;Slovenia&quot;, &quot;Solomon Islands&quot;, &quot;Somalia&quot;, &quot;South Africa&quot;,         &quot;South Georgia and the South Sandwich Islands&quot;, &quot;Spain&quot;, &quot;Sri Lanka&quot;, &quot;Sudan&quot;, &quot;Suriname&quot;,         &quot;Svalbard and Jan Mayen&quot;, &quot;Swaziland&quot;, &quot;Sweden&quot;, &quot;Switzerland&quot;, &quot;Syrian Arab Republic&quot;,         &quot;Taiwan, Province of China&quot;, &quot;Tajikistan&quot;, &quot;Tanzania, United Republic of&quot;, &quot;Thailand&quot;, &quot;Timor-Leste&quot;,         &quot;Togo&quot;, &quot;Tokelau&quot;, &quot;Tonga&quot;, &quot;Trinidad and Tobago&quot;, &quot;Tunisia&quot;, &quot;Turkey&quot;, &quot;Turkmenistan&quot;,         &quot;Turks and Caicos Islands&quot;, &quot;Tuvalu&quot;, &quot;Uganda&quot;, &quot;Ukraine&quot;, &quot;United Arab Emirates&quot;, &quot;United Kingdom&quot;,         &quot;United States&quot;, &quot;United States Minor Outlying Islands&quot;, &quot;Uruguay&quot;, &quot;Uzbekistan&quot;, &quot;Vanuatu&quot;, &quot;Venezuela&quot;,         &quot;Viet Nam&quot;, &quot;Virgin Islands, British&quot;, &quot;Virgin Islands, U.S.&quot;, &quot;Wallis and Futuna&quot;, &quot;Western Sahara&quot;,         &quot;Yemen&quot;, &quot;Zambia&quot;, &quot;Zimbabwe&quot;] unless const_defined?(&quot;COUNTRIES&quot;)</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+All the countries included in the country_options output.
+
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000249" class="method-detail">
+        <a name="M000249"></a>
+
+        <div class="method-heading">
+          <a href="#M000249" class="method-signature">
+          <span class="method-name">country_options_for_select</span><span class="method-args">(selected = nil, priority_countries = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns a string of option tags for pretty much any country in the world.
+Supply a country name as <tt>selected</tt> to have it marked as the
+selected option tag. You can also supply an array of countries as
+<tt>priority_countries</tt>, so that they will be listed above the rest of
+the (long) list.
+</p>
+<p>
+NOTE: Only the option tags are returned, you have to wrap this call in a
+regular HTML select tag.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000249-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000249-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/country_select.rb, line 14</span>
+14:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">country_options_for_select</span>(<span class="ruby-identifier">selected</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">priority_countries</span> = <span class="ruby-keyword kw">nil</span>)
+15:         <span class="ruby-identifier">country_options</span> = <span class="ruby-value str">&quot;&quot;</span>
+16: 
+17:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">priority_countries</span>
+18:           <span class="ruby-identifier">country_options</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">options_for_select</span>(<span class="ruby-identifier">priority_countries</span>, <span class="ruby-identifier">selected</span>)
+19:           <span class="ruby-identifier">country_options</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;&lt;option value=\&quot;\&quot; disabled=\&quot;disabled\&quot;&gt;-------------&lt;/option&gt;\n&quot;</span>
+20:         <span class="ruby-keyword kw">end</span>
+21: 
+22:         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">country_options</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">options_for_select</span>(<span class="ruby-constant">COUNTRIES</span>, <span class="ruby-identifier">selected</span>)
+23:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000248" class="method-detail">
+        <a name="M000248"></a>
+
+        <div class="method-heading">
+          <a href="#M000248" class="method-signature">
+          <span class="method-name">country_select</span><span class="method-args">(object, method, priority_countries = nil, options = {}, html_options = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Return select and option tags for the given object and method, using <a
+href="FormOptionsHelper.html#M000249">country_options_for_select</a> to
+generate the list of option tags.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000248-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000248-source">
+<pre>
+   <span class="ruby-comment cmt"># File lib/country_select.rb, line 6</span>
+6:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">country_select</span>(<span class="ruby-identifier">object</span>, <span class="ruby-identifier">method</span>, <span class="ruby-identifier">priority_countries</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">options</span> = {}, <span class="ruby-identifier">html_options</span> = {})
+7:         <span class="ruby-constant">InstanceTag</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">object</span>, <span class="ruby-identifier">method</span>, <span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">:object</span>)).<span class="ruby-identifier">to_country_select_tag</span>(<span class="ruby-identifier">priority_countries</span>, <span class="ruby-identifier">options</span>, <span class="ruby-identifier">html_options</span>)
+8:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

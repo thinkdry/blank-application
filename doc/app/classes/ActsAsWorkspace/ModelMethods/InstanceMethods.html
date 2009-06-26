@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: ActsAsWorkspace::ModelMethods::InstanceMethods</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">ActsAsWorkspace::ModelMethods::InstanceMethods</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/lib/acts_as_workspace/model_rb.html">
+                lib/acts_as_workspace/model.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000224">accepts_destroy_for?</a>&nbsp;&nbsp;
+      <a href="#M000225">accepts_edit_for?</a>&nbsp;&nbsp;
+      <a href="#M000226">accepts_new_for?</a>&nbsp;&nbsp;
+      <a href="#M000223">accepts_show_for?</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000224" class="method-detail">
+        <a name="M000224"></a>
+
+        <div class="method-heading">
+          <a href="#M000224" class="method-signature">
+          <span class="method-name">accepts_destroy_for?</span><span class="method-args">(user)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Is user authorized to delete this item?
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000224-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000224-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/acts_as_workspace/model.rb, line 39</span>
+39:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">accepts_destroy_for?</span> <span class="ruby-identifier">user</span>
+40:         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">accepting_action</span>(<span class="ruby-identifier">user</span>, <span class="ruby-value str">'show'</span>, <span class="ruby-keyword kw">false</span>, <span class="ruby-keyword kw">false</span>, <span class="ruby-keyword kw">true</span>)
+41:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000225" class="method-detail">
+        <a name="M000225"></a>
+
+        <div class="method-heading">
+          <a href="#M000225" class="method-signature">
+          <span class="method-name">accepts_edit_for?</span><span class="method-args">(user)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Is user authorized to edit this item?
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000225-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000225-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/acts_as_workspace/model.rb, line 44</span>
+44:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">accepts_edit_for?</span> <span class="ruby-identifier">user</span>
+45:         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">accepting_action</span>(<span class="ruby-identifier">user</span>, <span class="ruby-value str">'show'</span>, <span class="ruby-keyword kw">false</span>, <span class="ruby-keyword kw">false</span>, <span class="ruby-keyword kw">true</span>)
+46:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000226" class="method-detail">
+        <a name="M000226"></a>
+
+        <div class="method-heading">
+          <a href="#M000226" class="method-signature">
+          <span class="method-name">accepts_new_for?</span><span class="method-args">(user)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Is user authorized to create one item?
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000226-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000226-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/acts_as_workspace/model.rb, line 49</span>
+49:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">accepts_new_for?</span> <span class="ruby-identifier">user</span>
+50:         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">accepting_action</span>(<span class="ruby-identifier">user</span>, <span class="ruby-value str">'new'</span>, <span class="ruby-keyword kw">false</span>, <span class="ruby-keyword kw">false</span>, <span class="ruby-keyword kw">true</span>)
+51:                         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000223" class="method-detail">
+        <a name="M000223"></a>
+
+        <div class="method-heading">
+          <a href="#M000223" class="method-signature">
+          <span class="method-name">accepts_show_for?</span><span class="method-args">(user)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Is user authorized to consult this item?
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000223-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000223-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/acts_as_workspace/model.rb, line 34</span>
+34:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">accepts_show_for?</span> <span class="ruby-identifier">user</span>
+35:         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">accepting_action</span>(<span class="ruby-identifier">user</span>, <span class="ruby-value str">'show'</span>, <span class="ruby-keyword kw">false</span>, <span class="ruby-keyword kw">false</span>, <span class="ruby-keyword kw">true</span>)
+36:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

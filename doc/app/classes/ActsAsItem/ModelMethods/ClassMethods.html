@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: ActsAsItem::ModelMethods::ClassMethods</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">ActsAsItem::ModelMethods::ClassMethods</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/lib/acts_as_item/model_rb.html">
+                lib/acts_as_item/model.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000297">acts_as_item</a>&nbsp;&nbsp;
+      <a href="#M000302">get_items_list_for_user_with_permission</a>&nbsp;&nbsp;
+      <a href="#M000301">get_items_list_for_user_with_permission_in_workspace</a>&nbsp;&nbsp;
+      <a href="#M000298">icon</a>&nbsp;&nbsp;
+      <a href="#M000299">icon_48</a>&nbsp;&nbsp;
+      <a href="#M000296">item?</a>&nbsp;&nbsp;
+      <a href="#M000300">label</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+    <div id="includes">
+      <h3 class="section-bar">Included Modules</h3>
+
+      <div id="includes-list">
+        <span class="include-name"><a href="InstanceMethods.html">ActsAsItem::ModelMethods::InstanceMethods</a></span>
+      </div>
+    </div>
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000297" class="method-detail">
+        <a name="M000297"></a>
+
+        <div class="method-heading">
+          <a href="#M000297" class="method-signature">
+          <span class="method-name">acts_as_item</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+<a href="../../ActsAsItem.html">ActsAsItem</a> Library for <a
+href="../../Item.html">Item</a> Specific Code - Specific Model Methods to
+All Items
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000297-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000297-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/acts_as_item/model.rb, line 19</span>
+19:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">acts_as_item</span>
+20:         
+21:         <span class="ruby-identifier">acts_as_rateable</span>
+22: 
+23:                                 <span class="ruby-identifier">acts_as_keywordable</span>
+24: 
+25:                                 <span class="ruby-identifier">acts_as_commentable</span>
+26: 
+27:                                 <span class="ruby-identifier">acts_as_xapian</span> <span class="ruby-identifier">:texts</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-identifier">:title</span>, <span class="ruby-identifier">:description</span>, <span class="ruby-identifier">:keywords_list</span>]
+28:                                 
+29:                                 <span class="ruby-identifier">has_many</span> <span class="ruby-identifier">:items</span>, <span class="ruby-identifier">:as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:itemable</span>, <span class="ruby-identifier">:dependent</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:delete_all</span>
+30: 
+31:                                 <span class="ruby-identifier">has_many</span> <span class="ruby-identifier">:workspaces</span>, <span class="ruby-identifier">:through</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:items</span>
+32: 
+33:         <span class="ruby-identifier">belongs_to</span> <span class="ruby-identifier">:user</span>
+34: 
+35:         <span class="ruby-comment cmt"># Validations</span>
+36:         <span class="ruby-identifier">validates_presence_of</span>   <span class="ruby-identifier">:title</span>, <span class="ruby-identifier">:description</span>, <span class="ruby-identifier">:user</span>
+37: 
+38:         <span class="ruby-comment cmt"># Ensure that item is associated to one or more workspaces throught items table</span>
+39:         <span class="ruby-identifier">validates_presence_of</span> <span class="ruby-identifier">:items</span>, <span class="ruby-identifier">:message</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;Sélectionner au moins un espace de travail&quot;</span>
+40: 
+41:                                 <span class="ruby-comment cmt"># Retrieve the results matching with Xapian indewes and ordered by weight</span>
+42:                                 <span class="ruby-identifier">named_scope</span> <span class="ruby-identifier">:full_text_with_xapian</span>,
+43:                                         <span class="ruby-identifier">lambda</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">text</span><span class="ruby-operator">|</span> { <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-node">&quot;#{self.class_name.underscore.pluralize}.id in (?)&quot;</span>, <span class="ruby-constant">ActsAsXapian</span><span class="ruby-operator">::</span><span class="ruby-constant">Search</span>.<span class="ruby-identifier">new</span>([<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class_name</span>.<span class="ruby-identifier">classify</span>.<span class="ruby-identifier">constantize</span>], <span class="ruby-identifier">text</span>, <span class="ruby-identifier">:limit</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">100000</span>).<span class="ruby-identifier">results</span>.<span class="ruby-identifier">sort</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>[<span class="ruby-identifier">:weight</span>] <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">y</span>[<span class="ruby-identifier">:weight</span>]}.<span class="ruby-identifier">collect</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>[<span class="ruby-identifier">:model</span>].<span class="ruby-identifier">id</span>}] } }
+44: 
+45:                                 <span class="ruby-comment cmt"># Retrieve the results matching the Hash conditions passed</span>
+46:                                 <span class="ruby-identifier">named_scope</span> <span class="ruby-identifier">:advanced_on_fields</span>,
+47:                                         <span class="ruby-identifier">lambda</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">condition</span><span class="ruby-operator">|</span> { <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">condition</span> }  }
+48: 
+49:                                 <span class="ruby-identifier">named_scope</span> <span class="ruby-identifier">:in_workspaces</span>,
+50:                                         <span class="ruby-identifier">lambda</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">workspace_ids</span><span class="ruby-operator">|</span> { <span class="ruby-identifier">:select</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;DISTINCT *&quot;</span>, <span class="ruby-identifier">:joins</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;LEFT JOIN items ON (items.itemable_type = '#{self.class_name}' AND items.workspace_id IN ['1'])&quot;</span> } }
+51: 
+52:                                 <span class="ruby-comment cmt"># Retrieve the results ordered following the paramaters given</span>
+53:                                 <span class="ruby-identifier">named_scope</span> <span class="ruby-identifier">:filtering_with</span>,
+54:                                         <span class="ruby-identifier">lambda</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">field_name</span>, <span class="ruby-identifier">way</span>, <span class="ruby-identifier">limit</span><span class="ruby-operator">|</span>
+55:           <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">field_name!</span>=<span class="ruby-value str">'weight'</span>)
+56:             { <span class="ruby-identifier">:order</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;#{self.class_name.underscore.pluralize}.#{field_name} #{way}&quot;</span>, <span class="ruby-identifier">:limit</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">limit</span> }
+57:           <span class="ruby-keyword kw">else</span>
+58:             { <span class="ruby-identifier">:limit</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">limit</span> }
+59:           <span class="ruby-keyword kw">end</span>
+60:         }
+61: 
+62:         <span class="ruby-identifier">include</span> <span class="ruby-constant">ActsAsItem</span><span class="ruby-operator">::</span><span class="ruby-constant">ModelMethods</span><span class="ruby-operator">::</span><span class="ruby-constant">InstanceMethods</span>
+63: 
+64:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000302" class="method-detail">
+        <a name="M000302"></a>
+
+        <div class="method-heading">
+          <a href="#M000302" class="method-signature">
+          <span class="method-name">get_items_list_for_user_with_permission</span><span class="method-args">(user, action, filter_name, filter_way, filter_limit)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Return <a href="../../Item.html">Item</a> List for <a
+href="../../User.html">User</a> given the action and filters
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000302-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000302-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/acts_as_item/model.rb, line 106</span>
+106:                         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_items_list_for_user_with_permission</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">action</span>, <span class="ruby-identifier">filter_name</span>, <span class="ruby-identifier">filter_way</span>, <span class="ruby-identifier">filter_limit</span>)
+107:                                 <span class="ruby-identifier">filter_name</span> <span class="ruby-operator">||=</span> <span class="ruby-value str">'created_at'</span>
+108:                                 <span class="ruby-identifier">filter_way</span> <span class="ruby-operator">||=</span> <span class="ruby-value str">'desc'</span>
+109:                                 <span class="ruby-comment cmt"># System permission checked</span>
+110:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">has_system_permission</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">model_name</span>.<span class="ruby-identifier">underscore</span>, <span class="ruby-identifier">action</span>)
+111:                                         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">all</span>(<span class="ruby-identifier">:order</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">filter_name</span><span class="ruby-operator">+</span><span class="ruby-value str">' '</span><span class="ruby-operator">+</span><span class="ruby-identifier">filter_way</span>, <span class="ruby-identifier">:limit</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">filter_limit</span>)
+112:           <span class="ruby-comment cmt"># Workspace permission checked</span>
+113:           <span class="ruby-comment cmt">#raise user.workspaces.inspect</span>
+114:                                 <span class="ruby-keyword kw">elsif</span> <span class="ruby-operator">!</span>(<span class="ruby-identifier">wsl</span>=<span class="ruby-identifier">user</span>.<span class="ruby-identifier">workspaces</span>).<span class="ruby-identifier">blank?</span>
+115:                                         <span class="ruby-identifier">res</span> = []
+116:                                         <span class="ruby-comment cmt"># TODO : directly with custom SQL</span>
+117:                                         <span class="ruby-identifier">wsl</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ws</span><span class="ruby-operator">|</span>
+118:                                                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">has_workspace_permission</span>(<span class="ruby-identifier">ws</span>.<span class="ruby-identifier">id</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">model_name</span>.<span class="ruby-identifier">underscore</span>, <span class="ruby-identifier">action</span>)
+119:                                                         <span class="ruby-identifier">res</span> = <span class="ruby-identifier">res</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">ws</span>.<span class="ruby-identifier">send</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">model_name</span>.<span class="ruby-identifier">underscore</span>.<span class="ruby-identifier">pluralize</span>.<span class="ruby-identifier">to_sym</span>)
+120:               <span class="ruby-comment cmt">#                                         else</span>
+121:               <span class="ruby-comment cmt">#                                                 # lazyness...</span>
+122:               <span class="ruby-comment cmt">#                                                 cats = ITEM_CATEGORIES &amp; ws.ws_item_categories.split(',')</span>
+123:               <span class="ruby-comment cmt">#                                                 # Check if user can access to, at least, one category of the item in that workspace</span>
+124:               <span class="ruby-comment cmt">#                                                 cats.each do |cat|</span>
+125:               <span class="ruby-comment cmt">#                                                         if user.has_workspace_permission(ws.id, 'item_cat_'+cat, action)</span>
+126:               <span class="ruby-comment cmt">#                                                                 res = res + self.find_by_sql(&quot;SELECT * FROM #{self.model_name.underscore.pluralize} LEFT JOIN items ON items.itemable='#{self.model_name}' AND items.workspace_id=#{ws.id} WHERE #{self.model_name.underscore.pluralize}.category LIKE #{cat}&quot;)</span>
+127:               <span class="ruby-comment cmt">#                                                         end</span>
+128:               <span class="ruby-comment cmt">#                                                 end</span>
+129:                                                 <span class="ruby-keyword kw">end</span>
+130:                                         <span class="ruby-keyword kw">end</span>
+131:                                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">filter_way</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'desc'</span>
+132:                                                 <span class="ruby-identifier">res</span> = <span class="ruby-identifier">res</span>.<span class="ruby-identifier">sort</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span><span class="ruby-operator">|</span> <span class="ruby-identifier">y</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">filter_name</span>.<span class="ruby-identifier">to_sym</span>) <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">filter_name</span>.<span class="ruby-identifier">to_sym</span>) }
+133:                                         <span class="ruby-keyword kw">else</span>
+134:                                                 <span class="ruby-identifier">res</span> = <span class="ruby-identifier">res</span>.<span class="ruby-identifier">sort</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">filter_name</span>.<span class="ruby-identifier">to_sym</span>) <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">y</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">filter_name</span>.<span class="ruby-identifier">to_sym</span>) }
+135:                                         <span class="ruby-keyword kw">end</span>
+136:                                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">filter_limit</span>
+137:                                                 <span class="ruby-identifier">res</span> = <span class="ruby-identifier">res</span>[<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-identifier">filter_limit</span>]
+138:                                         <span class="ruby-keyword kw">end</span>
+139:                                         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">res</span>
+140:                                 <span class="ruby-keyword kw">else</span>
+141:                                         <span class="ruby-keyword kw">return</span> []
+142:                                 <span class="ruby-keyword kw">end</span>
+143:                         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000301" class="method-detail">
+        <a name="M000301"></a>
+
+        <div class="method-heading">
+          <a href="#M000301" class="method-signature">
+          <span class="method-name">get_items_list_for_user_with_permission_in_workspace</span><span class="method-args">(user, action, workspace, filter_name, filter_way, filter_limit)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Return <a href="../../Item.html">Item</a> List for <a
+href="../../User.html">User</a> in <a
+href="../../Workspace.html">Workspace</a> given the action and filters
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000301-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000301-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/acts_as_item/model.rb, line 82</span>
+ 82:                         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_items_list_for_user_with_permission_in_workspace</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">action</span>, <span class="ruby-identifier">workspace</span>, <span class="ruby-identifier">filter_name</span>, <span class="ruby-identifier">filter_way</span>, <span class="ruby-identifier">filter_limit</span>)
+ 83:                                 <span class="ruby-identifier">filter_name</span> <span class="ruby-operator">||=</span> <span class="ruby-value str">'created_at'</span>
+ 84:                                 <span class="ruby-identifier">filter_way</span> <span class="ruby-operator">||=</span> <span class="ruby-value str">'desc'</span>
+ 85:                                 <span class="ruby-comment cmt"># System permission checked</span>
+ 86:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">has_system_permission</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">model_name</span>.<span class="ruby-identifier">underscore</span>, <span class="ruby-identifier">action</span>)
+ 87:                                         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">workspace</span>.<span class="ruby-identifier">send</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">model_name</span>.<span class="ruby-identifier">underscore</span>.<span class="ruby-identifier">pluralize</span>.<span class="ruby-identifier">to_sym</span>).<span class="ruby-identifier">all</span>(<span class="ruby-identifier">:order</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">filter_name</span><span class="ruby-operator">+</span><span class="ruby-value str">' '</span><span class="ruby-operator">+</span><span class="ruby-identifier">filter_way</span>, <span class="ruby-identifier">:limit</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">filter_limit</span>)
+ 88:           <span class="ruby-comment cmt"># Workspace permission checked</span>
+ 89:                                 <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">has_workspace_permission</span>(<span class="ruby-identifier">workspace</span>.<span class="ruby-identifier">id</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">model_name</span>.<span class="ruby-identifier">underscore</span>, <span class="ruby-identifier">action</span>)
+ 90:                                         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">workspace</span>.<span class="ruby-identifier">send</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">model_name</span>.<span class="ruby-identifier">underscore</span>.<span class="ruby-identifier">pluralize</span>.<span class="ruby-identifier">to_sym</span>).<span class="ruby-identifier">all</span>(<span class="ruby-identifier">:order</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">filter_name</span><span class="ruby-operator">+</span><span class="ruby-value str">' '</span><span class="ruby-operator">+</span><span class="ruby-identifier">filter_way</span>, <span class="ruby-identifier">:limit</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">filter_limit</span>)
+ 91:           <span class="ruby-comment cmt"># Category permission checked</span>
+ 92:           <span class="ruby-comment cmt">#                             elsif !(cats=workspace.ws_item_categories).blank?</span>
+ 93:           <span class="ruby-comment cmt">#                                     res = []</span>
+ 94:           <span class="ruby-comment cmt">#                                     cats.each do |cat|</span>
+ 95:           <span class="ruby-comment cmt">#                                             if user.has_workspace_permission(workspace.id, 'item_cat_'+cat, action)</span>
+ 96:           <span class="ruby-comment cmt">#                                                     res = res + workspace.send(self.model_name.underscore.pluralize.to_sym)</span>
+ 97:           <span class="ruby-comment cmt">#                                             end</span>
+ 98:           <span class="ruby-comment cmt">#                                     end</span>
+ 99:           <span class="ruby-comment cmt">#                                     return res</span>
+100:                                 <span class="ruby-keyword kw">else</span>
+101:                                         <span class="ruby-keyword kw">return</span> []
+102:                                 <span class="ruby-keyword kw">end</span>
+103:                         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000298" class="method-detail">
+        <a name="M000298"></a>
+
+        <div class="method-heading">
+          <a href="#M000298" class="method-signature">
+          <span class="method-name">icon</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Used for Setting Icon Images for Items
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000298-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000298-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/acts_as_item/model.rb, line 67</span>
+67:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">icon</span>
+68:         <span class="ruby-value str">'item_icons/'</span> <span class="ruby-operator">+</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">underscore</span> <span class="ruby-operator">+</span> <span class="ruby-value str">'.png'</span>
+69:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000299" class="method-detail">
+        <a name="M000299"></a>
+
+        <div class="method-heading">
+          <a href="#M000299" class="method-signature">
+          <span class="method-name">icon_48</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Other Icon Images for Items
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000299-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000299-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/acts_as_item/model.rb, line 72</span>
+72:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">icon_48</span>
+73:         <span class="ruby-value str">'item_icons/'</span> <span class="ruby-operator">+</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">underscore</span> <span class="ruby-operator">+</span> <span class="ruby-value str">'_48.png'</span>
+74:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000296" class="method-detail">
+        <a name="M000296"></a>
+
+        <div class="method-heading">
+          <a href="#M000296" class="method-signature">
+          <span class="method-name">item?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000296-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000296-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/acts_as_item/model.rb, line 14</span>
+14:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">item?</span>
+15:         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:item</span>)
+16:         <span class="ruby-keyword kw">false</span>
+17:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000300" class="method-detail">
+        <a name="M000300"></a>
+
+        <div class="method-heading">
+          <a href="#M000300" class="method-signature">
+          <span class="method-name">label</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Return Label of the <a href="../../Item.html">Item</a>
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000300-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000300-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/acts_as_item/model.rb, line 77</span>
+77:                         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">label</span>
+78:                                 <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-node">&quot;general.item.#{self.model_name.underscore}&quot;</span>)
+79:                         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

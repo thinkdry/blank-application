@@ -25,30 +25,18 @@ class FeedItem < ActiveRecord::Base
 	include ActionView::Helpers::SanitizeHelper
 
   belongs_to :feed_source
-  
+
+  # Latest 5 Feed_Items
   named_scope :latest,
     :order => 'last_updated DESC',
-    :limit => 10
-  
+    :limit => 5
+
+  # Assign the description to Feed Item
   def description=(value)
-    # Remove html tags from description
-    #value = strip_tags(value)
-
-		# Clean first characters maching
-		# Related Articles
-		# (...)
-		# Authors:  (...)
-    #value.slice!(/\A[\n\t]*Related Articles.+Authors:[^\n]+\s+/m)
-
-    # Remove last characters matching
-    #   PMID: 123445
-    #   [PubMed - as supplied by publisher]
-    #value.slice!(/[\n\s]*PMID: \d+ \[PubMed - as supplied by publisher\][\n\s]*\Z/m)
-
-    # After our cleaning, call the super method that will assignate the value
     super(value)
   end
 
+  # FeedItems from given Workspace
 	named_scope :from_workspace, lambda { |ws_id|
     raise 'WS expected' unless ws_id
     { :select => 'feed_items.*',
@@ -59,6 +47,7 @@ class FeedItem < ActiveRecord::Base
     }
   }
 
+  # FeedItems for given User
   named_scope :consultable_by, lambda { |user_id|
     raise 'User expected' unless user_id
     return { } if User.find(user_id).has_system_role('superadmin')
@@ -67,6 +56,5 @@ class FeedItem < ActiveRecord::Base
       :conditions => "feed_items.feed_source_id = feed_sources.id"
     }
   }
-
 
 end

@@ -24,13 +24,13 @@ class CmsFile < ActiveRecord::Base
   has_attached_file :cmsfile,
     :url =>    "/uploaded_files/cmsfile/:id/:style/:basename.:extension",
     :path => ":rails_root/public/uploaded_files/cmsfile/:id/:style/:basename.:extension"
+  
   validates_attachment_presence :cmsfile
-  # TODO check all the content types allowed for the validation
+  
+  # TODO Need to find proper content-types sent by different browsers, currently validation managed through javascript
   #	validates_attachment_content_type :cmsfile, :content_type => [
   #	'application/pdf', 'text/plain','application/octet-stream','application/msword', 'application/rtf']
+
   validates_attachment_size(:cmsfile, :less_than => 25.megabytes)
-  #file_column :file_path
-   # validates_presence_of :file_path
-  # validates_presence_of :file_path
 
 end

@@ -18,13 +18,15 @@
 
 class GenericItem < ActiveRecord::Base
 
+  #View to Get Items
 	self.inheritance_column = :item_type
 
 	ITEMS.each do |item|
 		named_scope item.pluralize.to_sym,
 			:conditions => { :item_type => item.camelize }
 	end
-	
+
+  # Items from given Worksapce
   named_scope :from_workspace, lambda { |ws_id|
     raise 'WS expected' unless ws_id
     { :select => 'generic_items.*',
@@ -32,7 +34,7 @@ class GenericItem < ActiveRecord::Base
       :conditions => "items.workspace_id = #{ws_id}"
     }
   }
-  
+  # Items from given User
   named_scope :consultable_by, lambda { |user_id|
     raise 'User expected' unless user_id
     if User.find(user_id).has_system_role('superadmin')
@@ -48,25 +50,27 @@ class GenericItem < ActiveRecord::Base
             users_workspaces.user_id = #{user_id} ) > 0 }}
 		end
 	}
-	
+
+  # 5 Most Commented Items
   named_scope :most_commented,
     :order => 'generic_items.number_of_comments DESC',
     :limit => 5
-    
+
+  # 5 Best Rated Items
   named_scope :best_rated,
     :order => 'generic_items.average_rate DESC',
     :limit => 5
-   
+   # 5 latest Items
   named_scope :latest,
     :order => 'generic_items.created_at DESC',
     :limit => 5
-
+  # Latest Created
   named_scope :created,
     :order => 'generic_items.created_at DESC'
-
+  # Latest Commented
   named_scope :commented,
     :order => 'generic_items.number_of_comments DESC'
-
+  # Latest Rated
   named_scope :rated,
     :order => 'generic_items.average_rate DESC'
 	

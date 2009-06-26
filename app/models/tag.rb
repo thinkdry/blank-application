@@ -11,6 +11,7 @@
 #
 
 class Tag < ActiveRecord::Base
+  
   has_many :taggings
 
 	def get_object_linked

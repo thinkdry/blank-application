@@ -15,34 +15,52 @@
 class Workspace < ActiveRecord::Base
 	
 	has_many :users_workspaces, :dependent => :delete_all
+
 	has_many :roles, :through => :users_workspaces
+
 	has_many :users, :through => :users_workspaces
+
 	has_many :items, :dependent => :delete_all
+
   has_many_polymorphs :itemables, :from => ITEMS.map{ |item| item.pluralize.to_sym }, :through => :items
+
 	has_many :feed_items, :through => :feed_sources
+
 	belongs_to :creator, :class_name => 'User'
+
 	belongs_to :ws_config
 
 	acts_as_xapian :texts => [:title, :description]
 
+  # Paperclip Attachment
 	has_attached_file :logo,
     :default_url => "/images/logo.png",
     :url =>  "/uploaded_files/workspace/:id/:style/:basename.:extension",
     :path => ":rails_root/public/uploaded_files/workspace/:id/:style/:basename.:extension",
 		:styles => { :medium => "450x100>", :thumb => "48x48>" }
+
+  # Paperclip Validations
   validates_attachment_content_type :logo, :content_type => ['image/jpeg','image/jpg', 'image/png', 'image/gif','image/bmp' ]
+
   validates_attachment_size :logo, :less_than => 2.megabytes
-	
+
+  # Validations
+
 	validates_presence_of :title, :description
+
 	validates_associated :users_workspaces
+
 	validate :uniqueness_of_users
-	
+
+	# After Updation Save the associated Users in UserWorkspaces
 	after_update  :save_users_workspaces
-	
+
+  # Latest % workspaces
   named_scope :latest,
     :order => 'created_at DESC',
     :limit => 5
 
+  # Get the Users for the workspace with allowed permission
 	named_scope :allowed_user_with_permission, lambda { |user_id, permission_name|
 		raise 'User required' unless user_id
 		raise 'Permission name' unless permission_name
@@ -58,6 +76,7 @@ class Workspace < ActiveRecord::Base
 		end
 	}
 
+  # Get the Workspace for the Users with given Role
 	named_scope :allowed_user_with_ws_role, lambda { |user_id, role_name|
 		raise 'User required' unless user_id
 		raise 'Role name' unless role_name
@@ -66,13 +85,15 @@ class Workspace < ActiveRecord::Base
 			:conditions => "roles.name = '#{role_name.to_s}'" }
 	}
 
+  # Check if the User is Unique for UserWorkspace after worksapce Update
 	def uniqueness_of_users
 	  new_users = self.users_workspaces.reject { |e| ! e.new_record? }.collect { |e| e.user }
 	  new_users.size.times do
 		  self.errors.add_to_base('Same user added twice') and return if new_users.include?(new_users.pop)
 	  end
   end
-	
+
+  # Get The users of the worksapce with the defined Roles
 	def users_by_role role_name
 	  role = self.roles.find_by_name(role_name)
 	  res = []
@@ -86,26 +107,30 @@ class Workspace < ActiveRecord::Base
 		return res
   end
 
+  # Item Types for the Workspace Joined By ','
 	def ws_items= params
 		self[:ws_items] = params.join(',')
 	end
 
+  # Category for the Workspace Joined By ','
 	def ws_item_categories= params
 		self[:ws_item_categories] = params.join(',')
 	end
 
+  # Available Worksapce Types for Worksapce
 	def ws_available_types= params
 		self[:available_types] = params.join(',')
 	end
 	
-	# Link the attributes directly from the form
+	# Link the attributesof Users directly
 	def new_user_attributes= user_attributes
 	  #downcase_user_attributes(user_attributes)
 	  user_attributes.each do |attributes| 
       users_workspaces.build(attributes) 
     end
   end
-  
+
+  # Check if the User is Associated with worksapce or not
   def existing_user_attributes= user_attributes
    #downcase_user_attributes(user_attributes)
     users_workspaces.reject(&:new_record?).each do |uw|
@@ -113,7 +138,8 @@ class Workspace < ActiveRecord::Base
       attributes ? uw.attributes = attributes : users_workspaces.delete(uw)
     end
   end
-  
+
+  # Save the workspace assocaitions for Users in UsersWorkspace
   def save_users_workspaces 
     users_workspaces.each do |uw| 
       uw.save(false) 
