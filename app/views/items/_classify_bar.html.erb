@@ -1,6 +1,6 @@
 <div id="classify_bar">
-	<% if params[:controller] != 'searches' %>
-		<%= image_tag "/images/icons/add.png", :width => "30"%><a href="<%=  new_item_path(params[:item_type].downcase.singularize)%>"><%= I18n.t('layout.application.add_content')%></a>
+	<% if params[:controller] != 'searches' && (current_workspace ? @current_user.has_workspace_permission(current_workspace.id, params[:item_type], 'new') : @current_user.has_system_permission(params[:item_type], 'new')) %>
+    	<%= image_tag "/images/icons/add.png", :width => "30"%><a href="<%=  new_item_path(params[:item_type].downcase.singularize)%>"><%= I18n.t('layout.application.add_content')%></a>
 	<% end %>
 	<img src="/images/icons/filter.png" width="20"/>
     <% ordering_fields_list.each do |filter| %>

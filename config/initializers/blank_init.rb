@@ -42,8 +42,7 @@ LANGUAGES.each do |l|
 	I18n.load_path << "#{LOCALES_DIRECTORY}/#{l}.yml"
 end
 
-APPLICATION_ADMINS = ['paco@thinkdry.com', 'anup.nivargi@thinkdry.com',	'nagarjuna@thinkdry.com', 'sylvain@thinkdry.com',
-	'david.lehureau@thinkdry.com']
+APPLICATION_ADMINS = ['paco@thinkdry.com', 'anup.nivargi@thinkdry.com',	'nagarjuna@thinkdry.com', 'sylvain@thinkdry.com']
 APPLICATION_NAME = get_sa_config['sa_application_name']
 
 ExceptionNotifier.exception_recipients = APPLICATION_ADMINS
