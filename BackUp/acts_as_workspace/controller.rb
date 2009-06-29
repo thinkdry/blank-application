@@ -6,6 +6,7 @@ module ActsAsWorkspace
     end
     
     module ClassMethods
+      # ActsAsWorkspace Library for Workspace Specific Code - Specific Controller Methods to all Workspaces
       def acts_as_workspace &block
         include ActsAsWorkspace::ControllerMethods::InstanceMethods
         
@@ -69,6 +70,7 @@ module ActsAsWorkspace
     end
     
     module InstanceMethods
+      # Assign Users with role to Workspace in UsersWorkspace
 			def add_new_user
 				@current_object = Workspace.find(params[:id])
 				no_permission_redirection unless @current_object.accepts_edit_for?(@current_user)
@@ -81,6 +83,7 @@ module ActsAsWorkspace
 				end
 			end
 
+      # Return Workspace Object for workspace parameters
 			def current_object
 				@current_object ||= @workspace =
 					if params[:id]

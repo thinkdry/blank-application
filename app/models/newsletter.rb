@@ -1,3 +1,25 @@
+# == Schema Information
+# Schema version: 20181126085723
+#
+# Table name: newsletters
+#
+#  id              :integer(4)      not null, primary key
+#  user_id         :integer(4)
+#  title           :string(255)
+#  description     :text
+#  state           :string(255)
+#  body            :text
+#  tags            :string(255)
+#  viewed_number   :integer(4)
+#  rates_average   :integer(4)
+#  comments_number :integer(4)
+#  category        :string(255)
+#  created_at      :datetime
+#  updated_at      :datetime
+#  subject         :string(255)
+#  from_email      :string(255)
+#
+
 require 'regexps'
 class Newsletter < ActiveRecord::Base
 include Authentication

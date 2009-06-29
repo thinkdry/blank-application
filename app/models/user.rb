@@ -29,6 +29,13 @@
 #  updated_at                :datetime
 #  remember_token            :string(40)
 #  remember_token_expires_at :datetime
+#  newsletter                :boolean(1)
+#  last_connected_at         :datetime
+#  u_layout                  :string(255)
+#  u_per_page                :integer(4)
+#  u_language                :string(255)
+#  date_of_birth             :date
+#  gender                    :string(255)
 #
 
 require 'digest/sha1'
@@ -318,8 +325,10 @@ class User < ActiveRecord::Base
     save(false)
   end
 
+  # Check if User is Active
+  # 
+  # the existence of an activation code means User has not Activated yet
   def active?
-    # the existence of an activation code means they have not activated yet
     activation_code.nil?
   end
 

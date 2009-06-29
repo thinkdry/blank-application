@@ -12,7 +12,7 @@
 #  created_at         :datetime
 #  updated_at         :datetime
 #  number_of_comments :integer(8)
-#  workspace_titles   :text
+#  workspace_titles   :string(341)
 #  average_rate       :decimal(14, 4)
 #
 

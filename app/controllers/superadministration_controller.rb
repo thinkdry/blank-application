@@ -2,6 +2,7 @@ class SuperadministrationController < ApplicationController
 
 	before_filter :is_superadmin?
 
+  # Default Page for Superadministration Options
 	def superadministration
 			if params[:part] == "default"
 			elsif params[:part] == "general"
@@ -26,7 +27,8 @@ class SuperadministrationController < ApplicationController
 				render :partial => params[:part], :layout => false
 			end
 	end
-	
+
+  # Page for Changing General Settings
 	def general_changing
 			list = ['items', 'languages', 'feed_items_importation_types', 'ws_types', 'item_categories']
 			list2 = ['sa_application_name', 'sa_application_url', 'sa_contact_email', 'sa_allowed_free_user_creation',
@@ -59,12 +61,14 @@ class SuperadministrationController < ApplicationController
 			flash[:notice] = "General settings updated"
 	end
 
+
 	def check_color
 		@elements = Element.find(:all, :conditions => {:template => params[:temp]})
     @temp = Element.find(:all, :select => 'DISTINCT template')
 		render :partial => 'color_checked'
 	end
 
+  # Page for Changing Colors
   def colors_changing
     if !params[:newtemplate].blank?
       params[:template].each do |k_elmt, v_elmt|
@@ -83,7 +87,8 @@ class SuperadministrationController < ApplicationController
       redirect_to '/superadministration/css'
     end
   end
-   	
+
+ 	# Option for Switching Language
 	def language_switching
 		if params[:locale_to_conf] == 'translation_addition'
 			translation_options
@@ -97,6 +102,7 @@ class SuperadministrationController < ApplicationController
 		end
   end
 
+  # Page for managing Translation
 	def translations_changing
     @yaml = YAML.load_file("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml")
    	(['general', 'layout', 'user', 'workspace', 'item']+ITEMS+['superadministration', 'others']).each do |section|

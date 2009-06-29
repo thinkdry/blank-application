@@ -1,21 +1,27 @@
 module WorkspacesHelper
+
+  # Create Link to Workspace
   def link_to_workspace(workspace)
     link_to(workspace.title, workspace_url(workspace))
   end
-  
+
+  # Create Link to all worksapces
   def links_to_workspace_collection(workspaces)
     return nil if workspaces.empty?
     workspaces.collect { |ws| link_to_workspace(ws) }.join(', ')
   end
-  
+
+
   def new_user(object)
     javascript_tag js_add_new_user(object)
   end
-  
+
+  # Link to New USer in UserWorksapce
   def link_to_new_user(name)
     link_to_function name, js_add_new_user(UsersWorkspace.new)
   end
-  
+
+  # User list of worksapces for given role
   def user_list_of(workspace, role)
     list = workspace.send(role)
     list.empty? ? '- Aucun -' : list.map { |u| link_to_user(u) }.join(', ')

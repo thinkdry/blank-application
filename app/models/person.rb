@@ -1,3 +1,33 @@
+# == Schema Information
+# Schema version: 20181126085723
+#
+# Table name: people
+#
+#  id            :integer(4)      not null, primary key
+#  first_name    :string(255)
+#  last_name     :string(255)
+#  web_page      :string(255)
+#  gender        :string(255)
+#  notes         :text
+#  email         :string(255)
+#  primary_phone :string(255)
+#  mobile_phone  :string(255)
+#  fax           :string(255)
+#  street        :string(255)
+#  city          :string(255)
+#  postal_code   :string(255)
+#  country       :string(255)
+#  company       :string(255)
+#  job_title     :string(255)
+#  created_at    :datetime
+#  updated_at    :datetime
+#  user_id       :integer(4)
+#  newsletter    :boolean(1)
+#  salutation    :string(255)
+#  date_of_birth :datetime
+#  origin        :string(255)
+#
+
 class Person < ActiveRecord::Base
   include Authentication
 

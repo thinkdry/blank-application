@@ -80,8 +80,8 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000292">acts_as_item</a>&nbsp;&nbsp;
-      <a href="#M000293">current_objects</a>&nbsp;&nbsp;
+      <a href="#M000271">acts_as_item</a>&nbsp;&nbsp;
+      <a href="#M000272">current_objects</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -110,168 +110,177 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000292" class="method-detail">
-        <a name="M000292"></a>
+      <div id="method-M000271" class="method-detail">
+        <a name="M000271"></a>
 
         <div class="method-heading">
-          <a href="#M000292" class="method-signature">
+          <a href="#M000271" class="method-signature">
           <span class="method-name">acts_as_item</span><span class="method-args">(&amp;block)</span>
           </a>
         </div>
       
         <div class="method-description">
+          <p>
+<a href="../../ActsAsItem.html">ActsAsItem</a> Library for <a
+href="../../Item.html">Item</a> Specific Code - Specific Controller Methods
+to All Items
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000292-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000292-source">
+            onclick="toggleCode('M000271-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000271-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/acts_as_item/controller.rb, line 9</span>
-  9:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">acts_as_item</span> <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
- 10:         <span class="ruby-identifier">include</span> <span class="ruby-constant">ActsAsItem</span><span class="ruby-operator">::</span><span class="ruby-constant">ControllerMethods</span><span class="ruby-operator">::</span><span class="ruby-constant">InstanceMethods</span>
- 11:                                 <span class="ruby-identifier">acts_as_commentable</span>
- 12:                                 <span class="ruby-identifier">acts_as_keywordable</span>
- 13: 
- 14:                                 <span class="ruby-comment cmt"># Filter allowing to update the Xapian index with the delta brought by that object (Superfast solution, but performance less)</span>
- 15:                                 <span class="ruby-identifier">after_filter</span> <span class="ruby-identifier">:only</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-identifier">:create</span>, <span class="ruby-identifier">:update</span>, <span class="ruby-identifier">:destroy</span>] <span class="ruby-keyword kw">do</span>
- 16:                                         <span class="ruby-constant">Thread</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword kw">do</span>
- 17:                                                 <span class="ruby-identifier">system</span>(<span class="ruby-node">&quot;rake xapian:update_index RAILS_ENV=#{RAILS_ENV}&quot;</span>)
- 18:                                         <span class="ruby-keyword kw">end</span>
- 19:                                 <span class="ruby-keyword kw">end</span>
- 20: 
- 21:         <span class="ruby-identifier">make_resourceful</span> <span class="ruby-keyword kw">do</span>
- 22:           <span class="ruby-identifier">actions</span> <span class="ruby-identifier">:all</span>
- 23:           <span class="ruby-identifier">belongs_to</span> <span class="ruby-identifier">:workspace</span>
- 24: 
- 25:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">instance_eval</span> <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
- 26:           
- 27:           <span class="ruby-identifier">after</span> <span class="ruby-identifier">:create</span> <span class="ruby-keyword kw">do</span>
- 28:             <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">label</span><span class="ruby-operator">+</span><span class="ruby-value str">' '</span><span class="ruby-operator">+</span><span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'item.new.flash_notice'</span>)
- 29:           <span class="ruby-keyword kw">end</span>
- 30: 
- 31:           <span class="ruby-identifier">after</span> <span class="ruby-identifier">:create_fails</span> <span class="ruby-keyword kw">do</span>
- 32:             <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">label</span><span class="ruby-operator">+</span><span class="ruby-value str">' '</span><span class="ruby-operator">+</span><span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'item.new.flash_error'</span>)
- 33:           <span class="ruby-keyword kw">end</span>
- 34: 
- 35:           <span class="ruby-identifier">after</span> <span class="ruby-identifier">:update</span> <span class="ruby-keyword kw">do</span>
- 36:             <span class="ruby-identifier">session</span>[<span class="ruby-identifier">:fck_item_id</span>] = <span class="ruby-keyword kw">nil</span>
- 37:             <span class="ruby-identifier">session</span>[<span class="ruby-identifier">:fck_item_type</span>] = <span class="ruby-keyword kw">nil</span>
- 38:             <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">label</span><span class="ruby-operator">+</span><span class="ruby-value str">' '</span><span class="ruby-operator">+</span><span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'item.edit.flash_notice'</span>)
- 39:           <span class="ruby-keyword kw">end</span>
- 40:           
- 41:            <span class="ruby-identifier">after</span> <span class="ruby-identifier">:update_fails</span> <span class="ruby-keyword kw">do</span>
- 42:             <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">label</span><span class="ruby-operator">+</span><span class="ruby-value str">' '</span><span class="ruby-operator">+</span><span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'item.edit.flash_error'</span>)
- 43:           <span class="ruby-keyword kw">end</span>
- 44: 
- 45:           <span class="ruby-identifier">before</span> <span class="ruby-identifier">:new</span>, <span class="ruby-identifier">:create</span> <span class="ruby-keyword kw">do</span>
- 46:             <span class="ruby-identifier">no_permission_redirection</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@current_object</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">accepts_new_for?</span>(<span class="ruby-ivar">@current_user</span>)
- 47:           <span class="ruby-keyword kw">end</span>
- 48: 
- 49:           <span class="ruby-identifier">before</span> <span class="ruby-identifier">:show</span> <span class="ruby-keyword kw">do</span>
- 50:             <span class="ruby-identifier">no_permission_redirection</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@current_object</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">accepts_show_for?</span>(<span class="ruby-ivar">@current_user</span>)
- 51:                                                 <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">viewed_number</span> = <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">viewed_number</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
- 52:                                                 <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">save</span>
- 53:           <span class="ruby-keyword kw">end</span>
- 54: 
- 55:           <span class="ruby-identifier">before</span> <span class="ruby-identifier">:edit</span>, <span class="ruby-identifier">:update</span> <span class="ruby-keyword kw">do</span>
- 56:             <span class="ruby-identifier">no_permission_redirection</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">accepts_edit_for?</span>(<span class="ruby-ivar">@current_user</span>)
- 57:                                                 <span class="ruby-identifier">session</span>[<span class="ruby-identifier">:fck_item_id</span>] = <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">id</span>
- 58:             <span class="ruby-identifier">session</span>[<span class="ruby-identifier">:fck_item_type</span>] = <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">to_s</span>
- 59:           <span class="ruby-keyword kw">end</span>
- 60: 
- 61:           <span class="ruby-identifier">before</span> <span class="ruby-identifier">:destroy</span> <span class="ruby-keyword kw">do</span>
- 62:             <span class="ruby-identifier">no_permission_redirection</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@current_object</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">accepts_destroy_for?</span>(<span class="ruby-ivar">@current_user</span>)
- 63:           <span class="ruby-keyword kw">end</span>
- 64: 
- 65:           <span class="ruby-comment cmt"># Makes `current_user` as author for the current_object</span>
- 66:           <span class="ruby-identifier">before</span> <span class="ruby-identifier">:create</span> <span class="ruby-keyword kw">do</span>
- 67:                                                 <span class="ruby-comment cmt"># Trick used in case there is no params (meaning none is selected)</span>
- 68:                                                 <span class="ruby-identifier">params</span>[<span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">underscore</span>][<span class="ruby-identifier">:categories_field</span>] <span class="ruby-operator">||=</span> []
- 69:                                                 <span class="ruby-identifier">params</span>[<span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">underscore</span>][<span class="ruby-identifier">:keywords_field</span>] <span class="ruby-operator">||=</span> []
- 70:             <span class="ruby-identifier">current_object</span>.<span class="ruby-identifier">user_id</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>
- 71:           <span class="ruby-keyword kw">end</span>
- 72: 
- 73:                                         <span class="ruby-identifier">before</span> <span class="ruby-identifier">:update</span> <span class="ruby-keyword kw">do</span>
- 74:                                                 <span class="ruby-identifier">params</span>[<span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">underscore</span>][<span class="ruby-identifier">:categories_field</span>] <span class="ruby-operator">||=</span> []
- 75:                                                 <span class="ruby-identifier">params</span>[<span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">underscore</span>][<span class="ruby-identifier">:keywords_field</span>] <span class="ruby-operator">||=</span> []
- 76:                                         <span class="ruby-keyword kw">end</span>
- 77: 
- 78:                                         <span class="ruby-identifier">before</span> <span class="ruby-identifier">:index</span> <span class="ruby-keyword kw">do</span>
- 79:                                                 <span class="ruby-ivar">@paginated_objects</span> = <span class="ruby-ivar">@current_objects</span>.<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">:per_page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">get_per_page_value</span>, <span class="ruby-identifier">:page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:page</span>])
- 80:                                         <span class="ruby-keyword kw">end</span>
- 81: 
- 82:                                         <span class="ruby-identifier">response_for</span> <span class="ruby-identifier">:new</span>, <span class="ruby-identifier">:create_fails</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
- 83:                                                 <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span>(<span class="ruby-identifier">:template</span> =<span class="ruby-operator">&gt;</span> (<span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-constant">RAILS_ROOT</span><span class="ruby-operator">+</span><span class="ruby-value str">'/app/views/'</span><span class="ruby-operator">+</span><span class="ruby-identifier">params</span>[<span class="ruby-identifier">:controller</span>]<span class="ruby-operator">+</span><span class="ruby-value str">'/new.html.erb'</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:controller</span>]<span class="ruby-operator">+</span><span class="ruby-value str">'/new.html.erb'</span> <span class="ruby-operator">:</span> <span class="ruby-value str">'items/new.html.erb'</span>)) }
- 84:                                         <span class="ruby-keyword kw">end</span>
- 85: 
- 86:                                         <span class="ruby-identifier">response_for</span> <span class="ruby-identifier">:edit</span>, <span class="ruby-identifier">:update_fails</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
- 87:                                                 <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span>(<span class="ruby-identifier">:template</span> =<span class="ruby-operator">&gt;</span> (<span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-constant">RAILS_ROOT</span><span class="ruby-operator">+</span><span class="ruby-value str">'/app/views/'</span><span class="ruby-operator">+</span><span class="ruby-identifier">params</span>[<span class="ruby-identifier">:controller</span>]<span class="ruby-operator">+</span><span class="ruby-value str">'/edit.html.erb'</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:controller</span>]<span class="ruby-operator">+</span><span class="ruby-value str">'/edit.html.erb'</span> <span class="ruby-operator">:</span> <span class="ruby-value str">'items/edit.html.erb'</span>)) }
- 88:                                         <span class="ruby-keyword kw">end</span>
- 89: 
- 90:                                         <span class="ruby-identifier">response_for</span> <span class="ruby-identifier">:show</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
- 91:                                                 <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> <span class="ruby-comment cmt"># index.html.erb</span>
- 92:                                                 <span class="ruby-identifier">format</span>.<span class="ruby-identifier">xml</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">:xml</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@current_object</span> }
- 93:                                                 <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@current_object</span> }
- 94:                 <span class="ruby-keyword kw">end</span>
- 95: 
- 96:                                         <span class="ruby-identifier">response_for</span> <span class="ruby-identifier">:index</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
- 97:                                                 <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">:template</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'items/index_for_item.html.erb'</span> }
- 98:                                                 <span class="ruby-identifier">format</span>.<span class="ruby-identifier">xml</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">:xml</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@current_objects</span> }
- 99:                                                 <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@current_objects</span> }
-100:                                                 <span class="ruby-identifier">format</span>.<span class="ruby-identifier">atom</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">:template</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;items/index.atom.builder&quot;</span>, <span class="ruby-identifier">:layout</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span> }
-101:                 <span class="ruby-keyword kw">end</span>
-102: 
-103:           <span class="ruby-identifier">response_for</span> <span class="ruby-identifier">:destroy</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-104:             <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span>(<span class="ruby-identifier">items_path</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:controller</span>])) }
-105:           <span class="ruby-keyword kw">end</span>
-106:           
-107: <span class="ruby-comment cmt">#                                       response_for :update do |format|</span>
-108: <span class="ruby-comment cmt">#                                               #format.html { redirect_to item_path(@current_object)}</span>
-109: <span class="ruby-comment cmt">#                                               format.html { redirect_to((ws=current_workspace) ? workspace_path(ws.id)+&quot;/#{@current_object.class.to_s.underscore.pluralize}&quot; : &quot;/content/#{@current_object.class.to_s.underscore.pluralize}&quot;) }</span>
-110: <span class="ruby-comment cmt">#                                       end</span>
-111: 
-112: <span class="ruby-comment cmt">#                                       response_for :create do |format|</span>
-113: <span class="ruby-comment cmt">#                                                       format.html {</span>
-114: <span class="ruby-comment cmt">#                                                               #redirect_to( ((@current_object.class.to_s == 'Article') || (@current_object.class.to_s == 'Page')) ? ((ws=current_workspace) ? edit_item_path(@current_object.class.to_s) : &quot;/content/#{@current_object.class.to_s.underscore.pluralize}/#{@current_object.id}/edit&quot;) : ((ws=current_workspace) ? workspace_path(ws.id)+&quot;/#{@current_object.class.to_s.underscore.pluralize}&quot;+&quot;/#{@current_object.id}/edit&quot; : &quot;/content/#{@current_object.class.to_s.underscore.pluralize}&quot;+&quot;/#{@current_object.id}/edit&quot;) )</span>
-115: <span class="ruby-comment cmt">#                                                               #raise @current_object.class.to_s.inspect</span>
-116: <span class="ruby-comment cmt">#                                                               if ((@current_object.class.to_s == 'Article') || (@current_object.class.to_s == 'Page'))</span>
-117: <span class="ruby-comment cmt">#                                                                       redirect_to((ws=current_workspace) ? workspace_path(ws.id)+&quot;/#{@current_object.class.to_s.underscore.pluralize}/#{@current_object.id}/edit&quot; : &quot;/#{@current_object.class.to_s.underscore.pluralize}/#{@current_object.id}/edit&quot;)</span>
-118: <span class="ruby-comment cmt">#                                                               else</span>
-119: <span class="ruby-comment cmt">#                                                                       redirect_to((ws=current_workspace) ? workspace_path(ws.id)+&quot;/#{@current_object.class.to_s.underscore.pluralize}&quot;+&quot;/#{@current_object.id}&quot; : &quot;/#{@current_object.class.to_s.underscore.pluralize}&quot;+&quot;/#{@current_object.id}&quot;)</span>
-120: <span class="ruby-comment cmt">#                                                               end</span>
-121: <span class="ruby-comment cmt">#                                                       }</span>
-122: <span class="ruby-comment cmt">#                                       end</span>
-123:                                         
-124:         <span class="ruby-keyword kw">end</span>
-125: 
-126:                                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">current_objects</span>
-127:                                         <span class="ruby-ivar">@current_objects</span> = <span class="ruby-identifier">get_items_list</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:controller</span>])
-128:                                 <span class="ruby-keyword kw">end</span>
-129: 
-130:                                 
+     <span class="ruby-comment cmt"># File lib/acts_as_item/controller.rb, line 10</span>
+ 10:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">acts_as_item</span> <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+ 11:         <span class="ruby-identifier">include</span> <span class="ruby-constant">ActsAsItem</span><span class="ruby-operator">::</span><span class="ruby-constant">ControllerMethods</span><span class="ruby-operator">::</span><span class="ruby-constant">InstanceMethods</span>
+ 12:                                 <span class="ruby-identifier">acts_as_commentable</span>
+ 13:                                 <span class="ruby-identifier">acts_as_keywordable</span>
+ 14: 
+ 15:                                 <span class="ruby-comment cmt"># Filter allowing to update the Xapian index with the delta brought by that object (Superfast solution, but performance less)</span>
+ 16:                                 <span class="ruby-identifier">after_filter</span> <span class="ruby-identifier">:only</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-identifier">:create</span>, <span class="ruby-identifier">:update</span>, <span class="ruby-identifier">:destroy</span>] <span class="ruby-keyword kw">do</span>
+ 17:                                         <span class="ruby-constant">Thread</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword kw">do</span>
+ 18:                                                 <span class="ruby-identifier">system</span>(<span class="ruby-node">&quot;rake xapian:update_index RAILS_ENV=#{RAILS_ENV}&quot;</span>)
+ 19:                                         <span class="ruby-keyword kw">end</span>
+ 20:                                 <span class="ruby-keyword kw">end</span>
+ 21: 
+ 22:         <span class="ruby-identifier">make_resourceful</span> <span class="ruby-keyword kw">do</span>
+ 23:           <span class="ruby-identifier">actions</span> <span class="ruby-identifier">:all</span>
+ 24:           <span class="ruby-identifier">belongs_to</span> <span class="ruby-identifier">:workspace</span>
+ 25: 
+ 26:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">instance_eval</span> <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
+ 27:           
+ 28:           <span class="ruby-identifier">after</span> <span class="ruby-identifier">:create</span> <span class="ruby-keyword kw">do</span>
+ 29:             <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">label</span><span class="ruby-operator">+</span><span class="ruby-value str">' '</span><span class="ruby-operator">+</span><span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'item.new.flash_notice'</span>)
+ 30:           <span class="ruby-keyword kw">end</span>
+ 31: 
+ 32:           <span class="ruby-identifier">after</span> <span class="ruby-identifier">:create_fails</span> <span class="ruby-keyword kw">do</span>
+ 33:             <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">label</span><span class="ruby-operator">+</span><span class="ruby-value str">' '</span><span class="ruby-operator">+</span><span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'item.new.flash_error'</span>)
+ 34:           <span class="ruby-keyword kw">end</span>
+ 35: 
+ 36:           <span class="ruby-identifier">after</span> <span class="ruby-identifier">:update</span> <span class="ruby-keyword kw">do</span>
+ 37:             <span class="ruby-identifier">session</span>[<span class="ruby-identifier">:fck_item_id</span>] = <span class="ruby-keyword kw">nil</span>
+ 38:             <span class="ruby-identifier">session</span>[<span class="ruby-identifier">:fck_item_type</span>] = <span class="ruby-keyword kw">nil</span>
+ 39:             <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">label</span><span class="ruby-operator">+</span><span class="ruby-value str">' '</span><span class="ruby-operator">+</span><span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'item.edit.flash_notice'</span>)
+ 40:           <span class="ruby-keyword kw">end</span>
+ 41:           
+ 42:            <span class="ruby-identifier">after</span> <span class="ruby-identifier">:update_fails</span> <span class="ruby-keyword kw">do</span>
+ 43:             <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">label</span><span class="ruby-operator">+</span><span class="ruby-value str">' '</span><span class="ruby-operator">+</span><span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'item.edit.flash_error'</span>)
+ 44:           <span class="ruby-keyword kw">end</span>
+ 45: 
+ 46:           <span class="ruby-identifier">before</span> <span class="ruby-identifier">:new</span>, <span class="ruby-identifier">:create</span> <span class="ruby-keyword kw">do</span>
+ 47:             <span class="ruby-identifier">no_permission_redirection</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@current_object</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">accepts_new_for?</span>(<span class="ruby-ivar">@current_user</span>)
+ 48:           <span class="ruby-keyword kw">end</span>
+ 49: 
+ 50:           <span class="ruby-identifier">before</span> <span class="ruby-identifier">:show</span> <span class="ruby-keyword kw">do</span>
+ 51:             <span class="ruby-identifier">no_permission_redirection</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@current_object</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">accepts_show_for?</span>(<span class="ruby-ivar">@current_user</span>)
+ 52:                                                 <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">viewed_number</span> = <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">viewed_number</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+ 53:                                                 <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">save</span>
+ 54:           <span class="ruby-keyword kw">end</span>
+ 55: 
+ 56:           <span class="ruby-identifier">before</span> <span class="ruby-identifier">:edit</span>, <span class="ruby-identifier">:update</span> <span class="ruby-keyword kw">do</span>
+ 57:             <span class="ruby-identifier">no_permission_redirection</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">accepts_edit_for?</span>(<span class="ruby-ivar">@current_user</span>)
+ 58:                                                 <span class="ruby-identifier">session</span>[<span class="ruby-identifier">:fck_item_id</span>] = <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">id</span>
+ 59:             <span class="ruby-identifier">session</span>[<span class="ruby-identifier">:fck_item_type</span>] = <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">to_s</span>
+ 60:           <span class="ruby-keyword kw">end</span>
+ 61: 
+ 62:           <span class="ruby-identifier">before</span> <span class="ruby-identifier">:destroy</span> <span class="ruby-keyword kw">do</span>
+ 63:             <span class="ruby-identifier">no_permission_redirection</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@current_object</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">accepts_destroy_for?</span>(<span class="ruby-ivar">@current_user</span>)
+ 64:           <span class="ruby-keyword kw">end</span>
+ 65: 
+ 66:           <span class="ruby-comment cmt"># Makes `current_user` as author for the current_object</span>
+ 67:           <span class="ruby-identifier">before</span> <span class="ruby-identifier">:create</span> <span class="ruby-keyword kw">do</span>
+ 68:                                                 <span class="ruby-comment cmt"># Trick used in case there is no params (meaning none is selected)</span>
+ 69:                                                 <span class="ruby-identifier">params</span>[<span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">underscore</span>][<span class="ruby-identifier">:categories_field</span>] <span class="ruby-operator">||=</span> []
+ 70:                                                 <span class="ruby-identifier">params</span>[<span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">underscore</span>][<span class="ruby-identifier">:keywords_field</span>] <span class="ruby-operator">||=</span> []
+ 71:             <span class="ruby-identifier">current_object</span>.<span class="ruby-identifier">user_id</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>
+ 72:           <span class="ruby-keyword kw">end</span>
+ 73: 
+ 74:                                         <span class="ruby-identifier">before</span> <span class="ruby-identifier">:update</span> <span class="ruby-keyword kw">do</span>
+ 75:                                                 <span class="ruby-identifier">params</span>[<span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">underscore</span>][<span class="ruby-identifier">:categories_field</span>] <span class="ruby-operator">||=</span> []
+ 76:                                                 <span class="ruby-identifier">params</span>[<span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">underscore</span>][<span class="ruby-identifier">:keywords_field</span>] <span class="ruby-operator">||=</span> []
+ 77:                                         <span class="ruby-keyword kw">end</span>
+ 78: 
+ 79:                                         <span class="ruby-identifier">before</span> <span class="ruby-identifier">:index</span> <span class="ruby-keyword kw">do</span>
+ 80:                                                 <span class="ruby-ivar">@paginated_objects</span> = <span class="ruby-ivar">@current_objects</span>.<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">:per_page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">get_per_page_value</span>, <span class="ruby-identifier">:page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:page</span>])
+ 81:                                         <span class="ruby-keyword kw">end</span>
+ 82: 
+ 83:                                         <span class="ruby-identifier">response_for</span> <span class="ruby-identifier">:new</span>, <span class="ruby-identifier">:create_fails</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+ 84:                                                 <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span>(<span class="ruby-identifier">:template</span> =<span class="ruby-operator">&gt;</span> (<span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-constant">RAILS_ROOT</span><span class="ruby-operator">+</span><span class="ruby-value str">'/app/views/'</span><span class="ruby-operator">+</span><span class="ruby-identifier">params</span>[<span class="ruby-identifier">:controller</span>]<span class="ruby-operator">+</span><span class="ruby-value str">'/new.html.erb'</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:controller</span>]<span class="ruby-operator">+</span><span class="ruby-value str">'/new.html.erb'</span> <span class="ruby-operator">:</span> <span class="ruby-value str">'items/new.html.erb'</span>)) }
+ 85:                                         <span class="ruby-keyword kw">end</span>
+ 86: 
+ 87:                                         <span class="ruby-identifier">response_for</span> <span class="ruby-identifier">:edit</span>, <span class="ruby-identifier">:update_fails</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+ 88:                                                 <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span>(<span class="ruby-identifier">:template</span> =<span class="ruby-operator">&gt;</span> (<span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-constant">RAILS_ROOT</span><span class="ruby-operator">+</span><span class="ruby-value str">'/app/views/'</span><span class="ruby-operator">+</span><span class="ruby-identifier">params</span>[<span class="ruby-identifier">:controller</span>]<span class="ruby-operator">+</span><span class="ruby-value str">'/edit.html.erb'</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:controller</span>]<span class="ruby-operator">+</span><span class="ruby-value str">'/edit.html.erb'</span> <span class="ruby-operator">:</span> <span class="ruby-value str">'items/edit.html.erb'</span>)) }
+ 89:                                         <span class="ruby-keyword kw">end</span>
+ 90: 
+ 91:                                         <span class="ruby-identifier">response_for</span> <span class="ruby-identifier">:show</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+ 92:                                                 <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> <span class="ruby-comment cmt"># index.html.erb</span>
+ 93:                                                 <span class="ruby-identifier">format</span>.<span class="ruby-identifier">xml</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">:xml</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@current_object</span> }
+ 94:                                                 <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@current_object</span> }
+ 95:                 <span class="ruby-keyword kw">end</span>
+ 96: 
+ 97:                                         <span class="ruby-identifier">response_for</span> <span class="ruby-identifier">:index</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+ 98:                                                 <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">:template</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'items/index_for_item.html.erb'</span> }
+ 99:                                                 <span class="ruby-identifier">format</span>.<span class="ruby-identifier">xml</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">:xml</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@current_objects</span> }
+100:                                                 <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@current_objects</span> }
+101:                                                 <span class="ruby-identifier">format</span>.<span class="ruby-identifier">atom</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">:template</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;items/index.atom.builder&quot;</span>, <span class="ruby-identifier">:layout</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span> }
+102:                 <span class="ruby-keyword kw">end</span>
+103: 
+104:           <span class="ruby-identifier">response_for</span> <span class="ruby-identifier">:destroy</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+105:             <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span>(<span class="ruby-identifier">items_path</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:controller</span>])) }
+106:           <span class="ruby-keyword kw">end</span>
+107:           
+108: <span class="ruby-comment cmt">#                                       response_for :update do |format|</span>
+109: <span class="ruby-comment cmt">#                                               #format.html { redirect_to item_path(@current_object)}</span>
+110: <span class="ruby-comment cmt">#                                               format.html { redirect_to((ws=current_workspace) ? workspace_path(ws.id)+&quot;/#{@current_object.class.to_s.underscore.pluralize}&quot; : &quot;/content/#{@current_object.class.to_s.underscore.pluralize}&quot;) }</span>
+111: <span class="ruby-comment cmt">#                                       end</span>
+112: 
+113: <span class="ruby-comment cmt">#                                       response_for :create do |format|</span>
+114: <span class="ruby-comment cmt">#                                                       format.html {</span>
+115: <span class="ruby-comment cmt">#                                                               #redirect_to( ((@current_object.class.to_s == 'Article') || (@current_object.class.to_s == 'Page')) ? ((ws=current_workspace) ? edit_item_path(@current_object.class.to_s) : &quot;/content/#{@current_object.class.to_s.underscore.pluralize}/#{@current_object.id}/edit&quot;) : ((ws=current_workspace) ? workspace_path(ws.id)+&quot;/#{@current_object.class.to_s.underscore.pluralize}&quot;+&quot;/#{@current_object.id}/edit&quot; : &quot;/content/#{@current_object.class.to_s.underscore.pluralize}&quot;+&quot;/#{@current_object.id}/edit&quot;) )</span>
+116: <span class="ruby-comment cmt">#                                                               #raise @current_object.class.to_s.inspect</span>
+117: <span class="ruby-comment cmt">#                                                               if ((@current_object.class.to_s == 'Article') || (@current_object.class.to_s == 'Page'))</span>
+118: <span class="ruby-comment cmt">#                                                                       redirect_to((ws=current_workspace) ? workspace_path(ws.id)+&quot;/#{@current_object.class.to_s.underscore.pluralize}/#{@current_object.id}/edit&quot; : &quot;/#{@current_object.class.to_s.underscore.pluralize}/#{@current_object.id}/edit&quot;)</span>
+119: <span class="ruby-comment cmt">#                                                               else</span>
+120: <span class="ruby-comment cmt">#                                                                       redirect_to((ws=current_workspace) ? workspace_path(ws.id)+&quot;/#{@current_object.class.to_s.underscore.pluralize}&quot;+&quot;/#{@current_object.id}&quot; : &quot;/#{@current_object.class.to_s.underscore.pluralize}&quot;+&quot;/#{@current_object.id}&quot;)</span>
+121: <span class="ruby-comment cmt">#                                                               end</span>
+122: <span class="ruby-comment cmt">#                                                       }</span>
+123: <span class="ruby-comment cmt">#                                       end</span>
+124:                                         
+125:         <span class="ruby-keyword kw">end</span>
+126: 
+127:         <span class="ruby-comment cmt"># Return The Items List depending on current controller</span>
+128:                                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">current_objects</span>
+129:                                         <span class="ruby-ivar">@current_objects</span> = <span class="ruby-identifier">get_items_list</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:controller</span>])
+130:                                 <span class="ruby-keyword kw">end</span>
 131: 
-132:       <span class="ruby-keyword kw">end</span>
+132:                                 
+133: 
+134:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000293" class="method-detail">
-        <a name="M000293"></a>
+      <div id="method-M000272" class="method-detail">
+        <a name="M000272"></a>
 
         <div class="method-heading">
-          <a href="#M000293" class="method-signature">
+          <a href="#M000272" class="method-signature">
           <span class="method-name">current_objects</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
+          <p>
+Return The Items List depending on current controller
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000293-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000293-source">
+            onclick="toggleCode('M000272-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000272-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/acts_as_item/controller.rb, line 126</span>
-126:                                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">current_objects</span>
-127:                                         <span class="ruby-ivar">@current_objects</span> = <span class="ruby-identifier">get_items_list</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:controller</span>])
-128:                                 <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/acts_as_item/controller.rb, line 128</span>
+128:                                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">current_objects</span>
+129:                                         <span class="ruby-ivar">@current_objects</span> = <span class="ruby-identifier">get_items_list</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:controller</span>])
+130:                                 <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

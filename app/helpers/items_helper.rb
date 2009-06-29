@@ -1,6 +1,6 @@
 module ItemsHelper
 
-	# Tag. Item's author is allowed to remove it by Ajax action.
+	# Item's author is allowed to remove it by Ajax action.
   def item_tag tag, editable = false
     content = tag.name
     content += link_to_remote(image_tag('icons/delete.png'),
@@ -15,6 +15,7 @@ module ItemsHelper
     item_tag tag, true
   end
 
+  # Ajax Action for Rating Item
   def item_rate(object, params = {})
     params = {
       :rerate => false,
@@ -33,6 +34,7 @@ module ItemsHelper
 		})
   end
 
+  # Item Rating Locked for Preview
   def item_rate_locked(object)
     item_rate(object, :locked => true)
   end
@@ -51,7 +53,6 @@ module ItemsHelper
       block.binding
   end
 
-	##################
 
 	# Define the common fields of the form of an item
   def form_for_item(object, title = '', &block)
@@ -162,6 +163,7 @@ module ItemsHelper
 		end
 	end
 
+  # Displays the list of items
 	def display_items_list(items_list, ajax_url, partial_used='items/items_list')
 		if items_list.first
 
@@ -178,10 +180,12 @@ module ItemsHelper
 	  render :partial => partial_used, :collection => items_list
   end
 
+  # Display Item in List for Editor
 	def display_item_in_list_for_editor
 		display_item_list('items/item_in_list_for_editor')
 	end
 
+  # Classify Bar for Ordering, Filtering Items
 	def display_classify_bar(ordering_fields_list, ajax_url, refreshed_div, partial_used='items/classify_bar')
 		render :partial => partial_used, :locals => {
 				:ordering_fields_list => ordering_fields_list,
@@ -190,12 +194,14 @@ module ItemsHelper
 		}
 	end
 
+  # Create Item Path for Ajax Calls
   def get_ajax_item_path(item_type)
     item_type ||=  get_allowed_item_types(current_workspace).first.pluralize
     url = current_workspace ? ajax_items_path(item_type) +"&page=" : ajax_items_path(item_type) +"?page="
     return url
   end
 
+  # Safe Url for Classify Bar
 	def safe_url(url, params)
 		# TODO generic allowing to replace params in url
 		# trick, work just for classify_bar case
@@ -204,6 +210,7 @@ module ItemsHelper
 		return (url+prev_params).split(params.first.split('=').first).first + ((url+prev_params).include?('?') ? '&' : '?') +params.join('&')
 	end
 
+  # Render Specific Partial according to Item Type passed
   def get_specific_partial(item_type, partial, object)
      if File.exists?(RAILS_ROOT+'/app/views/'+object.class.to_s.downcase.pluralize.underscore+"/_#{partial}.html.erb")
 			 render :partial => "#{object.class.to_s.downcase.pluralize.underscore}/#{partial}", :object => object

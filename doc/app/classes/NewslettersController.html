@@ -88,8 +88,8 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000100">send_newsletter</a>&nbsp;&nbsp;
-      <a href="#M000101">unsubscribe</a>&nbsp;&nbsp;
+      <a href="#M000097">send_newsletter</a>&nbsp;&nbsp;
+      <a href="#M000098">unsubscribe</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -111,55 +111,60 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000100" class="method-detail">
-        <a name="M000100"></a>
+      <div id="method-M000097" class="method-detail">
+        <a name="M000097"></a>
 
         <div class="method-heading">
-          <a href="#M000100" class="method-signature">
+          <a href="#M000097" class="method-signature">
           <span class="method-name">send_newsletter</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
+          <p>
+Method to Send <a href="Newsletter.html">Newsletter</a> to Selected <a
+href="Group.html">Group</a>
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000100-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000100-source">
+            onclick="toggleCode('M000097-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000097-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/controllers/newsletters_controller.rb, line 13</span>
-13:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">send_newsletter</span>
-14:     <span class="ruby-ivar">@group</span> = <span class="ruby-constant">Group</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:group_id</span>])
-15:     <span class="ruby-ivar">@newsletter</span> = <span class="ruby-constant">Newsletter</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:newsletter_id</span>])
-16:     
+    <span class="ruby-comment cmt"># File app/controllers/newsletters_controller.rb, line 14</span>
+14:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">send_newsletter</span>
+15:     <span class="ruby-ivar">@group</span> = <span class="ruby-constant">Group</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:group_id</span>])
+16:     <span class="ruby-ivar">@newsletter</span> = <span class="ruby-constant">Newsletter</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:newsletter_id</span>])
 17:     <span class="ruby-keyword kw">if</span> <span class="ruby-constant">GroupsNewsletter</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">:group_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@group</span>.<span class="ruby-identifier">id</span>,<span class="ruby-identifier">:newsletter_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@newsletter</span>.<span class="ruby-identifier">id</span>,<span class="ruby-identifier">:sent_on=</span><span class="ruby-operator">&gt;</span><span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>).<span class="ruby-identifier">save</span>
 18:       <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">member</span> <span class="ruby-keyword kw">in</span> <span class="ruby-ivar">@group</span>.<span class="ruby-identifier">members</span>
 19:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">member</span>.<span class="ruby-identifier">newsletter</span>
 20:           <span class="ruby-identifier">args</span> = [<span class="ruby-identifier">member</span>.<span class="ruby-identifier">email</span>,<span class="ruby-identifier">member</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">downcase</span>,<span class="ruby-ivar">@newsletter</span>.<span class="ruby-identifier">from_email</span>,<span class="ruby-ivar">@newsletter</span>.<span class="ruby-identifier">subject</span>, <span class="ruby-ivar">@newsletter</span>.<span class="ruby-identifier">description</span>, <span class="ruby-ivar">@newsletter</span>.<span class="ruby-identifier">body</span>]
 21:           <span class="ruby-constant">QueuedMail</span>.<span class="ruby-identifier">add</span>(<span class="ruby-value str">&quot;UserMailer&quot;</span>,<span class="ruby-value str">&quot;send_newsletter&quot;</span>, <span class="ruby-identifier">args</span>, <span class="ruby-value">0</span>)
-22: 
-23:         <span class="ruby-keyword kw">end</span>
-24:       <span class="ruby-keyword kw">end</span>
-25:       <span class="ruby-constant">MiddleMan</span>.<span class="ruby-identifier">worker</span>(<span class="ruby-identifier">:cronjob_worker</span>).<span class="ruby-identifier">async_newthread</span>
-26:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">newsletter_path</span>(<span class="ruby-ivar">@newsletter</span>)
-27:     <span class="ruby-keyword kw">end</span>
-28:   <span class="ruby-keyword kw">end</span>
+22:         <span class="ruby-keyword kw">end</span>
+23:       <span class="ruby-keyword kw">end</span>
+24:       <span class="ruby-constant">MiddleMan</span>.<span class="ruby-identifier">worker</span>(<span class="ruby-identifier">:cronjob_worker</span>).<span class="ruby-identifier">async_newthread</span>
+25:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">newsletter_path</span>(<span class="ruby-ivar">@newsletter</span>)
+26:     <span class="ruby-keyword kw">end</span>
+27:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000101" class="method-detail">
-        <a name="M000101"></a>
+      <div id="method-M000098" class="method-detail">
+        <a name="M000098"></a>
 
         <div class="method-heading">
-          <a href="#M000101" class="method-signature">
+          <a href="#M000098" class="method-signature">
           <span class="method-name">unsubscribe</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
+          <p>
+Method to Unsubscribe from a newsletter for given E-Mail
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000101-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000101-source">
+            onclick="toggleCode('M000098-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000098-source">
 <pre>
     <span class="ruby-comment cmt"># File app/controllers/newsletters_controller.rb, line 30</span>
 30:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">unsubscribe</span>

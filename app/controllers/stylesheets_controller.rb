@@ -1,5 +1,6 @@
 class StylesheetsController < ApplicationController
-   
+
+  # Dynamic CSS for Application Layout
   def application
     @header=Element.find(:first,:conditions=>{:template=>"current",:name=>"header"})
     @body=Element.find(:first,:conditions=>{:template=>"current",:name=>"body"})
@@ -17,7 +18,8 @@ class StylesheetsController < ApplicationController
       end
     end
   end
-  
+
+  # Dynamic CSS for Middle Layout
   def middle
     @header=Element.find(:first,:conditions=>{:template=>"current",:name=>"header"})
     @search=Element.find(:first,:conditions=>{:template=>"current",:name=>"search"})

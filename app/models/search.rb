@@ -3,12 +3,15 @@
 #
 # Table name: searches
 #
-#  item_type_equals     :string
-#  title_contains       :string
-#  description_contains :string
-#  user_name_contains   :string
-#  created_after        :datetime
-#  created_before       :datetime
+#  category        :string
+#  models          :string
+#  full_text_field :text
+#  conditions      :string
+#  created_before  :date
+#  created_after   :date
+#  filter_name     :string
+#  filter_way      :string
+#  filter_limit    :integer
 #
 
 

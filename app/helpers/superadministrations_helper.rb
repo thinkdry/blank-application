@@ -1,3 +1,0 @@
-module SuperadministrationsHelper
-
-end

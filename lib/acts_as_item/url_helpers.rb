@@ -15,6 +15,7 @@ module ActsAsItem
         :ajax_items_path
     end
 
+    # Return Worksapce Object
     def current_workspace
       get_ws = Proc.new do
         params['workspace_id'] ? 
@@ -31,6 +32,10 @@ module ActsAsItem
       @workspace = get_ws.call
     end
 
+    # Show Url for given Item Object
+    #
+    # Usage:
+    # item_path(article_object) => /articles/1
     def item_path object, params = {}
       prefix = params.delete :prefix
 
@@ -45,6 +50,10 @@ module ActsAsItem
       send helper_name, *args
     end
 
+    # New Url for given Item Object
+    #
+    # Usage:
+    # new_item_path(article_object) => /articles/new
     def new_item_path(model)
       helper_name = 'new_'
       helper_name += 'workspace_' if current_workspace
@@ -53,6 +62,10 @@ module ActsAsItem
       send(helper_name, *args)
     end
 
+    # Edit Url for given Item Object
+    #
+    # Usage:
+    # edit_item_path(article_object) => /articles/1/edit
 		def edit_item_path(model)
       helper_name = 'edit_'
       helper_name += 'workspace_' if current_workspace
@@ -61,6 +74,10 @@ module ActsAsItem
       send(helper_name, *args)
     end
 
+    # Index Url for given Item Object
+    #
+    # Usage:
+    # items_path(article_object) => /articles
     def items_path(model)
       model = model.table_name unless model.is_a?(String)  
       if current_workspace
@@ -70,7 +87,8 @@ module ActsAsItem
       end
     end
 
-    def ajax_items_path(model)
+    # Dynamically create Item path for given Item for Pagination
+     def ajax_items_path(model)
       model = model.table_name unless model.is_a?(String)
       if current_workspace
         workspace_ajax_content_url(:workspace_id => current_workspace.id, :item_type => model)

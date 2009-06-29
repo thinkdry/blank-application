@@ -3,15 +3,19 @@
 #
 # Table name: articles
 #
-#  id          :integer(4)      not null, primary key
-#  user_id     :integer(4)
-#  title       :string(255)
-#  description :text
-#  state       :string(255)
-#  body        :text
-#  created_at  :datetime
-#  updated_at  :datetime
-#  tags        :string(255)
+#  id              :integer(4)      not null, primary key
+#  user_id         :integer(4)
+#  title           :string(255)
+#  description     :text
+#  state           :string(255)
+#  body            :text
+#  created_at      :datetime
+#  updated_at      :datetime
+#  tags            :string(255)
+#  viewed_number   :integer(4)
+#  rates_average   :integer(4)
+#  comments_number :integer(4)
+#  category        :string(255)
 #
 
 class Article < ActiveRecord::Base

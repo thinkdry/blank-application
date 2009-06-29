@@ -1,7 +1,8 @@
 class SearchesController < ApplicationController
 	
   acts_as_ajax_validation
-  
+
+  # Index Page for Search Results with Filtered Results
   def index
 		# Params link to AJAX calls
 		if params[:page] || params[:filter_name] || params[:layout]
@@ -43,6 +44,7 @@ class SearchesController < ApplicationController
 		end
   end
 
+  # Print Advance Search Partial
 	def print_advanced
 		render :partial => 'advanced_search', :locals => { :category => params[:search][:category] }
 	end

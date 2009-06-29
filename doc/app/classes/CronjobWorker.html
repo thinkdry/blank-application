@@ -86,11 +86,11 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000030">create</a>&nbsp;&nbsp;
-      <a href="#M000031">newthread</a>&nbsp;&nbsp;
-      <a href="#M000034">send_newsletter</a>&nbsp;&nbsp;
-      <a href="#M000032">update_feed_source</a>&nbsp;&nbsp;
-      <a href="#M000033">update_xapian_index</a>&nbsp;&nbsp;
+      <a href="#M000025">create</a>&nbsp;&nbsp;
+      <a href="#M000026">newthread</a>&nbsp;&nbsp;
+      <a href="#M000029">send_newsletter</a>&nbsp;&nbsp;
+      <a href="#M000027">update_feed_source</a>&nbsp;&nbsp;
+      <a href="#M000028">update_xapian_index</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -112,128 +112,142 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000030" class="method-detail">
-        <a name="M000030"></a>
+      <div id="method-M000025" class="method-detail">
+        <a name="M000025"></a>
 
         <div class="method-heading">
-          <a href="#M000030" class="method-signature">
+          <a href="#M000025" class="method-signature">
           <span class="method-name">create</span><span class="method-args">(args = nil)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000030-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000030-source">
+            onclick="toggleCode('M000025-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000025-source">
 <pre>
    <span class="ruby-comment cmt"># File lib/workers/cronjob_worker.rb, line 5</span>
 5:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create</span>(<span class="ruby-identifier">args</span> = <span class="ruby-keyword kw">nil</span>)
-6:     <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;Started Worker for FeedSource &amp; Xapian Updation &amp; Newsletter&quot;</span>
+6:     <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;Started Worker for FeedSource, Xapian Index Updation &amp; Newsletter&quot;</span>
 7:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000031" class="method-detail">
-        <a name="M000031"></a>
+      <div id="method-M000026" class="method-detail">
+        <a name="M000026"></a>
 
         <div class="method-heading">
-          <a href="#M000031" class="method-signature">
+          <a href="#M000026" class="method-signature">
           <span class="method-name">newthread</span><span class="method-args">(args)</span>
           </a>
         </div>
       
         <div class="method-description">
+          <p>
+Create New Thread for Sending <a href="Newsletter.html">Newsletter</a>
+Asynchronously
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000031-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000031-source">
+            onclick="toggleCode('M000026-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000026-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/workers/cronjob_worker.rb, line 9</span>
- 9:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">newthread</span>(<span class="ruby-identifier">args</span>)
-10:     <span class="ruby-identifier">thread_pool</span>.<span class="ruby-identifier">defer</span>(<span class="ruby-identifier">:send_newsletter</span>)
-11:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/workers/cronjob_worker.rb, line 10</span>
+10:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">newthread</span>(<span class="ruby-identifier">args</span>)
+11:     <span class="ruby-identifier">thread_pool</span>.<span class="ruby-identifier">defer</span>(<span class="ruby-identifier">:send_newsletter</span>)
+12:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000034" class="method-detail">
-        <a name="M000034"></a>
+      <div id="method-M000029" class="method-detail">
+        <a name="M000029"></a>
 
         <div class="method-heading">
-          <a href="#M000034" class="method-signature">
+          <a href="#M000029" class="method-signature">
           <span class="method-name">send_newsletter</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
+          <p>
+Method to Send <a href="Newsletter.html">Newsletter</a> to Subscribed
+Members
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000034-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000034-source">
+            onclick="toggleCode('M000029-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000029-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/workers/cronjob_worker.rb, line 32</span>
-32:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">send_newsletter</span>
-33:                 <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-value str">&quot;Sending the newsletters&quot;</span>
-34:                 <span class="ruby-identifier">command</span>=<span class="ruby-value str">&quot;ruby script/runner QueuedMail.send_email\n&quot;</span>
-35:     <span class="ruby-identifier">command</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/\s+/</span>, <span class="ruby-value str">&quot; &quot;</span>)
-36:     <span class="ruby-identifier">system</span>(<span class="ruby-identifier">command</span>)
-37:     <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Sent the newsletters on #{Time.now}&quot;</span>
-38:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/workers/cronjob_worker.rb, line 36</span>
+36:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">send_newsletter</span>
+37:                 <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-value str">&quot;Sending the newsletters&quot;</span>
+38:                 <span class="ruby-identifier">command</span>=<span class="ruby-value str">&quot;ruby script/runner QueuedMail.send_email\n&quot;</span>
+39:     <span class="ruby-identifier">command</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/\s+/</span>, <span class="ruby-value str">&quot; &quot;</span>)
+40:     <span class="ruby-identifier">system</span>(<span class="ruby-identifier">command</span>)
+41:     <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Sent the newsletters on #{Time.now}&quot;</span>
+42:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000032" class="method-detail">
-        <a name="M000032"></a>
+      <div id="method-M000027" class="method-detail">
+        <a name="M000027"></a>
 
         <div class="method-heading">
-          <a href="#M000032" class="method-signature">
+          <a href="#M000027" class="method-signature">
           <span class="method-name">update_feed_source</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
+          <p>
+Method to Update Feed Sources
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000032-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000032-source">
+            onclick="toggleCode('M000027-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000027-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/workers/cronjob_worker.rb, line 13</span>
-13:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update_feed_source</span>
-14:     <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-value str">&quot;Updating Feed Sources&quot;</span>
-15:     <span class="ruby-constant">FeedSource</span>.<span class="ruby-identifier">all</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span>
-16:       <span class="ruby-identifier">s</span>.<span class="ruby-identifier">import_latest_items</span>
-17:     <span class="ruby-keyword kw">end</span>
-18:     <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-value str">&quot;Updated Feed sources&quot;</span>
-19:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/workers/cronjob_worker.rb, line 15</span>
+15:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update_feed_source</span>
+16:     <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-value str">&quot;Updating Feed Sources&quot;</span>
+17:     <span class="ruby-constant">FeedSource</span>.<span class="ruby-identifier">all</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span>
+18:       <span class="ruby-identifier">s</span>.<span class="ruby-identifier">import_latest_items</span>
+19:     <span class="ruby-keyword kw">end</span>
+20:     <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-value str">&quot;Updated Feed sources&quot;</span>
+21:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000033" class="method-detail">
-        <a name="M000033"></a>
+      <div id="method-M000028" class="method-detail">
+        <a name="M000028"></a>
 
         <div class="method-heading">
-          <a href="#M000033" class="method-signature">
+          <a href="#M000028" class="method-signature">
           <span class="method-name">update_xapian_index</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
+          <p>
+Method to Update Xapian Indexes
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000033-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000033-source">
+            onclick="toggleCode('M000028-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000028-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/workers/cronjob_worker.rb, line 21</span>
-21:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update_xapian_index</span>
-22:     <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-value str">&quot;Updating Xapian Indexes&quot;</span>
-23:     <span class="ruby-identifier">command</span>=<span class="ruby-value str">&quot;rake xapian:update_index RAILS_ENV=\#{RAILS_ENV}\n&quot;</span>
-24:     <span class="ruby-identifier">command</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/\s+/</span>, <span class="ruby-value str">&quot; &quot;</span>)
-25:     <span class="ruby-identifier">system</span>(<span class="ruby-identifier">command</span>)
-26:     <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-value str">&quot;Updated Xapian Indexes&quot;</span>
-27:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/workers/cronjob_worker.rb, line 24</span>
+24:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update_xapian_index</span>
+25:     <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-value str">&quot;Updating Xapian Indexes&quot;</span>
+26:     <span class="ruby-identifier">command</span>=<span class="ruby-value str">&quot;rake xapian:update_index RAILS_ENV=\#{RAILS_ENV}\n&quot;</span>
+27:     <span class="ruby-identifier">command</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/\s+/</span>, <span class="ruby-value str">&quot; &quot;</span>)
+28:     <span class="ruby-identifier">system</span>(<span class="ruby-identifier">command</span>)
+29:     <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-value str">&quot;Updated Xapian Indexes&quot;</span>
+30:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

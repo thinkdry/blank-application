@@ -1,3 +1,16 @@
+# == Schema Information
+# Schema version: 20181126085723
+#
+# Table name: queued_mails
+#
+#  id            :integer(4)      not null, primary key
+#  mailer        :string(255)
+#  mailer_method :string(255)
+#  args          :text
+#  priority      :integer(4)      default(0)
+#  created_at    :datetime
+#
+
 # require 'user_mailer'
 
 class QueuedMail < ActiveRecord::Base

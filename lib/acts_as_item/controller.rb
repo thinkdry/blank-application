@@ -6,6 +6,7 @@ module ActsAsItem
     end
     
     module ClassMethods
+      # ActsAsItem Library for Item Specific Code - Specific Controller Methods to All Items
       def acts_as_item &block
         include ActsAsItem::ControllerMethods::InstanceMethods
 				acts_as_commentable
@@ -123,6 +124,7 @@ module ActsAsItem
 					
         end
 
+        # Return The Items List depending on current controller
 				def current_objects
 					@current_objects = get_items_list(params[:controller])
 				end
@@ -134,6 +136,7 @@ module ActsAsItem
     end
     
     module InstanceMethods
+      # Add Rating to the Current Item
       def rate
         current_object.add_rating(Rating.new(:rating => params[:rated].to_i))
 				current_object.rates_average = current_object.rating

@@ -1,9 +1,9 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
-
 	include AjaxPagination
 	
   FLASH_NOTICE_KEYS = [:error, :notice, :warning]
+  
 	def small_item_in_list(item)
 		# display all items by category
 		# ...	

@@ -80,7 +80,7 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000247">page_entries_info</a>&nbsp;&nbsp;
+      <a href="#M000226">page_entries_info</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -102,37 +102,40 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000247" class="method-detail">
-        <a name="M000247"></a>
+      <div id="method-M000226" class="method-detail">
+        <a name="M000226"></a>
 
         <div class="method-heading">
-          <a href="#M000247" class="method-signature">
+          <a href="#M000226" class="method-signature">
           <span class="method-name">page_entries_info</span><span class="method-args">(collection, options = {})</span>
           </a>
         </div>
       
         <div class="method-description">
+          <p>
+Output Format for <a href="Search.html">Search</a> Results
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000247-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000247-source">
+            onclick="toggleCode('M000226-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000226-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/helpers/searches_helper.rb, line 2</span>
- 2: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">page_entries_info</span>(<span class="ruby-identifier">collection</span>, <span class="ruby-identifier">options</span> = {})
- 3:   <span class="ruby-identifier">entry_name</span> = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'layout.search.result'</span>)
- 4:   <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">collection</span>.<span class="ruby-identifier">total_pages</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">2</span>
- 5:     <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">collection</span>.<span class="ruby-identifier">size</span>
- 6:     <span class="ruby-keyword kw">when</span> <span class="ruby-value">0</span>; <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'general.common_word.no1'</span>).<span class="ruby-identifier">capitalize</span><span class="ruby-operator">+</span><span class="ruby-node">&quot; #{entry_name}&quot;</span>
- 7:     <span class="ruby-keyword kw">when</span> <span class="ruby-value">1</span>; <span class="ruby-node">&quot;&lt;b&gt;1&lt;/b&gt; #{entry_name}&quot;</span>
- 8:     <span class="ruby-keyword kw">else</span>;   <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'layout.search.displaying'</span>).<span class="ruby-identifier">capitalize</span><span class="ruby-operator">+</span><span class="ruby-node">&quot; &lt;b&gt;#{collection.size}&lt;/b&gt; #{entry_name.pluralize}&quot;</span>
- 9:     <span class="ruby-keyword kw">end</span>
-10:   <span class="ruby-keyword kw">else</span>
-11:     <span class="ruby-node">%{#{I18n.t('layout.search.displaying').capitalize} #{entry_name.pluralize} &lt;b&gt;%d&amp;nbsp;-&amp;nbsp;%d&lt;/b&gt; #{I18n.t('general.common_word.of')} &lt;b&gt;%d&lt;/b&gt; #{I18n.t('general.common_word.found')}}</span> <span class="ruby-operator">%</span> [
-12:       <span class="ruby-identifier">collection</span>.<span class="ruby-identifier">offset</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>,
-13:       <span class="ruby-identifier">collection</span>.<span class="ruby-identifier">offset</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">collection</span>.<span class="ruby-identifier">length</span>,
-14:       <span class="ruby-identifier">collection</span>.<span class="ruby-identifier">total_entries</span>
-15:     ]
-16:   <span class="ruby-keyword kw">end</span>
-17: <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/helpers/searches_helper.rb, line 4</span>
+ 4:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">page_entries_info</span>(<span class="ruby-identifier">collection</span>, <span class="ruby-identifier">options</span> = {})
+ 5:   <span class="ruby-identifier">entry_name</span> = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'layout.search.result'</span>)
+ 6:   <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">collection</span>.<span class="ruby-identifier">total_pages</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">2</span>
+ 7:     <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">collection</span>.<span class="ruby-identifier">size</span>
+ 8:     <span class="ruby-keyword kw">when</span> <span class="ruby-value">0</span>; <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'general.common_word.no1'</span>).<span class="ruby-identifier">capitalize</span><span class="ruby-operator">+</span><span class="ruby-node">&quot; #{entry_name}&quot;</span>
+ 9:     <span class="ruby-keyword kw">when</span> <span class="ruby-value">1</span>; <span class="ruby-node">&quot;&lt;b&gt;1&lt;/b&gt; #{entry_name}&quot;</span>
+10:     <span class="ruby-keyword kw">else</span>;   <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'layout.search.displaying'</span>).<span class="ruby-identifier">capitalize</span><span class="ruby-operator">+</span><span class="ruby-node">&quot; &lt;b&gt;#{collection.size}&lt;/b&gt; #{entry_name.pluralize}&quot;</span>
+11:     <span class="ruby-keyword kw">end</span>
+12:   <span class="ruby-keyword kw">else</span>
+13:     <span class="ruby-node">%{#{I18n.t('layout.search.displaying').capitalize} #{entry_name.pluralize} &lt;b&gt;%d&amp;nbsp;-&amp;nbsp;%d&lt;/b&gt; #{I18n.t('general.common_word.of')} &lt;b&gt;%d&lt;/b&gt; #{I18n.t('general.common_word.found')}}</span> <span class="ruby-operator">%</span> [
+14:       <span class="ruby-identifier">collection</span>.<span class="ruby-identifier">offset</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>,
+15:       <span class="ruby-identifier">collection</span>.<span class="ruby-identifier">offset</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">collection</span>.<span class="ruby-identifier">length</span>,
+16:       <span class="ruby-identifier">collection</span>.<span class="ruby-identifier">total_entries</span>
+17:     ]
+18:   <span class="ruby-keyword kw">end</span>
+19: <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

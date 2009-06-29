@@ -88,8 +88,8 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000013">application</a>&nbsp;&nbsp;
-      <a href="#M000014">middle</a>&nbsp;&nbsp;
+      <a href="#M000008">application</a>&nbsp;&nbsp;
+      <a href="#M000009">middle</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -111,71 +111,77 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000013" class="method-detail">
-        <a name="M000013"></a>
+      <div id="method-M000008" class="method-detail">
+        <a name="M000008"></a>
 
         <div class="method-heading">
-          <a href="#M000013" class="method-signature">
+          <a href="#M000008" class="method-signature">
           <span class="method-name">application</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
+          <p>
+Dynamic CSS for Application Layout
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000013-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000013-source">
+            onclick="toggleCode('M000008-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000008-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/controllers/stylesheets_controller.rb, line 3</span>
- 3:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">application</span>
- 4:     <span class="ruby-ivar">@header</span>=<span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>,<span class="ruby-identifier">:conditions=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-identifier">:template=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;current&quot;</span>,<span class="ruby-identifier">:name=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;header&quot;</span>})
- 5:     <span class="ruby-ivar">@body</span>=<span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>,<span class="ruby-identifier">:conditions=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-identifier">:template=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;current&quot;</span>,<span class="ruby-identifier">:name=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;body&quot;</span>})
- 6:     <span class="ruby-ivar">@footer</span>=<span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>,<span class="ruby-identifier">:conditions=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-identifier">:template=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;current&quot;</span>,<span class="ruby-identifier">:name=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;footer&quot;</span>})
- 7:     <span class="ruby-ivar">@top</span>=<span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>,<span class="ruby-identifier">:conditions=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-identifier">:template=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;current&quot;</span>,<span class="ruby-identifier">:name=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;top&quot;</span>})
- 8:     <span class="ruby-ivar">@search</span>=<span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>,<span class="ruby-identifier">:conditions=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-identifier">:template=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;current&quot;</span>,<span class="ruby-identifier">:name=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;search&quot;</span>})
- 9:     <span class="ruby-ivar">@ws</span>=<span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>,<span class="ruby-identifier">:conditions=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-identifier">:template=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;current&quot;</span>,<span class="ruby-identifier">:name=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;ws&quot;</span>})
-10:     <span class="ruby-ivar">@border</span>=<span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>,<span class="ruby-identifier">:conditions=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-identifier">:template=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;current&quot;</span>,<span class="ruby-identifier">:name=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;border&quot;</span>})
-11:     <span class="ruby-ivar">@accordion</span>=<span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>,<span class="ruby-identifier">:conditions=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-identifier">:template=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;current&quot;</span>,<span class="ruby-identifier">:name=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;accordion&quot;</span>})
-12:     <span class="ruby-ivar">@links</span>=<span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>,<span class="ruby-identifier">:conditions=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-identifier">:template=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;current&quot;</span>,<span class="ruby-identifier">:name=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;links&quot;</span>})
-13:     <span class="ruby-ivar">@clicked</span>=<span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>,<span class="ruby-identifier">:conditions=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-identifier">:template=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;current&quot;</span>,<span class="ruby-identifier">:name=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;clicked&quot;</span>})
-14:     <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-15:       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">css</span> <span class="ruby-keyword kw">do</span>
-16:         <span class="ruby-identifier">render</span>
-17:       <span class="ruby-keyword kw">end</span>
-18:     <span class="ruby-keyword kw">end</span>
-19:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/controllers/stylesheets_controller.rb, line 4</span>
+ 4:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">application</span>
+ 5:     <span class="ruby-ivar">@header</span>=<span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>,<span class="ruby-identifier">:conditions=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-identifier">:template=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;current&quot;</span>,<span class="ruby-identifier">:name=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;header&quot;</span>})
+ 6:     <span class="ruby-ivar">@body</span>=<span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>,<span class="ruby-identifier">:conditions=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-identifier">:template=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;current&quot;</span>,<span class="ruby-identifier">:name=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;body&quot;</span>})
+ 7:     <span class="ruby-ivar">@footer</span>=<span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>,<span class="ruby-identifier">:conditions=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-identifier">:template=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;current&quot;</span>,<span class="ruby-identifier">:name=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;footer&quot;</span>})
+ 8:     <span class="ruby-ivar">@top</span>=<span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>,<span class="ruby-identifier">:conditions=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-identifier">:template=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;current&quot;</span>,<span class="ruby-identifier">:name=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;top&quot;</span>})
+ 9:     <span class="ruby-ivar">@search</span>=<span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>,<span class="ruby-identifier">:conditions=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-identifier">:template=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;current&quot;</span>,<span class="ruby-identifier">:name=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;search&quot;</span>})
+10:     <span class="ruby-ivar">@ws</span>=<span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>,<span class="ruby-identifier">:conditions=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-identifier">:template=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;current&quot;</span>,<span class="ruby-identifier">:name=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;ws&quot;</span>})
+11:     <span class="ruby-ivar">@border</span>=<span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>,<span class="ruby-identifier">:conditions=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-identifier">:template=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;current&quot;</span>,<span class="ruby-identifier">:name=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;border&quot;</span>})
+12:     <span class="ruby-ivar">@accordion</span>=<span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>,<span class="ruby-identifier">:conditions=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-identifier">:template=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;current&quot;</span>,<span class="ruby-identifier">:name=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;accordion&quot;</span>})
+13:     <span class="ruby-ivar">@links</span>=<span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>,<span class="ruby-identifier">:conditions=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-identifier">:template=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;current&quot;</span>,<span class="ruby-identifier">:name=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;links&quot;</span>})
+14:     <span class="ruby-ivar">@clicked</span>=<span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>,<span class="ruby-identifier">:conditions=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-identifier">:template=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;current&quot;</span>,<span class="ruby-identifier">:name=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;clicked&quot;</span>})
+15:     <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+16:       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">css</span> <span class="ruby-keyword kw">do</span>
+17:         <span class="ruby-identifier">render</span>
+18:       <span class="ruby-keyword kw">end</span>
+19:     <span class="ruby-keyword kw">end</span>
+20:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000014" class="method-detail">
-        <a name="M000014"></a>
+      <div id="method-M000009" class="method-detail">
+        <a name="M000009"></a>
 
         <div class="method-heading">
-          <a href="#M000014" class="method-signature">
+          <a href="#M000009" class="method-signature">
           <span class="method-name">middle</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
+          <p>
+Dynamic CSS for Middle Layout
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000014-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000014-source">
+            onclick="toggleCode('M000009-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000009-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/controllers/stylesheets_controller.rb, line 21</span>
-21:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">middle</span>
-22:     <span class="ruby-ivar">@header</span>=<span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>,<span class="ruby-identifier">:conditions=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-identifier">:template=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;current&quot;</span>,<span class="ruby-identifier">:name=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;header&quot;</span>})
-23:     <span class="ruby-ivar">@search</span>=<span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>,<span class="ruby-identifier">:conditions=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-identifier">:template=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;current&quot;</span>,<span class="ruby-identifier">:name=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;search&quot;</span>})
-24:     <span class="ruby-ivar">@accordion</span>=<span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>,<span class="ruby-identifier">:conditions=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-identifier">:template=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;current&quot;</span>,<span class="ruby-identifier">:name=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;accordion&quot;</span>})
-25:      <span class="ruby-ivar">@ws</span>=<span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>,<span class="ruby-identifier">:conditions=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-identifier">:template=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;current&quot;</span>,<span class="ruby-identifier">:name=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;ws&quot;</span>})
-26:     <span class="ruby-ivar">@border</span>=<span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>,<span class="ruby-identifier">:conditions=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-identifier">:template=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;current&quot;</span>,<span class="ruby-identifier">:name=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;border&quot;</span>})
-27:     <span class="ruby-ivar">@links</span>=<span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>,<span class="ruby-identifier">:conditions=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-identifier">:template=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;current&quot;</span>,<span class="ruby-identifier">:name=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;links&quot;</span>})
-28:     <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-29:       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">css</span> <span class="ruby-keyword kw">do</span>
-30:         <span class="ruby-identifier">render</span>
-31:       <span class="ruby-keyword kw">end</span>
-32:     <span class="ruby-keyword kw">end</span>
-33:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/controllers/stylesheets_controller.rb, line 23</span>
+23:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">middle</span>
+24:     <span class="ruby-ivar">@header</span>=<span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>,<span class="ruby-identifier">:conditions=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-identifier">:template=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;current&quot;</span>,<span class="ruby-identifier">:name=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;header&quot;</span>})
+25:     <span class="ruby-ivar">@search</span>=<span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>,<span class="ruby-identifier">:conditions=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-identifier">:template=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;current&quot;</span>,<span class="ruby-identifier">:name=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;search&quot;</span>})
+26:     <span class="ruby-ivar">@accordion</span>=<span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>,<span class="ruby-identifier">:conditions=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-identifier">:template=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;current&quot;</span>,<span class="ruby-identifier">:name=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;accordion&quot;</span>})
+27:      <span class="ruby-ivar">@ws</span>=<span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>,<span class="ruby-identifier">:conditions=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-identifier">:template=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;current&quot;</span>,<span class="ruby-identifier">:name=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;ws&quot;</span>})
+28:     <span class="ruby-ivar">@border</span>=<span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>,<span class="ruby-identifier">:conditions=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-identifier">:template=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;current&quot;</span>,<span class="ruby-identifier">:name=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;border&quot;</span>})
+29:     <span class="ruby-ivar">@links</span>=<span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>,<span class="ruby-identifier">:conditions=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-identifier">:template=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;current&quot;</span>,<span class="ruby-identifier">:name=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;links&quot;</span>})
+30:     <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+31:       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">css</span> <span class="ruby-keyword kw">do</span>
+32:         <span class="ruby-identifier">render</span>
+33:       <span class="ruby-keyword kw">end</span>
+34:     <span class="ruby-keyword kw">end</span>
+35:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

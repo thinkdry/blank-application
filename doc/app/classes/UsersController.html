@@ -88,16 +88,16 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000109">activate</a>&nbsp;&nbsp;
-      <a href="#M000113">administration</a>&nbsp;&nbsp;
-      <a href="#M000106">ajax_index</a>&nbsp;&nbsp;
-      <a href="#M000108">autocomplete_on</a>&nbsp;&nbsp;
-      <a href="#M000105">create</a>&nbsp;&nbsp;
-      <a href="#M000107">current_objects</a>&nbsp;&nbsp;
-      <a href="#M000110">forgot_password</a>&nbsp;&nbsp;
-      <a href="#M000104">give_da_layout</a>&nbsp;&nbsp;
-      <a href="#M000111">reset_password</a>&nbsp;&nbsp;
-      <a href="#M000112">validate</a>&nbsp;&nbsp;
+      <a href="#M000106">activate</a>&nbsp;&nbsp;
+      <a href="#M000110">administration</a>&nbsp;&nbsp;
+      <a href="#M000103">ajax_index</a>&nbsp;&nbsp;
+      <a href="#M000105">autocomplete_on</a>&nbsp;&nbsp;
+      <a href="#M000102">create</a>&nbsp;&nbsp;
+      <a href="#M000104">current_objects</a>&nbsp;&nbsp;
+      <a href="#M000107">forgot_password</a>&nbsp;&nbsp;
+      <a href="#M000101">give_da_layout</a>&nbsp;&nbsp;
+      <a href="#M000108">reset_password</a>&nbsp;&nbsp;
+      <a href="#M000109">validate</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -119,207 +119,33 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000109" class="method-detail">
-        <a name="M000109"></a>
+      <div id="method-M000106" class="method-detail">
+        <a name="M000106"></a>
 
         <div class="method-heading">
-          <a href="#M000109" class="method-signature">
+          <a href="#M000106" class="method-signature">
           <span class="method-name">activate</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Function allowing to <a href="UsersController.html#M000109">activate</a>
+Function allowing to <a href="UsersController.html#M000106">activate</a>
 the user with the RESTful authentification plugin
 </p>
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000109-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000109-source">
-<pre>
-     <span class="ruby-comment cmt"># File app/controllers/users_controller.rb, line 164</span>
-164:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">activate</span>
-165:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">current_user</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:activation_code</span>].<span class="ruby-identifier">blank?</span> <span class="ruby-value">? </span><span class="ruby-operator">:</span><span class="ruby-keyword kw">false</span> <span class="ruby-operator">:</span> <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_by_activation_code</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:activation_code</span>])
-166:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">logged_in?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">active?</span>
-167:       <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">activate</span>
-168:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-value str">&quot;Subscription complete !&quot;</span>
-169:     <span class="ruby-keyword kw">end</span>
-170:     <span class="ruby-identifier">redirect_back_or_default</span>(<span class="ruby-value str">'/'</span>)
-171:   <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000113" class="method-detail">
-        <a name="M000113"></a>
-
-        <div class="method-heading">
-          <a href="#M000113" class="method-signature">
-          <span class="method-name">administration</span><span class="method-args">()</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p>
-TODO remove it, just direct links in the old layout, to hell ajax my zob
-</p>
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000113-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000113-source">
-<pre>
-     <span class="ruby-comment cmt"># File app/controllers/users_controller.rb, line 216</span>
-216:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">administration</span>
-217:     <span class="ruby-ivar">@current_object</span> = <span class="ruby-identifier">current_user</span>
-218:     <span class="ruby-ivar">@workspaces</span> = <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">has_system_permission</span>(<span class="ruby-value str">'workspace'</span>, <span class="ruby-value str">'show'</span>))
-219:       <span class="ruby-constant">Workspace</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>)
-220:     <span class="ruby-keyword kw">else</span>
-221:       <span class="ruby-constant">Workspace</span>.<span class="ruby-identifier">allowed_user_with_permission</span>(<span class="ruby-ivar">@current_user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-value str">'workspace_show'</span>)
-222:     <span class="ruby-keyword kw">end</span>
-223:   <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000106" class="method-detail">
-        <a name="M000106"></a>
-
-        <div class="method-heading">
-          <a href="#M000106" class="method-signature">
-          <span class="method-name">ajax_index</span><span class="method-args">()</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
           <p><a class="source-toggle" href="#"
             onclick="toggleCode('M000106-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000106-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/controllers/users_controller.rb, line 132</span>
-132:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ajax_index</span>
-133:     <span class="ruby-identifier">current_objects</span>
-134:     <span class="ruby-identifier">render</span> <span class="ruby-identifier">:partial</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'user_in_list'</span>
-135:   <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000108" class="method-detail">
-        <a name="M000108"></a>
-
-        <div class="method-heading">
-          <a href="#M000108" class="method-signature">
-          <span class="method-name">autocomplete_on</span><span class="method-args">()</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000108-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000108-source">
-<pre>
-     <span class="ruby-comment cmt"># File app/controllers/users_controller.rb, line 152</span>
-152:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">autocomplete_on</span>
-153:     <span class="ruby-identifier">conditions</span> = <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value str">'login'</span>]
-154:       [<span class="ruby-value str">&quot;login LIKE :login OR firstname LIKE :login OR lastname LIKE :login&quot;</span>,
-155:         { <span class="ruby-identifier">:login</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;%#{params['login']}%&quot;</span>}]
-156:     <span class="ruby-keyword kw">else</span>
-157:       {}
-158:     <span class="ruby-keyword kw">end</span>
-159:     <span class="ruby-ivar">@objects</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">conditions</span>)
-160:     <span class="ruby-identifier">render</span> <span class="ruby-identifier">:text</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'&lt;ul&gt;'</span><span class="ruby-operator">+</span><span class="ruby-ivar">@objects</span>.<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot;&lt;li&gt;#{e.login} (#{e.full_name})&lt;/li&gt;&quot;</span> }.<span class="ruby-identifier">join</span>(<span class="ruby-value str">' '</span>)<span class="ruby-operator">+</span><span class="ruby-value str">'&lt;/ul&gt;'</span>
-161:   <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000105" class="method-detail">
-        <a name="M000105"></a>
-
-        <div class="method-heading">
-          <a href="#M000105" class="method-signature">
-          <span class="method-name">create</span><span class="method-args">()</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000105-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000105-source">
-<pre>
-     <span class="ruby-comment cmt"># File app/controllers/users_controller.rb, line 96</span>
- 96:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create</span>
- 97:     <span class="ruby-comment cmt"># System role by default, secure assignement</span>
- 98:     <span class="ruby-ivar">@current_object</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:user</span>])
- 99:     <span class="ruby-identifier">valid_user</span> = <span class="ruby-keyword kw">false</span>
-100:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">current_user</span>
-101:       <span class="ruby-identifier">valid_user</span> = <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">save</span>
-102:     <span class="ruby-keyword kw">else</span>
-103:       <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">system_role_id</span> = <span class="ruby-constant">Role</span>.<span class="ruby-identifier">find_by_name</span>(<span class="ruby-value str">'user'</span>).<span class="ruby-identifier">id</span>
-104:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">yacaph_validated?</span>
-105:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">save</span>
-106:           <span class="ruby-identifier">valid_user</span> = <span class="ruby-keyword kw">true</span>
-107:         <span class="ruby-keyword kw">end</span>
-108:       <span class="ruby-keyword kw">else</span>
-109:         <span class="ruby-ivar">@captcha_valid</span> = <span class="ruby-keyword kw">false</span>
-110:       <span class="ruby-keyword kw">end</span>
-111:     <span class="ruby-keyword kw">end</span>
-112:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">valid_user</span>
-113:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">is_given_private_workspace</span>
-114:         <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">create_private_workspace</span>
-115:       <span class="ruby-keyword kw">end</span>
-116:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'user.new.flash_notice'</span>)
-117:       <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-118:         <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span>(<span class="ruby-value str">'/'</span>) }
-119:       <span class="ruby-keyword kw">end</span>
-120:     <span class="ruby-keyword kw">else</span>
-121:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">logged_in?</span>
-122:         <span class="ruby-identifier">get_roles</span>
-123:         <span class="ruby-ivar">@search</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Search</span>.<span class="ruby-identifier">new</span>
-124:       <span class="ruby-keyword kw">end</span>
-125:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'user.new.flash_error'</span>)
-126:       <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-127:         <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'new'</span>, <span class="ruby-identifier">:layout</span> =<span class="ruby-operator">&gt;</span> (<span class="ruby-identifier">current_user</span> <span class="ruby-value">? </span><span class="ruby-identifier">get_da_layout</span> <span class="ruby-operator">:</span> <span class="ruby-value str">'login'</span>) }
-128:       <span class="ruby-keyword kw">end</span>
-129:     <span class="ruby-keyword kw">end</span>
-130:   <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000107" class="method-detail">
-        <a name="M000107"></a>
-
-        <div class="method-heading">
-          <a href="#M000107" class="method-signature">
-          <span class="method-name">current_objects</span><span class="method-args">()</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000107-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000107-source">
-<pre>
-     <span class="ruby-comment cmt"># File app/controllers/users_controller.rb, line 137</span>
-137:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">current_objects</span>
-138:                 <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@current_user</span>.<span class="ruby-identifier">has_system_role</span>(<span class="ruby-value str">'superadmin'</span>)
-139:                         <span class="ruby-identifier">tmp</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">all</span>
-140:                 <span class="ruby-keyword kw">elsif</span> <span class="ruby-ivar">@current_user</span>.<span class="ruby-identifier">has_system_role</span>(<span class="ruby-value str">'admin'</span>)
-141:                         <span class="ruby-identifier">tmp</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_by_sql</span>(<span class="ruby-value str">&quot;SELECT users.* FROM users, roles WHERE users.system_role_id=roles.id AND roles.name!='superadmin'&quot;</span>)
-142:                 <span class="ruby-keyword kw">else</span>
-143:                         <span class="ruby-identifier">tmp</span> = []
-144:                         <span class="ruby-constant">Workspace</span>.<span class="ruby-identifier">allowed_user_with_permission</span>(<span class="ruby-ivar">@current_user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-value str">'user_show'</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">w</span><span class="ruby-operator">|</span>
-145:                                 <span class="ruby-identifier">tmp</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">w</span>.<span class="ruby-identifier">users</span>
-146:                         <span class="ruby-keyword kw">end</span>
-147:                         <span class="ruby-identifier">tmp</span> = <span class="ruby-identifier">tmp</span>.<span class="ruby-identifier">uniq</span>
-148:                 <span class="ruby-keyword kw">end</span>
-149:                 <span class="ruby-ivar">@current_objects</span> <span class="ruby-operator">||=</span> <span class="ruby-ivar">@users</span> = <span class="ruby-identifier">tmp</span>.<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">:page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:page</span>], <span class="ruby-identifier">:order</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:login</span>, <span class="ruby-identifier">:per_page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">get_per_page_value</span>)
-150:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/controllers/users_controller.rb, line 169</span>
+169:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">activate</span>
+170:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">current_user</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:activation_code</span>].<span class="ruby-identifier">blank?</span> <span class="ruby-value">? </span><span class="ruby-operator">:</span><span class="ruby-keyword kw">false</span> <span class="ruby-operator">:</span> <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_by_activation_code</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:activation_code</span>])
+171:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">logged_in?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">active?</span>
+172:       <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">activate</span>
+173:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-value str">&quot;Subscription complete !&quot;</span>
+174:     <span class="ruby-keyword kw">end</span>
+175:     <span class="ruby-identifier">redirect_back_or_default</span>(<span class="ruby-value str">'/'</span>)
+176:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -330,30 +156,145 @@ TODO remove it, just direct links in the old layout, to hell ajax my zob
 
         <div class="method-heading">
           <a href="#M000110" class="method-signature">
-          <span class="method-name">forgot_password</span><span class="method-args">()</span>
+          <span class="method-name">administration</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Function allowing to gain his password by email in case of forgot
+Administration of Workspaces for <a href="User.html">User</a>
 </p>
           <p><a class="source-toggle" href="#"
             onclick="toggleCode('M000110-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000110-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/controllers/users_controller.rb, line 174</span>
-174:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">forgot_password</span>
-175:     <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">post?</span>
-176:     <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_by_email</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:user</span>][<span class="ruby-identifier">:email</span>])
-177:       <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">create_reset_code</span>
-178:       <span class="ruby-identifier">flash</span>.<span class="ruby-identifier">now</span>[<span class="ruby-identifier">:notice_forgot</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'user.forgot_password.flash_notice'</span>)
-179:       <span class="ruby-identifier">render</span> <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;forgot_password&quot;</span>
-180:     <span class="ruby-keyword kw">else</span>
-181:       <span class="ruby-identifier">flash</span>.<span class="ruby-identifier">now</span>[<span class="ruby-identifier">:error_forgot</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'user.forgot_password.flash_error'</span>)
-182:       <span class="ruby-identifier">render</span> <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;forgot_password&quot;</span>
-183:     <span class="ruby-keyword kw">end</span>
-184:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/controllers/users_controller.rb, line 223</span>
+223:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">administration</span>
+224:     <span class="ruby-ivar">@current_object</span> = <span class="ruby-identifier">current_user</span>
+225:     <span class="ruby-ivar">@workspaces</span> = <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">has_system_permission</span>(<span class="ruby-value str">'workspace'</span>, <span class="ruby-value str">'show'</span>))
+226:       <span class="ruby-constant">Workspace</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>)
+227:     <span class="ruby-keyword kw">else</span>
+228:       <span class="ruby-constant">Workspace</span>.<span class="ruby-identifier">allowed_user_with_permission</span>(<span class="ruby-ivar">@current_user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-value str">'workspace_show'</span>)
+229:     <span class="ruby-keyword kw">end</span>
+230:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000103" class="method-detail">
+        <a name="M000103"></a>
+
+        <div class="method-heading">
+          <a href="#M000103" class="method-signature">
+          <span class="method-name">ajax_index</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Ajax Users Index with <a href="User.html">User</a>
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000103-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000103-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/controllers/users_controller.rb, line 135</span>
+135:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ajax_index</span>
+136:     <span class="ruby-identifier">current_objects</span>
+137:     <span class="ruby-identifier">render</span> <span class="ruby-identifier">:partial</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'user_in_list'</span>
+138:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000105" class="method-detail">
+        <a name="M000105"></a>
+
+        <div class="method-heading">
+          <a href="#M000105" class="method-signature">
+          <span class="method-name">autocomplete_on</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+AutoComplete for Users in TextBox
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000105-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000105-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/controllers/users_controller.rb, line 157</span>
+157:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">autocomplete_on</span>
+158:     <span class="ruby-identifier">conditions</span> = <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value str">'login'</span>]
+159:       [<span class="ruby-value str">&quot;login LIKE :login OR firstname LIKE :login OR lastname LIKE :login&quot;</span>,
+160:         { <span class="ruby-identifier">:login</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;%#{params['login']}%&quot;</span>}]
+161:     <span class="ruby-keyword kw">else</span>
+162:       {}
+163:     <span class="ruby-keyword kw">end</span>
+164:     <span class="ruby-ivar">@objects</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">conditions</span>)
+165:     <span class="ruby-identifier">render</span> <span class="ruby-identifier">:text</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'&lt;ul&gt;'</span><span class="ruby-operator">+</span><span class="ruby-ivar">@objects</span>.<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot;&lt;li&gt;#{e.login} (#{e.full_name})&lt;/li&gt;&quot;</span> }.<span class="ruby-identifier">join</span>(<span class="ruby-value str">' '</span>)<span class="ruby-operator">+</span><span class="ruby-value str">'&lt;/ul&gt;'</span>
+166:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000102" class="method-detail">
+        <a name="M000102"></a>
+
+        <div class="method-heading">
+          <a href="#M000102" class="method-signature">
+          <span class="method-name">create</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Create New <a href="User.html">User</a> /users/new
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000102-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000102-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/controllers/users_controller.rb, line 98</span>
+ 98:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create</span>
+ 99:     <span class="ruby-comment cmt"># System role by default, secure assignement</span>
+100:     <span class="ruby-ivar">@current_object</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:user</span>])
+101:     <span class="ruby-identifier">valid_user</span> = <span class="ruby-keyword kw">false</span>
+102:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">current_user</span>
+103:       <span class="ruby-identifier">valid_user</span> = <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">save</span>
+104:     <span class="ruby-keyword kw">else</span>
+105:       <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">system_role_id</span> = <span class="ruby-constant">Role</span>.<span class="ruby-identifier">find_by_name</span>(<span class="ruby-value str">'user'</span>).<span class="ruby-identifier">id</span>
+106:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">yacaph_validated?</span>
+107:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">save</span>
+108:           <span class="ruby-identifier">valid_user</span> = <span class="ruby-keyword kw">true</span>
+109:         <span class="ruby-keyword kw">end</span>
+110:       <span class="ruby-keyword kw">else</span>
+111:         <span class="ruby-ivar">@captcha_valid</span> = <span class="ruby-keyword kw">false</span>
+112:       <span class="ruby-keyword kw">end</span>
+113:     <span class="ruby-keyword kw">end</span>
+114:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">valid_user</span>
+115:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">is_given_private_workspace</span>
+116:         <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">create_private_workspace</span>
+117:       <span class="ruby-keyword kw">end</span>
+118:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'user.new.flash_notice'</span>)
+119:       <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+120:         <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span>(<span class="ruby-value str">'/'</span>) }
+121:       <span class="ruby-keyword kw">end</span>
+122:     <span class="ruby-keyword kw">else</span>
+123:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">logged_in?</span>
+124:         <span class="ruby-identifier">get_roles</span>
+125:         <span class="ruby-ivar">@search</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Search</span>.<span class="ruby-identifier">new</span>
+126:       <span class="ruby-keyword kw">end</span>
+127:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'user.new.flash_error'</span>)
+128:       <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+129:         <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'new'</span>, <span class="ruby-identifier">:layout</span> =<span class="ruby-operator">&gt;</span> (<span class="ruby-identifier">current_user</span> <span class="ruby-value">? </span><span class="ruby-identifier">get_da_layout</span> <span class="ruby-operator">:</span> <span class="ruby-value str">'login'</span>) }
+130:       <span class="ruby-keyword kw">end</span>
+131:     <span class="ruby-keyword kw">end</span>
+132:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -364,37 +305,111 @@ Function allowing to gain his password by email in case of forgot
 
         <div class="method-heading">
           <a href="#M000104" class="method-signature">
-          <span class="method-name">give_da_layout</span><span class="method-args">()</span>
+          <span class="method-name">current_objects</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
+          <p>
+Users Index Object for All Users
+</p>
           <p><a class="source-toggle" href="#"
             onclick="toggleCode('M000104-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000104-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/controllers/users_controller.rb, line 10</span>
-10:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">give_da_layout</span>
-11:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:action</span>]<span class="ruby-operator">==</span> <span class="ruby-value str">'new'</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:action</span>]<span class="ruby-operator">==</span> <span class="ruby-value str">'forgot_password'</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:action</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'reset_password'</span>
-12:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">logged_in?</span>
-13:                                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">get_da_layout</span>
-14:                         <span class="ruby-keyword kw">else</span>
-15:                                 <span class="ruby-keyword kw">return</span> <span class="ruby-value str">'login'</span>
-16:                         <span class="ruby-keyword kw">end</span>
-17:                 <span class="ruby-keyword kw">else</span>
-18:                         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">get_da_layout</span>
-19:                 <span class="ruby-keyword kw">end</span>
-20:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/controllers/users_controller.rb, line 141</span>
+141:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">current_objects</span>
+142:                 <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@current_user</span>.<span class="ruby-identifier">has_system_role</span>(<span class="ruby-value str">'superadmin'</span>)
+143:                         <span class="ruby-identifier">tmp</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">all</span>
+144:                 <span class="ruby-keyword kw">elsif</span> <span class="ruby-ivar">@current_user</span>.<span class="ruby-identifier">has_system_role</span>(<span class="ruby-value str">'admin'</span>)
+145:                         <span class="ruby-identifier">tmp</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_by_sql</span>(<span class="ruby-value str">&quot;SELECT users.* FROM users, roles WHERE users.system_role_id=roles.id AND roles.name!='superadmin'&quot;</span>)
+146:                 <span class="ruby-keyword kw">else</span>
+147:                         <span class="ruby-identifier">tmp</span> = []
+148:                         <span class="ruby-constant">Workspace</span>.<span class="ruby-identifier">allowed_user_with_permission</span>(<span class="ruby-ivar">@current_user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-value str">'user_show'</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">w</span><span class="ruby-operator">|</span>
+149:                                 <span class="ruby-identifier">tmp</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">w</span>.<span class="ruby-identifier">users</span>
+150:                         <span class="ruby-keyword kw">end</span>
+151:                         <span class="ruby-identifier">tmp</span> = <span class="ruby-identifier">tmp</span>.<span class="ruby-identifier">uniq</span>
+152:                 <span class="ruby-keyword kw">end</span>
+153:                 <span class="ruby-ivar">@current_objects</span> <span class="ruby-operator">||=</span> <span class="ruby-ivar">@users</span> = <span class="ruby-identifier">tmp</span>.<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">:page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:page</span>], <span class="ruby-identifier">:order</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:login</span>, <span class="ruby-identifier">:per_page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">get_per_page_value</span>)
+154:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000111" class="method-detail">
-        <a name="M000111"></a>
+      <div id="method-M000107" class="method-detail">
+        <a name="M000107"></a>
 
         <div class="method-heading">
-          <a href="#M000111" class="method-signature">
+          <a href="#M000107" class="method-signature">
+          <span class="method-name">forgot_password</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Function allowing to gain his password by email in case of forgot
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000107-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000107-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/controllers/users_controller.rb, line 179</span>
+179:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">forgot_password</span>
+180:     <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">post?</span>
+181:     <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_by_email</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:user</span>][<span class="ruby-identifier">:email</span>])
+182:       <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">create_reset_code</span>
+183:       <span class="ruby-identifier">flash</span>.<span class="ruby-identifier">now</span>[<span class="ruby-identifier">:notice_forgot</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'user.forgot_password.flash_notice'</span>)
+184:       <span class="ruby-identifier">render</span> <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;forgot_password&quot;</span>
+185:     <span class="ruby-keyword kw">else</span>
+186:       <span class="ruby-identifier">flash</span>.<span class="ruby-identifier">now</span>[<span class="ruby-identifier">:error_forgot</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'user.forgot_password.flash_error'</span>)
+187:       <span class="ruby-identifier">render</span> <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;forgot_password&quot;</span>
+188:     <span class="ruby-keyword kw">end</span>
+189:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000101" class="method-detail">
+        <a name="M000101"></a>
+
+        <div class="method-heading">
+          <a href="#M000101" class="method-signature">
+          <span class="method-name">give_da_layout</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Check Current <a href="User.html">User</a> Status and Give the Layout
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000101-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000101-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/controllers/users_controller.rb, line 11</span>
+11:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">give_da_layout</span>
+12:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:action</span>]<span class="ruby-operator">==</span> <span class="ruby-value str">'new'</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:action</span>]<span class="ruby-operator">==</span> <span class="ruby-value str">'forgot_password'</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:action</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'reset_password'</span>
+13:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">logged_in?</span>
+14:                                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">get_da_layout</span>
+15:                         <span class="ruby-keyword kw">else</span>
+16:                                 <span class="ruby-keyword kw">return</span> <span class="ruby-value str">'login'</span>
+17:                         <span class="ruby-keyword kw">end</span>
+18:                 <span class="ruby-keyword kw">else</span>
+19:                         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">get_da_layout</span>
+20:                 <span class="ruby-keyword kw">end</span>
+21:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000108" class="method-detail">
+        <a name="M000108"></a>
+
+        <div class="method-heading">
+          <a href="#M000108" class="method-signature">
           <span class="method-name">reset_password</span><span class="method-args">()</span>
           </a>
         </div>
@@ -405,38 +420,38 @@ Function allowing to reset the password of the current user after to have
 received a reset link in an email
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000111-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000111-source">
+            onclick="toggleCode('M000108-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000108-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/controllers/users_controller.rb, line 187</span>
-187:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reset_password</span>
-188:     <span class="ruby-keyword kw">if</span> (<span class="ruby-ivar">@user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_by_password_reset_code</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:password_reset_code</span>]) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:password_reset_code</span>].<span class="ruby-identifier">nil?</span>)
-189:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">post?</span>
-190:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">:password</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:user</span>][<span class="ruby-identifier">:password</span>], <span class="ruby-identifier">:password_confirmation</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:user</span>][<span class="ruby-identifier">:password_confirmation</span>])
-191:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">current_user</span> = <span class="ruby-ivar">@user</span>
-192:           <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">delete_reset_code</span>
-193:           <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-node">&quot;#{@user.login},&quot;</span><span class="ruby-operator">+</span><span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'user.reset_password.flash_notice'</span>)
-194:           <span class="ruby-identifier">redirect_to</span> <span class="ruby-value str">&quot;/login&quot;</span>
-195:         <span class="ruby-keyword kw">else</span>
-196:           <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'user.reset_password.flash_error'</span>)
-197:           <span class="ruby-identifier">render</span> <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:reset_password</span>
-198:         <span class="ruby-keyword kw">end</span>
-199:       <span class="ruby-keyword kw">end</span>
-200:     <span class="ruby-keyword kw">else</span>
-201:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'user.reset_password.flash_error_link'</span>)
-202:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-value str">&quot;/login&quot;</span>
-203:     <span class="ruby-keyword kw">end</span>
-204:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/controllers/users_controller.rb, line 192</span>
+192:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reset_password</span>
+193:     <span class="ruby-keyword kw">if</span> (<span class="ruby-ivar">@user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_by_password_reset_code</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:password_reset_code</span>]) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:password_reset_code</span>].<span class="ruby-identifier">nil?</span>)
+194:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">post?</span>
+195:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">:password</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:user</span>][<span class="ruby-identifier">:password</span>], <span class="ruby-identifier">:password_confirmation</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:user</span>][<span class="ruby-identifier">:password_confirmation</span>])
+196:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">current_user</span> = <span class="ruby-ivar">@user</span>
+197:           <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">delete_reset_code</span>
+198:           <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-node">&quot;#{@user.login},&quot;</span><span class="ruby-operator">+</span><span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'user.reset_password.flash_notice'</span>)
+199:           <span class="ruby-identifier">redirect_to</span> <span class="ruby-value str">&quot;/login&quot;</span>
+200:         <span class="ruby-keyword kw">else</span>
+201:           <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'user.reset_password.flash_error'</span>)
+202:           <span class="ruby-identifier">render</span> <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:reset_password</span>
+203:         <span class="ruby-keyword kw">end</span>
+204:       <span class="ruby-keyword kw">end</span>
+205:     <span class="ruby-keyword kw">else</span>
+206:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'user.reset_password.flash_error_link'</span>)
+207:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-value str">&quot;/login&quot;</span>
+208:     <span class="ruby-keyword kw">end</span>
+209:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000112" class="method-detail">
-        <a name="M000112"></a>
+      <div id="method-M000109" class="method-detail">
+        <a name="M000109"></a>
 
         <div class="method-heading">
-          <a href="#M000112" class="method-signature">
+          <a href="#M000109" class="method-signature">
           <span class="method-name">validate</span><span class="method-args">()</span>
           </a>
         </div>
@@ -446,17 +461,17 @@ received a reset link in an email
 Overwritting the AjaxValidation plugin to manage the permission
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000112-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000112-source">
+            onclick="toggleCode('M000109-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000109-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/controllers/users_controller.rb, line 207</span>
-207:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">validate</span>
-208:     <span class="ruby-identifier">model_class</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value str">'model'</span>].<span class="ruby-identifier">classify</span>.<span class="ruby-identifier">constantize</span>
-209:     <span class="ruby-ivar">@model_instance</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value str">'id'</span>] <span class="ruby-operator">?</span> <span class="ruby-identifier">model_class</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value str">'id'</span>]) <span class="ruby-operator">:</span> <span class="ruby-identifier">model_class</span>.<span class="ruby-identifier">new</span>
-210:     <span class="ruby-ivar">@model_instance</span>.<span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;#{params['attribute']}=&quot;</span>, <span class="ruby-identifier">params</span>[<span class="ruby-value str">'value'</span>])
-211:     <span class="ruby-ivar">@model_instance</span>.<span class="ruby-identifier">valid?</span>
-212:     <span class="ruby-identifier">render</span> <span class="ruby-identifier">:inline</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;&lt;%= error_message_on(@model_instance, params['attribute']) %&gt;&quot;</span>
-213:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/controllers/users_controller.rb, line 212</span>
+212:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">validate</span>
+213:     <span class="ruby-identifier">model_class</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value str">'model'</span>].<span class="ruby-identifier">classify</span>.<span class="ruby-identifier">constantize</span>
+214:     <span class="ruby-ivar">@model_instance</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value str">'id'</span>] <span class="ruby-operator">?</span> <span class="ruby-identifier">model_class</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value str">'id'</span>]) <span class="ruby-operator">:</span> <span class="ruby-identifier">model_class</span>.<span class="ruby-identifier">new</span>
+215:     <span class="ruby-ivar">@model_instance</span>.<span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;#{params['attribute']}=&quot;</span>, <span class="ruby-identifier">params</span>[<span class="ruby-value str">'value'</span>])
+216:     <span class="ruby-ivar">@model_instance</span>.<span class="ruby-identifier">valid?</span>
+217:     <span class="ruby-identifier">render</span> <span class="ruby-identifier">:inline</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;&lt;%= error_message_on(@model_instance, params['attribute']) %&gt;&quot;</span>
+218:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

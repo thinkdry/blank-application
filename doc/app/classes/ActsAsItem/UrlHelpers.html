@@ -59,10 +59,6 @@
                 lib/acts_as_item/url_helpers.rb
                 </a>
         <br />
-                <a href="../../files/lib/acts_as_workspace/url_helpers_rb.html">
-                lib/acts_as_workspace/url_helpers.rb
-                </a>
-        <br />
             </td>
         </tr>
 
@@ -84,18 +80,13 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000320">ajax_items_path</a>&nbsp;&nbsp;
-      <a href="#M000315">current_workspace</a>&nbsp;&nbsp;
-      <a href="#M000322">current_workspace</a>&nbsp;&nbsp;
-      <a href="#M000318">edit_item_path</a>&nbsp;&nbsp;
-      <a href="#M000314">included</a>&nbsp;&nbsp;
-      <a href="#M000321">included</a>&nbsp;&nbsp;
-      <a href="#M000323">item_path</a>&nbsp;&nbsp;
-      <a href="#M000316">item_path</a>&nbsp;&nbsp;
-      <a href="#M000319">items_path</a>&nbsp;&nbsp;
-      <a href="#M000325">items_path</a>&nbsp;&nbsp;
-      <a href="#M000324">new_item_path</a>&nbsp;&nbsp;
-      <a href="#M000317">new_item_path</a>&nbsp;&nbsp;
+      <a href="#M000299">ajax_items_path</a>&nbsp;&nbsp;
+      <a href="#M000294">current_workspace</a>&nbsp;&nbsp;
+      <a href="#M000297">edit_item_path</a>&nbsp;&nbsp;
+      <a href="#M000293">included</a>&nbsp;&nbsp;
+      <a href="#M000295">item_path</a>&nbsp;&nbsp;
+      <a href="#M000298">items_path</a>&nbsp;&nbsp;
+      <a href="#M000296">new_item_path</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -117,19 +108,19 @@
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000314" class="method-detail">
-        <a name="M000314"></a>
+      <div id="method-M000293" class="method-detail">
+        <a name="M000293"></a>
 
         <div class="method-heading">
-          <a href="#M000314" class="method-signature">
+          <a href="#M000293" class="method-signature">
           <span class="method-name">included</span><span class="method-args">(base)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000314-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000314-source">
+            onclick="toggleCode('M000293-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000293-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/acts_as_item/url_helpers.rb, line 3</span>
  3:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">included</span>(<span class="ruby-identifier">base</span>)
@@ -151,337 +142,216 @@
         </div>
       </div>
 
-      <div id="method-M000321" class="method-detail">
-        <a name="M000321"></a>
-
-        <div class="method-heading">
-          <a href="#M000321" class="method-signature">
-          <span class="method-name">included</span><span class="method-args">(base)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000321-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000321-source">
-<pre>
-    <span class="ruby-comment cmt"># File lib/acts_as_workspace/url_helpers.rb, line 3</span>
- 3:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">included</span>(<span class="ruby-identifier">base</span>)
- 4:       <span class="ruby-identifier">define_prefixed_item_paths</span>(<span class="ruby-identifier">base</span>)
- 5:           <span class="ruby-identifier">base</span>.<span class="ruby-identifier">helper_method</span> \
- 6:             <span class="ruby-identifier">:current_workspace</span>,
- 7:           <span class="ruby-identifier">:item_path</span>,
- 8:           <span class="ruby-identifier">:items_path</span>,
- 9:           <span class="ruby-identifier">:new_item_path</span>,
-10:           <span class="ruby-identifier">:edit_item_path</span>,
-11:           <span class="ruby-identifier">:rate_item_path</span>,
-12:           <span class="ruby-identifier">:add_tag_item_path</span>,
-13:           <span class="ruby-identifier">:remove_tag_item_path</span>,
-14:           <span class="ruby-identifier">:comment_item_path</span>
-15:     <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000320" class="method-detail">
-        <a name="M000320"></a>
+      <div id="method-M000299" class="method-detail">
+        <a name="M000299"></a>
 
         <div class="method-heading">
-          <a href="#M000320" class="method-signature">
+          <a href="#M000299" class="method-signature">
           <span class="method-name">ajax_items_path</span><span class="method-args">(model)</span>
           </a>
         </div>
       
         <div class="method-description">
+          <p>
+Dynamically create <a href="../Item.html">Item</a> path for given <a
+href="../Item.html">Item</a> for Pagination
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000320-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000320-source">
+            onclick="toggleCode('M000299-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000299-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/acts_as_item/url_helpers.rb, line 73</span>
-73:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ajax_items_path</span>(<span class="ruby-identifier">model</span>)
-74:       <span class="ruby-identifier">model</span> = <span class="ruby-identifier">model</span>.<span class="ruby-identifier">table_name</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
-75:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">current_workspace</span>
-76:         <span class="ruby-identifier">workspace_ajax_content_url</span>(<span class="ruby-identifier">:workspace_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">current_workspace</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">:item_type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">model</span>)
-77:       <span class="ruby-keyword kw">else</span>
-78:         <span class="ruby-identifier">ajax_content_url</span>(<span class="ruby-identifier">:item_type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">model</span>)
-79:       <span class="ruby-keyword kw">end</span>
-80:     <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/acts_as_item/url_helpers.rb, line 91</span>
+91:      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ajax_items_path</span>(<span class="ruby-identifier">model</span>)
+92:       <span class="ruby-identifier">model</span> = <span class="ruby-identifier">model</span>.<span class="ruby-identifier">table_name</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
+93:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">current_workspace</span>
+94:         <span class="ruby-identifier">workspace_ajax_content_url</span>(<span class="ruby-identifier">:workspace_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">current_workspace</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">:item_type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">model</span>)
+95:       <span class="ruby-keyword kw">else</span>
+96:         <span class="ruby-identifier">ajax_content_url</span>(<span class="ruby-identifier">:item_type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">model</span>)
+97:       <span class="ruby-keyword kw">end</span>
+98:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000315" class="method-detail">
-        <a name="M000315"></a>
+      <div id="method-M000294" class="method-detail">
+        <a name="M000294"></a>
 
         <div class="method-heading">
-          <a href="#M000315" class="method-signature">
+          <a href="#M000294" class="method-signature">
           <span class="method-name">current_workspace</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
+          <p>
+Return Worksapce Object
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000315-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000315-source">
+            onclick="toggleCode('M000294-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000294-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/acts_as_item/url_helpers.rb, line 18</span>
-18:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">current_workspace</span>
-19:       <span class="ruby-identifier">get_ws</span> = <span class="ruby-constant">Proc</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword kw">do</span>
-20:         <span class="ruby-identifier">params</span>[<span class="ruby-value str">'workspace_id'</span>] <span class="ruby-operator">?</span> 
-21:           <span class="ruby-constant">Workspace</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value str">'workspace_id'</span>].<span class="ruby-identifier">to_i</span>) <span class="ruby-operator">:</span>
-22:           <span class="ruby-keyword kw">nil</span>
-23:       <span class="ruby-keyword kw">end</span>
-24:       
-25:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@workspace</span>
-26:         <span class="ruby-comment cmt"># Hack: Workspace may be &quot;Workspace.new&quot;</span>
-27:         <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@workspace</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@workspace</span>.<span class="ruby-identifier">id</span>
-28:         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">get_ws</span>.<span class="ruby-identifier">call</span>
-29:       <span class="ruby-keyword kw">end</span>
-30:       <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@current_object</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@current_object</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Workspace</span>
-31:       <span class="ruby-ivar">@workspace</span> = <span class="ruby-identifier">get_ws</span>.<span class="ruby-identifier">call</span>
-32:     <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/acts_as_item/url_helpers.rb, line 19</span>
+19:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">current_workspace</span>
+20:       <span class="ruby-identifier">get_ws</span> = <span class="ruby-constant">Proc</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword kw">do</span>
+21:         <span class="ruby-identifier">params</span>[<span class="ruby-value str">'workspace_id'</span>] <span class="ruby-operator">?</span> 
+22:           <span class="ruby-constant">Workspace</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value str">'workspace_id'</span>].<span class="ruby-identifier">to_i</span>) <span class="ruby-operator">:</span>
+23:           <span class="ruby-keyword kw">nil</span>
+24:       <span class="ruby-keyword kw">end</span>
+25:       
+26:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@workspace</span>
+27:         <span class="ruby-comment cmt"># Hack: Workspace may be &quot;Workspace.new&quot;</span>
+28:         <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@workspace</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@workspace</span>.<span class="ruby-identifier">id</span>
+29:         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">get_ws</span>.<span class="ruby-identifier">call</span>
+30:       <span class="ruby-keyword kw">end</span>
+31:       <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@current_object</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@current_object</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Workspace</span>
+32:       <span class="ruby-ivar">@workspace</span> = <span class="ruby-identifier">get_ws</span>.<span class="ruby-identifier">call</span>
+33:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000322" class="method-detail">
-        <a name="M000322"></a>
+      <div id="method-M000297" class="method-detail">
+        <a name="M000297"></a>
 
         <div class="method-heading">
-          <a href="#M000322" class="method-signature">
-          <span class="method-name">current_workspace</span><span class="method-args">()</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000322-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000322-source">
-<pre>
-    <span class="ruby-comment cmt"># File lib/acts_as_workspace/url_helpers.rb, line 17</span>
-17:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">current_workspace</span>
-18:       <span class="ruby-identifier">get_ws</span> = <span class="ruby-constant">Proc</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword kw">do</span>
-19:         <span class="ruby-identifier">params</span>[<span class="ruby-value str">'workspace_id'</span>] <span class="ruby-operator">?</span> 
-20:           <span class="ruby-constant">Workspace</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value str">'workspace_id'</span>].<span class="ruby-identifier">to_i</span>) <span class="ruby-operator">:</span>
-21:           <span class="ruby-keyword kw">nil</span>
-22:       <span class="ruby-keyword kw">end</span>
-23:       
-24:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@workspace</span>
-25:         <span class="ruby-comment cmt"># Hack: Workspace may be &quot;Workspace.new&quot;</span>
-26:         <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@workspace</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@workspace</span>.<span class="ruby-identifier">id</span>
-27:         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">get_ws</span>.<span class="ruby-identifier">call</span>
-28:       <span class="ruby-keyword kw">end</span>
-29:       <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@current_object</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@current_object</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Workspace</span>
-30:       <span class="ruby-ivar">@workspace</span> = <span class="ruby-identifier">get_ws</span>.<span class="ruby-identifier">call</span>
-31:     <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000318" class="method-detail">
-        <a name="M000318"></a>
-
-        <div class="method-heading">
-          <a href="#M000318" class="method-signature">
+          <a href="#M000297" class="method-signature">
           <span class="method-name">edit_item_path</span><span class="method-args">(model)</span>
           </a>
         </div>
       
         <div class="method-description">
+          <p>
+Edit Url for given <a href="../Item.html">Item</a> Object
+</p>
+<p>
+Usage: <a href="UrlHelpers.html#M000297">edit_item_path</a>(article_object)
+=&gt; /articles/1/edit
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000318-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000318-source">
+            onclick="toggleCode('M000297-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000297-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/acts_as_item/url_helpers.rb, line 56</span>
-56:                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">edit_item_path</span>(<span class="ruby-identifier">model</span>)
-57:       <span class="ruby-identifier">helper_name</span> = <span class="ruby-value str">'edit_'</span>
-58:       <span class="ruby-identifier">helper_name</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">'workspace_'</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">current_workspace</span>
-59:       <span class="ruby-identifier">helper_name</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">underscore</span> <span class="ruby-operator">+</span> <span class="ruby-value str">'_path'</span>
-60:       <span class="ruby-identifier">args</span> = <span class="ruby-identifier">current_workspace</span> <span class="ruby-value">? </span>[<span class="ruby-identifier">current_workspace</span>] <span class="ruby-operator">:</span> []
-61:       <span class="ruby-identifier">send</span>(<span class="ruby-identifier">helper_name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-62:     <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/acts_as_item/url_helpers.rb, line 69</span>
+69:                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">edit_item_path</span>(<span class="ruby-identifier">model</span>)
+70:       <span class="ruby-identifier">helper_name</span> = <span class="ruby-value str">'edit_'</span>
+71:       <span class="ruby-identifier">helper_name</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">'workspace_'</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">current_workspace</span>
+72:       <span class="ruby-identifier">helper_name</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">underscore</span> <span class="ruby-operator">+</span> <span class="ruby-value str">'_path'</span>
+73:       <span class="ruby-identifier">args</span> = <span class="ruby-identifier">current_workspace</span> <span class="ruby-value">? </span>[<span class="ruby-identifier">current_workspace</span>] <span class="ruby-operator">:</span> []
+74:       <span class="ruby-identifier">send</span>(<span class="ruby-identifier">helper_name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+75:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000323" class="method-detail">
-        <a name="M000323"></a>
+      <div id="method-M000295" class="method-detail">
+        <a name="M000295"></a>
 
         <div class="method-heading">
-          <a href="#M000323" class="method-signature">
+          <a href="#M000295" class="method-signature">
           <span class="method-name">item_path</span><span class="method-args">(object, params = {})</span>
           </a>
         </div>
       
         <div class="method-description">
+          <p>
+Show Url for given <a href="../Item.html">Item</a> Object
+</p>
+<p>
+Usage: <a href="UrlHelpers.html#M000295">item_path</a>(article_object)
+=&gt; /articles/1
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000323-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000323-source">
+            onclick="toggleCode('M000295-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000295-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/acts_as_workspace/url_helpers.rb, line 33</span>
-33:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">item_path</span> <span class="ruby-identifier">object</span>, <span class="ruby-identifier">params</span> = {}
-34:       <span class="ruby-identifier">prefix</span> = <span class="ruby-identifier">params</span>.<span class="ruby-identifier">delete</span> <span class="ruby-identifier">:prefix</span>
-35: 
-36:       <span class="ruby-identifier">helper_name</span> = <span class="ruby-constant">String</span>.<span class="ruby-identifier">new</span>
-37:       <span class="ruby-identifier">helper_name</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">prefix</span> <span class="ruby-operator">+</span> <span class="ruby-value str">'_'</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">prefix</span>
-38:       <span class="ruby-identifier">helper_name</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">'workspace_'</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">current_workspace</span>
-39:       <span class="ruby-identifier">helper_name</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">object</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">underscore</span> <span class="ruby-operator">+</span> <span class="ruby-value str">'_path'</span>
-40: 
-41:       <span class="ruby-identifier">args</span> = [<span class="ruby-identifier">object</span>, <span class="ruby-identifier">params</span>]
-42:       <span class="ruby-identifier">args</span>.<span class="ruby-identifier">insert</span>(<span class="ruby-value">0</span>, <span class="ruby-identifier">current_workspace</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">current_workspace</span>
-43: 
-44:       <span class="ruby-identifier">send</span> <span class="ruby-identifier">helper_name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>
-45:     <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000316" class="method-detail">
-        <a name="M000316"></a>
-
-        <div class="method-heading">
-          <a href="#M000316" class="method-signature">
-          <span class="method-name">item_path</span><span class="method-args">(object, params = {})</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000316-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000316-source">
-<pre>
-    <span class="ruby-comment cmt"># File lib/acts_as_item/url_helpers.rb, line 34</span>
-34:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">item_path</span> <span class="ruby-identifier">object</span>, <span class="ruby-identifier">params</span> = {}
-35:       <span class="ruby-identifier">prefix</span> = <span class="ruby-identifier">params</span>.<span class="ruby-identifier">delete</span> <span class="ruby-identifier">:prefix</span>
-36: 
-37:       <span class="ruby-identifier">helper_name</span> = <span class="ruby-constant">String</span>.<span class="ruby-identifier">new</span>
-38:       <span class="ruby-identifier">helper_name</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">prefix</span> <span class="ruby-operator">+</span> <span class="ruby-value str">'_'</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">prefix</span>
-39:       <span class="ruby-identifier">helper_name</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">'workspace_'</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">current_workspace</span>
-40:       <span class="ruby-identifier">helper_name</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">object</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">underscore</span> <span class="ruby-operator">+</span> <span class="ruby-value str">'_path'</span>
+    <span class="ruby-comment cmt"># File lib/acts_as_item/url_helpers.rb, line 39</span>
+39:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">item_path</span> <span class="ruby-identifier">object</span>, <span class="ruby-identifier">params</span> = {}
+40:       <span class="ruby-identifier">prefix</span> = <span class="ruby-identifier">params</span>.<span class="ruby-identifier">delete</span> <span class="ruby-identifier">:prefix</span>
 41: 
-42:       <span class="ruby-identifier">args</span> = [<span class="ruby-identifier">object</span>, <span class="ruby-identifier">params</span>]
-43:       <span class="ruby-identifier">args</span>.<span class="ruby-identifier">insert</span>(<span class="ruby-value">0</span>, <span class="ruby-identifier">current_workspace</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">current_workspace</span>
-44: 
-45:       <span class="ruby-identifier">send</span> <span class="ruby-identifier">helper_name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>
-46:     <span class="ruby-keyword kw">end</span>
+42:       <span class="ruby-identifier">helper_name</span> = <span class="ruby-constant">String</span>.<span class="ruby-identifier">new</span>
+43:       <span class="ruby-identifier">helper_name</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">prefix</span> <span class="ruby-operator">+</span> <span class="ruby-value str">'_'</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">prefix</span>
+44:       <span class="ruby-identifier">helper_name</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">'workspace_'</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">current_workspace</span>
+45:       <span class="ruby-identifier">helper_name</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">object</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">underscore</span> <span class="ruby-operator">+</span> <span class="ruby-value str">'_path'</span>
+46: 
+47:       <span class="ruby-identifier">args</span> = [<span class="ruby-identifier">object</span>, <span class="ruby-identifier">params</span>]
+48:       <span class="ruby-identifier">args</span>.<span class="ruby-identifier">insert</span>(<span class="ruby-value">0</span>, <span class="ruby-identifier">current_workspace</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">current_workspace</span>
+49: 
+50:       <span class="ruby-identifier">send</span> <span class="ruby-identifier">helper_name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>
+51:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000319" class="method-detail">
-        <a name="M000319"></a>
+      <div id="method-M000298" class="method-detail">
+        <a name="M000298"></a>
 
         <div class="method-heading">
-          <a href="#M000319" class="method-signature">
+          <a href="#M000298" class="method-signature">
           <span class="method-name">items_path</span><span class="method-args">(model)</span>
           </a>
         </div>
       
         <div class="method-description">
+          <p>
+Index Url for given <a href="../Item.html">Item</a> Object
+</p>
+<p>
+Usage: <a href="UrlHelpers.html#M000298">items_path</a>(article_object)
+=&gt; /articles
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000319-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000319-source">
+            onclick="toggleCode('M000298-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000298-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/acts_as_item/url_helpers.rb, line 64</span>
-64:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">items_path</span>(<span class="ruby-identifier">model</span>)
-65:       <span class="ruby-identifier">model</span> = <span class="ruby-identifier">model</span>.<span class="ruby-identifier">table_name</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)  
-66:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">current_workspace</span>
-67:         <span class="ruby-identifier">workspace_content_url</span>(<span class="ruby-identifier">:workspace_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">current_workspace</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">:item_type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">underscore</span>.<span class="ruby-identifier">pluralize</span>)
-68:       <span class="ruby-keyword kw">else</span>
-69:         <span class="ruby-identifier">content_url</span>(<span class="ruby-identifier">:item_type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">underscore</span>.<span class="ruby-identifier">pluralize</span>)
-70:       <span class="ruby-keyword kw">end</span>
-71:     <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/acts_as_item/url_helpers.rb, line 81</span>
+81:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">items_path</span>(<span class="ruby-identifier">model</span>)
+82:       <span class="ruby-identifier">model</span> = <span class="ruby-identifier">model</span>.<span class="ruby-identifier">table_name</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)  
+83:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">current_workspace</span>
+84:         <span class="ruby-identifier">workspace_content_url</span>(<span class="ruby-identifier">:workspace_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">current_workspace</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">:item_type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">underscore</span>.<span class="ruby-identifier">pluralize</span>)
+85:       <span class="ruby-keyword kw">else</span>
+86:         <span class="ruby-identifier">content_url</span>(<span class="ruby-identifier">:item_type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">underscore</span>.<span class="ruby-identifier">pluralize</span>)
+87:       <span class="ruby-keyword kw">end</span>
+88:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000325" class="method-detail">
-        <a name="M000325"></a>
+      <div id="method-M000296" class="method-detail">
+        <a name="M000296"></a>
 
         <div class="method-heading">
-          <a href="#M000325" class="method-signature">
-          <span class="method-name">items_path</span><span class="method-args">(model)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000325-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000325-source">
-<pre>
-    <span class="ruby-comment cmt"># File lib/acts_as_workspace/url_helpers.rb, line 55</span>
-55:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">items_path</span>(<span class="ruby-identifier">model</span>)
-56:       <span class="ruby-identifier">model</span> = <span class="ruby-identifier">model</span>.<span class="ruby-identifier">table_name</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)  
-57:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">current_workspace</span>
-58:         <span class="ruby-identifier">workspace_content_url</span>(<span class="ruby-identifier">:workspace_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">current_workspace</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">:item_type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">model</span>)
-59:       <span class="ruby-keyword kw">else</span>
-60:         <span class="ruby-identifier">content_url</span>(<span class="ruby-identifier">:item_type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">model</span>)
-61:       <span class="ruby-keyword kw">end</span>
-62:     <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000324" class="method-detail">
-        <a name="M000324"></a>
-
-        <div class="method-heading">
-          <a href="#M000324" class="method-signature">
+          <a href="#M000296" class="method-signature">
           <span class="method-name">new_item_path</span><span class="method-args">(model)</span>
           </a>
         </div>
       
         <div class="method-description">
+          <p>
+New Url for given <a href="../Item.html">Item</a> Object
+</p>
+<p>
+Usage: <a href="UrlHelpers.html#M000296">new_item_path</a>(article_object)
+=&gt; /articles/new
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000324-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000324-source">
+            onclick="toggleCode('M000296-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000296-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/acts_as_workspace/url_helpers.rb, line 47</span>
-47:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">new_item_path</span>(<span class="ruby-identifier">model</span>)
-48:       <span class="ruby-identifier">helper_name</span> = <span class="ruby-value str">'new_'</span>
-49:       <span class="ruby-identifier">helper_name</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">'workspace_'</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">current_workspace</span>
-50:       <span class="ruby-identifier">helper_name</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">underscore</span> <span class="ruby-operator">+</span> <span class="ruby-value str">'_path'</span>
-51:       <span class="ruby-identifier">args</span> = <span class="ruby-identifier">current_workspace</span> <span class="ruby-value">? </span>[<span class="ruby-identifier">current_workspace</span>] <span class="ruby-operator">:</span> []
-52:       <span class="ruby-identifier">send</span>(<span class="ruby-identifier">helper_name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-53:     <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000317" class="method-detail">
-        <a name="M000317"></a>
-
-        <div class="method-heading">
-          <a href="#M000317" class="method-signature">
-          <span class="method-name">new_item_path</span><span class="method-args">(model)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000317-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000317-source">
-<pre>
-    <span class="ruby-comment cmt"># File lib/acts_as_item/url_helpers.rb, line 48</span>
-48:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">new_item_path</span>(<span class="ruby-identifier">model</span>)
-49:       <span class="ruby-identifier">helper_name</span> = <span class="ruby-value str">'new_'</span>
-50:       <span class="ruby-identifier">helper_name</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">'workspace_'</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">current_workspace</span>
-51:       <span class="ruby-identifier">helper_name</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">underscore</span> <span class="ruby-operator">+</span> <span class="ruby-value str">'_path'</span>
-52:       <span class="ruby-identifier">args</span> = <span class="ruby-identifier">current_workspace</span> <span class="ruby-value">? </span>[<span class="ruby-identifier">current_workspace</span>] <span class="ruby-operator">:</span> []
-53:       <span class="ruby-identifier">send</span>(<span class="ruby-identifier">helper_name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-54:     <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/acts_as_item/url_helpers.rb, line 57</span>
+57:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">new_item_path</span>(<span class="ruby-identifier">model</span>)
+58:       <span class="ruby-identifier">helper_name</span> = <span class="ruby-value str">'new_'</span>
+59:       <span class="ruby-identifier">helper_name</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">'workspace_'</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">current_workspace</span>
+60:       <span class="ruby-identifier">helper_name</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">underscore</span> <span class="ruby-operator">+</span> <span class="ruby-value str">'_path'</span>
+61:       <span class="ruby-identifier">args</span> = <span class="ruby-identifier">current_workspace</span> <span class="ruby-value">? </span>[<span class="ruby-identifier">current_workspace</span>] <span class="ruby-operator">:</span> []
+62:       <span class="ruby-identifier">send</span>(<span class="ruby-identifier">helper_name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+63:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

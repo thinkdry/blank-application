@@ -8,6 +8,7 @@
 #  description :text
 #  created_at  :datetime
 #  updated_at  :datetime
+#  type_role   :string(255)
 #
 
 class Role < ActiveRecord::Base

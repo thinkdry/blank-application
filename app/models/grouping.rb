@@ -1,3 +1,16 @@
+# == Schema Information
+# Schema version: 20181126085723
+#
+# Table name: groupings
+#
+#  group_id       :integer(4)
+#  groupable_id   :integer(4)
+#  groupable_type :string(255)
+#  user_id        :integer(4)
+#  created_at     :datetime
+#  updated_at     :datetime
+#
+
 class Grouping < ActiveRecord::Base
 
   belongs_to :group
