@@ -62,7 +62,7 @@ class ApplicationController < ActionController::Base
 		end
 	end
 
-  # Check if User if SuperAdministrator
+  # Check if User is SuperAdministrator
 	def is_superadmin?
 		no_permission_redirection unless self.current_user && self.current_user.has_system_role('superadmin')
 	end

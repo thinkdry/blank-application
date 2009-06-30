@@ -167,11 +167,11 @@
             onclick="toggleCode('M000044-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000044-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/user.rb, line 141</span>
-141:   <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">authenticate</span>(<span class="ruby-identifier">login</span>, <span class="ruby-identifier">password</span>)
-142:     <span class="ruby-identifier">u</span> = <span class="ruby-identifier">find_by_login</span>(<span class="ruby-identifier">login</span>) <span class="ruby-comment cmt"># need to get the salt</span>
-143:     <span class="ruby-identifier">u</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">u</span>.<span class="ruby-identifier">authenticated?</span>(<span class="ruby-identifier">password</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">u</span> <span class="ruby-operator">:</span> <span class="ruby-keyword kw">nil</span>
-144:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/user.rb, line 148</span>
+148:   <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">authenticate</span>(<span class="ruby-identifier">login</span>, <span class="ruby-identifier">password</span>)
+149:     <span class="ruby-identifier">u</span> = <span class="ruby-identifier">find_by_login</span>(<span class="ruby-identifier">login</span>) <span class="ruby-comment cmt"># need to get the salt</span>
+150:     <span class="ruby-identifier">u</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">u</span>.<span class="ruby-identifier">authenticated?</span>(<span class="ruby-identifier">password</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">u</span> <span class="ruby-operator">:</span> <span class="ruby-keyword kw">nil</span>
+151:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -199,29 +199,29 @@ roles. True if <a href="User.html">User</a> is
             onclick="toggleCode('M000063-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000063-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/user.rb, line 271</span>
-271:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">accepting_action</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">action</span>, <span class="ruby-identifier">spe_cond</span>, <span class="ruby-identifier">sys_cond</span>, <span class="ruby-identifier">ws_cond</span>)
-272:                 <span class="ruby-comment cmt"># Special access</span>
-273:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">has_system_role</span>(<span class="ruby-value str">'superadmin'</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">spe_cond</span>
-274:                         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span>
-275:                 <span class="ruby-keyword kw">end</span>
-276:                 <span class="ruby-comment cmt"># System access</span>
-277:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">has_system_permission</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">downcase</span>, <span class="ruby-identifier">action</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">sys_cond</span>
-278:                         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span>
-279:                 <span class="ruby-keyword kw">end</span>
-280:                 <span class="ruby-comment cmt"># Workspace access</span>
-281:                 <span class="ruby-comment cmt"># The only permission linked to an user in a workspace is 'show'</span>
-282:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">action</span><span class="ruby-operator">==</span><span class="ruby-value str">'show'</span>
-283:                         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">workspaces</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ws</span><span class="ruby-operator">|</span>
-284:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ws</span>.<span class="ruby-identifier">users</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">user</span>)
-285:                                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">has_workspace_permission</span>(<span class="ruby-identifier">ws</span>.<span class="ruby-identifier">id</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">downcase</span>, <span class="ruby-identifier">action</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">ws_cond</span>
-286:                                                 <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span>
-287:                                         <span class="ruby-keyword kw">end</span>
-288:                                 <span class="ruby-keyword kw">end</span>
-289:                         <span class="ruby-keyword kw">end</span>
-290:                 <span class="ruby-keyword kw">end</span>
-291:                 <span class="ruby-keyword kw">false</span>
-292:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/user.rb, line 278</span>
+278:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">accepting_action</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">action</span>, <span class="ruby-identifier">spe_cond</span>, <span class="ruby-identifier">sys_cond</span>, <span class="ruby-identifier">ws_cond</span>)
+279:                 <span class="ruby-comment cmt"># Special access</span>
+280:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">has_system_role</span>(<span class="ruby-value str">'superadmin'</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">spe_cond</span>
+281:                         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span>
+282:                 <span class="ruby-keyword kw">end</span>
+283:                 <span class="ruby-comment cmt"># System access</span>
+284:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">has_system_permission</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">downcase</span>, <span class="ruby-identifier">action</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">sys_cond</span>
+285:                         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span>
+286:                 <span class="ruby-keyword kw">end</span>
+287:                 <span class="ruby-comment cmt"># Workspace access</span>
+288:                 <span class="ruby-comment cmt"># The only permission linked to an user in a workspace is 'show'</span>
+289:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">action</span><span class="ruby-operator">==</span><span class="ruby-value str">'show'</span>
+290:                         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">workspaces</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ws</span><span class="ruby-operator">|</span>
+291:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ws</span>.<span class="ruby-identifier">users</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">user</span>)
+292:                                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">has_workspace_permission</span>(<span class="ruby-identifier">ws</span>.<span class="ruby-identifier">id</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">downcase</span>, <span class="ruby-identifier">action</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">ws_cond</span>
+293:                                                 <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span>
+294:                                         <span class="ruby-keyword kw">end</span>
+295:                                 <span class="ruby-keyword kw">end</span>
+296:                         <span class="ruby-keyword kw">end</span>
+297:                 <span class="ruby-keyword kw">end</span>
+298:                 <span class="ruby-keyword kw">false</span>
+299:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -241,10 +241,10 @@ roles. True if <a href="User.html">User</a> is
             onclick="toggleCode('M000058-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000058-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/user.rb, line 249</span>
-249:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">accepts_configure_for?</span> <span class="ruby-identifier">user</span>
-250:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">accepting_action</span>(<span class="ruby-identifier">user</span>, <span class="ruby-value str">'configure'</span>, <span class="ruby-keyword kw">false</span>, <span class="ruby-keyword kw">false</span>, <span class="ruby-keyword kw">true</span>)
-251:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/user.rb, line 256</span>
+256:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">accepts_configure_for?</span> <span class="ruby-identifier">user</span>
+257:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">accepting_action</span>(<span class="ruby-identifier">user</span>, <span class="ruby-value str">'configure'</span>, <span class="ruby-keyword kw">false</span>, <span class="ruby-keyword kw">false</span>, <span class="ruby-keyword kw">true</span>)
+258:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -264,10 +264,10 @@ roles. True if <a href="User.html">User</a> is
             onclick="toggleCode('M000060-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000060-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/user.rb, line 257</span>
-257:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">accepts_destroy_for?</span> <span class="ruby-identifier">user</span>
-258:     <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">accepting_action</span>(<span class="ruby-identifier">user</span>, <span class="ruby-value str">'edit'</span>, (<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span><span class="ruby-operator">==</span><span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>), <span class="ruby-keyword kw">false</span>, <span class="ruby-keyword kw">true</span>)
-259:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/user.rb, line 264</span>
+264:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">accepts_destroy_for?</span> <span class="ruby-identifier">user</span>
+265:     <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">accepting_action</span>(<span class="ruby-identifier">user</span>, <span class="ruby-value str">'edit'</span>, (<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span><span class="ruby-operator">==</span><span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>), <span class="ruby-keyword kw">false</span>, <span class="ruby-keyword kw">true</span>)
+266:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -287,10 +287,10 @@ roles. True if <a href="User.html">User</a> is
             onclick="toggleCode('M000061-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000061-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/user.rb, line 261</span>
-261:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">accepts_edit_for?</span> <span class="ruby-identifier">user</span>
-262:     <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">accepting_action</span>(<span class="ruby-identifier">user</span>, <span class="ruby-value str">'edit'</span>, (<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span><span class="ruby-operator">==</span><span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>), <span class="ruby-keyword kw">false</span>, <span class="ruby-keyword kw">true</span>)
-263:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/user.rb, line 268</span>
+268:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">accepts_edit_for?</span> <span class="ruby-identifier">user</span>
+269:     <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">accepting_action</span>(<span class="ruby-identifier">user</span>, <span class="ruby-value str">'edit'</span>, (<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span><span class="ruby-operator">==</span><span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>), <span class="ruby-keyword kw">false</span>, <span class="ruby-keyword kw">true</span>)
+270:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -310,10 +310,10 @@ roles. True if <a href="User.html">User</a> is
             onclick="toggleCode('M000062-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000062-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/user.rb, line 265</span>
-265:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">accepts_new_for?</span> <span class="ruby-identifier">user</span>
-266:     <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">accepting_action</span>(<span class="ruby-identifier">user</span>, <span class="ruby-value str">'new'</span>, <span class="ruby-keyword kw">false</span>, <span class="ruby-keyword kw">false</span>, <span class="ruby-keyword kw">true</span>)
-267:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/user.rb, line 272</span>
+272:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">accepts_new_for?</span> <span class="ruby-identifier">user</span>
+273:     <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">accepting_action</span>(<span class="ruby-identifier">user</span>, <span class="ruby-value str">'new'</span>, <span class="ruby-keyword kw">false</span>, <span class="ruby-keyword kw">false</span>, <span class="ruby-keyword kw">true</span>)
+274:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -333,10 +333,10 @@ roles. True if <a href="User.html">User</a> is
             onclick="toggleCode('M000059-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000059-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/user.rb, line 253</span>
-253:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">accepts_show_for?</span> <span class="ruby-identifier">user</span>
-254:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">accepting_action</span>(<span class="ruby-identifier">user</span>, <span class="ruby-value str">'show'</span>, (<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span><span class="ruby-operator">==</span><span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>), <span class="ruby-keyword kw">false</span>, <span class="ruby-keyword kw">true</span>)
-255:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/user.rb, line 260</span>
+260:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">accepts_show_for?</span> <span class="ruby-identifier">user</span>
+261:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">accepting_action</span>(<span class="ruby-identifier">user</span>, <span class="ruby-value str">'show'</span>, (<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span><span class="ruby-operator">==</span><span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>), <span class="ruby-keyword kw">false</span>, <span class="ruby-keyword kw">true</span>)
+262:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -359,13 +359,13 @@ Activates the user in the database.
             onclick="toggleCode('M000066-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000066-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/user.rb, line 314</span>
-314:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">activate</span>
-315:     <span class="ruby-ivar">@activated</span> = <span class="ruby-keyword kw">true</span>
-316:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">activated_at</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">utc</span>
-317:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">activation_code</span> = <span class="ruby-keyword kw">nil</span>
-318:     <span class="ruby-identifier">save</span>(<span class="ruby-keyword kw">false</span>)
-319:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/user.rb, line 321</span>
+321:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">activate</span>
+322:     <span class="ruby-ivar">@activated</span> = <span class="ruby-keyword kw">true</span>
+323:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">activated_at</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">utc</span>
+324:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">activation_code</span> = <span class="ruby-keyword kw">nil</span>
+325:     <span class="ruby-identifier">save</span>(<span class="ruby-keyword kw">false</span>)
+326:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -392,10 +392,10 @@ not Activated yet
             onclick="toggleCode('M000067-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000067-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/user.rb, line 324</span>
-324:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">active?</span>
-325:     <span class="ruby-identifier">activation_code</span>.<span class="ruby-identifier">nil?</span>
-326:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/user.rb, line 331</span>
+331:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">active?</span>
+332:     <span class="ruby-identifier">activation_code</span>.<span class="ruby-identifier">nil?</span>
+333:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -418,10 +418,10 @@ Check if <a href="User.html">User</a> is Admin
             onclick="toggleCode('M000049-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000049-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/user.rb, line 198</span>
-198:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">admin?</span>
-199:     <span class="ruby-keyword kw">true</span>
-200:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/user.rb, line 205</span>
+205:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">admin?</span>
+206:     <span class="ruby-keyword kw">true</span>
+207:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -445,19 +445,19 @@ called &#8216;Private for user_login&#8216;
             onclick="toggleCode('M000065-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000065-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/user.rb, line 300</span>
-300:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_private_workspace</span>
-301:                 <span class="ruby-comment cmt"># Creation of the private workspace for the user</span>
-302:                 <span class="ruby-identifier">ws</span> = <span class="ruby-constant">Workspace</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">:title</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;Private space of #{self.login}&quot;</span>,
-303:       <span class="ruby-identifier">:description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;Worksapce containing all the content created by #{self.full_name}&quot;</span>,
-304:       <span class="ruby-identifier">:creator_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span>,
-305:       <span class="ruby-identifier">:ws_items</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">get_configuration</span>[<span class="ruby-value str">'sa_items'</span>],
-306:       <span class="ruby-identifier">:state</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'private'</span>)
-307:                 <span class="ruby-comment cmt"># To assign the 'ws_admin' role to the user in his privte workspace</span>
-308:                 <span class="ruby-constant">UsersWorkspace</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span>,
-309:       <span class="ruby-identifier">:workspace_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">ws</span>.<span class="ruby-identifier">id</span>,
-310:       <span class="ruby-identifier">:role_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Role</span>.<span class="ruby-identifier">find_by_name</span>(<span class="ruby-value str">'ws_admin'</span>).<span class="ruby-identifier">id</span>)
-311:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/user.rb, line 307</span>
+307:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_private_workspace</span>
+308:                 <span class="ruby-comment cmt"># Creation of the private workspace for the user</span>
+309:                 <span class="ruby-identifier">ws</span> = <span class="ruby-constant">Workspace</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">:title</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;Private space of #{self.login}&quot;</span>,
+310:       <span class="ruby-identifier">:description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;Worksapce containing all the content created by #{self.full_name}&quot;</span>,
+311:       <span class="ruby-identifier">:creator_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span>,
+312:       <span class="ruby-identifier">:ws_items</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">get_configuration</span>[<span class="ruby-value str">'sa_items'</span>],
+313:       <span class="ruby-identifier">:state</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'private'</span>)
+314:                 <span class="ruby-comment cmt"># To assign the 'ws_admin' role to the user in his privte workspace</span>
+315:                 <span class="ruby-constant">UsersWorkspace</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span>,
+316:       <span class="ruby-identifier">:workspace_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">ws</span>.<span class="ruby-identifier">id</span>,
+317:       <span class="ruby-identifier">:role_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Role</span>.<span class="ruby-identifier">find_by_name</span>(<span class="ruby-value str">'ws_admin'</span>).<span class="ruby-identifier">id</span>)
+318:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -477,12 +477,12 @@ called &#8216;Private for user_login&#8216;
             onclick="toggleCode('M000076-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000076-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/user.rb, line 382</span>
-382:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_reset_code</span>
-383:     <span class="ruby-ivar">@reset</span> = <span class="ruby-keyword kw">true</span>
-384:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">password_reset_code</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">SHA1</span>.<span class="ruby-identifier">hexdigest</span>( <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">//</span>).<span class="ruby-identifier">sort_by</span> {<span class="ruby-identifier">rand</span>}.<span class="ruby-identifier">join</span> )
-385:     <span class="ruby-identifier">save</span>(<span class="ruby-keyword kw">false</span>)
-386:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/user.rb, line 389</span>
+389:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_reset_code</span>
+390:     <span class="ruby-ivar">@reset</span> = <span class="ruby-keyword kw">true</span>
+391:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">password_reset_code</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">SHA1</span>.<span class="ruby-identifier">hexdigest</span>( <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">//</span>).<span class="ruby-identifier">sort_by</span> {<span class="ruby-identifier">rand</span>}.<span class="ruby-identifier">join</span> )
+392:     <span class="ruby-identifier">save</span>(<span class="ruby-keyword kw">false</span>)
+393:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -505,10 +505,10 @@ Check if <a href="User.html">User</a> Currently Online
             onclick="toggleCode('M000050-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000050-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/user.rb, line 203</span>
-203:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">currently_online</span>
-204:     <span class="ruby-keyword kw">true</span>
-205:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/user.rb, line 210</span>
+210:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">currently_online</span>
+211:     <span class="ruby-keyword kw">true</span>
+212:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -528,11 +528,11 @@ Check if <a href="User.html">User</a> Currently Online
             onclick="toggleCode('M000075-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000075-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/user.rb, line 377</span>
-377:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">delete_reset_code</span>
-378:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">password_reset_code</span> = <span class="ruby-keyword kw">nil</span>
-379:     <span class="ruby-identifier">save</span>(<span class="ruby-keyword kw">false</span>)
-380:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/user.rb, line 384</span>
+384:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">delete_reset_code</span>
+385:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">password_reset_code</span> = <span class="ruby-keyword kw">nil</span>
+386:     <span class="ruby-identifier">save</span>(<span class="ruby-keyword kw">false</span>)
+387:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -555,10 +555,10 @@ Display Name of <a href="User.html">User</a>(login)
             onclick="toggleCode('M000048-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000048-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/user.rb, line 193</span>
-193:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">display_name</span>
-194:     <span class="ruby-identifier">login</span>
-195:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/user.rb, line 200</span>
+200:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">display_name</span>
+201:     <span class="ruby-identifier">login</span>
+202:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -578,12 +578,12 @@ Display Name of <a href="User.html">User</a>(login)
             onclick="toggleCode('M000073-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000073-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/user.rb, line 366</span>
-366:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">forget_me</span>
-367:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">remember_token_expires_at</span> = <span class="ruby-keyword kw">nil</span>
-368:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">remember_token</span>            = <span class="ruby-keyword kw">nil</span>
-369:     <span class="ruby-identifier">save</span>(<span class="ruby-keyword kw">false</span>)
-370:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/user.rb, line 373</span>
+373:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">forget_me</span>
+374:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">remember_token_expires_at</span> = <span class="ruby-keyword kw">nil</span>
+375:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">remember_token</span>            = <span class="ruby-keyword kw">nil</span>
+376:     <span class="ruby-identifier">save</span>(<span class="ruby-keyword kw">false</span>)
+377:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -606,10 +606,10 @@ Display Name of <a href="User.html">User</a>(login)
             onclick="toggleCode('M000064-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000064-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/user.rb, line 295</span>
-295:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">full_name</span>
-296:                 <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">lastname</span>.<span class="ruby-identifier">to_s</span><span class="ruby-operator">+</span><span class="ruby-value str">&quot; &quot;</span><span class="ruby-operator">+</span><span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">firstname</span>.<span class="ruby-identifier">to_s</span>
-297:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/user.rb, line 302</span>
+302:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">full_name</span>
+303:                 <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">lastname</span>.<span class="ruby-identifier">to_s</span><span class="ruby-operator">+</span><span class="ruby-value str">&quot; &quot;</span><span class="ruby-operator">+</span><span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">firstname</span>.<span class="ruby-identifier">to_s</span>
+304:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -633,33 +633,33 @@ format for newsletter
             onclick="toggleCode('M000045-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000045-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/user.rb, line 149</span>
-149:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_contacts_list</span>(<span class="ruby-identifier">restriction</span>, <span class="ruby-identifier">output_format</span>, <span class="ruby-identifier">newsletter</span>)
-150:                 <span class="ruby-identifier">people</span> = []
-151:                 <span class="ruby-identifier">users</span> = []
-152:                 <span class="ruby-identifier">conditions</span> = {}
-153:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">newsletter</span>
-154:                         <span class="ruby-identifier">conditions</span>.<span class="ruby-identifier">merge!</span>({<span class="ruby-identifier">:newsletter</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>})
-155:                 <span class="ruby-keyword kw">end</span>
-156:                 <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">has_system_role</span>(<span class="ruby-value str">'superadmin'</span>)
-157:                         <span class="ruby-identifier">people</span> = <span class="ruby-constant">Person</span>.<span class="ruby-identifier">all</span>(<span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">conditions</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">restriction</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'all'</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">restriction</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'people'</span>
-158:                         <span class="ruby-identifier">users</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">all</span>(<span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-identifier">:newsletter</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>}) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">restriction</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'all'</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">restriction</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'users'</span>
-159:                 <span class="ruby-keyword kw">else</span>
-160:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">restriction</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'all'</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">restriction</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'people'</span>
-161:                                 <span class="ruby-identifier">people</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">people</span>.<span class="ruby-identifier">all</span>(<span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">conditions</span>)
-162:                         <span class="ruby-keyword kw">end</span>
-163:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">restriction</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'all'</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">restriction</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'users'</span>
-164:                                 <span class="ruby-constant">Workspace</span>.<span class="ruby-identifier">allowed_user_with_permission</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span>,<span class="ruby-value str">'group_edit'</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ws</span><span class="ruby-operator">|</span>
-165:           <span class="ruby-identifier">users</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">ws</span>.<span class="ruby-identifier">users</span>.<span class="ruby-identifier">all</span>(<span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">conditions</span>)<span class="ruby-comment cmt">#.delete_if{ |e| !e.newsletter }</span>
-166:                                 <span class="ruby-keyword kw">end</span>
-167:                         <span class="ruby-keyword kw">end</span>
-168:                 <span class="ruby-keyword kw">end</span>
-169:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">output_format</span>
-170:                         <span class="ruby-keyword kw">return</span> (<span class="ruby-identifier">people</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">users</span>.<span class="ruby-identifier">uniq</span>).<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;to_#{output_format}&quot;</span>.<span class="ruby-identifier">to_sym</span>) }.<span class="ruby-identifier">sort!</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">a</span>,<span class="ruby-identifier">b</span><span class="ruby-operator">|</span> <span class="ruby-identifier">a</span>[<span class="ruby-identifier">:email</span>].<span class="ruby-identifier">downcase</span> <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">b</span>[<span class="ruby-identifier">:email</span>].<span class="ruby-identifier">downcase</span> }
-171:                 <span class="ruby-keyword kw">else</span>
-172:                         <span class="ruby-keyword kw">return</span> (<span class="ruby-identifier">people</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">users</span>.<span class="ruby-identifier">uniq</span>).<span class="ruby-identifier">sort!</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">a</span>,<span class="ruby-identifier">b</span><span class="ruby-operator">|</span> <span class="ruby-identifier">a</span>[<span class="ruby-identifier">:email</span>].<span class="ruby-identifier">downcase</span> <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">b</span>[<span class="ruby-identifier">:email</span>].<span class="ruby-identifier">downcase</span> }
-173:                 <span class="ruby-keyword kw">end</span>
-174:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/user.rb, line 156</span>
+156:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_contacts_list</span>(<span class="ruby-identifier">restriction</span>, <span class="ruby-identifier">output_format</span>, <span class="ruby-identifier">newsletter</span>)
+157:                 <span class="ruby-identifier">people</span> = []
+158:                 <span class="ruby-identifier">users</span> = []
+159:                 <span class="ruby-identifier">conditions</span> = {}
+160:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">newsletter</span>
+161:                         <span class="ruby-identifier">conditions</span>.<span class="ruby-identifier">merge!</span>({<span class="ruby-identifier">:newsletter</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>})
+162:                 <span class="ruby-keyword kw">end</span>
+163:                 <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">has_system_role</span>(<span class="ruby-value str">'superadmin'</span>)
+164:                         <span class="ruby-identifier">people</span> = <span class="ruby-constant">Person</span>.<span class="ruby-identifier">all</span>(<span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">conditions</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">restriction</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'all'</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">restriction</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'people'</span>
+165:                         <span class="ruby-identifier">users</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">all</span>(<span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-identifier">:newsletter</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>}) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">restriction</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'all'</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">restriction</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'users'</span>
+166:                 <span class="ruby-keyword kw">else</span>
+167:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">restriction</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'all'</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">restriction</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'people'</span>
+168:                                 <span class="ruby-identifier">people</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">people</span>.<span class="ruby-identifier">all</span>(<span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">conditions</span>)
+169:                         <span class="ruby-keyword kw">end</span>
+170:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">restriction</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'all'</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">restriction</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'users'</span>
+171:                                 <span class="ruby-constant">Workspace</span>.<span class="ruby-identifier">allowed_user_with_permission</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span>,<span class="ruby-value str">'group_edit'</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ws</span><span class="ruby-operator">|</span>
+172:           <span class="ruby-identifier">users</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">ws</span>.<span class="ruby-identifier">users</span>.<span class="ruby-identifier">all</span>(<span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">conditions</span>)<span class="ruby-comment cmt">#.delete_if{ |e| !e.newsletter }</span>
+173:                                 <span class="ruby-keyword kw">end</span>
+174:                         <span class="ruby-keyword kw">end</span>
+175:                 <span class="ruby-keyword kw">end</span>
+176:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">output_format</span>
+177:                         <span class="ruby-keyword kw">return</span> (<span class="ruby-identifier">people</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">users</span>.<span class="ruby-identifier">uniq</span>).<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;to_#{output_format}&quot;</span>.<span class="ruby-identifier">to_sym</span>) }.<span class="ruby-identifier">sort!</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">a</span>,<span class="ruby-identifier">b</span><span class="ruby-operator">|</span> <span class="ruby-identifier">a</span>[<span class="ruby-identifier">:email</span>].<span class="ruby-identifier">downcase</span> <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">b</span>[<span class="ruby-identifier">:email</span>].<span class="ruby-identifier">downcase</span> }
+178:                 <span class="ruby-keyword kw">else</span>
+179:                         <span class="ruby-keyword kw">return</span> (<span class="ruby-identifier">people</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">users</span>.<span class="ruby-identifier">uniq</span>).<span class="ruby-identifier">sort!</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">a</span>,<span class="ruby-identifier">b</span><span class="ruby-operator">|</span> <span class="ruby-identifier">a</span>[<span class="ruby-identifier">:email</span>].<span class="ruby-identifier">downcase</span> <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">b</span>[<span class="ruby-identifier">:email</span>].<span class="ruby-identifier">downcase</span> }
+180:                 <span class="ruby-keyword kw">end</span>
+181:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -683,11 +683,11 @@ Controller and Action
             onclick="toggleCode('M000056-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000056-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/user.rb, line 237</span>
-237:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_system_permission</span>(<span class="ruby-identifier">controller</span>, <span class="ruby-identifier">action</span>)
-238:                 <span class="ruby-identifier">permission_name</span> = <span class="ruby-identifier">controller</span><span class="ruby-operator">+</span><span class="ruby-value str">'_'</span><span class="ruby-operator">+</span><span class="ruby-identifier">action</span>
-239:                 <span class="ruby-keyword kw">return</span> <span class="ruby-operator">!</span><span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">system_permissions</span>.<span class="ruby-identifier">delete_if</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">permission_name</span>}.<span class="ruby-identifier">blank?</span> <span class="ruby-operator">||</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">has_system_role</span>(<span class="ruby-value str">'superadmin'</span>)
-240:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/user.rb, line 244</span>
+244:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_system_permission</span>(<span class="ruby-identifier">controller</span>, <span class="ruby-identifier">action</span>)
+245:                 <span class="ruby-identifier">permission_name</span> = <span class="ruby-identifier">controller</span><span class="ruby-operator">+</span><span class="ruby-value str">'_'</span><span class="ruby-operator">+</span><span class="ruby-identifier">action</span>
+246:                 <span class="ruby-keyword kw">return</span> <span class="ruby-operator">!</span><span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">system_permissions</span>.<span class="ruby-identifier">delete_if</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">permission_name</span>}.<span class="ruby-identifier">blank?</span> <span class="ruby-operator">||</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">has_system_role</span>(<span class="ruby-value str">'superadmin'</span>)
+247:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -711,10 +711,10 @@ Check <a href="User.html">User</a> for System role with passed
             onclick="toggleCode('M000052-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000052-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/user.rb, line 213</span>
-213:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_system_role</span>(<span class="ruby-identifier">role_name</span>)
-214:                 <span class="ruby-keyword kw">return</span> (<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">system_role</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">role_name</span>) <span class="ruby-operator">||</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">system_role</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'superadmin'</span>
-215:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/user.rb, line 220</span>
+220:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_system_role</span>(<span class="ruby-identifier">role_name</span>)
+221:                 <span class="ruby-keyword kw">return</span> (<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">system_role</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">role_name</span>) <span class="ruby-operator">||</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">system_role</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'superadmin'</span>
+222:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -738,11 +738,11 @@ Given Worksapce, Controller and Action
             onclick="toggleCode('M000057-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000057-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/user.rb, line 243</span>
-243:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_workspace_permission</span>(<span class="ruby-identifier">workspace_id</span>, <span class="ruby-identifier">controller</span>, <span class="ruby-identifier">action</span>)
-244:                 <span class="ruby-identifier">permission_name</span> = <span class="ruby-identifier">controller</span><span class="ruby-operator">+</span><span class="ruby-value str">'_'</span><span class="ruby-operator">+</span><span class="ruby-identifier">action</span>
-245:                 <span class="ruby-keyword kw">return</span> <span class="ruby-operator">!</span><span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">workspace_permissions</span>(<span class="ruby-identifier">workspace_id</span>).<span class="ruby-identifier">delete_if</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">permission_name</span>}.<span class="ruby-identifier">blank?</span> <span class="ruby-operator">||</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">has_system_role</span>(<span class="ruby-value str">'superadmin'</span>)
-246:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/user.rb, line 250</span>
+250:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_workspace_permission</span>(<span class="ruby-identifier">workspace_id</span>, <span class="ruby-identifier">controller</span>, <span class="ruby-identifier">action</span>)
+251:                 <span class="ruby-identifier">permission_name</span> = <span class="ruby-identifier">controller</span><span class="ruby-operator">+</span><span class="ruby-value str">'_'</span><span class="ruby-operator">+</span><span class="ruby-identifier">action</span>
+252:                 <span class="ruby-keyword kw">return</span> <span class="ruby-operator">!</span><span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">workspace_permissions</span>(<span class="ruby-identifier">workspace_id</span>).<span class="ruby-identifier">delete_if</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">permission_name</span>}.<span class="ruby-identifier">blank?</span> <span class="ruby-operator">||</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">has_system_role</span>(<span class="ruby-value str">'superadmin'</span>)
+253:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -767,10 +767,10 @@ passed &#8216;workspace&#8217; &amp; &#8216;role_type&#8216;
             onclick="toggleCode('M000053-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000053-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/user.rb, line 218</span>
-218:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_workspace_role</span>(<span class="ruby-identifier">workspace_id</span>, <span class="ruby-identifier">role_name</span>)
-219:                 <span class="ruby-keyword kw">return</span> <span class="ruby-constant">UsersWorkspace</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">:workspace_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">workspace_id</span>, <span class="ruby-identifier">:role_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Role</span>.<span class="ruby-identifier">find_by_name</span>(<span class="ruby-identifier">role_name</span>).<span class="ruby-identifier">id</span>) <span class="ruby-operator">||</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">system_role</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'superadmin'</span>
-220:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/user.rb, line 225</span>
+225:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_workspace_role</span>(<span class="ruby-identifier">workspace_id</span>, <span class="ruby-identifier">role_name</span>)
+226:                 <span class="ruby-keyword kw">return</span> <span class="ruby-constant">UsersWorkspace</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">:workspace_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">workspace_id</span>, <span class="ruby-identifier">:role_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Role</span>.<span class="ruby-identifier">find_by_name</span>(<span class="ruby-identifier">role_name</span>).<span class="ruby-identifier">id</span>) <span class="ruby-operator">||</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">system_role</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'superadmin'</span>
+227:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -793,10 +793,10 @@ Returns true if the user has just been activated.
             onclick="toggleCode('M000068-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000068-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/user.rb, line 329</span>
-329:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">pending?</span>
-330:     <span class="ruby-ivar">@activated</span>
-331:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/user.rb, line 336</span>
+336:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">pending?</span>
+337:     <span class="ruby-ivar">@activated</span>
+338:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -819,10 +819,10 @@ To change password
             onclick="toggleCode('M000074-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000074-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/user.rb, line 373</span>
-373:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">recently_reset?</span>
-374:     <span class="ruby-ivar">@reset</span>
-375:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/user.rb, line 380</span>
+380:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">recently_reset?</span>
+381:     <span class="ruby-ivar">@reset</span>
+382:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -846,10 +846,10 @@ browser closes
             onclick="toggleCode('M000070-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000070-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/user.rb, line 352</span>
-352:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">remember_me</span>
-353:     <span class="ruby-identifier">remember_me_for</span> <span class="ruby-value">2</span>.<span class="ruby-identifier">weeks</span>
-354:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/user.rb, line 359</span>
+359:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">remember_me</span>
+360:     <span class="ruby-identifier">remember_me_for</span> <span class="ruby-value">2</span>.<span class="ruby-identifier">weeks</span>
+361:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -869,10 +869,10 @@ browser closes
             onclick="toggleCode('M000071-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000071-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/user.rb, line 356</span>
-356:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">remember_me_for</span>(<span class="ruby-identifier">time</span>)
-357:     <span class="ruby-identifier">remember_me_until</span> <span class="ruby-identifier">time</span>.<span class="ruby-identifier">from_now</span>.<span class="ruby-identifier">utc</span>
-358:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/user.rb, line 363</span>
+363:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">remember_me_for</span>(<span class="ruby-identifier">time</span>)
+364:     <span class="ruby-identifier">remember_me_until</span> <span class="ruby-identifier">time</span>.<span class="ruby-identifier">from_now</span>.<span class="ruby-identifier">utc</span>
+365:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -892,12 +892,12 @@ browser closes
             onclick="toggleCode('M000072-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000072-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/user.rb, line 360</span>
-360:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">remember_me_until</span>(<span class="ruby-identifier">time</span>)
-361:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">remember_token_expires_at</span> = <span class="ruby-identifier">time</span>
-362:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">remember_token</span>            = <span class="ruby-identifier">encrypt</span>(<span class="ruby-node">&quot;#{email}--#{remember_token_expires_at}&quot;</span>)
-363:     <span class="ruby-identifier">save</span>(<span class="ruby-keyword kw">false</span>)
-364:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/user.rb, line 367</span>
+367:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">remember_me_until</span>(<span class="ruby-identifier">time</span>)
+368:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">remember_token_expires_at</span> = <span class="ruby-identifier">time</span>
+369:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">remember_token</span>            = <span class="ruby-identifier">encrypt</span>(<span class="ruby-node">&quot;#{email}--#{remember_token_expires_at}&quot;</span>)
+370:     <span class="ruby-identifier">save</span>(<span class="ruby-keyword kw">false</span>)
+371:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -947,10 +947,10 @@ end
             onclick="toggleCode('M000069-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000069-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/user.rb, line 347</span>
-347:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">remember_token?</span>
-348:     <span class="ruby-identifier">remember_token_expires_at</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">utc</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">remember_token_expires_at</span>
-349:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/user.rb, line 354</span>
+354:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">remember_token?</span>
+355:     <span class="ruby-identifier">remember_token_expires_at</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">utc</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">remember_token_expires_at</span>
+356:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -973,10 +973,10 @@ Users System Permissions
             onclick="toggleCode('M000054-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000054-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/user.rb, line 223</span>
-223:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">system_permissions</span>
-224:                 <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">system_role</span>.<span class="ruby-identifier">permissions</span>
-225:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/user.rb, line 230</span>
+230:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">system_permissions</span>
+231:                 <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">system_role</span>.<span class="ruby-identifier">permissions</span>
+232:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -1000,10 +1000,10 @@ Permissions
             onclick="toggleCode('M000051-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000051-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/user.rb, line 208</span>
-208:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">system_role</span>
-209:                 <span class="ruby-keyword kw">return</span> <span class="ruby-constant">Role</span>.<span class="ruby-identifier">find</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">system_role_id</span>)
-210:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/user.rb, line 215</span>
+215:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">system_role</span>
+216:                 <span class="ruby-keyword kw">return</span> <span class="ruby-constant">Role</span>.<span class="ruby-identifier">find</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">system_role_id</span>)
+217:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -1026,10 +1026,10 @@ Permissions
             onclick="toggleCode('M000047-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000047-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/user.rb, line 185</span>
-185:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_group_member</span>
-186:     <span class="ruby-keyword kw">return</span> { <span class="ruby-identifier">:model</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'User'</span>, <span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">:email</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">email</span>, <span class="ruby-identifier">:first_name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">firstname</span>, <span class="ruby-identifier">:last_name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">lastname</span>, <span class="ruby-identifier">:origin</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'user registred'</span>, <span class="ruby-identifier">:created_at</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">created_at</span>, <span class="ruby-identifier">:newsletter</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">newsletter</span> }
-187:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/user.rb, line 192</span>
+192:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_group_member</span>
+193:     <span class="ruby-keyword kw">return</span> { <span class="ruby-identifier">:model</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'User'</span>, <span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">:email</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">email</span>, <span class="ruby-identifier">:first_name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">firstname</span>, <span class="ruby-identifier">:last_name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">lastname</span>, <span class="ruby-identifier">:origin</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'user registred'</span>, <span class="ruby-identifier">:created_at</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">created_at</span>, <span class="ruby-identifier">:newsletter</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">newsletter</span> }
+194:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -1052,13 +1052,13 @@ Permissions
             onclick="toggleCode('M000046-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000046-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/user.rb, line 177</span>
-177:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_people</span>
-178:     <span class="ruby-keyword kw">return</span> <span class="ruby-constant">Person</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">:first_name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">firstname</span>, <span class="ruby-identifier">:last_name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">lastname</span>,<span class="ruby-identifier">:email</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">email</span>,
-179:       <span class="ruby-identifier">:primary_phone</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">phone</span>, <span class="ruby-identifier">:mobile_phone</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">mobile</span>,<span class="ruby-identifier">:city</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">address</span>,
-180:       <span class="ruby-identifier">:country</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">nationality</span>,<span class="ruby-identifier">:company</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">company</span>,<span class="ruby-identifier">:job_title</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">activity</span>,
-181:       <span class="ruby-identifier">:newsletter</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">newsletter</span>,<span class="ruby-identifier">:created_at</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">created_at</span>,<span class="ruby-identifier">:updated_at</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">updated_at</span>)
-182:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/user.rb, line 184</span>
+184:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_people</span>
+185:     <span class="ruby-keyword kw">return</span> <span class="ruby-constant">Person</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">:first_name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">firstname</span>, <span class="ruby-identifier">:last_name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">lastname</span>,<span class="ruby-identifier">:email</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">email</span>,
+186:       <span class="ruby-identifier">:primary_phone</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">phone</span>, <span class="ruby-identifier">:mobile_phone</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">mobile</span>,<span class="ruby-identifier">:city</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">address</span>,
+187:       <span class="ruby-identifier">:country</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">nationality</span>,<span class="ruby-identifier">:company</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">company</span>,<span class="ruby-identifier">:job_title</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">activity</span>,
+188:       <span class="ruby-identifier">:newsletter</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">newsletter</span>,<span class="ruby-identifier">:created_at</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">created_at</span>,<span class="ruby-identifier">:updated_at</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">updated_at</span>)
+189:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -1081,14 +1081,14 @@ Users <a href="Workspace.html">Workspace</a> Permissions
             onclick="toggleCode('M000055-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000055-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/user.rb, line 228</span>
-228:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">workspace_permissions</span>(<span class="ruby-identifier">workspace_id</span>)
-229:                 <span class="ruby-keyword kw">if</span> <span class="ruby-constant">UsersWorkspace</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">:workspace_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">workspace_id</span>)
-230:                         <span class="ruby-keyword kw">return</span> <span class="ruby-constant">UsersWorkspace</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-identifier">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">:workspace_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">workspace_id</span>}).<span class="ruby-identifier">role</span>.<span class="ruby-identifier">permissions</span>
-231:                 <span class="ruby-keyword kw">else</span>
-232:                         <span class="ruby-keyword kw">return</span> []
-233:                 <span class="ruby-keyword kw">end</span>
-234:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/user.rb, line 235</span>
+235:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">workspace_permissions</span>(<span class="ruby-identifier">workspace_id</span>)
+236:                 <span class="ruby-keyword kw">if</span> <span class="ruby-constant">UsersWorkspace</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">:workspace_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">workspace_id</span>)
+237:                         <span class="ruby-keyword kw">return</span> <span class="ruby-constant">UsersWorkspace</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-identifier">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">:workspace_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">workspace_id</span>}).<span class="ruby-identifier">role</span>.<span class="ruby-identifier">permissions</span>
+238:                 <span class="ruby-keyword kw">else</span>
+239:                         <span class="ruby-keyword kw">return</span> []
+240:                 <span class="ruby-keyword kw">end</span>
+241:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -1113,12 +1113,12 @@ before filter
             onclick="toggleCode('M000077-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000077-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/user.rb, line 391</span>
-391:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">encrypt_password</span>
-392:     <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">password</span>.<span class="ruby-identifier">blank?</span>
-393:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">salt</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">SHA1</span>.<span class="ruby-identifier">hexdigest</span>(<span class="ruby-node">&quot;--#{Time.now.to_s}--#{login}--&quot;</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">new_record?</span>
-394:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">crypted_password</span> = <span class="ruby-identifier">encrypt</span>(<span class="ruby-identifier">password</span>)
-395:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/user.rb, line 398</span>
+398:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">encrypt_password</span>
+399:     <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">password</span>.<span class="ruby-identifier">blank?</span>
+400:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">salt</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">SHA1</span>.<span class="ruby-identifier">hexdigest</span>(<span class="ruby-node">&quot;--#{Time.now.to_s}--#{login}--&quot;</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">new_record?</span>
+401:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">crypted_password</span> = <span class="ruby-identifier">encrypt</span>(<span class="ruby-identifier">password</span>)
+402:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -1138,10 +1138,10 @@ before filter
             onclick="toggleCode('M000079-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000079-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/user.rb, line 401</span>
-401:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">make_activation_code</span>
-402:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">activation_code</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">SHA1</span>.<span class="ruby-identifier">hexdigest</span>( <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">//</span>).<span class="ruby-identifier">sort_by</span> {<span class="ruby-identifier">rand</span>}.<span class="ruby-identifier">join</span> )
-403:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/user.rb, line 408</span>
+408:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">make_activation_code</span>
+409:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">activation_code</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">SHA1</span>.<span class="ruby-identifier">hexdigest</span>( <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">//</span>).<span class="ruby-identifier">sort_by</span> {<span class="ruby-identifier">rand</span>}.<span class="ruby-identifier">join</span> )
+410:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -1161,10 +1161,10 @@ before filter
             onclick="toggleCode('M000078-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000078-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/user.rb, line 397</span>
-397:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">password_required?</span>
-398:     <span class="ruby-identifier">crypted_password</span>.<span class="ruby-identifier">blank?</span> <span class="ruby-operator">||</span> <span class="ruby-operator">!</span><span class="ruby-identifier">password</span>.<span class="ruby-identifier">blank?</span>
-399:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/user.rb, line 404</span>
+404:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">password_required?</span>
+405:     <span class="ruby-identifier">crypted_password</span>.<span class="ruby-identifier">blank?</span> <span class="ruby-operator">||</span> <span class="ruby-operator">!</span><span class="ruby-identifier">password</span>.<span class="ruby-identifier">blank?</span>
+406:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

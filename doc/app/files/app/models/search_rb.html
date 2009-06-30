@@ -56,7 +56,7 @@
     </tr>
     <tr class="top-aligned-row">
       <td><strong>Last Update:</strong></td>
-      <td>Fri Jun 26 16:19:43 +0530 2009</td>
+      <td>Mon Jun 29 14:59:21 +0530 2009</td>
     </tr>
     </table>
   </div>
@@ -77,12 +77,15 @@ Schema version: 20181126085723
 Table name: searches
 </p>
 <pre>
- item_type_equals     :string
- title_contains       :string
- description_contains :string
- user_name_contains   :string
- created_after        :datetime
- created_before       :datetime
+ category        :string
+ models          :string
+ full_text_field :text
+ conditions      :string
+ created_before  :date
+ created_after   :date
+ filter_name     :string
+ filter_way      :string
+ filter_limit    :integer
 </pre>
 
     </div>

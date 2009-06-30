@@ -116,14 +116,17 @@
         </div>
       
         <div class="method-description">
+          <p>
+Link to New USer in UserWorksapce
+</p>
           <p><a class="source-toggle" href="#"
             onclick="toggleCode('M000214-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000214-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/helpers/workspaces_helper.rb, line 15</span>
-15:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">link_to_new_user</span>(<span class="ruby-identifier">name</span>)
-16:     <span class="ruby-identifier">link_to_function</span> <span class="ruby-identifier">name</span>, <span class="ruby-identifier">js_add_new_user</span>(<span class="ruby-constant">UsersWorkspace</span>.<span class="ruby-identifier">new</span>)
-17:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/helpers/workspaces_helper.rb, line 20</span>
+20:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">link_to_new_user</span>(<span class="ruby-identifier">name</span>)
+21:     <span class="ruby-identifier">link_to_function</span> <span class="ruby-identifier">name</span>, <span class="ruby-identifier">js_add_new_user</span>(<span class="ruby-constant">UsersWorkspace</span>.<span class="ruby-identifier">new</span>)
+22:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -139,14 +142,17 @@
         </div>
       
         <div class="method-description">
+          <p>
+Create Link to <a href="Workspace.html">Workspace</a>
+</p>
           <p><a class="source-toggle" href="#"
             onclick="toggleCode('M000211-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000211-source">
 <pre>
-   <span class="ruby-comment cmt"># File app/helpers/workspaces_helper.rb, line 2</span>
-2:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">link_to_workspace</span>(<span class="ruby-identifier">workspace</span>)
-3:     <span class="ruby-identifier">link_to</span>(<span class="ruby-identifier">workspace</span>.<span class="ruby-identifier">title</span>, <span class="ruby-identifier">workspace_url</span>(<span class="ruby-identifier">workspace</span>))
-4:   <span class="ruby-keyword kw">end</span>
+   <span class="ruby-comment cmt"># File app/helpers/workspaces_helper.rb, line 4</span>
+4:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">link_to_workspace</span>(<span class="ruby-identifier">workspace</span>)
+5:     <span class="ruby-identifier">link_to</span>(<span class="ruby-identifier">workspace</span>.<span class="ruby-identifier">title</span>, <span class="ruby-identifier">workspace_url</span>(<span class="ruby-identifier">workspace</span>))
+6:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -162,15 +168,18 @@
         </div>
       
         <div class="method-description">
+          <p>
+Create Link to all worksapces
+</p>
           <p><a class="source-toggle" href="#"
             onclick="toggleCode('M000212-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000212-source">
 <pre>
-   <span class="ruby-comment cmt"># File app/helpers/workspaces_helper.rb, line 6</span>
-6:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">links_to_workspace_collection</span>(<span class="ruby-identifier">workspaces</span>)
-7:     <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">workspaces</span>.<span class="ruby-identifier">empty?</span>
-8:     <span class="ruby-identifier">workspaces</span>.<span class="ruby-identifier">collect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">ws</span><span class="ruby-operator">|</span> <span class="ruby-identifier">link_to_workspace</span>(<span class="ruby-identifier">ws</span>) }.<span class="ruby-identifier">join</span>(<span class="ruby-value str">', '</span>)
-9:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/helpers/workspaces_helper.rb, line 9</span>
+ 9:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">links_to_workspace_collection</span>(<span class="ruby-identifier">workspaces</span>)
+10:     <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">workspaces</span>.<span class="ruby-identifier">empty?</span>
+11:     <span class="ruby-identifier">workspaces</span>.<span class="ruby-identifier">collect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">ws</span><span class="ruby-operator">|</span> <span class="ruby-identifier">link_to_workspace</span>(<span class="ruby-identifier">ws</span>) }.<span class="ruby-identifier">join</span>(<span class="ruby-value str">', '</span>)
+12:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -190,10 +199,10 @@
             onclick="toggleCode('M000213-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000213-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/helpers/workspaces_helper.rb, line 11</span>
-11:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">new_user</span>(<span class="ruby-identifier">object</span>)
-12:     <span class="ruby-identifier">javascript_tag</span> <span class="ruby-identifier">js_add_new_user</span>(<span class="ruby-identifier">object</span>)
-13:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/helpers/workspaces_helper.rb, line 15</span>
+15:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">new_user</span>(<span class="ruby-identifier">object</span>)
+16:     <span class="ruby-identifier">javascript_tag</span> <span class="ruby-identifier">js_add_new_user</span>(<span class="ruby-identifier">object</span>)
+17:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -209,15 +218,18 @@
         </div>
       
         <div class="method-description">
+          <p>
+<a href="User.html">User</a> list of worksapces for given role
+</p>
           <p><a class="source-toggle" href="#"
             onclick="toggleCode('M000215-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000215-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/helpers/workspaces_helper.rb, line 19</span>
-19:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">user_list_of</span>(<span class="ruby-identifier">workspace</span>, <span class="ruby-identifier">role</span>)
-20:     <span class="ruby-identifier">list</span> = <span class="ruby-identifier">workspace</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">role</span>)
-21:     <span class="ruby-identifier">list</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-value">? </span><span class="ruby-value str">'- Aucun -'</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">list</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">u</span><span class="ruby-operator">|</span> <span class="ruby-identifier">link_to_user</span>(<span class="ruby-identifier">u</span>) }.<span class="ruby-identifier">join</span>(<span class="ruby-value str">', '</span>)
-22:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/helpers/workspaces_helper.rb, line 25</span>
+25:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">user_list_of</span>(<span class="ruby-identifier">workspace</span>, <span class="ruby-identifier">role</span>)
+26:     <span class="ruby-identifier">list</span> = <span class="ruby-identifier">workspace</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">role</span>)
+27:     <span class="ruby-identifier">list</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-value">? </span><span class="ruby-value str">'- Aucun -'</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">list</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">u</span><span class="ruby-operator">|</span> <span class="ruby-identifier">link_to_user</span>(<span class="ruby-identifier">u</span>) }.<span class="ruby-identifier">join</span>(<span class="ruby-value str">', '</span>)
+28:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

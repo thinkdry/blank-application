@@ -87,12 +87,15 @@ Schema version: 20181126085723
 Table name: searches
 </p>
 <pre>
- item_type_equals     :string
- title_contains       :string
- description_contains :string
- user_name_contains   :string
- created_after        :datetime
- created_before       :datetime
+ category        :string
+ models          :string
+ full_text_field :text
+ conditions      :string
+ created_before  :date
+ created_after   :date
+ filter_name     :string
+ filter_way      :string
+ filter_limit    :integer
 </pre>
 
     </div>
@@ -145,10 +148,10 @@ Table name: searches
             onclick="toggleCode('M000018-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000018-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/models/search.rb, line 19</span>
-19:   <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">column</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">sql_type</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">default</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">null</span> = <span class="ruby-keyword kw">true</span>)
-20:     <span class="ruby-identifier">columns</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">ConnectionAdapters</span><span class="ruby-operator">::</span><span class="ruby-constant">Column</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-identifier">default</span>, <span class="ruby-identifier">sql_type</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-identifier">null</span>)
-21:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/models/search.rb, line 22</span>
+22:   <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">column</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">sql_type</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">default</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">null</span> = <span class="ruby-keyword kw">true</span>)
+23:     <span class="ruby-identifier">columns</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">ConnectionAdapters</span><span class="ruby-operator">::</span><span class="ruby-constant">Column</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-identifier">default</span>, <span class="ruby-identifier">sql_type</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-identifier">null</span>)
+24:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -171,8 +174,8 @@ Tableless model
             onclick="toggleCode('M000017-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000017-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/models/search.rb, line 17</span>
-17:   <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">columns</span>() <span class="ruby-ivar">@columns</span> <span class="ruby-operator">||=</span> []; <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/models/search.rb, line 20</span>
+20:   <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">columns</span>() <span class="ruby-ivar">@columns</span> <span class="ruby-operator">||=</span> []; <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -198,19 +201,19 @@ paramerters passes
             onclick="toggleCode('M000021-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000021-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/models/search.rb, line 59</span>
-59:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">conditions</span>
-60:                 <span class="ruby-identifier">res</span> = []
-61:                 <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:conditions</span>]
-62:                         <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:conditions</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
-63:                                 <span class="ruby-identifier">res</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-node">&quot;#{k} == #{v}&quot;</span>]
-64:                         <span class="ruby-keyword kw">end</span>
-65:                 <span class="ruby-keyword kw">end</span>
-66:                 <span class="ruby-identifier">res</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-node">&quot;created_at &lt; '#{self[:created_before].to_date}'&quot;</span>] <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:created_before</span>]
-67:                 <span class="ruby-identifier">res</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-node">&quot;created_at &gt; '#{self[:created_after].to_date}'&quot;</span>] <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:created_after</span>]
-68:                 <span class="ruby-comment cmt">#raise res.join(' AND ').inspect</span>
-69:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">res</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">' AND '</span>)
-70:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/models/search.rb, line 62</span>
+62:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">conditions</span>
+63:                 <span class="ruby-identifier">res</span> = []
+64:                 <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:conditions</span>]
+65:                         <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:conditions</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+66:                                 <span class="ruby-identifier">res</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-node">&quot;#{k} == #{v}&quot;</span>]
+67:                         <span class="ruby-keyword kw">end</span>
+68:                 <span class="ruby-keyword kw">end</span>
+69:                 <span class="ruby-identifier">res</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-node">&quot;created_at &lt; '#{self[:created_before].to_date}'&quot;</span>] <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:created_before</span>]
+70:                 <span class="ruby-identifier">res</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-node">&quot;created_at &gt; '#{self[:created_after].to_date}'&quot;</span>] <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:created_after</span>]
+71:                 <span class="ruby-comment cmt">#raise res.join(' AND ').inspect</span>
+72:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">res</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">' AND '</span>)
+73:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -234,41 +237,41 @@ according to Passed Parameters
             onclick="toggleCode('M000022-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000022-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/search.rb, line 73</span>
- 73:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">do_search</span>
- 74:                 <span class="ruby-identifier">results</span> = []
- 75:                 <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:models</span>].<span class="ruby-identifier">split</span>(<span class="ruby-value str">','</span>).<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
- 76:                         <span class="ruby-comment cmt"># Research on ONE model</span>
- 77:                         <span class="ruby-identifier">model_const</span> = <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:models</span>].<span class="ruby-identifier">split</span>(<span class="ruby-value str">','</span>).<span class="ruby-identifier">first</span>.<span class="ruby-identifier">classify</span>.<span class="ruby-identifier">constantize</span>
- 78:                         <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:full_text_field</span>].<span class="ruby-identifier">blank?</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:full_text_field</span>] <span class="ruby-operator">!=</span> <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'layout.search.search_label'</span>))
- 79:                                 <span class="ruby-identifier">results</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">model_const</span>.<span class="ruby-identifier">full_text_with_xapian</span>(<span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:full_text_field</span>]).<span class="ruby-identifier">advanced_on_fields</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">conditions</span>).<span class="ruby-identifier">filtering_with</span>(<span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:filter_name</span>], <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:filter_way</span>], <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:filter_limit</span>])
- 80:                         <span class="ruby-keyword kw">else</span>
- 81:                                 <span class="ruby-identifier">results</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">model_const</span>.<span class="ruby-identifier">advanced_on_fields</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">conditions</span>).<span class="ruby-identifier">filtering_with</span>(<span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:filter_name</span>], <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:filter_way</span>], <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:filter_limit</span>])
- 82:                         <span class="ruby-keyword kw">end</span>
- 83:                 <span class="ruby-keyword kw">else</span>
- 84:                         <span class="ruby-comment cmt"># Research on VARIOUS models</span>
- 85:                         <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:models</span>].<span class="ruby-identifier">split</span>(<span class="ruby-value str">','</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">model_name</span><span class="ruby-operator">|</span>
- 86:                                 <span class="ruby-identifier">model_const</span> = <span class="ruby-identifier">model_name</span>.<span class="ruby-identifier">classify</span>.<span class="ruby-identifier">constantize</span>
- 87:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:full_text_field</span>].<span class="ruby-identifier">blank?</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:full_text_field</span>] <span class="ruby-operator">!=</span> <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'layout.search.search_label'</span>))
- 88:                                         <span class="ruby-identifier">results</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">model_const</span>.<span class="ruby-identifier">full_text_with_xapian</span>(<span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:full_text_field</span>]).<span class="ruby-identifier">advanced_on_fields</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">conditions</span>)
- 89:                                 <span class="ruby-keyword kw">else</span>
- 90:                                         <span class="ruby-identifier">results</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">model_const</span>.<span class="ruby-identifier">advanced_on_fields</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">conditions</span>)
- 91:                                 <span class="ruby-keyword kw">end</span>
- 92:                                 <span class="ruby-comment cmt"># Filer in Ruby, not top, need to find a MySQL way</span>
- 93:                                 <span class="ruby-comment cmt">#raise results.inspect</span>
- 94:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:filter_name</span>] <span class="ruby-operator">!=</span> <span class="ruby-value str">'weight'</span>
- 95:                                         <span class="ruby-identifier">results</span> = <span class="ruby-identifier">results</span>.<span class="ruby-identifier">sort</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span><span class="ruby-operator">|</span>
- 96:                                                 <span class="ruby-keyword kw">if</span> (<span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:filter_way</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'desc'</span>)
- 97:                                                         <span class="ruby-identifier">x</span>.<span class="ruby-identifier">send</span>(<span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:filter_name</span>].<span class="ruby-identifier">to_sym</span>) <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">y</span>.<span class="ruby-identifier">send</span>(<span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:filter_name</span>].<span class="ruby-identifier">to_sym</span>)
- 98:                                                 <span class="ruby-keyword kw">else</span>
- 99:                                                         <span class="ruby-identifier">y</span>.<span class="ruby-identifier">send</span>(<span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:filter_name</span>].<span class="ruby-identifier">to_sym</span>) <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">send</span>(<span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:filter_name</span>].<span class="ruby-identifier">to_sym</span>)
-100:                                                 <span class="ruby-keyword kw">end</span>
-101:                                         <span class="ruby-keyword kw">end</span> <span class="ruby-comment cmt"># TODO limit</span>
-102:                                 <span class="ruby-keyword kw">end</span>
-103:                         <span class="ruby-keyword kw">end</span>
-104:                 <span class="ruby-keyword kw">end</span>
-105:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">results</span>
-106:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/search.rb, line 76</span>
+ 76:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">do_search</span>
+ 77:                 <span class="ruby-identifier">results</span> = []
+ 78:                 <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:models</span>].<span class="ruby-identifier">split</span>(<span class="ruby-value str">','</span>).<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+ 79:                         <span class="ruby-comment cmt"># Research on ONE model</span>
+ 80:                         <span class="ruby-identifier">model_const</span> = <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:models</span>].<span class="ruby-identifier">split</span>(<span class="ruby-value str">','</span>).<span class="ruby-identifier">first</span>.<span class="ruby-identifier">classify</span>.<span class="ruby-identifier">constantize</span>
+ 81:                         <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:full_text_field</span>].<span class="ruby-identifier">blank?</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:full_text_field</span>] <span class="ruby-operator">!=</span> <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'layout.search.search_label'</span>))
+ 82:                                 <span class="ruby-identifier">results</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">model_const</span>.<span class="ruby-identifier">full_text_with_xapian</span>(<span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:full_text_field</span>]).<span class="ruby-identifier">advanced_on_fields</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">conditions</span>).<span class="ruby-identifier">filtering_with</span>(<span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:filter_name</span>], <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:filter_way</span>], <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:filter_limit</span>])
+ 83:                         <span class="ruby-keyword kw">else</span>
+ 84:                                 <span class="ruby-identifier">results</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">model_const</span>.<span class="ruby-identifier">advanced_on_fields</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">conditions</span>).<span class="ruby-identifier">filtering_with</span>(<span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:filter_name</span>], <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:filter_way</span>], <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:filter_limit</span>])
+ 85:                         <span class="ruby-keyword kw">end</span>
+ 86:                 <span class="ruby-keyword kw">else</span>
+ 87:                         <span class="ruby-comment cmt"># Research on VARIOUS models</span>
+ 88:                         <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:models</span>].<span class="ruby-identifier">split</span>(<span class="ruby-value str">','</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">model_name</span><span class="ruby-operator">|</span>
+ 89:                                 <span class="ruby-identifier">model_const</span> = <span class="ruby-identifier">model_name</span>.<span class="ruby-identifier">classify</span>.<span class="ruby-identifier">constantize</span>
+ 90:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:full_text_field</span>].<span class="ruby-identifier">blank?</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:full_text_field</span>] <span class="ruby-operator">!=</span> <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'layout.search.search_label'</span>))
+ 91:                                         <span class="ruby-identifier">results</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">model_const</span>.<span class="ruby-identifier">full_text_with_xapian</span>(<span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:full_text_field</span>]).<span class="ruby-identifier">advanced_on_fields</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">conditions</span>)
+ 92:                                 <span class="ruby-keyword kw">else</span>
+ 93:                                         <span class="ruby-identifier">results</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">model_const</span>.<span class="ruby-identifier">advanced_on_fields</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">conditions</span>)
+ 94:                                 <span class="ruby-keyword kw">end</span>
+ 95:                                 <span class="ruby-comment cmt"># Filer in Ruby, not top, need to find a MySQL way</span>
+ 96:                                 <span class="ruby-comment cmt">#raise results.inspect</span>
+ 97:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:filter_name</span>] <span class="ruby-operator">!=</span> <span class="ruby-value str">'weight'</span>
+ 98:                                         <span class="ruby-identifier">results</span> = <span class="ruby-identifier">results</span>.<span class="ruby-identifier">sort</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span><span class="ruby-operator">|</span>
+ 99:                                                 <span class="ruby-keyword kw">if</span> (<span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:filter_way</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'desc'</span>)
+100:                                                         <span class="ruby-identifier">x</span>.<span class="ruby-identifier">send</span>(<span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:filter_name</span>].<span class="ruby-identifier">to_sym</span>) <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">y</span>.<span class="ruby-identifier">send</span>(<span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:filter_name</span>].<span class="ruby-identifier">to_sym</span>)
+101:                                                 <span class="ruby-keyword kw">else</span>
+102:                                                         <span class="ruby-identifier">y</span>.<span class="ruby-identifier">send</span>(<span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:filter_name</span>].<span class="ruby-identifier">to_sym</span>) <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">send</span>(<span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:filter_name</span>].<span class="ruby-identifier">to_sym</span>)
+103:                                                 <span class="ruby-keyword kw">end</span>
+104:                                         <span class="ruby-keyword kw">end</span> <span class="ruby-comment cmt"># TODO limit</span>
+105:                                 <span class="ruby-keyword kw">end</span>
+106:                         <span class="ruby-keyword kw">end</span>
+107:                 <span class="ruby-keyword kw">end</span>
+108:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">results</span>
+109:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -288,10 +291,10 @@ according to Passed Parameters
             onclick="toggleCode('M000020-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000020-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/models/search.rb, line 54</span>
-54:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_value_of_param</span>(<span class="ruby-identifier">param_name</span>)
-55:                 <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:conditions</span>][<span class="ruby-identifier">param_name</span>]
-56:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/models/search.rb, line 57</span>
+57:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_value_of_param</span>(<span class="ruby-identifier">param_name</span>)
+58:                 <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:conditions</span>][<span class="ruby-identifier">param_name</span>]
+59:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -314,10 +317,10 @@ Models for acts_as_xapian <a href="Search.html">Search</a>
             onclick="toggleCode('M000019-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000019-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/models/search.rb, line 49</span>
-49:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">models=</span> <span class="ruby-identifier">params</span>
-50:                 <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:models</span>] = <span class="ruby-identifier">params</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">','</span>)
-51:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/models/search.rb, line 52</span>
+52:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">models=</span> <span class="ruby-identifier">params</span>
+53:                 <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:models</span>] = <span class="ruby-identifier">params</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">','</span>)
+54:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

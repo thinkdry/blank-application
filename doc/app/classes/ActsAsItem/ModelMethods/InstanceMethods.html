@@ -122,14 +122,27 @@
         </div>
       
         <div class="method-description">
+          <p>
+Check <a href="../../User.html">User</a> for permission to Add Comment to
+<a href="../../Item.html">Item</a>
+</p>
+<p>
+Usage:
+</p>
+<p>
+article.accepts_comment_for?(user)
+</p>
+<p>
+will return true if the user has permission
+</p>
           <p><a class="source-toggle" href="#"
             onclick="toggleCode('M000290-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000290-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/acts_as_item/model.rb, line 197</span>
-197:                         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">accepts_comment_for?</span>(<span class="ruby-identifier">user</span>)
-198:                                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">accepting_action</span>(<span class="ruby-identifier">user</span>, <span class="ruby-value str">'comment'</span>)
-199:                         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/acts_as_item/model.rb, line 259</span>
+259:                         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">accepts_comment_for?</span>(<span class="ruby-identifier">user</span>)
+260:                                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">accepting_action</span>(<span class="ruby-identifier">user</span>, <span class="ruby-value str">'comment'</span>)
+261:                         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -146,16 +159,26 @@
       
         <div class="method-description">
           <p>
-Check if user authorized to delete this item
+Check <a href="../../User.html">User</a> for permission to Destroy the <a
+href="../../Item.html">Item</a>
+</p>
+<p>
+Usage:
+</p>
+<p>
+article.accepts_destroy_for? user
+</p>
+<p>
+will return true if the user has permission
 </p>
           <p><a class="source-toggle" href="#"
             onclick="toggleCode('M000287-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000287-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/acts_as_item/model.rb, line 183</span>
-183:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">accepts_destroy_for?</span> <span class="ruby-identifier">user</span>
-184:         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">accepting_action</span>(<span class="ruby-identifier">user</span>, <span class="ruby-value str">'destroy'</span>)
-185:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/acts_as_item/model.rb, line 226</span>
+226:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">accepts_destroy_for?</span> <span class="ruby-identifier">user</span>
+227:         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">accepting_action</span>(<span class="ruby-identifier">user</span>, <span class="ruby-value str">'destroy'</span>)
+228:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -172,16 +195,26 @@ Check if user authorized to delete this item
       
         <div class="method-description">
           <p>
-Check if user authorized to edit this item
+Check <a href="../../User.html">User</a> for permission to Edit the <a
+href="../../Item.html">Item</a>
+</p>
+<p>
+Usage:
+</p>
+<p>
+article.accepts_edit_for? user
+</p>
+<p>
+will return true if the user has permission
 </p>
           <p><a class="source-toggle" href="#"
             onclick="toggleCode('M000288-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000288-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/acts_as_item/model.rb, line 188</span>
-188:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">accepts_edit_for?</span> <span class="ruby-identifier">user</span>
-189:         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">accepting_action</span>(<span class="ruby-identifier">user</span>, <span class="ruby-value str">'edit'</span>)
-190:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/acts_as_item/model.rb, line 237</span>
+237:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">accepts_edit_for?</span> <span class="ruby-identifier">user</span>
+238:         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">accepting_action</span>(<span class="ruby-identifier">user</span>, <span class="ruby-value str">'edit'</span>)
+239:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -198,16 +231,26 @@ Check if user authorized to edit this item
       
         <div class="method-description">
           <p>
-Check if user authorized to create one item
+Check <a href="../../User.html">User</a> for permission to Create New <a
+href="../../Item.html">Item</a>
+</p>
+<p>
+Usage:
+</p>
+<p>
+article.accepts_new_for? user
+</p>
+<p>
+will return true if the user has permission
 </p>
           <p><a class="source-toggle" href="#"
             onclick="toggleCode('M000289-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000289-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/acts_as_item/model.rb, line 193</span>
-193:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">accepts_new_for?</span> <span class="ruby-identifier">user</span>
-194:         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">accepting_action</span>(<span class="ruby-identifier">user</span>, <span class="ruby-value str">'new'</span>)
-195:                         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/acts_as_item/model.rb, line 248</span>
+248:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">accepts_new_for?</span> <span class="ruby-identifier">user</span>
+249:         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">accepting_action</span>(<span class="ruby-identifier">user</span>, <span class="ruby-value str">'new'</span>)
+250:                         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -223,14 +266,27 @@ Check if user authorized to create one item
         </div>
       
         <div class="method-description">
+          <p>
+Check <a href="../../User.html">User</a> for permission to Add Rating to <a
+href="../../Item.html">Item</a>
+</p>
+<p>
+Usage:
+</p>
+<p>
+article.accepts_rate_for?(user)
+</p>
+<p>
+will return true if the user has permission
+</p>
           <p><a class="source-toggle" href="#"
             onclick="toggleCode('M000291-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000291-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/acts_as_item/model.rb, line 201</span>
-201:                         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">accepts_rate_for?</span>(<span class="ruby-identifier">user</span>)
-202:                                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">accepting_action</span>(<span class="ruby-identifier">user</span>, <span class="ruby-value str">'rate'</span>)
-203:                         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/acts_as_item/model.rb, line 270</span>
+270:                         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">accepts_rate_for?</span>(<span class="ruby-identifier">user</span>)
+271:                                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">accepting_action</span>(<span class="ruby-identifier">user</span>, <span class="ruby-value str">'rate'</span>)
+272:                         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -247,16 +303,26 @@ Check if user authorized to create one item
       
         <div class="method-description">
           <p>
-Check if user authorized to consult this item
+Check <a href="../../User.html">User</a> for permission to view the <a
+href="../../Item.html">Item</a>
+</p>
+<p>
+Usage:
+</p>
+<p>
+article.accepts_show_for? user
+</p>
+<p>
+will return true if the user has permission
 </p>
           <p><a class="source-toggle" href="#"
             onclick="toggleCode('M000286-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000286-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/acts_as_item/model.rb, line 178</span>
-178:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">accepts_show_for?</span> <span class="ruby-identifier">user</span>
-179:         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">accepting_action</span>(<span class="ruby-identifier">user</span>, <span class="ruby-value str">'show'</span>)
-180:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/acts_as_item/model.rb, line 215</span>
+215:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">accepts_show_for?</span> <span class="ruby-identifier">user</span>
+216:         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">accepting_action</span>(<span class="ruby-identifier">user</span>, <span class="ruby-value str">'show'</span>)
+217:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -272,14 +338,27 @@ Check if user authorized to consult this item
         </div>
       
         <div class="method-description">
+          <p>
+Check <a href="../../User.html">User</a> for permission to Add <a
+href="../../Tag.html">Tag</a> to <a href="../../Item.html">Item</a>
+</p>
+<p>
+Usage:
+</p>
+<p>
+article.accepts_tag_for?(user)
+</p>
+<p>
+will return true if the user has permission
+</p>
           <p><a class="source-toggle" href="#"
             onclick="toggleCode('M000292-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000292-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/acts_as_item/model.rb, line 205</span>
-205:                         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">accepts_tag_for?</span>(<span class="ruby-identifier">user</span>)
-206:                                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">accepting_action</span>(<span class="ruby-identifier">user</span>, <span class="ruby-value str">'tag'</span>)
-207:                         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/acts_as_item/model.rb, line 281</span>
+281:                         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">accepts_tag_for?</span>(<span class="ruby-identifier">user</span>)
+282:                                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">accepting_action</span>(<span class="ruby-identifier">user</span>, <span class="ruby-value str">'tag'</span>)
+283:                         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -296,17 +375,23 @@ Check if user authorized to consult this item
       
         <div class="method-description">
           <p>
-Assign Worksapces to current Items ( One <a href="../../Item.html">Item</a>
-can be associated with many Worksapces)
+Assign Worksapces to current <a href="../../Item.html">Item</a> ( One <a
+href="../../Item.html">Item</a> can be associated with many Worksapces)
+</p>
+<p>
+Usage:
+</p>
+<p>
+@article.assoicated_workspaces = [workspace1.id, workspace2.id]
 </p>
           <p><a class="source-toggle" href="#"
             onclick="toggleCode('M000285-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000285-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/acts_as_item/model.rb, line 173</span>
-173:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">associated_workspaces=</span> <span class="ruby-identifier">workspace_ids</span>
-174:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">items</span> = <span class="ruby-identifier">workspace_ids</span>.<span class="ruby-identifier">collect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">id</span><span class="ruby-operator">|</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">items</span>.<span class="ruby-identifier">build</span>(<span class="ruby-identifier">:workspace_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">id</span>) }
-175:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/acts_as_item/model.rb, line 204</span>
+204:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">associated_workspaces=</span> <span class="ruby-identifier">workspace_ids</span>
+205:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">items</span> = <span class="ruby-identifier">workspace_ids</span>.<span class="ruby-identifier">collect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">id</span><span class="ruby-operator">|</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">items</span>.<span class="ruby-identifier">build</span>(<span class="ruby-identifier">:workspace_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">id</span>) }
+206:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -323,16 +408,27 @@ can be associated with many Worksapces)
       
         <div class="method-description">
           <p>
-Assign Categoris to Current Items
+Assign Categories to current <a href="../../Item.html">Item</a> ( One <a
+href="../../Item.html">Item</a> can be associated with many Categories)
+</p>
+<p>
+Usage:
+</p>
+<p>
+@article.categories_field =
+[&quot;category1&quot;,&quot;category2&quot;,&quot;category3&quot;]
+</p>
+<p>
+will assign a string &quot;,&quot; join to category field
 </p>
           <p><a class="source-toggle" href="#"
             onclick="toggleCode('M000284-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000284-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/acts_as_item/model.rb, line 168</span>
-168:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">categories_field=</span> <span class="ruby-identifier">params</span>
-169:         <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:category</span>] = <span class="ruby-identifier">params</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;,&quot;</span>)
-170:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/acts_as_item/model.rb, line 195</span>
+195:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">categories_field=</span> <span class="ruby-identifier">params</span>
+196:         <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">:category</span>] = <span class="ruby-identifier">params</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;,&quot;</span>)
+197:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -348,14 +444,28 @@ Assign Categoris to Current Items
         </div>
       
         <div class="method-description">
+          <p>
+Generally icons are used to enchance visual simplicity to the <a
+href="../../User.html">User</a>.
+</p>
+<p>
+Icon is used to associate every item type with image thumbnail of size
+32x32px in default back office view.
+</p>
+<p>
+Usage:
+</p>
+<p>
+article.icon will return &quot;/item_icons/article.png
+</p>
           <p><a class="source-toggle" href="#"
             onclick="toggleCode('M000283-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000283-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/acts_as_item/model.rb, line 163</span>
-163:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">icon</span>
-164:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">icon</span>
-165:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/acts_as_item/model.rb, line 184</span>
+184:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">icon</span>
+185:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">icon</span>
+186:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -372,17 +482,26 @@ Assign Categoris to Current Items
       
         <div class="method-description">
           <p>
-Return the <a href="../../Workspace.html">Workspace</a> Titles
-&#8217;,&#8217; seperated
+List <a href="../../Workspace.html">Workspace</a> Title&#8216;s to which
+the <a href="../../Item.html">Item</a> is Associated
+</p>
+<p>
+Usage:
+</p>
+<p>
+@article.workspace_titles
+</p>
+<p>
+will return workspace1, workspace2, workspace3
 </p>
           <p><a class="source-toggle" href="#"
             onclick="toggleCode('M000282-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000282-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/acts_as_item/model.rb, line 159</span>
-159:                         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">workspace_titles</span>
-160:                                 <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">workspaces</span>.<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">title</span> }.<span class="ruby-identifier">join</span>(<span class="ruby-value str">','</span>)
-161:                         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/acts_as_item/model.rb, line 173</span>
+173:                         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">workspace_titles</span>
+174:                                 <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">workspaces</span>.<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">title</span> }.<span class="ruby-identifier">join</span>(<span class="ruby-value str">','</span>)
+175:                         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

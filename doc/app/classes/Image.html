@@ -99,6 +99,10 @@ Table name: images
  created_at         :datetime
  updated_at         :datetime
  tags               :string(255)
+ viewed_number      :integer(4)
+ rates_average      :integer(4)
+ comments_number    :integer(4)
+ category           :string(255)
 </pre>
 
     </div>
@@ -149,10 +153,10 @@ Media Type for the Model
             onclick="toggleCode('M000156-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000156-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/models/image.rb, line 39</span>
-39:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">media_type</span>
-40:     <span class="ruby-identifier">image</span>
-41:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/models/image.rb, line 43</span>
+43:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">media_type</span>
+44:     <span class="ruby-identifier">image</span>
+45:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

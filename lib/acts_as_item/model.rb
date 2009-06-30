@@ -62,23 +62,43 @@ module ActsAsItem
         include ActsAsItem::ModelMethods::InstanceMethods
 
       end
-
-      # Used for Setting Icon Images for Items
+      
+      # Generally icons are used to enchance visual simplicity to the User.
+      #
+      # Icon is used to associate every item type with image thumbnail of size 32x32px in default back office view.
+      #
+      # Usage:
+      #
+      # Article.icon will return "/item_icons/article.png
       def icon
         'item_icons/' + self.to_s.underscore + '.png'
       end
 
-      # Other Icon Images for Items
+      # Icon_48 is other image to associate every item type with image thumbnail of size 48x48px in default back office view.
+      #
+      # Usage:
+      #
+      # Article.icon_48 will return "/item_icons/article_48.png
       def icon_48
         'item_icons/' + self.to_s.underscore + '_48.png'
       end
 
-      # Return Label of the Item
+      # Label is used to return the name of the item type.
+      #
+      # Usage:
+      #
+      # Image.label will return "Image"
 			def label
 				I18n.t("general.item.#{self.model_name.underscore}")
 			end
 
-      # Return Item List for User in Workspace  given the action and filters
+      # List the Items in the Worksapce for the User with permission.
+      #
+      # Usage:
+      #
+      # Article.get_items_list_for_user_with_permission_in_workspace(user_object,'show',workspace_object,'created_at','desc',10)
+      #
+      # Will Return the object of type article with defined filters
 			def get_items_list_for_user_with_permission_in_workspace(user, action, workspace, filter_name, filter_way, filter_limit)
 				filter_name ||= 'created_at'
 				filter_way ||= 'desc'
@@ -88,21 +108,18 @@ module ActsAsItem
           # Workspace permission checked
 				elsif user.has_workspace_permission(workspace.id, self.model_name.underscore, action)
 					return workspace.send(self.model_name.underscore.pluralize.to_sym).all(:order => filter_name+' '+filter_way, :limit => filter_limit)
-          # Category permission checked
-          #				elsif !(cats=workspace.ws_item_categories).blank?
-          #					res = []
-          #					cats.each do |cat|
-          #						if user.has_workspace_permission(workspace.id, 'item_cat_'+cat, action)
-          #							res = res + workspace.send(self.model_name.underscore.pluralize.to_sym)
-          #						end
-          #					end
-          #					return res
 				else
 					return []
 				end
 			end
 
-      # Return Item List for User given the action and filters
+      # List the Items for the User with permission.
+      #
+      # Usage:
+      #
+      # Article.get_items_list_for_user_with_permission(user_object,'show','created_at','desc',10)
+      #
+      # Will Return the object of type article with defined filters
 			def get_items_list_for_user_with_permission(user, action, filter_name, filter_way, filter_limit)
 				filter_name ||= 'created_at'
 				filter_way ||= 'desc'
@@ -117,15 +134,6 @@ module ActsAsItem
 					wsl.each do |ws|
 						if user.has_workspace_permission(ws.id, self.model_name.underscore, action)
 							res = res + ws.send(self.model_name.underscore.pluralize.to_sym)
-              #						else
-              #							# lazyness...
-              #							cats = ITEM_CATEGORIES & ws.ws_item_categories.split(',')
-              #							# Check if user can access to, at least, one category of the item in that workspace
-              #							cats.each do |cat|
-              #								if user.has_workspace_permission(ws.id, 'item_cat_'+cat, action)
-              #									res = res + self.find_by_sql("SELECT * FROM #{self.model_name.underscore.pluralize} LEFT JOIN items ON items.itemable='#{self.model_name}' AND items.workspace_id=#{ws.id} WHERE #{self.model_name.underscore.pluralize}.category LIKE #{cat}")
-              #								end
-              #							end
 						end
 					end
 					if filter_way == 'desc'
@@ -152,56 +160,124 @@ module ActsAsItem
 			end
 
     end
-    
+
     module InstanceMethods
 
-      # Return the Workspace Titles ',' seperated
+      # List Workspace Title's to which the Item is Associated
+      #
+      # Usage:
+      #
+      # @article.workspace_titles
+      #
+      # will return workspace1, workspace2, workspace3
 			def workspace_titles
 				self.workspaces.map{ |e| e.title }.join(',')
 			end
 
+      # Generally icons are used to enchance visual simplicity to the User.
+      #
+      # Icon is used to associate every item type with image thumbnail of size 32x32px in default back office view.
+      #
+      # Usage:
+      #
+      # article.icon will return "/item_icons/article.png
       def icon
         self.class.icon
       end
 
-      # Assign Categoris to Current Items
+      # Assign Categories to current Item ( One Item can be associated with many Categories)
+      #
+      # Usage:
+      #
+      # @article.categories_field = ["category1","category2","category3"]
+      #
+      # will assign a string "," join to category field
       def categories_field= params
         self[:category] = params.join(",")
       end
 
-      # Assign Worksapces to current Items ( One Item can be associated with many Worksapces)
+      # Assign Worksapces to current Item ( One Item can be associated with many Worksapces)
+      #
+      # Usage:
+      #
+      # @article.assoicated_workspaces = [workspace1.id, workspace2.id]
       def associated_workspaces= workspace_ids
         self.items = workspace_ids.collect { |id| self.items.build(:workspace_id => id) }
       end
       
-      # Check if user authorized to consult this item
+      # Check User for permission to view the Item
+      #
+      # Usage:
+      #
+      # article.accepts_show_for? user
+      #
+      # will return true if the user has permission
       def accepts_show_for? user
         return accepting_action(user, 'show')
       end
 
-      # Check if user authorized to delete this item
+      # Check User for permission to Destroy the Item
+      #
+      # Usage:
+      #
+      # article.accepts_destroy_for? user
+      #
+      # will return true if the user has permission 
       def accepts_destroy_for? user
         return accepting_action(user, 'destroy')
       end
       
-      # Check if user authorized to edit this item
+      # Check User for permission to Edit the Item
+      #
+      # Usage:
+      #
+      # article.accepts_edit_for? user
+      #
+      # will return true if the user has permission
       def accepts_edit_for? user
         return accepting_action(user, 'edit')
       end
       
-      # Check if user authorized to create one item
+      # Check User for permission to Create New Item
+      #
+      # Usage:
+      #
+      # article.accepts_new_for? user
+      #
+      # will return true if the user has permission 
       def accepts_new_for? user
         return accepting_action(user, 'new')
 			end
 
+      # Check User for permission to Add Comment to Item
+      #
+      # Usage:
+      #
+      # article.accepts_comment_for?(user)
+      #
+      # will return true if the user has permission
 			def accepts_comment_for?(user)
 				return accepting_action(user, 'comment')
 			end
 
+      # Check User for permission to Add Rating to Item
+      #
+      # Usage:
+      #
+      # article.accepts_rate_for?(user)
+      #
+      # will return true if the user has permission
 			def accepts_rate_for?(user)
 				return accepting_action(user, 'rate')
 			end
 
+      # Check User for permission to Add Tag to Item
+      #
+      # Usage:
+      #
+      # article.accepts_tag_for?(user)
+      #
+      # will return true if the user has permission
 			def accepts_tag_for?(user)
 				return accepting_action(user, 'tag')
 			end
@@ -241,18 +317,6 @@ module ActsAsItem
 						# Then with workspace full access
 						if user.has_workspace_permission(ws.id, model_name.underscore, action)
 							return true
-              #						else
-              #							if cats
-              #								# And else with the workspace category access
-              #								# restriction with ws item categories
-              #								cats = ws.ws_item_categories.to_s.split(',') #& cats
-              #								# Check if user can access to, at least, one category of the item in that workspace
-              #								cats.each do |cat|
-              #									if user.has_workspace_permission(ws.id, 'item_cat_'+cat, action)
-              #										return true
-              #									end
-              #								end
-              #							end # if cats
 						end
 					end # if item available in ws
 				end

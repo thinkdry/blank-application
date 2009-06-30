@@ -92,6 +92,7 @@ Table name: roles
  description :text
  created_at  :datetime
  updated_at  :datetime
+ type_role   :string(255)
 </pre>
 
     </div>
@@ -142,10 +143,10 @@ Retrive all Roles with passed &#8216;type_role&#8216;
             onclick="toggleCode('M000003-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000003-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/models/role.rb, line 32</span>
-32:   <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">find_by_type_role</span>(<span class="ruby-identifier">role</span>)
-33:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-identifier">:type_role</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">role</span>})
-34:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/models/role.rb, line 33</span>
+33:   <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">find_by_type_role</span>(<span class="ruby-identifier">role</span>)
+34:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-identifier">:type_role</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">role</span>})
+35:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
