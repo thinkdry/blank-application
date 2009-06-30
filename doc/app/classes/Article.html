@@ -151,8 +151,7 @@ Table name: articles
       
         <div class="method-description">
           <p>
-Manage Association of Files to <a href="Article.html">Article</a> using
-PaperClip
+Association of Files to <a href="Article.html">Article</a> using PaperClip
 </p>
 <p>
 file_attributes are the associated files using paperclip attachment
@@ -161,12 +160,12 @@ file_attributes are the associated files using paperclip attachment
             onclick="toggleCode('M000080-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000080-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/models/article.rb, line 35</span>
-35:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">new_file_attributes=</span> <span class="ruby-identifier">file_attributes</span>
-36:     <span class="ruby-identifier">file_attributes</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file_path</span><span class="ruby-operator">|</span> 
-37:       <span class="ruby-identifier">article_files</span>.<span class="ruby-identifier">build</span>(<span class="ruby-identifier">:article_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">:articlefile</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">file_path</span>)
-38:     <span class="ruby-keyword kw">end</span>
-39:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/models/article.rb, line 36</span>
+36:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">new_file_attributes=</span> <span class="ruby-identifier">file_attributes</span>
+37:     <span class="ruby-identifier">file_attributes</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file_path</span><span class="ruby-operator">|</span> 
+38:       <span class="ruby-identifier">article_files</span>.<span class="ruby-identifier">build</span>(<span class="ruby-identifier">:article_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">:articlefile</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">file_path</span>)
+39:     <span class="ruby-keyword kw">end</span>
+40:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

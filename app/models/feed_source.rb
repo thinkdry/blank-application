@@ -53,7 +53,6 @@ class FeedSource < ActiveRecord::Base
 	validate :feed_compliance
 
 
-
   def validate
     rss_valid?
   end

@@ -1,7 +1,9 @@
 # Configuration for Blank Application Accessed Through SuperAdministration Module
 module Configuration
 
-  # Check if Free User Creation is Allowed
+  # Free User Creation
+  #
+  # Check setting to verify ifUser can register directly with the application
 	def is_allowed_free_user_creation?
 		return @configuration['sa_allowed_free_user_creation']=='true'
 	end

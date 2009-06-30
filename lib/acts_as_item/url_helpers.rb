@@ -15,7 +15,11 @@ module ActsAsItem
         :ajax_items_path
     end
 
-    # Return Worksapce Object
+    # Check for Worksapce
+    #
+    # can be called from anywhere to check if the user is inside a workspace.
+    #
+    # Will return the workspace object if workspace parameter exists else will return nil
     def current_workspace
       get_ws = Proc.new do
         params['workspace_id'] ? 
@@ -35,7 +39,14 @@ module ActsAsItem
     # Show Url for given Item Object
     #
     # Usage:
-    # item_path(article_object) => /articles/1
+    #
+    # <tt>item_path(article)</tt>
+    #
+    # will return /articles/1
+    #
+    # Parameters:
+    #
+    # - model: Article,Image,Audio,Video.... (may be any Item type)
     def item_path object, params = {}
       prefix = params.delete :prefix
 
@@ -53,7 +64,14 @@ module ActsAsItem
     # New Url for given Item Object
     #
     # Usage:
-    # new_item_path(article_object) => /articles/new
+    #
+    # <tt>new_item_path(article_object)</tt>
+    #
+    # will return /articles/new
+    #
+    # Parameters:
+    #
+    # - model: Article,Image,Audio,Video.... (may be any Item type)
     def new_item_path(model)
       helper_name = 'new_'
       helper_name += 'workspace_' if current_workspace
@@ -65,7 +83,14 @@ module ActsAsItem
     # Edit Url for given Item Object
     #
     # Usage:
-    # edit_item_path(article_object) => /articles/1/edit
+    #
+    # <tt>edit_item_path(article_object)</tt>
+    #
+    #  will return /articles/1/edit
+    #
+    # Parameters:
+    #
+    # - model: Article,Image,Audio,Video.... (may be any Item type)
 		def edit_item_path(model)
       helper_name = 'edit_'
       helper_name += 'workspace_' if current_workspace
@@ -77,7 +102,14 @@ module ActsAsItem
     # Index Url for given Item Object
     #
     # Usage:
-    # items_path(article_object) => /articles
+    #
+    # <tt>items_path(article_object)</tt>
+    #
+    # will return /articles
+    #
+    # Parameters:
+    #
+    # - model: Article,Image,Audio,Video.... (may be any Item type)
     def items_path(model)
       model = model.table_name unless model.is_a?(String)  
       if current_workspace
@@ -88,6 +120,18 @@ module ActsAsItem
     end
 
     # Dynamically create Item path for given Item for Pagination
+    #
+    # Usage:
+    #
+    # <tt>ajax_items_path(Article)</tt>
+    #
+    # will return  "http://www.example.com/workspaces/1/ajax_content/Article" inside workspace
+    #
+    # else will return  "http://www.example.com/ajax_content/Article"
+    #
+    # Parameters:
+    #
+    # - model: Article,Image,Audio,Video.... (may be any Item type)
      def ajax_items_path(model)
       model = model.table_name unless model.is_a?(String)
       if current_workspace

@@ -30,8 +30,4 @@ class ArticleFile < ActiveRecord::Base
   
   validates_attachment_size(:articlefile, :less_than => 100.megabytes)
 
-  def self.label
-    "ArticleFile"
-  end
-  
 end
