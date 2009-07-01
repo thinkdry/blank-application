@@ -61,7 +61,7 @@ class Workspace < ActiveRecord::Base
 	# After Updation Save the associated Users in UserWorkspaces
 	after_update  :save_users_workspaces
 
-  # Latest % workspaces
+  # Latest 5 workspaces
   named_scope :latest,
     :order => 'created_at DESC',
     :limit => 5
@@ -93,7 +93,7 @@ class Workspace < ActiveRecord::Base
 
   # Unique User for UserWorkspace after Worksapce Update
 	def uniqueness_of_users
-	  new_users = self.users_workspaces.reject { |e| ! e.new_record? }.collect { |e| e.user }
+	  new_users = self.users_workspaces.collect { |e| e.user }
 	  new_users.size.times do
 		  self.errors.add_to_base('Same user added twice') and return if new_users.include?(new_users.pop)
 	  end

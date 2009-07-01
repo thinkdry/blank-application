@@ -252,51 +252,61 @@ class User < ActiveRecord::Base
 		return !self.workspace_permissions(workspace_id).delete_if{ |e| e.name != permission_name}.blank? || self.has_system_role('superadmin')
 	end
 
-  
+
+  # Check User for permission to configure
+  #
+  # Usage:
+  #
+  # <tt>user.accepts_configure_for? user</tt>
+  #
+  # will return true if the user has permission
 	def accepts_configure_for? user
 		return accepting_action(user, 'configure', false, false, true)
 	end
 
+  # Check User for permission to View
+  #
+  # Usage:
+  #
+  # <tt>user.accepts_show_for? user</tt>
+  #
+  # will return true if the user has permission
 	def accepts_show_for? user
 		return accepting_action(user, 'show', (self.id==user.id), false, true)
 	end
-  
+
+  # Check User for permission to destroy
+  #
+  # Usage:
+  #
+  # <tt>user.accepts_destroy_for? user</tt>
+  #
+  # will return true if the user has permission
   def accepts_destroy_for? user
     return accepting_action(user, 'edit', (self.id==user.id), false, true)
   end
-  
+
+  # Check User for permission to edit
+  #
+  # Usage:
+  #
+  # <tt>user.accepts_edit_for? user</tt>
+  #
+  # will return true if the user has permission
   def accepts_edit_for? user
     return accepting_action(user, 'edit', (self.id==user.id), false, true)
   end
-  
+
+  # Check User for permission to create
+  #
+  # Usage:
+  #
+  # <tt>user.accepts_new_for? user</tt>
+  #
+  # will return true if the user has permission
   def accepts_new_for? user
     return accepting_action(user, 'new', false, false, true)
   end
-
-  # Check the User Permission for actions with system and worksapce roles.
-  # True if User is 'SuperAdministrator'
-	def accepting_action(user, action, spe_cond, sys_cond, ws_cond)
-		# Special access
-		if user.has_system_role('superadmin') || spe_cond
-			return true
-		end
-		# System access
-		if user.has_system_permission(self.class.to_s.downcase, action) || sys_cond
-			return true
-		end
-		# Workspace access
-		# The only permission linked to an user in a workspace is 'show'
-		if action=='show'
-			self.workspaces.each do |ws|
-				if ws.users.include?(user)
-					if user.has_workspace_permission(ws.id, self.class.to_s.downcase, action) && ws_cond
-						return true
-					end
-				end
-			end
-		end
-		false
-	end
 
   # User Full Name 'Lastname FirstName'
 	def full_name
@@ -409,5 +419,30 @@ class User < ActiveRecord::Base
     self.activation_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
   end
 
+  # Check the User Permission for actions with system and worksapce roles.
+  # True if User is 'SuperAdministrator'
+  private
+	def accepting_action(user, action, spe_cond, sys_cond, ws_cond)
+		# Special access
+		if user.has_system_role('superadmin') || spe_cond
+			return true
+		end
+		# System access
+		if user.has_system_permission(self.class.to_s.downcase, action) || sys_cond
+			return true
+		end
+		# Workspace access
+		# The only permission linked to an user in a workspace is 'show'
+		if action=='show'
+			self.workspaces.each do |ws|
+				if ws.users.include?(user)
+					if user.has_workspace_permission(ws.id, self.class.to_s.downcase, action) && ws_cond
+						return true
+					end
+				end
+			end
+		end
+		false
+	end
 end
 

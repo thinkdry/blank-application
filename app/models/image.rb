@@ -39,7 +39,13 @@ class Image < ActiveRecord::Base
 
   validates_attachment_size(:image, :less_than => 100.megabytes)
 
-  #Media Type for the Model
+  # Media Type for the Model.
+  #
+  # Usage:
+  #
+  # <tt>object.media_type</tt>
+  #
+  # will return the media type as image
   def media_type
     image
   end

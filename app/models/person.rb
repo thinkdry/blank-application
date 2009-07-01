@@ -45,6 +45,12 @@ class Person < ActiveRecord::Base
   validates_format_of       :email,    :with => RE_EMAIL_OK
 
   # Check with previously existing email for uniqueness
+  #
+  # Usage:
+  #
+  # <tt>person.validate_uniqueness_of_email</tt>
+  #
+  # will return true if email is unique else return false
   def validate_uniqueness_of_email
     Person.exists?(:email=>self.email,:user_id => self.user_id)
     if Person.exists?(:email=>self.email,:user_id => self.user_id)
@@ -56,16 +62,28 @@ class Person < ActiveRecord::Base
   end
 
   # Full Name of the Person 'Last Name First Name'
+  #
+  # Usage:
+  #
+  # <tt>perosn.full_name</tt>
+  #
+  # will return the 'lastname firstname' of person
   def full_name
 		return self.last_name.to_s+" "+self.first_name.to_s
   end
 
-  # People Object
   def to_people
     return self
   end
 
-  # Person to be Group Member
+  # Person or User to Group Member
+  #
+  # Usage:
+  #
+  # <tt>person.to_group_member</tt>
+  # <tt>user.to_group_member</tt>
+  #
+  # Will return the object of person for group
   def to_group_member
     return { :model => 'Person', :id => self.id, :email => self.email, :first_name => self.first_name, :last_name => self.last_name, :origin => self.origin, :created_at => self.created_at, :newsletter => self.newsletter }
   end

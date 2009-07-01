@@ -6,7 +6,7 @@ module AjaxPagination
   #
   # Usage:Called from the View as
   #
-  # <tt><%= remote_pagination(@paginated_objects, ajax_url,  'object-list') %>
+  # <tt>remote_pagination(@paginated_objects, ajax_url,  'object-list')</tt>
   #
   # will refresh the div with new paginated_objects
   #
