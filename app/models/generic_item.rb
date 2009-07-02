@@ -27,13 +27,19 @@ class GenericItem < ActiveRecord::Base
 	end
 
   # Items from given Worksapce
-  named_scope :from_workspace, lambda { |ws_id|
-    raise 'WS expected' unless ws_id
-    { :select => 'generic_items.*',
-      :joins => 'LEFT JOIN items ON generic_items.item_type = items.itemable_type AND generic_items.id = items.itemable_id',
-      :conditions => "items.workspace_id = #{ws_id}"
-    }
+  named_scope :from_workspace, lambda { |ws|
+		if ws
+			{ :select => 'generic_items.*',
+				:joins => 'LEFT JOIN items ON generic_items.item_type = items.itemable_type AND generic_items.id = items.itemable_id',
+				:conditions => "items.workspace_id = #{ws.id}"
+			}
+		else
+			{ :select => 'generic_items.*',
+				:joins => 'LEFT JOIN items ON generic_items.item_type = items.itemable_type AND generic_items.id = items.itemable_id'
+			}
+		end
   }
+	
   # Items from given User
   named_scope :consultable_by, lambda { |user_id|
     raise 'User expected' unless user_id
