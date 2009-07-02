@@ -75,7 +75,27 @@
     <div id="description">
       <p>
 <a href="Configuration.html">Configuration</a> for Blank Application
-Accessed Through SuperAdministration Module
+</p>
+<p>
+Blank Application is configured through the SuperAdministration module
+accessible to the &#8216;superadmin&#8217; user
+</p>
+<p>
+Major Application Configurations can be set up using this module.
+</p>
+<p>
+The settings are stored in a YAML file.
+</p>
+<p>
+Initially the /config/customs/default_config.yml file is loaded(default
+settings).
+</p>
+<p>
+After the Superadministrator has setup the Superadministration Module the
+configurations will be stored in the /config/customs/sa_config.yml file
+</p>
+<p>
+The setttings are accessed through the following methods in the Application
 </p>
 
     </div>
@@ -87,14 +107,14 @@ Accessed Through SuperAdministration Module
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000219">available_items_list</a>&nbsp;&nbsp;
-      <a href="#M000220">available_languages</a>&nbsp;&nbsp;
-      <a href="#M000222">get_configuration</a>&nbsp;&nbsp;
-      <a href="#M000223">get_per_page_value</a>&nbsp;&nbsp;
-      <a href="#M000221">get_sa_config</a>&nbsp;&nbsp;
-      <a href="#M000216">is_allowed_free_user_creation?</a>&nbsp;&nbsp;
-      <a href="#M000217">is_given_private_workspace</a>&nbsp;&nbsp;
-      <a href="#M000218">is_mandatory_user_activation?</a>&nbsp;&nbsp;
+      <a href="#M000189">available_items_list</a>&nbsp;&nbsp;
+      <a href="#M000190">available_languages</a>&nbsp;&nbsp;
+      <a href="#M000192">get_configuration</a>&nbsp;&nbsp;
+      <a href="#M000193">get_per_page_value</a>&nbsp;&nbsp;
+      <a href="#M000191">get_sa_config</a>&nbsp;&nbsp;
+      <a href="#M000186">is_allowed_free_user_creation?</a>&nbsp;&nbsp;
+      <a href="#M000187">is_given_private_workspace</a>&nbsp;&nbsp;
+      <a href="#M000188">is_mandatory_user_activation?</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -116,11 +136,11 @@ Accessed Through SuperAdministration Module
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000219" class="method-detail">
-        <a name="M000219"></a>
+      <div id="method-M000189" class="method-detail">
+        <a name="M000189"></a>
 
         <div class="method-heading">
-          <a href="#M000219" class="method-signature">
+          <a href="#M000189" class="method-signature">
           <span class="method-name">available_items_list</span><span class="method-args">()</span>
           </a>
         </div>
@@ -129,24 +149,27 @@ Accessed Through SuperAdministration Module
           <p>
 Get Selected Items List
 </p>
+<p>
+will return a array of string of available items
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000219-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000219-source">
+            onclick="toggleCode('M000189-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000189-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/configuration.rb, line 22</span>
-22:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">available_items_list</span>
-23:                 <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@configuration</span>[<span class="ruby-value str">'sa_items'</span>]
-24:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/configuration.rb, line 37</span>
+37:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">available_items_list</span>
+38:                 <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@configuration</span>[<span class="ruby-value str">'sa_items'</span>]
+39:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000220" class="method-detail">
-        <a name="M000220"></a>
+      <div id="method-M000190" class="method-detail">
+        <a name="M000190"></a>
 
         <div class="method-heading">
-          <a href="#M000220" class="method-signature">
+          <a href="#M000190" class="method-signature">
           <span class="method-name">available_languages</span><span class="method-args">()</span>
           </a>
         </div>
@@ -155,47 +178,50 @@ Get Selected Items List
           <p>
 Get Available Languages
 </p>
+<p>
+will return a array of string of available languages
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000220-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000220-source">
+            onclick="toggleCode('M000190-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000190-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/configuration.rb, line 27</span>
-27:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">available_languages</span>
-28:                 <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@configuration</span>[<span class="ruby-value str">'sa_languages'</span>]
-29:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/configuration.rb, line 44</span>
+44:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">available_languages</span>
+45:                 <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@configuration</span>[<span class="ruby-value str">'sa_languages'</span>]
+46:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000222" class="method-detail">
-        <a name="M000222"></a>
+      <div id="method-M000192" class="method-detail">
+        <a name="M000192"></a>
 
         <div class="method-heading">
-          <a href="#M000222" class="method-signature">
+          <a href="#M000192" class="method-signature">
           <span class="method-name">get_configuration</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000222-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000222-source">
+            onclick="toggleCode('M000192-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000192-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/configuration.rb, line 40</span>
-40:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_configuration</span>
-41:                 <span class="ruby-ivar">@configuration</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">get_sa_config</span>
-42:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/configuration.rb, line 57</span>
+57:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_configuration</span>
+58:                 <span class="ruby-ivar">@configuration</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">get_sa_config</span>
+59:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000223" class="method-detail">
-        <a name="M000223"></a>
+      <div id="method-M000193" class="method-detail">
+        <a name="M000193"></a>
 
         <div class="method-heading">
-          <a href="#M000223" class="method-signature">
+          <a href="#M000193" class="method-signature">
           <span class="method-name">get_per_page_value</span><span class="method-args">()</span>
           </a>
         </div>
@@ -205,29 +231,29 @@ Get Available Languages
 Set PerPage Values for Pagination(default 10)
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000223-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000223-source">
+            onclick="toggleCode('M000193-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000193-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/configuration.rb, line 45</span>
-45:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_per_page_value</span>
-46:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">u_per_page</span>
-47:       <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">u_per_page</span>
-48:                 <span class="ruby-keyword kw">elsif</span> (<span class="ruby-identifier">res</span>=<span class="ruby-ivar">@configuration</span>[<span class="ruby-value str">'sa_per_page_default'</span>]).<span class="ruby-identifier">to_i</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
-49:                         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">res</span>
-50:                 <span class="ruby-keyword kw">else</span>
-51:                         <span class="ruby-keyword kw">return</span> <span class="ruby-value">10</span>
-52:                 <span class="ruby-keyword kw">end</span>
-53:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/configuration.rb, line 62</span>
+62:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_per_page_value</span>
+63:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">u_per_page</span>
+64:       <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">u_per_page</span>
+65:                 <span class="ruby-keyword kw">elsif</span> (<span class="ruby-identifier">res</span>=<span class="ruby-ivar">@configuration</span>[<span class="ruby-value str">'sa_per_page_default'</span>]).<span class="ruby-identifier">to_i</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+66:                         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">res</span>
+67:                 <span class="ruby-keyword kw">else</span>
+68:                         <span class="ruby-keyword kw">return</span> <span class="ruby-value">10</span>
+69:                 <span class="ruby-keyword kw">end</span>
+70:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000221" class="method-detail">
-        <a name="M000221"></a>
+      <div id="method-M000191" class="method-detail">
+        <a name="M000191"></a>
 
         <div class="method-heading">
-          <a href="#M000221" class="method-signature">
+          <a href="#M000191" class="method-signature">
           <span class="method-name">get_sa_config</span><span class="method-args">()</span>
           </a>
         </div>
@@ -237,27 +263,27 @@ Set PerPage Values for Pagination(default 10)
 Load the SuperAdmin <a href="Configuration.html">Configuration</a>
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000221-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000221-source">
+            onclick="toggleCode('M000191-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000191-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/configuration.rb, line 32</span>
-32:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_sa_config</span>
-33:                 <span class="ruby-keyword kw">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-node">&quot;#{RAILS_ROOT}/config/customs/sa_config.yml&quot;</span>)
-34:                         <span class="ruby-keyword kw">return</span> <span class="ruby-constant">YAML</span>.<span class="ruby-identifier">load_file</span>(<span class="ruby-node">&quot;#{RAILS_ROOT}/config/customs/sa_config.yml&quot;</span>)
-35:                 <span class="ruby-keyword kw">else</span>
-36:                         <span class="ruby-keyword kw">return</span> <span class="ruby-constant">YAML</span>.<span class="ruby-identifier">load_file</span>(<span class="ruby-node">&quot;#{RAILS_ROOT}/config/customs/default_config.yml&quot;</span>)
-37:                 <span class="ruby-keyword kw">end</span>
-38:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/configuration.rb, line 49</span>
+49:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_sa_config</span>
+50:                 <span class="ruby-keyword kw">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-node">&quot;#{RAILS_ROOT}/config/customs/sa_config.yml&quot;</span>)
+51:                         <span class="ruby-keyword kw">return</span> <span class="ruby-constant">YAML</span>.<span class="ruby-identifier">load_file</span>(<span class="ruby-node">&quot;#{RAILS_ROOT}/config/customs/sa_config.yml&quot;</span>)
+52:                 <span class="ruby-keyword kw">else</span>
+53:                         <span class="ruby-keyword kw">return</span> <span class="ruby-constant">YAML</span>.<span class="ruby-identifier">load_file</span>(<span class="ruby-node">&quot;#{RAILS_ROOT}/config/customs/default_config.yml&quot;</span>)
+54:                 <span class="ruby-keyword kw">end</span>
+55:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000216" class="method-detail">
-        <a name="M000216"></a>
+      <div id="method-M000186" class="method-detail">
+        <a name="M000186"></a>
 
         <div class="method-heading">
-          <a href="#M000216" class="method-signature">
+          <a href="#M000186" class="method-signature">
           <span class="method-name">is_allowed_free_user_creation?</span><span class="method-args">()</span>
           </a>
         </div>
@@ -267,26 +293,27 @@ Load the SuperAdmin <a href="Configuration.html">Configuration</a>
 Free <a href="User.html">User</a> Creation
 </p>
 <p>
-Check setting to verify ifUser can register directly with the application
+Check setting to verify if <a href="User.html">User</a> can register
+directly with the application
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000216-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000216-source">
+            onclick="toggleCode('M000186-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000186-source">
 <pre>
-   <span class="ruby-comment cmt"># File lib/configuration.rb, line 7</span>
-7:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_allowed_free_user_creation?</span>
-8:                 <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@configuration</span>[<span class="ruby-value str">'sa_allowed_free_user_creation'</span>]<span class="ruby-operator">==</span><span class="ruby-value str">'true'</span>
-9:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/configuration.rb, line 20</span>
+20:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_allowed_free_user_creation?</span>
+21:                 <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@configuration</span>[<span class="ruby-value str">'sa_allowed_free_user_creation'</span>]<span class="ruby-operator">==</span><span class="ruby-value str">'true'</span>
+22:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000217" class="method-detail">
-        <a name="M000217"></a>
+      <div id="method-M000187" class="method-detail">
+        <a name="M000187"></a>
 
         <div class="method-heading">
-          <a href="#M000217" class="method-signature">
+          <a href="#M000187" class="method-signature">
           <span class="method-name">is_given_private_workspace</span><span class="method-args">()</span>
           </a>
         </div>
@@ -297,23 +324,23 @@ Check if Automatic Private <a href="Workspace.html">Workspace</a> Creation
 is Allowed
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000217-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000217-source">
+            onclick="toggleCode('M000187-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000187-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/configuration.rb, line 12</span>
-12:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_given_private_workspace</span>
-13:                 <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@configuration</span>[<span class="ruby-value str">'sa_automatic_private_workspace'</span>]<span class="ruby-operator">==</span><span class="ruby-value str">'true'</span>
-14:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/configuration.rb, line 25</span>
+25:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_given_private_workspace</span>
+26:                 <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@configuration</span>[<span class="ruby-value str">'sa_automatic_private_workspace'</span>]<span class="ruby-operator">==</span><span class="ruby-value str">'true'</span>
+27:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000218" class="method-detail">
-        <a name="M000218"></a>
+      <div id="method-M000188" class="method-detail">
+        <a name="M000188"></a>
 
         <div class="method-heading">
-          <a href="#M000218" class="method-signature">
+          <a href="#M000188" class="method-signature">
           <span class="method-name">is_mandatory_user_activation?</span><span class="method-args">()</span>
           </a>
         </div>
@@ -323,13 +350,13 @@ is Allowed
 Check if Email Activation for <a href="User.html">User</a> is Mandatory
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000218-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000218-source">
+            onclick="toggleCode('M000188-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000188-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/configuration.rb, line 17</span>
-17:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_mandatory_user_activation?</span>
-18:                 <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@configuration</span>[<span class="ruby-value str">'sa_mandatory_user_activation'</span>]<span class="ruby-operator">==</span><span class="ruby-value str">'true'</span>
-19:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/configuration.rb, line 30</span>
+30:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_mandatory_user_activation?</span>
+31:                 <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@configuration</span>[<span class="ruby-value str">'sa_mandatory_user_activation'</span>]<span class="ruby-operator">==</span><span class="ruby-value str">'true'</span>
+32:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

@@ -5,8 +5,12 @@ class SessionsController < ApplicationController
   layout 'login'
 
   # Login Page for New Session
-  def new
-  end
+  #
+  # Usage URL:
+  #
+  # /login
+  #
+  def new;end
 
   # Create New Session for given Login and Passowrd
   def create
@@ -33,6 +37,11 @@ class SessionsController < ApplicationController
   end
 
   # Update Last Logged In attribute and Kill User Session
+  # 
+  # Usage URL
+  # 
+  # /logout
+  #
   def destroy
     User.find(current_user.id).update_attributes(:last_connected_at => Time.now)
     logout_killing_session!
@@ -41,6 +50,11 @@ class SessionsController < ApplicationController
   end
 
   # Change Language Option for Current User
+  #
+  # Usage URL
+  #
+  # /session/change_language
+  #
 	def change_language
     current_user.update_attributes(:u_language => params[:locale])
 		render(:update) { |page| page.call 'location.reload' }

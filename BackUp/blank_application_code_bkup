@@ -286,5 +286,21 @@ app/views/items/_hidden_window.html.erb
 	</div>
 </div>
 
+routes.rb
+
+map.add_new_user '/add_new_user', :controller => 'workspaces', :action => 'add_new_user'
+
+map.workspace_ajax_content 'workspace_ajax_content', :controller => 'workspaces', :action => 'ajax_content', :conditions => { :method => :get }
+
+line 124
+workspaces.content '/content/:item_type', :controller => 'workspaces', :action => 'show', :conditions => { :method => :get }
+
+line 109
+
+map.resources :feed_items
+map.content '/content/:item_type', :controller => 'items', :action => 'index'
+map.ajax_content '/ajax_content/:item_type', :controller => 'items', :action => 'ajax_index'
+
+
 
 

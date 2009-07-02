@@ -88,14 +88,11 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000168">ajax_index</a>&nbsp;&nbsp;
-      <a href="#M000166">create</a>&nbsp;&nbsp;
-      <a href="#M000170">export_people</a>&nbsp;&nbsp;
-      <a href="#M000169">filter</a>&nbsp;&nbsp;
-      <a href="#M000172">get_empty_csv</a>&nbsp;&nbsp;
-      <a href="#M000171">import_people</a>&nbsp;&nbsp;
-      <a href="#M000167">index</a>&nbsp;&nbsp;
-      <a href="#M000173">update_newsletter_column</a>&nbsp;&nbsp;
+      <a href="#M000141">export_people</a>&nbsp;&nbsp;
+      <a href="#M000140">filter</a>&nbsp;&nbsp;
+      <a href="#M000143">get_empty_csv</a>&nbsp;&nbsp;
+      <a href="#M000142">import_people</a>&nbsp;&nbsp;
+      <a href="#M000144">update_newsletter_column</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -117,73 +114,11 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000168" class="method-detail">
-        <a name="M000168"></a>
+      <div id="method-M000141" class="method-detail">
+        <a name="M000141"></a>
 
         <div class="method-heading">
-          <a href="#M000168" class="method-signature">
-          <span class="method-name">ajax_index</span><span class="method-args">()</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p>
-Method to all People for Ajax Pagination
-</p>
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000168-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000168-source">
-<pre>
-    <span class="ruby-comment cmt"># File app/controllers/people_controller.rb, line 31</span>
-31:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ajax_index</span>
-32:                 <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:restriction</span>] <span class="ruby-operator">||=</span> <span class="ruby-value str">'people'</span>
-33:                 <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:type</span>] <span class="ruby-operator">||=</span> {<span class="ruby-value str">'newsletter'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'0'</span>}
-34:     <span class="ruby-ivar">@people</span> = <span class="ruby-ivar">@current_user</span>.<span class="ruby-identifier">get_contacts_list</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:restriction</span>], <span class="ruby-value str">'group_member'</span>, <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:type</span>][<span class="ruby-identifier">:newsletter</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'1'</span>).<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">:per_page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">get_per_page_value</span>, <span class="ruby-identifier">:page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:page</span>])
-35:     <span class="ruby-identifier">render</span> <span class="ruby-identifier">:partial</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'people_list'</span>, <span class="ruby-identifier">:layout</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>
-36:   <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000166" class="method-detail">
-        <a name="M000166"></a>
-
-        <div class="method-heading">
-          <a href="#M000166" class="method-signature">
-          <span class="method-name">create</span><span class="method-args">()</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p>
-Method to <a href="PeopleController.html#M000166">create</a> a New <a
-href="Person.html">Person</a>
-</p>
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000166-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000166-source">
-<pre>
-    <span class="ruby-comment cmt"># File app/controllers/people_controller.rb, line 13</span>
-13:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create</span>
-14:     <span class="ruby-ivar">@person</span> = <span class="ruby-constant">Person</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:person</span>])
-15:     <span class="ruby-ivar">@person</span>.<span class="ruby-identifier">user_id</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>
-16:     <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@person</span>.<span class="ruby-identifier">validate_uniqueness_of_email</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@person</span>.<span class="ruby-identifier">save</span>
-17:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">person_path</span>(<span class="ruby-ivar">@person</span>)
-18:     <span class="ruby-keyword kw">else</span>
-19:       <span class="ruby-identifier">render</span> <span class="ruby-identifier">:action=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">'new'</span>
-20:     <span class="ruby-keyword kw">end</span>
-21:   <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000170" class="method-detail">
-        <a name="M000170"></a>
-
-        <div class="method-heading">
-          <a href="#M000170" class="method-signature">
+          <a href="#M000141" class="method-signature">
           <span class="method-name">export_people</span><span class="method-args">()</span>
           </a>
         </div>
@@ -192,35 +127,41 @@ href="Person.html">Person</a>
           <p>
 Method to Export People to .csv file format
 </p>
+<p>
+Usage URL:
+</p>
+<p>
+/people/export_people
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000170-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000170-source">
+            onclick="toggleCode('M000141-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000141-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/controllers/people_controller.rb, line 53</span>
-53:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">export_people</span>
-54:                 <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:restriction</span>] <span class="ruby-operator">||=</span> <span class="ruby-value str">'people'</span>
-55:                 <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:type</span>] <span class="ruby-operator">||=</span> {<span class="ruby-value str">'newsletter'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'0'</span>}
-56:                 <span class="ruby-ivar">@people</span> = <span class="ruby-ivar">@current_user</span>.<span class="ruby-identifier">get_contacts_list</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:restriction</span>], <span class="ruby-value str">'people'</span>, <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:type</span>][<span class="ruby-identifier">:newsletter</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'1'</span>)
-57:                 <span class="ruby-ivar">@outfile</span> = <span class="ruby-value str">&quot;people_&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">strftime</span>(<span class="ruby-value str">&quot;%m-%d-%Y&quot;</span>) <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;.csv&quot;</span>
-58:                 <span class="ruby-identifier">csv_data</span> = <span class="ruby-constant">FasterCSV</span>.<span class="ruby-identifier">generate</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">csv</span><span class="ruby-operator">|</span>
-59:                         <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-value str">&quot;First name&quot;</span>, <span class="ruby-value str">&quot;Last name&quot;</span>, <span class="ruby-value str">&quot;Email&quot;</span>, <span class="ruby-value str">&quot;Gender&quot;</span>, <span class="ruby-value str">&quot;Primary phone&quot;</span>, <span class="ruby-value str">&quot;Mobile phone&quot;</span>, <span class="ruby-value str">&quot;Fax&quot;</span>, <span class="ruby-value str">&quot;Street&quot;</span>, <span class="ruby-value str">&quot;City&quot;</span>, <span class="ruby-value str">&quot;Postal code&quot;</span>, <span class="ruby-value str">&quot;Country&quot;</span>, <span class="ruby-value str">&quot;Company&quot;</span>, <span class="ruby-value str">&quot;Web page&quot;</span>, <span class="ruby-value str">&quot;Job title&quot;</span>, <span class="ruby-value str">&quot;Notes&quot;</span>,<span class="ruby-value str">&quot;Newsletter&quot;</span>,<span class="ruby-value str">&quot;Salutation&quot;</span>,<span class="ruby-value str">&quot;Date of birth&quot;</span>,<span class="ruby-value str">&quot;Subscribed on&quot;</span>,<span class="ruby-value str">&quot;Updated at&quot;</span>]
-60:                         <span class="ruby-ivar">@people</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">person</span><span class="ruby-operator">|</span>
-61:                                 <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">person</span>.<span class="ruby-identifier">first_name</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">last_name</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">email</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">gender</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">primary_phone</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">mobile_phone</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">fax</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">street</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">city</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">postal_code</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">country</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">company</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">web_page</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">job_title</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">notes</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">newsletter</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">salutation</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">date_of_birth</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">created_at</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">updated_at</span>]
-62:                         <span class="ruby-keyword kw">end</span>
-63:                 <span class="ruby-keyword kw">end</span>
-64:                 <span class="ruby-identifier">send_data</span> <span class="ruby-identifier">csv_data</span>, <span class="ruby-identifier">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'text/csv; charset=iso-8859-1; header=present'</span>, <span class="ruby-identifier">:disposition</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;attachment; filename=#{@outfile}&quot;</span>
-65:                 <span class="ruby-comment cmt">#flash[:notice] = &quot;Export complete!&quot;</span>
-66:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/controllers/people_controller.rb, line 61</span>
+61:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">export_people</span>
+62:                 <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:restriction</span>] <span class="ruby-operator">||=</span> <span class="ruby-value str">'people'</span>
+63:                 <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:type</span>] <span class="ruby-operator">||=</span> {<span class="ruby-value str">'newsletter'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'0'</span>}
+64:                 <span class="ruby-ivar">@people</span> = <span class="ruby-ivar">@current_user</span>.<span class="ruby-identifier">get_contacts_list</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:restriction</span>], <span class="ruby-value str">'people'</span>, <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:type</span>][<span class="ruby-identifier">:newsletter</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'1'</span>)
+65:                 <span class="ruby-ivar">@outfile</span> = <span class="ruby-value str">&quot;people_&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">strftime</span>(<span class="ruby-value str">&quot;%m-%d-%Y&quot;</span>) <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;.csv&quot;</span>
+66:                 <span class="ruby-identifier">csv_data</span> = <span class="ruby-constant">FasterCSV</span>.<span class="ruby-identifier">generate</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">csv</span><span class="ruby-operator">|</span>
+67:                         <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-value str">&quot;First name&quot;</span>, <span class="ruby-value str">&quot;Last name&quot;</span>, <span class="ruby-value str">&quot;Email&quot;</span>, <span class="ruby-value str">&quot;Gender&quot;</span>, <span class="ruby-value str">&quot;Primary phone&quot;</span>, <span class="ruby-value str">&quot;Mobile phone&quot;</span>, <span class="ruby-value str">&quot;Fax&quot;</span>, <span class="ruby-value str">&quot;Street&quot;</span>, <span class="ruby-value str">&quot;City&quot;</span>, <span class="ruby-value str">&quot;Postal code&quot;</span>, <span class="ruby-value str">&quot;Country&quot;</span>, <span class="ruby-value str">&quot;Company&quot;</span>, <span class="ruby-value str">&quot;Web page&quot;</span>, <span class="ruby-value str">&quot;Job title&quot;</span>, <span class="ruby-value str">&quot;Notes&quot;</span>,<span class="ruby-value str">&quot;Newsletter&quot;</span>,<span class="ruby-value str">&quot;Salutation&quot;</span>,<span class="ruby-value str">&quot;Date of birth&quot;</span>,<span class="ruby-value str">&quot;Subscribed on&quot;</span>,<span class="ruby-value str">&quot;Updated at&quot;</span>]
+68:                         <span class="ruby-ivar">@people</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">person</span><span class="ruby-operator">|</span>
+69:                                 <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">person</span>.<span class="ruby-identifier">first_name</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">last_name</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">email</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">gender</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">primary_phone</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">mobile_phone</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">fax</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">street</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">city</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">postal_code</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">country</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">company</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">web_page</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">job_title</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">notes</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">newsletter</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">salutation</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">date_of_birth</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">created_at</span>, <span class="ruby-identifier">person</span>.<span class="ruby-identifier">updated_at</span>]
+70:                         <span class="ruby-keyword kw">end</span>
+71:                 <span class="ruby-keyword kw">end</span>
+72:                 <span class="ruby-identifier">send_data</span> <span class="ruby-identifier">csv_data</span>, <span class="ruby-identifier">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'text/csv; charset=iso-8859-1; header=present'</span>, <span class="ruby-identifier">:disposition</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;attachment; filename=#{@outfile}&quot;</span>
+73:                 <span class="ruby-comment cmt">#flash[:notice] = &quot;Export complete!&quot;</span>
+74:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000169" class="method-detail">
-        <a name="M000169"></a>
+      <div id="method-M000140" class="method-detail">
+        <a name="M000140"></a>
 
         <div class="method-heading">
-          <a href="#M000169" class="method-signature">
+          <a href="#M000140" class="method-signature">
           <span class="method-name">filter</span><span class="method-args">()</span>
           </a>
         </div>
@@ -229,33 +170,39 @@ Method to Export People to .csv file format
           <p>
 Method to replace HTML for Assigned Options with Filter
 </p>
+<p>
+Usage URL:
+</p>
+<p>
+/people/filter?group_id=1
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000169-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000169-source">
+            onclick="toggleCode('M000140-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000140-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/controllers/people_controller.rb, line 39</span>
-39:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">filter</span>
-40:     <span class="ruby-ivar">@group</span> = <span class="ruby-constant">Group</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:group_id</span>]) <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">params</span>[<span class="ruby-identifier">:group_id</span>].<span class="ruby-identifier">blank?</span>
-41:     <span class="ruby-identifier">options</span> = <span class="ruby-value str">&quot;&quot;</span>
-42:     <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">mem</span> <span class="ruby-keyword kw">in</span> <span class="ruby-ivar">@current_user</span>.<span class="ruby-identifier">get_contacts_list</span>(<span class="ruby-value str">'all'</span>, <span class="ruby-value str">'group_member'</span>, <span class="ruby-keyword kw">true</span>).<span class="ruby-identifier">delete_if</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span>[<span class="ruby-identifier">:email</span>].<span class="ruby-identifier">first</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:start_with</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:start_with</span>] <span class="ruby-operator">!=</span> <span class="ruby-value str">&quot;tous&quot;</span>}
-43:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@group</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">or</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@group</span>.<span class="ruby-identifier">groupings</span>.<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">member</span>.<span class="ruby-identifier">to_group_member</span>}.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">mem</span>)
-44:         <span class="ruby-identifier">options</span> = <span class="ruby-identifier">options</span><span class="ruby-operator">+</span> <span class="ruby-node">&quot;&lt;option value = '#{mem[:model]}_#{mem[:id].to_s}'&gt;#{mem[:email]}&lt;/option&gt;&quot;</span>
-45:       <span class="ruby-keyword kw">end</span>
-46:     <span class="ruby-keyword kw">end</span>
-47:     <span class="ruby-identifier">render</span> <span class="ruby-identifier">:update</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">page</span><span class="ruby-operator">|</span>
-48:       <span class="ruby-identifier">page</span>.<span class="ruby-identifier">replace_html</span> <span class="ruby-value str">'assignedOptions'</span> ,<span class="ruby-identifier">:text</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>
-49:     <span class="ruby-keyword kw">end</span>
-50:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/controllers/people_controller.rb, line 43</span>
+43:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">filter</span>
+44:     <span class="ruby-ivar">@group</span> = <span class="ruby-constant">Group</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:group_id</span>]) <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">params</span>[<span class="ruby-identifier">:group_id</span>].<span class="ruby-identifier">blank?</span>
+45:     <span class="ruby-identifier">options</span> = <span class="ruby-value str">&quot;&quot;</span>
+46:     <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">mem</span> <span class="ruby-keyword kw">in</span> <span class="ruby-ivar">@current_user</span>.<span class="ruby-identifier">get_contacts_list</span>(<span class="ruby-value str">'all'</span>, <span class="ruby-value str">'group_member'</span>, <span class="ruby-keyword kw">true</span>).<span class="ruby-identifier">delete_if</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span>[<span class="ruby-identifier">:email</span>].<span class="ruby-identifier">first</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:start_with</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:start_with</span>] <span class="ruby-operator">!=</span> <span class="ruby-value str">&quot;tous&quot;</span>}
+47:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@group</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">or</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@group</span>.<span class="ruby-identifier">groupings</span>.<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">member</span>.<span class="ruby-identifier">to_group_member</span>}.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">mem</span>)
+48:         <span class="ruby-identifier">options</span> = <span class="ruby-identifier">options</span><span class="ruby-operator">+</span> <span class="ruby-node">&quot;&lt;option value = '#{mem[:model]}_#{mem[:id].to_s}'&gt;#{mem[:email]}&lt;/option&gt;&quot;</span>
+49:       <span class="ruby-keyword kw">end</span>
+50:     <span class="ruby-keyword kw">end</span>
+51:     <span class="ruby-identifier">render</span> <span class="ruby-identifier">:update</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">page</span><span class="ruby-operator">|</span>
+52:       <span class="ruby-identifier">page</span>.<span class="ruby-identifier">replace_html</span> <span class="ruby-value str">'assignedOptions'</span> ,<span class="ruby-identifier">:text</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>
+53:     <span class="ruby-keyword kw">end</span>
+54:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000172" class="method-detail">
-        <a name="M000172"></a>
+      <div id="method-M000143" class="method-detail">
+        <a name="M000143"></a>
 
         <div class="method-heading">
-          <a href="#M000172" class="method-signature">
+          <a href="#M000143" class="method-signature">
           <span class="method-name">get_empty_csv</span><span class="method-args">()</span>
           </a>
         </div>
@@ -264,29 +211,35 @@ Method to replace HTML for Assigned Options with Filter
           <p>
 Generate a Empty .csv File
 </p>
+<p>
+Usage URL:
+</p>
+<p>
+/people/get_empty_csv
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000172-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000172-source">
+            onclick="toggleCode('M000143-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000143-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/controllers/people_controller.rb, line 161</span>
-161:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_empty_csv</span>
-162:     <span class="ruby-identifier">csv_data</span> = <span class="ruby-constant">FasterCSV</span>.<span class="ruby-identifier">generate</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">csv</span><span class="ruby-operator">|</span>
-163:       <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-value str">&quot;First name&quot;</span>, <span class="ruby-value str">&quot;Last name&quot;</span>, <span class="ruby-value str">&quot;Email&quot;</span>, <span class="ruby-value str">&quot;Gender&quot;</span>, <span class="ruby-value str">&quot;Primary phone&quot;</span>, <span class="ruby-value str">&quot;Mobile phone&quot;</span>, <span class="ruby-value str">&quot;Fax&quot;</span>, <span class="ruby-value str">&quot;Street&quot;</span>, <span class="ruby-value str">&quot;City&quot;</span>, <span class="ruby-value str">&quot;Postal code&quot;</span>, <span class="ruby-value str">&quot;Country&quot;</span>, <span class="ruby-value str">&quot;Company&quot;</span>, <span class="ruby-value str">&quot;Web page&quot;</span>, <span class="ruby-value str">&quot;Job title&quot;</span>, <span class="ruby-value str">&quot;Notes&quot;</span>]
-164:     <span class="ruby-keyword kw">end</span>
-165:     <span class="ruby-identifier">send_data</span> <span class="ruby-identifier">csv_data</span>,
-166:       <span class="ruby-identifier">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'text/csv; charset=iso-8859-1; header=present'</span>,
-167:       <span class="ruby-identifier">:disposition</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;attachment; filename=contact.csv&quot;</span>
-168:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/controllers/people_controller.rb, line 177</span>
+177:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_empty_csv</span>
+178:     <span class="ruby-identifier">csv_data</span> = <span class="ruby-constant">FasterCSV</span>.<span class="ruby-identifier">generate</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">csv</span><span class="ruby-operator">|</span>
+179:       <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-value str">&quot;First name&quot;</span>, <span class="ruby-value str">&quot;Last name&quot;</span>, <span class="ruby-value str">&quot;Email&quot;</span>, <span class="ruby-value str">&quot;Gender&quot;</span>, <span class="ruby-value str">&quot;Primary phone&quot;</span>, <span class="ruby-value str">&quot;Mobile phone&quot;</span>, <span class="ruby-value str">&quot;Fax&quot;</span>, <span class="ruby-value str">&quot;Street&quot;</span>, <span class="ruby-value str">&quot;City&quot;</span>, <span class="ruby-value str">&quot;Postal code&quot;</span>, <span class="ruby-value str">&quot;Country&quot;</span>, <span class="ruby-value str">&quot;Company&quot;</span>, <span class="ruby-value str">&quot;Web page&quot;</span>, <span class="ruby-value str">&quot;Job title&quot;</span>, <span class="ruby-value str">&quot;Notes&quot;</span>]
+180:     <span class="ruby-keyword kw">end</span>
+181:     <span class="ruby-identifier">send_data</span> <span class="ruby-identifier">csv_data</span>,
+182:       <span class="ruby-identifier">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'text/csv; charset=iso-8859-1; header=present'</span>,
+183:       <span class="ruby-identifier">:disposition</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;attachment; filename=contact.csv&quot;</span>
+184:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000171" class="method-detail">
-        <a name="M000171"></a>
+      <div id="method-M000142" class="method-detail">
+        <a name="M000142"></a>
 
         <div class="method-heading">
-          <a href="#M000171" class="method-signature">
+          <a href="#M000142" class="method-signature">
           <span class="method-name">import_people</span><span class="method-args">()</span>
           </a>
         </div>
@@ -295,139 +248,117 @@ Generate a Empty .csv File
           <p>
 Method to Import People from a .csv file format
 </p>
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000171-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000171-source">
-<pre>
-     <span class="ruby-comment cmt"># File app/controllers/people_controller.rb, line 69</span>
- 69:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">import_people</span>
- 70:     <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">get?</span>
- 71:       <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">params</span>[<span class="ruby-identifier">:people</span>].<span class="ruby-identifier">blank?</span> <span class="ruby-keyword kw">and</span> <span class="ruby-operator">!</span><span class="ruby-identifier">params</span>[<span class="ruby-identifier">:people</span>][<span class="ruby-identifier">:csv</span>].<span class="ruby-identifier">blank?</span> <span class="ruby-keyword kw">and</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">extname</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:people</span>][<span class="ruby-identifier">:csv</span>].<span class="ruby-identifier">original_filename</span>) <span class="ruby-operator">==</span> <span class="ruby-value str">'.csv'</span>
- 72:         <span class="ruby-keyword kw">begin</span>
- 73:           <span class="ruby-ivar">@parsed_file</span>=<span class="ruby-constant">CSV</span><span class="ruby-operator">::</span><span class="ruby-constant">Reader</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:people</span>][<span class="ruby-identifier">:csv</span>]).<span class="ruby-identifier">to_a</span>
- 74:           <span class="ruby-identifier">first_name</span> =[<span class="ruby-value str">'first name'</span>,<span class="ruby-value str">'firstname'</span>,<span class="ruby-value str">'first-name'</span>,<span class="ruby-value str">'name'</span>,<span class="ruby-value str">'prénom'</span>]
- 75:           <span class="ruby-identifier">last_name</span> =[<span class="ruby-value str">'last name'</span>,<span class="ruby-value str">'lastname'</span>,<span class="ruby-value str">'last-name'</span>,<span class="ruby-value str">'nom'</span>]
- 76:           <span class="ruby-identifier">email</span> = [<span class="ruby-value str">'email'</span>,<span class="ruby-value str">'e-mail'</span>,<span class="ruby-value str">'e mail'</span>,<span class="ruby-value str">'email address'</span>,<span class="ruby-value str">'email-address'</span>,<span class="ruby-value str">'e-mail address'</span>,<span class="ruby-value str">'emailaddress'</span>]
- 77:           <span class="ruby-identifier">gender</span> = [<span class="ruby-value str">'gender'</span>]
- 78:           <span class="ruby-identifier">primary_phone</span> = [<span class="ruby-value str">'primary phone'</span>,<span class="ruby-value str">'primaryphone'</span>,<span class="ruby-value str">'primary-phone'</span>]
- 79:           <span class="ruby-identifier">mobile_phone</span> = [<span class="ruby-value str">'mobile phone'</span>,<span class="ruby-value str">'mobilephone'</span>,<span class="ruby-value str">'mobile-phone'</span>]
- 80:           <span class="ruby-identifier">fax</span> = [<span class="ruby-value str">'fax'</span>]
- 81:           <span class="ruby-identifier">street</span> = [<span class="ruby-value str">'street'</span>]
- 82:           <span class="ruby-identifier">city</span> = [<span class="ruby-value str">'city'</span>]
- 83:           <span class="ruby-identifier">postal_code</span> = [<span class="ruby-value str">'postal code'</span>,<span class="ruby-value str">'postalcode'</span>,<span class="ruby-value str">'postal-code'</span>,<span class="ruby-value str">'code-postal'</span>,<span class="ruby-value str">'code postal'</span>,<span class="ruby-value str">'codepostal'</span>]
- 84:           <span class="ruby-identifier">country</span> = [<span class="ruby-value str">'country'</span>]
- 85:           <span class="ruby-identifier">company</span> = [<span class="ruby-value str">'company'</span>]
- 86:           <span class="ruby-identifier">web_page</span> = [<span class="ruby-value str">'web page'</span>,<span class="ruby-value str">'webpage'</span>,<span class="ruby-value str">'web-page'</span>]
- 87:           <span class="ruby-identifier">job_title</span> = [<span class="ruby-value str">'job title'</span>,<span class="ruby-value str">'jobtitle'</span>,<span class="ruby-value str">'job-title'</span>]
- 88:           <span class="ruby-identifier">notes</span> = [<span class="ruby-value str">'notes'</span>]
- 89:           <span class="ruby-identifier">cols_order</span> =[]
- 90:           <span class="ruby-ivar">@parsed_file</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">col</span><span class="ruby-operator">|</span>
- 91:             <span class="ruby-identifier">col</span> = <span class="ruby-identifier">col</span>.<span class="ruby-identifier">scan</span>(<span class="ruby-regexp re">/\w+/</span>).<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">downcase</span>
- 92:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">first_name</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">col</span>)
- 93:               <span class="ruby-identifier">cols_order</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'first_name'</span>
- 94:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">last_name</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">col</span>)
- 95:               <span class="ruby-identifier">cols_order</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'last_name'</span>
- 96:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">email</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">col</span>)
- 97:               <span class="ruby-identifier">cols_order</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'email'</span>
- 98:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">gender</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">col</span>)
- 99:               <span class="ruby-identifier">cols_order</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'gender'</span>
-100:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">primary_phone</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">col</span>)
-101:               <span class="ruby-identifier">cols_order</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'primary_phone'</span>
-102:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">mobile_phone</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">col</span>)
-103:               <span class="ruby-identifier">cols_order</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'mobile_phone'</span>
-104:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">fax</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">col</span>)
-105:               <span class="ruby-identifier">cols_order</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'fax'</span>
-106:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">street</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">col</span>)
-107:               <span class="ruby-identifier">cols_order</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'street'</span>
-108:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">city</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">col</span>)
-109:               <span class="ruby-identifier">cols_order</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'city'</span>
-110:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">postal_code</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">col</span>)
-111:               <span class="ruby-identifier">cols_order</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'postal_code'</span>
-112:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">country</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">col</span>)
-113:               <span class="ruby-identifier">cols_order</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'country'</span>
-114:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">company</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">col</span>)
-115:               <span class="ruby-identifier">cols_order</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'company'</span>
-116:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">web_page</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">col</span>)
-117:               <span class="ruby-identifier">cols_order</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'web_page'</span>
-118:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">job_title</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">col</span>)
-119:               <span class="ruby-identifier">cols_order</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'job_title'</span>
-120:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">notes</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">col</span>)
-121:               <span class="ruby-identifier">cols_order</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'notes'</span>
-122:             <span class="ruby-keyword kw">else</span>
-123:               <span class="ruby-identifier">cols_order</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">''</span>
-124:             <span class="ruby-keyword kw">end</span>
-125:           <span class="ruby-keyword kw">end</span>
-126:           <span class="ruby-ivar">@unsaved_emails</span> = []
-127:           <span class="ruby-ivar">@parsed_file</span>.<span class="ruby-identifier">each_index</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">index</span><span class="ruby-operator">|</span>
-128:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">index</span> <span class="ruby-operator">!=</span> <span class="ruby-value">0</span>
-129:               <span class="ruby-identifier">i</span> = <span class="ruby-value">0</span>
-130:               <span class="ruby-identifier">details</span> = {}
-131:               <span class="ruby-ivar">@parsed_file</span>[<span class="ruby-identifier">index</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
-132:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">cols_order</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">!=</span> <span class="ruby-value str">''</span> <span class="ruby-keyword kw">and</span> <span class="ruby-operator">!</span><span class="ruby-identifier">cols_order</span>[<span class="ruby-identifier">i</span>].<span class="ruby-identifier">nil?</span>
-133:                   <span class="ruby-identifier">details</span>[<span class="ruby-identifier">cols_order</span>[<span class="ruby-identifier">i</span>]] = <span class="ruby-identifier">value</span>
-134:                 <span class="ruby-keyword kw">end</span>
-135:                 <span class="ruby-identifier">i</span><span class="ruby-operator">+=</span><span class="ruby-value">1</span>
-136:               <span class="ruby-keyword kw">end</span>
-137:               <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">details</span>[<span class="ruby-value str">'email'</span>].<span class="ruby-identifier">nil?</span> 
-138:                 <span class="ruby-identifier">person</span> = <span class="ruby-constant">Person</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">details</span>)
-139:                 <span class="ruby-identifier">person</span>.<span class="ruby-identifier">user_id</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>
-140:                 <span class="ruby-identifier">person</span>.<span class="ruby-identifier">origin</span> = <span class="ruby-value str">&quot;CSV importation&quot;</span>
-141:                 <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">person</span>.<span class="ruby-identifier">validate_uniqueness_of_email</span> <span class="ruby-operator">||</span> <span class="ruby-operator">!</span><span class="ruby-identifier">person</span>.<span class="ruby-identifier">save</span>
-142:                   <span class="ruby-ivar">@unsaved_emails</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">person</span>.<span class="ruby-identifier">email</span>
-143:                 <span class="ruby-keyword kw">end</span>
-144:               <span class="ruby-keyword kw">end</span>
-145:             <span class="ruby-keyword kw">end</span>
-146:           <span class="ruby-keyword kw">end</span>
-147:           <span class="ruby-identifier">flash</span>.<span class="ruby-identifier">now</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'people.import_people.saved_records_flash_notice'</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@unsaved_emails</span>.<span class="ruby-identifier">empty?</span>
-148:           <span class="ruby-identifier">flash</span>.<span class="ruby-identifier">now</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'people.import_people.unsaved_records_flash_error1'</span>)<span class="ruby-operator">+</span><span class="ruby-value str">'&lt;b&gt; '</span><span class="ruby-operator">+</span><span class="ruby-ivar">@unsaved_emails</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">','</span>)<span class="ruby-operator">+</span><span class="ruby-value str">' &lt;/b&gt;'</span><span class="ruby-operator">+</span><span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'people.import_people.unsaved_records_flash_error2'</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@unsaved_emails</span>.<span class="ruby-identifier">empty?</span>
-149:         <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-150:           <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">error</span> <span class="ruby-value str">&quot;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;</span>
-151:           <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">error</span> <span class="ruby-value str">&quot; Problem while parsing csv file &quot;</span><span class="ruby-operator">+</span> <span class="ruby-identifier">e</span>
-152:           <span class="ruby-identifier">flash</span>.<span class="ruby-identifier">now</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'people.import_people.csv_parser_error'</span>)
-153:         <span class="ruby-keyword kw">end</span>
-154:       <span class="ruby-keyword kw">else</span>
-155:         <span class="ruby-identifier">flash</span>.<span class="ruby-identifier">now</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'people.import_people.wrong_file_flash_error'</span>)
-156:       <span class="ruby-keyword kw">end</span>
-157:     <span class="ruby-keyword kw">end</span>
-158:   <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000167" class="method-detail">
-        <a name="M000167"></a>
-
-        <div class="method-heading">
-          <a href="#M000167" class="method-signature">
-          <span class="method-name">index</span><span class="method-args">()</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p>
-Method to Show all People
+<p>
+Usage URL:
+</p>
+<p>
+/people/import_people
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000167-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000167-source">
+            onclick="toggleCode('M000142-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000142-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/controllers/people_controller.rb, line 24</span>
-24:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">index</span>
-25:                 <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:restriction</span>] <span class="ruby-operator">||=</span> <span class="ruby-value str">'people'</span>
-26:                 <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:type</span>] <span class="ruby-operator">||=</span> {<span class="ruby-value str">'newsletter'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'0'</span>}
-27:                 <span class="ruby-ivar">@people</span> = <span class="ruby-ivar">@current_user</span>.<span class="ruby-identifier">get_contacts_list</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:restriction</span>], <span class="ruby-value str">'group_member'</span>, <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:type</span>][<span class="ruby-identifier">:newsletter</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'1'</span>).<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">:per_page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">get_per_page_value</span>, <span class="ruby-identifier">:page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:page</span>])
-28:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/controllers/people_controller.rb, line 81</span>
+ 81:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">import_people</span>
+ 82:     <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">get?</span>
+ 83:       <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">params</span>[<span class="ruby-identifier">:people</span>].<span class="ruby-identifier">blank?</span> <span class="ruby-keyword kw">and</span> <span class="ruby-operator">!</span><span class="ruby-identifier">params</span>[<span class="ruby-identifier">:people</span>][<span class="ruby-identifier">:csv</span>].<span class="ruby-identifier">blank?</span> <span class="ruby-keyword kw">and</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">extname</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:people</span>][<span class="ruby-identifier">:csv</span>].<span class="ruby-identifier">original_filename</span>) <span class="ruby-operator">==</span> <span class="ruby-value str">'.csv'</span>
+ 84:         <span class="ruby-keyword kw">begin</span>
+ 85:           <span class="ruby-ivar">@parsed_file</span>=<span class="ruby-constant">CSV</span><span class="ruby-operator">::</span><span class="ruby-constant">Reader</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:people</span>][<span class="ruby-identifier">:csv</span>]).<span class="ruby-identifier">to_a</span>
+ 86:           <span class="ruby-identifier">first_name</span> =[<span class="ruby-value str">'first name'</span>,<span class="ruby-value str">'firstname'</span>,<span class="ruby-value str">'first-name'</span>,<span class="ruby-value str">'name'</span>,<span class="ruby-value str">'prénom'</span>]
+ 87:           <span class="ruby-identifier">last_name</span> =[<span class="ruby-value str">'last name'</span>,<span class="ruby-value str">'lastname'</span>,<span class="ruby-value str">'last-name'</span>,<span class="ruby-value str">'nom'</span>]
+ 88:           <span class="ruby-identifier">email</span> = [<span class="ruby-value str">'email'</span>,<span class="ruby-value str">'e-mail'</span>,<span class="ruby-value str">'e mail'</span>,<span class="ruby-value str">'email address'</span>,<span class="ruby-value str">'email-address'</span>,<span class="ruby-value str">'e-mail address'</span>,<span class="ruby-value str">'emailaddress'</span>]
+ 89:           <span class="ruby-identifier">gender</span> = [<span class="ruby-value str">'gender'</span>]
+ 90:           <span class="ruby-identifier">primary_phone</span> = [<span class="ruby-value str">'primary phone'</span>,<span class="ruby-value str">'primaryphone'</span>,<span class="ruby-value str">'primary-phone'</span>]
+ 91:           <span class="ruby-identifier">mobile_phone</span> = [<span class="ruby-value str">'mobile phone'</span>,<span class="ruby-value str">'mobilephone'</span>,<span class="ruby-value str">'mobile-phone'</span>]
+ 92:           <span class="ruby-identifier">fax</span> = [<span class="ruby-value str">'fax'</span>]
+ 93:           <span class="ruby-identifier">street</span> = [<span class="ruby-value str">'street'</span>]
+ 94:           <span class="ruby-identifier">city</span> = [<span class="ruby-value str">'city'</span>]
+ 95:           <span class="ruby-identifier">postal_code</span> = [<span class="ruby-value str">'postal code'</span>,<span class="ruby-value str">'postalcode'</span>,<span class="ruby-value str">'postal-code'</span>,<span class="ruby-value str">'code-postal'</span>,<span class="ruby-value str">'code postal'</span>,<span class="ruby-value str">'codepostal'</span>]
+ 96:           <span class="ruby-identifier">country</span> = [<span class="ruby-value str">'country'</span>]
+ 97:           <span class="ruby-identifier">company</span> = [<span class="ruby-value str">'company'</span>]
+ 98:           <span class="ruby-identifier">web_page</span> = [<span class="ruby-value str">'web page'</span>,<span class="ruby-value str">'webpage'</span>,<span class="ruby-value str">'web-page'</span>]
+ 99:           <span class="ruby-identifier">job_title</span> = [<span class="ruby-value str">'job title'</span>,<span class="ruby-value str">'jobtitle'</span>,<span class="ruby-value str">'job-title'</span>]
+100:           <span class="ruby-identifier">notes</span> = [<span class="ruby-value str">'notes'</span>]
+101:           <span class="ruby-identifier">cols_order</span> =[]
+102:           <span class="ruby-ivar">@parsed_file</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">col</span><span class="ruby-operator">|</span>
+103:             <span class="ruby-identifier">col</span> = <span class="ruby-identifier">col</span>.<span class="ruby-identifier">scan</span>(<span class="ruby-regexp re">/\w+/</span>).<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">downcase</span>
+104:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">first_name</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">col</span>)
+105:               <span class="ruby-identifier">cols_order</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'first_name'</span>
+106:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">last_name</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">col</span>)
+107:               <span class="ruby-identifier">cols_order</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'last_name'</span>
+108:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">email</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">col</span>)
+109:               <span class="ruby-identifier">cols_order</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'email'</span>
+110:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">gender</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">col</span>)
+111:               <span class="ruby-identifier">cols_order</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'gender'</span>
+112:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">primary_phone</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">col</span>)
+113:               <span class="ruby-identifier">cols_order</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'primary_phone'</span>
+114:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">mobile_phone</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">col</span>)
+115:               <span class="ruby-identifier">cols_order</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'mobile_phone'</span>
+116:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">fax</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">col</span>)
+117:               <span class="ruby-identifier">cols_order</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'fax'</span>
+118:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">street</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">col</span>)
+119:               <span class="ruby-identifier">cols_order</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'street'</span>
+120:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">city</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">col</span>)
+121:               <span class="ruby-identifier">cols_order</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'city'</span>
+122:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">postal_code</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">col</span>)
+123:               <span class="ruby-identifier">cols_order</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'postal_code'</span>
+124:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">country</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">col</span>)
+125:               <span class="ruby-identifier">cols_order</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'country'</span>
+126:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">company</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">col</span>)
+127:               <span class="ruby-identifier">cols_order</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'company'</span>
+128:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">web_page</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">col</span>)
+129:               <span class="ruby-identifier">cols_order</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'web_page'</span>
+130:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">job_title</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">col</span>)
+131:               <span class="ruby-identifier">cols_order</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'job_title'</span>
+132:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">notes</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">col</span>)
+133:               <span class="ruby-identifier">cols_order</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'notes'</span>
+134:             <span class="ruby-keyword kw">else</span>
+135:               <span class="ruby-identifier">cols_order</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">''</span>
+136:             <span class="ruby-keyword kw">end</span>
+137:           <span class="ruby-keyword kw">end</span>
+138:           <span class="ruby-ivar">@unsaved_emails</span> = []
+139:           <span class="ruby-ivar">@parsed_file</span>.<span class="ruby-identifier">each_index</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">index</span><span class="ruby-operator">|</span>
+140:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">index</span> <span class="ruby-operator">!=</span> <span class="ruby-value">0</span>
+141:               <span class="ruby-identifier">i</span> = <span class="ruby-value">0</span>
+142:               <span class="ruby-identifier">details</span> = {}
+143:               <span class="ruby-ivar">@parsed_file</span>[<span class="ruby-identifier">index</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+144:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">cols_order</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">!=</span> <span class="ruby-value str">''</span> <span class="ruby-keyword kw">and</span> <span class="ruby-operator">!</span><span class="ruby-identifier">cols_order</span>[<span class="ruby-identifier">i</span>].<span class="ruby-identifier">nil?</span>
+145:                   <span class="ruby-identifier">details</span>[<span class="ruby-identifier">cols_order</span>[<span class="ruby-identifier">i</span>]] = <span class="ruby-identifier">value</span>
+146:                 <span class="ruby-keyword kw">end</span>
+147:                 <span class="ruby-identifier">i</span><span class="ruby-operator">+=</span><span class="ruby-value">1</span>
+148:               <span class="ruby-keyword kw">end</span>
+149:               <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">details</span>[<span class="ruby-value str">'email'</span>].<span class="ruby-identifier">nil?</span> 
+150:                 <span class="ruby-identifier">person</span> = <span class="ruby-constant">Person</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">details</span>)
+151:                 <span class="ruby-identifier">person</span>.<span class="ruby-identifier">user_id</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>
+152:                 <span class="ruby-identifier">person</span>.<span class="ruby-identifier">origin</span> = <span class="ruby-value str">&quot;CSV importation&quot;</span>
+153:                 <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">person</span>.<span class="ruby-identifier">validate_uniqueness_of_email</span> <span class="ruby-operator">||</span> <span class="ruby-operator">!</span><span class="ruby-identifier">person</span>.<span class="ruby-identifier">save</span>
+154:                   <span class="ruby-ivar">@unsaved_emails</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">person</span>.<span class="ruby-identifier">email</span>
+155:                 <span class="ruby-keyword kw">end</span>
+156:               <span class="ruby-keyword kw">end</span>
+157:             <span class="ruby-keyword kw">end</span>
+158:           <span class="ruby-keyword kw">end</span>
+159:           <span class="ruby-identifier">flash</span>.<span class="ruby-identifier">now</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'people.import_people.saved_records_flash_notice'</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@unsaved_emails</span>.<span class="ruby-identifier">empty?</span>
+160:           <span class="ruby-identifier">flash</span>.<span class="ruby-identifier">now</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'people.import_people.unsaved_records_flash_error1'</span>)<span class="ruby-operator">+</span><span class="ruby-value str">'&lt;b&gt; '</span><span class="ruby-operator">+</span><span class="ruby-ivar">@unsaved_emails</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">','</span>)<span class="ruby-operator">+</span><span class="ruby-value str">' &lt;/b&gt;'</span><span class="ruby-operator">+</span><span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'people.import_people.unsaved_records_flash_error2'</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@unsaved_emails</span>.<span class="ruby-identifier">empty?</span>
+161:         <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+162:           <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">error</span> <span class="ruby-value str">&quot;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;</span>
+163:           <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">error</span> <span class="ruby-value str">&quot; Problem while parsing csv file &quot;</span><span class="ruby-operator">+</span> <span class="ruby-identifier">e</span>
+164:           <span class="ruby-identifier">flash</span>.<span class="ruby-identifier">now</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'people.import_people.csv_parser_error'</span>)
+165:         <span class="ruby-keyword kw">end</span>
+166:       <span class="ruby-keyword kw">else</span>
+167:         <span class="ruby-identifier">flash</span>.<span class="ruby-identifier">now</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'people.import_people.wrong_file_flash_error'</span>)
+168:       <span class="ruby-keyword kw">end</span>
+169:     <span class="ruby-keyword kw">end</span>
+170:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000173" class="method-detail">
-        <a name="M000173"></a>
+      <div id="method-M000144" class="method-detail">
+        <a name="M000144"></a>
 
         <div class="method-heading">
-          <a href="#M000173" class="method-signature">
+          <a href="#M000144" class="method-signature">
           <span class="method-name">update_newsletter_column</span><span class="method-args">()</span>
           </a>
         </div>
@@ -437,22 +368,28 @@ Method to Show all People
 Update <a href="Newsletter.html">Newsletter</a> Column for
 Subscribe/Unsubscribe
 </p>
+<p>
+Usage URL:
+</p>
+<p>
+/people/update_newsletter_column
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000173-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000173-source">
+            onclick="toggleCode('M000144-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000144-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/controllers/people_controller.rb, line 171</span>
-171:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update_newsletter_column</span>
-172:     <span class="ruby-ivar">@object</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:type</span>].<span class="ruby-identifier">classify</span>.<span class="ruby-identifier">constantize</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>])
-173:     <span class="ruby-ivar">@object</span>.<span class="ruby-identifier">update_attribute</span>(<span class="ruby-identifier">:newsletter</span>, <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:newsletter</span>])
-174:     <span class="ruby-identifier">render</span> <span class="ruby-identifier">:update</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">page</span><span class="ruby-operator">|</span>
-175:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:newsletter</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;true&quot;</span>
-176:         <span class="ruby-identifier">page</span>.<span class="ruby-identifier">alert</span>(<span class="ruby-node">&quot;#{@object.email} will receive newsletters from now onwards&quot;</span>)
-177:       <span class="ruby-keyword kw">else</span>
-178:         <span class="ruby-identifier">page</span>.<span class="ruby-identifier">alert</span>(<span class="ruby-node">&quot;#{@object.email} will not receive newsletters from now onwards&quot;</span>)
-179:       <span class="ruby-keyword kw">end</span>
-180:     <span class="ruby-keyword kw">end</span>
-181:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/controllers/people_controller.rb, line 191</span>
+191:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update_newsletter_column</span>
+192:     <span class="ruby-ivar">@object</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:type</span>].<span class="ruby-identifier">classify</span>.<span class="ruby-identifier">constantize</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>])
+193:     <span class="ruby-ivar">@object</span>.<span class="ruby-identifier">update_attribute</span>(<span class="ruby-identifier">:newsletter</span>, <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:newsletter</span>])
+194:     <span class="ruby-identifier">render</span> <span class="ruby-identifier">:update</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">page</span><span class="ruby-operator">|</span>
+195:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:newsletter</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;true&quot;</span>
+196:         <span class="ruby-identifier">page</span>.<span class="ruby-identifier">alert</span>(<span class="ruby-node">&quot;#{@object.email} will receive newsletters from now onwards&quot;</span>)
+197:       <span class="ruby-keyword kw">else</span>
+198:         <span class="ruby-identifier">page</span>.<span class="ruby-identifier">alert</span>(<span class="ruby-node">&quot;#{@object.email} will not receive newsletters from now onwards&quot;</span>)
+199:       <span class="ruby-keyword kw">end</span>
+200:     <span class="ruby-keyword kw">end</span>
+201:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

@@ -45,11 +45,17 @@ class FeedSourcesController < ApplicationController
   end
 
   # Method to Show User How to Get a RSS/ATOM feed
-	def what_to_do
-		
-	end
+  # 
+  # Usage URL:
+  # 
+  # /feed_sources/what_to_do
+  #
+	def what_to_do;end
 
-  # Method to Validate the Feed for Blank or Previously Existing
+  # Method to Validate the Feed for Blank or if the feed is existing for the User
+  # 
+  # /feed_sources/check_feed
+  #
   def check_feed
 		daurl = params[:daurl][:value]
 		if daurl.blank?

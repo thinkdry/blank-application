@@ -88,8 +88,8 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000099">check_feed</a>&nbsp;&nbsp;
-      <a href="#M000098">what_to_do</a>&nbsp;&nbsp;
+      <a href="#M000091">check_feed</a>&nbsp;&nbsp;
+      <a href="#M000090">what_to_do</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -111,46 +111,50 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000099" class="method-detail">
-        <a name="M000099"></a>
+      <div id="method-M000091" class="method-detail">
+        <a name="M000091"></a>
 
         <div class="method-heading">
-          <a href="#M000099" class="method-signature">
+          <a href="#M000091" class="method-signature">
           <span class="method-name">check_feed</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Method to Validate the Feed for Blank or Previously Existing
+Method to Validate the Feed for Blank or if the feed is existing for the <a
+href="User.html">User</a>
+</p>
+<p>
+/feed_sources/check_feed
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000099-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000099-source">
+            onclick="toggleCode('M000091-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000091-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/controllers/feed_sources_controller.rb, line 53</span>
-53:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">check_feed</span>
-54:                 <span class="ruby-identifier">daurl</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:daurl</span>][<span class="ruby-identifier">:value</span>]
-55:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">daurl</span>.<span class="ruby-identifier">blank?</span>
-56:                         <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'rss_feed.chek_feed.flash_notice_blank'</span>)
-57:                         <span class="ruby-identifier">redirect_to</span> <span class="ruby-value str">'/feed_sources/what_to_do'</span>
-58:                 <span class="ruby-keyword kw">elsif</span> (<span class="ruby-ivar">@feed</span>=<span class="ruby-constant">FeedSource</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> { <span class="ruby-identifier">:url</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">daurl</span>, <span class="ruby-identifier">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span> }))
-59:                         <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'rss_feed.chek_feed.flash_notice_already_subscribed'</span>)
-60:                         <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">feed_source_path</span>(<span class="ruby-ivar">@feed</span>.<span class="ruby-identifier">id</span>)
-61:                 <span class="ruby-keyword kw">else</span>
-62:                         <span class="ruby-identifier">redirect_to</span> <span class="ruby-node">&quot;/feed_sources/new?url=#{daurl}&quot;</span>
-63:                 <span class="ruby-keyword kw">end</span>
-64:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/controllers/feed_sources_controller.rb, line 59</span>
+59:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">check_feed</span>
+60:                 <span class="ruby-identifier">daurl</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:daurl</span>][<span class="ruby-identifier">:value</span>]
+61:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">daurl</span>.<span class="ruby-identifier">blank?</span>
+62:                         <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'rss_feed.chek_feed.flash_notice_blank'</span>)
+63:                         <span class="ruby-identifier">redirect_to</span> <span class="ruby-value str">'/feed_sources/what_to_do'</span>
+64:                 <span class="ruby-keyword kw">elsif</span> (<span class="ruby-ivar">@feed</span>=<span class="ruby-constant">FeedSource</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> { <span class="ruby-identifier">:url</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">daurl</span>, <span class="ruby-identifier">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span> }))
+65:                         <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'rss_feed.chek_feed.flash_notice_already_subscribed'</span>)
+66:                         <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">feed_source_path</span>(<span class="ruby-ivar">@feed</span>.<span class="ruby-identifier">id</span>)
+67:                 <span class="ruby-keyword kw">else</span>
+68:                         <span class="ruby-identifier">redirect_to</span> <span class="ruby-node">&quot;/feed_sources/new?url=#{daurl}&quot;</span>
+69:                 <span class="ruby-keyword kw">end</span>
+70:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000098" class="method-detail">
-        <a name="M000098"></a>
+      <div id="method-M000090" class="method-detail">
+        <a name="M000090"></a>
 
         <div class="method-heading">
-          <a href="#M000098" class="method-signature">
+          <a href="#M000090" class="method-signature">
           <span class="method-name">what_to_do</span><span class="method-args">()</span>
           </a>
         </div>
@@ -159,14 +163,18 @@ Method to Validate the Feed for Blank or Previously Existing
           <p>
 Method to Show <a href="User.html">User</a> How to Get a RSS/ATOM feed
 </p>
+<p>
+Usage URL:
+</p>
+<p>
+/feed_sources/what_to_do
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000098-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000098-source">
+            onclick="toggleCode('M000090-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000090-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/controllers/feed_sources_controller.rb, line 48</span>
-48:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">what_to_do</span>
-49:                 
-50:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/controllers/feed_sources_controller.rb, line 53</span>
+53:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">what_to_do</span>;<span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

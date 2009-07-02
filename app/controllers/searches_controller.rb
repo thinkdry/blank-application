@@ -1,4 +1,4 @@
-class SearchesController < ApplicationController
+class SearchesController < ApplicationController #:nodoc: all
 	
   acts_as_ajax_validation
 

@@ -32,8 +32,7 @@ class CmsFile < ActiveRecord::Base
   validates_attachment_presence :cmsfile
   
   # TODO Need to find proper content-types sent by different browsers, currently validation managed through javascript
-  #	validates_attachment_content_type :cmsfile, :content_type => [
-  #	'application/pdf', 'text/plain','application/octet-stream','application/msword', 'application/rtf']
+  #	validates_attachment_content_type :cmsfile, :content_type => ['application/pdf', 'text/plain','application/octet-stream','application/msword', 'application/rtf']
 
   validates_attachment_size(:cmsfile, :less_than => 25.megabytes)
 

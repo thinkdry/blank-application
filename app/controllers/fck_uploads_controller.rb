@@ -3,6 +3,11 @@ require 'fileutils'
 class FckUploadsController < ApplicationController
 
   # Method to Create File paths & Store Uploaded Files throught FCKEditor
+  # 
+  # Usage URL:
+  #
+  # /fck_uploads/
+  # 
   def create
     begin
       #original_filename = params[:NewFile].original_filename

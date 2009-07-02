@@ -1,7 +1,9 @@
 class HomeController < ApplicationController 
+  
+  # HomePage of the Blank Application
+  #
   # Root page ('/')
   #
-  # HomePage of the Blank Application
   def index
     @latest_items = GenericItem.consultable_by(current_user.id).latest
     @latest_users = User.latest
@@ -11,6 +13,9 @@ class HomeController < ApplicationController
   end
 
   # Method for Autocomplete on Users
+  #
+  # /home/autocomplete_on
+  #
 	def autocomplete_on
 		#params[:object_name]
 		conditions = if params[:name]

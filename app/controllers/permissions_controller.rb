@@ -1,4 +1,4 @@
-class PermissionsController < ApplicationController
+class PermissionsController < ApplicationController #:nodoc: all
 
 	before_filter :is_superadmin?
 

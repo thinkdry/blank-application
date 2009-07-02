@@ -86,11 +86,9 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000153">feed_compliance</a>&nbsp;&nbsp;
-      <a href="#M000152">import_latest_items</a>&nbsp;&nbsp;
-      <a href="#M000151">rss_content</a>&nbsp;&nbsp;
-      <a href="#M000150">rss_valid?</a>&nbsp;&nbsp;
-      <a href="#M000149">validate</a>&nbsp;&nbsp;
+      <a href="#M000130">feed_compliance</a>&nbsp;&nbsp;
+      <a href="#M000129">import_latest_items</a>&nbsp;&nbsp;
+      <a href="#M000128">rss_content</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -112,11 +110,11 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000153" class="method-detail">
-        <a name="M000153"></a>
+      <div id="method-M000130" class="method-detail">
+        <a name="M000130"></a>
 
         <div class="method-heading">
-          <a href="#M000153" class="method-signature">
+          <a href="#M000130" class="method-signature">
           <span class="method-name">feed_compliance</span><span class="method-args">()</span>
           </a>
         </div>
@@ -125,32 +123,36 @@
           <p>
 Check If the given URL is RSS/Atom compliant to Fetch Feed&#8216;s
 </p>
+<p>
+will return true if the feed is RSS/Atom compliant else will return false
+for invalid URL
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000153-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000153-source">
+            onclick="toggleCode('M000130-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000130-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/feed_source.rb, line 110</span>
-110:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">feed_compliance</span>
-111:           <span class="ruby-keyword kw">begin</span>
-112:                   <span class="ruby-identifier">open</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">url</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">http</span><span class="ruby-operator">|</span>
-113:       <span class="ruby-identifier">response</span> = <span class="ruby-identifier">http</span>.<span class="ruby-identifier">read</span>
-114:       <span class="ruby-identifier">result</span> = <span class="ruby-constant">RSS</span><span class="ruby-operator">::</span><span class="ruby-constant">Parser</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">response</span>, <span class="ruby-keyword kw">false</span>)
-115:     <span class="ruby-keyword kw">end</span>
-116:     <span class="ruby-identifier">t</span> = <span class="ruby-keyword kw">true</span>
-117:     <span class="ruby-keyword kw">rescue</span>
-118:             <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">:url</span>, <span class="ruby-value str">&quot;The url entered is not a compliant RSS/Atom Feed&quot;</span>) 
-119:     <span class="ruby-keyword kw">end</span>
-120:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/feed_source.rb, line 129</span>
+129:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">feed_compliance</span>
+130:           <span class="ruby-keyword kw">begin</span>
+131:                   <span class="ruby-identifier">open</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">url</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">http</span><span class="ruby-operator">|</span>
+132:         <span class="ruby-identifier">response</span> = <span class="ruby-identifier">http</span>.<span class="ruby-identifier">read</span>
+133:         <span class="ruby-identifier">result</span> = <span class="ruby-constant">RSS</span><span class="ruby-operator">::</span><span class="ruby-constant">Parser</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">response</span>, <span class="ruby-keyword kw">false</span>)
+134:       <span class="ruby-keyword kw">end</span>
+135:       <span class="ruby-identifier">t</span> = <span class="ruby-keyword kw">true</span>
+136:     <span class="ruby-keyword kw">rescue</span>
+137:             <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">:url</span>, <span class="ruby-value str">&quot;The url entered is not a compliant RSS/Atom Feed&quot;</span>) 
+138:     <span class="ruby-keyword kw">end</span>
+139:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000152" class="method-detail">
-        <a name="M000152"></a>
+      <div id="method-M000129" class="method-detail">
+        <a name="M000129"></a>
 
         <div class="method-heading">
-          <a href="#M000152" class="method-signature">
+          <a href="#M000129" class="method-signature">
           <span class="method-name">import_latest_items</span><span class="method-args">()</span>
           </a>
         </div>
@@ -159,42 +161,51 @@ Check If the given URL is RSS/Atom compliant to Fetch Feed&#8216;s
           <p>
 Import the Latest Updates of the Saved Feeds
 </p>
+<p>
+Usage:
+</p>
+<p>
+feedsource.import_latest_items
+</p>
+<p>
+will update with latest feeds available on the feedsource url
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000152-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000152-source">
+            onclick="toggleCode('M000129-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000129-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/feed_source.rb, line 87</span>
- 87:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">import_latest_items</span>
- 88:                 <span class="ruby-identifier">feed</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">rss_content2</span>
- 89:                 <span class="ruby-comment cmt">#feed.clean!</span>
- 90:                 <span class="ruby-identifier">feed</span>.<span class="ruby-identifier">entries</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span>
- 91:                         <span class="ruby-comment cmt"># Be sure that the item hasnt been imported before</span>
- 92:                         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">feed_items</span>.<span class="ruby-identifier">count</span>(<span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> { <span class="ruby-identifier">:guid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">guid</span>, <span class="ruby-identifier">:feed_source_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span> }) <span class="ruby-operator">&lt;=</span> <span class="ruby-value">0</span>
- 93:                                 <span class="ruby-constant">FeedItem</span>.<span class="ruby-identifier">create</span>({
- 94:                                         <span class="ruby-identifier">:feed_source_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span>,
- 95:                                         <span class="ruby-identifier">:guid</span>                                              =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">guid</span>,
- 96:                                         <span class="ruby-identifier">:title</span>                                     =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">title</span>,
- 97:                                         <span class="ruby-identifier">:description</span>               =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">description</span>,
- 98:                                         <span class="ruby-identifier">:enclosures</span>     =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">enclosures</span>,
- 99:                                         <span class="ruby-comment cmt">#:authors                          =&gt; item.authors.join(' ,'),</span>
-100:                                         <span class="ruby-identifier">:date_published</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">issued</span>,
-101:                                         <span class="ruby-identifier">:last_updated</span>              =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">date</span>,
-102:                                         <span class="ruby-identifier">:categories</span>                        =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">tags</span> <span class="ruby-value">? </span><span class="ruby-identifier">item</span>.<span class="ruby-identifier">tags</span>.<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">tag</span><span class="ruby-operator">|</span> <span class="ruby-identifier">tag</span>[<span class="ruby-value str">&quot;term&quot;</span>]}.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">:</span> <span class="ruby-keyword kw">nil</span>,
-103:                                         <span class="ruby-identifier">:link</span>           =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">url</span>,
-104:                                         <span class="ruby-identifier">:copyright</span>                 =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">rights</span> })
-105:                         <span class="ruby-keyword kw">end</span>
-106:                 <span class="ruby-keyword kw">end</span>
-107:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/feed_source.rb, line 103</span>
+103:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">import_latest_items</span>
+104:                 <span class="ruby-identifier">feed</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">rss_content2</span>
+105:                 <span class="ruby-comment cmt">#feed.clean!</span>
+106:                 <span class="ruby-identifier">feed</span>.<span class="ruby-identifier">entries</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span>
+107:                         <span class="ruby-comment cmt"># Be sure that the item hasnt been imported before</span>
+108:                         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">feed_items</span>.<span class="ruby-identifier">count</span>(<span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> { <span class="ruby-identifier">:guid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">guid</span>, <span class="ruby-identifier">:feed_source_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span> }) <span class="ruby-operator">&lt;=</span> <span class="ruby-value">0</span>
+109:                                 <span class="ruby-constant">FeedItem</span>.<span class="ruby-identifier">create</span>({
+110:             <span class="ruby-identifier">:feed_source_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span>,
+111:             <span class="ruby-identifier">:guid</span>                                               =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">guid</span>,
+112:             <span class="ruby-identifier">:title</span>                                      =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">title</span>,
+113:             <span class="ruby-identifier">:description</span>                =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">description</span>,
+114:             <span class="ruby-identifier">:enclosures</span>     =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">enclosures</span>,
+115:             <span class="ruby-comment cmt">#:authors                           =&gt; item.authors.join(' ,'),</span>
+116:             <span class="ruby-identifier">:date_published</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">issued</span>,
+117:             <span class="ruby-identifier">:last_updated</span>               =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">date</span>,
+118:             <span class="ruby-identifier">:categories</span>                 =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">tags</span> <span class="ruby-value">? </span><span class="ruby-identifier">item</span>.<span class="ruby-identifier">tags</span>.<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">tag</span><span class="ruby-operator">|</span> <span class="ruby-identifier">tag</span>[<span class="ruby-value str">&quot;term&quot;</span>]}.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">:</span> <span class="ruby-keyword kw">nil</span>,
+119:             <span class="ruby-identifier">:link</span>           =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">url</span>,
+120:             <span class="ruby-identifier">:copyright</span>                  =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">rights</span> })
+121:                         <span class="ruby-keyword kw">end</span>
+122:                 <span class="ruby-keyword kw">end</span>
+123:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000151" class="method-detail">
-        <a name="M000151"></a>
+      <div id="method-M000128" class="method-detail">
+        <a name="M000128"></a>
 
         <div class="method-heading">
-          <a href="#M000151" class="method-signature">
+          <a href="#M000128" class="method-signature">
           <span class="method-name">rss_content</span><span class="method-args">()</span>
           </a>
         </div>
@@ -203,77 +214,34 @@ Import the Latest Updates of the Saved Feeds
           <p>
 Check if RSS/Atom Feed can be Parsed for Reading
 </p>
+<p>
+Read the <a href="FeedSource.html#M000128">rss_content</a> of the URL and
+parse it.
+</p>
+<p>
+if it is valid rss then it is accepted or else rejected
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000151-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000151-source">
+            onclick="toggleCode('M000128-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000128-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/models/feed_source.rb, line 69</span>
-69:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rss_content</span>
-70:                 <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@rss</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@rss</span>
-71:     <span class="ruby-identifier">content</span> = <span class="ruby-constant">String</span>.<span class="ruby-identifier">new</span> <span class="ruby-comment cmt"># raw content of rss feed will be loaded here</span>
-72:     <span class="ruby-identifier">open</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">url</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> <span class="ruby-identifier">content</span> = <span class="ruby-identifier">s</span>.<span class="ruby-identifier">read</span> }
-73:                 <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span>(<span class="ruby-identifier">content</span>.<span class="ruby-identifier">blank?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">content</span>.<span class="ruby-identifier">nil?</span>)
-74:                         <span class="ruby-keyword kw">if</span> (<span class="ruby-ivar">@rss</span> = <span class="ruby-constant">RSS</span><span class="ruby-operator">::</span><span class="ruby-constant">Parser</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">content</span>, <span class="ruby-keyword kw">false</span>))
-75:                                 
-76:                         <span class="ruby-keyword kw">else</span>
-77:                                 <span class="ruby-identifier">p</span> <span class="ruby-value str">&quot;Impossible de parser le flux &quot;</span><span class="ruby-operator">+</span><span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">name</span>
-78:                                 <span class="ruby-comment cmt">#redirect_to feed_contents_url</span>
-79:                         <span class="ruby-keyword kw">end</span>
-80:                 <span class="ruby-keyword kw">else</span>
-81:                         <span class="ruby-identifier">p</span> <span class="ruby-value str">&quot;Aucun contenu pour l'url &quot;</span><span class="ruby-operator">+</span><span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">url</span>
-82:                         <span class="ruby-comment cmt">#redirect_to feed_contents_url</span>
-83:                 <span class="ruby-keyword kw">end</span>
-84:   <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000150" class="method-detail">
-        <a name="M000150"></a>
-
-        <div class="method-heading">
-          <a href="#M000150" class="method-signature">
-          <span class="method-name">rss_valid?</span><span class="method-args">()</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000150-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000150-source">
-<pre>
-    <span class="ruby-comment cmt"># File app/models/feed_source.rb, line 60</span>
-60:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rss_valid?</span>
-61:     <span class="ruby-keyword kw">begin</span>
-62:       <span class="ruby-identifier">rss_content</span>
-63:     <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-64:       <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">:url</span>, <span class="ruby-value str">&quot;Erreur lors de l'importation des flux, adresse invalide ?&quot;</span>)
-65:     <span class="ruby-keyword kw">end</span>
-66:   <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000149" class="method-detail">
-        <a name="M000149"></a>
-
-        <div class="method-heading">
-          <a href="#M000149" class="method-signature">
-          <span class="method-name">validate</span><span class="method-args">()</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000149-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000149-source">
-<pre>
-    <span class="ruby-comment cmt"># File app/models/feed_source.rb, line 56</span>
-56:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">validate</span>
-57:     <span class="ruby-identifier">rss_valid?</span>
-58:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/models/feed_source.rb, line 74</span>
+74:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rss_content</span>
+75:                 <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@rss</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@rss</span>
+76:     <span class="ruby-identifier">content</span> = <span class="ruby-constant">String</span>.<span class="ruby-identifier">new</span> <span class="ruby-comment cmt"># raw content of rss feed will be loaded here</span>
+77:     <span class="ruby-identifier">open</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">url</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> <span class="ruby-identifier">content</span> = <span class="ruby-identifier">s</span>.<span class="ruby-identifier">read</span> }
+78:                 <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span>(<span class="ruby-identifier">content</span>.<span class="ruby-identifier">blank?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">content</span>.<span class="ruby-identifier">nil?</span>)
+79:                         <span class="ruby-keyword kw">if</span> (<span class="ruby-ivar">@rss</span> = <span class="ruby-constant">RSS</span><span class="ruby-operator">::</span><span class="ruby-constant">Parser</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">content</span>, <span class="ruby-keyword kw">false</span>))
+80:                                 
+81:                         <span class="ruby-keyword kw">else</span>
+82:                                 <span class="ruby-identifier">p</span> <span class="ruby-value str">&quot;Impossible de parser le flux &quot;</span><span class="ruby-operator">+</span><span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">name</span>
+83:                                 <span class="ruby-comment cmt">#redirect_to feed_contents_url</span>
+84:                         <span class="ruby-keyword kw">end</span>
+85:                 <span class="ruby-keyword kw">else</span>
+86:                         <span class="ruby-identifier">p</span> <span class="ruby-value str">&quot;Aucun contenu pour l'url &quot;</span><span class="ruby-operator">+</span><span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">url</span>
+87:                         <span class="ruby-comment cmt">#redirect_to feed_contents_url</span>
+88:                 <span class="ruby-keyword kw">end</span>
+89:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
