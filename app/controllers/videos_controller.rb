@@ -9,6 +9,11 @@ class VideosController < ApplicationController
   end
 
   # Method to Get Progress of Encoding through Backgroundrb Converter Worker
+  # 
+  # Usage URL:
+  #
+  # /audios/get_video_progress?id=1&check=true
+  #
   def get_video_progress
     @current_object = Video.find(:first, :conditions => { :id => params[:id].to_i })
     if params[:check] && params[:check] == 'true'
@@ -19,12 +24,20 @@ class VideosController < ApplicationController
   end
 
   # Return the Url of the Video in Pop Up Window
+  #
+  # Usage URL:
+  #
+  # /videos/get_file_url/:id
   def get_file_url
 		@current_object = Video.find(params[:id])
 		redirect_to @current_object.video.url
 	end
 
   # Return Download Link for Video File
+  #
+  # Usage URL:
+  #
+  # /videos/download/:id
   def download
     @video = Video.find(params[:id])
     send_file(RAILS_ROOT+"/public"+@video.video.url.split("?")[0], :disposition => 'inline', :stream => false)

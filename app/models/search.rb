@@ -58,7 +58,7 @@ class Search < ActiveRecord::Base
 		return self[:conditions][param_name]
 	end
 
-  # Build Conditions for Advance Search, checking paramerters passes
+  # Build Conditions for Advance Search, checking paramerters passed
 	def conditions
 		res = []
 		if self[:conditions]

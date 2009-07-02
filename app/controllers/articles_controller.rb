@@ -24,6 +24,10 @@ class ArticlesController < ApplicationController
 
   
   # Remove File Associated with the Article
+  #
+  # Usage URL:
+  #
+  # /articles/removeFile?id=1
 	def removeFile
 	  object = ArticleFile.find(params[:id])
 		if object.article.accepts_edit_for?(@current_user)

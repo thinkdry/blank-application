@@ -111,7 +111,7 @@ Table name: articles
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000079">new_file_attributes=</a>&nbsp;&nbsp;
+      <a href="#M000071">new_file_attributes=</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -140,11 +140,11 @@ Table name: articles
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000079" class="method-detail">
-        <a name="M000079"></a>
+      <div id="method-M000071" class="method-detail">
+        <a name="M000071"></a>
 
         <div class="method-heading">
-          <a href="#M000079" class="method-signature">
+          <a href="#M000071" class="method-signature">
           <span class="method-name">new_file_attributes=</span><span class="method-args">(file_attributes)</span>
           </a>
         </div>
@@ -157,15 +157,15 @@ Association of Files to <a href="Article.html">Article</a> using PaperClip
 file_attributes are the associated files using paperclip attachment
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000079-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000079-source">
+            onclick="toggleCode('M000071-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000071-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/models/article.rb, line 36</span>
-36:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">new_file_attributes=</span> <span class="ruby-identifier">file_attributes</span>
-37:     <span class="ruby-identifier">file_attributes</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file_path</span><span class="ruby-operator">|</span> 
-38:       <span class="ruby-identifier">article_files</span>.<span class="ruby-identifier">build</span>(<span class="ruby-identifier">:article_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">:articlefile</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">file_path</span>)
-39:     <span class="ruby-keyword kw">end</span>
-40:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/models/article.rb, line 35</span>
+35:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">new_file_attributes=</span> <span class="ruby-identifier">file_attributes</span>
+36:     <span class="ruby-identifier">file_attributes</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file_path</span><span class="ruby-operator">|</span> 
+37:       <span class="ruby-identifier">article_files</span>.<span class="ruby-identifier">build</span>(<span class="ruby-identifier">:article_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">:articlefile</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">file_path</span>)
+38:     <span class="ruby-keyword kw">end</span>
+39:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

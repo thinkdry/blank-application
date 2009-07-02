@@ -83,7 +83,7 @@ class WorkspacesController < ApplicationController
 	end
 
   # Set Worksapce if the Worksapce Parameter Exists
-	def current_object
+	def current_object #:nodoc:
     @current_object ||= @workspace =
       if params[:id]
       Workspace.find(params[:id])
@@ -95,11 +95,15 @@ class WorkspacesController < ApplicationController
   end
 
   # Return all Workspaces with allowed permissions
-	def current_objects
+	def current_objects #:nodoc:
 		@current_objects ||= @workspaces = Workspace.allowed_user_with_permission(@current_user.id, 'workspace_show')
 	end
 
   # Assign Users with role to Workspace in UsersWorkspace
+  #
+  # Usage URL
+  #
+  # /workspaces/add_new_user
   def add_new_user
 		@current_object = Workspace.find(params[:id])
 		no_permission_redirection unless @current_object.accepts_edit_for?(@current_user)
@@ -117,6 +121,11 @@ class WorkspacesController < ApplicationController
   end
 
   # Unsubscribe from Worksapce
+  #
+  # Usage URL
+  #
+  # /workspaces/unsubscription
+  #
 	def unsubscription
 		@current_object = Workspace.find(params[:id])
 		no_permission_redirection unless @current_object.accepts_show_for?(@current_user)
@@ -130,6 +139,11 @@ class WorkspacesController < ApplicationController
 	end
 
   # Subscribe to Worksapce
+  #
+  # Usage URL
+  #
+  # /workspaces/subscription
+  #
 	def subscription
 		@current_object = Workspace.find(params[:id])
 		no_permission_redirection unless @current_object.accepts_show_for?(@current_user) && (@current_object.state == 'public')
@@ -142,7 +156,7 @@ class WorkspacesController < ApplicationController
 		end
 	end
 
-	def question
+	def question #:nodoc:
 		@current_object = Workspace.find(params[:id])
 		no_permission_redirection unless @current_object.accepts_show_for?(@current_user)
 		if UserMailer.deliver_ws_administrator_request(Workspace.find(params[:id]).creator, @current_user.id, params[:question][:type], params[:question][:msg])

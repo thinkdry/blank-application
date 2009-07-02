@@ -80,22 +80,22 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000233">advanced_editor_on</a>&nbsp;&nbsp;
-      <a href="#M000241">display_classify_bar</a>&nbsp;&nbsp;
-      <a href="#M000239">display_item_in_list</a>&nbsp;&nbsp;
-      <a href="#M000240">display_item_in_list_for_editor</a>&nbsp;&nbsp;
-      <a href="#M000238">display_items_list</a>&nbsp;&nbsp;
-      <a href="#M000237">display_tabs_items_list</a>&nbsp;&nbsp;
-      <a href="#M000231">form_for_item</a>&nbsp;&nbsp;
-      <a href="#M000242">get_ajax_item_path</a>&nbsp;&nbsp;
-      <a href="#M000244">get_specific_partial</a>&nbsp;&nbsp;
-      <a href="#M000235">item_category_fields</a>&nbsp;&nbsp;
-      <a href="#M000236">item_keywords_fields</a>&nbsp;&nbsp;
-      <a href="#M000229">item_rate</a>&nbsp;&nbsp;
-      <a href="#M000230">item_rate_locked</a>&nbsp;&nbsp;
-      <a href="#M000232">item_show</a>&nbsp;&nbsp;
-      <a href="#M000234">item_status_fields</a>&nbsp;&nbsp;
-      <a href="#M000243">safe_url</a>&nbsp;&nbsp;
+      <a href="#M000203">advanced_editor_on</a>&nbsp;&nbsp;
+      <a href="#M000211">display_classify_bar</a>&nbsp;&nbsp;
+      <a href="#M000209">display_item_in_list</a>&nbsp;&nbsp;
+      <a href="#M000210">display_item_in_list_for_editor</a>&nbsp;&nbsp;
+      <a href="#M000208">display_items_list</a>&nbsp;&nbsp;
+      <a href="#M000207">display_tabs_items_list</a>&nbsp;&nbsp;
+      <a href="#M000201">form_for_item</a>&nbsp;&nbsp;
+      <a href="#M000212">get_ajax_item_path</a>&nbsp;&nbsp;
+      <a href="#M000214">get_specific_partial</a>&nbsp;&nbsp;
+      <a href="#M000205">item_category_fields</a>&nbsp;&nbsp;
+      <a href="#M000206">item_keywords_fields</a>&nbsp;&nbsp;
+      <a href="#M000199">item_rate</a>&nbsp;&nbsp;
+      <a href="#M000200">item_rate_locked</a>&nbsp;&nbsp;
+      <a href="#M000202">item_show</a>&nbsp;&nbsp;
+      <a href="#M000204">item_status_fields</a>&nbsp;&nbsp;
+      <a href="#M000213">safe_url</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -117,11 +117,11 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000233" class="method-detail">
-        <a name="M000233"></a>
+      <div id="method-M000203" class="method-detail">
+        <a name="M000203"></a>
 
         <div class="method-heading">
-          <a href="#M000233" class="method-signature">
+          <a href="#M000203" class="method-signature">
           <span class="method-name">advanced_editor_on</span><span class="method-args">(object, attribute)</span>
           </a>
         </div>
@@ -142,8 +142,8 @@ f.advanced_editor(:body, &#8216;<a href="Article.html">Article</a>&#8217; +
 will return the fckeditor for article body
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000233-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000233-source">
+            onclick="toggleCode('M000203-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000203-source">
 <pre>
     <span class="ruby-comment cmt"># File app/helpers/items_helper.rb, line 83</span>
 83:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">advanced_editor_on</span>(<span class="ruby-identifier">object</span>, <span class="ruby-identifier">attribute</span>)
@@ -162,11 +162,11 @@ will return the fckeditor for article body
         </div>
       </div>
 
-      <div id="method-M000241" class="method-detail">
-        <a name="M000241"></a>
+      <div id="method-M000211" class="method-detail">
+        <a name="M000211"></a>
 
         <div class="method-heading">
-          <a href="#M000241" class="method-signature">
+          <a href="#M000211" class="method-signature">
           <span class="method-name">display_classify_bar</span><span class="method-args">(ordering_fields_list, ajax_url, refreshed_div, partial_used='items/classify_bar')</span>
           </a>
         </div>
@@ -180,7 +180,7 @@ Usage:
 </p>
 <p>
 <tt><a
-href="ItemsHelper.html#M000241">display_classify_bar</a>([&#8216;created_at&#8217;,
+href="ItemsHelper.html#M000211">display_classify_bar</a>([&#8216;created_at&#8217;,
 &#8216;comments_number&#8217;, &#8216;viewed_number&#8217;,
 &#8216;rates_average&#8217;, &#8216;title&#8217;], ajax_url,
 &#8216;object-list&#8217;)</tt>
@@ -208,8 +208,8 @@ Parameters:
 </li>
 </ul>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000241-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000241-source">
+            onclick="toggleCode('M000211-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000211-source">
 <pre>
      <span class="ruby-comment cmt"># File app/helpers/items_helper.rb, line 243</span>
 243:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">display_classify_bar</span>(<span class="ruby-identifier">ordering_fields_list</span>, <span class="ruby-identifier">ajax_url</span>, <span class="ruby-identifier">refreshed_div</span>, <span class="ruby-identifier">partial_used</span>=<span class="ruby-value str">'items/classify_bar'</span>)
@@ -224,11 +224,11 @@ Parameters:
         </div>
       </div>
 
-      <div id="method-M000239" class="method-detail">
-        <a name="M000239"></a>
+      <div id="method-M000209" class="method-detail">
+        <a name="M000209"></a>
 
         <div class="method-heading">
-          <a href="#M000239" class="method-signature">
+          <a href="#M000209" class="method-signature">
           <span class="method-name">display_item_in_list</span><span class="method-args">(items_list, partial_used='items/item_in_list')</span>
           </a>
         </div>
@@ -253,8 +253,8 @@ will return list of items for given item_type with div
 </li>
 </ul>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000239-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000239-source">
+            onclick="toggleCode('M000209-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000209-source">
 <pre>
      <span class="ruby-comment cmt"># File app/helpers/items_helper.rb, line 219</span>
 219:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">display_item_in_list</span>(<span class="ruby-identifier">items_list</span>, <span class="ruby-identifier">partial_used</span>=<span class="ruby-value str">'items/item_in_list'</span>)
@@ -266,11 +266,11 @@ will return list of items for given item_type with div
         </div>
       </div>
 
-      <div id="method-M000240" class="method-detail">
-        <a name="M000240"></a>
+      <div id="method-M000210" class="method-detail">
+        <a name="M000210"></a>
 
         <div class="method-heading">
-          <a href="#M000240" class="method-signature">
+          <a href="#M000210" class="method-signature">
           <span class="method-name">display_item_in_list_for_editor</span><span class="method-args">()</span>
           </a>
         </div>
@@ -280,8 +280,8 @@ will return list of items for given item_type with div
 Display <a href="Item.html">Item</a> in List for Editor
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000240-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000240-source">
+            onclick="toggleCode('M000210-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000210-source">
 <pre>
      <span class="ruby-comment cmt"># File app/helpers/items_helper.rb, line 225</span>
 225:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">display_item_in_list_for_editor</span>
@@ -292,11 +292,11 @@ Display <a href="Item.html">Item</a> in List for Editor
         </div>
       </div>
 
-      <div id="method-M000238" class="method-detail">
-        <a name="M000238"></a>
+      <div id="method-M000208" class="method-detail">
+        <a name="M000208"></a>
 
         <div class="method-heading">
-          <a href="#M000238" class="method-signature">
+          <a href="#M000208" class="method-signature">
           <span class="method-name">display_items_list</span><span class="method-args">(items_list, ajax_url, partial_used='items/items_list')</span>
           </a>
         </div>
@@ -309,7 +309,7 @@ Items List
 Usage:
 </p>
 <p>
-<tt><a href="ItemsHelper.html#M000238">display_items_list</a>(items_list,
+<tt><a href="ItemsHelper.html#M000208">display_items_list</a>(items_list,
 ajax_url)</tt>
 </p>
 <p>
@@ -325,8 +325,8 @@ will return list of items for given item_type with div
 </li>
 </ul>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000238-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000238-source">
+            onclick="toggleCode('M000208-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000208-source">
 <pre>
      <span class="ruby-comment cmt"># File app/helpers/items_helper.rb, line 201</span>
 201:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">display_items_list</span>(<span class="ruby-identifier">items_list</span>, <span class="ruby-identifier">ajax_url</span>, <span class="ruby-identifier">partial_used</span>=<span class="ruby-value str">'items/items_list'</span>)
@@ -342,11 +342,11 @@ will return list of items for given item_type with div
         </div>
       </div>
 
-      <div id="method-M000237" class="method-detail">
-        <a name="M000237"></a>
+      <div id="method-M000207" class="method-detail">
+        <a name="M000207"></a>
 
         <div class="method-heading">
-          <a href="#M000237" class="method-signature">
+          <a href="#M000207" class="method-signature">
           <span class="method-name">display_tabs_items_list</span><span class="method-args">(item_type, items_list, ajax_url)</span>
           </a>
         </div>
@@ -360,7 +360,7 @@ Usage:
 </p>
 <p>
 <a
-href="ItemsHelper.html#M000237">display_tabs_items_list</a>(&#8216;article&#8217;,
+href="ItemsHelper.html#M000207">display_tabs_items_list</a>(&#8216;article&#8217;,
 paginated_objects, ajax_items_path(&#8216;article&#8217;))
 </p>
 <p>
@@ -381,8 +381,8 @@ Parameters:
 </li>
 </ul>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000237-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000237-source">
+            onclick="toggleCode('M000207-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000207-source">
 <pre>
      <span class="ruby-comment cmt"># File app/helpers/items_helper.rb, line 141</span>
 141:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">display_tabs_items_list</span>(<span class="ruby-identifier">item_type</span>, <span class="ruby-identifier">items_list</span>, <span class="ruby-identifier">ajax_url</span>)
@@ -439,11 +439,11 @@ Parameters:
         </div>
       </div>
 
-      <div id="method-M000231" class="method-detail">
-        <a name="M000231"></a>
+      <div id="method-M000201" class="method-detail">
+        <a name="M000201"></a>
 
         <div class="method-heading">
-          <a href="#M000231" class="method-signature">
+          <a href="#M000201" class="method-signature">
           <span class="method-name">form_for_item</span><span class="method-args">(object, title = '', &amp;block)</span>
           </a>
         </div>
@@ -456,7 +456,7 @@ Form For <a href="Item.html">Item</a>(Default Fields)
 Usage:
 </p>
 <p>
-<tt><a href="ItemsHelper.html#M000231">form_for_item</a> article_object,
+<tt><a href="ItemsHelper.html#M000201">form_for_item</a> article_object,
 title do |f| </tt> <tt>end</tt>
 </p>
 <pre>
@@ -469,8 +469,8 @@ title do |f| </tt> <tt>end</tt>
  &amp;block : item specific form elements to bind to item form
 </pre>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000231-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000231-source">
+            onclick="toggleCode('M000201-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000201-source">
 <pre>
     <span class="ruby-comment cmt"># File app/helpers/items_helper.rb, line 60</span>
 60:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">form_for_item</span>(<span class="ruby-identifier">object</span>, <span class="ruby-identifier">title</span> = <span class="ruby-value str">''</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
@@ -481,11 +481,11 @@ title do |f| </tt> <tt>end</tt>
         </div>
       </div>
 
-      <div id="method-M000242" class="method-detail">
-        <a name="M000242"></a>
+      <div id="method-M000212" class="method-detail">
+        <a name="M000212"></a>
 
         <div class="method-heading">
-          <a href="#M000242" class="method-signature">
+          <a href="#M000212" class="method-signature">
           <span class="method-name">get_ajax_item_path</span><span class="method-args">(item_type)</span>
           </a>
         </div>
@@ -499,14 +499,14 @@ Usage:
 </p>
 <p>
 <tt><a
-href="ItemsHelper.html#M000242">get_ajax_item_path</a>(&#8216;article&#8217;)</tt>
+href="ItemsHelper.html#M000212">get_ajax_item_path</a>(&#8216;article&#8217;)</tt>
 </p>
 <p>
 Will return the ajax_items_path depending on the current_worksapces
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000242-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000242-source">
+            onclick="toggleCode('M000212-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000212-source">
 <pre>
      <span class="ruby-comment cmt"># File app/helpers/items_helper.rb, line 258</span>
 258:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_ajax_item_path</span>(<span class="ruby-identifier">item_type</span>)
@@ -519,11 +519,11 @@ Will return the ajax_items_path depending on the current_worksapces
         </div>
       </div>
 
-      <div id="method-M000244" class="method-detail">
-        <a name="M000244"></a>
+      <div id="method-M000214" class="method-detail">
+        <a name="M000214"></a>
 
         <div class="method-heading">
-          <a href="#M000244" class="method-signature">
+          <a href="#M000214" class="method-signature">
           <span class="method-name">get_specific_partial</span><span class="method-args">(item_type, partial, object)</span>
           </a>
         </div>
@@ -535,15 +535,15 @@ passed
 </p>
 <p>
 Usage <a
-href="ItemsHelper.html#M000244">get_specific_partial</a>(&#8216;article&#8217;,
+href="ItemsHelper.html#M000214">get_specific_partial</a>(&#8216;article&#8217;,
 preview, article_object)
 </p>
 <p>
 will render the partial depending on the item_type
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000244-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000244-source">
+            onclick="toggleCode('M000214-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000214-source">
 <pre>
      <span class="ruby-comment cmt"># File app/helpers/items_helper.rb, line 278</span>
 278:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_specific_partial</span>(<span class="ruby-identifier">item_type</span>, <span class="ruby-identifier">partial</span>, <span class="ruby-identifier">object</span>)
@@ -558,11 +558,11 @@ will render the partial depending on the item_type
         </div>
       </div>
 
-      <div id="method-M000235" class="method-detail">
-        <a name="M000235"></a>
+      <div id="method-M000205" class="method-detail">
+        <a name="M000205"></a>
 
         <div class="method-heading">
-          <a href="#M000235" class="method-signature">
+          <a href="#M000205" class="method-signature">
           <span class="method-name">item_category_fields</span><span class="method-args">(form, item)</span>
           </a>
         </div>
@@ -575,15 +575,15 @@ will render the partial depending on the item_type
 Usage:
 </p>
 <p>
-<tt><a href="ItemsHelper.html#M000235">item_category_fields</a>(form,
+<tt><a href="ItemsHelper.html#M000205">item_category_fields</a>(form,
 article)</tt>
 </p>
 <p>
 will return item category fields for the artile
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000235-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000235-source">
+            onclick="toggleCode('M000205-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000205-source">
 <pre>
      <span class="ruby-comment cmt"># File app/helpers/items_helper.rb, line 113</span>
 113:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">item_category_fields</span>(<span class="ruby-identifier">form</span>, <span class="ruby-identifier">item</span>)
@@ -594,11 +594,11 @@ will return item category fields for the artile
         </div>
       </div>
 
-      <div id="method-M000236" class="method-detail">
-        <a name="M000236"></a>
+      <div id="method-M000206" class="method-detail">
+        <a name="M000206"></a>
 
         <div class="method-heading">
-          <a href="#M000236" class="method-signature">
+          <a href="#M000206" class="method-signature">
           <span class="method-name">item_keywords_fields</span><span class="method-args">(form, item)</span>
           </a>
         </div>
@@ -611,15 +611,15 @@ will return item category fields for the artile
 Usage:
 </p>
 <p>
-<tt><a href="ItemsHelper.html#M000236">item_keywords_fields</a>(form,
+<tt><a href="ItemsHelper.html#M000206">item_keywords_fields</a>(form,
 article)</tt>
 </p>
 <p>
 will return item keywords fields for the artile
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000236-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000236-source">
+            onclick="toggleCode('M000206-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000206-source">
 <pre>
      <span class="ruby-comment cmt"># File app/helpers/items_helper.rb, line 124</span>
 124:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">item_keywords_fields</span>(<span class="ruby-identifier">form</span>, <span class="ruby-identifier">item</span>)
@@ -630,11 +630,11 @@ will return item keywords fields for the artile
         </div>
       </div>
 
-      <div id="method-M000229" class="method-detail">
-        <a name="M000229"></a>
+      <div id="method-M000199" class="method-detail">
+        <a name="M000199"></a>
 
         <div class="method-heading">
-          <a href="#M000229" class="method-signature">
+          <a href="#M000199" class="method-signature">
           <span class="method-name">item_rate</span><span class="method-args">(object, params = {})</span>
           </a>
         </div>
@@ -647,7 +647,7 @@ Rating <a href="Item.html">Item</a>
 Usage:
 </p>
 <p>
-<tt><a href="ItemsHelper.html#M000229">item_rate</a>(article_object)</tt>
+<tt><a href="ItemsHelper.html#M000199">item_rate</a>(article_object)</tt>
 </p>
 <p>
 will return the javascript for rating the object
@@ -670,8 +670,8 @@ Parameters:
 </li>
 </ul>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000229-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000229-source">
+            onclick="toggleCode('M000199-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000199-source">
 <pre>
     <span class="ruby-comment cmt"># File app/helpers/items_helper.rb, line 17</span>
 17:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">item_rate</span>(<span class="ruby-identifier">object</span>, <span class="ruby-identifier">params</span> = {})
@@ -695,11 +695,11 @@ Parameters:
         </div>
       </div>
 
-      <div id="method-M000230" class="method-detail">
-        <a name="M000230"></a>
+      <div id="method-M000200" class="method-detail">
+        <a name="M000200"></a>
 
         <div class="method-heading">
-          <a href="#M000230" class="method-signature">
+          <a href="#M000200" class="method-signature">
           <span class="method-name">item_rate_locked</span><span class="method-args">(object)</span>
           </a>
         </div>
@@ -713,14 +713,14 @@ Usage:
 </p>
 <p>
 <tt><a
-href="ItemsHelper.html#M000230">item_rate_locked</a>(article_object)</tt>
+href="ItemsHelper.html#M000200">item_rate_locked</a>(article_object)</tt>
 </p>
 <p>
 will return the rating for item, rating item not possible
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000230-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000230-source">
+            onclick="toggleCode('M000200-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000200-source">
 <pre>
     <span class="ruby-comment cmt"># File app/helpers/items_helper.rb, line 41</span>
 41:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">item_rate_locked</span>(<span class="ruby-identifier">object</span>)
@@ -731,11 +731,11 @@ will return the rating for item, rating item not possible
         </div>
       </div>
 
-      <div id="method-M000232" class="method-detail">
-        <a name="M000232"></a>
+      <div id="method-M000202" class="method-detail">
+        <a name="M000202"></a>
 
         <div class="method-heading">
-          <a href="#M000232" class="method-signature">
+          <a href="#M000202" class="method-signature">
           <span class="method-name">item_show</span><span class="method-args">(parameters, &amp;block)</span>
           </a>
         </div>
@@ -745,8 +745,8 @@ will return the rating for item, rating item not possible
 Define the common information of the show of an item
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000232-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000232-source">
+            onclick="toggleCode('M000202-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000202-source">
 <pre>
     <span class="ruby-comment cmt"># File app/helpers/items_helper.rb, line 67</span>
 67:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">item_show</span>(<span class="ruby-identifier">parameters</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
@@ -762,11 +762,11 @@ Define the common information of the show of an item
         </div>
       </div>
 
-      <div id="method-M000234" class="method-detail">
-        <a name="M000234"></a>
+      <div id="method-M000204" class="method-detail">
+        <a name="M000204"></a>
 
         <div class="method-heading">
-          <a href="#M000234" class="method-signature">
+          <a href="#M000204" class="method-signature">
           <span class="method-name">item_status_fields</span><span class="method-args">(form, item)</span>
           </a>
         </div>
@@ -779,15 +779,15 @@ Define the common information of the show of an item
 Usage:
 </p>
 <p>
-<tt><a href="ItemsHelper.html#M000234">item_status_fields</a>(form,
+<tt><a href="ItemsHelper.html#M000204">item_status_fields</a>(form,
 article)</tt>
 </p>
 <p>
 will return item status fields for the artile
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000234-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000234-source">
+            onclick="toggleCode('M000204-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000204-source">
 <pre>
      <span class="ruby-comment cmt"># File app/helpers/items_helper.rb, line 102</span>
 102:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">item_status_fields</span>(<span class="ruby-identifier">form</span>, <span class="ruby-identifier">item</span>)
@@ -798,11 +798,11 @@ will return item status fields for the artile
         </div>
       </div>
 
-      <div id="method-M000243" class="method-detail">
-        <a name="M000243"></a>
+      <div id="method-M000213" class="method-detail">
+        <a name="M000213"></a>
 
         <div class="method-heading">
-          <a href="#M000243" class="method-signature">
+          <a href="#M000213" class="method-signature">
           <span class="method-name">safe_url</span><span class="method-args">(url, params)</span>
           </a>
         </div>
@@ -812,8 +812,8 @@ will return item status fields for the artile
 Safe Url for Classify Bar
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000243-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000243-source">
+            onclick="toggleCode('M000213-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000213-source">
 <pre>
      <span class="ruby-comment cmt"># File app/helpers/items_helper.rb, line 265</span>
 265:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">safe_url</span>(<span class="ruby-identifier">url</span>, <span class="ruby-identifier">params</span>)

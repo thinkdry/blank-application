@@ -52,12 +52,12 @@ class FeedSource < ActiveRecord::Base
   
 	validate :feed_compliance
 
-
-  def validate
+  def validate #:nodoc:
     rss_valid?
   end
+
   
-  def rss_valid?
+  def rss_valid? #:nodoc:
     begin
       rss_content
     rescue Exception => e
@@ -66,6 +66,11 @@ class FeedSource < ActiveRecord::Base
   end
 
   # Check if RSS/Atom Feed can be Parsed for Reading
+  #
+  # Read the rss_content of the URL and parse it.
+  #
+  # if it is valid rss then it is accepted or else rejected
+  #
   def rss_content
 		return @rss if @rss
     content = String.new # raw content of rss feed will be loaded here
@@ -82,8 +87,19 @@ class FeedSource < ActiveRecord::Base
 			#redirect_to feed_contents_url
 		end
   end
-	
+
+  def rss_content2 #:nodoc:
+    return FeedParser.parse(open(self.url))
+  end
+
   # Import the Latest Updates of the Saved Feeds
+  #
+  # Usage:
+  #
+  # feedsource.import_latest_items
+  #
+  # will update with latest feeds available on the feedsource url
+  #
 	def import_latest_items
 		feed = self.rss_content2
 		#feed.clean!
@@ -91,29 +107,32 @@ class FeedSource < ActiveRecord::Base
 			# Be sure that the item hasnt been imported before
 			if self.feed_items.count(:conditions => { :guid => item.guid, :feed_source_id => self.id }) <= 0
 				FeedItem.create({
-					:feed_source_id => self.id,
-					:guid						=> item.guid,
-					:title					=> item.title,
-					:description		=> item.description,
-					:enclosures     => item.enclosures,
-					#:authors				=> item.authors.join(' ,'),
-					:date_published => item.issued,
-					:last_updated		=> item.date,
-					:categories			=> item.tags ? item.tags.map{ |tag| tag["term"]}.to_s : nil,
-					:link           => item.url,
-					:copyright			=> item.rights })
+            :feed_source_id => self.id,
+            :guid						=> item.guid,
+            :title					=> item.title,
+            :description		=> item.description,
+            :enclosures     => item.enclosures,
+            #:authors				=> item.authors.join(' ,'),
+            :date_published => item.issued,
+            :last_updated		=> item.date,
+            :categories			=> item.tags ? item.tags.map{ |tag| tag["term"]}.to_s : nil,
+            :link           => item.url,
+            :copyright			=> item.rights })
 			end
 		end
 	end
 
-  #Check If the given URL is RSS/Atom compliant to Fetch Feed's
+  # Check If the given URL is RSS/Atom compliant to Fetch Feed's
+  # 
+  # will return true if the feed is RSS/Atom compliant else will return false for invalid URL
+  #
 	def feed_compliance
 	  begin
 		  open(self.url) do |http|
-      response = http.read
-      result = RSS::Parser.parse(response, false)
-    end
-    t = true
+        response = http.read
+        result = RSS::Parser.parse(response, false)
+      end
+      t = true
     rescue
 	    self.errors.add(:url, "The url entered is not a compliant RSS/Atom Feed") 
     end

@@ -1,9 +1,22 @@
-# Configuration for Blank Application Accessed Through SuperAdministration Module
+# Configuration for Blank Application
+# 
+# Blank Application is configured through the SuperAdministration module accessible to the 'superadmin' user
+# 
+# Major Application Configurations can be set up using this module.
+# 
+# The settings are stored in a YAML file.
+#
+# Initially the /config/customs/default_config.yml file is loaded(default settings).
+#
+# After the Superadministrator has setup the Superadministration Module the configurations will be stored in the /config/customs/sa_config.yml file
+#
+# The setttings are accessed through the following methods in the Application
+#
 module Configuration
 
   # Free User Creation
   #
-  # Check setting to verify ifUser can register directly with the application
+  # Check setting to verify if User can register directly with the application
 	def is_allowed_free_user_creation?
 		return @configuration['sa_allowed_free_user_creation']=='true'
 	end
@@ -19,11 +32,15 @@ module Configuration
 	end
 
   # Get Selected Items List
+  # 
+  # will return a array of string of available items
 	def available_items_list
 		return @configuration['sa_items']
 	end
 
   # Get Available Languages
+  #
+  # will return a array of string of available languages
 	def available_languages
 		return @configuration['sa_languages']
 	end

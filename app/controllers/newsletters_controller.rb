@@ -11,6 +11,11 @@ class NewslettersController < ApplicationController
   skip_before_filter :is_logged?, :only => ['unsubscribe']
 
   # Method to Send Newsletter to Selected Group
+  # 
+  # Usage URL:
+  # 
+  # /send_newsletter?group_id=1&newsletter_id=2
+  #
   def send_newsletter
     @group = Group.find(params[:group_id])
     @newsletter = Newsletter.find(params[:newsletter_id])
@@ -26,7 +31,12 @@ class NewslettersController < ApplicationController
     end
   end
 
-  # Method to Unsubscribe from a newsletter for given E-Mail 
+  # Method to Unsubscribe from a newsletter for given E-Mail
+  # 
+  # Usage URL:
+  # 
+  # /unsubscribe_for_newsletter?member_type=people
+  #
   def unsubscribe
     @member = params[:member_type].classify.constantize.find_by_email(params[:email])
     if @member.update_attributes(:newsletter => false)

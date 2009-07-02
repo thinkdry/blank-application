@@ -88,9 +88,9 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000176">download</a>&nbsp;&nbsp;
-      <a href="#M000175">get_file_url</a>&nbsp;&nbsp;
-      <a href="#M000174">get_video_progress</a>&nbsp;&nbsp;
+      <a href="#M000147">download</a>&nbsp;&nbsp;
+      <a href="#M000146">get_file_url</a>&nbsp;&nbsp;
+      <a href="#M000145">get_video_progress</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -112,11 +112,11 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000176" class="method-detail">
-        <a name="M000176"></a>
+      <div id="method-M000147" class="method-detail">
+        <a name="M000147"></a>
 
         <div class="method-heading">
-          <a href="#M000176" class="method-signature">
+          <a href="#M000147" class="method-signature">
           <span class="method-name">download</span><span class="method-args">()</span>
           </a>
         </div>
@@ -125,25 +125,31 @@
           <p>
 Return Download Link for <a href="Video.html">Video</a> File
 </p>
+<p>
+Usage URL:
+</p>
+<p>
+/videos/download/:id
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000176-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000176-source">
+            onclick="toggleCode('M000147-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000147-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/controllers/videos_controller.rb, line 28</span>
-28:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">download</span>
-29:     <span class="ruby-ivar">@video</span> = <span class="ruby-constant">Video</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>])
-30:     <span class="ruby-identifier">send_file</span>(<span class="ruby-constant">RAILS_ROOT</span><span class="ruby-operator">+</span><span class="ruby-value str">&quot;/public&quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@video</span>.<span class="ruby-identifier">video</span>.<span class="ruby-identifier">url</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;?&quot;</span>)[<span class="ruby-value">0</span>], <span class="ruby-identifier">:disposition</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'inline'</span>, <span class="ruby-identifier">:stream</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>)
-31:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/controllers/videos_controller.rb, line 41</span>
+41:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">download</span>
+42:     <span class="ruby-ivar">@video</span> = <span class="ruby-constant">Video</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>])
+43:     <span class="ruby-identifier">send_file</span>(<span class="ruby-constant">RAILS_ROOT</span><span class="ruby-operator">+</span><span class="ruby-value str">&quot;/public&quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@video</span>.<span class="ruby-identifier">video</span>.<span class="ruby-identifier">url</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;?&quot;</span>)[<span class="ruby-value">0</span>], <span class="ruby-identifier">:disposition</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'inline'</span>, <span class="ruby-identifier">:stream</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>)
+44:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000175" class="method-detail">
-        <a name="M000175"></a>
+      <div id="method-M000146" class="method-detail">
+        <a name="M000146"></a>
 
         <div class="method-heading">
-          <a href="#M000175" class="method-signature">
+          <a href="#M000146" class="method-signature">
           <span class="method-name">get_file_url</span><span class="method-args">()</span>
           </a>
         </div>
@@ -152,25 +158,31 @@ Return Download Link for <a href="Video.html">Video</a> File
           <p>
 Return the Url of the <a href="Video.html">Video</a> in Pop Up Window
 </p>
+<p>
+Usage URL:
+</p>
+<p>
+/videos/get_file_url/:id
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000175-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000175-source">
+            onclick="toggleCode('M000146-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000146-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/controllers/videos_controller.rb, line 22</span>
-22:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_file_url</span>
-23:                 <span class="ruby-ivar">@current_object</span> = <span class="ruby-constant">Video</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>])
-24:                 <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">video</span>.<span class="ruby-identifier">url</span>
-25:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/controllers/videos_controller.rb, line 31</span>
+31:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_file_url</span>
+32:                 <span class="ruby-ivar">@current_object</span> = <span class="ruby-constant">Video</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>])
+33:                 <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">video</span>.<span class="ruby-identifier">url</span>
+34:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000174" class="method-detail">
-        <a name="M000174"></a>
+      <div id="method-M000145" class="method-detail">
+        <a name="M000145"></a>
 
         <div class="method-heading">
-          <a href="#M000174" class="method-signature">
+          <a href="#M000145" class="method-signature">
           <span class="method-name">get_video_progress</span><span class="method-args">()</span>
           </a>
         </div>
@@ -179,19 +191,25 @@ Return the Url of the <a href="Video.html">Video</a> in Pop Up Window
           <p>
 Method to Get Progress of Encoding through Backgroundrb Converter Worker
 </p>
+<p>
+Usage URL:
+</p>
+<p>
+/audios/get_video_progress?id=1&amp;check=true
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000174-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000174-source">
+            onclick="toggleCode('M000145-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000145-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/controllers/videos_controller.rb, line 12</span>
-12:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_video_progress</span>
-13:     <span class="ruby-ivar">@current_object</span> = <span class="ruby-constant">Video</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> { <span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>].<span class="ruby-identifier">to_i</span> })
-14:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:check</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:check</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'true'</span>
-15:       <span class="ruby-identifier">render</span> <span class="ruby-identifier">:text</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">state</span>
-16:     <span class="ruby-keyword kw">else</span>
-17:       <span class="ruby-identifier">render</span> <span class="ruby-identifier">:partial</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;player&quot;</span>, <span class="ruby-identifier">:object</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@current_object</span>
-18:     <span class="ruby-keyword kw">end</span>
-19:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/controllers/videos_controller.rb, line 17</span>
+17:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_video_progress</span>
+18:     <span class="ruby-ivar">@current_object</span> = <span class="ruby-constant">Video</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> { <span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>].<span class="ruby-identifier">to_i</span> })
+19:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:check</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:check</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'true'</span>
+20:       <span class="ruby-identifier">render</span> <span class="ruby-identifier">:text</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">state</span>
+21:     <span class="ruby-keyword kw">else</span>
+22:       <span class="ruby-identifier">render</span> <span class="ruby-identifier">:partial</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;player&quot;</span>, <span class="ruby-identifier">:object</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@current_object</span>
+23:     <span class="ruby-keyword kw">end</span>
+24:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
