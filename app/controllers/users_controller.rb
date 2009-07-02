@@ -4,6 +4,17 @@ class UsersController < ApplicationController
 
 	skip_before_filter :is_logged?, :only => [:new, :create, :validate, :forgot_password, :reset_password, :activate]
 
+	before_filter :permission_checking, :only => [:new, :create, :edit, :update, :show, :destroy]
+
+	def permission_checking
+		if params[:action] == 'new' || params[:action] == 'create'
+			build_object
+		else
+			current_object
+		end
+		no_permission_redirection unless @current_user && @current_object.send("accepts_#{params[:action]}_for?".to_sym, @current_user)
+	end
+
 	#layout 'application', :expect => [:new, :create]
 	layout :give_da_layout
 
@@ -23,13 +34,13 @@ class UsersController < ApplicationController
   make_resourceful do
     actions :all
 
-    before :destroy do
-      no_permission_redirection unless @current_user && @current_object.accepts_destroy_for?(@current_user)
-    end
-
-    before :edit, :update do
-      no_permission_redirection unless @current_user && @current_object.accepts_edit_for?(@current_user)
-    end
+#    before :destroy do
+#      no_permission_redirection unless @current_user && @current_object.accepts_destroy_for?(@current_user)
+#    end
+#
+#    before :edit, :update do
+#      no_permission_redirection unless @current_user && @current_object.accepts_edit_for?(@current_user)
+#    end
 
     before :new do
 			if logged_in?
@@ -46,9 +57,9 @@ class UsersController < ApplicationController
 			end
     end
 
-    before :show do
-			no_permission_redirection unless @current_user && @current_object.accepts_show_for?(@current_user)
-    end
+#    before :show do
+#			no_permission_redirection unless @current_user && @current_object.accepts_show_for?(@current_user)
+#    end
 
 		before :edit do
 			get_roles

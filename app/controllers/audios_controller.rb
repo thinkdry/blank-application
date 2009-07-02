@@ -1,5 +1,6 @@
 class AudiosController < ApplicationController
   acts_as_ajax_validation
+
   acts_as_item do
     after :create, :update do
       #Call the encoder method of ConverterWorker with Parameters

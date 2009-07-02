@@ -31,6 +31,8 @@ module ActsAsItem
 					end
 				end
 
+				before_filter :permission_checking, :only => [:new, :create, :edit, :update, :show, :destroy]
+
         make_resourceful do
           actions :all
           belongs_to :workspace
@@ -55,24 +57,24 @@ module ActsAsItem
             flash[:error] = @current_object.class.label+' '+I18n.t('item.edit.flash_error')
           end
 
-          before :new, :create do
-            no_permission_redirection unless @current_object && @current_object.accepts_new_for?(@current_user)
-          end
+#          before :new, :create do
+#            no_permission_redirection unless @current_object && @current_object.accepts_new_for?(@current_user)
+#          end
 
           before :show do
-            no_permission_redirection unless @current_object && @current_object.accepts_show_for?(@current_user)
+#            no_permission_redirection unless @current_object && @current_object.accepts_show_for?(@current_user)
 						@current_object.viewed_number = @current_object.viewed_number.to_i + 1
 						@current_object.save
           end
 
           before :edit, :update do
-            no_permission_redirection unless @current_object.accepts_edit_for?(@current_user)
+#            no_permission_redirection unless @current_object.accepts_edit_for?(@current_user)
 						session[:fck_item_id] = @current_object.id
             session[:fck_item_type] = @current_object.class.to_s
           end
 
           before :destroy do
-            no_permission_redirection unless @current_object && @current_object.accepts_destroy_for?(@current_user)
+#            no_permission_redirection unless @current_object && @current_object.accepts_destroy_for?(@current_user)
           end
 
           # Makes `current_user` as author for the current_object
@@ -89,6 +91,8 @@ module ActsAsItem
 					end
 
 					before :index do
+						# Just to manage the permission of creation (trick avoiding one more loop)
+						params[:item_type] = @current_objects.first.class.to_s.underscore
 						@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
 					end
 
@@ -127,6 +131,23 @@ module ActsAsItem
     end
     
     module InstanceMethods
+			# Function testing the auhorization on an instance of that item type
+      #
+      # Included in the Controller of the Items
+      #
+      # Usage:
+      #
+      # Just use in a before_filter checking the permission before each action specified
+      #
+			def permission_checking
+				if params[:action] == 'new' || params[:action] == 'create'
+					build_object
+				else
+					current_object
+				end
+				no_permission_redirection unless @current_user && @current_object.send("accepts_#{params[:action]}_for?".to_sym, @current_user)
+			end
+			
       # Rate the Item
       #
       # Usage:
