@@ -1,19 +1,23 @@
 class UserMailer < ActionMailer::Base
 
 	include Configuration
-	
+
+  # Return the current set sa_application_url in Superadministration
 	def daurl
 		return get_sa_config['sa_application_url']
   end
 
+# Return the current set sa_application_name in Superadministration
 	def site_name
 		return get_sa_config['sa_application_name']
 	end
 
+  # Return the current set sa_application_email in Superadministration
 	def contact_email
 		return get_sa_config['sa_contact_email']
 	end
-	
+
+  # Send Notification Mail to User after Sign-Up is Completed
 	def signup_notification(user)
 		setup_email(user)
 		subject self.site_name+" : Ouverture de compte"
@@ -22,7 +26,8 @@ class UserMailer < ActionMailer::Base
 			:user_login => user.login,
 			:user_password => user.password
   end
-	
+
+	# Send Reset Password Notification Mail to User
   def reset_notification(user)
 		setup_email(user)
 		subject self.site_name+" : Mot de passe oublié"
@@ -31,6 +36,7 @@ class UserMailer < ActionMailer::Base
 			:site => self.site_name
   end
 
+  # Send Request for Workspace Administration to Administrator
 	def ws_administrator_request(admin, user, type, msg)
 		setup_email(User.find(admin))
 		from User.find(user).email
@@ -38,6 +44,7 @@ class UserMailer < ActionMailer::Base
 		body :msg => msg
   end
 
+  # Send Newsletter to Subscribed Users
   def send_newsletter(to,member_type,from, newsletter_subject, description, newsletter_body)
     recipients to
     from from

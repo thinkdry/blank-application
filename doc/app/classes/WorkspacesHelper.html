@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: WorkspacesHelper</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">WorkspacesHelper</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/app/helpers/workspaces_helper_rb.html">
+                app/helpers/workspaces_helper.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000212">link_to_new_user</a>&nbsp;&nbsp;
+      <a href="#M000209">link_to_workspace</a>&nbsp;&nbsp;
+      <a href="#M000210">links_to_workspace_collection</a>&nbsp;&nbsp;
+      <a href="#M000211">new_user</a>&nbsp;&nbsp;
+      <a href="#M000213">user_list_of</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000212" class="method-detail">
+        <a name="M000212"></a>
+
+        <div class="method-heading">
+          <a href="#M000212" class="method-signature">
+          <span class="method-name">link_to_new_user</span><span class="method-args">(name)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Link to New USer in UserWorksapce
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000212-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000212-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/helpers/workspaces_helper.rb, line 20</span>
+20:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">link_to_new_user</span>(<span class="ruby-identifier">name</span>)
+21:     <span class="ruby-identifier">link_to_function</span> <span class="ruby-identifier">name</span>, <span class="ruby-identifier">js_add_new_user</span>(<span class="ruby-constant">UsersWorkspace</span>.<span class="ruby-identifier">new</span>)
+22:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000209" class="method-detail">
+        <a name="M000209"></a>
+
+        <div class="method-heading">
+          <a href="#M000209" class="method-signature">
+          <span class="method-name">link_to_workspace</span><span class="method-args">(workspace)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Create Link to <a href="Workspace.html">Workspace</a>
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000209-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000209-source">
+<pre>
+   <span class="ruby-comment cmt"># File app/helpers/workspaces_helper.rb, line 4</span>
+4:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">link_to_workspace</span>(<span class="ruby-identifier">workspace</span>)
+5:     <span class="ruby-identifier">link_to</span>(<span class="ruby-identifier">workspace</span>.<span class="ruby-identifier">title</span>, <span class="ruby-identifier">workspace_url</span>(<span class="ruby-identifier">workspace</span>))
+6:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000210" class="method-detail">
+        <a name="M000210"></a>
+
+        <div class="method-heading">
+          <a href="#M000210" class="method-signature">
+          <span class="method-name">links_to_workspace_collection</span><span class="method-args">(workspaces)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Create Link to all worksapces
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000210-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000210-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/helpers/workspaces_helper.rb, line 9</span>
+ 9:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">links_to_workspace_collection</span>(<span class="ruby-identifier">workspaces</span>)
+10:     <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">workspaces</span>.<span class="ruby-identifier">empty?</span>
+11:     <span class="ruby-identifier">workspaces</span>.<span class="ruby-identifier">collect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">ws</span><span class="ruby-operator">|</span> <span class="ruby-identifier">link_to_workspace</span>(<span class="ruby-identifier">ws</span>) }.<span class="ruby-identifier">join</span>(<span class="ruby-value str">', '</span>)
+12:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000211" class="method-detail">
+        <a name="M000211"></a>
+
+        <div class="method-heading">
+          <a href="#M000211" class="method-signature">
+          <span class="method-name">new_user</span><span class="method-args">(object)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000211-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000211-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/helpers/workspaces_helper.rb, line 15</span>
+15:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">new_user</span>(<span class="ruby-identifier">object</span>)
+16:     <span class="ruby-identifier">javascript_tag</span> <span class="ruby-identifier">js_add_new_user</span>(<span class="ruby-identifier">object</span>)
+17:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000213" class="method-detail">
+        <a name="M000213"></a>
+
+        <div class="method-heading">
+          <a href="#M000213" class="method-signature">
+          <span class="method-name">user_list_of</span><span class="method-args">(workspace, role)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+<a href="User.html">User</a> list of worksapces for given role
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000213-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000213-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/helpers/workspaces_helper.rb, line 25</span>
+25:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">user_list_of</span>(<span class="ruby-identifier">workspace</span>, <span class="ruby-identifier">role</span>)
+26:     <span class="ruby-identifier">list</span> = <span class="ruby-identifier">workspace</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">role</span>)
+27:     <span class="ruby-identifier">list</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-value">? </span><span class="ruby-value str">'- Aucun -'</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">list</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">u</span><span class="ruby-operator">|</span> <span class="ruby-identifier">link_to_user</span>(<span class="ruby-identifier">u</span>) }.<span class="ruby-identifier">join</span>(<span class="ruby-value str">', '</span>)
+28:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

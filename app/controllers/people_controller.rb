@@ -9,6 +9,7 @@ class PeopleController < ApplicationController
     actions :show, :new, :edit, :update, :destroy
   end
 
+  # Method to create a New Person
   def create
     @person = Person.new(params[:person])
     @person.user_id = current_user.id
@@ -18,13 +19,15 @@ class PeopleController < ApplicationController
       render :action=>'new'
     end
   end
-  
+
+  # Method to Show all People 
   def index
 		params[:restriction] ||= 'people'
 		params[:type] ||= {'newsletter' => '0'}
 		@people = @current_user.get_contacts_list(params[:restriction], 'group_member', params[:type][:newsletter] == '1').paginate(:per_page => get_per_page_value, :page => params[:page])
   end
-  
+
+  # Method to all People for Ajax Pagination
   def ajax_index
 		params[:restriction] ||= 'people'
 		params[:type] ||= {'newsletter' => '0'}
@@ -32,6 +35,7 @@ class PeopleController < ApplicationController
     render :partial => 'people_list', :layout => false
   end
 
+  # Method to replace HTML for Assigned Options with Filter
   def filter
     @group = Group.find(params[:group_id]) if !params[:group_id].blank?
     options = ""
@@ -45,6 +49,7 @@ class PeopleController < ApplicationController
     end
   end
 
+  # Method to Export People to .csv file format
   def export_people
 		params[:restriction] ||= 'people'
 		params[:type] ||= {'newsletter' => '0'}
@@ -60,8 +65,8 @@ class PeopleController < ApplicationController
 		#flash[:notice] = "Export complete!"
   end
 
+  # Method to Import People from a .csv file format
   def import_people
-
     unless request.get?
       if !params[:people].blank? and !params[:people][:csv].blank? and File.extname(params[:people][:csv].original_filename) == '.csv'
         begin
@@ -152,6 +157,7 @@ class PeopleController < ApplicationController
     end
   end
 
+  # Generate a Empty .csv File
   def get_empty_csv
     csv_data = FasterCSV.generate do |csv|
       csv << ["First name", "Last name", "Email", "Gender", "Primary phone", "Mobile phone", "Fax", "Street", "City", "Postal code", "Country", "Company", "Web page", "Job title", "Notes"]
@@ -161,6 +167,7 @@ class PeopleController < ApplicationController
       :disposition => "attachment; filename=contact.csv"
   end
 
+  # Update Newsletter Column for Subscribe/Unsubscribe
   def update_newsletter_column
     @object = params[:type].classify.constantize.find(params[:id])
     @object.update_attribute(:newsletter, params[:newsletter])

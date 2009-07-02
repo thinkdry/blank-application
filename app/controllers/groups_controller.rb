@@ -9,6 +9,7 @@ class GroupsController < ApplicationController
     end
   end
 
+  # Method to Export Members of Groups to .csv file format
   def export_group
     @group = Group.find(params[:id])
     @members = @group.members

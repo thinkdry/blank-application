@@ -1,5 +1,7 @@
 module SearchesHelper
-def page_entries_info(collection, options = {})
+  
+  # Output Format for Search Results 
+  def page_entries_info(collection, options = {})
   entry_name = I18n.t('layout.search.result')
   if collection.total_pages < 2
     case collection.size

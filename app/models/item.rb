@@ -14,21 +14,25 @@
 class Item < ActiveRecord::Base
 
   belongs_to :workspace
+
   belongs_to :itemable, :polymorphic => true, :include => :user
 
-
+  # Current Item Type
 	def get_item
 		return self.itemable_type.classify.constantize.find(self.itemable_id)
 	end
 
+  # Current Item Type Title
 	def title
 		return self.get_item.title
 	end
 
+  # Current Item Type Description
 	def description
 		return self.get_item.description
 	end
 
+  # Permission for User in given Worksapce
 	named_scope :allowed_user_with_permission_in_workspace, lambda { |user_id, permission_name, workspace_ids|
 		raise 'User required' unless user_id
 		raise 'Permission name' unless permission_name

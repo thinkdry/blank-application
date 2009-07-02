@@ -7,6 +7,7 @@ class UsersController < ApplicationController
 	#layout 'application', :expect => [:new, :create]
 	layout :give_da_layout
 
+  # Check Current User Status and Give the Layout
 	def give_da_layout
 		if params[:action]== 'new' || params[:action]== 'forgot_password' || params[:action] == 'reset_password'
 			if logged_in?
@@ -93,6 +94,7 @@ class UsersController < ApplicationController
 
   end
 
+  # Create New User /users/new
   def create
     # System role by default, secure assignement
     @current_object = User.new(params[:user])
@@ -128,12 +130,14 @@ class UsersController < ApplicationController
       end
     end
   end
-	
+
+ # Ajax Users Index with User
   def ajax_index
     current_objects
     render :partial => 'user_in_list'
   end
 
+  # Users Index Object for All Users
 	def current_objects
 		if @current_user.has_system_role('superadmin')
 			tmp = User.all
@@ -149,6 +153,7 @@ class UsersController < ApplicationController
 		@current_objects ||= @users = tmp.paginate(:page => params[:page], :order => :login, :per_page => get_per_page_value)
 	end
 
+  # AutoComplete for Users in TextBox
   def autocomplete_on
     conditions = if params['login']
       ["login LIKE :login OR firstname LIKE :login OR lastname LIKE :login",
@@ -213,6 +218,8 @@ class UsersController < ApplicationController
   end
 
   # TODO remove it, just direct links in the old layout, to hell ajax my zob
+
+  # Administration of Workspaces for User
   def administration
     @current_object = current_user
     @workspaces = if (current_user.has_system_permission('workspace', 'show'))
@@ -223,7 +230,6 @@ class UsersController < ApplicationController
   end
 
   private
-
   def get_roles
     if (@current_user.has_system_role('superadmin') || @current_user.has_system_role('admin'))
       @roles = Role.find(:all, :conditions => { :type_role => 'system' })

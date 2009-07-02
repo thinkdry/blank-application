@@ -4,10 +4,11 @@ class SessionsController < ApplicationController
   skip_before_filter :is_logged?, :except => [:destroy, :change_language]
   layout 'login'
 
-  # render new.rhtml
+  # Login Page for New Session
   def new
   end
 
+  # Create New Session for given Login and Passowrd
   def create
     logout_keeping_session!
     user = User.authenticate(params[:login], params[:password])
@@ -31,13 +32,15 @@ class SessionsController < ApplicationController
     end
   end
 
+  # Update Last Logged In attribute and Kill User Session
   def destroy
     User.find(current_user.id).update_attributes(:last_connected_at => Time.now)
     logout_killing_session!
     flash[:notice] = "Vous avez été déconnecté"
     redirect_back_or_default('/')
   end
-	
+
+  # Change Language Option for Current User
 	def change_language
     current_user.update_attributes(:u_language => params[:locale])
 		render(:update) { |page| page.call 'location.reload' }

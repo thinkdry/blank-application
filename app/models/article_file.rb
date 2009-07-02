@@ -14,13 +14,20 @@
 #
 
 class ArticleFile < ActiveRecord::Base
+
+  
   belongs_to :article
-  #file_column :file_path
+
   acts_as_xapian :texts => [:articlefile_file_name]
+
+  # Paperclip Attachment
   has_attached_file :articlefile
+
+  # PaperClip Validations
   validates_attachment_presence :articlefile,
     :url =>    "/uploaded_files/articlefile/:id/:style/:basename.:extension",
     :path => ":rails_root/public/uploaded_files/articlefile/:id/:style/:basename.:extension"
+  
   validates_attachment_size(:articlefile, :less_than => 100.megabytes)
-  #validates_presence_of :file_path
+
 end

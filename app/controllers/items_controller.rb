@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
 
+  # Items Index Page(Content Page) for Showing Items By Category
   def index
 		params[:item_type] ||= get_allowed_item_types(current_workspace).first.pluralize
 		@current_objects = get_items_list(params[:item_type], current_workspace)
@@ -12,6 +13,7 @@ class ItemsController < ApplicationController
 		end
   end
 
+  # Ajax Pagination for Items for selected Item type
   def ajax_index
 		params[:item_type] ||= get_allowed_item_types(current_workspace).first.pluralize
 		@current_objects = get_items_list(params[:item_type], current_workspace)
@@ -22,6 +24,8 @@ class ItemsController < ApplicationController
   end
 
 	# TODO do something clean, this is too much, take a look in the view to understand ...
+
+  # Displaying Items in Pop Up Window for FCKEditor for defined Item Type
   def display_item_in_pop_up
     if params[:selected_item] == 'all' || params[:item_type] == 'all'
       params[:item_type] = 'all'

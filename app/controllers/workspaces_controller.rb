@@ -74,6 +74,7 @@ class WorkspacesController < ApplicationController
 #    end
 	end
 
+  # Set Worksapce if the Worksapce Parameter Exists
 	def current_object
     @current_object ||= @workspace =
       if params[:id]
@@ -84,11 +85,13 @@ class WorkspacesController < ApplicationController
       nil
     end
   end
-	
+
+  # Return all Workspaces with allowed permissions
 	def current_objects
 		@current_objects ||= @workspaces = Workspace.allowed_user_with_permission(@current_user.id, 'workspace_show')
 	end
 
+  # Assign Users with role to Workspace in UsersWorkspace
   def add_new_user
 		@current_object = Workspace.find(params[:id])
 		no_permission_redirection unless @current_object.accepts_edit_for?(@current_user)
@@ -105,6 +108,7 @@ class WorkspacesController < ApplicationController
     end
   end
 
+  # Unsubscribe from Worksapce
 	def unsubscription
 		@current_object = Workspace.find(params[:id])
 		no_permission_redirection unless @current_object.accepts_show_for?(@current_user)
@@ -117,6 +121,7 @@ class WorkspacesController < ApplicationController
 		end
 	end
 
+  # Subscribe to Worksapce
 	def subscription
 		@current_object = Workspace.find(params[:id])
 		no_permission_redirection unless @current_object.accepts_show_for?(@current_user) && (@current_object.state == 'public')
@@ -141,23 +146,5 @@ class WorkspacesController < ApplicationController
 		end
 	end
 
-#  def ajax_content
-#    params[:id] ||= params[:workspace_id]
-#    @current_object = Workspace.find(params[:id])
-#    params[:item_type] ||= get_allowed_item_types(current_workspace).first.to_s.pluralize
-#    @current_objects = get_items_list(params[:item_type], @current_object)
-#    @paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
-#    @i = 0
-#    render :partial => "items/items_list", :locals => { :ajax_url => ajax_items_path(params[:item_type]) }, :layout => false
-#    #render :text => display_item_in_list(@paginated_objects), :layout => false
-#  end
-
-#  def management
-#    @workspaces=Workspace.all
-#    respond_to do |format|
-#      format.html  { render :template => '/workspaces/management'}
-#    end
-#
-#  end
 
 end

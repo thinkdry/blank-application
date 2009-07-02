@@ -3,13 +3,15 @@ class CronjobWorker < BackgrounDRb::MetaWorker
   pool_size 5
 
   def create(args = nil)
-    puts "Started Worker for FeedSource & Xapian Updation & Newsletter"
+    puts "Started Worker for FeedSource, Xapian Index Updation & Newsletter"
   end
 
+  # Create New Thread for Sending Newsletter Asynchronously
   def newthread(args)
     thread_pool.defer(:send_newsletter)
   end
 
+  # Method to Update Feed Sources
   def update_feed_source
     logger.info "Updating Feed Sources"
     FeedSource.all.each do |s|
@@ -18,6 +20,7 @@ class CronjobWorker < BackgrounDRb::MetaWorker
     logger.info "Updated Feed sources"
   end
 
+  # Method to Update Xapian Indexes
   def update_xapian_index
     logger.info "Updating Xapian Indexes"
     command=<<-end_command
@@ -28,6 +31,7 @@ class CronjobWorker < BackgrounDRb::MetaWorker
     logger.info "Updated Xapian Indexes"
   end
 
+  # Method to Send Newsletter to Subscribed Members
 	def send_newsletter
 		logger.info "Sending the newsletters"
 		command=<<-end_command

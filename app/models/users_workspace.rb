@@ -14,16 +14,22 @@
 class UsersWorkspace < ActiveRecord::Base
 	
 	belongs_to :user
+
 	belongs_to :workspace
+
 	belongs_to :role
-	
+
+	#Validations
 	validates_presence_of :user_id, :role_id, :workspace_id
+  
 	validates_uniqueness_of :user_id, :scope => :workspace_id
-	
+
+
 	def user_login
 	  user.nil? ? String.new : user.login
   end
-  
+
+  # Find by login and Assocaite Users to UsersWorksapce
   def user_login=(login)
     self.user = User.find_by_login(login)
   end

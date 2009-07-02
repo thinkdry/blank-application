@@ -1,20 +1,19 @@
 module ItemsHelper
 
-	# Tag. Item's author is allowed to remove it by Ajax action.
-  def item_tag tag, editable = false
-    content = tag.name
-    content += link_to_remote(image_tag('icons/delete.png'),
-      :url => remove_tag_item_path(@current_object, :tag_id => tag.id),
-      :loading => "$('ajax_loader').show()",
-      :complete => "$('ajax_loader').hide()") if editable
-
-    content_tag :span, content, :id => "tag_#{tag.id}"
-  end
-
-  def item_editable_tag tag
-    item_tag tag, true
-  end
-
+  # Rating Item
+  # 
+  # Usage:
+  # 
+  # <tt>item_rate(article_object)</tt>
+  # 
+  # will return the javascript for rating the object
+  # 
+  # Parameters:
+  # 
+  # - object: Item Object ex:article,image......
+  # - rerate: true or false
+  # - onRate: Ajax Request to Store Rating with parameters
+  # - locked: true or false to lock or unlock rating on item
   def item_rate(object, params = {})
     params = {
       :rerate => false,
@@ -22,96 +21,123 @@ module ItemsHelper
   			new Ajax.Request('#{rate_item_path(object)}', {
   				parameters: info
   			})}"
-  		} if params.empty?
+    } if params.empty?
 
     params_to_js_hash = '{' + params.collect { |k, v| "#{k}: #{v}" }.join(', ') + '}'
     div_id = "rating_#{object.class.to_s.underscore}_#{object.id}_#{rand(1000)}"
-
     content_tag(:div, nil, { :id => div_id, :class => :rating }) +
-		javascript_tag(%{
+      javascript_tag(%{
 			new Starbox("#{div_id}", #{object.rating}, #{params_to_js_hash});
-		})
+      })
   end
 
+  # Rating Item Locked
+  #
+  # Usage:
+  #
+  # <tt>item_rate_locked(article_object)</tt>
+  #
+  # will return the rating for item, rating item not possible
   def item_rate_locked(object)
     item_rate(object, :locked => true)
   end
 
-  # Container of tags that include modal window. Contains the javascript events.
-  # Please apply 'hidden' class on each child you want to be displayed on mouseover.
-  def item_reactive_content_tag(tag, object, &block)
-    concat \
-      content_tag(tag,
-        render(:partial => "items/hidden_window", :object => object) + capture(&block),
-        :id           => "item_#{object.object_id}",
-        :class        => 'item',
-        :onmouseover  => 'this.addClassName("over")',
-        :onmouseout   => 'this.removeClassName("over")',
-        :onclick      => "window.location.href = '#{item_path(object)}'"),
-      block.binding
-  end
 
-	##################
-
-	# Define the common fields of the form of an item
+	# Form For Item(Default Fields)
+  #
+  # Usage:
+  #
+  # <tt>form_for_item article_object, title do |f| </tt>
+  # <tt>end</tt>
+  #
+  #  will return the form for default item fields like 'title', 'description', 'keywords', 'workspaces'
+  #
+  #  Parameters:
+  #
+  #  object: item_object:
+  #  title : title of form
+  #  &block : item specific form elements to bind to item form
   def form_for_item(object, title = '', &block)
 		concat(render(:partial => "items/form", :locals => { :block => block, :title => title }), block.binding)
   end
 
-	# Define the common information of the index of an item
-#	def index_for_item
-#		render(:partial => "items/index", :object => @current_objects)
-#	end
+	 
 
 	# Define the common information of the show of an item
 	def item_show(parameters, &block)
     concat\
       render( :partial => "items/show",
-              :locals => {  :object => parameters[:object],
-                            :title => parameters[:title],
-                            :block => block                 } ),
+      :locals => {  :object => parameters[:object],
+        :title => parameters[:title],
+        :block => block                 } ),
       block.binding
   end
   
-  # Define the common information of the show of an item
-#  def item_preview(parameters, &block)
-#    concat\
-#      render( :partial => "items/preview",
-#              :locals => {  :object => parameters[:object],
-#                            :title => parameters[:title],
-#                            :block => block                 } ),
-#      block.binding
-#  end
-
-	# Form part for FCKEditor field
+	# FCKEditor Field for Workspace & Article
+  #
+  # Usage:
+  #
+  # f.advanced_editor(:body, 'Article' + ' * :')
+  #
+  # will return the fckeditor for article body
 	def advanced_editor_on(object, attribute)
     '<script type="text/javascript" src="/fckeditor/fckeditor.js"></script>' +
-    javascript_tag(%{
+      javascript_tag(%{
         var oFCKeditor = new FCKeditor('#{object.class.to_s.underscore}_#{attribute}', '730px', '350px') ;
         oFCKeditor.BasePath = "/fckeditor/" ;
 				oFCKeditor.Config['ImageUploadURL'] = "/fckuploads?item_type=#{object.class}&id=#{object.new_record? ? current_user.login+'_'+current_user.id.to_s : object.id}&type=Image";
         oFCKeditor.Config['DefaultLanguage'] = '#{I18n.locale.split('-')[0]}' ;
         oFCKeditor.ReplaceTextarea() ;
         
-		})
+      })
   end
 
-  # Footer of each item form. Status, comments, tags...
+  # Item Status Fields
+  #
+  # Usage:
+  #
+  # <tt>item_status_fields(form, article)</tt>
+  #
+  # will return item status fields for the artile
   def item_status_fields(form, item)
     render :partial => "items/status", :locals => { :f => form, :item => item }
   end
 
-	# Form part for the categories
+	# Item Category Fields
+  #
+  # Usage:
+  #
+  # <tt>item_category_fields(form, article)</tt>
+  #
+  # will return item category fields for the artile
   def item_category_fields(form, item)
     render :partial => "items/category", :locals => { :f => form, :item => item }
 	end
 
-	# Form part managing keywords
+	# Item Keywords Fields
+  #
+  # Usage:
+  #
+  # <tt>item_keywords_fields(form, article)</tt>
+  #
+  # will return item keywords fields for the artile
 	def item_keywords_fields(form, item)
     render :partial => "items/keywords_fields", :locals => { :f => form, :item => item }
 	end
 
-	# Displays the tabs link to items
+	# Displays Item Type in Tabs with Items List
+  #
+  # Usage:
+  #
+  # display_tabs_items_list('article', paginated_objects, ajax_items_path('article'))
+  #
+  # will return the tabs for item_type passed
+  #
+  # Parameters:
+  #
+  # - item_type: can be any item type ex:article,image......
+  # - items_list: list of items to be displayed for the tab
+  # - ajax_url: ajax item path for the item_type
   def display_tabs_items_list(item_type, items_list, ajax_url)
 		item_types = get_allowed_item_types(current_workspace)
 		item_type ||= item_types.first.to_s.pluralize
@@ -162,9 +188,18 @@ module ItemsHelper
 		end
 	end
 
+  # Items List
+  #
+  # Usage:
+  #
+  # <tt>display_items_list(items_list, ajax_url)</tt>
+  #
+  # will return list of items for given item_type with div 'object-list'
+  #
+  # - items_list: list of items to be displayed for the tab
+  # - ajax_url: ajax item path for the item_type
 	def display_items_list(items_list, ajax_url, partial_used='items/items_list')
 		if items_list.first
-
 	    content = render :partial => partial_used, :locals => { :ajax_url => ajax_url }
       content_tag(:div, content, :id => "object-list")
 		else
@@ -172,30 +207,61 @@ module ItemsHelper
 		end
 	end
 
-	# Displays the list of items
+	# Items List
+  #
+  # Usage:
+  #
+  # <tt>display_items_in_list(items_list)</tt>
+  #
+  # will return list of items for given item_type with div 'object-list'
+  #
+  # - items_list: list of items to be displayed for the tab
   def display_item_in_list(items_list, partial_used='items/item_in_list')
 		@i = 0
 	  render :partial => partial_used, :collection => items_list
   end
 
+  # Display Item in List for Editor
 	def display_item_in_list_for_editor
 		display_item_list('items/item_in_list_for_editor')
 	end
 
+  # Classify Bar for Ordering, Filtering Items
+  # 
+  # Usage:
+  # 
+  # <tt>display_classify_bar(['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title'], ajax_url, 'object-list')</tt>
+  # 
+  # will return classify bar for item list with option to filter on fields
+  # 
+  # Parameters:
+  # 
+  # - ordering_fields_list: 'created_at', 'comments_number', 'viewed_number', 'rates_average', 'title'
+  # - ajax_url: url to be passed to be called on click of item
+  # - refreshed_dv: objects-list
+  # - partial_used : 'items/classify_bar'
 	def display_classify_bar(ordering_fields_list, ajax_url, refreshed_div, partial_used='items/classify_bar')
 		render :partial => partial_used, :locals => {
-				:ordering_fields_list => ordering_fields_list,
-				:ajax_url => ajax_url,
-				:refreshed_div => refreshed_div
+      :ordering_fields_list => ordering_fields_list,
+      :ajax_url => ajax_url,
+      :refreshed_div => refreshed_div
 		}
 	end
 
+  # Ajax Item Path
+  #
+  # Usage:
+  #
+  # <tt>get_ajax_item_path('article')</tt>
+  # 
+  # Will return the ajax_items_path depending on the current_worksapces
   def get_ajax_item_path(item_type)
     item_type ||=  get_allowed_item_types(current_workspace).first.pluralize
     url = current_workspace ? ajax_items_path(item_type) +"&page=" : ajax_items_path(item_type) +"?page="
     return url
   end
 
+  # Safe Url for Classify Bar
 	def safe_url(url, params)
 		# TODO generic allowing to replace params in url
 		# trick, work just for classify_bar case
@@ -204,12 +270,17 @@ module ItemsHelper
 		return (url+prev_params).split(params.first.split('=').first).first + ((url+prev_params).include?('?') ? '&' : '?') +params.join('&')
 	end
 
+  # Render Specific Partial according to Item Type passed
+  #
+  # Usage get_specific_partial('article', preview, article_object)
+  #
+  # will render the partial depending on the item_type
   def get_specific_partial(item_type, partial, object)
-     if File.exists?(RAILS_ROOT+'/app/views/'+object.class.to_s.downcase.pluralize.underscore+"/_#{partial}.html.erb")
-			 render :partial => "#{object.class.to_s.downcase.pluralize.underscore}/#{partial}", :object => object
-     else
-       render :nothing => true
-     end
+    if File.exists?(RAILS_ROOT+'/app/views/'+object.class.to_s.downcase.pluralize.underscore+"/_#{partial}.html.erb")
+      render :partial => "#{object.class.to_s.downcase.pluralize.underscore}/#{partial}", :object => object
+    else
+      render :nothing => true
+    end
   end
 	
 end

@@ -1,0 +1,290 @@
+**DO NOT DELETE
+
+# Blank Application intresting things, not needed currently but may be needed for future reference.
+Put with name of the file and line number(if possible)
+
+app/models/feed_source.rb line 79
+
+def rss_content2
+	#return (FeedNormalizer::FeedNormalizer.parse open(self.url), :force_parser => FeedNormalizer::SimpleRssParser)
+	return FeedParser.parse(open(self.url))
+end
+
+app/models/feed_source.rb line 107
+
+def import_latest_items2
+		feed = self.rss_content2
+		feed.clean!
+		feed.entries.each do |item|
+			# Be sure that the item hasnt been imported before
+			if self.feed_items.count(:conditions => { :link => item.url, :feed_source_id => self.id }) <= 0
+				self.feed_items.create({
+					:remote_id			=> item.id,
+					:title					=> item.title,
+					:description		=> item.description,
+					:content				=> item.content,
+					:authors				=> item.authors.join(' ,'),
+					:date_published => item.date_published,
+					:last_updated		=> item.last_updated,
+					:categories			=> item.categories.join(' ,'),
+					:link           => item.url,
+					:copyright			=> item.copyright })
+			end
+	end
+end
+
+app/models/feed_item.rb line 35
+
+def description=(value)
+    # Remove html tags from description
+    #value = strip_tags(value)
+
+		# Clean first characters maching
+		# Related Articles
+		# (...)
+		# Authors:  (...)
+    #value.slice!(/\A[\n\t]*Related Articles.+Authors:[^\n]+\s+/m)
+
+    # Remove last characters matching
+    #   PMID: 123445
+    #   [PubMed - as supplied by publisher]
+    #value.slice!(/[\n\s]*PMID: \d+ \[PubMed - as supplied by publisher\][\n\s]*\Z/m)
+
+    # After our cleaning, call the super method that will assignate the value
+    super(value)
+  end
+
+app/models/image.rb
+
+ file_column :file_path, :magick => { :versions => { :thumb => "100x100", :web => "500x500" } }
+
+
+app/models/search.rb line 51
+
+def conditions= params
+		conditions = []
+		params.each do |k, v|
+			if !v.blank?
+				conditions << "#{k} == #{(v.is_a?(Array) ? v.join(',') : v)}"
+			end
+		end
+		self[:conditions] = conditions.join(' && ')
+end
+
+app/models/users line 141
+
+def items
+		@items = []
+		ITEMS.map{ |item| item.pluralize }.each do |item|
+			@items + self.send(item)
+		end
+		@items.sort { |a, b| a.created_at <=> b.created_at }
+end
+
+line 147
+
+  def get_member_for_groups
+      people = Person.find(:all, :conditions => ["user_id = ?",self.id])
+      users = []
+      Workspace.allowed_user_with_permission(self.id,'group_edit').each do |ws|
+        users += ws.users.delete_if{ |e| !e.newsletter }
+     end
+     return (people + users.uniq).map{ |e| e.to_group_member }.sort!{ |a,b| a[:email].downcase <=> b[:email].downcase }
+  end
+
+lib/acts_as_item/model.rb
+method: get_items_list_for_user_with_permission_in_workspace(user, action, workspace, filter_name, filter_way, filter_limit)
+line: 107
+Category permission checked
+elsif !(cats=workspace.ws_item_categories).blank?
+res = []
+cats.each do |cat|
+if user.has_workspace_permission(workspace.id, 'item_cat_'+cat, action)
+res = res + workspace.send(self.model_name.underscore.pluralize.to_sym)
+end
+end
+return res
+
+method: get_items_list_for_user_with_permission(user, action, filter_name, filter_way, filter_limit)
+line:127
+else
+# lazyness...
+cats = ITEM_CATEGORIES & ws.ws_item_categories.split(',')
+# Check if user can access to, at least, one category of the item in that workspace
+cats.each do |cat|
+if user.has_workspace_permission(ws.id, 'item_cat_'+cat, action)
+res = res + self.find_by_sql("SELECT * FROM #{self.model_name.underscore.pluralize} LEFT JOIN items ON items.itemable='#{self.model_name}' AND items.workspace_id=#{ws.id} WHERE #{self.model_name.underscore.pluralize}.category LIKE #{cat}")
+end
+end
+
+method: accepting_action(user, action, active=true)
+line:318
+else
+if cats
+# And else with the workspace category access
+# restriction with ws item categories
+cats = ws.ws_item_categories.to_s.split(',') #& cats
+# Check if user can access to, at least, one category of the item in that workspace
+cats.each do |cat|
+if user.has_workspace_permission(ws.id, 'item_cat_'+cat, action)
+return true
+end
+end
+end # if cats
+
+lib/acts_as_item/controller.rb
+method:make_resourceful
+line:120
+	response_for :update do |format|
+#format.html { redirect_to item_path(@current_object)}
+format.html { redirect_to((ws=current_workspace) ? workspace_path(ws.id)+"/#{@current_object.class.to_s.underscore.pluralize}" : "/content/#{@current_object.class.to_s.underscore.pluralize}") }
+end
+
+response_for :create do |format|
+format.html {
+#redirect_to( ((@current_object.class.to_s == 'Article') || (@current_object.class.to_s == 'Page')) ? ((ws=current_workspace) ? edit_item_path(@current_object.class.to_s) : "/content/#{@current_object.class.to_s.underscore.pluralize}/#{@current_object.id}/edit") : ((ws=current_workspace) ? workspace_path(ws.id)+"/#{@current_object.class.to_s.underscore.pluralize}"+"/#{@current_object.id}/edit" : "/content/#{@current_object.class.to_s.underscore.pluralize}"+"/#{@current_object.id}/edit") )
+#raise @current_object.class.to_s.inspect
+if ((@current_object.class.to_s == 'Article') || (@current_object.class.to_s == 'Page'))
+redirect_to((ws=current_workspace) ? workspace_path(ws.id)+"/#{@current_object.class.to_s.underscore.pluralize}/#{@current_object.id}/edit" : "/#{@current_object.class.to_s.underscore.pluralize}/#{@current_object.id}/edit")
+else
+redirect_to((ws=current_workspace) ? workspace_path(ws.id)+"/#{@current_object.class.to_s.underscore.pluralize}"+"/#{@current_object.id}" : "/#{@current_object.class.to_s.underscore.pluralize}"+"/#{@current_object.id}")
+	end
+}
+end
+
+
+app/controller/workspaces_controller.rb line 142
+
+ def ajax_content
+    params[:id] ||= params[:workspace_id]
+    @current_object = Workspace.find(params[:id])
+    params[:item_type] ||= get_allowed_item_types(current_workspace).first.to_s.pluralize
+    @current_objects = get_items_list(params[:item_type], @current_object)
+    @paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
+    @i = 0
+    render :partial => "items/items_list", :locals => { :ajax_url => ajax_items_path(params[:item_type]) }, :layout => false
+    #render :text => display_item_in_list(@paginated_objects), :layout => false
+  end
+
+  def management
+    @workspaces=Workspace.all
+    respond_to do |format|
+      format.html  { render :template => '/workspaces/management'}
+    end
+
+  end
+
+app/helpers/application_helper.rb
+line:7
+
+def small_item_in_list(item)
+		# display all items by category
+		# ...	
+		content_tag :h2, item.title
+		content_tag :p, item.description		
+end
+
+def flash_messages
+		return unless messages = flash.keys.select{|k| FLASH_NOTICE_KEYS.include?(k)}
+    formatted_messages = messages.map do |type|
+			content_tag :div, :class => type.to_s do
+				message_for_item(flash[type], flash["#{type}_item".to_sym])
+			end
+    end
+    formatted_messages.join
+  end
+
+  def message_for_item(message, item = nil)
+    if item.is_a?(Array)
+      message % link_to(*item)
+    else
+      message % item
+    end
+  end
+  
+  def display_top_items_tabs(page)
+    html = '<ul id="tabs" class="without_img">'
+    html += '<li '
+    html += 'class="selected"' if (page=="comment")
+    html += '>'+link_to("Les + commentés", "#")+'</li>'
+    html += '<li '
+    html += 'class="selected"' if (page=="note")
+    html += '>'+link_to("Les mieux notés", "#")+'</li>'
+    html += '<li '
+    html += 'class="selected"' if (page=="view")
+    html += '>'+link_to("Les + lus", "#")+'</li>'
+    html += '</ul><div class="clear"></div>'
+	end
+
+app/helpers/items_helper.rb
+line 4
+# Item's author is allowed to remove it by Ajax action.
+  def item_tag tag, editable = false
+    content = tag.name
+    content += link_to_remote(image_tag('icons/delete.png'),
+      :url => remove_tag_item_path(@current_object, :tag_id => tag.id),
+      :loading => "$('ajax_loader').show()",
+      :complete => "$('ajax_loader').hide()") if editable
+
+    content_tag :span, content, :id => "tag_#{tag.id}"
+  end
+
+  def item_editable_tag tag
+    item_tag tag, true
+  end
+
+  # Container of tags that include modal window. Contains the javascript events.
+  # Please apply 'hidden' class on each child you want to be displayed on mouseover.
+  def item_reactive_content_tag(tag, object, &block)
+    concat \
+      content_tag(tag,
+      render(:partial => "items/hidden_window", :object => object) + capture(&block),
+      :id           => "item_#{object.object_id}",
+      :class        => 'item',
+      :onmouseover  => 'this.addClassName("over")',
+      :onmouseout   => 'this.removeClassName("over")',
+      :onclick      => "window.location.href = '#{item_path(object)}'"),
+      block.binding
+end
+
+line 64
+
+#Define the common information of the index of an item
+  	def index_for_item
+  		render(:partial => "items/index", :object => @current_objects)
+  	end
+
+# Define the common information of the show of an item
+    def item_preview(parameters, &block)
+      concat\
+        render( :partial => "items/preview",
+                :locals => {  :object => parameters[:object],
+                              :title => parameters[:title],
+                              :block => block                 } ),
+        block.binding
+    end
+
+app/views/items/_hidden_window.html.erb
+
+<div class="window hidden">
+	<div>
+		42 commentaires.
+	</div>
+
+	<div>
+		<strong>Note :</strong> <%= Array.new(5, image_tag('icons/star.png')) %>
+	</div>
+
+	<div>
+		<strong>Tags:</strong>
+		<%= (1..3).collect { |i| item_tag("tag_#{i}") }.join(' ') %>
+	</div>
+	
+	<div>
+		<strong>Espaces:</strong>
+		<%= object.workspaces.collect { |w| w.name }.join %>
+	</div>
+</div>
+
+
+

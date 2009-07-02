@@ -15,23 +15,37 @@
 #  created_at         :datetime
 #  updated_at         :datetime
 #  tags               :string(255)
+#  viewed_number      :integer(4)
+#  rates_average      :integer(4)
+#  comments_number    :integer(4)
+#  category           :string(255)
 #
 
 class Image < ActiveRecord::Base
 
+  # Item specific Library - /lib/acts_as_item
   acts_as_item
-               
+
+  # Paperclip Attachment 
   has_attached_file :image,
     :url =>    "/uploaded_files/image/:id/:style/:basename.:extension",
     :path => ":rails_root/public/uploaded_files/image/:id/:style/:basename.:extension",
     :styles => { :medium => "300x300>", :thumb => "48x48>" }
-  validates_attachment_presence :image
-  validates_attachment_content_type :image, :content_type => ['image/jpeg','image/jpg', 'image/png', 'image/gif','image/bmp']
-  validates_attachment_size(:image, :less_than => 100.megabytes)
-  #file_column :file_path, :magick => { :versions => { :thumb => "100x100", :web => "500x500" } }
-  # validates_presence_of :file_path
-  #  validates_file_format_of :file_path, :in => ["png", "gif", "jpg"]
 
+  # Paperclip Validation
+  validates_attachment_presence :image
+
+  validates_attachment_content_type :image, :content_type => ['image/jpeg','image/jpg', 'image/png', 'image/gif','image/bmp']
+
+  validates_attachment_size(:image, :less_than => 100.megabytes)
+
+  # Media Type for the Model.
+  #
+  # Usage:
+  #
+  # <tt>object.media_type</tt>
+  #
+  # will return the media type as image
   def media_type
     image
   end

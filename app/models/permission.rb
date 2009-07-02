@@ -3,11 +3,12 @@
 #
 # Table name: permissions
 #
-#  id          :integer(4)      not null, primary key
-#  name        :string(255)
-#  description :text
-#  created_at  :datetime
-#  updated_at  :datetime
+#  id              :integer(4)      not null, primary key
+#  name            :string(255)
+#  description     :text
+#  created_at      :datetime
+#  updated_at      :datetime
+#  type_permission :string(255)
 #
 
 class Permission < ActiveRecord::Base
@@ -16,6 +17,9 @@ class Permission < ActiveRecord::Base
   has_and_belongs_to_many :roles
   
   validates_presence_of :name
+
   validates_uniqueness_of :name
+
   validates_presence_of :type_permission
+  
 end

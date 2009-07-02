@@ -29,6 +29,13 @@
 #  updated_at                :datetime
 #  remember_token            :string(40)
 #  remember_token_expires_at :datetime
+#  newsletter                :boolean(1)
+#  last_connected_at         :datetime
+#  u_layout                  :string(255)
+#  u_per_page                :integer(4)
+#  u_language                :string(255)
+#  date_of_birth             :date
+#  gender                    :string(255)
 #
 
 require 'digest/sha1'
@@ -42,7 +49,9 @@ class User < ActiveRecord::Base
 	include Configuration
 
   has_many :users_workspaces, :dependent => :delete_all
+
   has_many :workspaces, :through => :users_workspaces
+
   has_many :workspace_roles, :through => :users_workspaces, :source => :role
 
 	ITEMS.each do |item|
@@ -50,61 +59,67 @@ class User < ActiveRecord::Base
 	end
 
   has_many :rattings
+
   has_many :comments
+
   has_many :feed_items, :through => :feed_sources, :order => "last_updated DESC"
 
   has_many :groupings, :as => :groupable, :dependent => :delete_all
+
   has_many :member_in, :through => :groupings, :source => :group
+
   has_many :people, :order => 'email ASC'
 
 	acts_as_xapian :texts => [:login, :firstname, :lastname]
 
+  # Paperclip attachment for avatar
   has_attached_file :avatar,
     :default_url => "/images/default_avatar.png",
     :url =>  "/uploaded_files/user/:id/:style/:basename.:extension",
     :path => ":rails_root/public/uploaded_files/user/:id/:style/:basename.:extension",
     :styles => {
     :thumb=> "100x200>"}
+  
+  # Paperclip Validations
   validates_attachment_content_type :avatar, :content_type => ['image/jpeg','image/jpg', 'image/png', 'image/gif','image/bmp']
   validates_attachment_size(:avatar, :less_than => 5.megabytes)
-  #file_column :image_path, :magick => {:size => "200x200>"}
 
+  # Validations
   validates_presence_of     :login
+
   validates_length_of       :login,     :within => 3..40
+
   validates_uniqueness_of   :login,     :case_sensitive => false, :on => :create
+
   validates_format_of       :login,     :with => /\A[a-z_-]+\z/
 
   validates_presence_of     :email
+
   validates_length_of       :email,    :within => 6..100
+
   validates_uniqueness_of   :email,    :case_sensitive => false, :on => :create
+
   validates_format_of       :email,    :with => RE_EMAIL_OK
 
 	validates_presence_of     :password, :on => :create
+
 	validates_presence_of     :password_confirmation, :on => :create
+
 	validates_confirmation_of :password, :on => :create
 
-  validates_presence_of     :firstname, 
-                            :lastname
-                            #:address,
-                            #:company,
-                            #:phone,
-                            #:mobile,
-                            #:activity,
-                            #:nationality
+  validates_presence_of     :firstname, :lastname
 
-  validates_format_of       :firstname, 
-    :lastname,
-    :company,
-    :with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL})+\Z/, :allow_blank => true
+  validates_format_of       :firstname, :lastname, :company, :with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL})+\Z/, :allow_blank => true
 			  
   validates_format_of       :address, :with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL}|#{NUM})+\Z/, :allow_blank => true
   
-  validates_format_of       :phone, 
-    :mobile,
-    :with => /\A(#{NUM}){10}\Z/, :allow_blank => true
+  validates_format_of       :phone,  :mobile, :with => /\A(#{NUM}){10}\Z/, :allow_blank => true
   
 
+  # Encrypt the password before storing in the database
 	before_save :encrypt_password
+
+  # Create the activation code before creating the user for email activation
   before_create :make_activation_code
 
   # HACK HACK HACK -- how to do attr_accessible from here?
@@ -119,37 +134,25 @@ class User < ActiveRecord::Base
   # This will also let us return a human error message.
   #
 
+  # Workspaces permissions for user
 	named_scope :workspaces_with_permission,
 		lambda { |user_id, permission_name|
-		 { :joins => "LEFT JOIN users_workspaces ON users_workspaces.user_id = "}
-		}
-  
+    { :joins => "LEFT JOIN users_workspaces ON users_workspaces.user_id = "}
+  }
+
+  # latest 5 users
   named_scope :latest,
     :order => 'created_at DESC',
     :limit => 5
-  
-#  def items
-#		@items = []
-#		ITEMS.map{ |item| item.pluralize }.each do |item|
-#			@items + self.send(item)
-#		end
-#		@items.sort { |a, b| a.created_at <=> b.created_at }
-#  end
   
   def self.authenticate(login, password)
     u = find_by_login(login) # need to get the salt
     u && u.authenticated?(password) ? u : nil
   end
 
-  #TODO check for duplicate email in the user query, and duplicate emails between users email and people emails
-#  def get_member_for_groups
-#      people = Person.find(:all, :conditions => ["user_id = ?",self.id])
-#      users = []
-#      Workspace.allowed_user_with_permission(self.id,'group_edit').each do |ws|
-#         users += ws.users.delete_if{ |e| !e.newsletter }
-#      end
-#      return (people + users.uniq).map{ |e| e.to_group_member }.sort!{ |a,b| a[:email].downcase <=> b[:email].downcase }
-#  end
+  #TODO check for duplicate email in the user query, and duplicate emails between users email and people emails (refer blank_application_backup_code in public/)
+
+  # Contact List for the User with desired output format for newsletter
 	def get_contacts_list(restriction, output_format, newsletter)
 		people = []
 		users = []
@@ -166,7 +169,7 @@ class User < ActiveRecord::Base
 			end
 			if restriction == 'all' || restriction == 'users'
 				Workspace.allowed_user_with_permission(self.id,'group_edit').each do |ws|
-					 users += ws.users.all(:conditions => conditions)#.delete_if{ |e| !e.newsletter }
+          users += ws.users.all(:conditions => conditions)#.delete_if{ |e| !e.newsletter }
 				end
 			end
 		end
@@ -177,6 +180,7 @@ class User < ActiveRecord::Base
 		end
 	end
 
+  # User as people for newsletter subscription
   def to_people
     return Person.new(:first_name => self.firstname, :last_name => self.lastname,:email => self.email,
       :primary_phone => self.phone, :mobile_phone => self.mobile,:city => self.address,
@@ -184,6 +188,7 @@ class User < ActiveRecord::Base
       :newsletter => self.newsletter,:created_at => self.created_at,:updated_at => self.updated_at)
   end
 
+  # User as a Group Member
   def to_group_member
     return { :model => 'User', :id => self.id, :email => self.email, :first_name => self.firstname, :last_name => self.lastname, :origin => 'user registred', :created_at => self.created_at, :newsletter => self.newsletter }
   end
@@ -191,32 +196,42 @@ class User < ActiveRecord::Base
 
 	#include SavageBeast::UserInit
 
+  # Display Name of User(login)
 	def display_name
     login
 	end
+
+  # Check if User is Admin
 	def admin?
-			true
+    true
 	end
+
+  # Check if User Currently Online
 	def currently_online
-			true
+    true
 	end 
 
+  # User System Role for Permissions
 	def system_role
 		return Role.find(self.system_role_id)
 	end
 
+  # Check User for System role with passed 'role'
 	def has_system_role(role_name)
 		return (self.system_role.name == role_name) || self.system_role.name == 'superadmin'
 	end
 
+  # Check User for Workspace Role with passed 'workspace' & 'role_type'
 	def has_workspace_role(workspace_id, role_name)
 		return UsersWorkspace.exists?(:user_id => self.id, :workspace_id => workspace_id, :role_id => Role.find_by_name(role_name).id) || self.system_role.name == 'superadmin'
 	end
 
+  # Users System Permissions
 	def system_permissions
 		return self.system_role.permissions
 	end
 
+  # Users Workspace Permissions
 	def workspace_permissions(workspace_id)
 		if UsersWorkspace.exists?(:user_id => self.id, :workspace_id => workspace_id)
 			return UsersWorkspace.find(:first, :conditions => {:user_id => self.id, :workspace_id => workspace_id}).role.permissions
@@ -225,74 +240,91 @@ class User < ActiveRecord::Base
 		end
 	end
 
+  # User System Role for Controller and Action
 	def has_system_permission(controller, action)
 		permission_name = controller+'_'+action
 		return !self.system_permissions.delete_if{ |e| e.name != permission_name}.blank? || self.has_system_role('superadmin')
 	end
 
+  # User Worksapce Role for Given Worksapce, Controller and Action
 	def has_workspace_permission(workspace_id, controller, action)
 		permission_name = controller+'_'+action
 		return !self.workspace_permissions(workspace_id).delete_if{ |e| e.name != permission_name}.blank? || self.has_system_role('superadmin')
 	end
 
+
+  # Check User for permission to configure
+  #
+  # Usage:
+  #
+  # <tt>user.accepts_configure_for? user</tt>
+  #
+  # will return true if the user has permission
 	def accepts_configure_for? user
 		return accepting_action(user, 'configure', false, false, true)
 	end
 
+  # Check User for permission to View
+  #
+  # Usage:
+  #
+  # <tt>user.accepts_show_for? user</tt>
+  #
+  # will return true if the user has permission
 	def accepts_show_for? user
 		return accepting_action(user, 'show', (self.id==user.id), false, true)
 	end
-  
+
+  # Check User for permission to destroy
+  #
+  # Usage:
+  #
+  # <tt>user.accepts_destroy_for? user</tt>
+  #
+  # will return true if the user has permission
   def accepts_destroy_for? user
     return accepting_action(user, 'edit', (self.id==user.id), false, true)
   end
-  
+
+  # Check User for permission to edit
+  #
+  # Usage:
+  #
+  # <tt>user.accepts_edit_for? user</tt>
+  #
+  # will return true if the user has permission
   def accepts_edit_for? user
     return accepting_action(user, 'edit', (self.id==user.id), false, true)
   end
-  
+
+  # Check User for permission to create
+  #
+  # Usage:
+  #
+  # <tt>user.accepts_new_for? user</tt>
+  #
+  # will return true if the user has permission
   def accepts_new_for? user
     return accepting_action(user, 'new', false, false, true)
   end
 
-	def accepting_action(user, action, spe_cond, sys_cond, ws_cond)
-		# Special access
-		if user.has_system_role('superadmin') || spe_cond
-			return true
-		end
-		# System access
-		if user.has_system_permission(self.class.to_s.downcase, action) || sys_cond
-			return true
-		end
-		# Workspace access
-		# The only permission linked to an user in a workspace is 'show'
-		if action=='show'
-			self.workspaces.each do |ws|
-				if ws.users.include?(user)
-					if user.has_workspace_permission(ws.id, self.class.to_s.downcase, action) && ws_cond
-						return true
-					end
-				end
-			end
-		end
-		false
-	end
-	 
+  # User Full Name 'Lastname FirstName'
 	def full_name
 		return self.lastname.to_s+" "+self.firstname.to_s
   end
 
+  # Create Private worksapce for User on creation called 'Private for user_login'
 	def create_private_workspace
 		# Creation of the private workspace for the user
 		ws = Workspace.create(:title => "Private space of #{self.login}",
-				:description => "Worksapce containing all the content created by #{self.full_name}",
-				:creator_id => self.id,
-				:ws_items => get_configuration['sa_items'],
-				:state => 'private')
+      :description => "Worksapce containing all the content created by #{self.full_name}",
+      :creator_id => self.id,
+      :ws_items => get_configuration['sa_items'],
+      :state => 'private')
 		# To assign the 'ws_admin' role to the user in his privte workspace
 		UsersWorkspace.create(:user_id => self.id,
-				:workspace_id => ws.id,
-				:role_id => Role.find_by_name('ws_admin').id)
+      :workspace_id => ws.id,
+      :role_id => Role.find_by_name('ws_admin').id)
 	end
 
 	# Activates the user in the database.
@@ -303,8 +335,10 @@ class User < ActiveRecord::Base
     save(false)
   end
 
+  # Check if User is Active
+  # 
+  # the existence of an activation code means User has not Activated yet
   def active?
-    # the existence of an activation code means they have not activated yet
     activation_code.nil?
   end
 
@@ -368,7 +402,6 @@ class User < ActiveRecord::Base
     save(false)
   end
 
-  
 
   protected
   # before filter
@@ -386,9 +419,30 @@ class User < ActiveRecord::Base
     self.activation_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
   end
 
-	
-  
-  
-	
+  # Check the User Permission for actions with system and worksapce roles.
+  # True if User is 'SuperAdministrator'
+  private
+	def accepting_action(user, action, spe_cond, sys_cond, ws_cond)
+		# Special access
+		if user.has_system_role('superadmin') || spe_cond
+			return true
+		end
+		# System access
+		if user.has_system_permission(self.class.to_s.downcase, action) || sys_cond
+			return true
+		end
+		# Workspace access
+		# The only permission linked to an user in a workspace is 'show'
+		if action=='show'
+			self.workspaces.each do |ws|
+				if ws.users.include?(user)
+					if user.has_workspace_permission(ws.id, self.class.to_s.downcase, action) && ws_cond
+						return true
+					end
+				end
+			end
+		end
+		false
+	end
 end
 

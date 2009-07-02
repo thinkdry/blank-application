@@ -26,7 +26,9 @@ class ApplicationController < ActionController::Base
 	before_filter :set_locale
 	before_filter :get_configuration
 	
-	
+	# Check for Logged in User
+  #
+  # will return true if a User session exists else will redirect to login page '/login'
 	def is_logged?
     if logged_in?
 			@search ||= Search.new
@@ -36,6 +38,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Layout for User
+  #
+  # Get the layout for current logged in User
+  #
+  # if layout is not selected then will return configuration layout else default 'application' layout
 	def get_da_layout
     if current_user.u_layout
       current_user.u_layout
@@ -44,6 +51,15 @@ class ApplicationController < ActionController::Base
     end
 	end
 
+  # Allowed Item Types
+  #
+  # Will return the items of workspace if User inside workspace
+  #
+  # Else will return configuration items of SuperAdministrator
+  #
+  # Parameters
+  #
+  # - workspace: workspace_object, default: nil
 	def get_allowed_item_types(workspace=nil)
 		if workspace
 			return (workspace.ws_items.to_s.split(',') & @configuration['sa_items'])
@@ -52,6 +68,15 @@ class ApplicationController < ActionController::Base
 		end
 	end
 
+  # Item Types Allowed
+  #
+  # Parameters:
+  #
+  # - user: user_object
+  # - action: 'show', 'new', 'edit', 'destroy'
+  # - current_workspace: workspace_object, default: nil
+  #
+  # will return the list of items depending on workspace or user permission
 	def item_types_allowed_to(user, action,current_workspace = nil)
 		if current_workspace
 			(current_workspace.ws_items.to_s.split(',') & @configuration['sa_items']).delete_if{ |e| !user.has_workspace_permission(current_workspace.id, e, action) }
@@ -60,19 +85,37 @@ class ApplicationController < ActionController::Base
 		end
 	end
 
+  # SuperAdministrator
+  #
+  # will return true if the logged in user has system role of Superadministrator('superadmin')
 	def is_superadmin?
 		no_permission_redirection unless self.current_user && self.current_user.has_system_role('superadmin')
 	end
 
+  # Administrator
+  #
+  # will return true if the logged in user has system role of Administrator('admin')
 	def is_admin?
 		no_permission_redirection unless self.current_user && self.current_user.has_system_role('admin')
 	end
 
+  # Default Redirection
+  #
+  # If a User tries to Access the area for which he does not have permission
+  #
+  # he will be redirected to the default homepage with message "Permission denied'
 	def no_permission_redirection
 		flash[:error] = "Permission denied"
 		redirect_to '/'
 	end
 
+  # List of Items
+  #
+  # Usage:
+  #
+  # <tt>get_item_list('article',workspace_object)</tt>
+  #
+  # will return the list of items depending on workspace or superadmin configuration items
 	def get_items_list(item_type, workspace=nil)
 		if workspace
 			if (@configuration['sa_items'] & workspace.ws_items.split(',')).include?(item_type.singularize)
@@ -90,10 +133,23 @@ class ApplicationController < ActionController::Base
 		return current_objects
 	end
 
+  # Check is User is admin(Not used)
 	def admin?
 		true
 	end
 
+  # Group of Workspaces
+  #
+  # Usage:
+  #
+  # <tt>groups_of_workspaces_of_item(article)</tt>
+  #
+  # will return the array if workspaces for the item
+  #
+  # Parameters:
+  #
+  # - item: any item object ex:article, image.......
+  #
   def groups_of_workspaces_of_item(item)
     groups =[]
     item.workspaces.each {|ws| groups << ws.groups}

@@ -2,18 +2,19 @@ class ConverterWorker < BackgrounDRb::MetaWorker
 
   set_worker_name :converter_worker
   pool_size 5
-  
+
   def create(args = nil)
     puts "Started BackgrounDRb for Encoding"
-    @retried = false
   end
 
+  # Create New Thread for Encoding Asynchronously
   def newthread(args)
     object=args[:type].classify.constantize.find_by_id(args[:id])
     object.update_attributes(:state=>"encoding")
     thread_pool.defer(:encoder,args)
   end
-  
+
+  # Method for Encoding Media 
   def encoder(args)
     logger.info "Encoder Called"
     logger.info  "#{args[:type].capitalize} Encoding"
@@ -40,6 +41,7 @@ class ConverterWorker < BackgrounDRb::MetaWorker
   
   end
 
+  # Method called for Retrying Encoding for Failed Media....scheduled task
   def encode_uploaded_media
     logger.info "Retry Encoding of Uploaded Videos"
     ['audio','video'].each do |type|
@@ -67,7 +69,8 @@ class ConverterWorker < BackgrounDRb::MetaWorker
       end
     end
   end
- 
+
+  # Method to convert the media to desired media (Default MP3 for Audio and FLV for Video)
   def convert_media(type, object, enc)
     media = File.join(File.dirname(object.media_type.path), "#{type}.#{enc}")
     File.open(media, 'w')
@@ -90,6 +93,7 @@ class ConverterWorker < BackgrounDRb::MetaWorker
     end
   end
 
+  # Create Thumbnails for Video File on Particular Intervals
   def thumbnail(i,j,object)
     thumb = File.join(File.dirname(object.media_type.path), "#{i.to_s}.png")
     File.open(thumb, 'w')

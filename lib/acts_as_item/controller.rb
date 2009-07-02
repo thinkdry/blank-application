@@ -6,6 +6,19 @@ module ActsAsItem
     end
     
     module ClassMethods
+      # ActsAsItem Library for Item Specific Code - Specific Controller Methods to All Items
+      #
+      # Included in the Controller of the Items
+      #
+      # Usage:
+      #
+      # app/controllers/articles_controller.rb
+      #
+      #     class ArticlesController < ApplicationController
+      #      acts_as_item do
+      #       ....some...code..
+      #       end
+      #     end
       def acts_as_item &block
         include ActsAsItem::ControllerMethods::InstanceMethods
 				acts_as_commentable
@@ -38,7 +51,7 @@ module ActsAsItem
             flash[:notice] = @current_object.class.label+' '+I18n.t('item.edit.flash_notice')
           end
           
-           after :update_fails do
+          after :update_fails do
             flash[:error] = @current_object.class.label+' '+I18n.t('item.edit.flash_error')
           end
 
@@ -103,37 +116,24 @@ module ActsAsItem
           response_for :destroy do |format|
             format.html { redirect_to(items_path(params[:controller])) }
           end
-          
-#					response_for :update do |format|
-#						#format.html { redirect_to item_path(@current_object)}
-#						format.html { redirect_to((ws=current_workspace) ? workspace_path(ws.id)+"/#{@current_object.class.to_s.underscore.pluralize}" : "/content/#{@current_object.class.to_s.underscore.pluralize}") }
-#					end
-
-#					response_for :create do |format|
-#							format.html {
-#								#redirect_to( ((@current_object.class.to_s == 'Article') || (@current_object.class.to_s == 'Page')) ? ((ws=current_workspace) ? edit_item_path(@current_object.class.to_s) : "/content/#{@current_object.class.to_s.underscore.pluralize}/#{@current_object.id}/edit") : ((ws=current_workspace) ? workspace_path(ws.id)+"/#{@current_object.class.to_s.underscore.pluralize}"+"/#{@current_object.id}/edit" : "/content/#{@current_object.class.to_s.underscore.pluralize}"+"/#{@current_object.id}/edit") )
-#								#raise @current_object.class.to_s.inspect
-#								if ((@current_object.class.to_s == 'Article') || (@current_object.class.to_s == 'Page'))
-#									redirect_to((ws=current_workspace) ? workspace_path(ws.id)+"/#{@current_object.class.to_s.underscore.pluralize}/#{@current_object.id}/edit" : "/#{@current_object.class.to_s.underscore.pluralize}/#{@current_object.id}/edit")
-#								else
-#									redirect_to((ws=current_workspace) ? workspace_path(ws.id)+"/#{@current_object.class.to_s.underscore.pluralize}"+"/#{@current_object.id}" : "/#{@current_object.class.to_s.underscore.pluralize}"+"/#{@current_object.id}")
-#								end
-#							}
-#					end
-					
         end
 
+        # Items Lists depending on Controller
 				def current_objects
 					@current_objects = get_items_list(params[:controller])
 				end
-
-				
-
       end
 
     end
     
     module InstanceMethods
+      # Rate the Item
+      #
+      # Usage:
+      #
+      # <tt>article.rate</tt>
+      #
+      # will create new rating for the item and save it
       def rate
         current_object.add_rating(Rating.new(:rating => params[:rated].to_i))
 				current_object.rates_average = current_object.rating

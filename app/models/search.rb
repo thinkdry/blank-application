@@ -3,18 +3,22 @@
 #
 # Table name: searches
 #
-#  item_type_equals     :string
-#  title_contains       :string
-#  description_contains :string
-#  user_name_contains   :string
-#  created_after        :datetime
-#  created_before       :datetime
+#  category        :string
+#  models          :string
+#  full_text_field :text
+#  conditions      :string
+#  created_before  :date
+#  created_after   :date
+#  filter_name     :string
+#  filter_way      :string
+#  filter_limit    :integer
 #
 
 
 class Search < ActiveRecord::Base
   # Tableless model
   def self.columns() @columns ||= []; end
+
   def self.column(name, sql_type = nil, default = nil, null = true)
     columns << ActiveRecord::ConnectionAdapters::Column.new(name.to_s, default, sql_type.to_s, null)
   end
@@ -22,38 +26,39 @@ class Search < ActiveRecord::Base
 	serialize :conditions, Hash
 	
 	column :category, :string
+
 	column :models, :string
-	# Text plain search
+
+  # Text plain search
+   
 	column :full_text_field, :text_area
+
   # Advanced search
+
 	column :conditions, :string
 	column :created_before, :date
 	column :created_after, :date
+
 	# Filter
+
 	column :filter_name, :string
 	column :filter_way, :string
 	column :filter_limit, :integer
-  
+
+  # Validation
   validates_date :created_after, :created_before, :allow_nil => true
 
+  # Models for acts_as_xapian Search
 	def models= params
 		self[:models] = params.join(',')
 	end
 
-#	def conditions= params
-#		conditions = []
-#		params.each do |k, v|
-#			if !v.blank?
-#				conditions << "#{k} == #{(v.is_a?(Array) ? v.join(',') : v)}"
-#			end
-#		end
-#		self[:conditions] = conditions.join(' && ')
-#	end
 
 	def get_value_of_param(param_name)
 		return self[:conditions][param_name]
 	end
 
+  # Build Conditions for Advance Search, checking paramerters passes
 	def conditions
 		res = []
 		if self[:conditions]
@@ -67,6 +72,7 @@ class Search < ActiveRecord::Base
 		return res.join(' AND ')
 	end
 
+  # Search on Single, Multiple Models with filters according to Passed Parameters
 	def do_search
 		results = []
 		if self[:models].split(',').size == 1
