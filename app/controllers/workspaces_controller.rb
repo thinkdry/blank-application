@@ -2,11 +2,18 @@ class WorkspacesController < ApplicationController
 	
   acts_as_ajax_validation
 
+	before_filter :permission_checking, :only => [:new, :create, :edit, :update, :show, :destroy]
+
+	def permission_checking
+		current_object
+		no_permission_redirection unless @current_user && @current_object.send("accepts_#{params[:action]}_for?".to_sym, @current_user)
+	end
+
   make_resourceful do
     actions :show, :create, :new, :edit, :update, :destroy, :index
 
     before :show do
-      no_permission_redirection unless @current_user && @current_object.accepts_show_for?(@current_user)
+      #no_permission_redirection unless @current_user && @current_object.accepts_show_for?(@current_user)
       params[:id] ||= params[:workspace_id]
 			# Just for the first load of the show, means without item selected
       params[:item_type] ||= get_allowed_item_types(@current_object).first.to_s.pluralize
@@ -15,17 +22,17 @@ class WorkspacesController < ApplicationController
     end
 
 		before :new do
-			no_permission_redirection unless @current_user && @current_object.accepts_new_for?(@current_user)
+			#no_permission_redirection unless @current_user && @current_object.accepts_new_for?(@current_user)
 			@roles = Role.find(:all, :conditions => { :type_role => 'workspace' })
 		end
 
 		before :edit do
-			no_permission_redirection unless @current_user && @current_object.accepts_edit_for?(@current_user)
+			#no_permission_redirection unless @current_user && @current_object.accepts_edit_for?(@current_user)
 			@roles = Role.find(:all, :conditions => { :type_role => 'workspace' })
 		end
 
     before :create do
-			no_permission_redirection unless @current_user && @current_object.accepts_new_for?(@current_user)
+			#no_permission_redirection unless @current_user && @current_object.accepts_new_for?(@current_user)
 			params[:id] ||= params[:workspace_id]
       @current_object.creator = @current_user
     end
@@ -39,7 +46,7 @@ class WorkspacesController < ApplicationController
     end
 
 		before :update do
-      no_permission_redirection unless @current_user && @current_object.accepts_edit_for?(@current_user)
+      #no_permission_redirection unless @current_user && @current_object.accepts_edit_for?(@current_user)
       # Hack. Permit deletion of all assigned users (with roles).
       #params["workspace"]["existing_user_attributes"] ||= {}
     end
@@ -52,19 +59,19 @@ class WorkspacesController < ApplicationController
     end
 
 		before :destroy do
-			no_permission_redirection unless @current_user && @current_object.accepts_destroy_for?(@current_user)
+			#no_permission_redirection unless @current_user && @current_object.accepts_destroy_for?(@current_user)
 		end
 
 		response_for :destroy do |format|
 			format.html { redirect_to administration_user_url(@current_user.id) }
 		end
     
-		response_for :show do |format|
-      format.html { render :action => "show" }
-      format.xml { render :xml => @current_object }
-      format.json { render :json => @current_object }
-      #format.atom { render :template => "items/index.atom.builder", :layout => false }
-    end                   
+#		response_for :show do |format|
+#      format.html { render :action => "show" }
+#      format.xml { render :xml => @current_object }
+#      format.json { render :json => @current_object }
+#      format.atom { render :template => "items/index.atom.builder", :layout => false }
+#    end
 	end
 
 	def current_object
