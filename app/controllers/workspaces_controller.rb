@@ -5,7 +5,11 @@ class WorkspacesController < ApplicationController
 	before_filter :permission_checking, :only => [:new, :create, :edit, :update, :show, :destroy]
 
 	def permission_checking
-		current_object
+		if params[:action] == 'new' || params[:action] == 'create'
+			build_object
+		else
+			current_object
+		end
 		no_permission_redirection unless @current_user && @current_object.send("accepts_#{params[:action]}_for?".to_sym, @current_user)
 	end
 
