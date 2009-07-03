@@ -38,10 +38,61 @@
 #  gender                    :string(255)
 #
 
+# superadmin
 luc:
+    id: 1
     login: luc
     firstname: luc
     lastname: skywalker
-    
+    system_role_id: 1
+
+# admin
 albert:
+    id: 2
     login: albert
+    firstname: albert
+    lastname: dupond
+    system_role_id: 2
+
+# user
+leo:
+    id: 3
+    login: leo
+    firstname: leo
+    lastname: nard
+    system_role_id: 3
+
+# ws_admin
+mj:
+    id: 4
+    login: mj
+    firstname: mary
+    lastname: jane
+    system_role_id: 4
+
+# moderator
+peter:
+    id: 5
+    login: peter
+    firstname: peter
+    lastname: parker
+    system_role_id: 5
+
+# reader
+jack:
+    id: 6
+    login: jack
+    firstname: jack
+    lastname: sparrow
+    system_role_id: 6
+
+# writer
+cyrus:
+    id: 7
+    login: cyrus
+    firstname: cyrus
+    lastname: black
+    system_role_id: 7
+
+
+

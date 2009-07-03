@@ -7,6 +7,18 @@ module ActsAsItem
     
     module ClassMethods
       # ActsAsItem Library for Item Specific Code - Specific Controller Methods to All Items
+      #
+      # Included in the Controller of the Items
+      #
+      # Usage:
+      #
+      # app/controllers/articles_controller.rb
+      #
+      #     class ArticlesController < ApplicationController
+      #      acts_as_item do
+      #       ....some...code..
+      #       end
+      #     end
       def acts_as_item &block
         include ActsAsItem::ControllerMethods::InstanceMethods
 				acts_as_commentable
@@ -18,6 +30,8 @@ module ActsAsItem
 						system("rake xapian:update_index RAILS_ENV=#{RAILS_ENV}")
 					end
 				end
+
+				before_filter :permission_checking, :only => [:new, :create, :edit, :update, :show, :destroy]
 
         make_resourceful do
           actions :all
@@ -39,28 +53,28 @@ module ActsAsItem
             flash[:notice] = @current_object.class.label+' '+I18n.t('item.edit.flash_notice')
           end
           
-           after :update_fails do
+          after :update_fails do
             flash[:error] = @current_object.class.label+' '+I18n.t('item.edit.flash_error')
           end
 
-          before :new, :create do
-            no_permission_redirection unless @current_object && @current_object.accepts_new_for?(@current_user)
-          end
+#          before :new, :create do
+#            no_permission_redirection unless @current_object && @current_object.accepts_new_for?(@current_user)
+#          end
 
           before :show do
-            no_permission_redirection unless @current_object && @current_object.accepts_show_for?(@current_user)
+#            no_permission_redirection unless @current_object && @current_object.accepts_show_for?(@current_user)
 						@current_object.viewed_number = @current_object.viewed_number.to_i + 1
 						@current_object.save
           end
 
           before :edit, :update do
-            no_permission_redirection unless @current_object.accepts_edit_for?(@current_user)
+#            no_permission_redirection unless @current_object.accepts_edit_for?(@current_user)
 						session[:fck_item_id] = @current_object.id
             session[:fck_item_type] = @current_object.class.to_s
           end
 
           before :destroy do
-            no_permission_redirection unless @current_object && @current_object.accepts_destroy_for?(@current_user)
+#            no_permission_redirection unless @current_object && @current_object.accepts_destroy_for?(@current_user)
           end
 
           # Makes `current_user` as author for the current_object
@@ -77,7 +91,17 @@ module ActsAsItem
 					end
 
 					before :index do
+						# Just to manage the permission of creation (trick avoiding one more loop)
+						params[:item_type] = @current_objects.first.class.to_s.underscore
 						@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
+					end
+
+					response_for :create do |format|
+						format.html { (@current_object.class.to_s == 'Article' || @current_object.class.to_s == 'Page') ? redirect_to(edit_item_path(@current_object)) : redirect_to(item_path(@current_object)) }
+					end
+
+					response_for :update do |format|
+						format.html { redirect_to item_path(@current_object) }
 					end
 
 					response_for :new, :create_fails do |format|
@@ -104,39 +128,45 @@ module ActsAsItem
           response_for :destroy do |format|
             format.html { redirect_to(items_path(params[:controller])) }
           end
-          
-#					response_for :update do |format|
-#						#format.html { redirect_to item_path(@current_object)}
-#						format.html { redirect_to((ws=current_workspace) ? workspace_path(ws.id)+"/#{@current_object.class.to_s.underscore.pluralize}" : "/content/#{@current_object.class.to_s.underscore.pluralize}") }
-#					end
-
-#					response_for :create do |format|
-#							format.html {
-#								#redirect_to( ((@current_object.class.to_s == 'Article') || (@current_object.class.to_s == 'Page')) ? ((ws=current_workspace) ? edit_item_path(@current_object.class.to_s) : "/content/#{@current_object.class.to_s.underscore.pluralize}/#{@current_object.id}/edit") : ((ws=current_workspace) ? workspace_path(ws.id)+"/#{@current_object.class.to_s.underscore.pluralize}"+"/#{@current_object.id}/edit" : "/content/#{@current_object.class.to_s.underscore.pluralize}"+"/#{@current_object.id}/edit") )
-#								#raise @current_object.class.to_s.inspect
-#								if ((@current_object.class.to_s == 'Article') || (@current_object.class.to_s == 'Page'))
-#									redirect_to((ws=current_workspace) ? workspace_path(ws.id)+"/#{@current_object.class.to_s.underscore.pluralize}/#{@current_object.id}/edit" : "/#{@current_object.class.to_s.underscore.pluralize}/#{@current_object.id}/edit")
-#								else
-#									redirect_to((ws=current_workspace) ? workspace_path(ws.id)+"/#{@current_object.class.to_s.underscore.pluralize}"+"/#{@current_object.id}" : "/#{@current_object.class.to_s.underscore.pluralize}"+"/#{@current_object.id}")
-#								end
-#							}
-#					end
-					
         end
 
-        # Return The Items List depending on current controller
+        # Items Lists depending on Controller
 				def current_objects
 					@current_objects = get_items_list(params[:controller])
 				end
-
-				
-
       end
 
     end
     
     module InstanceMethods
-      # Add Rating to the Current Item
+			# Function testing the auhorization on an instance of that item type
+      #
+      # Included in the Controller of the Items
+      #
+      # Usage:
+      #
+      # Just use in a before_filter checking the permission before each action specified
+      #
+			def permission_checking
+				if params[:action] == 'new' || params[:action] == 'create'
+					build_object
+					no_permission_redirection unless @current_user && @current_object.send("accepts_new_for?".to_sym, @current_user)
+				elsif params[:action] == 'edit' || params[:action] == 'update'
+					current_object
+					no_permission_redirection unless @current_user && @current_object.send("accepts_edit_for?".to_sym, @current_user)
+				else
+					current_object
+					no_permission_redirection unless @current_user && @current_object.send("accepts_#{params[:action]}_for?".to_sym, @current_user)
+				end
+			end
+			
+      # Rate the Item
+      #
+      # Usage:
+      #
+      # <tt>article.rate</tt>
+      #
+      # will create new rating for the item and save it
       def rate
         current_object.add_rating(Rating.new(:rating => params[:rated].to_i))
 				current_object.rates_average = current_object.rating

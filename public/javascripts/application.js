@@ -19,14 +19,14 @@ function showhide(id){
 var file1="";
 function LimitAttach(form, file, type) {
     var a = $('submit_button');
-    if(type=="audio")
-        extArray = new Array(".wav",".mp3",".wma",".mp4");
-    if(type=="video")
-        extArray = new Array(".mov", ".mpeg", ".mpg", ".3gp", ".flv", ".avi");
-    if(type=="image")
-        extArray = new Array(".gif", ".jpg", ".jpeg", ".png", ".bmp");
-    if(type=="cmsfile")
-        extArray = new Array(".txt",".doc",".pdf");
+    if(type=="audio"){
+        extArray = new Array(".wav",".mp3",".wma",".mp4");}
+    if(type=="video"){
+        extArray = new Array(".mov", ".mpeg", ".mpg", ".3gp", ".flv", ".avi");}
+    if(type=="image"){
+        extArray = new Array(".gif", ".jpg", ".jpeg", ".png", ".bmp");}
+    if(type=="cmsfile"){
+        extArray = new Array(".txt",".doc",".pdf");}
     allowSubmit = false;
     if(file1==file) return;
     if (!file) return;

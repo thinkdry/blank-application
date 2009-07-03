@@ -1,4 +1,4 @@
-class StylesheetsController < ApplicationController
+class StylesheetsController < ApplicationController#:nodoc: all
 
   # Dynamic CSS for Application Layout
   def application

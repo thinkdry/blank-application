@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE html 
      PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <title>Module: AjaxPagination</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <meta http-equiv="Content-Script-Type" content="text/javascript" />
   <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
   <script type="text/javascript">
@@ -80,8 +80,8 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000216">remote_pagination</a>&nbsp;&nbsp;
-      <a href="#M000217">visible_page_numbers</a>&nbsp;&nbsp;
+      <a href="#M000458">remote_pagination</a>&nbsp;&nbsp;
+      <a href="#M000459">visible_page_numbers</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -103,106 +103,151 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000216" class="method-detail">
-        <a name="M000216"></a>
+      <div id="method-M000458" class="method-detail">
+        <a name="M000458"></a>
 
         <div class="method-heading">
-          <a href="#M000216" class="method-signature">
+          <a href="#M000458" class="method-signature">
           <span class="method-name">remote_pagination</span><span class="method-args">(collection, url, refreshed_div)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Needs two arguments one is collection object and another is url. url should
-look like &#8217;/people/ajax_index/?page=&#8217; last parameter in the url
-should be &#8216;page=&#8216;
+Ajax Pagination For Content Page
 </p>
+<p>
+Usage:Called from the View as
+</p>
+<p>
+<tt><a
+href="AjaxPagination.html#M000458">remote_pagination</a>(@paginated_objects,
+ajax_url, &#8216;object-list&#8217;)</tt>
+</p>
+<p>
+will refresh the div with new paginated_objects
+</p>
+<p>
+Parameters
+</p>
+<ul>
+<li>collection: Collection of <a href="Item.html">Item</a>
+
+</li>
+<li>url: &#8217;/people/ajax_index/?page=&#8217; last parameter in the url
+should be &#8216;page=&#8216;
+
+</li>
+<li>refeshed_div: &#8216;object-list&#8216;
+
+</li>
+</ul>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000216-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000216-source">
+            onclick="toggleCode('M000458-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000458-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/ajax_pagination.rb, line 7</span>
- 7:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">remote_pagination</span>(<span class="ruby-identifier">collection</span>, <span class="ruby-identifier">url</span>, <span class="ruby-identifier">refreshed_div</span>)
- 8:                 <span class="ruby-comment cmt">#url = request.url.split('?').first</span>
- 9:                 <span class="ruby-identifier">paramss</span> = <span class="ruby-identifier">request</span>.<span class="ruby-identifier">url</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'?'</span>).<span class="ruby-identifier">last</span> <span class="ruby-comment cmt"># why use request.url and not url in param</span>
-10:                 <span class="ruby-identifier">paramss</span> = (<span class="ruby-identifier">paramss</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'&amp;'</span>).<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">paramss</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'&amp;page='</span>).<span class="ruby-identifier">first</span><span class="ruby-operator">+</span><span class="ruby-value str">'&amp;page='</span> <span class="ruby-operator">:</span> <span class="ruby-value str">'page='</span>
-11:     <span class="ruby-identifier">url</span> = <span class="ruby-identifier">url</span><span class="ruby-operator">+</span><span class="ruby-value str">'?'</span><span class="ruby-operator">+</span><span class="ruby-identifier">paramss</span>
-12:     <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">collection</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">collection</span>.<span class="ruby-identifier">total_pages</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>
-13:     <span class="ruby-identifier">content</span> = <span class="ruby-constant">String</span>.<span class="ruby-identifier">new</span>
-14: <span class="ruby-comment cmt">#               item_type =  params[:item_type].nil? ? get_default_item_type(current_workspace) : params[:item_type]</span>
-15: <span class="ruby-comment cmt">#    url = current_workspace ? ajax_items_path(item_type) +&quot;&amp;page=&quot; : ajax_items_path(item_type) +&quot;?page=&quot;</span>
-16:     <span class="ruby-identifier">current_page</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:page</span>] <span class="ruby-operator">?</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:page</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">:</span> <span class="ruby-value">1</span>
-17:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">current_page</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
-18:       <span class="ruby-identifier">content</span> = <span class="ruby-node">&quot;&amp;laquo; #{I18n.t('general.common_word.prev')} &quot;</span>
-19:     <span class="ruby-keyword kw">else</span>
-20:      <span class="ruby-identifier">content</span> = <span class="ruby-identifier">content</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">link_to_remote</span>(<span class="ruby-node">&quot;&amp;laquo; #{I18n.t('general.common_word.prev')} &quot;</span>, <span class="ruby-identifier">:update</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">refreshed_div</span>,<span class="ruby-identifier">:method=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">:get</span>, <span class="ruby-identifier">:url</span> =<span class="ruby-operator">&gt;</span><span class="ruby-identifier">url</span><span class="ruby-operator">+</span><span class="ruby-node">&quot;#{current_page - 1}&quot;</span>)
-21:     <span class="ruby-keyword kw">end</span>
-22:     <span class="ruby-identifier">prev</span> = <span class="ruby-keyword kw">nil</span>
-23:     <span class="ruby-identifier">visible_page_numbers</span>(<span class="ruby-identifier">current_page</span>,<span class="ruby-identifier">collection</span>.<span class="ruby-identifier">total_pages</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">page_no</span><span class="ruby-operator">|</span>
-24:         <span class="ruby-identifier">content</span> = <span class="ruby-identifier">content</span><span class="ruby-operator">+</span>((<span class="ruby-identifier">prev</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">page_no</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">prev</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>) <span class="ruby-operator">?</span> <span class="ruby-value str">&quot;&amp;hellip;&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-value str">&quot; &quot;</span>)
-25:         <span class="ruby-identifier">prev</span> = <span class="ruby-identifier">page_no</span>
-26:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">current_page</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">page_no</span>
-27:           <span class="ruby-identifier">content</span> = <span class="ruby-identifier">content</span><span class="ruby-operator">+</span><span class="ruby-identifier">content_tag</span>(<span class="ruby-identifier">:b</span>,<span class="ruby-identifier">page_no</span>.<span class="ruby-identifier">to_s</span>)
-28:         <span class="ruby-keyword kw">else</span>
-29:           <span class="ruby-identifier">content</span> = <span class="ruby-identifier">content</span><span class="ruby-operator">+</span> <span class="ruby-identifier">link_to_remote</span>(<span class="ruby-identifier">page_no</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-identifier">:update</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">refreshed_div</span>,<span class="ruby-identifier">:method=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">:get</span>, <span class="ruby-identifier">:url</span> =<span class="ruby-operator">&gt;</span><span class="ruby-identifier">url</span><span class="ruby-operator">+</span><span class="ruby-node">&quot;#{page_no}&quot;</span>)
-30:         <span class="ruby-keyword kw">end</span>
-31:     <span class="ruby-keyword kw">end</span>
-32:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">current_page</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">collection</span>.<span class="ruby-identifier">total_pages</span>
-33:       <span class="ruby-identifier">content</span> = <span class="ruby-identifier">content</span> <span class="ruby-operator">+</span><span class="ruby-node">&quot;  #{I18n.t('general.common_word.next')} &amp;raquo;&quot;</span>
-34:     <span class="ruby-keyword kw">else</span>
-35:       <span class="ruby-identifier">content</span> = <span class="ruby-identifier">content</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">link_to_remote</span>(<span class="ruby-node">&quot;  #{I18n.t('general.common_word.next')} &amp;raquo;&quot;</span>, <span class="ruby-identifier">:update</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">refreshed_div</span>,<span class="ruby-identifier">:method=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">:get</span>, <span class="ruby-identifier">:url</span> =<span class="ruby-operator">&gt;</span><span class="ruby-identifier">url</span><span class="ruby-operator">+</span><span class="ruby-node">&quot;#{(current_page+1)}&quot;</span>)
-36:     <span class="ruby-keyword kw">end</span>
-37:     <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">content_tag</span>(<span class="ruby-identifier">:div</span>, <span class="ruby-identifier">content_tag</span>(<span class="ruby-identifier">:div</span>, <span class="ruby-identifier">content</span>, <span class="ruby-identifier">:align=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;center&quot;</span>), <span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;pagination&quot;</span>)
-38:     <span class="ruby-keyword kw">end</span>
-39:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/ajax_pagination.rb, line 18</span>
+18:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">remote_pagination</span>(<span class="ruby-identifier">collection</span>, <span class="ruby-identifier">url</span>, <span class="ruby-identifier">refreshed_div</span>)
+19:                 <span class="ruby-comment cmt">#url = request.url.split('?').first</span>
+20:                 <span class="ruby-identifier">paramss</span> = <span class="ruby-identifier">request</span>.<span class="ruby-identifier">url</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'?'</span>).<span class="ruby-identifier">last</span> <span class="ruby-comment cmt"># why use request.url and not url in param</span>
+21:                 <span class="ruby-identifier">paramss</span> = (<span class="ruby-identifier">paramss</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'&amp;'</span>).<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">paramss</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'&amp;page='</span>).<span class="ruby-identifier">first</span><span class="ruby-operator">+</span><span class="ruby-value str">'&amp;page='</span> <span class="ruby-operator">:</span> <span class="ruby-value str">'page='</span>
+22:     <span class="ruby-identifier">url</span> = <span class="ruby-identifier">url</span><span class="ruby-operator">+</span><span class="ruby-value str">'?'</span><span class="ruby-operator">+</span><span class="ruby-identifier">paramss</span>
+23:     <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">collection</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">collection</span>.<span class="ruby-identifier">total_pages</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>
+24:     <span class="ruby-identifier">content</span> = <span class="ruby-constant">String</span>.<span class="ruby-identifier">new</span>
+25: <span class="ruby-comment cmt">#               item_type =  params[:item_type].nil? ? get_default_item_type(current_workspace) : params[:item_type]</span>
+26: <span class="ruby-comment cmt">#    url = current_workspace ? ajax_items_path(item_type) +&quot;&amp;page=&quot; : ajax_items_path(item_type) +&quot;?page=&quot;</span>
+27:     <span class="ruby-identifier">current_page</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:page</span>] <span class="ruby-operator">?</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:page</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">:</span> <span class="ruby-value">1</span>
+28:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">current_page</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+29:       <span class="ruby-identifier">content</span> = <span class="ruby-node">&quot;&amp;laquo; #{I18n.t('general.common_word.prev')} &quot;</span>
+30:     <span class="ruby-keyword kw">else</span>
+31:      <span class="ruby-identifier">content</span> = <span class="ruby-identifier">content</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">link_to_remote</span>(<span class="ruby-node">&quot;&amp;laquo; #{I18n.t('general.common_word.prev')} &quot;</span>, <span class="ruby-identifier">:update</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">refreshed_div</span>,<span class="ruby-identifier">:method=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">:get</span>, <span class="ruby-identifier">:url</span> =<span class="ruby-operator">&gt;</span><span class="ruby-identifier">url</span><span class="ruby-operator">+</span><span class="ruby-node">&quot;#{current_page - 1}&quot;</span>)
+32:     <span class="ruby-keyword kw">end</span>
+33:     <span class="ruby-identifier">prev</span> = <span class="ruby-keyword kw">nil</span>
+34:     <span class="ruby-identifier">visible_page_numbers</span>(<span class="ruby-identifier">current_page</span>,<span class="ruby-identifier">collection</span>.<span class="ruby-identifier">total_pages</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">page_no</span><span class="ruby-operator">|</span>
+35:         <span class="ruby-identifier">content</span> = <span class="ruby-identifier">content</span><span class="ruby-operator">+</span>((<span class="ruby-identifier">prev</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">page_no</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">prev</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>) <span class="ruby-operator">?</span> <span class="ruby-value str">&quot;&amp;hellip;&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-value str">&quot; &quot;</span>)
+36:         <span class="ruby-identifier">prev</span> = <span class="ruby-identifier">page_no</span>
+37:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">current_page</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">page_no</span>
+38:           <span class="ruby-identifier">content</span> = <span class="ruby-identifier">content</span><span class="ruby-operator">+</span><span class="ruby-identifier">content_tag</span>(<span class="ruby-identifier">:b</span>,<span class="ruby-identifier">page_no</span>.<span class="ruby-identifier">to_s</span>)
+39:         <span class="ruby-keyword kw">else</span>
+40:           <span class="ruby-identifier">content</span> = <span class="ruby-identifier">content</span><span class="ruby-operator">+</span> <span class="ruby-identifier">link_to_remote</span>(<span class="ruby-identifier">page_no</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-identifier">:update</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">refreshed_div</span>,<span class="ruby-identifier">:method=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">:get</span>, <span class="ruby-identifier">:url</span> =<span class="ruby-operator">&gt;</span><span class="ruby-identifier">url</span><span class="ruby-operator">+</span><span class="ruby-node">&quot;#{page_no}&quot;</span>)
+41:         <span class="ruby-keyword kw">end</span>
+42:     <span class="ruby-keyword kw">end</span>
+43:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">current_page</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">collection</span>.<span class="ruby-identifier">total_pages</span>
+44:       <span class="ruby-identifier">content</span> = <span class="ruby-identifier">content</span> <span class="ruby-operator">+</span><span class="ruby-node">&quot;  #{I18n.t('general.common_word.next')} &amp;raquo;&quot;</span>
+45:     <span class="ruby-keyword kw">else</span>
+46:       <span class="ruby-identifier">content</span> = <span class="ruby-identifier">content</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">link_to_remote</span>(<span class="ruby-node">&quot;  #{I18n.t('general.common_word.next')} &amp;raquo;&quot;</span>, <span class="ruby-identifier">:update</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">refreshed_div</span>,<span class="ruby-identifier">:method=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">:get</span>, <span class="ruby-identifier">:url</span> =<span class="ruby-operator">&gt;</span><span class="ruby-identifier">url</span><span class="ruby-operator">+</span><span class="ruby-node">&quot;#{(current_page+1)}&quot;</span>)
+47:     <span class="ruby-keyword kw">end</span>
+48:     <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">content_tag</span>(<span class="ruby-identifier">:div</span>, <span class="ruby-identifier">content_tag</span>(<span class="ruby-identifier">:div</span>, <span class="ruby-identifier">content</span>, <span class="ruby-identifier">:align=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;center&quot;</span>), <span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;pagination&quot;</span>)
+49:     <span class="ruby-keyword kw">end</span>
+50:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000217" class="method-detail">
-        <a name="M000217"></a>
+      <div id="method-M000459" class="method-detail">
+        <a name="M000459"></a>
 
         <div class="method-heading">
-          <a href="#M000217" class="method-signature">
+          <a href="#M000459" class="method-signature">
           <span class="method-name">visible_page_numbers</span><span class="method-args">(current_page,total_pages)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Return the Page Numbers that should be Visible for Pagination
+Page Numbers that should be Visible for Pagination
 </p>
+<p>
+Usage:
+</p>
+<p>
+<tt><a
+href="AjaxPagination.html#M000459">visible_page_numbers</a>(5,20)</tt>
+</p>
+<p>
+will return array of visible numbers
+</p>
+<p>
+Parameters:
+</p>
+<ul>
+<li>current_page: current_page_number
+
+</li>
+<li>total_pages: total_pages
+
+</li>
+</ul>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000217-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000217-source">
+            onclick="toggleCode('M000459-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000459-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/ajax_pagination.rb, line 42</span>
-42:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">visible_page_numbers</span>(<span class="ruby-identifier">current_page</span>,<span class="ruby-identifier">total_pages</span>)
-43:       <span class="ruby-identifier">inner_window</span>, <span class="ruby-identifier">outer_window</span> = <span class="ruby-value">4</span>, <span class="ruby-value">1</span>
-44:       <span class="ruby-identifier">window_from</span> = <span class="ruby-identifier">current_page</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">inner_window</span>
-45:       <span class="ruby-identifier">window_to</span> = <span class="ruby-identifier">current_page</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">inner_window</span>
-46: 
-47:       <span class="ruby-comment cmt"># adjust lower or upper limit if other is out of bounds</span>
-48:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">window_to</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">total_pages</span>
-49:         <span class="ruby-identifier">window_from</span> <span class="ruby-operator">-=</span> <span class="ruby-identifier">window_to</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">total_pages</span>
-50:         <span class="ruby-identifier">window_to</span> = <span class="ruby-identifier">total_pages</span>
-51:       <span class="ruby-keyword kw">end</span>
-52:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">window_from</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">1</span>
-53:         <span class="ruby-identifier">window_to</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">window_from</span>
-54:         <span class="ruby-identifier">window_from</span> = <span class="ruby-value">1</span>
-55:         <span class="ruby-identifier">window_to</span> = <span class="ruby-identifier">total_pages</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">window_to</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">total_pages</span>
-56:       <span class="ruby-keyword kw">end</span>
-57: 
-58:       <span class="ruby-identifier">visible</span>   = (<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-identifier">total_pages</span>).<span class="ruby-identifier">to_a</span>
-59:       <span class="ruby-identifier">left_gap</span>  = (<span class="ruby-value">2</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">outer_window</span>)<span class="ruby-operator">...</span><span class="ruby-identifier">window_from</span>
-60:       <span class="ruby-identifier">right_gap</span> = (<span class="ruby-identifier">window_to</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>)<span class="ruby-operator">...</span>(<span class="ruby-identifier">total_pages</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">outer_window</span>)
-61:       <span class="ruby-identifier">visible</span>  <span class="ruby-operator">-=</span> <span class="ruby-identifier">left_gap</span>.<span class="ruby-identifier">to_a</span>  <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">left_gap</span>.<span class="ruby-identifier">last</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">left_gap</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>
-62:       <span class="ruby-identifier">visible</span>  <span class="ruby-operator">-=</span> <span class="ruby-identifier">right_gap</span>.<span class="ruby-identifier">to_a</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">right_gap</span>.<span class="ruby-identifier">last</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">right_gap</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>
-63: 
-64:       <span class="ruby-identifier">visible</span>
-65:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/ajax_pagination.rb, line 64</span>
+64:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">visible_page_numbers</span>(<span class="ruby-identifier">current_page</span>,<span class="ruby-identifier">total_pages</span>)
+65:       <span class="ruby-identifier">inner_window</span>, <span class="ruby-identifier">outer_window</span> = <span class="ruby-value">4</span>, <span class="ruby-value">1</span>
+66:       <span class="ruby-identifier">window_from</span> = <span class="ruby-identifier">current_page</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">inner_window</span>
+67:       <span class="ruby-identifier">window_to</span> = <span class="ruby-identifier">current_page</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">inner_window</span>
+68: 
+69:       <span class="ruby-comment cmt"># adjust lower or upper limit if other is out of bounds</span>
+70:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">window_to</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">total_pages</span>
+71:         <span class="ruby-identifier">window_from</span> <span class="ruby-operator">-=</span> <span class="ruby-identifier">window_to</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">total_pages</span>
+72:         <span class="ruby-identifier">window_to</span> = <span class="ruby-identifier">total_pages</span>
+73:       <span class="ruby-keyword kw">end</span>
+74:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">window_from</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">1</span>
+75:         <span class="ruby-identifier">window_to</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">window_from</span>
+76:         <span class="ruby-identifier">window_from</span> = <span class="ruby-value">1</span>
+77:         <span class="ruby-identifier">window_to</span> = <span class="ruby-identifier">total_pages</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">window_to</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">total_pages</span>
+78:       <span class="ruby-keyword kw">end</span>
+79: 
+80:       <span class="ruby-identifier">visible</span>   = (<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-identifier">total_pages</span>).<span class="ruby-identifier">to_a</span>
+81:       <span class="ruby-identifier">left_gap</span>  = (<span class="ruby-value">2</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">outer_window</span>)<span class="ruby-operator">...</span><span class="ruby-identifier">window_from</span>
+82:       <span class="ruby-identifier">right_gap</span> = (<span class="ruby-identifier">window_to</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>)<span class="ruby-operator">...</span>(<span class="ruby-identifier">total_pages</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">outer_window</span>)
+83:       <span class="ruby-identifier">visible</span>  <span class="ruby-operator">-=</span> <span class="ruby-identifier">left_gap</span>.<span class="ruby-identifier">to_a</span>  <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">left_gap</span>.<span class="ruby-identifier">last</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">left_gap</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>
+84:       <span class="ruby-identifier">visible</span>  <span class="ruby-operator">-=</span> <span class="ruby-identifier">right_gap</span>.<span class="ruby-identifier">to_a</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">right_gap</span>.<span class="ruby-identifier">last</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">right_gap</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>
+85: 
+86:       <span class="ruby-identifier">visible</span>
+87:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

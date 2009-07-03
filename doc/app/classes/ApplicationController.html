@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE html 
      PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <title>Class: ApplicationController</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <meta http-equiv="Content-Script-Type" content="text/javascript" />
   <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
   <script type="text/javascript">
@@ -86,16 +86,16 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000148">admin?</a>&nbsp;&nbsp;
-      <a href="#M000142">get_allowed_item_types</a>&nbsp;&nbsp;
-      <a href="#M000141">get_da_layout</a>&nbsp;&nbsp;
-      <a href="#M000147">get_items_list</a>&nbsp;&nbsp;
-      <a href="#M000149">groups_of_workspaces_of_item</a>&nbsp;&nbsp;
-      <a href="#M000145">is_admin?</a>&nbsp;&nbsp;
-      <a href="#M000140">is_logged?</a>&nbsp;&nbsp;
-      <a href="#M000144">is_superadmin?</a>&nbsp;&nbsp;
-      <a href="#M000143">item_types_allowed_to</a>&nbsp;&nbsp;
-      <a href="#M000146">no_permission_redirection</a>&nbsp;&nbsp;
+      <a href="#M000399">admin?</a>&nbsp;&nbsp;
+      <a href="#M000393">get_allowed_item_types</a>&nbsp;&nbsp;
+      <a href="#M000392">get_da_layout</a>&nbsp;&nbsp;
+      <a href="#M000398">get_items_list</a>&nbsp;&nbsp;
+      <a href="#M000400">groups_of_workspaces_of_item</a>&nbsp;&nbsp;
+      <a href="#M000396">is_admin?</a>&nbsp;&nbsp;
+      <a href="#M000391">is_logged?</a>&nbsp;&nbsp;
+      <a href="#M000395">is_superadmin?</a>&nbsp;&nbsp;
+      <a href="#M000394">item_types_allowed_to</a>&nbsp;&nbsp;
+      <a href="#M000397">no_permission_redirection</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -141,292 +141,382 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000148" class="method-detail">
-        <a name="M000148"></a>
+      <div id="method-M000399" class="method-detail">
+        <a name="M000399"></a>
 
         <div class="method-heading">
-          <a href="#M000148" class="method-signature">
+          <a href="#M000399" class="method-signature">
           <span class="method-name">admin?</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Check is <a href="User.html">User</a> is admin(Not used relly)
+Check is <a href="User.html">User</a> is admin(Not used)
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000148-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000148-source">
+            onclick="toggleCode('M000399-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000399-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/controllers/application_controller.rb, line 100</span>
-100:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">admin?</span>
-101:                 <span class="ruby-keyword kw">true</span>
-102:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/controllers/application_controller.rb, line 137</span>
+137:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">admin?</span>
+138:                 <span class="ruby-keyword kw">true</span>
+139:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000142" class="method-detail">
-        <a name="M000142"></a>
+      <div id="method-M000393" class="method-detail">
+        <a name="M000393"></a>
 
         <div class="method-heading">
-          <a href="#M000142" class="method-signature">
+          <a href="#M000393" class="method-signature">
           <span class="method-name">get_allowed_item_types</span><span class="method-args">(workspace=nil)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Retun Allowed <a href="Item.html">Item</a> Types Depending on <a
-href="Workspace.html">Workspace</a> or <a href="User.html">User</a>
+Allowed <a href="Item.html">Item</a> Types
 </p>
+<p>
+Will return the items of workspace if <a href="User.html">User</a> inside
+workspace
+</p>
+<p>
+Else will return configuration items of SuperAdministrator
+</p>
+<p>
+Parameters
+</p>
+<ul>
+<li>workspace: workspace_object, default: nil
+
+</li>
+</ul>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000142-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000142-source">
+            onclick="toggleCode('M000393-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000393-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/controllers/application_controller.rb, line 48</span>
-48:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_allowed_item_types</span>(<span class="ruby-identifier">workspace</span>=<span class="ruby-keyword kw">nil</span>)
-49:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">workspace</span>
-50:                         <span class="ruby-keyword kw">return</span> (<span class="ruby-identifier">workspace</span>.<span class="ruby-identifier">ws_items</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">','</span>) <span class="ruby-operator">&amp;</span> <span class="ruby-ivar">@configuration</span>[<span class="ruby-value str">'sa_items'</span>])
-51:                 <span class="ruby-keyword kw">else</span>
-52:                         <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@configuration</span>[<span class="ruby-value str">'sa_items'</span>]
-53:                 <span class="ruby-keyword kw">end</span>
-54:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/controllers/application_controller.rb, line 63</span>
+63:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_allowed_item_types</span>(<span class="ruby-identifier">workspace</span>=<span class="ruby-keyword kw">nil</span>)
+64:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">workspace</span>
+65:                         <span class="ruby-keyword kw">return</span> (<span class="ruby-identifier">workspace</span>.<span class="ruby-identifier">ws_items</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">','</span>) <span class="ruby-operator">&amp;</span> <span class="ruby-ivar">@configuration</span>[<span class="ruby-value str">'sa_items'</span>])
+66:                 <span class="ruby-keyword kw">else</span>
+67:                         <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@configuration</span>[<span class="ruby-value str">'sa_items'</span>]
+68:                 <span class="ruby-keyword kw">end</span>
+69:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000141" class="method-detail">
-        <a name="M000141"></a>
+      <div id="method-M000392" class="method-detail">
+        <a name="M000392"></a>
 
         <div class="method-heading">
-          <a href="#M000141" class="method-signature">
+          <a href="#M000392" class="method-signature">
           <span class="method-name">get_da_layout</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
+          <p>
+Layout for <a href="User.html">User</a>
+</p>
+<p>
+Get the layout for current logged in <a href="User.html">User</a>
+</p>
+<p>
+if layout is not selected then will return configuration layout else
+default &#8216;application&#8217; layout
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000141-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000141-source">
+            onclick="toggleCode('M000392-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000392-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/controllers/application_controller.rb, line 39</span>
-39:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_da_layout</span>
-40:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">u_layout</span>
-41:       <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">u_layout</span>
-42:     <span class="ruby-keyword kw">else</span>
-43:       <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@configuration</span>[<span class="ruby-value str">'sa_layout'</span>] <span class="ruby-operator">||</span> <span class="ruby-value str">'application'</span>
-44:     <span class="ruby-keyword kw">end</span>
-45:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/controllers/application_controller.rb, line 46</span>
+46:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_da_layout</span>
+47:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">u_layout</span>
+48:       <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">u_layout</span>
+49:     <span class="ruby-keyword kw">else</span>
+50:       <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@configuration</span>[<span class="ruby-value str">'sa_layout'</span>] <span class="ruby-operator">||</span> <span class="ruby-value str">'application'</span>
+51:     <span class="ruby-keyword kw">end</span>
+52:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000147" class="method-detail">
-        <a name="M000147"></a>
+      <div id="method-M000398" class="method-detail">
+        <a name="M000398"></a>
 
         <div class="method-heading">
-          <a href="#M000147" class="method-signature">
+          <a href="#M000398" class="method-signature">
           <span class="method-name">get_items_list</span><span class="method-args">(item_type, workspace=nil)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Return List of item types depending on user or workspace
+List of Items
+</p>
+<p>
+Usage:
+</p>
+<p>
+<tt>get_item_list(&#8216;article&#8217;,workspace_object)</tt>
+</p>
+<p>
+will return the list of items depending on workspace or superadmin
+configuration items
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000147-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000147-source">
+            onclick="toggleCode('M000398-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000398-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/controllers/application_controller.rb, line 82</span>
-82:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_items_list</span>(<span class="ruby-identifier">item_type</span>, <span class="ruby-identifier">workspace</span>=<span class="ruby-keyword kw">nil</span>)
-83:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">workspace</span>
-84:                         <span class="ruby-keyword kw">if</span> (<span class="ruby-ivar">@configuration</span>[<span class="ruby-value str">'sa_items'</span>] <span class="ruby-operator">&amp;</span> <span class="ruby-identifier">workspace</span>.<span class="ruby-identifier">ws_items</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">','</span>)).<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">item_type</span>.<span class="ruby-identifier">singularize</span>)
-85:                                 <span class="ruby-identifier">current_objects</span> = <span class="ruby-identifier">item_type</span>.<span class="ruby-identifier">classify</span>.<span class="ruby-identifier">constantize</span>.<span class="ruby-identifier">get_items_list_for_user_with_permission_in_workspace</span>(<span class="ruby-ivar">@current_user</span>, <span class="ruby-value str">'show'</span>, <span class="ruby-identifier">workspace</span>, <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:filter_name</span>], <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:filter_way</span>], <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:filter_limit</span>])
-86:                         <span class="ruby-keyword kw">else</span>
-87:                                 <span class="ruby-identifier">current_objects</span> = []
-88:                         <span class="ruby-keyword kw">end</span>
-89:                 <span class="ruby-keyword kw">else</span>
-90:                         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@configuration</span>[<span class="ruby-value str">'sa_items'</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">item_type</span>.<span class="ruby-identifier">singularize</span>)
-91:                                 <span class="ruby-identifier">current_objects</span> = <span class="ruby-identifier">item_type</span>.<span class="ruby-identifier">classify</span>.<span class="ruby-identifier">constantize</span>.<span class="ruby-identifier">get_items_list_for_user_with_permission</span>(<span class="ruby-ivar">@current_user</span>, <span class="ruby-value str">'show'</span>, <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:filter_name</span>], <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:filter_way</span>], <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:filter_limit</span>])
-92:                         <span class="ruby-keyword kw">else</span>
-93:                                 <span class="ruby-identifier">current_objects</span> = []
-94:                         <span class="ruby-keyword kw">end</span>
-95:                 <span class="ruby-keyword kw">end</span>
-96:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">current_objects</span>
-97:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/controllers/application_controller.rb, line 119</span>
+119:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_items_list</span>(<span class="ruby-identifier">item_type</span>, <span class="ruby-identifier">workspace</span>=<span class="ruby-keyword kw">nil</span>)
+120:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">workspace</span>
+121:                         <span class="ruby-keyword kw">if</span> (<span class="ruby-ivar">@configuration</span>[<span class="ruby-value str">'sa_items'</span>] <span class="ruby-operator">&amp;</span> <span class="ruby-identifier">workspace</span>.<span class="ruby-identifier">ws_items</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">','</span>)).<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">item_type</span>.<span class="ruby-identifier">singularize</span>)
+122:                                 <span class="ruby-identifier">current_objects</span> = <span class="ruby-identifier">item_type</span>.<span class="ruby-identifier">classify</span>.<span class="ruby-identifier">constantize</span>.<span class="ruby-identifier">get_items_list_for_user_with_permission_in_workspace</span>(<span class="ruby-ivar">@current_user</span>, <span class="ruby-value str">'show'</span>, <span class="ruby-identifier">workspace</span>, <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:filter_name</span>], <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:filter_way</span>], <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:filter_limit</span>])
+123:                         <span class="ruby-keyword kw">else</span>
+124:                                 <span class="ruby-identifier">current_objects</span> = []
+125:                         <span class="ruby-keyword kw">end</span>
+126:                 <span class="ruby-keyword kw">else</span>
+127:                         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@configuration</span>[<span class="ruby-value str">'sa_items'</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">item_type</span>.<span class="ruby-identifier">singularize</span>)
+128:                                 <span class="ruby-identifier">current_objects</span> = <span class="ruby-identifier">item_type</span>.<span class="ruby-identifier">classify</span>.<span class="ruby-identifier">constantize</span>.<span class="ruby-identifier">get_items_list_for_user_with_permission</span>(<span class="ruby-ivar">@current_user</span>, <span class="ruby-value str">'show'</span>, <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:filter_name</span>], <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:filter_way</span>], <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:filter_limit</span>])
+129:                         <span class="ruby-keyword kw">else</span>
+130:                                 <span class="ruby-identifier">current_objects</span> = []
+131:                         <span class="ruby-keyword kw">end</span>
+132:                 <span class="ruby-keyword kw">end</span>
+133:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">current_objects</span>
+134:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000149" class="method-detail">
-        <a name="M000149"></a>
+      <div id="method-M000400" class="method-detail">
+        <a name="M000400"></a>
 
         <div class="method-heading">
-          <a href="#M000149" class="method-signature">
+          <a href="#M000400" class="method-signature">
           <span class="method-name">groups_of_workspaces_of_item</span><span class="method-args">(item)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Return <a href="Group.html">Group</a> of Workspaces given <a
-href="Item.html">Item</a>
+<a href="Group.html">Group</a> of Workspaces
 </p>
+<p>
+Usage:
+</p>
+<p>
+<tt><a
+href="ApplicationController.html#M000400">groups_of_workspaces_of_item</a>(article)</tt>
+</p>
+<p>
+will return the array if workspaces for the item
+</p>
+<p>
+Parameters:
+</p>
+<ul>
+<li>item: any item object ex:article, image.&#8230;&#8230;
+
+</li>
+</ul>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000149-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000149-source">
+            onclick="toggleCode('M000400-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000400-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/controllers/application_controller.rb, line 105</span>
-105:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">groups_of_workspaces_of_item</span>(<span class="ruby-identifier">item</span>)
-106:     <span class="ruby-identifier">groups</span> =[]
-107:     <span class="ruby-identifier">item</span>.<span class="ruby-identifier">workspaces</span>.<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">ws</span><span class="ruby-operator">|</span> <span class="ruby-identifier">groups</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">ws</span>.<span class="ruby-identifier">groups</span>}
-108:     <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">groups</span>.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">uniq</span>.<span class="ruby-identifier">sort!</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">a</span>,<span class="ruby-identifier">b</span><span class="ruby-operator">|</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">title</span>.<span class="ruby-identifier">downcase</span> <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">b</span>.<span class="ruby-identifier">title</span>.<span class="ruby-identifier">downcase</span> }
-109:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/controllers/application_controller.rb, line 153</span>
+153:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">groups_of_workspaces_of_item</span>(<span class="ruby-identifier">item</span>)
+154:     <span class="ruby-identifier">groups</span> =[]
+155:     <span class="ruby-identifier">item</span>.<span class="ruby-identifier">workspaces</span>.<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">ws</span><span class="ruby-operator">|</span> <span class="ruby-identifier">groups</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">ws</span>.<span class="ruby-identifier">groups</span>}
+156:     <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">groups</span>.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">uniq</span>.<span class="ruby-identifier">sort!</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">a</span>,<span class="ruby-identifier">b</span><span class="ruby-operator">|</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">title</span>.<span class="ruby-identifier">downcase</span> <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">b</span>.<span class="ruby-identifier">title</span>.<span class="ruby-identifier">downcase</span> }
+157:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000145" class="method-detail">
-        <a name="M000145"></a>
+      <div id="method-M000396" class="method-detail">
+        <a name="M000396"></a>
 
         <div class="method-heading">
-          <a href="#M000145" class="method-signature">
+          <a href="#M000396" class="method-signature">
           <span class="method-name">is_admin?</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Check if <a href="User.html">User</a> is Administrator
+Administrator
+</p>
+<p>
+will return true if the logged in user has system role of
+Administrator(&#8216;admin&#8217;)
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000145-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000145-source">
+            onclick="toggleCode('M000396-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000396-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/controllers/application_controller.rb, line 71</span>
-71:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_admin?</span>
-72:                 <span class="ruby-identifier">no_permission_redirection</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">current_user</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">has_system_role</span>(<span class="ruby-value str">'admin'</span>)
-73:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/controllers/application_controller.rb, line 98</span>
+ 98:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_admin?</span>
+ 99:                 <span class="ruby-identifier">no_permission_redirection</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">current_user</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">has_system_role</span>(<span class="ruby-value str">'admin'</span>)
+100:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000140" class="method-detail">
-        <a name="M000140"></a>
+      <div id="method-M000391" class="method-detail">
+        <a name="M000391"></a>
 
         <div class="method-heading">
-          <a href="#M000140" class="method-signature">
+          <a href="#M000391" class="method-signature">
           <span class="method-name">is_logged?</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
+          <p>
+Check for Logged in <a href="User.html">User</a>
+</p>
+<p>
+will return true if a <a href="User.html">User</a> session exists else will
+redirect to login page &#8217;/login&#8216;
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000140-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000140-source">
+            onclick="toggleCode('M000391-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000391-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/controllers/application_controller.rb, line 30</span>
-30:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_logged?</span>
-31:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">logged_in?</span>
-32:                         <span class="ruby-ivar">@search</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Search</span>.<span class="ruby-identifier">new</span>
-33:       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span>
-34:     <span class="ruby-keyword kw">else</span>
-35:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">login_path</span>
-36:     <span class="ruby-keyword kw">end</span>
-37:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/controllers/application_controller.rb, line 32</span>
+32:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_logged?</span>
+33:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">logged_in?</span>
+34:                         <span class="ruby-ivar">@search</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Search</span>.<span class="ruby-identifier">new</span>
+35:       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span>
+36:     <span class="ruby-keyword kw">else</span>
+37:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">login_path</span>
+38:     <span class="ruby-keyword kw">end</span>
+39:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000144" class="method-detail">
-        <a name="M000144"></a>
+      <div id="method-M000395" class="method-detail">
+        <a name="M000395"></a>
 
         <div class="method-heading">
-          <a href="#M000144" class="method-signature">
+          <a href="#M000395" class="method-signature">
           <span class="method-name">is_superadmin?</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Check if <a href="User.html">User</a> is SuperAdministrator
+SuperAdministrator
+</p>
+<p>
+will return true if the logged in user has system role of
+Superadministrator(&#8216;superadmin&#8217;)
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000144-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000144-source">
+            onclick="toggleCode('M000395-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000395-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/controllers/application_controller.rb, line 66</span>
-66:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_superadmin?</span>
-67:                 <span class="ruby-identifier">no_permission_redirection</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">current_user</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">has_system_role</span>(<span class="ruby-value str">'superadmin'</span>)
-68:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/controllers/application_controller.rb, line 91</span>
+91:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_superadmin?</span>
+92:                 <span class="ruby-identifier">no_permission_redirection</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">current_user</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">has_system_role</span>(<span class="ruby-value str">'superadmin'</span>)
+93:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000143" class="method-detail">
-        <a name="M000143"></a>
+      <div id="method-M000394" class="method-detail">
+        <a name="M000394"></a>
 
         <div class="method-heading">
-          <a href="#M000143" class="method-signature">
+          <a href="#M000394" class="method-signature">
           <span class="method-name">item_types_allowed_to</span><span class="method-args">(user, action,current_workspace = nil)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Return item_types allowed to <a href="User.html">User</a> with given action
-or workspace
+<a href="Item.html">Item</a> Types Allowed
+</p>
+<p>
+Parameters:
+</p>
+<ul>
+<li>user: user_object
+
+</li>
+<li>action: &#8216;show&#8217;, &#8216;new&#8217;, &#8216;edit&#8217;,
+&#8216;destroy&#8216;
+
+</li>
+<li>current_workspace: workspace_object, default: nil
+
+</li>
+</ul>
+<p>
+will return the list of items depending on workspace or user permission
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000143-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000143-source">
+            onclick="toggleCode('M000394-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000394-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/controllers/application_controller.rb, line 57</span>
-57:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">item_types_allowed_to</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">action</span>,<span class="ruby-identifier">current_workspace</span> = <span class="ruby-keyword kw">nil</span>)
-58:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">current_workspace</span>
-59:                         (<span class="ruby-identifier">current_workspace</span>.<span class="ruby-identifier">ws_items</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">','</span>) <span class="ruby-operator">&amp;</span> <span class="ruby-ivar">@configuration</span>[<span class="ruby-value str">'sa_items'</span>]).<span class="ruby-identifier">delete_if</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-operator">!</span><span class="ruby-identifier">user</span>.<span class="ruby-identifier">has_workspace_permission</span>(<span class="ruby-identifier">current_workspace</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">e</span>, <span class="ruby-identifier">action</span>) }
-60:                 <span class="ruby-keyword kw">else</span>
-61:                         <span class="ruby-identifier">available_items_list</span>.<span class="ruby-identifier">delete_if</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-constant">Workspace</span>.<span class="ruby-identifier">allowed_user_with_permission</span>(<span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">e</span><span class="ruby-operator">+</span><span class="ruby-value str">'_'</span><span class="ruby-operator">+</span><span class="ruby-identifier">action</span>).<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span> }
-62:                 <span class="ruby-keyword kw">end</span>
-63:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/controllers/application_controller.rb, line 80</span>
+80:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">item_types_allowed_to</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">action</span>,<span class="ruby-identifier">current_workspace</span> = <span class="ruby-keyword kw">nil</span>)
+81:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">current_workspace</span>
+82:                         (<span class="ruby-identifier">current_workspace</span>.<span class="ruby-identifier">ws_items</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">','</span>) <span class="ruby-operator">&amp;</span> <span class="ruby-ivar">@configuration</span>[<span class="ruby-value str">'sa_items'</span>]).<span class="ruby-identifier">delete_if</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-operator">!</span><span class="ruby-identifier">user</span>.<span class="ruby-identifier">has_workspace_permission</span>(<span class="ruby-identifier">current_workspace</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">e</span>, <span class="ruby-identifier">action</span>) }
+83:                 <span class="ruby-keyword kw">else</span>
+84:                         <span class="ruby-identifier">available_items_list</span>.<span class="ruby-identifier">delete_if</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-constant">Workspace</span>.<span class="ruby-identifier">allowed_user_with_permission</span>(<span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">e</span><span class="ruby-operator">+</span><span class="ruby-value str">'_'</span><span class="ruby-operator">+</span><span class="ruby-identifier">action</span>).<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span> }
+85:                 <span class="ruby-keyword kw">end</span>
+86:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000146" class="method-detail">
-        <a name="M000146"></a>
+      <div id="method-M000397" class="method-detail">
+        <a name="M000397"></a>
 
         <div class="method-heading">
-          <a href="#M000146" class="method-signature">
+          <a href="#M000397" class="method-signature">
           <span class="method-name">no_permission_redirection</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Default Redirection in Case of Denied <a
-href="Permission.html">Permission</a>
+Default Redirection
+</p>
+<p>
+If a <a href="User.html">User</a> tries to Access the area for which he
+does not have permission
+</p>
+<p>
+he will be redirected to the default homepage with message &quot;<a
+href="Permission.html">Permission</a> denied&#8216;
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000146-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000146-source">
+            onclick="toggleCode('M000397-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000397-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/controllers/application_controller.rb, line 76</span>
-76:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">no_permission_redirection</span>
-77:                 <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-value str">&quot;Permission denied&quot;</span>
-78:                 <span class="ruby-identifier">redirect_to</span> <span class="ruby-value str">'/'</span>
-79:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/controllers/application_controller.rb, line 107</span>
+107:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">no_permission_redirection</span>
+108:                 <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-value str">&quot;Permission denied&quot;</span>
+109:                 <span class="ruby-identifier">redirect_to</span> <span class="ruby-value str">'/'</span>
+110:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

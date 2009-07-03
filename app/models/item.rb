@@ -18,17 +18,17 @@ class Item < ActiveRecord::Base
   belongs_to :itemable, :polymorphic => true, :include => :user
 
   # Current Item Type
-	def get_item
+	def get_item #:nodoc:
 		return self.itemable_type.classify.constantize.find(self.itemable_id)
 	end
 
   # Current Item Type Title
-	def title
+	def title #:nodoc:
 		return self.get_item.title
 	end
 
   # Current Item Type Description
-	def description
+	def description #:nodoc:
 		return self.get_item.description
 	end
 

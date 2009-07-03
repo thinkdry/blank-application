@@ -61,7 +61,7 @@ class Workspace < ActiveRecord::Base
 	# After Updation Save the associated Users in UserWorkspaces
 	after_update  :save_users_workspaces
 
-  # Latest % workspaces
+  # Latest 5 workspaces
   named_scope :latest,
     :order => 'created_at DESC',
     :limit => 5
@@ -74,11 +74,11 @@ class Workspace < ActiveRecord::Base
 			{ :order => "workspaces.title ASC" }
 		else
 			{ :joins => "LEFT JOIN users_workspaces ON users_workspaces.workspace_id = workspaces.id AND users_workspaces.user_id = #{user_id.to_i} "+
-						"LEFT JOIN permissions_roles ON permissions_roles.role_id = users_workspaces.role_id "+
-						"LEFT JOIN permissions ON permissions_roles.permission_id = permissions.id",
+          "LEFT JOIN permissions_roles ON permissions_roles.role_id = users_workspaces.role_id "+
+          "LEFT JOIN permissions ON permissions_roles.permission_id = permissions.id",
 				:conditions => "permissions.name = '#{permission_name.to_s}'" ,
         :order => "workspaces.title ASC"
-        }
+      }
 		end
 	}
 
@@ -87,19 +87,29 @@ class Workspace < ActiveRecord::Base
 		raise 'User required' unless user_id
 		raise 'Role name' unless role_name
 		{ :joins => "LEFT JOIN users_workspaces ON users_workspaces.workspace_id = workspaces.id AND users_workspaces.user_id = #{user_id.to_i} "+
-					"LEFT JOIN roles ON roles.id = users_workspaces.role_id",
+        "LEFT JOIN roles ON roles.id = users_workspaces.role_id",
 			:conditions => "roles.name = '#{role_name.to_s}'" }
 	}
 
-  # Check if the User is Unique for UserWorkspace after worksapce Update
-	def uniqueness_of_users
-	  new_users = self.users_workspaces.reject { |e| ! e.new_record? }.collect { |e| e.user }
+  # Unique User for UserWorkspace after Worksapce Update
+	def uniqueness_of_users #:nodoc:
+	  new_users = self.users_workspaces.collect { |e| e.user }
 	  new_users.size.times do
 		  self.errors.add_to_base('Same user added twice') and return if new_users.include?(new_users.pop)
 	  end
   end
 
-  # Get The users of the worksapce with the defined Roles
+  # Users of the worksapce with the defined Roles
+  #
+  # Usage:
+  #
+  # <tt>workspace.users_by_role('ws_admin')</tt>
+  #
+  # will return all the users associated with the workspace with role 'ws_admin'
+  #
+  # Parameters:
+  #
+  # - role_name: ws_admin, moderator, writer, reader
 	def users_by_role role_name
 	  role = self.roles.find_by_name(role_name)
 	  res = []
@@ -138,7 +148,7 @@ class Workspace < ActiveRecord::Base
 
   # Check if the User is Associated with worksapce or not
   def existing_user_attributes= user_attributes
-   #downcase_user_attributes(user_attributes)
+    #downcase_user_attributes(user_attributes)
     users_workspaces.reject(&:new_record?).each do |uw|
       attributes = user_attributes[uw.id.to_s]
       attributes ? uw.attributes = attributes : users_workspaces.delete(uw)
@@ -152,22 +162,56 @@ class Workspace < ActiveRecord::Base
     end 
   end 
 
+  # Check User for permission to view the Workspace
+  #
+  # Usage:
+  #
+  # <tt>workspace.accepts_show_for? user</tt>
+  #
+  # will return true if the user has permission
 	def accepts_show_for? user
 		return accepting_action(user, 'show', (self.creator_id==user.id), false, true)
 	end
 
+  # Check User for permission to administer the Workspace
+  #
+  # Usage:
+  #
+  # <tt>workspace.accepts_administrate_for? user</tt>
+  #
+  # will return true if the user has permission
 	def accepts_administrate_for? user
 		return accepting_action(user, 'administrate', (self.creator_id==user.id), false, true)
 	end
-
+  # Check User for permission to destroy the Workspace
+  #
+  # Usage:
+  #
+  # <tt>workspace.accepts_destroy_for? user</tt>
+  #
+  # will return true if the user has permission
   def accepts_destroy_for? user
     return accepting_action(user, 'destroy', (self.creator_id==user.id), false, true)
   end
 
+  # Check User for permission to edit the Workspace
+  #
+  # Usage:
+  #
+  # <tt>workspace.accepts_edit_for? user</tt>
+  #
+  # will return true if the user has permission
   def accepts_edit_for? user
     return accepting_action(user, 'edit', (self.creator_id==user.id), false, true)
   end
 
+  # Check User for permission to Create New the Workspace
+  #
+  # Usage:
+  #
+  # <tt>workspace.accepts_new_for? user</tt>
+  #
+  # will return true if the user has permission
   def accepts_new_for? user
     return accepting_action(user, 'new', false, false, true)
   end

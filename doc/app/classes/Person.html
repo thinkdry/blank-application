@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE html 
      PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <title>Class: Person</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <meta http-equiv="Content-Script-Type" content="text/javascript" />
   <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
   <script type="text/javascript">
@@ -121,10 +121,10 @@ Table name: people
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000014">full_name</a>&nbsp;&nbsp;
-      <a href="#M000016">to_group_member</a>&nbsp;&nbsp;
-      <a href="#M000015">to_people</a>&nbsp;&nbsp;
-      <a href="#M000013">validate_uniqueness_of_email</a>&nbsp;&nbsp;
+      <a href="#M000284">full_name</a>&nbsp;&nbsp;
+      <a href="#M000286">to_group_member</a>&nbsp;&nbsp;
+      <a href="#M000285">to_people</a>&nbsp;&nbsp;
+      <a href="#M000283">validate_uniqueness_of_email</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -153,11 +153,11 @@ Table name: people
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000014" class="method-detail">
-        <a name="M000014"></a>
+      <div id="method-M000284" class="method-detail">
+        <a name="M000284"></a>
 
         <div class="method-heading">
-          <a href="#M000014" class="method-signature">
+          <a href="#M000284" class="method-signature">
           <span class="method-name">full_name</span><span class="method-args">()</span>
           </a>
         </div>
@@ -167,77 +167,92 @@ Table name: people
 Full Name of the <a href="Person.html">Person</a> &#8216;Last Name First
 Name&#8216;
 </p>
+<p>
+Usage:
+</p>
+<p>
+<tt>perosn.full_name</tt>
+</p>
+<p>
+will return the &#8216;lastname firstname&#8217; of person
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000014-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000014-source">
+            onclick="toggleCode('M000284-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000284-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/models/person.rb, line 59</span>
-59:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">full_name</span>
-60:                 <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">last_name</span>.<span class="ruby-identifier">to_s</span><span class="ruby-operator">+</span><span class="ruby-value str">&quot; &quot;</span><span class="ruby-operator">+</span><span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">first_name</span>.<span class="ruby-identifier">to_s</span>
-61:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/models/person.rb, line 71</span>
+71:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">full_name</span>
+72:                 <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">last_name</span>.<span class="ruby-identifier">to_s</span><span class="ruby-operator">+</span><span class="ruby-value str">&quot; &quot;</span><span class="ruby-operator">+</span><span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">first_name</span>.<span class="ruby-identifier">to_s</span>
+73:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000016" class="method-detail">
-        <a name="M000016"></a>
+      <div id="method-M000286" class="method-detail">
+        <a name="M000286"></a>
 
         <div class="method-heading">
-          <a href="#M000016" class="method-signature">
+          <a href="#M000286" class="method-signature">
           <span class="method-name">to_group_member</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-<a href="Person.html">Person</a> to be <a href="Group.html">Group</a>
-Member
+<a href="Person.html">Person</a> or <a href="User.html">User</a> to <a
+href="Group.html">Group</a> Member
+</p>
+<p>
+Usage:
+</p>
+<p>
+<tt>person.to_group_member</tt> <tt>user.to_group_member</tt>
+</p>
+<p>
+Will return the object of person for group
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000016-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000016-source">
+            onclick="toggleCode('M000286-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000286-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/models/person.rb, line 69</span>
-69:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_group_member</span>
-70:     <span class="ruby-keyword kw">return</span> { <span class="ruby-identifier">:model</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'Person'</span>, <span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">:email</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">email</span>, <span class="ruby-identifier">:first_name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">first_name</span>, <span class="ruby-identifier">:last_name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">last_name</span>, <span class="ruby-identifier">:origin</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">origin</span>, <span class="ruby-identifier">:created_at</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">created_at</span>, <span class="ruby-identifier">:newsletter</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">newsletter</span> }
-71:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/models/person.rb, line 87</span>
+87:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_group_member</span>
+88:     <span class="ruby-keyword kw">return</span> { <span class="ruby-identifier">:model</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'Person'</span>, <span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">:email</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">email</span>, <span class="ruby-identifier">:first_name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">first_name</span>, <span class="ruby-identifier">:last_name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">last_name</span>, <span class="ruby-identifier">:origin</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">origin</span>, <span class="ruby-identifier">:created_at</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">created_at</span>, <span class="ruby-identifier">:newsletter</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">newsletter</span> }
+89:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000015" class="method-detail">
-        <a name="M000015"></a>
+      <div id="method-M000285" class="method-detail">
+        <a name="M000285"></a>
 
         <div class="method-heading">
-          <a href="#M000015" class="method-signature">
+          <a href="#M000285" class="method-signature">
           <span class="method-name">to_people</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
-          <p>
-People Object
-</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000015-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000015-source">
+            onclick="toggleCode('M000285-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000285-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/models/person.rb, line 64</span>
-64:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_people</span>
-65:     <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">self</span>
-66:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/models/person.rb, line 75</span>
+75:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_people</span>
+76:     <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">self</span>
+77:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000013" class="method-detail">
-        <a name="M000013"></a>
+      <div id="method-M000283" class="method-detail">
+        <a name="M000283"></a>
 
         <div class="method-heading">
-          <a href="#M000013" class="method-signature">
+          <a href="#M000283" class="method-signature">
           <span class="method-name">validate_uniqueness_of_email</span><span class="method-args">()</span>
           </a>
         </div>
@@ -246,20 +261,29 @@ People Object
           <p>
 Check with previously existing email for uniqueness
 </p>
+<p>
+Usage:
+</p>
+<p>
+<tt>person.validate_uniqueness_of_email</tt>
+</p>
+<p>
+will return true if email is unique else return false
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000013-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000013-source">
+            onclick="toggleCode('M000283-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000283-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/models/person.rb, line 48</span>
-48:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">validate_uniqueness_of_email</span>
-49:     <span class="ruby-constant">Person</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">:email=</span><span class="ruby-operator">&gt;</span><span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">email</span>,<span class="ruby-identifier">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">user_id</span>)
-50:     <span class="ruby-keyword kw">if</span> <span class="ruby-constant">Person</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">:email=</span><span class="ruby-operator">&gt;</span><span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">email</span>,<span class="ruby-identifier">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">user_id</span>)
-51:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">:email</span>, <span class="ruby-identifier">:taken</span>)
-52:       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
-53:     <span class="ruby-keyword kw">else</span>
-54:       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span>
-55:     <span class="ruby-keyword kw">end</span>
-56:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/models/person.rb, line 54</span>
+54:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">validate_uniqueness_of_email</span>
+55:     <span class="ruby-constant">Person</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">:email=</span><span class="ruby-operator">&gt;</span><span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">email</span>,<span class="ruby-identifier">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">user_id</span>)
+56:     <span class="ruby-keyword kw">if</span> <span class="ruby-constant">Person</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">:email=</span><span class="ruby-operator">&gt;</span><span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">email</span>,<span class="ruby-identifier">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">user_id</span>)
+57:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">:email</span>, <span class="ruby-identifier">:taken</span>)
+58:       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
+59:     <span class="ruby-keyword kw">else</span>
+60:       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span>
+61:     <span class="ruby-keyword kw">end</span>
+62:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

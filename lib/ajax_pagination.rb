@@ -2,8 +2,19 @@ module AjaxPagination
 
   # TODO enhance, test and include in library
 
-  
-  # Needs two arguments one is collection object and another is url. url should look like '/people/ajax_index/?page=' last parameter in the url should be 'page='
+  # Ajax Pagination For Content Page
+  #
+  # Usage:Called from the View as
+  #
+  # <tt>remote_pagination(@paginated_objects, ajax_url,  'object-list')</tt>
+  #
+  # will refresh the div with new paginated_objects
+  #
+  # Parameters
+  #
+  # - collection: Collection of Item
+  # - url: '/people/ajax_index/?page=' last parameter in the url should be 'page='
+  # - refeshed_div: 'object-list'
   def remote_pagination(collection, url, refreshed_div)
 		#url = request.url.split('?').first
 		paramss = request.url.split('?').last # why use request.url and not url in param
@@ -38,7 +49,18 @@ module AjaxPagination
     end
   end
 
-  # Return the Page Numbers that should be Visible for Pagination
+  # Page Numbers that should be Visible for Pagination
+  #
+  # Usage:
+  #
+  # <tt>visible_page_numbers(5,20)</tt>
+  #
+  # will return array of visible numbers
+  #
+  # Parameters:
+  #
+  # - current_page: current_page_number
+  # - total_pages: total_pages
   def visible_page_numbers(current_page,total_pages)
       inner_window, outer_window = 4, 1
       window_from = current_page - inner_window

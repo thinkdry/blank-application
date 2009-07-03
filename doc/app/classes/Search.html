@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE html 
      PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <title>Class: Search</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <meta http-equiv="Content-Script-Type" content="text/javascript" />
   <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
   <script type="text/javascript">
@@ -107,12 +107,12 @@ Table name: searches
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000018">column</a>&nbsp;&nbsp;
-      <a href="#M000017">columns</a>&nbsp;&nbsp;
-      <a href="#M000021">conditions</a>&nbsp;&nbsp;
-      <a href="#M000022">do_search</a>&nbsp;&nbsp;
-      <a href="#M000020">get_value_of_param</a>&nbsp;&nbsp;
-      <a href="#M000019">models=</a>&nbsp;&nbsp;
+      <a href="#M000288">column</a>&nbsp;&nbsp;
+      <a href="#M000287">columns</a>&nbsp;&nbsp;
+      <a href="#M000291">conditions</a>&nbsp;&nbsp;
+      <a href="#M000292">do_search</a>&nbsp;&nbsp;
+      <a href="#M000290">get_value_of_param</a>&nbsp;&nbsp;
+      <a href="#M000289">models=</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -134,19 +134,19 @@ Table name: searches
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000018" class="method-detail">
-        <a name="M000018"></a>
+      <div id="method-M000288" class="method-detail">
+        <a name="M000288"></a>
 
         <div class="method-heading">
-          <a href="#M000018" class="method-signature">
+          <a href="#M000288" class="method-signature">
           <span class="method-name">column</span><span class="method-args">(name, sql_type = nil, default = nil, null = true)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000018-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000018-source">
+            onclick="toggleCode('M000288-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000288-source">
 <pre>
     <span class="ruby-comment cmt"># File app/models/search.rb, line 22</span>
 22:   <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">column</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">sql_type</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">default</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">null</span> = <span class="ruby-keyword kw">true</span>)
@@ -157,11 +157,11 @@ Table name: searches
         </div>
       </div>
 
-      <div id="method-M000017" class="method-detail">
-        <a name="M000017"></a>
+      <div id="method-M000287" class="method-detail">
+        <a name="M000287"></a>
 
         <div class="method-heading">
-          <a href="#M000017" class="method-signature">
+          <a href="#M000287" class="method-signature">
           <span class="method-name">columns</span><span class="method-args">()</span>
           </a>
         </div>
@@ -171,8 +171,8 @@ Table name: searches
 Tableless model
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000017-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000017-source">
+            onclick="toggleCode('M000287-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000287-source">
 <pre>
     <span class="ruby-comment cmt"># File app/models/search.rb, line 20</span>
 20:   <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">columns</span>() <span class="ruby-ivar">@columns</span> <span class="ruby-operator">||=</span> []; <span class="ruby-keyword kw">end</span>
@@ -183,11 +183,11 @@ Tableless model
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000021" class="method-detail">
-        <a name="M000021"></a>
+      <div id="method-M000291" class="method-detail">
+        <a name="M000291"></a>
 
         <div class="method-heading">
-          <a href="#M000021" class="method-signature">
+          <a href="#M000291" class="method-signature">
           <span class="method-name">conditions</span><span class="method-args">()</span>
           </a>
         </div>
@@ -195,11 +195,11 @@ Tableless model
         <div class="method-description">
           <p>
 Build Conditions for Advance <a href="Search.html">Search</a>, checking
-paramerters passes
+paramerters passed
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000021-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000021-source">
+            onclick="toggleCode('M000291-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000291-source">
 <pre>
     <span class="ruby-comment cmt"># File app/models/search.rb, line 62</span>
 62:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">conditions</span>
@@ -219,11 +219,11 @@ paramerters passes
         </div>
       </div>
 
-      <div id="method-M000022" class="method-detail">
-        <a name="M000022"></a>
+      <div id="method-M000292" class="method-detail">
+        <a name="M000292"></a>
 
         <div class="method-heading">
-          <a href="#M000022" class="method-signature">
+          <a href="#M000292" class="method-signature">
           <span class="method-name">do_search</span><span class="method-args">()</span>
           </a>
         </div>
@@ -234,8 +234,8 @@ paramerters passes
 according to Passed Parameters
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000022-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000022-source">
+            onclick="toggleCode('M000292-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000292-source">
 <pre>
      <span class="ruby-comment cmt"># File app/models/search.rb, line 76</span>
  76:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">do_search</span>
@@ -277,19 +277,19 @@ according to Passed Parameters
         </div>
       </div>
 
-      <div id="method-M000020" class="method-detail">
-        <a name="M000020"></a>
+      <div id="method-M000290" class="method-detail">
+        <a name="M000290"></a>
 
         <div class="method-heading">
-          <a href="#M000020" class="method-signature">
+          <a href="#M000290" class="method-signature">
           <span class="method-name">get_value_of_param</span><span class="method-args">(param_name)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000020-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000020-source">
+            onclick="toggleCode('M000290-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000290-source">
 <pre>
     <span class="ruby-comment cmt"># File app/models/search.rb, line 57</span>
 57:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_value_of_param</span>(<span class="ruby-identifier">param_name</span>)
@@ -300,11 +300,11 @@ according to Passed Parameters
         </div>
       </div>
 
-      <div id="method-M000019" class="method-detail">
-        <a name="M000019"></a>
+      <div id="method-M000289" class="method-detail">
+        <a name="M000289"></a>
 
         <div class="method-heading">
-          <a href="#M000019" class="method-signature">
+          <a href="#M000289" class="method-signature">
           <span class="method-name">models=</span><span class="method-args">(params)</span>
           </a>
         </div>
@@ -314,8 +314,8 @@ according to Passed Parameters
 Models for acts_as_xapian <a href="Search.html">Search</a>
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000019-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000019-source">
+            onclick="toggleCode('M000289-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000289-source">
 <pre>
     <span class="ruby-comment cmt"># File app/models/search.rb, line 52</span>
 52:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">models=</span> <span class="ruby-identifier">params</span>

@@ -53,20 +53,14 @@ describe Article do
     
     it "should accept one new file" do
       @article.attributes = article_attributes
-      file_path = ActionController::TestUploadedFile.new \
-        url_to_filepath_file('image.png'),
-        'image/png'
-      @article.new_file_attributes = [file_path]
+      @article.new_file_attributes = [{:articlefile => url_to_attachment_file('image.png')}]
       @article.article_files.size.should == 1
       @article.article_files.first.articlefile.should_not be_nil
     end
     
     it "should accepts file names with spaces" do
       @article.attributes = article_attributes
-      file_path = ActionController::TestUploadedFile.new \
-        url_to_filepath_file('filename with spaces.txt'),
-        'image/png'
-      @article.new_file_attributes = [file_path]
+      @article.new_file_attributes =  [{:articlefile => url_to_attachment_file('filename with spaces.txt')}]
       @article.article_files.size.should == 1
       @article.article_files.first.articlefile.should_not be_nil
     end

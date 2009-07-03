@@ -1,0 +1,32 @@
+## YAML Template.
+
+#<Permission name: "article_new", type_permission: "workspace">,
+#<Permission name: "article_edit", type_permission: "workspace">,
+#<Permission name: "article_show", type_permission: "workspace">,
+#<Permission name: "article_destroy", type_permission: "workspace">,
+#<Permission name: "article_comment", type_permission: "workspace">,
+#<Permission name: "article_rate", type_permission: "workspace">,
+#<Permission name: "article_tag", type_permission: "workspace">]
+
+article_new:
+    name: article_new
+    type_permission: workspace
+
+
+article_edit:
+    name: article_edit
+    type_permission: workspace
+
+article_show:
+    name: article_show
+    type_permission: workspace
+
+article_destroy:
+    name: article_destroy
+    type_permission: workspace
+
+article_comment:
+    name: article_comment
+    type_permission: workspace
+
+

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE html 
      PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <title>Class: HomeController</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <meta http-equiv="Content-Script-Type" content="text/javascript" />
   <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
   <script type="text/javascript">
@@ -88,8 +88,8 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000129">autocomplete_on</a>&nbsp;&nbsp;
-      <a href="#M000128">index</a>&nbsp;&nbsp;
+      <a href="#M000385">autocomplete_on</a>&nbsp;&nbsp;
+      <a href="#M000384">index</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -111,11 +111,11 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000129" class="method-detail">
-        <a name="M000129"></a>
+      <div id="method-M000385" class="method-detail">
+        <a name="M000385"></a>
 
         <div class="method-heading">
-          <a href="#M000129" class="method-signature">
+          <a href="#M000385" class="method-signature">
           <span class="method-name">autocomplete_on</span><span class="method-args">()</span>
           </a>
         </div>
@@ -124,54 +124,57 @@
           <p>
 Method for Autocomplete on Users
 </p>
+<p>
+/home/autocomplete_on
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000129-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000129-source">
+            onclick="toggleCode('M000385-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000385-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/controllers/home_controller.rb, line 14</span>
-14:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">autocomplete_on</span>
-15:                 <span class="ruby-comment cmt">#params[:object_name]</span>
-16:                 <span class="ruby-identifier">conditions</span> = <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:name</span>]
-17:        [<span class="ruby-value str">&quot;name LIKE :name&quot;</span>, { <span class="ruby-identifier">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;%#{params['name']}%&quot;</span>} ]
-18:      <span class="ruby-keyword kw">else</span>
-19:        {}
-20:      <span class="ruby-keyword kw">end</span>
-21:                  <span class="ruby-ivar">@objects</span>=<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:model_name</span>].<span class="ruby-identifier">classify</span>.<span class="ruby-identifier">constantize</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">conditions</span>)
-22:                  <span class="ruby-identifier">render</span> <span class="ruby-identifier">:text</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'&lt;ul&gt;'</span><span class="ruby-operator">+</span><span class="ruby-ivar">@objects</span>.<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-value str">'&lt;li&gt;'</span><span class="ruby-operator">+</span><span class="ruby-identifier">e</span>.<span class="ruby-identifier">name</span><span class="ruby-operator">+</span><span class="ruby-value str">'&lt;/li&gt;'</span> }.<span class="ruby-identifier">join</span>(<span class="ruby-value str">' '</span>)<span class="ruby-operator">+</span><span class="ruby-value str">'&lt;/ul&gt;'</span>
-23:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/controllers/home_controller.rb, line 19</span>
+19:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">autocomplete_on</span>
+20:                 <span class="ruby-comment cmt">#params[:object_name]</span>
+21:                 <span class="ruby-identifier">conditions</span> = <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:name</span>]
+22:        [<span class="ruby-value str">&quot;name LIKE :name&quot;</span>, { <span class="ruby-identifier">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;%#{params['name']}%&quot;</span>} ]
+23:      <span class="ruby-keyword kw">else</span>
+24:        {}
+25:      <span class="ruby-keyword kw">end</span>
+26:                  <span class="ruby-ivar">@objects</span>=<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:model_name</span>].<span class="ruby-identifier">classify</span>.<span class="ruby-identifier">constantize</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">conditions</span>)
+27:                  <span class="ruby-identifier">render</span> <span class="ruby-identifier">:text</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'&lt;ul&gt;'</span><span class="ruby-operator">+</span><span class="ruby-ivar">@objects</span>.<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-value str">'&lt;li&gt;'</span><span class="ruby-operator">+</span><span class="ruby-identifier">e</span>.<span class="ruby-identifier">name</span><span class="ruby-operator">+</span><span class="ruby-value str">'&lt;/li&gt;'</span> }.<span class="ruby-identifier">join</span>(<span class="ruby-value str">' '</span>)<span class="ruby-operator">+</span><span class="ruby-value str">'&lt;/ul&gt;'</span>
+28:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000128" class="method-detail">
-        <a name="M000128"></a>
+      <div id="method-M000384" class="method-detail">
+        <a name="M000384"></a>
 
         <div class="method-heading">
-          <a href="#M000128" class="method-signature">
+          <a href="#M000384" class="method-signature">
           <span class="method-name">index</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Root page (&#8217;/&#8217;)
-</p>
-<p>
 HomePage of the Blank Application
 </p>
+<p>
+Root page (&#8217;/&#8217;)
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000128-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000128-source">
+            onclick="toggleCode('M000384-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000384-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/controllers/home_controller.rb, line 5</span>
- 5:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">index</span>
- 6:     <span class="ruby-ivar">@latest_items</span> = <span class="ruby-constant">GenericItem</span>.<span class="ruby-identifier">consultable_by</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>).<span class="ruby-identifier">latest</span>
- 7:     <span class="ruby-ivar">@latest_users</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">latest</span>
- 8:     <span class="ruby-ivar">@latest_feeds</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">feed_items</span>.<span class="ruby-identifier">latest</span>
- 9:     <span class="ruby-ivar">@latest_ws</span> = <span class="ruby-constant">Workspace</span>.<span class="ruby-identifier">allowed_user_with_permission</span>(<span class="ruby-ivar">@current_user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-value str">'workspace_show'</span>).<span class="ruby-identifier">all</span>(<span class="ruby-identifier">:order</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'created_at DESC'</span>, <span class="ruby-identifier">:limit</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">5</span>)
-10:                 <span class="ruby-ivar">@accordion</span>=[<span class="ruby-ivar">@latest_items</span>,<span class="ruby-ivar">@latest_users</span>,<span class="ruby-ivar">@latest_feeds</span>,<span class="ruby-ivar">@latest_ws</span>]
-11:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/controllers/home_controller.rb, line 7</span>
+ 7:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">index</span>
+ 8:     <span class="ruby-ivar">@latest_items</span> = <span class="ruby-constant">GenericItem</span>.<span class="ruby-identifier">consultable_by</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>).<span class="ruby-identifier">latest</span>
+ 9:     <span class="ruby-ivar">@latest_users</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">latest</span>
+10:     <span class="ruby-ivar">@latest_feeds</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">feed_items</span>.<span class="ruby-identifier">latest</span>
+11:     <span class="ruby-ivar">@latest_ws</span> = <span class="ruby-constant">Workspace</span>.<span class="ruby-identifier">allowed_user_with_permission</span>(<span class="ruby-ivar">@current_user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-value str">'workspace_show'</span>).<span class="ruby-identifier">all</span>(<span class="ruby-identifier">:order</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'created_at DESC'</span>, <span class="ruby-identifier">:limit</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">5</span>)
+12:                 <span class="ruby-ivar">@accordion</span>=[<span class="ruby-ivar">@latest_items</span>,<span class="ruby-ivar">@latest_users</span>,<span class="ruby-ivar">@latest_feeds</span>,<span class="ruby-ivar">@latest_ws</span>]
+13:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

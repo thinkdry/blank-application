@@ -132,6 +132,26 @@ end
 end
 end # if cats
 
+lib/acts_as_item/controller.rb
+method:make_resourceful
+line:120
+	response_for :update do |format|
+#format.html { redirect_to item_path(@current_object)}
+format.html { redirect_to((ws=current_workspace) ? workspace_path(ws.id)+"/#{@current_object.class.to_s.underscore.pluralize}" : "/content/#{@current_object.class.to_s.underscore.pluralize}") }
+end
+
+response_for :create do |format|
+format.html {
+#redirect_to( ((@current_object.class.to_s == 'Article') || (@current_object.class.to_s == 'Page')) ? ((ws=current_workspace) ? edit_item_path(@current_object.class.to_s) : "/content/#{@current_object.class.to_s.underscore.pluralize}/#{@current_object.id}/edit") : ((ws=current_workspace) ? workspace_path(ws.id)+"/#{@current_object.class.to_s.underscore.pluralize}"+"/#{@current_object.id}/edit" : "/content/#{@current_object.class.to_s.underscore.pluralize}"+"/#{@current_object.id}/edit") )
+#raise @current_object.class.to_s.inspect
+if ((@current_object.class.to_s == 'Article') || (@current_object.class.to_s == 'Page'))
+redirect_to((ws=current_workspace) ? workspace_path(ws.id)+"/#{@current_object.class.to_s.underscore.pluralize}/#{@current_object.id}/edit" : "/#{@current_object.class.to_s.underscore.pluralize}/#{@current_object.id}/edit")
+else
+redirect_to((ws=current_workspace) ? workspace_path(ws.id)+"/#{@current_object.class.to_s.underscore.pluralize}"+"/#{@current_object.id}" : "/#{@current_object.class.to_s.underscore.pluralize}"+"/#{@current_object.id}")
+	end
+}
+end
+
 
 app/controller/workspaces_controller.rb line 142
 
@@ -153,6 +173,133 @@ app/controller/workspaces_controller.rb line 142
     end
 
   end
+
+app/helpers/application_helper.rb
+line:7
+
+def small_item_in_list(item)
+		# display all items by category
+		# ...	
+		content_tag :h2, item.title
+		content_tag :p, item.description		
+end
+
+def flash_messages
+		return unless messages = flash.keys.select{|k| FLASH_NOTICE_KEYS.include?(k)}
+    formatted_messages = messages.map do |type|
+			content_tag :div, :class => type.to_s do
+				message_for_item(flash[type], flash["#{type}_item".to_sym])
+			end
+    end
+    formatted_messages.join
+  end
+
+  def message_for_item(message, item = nil)
+    if item.is_a?(Array)
+      message % link_to(*item)
+    else
+      message % item
+    end
+  end
+  
+  def display_top_items_tabs(page)
+    html = '<ul id="tabs" class="without_img">'
+    html += '<li '
+    html += 'class="selected"' if (page=="comment")
+    html += '>'+link_to("Les + commentés", "#")+'</li>'
+    html += '<li '
+    html += 'class="selected"' if (page=="note")
+    html += '>'+link_to("Les mieux notés", "#")+'</li>'
+    html += '<li '
+    html += 'class="selected"' if (page=="view")
+    html += '>'+link_to("Les + lus", "#")+'</li>'
+    html += '</ul><div class="clear"></div>'
+	end
+
+app/helpers/items_helper.rb
+line 4
+# Item's author is allowed to remove it by Ajax action.
+  def item_tag tag, editable = false
+    content = tag.name
+    content += link_to_remote(image_tag('icons/delete.png'),
+      :url => remove_tag_item_path(@current_object, :tag_id => tag.id),
+      :loading => "$('ajax_loader').show()",
+      :complete => "$('ajax_loader').hide()") if editable
+
+    content_tag :span, content, :id => "tag_#{tag.id}"
+  end
+
+  def item_editable_tag tag
+    item_tag tag, true
+  end
+
+  # Container of tags that include modal window. Contains the javascript events.
+  # Please apply 'hidden' class on each child you want to be displayed on mouseover.
+  def item_reactive_content_tag(tag, object, &block)
+    concat \
+      content_tag(tag,
+      render(:partial => "items/hidden_window", :object => object) + capture(&block),
+      :id           => "item_#{object.object_id}",
+      :class        => 'item',
+      :onmouseover  => 'this.addClassName("over")',
+      :onmouseout   => 'this.removeClassName("over")',
+      :onclick      => "window.location.href = '#{item_path(object)}'"),
+      block.binding
+end
+
+line 64
+
+#Define the common information of the index of an item
+  	def index_for_item
+  		render(:partial => "items/index", :object => @current_objects)
+  	end
+
+# Define the common information of the show of an item
+    def item_preview(parameters, &block)
+      concat\
+        render( :partial => "items/preview",
+                :locals => {  :object => parameters[:object],
+                              :title => parameters[:title],
+                              :block => block                 } ),
+        block.binding
+    end
+
+app/views/items/_hidden_window.html.erb
+
+<div class="window hidden">
+	<div>
+		42 commentaires.
+	</div>
+
+	<div>
+		<strong>Note :</strong> <%= Array.new(5, image_tag('icons/star.png')) %>
+	</div>
+
+	<div>
+		<strong>Tags:</strong>
+		<%= (1..3).collect { |i| item_tag("tag_#{i}") }.join(' ') %>
+	</div>
+	
+	<div>
+		<strong>Espaces:</strong>
+		<%= object.workspaces.collect { |w| w.name }.join %>
+	</div>
+</div>
+
+routes.rb
+
+map.add_new_user '/add_new_user', :controller => 'workspaces', :action => 'add_new_user'
+
+map.workspace_ajax_content 'workspace_ajax_content', :controller => 'workspaces', :action => 'ajax_content', :conditions => { :method => :get }
+
+line 124
+workspaces.content '/content/:item_type', :controller => 'workspaces', :action => 'show', :conditions => { :method => :get }
+
+line 109
+
+map.resources :feed_items
+map.content '/content/:item_type', :controller => 'items', :action => 'index'
+map.ajax_content '/ajax_content/:item_type', :controller => 'items', :action => 'ajax_index'
 
 
 

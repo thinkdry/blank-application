@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE html 
      PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <title>Class: SuperadministrationController</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <meta http-equiv="Content-Script-Type" content="text/javascript" />
   <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
   <script type="text/javascript">
@@ -88,13 +88,13 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000083">check_color</a>&nbsp;&nbsp;
-      <a href="#M000084">colors_changing</a>&nbsp;&nbsp;
-      <a href="#M000082">general_changing</a>&nbsp;&nbsp;
-      <a href="#M000085">language_switching</a>&nbsp;&nbsp;
-      <a href="#M000081">superadministration</a>&nbsp;&nbsp;
-      <a href="#M000086">translations_changing</a>&nbsp;&nbsp;
-      <a href="#M000087">translations_new</a>&nbsp;&nbsp;
+      <a href="#M000346">check_color</a>&nbsp;&nbsp;
+      <a href="#M000347">colors_changing</a>&nbsp;&nbsp;
+      <a href="#M000345">general_changing</a>&nbsp;&nbsp;
+      <a href="#M000348">language_switching</a>&nbsp;&nbsp;
+      <a href="#M000344">superadministration</a>&nbsp;&nbsp;
+      <a href="#M000349">translations_changing</a>&nbsp;&nbsp;
+      <a href="#M000350">translations_new</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -116,36 +116,40 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000083" class="method-detail">
-        <a name="M000083"></a>
+      <div id="method-M000346" class="method-detail">
+        <a name="M000346"></a>
 
         <div class="method-heading">
-          <a href="#M000083" class="method-signature">
+          <a href="#M000346" class="method-signature">
           <span class="method-name">check_color</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000083-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000083-source">
+            onclick="toggleCode('M000346-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000346-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/controllers/superadministration_controller.rb, line 65</span>
-65:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">check_color</span>
-66:                 <span class="ruby-ivar">@elements</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-identifier">:template</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:temp</span>]})
-67:     <span class="ruby-ivar">@temp</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:select</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'DISTINCT template'</span>)
-68:                 <span class="ruby-identifier">render</span> <span class="ruby-identifier">:partial</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'color_checked'</span>
-69:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/controllers/superadministration_controller.rb, line 73</span>
+73:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">check_color</span>
+74:     <span class="ruby-comment cmt">#</span>
+75:     <span class="ruby-comment cmt"># Usage URL</span>
+76:     <span class="ruby-comment cmt">#</span>
+77:     <span class="ruby-comment cmt"># /superadministration/check_color</span>
+78:                 <span class="ruby-ivar">@elements</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-identifier">:template</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:temp</span>]})
+79:     <span class="ruby-ivar">@temp</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:select</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'DISTINCT template'</span>)
+80:                 <span class="ruby-identifier">render</span> <span class="ruby-identifier">:partial</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'color_checked'</span>
+81:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000084" class="method-detail">
-        <a name="M000084"></a>
+      <div id="method-M000347" class="method-detail">
+        <a name="M000347"></a>
 
         <div class="method-heading">
-          <a href="#M000084" class="method-signature">
+          <a href="#M000347" class="method-signature">
           <span class="method-name">colors_changing</span><span class="method-args">()</span>
           </a>
         </div>
@@ -154,39 +158,45 @@
           <p>
 Page for Changing Colors
 </p>
+<p>
+Usage URL
+</p>
+<p>
+/superadministration/colors_changing
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000084-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000084-source">
+            onclick="toggleCode('M000347-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000347-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/controllers/superadministration_controller.rb, line 72</span>
-72:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">colors_changing</span>
-73:     <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">params</span>[<span class="ruby-identifier">:newtemplate</span>].<span class="ruby-identifier">blank?</span>
-74:       <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:template</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k_elmt</span>, <span class="ruby-identifier">v_elmt</span><span class="ruby-operator">|</span>
-75:                                 <span class="ruby-ivar">@element</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">k_elmt</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-identifier">:bgcolor</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">v_elmt</span>.<span class="ruby-identifier">to_s</span>,<span class="ruby-identifier">:template</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:newtemplate</span>])
-76:       <span class="ruby-keyword kw">end</span>
-77:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>]=<span class="ruby-value str">&quot;New Template Created&quot;</span>
-78:                         <span class="ruby-identifier">redirect_to</span> <span class="ruby-value str">'/superadministration/css'</span>
-79:     <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:template</span>]
-80:       <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:template</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k_elmt</span>, <span class="ruby-identifier">v_elmt</span><span class="ruby-operator">|</span>
-81:                                 <span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-identifier">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">k_elmt</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-identifier">:template</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;current&quot;</span>}).<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">:bgcolor</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">v_elmt</span>.<span class="ruby-identifier">to_s</span>)
-82:       <span class="ruby-keyword kw">end</span>
-83:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>]=<span class="ruby-value str">&quot;Saved Sucessfully&quot;</span>
-84:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-value str">'/superadministration/css'</span>
-85:     <span class="ruby-keyword kw">else</span>
-86:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>]=<span class="ruby-value str">&quot;Changes not Saved&quot;</span>
-87:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-value str">'/superadministration/css'</span>
-88:     <span class="ruby-keyword kw">end</span>
-89:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/controllers/superadministration_controller.rb, line 88</span>
+ 88:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">colors_changing</span>
+ 89:     <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">params</span>[<span class="ruby-identifier">:newtemplate</span>].<span class="ruby-identifier">blank?</span>
+ 90:       <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:template</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k_elmt</span>, <span class="ruby-identifier">v_elmt</span><span class="ruby-operator">|</span>
+ 91:                                 <span class="ruby-ivar">@element</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">k_elmt</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-identifier">:bgcolor</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">v_elmt</span>.<span class="ruby-identifier">to_s</span>,<span class="ruby-identifier">:template</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:newtemplate</span>])
+ 92:       <span class="ruby-keyword kw">end</span>
+ 93:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>]=<span class="ruby-value str">&quot;New Template Created&quot;</span>
+ 94:                         <span class="ruby-identifier">redirect_to</span> <span class="ruby-value str">'/superadministration/css'</span>
+ 95:     <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:template</span>]
+ 96:       <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:template</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k_elmt</span>, <span class="ruby-identifier">v_elmt</span><span class="ruby-operator">|</span>
+ 97:                                 <span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-identifier">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">k_elmt</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-identifier">:template</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;current&quot;</span>}).<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">:bgcolor</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">v_elmt</span>.<span class="ruby-identifier">to_s</span>)
+ 98:       <span class="ruby-keyword kw">end</span>
+ 99:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>]=<span class="ruby-value str">&quot;Saved Sucessfully&quot;</span>
+100:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-value str">'/superadministration/css'</span>
+101:     <span class="ruby-keyword kw">else</span>
+102:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>]=<span class="ruby-value str">&quot;Changes not Saved&quot;</span>
+103:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-value str">'/superadministration/css'</span>
+104:     <span class="ruby-keyword kw">end</span>
+105:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000082" class="method-detail">
-        <a name="M000082"></a>
+      <div id="method-M000345" class="method-detail">
+        <a name="M000345"></a>
 
         <div class="method-heading">
-          <a href="#M000082" class="method-signature">
+          <a href="#M000345" class="method-signature">
           <span class="method-name">general_changing</span><span class="method-args">()</span>
           </a>
         </div>
@@ -195,52 +205,58 @@ Page for Changing Colors
           <p>
 Page for Changing General Settings
 </p>
+<p>
+Usage URL
+</p>
+<p>
+/superadministration/general_changing
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000082-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000082-source">
+            onclick="toggleCode('M000345-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000345-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/controllers/superadministration_controller.rb, line 32</span>
-32:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">general_changing</span>
-33:                         <span class="ruby-identifier">list</span> = [<span class="ruby-value str">'items'</span>, <span class="ruby-value str">'languages'</span>, <span class="ruby-value str">'feed_items_importation_types'</span>, <span class="ruby-value str">'ws_types'</span>, <span class="ruby-value str">'item_categories'</span>]
-34:                         <span class="ruby-identifier">list2</span> = [<span class="ruby-value str">'sa_application_name'</span>, <span class="ruby-value str">'sa_application_url'</span>, <span class="ruby-value str">'sa_contact_email'</span>, <span class="ruby-value str">'sa_allowed_free_user_creation'</span>,
-35:                                 <span class="ruby-value str">'sa_automatic_private_workspace'</span>, <span class="ruby-value str">'sa_mandatory_user_activation'</span>, <span class="ruby-value str">'sa_per_page_default'</span>, <span class="ruby-value str">'sa_layout'</span>]
-36:                         <span class="ruby-ivar">@conf</span> = <span class="ruby-ivar">@configuration</span>
-37:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:pictures</span>]
-38:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">params</span>[<span class="ruby-identifier">:pictures</span>][<span class="ruby-identifier">:logo</span>].<span class="ruby-identifier">blank?</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-constant">IMAGE_TYPES</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:pictures</span>][<span class="ruby-identifier">:logo</span>].<span class="ruby-identifier">content_type</span>.<span class="ruby-identifier">chomp</span>))
-39: <span class="ruby-comment cmt">#                                       upload_photo(params[:pictures][:logo],240,55, '/public/config_files/logo.jpg')</span>
-40:           <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-constant">RAILS_ROOT</span><span class="ruby-operator">+</span><span class="ruby-value str">'/public/config_files/logo.jpg'</span>, <span class="ruby-value str">&quot;wb&quot;</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:pictures</span>][<span class="ruby-identifier">:logo</span>].<span class="ruby-identifier">read</span>) }
-41:                                 <span class="ruby-keyword kw">end</span>
-42:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">params</span>[<span class="ruby-identifier">:pictures</span>][<span class="ruby-identifier">:favicon</span>].<span class="ruby-identifier">blank?</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-constant">IMAGE_TYPES</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:pictures</span>][<span class="ruby-identifier">:favicon</span>].<span class="ruby-identifier">content_type</span>.<span class="ruby-identifier">chomp</span>))
-43:                                         <span class="ruby-identifier">upload_photo</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:pictures</span>][<span class="ruby-identifier">:favicon</span>],<span class="ruby-value">16</span>,<span class="ruby-value">16</span>, <span class="ruby-value str">'/public/config_files/favicon.ico'</span>)
-44:                                 <span class="ruby-keyword kw">end</span>
-45:                         <span class="ruby-keyword kw">end</span>
-46:                         <span class="ruby-identifier">list2</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span>
-47:                                 <span class="ruby-ivar">@conf</span>[<span class="ruby-identifier">l</span>] = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:conf</span>][<span class="ruby-identifier">l</span>.<span class="ruby-identifier">to_sym</span>]
-48:                         <span class="ruby-keyword kw">end</span>
-49:                         <span class="ruby-identifier">list</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span>
-50:                                 <span class="ruby-ivar">@conf</span>[<span class="ruby-value str">'sa_'</span><span class="ruby-operator">+</span><span class="ruby-identifier">l</span>] = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:conf</span>][<span class="ruby-value str">'sa_'</span><span class="ruby-operator">+</span><span class="ruby-identifier">l</span>] <span class="ruby-operator">||</span> []
-51:                         <span class="ruby-keyword kw">end</span>
-52:                         <span class="ruby-comment cmt"># Update the default ws_config (with the id 1 normaly ...)</span>
-53:                         <span class="ruby-comment cmt">#@default_conf = WsConfig.find(1)</span>
-54:                         <span class="ruby-comment cmt">#@default_conf.update_attributes(:ws_items =&gt; check_to_tab('items').join(','), :ws_feed_items_importation_types =&gt; check_to_tab('feed_items_importation_types').join(','))</span>
-55: 
-56:                         <span class="ruby-comment cmt">#File.rename(&quot;#{RAILS_ROOT}/config/customs/sa_config.yml&quot;, &quot;#{RAILS_ROOT}/config/customs/old_sa_config.yml&quot;)</span>
-57:                         
-58:                         <span class="ruby-ivar">@new</span>=<span class="ruby-constant">File</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;#{RAILS_ROOT}/config/customs/sa_config.yml&quot;</span>, <span class="ruby-value str">&quot;w+&quot;</span>)
-59:                         <span class="ruby-ivar">@new</span>.<span class="ruby-identifier">syswrite</span>(<span class="ruby-ivar">@conf</span>.<span class="ruby-identifier">to_yaml</span>)
-60:                         <span class="ruby-identifier">redirect_to</span> <span class="ruby-value str">'/superadministration/general'</span>
-61:                         <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-value str">&quot;General settings updated&quot;</span>
-62:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/controllers/superadministration_controller.rb, line 40</span>
+40:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">general_changing</span>
+41:     <span class="ruby-identifier">list</span> = [<span class="ruby-value str">'items'</span>, <span class="ruby-value str">'languages'</span>, <span class="ruby-value str">'feed_items_importation_types'</span>, <span class="ruby-value str">'ws_types'</span>, <span class="ruby-value str">'item_categories'</span>]
+42:     <span class="ruby-identifier">list2</span> = [<span class="ruby-value str">'sa_application_name'</span>, <span class="ruby-value str">'sa_application_url'</span>, <span class="ruby-value str">'sa_contact_email'</span>, <span class="ruby-value str">'sa_allowed_free_user_creation'</span>,
+43:       <span class="ruby-value str">'sa_automatic_private_workspace'</span>, <span class="ruby-value str">'sa_mandatory_user_activation'</span>, <span class="ruby-value str">'sa_per_page_default'</span>, <span class="ruby-value str">'sa_layout'</span>]
+44:     <span class="ruby-ivar">@conf</span> = <span class="ruby-ivar">@configuration</span>
+45:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:pictures</span>]
+46:       <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">params</span>[<span class="ruby-identifier">:pictures</span>][<span class="ruby-identifier">:logo</span>].<span class="ruby-identifier">blank?</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-constant">IMAGE_TYPES</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:pictures</span>][<span class="ruby-identifier">:logo</span>].<span class="ruby-identifier">content_type</span>.<span class="ruby-identifier">chomp</span>))
+47:         <span class="ruby-comment cmt">#                                       upload_photo(params[:pictures][:logo],240,55, '/public/config_files/logo.jpg')</span>
+48:         <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-constant">RAILS_ROOT</span><span class="ruby-operator">+</span><span class="ruby-value str">'/public/config_files/logo.jpg'</span>, <span class="ruby-value str">&quot;wb&quot;</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:pictures</span>][<span class="ruby-identifier">:logo</span>].<span class="ruby-identifier">read</span>) }
+49:       <span class="ruby-keyword kw">end</span>
+50:       <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">params</span>[<span class="ruby-identifier">:pictures</span>][<span class="ruby-identifier">:favicon</span>].<span class="ruby-identifier">blank?</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-constant">IMAGE_TYPES</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:pictures</span>][<span class="ruby-identifier">:favicon</span>].<span class="ruby-identifier">content_type</span>.<span class="ruby-identifier">chomp</span>))
+51:         <span class="ruby-identifier">upload_photo</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:pictures</span>][<span class="ruby-identifier">:favicon</span>],<span class="ruby-value">16</span>,<span class="ruby-value">16</span>, <span class="ruby-value str">'/public/config_files/favicon.ico'</span>)
+52:       <span class="ruby-keyword kw">end</span>
+53:     <span class="ruby-keyword kw">end</span>
+54:     <span class="ruby-identifier">list2</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span>
+55:       <span class="ruby-ivar">@conf</span>[<span class="ruby-identifier">l</span>] = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:conf</span>][<span class="ruby-identifier">l</span>.<span class="ruby-identifier">to_sym</span>]
+56:     <span class="ruby-keyword kw">end</span>
+57:     <span class="ruby-identifier">list</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span>
+58:       <span class="ruby-ivar">@conf</span>[<span class="ruby-value str">'sa_'</span><span class="ruby-operator">+</span><span class="ruby-identifier">l</span>] = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:conf</span>][<span class="ruby-value str">'sa_'</span><span class="ruby-operator">+</span><span class="ruby-identifier">l</span>] <span class="ruby-operator">||</span> []
+59:     <span class="ruby-keyword kw">end</span>
+60:     <span class="ruby-comment cmt"># Update the default ws_config (with the id 1 normaly ...)</span>
+61:     <span class="ruby-comment cmt">#@default_conf = WsConfig.find(1)</span>
+62:     <span class="ruby-comment cmt">#@default_conf.update_attributes(:ws_items =&gt; check_to_tab('items').join(','), :ws_feed_items_importation_types =&gt; check_to_tab('feed_items_importation_types').join(','))</span>
+63: 
+64:     <span class="ruby-comment cmt">#File.rename(&quot;#{RAILS_ROOT}/config/customs/sa_config.yml&quot;, &quot;#{RAILS_ROOT}/config/customs/old_sa_config.yml&quot;)</span>
+65:                         
+66:     <span class="ruby-ivar">@new</span>=<span class="ruby-constant">File</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;#{RAILS_ROOT}/config/customs/sa_config.yml&quot;</span>, <span class="ruby-value str">&quot;w+&quot;</span>)
+67:     <span class="ruby-ivar">@new</span>.<span class="ruby-identifier">syswrite</span>(<span class="ruby-ivar">@conf</span>.<span class="ruby-identifier">to_yaml</span>)
+68:     <span class="ruby-identifier">redirect_to</span> <span class="ruby-value str">'/superadministration/general'</span>
+69:     <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-value str">&quot;General settings updated&quot;</span>
+70:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000085" class="method-detail">
-        <a name="M000085"></a>
+      <div id="method-M000348" class="method-detail">
+        <a name="M000348"></a>
 
         <div class="method-heading">
-          <a href="#M000085" class="method-signature">
+          <a href="#M000348" class="method-signature">
           <span class="method-name">language_switching</span><span class="method-args">()</span>
           </a>
         </div>
@@ -249,33 +265,39 @@ Page for Changing General Settings
           <p>
 Option for Switching Language
 </p>
+<p>
+Usage URL
+</p>
+<p>
+/superadministration/language_switching
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000085-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000085-source">
+            onclick="toggleCode('M000348-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000348-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/controllers/superadministration_controller.rb, line 92</span>
- 92:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">language_switching</span>
- 93:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:locale_to_conf</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'translation_addition'</span>
- 94:                         <span class="ruby-identifier">translation_options</span>
- 95:                         <span class="ruby-identifier">render</span> <span class="ruby-identifier">:partial</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'translation_addition'</span>
- 96:                 <span class="ruby-keyword kw">else</span>
- 97:                         <span class="ruby-identifier">yaml</span> = <span class="ruby-constant">YAML</span>.<span class="ruby-identifier">load_file</span>(<span class="ruby-node">&quot;#{RAILS_ROOT}/config/locales/#{params[:locale_to_conf]}.yml&quot;</span>)
- 98:                         <span class="ruby-ivar">@res</span> = <span class="ruby-identifier">yaml</span>[<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:locale_to_conf</span>].<span class="ruby-identifier">to_s</span>]
- 99:                         <span class="ruby-ivar">@language</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:locale_to_conf</span>].<span class="ruby-identifier">to_s</span>
-100:                   <span class="ruby-identifier">translation_options</span>
-101:                         <span class="ruby-identifier">render</span> <span class="ruby-identifier">:partial</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'translations_tab'</span>
-102:                 <span class="ruby-keyword kw">end</span>
-103:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/controllers/superadministration_controller.rb, line 112</span>
+112:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">language_switching</span>
+113:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:locale_to_conf</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'translation_addition'</span>
+114:                         <span class="ruby-identifier">translation_options</span>
+115:                         <span class="ruby-identifier">render</span> <span class="ruby-identifier">:partial</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'translation_addition'</span>
+116:                 <span class="ruby-keyword kw">else</span>
+117:                         <span class="ruby-identifier">yaml</span> = <span class="ruby-constant">YAML</span>.<span class="ruby-identifier">load_file</span>(<span class="ruby-node">&quot;#{RAILS_ROOT}/config/locales/#{params[:locale_to_conf]}.yml&quot;</span>)
+118:                         <span class="ruby-ivar">@res</span> = <span class="ruby-identifier">yaml</span>[<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:locale_to_conf</span>].<span class="ruby-identifier">to_s</span>]
+119:                         <span class="ruby-ivar">@language</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:locale_to_conf</span>].<span class="ruby-identifier">to_s</span>
+120:                   <span class="ruby-identifier">translation_options</span>
+121:                         <span class="ruby-identifier">render</span> <span class="ruby-identifier">:partial</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'translations_tab'</span>
+122:                 <span class="ruby-keyword kw">end</span>
+123:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000081" class="method-detail">
-        <a name="M000081"></a>
+      <div id="method-M000344" class="method-detail">
+        <a name="M000344"></a>
 
         <div class="method-heading">
-          <a href="#M000081" class="method-signature">
+          <a href="#M000344" class="method-signature">
           <span class="method-name">superadministration</span><span class="method-args">()</span>
           </a>
         </div>
@@ -284,45 +306,52 @@ Option for Switching Language
           <p>
 Default Page for Superadministration Options
 </p>
+<p>
+Usage URL
+</p>
+<p>
+/<a
+href="SuperadministrationController.html#M000344">superadministration</a>/:part
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000081-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000081-source">
+            onclick="toggleCode('M000344-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000344-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/controllers/superadministration_controller.rb, line 6</span>
- 6:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">superadministration</span>
- 7:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:part</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;default&quot;</span>
- 8:                         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:part</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;general&quot;</span>
- 9:                                 <span class="ruby-ivar">@conf</span> = <span class="ruby-ivar">@configuration</span>
-10:                         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:part</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;css&quot;</span>
-11:                                 <span class="ruby-ivar">@elements</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-identifier">:template=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;current&quot;</span>})
-12:                                 <span class="ruby-ivar">@temp</span>=<span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>( <span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:select</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'DISTINCT template'</span> )
-13:                         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:part</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;translations&quot;</span>
-14:                                 <span class="ruby-ivar">@file</span> = <span class="ruby-constant">YAML</span>.<span class="ruby-identifier">load_file</span>(<span class="ruby-node">&quot;#{RAILS_ROOT}/config/locales/#{I18n.default_locale}.yml&quot;</span>)
-15:                                 <span class="ruby-ivar">@res</span> = <span class="ruby-ivar">@file</span>[<span class="ruby-constant">I18n</span>.<span class="ruby-identifier">default_locale</span>.<span class="ruby-identifier">to_s</span>]
-16:                                 <span class="ruby-ivar">@language</span> = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">default_locale</span>.<span class="ruby-identifier">to_s</span>
-17:         <span class="ruby-identifier">translation_options</span>
-18:                         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:part</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;rights&quot;</span>
-19:         <span class="ruby-ivar">@roles</span> = <span class="ruby-constant">Role</span>.<span class="ruby-identifier">all</span>
-20:                                 <span class="ruby-ivar">@workspace_roles</span> = <span class="ruby-constant">Role</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-identifier">:type_role</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;workspace&quot;</span>})
-21:         <span class="ruby-ivar">@system_roles</span> = <span class="ruby-constant">Role</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-identifier">:type_role</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;system&quot;</span>})
-22:                         <span class="ruby-keyword kw">else</span>
-23:                                 <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-value str">&quot;Unexisting section&quot;</span>
-24:                                 <span class="ruby-identifier">redirect_to</span> <span class="ruby-value str">'/'</span>
-25:                         <span class="ruby-keyword kw">end</span>
-26:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">post?</span>
-27:                                 <span class="ruby-identifier">render</span> <span class="ruby-identifier">:partial</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:part</span>], <span class="ruby-identifier">:layout</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>
-28:                         <span class="ruby-keyword kw">end</span>
-29:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/controllers/superadministration_controller.rb, line 10</span>
+10:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">superadministration</span>
+11:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:part</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;default&quot;</span>
+12:     <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:part</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;general&quot;</span>
+13:       <span class="ruby-ivar">@conf</span> = <span class="ruby-ivar">@configuration</span>
+14:     <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:part</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;css&quot;</span>
+15:       <span class="ruby-ivar">@elements</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-identifier">:template=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;current&quot;</span>})
+16:       <span class="ruby-ivar">@temp</span>=<span class="ruby-constant">Element</span>.<span class="ruby-identifier">find</span>( <span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:select</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'DISTINCT template'</span> )
+17:     <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:part</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;translations&quot;</span>
+18:       <span class="ruby-ivar">@file</span> = <span class="ruby-constant">YAML</span>.<span class="ruby-identifier">load_file</span>(<span class="ruby-node">&quot;#{RAILS_ROOT}/config/locales/#{I18n.default_locale}.yml&quot;</span>)
+19:       <span class="ruby-ivar">@res</span> = <span class="ruby-ivar">@file</span>[<span class="ruby-constant">I18n</span>.<span class="ruby-identifier">default_locale</span>.<span class="ruby-identifier">to_s</span>]
+20:       <span class="ruby-ivar">@language</span> = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">default_locale</span>.<span class="ruby-identifier">to_s</span>
+21:       <span class="ruby-identifier">translation_options</span>
+22:     <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:part</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;rights&quot;</span>
+23:       <span class="ruby-ivar">@roles</span> = <span class="ruby-constant">Role</span>.<span class="ruby-identifier">all</span>
+24:       <span class="ruby-ivar">@workspace_roles</span> = <span class="ruby-constant">Role</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-identifier">:type_role</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;workspace&quot;</span>})
+25:       <span class="ruby-ivar">@system_roles</span> = <span class="ruby-constant">Role</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-identifier">:type_role</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;system&quot;</span>})
+26:     <span class="ruby-keyword kw">else</span>
+27:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-value str">&quot;Unexisting section&quot;</span>
+28:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-value str">'/'</span>
+29:     <span class="ruby-keyword kw">end</span>
+30:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">post?</span>
+31:       <span class="ruby-identifier">render</span> <span class="ruby-identifier">:partial</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:part</span>], <span class="ruby-identifier">:layout</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>
+32:     <span class="ruby-keyword kw">end</span>
+33:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000086" class="method-detail">
-        <a name="M000086"></a>
+      <div id="method-M000349" class="method-detail">
+        <a name="M000349"></a>
 
         <div class="method-heading">
-          <a href="#M000086" class="method-signature">
+          <a href="#M000349" class="method-signature">
           <span class="method-name">translations_changing</span><span class="method-args">()</span>
           </a>
         </div>
@@ -331,82 +360,97 @@ Default Page for Superadministration Options
           <p>
 Page for managing Translation
 </p>
+<p>
+Usage URL
+</p>
+<p>
+/superadministration/translations_changing
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000086-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000086-source">
+            onclick="toggleCode('M000349-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000349-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/controllers/superadministration_controller.rb, line 106</span>
-106:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">translations_changing</span>
-107:     <span class="ruby-ivar">@yaml</span> = <span class="ruby-constant">YAML</span>.<span class="ruby-identifier">load_file</span>(<span class="ruby-node">&quot;#{RAILS_ROOT}/config/locales/#{params[:language]}.yml&quot;</span>)
-108:         ([<span class="ruby-value str">'general'</span>, <span class="ruby-value str">'layout'</span>, <span class="ruby-value str">'user'</span>, <span class="ruby-value str">'workspace'</span>, <span class="ruby-value str">'item'</span>]<span class="ruby-operator">+</span><span class="ruby-constant">ITEMS</span><span class="ruby-operator">+</span>[<span class="ruby-value str">'superadministration'</span>, <span class="ruby-value str">'others'</span>]).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">section</span><span class="ruby-operator">|</span>
-109:                         <span class="ruby-identifier">p</span> <span class="ruby-value str">&quot;============================= &quot;</span><span class="ruby-operator">+</span><span class="ruby-identifier">section</span>
-110:                         <span class="ruby-identifier">p</span> <span class="ruby-value str">&quot;============================= &quot;</span><span class="ruby-operator">+</span>(<span class="ruby-operator">!</span><span class="ruby-identifier">params</span>[<span class="ruby-identifier">section</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@yaml</span>[<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:language</span>]][<span class="ruby-identifier">section</span>].<span class="ruby-identifier">nil?</span>).<span class="ruby-identifier">inspect</span>
-111:                         <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">params</span>[<span class="ruby-identifier">section</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@yaml</span>[<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:language</span>]][<span class="ruby-identifier">section</span>].<span class="ruby-identifier">nil?</span>
-112:                                 <span class="ruby-identifier">params</span>[<span class="ruby-identifier">section</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">subsection</span>, <span class="ruby-identifier">list</span><span class="ruby-operator">|</span>
-113:                                         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@yaml</span>[<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:language</span>]][<span class="ruby-identifier">section</span>][<span class="ruby-identifier">subsection</span>]
-114:                                                 <span class="ruby-identifier">list</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
-115:                                                         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@yaml</span>[<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:language</span>]][<span class="ruby-identifier">section</span>][<span class="ruby-identifier">subsection</span>][<span class="ruby-identifier">key</span>]
-116:                                                                 <span class="ruby-ivar">@yaml</span>[<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:language</span>]][<span class="ruby-identifier">section</span>][<span class="ruby-identifier">subsection</span>][<span class="ruby-identifier">key</span>] = <span class="ruby-identifier">value</span>.<span class="ruby-identifier">to_s</span>
-117:                                                         <span class="ruby-keyword kw">else</span>
-118:                                                                 <span class="ruby-comment cmt">#flash[:error] = &quot;Unknown key&quot;</span>
-119:                                                         <span class="ruby-keyword kw">end</span>
-120:                                                 <span class="ruby-keyword kw">end</span>
-121:                                         <span class="ruby-keyword kw">else</span>
-122:                                                 <span class="ruby-comment cmt">#flash[:error] = &quot;Unknown subsection&quot;</span>
-123:                                         <span class="ruby-keyword kw">end</span>
-124:                                 <span class="ruby-keyword kw">end</span>
-125:                         <span class="ruby-keyword kw">else</span>
-126:                                 <span class="ruby-comment cmt">#flash[:error] = &quot;Unknown section&quot;</span>
-127:                         <span class="ruby-keyword kw">end</span>
-128:                 <span class="ruby-keyword kw">end</span>
-129:                 <span class="ruby-comment cmt">#raise @yaml['en-US']['general'].inspect</span>
-130:     <span class="ruby-constant">File</span>.<span class="ruby-identifier">rename</span>(<span class="ruby-node">&quot;#{RAILS_ROOT}/config/locales/#{params[:language]}.yml&quot;</span>, <span class="ruby-node">&quot;#{RAILS_ROOT}/config/locales/old_#{params[:language]}.yml&quot;</span>)
-131:     <span class="ruby-ivar">@new</span>=<span class="ruby-constant">File</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;#{RAILS_ROOT}/config/locales/#{params[:language]}.yml&quot;</span>, <span class="ruby-value str">&quot;w+&quot;</span>)
-132:      <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@new</span>.<span class="ruby-identifier">syswrite</span>(<span class="ruby-ivar">@yaml</span>.<span class="ruby-identifier">to_yaml</span>)
-133:        <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-value str">&quot;Updated Sucessfully&quot;</span>
-134:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-value str">'/superadministration/translations'</span>
-135:     <span class="ruby-keyword kw">else</span>
-136:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-value str">&quot;Update Failed&quot;</span>
-137:      <span class="ruby-identifier">redirect_to</span> <span class="ruby-value str">'/superadministration/translations'</span>
-138:     <span class="ruby-keyword kw">end</span>
-139:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/controllers/superadministration_controller.rb, line 130</span>
+130:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">translations_changing</span>
+131:     <span class="ruby-ivar">@yaml</span> = <span class="ruby-constant">YAML</span>.<span class="ruby-identifier">load_file</span>(<span class="ruby-node">&quot;#{RAILS_ROOT}/config/locales/#{params[:language]}.yml&quot;</span>)
+132:         ([<span class="ruby-value str">'general'</span>, <span class="ruby-value str">'layout'</span>, <span class="ruby-value str">'user'</span>, <span class="ruby-value str">'workspace'</span>, <span class="ruby-value str">'item'</span>]<span class="ruby-operator">+</span><span class="ruby-constant">ITEMS</span><span class="ruby-operator">+</span>[<span class="ruby-value str">'superadministration'</span>, <span class="ruby-value str">'others'</span>]).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">section</span><span class="ruby-operator">|</span>
+133:                         <span class="ruby-identifier">p</span> <span class="ruby-value str">&quot;============================= &quot;</span><span class="ruby-operator">+</span><span class="ruby-identifier">section</span>
+134:                         <span class="ruby-identifier">p</span> <span class="ruby-value str">&quot;============================= &quot;</span><span class="ruby-operator">+</span>(<span class="ruby-operator">!</span><span class="ruby-identifier">params</span>[<span class="ruby-identifier">section</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@yaml</span>[<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:language</span>]][<span class="ruby-identifier">section</span>].<span class="ruby-identifier">nil?</span>).<span class="ruby-identifier">inspect</span>
+135:                         <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">params</span>[<span class="ruby-identifier">section</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@yaml</span>[<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:language</span>]][<span class="ruby-identifier">section</span>].<span class="ruby-identifier">nil?</span>
+136:                                 <span class="ruby-identifier">params</span>[<span class="ruby-identifier">section</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">subsection</span>, <span class="ruby-identifier">list</span><span class="ruby-operator">|</span>
+137:                                         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@yaml</span>[<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:language</span>]][<span class="ruby-identifier">section</span>][<span class="ruby-identifier">subsection</span>]
+138:                                                 <span class="ruby-identifier">list</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+139:                                                         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@yaml</span>[<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:language</span>]][<span class="ruby-identifier">section</span>][<span class="ruby-identifier">subsection</span>][<span class="ruby-identifier">key</span>]
+140:                                                                 <span class="ruby-ivar">@yaml</span>[<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:language</span>]][<span class="ruby-identifier">section</span>][<span class="ruby-identifier">subsection</span>][<span class="ruby-identifier">key</span>] = <span class="ruby-identifier">value</span>.<span class="ruby-identifier">to_s</span>
+141:                                                         <span class="ruby-keyword kw">else</span>
+142:                                                                 <span class="ruby-comment cmt">#flash[:error] = &quot;Unknown key&quot;</span>
+143:                                                         <span class="ruby-keyword kw">end</span>
+144:                                                 <span class="ruby-keyword kw">end</span>
+145:                                         <span class="ruby-keyword kw">else</span>
+146:                                                 <span class="ruby-comment cmt">#flash[:error] = &quot;Unknown subsection&quot;</span>
+147:                                         <span class="ruby-keyword kw">end</span>
+148:                                 <span class="ruby-keyword kw">end</span>
+149:                         <span class="ruby-keyword kw">else</span>
+150:                                 <span class="ruby-comment cmt">#flash[:error] = &quot;Unknown section&quot;</span>
+151:                         <span class="ruby-keyword kw">end</span>
+152:                 <span class="ruby-keyword kw">end</span>
+153:                 <span class="ruby-comment cmt">#raise @yaml['en-US']['general'].inspect</span>
+154:     <span class="ruby-constant">File</span>.<span class="ruby-identifier">rename</span>(<span class="ruby-node">&quot;#{RAILS_ROOT}/config/locales/#{params[:language]}.yml&quot;</span>, <span class="ruby-node">&quot;#{RAILS_ROOT}/config/locales/old_#{params[:language]}.yml&quot;</span>)
+155:     <span class="ruby-ivar">@new</span>=<span class="ruby-constant">File</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;#{RAILS_ROOT}/config/locales/#{params[:language]}.yml&quot;</span>, <span class="ruby-value str">&quot;w+&quot;</span>)
+156:     <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@new</span>.<span class="ruby-identifier">syswrite</span>(<span class="ruby-ivar">@yaml</span>.<span class="ruby-identifier">to_yaml</span>)
+157:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-value str">&quot;Updated Sucessfully&quot;</span>
+158:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-value str">'/superadministration/translations'</span>
+159:     <span class="ruby-keyword kw">else</span>
+160:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-value str">&quot;Update Failed&quot;</span>
+161:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-value str">'/superadministration/translations'</span>
+162:     <span class="ruby-keyword kw">end</span>
+163:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000087" class="method-detail">
-        <a name="M000087"></a>
+      <div id="method-M000350" class="method-detail">
+        <a name="M000350"></a>
 
         <div class="method-heading">
-          <a href="#M000087" class="method-signature">
+          <a href="#M000350" class="method-signature">
           <span class="method-name">translations_new</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
+          <p>
+Save New Translations
+</p>
+<p>
+Usage URL
+</p>
+<p>
+/superadministration/translations_new
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000087-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000087-source">
+            onclick="toggleCode('M000350-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000350-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/controllers/superadministration_controller.rb, line 141</span>
-141:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">translations_new</span>
-142:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:res</span>][<span class="ruby-identifier">:section</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:res</span>][<span class="ruby-identifier">:subsection</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:res</span>][<span class="ruby-identifier">:key</span>]
-143:                         <span class="ruby-constant">LANGUAGES</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span>
-144:                                 <span class="ruby-ivar">@yaml</span> = <span class="ruby-constant">YAML</span>.<span class="ruby-identifier">load_file</span>(<span class="ruby-node">&quot;#{RAILS_ROOT}/config/locales/#{l}.yml&quot;</span>)
-145:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@yaml</span>[<span class="ruby-identifier">l</span>][<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:res</span>][<span class="ruby-identifier">:section</span>]][<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:res</span>][<span class="ruby-identifier">:subsection</span>]]
-146:                                         <span class="ruby-identifier">tmp</span> = { <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:res</span>][<span class="ruby-identifier">:key</span>] =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:translations</span>][<span class="ruby-identifier">l</span>] }
-147:                                         <span class="ruby-ivar">@yaml</span>[<span class="ruby-identifier">l</span>][<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:res</span>][<span class="ruby-identifier">:section</span>]][<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:res</span>][<span class="ruby-identifier">:subsection</span>]].<span class="ruby-identifier">merge!</span>(<span class="ruby-identifier">tmp</span>)
-148:                                 <span class="ruby-keyword kw">else</span>
-149:                                         <span class="ruby-identifier">tmp</span> = { <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:res</span>][<span class="ruby-identifier">:subsection</span>] =<span class="ruby-operator">&gt;</span> { <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:res</span>][<span class="ruby-identifier">:key</span>] =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:translations</span>][<span class="ruby-identifier">l</span>] } }
-150:                                         <span class="ruby-ivar">@yaml</span>[<span class="ruby-identifier">l</span>][<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:res</span>][<span class="ruby-identifier">:section</span>]].<span class="ruby-identifier">merge!</span>(<span class="ruby-identifier">tmp</span>)
-151:                                 <span class="ruby-keyword kw">end</span>
-152:                                 <span class="ruby-ivar">@new</span>=<span class="ruby-constant">File</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;#{RAILS_ROOT}/config/locales/#{l}.yml&quot;</span>, <span class="ruby-value str">&quot;w+&quot;</span>)
-153:                                 <span class="ruby-ivar">@new</span>.<span class="ruby-identifier">syswrite</span>(<span class="ruby-ivar">@yaml</span>.<span class="ruby-identifier">to_yaml</span>)
-154:                         <span class="ruby-keyword kw">end</span>
-155:                 <span class="ruby-keyword kw">end</span>
-156:                 <span class="ruby-identifier">redirect_to</span> <span class="ruby-value str">'/superadministration/translations'</span>
-157:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/controllers/superadministration_controller.rb, line 170</span>
+170:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">translations_new</span>
+171:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:res</span>][<span class="ruby-identifier">:section</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:res</span>][<span class="ruby-identifier">:subsection</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:res</span>][<span class="ruby-identifier">:key</span>]
+172:                         <span class="ruby-constant">LANGUAGES</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span>
+173:                                 <span class="ruby-ivar">@yaml</span> = <span class="ruby-constant">YAML</span>.<span class="ruby-identifier">load_file</span>(<span class="ruby-node">&quot;#{RAILS_ROOT}/config/locales/#{l}.yml&quot;</span>)
+174:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@yaml</span>[<span class="ruby-identifier">l</span>][<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:res</span>][<span class="ruby-identifier">:section</span>]][<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:res</span>][<span class="ruby-identifier">:subsection</span>]]
+175:                                         <span class="ruby-identifier">tmp</span> = { <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:res</span>][<span class="ruby-identifier">:key</span>] =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:translations</span>][<span class="ruby-identifier">l</span>] }
+176:                                         <span class="ruby-ivar">@yaml</span>[<span class="ruby-identifier">l</span>][<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:res</span>][<span class="ruby-identifier">:section</span>]][<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:res</span>][<span class="ruby-identifier">:subsection</span>]].<span class="ruby-identifier">merge!</span>(<span class="ruby-identifier">tmp</span>)
+177:                                 <span class="ruby-keyword kw">else</span>
+178:                                         <span class="ruby-identifier">tmp</span> = { <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:res</span>][<span class="ruby-identifier">:subsection</span>] =<span class="ruby-operator">&gt;</span> { <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:res</span>][<span class="ruby-identifier">:key</span>] =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:translations</span>][<span class="ruby-identifier">l</span>] } }
+179:                                         <span class="ruby-ivar">@yaml</span>[<span class="ruby-identifier">l</span>][<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:res</span>][<span class="ruby-identifier">:section</span>]].<span class="ruby-identifier">merge!</span>(<span class="ruby-identifier">tmp</span>)
+180:                                 <span class="ruby-keyword kw">end</span>
+181:                                 <span class="ruby-ivar">@new</span>=<span class="ruby-constant">File</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;#{RAILS_ROOT}/config/locales/#{l}.yml&quot;</span>, <span class="ruby-value str">&quot;w+&quot;</span>)
+182:                                 <span class="ruby-ivar">@new</span>.<span class="ruby-identifier">syswrite</span>(<span class="ruby-ivar">@yaml</span>.<span class="ruby-identifier">to_yaml</span>)
+183:                         <span class="ruby-keyword kw">end</span>
+184:                 <span class="ruby-keyword kw">end</span>
+185:                 <span class="ruby-identifier">redirect_to</span> <span class="ruby-value str">'/superadministration/translations'</span>
+186:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

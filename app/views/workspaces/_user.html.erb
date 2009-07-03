@@ -1,7 +1,6 @@
 
   <% new_or_existing = user.new_record? ? 'new' : 'existing' %>
   <% prefix = "workspace[#{new_or_existing}_user_attributes][]" %>
-
   <% fields_for prefix, user do |user_form| -%>
     <div id="workspace_user_<%= object.user.login %>">
     <%= error_message_on user, :user, "L'utilisateur ", '<br />' %>

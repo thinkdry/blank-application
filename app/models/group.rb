@@ -40,7 +40,9 @@ class Group < ActiveRecord::Base
   # Store the Group Objects and Check If the Member Exists Previously in the Group
   # 
   # params are selected_Option from View
-  def groupable_objects= params #selected_Option : "class_id","class_id"...
+  #
+  # selected_Option : "class_id","class_id"...
+  def groupable_objects= params 
     tmp = []
     params.split(',').each do |option|
       tmp << option.split('_')[0].classify.constantize.find(option.split('_')[1])

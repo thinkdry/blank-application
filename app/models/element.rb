@@ -11,8 +11,4 @@
 #  updated_at :datetime
 #
 
-class Element < ActiveRecord::Base
-  
-
-  
-end
+class Element < ActiveRecord::Base;end

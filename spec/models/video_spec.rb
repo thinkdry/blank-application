@@ -29,22 +29,41 @@ require File.expand_path(File.dirname(__FILE__) + '/items_spec_helper')
 describe Video do
   include ItemsSpecHelper
   
-  def item
+ def item
     Video.new
   end
-  
-  before(:each) do
-    @video = Video.new
+
+  def video_attributes
+    item_attributes.merge(:video => url_to_attachment_file('video.flv'))
   end
-  
+
+  before(:each) do
+    @video = item
+  end
+
   it "should be valid" do
-    @video.stub!(:file_path).and_return('/path/to/video.avi')
-    @video.attributes = item_attributes
+    @video.attributes = video_attributes
     @video.should be_valid
   end
-  
-  it "should require file_path" do
-    @video.attributes = item_attributes
-    @video.should have(1).error_on(:file_path)
+
+  it "should require video file" do
+    @video.attributes = video_attributes.except(:video)
+    @video.should have(1).error_on(:video)
   end
+
+  it "should have attachment size less than 25 MB" do
+    @video.attributes = video_attributes
+    @video.video.size.should satisfy{|n| bytes_to_megabytes(n) < 25}
+  end
+
+  it "should have media type" do
+    @video.attributes = video_attributes
+    @video.media_type.should == @video.video
+  end
+
+  it "should have codec for Video Encoding" do
+    @video.attributes = video_attributes
+    @video.codec.should_not be_nil
+  end
+
 end

@@ -1,0 +1,47 @@
+## YAML Template.
+
+
+ #<Role name: "superadmin", type_role: "system">,
+ #<Role name: "admin", type_role: "system">,
+ #<Role name: "user", type_role: "system">,
+ #<Role name: "ws_admin", type_role: "workspace">,
+ #<Role name: "moderator", type_role: "workspace">,
+ #<Role name: "writer", type_role: "workspace">,
+ #<Role name: "reader", type_role: "workspace">
+
+superadmin:
+    id: 1
+    name: superadmin
+    type_role: system
+
+admin:
+    id: 2
+    name: admin
+    type_role: system
+
+user:
+    id: 3
+    name: user
+    type_role: system
+
+ws_admin:
+    id: 4
+    name: ws_admin
+    type_role: workspace
+
+moderator:
+    id: 5
+    name: moderator
+    type_role: workspace
+
+reader:
+    id: 6
+    name: reader
+    type_role: workspace
+
+writer:
+    id: 7
+    name: writer
+    type_role: workspace
+
+

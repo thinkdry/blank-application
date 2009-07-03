@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE html 
      PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <title>Class: Group</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <meta http-equiv="Content-Script-Type" content="text/javascript" />
   <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
   <script type="text/javascript">
@@ -110,9 +110,9 @@ Table name: groups
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000042">groupable_objects=</a>&nbsp;&nbsp;
-      <a href="#M000041">label</a>&nbsp;&nbsp;
-      <a href="#M000043">members</a>&nbsp;&nbsp;
+      <a href="#M000306">groupable_objects=</a>&nbsp;&nbsp;
+      <a href="#M000305">label</a>&nbsp;&nbsp;
+      <a href="#M000307">members</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -134,19 +134,19 @@ Table name: groups
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000041" class="method-detail">
-        <a name="M000041"></a>
+      <div id="method-M000305" class="method-detail">
+        <a name="M000305"></a>
 
         <div class="method-heading">
-          <a href="#M000041" class="method-signature">
+          <a href="#M000305" class="method-signature">
           <span class="method-name">label</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000041-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000041-source">
+            onclick="toggleCode('M000305-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000305-source">
 <pre>
     <span class="ruby-comment cmt"># File app/models/group.rb, line 36</span>
 36:   <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">label</span>
@@ -159,12 +159,12 @@ Table name: groups
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000042" class="method-detail">
-        <a name="M000042"></a>
+      <div id="method-M000306" class="method-detail">
+        <a name="M000306"></a>
 
         <div class="method-heading">
-          <a href="#M000042" class="method-signature">
-          <span class="method-name">groupable_objects=</span><span class="method-args">(params</span>
+          <a href="#M000306" class="method-signature">
+          <span class="method-name">groupable_objects=</span><span class="method-args">(params)</span>
           </a>
         </div>
       
@@ -176,33 +176,36 @@ Exists Previously in the <a href="Group.html">Group</a>
 <p>
 params are selected_Option from View
 </p>
+<p>
+selected_Option : &quot;class_id&quot;,&quot;class_id&quot;&#8230;
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000042-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000042-source">
+            onclick="toggleCode('M000306-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000306-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/models/group.rb, line 43</span>
-43:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">groupable_objects=</span> <span class="ruby-identifier">params</span> <span class="ruby-comment cmt">#selected_Option : &quot;class_id&quot;,&quot;class_id&quot;...</span>
-44:     <span class="ruby-identifier">tmp</span> = []
-45:     <span class="ruby-identifier">params</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">','</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">option</span><span class="ruby-operator">|</span>
-46:       <span class="ruby-identifier">tmp</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">option</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'_'</span>)[<span class="ruby-value">0</span>].<span class="ruby-identifier">classify</span>.<span class="ruby-identifier">constantize</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">option</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'_'</span>)[<span class="ruby-value">1</span>])
-47:     <span class="ruby-keyword kw">end</span>
-48:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">groupings</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span><span class="ruby-operator">|</span>
-49:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">k</span>.<span class="ruby-identifier">groupable_type</span>.<span class="ruby-identifier">underscore</span>.<span class="ruby-identifier">pluralize</span>).<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">k</span>.<span class="ruby-identifier">member</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">tmp</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">k</span>.<span class="ruby-identifier">member</span>)
-50:     <span class="ruby-keyword kw">end</span>
-51:     <span class="ruby-identifier">tmp</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">obj</span><span class="ruby-operator">|</span>
-52:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">groupings</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">groupings</span>.<span class="ruby-identifier">build</span>(<span class="ruby-identifier">:group_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">:groupable_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">id</span>,<span class="ruby-identifier">:groupable_type</span> =<span class="ruby-operator">&gt;</span><span class="ruby-identifier">obj</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">to_s</span>)
-53:     <span class="ruby-keyword kw">end</span>
-54:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/models/group.rb, line 45</span>
+45:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">groupable_objects=</span> <span class="ruby-identifier">params</span> 
+46:     <span class="ruby-identifier">tmp</span> = []
+47:     <span class="ruby-identifier">params</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">','</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">option</span><span class="ruby-operator">|</span>
+48:       <span class="ruby-identifier">tmp</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">option</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'_'</span>)[<span class="ruby-value">0</span>].<span class="ruby-identifier">classify</span>.<span class="ruby-identifier">constantize</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">option</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'_'</span>)[<span class="ruby-value">1</span>])
+49:     <span class="ruby-keyword kw">end</span>
+50:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">groupings</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span><span class="ruby-operator">|</span>
+51:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">k</span>.<span class="ruby-identifier">groupable_type</span>.<span class="ruby-identifier">underscore</span>.<span class="ruby-identifier">pluralize</span>).<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">k</span>.<span class="ruby-identifier">member</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">tmp</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">k</span>.<span class="ruby-identifier">member</span>)
+52:     <span class="ruby-keyword kw">end</span>
+53:     <span class="ruby-identifier">tmp</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">obj</span><span class="ruby-operator">|</span>
+54:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">groupings</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">groupings</span>.<span class="ruby-identifier">build</span>(<span class="ruby-identifier">:group_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">:groupable_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">id</span>,<span class="ruby-identifier">:groupable_type</span> =<span class="ruby-operator">&gt;</span><span class="ruby-identifier">obj</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">to_s</span>)
+55:     <span class="ruby-keyword kw">end</span>
+56:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000043" class="method-detail">
-        <a name="M000043"></a>
+      <div id="method-M000307" class="method-detail">
+        <a name="M000307"></a>
 
         <div class="method-heading">
-          <a href="#M000043" class="method-signature">
+          <a href="#M000307" class="method-signature">
           <span class="method-name">members</span><span class="method-args">()</span>
           </a>
         </div>
@@ -212,13 +215,13 @@ params are selected_Option from View
 Sorting Members(People and Users) According to Email
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000043-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000043-source">
+            onclick="toggleCode('M000307-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000307-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/models/group.rb, line 57</span>
-57:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">members</span>
-58:     (<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">users</span> <span class="ruby-operator">+</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">people</span>).<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">to_people</span> }.<span class="ruby-identifier">sort!</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">a</span>,<span class="ruby-identifier">b</span><span class="ruby-operator">|</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">email</span>.<span class="ruby-identifier">downcase</span> <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">b</span>.<span class="ruby-identifier">email</span>.<span class="ruby-identifier">downcase</span> }
-59:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/models/group.rb, line 59</span>
+59:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">members</span>
+60:     (<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">users</span> <span class="ruby-operator">+</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">people</span>).<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">to_people</span> }.<span class="ruby-identifier">sort!</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">a</span>,<span class="ruby-identifier">b</span><span class="ruby-operator">|</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">email</span>.<span class="ruby-identifier">downcase</span> <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">b</span>.<span class="ruby-identifier">email</span>.<span class="ruby-identifier">downcase</span> }
+61:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

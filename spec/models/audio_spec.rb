@@ -30,19 +30,40 @@ describe Audio do
   def item
     Audio.new
   end
+
+  def audio_attributes
+    item_attributes.merge(:audio => url_to_attachment_file('audio.mp3'))
+  end
   
   before(:each) do
-    @audio = Audio.new
+    @audio = item
   end
   
   it "should be valid" do
-    @audio.stub!(:file_path).and_return('/path/to/file.mp3')
-    @audio.attributes = item_attributes
+    @audio.attributes = audio_attributes
     @audio.should be_valid
   end
   
   it "should require audio file" do
-    @audio.attributes = item_attributes
+    @audio.attributes = audio_attributes.except(:audio)
     @audio.should have(1).error_on(:audio)
   end
+
+  it "should have attachment size less than 25 MB" do
+    @audio.attributes = audio_attributes
+    @audio.audio.size.should satisfy{|n| bytes_to_megabytes(n) < 25}
+  end
+
+  it "should have media type" do
+    @audio.attributes = audio_attributes
+    @audio.media_type.should == @audio.audio
+  end
+
+  it "should have codec for Audio Encoding" do
+    @audio.attributes = audio_attributes
+    @audio.codec.should_not be_nil
+  end
+
+
+
 end

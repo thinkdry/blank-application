@@ -4,11 +4,26 @@ class UsersController < ApplicationController
 
 	skip_before_filter :is_logged?, :only => [:new, :create, :validate, :forgot_password, :reset_password, :activate]
 
+	before_filter :permission_checking, :only => [:new, :create, :edit, :update, :show, :destroy]
+
+	def permission_checking
+		if params[:action] == 'new' || params[:action] == 'create'
+			build_object
+			no_permission_redirection unless @current_user && @current_object.send("accepts_new_for?".to_sym, @current_user)
+		elsif params[:action] == 'edit' || params[:action] == 'update'
+			current_object
+			no_permission_redirection unless @current_user && @current_object.send("accepts_edit_for?".to_sym, @current_user)
+		else
+			current_object
+			no_permission_redirection unless @current_user && @current_object.send("accepts_#{params[:action]}_for?".to_sym, @current_user)
+		end
+	end
+
 	#layout 'application', :expect => [:new, :create]
 	layout :give_da_layout
 
   # Check Current User Status and Give the Layout
-	def give_da_layout
+	def give_da_layout 
 		if params[:action]== 'new' || params[:action]== 'forgot_password' || params[:action] == 'reset_password'
 			if logged_in?
 				return get_da_layout
@@ -23,13 +38,13 @@ class UsersController < ApplicationController
   make_resourceful do
     actions :all
 
-    before :destroy do
-      no_permission_redirection unless @current_user && @current_object.accepts_destroy_for?(@current_user)
-    end
-
-    before :edit, :update do
-      no_permission_redirection unless @current_user && @current_object.accepts_edit_for?(@current_user)
-    end
+#    before :destroy do
+#      no_permission_redirection unless @current_user && @current_object.accepts_destroy_for?(@current_user)
+#    end
+#
+#    before :edit, :update do
+#      no_permission_redirection unless @current_user && @current_object.accepts_edit_for?(@current_user)
+#    end
 
     before :new do
 			if logged_in?
@@ -46,9 +61,9 @@ class UsersController < ApplicationController
 			end
     end
 
-    before :show do
-			no_permission_redirection unless @current_user && @current_object.accepts_show_for?(@current_user)
-    end
+#    before :show do
+#			no_permission_redirection unless @current_user && @current_object.accepts_show_for?(@current_user)
+#    end
 
 		before :edit do
 			get_roles
@@ -95,7 +110,7 @@ class UsersController < ApplicationController
   end
 
   # Create New User /users/new
-  def create
+  def create #:nodoc:
     # System role by default, secure assignement
     @current_object = User.new(params[:user])
     valid_user = false
@@ -131,14 +146,14 @@ class UsersController < ApplicationController
     end
   end
 
- # Ajax Users Index with User
+  # Ajax Users Index with User
   def ajax_index
     current_objects
     render :partial => 'user_in_list'
   end
 
   # Users Index Object for All Users
-	def current_objects
+	def current_objects #:nodoc:
 		if @current_user.has_system_role('superadmin')
 			tmp = User.all
 		elsif @current_user.has_system_role('admin')
@@ -154,6 +169,10 @@ class UsersController < ApplicationController
 	end
 
   # AutoComplete for Users in TextBox
+  #
+  # Usage URL
+  #
+  # /users/autocomplete_on
   def autocomplete_on
     conditions = if params['login']
       ["login LIKE :login OR firstname LIKE :login OR lastname LIKE :login",
@@ -166,6 +185,10 @@ class UsersController < ApplicationController
   end
 	
   # Function allowing to activate the user with the RESTful authentification plugin
+  #
+  # Usage URL
+  #
+  # /users/activate
   def activate
     self.current_user = params[:activation_code].blank? ? :false : User.find_by_activation_code(params[:activation_code])
     if logged_in? && !current_user.active?
@@ -176,6 +199,10 @@ class UsersController < ApplicationController
   end
 
   # Function allowing to gain his password by email in case of forgot
+  #
+  # Usage URL
+  #
+  # /forgot_password
   def forgot_password
     return unless request.post?
     if @user = User.find_by_email(params[:user][:email])
@@ -189,6 +216,10 @@ class UsersController < ApplicationController
   end
  
   # Function allowing to reset the password of the current user after to have received a reset link in an email
+  #
+  # Usage URL
+  #
+  # /reset_password
   def reset_password
     if (@user = User.find_by_password_reset_code(params[:password_reset_code]) unless params[:password_reset_code].nil?)
       if request.post?
@@ -209,6 +240,8 @@ class UsersController < ApplicationController
   end
 
   # Overwritting the AjaxValidation plugin to manage the permission
+  #
+  # /users/validate
   def validate
     model_class = params['model'].classify.constantize
     @model_instance = params['id'] ? model_class.find(params['id']) : model_class.new
@@ -220,6 +253,10 @@ class UsersController < ApplicationController
   # TODO remove it, just direct links in the old layout, to hell ajax my zob
 
   # Administration of Workspaces for User
+   #
+  # Usage URL
+  #
+  # /users/administration
   def administration
     @current_object = current_user
     @workspaces = if (current_user.has_system_permission('workspace', 'show'))

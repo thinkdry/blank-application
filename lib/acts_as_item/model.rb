@@ -16,6 +16,16 @@ module ActsAsItem
         false
       end
       # ActsAsItem Library for Item Specific Code - Specific Model Methods to All Items
+      #
+      # Included in the Models of the Items
+      #
+      # Usage:
+      #
+      # app/models/article.rb
+      # 
+      #     class Article < ActiveRecord::Base
+      #      acts_as_item
+      #     end
       def acts_as_item
         
         acts_as_rateable
@@ -69,7 +79,9 @@ module ActsAsItem
       #
       # Usage:
       #
-      # Article.icon will return "/item_icons/article.png
+      # <tt>Article.icon</tt>
+      #
+      # will return "/item_icons/article.png
       def icon
         'item_icons/' + self.to_s.underscore + '.png'
       end
@@ -78,7 +90,9 @@ module ActsAsItem
       #
       # Usage:
       #
-      # Article.icon_48 will return "/item_icons/article_48.png
+      # <tt>Article.icon_48</tt>
+      #
+      # will return "/item_icons/article_48.png
       def icon_48
         'item_icons/' + self.to_s.underscore + '_48.png'
       end
@@ -87,7 +101,9 @@ module ActsAsItem
       #
       # Usage:
       #
-      # Image.label will return "Image"
+      # <tt>Image.label</tt>
+      #
+      # will return "Image"
 			def label
 				I18n.t("general.item.#{self.model_name.underscore}")
 			end
@@ -96,9 +112,23 @@ module ActsAsItem
       #
       # Usage:
       #
-      # Article.get_items_list_for_user_with_permission_in_workspace(user_object,'show',workspace_object,'created_at','desc',10)
+      # <tt>Article.get_items_list_for_user_with_permission_in_workspace(user_object,'show',workspace_object,'created_at','desc',10)</tt>
       #
       # Will Return the object of type article with defined filters
+      #
+      # Parameters:
+      #
+      # - user: Logged in User
+      #
+      # - action : 'show','new','edit','destroy'
+      #
+      # - workspace : Workspace of User
+      #
+      # - filter_name: 'created_at','updated_at','title'..... default: 'created_at'
+      #
+      # - filter_way: 'asc' or 'desc' default: 'desc'
+      #
+      # - limit: 'number' default: 10
 			def get_items_list_for_user_with_permission_in_workspace(user, action, workspace, filter_name, filter_way, filter_limit)
 				filter_name ||= 'created_at'
 				filter_way ||= 'desc'
@@ -117,12 +147,23 @@ module ActsAsItem
       #
       # Usage:
       #
-      # Article.get_items_list_for_user_with_permission(user_object,'show','created_at','desc',10)
+      # <tt>Article.get_items_list_for_user_with_permission(user_object,'show','created_at','desc',10)</tt>
       #
       # Will Return the object of type article with defined filters
+      #
+      # Parameters:
+      #
+      # - action : 'show','new','edit','destroy'
+      #
+      # - filter_name: 'created_at','updated_at','title'..... default: 'created_at'
+      #
+      # - filter_way: 'asc' or 'desc' default: 'desc'
+      #
+      # - limit: 'number' default: 10
 			def get_items_list_for_user_with_permission(user, action, filter_name, filter_way, filter_limit)
 				filter_name ||= 'created_at'
 				filter_way ||= 'desc'
+        filter_limit ||= 10
 				# System permission checked
 				if user.has_system_permission(self.model_name.underscore, action)
 					return self.all(:order => filter_name+' '+filter_way, :limit => filter_limit)
@@ -167,7 +208,7 @@ module ActsAsItem
       #
       # Usage:
       #
-      # @article.workspace_titles
+      # <tt>article.workspace_titles</tt>
       #
       # will return workspace1, workspace2, workspace3
 			def workspace_titles
@@ -180,7 +221,9 @@ module ActsAsItem
       #
       # Usage:
       #
-      # article.icon will return "/item_icons/article.png
+      # <tt>article.icon</tt>
+      #
+      # will return "/item_icons/article.png
       def icon
         self.class.icon
       end
@@ -189,7 +232,7 @@ module ActsAsItem
       #
       # Usage:
       #
-      # @article.categories_field = ["category1","category2","category3"]
+      # <tt>article.categories_field = ["category1","category2","category3"] </tt>
       #
       # will assign a string "," join to category field
       def categories_field= params
@@ -200,7 +243,9 @@ module ActsAsItem
       #
       # Usage:
       #
-      # @article.assoicated_workspaces = [workspace1.id, workspace2.id]
+      # <tt>article.assoicated_workspaces = [workspace1.id, workspace2.id]</tt>
+      #
+      # will assign workspaces to the item
       def associated_workspaces= workspace_ids
         self.items = workspace_ids.collect { |id| self.items.build(:workspace_id => id) }
       end
@@ -209,7 +254,7 @@ module ActsAsItem
       #
       # Usage:
       #
-      # article.accepts_show_for? user
+      # <tt>article.accepts_show_for? user</tt>
       #
       # will return true if the user has permission
       def accepts_show_for? user
@@ -220,7 +265,7 @@ module ActsAsItem
       #
       # Usage:
       #
-      # article.accepts_destroy_for? user
+      # <tt>article.accepts_destroy_for? user</tt>
       #
       # will return true if the user has permission 
       def accepts_destroy_for? user
@@ -231,7 +276,7 @@ module ActsAsItem
       #
       # Usage:
       #
-      # article.accepts_edit_for? user
+      # <tt>article.accepts_edit_for? user</tt>
       #
       # will return true if the user has permission
       def accepts_edit_for? user
@@ -242,7 +287,7 @@ module ActsAsItem
       #
       # Usage:
       #
-      # article.accepts_new_for? user
+      # <tt>article.accepts_new_for? user</tt>
       #
       # will return true if the user has permission 
       def accepts_new_for? user
@@ -253,7 +298,7 @@ module ActsAsItem
       #
       # Usage:
       #
-      # article.accepts_comment_for?(user)
+      # <tt>article.accepts_comment_for?(user)</tt>
       #
       # will return true if the user has permission
 			def accepts_comment_for?(user)
@@ -264,7 +309,7 @@ module ActsAsItem
       #
       # Usage:
       #
-      # article.accepts_rate_for?(user)
+      # <tt>article.accepts_rate_for?(user)</tt>
       #
       # will return true if the user has permission
 			def accepts_rate_for?(user)
@@ -275,7 +320,7 @@ module ActsAsItem
       #
       # Usage:
       #
-      # article.accepts_tag_for?(user)
+      # <tt>article.accepts_tag_for?(user)</tt>
       #
       # will return true if the user has permission
 			def accepts_tag_for?(user)

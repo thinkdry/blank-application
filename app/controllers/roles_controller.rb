@@ -1,4 +1,4 @@
-class RolesController < ApplicationController
+class RolesController < ApplicationController #:nodoc: all
 
 	before_filter :is_superadmin?
 
