@@ -10,8 +10,8 @@
 
 <div class="other_output_format">
   <%= I18n.t('item.show.get_in_another_format')%>:
-  <%= link_to_function image_tag('/images/icons/xml.png'), "params('#{items_path(params[:item_type])}','format=xml')" %>
-  <%= link_to_function image_tag('/images/icons/json.png'), "params('#{items_path(params[:item_type])}','format=json')" %>
-  <%= link_to_function image_tag('/images/icons/atom.png'), "params('#{items_path(params[:item_type])}','format=atom')" %>
+  <%= link_to_function image_tag('/images/icons/xml.png'), "params('#{content_path(:item_type => params[:item_type])}','format=xml')" %>
+  <%= link_to_function image_tag('/images/icons/json.png'), "params('#{content_path(:item_type => params[:item_type])}','format=json')" %>
+  <%= link_to_function image_tag('/images/icons/atom.png'), "params('#{content_path(:item_type => params[:item_type])}','format=atom')" %>
 </div>
 
