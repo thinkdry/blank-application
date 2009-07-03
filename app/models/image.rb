@@ -37,7 +37,7 @@ class Image < ActiveRecord::Base
 
   validates_attachment_content_type :image, :content_type => ['image/jpeg','image/jpg', 'image/png', 'image/gif','image/bmp']
 
-  validates_attachment_size(:image, :less_than => 100.megabytes)
+  validates_attachment_size(:image, :less_than => 25.megabytes)
 
   # Media Type for the Model.
   #

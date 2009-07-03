@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE html 
      PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <title>Module: ActsAsItem::ControllerMethods::InstanceMethods</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <meta http-equiv="Content-Script-Type" content="text/javascript" />
   <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
   <script type="text/javascript">
@@ -80,7 +80,8 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000238">rate</a>&nbsp;&nbsp;
+      <a href="#M000512">permission_checking</a>&nbsp;&nbsp;
+      <a href="#M000513">rate</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -102,11 +103,52 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000238" class="method-detail">
-        <a name="M000238"></a>
+      <div id="method-M000512" class="method-detail">
+        <a name="M000512"></a>
 
         <div class="method-heading">
-          <a href="#M000238" class="method-signature">
+          <a href="#M000512" class="method-signature">
+          <span class="method-name">permission_checking</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Function testing the auhorization on an instance of that item type
+</p>
+<p>
+Included in the Controller of the Items
+</p>
+<p>
+Usage:
+</p>
+<p>
+Just use in a before_filter checking the permission before each action
+specified
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000512-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000512-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/acts_as_item/controller.rb, line 142</span>
+142:                         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">permission_checking</span>
+143:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:action</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'new'</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:action</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'create'</span>
+144:                                         <span class="ruby-identifier">build_object</span>
+145:                                 <span class="ruby-keyword kw">else</span>
+146:                                         <span class="ruby-identifier">current_object</span>
+147:                                 <span class="ruby-keyword kw">end</span>
+148:                                 <span class="ruby-identifier">no_permission_redirection</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@current_user</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;accepts_#{params[:action]}_for?&quot;</span>.<span class="ruby-identifier">to_sym</span>, <span class="ruby-ivar">@current_user</span>)
+149:                         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000513" class="method-detail">
+        <a name="M000513"></a>
+
+        <div class="method-heading">
+          <a href="#M000513" class="method-signature">
           <span class="method-name">rate</span><span class="method-args">()</span>
           </a>
         </div>
@@ -125,17 +167,17 @@ Usage:
 will create new rating for the item and save it
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000238-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000238-source">
+            onclick="toggleCode('M000513-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000513-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/acts_as_item/controller.rb, line 137</span>
-137:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rate</span>
-138:         <span class="ruby-identifier">current_object</span>.<span class="ruby-identifier">add_rating</span>(<span class="ruby-constant">Rating</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">:rating</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:rated</span>].<span class="ruby-identifier">to_i</span>))
-139:                                 <span class="ruby-identifier">current_object</span>.<span class="ruby-identifier">rates_average</span> = <span class="ruby-identifier">current_object</span>.<span class="ruby-identifier">rating</span>
-140:                                 <span class="ruby-identifier">current_object</span>.<span class="ruby-identifier">save</span>
-141:                                 <span class="ruby-comment cmt"># TODO : refresh the rate box ...</span>
-142:         <span class="ruby-identifier">render</span> <span class="ruby-identifier">:nothing</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>
-143:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/acts_as_item/controller.rb, line 158</span>
+158:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rate</span>
+159:         <span class="ruby-identifier">current_object</span>.<span class="ruby-identifier">add_rating</span>(<span class="ruby-constant">Rating</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">:rating</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:rated</span>].<span class="ruby-identifier">to_i</span>))
+160:                                 <span class="ruby-identifier">current_object</span>.<span class="ruby-identifier">rates_average</span> = <span class="ruby-identifier">current_object</span>.<span class="ruby-identifier">rating</span>
+161:                                 <span class="ruby-identifier">current_object</span>.<span class="ruby-identifier">save</span>
+162:                                 <span class="ruby-comment cmt"># TODO : refresh the rate box ...</span>
+163:         <span class="ruby-identifier">render</span> <span class="ruby-identifier">:nothing</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>
+164:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

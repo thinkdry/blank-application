@@ -82,7 +82,7 @@ module ItemsSpecHelper
           end
 
           it "Full Text Xapian Search" do
-            @item.class.to_s.classify.constantize.full_text_with_xapian('hello').proxy_options.should == {:conditions => ["#{@item.class.to_s.downcase.pluralize}.id in (?)", []]}
+            @item.class.to_s.classify.constantize.full_text_with_xapian('hello').proxy_options.should == {:conditions => ["#{@item.class.to_s.pluralize.underscore}.id in (?)", []]}
           end
 
           it "Advance on Fields" do
@@ -90,11 +90,11 @@ module ItemsSpecHelper
           end
 
           it "in_workspaces" do
-            @item.class.to_s.classify.constantize.in_workspaces('1').proxy_options.should == {:select=>"DISTINCT *", :joins=>"LEFT JOIN items ON (items.itemable_type = 'Article' AND items.workspace_id IN ['1'])"}
+            @item.class.to_s.classify.constantize.in_workspaces('1').proxy_options.should == {:select=>"DISTINCT *", :joins=>"LEFT JOIN items ON (items.itemable_type = '#{@item.class.to_s}' AND items.workspace_id IN ['1'])"}
           end
 
           it "filtering_with" do
-            @item.class.to_s.classify.constantize.filtering_with('title','asc',2).proxy_options.should == {:limit=> 2, :order=>"articles.title asc"}
+            @item.class.to_s.classify.constantize.filtering_with('title','asc',2).proxy_options.should == {:limit=> 2, :order=>"#{@item.class.to_s.pluralize.underscore}.title asc"}
           end
 
         end
