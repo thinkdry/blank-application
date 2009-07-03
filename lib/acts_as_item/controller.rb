@@ -96,6 +96,14 @@ module ActsAsItem
 						@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
 					end
 
+					response_for :create do |format|
+						format.html { (@current_object.class.to_s == 'Article' || @current_object.class.to_s == 'Page') ? redirect_to(edit_item_path(@current_object)) : redirect_to(item_path(@current_object)) }
+					end
+
+					response_for :update do |format|
+						format.html { redirect_to item_path(@current_object) }
+					end
+
 					response_for :new, :create_fails do |format|
 						format.html { render(:template => (File.exists?(RAILS_ROOT+'/app/views/'+params[:controller]+'/new.html.erb') ? params[:controller]+'/new.html.erb' : 'items/new.html.erb')) }
 					end

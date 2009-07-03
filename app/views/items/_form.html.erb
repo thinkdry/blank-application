@@ -2,9 +2,9 @@
   <legend><img src="/images/item_icons/<%= @current_object.class.to_s %>_add.png"/><%= title %></legend>
   <% form_for @current_object,
       :builder => BlankFormBuilder,
-      #:url => (@current_object.new_record? ? items_path(@current_object.class.to_s) : item_path(@current_object)),
+      :url => (@current_object.new_record? ? items_path(@current_object.class.to_s) : item_path(@current_object)),
       :html => {
-        #:method => (@current_object.new_record? ? :post : :put),
+        :method => (@current_object.new_record? ? :post : :put),
         :multipart => true
       } do |f| -%>
 
