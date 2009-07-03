@@ -36,7 +36,7 @@ class Audio < ActiveRecord::Base
 
   #validates_attachment_content_type :audio, :content_type => ['audio/wav','audio/x-wav', 'audio/mpeg', 'audio/x-ms-wma', 'video/mp4' ]
 
-  validates_attachment_size(:audio, :less_than => 100.megabytes)
+  validates_attachment_size(:audio, :less_than => 25.megabytes)
 
   # Media Type for the Model used in Converter Worker for Encoding.
   #

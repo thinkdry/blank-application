@@ -1,0 +1,13 @@
+
+one:
+  workspace_id: 1
+  role_id: 4
+  user_id: 1
+
+two:
+  workspace_id: 2
+  role_id: 4
+  user_id: 2
+
+
+

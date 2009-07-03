@@ -30,24 +30,27 @@ describe CmsFile do
   def item
     CmsFile.new
   end
-  
+
   def cms_file_attributes
-    item_attributes.merge(
-      :file_path => upload_filepath_file('image.png')
-    )
+    item_attributes.merge(:cmsfile => url_to_attachment_file('cms_file.pdf'))
   end
-  
+
   before(:each) do
     @cms_file = item
   end
-  
+
   it "should be valid" do
     @cms_file.attributes = cms_file_attributes
     @cms_file.should be_valid
   end
-  
-  it "should require file_path" do
-    @cms_file.attributes = cms_file_attributes.except(:file_path)
-    @cms_file.should have(1).error_on(:file_path)
+
+  it "should require cms_file attachment" do
+    @cms_file.attributes = cms_file_attributes.except(:cmsfile)
+    @cms_file.should have(1).error_on(:cmsfile)
+  end
+
+  it "should have attachment size less than 25 MB" do
+    @cms_file.attributes = cms_file_attributes
+    @cms_file.cmsfile.size.should satisfy{|n| bytes_to_megabytes(n) < 25}
   end
 end

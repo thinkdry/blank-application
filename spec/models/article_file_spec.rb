@@ -19,7 +19,7 @@ describe ArticleFile do
   
   def article_file_attributes
     { :article_id => 42,
-      :articlefile => upload_filepath_file('image.png') }
+      :articlefile => url_to_attachment_file('image.png') }
   end
   
   before(:each) do

@@ -32,8 +32,7 @@ describe Image do
   end
   
   def image_attributes
-    image = url_to_filepath_file('image.png')
-    item_attributes.merge(:image => upload(image))
+    item_attributes.merge(:image => url_to_attachment_file('image.png'))
   end
   
   before(:each) do
@@ -52,14 +51,13 @@ describe Image do
 
   it "should accept only [jpeg,jpg,png,gif,bmp] formats" do
     %w(image.jpeg image.jpg image.png image.gif image.bmp).each { |image|
-      @image.attributes = item_attributes.merge(:image => File.new( RAILS_ROOT + '/spec/attachments/' + image))}
+      @image.attributes = item_attributes.merge(:image => url_to_attachment_file(image))}
     @image.should be_valid
   end
 
   it "should have attachment size less than 25 MB" do
-    @image.attributes = item_attributes.merge(:image => File.new( RAILS_ROOT + '/spec/attachments/image.png'))
-    p @image.image
-    @image.should be_valid
+    @image.attributes = image_attributes
+    @image.image.size.should satisfy{|n| bytes_to_megabytes(n) < 25}
   end
 
 end

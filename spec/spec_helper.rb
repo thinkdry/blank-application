@@ -48,9 +48,15 @@ Spec::Runner.configure do |config|
     upload(url_to_filepath_file(filename))
   end
 
-  def url_to_filepath_file(filename)
-    File.expand_path(File.dirname(__FILE__) + "/attachments/#{filename}")
+  def url_to_attachment_file(filename)
+    File.new(RAILS_ROOT + "/spec/attachments/#{filename}")
   end
+end
+
+MEGABYTE = 1024.0 * 1024.0
+
+def bytes_to_megabytes bytes
+  bytes /  MEGABYTE
 end
 
 module ActiveRecord

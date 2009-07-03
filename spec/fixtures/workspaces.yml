@@ -18,9 +18,22 @@
 #  ws_available_types :string(255)     default("")
 #
 
-one:
-  creator: luc
-  title: one
-  description: First ws
+private_for_luc:
+   id: 1
+   creator_id: 1
+   title: Private for Luc
+   description: Private for Luc
+
+private_for_albert:
+   id: 2
+   creator_id: 2
+   title: Private for Albert
+   description: Private for Albert
+
+private_for_leo:
+   id: 3
+   creator_id: 3
+   title: Private for Leo
+   description: Private for Leo
 
   

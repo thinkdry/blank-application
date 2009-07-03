@@ -1,0 +1,794 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>RSpec results</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Expires" content="-1" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <style type="text/css">
+  body {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    font-size: 80%;
+  }
+  </style>
+  <script type="text/javascript">
+    // <![CDATA[
+function moveProgressBar(percentDone) {
+  document.getElementById("rspec-header").style.width = percentDone +"%";
+}
+function makeRed(element_id) {
+  document.getElementById(element_id).style.background = '#C40D0D';
+  document.getElementById(element_id).style.color = '#FFFFFF';
+}
+
+function makeYellow(element_id) {
+  if (element_id == "rspec-header" && document.getElementById(element_id).style.background != '#C40D0D')
+  {
+    document.getElementById(element_id).style.background = '#FAF834';
+    document.getElementById(element_id).style.color = '#000000';
+  }
+  else
+  {
+    document.getElementById(element_id).style.background = '#FAF834';
+    document.getElementById(element_id).style.color = '#000000';
+  }
+}
+
+    // ]]>
+  </script>
+  <style type="text/css">
+#rspec-header {
+  background: #65C400; color: #fff; height: 4em;
+}
+
+.rspec-report h1 {
+  margin: 0px 10px 0px 10px;
+  padding: 10px;
+  font-family: "Lucida Grande", Helvetica, sans-serif;
+  font-size: 1.8em;
+  position: absolute;
+}
+
+#summary {
+  margin: 0; padding: 5px 10px;
+  font-family: "Lucida Grande", Helvetica, sans-serif;
+  text-align: right;
+  top: 0px;
+  right: 0px;
+  float:right;
+}
+
+#summary p {
+  margin: 0 0 0 2px;
+}
+
+#summary #totals {
+  font-size: 1.2em;
+}
+
+.example_group {
+  margin: 0 10px 5px;
+  background: #fff;
+}
+
+dl {
+  margin: 0; padding: 0 0 5px;
+  font: normal 11px "Lucida Grande", Helvetica, sans-serif;
+}
+
+dt {
+  padding: 3px;
+  background: #65C400;
+  color: #fff;
+  font-weight: bold;
+}
+
+dd {
+  margin: 5px 0 5px 5px;
+  padding: 3px 3px 3px 18px;
+}
+
+dd.spec.passed {
+  border-left: 5px solid #65C400;
+  border-bottom: 1px solid #65C400;
+  background: #DBFFB4; color: #3D7700;
+}
+
+dd.spec.failed {
+  border-left: 5px solid #C20000;
+  border-bottom: 1px solid #C20000;
+  color: #C20000; background: #FFFBD3;
+}
+
+dd.spec.not_implemented {
+  border-left: 5px solid #FAF834;
+  border-bottom: 1px solid #FAF834;
+  background: #FCFB98; color: #131313;
+}
+
+dd.spec.pending_fixed {
+  border-left: 5px solid #0000C2;
+  border-bottom: 1px solid #0000C2;
+  color: #0000C2; background: #D3FBFF;
+}
+
+.backtrace {
+  color: #000;
+  font-size: 12px;
+}
+
+a {
+  color: #BE5C00;
+}
+
+/* Ruby code, style similar to vibrant ink */
+.ruby {
+  font-size: 12px;
+  font-family: monospace;
+  color: white;
+  background-color: black;
+  padding: 0.1em 0 0.2em 0;
+}
+
+.ruby .keyword { color: #FF6600; }
+.ruby .constant { color: #339999; }
+.ruby .attribute { color: white; }
+.ruby .global { color: white; }
+.ruby .module { color: white; }
+.ruby .class { color: white; }
+.ruby .string { color: #66FF00; }
+.ruby .ident { color: white; }
+.ruby .method { color: #FFCC00; }
+.ruby .number { color: white; }
+.ruby .char { color: white; }
+.ruby .comment { color: #9933CC; }
+.ruby .symbol { color: white; }
+.ruby .regex { color: #44B4CC; }
+.ruby .punct { color: white; }
+.ruby .escape { color: white; }
+.ruby .interp { color: white; }
+.ruby .expr { color: white; }
+
+.ruby .offending { background-color: gray; }
+.ruby .linenum {
+  width: 75px;
+  padding: 0.1em 1em 0.2em 0;
+  color: #000000;
+  background-color: #FFFBD3;
+}
+
+  </style>
+</head>
+<body>
+<div class="rspec-report">
+
+<div id="rspec-header">
+  <div id="label">
+    <h1>RSpec Code Examples</h1>
+  </div>
+
+  <div id="summary">
+    <p id="totals">&nbsp;</p>
+    <p id="duration">&nbsp;</p>
+  </div>
+</div>
+
+<div class="results">
+<div class="example_group">
+  <dl>
+  <dt id="example_group_1">Publication</dt>
+    <script type="text/javascript">moveProgressBar('0.9');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should be valid</span></dd>
+    <script type="text/javascript">makeRed('rspec-header');</script>
+    <script type="text/javascript">makeRed('example_group_1');</script>
+    <script type="text/javascript">moveProgressBar('1.9');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should require author</span>
+      <div class="failure" id="failure_1">
+        <div class="message"><pre>expected 1 error on :authors, got 0</pre></div>
+        <div class="backtrace"><pre>/home/anup/projects/blank/spec/models/publication_spec.rb:53:</pre></div>
+    <pre class="ruby"><code><span class="linenum">51</span>  it "should require author" do
+<span class="linenum">52</span>    @publication.attributes = publication_attributes.except(:authors)
+<span class="offending"><span class="linenum">53</span>    @publication.should have(1).error_on(:authors)</span>
+<span class="linenum">54</span>  end
+<span class="linenum">55</span>  
+<span class="linenum">56</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+  </dl>
+</div>
+<div class="example_group">
+  <dl>
+  <dt id="example_group_2">Publication as an Item</dt>
+    <script type="text/javascript">moveProgressBar('2.8');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should belong to workspace'(s)</span></dd>
+    <script type="text/javascript">moveProgressBar('3.8');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should belong to user</span></dd>
+    <script type="text/javascript">moveProgressBar('4.8');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should belong to items</span></dd>
+    <script type="text/javascript">moveProgressBar('5.7');</script>
+    <dd class="spec passed"><span class="passed_spec_name">can be rated</span></dd>
+    <script type="text/javascript">moveProgressBar('6.7');</script>
+    <dd class="spec passed"><span class="passed_spec_name">can be commented</span></dd>
+    <script type="text/javascript">moveProgressBar('7.6');</script>
+    <dd class="spec passed"><span class="passed_spec_name">can have keywords through keywordings</span></dd>
+    <script type="text/javascript">moveProgressBar('8.6');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should require user</span></dd>
+    <script type="text/javascript">moveProgressBar('9.6');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should require title</span></dd>
+    <script type="text/javascript">moveProgressBar('10.5');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should require description</span></dd>
+  </dl>
+</div>
+<div class="example_group">
+  <dl>
+  <dt id="example_group_3">Publication as an Item should have named scopes</dt>
+    <script type="text/javascript">moveProgressBar('11.5');</script>
+    <dd class="spec passed"><span class="passed_spec_name">Full Text Xapian Search</span></dd>
+    <script type="text/javascript">moveProgressBar('12.5');</script>
+    <dd class="spec passed"><span class="passed_spec_name">Advance on Fields</span></dd>
+    <script type="text/javascript">makeRed('example_group_3');</script>
+    <script type="text/javascript">moveProgressBar('13.4');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">in_workspaces</span>
+      <div class="failure" id="failure_2">
+        <div class="message"><pre>expected: {:select=&gt;&quot;DISTINCT *&quot;, :joins=&gt;&quot;LEFT JOIN items ON (items.itemable_type = 'Article' AND items.workspace_id IN ['1'])&quot;},
+     got: {:select=&gt;&quot;DISTINCT *&quot;, :joins=&gt;&quot;LEFT JOIN items ON (items.itemable_type = 'Publication' AND items.workspace_id IN ['1'])&quot;} (using ==)</pre></div>
+        <div class="backtrace"><pre>/home/anup/projects/blank/spec/models/items_spec_helper.rb:93:in `included'</pre></div>
+    <pre class="ruby"><code><span class="linenum">91</span>
+<span class="linenum">92</span>          it "in_workspaces" do
+<span class="offending"><span class="linenum">93</span>            @item.class.to_s.classify.constantize.in_workspaces('1').proxy_options.should == {:select=>"DISTINCT *", :joins=>"LEFT JOIN items ON (items.itemable_type = 'Article' AND items.workspace_id IN ['1'])"}</span>
+<span class="linenum">94</span>          end
+<span class="linenum">95</span>
+<span class="linenum">96</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('14.4');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">filtering_with</span>
+      <div class="failure" id="failure_3">
+        <div class="message"><pre>expected: {:limit=&gt;2, :order=&gt;&quot;articles.title asc&quot;},
+     got: {:limit=&gt;2, :order=&gt;&quot;publications.title asc&quot;} (using ==)</pre></div>
+        <div class="backtrace"><pre>/home/anup/projects/blank/spec/models/items_spec_helper.rb:97:in `included'</pre></div>
+    <pre class="ruby"><code><span class="linenum">95</span>
+<span class="linenum">96</span>          it "filtering_with" do
+<span class="offending"><span class="linenum">97</span>            @item.class.to_s.classify.constantize.filtering_with('title','asc',2).proxy_options.should == {:limit=> 2, :order=>"articles.title asc"}</span>
+<span class="linenum">98</span>          end
+<span class="linenum">99</span>
+<span class="linenum">100</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+  </dl>
+</div>
+<div class="example_group">
+  <dl>
+  <dt id="example_group_4">Article</dt>
+    <script type="text/javascript">moveProgressBar('15.3');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should be valid</span></dd>
+    <script type="text/javascript">moveProgressBar('16.3');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should require body on update</span></dd>
+  </dl>
+</div>
+<div class="example_group">
+  <dl>
+  <dt id="example_group_5">Article as an Item</dt>
+    <script type="text/javascript">moveProgressBar('17.3');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should belong to workspace'(s)</span></dd>
+    <script type="text/javascript">moveProgressBar('18.2');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should belong to user</span></dd>
+    <script type="text/javascript">moveProgressBar('19.2');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should belong to items</span></dd>
+    <script type="text/javascript">moveProgressBar('20.1');</script>
+    <dd class="spec passed"><span class="passed_spec_name">can be rated</span></dd>
+    <script type="text/javascript">moveProgressBar('21.1');</script>
+    <dd class="spec passed"><span class="passed_spec_name">can be commented</span></dd>
+    <script type="text/javascript">moveProgressBar('22.1');</script>
+    <dd class="spec passed"><span class="passed_spec_name">can have keywords through keywordings</span></dd>
+    <script type="text/javascript">moveProgressBar('23.0');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should require user</span></dd>
+    <script type="text/javascript">moveProgressBar('24.0');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should require title</span></dd>
+    <script type="text/javascript">moveProgressBar('25.0');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should require description</span></dd>
+  </dl>
+</div>
+<div class="example_group">
+  <dl>
+  <dt id="example_group_6">Article as an Item should have named scopes</dt>
+    <script type="text/javascript">moveProgressBar('25.9');</script>
+    <dd class="spec passed"><span class="passed_spec_name">Full Text Xapian Search</span></dd>
+    <script type="text/javascript">moveProgressBar('26.9');</script>
+    <dd class="spec passed"><span class="passed_spec_name">Advance on Fields</span></dd>
+    <script type="text/javascript">moveProgressBar('27.8');</script>
+    <dd class="spec passed"><span class="passed_spec_name">in_workspaces</span></dd>
+    <script type="text/javascript">moveProgressBar('28.8');</script>
+    <dd class="spec passed"><span class="passed_spec_name">filtering_with</span></dd>
+  </dl>
+</div>
+<div class="example_group">
+  <dl>
+  <dt id="example_group_7">Article attachements</dt>
+    <script type="text/javascript">moveProgressBar('29.8');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should accept one new file</span></dd>
+    <script type="text/javascript">moveProgressBar('30.7');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should accepts file names with spaces</span></dd>
+  </dl>
+</div>
+<div class="example_group">
+  <dl>
+  <dt id="example_group_8">Video</dt>
+    <script type="text/javascript">makeRed('example_group_8');</script>
+    <script type="text/javascript">moveProgressBar('31.7');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should be valid</span>
+      <div class="failure" id="failure_4">
+        <div class="message"><pre>Expected #&lt;Video id: nil, user_id: 928040150, title: &quot;My item&quot;, description: &quot;Item description&quot;, state: &quot;initial&quot;, video_file_name: nil, video_content_type: nil, video_file_size: nil, video_updated_at: nil, encoded_file: nil, thumbnail: nil, created_at: nil, updated_at: nil, tags: nil, viewed_number: 0, rates_average: 0, comments_number: 0, category: nil&gt; to be valid, but it was not
+Errors: Video must be set.</pre></div>
+        <div class="backtrace"><pre>/home/anup/projects/blank/spec/models/video_spec.rb:43:</pre></div>
+    <pre class="ruby"><code><span class="linenum">41</span>    @video.stub!(:file_path).and_return('/path/to/video.avi')
+<span class="linenum">42</span>    @video.attributes = item_attributes
+<span class="offending"><span class="linenum">43</span>    @video.should be_valid</span>
+<span class="linenum">44</span>  end
+<span class="linenum">45</span>  
+<span class="linenum">46</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('32.6');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should require file_path</span>
+      <div class="failure" id="failure_5">
+        <div class="message"><pre>expected 1 error on :file_path, got 0</pre></div>
+        <div class="backtrace"><pre>/home/anup/projects/blank/spec/models/video_spec.rb:48:</pre></div>
+    <pre class="ruby"><code><span class="linenum">46</span>  it "should require file_path" do
+<span class="linenum">47</span>    @video.attributes = item_attributes
+<span class="offending"><span class="linenum">48</span>    @video.should have(1).error_on(:file_path)</span>
+<span class="linenum">49</span>  end
+<span class="linenum">50</span>end
+<span class="linenum">51</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+  </dl>
+</div>
+<div class="example_group">
+  <dl>
+  <dt id="example_group_9">Video as an Item</dt>
+    <script type="text/javascript">moveProgressBar('33.6');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should belong to workspace'(s)</span></dd>
+    <script type="text/javascript">moveProgressBar('34.6');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should belong to user</span></dd>
+    <script type="text/javascript">moveProgressBar('35.5');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should belong to items</span></dd>
+    <script type="text/javascript">moveProgressBar('36.5');</script>
+    <dd class="spec passed"><span class="passed_spec_name">can be rated</span></dd>
+    <script type="text/javascript">moveProgressBar('37.5');</script>
+    <dd class="spec passed"><span class="passed_spec_name">can be commented</span></dd>
+    <script type="text/javascript">moveProgressBar('38.4');</script>
+    <dd class="spec passed"><span class="passed_spec_name">can have keywords through keywordings</span></dd>
+    <script type="text/javascript">moveProgressBar('39.4');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should require user</span></dd>
+    <script type="text/javascript">moveProgressBar('40.3');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should require title</span></dd>
+    <script type="text/javascript">moveProgressBar('41.3');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should require description</span></dd>
+  </dl>
+</div>
+<div class="example_group">
+  <dl>
+  <dt id="example_group_10">Video as an Item should have named scopes</dt>
+    <script type="text/javascript">moveProgressBar('42.3');</script>
+    <dd class="spec passed"><span class="passed_spec_name">Full Text Xapian Search</span></dd>
+    <script type="text/javascript">moveProgressBar('43.2');</script>
+    <dd class="spec passed"><span class="passed_spec_name">Advance on Fields</span></dd>
+    <script type="text/javascript">makeRed('example_group_10');</script>
+    <script type="text/javascript">moveProgressBar('44.2');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">in_workspaces</span>
+      <div class="failure" id="failure_6">
+        <div class="message"><pre>expected: {:select=&gt;&quot;DISTINCT *&quot;, :joins=&gt;&quot;LEFT JOIN items ON (items.itemable_type = 'Article' AND items.workspace_id IN ['1'])&quot;},
+     got: {:select=&gt;&quot;DISTINCT *&quot;, :joins=&gt;&quot;LEFT JOIN items ON (items.itemable_type = 'Video' AND items.workspace_id IN ['1'])&quot;} (using ==)</pre></div>
+        <div class="backtrace"><pre>/home/anup/projects/blank/spec/models/items_spec_helper.rb:93:in `included'</pre></div>
+    <pre class="ruby"><code><span class="linenum">91</span>
+<span class="linenum">92</span>          it "in_workspaces" do
+<span class="offending"><span class="linenum">93</span>            @item.class.to_s.classify.constantize.in_workspaces('1').proxy_options.should == {:select=>"DISTINCT *", :joins=>"LEFT JOIN items ON (items.itemable_type = 'Article' AND items.workspace_id IN ['1'])"}</span>
+<span class="linenum">94</span>          end
+<span class="linenum">95</span>
+<span class="linenum">96</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('45.1');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">filtering_with</span>
+      <div class="failure" id="failure_7">
+        <div class="message"><pre>expected: {:limit=&gt;2, :order=&gt;&quot;articles.title asc&quot;},
+     got: {:limit=&gt;2, :order=&gt;&quot;videos.title asc&quot;} (using ==)</pre></div>
+        <div class="backtrace"><pre>/home/anup/projects/blank/spec/models/items_spec_helper.rb:97:in `included'</pre></div>
+    <pre class="ruby"><code><span class="linenum">95</span>
+<span class="linenum">96</span>          it "filtering_with" do
+<span class="offending"><span class="linenum">97</span>            @item.class.to_s.classify.constantize.filtering_with('title','asc',2).proxy_options.should == {:limit=> 2, :order=>"articles.title asc"}</span>
+<span class="linenum">98</span>          end
+<span class="linenum">99</span>
+<span class="linenum">100</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+  </dl>
+</div>
+<div class="example_group">
+  <dl>
+  <dt id="example_group_11">Workspace attributes</dt>
+    <script type="text/javascript">moveProgressBar('46.1');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should be valid</span></dd>
+    <script type="text/javascript">moveProgressBar('47.1');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should require title</span></dd>
+    <script type="text/javascript">moveProgressBar('48.0');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should require description</span></dd>
+  </dl>
+</div>
+<div class="example_group">
+  <dl>
+  <dt id="example_group_12">Workspace associations</dt>
+    <script type="text/javascript">moveProgressBar('49.0');</script>
+    <dd class="spec passed"><span class="passed_spec_name">has many users workspaces</span></dd>
+    <script type="text/javascript">moveProgressBar('50.0');</script>
+    <dd class="spec passed"><span class="passed_spec_name">has many users through user workspaces</span></dd>
+    <script type="text/javascript">moveProgressBar('50.9');</script>
+    <dd class="spec passed"><span class="passed_spec_name">has many roles through user workspaces</span></dd>
+    <script type="text/javascript">moveProgressBar('51.9');</script>
+    <dd class="spec passed"><span class="passed_spec_name">has many items</span></dd>
+    <script type="text/javascript">moveProgressBar('52.8');</script>
+    <dd class="spec passed"><span class="passed_spec_name">belongs to creator</span></dd>
+    <script type="text/javascript">moveProgressBar('53.8');</script>
+    <dd class="spec passed"><span class="passed_spec_name">belongs to ws config </span></dd>
+  </dl>
+</div>
+<div class="example_group">
+  <dl>
+  <dt id="example_group_13">Audio</dt>
+    <script type="text/javascript">makeRed('example_group_13');</script>
+    <script type="text/javascript">moveProgressBar('54.8');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should be valid</span>
+      <div class="failure" id="failure_8">
+        <div class="message"><pre>Expected #&lt;Audio id: nil, user_id: 928040150, title: &quot;My item&quot;, description: &quot;Item description&quot;, state: &quot;initial&quot;, audio_file_name: nil, audio_content_type: nil, audio_file_size: nil, audio_updated_at: nil, created_at: nil, updated_at: nil, tags: nil, viewed_number: 0, rates_average: 0, comments_number: 0, category: nil&gt; to be valid, but it was not
+Errors: Audio must be set.</pre></div>
+        <div class="backtrace"><pre>/home/anup/projects/blank/spec/models/audio_spec.rb:41:</pre></div>
+    <pre class="ruby"><code><span class="linenum">39</span>    @audio.stub!(:file_path).and_return('/path/to/file.mp3')
+<span class="linenum">40</span>    @audio.attributes = item_attributes
+<span class="offending"><span class="linenum">41</span>    @audio.should be_valid</span>
+<span class="linenum">42</span>  end
+<span class="linenum">43</span>  
+<span class="linenum">44</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('55.7');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should require audio file</span></dd>
+  </dl>
+</div>
+<div class="example_group">
+  <dl>
+  <dt id="example_group_14">Audio as an Item</dt>
+    <script type="text/javascript">moveProgressBar('56.7');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should belong to workspace'(s)</span></dd>
+    <script type="text/javascript">moveProgressBar('57.6');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should belong to user</span></dd>
+    <script type="text/javascript">moveProgressBar('58.6');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should belong to items</span></dd>
+    <script type="text/javascript">moveProgressBar('59.6');</script>
+    <dd class="spec passed"><span class="passed_spec_name">can be rated</span></dd>
+    <script type="text/javascript">moveProgressBar('60.5');</script>
+    <dd class="spec passed"><span class="passed_spec_name">can be commented</span></dd>
+    <script type="text/javascript">moveProgressBar('61.5');</script>
+    <dd class="spec passed"><span class="passed_spec_name">can have keywords through keywordings</span></dd>
+    <script type="text/javascript">moveProgressBar('62.5');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should require user</span></dd>
+    <script type="text/javascript">moveProgressBar('63.4');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should require title</span></dd>
+    <script type="text/javascript">moveProgressBar('64.4');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should require description</span></dd>
+  </dl>
+</div>
+<div class="example_group">
+  <dl>
+  <dt id="example_group_15">Audio as an Item should have named scopes</dt>
+    <script type="text/javascript">moveProgressBar('65.3');</script>
+    <dd class="spec passed"><span class="passed_spec_name">Full Text Xapian Search</span></dd>
+    <script type="text/javascript">moveProgressBar('66.3');</script>
+    <dd class="spec passed"><span class="passed_spec_name">Advance on Fields</span></dd>
+    <script type="text/javascript">makeRed('example_group_15');</script>
+    <script type="text/javascript">moveProgressBar('67.3');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">in_workspaces</span>
+      <div class="failure" id="failure_9">
+        <div class="message"><pre>expected: {:select=&gt;&quot;DISTINCT *&quot;, :joins=&gt;&quot;LEFT JOIN items ON (items.itemable_type = 'Article' AND items.workspace_id IN ['1'])&quot;},
+     got: {:select=&gt;&quot;DISTINCT *&quot;, :joins=&gt;&quot;LEFT JOIN items ON (items.itemable_type = 'Audio' AND items.workspace_id IN ['1'])&quot;} (using ==)</pre></div>
+        <div class="backtrace"><pre>/home/anup/projects/blank/spec/models/items_spec_helper.rb:93:in `included'</pre></div>
+    <pre class="ruby"><code><span class="linenum">91</span>
+<span class="linenum">92</span>          it "in_workspaces" do
+<span class="offending"><span class="linenum">93</span>            @item.class.to_s.classify.constantize.in_workspaces('1').proxy_options.should == {:select=>"DISTINCT *", :joins=>"LEFT JOIN items ON (items.itemable_type = 'Article' AND items.workspace_id IN ['1'])"}</span>
+<span class="linenum">94</span>          end
+<span class="linenum">95</span>
+<span class="linenum">96</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('68.2');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">filtering_with</span>
+      <div class="failure" id="failure_10">
+        <div class="message"><pre>expected: {:limit=&gt;2, :order=&gt;&quot;articles.title asc&quot;},
+     got: {:limit=&gt;2, :order=&gt;&quot;audios.title asc&quot;} (using ==)</pre></div>
+        <div class="backtrace"><pre>/home/anup/projects/blank/spec/models/items_spec_helper.rb:97:in `included'</pre></div>
+    <pre class="ruby"><code><span class="linenum">95</span>
+<span class="linenum">96</span>          it "filtering_with" do
+<span class="offending"><span class="linenum">97</span>            @item.class.to_s.classify.constantize.filtering_with('title','asc',2).proxy_options.should == {:limit=> 2, :order=>"articles.title asc"}</span>
+<span class="linenum">98</span>          end
+<span class="linenum">99</span>
+<span class="linenum">100</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+  </dl>
+</div>
+<div class="example_group">
+  <dl>
+  <dt id="example_group_16">ArticleFile</dt>
+    <script type="text/javascript">makeRed('example_group_16');</script>
+    <script type="text/javascript">moveProgressBar('69.2');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should be valid</span>
+      <div class="failure" id="failure_11">
+        <div class="message"><pre>unknown attribute: file_path</pre></div>
+        <div class="backtrace"><pre>/home/anup/projects/blank/spec/models/article_file_spec.rb:30:</pre></div>
+    <pre class="ruby"><code><span class="linenum">28</span>  
+<span class="linenum">29</span>  it "should be valid" do
+<span class="offending"><span class="linenum">30</span>    @article_file.attributes = article_file_attributes</span>
+<span class="linenum">31</span>    @article_file.should be_valid
+<span class="linenum">32</span>  end
+<span class="linenum">33</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('70.1');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should require file_path</span>
+      <div class="failure" id="failure_12">
+        <div class="message"><pre>expected 1 error on :file_path, got 0</pre></div>
+        <div class="backtrace"><pre>/home/anup/projects/blank/spec/models/article_file_spec.rb:36:</pre></div>
+    <pre class="ruby"><code><span class="linenum">34</span>  it "should require file_path" do
+<span class="linenum">35</span>    @article_file.attributes = article_file_attributes.except(:file_path)
+<span class="offending"><span class="linenum">36</span>    @article_file.should have(1).error_on(:file_path)</span>
+<span class="linenum">37</span>  end
+<span class="linenum">38</span>  
+<span class="linenum">39</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('71.1');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should not validates empty files</span>
+      <div class="failure" id="failure_13">
+        <div class="message"><pre>unknown attribute: file_path</pre></div>
+        <div class="backtrace"><pre>/home/anup/projects/blank/spec/models/article_file_spec.rb:40:</pre></div>
+    <pre class="ruby"><code><span class="linenum">38</span>  
+<span class="linenum">39</span>  it "should not validates empty files" do
+<span class="offending"><span class="linenum">40</span>    @article_file.attributes = article_file_attributes.merge(</span>
+<span class="linenum">41</span>      :file_path => upload_filepath_file('empty_file.txt'))
+<span class="linenum">42</span>    @article_file.should have(1).error_on(:file_path)
+<span class="linenum">43</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+  </dl>
+</div>
+<div class="example_group">
+  <dl>
+  <dt id="example_group_17">Image</dt>
+    <script type="text/javascript">makeRed('example_group_17');</script>
+    <script type="text/javascript">moveProgressBar('72.1');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should be valid</span>
+      <div class="failure" id="failure_14">
+        <div class="message"><pre>unknown attribute: file_path</pre></div>
+        <div class="backtrace"><pre>/home/anup/projects/blank/spec/models/image_spec.rb:44:</pre></div>
+    <pre class="ruby"><code><span class="linenum">42</span>  
+<span class="linenum">43</span>  it "should be valid" do
+<span class="offending"><span class="linenum">44</span>    @image.attributes = image_attributes</span>
+<span class="linenum">45</span>    @image.should be_valid
+<span class="linenum">46</span>  end
+<span class="linenum">47</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('73.0');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should require file_path</span>
+      <div class="failure" id="failure_15">
+        <div class="message"><pre>expected 1 error on :file_path, got 0</pre></div>
+        <div class="backtrace"><pre>/home/anup/projects/blank/spec/models/image_spec.rb:50:</pre></div>
+    <pre class="ruby"><code><span class="linenum">48</span>  it "should require file_path" do
+<span class="linenum">49</span>    @image.attributes = image_attributes.except(:file_path)
+<span class="offending"><span class="linenum">50</span>    @image.should have(1).error_on(:file_path)</span>
+<span class="linenum">51</span>  end
+<span class="linenum">52</span>end
+<span class="linenum">53</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+  </dl>
+</div>
+<div class="example_group">
+  <dl>
+  <dt id="example_group_18">Image as an Item</dt>
+    <script type="text/javascript">moveProgressBar('74.0');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should belong to workspace'(s)</span></dd>
+    <script type="text/javascript">moveProgressBar('75.0');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should belong to user</span></dd>
+    <script type="text/javascript">moveProgressBar('75.9');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should belong to items</span></dd>
+    <script type="text/javascript">moveProgressBar('76.9');</script>
+    <dd class="spec passed"><span class="passed_spec_name">can be rated</span></dd>
+    <script type="text/javascript">moveProgressBar('77.8');</script>
+    <dd class="spec passed"><span class="passed_spec_name">can be commented</span></dd>
+    <script type="text/javascript">moveProgressBar('78.8');</script>
+    <dd class="spec passed"><span class="passed_spec_name">can have keywords through keywordings</span></dd>
+    <script type="text/javascript">moveProgressBar('79.8');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should require user</span></dd>
+    <script type="text/javascript">moveProgressBar('80.7');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should require title</span></dd>
+    <script type="text/javascript">moveProgressBar('81.7');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should require description</span></dd>
+  </dl>
+</div>
+<div class="example_group">
+  <dl>
+  <dt id="example_group_19">Image as an Item should have named scopes</dt>
+    <script type="text/javascript">moveProgressBar('82.6');</script>
+    <dd class="spec passed"><span class="passed_spec_name">Full Text Xapian Search</span></dd>
+    <script type="text/javascript">moveProgressBar('83.6');</script>
+    <dd class="spec passed"><span class="passed_spec_name">Advance on Fields</span></dd>
+    <script type="text/javascript">makeRed('example_group_19');</script>
+    <script type="text/javascript">moveProgressBar('84.6');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">in_workspaces</span>
+      <div class="failure" id="failure_16">
+        <div class="message"><pre>expected: {:select=&gt;&quot;DISTINCT *&quot;, :joins=&gt;&quot;LEFT JOIN items ON (items.itemable_type = 'Article' AND items.workspace_id IN ['1'])&quot;},
+     got: {:select=&gt;&quot;DISTINCT *&quot;, :joins=&gt;&quot;LEFT JOIN items ON (items.itemable_type = 'Image' AND items.workspace_id IN ['1'])&quot;} (using ==)</pre></div>
+        <div class="backtrace"><pre>/home/anup/projects/blank/spec/models/items_spec_helper.rb:93:in `included'</pre></div>
+    <pre class="ruby"><code><span class="linenum">91</span>
+<span class="linenum">92</span>          it "in_workspaces" do
+<span class="offending"><span class="linenum">93</span>            @item.class.to_s.classify.constantize.in_workspaces('1').proxy_options.should == {:select=>"DISTINCT *", :joins=>"LEFT JOIN items ON (items.itemable_type = 'Article' AND items.workspace_id IN ['1'])"}</span>
+<span class="linenum">94</span>          end
+<span class="linenum">95</span>
+<span class="linenum">96</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('85.5');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">filtering_with</span>
+      <div class="failure" id="failure_17">
+        <div class="message"><pre>expected: {:limit=&gt;2, :order=&gt;&quot;articles.title asc&quot;},
+     got: {:limit=&gt;2, :order=&gt;&quot;images.title asc&quot;} (using ==)</pre></div>
+        <div class="backtrace"><pre>/home/anup/projects/blank/spec/models/items_spec_helper.rb:97:in `included'</pre></div>
+    <pre class="ruby"><code><span class="linenum">95</span>
+<span class="linenum">96</span>          it "filtering_with" do
+<span class="offending"><span class="linenum">97</span>            @item.class.to_s.classify.constantize.filtering_with('title','asc',2).proxy_options.should == {:limit=> 2, :order=>"articles.title asc"}</span>
+<span class="linenum">98</span>          end
+<span class="linenum">99</span>
+<span class="linenum">100</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+  </dl>
+</div>
+<div class="example_group">
+  <dl>
+  <dt id="example_group_20">CmsFile</dt>
+    <script type="text/javascript">makeRed('example_group_20');</script>
+    <script type="text/javascript">moveProgressBar('86.5');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should be valid</span>
+      <div class="failure" id="failure_18">
+        <div class="message"><pre>unknown attribute: file_path</pre></div>
+        <div class="backtrace"><pre>/home/anup/projects/blank/spec/models/cms_file_spec.rb:45:</pre></div>
+    <pre class="ruby"><code><span class="linenum">43</span>  
+<span class="linenum">44</span>  it "should be valid" do
+<span class="offending"><span class="linenum">45</span>    @cms_file.attributes = cms_file_attributes</span>
+<span class="linenum">46</span>    @cms_file.should be_valid
+<span class="linenum">47</span>  end
+<span class="linenum">48</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('87.5');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should require file_path</span>
+      <div class="failure" id="failure_19">
+        <div class="message"><pre>expected 1 error on :file_path, got 0</pre></div>
+        <div class="backtrace"><pre>/home/anup/projects/blank/spec/models/cms_file_spec.rb:51:</pre></div>
+    <pre class="ruby"><code><span class="linenum">49</span>  it "should require file_path" do
+<span class="linenum">50</span>    @cms_file.attributes = cms_file_attributes.except(:file_path)
+<span class="offending"><span class="linenum">51</span>    @cms_file.should have(1).error_on(:file_path)</span>
+<span class="linenum">52</span>  end
+<span class="linenum">53</span>end
+<span class="linenum">54</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+  </dl>
+</div>
+<div class="example_group">
+  <dl>
+  <dt id="example_group_21">CmsFile as an Item</dt>
+    <script type="text/javascript">moveProgressBar('88.4');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should belong to workspace'(s)</span></dd>
+    <script type="text/javascript">moveProgressBar('89.4');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should belong to user</span></dd>
+    <script type="text/javascript">moveProgressBar('90.3');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should belong to items</span></dd>
+    <script type="text/javascript">moveProgressBar('91.3');</script>
+    <dd class="spec passed"><span class="passed_spec_name">can be rated</span></dd>
+    <script type="text/javascript">moveProgressBar('92.3');</script>
+    <dd class="spec passed"><span class="passed_spec_name">can be commented</span></dd>
+    <script type="text/javascript">moveProgressBar('93.2');</script>
+    <dd class="spec passed"><span class="passed_spec_name">can have keywords through keywordings</span></dd>
+    <script type="text/javascript">moveProgressBar('94.2');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should require user</span></dd>
+    <script type="text/javascript">moveProgressBar('95.1');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should require title</span></dd>
+    <script type="text/javascript">moveProgressBar('96.1');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should require description</span></dd>
+  </dl>
+</div>
+<div class="example_group">
+  <dl>
+  <dt id="example_group_22">CmsFile as an Item should have named scopes</dt>
+    <script type="text/javascript">makeRed('example_group_22');</script>
+    <script type="text/javascript">moveProgressBar('97.1');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">Full Text Xapian Search</span>
+      <div class="failure" id="failure_20">
+        <div class="message"><pre>expected: {:conditions=&gt;[&quot;cmsfiles.id in (?)&quot;, []]},
+     got: {:conditions=&gt;[&quot;cms_files.id in (?)&quot;, []]} (using ==)</pre></div>
+        <div class="backtrace"><pre>/home/anup/projects/blank/spec/models/items_spec_helper.rb:85:in `included'</pre></div>
+    <pre class="ruby"><code><span class="linenum">83</span>
+<span class="linenum">84</span>          it "Full Text Xapian Search" do
+<span class="offending"><span class="linenum">85</span>            @item.class.to_s.classify.constantize.full_text_with_xapian('hello').proxy_options.should == {:conditions => ["#{@item.class.to_s.downcase.pluralize}.id in (?)", []]}</span>
+<span class="linenum">86</span>          end
+<span class="linenum">87</span>
+<span class="linenum">88</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('98.0');</script>
+    <dd class="spec passed"><span class="passed_spec_name">Advance on Fields</span></dd>
+    <script type="text/javascript">moveProgressBar('99.0');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">in_workspaces</span>
+      <div class="failure" id="failure_21">
+        <div class="message"><pre>expected: {:select=&gt;&quot;DISTINCT *&quot;, :joins=&gt;&quot;LEFT JOIN items ON (items.itemable_type = 'Article' AND items.workspace_id IN ['1'])&quot;},
+     got: {:select=&gt;&quot;DISTINCT *&quot;, :joins=&gt;&quot;LEFT JOIN items ON (items.itemable_type = 'CmsFile' AND items.workspace_id IN ['1'])&quot;} (using ==)</pre></div>
+        <div class="backtrace"><pre>/home/anup/projects/blank/spec/models/items_spec_helper.rb:93:in `included'</pre></div>
+    <pre class="ruby"><code><span class="linenum">91</span>
+<span class="linenum">92</span>          it "in_workspaces" do
+<span class="offending"><span class="linenum">93</span>            @item.class.to_s.classify.constantize.in_workspaces('1').proxy_options.should == {:select=>"DISTINCT *", :joins=>"LEFT JOIN items ON (items.itemable_type = 'Article' AND items.workspace_id IN ['1'])"}</span>
+<span class="linenum">94</span>          end
+<span class="linenum">95</span>
+<span class="linenum">96</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('100.0');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">filtering_with</span>
+      <div class="failure" id="failure_22">
+        <div class="message"><pre>expected: {:limit=&gt;2, :order=&gt;&quot;articles.title asc&quot;},
+     got: {:limit=&gt;2, :order=&gt;&quot;cms_files.title asc&quot;} (using ==)</pre></div>
+        <div class="backtrace"><pre>/home/anup/projects/blank/spec/models/items_spec_helper.rb:97:in `included'</pre></div>
+    <pre class="ruby"><code><span class="linenum">95</span>
+<span class="linenum">96</span>          it "filtering_with" do
+<span class="offending"><span class="linenum">97</span>            @item.class.to_s.classify.constantize.filtering_with('title','asc',2).proxy_options.should == {:limit=> 2, :order=>"articles.title asc"}</span>
+<span class="linenum">98</span>          end
+<span class="linenum">99</span>
+<span class="linenum">100</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+  </dl>
+</div>
+<script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>0.845378 seconds</strong>";</script>
+<script type="text/javascript">document.getElementById('totals').innerHTML = "104 examples, 22 failures";</script>
+</div>
+</div>
+</body>
+</html>
