@@ -228,3 +228,13 @@ function do_search(){
     return valid;
 }
   
+function dodo(name, model_name, place_id) {
+  if (name != 0) {
+  var dadiv = new Element('div', { 'id': name+'_000', 'class':'keyword_label' }).insert(name)
+  var dadelete = new Element('a', { 'onclick': 'this.parentNode.remove(); return false;' }).insert('<img width="15" src="/images/icons/delete.png" alt="Delete"/>')
+  var dahidden = new Element('input', { 'id': model_name+'_keywords_', 'type': 'hidden', 'value': name, 'name': model_name+'[keywords_field][]' })
+  dadiv.appendChild(dadelete)
+  dadiv.appendChild(dahidden)
+  $(place_id).insert(dadiv)
+  }
+}

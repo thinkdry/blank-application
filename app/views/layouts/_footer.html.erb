@@ -28,7 +28,7 @@
     <p><%= link_to I18n.t('layout.application.my_account'), user_path(current_user) %></p>
     <p><%= link_to I18n.t('layout.application.logout'), '/logout' %></p>
   </div>
-  <div class="footerCol">
+  <div class="footerCol last">
     <h3>last workspaces</h3>
     <% Workspace.allowed_user_with_permission(@current_user.id, 'workspace_show').all(:order => 'created_at DESC', :limit => 5).each do |w|%>
       <p><%= link_to w.title, workspace_path(w) %></p>
