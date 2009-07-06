@@ -17,6 +17,12 @@
 #  logo_file_size     :integer(4)
 #  ws_available_types :string(255)     default("")
 #
+#Parameters: {"workspace"=>{"title"=>"Private for Boss",
+# "existing_user_attributes"=>{"1"=>{"role_id"=>"4", "user_id"=>"1"}},
+# "ws_item_categories"=>["cat1", "cat2", "cat3"],
+# "description"=>"<p>Private Workspace for Boss</p>",
+#  "ws_items"=>["article", "image", "cms_file", "video", "audio", "feed_source", "newsletter", "group"]},
+#  "id"=>"1"}
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 require File.expand_path(File.dirname(__FILE__) + '/items_spec_helper')
@@ -38,12 +44,6 @@ describe Workspace do
     }
   end
 
-  before(:each) do
-    @workspace = workspace
-  end
-
-  describe "attributes" do
-
     before(:each) do
       @workspace = workspace
     end
@@ -62,8 +62,6 @@ describe Workspace do
       @workspace.attributes = workspace_attributes.except(:description)
       @workspace.should have(1).error_on(:description)
     end
-
-  end
 
   describe "associations" do
 
@@ -132,9 +130,45 @@ describe Workspace do
 
   end
 
-  it "should return users of given workspace" do
+  it "should return users of workspace with given role" do
     @workspace = workspaces(:private_for_luc)
-    @workspace.users_by_role('ws_admin').should == [User.find(1)]
+    @workspace.users_by_role('ws_admin').last.should == User.find(1)
+  end
+
+  it "should save workspace items" do
+    @workspace.attributes = workspace_attributes.merge("ws_items"=>["article", "image", "cms_file"])
+    @workspace.ws_items.should == "article,image,cms_file"
+  end
+  
+  #  it "should save existing user attributes" do
+  #    @workspace.attributes = workspace_attributes.merge("existing_user_attributes"=>{"1"=>{"role_id"=>"4", "user_id"=>"1"}})
+  #    @workspace.existing_user_attributes.should == users_workspaces(:one)
+  #  end
+
+  it "should save user workspace"
+
+  describe "Permissions" do
+
+    it "should allow user with role to administer workspace"
+    
+    it "should not allow user without role to administer workspace"
+
+    it "should allow user with role to view workspace" 
+    
+    it "should not allow users without role to view workspace"
+
+    it "should allow user with role to create workspace"
+
+    it "should not allow users without role to create workspace"
+
+    it "should allow user with role to edit workspace"
+
+    it "should not allow users without role to edit workspace"
+
+    it "should allow user with role to destroy workspace"
+
+    it "should not allow users without role to destroy workspace"
+
   end
 
 

@@ -1,0 +1,95 @@
+<% i = 1 %>
+<% %w(article workspace).each do |obj| %>
+ <% %w(new edit show destroy comment ).each do |action| %>
+admin_<%= obj %>_<%= action %>:
+ role_id: 2
+ permission_id: <%= i %>
+ <% i += 1 %>
+ <% end %>
+<% end %>
+
+
+ws_admin_article_new:
+ role_id: 4
+ permission_id: 1
+
+ws_admin_article_edit:
+ role_id: 4
+ permission_id: 2
+
+ws_admin_article_show:
+ role_id: 4
+ permission_id: 3
+
+ws_admin_article_destroy:
+ role_id: 4
+ permission_id: 4
+
+ws_admin_article_comment:
+ role_id: 4
+ permission_id: 5
+
+ws_admin_workspace_edit:
+ role_id: 4
+ permission_id: 7
+
+ws_admin_workspace_show:
+ role_id: 4
+ permission_id: 8
+
+
+moderator_article_new:
+ role_id: 5
+ permission_id: 1
+
+moderator_article_edit:
+ role_id: 5
+ permission_id: 2
+
+moderator_article_show:
+ role_id: 5
+ permission_id: 3
+
+moderator_article_comment:
+ role_id: 5
+ permission_id: 5
+
+moderator_workspace_show:
+ role_id: 5
+ permission_id: 7
+
+writer_article_new:
+ role_id: 7
+ permission_id: 1
+
+writer_article_show:
+ role_id: 7
+ permission_id: 3
+
+writer_article_comment:
+ role_id: 7
+ permission_id: 5
+
+writer_workspace_show:
+ role_id: 7
+ permission_id: 7
+
+reader_article_show:
+ role_id: 6
+ permission_id: 3
+
+reader_article_comment:
+ role_id: 6
+ permission_id: 5
+
+reader_workspace_show:
+ role_id: 6
+ permission_id: 7
+
+
+
+
+
+
+
+
