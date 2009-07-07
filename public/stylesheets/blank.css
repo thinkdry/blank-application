@@ -521,7 +521,7 @@ h4{
 
 .CommonMessageFull{
 	margin-left:0px !important;
-	width:100%;
+	width:95%;
 }
 
 .red{
@@ -1060,7 +1060,7 @@ ul.top_box li{
 	width:230px;
 }
 #right_select_box{
-	margin-top:5px;
+	margin-top:13px;
 }
 
 #left_select_box select, #right_select_box select{
@@ -1071,7 +1071,7 @@ ul.top_box li{
 }
 #left_right_buttons{
 	width:50px;
-	margin:30px 10px 30px 35px;
+	margin:80px 10px 30px 35px;
 }
 #select_boxes{
 	margin-top:4px;
@@ -1396,7 +1396,7 @@ form br{
 	clear:both;
 }
 
-#keyword_value{
+#keyword_value, #website_url_name_value {
 	width:500px;
 	float:left;
 }
@@ -1406,7 +1406,7 @@ form br{
 	margin-left:20px;
 }
 .bottomAlign{
-	margin-left:52px;
+	margin-left:15px;
 }
 
 .dateSelection{
@@ -1448,10 +1448,12 @@ form br{
 .sendLeftButton {
 	border:0;
 	background:transparent url('/images/icons/left.png') no-repeat;
+	width:30px;
 }
 .sendRightButton{
 	border:0;
 	background:transparent url('/images/icons/right.png') no-repeat;
+	width:30px;
 }
 .checkboxes{
 	width:15px !important;
@@ -1498,3 +1500,6 @@ label .low{
 #workspace_logo{
 	height:25px;
 }
+
+#start_with { width:80px !important;}
+#assignedOptions, #availableOptions { height:140px; }

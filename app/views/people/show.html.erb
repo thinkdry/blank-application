@@ -1,5 +1,4 @@
-<div id="area_POST_bis">
-	<div id="area_PROFIL">
+<div id="area_PROFIL">
 	  <h2>
 	  	<%= @current_object.first_name %> <%= @current_object.last_name %>
         <%= link_to image_tag('icons/pencil.png'), edit_person_path, :class => "pencil"  %>
@@ -53,8 +52,3 @@
 	  	<label><%= I18n.t('people.field.newsletter_lable') %>  : </label><%= @current_object.newsletter %>
 	  </p>
 	</div>
-</div>
-
-
-<div class="clear"></div>
-
