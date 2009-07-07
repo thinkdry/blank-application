@@ -9,24 +9,58 @@
 #<Permission name: "article_tag", type_permission: "workspace">]
 
 article_new:
+    id: 1
     name: article_new
     type_permission: workspace
 
 
 article_edit:
+    id: 2
     name: article_edit
     type_permission: workspace
 
 article_show:
+    id: 3
     name: article_show
     type_permission: workspace
 
 article_destroy:
+    id: 4
     name: article_destroy
     type_permission: workspace
 
 article_comment:
+    id: 5
     name: article_comment
     type_permission: workspace
+
+workspace_new:
+    id: 6
+    name: workspace_new
+    type_permission: workspace
+
+workspace_edit:
+    id: 7
+    name: workspace_edit
+    type_permission: workspace
+
+workspace_show:
+    id: 8
+    name: workspace_show
+    type_permission: workspace
+
+workspace_destroy:
+    id: 9
+    name: workspace_destroy
+    type_permission: workspace
+
+workspace_administrate:
+    id: 10
+    name: workspace_administrate
+    type_permission: workspace
+
+
+
+
 
 

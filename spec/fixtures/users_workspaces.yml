@@ -9,5 +9,26 @@ two:
   role_id: 4
   user_id: 2
 
+three:
+  workspace_id: 1
+  role_id: 4
+  user_id: 4
+
+four:
+  workspace_id: 1
+  role_id: 5
+  user_id: 5
+
+five:
+  workspace_id: 1
+  role_id: 6
+  user_id: 6
+
+six:
+  workspace_id: 1
+  role_id: 7
+  user_id: 7
+
+
 
 

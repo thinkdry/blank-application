@@ -38,12 +38,23 @@
 #  gender                    :string(255)
 #
 
+
+
+
 # superadmin
 luc:
     id: 1
     login: luc
     firstname: luc
     lastname: skywalker
+    email: contact@thinkdry.com
+    address: Leonard
+    phone: 1111111111
+    mobile: 1111111111
+    company: thinkdry
+    nationality: France
+    crypted_password: a2c297302eb67e8f981a0f9bfae0e45e4d0e4317
+    salt: 356a192b7913b04c54574d18c28d46e6395428ab
     system_role_id: 1
 
 # admin

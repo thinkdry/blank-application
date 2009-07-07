@@ -171,7 +171,7 @@ module ItemsSpecHelper
       :user => users(:luc),
       :title => 'My item',
       :description => 'Item description',
-      :associated_workspaces => [workspaces(:one).id]
+      :associated_workspaces => [workspaces(:private_for_luc).id]
     }
   end
 
