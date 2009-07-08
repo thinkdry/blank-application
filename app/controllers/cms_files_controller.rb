@@ -1,6 +1,9 @@
 class CmsFilesController < ApplicationController
   acts_as_ajax_validation
-  acts_as_item
+  acts_as_item do
+		skip_before_filter :logged_in?, :only => [:get_file_url]
+	end
+
 
   # Return the Url of the CmsFile for Pop Up Window
   #
