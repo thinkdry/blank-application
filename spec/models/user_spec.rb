@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 require File.expand_path(File.dirname(__FILE__) + '/items_spec_helper')
 
 describe User do
-  fixtures :roles, :permissions, :users, :workspaces, :users_workspaces
+  fixtures :roles, :permissions,:permissions_roles, :users, :workspaces, :users_workspaces
 
   def user
     User.new
@@ -10,7 +10,20 @@ describe User do
 
 
   def user_attributes
-    users(:luc)
+    {
+      :login => 'boss',
+      :firstname => 'boss',
+      :lastname => 'dupond',
+      :password => 'monkey',
+      :password_confirmation => 'monkey',
+      :email => 'boss@thinkdry.com',
+      :address => 'Leonard',
+      :phone => 1111111111,
+      :mobile => 1111111111,
+      :company => 'thinkdry',
+      :nationality => 'France',
+      :system_role_id => 1
+    }
   end
 
   before(:each) do
@@ -18,111 +31,255 @@ describe User do
   end
 
   it "should be valid" do
-    @user = user_attributes
+    @user.attributes = user_attributes
     @user.should be_valid
   end
 
   it "should require login" do
-    @user = user_attributes.except(:login)
-    @user.should_not be_valid
+    @user.attributes = user_attributes.except(:login)
+    @user.should have(3).error_on(:login)
   end
 
 
-  it "should require a unique login"
+  it "should require a unique login" do
+    @user.attributes = user_attributes
+    @user.login = 'luc'
+    @user.should have(1).error_on(:login)
+  end
 
-  it "should require login between 3 to 40 characters"
+  it "should require login greater than 3 characters" do
+    @user.attributes = user_attributes
+    @user.login = 'lu'
+    @user.should have(1).error_on(:login)
+  end
 
-  it "should require login without special characters"
+  it "should require login less than 40 characters" do
+    @user.attributes = user_attributes
+    @user.login = 'luctctcychchchchchchchchchchchchchhsjsjsaskakalalssssssssaskoksoskkskslkslklasssssdddsddsdsdsdsldksldl'
+    @user.should have(1).error_on(:login)
+  end
 
-  it "should require email"
+  it "should require login without special characters" do
+    @user.attributes = user_attributes
+    @user.login = 'luc_23'
+    @user.should have(1).error_on(:login)
+  end
 
-  it "should require unique email"
+  it "should require password" do
+    @user.attributes = user_attributes.except(:password)
+    @user.should have(5).errors_on(:password)
+  end
 
-  it "should require email with proper format"
+  it "should require confirmation password" do
+    @user.attributes = user_attributes.except(:password_confirmation)
+    @user.should have(2).errors_on(:password_confirmation)
+  end
 
-  it "should require firstname, lastname, company,address"
+  it "should require confirmation password same as password" do
+    @user.attributes = user_attributes
+    @user.password_confirmation = 'monkey1'
+    @user.should have(2).error_on(:password)
+  end
 
-  it "should require phone,mobile"
+  it "should require email" do
+    @user.attributes = user_attributes.except(:email)
+    @user.should have(4).errors_on(:email)
+  end
 
-  it "should accept avatar with valid format"
+  it "should require unique email" do
+    @user.attributes = user_attributes
+    @user.email = 'contact@thinkdry.com'
+    @user.should have(1).error_on(:email)
+  end
+
+  it "should require email with proper format" do
+    @user.attributes = user_attributes
+    @user.email = 'luc_23@gmailcom'
+    @user.should have(1).error_on(:email)
+  end
+
+  it "should require firstname" do
+    @user.attributes = user_attributes.except(:firstname)
+    @user.should have(1).errors_on(:firstname)
+  end
+
+  it "should require firstname to be in valid format" do
+    @user.attributes = user_attributes
+    @user.firstname = 'boss32'
+    @user.should have(1).error_on(:firstname)
+  end
+  
+  it "should require lastname" do
+    @user.attributes = user_attributes.except(:lastname)
+    @user.should have(1).errors_on(:lastname)
+  end
+
+  it "should require lastname to be in valid format" do
+    @user.attributes = user_attributes
+    @user.lastname = 'dupond_14'
+    @user.should have(1).error_on(:lastname)
+  end
+
+
+  it "should validate format of phone, mobile numbers" do
+    @user.attributes = user_attributes
+    @user.phone = '111111'
+    @user.should have(1).error_on(:phone)
+  end
+
+  it "should accept only [jpeg,jpg,png,gif,bmp] formats for avatar" do
+    %w(image.jpeg image.jpg image.png image.gif image.bmp).each { |image|
+      @user.attributes = user_attributes.merge(:avatar => url_to_attachment_file(image))}
+    @user.should be_valid
+  end
 
   describe "associations" do
 
-    it "has many users workspaces"
-
-    it "has many workspaces"
-
-    it "has_many workspace roles"
-
-    ITEMS.each do |item|
-      it "has many #{item}"
+    it "has many users workspaces" do
+      User.reflect_on_association(:users_workspaces).to_hash.should == {
+        :macro => :has_many,
+        :options => {:dependent=>:delete_all, :extend=>[]},
+        :class_name => "UsersWorkspace"
+      }
     end
 
-    it "has many ratings"
+    it "has many workspaces" do
+      User.reflect_on_association(:workspaces).to_hash.should == {
+        :macro => :has_many,
+        :options => {:through => :users_workspaces, :extend=>[]},
+        :class_name => "Workspace"
+      }
+    end
 
-    it "has many comments"
+    it "has many workspace roles" do
+      User.reflect_on_association(:workspace_roles).to_hash.should == {
+        :macro => :has_many,
+        :options => {:through => :users_workspaces, :source => :role, :extend=>[]},
+        :class_name => "WorkspaceRole"
+      }
+    end
 
-    it "has many feed items"
+    ITEMS.each do |item|
+      it "has many #{item}" do
+        User.reflect_on_association(item.pluralize.to_sym).to_hash.should == {
+          :macro => :has_many,
+          :options => {:extend => []},
+          :class_name => item.camelize
+        }
+      end
+    end
 
-    it "has many groupings"
+    it "has many ratings" do
+      User.reflect_on_association(:rattings).to_hash.should == {
+        :macro => :has_many,
+        :options => {:extend=>[]},
+        :class_name => "Ratting"
+      }
+    end
 
-    it "has many members_in"
+    it "has many comments" do
+      User.reflect_on_association(:comments).to_hash.should == {
+        :macro => :has_many,
+        :options => {:extend=>[]},
+        :class_name => "Comment"
+      }
+    end
 
-    it "has many people"
+
+    it "has many groupings" do
+     User.reflect_on_association(:groupings).to_hash.should == {
+        :macro => :has_many,
+        :options => {:as => :groupable, :dependent => :delete_all,:extend=>[]},
+        :class_name => "Grouping"
+      }
+    end
+
+    it "has many members_in" do
+      User.reflect_on_association(:member_in).to_hash.should == {
+        :macro => :has_many,
+        :options => {:through => :groupings, :source => :group,:extend=>[]},
+        :class_name => "MemberIn"
+      }
+    end
+
+    it "has many people" do
+      User.reflect_on_association(:people).to_hash.should == {
+        :macro => :has_many,
+        :options => {:order => 'email ASC',:extend=>[]},
+        :class_name => "Person"
+      }
+    end
   end
 
-  describe "should have named scopes" do
-
-   it "workspaces_with_permission"
-   
-   it "latest"
-  end
 
   describe "methods" do
 
-    it "should return contact list"
+    it "should return contact list" do
+     @user = users(:luc)
+     @user.get_contacts_list('all',nil,false).should == Person.all
+    end
 
-    it "should convert users to people"
+    it "should convert users to people" do
+      @user = users(:luc)
+      @user.to_people.class.to_s.should == 'Person'
+    end
 
-    it "should convert user to group member"
+    it "should convert user to group member" do
+      # Dont know how to implement..... whats d use??
+    end
 
-    it "should return system role"
+    it "should return system role" do
+      @user = users(:luc)
+      @user.system_role.should == Role.find(1)
+    end
 
-    it "should check system role"
+    it "should check system role" do
+      @user = users(:albert)
+      @user.has_system_role('admin').should == true
+    end
 
-    it "should check workspace role"
+    it "should check workspace role" do
+      @user = users(:albert)
+      @user.has_workspace_role(workspaces(:private_for_albert).id,'ws_admin').should == true
+    end
 
-    it "should return user permissions"
+    it "should check system permission"  do
+      @user = users(:luc)
+      @user.has_system_permission('articles','destroy').should == true
+    end
 
-    it "should check system permission"
+    it "should check workspace permission" do
+       @user = users(:mj)
+       @user.has_workspace_permission(workspaces(:private_for_luc).id,'articles','new') == true
+    end
+    
+    it "should return full name" do
+      @user = users(:peter)
+      @user.full_name.should == 'parker peter'
+    end
 
-    it "should check workspace permission"
-
-    it "should return full name"
-
-    it "should create private workspace on user creating"
   end
 
-  describe "Permissions" do
-
-    it "should allow user with role to view user details"
-
-    it "should not allow users without role to view user details"
-
-    it "should allow user with role to create user"
-
-    it "should not allow users without role to create user"
-
-    it "should allow user with role to edit user"
-
-    it "should not allow users without role to edit user"
-
-    it "should allow user with role to destroy user"
-
-    it "should not allow users without role to destroy user"
-
-
-  end
+#  describe "Permissions" do
+#
+#    it "should allow user with role to view user details"
+#
+#    it "should not allow users without role to view user details"
+#
+#    it "should allow user with role to create user"
+#
+#    it "should not allow users without role to create user"
+#
+#    it "should allow user with role to edit user"
+#
+#    it "should not allow users without role to edit user"
+#
+#    it "should allow user with role to destroy user"
+#
+#    it "should not allow users without role to destroy user"
+#
+#
+#  end
 
 
 end

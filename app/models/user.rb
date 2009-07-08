@@ -134,12 +134,6 @@ class User < ActiveRecord::Base
   # This will also let us return a human error message.
   #
 
-  # Workspaces permissions for user
-	named_scope :workspaces_with_permission,
-		lambda { |user_id, permission_name|
-    { :joins => "LEFT JOIN users_workspaces ON users_workspaces.user_id = "}
-  }
-
   # latest 5 users
   named_scope :latest,
     :order => 'created_at DESC',
@@ -194,16 +188,9 @@ class User < ActiveRecord::Base
   end
 
 
-	#include SavageBeast::UserInit
-
   # Display Name of User(login)
 	def display_name
     login
-	end
-
-  # Check if User is Admin
-	def admin?
-    true
 	end
 
   # Check if User Currently Online
@@ -212,26 +199,62 @@ class User < ActiveRecord::Base
 	end 
 
   # User System Role for Permissions
+  # 
+  # Usage:
+  #
+  # <tt>user.system_role</tt>
+  #
+  # will return the role object of the system role
+  #
 	def system_role
 		return Role.find(self.system_role_id)
 	end
 
   # Check User for System role with passed 'role'
+  # 
+  # Usage:
+  # 
+  # <tt>user.has_system_role('admin')</tt>
+  # 
+  # will return true if the user has role 'admin' or if he is superadmin
+  #
 	def has_system_role(role_name)
 		return (self.system_role.name == role_name) || self.system_role.name == 'superadmin'
 	end
 
   # Check User for Workspace Role with passed 'workspace' & 'role_type'
+  #
+  # Usage:
+  #
+  # <tt>user.has_workspace_role('ws_admin')</tt>
+  #
+  # will return true if the user has role 'ws_admin' for workspace or if he is superadmin
+  #
 	def has_workspace_role(workspace_id, role_name)
 		return UsersWorkspace.exists?(:user_id => self.id, :workspace_id => workspace_id, :role_id => Role.find_by_name(role_name).id) || self.system_role.name == 'superadmin'
 	end
 
   # Users System Permissions
+  #
+  # Usage:
+  #
+  # <tt>user.system_permissions</tt>
+  #
+  # will return all the permissions for the user system role
+  #
 	def system_permissions
 		return self.system_role.permissions
 	end
 
   # Users Workspace Permissions
+  # Users System Permissions
+  #
+  # Usage:
+  #
+  # <tt>user.workspace_permissions</tt>
+  #
+  # will return all the permissions for the user workspace role for given workspace
+  #
 	def workspace_permissions(workspace_id)
 		if UsersWorkspace.exists?(:user_id => self.id, :workspace_id => workspace_id)
 			return UsersWorkspace.find(:first, :conditions => {:user_id => self.id, :workspace_id => workspace_id}).role.permissions
@@ -241,12 +264,26 @@ class User < ActiveRecord::Base
 	end
 
   # User System Role for Controller and Action
+  #
+  # Usage:
+  #
+  # <tt>user.has_system_permission('workspaces','new')</tt>
+  #
+  # will return true if the user has system permission to create new workspace
+  #
 	def has_system_permission(controller, action)
 		permission_name = controller+'_'+action
 		return !self.system_permissions.delete_if{ |e| e.name != permission_name}.blank? || self.has_system_role('superadmin')
 	end
 
   # User Worksapce Role for Given Worksapce, Controller and Action
+  #
+  # Usage:
+  #
+  # <tt>user.has_workspace_permission('articles','new')</tt>
+  #
+  # will return true if the user has workspace permission to create new article
+  #
 	def has_workspace_permission(workspace_id, controller, action)
 		permission_name = controller+'_'+action
 		return !self.workspace_permissions(workspace_id).delete_if{ |e| e.name != permission_name}.blank? || self.has_system_role('superadmin')
@@ -313,7 +350,7 @@ class User < ActiveRecord::Base
 		return self.lastname.to_s+" "+self.firstname.to_s
   end
 
-  # Create Private worksapce for User on creation called 'Private for user_login'
+  # Create Private worksapce for User on creation called 'Private space of user_login'
 	def create_private_workspace
 		# Creation of the private workspace for the user
 		ws = Workspace.create(:title => "Private space of #{self.login}",
