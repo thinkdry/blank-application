@@ -1,39 +1,44 @@
 <%= (params[:restriction]=='all') ? 'All' : link_to('All', people_path(:restriction => 'all')) %> |
 <%= (params[:restriction]=='people') ? 'People' : link_to('People', people_path(:restriction => 'people')) %> |
-<%= (params[:restriction]=='users') ? 'Users' : link_to('Users', people_path(:restriction => 'users')) %>
-<br /><br />
+<%= (params[:restriction]=='users') ? 'Users' : link_to('Users', people_path(:restriction => 'users')) %> |
+<%= (params[:restriction]=='website_contacts') ? 'Website contacts' : link_to('Website contacts', people_path(:restriction => 'website_contacts')) %>
 
 <% if @people.size > 0 %>
-<table  cellspacing="10" border="0">
+<table  cellpadding="10" cellspacing="0">
   <tr>
-    <th><%= I18n.t('people.field.origin_label') %>
-    <th><%= I18n.t('people.field.email_label') %></th>
-    <th><%= I18n.t('people.index.name') %></th>
-    <th><%= I18n.t('people.index.subscribed_on') %></th>
-    <th> </th>
+    <th width="10%"><%= I18n.t('people.field.origin_label') %></th>
+    <th width="20%"><%= I18n.t('people.field.email_label') %></th>
+    <th width="20%"><%= I18n.t('people.index.name') %></th>
+    <th width="15%"><%= I18n.t('people.index.subscribed_on') %></th>
+    <th width="10%"></th>
   </tr>
-
-  <% @people.each do |person|  %>
-    <tr>
+  <% @i = 0%>
+  <% @people.each do |person|  -%>
+ 	<% if @i%2 == 0 -%>
+  <tr>
+	<% else -%>
+  <tr bgcolor="#eee">
+	<%end -%>
     <td> <%= person[:origin] %></td>
     <td> <%= person[:email] %></td>
     <td> <%= person[:first_name] %> <%= person[:last_name] %></td>
     <td> <%= I18n.l person[:created_at].to_datetime, :format => :long %> </td>
     <td>
         <%= link_to image_tag("/images/icons/play.png", :width => "20", :alt => I18n.t('general.link.display')), eval("#{person[:model].underscore}_path(#{person[:id]})") %>
-        <%= link_to image_tag("/images/icons/pencil.png", :width => "20", :alt => I18n.t('general.link.edit')), eval("edit_#{person[:model].underscore}_path(#{person[:id]})") %>
-        <%= link_to image_tag("/images/icons/delete.png", :width => "20", :alt => I18n.t('general.link.delete')), eval("#{person[:model].underscore}_path(#{person[:id]})"), :method => :delete, :confirm => I18n.t('people.index.delete_confirm') %>
-        
-          <span style="vertical-align:baseline;"><%= I18n.t('user.field.newsletter_label')%>
           <% if person[:model] != 'User' %>
+            <%= link_to image_tag("/images/icons/pencil.png", :width => "20", :alt => I18n.t('general.link.edit')), eval("edit_#{person[:model].underscore}_path(#{person[:id]})") %>
+            <%= link_to image_tag("/images/icons/delete.png", :width => "20", :alt => I18n.t('general.link.delete')), eval("#{person[:model].underscore}_path(#{person[:id]})"), :method => :delete, :confirm => I18n.t('people.index.delete_confirm') %>
+            <!--span style="vertical-align:baseline;"><%= I18n.t('user.field.newsletter_label')%>
             <%= check_box_tag("person_#{person[:id]}", "1", person[:newsletter] ,:class => "checkboxes", :onclick => remote_function(:url => {:controller => "people", :action => "update_newsletter_column" },  :with => "'id=#{person[:id]}&type=person&newsletter='+$('person_#{person[:id]}').checked", :complete => "document.body.style.cursor = 'default';", :loading => "document.body.style.cursor = 'wait';" ))%>
           <% else %>
+            <span style="vertical-align:baseline;"><%= I18n.t('user.field.newsletter_label')%>
             <%= check_box_tag(nil, nil, person[:newsletter], :disabled => true, :class => "checkboxes") %>
           <% end %>
-          </span>
+          </span -->
     </td>
-    </tr>
-  <% end %>
+  </tr>
+  <% @i += 1%>
+  <% end -%>
   <tr>
     <td colspan="4" align="center" style="padding-top:20px;">
 		<div id="pagination_without_border">

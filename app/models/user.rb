@@ -320,7 +320,7 @@ class User < ActiveRecord::Base
   #
   # will return true if the user has permission
   def accepts_destroy_for? user
-    return accepting_action(user, 'edit', (self.id==user.id), false, true)
+    return accepting_action(user, 'edit', false, false, true)
   end
 
   # Check User for permission to edit

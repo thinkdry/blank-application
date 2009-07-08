@@ -1,7 +1,7 @@
 <h1><%= I18n.t('people.index.title') %></h1>
 <p>
 	<%= image_tag ("/images/icons/add.png", :width => "30")%><%= link_to I18n.t('people.index.add_new_person'), new_person_path %>
-	<%= image_tag ("/images/icons/spreadsheet.png", :width => "20")%><%= link_to I18n.t('people.index.import_people_from_csv'), import_people_people_path %>
+	&nbsp;&nbsp;&nbsp;<%= image_tag ("/images/icons/spreadsheet.png", :width => "20")%><%= link_to I18n.t('people.index.import_people_from_csv'), import_people_people_path %>
 </p>
 
 <div id="people_list">

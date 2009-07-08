@@ -65,6 +65,7 @@ Rails::Initializer.run do |config|
 	config.gem 'RedCloth', :version => '>=4.0.0', :lib => 'redcloth'
 	config.gem 'rmagick', :version => '>=2.9.1', :lib => 'RMagick'
 
+	#config.gem "fiveruns_tuneup"
 	
 
   # Only load the plugins named here, in the order given. By default, all plugins 

@@ -1,13 +1,16 @@
-<% form_for :people, :url=>{:controller=>"people", :action=>"import_people"}, :html => { :multipart => true } do |f| -%>
-    <div>
-      <h2><%= I18n.t('people.import_people.note_label') %></h2> <%= I18n.t('people.import_people.note_description') %>
-    </div>
-    <br /><br />
-      <label for="dump_file">
-        <%= I18n.t('people.import_people.select_csv_file_label') %> :
-      </label>
-       <%= f.file_field :csv %>
+<fieldset>
+	<legend><%= I18n.t('people.import_people.label') %></legend>
+	
+	<% form_for :people, :url=>{:controller=>"people", :action=>"import_people"}, :html => { :multipart => true } do |f| -%>
+	    <div class="CommonMessageFull">
+			<%= I18n.t('people.import_people.note_description') %>
+		</div>
+	
+	    <label for="dump_file"><%= I18n.t('people.import_people.select_csv_file_label') %> :</label>
+		<div class="formElement"><%= f.file_field :csv %></div>
        
-       <%= submit_tag I18n.t('general.button.submit') %>
-<% end %>
-<%= link_to I18n.t('people.import_people.get_empty_csv_file'),:controller=>'people',:action=>'get_empty_csv' %>
+	    <button id="submit_button" class="submit_button" type="submit"><%= I18n.t('general.button.submit')%></button>
+	<% end %>
+
+	<p><%= link_to I18n.t('people.import_people.get_empty_csv_file'),:controller=>'people',:action=>'get_empty_csv' %></p>
+</fieldset>
