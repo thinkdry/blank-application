@@ -24,17 +24,6 @@ class AudiosController < ApplicationController
     end
   end
 
-  # Return the Url of the Audio for Pop Up Window
-  #
-  # Usage URL:
-  # 
-  # /audios/get_file_url/:id
-  #
-	def get_file_url
-		@current_object = Audio.find(params[:id])
-		redirect_to @current_object.audio.url
-	end
-
   # Return Download Link for Audio File
   #
   # Usage URL:

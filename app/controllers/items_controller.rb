@@ -40,25 +40,37 @@ class ItemsController < ApplicationController
   # '/display_content_list/:selected_item
   #
   def display_item_in_pop_up
-    if params[:selected_item] == 'all' || params[:item_type] == 'all'
-      params[:item_type] = 'all'
-    end
-    if params[:content] != 'all'
-			# why params[:workspace_id] ???
-      params[:workspace_id] ||= session[:fck_item_type].classify.constantize.find(session[:fck_item_id]).workspaces.first.id
-			#raise params[:workspace_id].workspaces.size.inspect
-      @workspace = Workspace.find(params[:workspace_id])
-      params[:selected_item] = get_allowed_item_types(@workspace).first.pluralize if params[:selected_item].nil? || params[:selected_item] == 'all'
-      if !params[:workspace_id].to_s.blank?
-        @current_objects = get_items_list(params[:selected_item], @workspace)
+    @workspace = (params[:workspace_id] && !params[:workspace_id].blank?) ? Workspace.find(params[:workspace_id]) : nil
+		if params[:selected_item] == 'all'
+			@selected_item_types = get_fcke_item_types
+			@item_types = (item_types_allowed_to(current_user, 'show', @workspace)&@selected_item_types)
+			params[:item_type] ||= @item_types.first
+      if params[:item_type]
+        @current_objects = get_items_list(params[:item_type], @workspace)
       else
-        render :text => "No workspace"
+        render :text => "No item types available for your profil."
         return
       end
-    else
-      @current_objects = get_items_list(params[:selected_item], nil)
-    end
+		elsif params[:selected_item] == 'images' || params[:selected_item] == 'videos'
+			@selected_item_types = [params[:selected_item].to_s.singularize]
+			params[:item_type] = @selected_item_types.first
+			if !params[:item_type].include?('fcke')
+				@current_objects = get_items_list(params[:selected_item], @workspace)
+			else
+				Dir["public/uploaded_files/#{session[:fck_item_type].singularize.downcase}/#{session[:fck_item_id]}/fck_image/*.*"].collect do |uploaded_image|
+
+				end
+			end
+		else
+				
+		end
     @base_url = request.url.split(request.request_uri())[0]
-    render :layout => 'pop_up', :object => @current_objects
+		#if @current_objects.first
+			render :layout => 'pop_up', :object => @current_objects
+		#else
+		#	render :update do |page|
+		#		page.replace_html('abc', :text => 'No results for these criterions.')
+		#	end
+		#end
   end
 end

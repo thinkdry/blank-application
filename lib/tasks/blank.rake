@@ -235,7 +235,6 @@ namespace :blank do
     end
     p "Done"
   end
-  p"------>>> Ready to Launch Blank <<<------"
 
   namespace :maintaining do
 
@@ -276,8 +275,8 @@ namespace :blank do
 			end
 		end
 
-end
-
+  end
+  p"------>>> Ready to Launch Blank <<<------"
 end
 
 

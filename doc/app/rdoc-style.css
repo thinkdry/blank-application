@@ -12,7 +12,7 @@ h1,h2,h3,h4 { margin: 0; color: #efefef; background: transparent; }
 h1 { font-size: 150%; }
 h2,h3,h4 { margin-top: 1em; }
 
-a {color: #F29839; text-decoration: none; }
+a { background: #eef; color: #039; text-decoration: none; }
 a:hover { background: #039; color: #eef; }
 
 /* Override the base stylesheet's Anchor inside a table cell */
@@ -46,7 +46,7 @@ div#index a {
 div#index .section-bar {
    margin-left: 0px;
    padding-left: 0.7em;
-   background: #F29839;
+   background: #ccc;
    font-size: small;
 }
 
@@ -72,11 +72,11 @@ div#classHeader td, div#fileHeader td {
 
 
 div#fileHeader {
-    background: #F29839;
+    background: #057;
 }
 
 div#classHeader {
-    background: #F29839;
+    background: #048;
 }
 
 
@@ -170,7 +170,7 @@ table.header-table {
 }
 .method-heading {
   color: black;
-  background: #F29839;
+  background: #ccc;
   border-bottom: 1px solid #666;
   padding: 0.2em 0.5em 0 0.5em;
 }

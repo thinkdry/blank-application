@@ -17,8 +17,9 @@ module AjaxPagination
   # - refeshed_div: 'object-list'
   def remote_pagination(collection, url, refreshed_div)
 		#url = request.url.split('?').first
-		paramss = request.url.split('?').last # why use request.url and not url in param
-		paramss = (paramss.split('&').size > 1) ? paramss.split('&page=').first+'&page=' : 'page='
+		url = url.split('?').first
+		paramss = ((tmp=request.url.split('?')).size > 1) ? tmp.last : '' # why use request.url and not url in param
+		paramss = (!paramss.blank?) ? paramss.split('&page=').first+'&page=' : 'page='
     url = url+'?'+paramss
     if !collection.nil? and collection.total_pages > 1
     content = String.new

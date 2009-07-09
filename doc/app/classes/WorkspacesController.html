@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html 
      PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <title>Class: WorkspacesController</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Script-Type" content="text/javascript" />
   <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
   <script type="text/javascript">
@@ -88,10 +88,10 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000407">add_new_user</a>&nbsp;&nbsp;
-      <a href="#M000406">permission_checking</a>&nbsp;&nbsp;
-      <a href="#M000409">subscription</a>&nbsp;&nbsp;
-      <a href="#M000408">unsubscription</a>&nbsp;&nbsp;
+      <a href="#M000135">add_new_user</a>&nbsp;&nbsp;
+      <a href="#M000134">permission_checking</a>&nbsp;&nbsp;
+      <a href="#M000137">subscription</a>&nbsp;&nbsp;
+      <a href="#M000136">unsubscription</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -113,11 +113,11 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000407" class="method-detail">
-        <a name="M000407"></a>
+      <div id="method-M000135" class="method-detail">
+        <a name="M000135"></a>
 
         <div class="method-heading">
-          <a href="#M000407" class="method-signature">
+          <a href="#M000135" class="method-signature">
           <span class="method-name">add_new_user</span><span class="method-args">()</span>
           </a>
         </div>
@@ -134,63 +134,67 @@ Usage URL
 /workspaces/add_new_user
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000407-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000407-source">
+            onclick="toggleCode('M000135-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000135-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/controllers/workspaces_controller.rb, line 103</span>
-103:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_new_user</span>
-104:                 <span class="ruby-ivar">@current_object</span> = <span class="ruby-constant">Workspace</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>])
-105:                 <span class="ruby-identifier">no_permission_redirection</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">accepts_edit_for?</span>(<span class="ruby-ivar">@current_user</span>)
-106:     <span class="ruby-ivar">@user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> { <span class="ruby-identifier">:login</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:user_login</span>].<span class="ruby-identifier">split</span>(<span class="ruby-value str">' ('</span>).<span class="ruby-identifier">first</span> })
-107:     <span class="ruby-ivar">@uw</span> = <span class="ruby-constant">UsersWorkspace</span>.<span class="ruby-identifier">new</span>
-108:     <span class="ruby-ivar">@uw</span>.<span class="ruby-identifier">role_id</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:user_role</span>]
-109:     <span class="ruby-ivar">@uw</span>.<span class="ruby-identifier">user</span> = <span class="ruby-ivar">@user</span>
-110:     <span class="ruby-identifier">render</span> <span class="ruby-identifier">:update</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">page</span><span class="ruby-operator">|</span>
-111:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@user</span>
-112:         <span class="ruby-identifier">page</span>.<span class="ruby-identifier">insert_html</span> <span class="ruby-identifier">:bottom</span>, <span class="ruby-value str">'users'</span>, <span class="ruby-identifier">:partial</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'user'</span>,  <span class="ruby-identifier">:object</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@uw</span>
-113:       <span class="ruby-keyword kw">else</span>
-114:         <span class="ruby-identifier">page</span>.<span class="ruby-identifier">call</span> <span class="ruby-value str">&quot;alert&quot;</span>,<span class="ruby-node">&quot;No user exist with #{params[:user_login]}&quot;</span>
-115:       <span class="ruby-keyword kw">end</span>
-116:     <span class="ruby-keyword kw">end</span>
-117:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/controllers/workspaces_controller.rb, line 107</span>
+107:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_new_user</span>
+108:                 <span class="ruby-ivar">@current_object</span> = <span class="ruby-constant">Workspace</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>])
+109:                 <span class="ruby-identifier">no_permission_redirection</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">accepts_edit_for?</span>(<span class="ruby-ivar">@current_user</span>)
+110:     <span class="ruby-ivar">@user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> { <span class="ruby-identifier">:login</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:user_login</span>].<span class="ruby-identifier">split</span>(<span class="ruby-value str">' ('</span>).<span class="ruby-identifier">first</span> })
+111:     <span class="ruby-ivar">@uw</span> = <span class="ruby-constant">UsersWorkspace</span>.<span class="ruby-identifier">new</span>
+112:     <span class="ruby-ivar">@uw</span>.<span class="ruby-identifier">role_id</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:user_role</span>]
+113:     <span class="ruby-ivar">@uw</span>.<span class="ruby-identifier">user</span> = <span class="ruby-ivar">@user</span>
+114:     <span class="ruby-identifier">render</span> <span class="ruby-identifier">:update</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">page</span><span class="ruby-operator">|</span>
+115:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@user</span>
+116:         <span class="ruby-identifier">page</span>.<span class="ruby-identifier">insert_html</span> <span class="ruby-identifier">:bottom</span>, <span class="ruby-value str">'users'</span>, <span class="ruby-identifier">:partial</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'user'</span>,  <span class="ruby-identifier">:object</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@uw</span>
+117:       <span class="ruby-keyword kw">else</span>
+118:         <span class="ruby-identifier">page</span>.<span class="ruby-identifier">call</span> <span class="ruby-value str">&quot;alert&quot;</span>,<span class="ruby-node">&quot;No user exist with #{params[:user_login]}&quot;</span>
+119:       <span class="ruby-keyword kw">end</span>
+120:     <span class="ruby-keyword kw">end</span>
+121:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000406" class="method-detail">
-        <a name="M000406"></a>
+      <div id="method-M000134" class="method-detail">
+        <a name="M000134"></a>
 
         <div class="method-heading">
-          <a href="#M000406" class="method-signature">
+          <a href="#M000134" class="method-signature">
           <span class="method-name">permission_checking</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000406-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000406-source">
+            onclick="toggleCode('M000134-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000134-source">
 <pre>
     <span class="ruby-comment cmt"># File app/controllers/workspaces_controller.rb, line 7</span>
  7:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">permission_checking</span>
  8:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:action</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'new'</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:action</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'create'</span>
  9:                         <span class="ruby-identifier">build_object</span>
-10:                 <span class="ruby-keyword kw">else</span>
-11:                         <span class="ruby-identifier">current_object</span>
-12:                 <span class="ruby-keyword kw">end</span>
-13:                 <span class="ruby-identifier">no_permission_redirection</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@current_user</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;accepts_#{params[:action]}_for?&quot;</span>.<span class="ruby-identifier">to_sym</span>, <span class="ruby-ivar">@current_user</span>)
-14:         <span class="ruby-keyword kw">end</span>
+10:                         <span class="ruby-identifier">no_permission_redirection</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@current_user</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">send</span>(<span class="ruby-value str">&quot;accepts_new_for?&quot;</span>.<span class="ruby-identifier">to_sym</span>, <span class="ruby-ivar">@current_user</span>)
+11:                 <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:action</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'edit'</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:action</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'update'</span>
+12:                         <span class="ruby-identifier">current_object</span>
+13:                         <span class="ruby-identifier">no_permission_redirection</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@current_user</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">send</span>(<span class="ruby-value str">&quot;accepts_edit_for?&quot;</span>.<span class="ruby-identifier">to_sym</span>, <span class="ruby-ivar">@current_user</span>)
+14:                 <span class="ruby-keyword kw">else</span>
+15:                         <span class="ruby-identifier">current_object</span>
+16:                         <span class="ruby-identifier">no_permission_redirection</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@current_user</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;accepts_#{params[:action]}_for?&quot;</span>.<span class="ruby-identifier">to_sym</span>, <span class="ruby-ivar">@current_user</span>)
+17:                 <span class="ruby-keyword kw">end</span>
+18:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000409" class="method-detail">
-        <a name="M000409"></a>
+      <div id="method-M000137" class="method-detail">
+        <a name="M000137"></a>
 
         <div class="method-heading">
-          <a href="#M000409" class="method-signature">
+          <a href="#M000137" class="method-signature">
           <span class="method-name">subscription</span><span class="method-args">()</span>
           </a>
         </div>
@@ -206,31 +210,31 @@ Usage URL
 /workspaces/subscription
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000409-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000409-source">
+            onclick="toggleCode('M000137-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000137-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/controllers/workspaces_controller.rb, line 143</span>
-143:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">subscription</span>
-144:                 <span class="ruby-ivar">@current_object</span> = <span class="ruby-constant">Workspace</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>])
-145:                 <span class="ruby-identifier">no_permission_redirection</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">accepts_show_for?</span>(<span class="ruby-ivar">@current_user</span>) <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">state</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'public'</span>)
-146:                 <span class="ruby-keyword kw">if</span> <span class="ruby-constant">UsersWorkspace</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">:workspace_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>], <span class="ruby-identifier">:role_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Role</span>.<span class="ruby-identifier">find_by_name</span>(<span class="ruby-value str">'reader'</span>).<span class="ruby-identifier">id</span>)
-147:                         <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'workspace.subscription.flash_notice'</span>)
-148:                         <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">workspace_path</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>])
-149:                 <span class="ruby-keyword kw">else</span>
-150:                         <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'workspace.subscription.flash_error'</span>)
-151:                         <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">workspace_path</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>])
-152:                 <span class="ruby-keyword kw">end</span>
-153:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/controllers/workspaces_controller.rb, line 147</span>
+147:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">subscription</span>
+148:                 <span class="ruby-ivar">@current_object</span> = <span class="ruby-constant">Workspace</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>])
+149:                 <span class="ruby-identifier">no_permission_redirection</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">accepts_show_for?</span>(<span class="ruby-ivar">@current_user</span>) <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">state</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'public'</span>)
+150:                 <span class="ruby-keyword kw">if</span> <span class="ruby-constant">UsersWorkspace</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">:workspace_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>], <span class="ruby-identifier">:role_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Role</span>.<span class="ruby-identifier">find_by_name</span>(<span class="ruby-value str">'reader'</span>).<span class="ruby-identifier">id</span>)
+151:                         <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'workspace.subscription.flash_notice'</span>)
+152:                         <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">workspace_path</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>])
+153:                 <span class="ruby-keyword kw">else</span>
+154:                         <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'workspace.subscription.flash_error'</span>)
+155:                         <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">workspace_path</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>])
+156:                 <span class="ruby-keyword kw">end</span>
+157:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000408" class="method-detail">
-        <a name="M000408"></a>
+      <div id="method-M000136" class="method-detail">
+        <a name="M000136"></a>
 
         <div class="method-heading">
-          <a href="#M000408" class="method-signature">
+          <a href="#M000136" class="method-signature">
           <span class="method-name">unsubscription</span><span class="method-args">()</span>
           </a>
         </div>
@@ -246,21 +250,21 @@ Usage URL
 /workspaces/unsubscription
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000408-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000408-source">
+            onclick="toggleCode('M000136-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000136-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/controllers/workspaces_controller.rb, line 125</span>
-125:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">unsubscription</span>
-126:                 <span class="ruby-ivar">@current_object</span> = <span class="ruby-constant">Workspace</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>])
-127:                 <span class="ruby-identifier">no_permission_redirection</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">accepts_show_for?</span>(<span class="ruby-ivar">@current_user</span>)
-128:                 <span class="ruby-keyword kw">if</span> <span class="ruby-constant">UsersWorkspace</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> { <span class="ruby-identifier">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">:workspace_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>] }).<span class="ruby-identifier">destroy</span>
-129:                         <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'workspace.unsubscription.flash_notice'</span>)
-130:                         <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">workspace_path</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>])
-131:                 <span class="ruby-keyword kw">else</span>
-132:                         <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'workspace.unsubscription.flash_error'</span>)
-133:                         <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">workspace_path</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>])
-134:                 <span class="ruby-keyword kw">end</span>
-135:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/controllers/workspaces_controller.rb, line 129</span>
+129:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">unsubscription</span>
+130:                 <span class="ruby-ivar">@current_object</span> = <span class="ruby-constant">Workspace</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>])
+131:                 <span class="ruby-identifier">no_permission_redirection</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">accepts_show_for?</span>(<span class="ruby-ivar">@current_user</span>)
+132:                 <span class="ruby-keyword kw">if</span> <span class="ruby-constant">UsersWorkspace</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> { <span class="ruby-identifier">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">:workspace_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>] }).<span class="ruby-identifier">destroy</span>
+133:                         <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'workspace.unsubscription.flash_notice'</span>)
+134:                         <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">workspace_path</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>])
+135:                 <span class="ruby-keyword kw">else</span>
+136:                         <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value str">'workspace.unsubscription.flash_error'</span>)
+137:                         <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">workspace_path</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>])
+138:                 <span class="ruby-keyword kw">end</span>
+139:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
