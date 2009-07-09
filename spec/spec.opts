@@ -1,4 +1,5 @@
 --colour
+--format html:doc/rspec_results.html
 --format progress
 --loadby mtime
 --reverse

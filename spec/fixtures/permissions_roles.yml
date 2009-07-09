@@ -1,13 +1,12 @@
 <% i = 1 %>
 <% %w(article workspace).each do |obj| %>
  <% %w(new edit show destroy comment ).each do |action| %>
-admin_<%= obj %>_<%= action %>:
+admin_<%=obj%>_<%=action%>:
  role_id: 2
- permission_id: <%= i %>
+ permission_id: <%=i%>
  <% i += 1 %>
  <% end %>
-<% end %>
-
+ <% end %>
 
 ws_admin_article_new:
  role_id: 4

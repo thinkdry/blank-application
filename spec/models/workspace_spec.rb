@@ -145,31 +145,31 @@ describe Workspace do
   #    @workspace.existing_user_attributes.should == users_workspaces(:one)
   #  end
 
-  it "should save user workspace"
+  #it "should save user workspace"
 
-  describe "Permissions" do
-
-    it "should allow user with role to administer workspace"
-    
-    it "should not allow user without role to administer workspace"
-
-    it "should allow user with role to view workspace" 
-    
-    it "should not allow users without role to view workspace"
-
-    it "should allow user with role to create workspace"
-
-    it "should not allow users without role to create workspace"
-
-    it "should allow user with role to edit workspace"
-
-    it "should not allow users without role to edit workspace"
-
-    it "should allow user with role to destroy workspace"
-
-    it "should not allow users without role to destroy workspace"
-
-  end
+#  describe "Permissions" do
+#
+#    it "should allow user with role to administer workspace"
+#
+#    it "should not allow user without role to administer workspace"
+#
+#    it "should allow user with role to view workspace"
+#
+#    it "should not allow users without role to view workspace"
+#
+#    it "should allow user with role to create workspace"
+#
+#    it "should not allow users without role to create workspace"
+#
+#    it "should allow user with role to edit workspace"
+#
+#    it "should not allow users without role to edit workspace"
+#
+#    it "should allow user with role to destroy workspace"
+#
+#    it "should not allow users without role to destroy workspace"
+#
+#  end
 
 
 end

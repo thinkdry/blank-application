@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html 
      PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <title>Module: ApplicationHelper</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Script-Type" content="text/javascript" />
   <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
   <script type="text/javascript">
@@ -87,10 +87,10 @@ application.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000541">checkboxes_from_list</a>&nbsp;&nbsp;
-      <a href="#M000543">distance_of_time_in_words</a>&nbsp;&nbsp;
-      <a href="#M000540">select_languages</a>&nbsp;&nbsp;
-      <a href="#M000542">select_search_models</a>&nbsp;&nbsp;
+      <a href="#M000269">checkboxes_from_list</a>&nbsp;&nbsp;
+      <a href="#M000271">distance_of_time_in_words</a>&nbsp;&nbsp;
+      <a href="#M000268">select_languages</a>&nbsp;&nbsp;
+      <a href="#M000270">select_search_models</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -132,11 +132,11 @@ application.
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000541" class="method-detail">
-        <a name="M000541"></a>
+      <div id="method-M000269" class="method-detail">
+        <a name="M000269"></a>
 
         <div class="method-heading">
-          <a href="#M000541" class="method-signature">
+          <a href="#M000269" class="method-signature">
           <span class="method-name">checkboxes_from_list</span><span class="method-args">(var, param, conf, object)</span>
           </a>
         </div>
@@ -150,15 +150,15 @@ Usage:
 </p>
 <p>
 <tt><a
-href="ApplicationHelper.html#M000541">checkboxes_from_list</a>(ITEMS,
+href="ApplicationHelper.html#M000269">checkboxes_from_list</a>(ITEMS,
 sa_items, @conf, &quot;conf&quot;) </tt>
 </p>
 <p>
 will return group of checkboxes with passed ITEMS
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000541-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000541-source">
+            onclick="toggleCode('M000269-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000269-source">
 <pre>
     <span class="ruby-comment cmt"># File app/helpers/application_helper.rb, line 40</span>
 40:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">checkboxes_from_list</span>(<span class="ruby-identifier">var</span>, <span class="ruby-identifier">param</span>, <span class="ruby-identifier">conf</span>, <span class="ruby-identifier">object</span>)
@@ -177,19 +177,19 @@ will return group of checkboxes with passed ITEMS
         </div>
       </div>
 
-      <div id="method-M000543" class="method-detail">
-        <a name="M000543"></a>
+      <div id="method-M000271" class="method-detail">
+        <a name="M000271"></a>
 
         <div class="method-heading">
-          <a href="#M000543" class="method-signature">
+          <a href="#M000271" class="method-signature">
           <span class="method-name">distance_of_time_in_words</span><span class="method-args">(from_time, to_time = 0, include_seconds = false,options = {})</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000543-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000543-source">
+            onclick="toggleCode('M000271-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000271-source">
 <pre>
     <span class="ruby-comment cmt"># File app/helpers/application_helper.rb, line 71</span>
 71:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">distance_of_time_in_words</span>(<span class="ruby-identifier">from_time</span>, <span class="ruby-identifier">to_time</span> = <span class="ruby-value">0</span>, <span class="ruby-identifier">include_seconds</span> = <span class="ruby-keyword kw">false</span>,<span class="ruby-identifier">options</span> = {})
@@ -213,11 +213,11 @@ will return group of checkboxes with passed ITEMS
         </div>
       </div>
 
-      <div id="method-M000540" class="method-detail">
-        <a name="M000540"></a>
+      <div id="method-M000268" class="method-detail">
+        <a name="M000268"></a>
 
         <div class="method-heading">
-          <a href="#M000540" class="method-signature">
+          <a href="#M000268" class="method-signature">
           <span class="method-name">select_languages</span><span class="method-args">()</span>
           </a>
         </div>
@@ -238,8 +238,8 @@ On Selection of Language Ajax Request is Made to
 will change the local language to selected option
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000540-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000540-source">
+            onclick="toggleCode('M000268-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000268-source">
 <pre>
     <span class="ruby-comment cmt"># File app/helpers/application_helper.rb, line 15</span>
 15:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">select_languages</span>
@@ -263,11 +263,11 @@ will change the local language to selected option
         </div>
       </div>
 
-      <div id="method-M000542" class="method-detail">
-        <a name="M000542"></a>
+      <div id="method-M000270" class="method-detail">
+        <a name="M000270"></a>
 
         <div class="method-heading">
-          <a href="#M000542" class="method-signature">
+          <a href="#M000270" class="method-signature">
           <span class="method-name">select_search_models</span><span class="method-args">()</span>
           </a>
         </div>
@@ -280,8 +280,8 @@ Select Box for <a href="Search.html">Search</a>
 will return select box for all available items
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000542-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000542-source">
+            onclick="toggleCode('M000270-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000270-source">
 <pre>
     <span class="ruby-comment cmt"># File app/helpers/application_helper.rb, line 55</span>
 55:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">select_search_models</span>
