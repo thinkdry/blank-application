@@ -11,20 +11,17 @@
 				<div class="headerTipCol">
 					<h3><%= I18n.t('layout.application.add_content') %></h3>
 					<div class="headerTipContent">
-						<form name="form1" method="post" action="" id="form1">
-							<ul>
-								<% item_types_allowed_to(@current_user, 'new', current_workspace).each do |type| %>
-					              <li>
-					              	<!--%= image_tag '/images/item_icons/' + type + '.png', :width => "20"%-->
-									<% if type=='feed_source' -%>
-						                <%= link_to I18n.t('general.item.' + type), "/feed_sources/what_to_do" %>
-									<% else -%>
-										<%= link_to I18n.t('general.item.' + type), new_item_path(type.camelize)%>
-									<% end -%>
-					              </li>
-					          <% end %>
-							</ul>
-						</form>
+						<ul>
+							<% item_types_allowed_to(@current_user, 'new', current_workspace).each do |type| %>
+				              <li>
+								<% if type=='feed_source' -%>
+				            		<%= link_to I18n.t('general.item.' + type), "/feed_sources/what_to_do" %>
+								<% else -%>
+									<%= link_to I18n.t('general.item.' + type), new_item_path(type.camelize)%>
+								<% end -%>
+					          </li>
+					       <% end %>
+						</ul>
 					</div>
 				</div>
 				<div class="headerTipCol">

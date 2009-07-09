@@ -96,7 +96,7 @@ a.add_item{
 .headerTip .headerTipCol{
 	float:left;
 	padding-left:5px;
-	width:160px;
+	width:165px;
 	overflow:auto;
 }
 #searchFieldSet{
@@ -1054,13 +1054,13 @@ ul.top_box li{
 
 #left_select_box, #left_right_buttons, #right_select_box{
 	float:left;
+	overflow:visible;
 }
 
-#left_select_box, #right_select_box{
-	width:230px;
-}
+#left_select_box, #right_select_box{width:230px;}
 #right_select_box{
 	margin-top:13px;
+	padding-left:35px;
 }
 
 #left_select_box select, #right_select_box select{
@@ -1070,8 +1070,9 @@ ul.top_box li{
 	margin-bottom:3px;
 }
 #left_right_buttons{
-	width:50px;
-	margin:80px 10px 30px 35px;
+	margin:70px 0 30px 35px;
+	width:30px;
+	text-align: center;
 }
 #select_boxes{
 	margin-top:4px;
@@ -1217,7 +1218,7 @@ ul.top_box li{
 	margin-bottom:50px;
 }
 .bigName{
-	font-size:150%;
+	font-size:150%:
 }
 th{
 	color:#F79646;
@@ -1358,7 +1359,6 @@ fieldset{
 .smallSubmit{
 	background:transparent url('/images/smallButton.png') no-repeat;
 	border:none;
-	clear:both;
 	color:#fff;
 	text-align:center;
 	width:200px;
@@ -1379,7 +1379,7 @@ fieldset{
 }
 
 .checkBoxElement{
-	width:auto;
+	width:15px;
 	border:0;	
 }
 
@@ -1404,6 +1404,7 @@ form br{
 .leftAlign{
 	margin-top:0;
 	margin-left:20px;
+	float:right;
 }
 .bottomAlign{
 	margin-left:15px;
@@ -1454,6 +1455,7 @@ form br{
 	border:0;
 	background:transparent url('/images/icons/right.png') no-repeat;
 	width:30px;
+	margin-top:30px;
 }
 .checkboxes{
 	width:15px !important;
@@ -1503,3 +1505,6 @@ label .low{
 
 #start_with { width:80px !important;}
 #assignedOptions, #availableOptions { height:140px; }
+#keywords_list{clear:both; margin-top:5px;}
+#keywords_list img {margin:0 !important;}
+.keyword_label {width:auto; float:left;margin-left:10px;}

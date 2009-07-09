@@ -10,3 +10,9 @@ legend {
 form{
 	margin-top:20px;
 }
+
+#left_right_buttons{
+	margin:70px 0 30px 20px;
+	width:80px;
+	text-align: center;
+}
