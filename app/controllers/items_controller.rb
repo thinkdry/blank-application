@@ -51,14 +51,23 @@ class ItemsController < ApplicationController
         render :text => "No item types available for your profil."
         return
       end
-		elsif params[:selected_item] == 'images' || params[:selected_item] == 'videos'
+		elsif (params[:selected_item] == 'images' || params[:selected_item] == 'videos')
 			@selected_item_types = [params[:selected_item].to_s.singularize]
-			params[:item_type] = @selected_item_types.first
+			params[:item_type] ||= @selected_item_types.first
 			if !params[:item_type].include?('fcke')
 				@current_objects = get_items_list(params[:selected_item], @workspace)
 			else
-				Dir["public/uploaded_files/#{session[:fck_item_type].singularize.downcase}/#{session[:fck_item_id]}/fck_image/*.*"].collect do |uploaded_image|
-
+				@fcke_objects = []
+				if session[:fck_item_type] != 'Page'
+					Dir["public/uploaded_files/#{session[:fck_item_type].singularize.downcase}/#{session[:fck_item_id]}/fck_#{params[:selected_item]}/*.*"].collect do |uploaded_image|
+						@fcke_objects << { :name => uploaded_image.split('/')[5], :url => root_url+uploaded_image.split('public/')[1] }
+					end
+				else
+					object = session[:fck_item_type].classify.constantize.find(session[:fck_item_id])
+					workspace = object.workspaces.delete_if{ |e| e.state == 'private' }.first
+					Dir["public/uploaded_files/workspace/#{workspace.id}/fck_#{params[:selected_item]}/*.*"].collect do |uploaded_image|
+						@fcke_objects << { :name => uploaded_image.split('/')[5], :url => root_url+uploaded_image.split('public/')[1] }
+					end
 				end
 			end
 		else

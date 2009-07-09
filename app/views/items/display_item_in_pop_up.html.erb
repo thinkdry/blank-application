@@ -31,13 +31,13 @@
 </div>
 
 <% if params[:item_type] %>
-  <h3><%= I18n.t('general.item.'+params[:item_type].singularize).capitalize.pluralize %> <%= params[:item_type] == 'all' ? I18n.t('general.common_word.of') +' '+@workspace.title : '' %> </h3>
+  <h3><%= I18n.t('general.item.'+params[:item_type].split('fcke_').last.singularize).capitalize.pluralize %> <%= params[:item_type] == 'all' ? I18n.t('general.common_word.of') +' '+@workspace.title : '' %> </h3>
 <% end %>
 
 <div class="popup_item_list">
 <% i=0 %>
 
-<% if params[:item_type] != 'fcke_images' %>
+<% if !params[:item_type].include?('fcke') %>
   <% @current_objects.each do |object| %>
     <% if i%2 == 0 -%>
       <div class="list_alternate">
@@ -50,19 +50,18 @@
     <% i= i+1%>
   <% end %>
 <% else %>
-  <% if !session[:fck_item_id].nil? && params[:selected_item]=="images" && File.directory?("#{RAILS_ROOT}/public/uploaded_files/#{session[:fck_item_type].singularize.downcase}/#{session[:fck_item_id]}/fck_image") %>
-      <% if i%2 == 0 -%>
-        <div class="list_alternate">
-      <% else %>
-        <div class="list">
-        <% end -%>
-        <%=  image_tag(@base_url + uploaded_image.split('public')[1], :border=>0, :width => "50" ) %>
-        <%= link_to_function uploaded_image.split('/')[5], "javascript:SelectFile('" + @base_url + uploaded_image.split('public')[1] + "')" %>
-      </div>
-      <% i= i+1%>
-    <% end %>
-
+  <% @fcke_objects.each do |object| %>
+    <% if i%2 == 0 -%>
+      <div class="list_alternate">
+    <% else %>
+      <div class="list">
+    <% end -%>
+    <%= image_tag(object[:url], :border=>0, :width => "50" ) if params[:selected_item]=="images" %>
+    <%= link_to_function object[:name], "javascript:SelectFile('#{object[:url]}')" %>
+    </div>
+    <% i= i+1%>
   <% end %>
+<% end %>
 
   </div>
 </div>
