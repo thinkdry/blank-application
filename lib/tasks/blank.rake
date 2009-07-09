@@ -1,4 +1,20 @@
 namespace :blank do
+  
+  desc "Install Blank Application"
+	task :install => :environment do
+    p "Installing required gems"
+    Rake::Task['gems:install'].invoke
+    p "Creating Database"
+		Rake::Task['db:create'].invoke
+    p "Migrating"
+		Rake::Task['db:migrate'].invoke
+    p "Setting Up Default Settings"
+		Rake::Task['blank:pump'].invoke
+    p "Setting Other Settings"
+    Rake::Task['blank:init'].invoke
+    Rake::Task['blank:xapian_rebuild'].invoke
+    p "Installed Blank Application Sucessfully."
+	end
 
 	desc "Initializing Blank Engine"
 	task :init => :environment do
@@ -14,7 +30,7 @@ namespace :blank do
 
 	desc "Building Xapian indexes"
 	task :xapian_rebuild => :environment do
-		p "Building Xapian indexes ......"
+		p "Building Xapian indexes"
 		system("rake xapian:rebuild_index models='#{ITEMS.map{ |e| e.camelize }.join(' ')} User Workspace' RAILS_ENV=#{RAILS_ENV}")
 		#Rake::Task['xapian:rebuild_index'].invoke("models=\"#{ITEMS.map{ |e| e.camelize }.join(' ')} User Workspace\"")
 		p "Done"
@@ -277,18 +293,7 @@ namespace :blank do
 
   end
   
-  desc "Install Blank Application"
-	task :install => :environment do
-    p "Creating Database"
-		Rake::Task['db:create'].invoke
-    p "Migrating"
-		Rake::Task['db:migrate'].invoke
-    p "Setting Up Default Settings"
-		Rake::Task['blank:pump'].invoke
-    p "Setting Other Settings"
-    Rake::Task['blank:init'].invoke
-    p "Installed Blank Application Sucessfully."
-	end
+  
 end
 
 

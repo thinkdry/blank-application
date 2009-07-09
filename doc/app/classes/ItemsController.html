@@ -88,9 +88,9 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000009">ajax_index</a>&nbsp;&nbsp;
-      <a href="#M000010">display_item_in_pop_up</a>&nbsp;&nbsp;
-      <a href="#M000008">index</a>&nbsp;&nbsp;
+      <a href="#M000008">ajax_index</a>&nbsp;&nbsp;
+      <a href="#M000009">display_item_in_pop_up</a>&nbsp;&nbsp;
+      <a href="#M000007">index</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -112,11 +112,11 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000009" class="method-detail">
-        <a name="M000009"></a>
+      <div id="method-M000008" class="method-detail">
+        <a name="M000008"></a>
 
         <div class="method-heading">
-          <a href="#M000009" class="method-signature">
+          <a href="#M000008" class="method-signature">
           <span class="method-name">ajax_index</span><span class="method-args">()</span>
           </a>
         </div>
@@ -132,8 +132,8 @@ Usage URL:
 /ajax_content/:item_type
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000009-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000009-source">
+            onclick="toggleCode('M000008-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000008-source">
 <pre>
     <span class="ruby-comment cmt"># File app/controllers/items_controller.rb, line 27</span>
 27:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ajax_index</span>
@@ -149,11 +149,11 @@ Usage URL:
         </div>
       </div>
 
-      <div id="method-M000010" class="method-detail">
-        <a name="M000010"></a>
+      <div id="method-M000009" class="method-detail">
+        <a name="M000009"></a>
 
         <div class="method-heading">
-          <a href="#M000010" class="method-signature">
+          <a href="#M000009" class="method-signature">
           <span class="method-name">display_item_in_pop_up</span><span class="method-args">()</span>
           </a>
         </div>
@@ -170,42 +170,54 @@ Usage URL
 &#8217;/display_content_list/:selected_item
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000010-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000010-source">
+            onclick="toggleCode('M000009-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000009-source">
 <pre>
     <span class="ruby-comment cmt"># File app/controllers/items_controller.rb, line 42</span>
 42:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">display_item_in_pop_up</span>
-43:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:selected_item</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'all'</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:item_type</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'all'</span>
-44:       <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:item_type</span>] = <span class="ruby-value str">'all'</span>
-45:     <span class="ruby-keyword kw">end</span>
-46:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:content</span>] <span class="ruby-operator">!=</span> <span class="ruby-value str">'all'</span>
-47:                         <span class="ruby-comment cmt"># why params[:workspace_id] ???</span>
-48:       <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:workspace_id</span>] <span class="ruby-operator">||=</span> <span class="ruby-identifier">session</span>[<span class="ruby-identifier">:fck_item_type</span>].<span class="ruby-identifier">classify</span>.<span class="ruby-identifier">constantize</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">session</span>[<span class="ruby-identifier">:fck_item_id</span>]).<span class="ruby-identifier">workspaces</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">id</span>
-49:                         <span class="ruby-comment cmt">#raise params[:workspace_id].workspaces.size.inspect</span>
-50:       <span class="ruby-ivar">@workspace</span> = <span class="ruby-constant">Workspace</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:workspace_id</span>])
-51:       <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:selected_item</span>] = <span class="ruby-identifier">get_allowed_item_types</span>(<span class="ruby-ivar">@workspace</span>).<span class="ruby-identifier">first</span>.<span class="ruby-identifier">pluralize</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:selected_item</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:selected_item</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'all'</span>
-52:       <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">params</span>[<span class="ruby-identifier">:workspace_id</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">blank?</span>
-53:         <span class="ruby-ivar">@current_objects</span> = <span class="ruby-identifier">get_items_list</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:selected_item</span>], <span class="ruby-ivar">@workspace</span>)
-54:       <span class="ruby-keyword kw">else</span>
-55:         <span class="ruby-identifier">render</span> <span class="ruby-identifier">:text</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;No workspace&quot;</span>
-56:         <span class="ruby-keyword kw">return</span>
-57:       <span class="ruby-keyword kw">end</span>
-58:     <span class="ruby-keyword kw">else</span>
-59:       <span class="ruby-ivar">@current_objects</span> = <span class="ruby-identifier">get_items_list</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:selected_item</span>], <span class="ruby-keyword kw">nil</span>)
-60:     <span class="ruby-keyword kw">end</span>
-61:     <span class="ruby-ivar">@base_url</span> = <span class="ruby-identifier">request</span>.<span class="ruby-identifier">url</span>.<span class="ruby-identifier">split</span>(<span class="ruby-identifier">request</span>.<span class="ruby-identifier">request_uri</span>())[<span class="ruby-value">0</span>]
-62:     <span class="ruby-identifier">render</span> <span class="ruby-identifier">:layout</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'pop_up'</span>, <span class="ruby-identifier">:object</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@current_objects</span>
-63:   <span class="ruby-keyword kw">end</span>
+43:     <span class="ruby-ivar">@workspace</span> = (<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:workspace_id</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">params</span>[<span class="ruby-identifier">:workspace_id</span>].<span class="ruby-identifier">blank?</span>) <span class="ruby-operator">?</span> <span class="ruby-constant">Workspace</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:workspace_id</span>]) <span class="ruby-operator">:</span> <span class="ruby-keyword kw">nil</span>
+44:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:selected_item</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'all'</span>
+45:                         <span class="ruby-ivar">@selected_item_types</span> = <span class="ruby-identifier">get_fcke_item_types</span>
+46:                         <span class="ruby-ivar">@item_types</span> = (<span class="ruby-identifier">item_types_allowed_to</span>(<span class="ruby-identifier">current_user</span>, <span class="ruby-value str">'show'</span>, <span class="ruby-ivar">@workspace</span>)<span class="ruby-operator">&amp;</span><span class="ruby-ivar">@selected_item_types</span>)
+47:                         <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:item_type</span>] <span class="ruby-operator">||=</span> <span class="ruby-ivar">@item_types</span>.<span class="ruby-identifier">first</span>
+48:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:item_type</span>]
+49:         <span class="ruby-ivar">@current_objects</span> = <span class="ruby-identifier">get_items_list</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:item_type</span>], <span class="ruby-ivar">@workspace</span>)
+50:       <span class="ruby-keyword kw">else</span>
+51:         <span class="ruby-identifier">render</span> <span class="ruby-identifier">:text</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;No item types available for your profil.&quot;</span>
+52:         <span class="ruby-keyword kw">return</span>
+53:       <span class="ruby-keyword kw">end</span>
+54:                 <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:selected_item</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'images'</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:selected_item</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'videos'</span>
+55:                         <span class="ruby-ivar">@selected_item_types</span> = [<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:selected_item</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">singularize</span>]
+56:                         <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:item_type</span>] = <span class="ruby-ivar">@selected_item_types</span>.<span class="ruby-identifier">first</span>
+57:                         <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">params</span>[<span class="ruby-identifier">:item_type</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-value str">'fcke'</span>)
+58:                                 <span class="ruby-ivar">@current_objects</span> = <span class="ruby-identifier">get_items_list</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:selected_item</span>], <span class="ruby-ivar">@workspace</span>)
+59:                         <span class="ruby-keyword kw">else</span>
+60:                                 <span class="ruby-constant">Dir</span>[<span class="ruby-node">&quot;public/uploaded_files/#{session[:fck_item_type].singularize.downcase}/#{session[:fck_item_id]}/fck_image/*.*&quot;</span>].<span class="ruby-identifier">collect</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">uploaded_image</span><span class="ruby-operator">|</span>
+61: 
+62:                                 <span class="ruby-keyword kw">end</span>
+63:                         <span class="ruby-keyword kw">end</span>
+64:                 <span class="ruby-keyword kw">else</span>
+65:                                 
+66:                 <span class="ruby-keyword kw">end</span>
+67:     <span class="ruby-ivar">@base_url</span> = <span class="ruby-identifier">request</span>.<span class="ruby-identifier">url</span>.<span class="ruby-identifier">split</span>(<span class="ruby-identifier">request</span>.<span class="ruby-identifier">request_uri</span>())[<span class="ruby-value">0</span>]
+68:                 <span class="ruby-comment cmt">#if @current_objects.first</span>
+69:                         <span class="ruby-identifier">render</span> <span class="ruby-identifier">:layout</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'pop_up'</span>, <span class="ruby-identifier">:object</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@current_objects</span>
+70:                 <span class="ruby-comment cmt">#else</span>
+71:                 <span class="ruby-comment cmt">#     render :update do |page|</span>
+72:                 <span class="ruby-comment cmt">#             page.replace_html('abc', :text =&gt; 'No results for these criterions.')</span>
+73:                 <span class="ruby-comment cmt">#     end</span>
+74:                 <span class="ruby-comment cmt">#end</span>
+75:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000008" class="method-detail">
-        <a name="M000008"></a>
+      <div id="method-M000007" class="method-detail">
+        <a name="M000007"></a>
 
         <div class="method-heading">
-          <a href="#M000008" class="method-signature">
+          <a href="#M000007" class="method-signature">
           <span class="method-name">index</span><span class="method-args">()</span>
           </a>
         </div>
@@ -221,8 +233,8 @@ Usage URL:
 /content/:item_type
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000008-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000008-source">
+            onclick="toggleCode('M000007-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000007-source">
 <pre>
     <span class="ruby-comment cmt"># File app/controllers/items_controller.rb, line 9</span>
  9:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">index</span>

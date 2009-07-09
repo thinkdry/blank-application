@@ -80,13 +80,14 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000266">ajax_items_path</a>&nbsp;&nbsp;
-      <a href="#M000261">current_workspace</a>&nbsp;&nbsp;
-      <a href="#M000264">edit_item_path</a>&nbsp;&nbsp;
-      <a href="#M000260">included</a>&nbsp;&nbsp;
-      <a href="#M000262">item_path</a>&nbsp;&nbsp;
-      <a href="#M000265">items_path</a>&nbsp;&nbsp;
-      <a href="#M000263">new_item_path</a>&nbsp;&nbsp;
+      <a href="#M000265">ajax_items_path</a>&nbsp;&nbsp;
+      <a href="#M000264">content_path</a>&nbsp;&nbsp;
+      <a href="#M000259">current_workspace</a>&nbsp;&nbsp;
+      <a href="#M000262">edit_item_path</a>&nbsp;&nbsp;
+      <a href="#M000258">included</a>&nbsp;&nbsp;
+      <a href="#M000260">item_path</a>&nbsp;&nbsp;
+      <a href="#M000263">items_path</a>&nbsp;&nbsp;
+      <a href="#M000261">new_item_path</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -108,19 +109,19 @@
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000260" class="method-detail">
-        <a name="M000260"></a>
+      <div id="method-M000258" class="method-detail">
+        <a name="M000258"></a>
 
         <div class="method-heading">
-          <a href="#M000260" class="method-signature">
+          <a href="#M000258" class="method-signature">
           <span class="method-name">included</span><span class="method-args">(base)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000260-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000260-source">
+            onclick="toggleCode('M000258-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000258-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/acts_as_item/url_helpers.rb, line 3</span>
  3:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">included</span>(<span class="ruby-identifier">base</span>)
@@ -144,11 +145,11 @@
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000266" class="method-detail">
-        <a name="M000266"></a>
+      <div id="method-M000265" class="method-detail">
+        <a name="M000265"></a>
 
         <div class="method-heading">
-          <a href="#M000266" class="method-signature">
+          <a href="#M000265" class="method-signature">
           <span class="method-name">ajax_items_path</span><span class="method-args">(model)</span>
           </a>
         </div>
@@ -162,7 +163,7 @@ href="../Item.html">Item</a> for Pagination
 Usage:
 </p>
 <p>
-<tt><a href="UrlHelpers.html#M000266">ajax_items_path</a>(<a
+<tt><a href="UrlHelpers.html#M000265">ajax_items_path</a>(<a
 href="../Article.html">Article</a>)</tt>
 </p>
 <p>
@@ -186,28 +187,80 @@ href="../Item.html">Item</a> type)
 </li>
 </ul>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000266-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000266-source">
+            onclick="toggleCode('M000265-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000265-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/acts_as_item/url_helpers.rb, line 135</span>
-135:      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ajax_items_path</span>(<span class="ruby-identifier">model</span>)
-136:       <span class="ruby-identifier">model</span> = <span class="ruby-identifier">model</span>.<span class="ruby-identifier">table_name</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
-137:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">current_workspace</span>
-138:         <span class="ruby-identifier">workspace_ajax_content_url</span>(<span class="ruby-identifier">:workspace_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">current_workspace</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">:item_type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">model</span>)
-139:       <span class="ruby-keyword kw">else</span>
-140:         <span class="ruby-identifier">ajax_content_url</span>(<span class="ruby-identifier">:item_type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">model</span>)
-141:       <span class="ruby-keyword kw">end</span>
-142:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/acts_as_item/url_helpers.rb, line 155</span>
+155:      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ajax_items_path</span>(<span class="ruby-identifier">model</span>)
+156:       <span class="ruby-identifier">model</span> = <span class="ruby-identifier">model</span>.<span class="ruby-identifier">table_name</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
+157:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">current_workspace</span>
+158:         <span class="ruby-identifier">workspace_ajax_content_url</span>(<span class="ruby-identifier">:workspace_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">current_workspace</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">:item_type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">model</span>)
+159:       <span class="ruby-keyword kw">else</span>
+160:         <span class="ruby-identifier">ajax_content_url</span>(<span class="ruby-identifier">:item_type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">model</span>)
+161:       <span class="ruby-keyword kw">end</span>
+162:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000261" class="method-detail">
-        <a name="M000261"></a>
+      <div id="method-M000264" class="method-detail">
+        <a name="M000264"></a>
 
         <div class="method-heading">
-          <a href="#M000261" class="method-signature">
+          <a href="#M000264" class="method-signature">
+          <span class="method-name">content_path</span><span class="method-args">(model)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Content Tabs Url for given <a href="../Item.html">Item</a> Object This
+allow you to switch, easier than the simple index, between the different
+items list.
+</p>
+<p>
+Usage:
+</p>
+<p>
+<tt><a href="UrlHelpers.html#M000264">content_path</a>(article_object)</tt>
+</p>
+<p>
+will return /content/articles
+</p>
+<p>
+Parameters:
+</p>
+<ul>
+<li>model: <a href="../Article.html">Article</a>,<a
+href="../Image.html">Image</a>,<a href="../Audio.html">Audio</a>,<a
+href="../Video.html">Video</a>.&#8230; (may be any <a
+href="../Item.html">Item</a> type)
+
+</li>
+</ul>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000264-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000264-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/acts_as_item/url_helpers.rb, line 134</span>
+134:                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">content_path</span>(<span class="ruby-identifier">model</span>)
+135:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">current_workspace</span>
+136:                                 <span class="ruby-identifier">workspace_content_url</span>(<span class="ruby-identifier">:item_type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">underscore</span>.<span class="ruby-identifier">pluralize</span>)
+137:       <span class="ruby-keyword kw">else</span>
+138:         <span class="ruby-identifier">content_url</span>(<span class="ruby-identifier">:item_type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">underscore</span>.<span class="ruby-identifier">pluralize</span>)
+139:       <span class="ruby-keyword kw">end</span>
+140:                 <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000259" class="method-detail">
+        <a name="M000259"></a>
+
+        <div class="method-heading">
+          <a href="#M000259" class="method-signature">
           <span class="method-name">current_workspace</span><span class="method-args">()</span>
           </a>
         </div>
@@ -224,8 +277,8 @@ Will return the workspace object if workspace parameter exists else will
 return nil
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000261-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000261-source">
+            onclick="toggleCode('M000259-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000259-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/acts_as_item/url_helpers.rb, line 23</span>
 23:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">current_workspace</span>
@@ -248,11 +301,11 @@ return nil
         </div>
       </div>
 
-      <div id="method-M000264" class="method-detail">
-        <a name="M000264"></a>
+      <div id="method-M000262" class="method-detail">
+        <a name="M000262"></a>
 
         <div class="method-heading">
-          <a href="#M000264" class="method-signature">
+          <a href="#M000262" class="method-signature">
           <span class="method-name">edit_item_path</span><span class="method-args">(model)</span>
           </a>
         </div>
@@ -266,7 +319,7 @@ Usage:
 </p>
 <p>
 <tt><a
-href="UrlHelpers.html#M000264">edit_item_path</a>(article_object)</tt>
+href="UrlHelpers.html#M000262">edit_item_path</a>(article_object)</tt>
 </p>
 <pre>
  will return /articles/1/edit
@@ -283,8 +336,8 @@ href="../Item.html">Item</a> type)
 </li>
 </ul>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000264-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000264-source">
+            onclick="toggleCode('M000262-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000262-source">
 <pre>
      <span class="ruby-comment cmt"># File lib/acts_as_item/url_helpers.rb, line 94</span>
  94:                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">edit_item_path</span>(<span class="ruby-identifier">model</span>)
@@ -299,11 +352,11 @@ href="../Item.html">Item</a> type)
         </div>
       </div>
 
-      <div id="method-M000262" class="method-detail">
-        <a name="M000262"></a>
+      <div id="method-M000260" class="method-detail">
+        <a name="M000260"></a>
 
         <div class="method-heading">
-          <a href="#M000262" class="method-signature">
+          <a href="#M000260" class="method-signature">
           <span class="method-name">item_path</span><span class="method-args">(object, params = {})</span>
           </a>
         </div>
@@ -316,7 +369,7 @@ Show Url for given <a href="../Item.html">Item</a> Object
 Usage:
 </p>
 <p>
-<tt><a href="UrlHelpers.html#M000262">item_path</a>(article)</tt>
+<tt><a href="UrlHelpers.html#M000260">item_path</a>(article)</tt>
 </p>
 <p>
 will return /articles/1
@@ -333,8 +386,8 @@ href="../Item.html">Item</a> type)
 </li>
 </ul>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000262-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000262-source">
+            onclick="toggleCode('M000260-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000260-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/acts_as_item/url_helpers.rb, line 50</span>
 50:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">item_path</span> <span class="ruby-identifier">object</span>, <span class="ruby-identifier">params</span> = {}
@@ -355,11 +408,11 @@ href="../Item.html">Item</a> type)
         </div>
       </div>
 
-      <div id="method-M000265" class="method-detail">
-        <a name="M000265"></a>
+      <div id="method-M000263" class="method-detail">
+        <a name="M000263"></a>
 
         <div class="method-heading">
-          <a href="#M000265" class="method-signature">
+          <a href="#M000263" class="method-signature">
           <span class="method-name">items_path</span><span class="method-args">(model)</span>
           </a>
         </div>
@@ -372,7 +425,7 @@ Index Url for given <a href="../Item.html">Item</a> Object
 Usage:
 </p>
 <p>
-<tt><a href="UrlHelpers.html#M000265">items_path</a>(article_object)</tt>
+<tt><a href="UrlHelpers.html#M000263">items_path</a>(article_object)</tt>
 </p>
 <p>
 will return /articles
@@ -389,8 +442,8 @@ href="../Item.html">Item</a> type)
 </li>
 </ul>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000265-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000265-source">
+            onclick="toggleCode('M000263-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000263-source">
 <pre>
      <span class="ruby-comment cmt"># File lib/acts_as_item/url_helpers.rb, line 113</span>
 113:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">items_path</span>(<span class="ruby-identifier">model</span>)
@@ -406,11 +459,11 @@ href="../Item.html">Item</a> type)
         </div>
       </div>
 
-      <div id="method-M000263" class="method-detail">
-        <a name="M000263"></a>
+      <div id="method-M000261" class="method-detail">
+        <a name="M000261"></a>
 
         <div class="method-heading">
-          <a href="#M000263" class="method-signature">
+          <a href="#M000261" class="method-signature">
           <span class="method-name">new_item_path</span><span class="method-args">(model)</span>
           </a>
         </div>
@@ -424,7 +477,7 @@ Usage:
 </p>
 <p>
 <tt><a
-href="UrlHelpers.html#M000263">new_item_path</a>(article_object)</tt>
+href="UrlHelpers.html#M000261">new_item_path</a>(article_object)</tt>
 </p>
 <p>
 will return /articles/new
@@ -441,8 +494,8 @@ href="../Item.html">Item</a> type)
 </li>
 </ul>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000263-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000263-source">
+            onclick="toggleCode('M000261-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000261-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/acts_as_item/url_helpers.rb, line 75</span>
 75:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">new_item_path</span>(<span class="ruby-identifier">model</span>)
