@@ -68,5 +68,10 @@ module Configuration
 			return 10
 		end
 	end
+
+	# Get the Item types available for FCKE
+	def get_fcke_item_types
+		return ['page', 'image', 'cms_file', 'video', 'audio', 'bookmark']
+	end
   
 end

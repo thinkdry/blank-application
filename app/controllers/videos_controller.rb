@@ -23,16 +23,6 @@ class VideosController < ApplicationController
     end
   end
 
-  # Return the Url of the Video in Pop Up Window
-  #
-  # Usage URL:
-  #
-  # /videos/get_file_url/:id
-  def get_file_url
-		@current_object = Video.find(params[:id])
-		redirect_to @current_object.video.url
-	end
-
   # Return Download Link for Video File
   #
   # Usage URL:

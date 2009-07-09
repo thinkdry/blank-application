@@ -21,7 +21,8 @@ class ApplicationController < ActionController::Base
   
   helper :all # include all helpers, all the time
 	helper_method :available_items_list, :available_languages, :get_sa_config, :right_conf,
-		:is_allowed_free_user_creation?, :get_allowed_item_types, :item_types_allowed_to, :get_per_page_value, :admin?, :groups_of_workspaces_of_item
+		:is_allowed_free_user_creation?, :get_allowed_item_types, :item_types_allowed_to, :get_per_page_value, 
+		:admin?, :groups_of_workspaces_of_item, :get_fcke_item_types
   before_filter :is_logged?
 	before_filter :set_locale
 	before_filter :get_configuration

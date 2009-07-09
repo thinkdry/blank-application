@@ -90,7 +90,7 @@ ActionController::Routing::Routes.draw do |map|
         :add_tag => :any,
         :remove_tag => :any,
         :add_comment => :any,
-				:get_file_url => :any
+				:get_an_url => :any
       }, :collection => {:validate => :any}
     end
     # Displaying Items

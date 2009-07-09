@@ -147,7 +147,7 @@ class PeopleController < ApplicationController
                 i+=1
               end
               if !details['email'].nil? 
-                person = Person.new(details)
+                person = Person.new(details.merge({:newsletter => true}))
                 person.user_id = current_user.id
                 person.origin = "CSV importation"
                 if !person.validate_uniqueness_of_email || !person.save
