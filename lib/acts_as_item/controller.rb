@@ -32,6 +32,7 @@ module ActsAsItem
 				end
 
 				before_filter :permission_checking, :only => [:new, :create, :edit, :update, :show, :destroy]
+				skip_before_filter :logged_in?, :only => [:get_an_url]
 
         make_resourceful do
           actions :all
@@ -126,7 +127,7 @@ module ActsAsItem
 	        end
 
           response_for :destroy do |format|
-            format.html { redirect_to(items_path(params[:controller])) }
+            format.html { redirect_to(content_path(params[:controller])) }
           end
         end
 
@@ -157,6 +158,25 @@ module ActsAsItem
 				else
 					current_object
 					no_permission_redirection unless @current_user && @current_object.send("accepts_#{params[:action]}_for?".to_sym, @current_user)
+				end
+			end
+
+			def get_an_url
+				# Critical for performance but important for security
+				# TODO what if this item is not in fcke but not linked to a website ... (we should make restriction)
+				if get_fcke_item_types.include?(params[:controller].singularize) #&& current_object.workspaces.delete_if{ |e| !e.websites.first }.size > 0
+					current_object = params[:controller].classify.constantize.find(params[:id])
+					if params[:controller] == 'pages'
+						redirect_to root_url+current_object.sanitized_title
+					elsif params[:controller] == 'bookmarks'
+						redirect_to current_object.link
+					elsif params[:controller] == 'cms_files'
+						redirect_to current_object.cmsfile.url
+					else
+						redirect_to current_object.send(params[:controller].singularize).url
+					end
+				else
+					no_permission_redirection
 				end
 			end
 			

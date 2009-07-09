@@ -119,6 +119,26 @@ module ActsAsItem
       end
     end
 
+		# Content Tabs Url for given Item Object
+		# This allow you to switch, easier than the simple index, between the different items list.
+    #
+    # Usage:
+    #
+    # <tt>content_path(article_object)</tt>
+    #
+    # will return /content/articles
+    #
+    # Parameters:
+    #
+    # - model: Article,Image,Audio,Video.... (may be any Item type)
+		def content_path(model)
+			if current_workspace
+				workspace_content_url(:item_type => model.underscore.pluralize)
+      else
+        content_url(:item_type => model.underscore.pluralize)
+      end
+		end
+
     # Dynamically create Item path for given Item for Pagination
     #
     # Usage:
