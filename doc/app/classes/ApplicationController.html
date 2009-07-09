@@ -86,16 +86,16 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000127">admin?</a>&nbsp;&nbsp;
-      <a href="#M000121">get_allowed_item_types</a>&nbsp;&nbsp;
-      <a href="#M000120">get_da_layout</a>&nbsp;&nbsp;
-      <a href="#M000126">get_items_list</a>&nbsp;&nbsp;
-      <a href="#M000128">groups_of_workspaces_of_item</a>&nbsp;&nbsp;
-      <a href="#M000124">is_admin?</a>&nbsp;&nbsp;
-      <a href="#M000119">is_logged?</a>&nbsp;&nbsp;
-      <a href="#M000123">is_superadmin?</a>&nbsp;&nbsp;
-      <a href="#M000122">item_types_allowed_to</a>&nbsp;&nbsp;
-      <a href="#M000125">no_permission_redirection</a>&nbsp;&nbsp;
+      <a href="#M000126">admin?</a>&nbsp;&nbsp;
+      <a href="#M000120">get_allowed_item_types</a>&nbsp;&nbsp;
+      <a href="#M000119">get_da_layout</a>&nbsp;&nbsp;
+      <a href="#M000125">get_items_list</a>&nbsp;&nbsp;
+      <a href="#M000127">groups_of_workspaces_of_item</a>&nbsp;&nbsp;
+      <a href="#M000123">is_admin?</a>&nbsp;&nbsp;
+      <a href="#M000118">is_logged?</a>&nbsp;&nbsp;
+      <a href="#M000122">is_superadmin?</a>&nbsp;&nbsp;
+      <a href="#M000121">item_types_allowed_to</a>&nbsp;&nbsp;
+      <a href="#M000124">no_permission_redirection</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -141,11 +141,11 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000127" class="method-detail">
-        <a name="M000127"></a>
+      <div id="method-M000126" class="method-detail">
+        <a name="M000126"></a>
 
         <div class="method-heading">
-          <a href="#M000127" class="method-signature">
+          <a href="#M000126" class="method-signature">
           <span class="method-name">admin?</span><span class="method-args">()</span>
           </a>
         </div>
@@ -155,8 +155,8 @@
 Check is <a href="User.html">User</a> is admin(Not used)
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000127-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000127-source">
+            onclick="toggleCode('M000126-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000126-source">
 <pre>
      <span class="ruby-comment cmt"># File app/controllers/application_controller.rb, line 137</span>
 137:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">admin?</span>
@@ -167,11 +167,11 @@ Check is <a href="User.html">User</a> is admin(Not used)
         </div>
       </div>
 
-      <div id="method-M000121" class="method-detail">
-        <a name="M000121"></a>
+      <div id="method-M000120" class="method-detail">
+        <a name="M000120"></a>
 
         <div class="method-heading">
-          <a href="#M000121" class="method-signature">
+          <a href="#M000120" class="method-signature">
           <span class="method-name">get_allowed_item_types</span><span class="method-args">(workspace=nil)</span>
           </a>
         </div>
@@ -196,8 +196,8 @@ Parameters
 </li>
 </ul>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000121-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000121-source">
+            onclick="toggleCode('M000120-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000120-source">
 <pre>
     <span class="ruby-comment cmt"># File app/controllers/application_controller.rb, line 63</span>
 63:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_allowed_item_types</span>(<span class="ruby-identifier">workspace</span>=<span class="ruby-keyword kw">nil</span>)
@@ -212,11 +212,11 @@ Parameters
         </div>
       </div>
 
-      <div id="method-M000120" class="method-detail">
-        <a name="M000120"></a>
+      <div id="method-M000119" class="method-detail">
+        <a name="M000119"></a>
 
         <div class="method-heading">
-          <a href="#M000120" class="method-signature">
+          <a href="#M000119" class="method-signature">
           <span class="method-name">get_da_layout</span><span class="method-args">()</span>
           </a>
         </div>
@@ -233,8 +233,8 @@ if layout is not selected then will return configuration layout else
 default &#8216;application&#8217; layout
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000120-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000120-source">
+            onclick="toggleCode('M000119-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000119-source">
 <pre>
     <span class="ruby-comment cmt"># File app/controllers/application_controller.rb, line 46</span>
 46:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_da_layout</span>
@@ -249,11 +249,11 @@ default &#8216;application&#8217; layout
         </div>
       </div>
 
-      <div id="method-M000126" class="method-detail">
-        <a name="M000126"></a>
+      <div id="method-M000125" class="method-detail">
+        <a name="M000125"></a>
 
         <div class="method-heading">
-          <a href="#M000126" class="method-signature">
+          <a href="#M000125" class="method-signature">
           <span class="method-name">get_items_list</span><span class="method-args">(item_type, workspace=nil)</span>
           </a>
         </div>
@@ -273,8 +273,8 @@ will return the list of items depending on workspace or superadmin
 configuration items
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000126-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000126-source">
+            onclick="toggleCode('M000125-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000125-source">
 <pre>
      <span class="ruby-comment cmt"># File app/controllers/application_controller.rb, line 119</span>
 119:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_items_list</span>(<span class="ruby-identifier">item_type</span>, <span class="ruby-identifier">workspace</span>=<span class="ruby-keyword kw">nil</span>)
@@ -298,11 +298,11 @@ configuration items
         </div>
       </div>
 
-      <div id="method-M000128" class="method-detail">
-        <a name="M000128"></a>
+      <div id="method-M000127" class="method-detail">
+        <a name="M000127"></a>
 
         <div class="method-heading">
-          <a href="#M000128" class="method-signature">
+          <a href="#M000127" class="method-signature">
           <span class="method-name">groups_of_workspaces_of_item</span><span class="method-args">(item)</span>
           </a>
         </div>
@@ -316,7 +316,7 @@ Usage:
 </p>
 <p>
 <tt><a
-href="ApplicationController.html#M000128">groups_of_workspaces_of_item</a>(article)</tt>
+href="ApplicationController.html#M000127">groups_of_workspaces_of_item</a>(article)</tt>
 </p>
 <p>
 will return the array if workspaces for the item
@@ -330,8 +330,8 @@ Parameters:
 </li>
 </ul>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000128-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000128-source">
+            onclick="toggleCode('M000127-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000127-source">
 <pre>
      <span class="ruby-comment cmt"># File app/controllers/application_controller.rb, line 153</span>
 153:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">groups_of_workspaces_of_item</span>(<span class="ruby-identifier">item</span>)
@@ -344,11 +344,11 @@ Parameters:
         </div>
       </div>
 
-      <div id="method-M000124" class="method-detail">
-        <a name="M000124"></a>
+      <div id="method-M000123" class="method-detail">
+        <a name="M000123"></a>
 
         <div class="method-heading">
-          <a href="#M000124" class="method-signature">
+          <a href="#M000123" class="method-signature">
           <span class="method-name">is_admin?</span><span class="method-args">()</span>
           </a>
         </div>
@@ -362,8 +362,8 @@ will return true if the logged in user has system role of
 Administrator(&#8216;admin&#8217;)
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000124-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000124-source">
+            onclick="toggleCode('M000123-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000123-source">
 <pre>
      <span class="ruby-comment cmt"># File app/controllers/application_controller.rb, line 98</span>
  98:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_admin?</span>
@@ -374,11 +374,11 @@ Administrator(&#8216;admin&#8217;)
         </div>
       </div>
 
-      <div id="method-M000119" class="method-detail">
-        <a name="M000119"></a>
+      <div id="method-M000118" class="method-detail">
+        <a name="M000118"></a>
 
         <div class="method-heading">
-          <a href="#M000119" class="method-signature">
+          <a href="#M000118" class="method-signature">
           <span class="method-name">is_logged?</span><span class="method-args">()</span>
           </a>
         </div>
@@ -392,8 +392,8 @@ will return true if a <a href="User.html">User</a> session exists else will
 redirect to login page &#8217;/login&#8216;
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000119-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000119-source">
+            onclick="toggleCode('M000118-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000118-source">
 <pre>
     <span class="ruby-comment cmt"># File app/controllers/application_controller.rb, line 32</span>
 32:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_logged?</span>
@@ -409,11 +409,11 @@ redirect to login page &#8217;/login&#8216;
         </div>
       </div>
 
-      <div id="method-M000123" class="method-detail">
-        <a name="M000123"></a>
+      <div id="method-M000122" class="method-detail">
+        <a name="M000122"></a>
 
         <div class="method-heading">
-          <a href="#M000123" class="method-signature">
+          <a href="#M000122" class="method-signature">
           <span class="method-name">is_superadmin?</span><span class="method-args">()</span>
           </a>
         </div>
@@ -427,8 +427,8 @@ will return true if the logged in user has system role of
 Superadministrator(&#8216;superadmin&#8217;)
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000123-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000123-source">
+            onclick="toggleCode('M000122-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000122-source">
 <pre>
     <span class="ruby-comment cmt"># File app/controllers/application_controller.rb, line 91</span>
 91:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_superadmin?</span>
@@ -439,11 +439,11 @@ Superadministrator(&#8216;superadmin&#8217;)
         </div>
       </div>
 
-      <div id="method-M000122" class="method-detail">
-        <a name="M000122"></a>
+      <div id="method-M000121" class="method-detail">
+        <a name="M000121"></a>
 
         <div class="method-heading">
-          <a href="#M000122" class="method-signature">
+          <a href="#M000121" class="method-signature">
           <span class="method-name">item_types_allowed_to</span><span class="method-args">(user, action,current_workspace = nil)</span>
           </a>
         </div>
@@ -471,8 +471,8 @@ Parameters:
 will return the list of items depending on workspace or user permission
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000122-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000122-source">
+            onclick="toggleCode('M000121-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000121-source">
 <pre>
     <span class="ruby-comment cmt"># File app/controllers/application_controller.rb, line 80</span>
 80:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">item_types_allowed_to</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">action</span>,<span class="ruby-identifier">current_workspace</span> = <span class="ruby-keyword kw">nil</span>)
@@ -487,11 +487,11 @@ will return the list of items depending on workspace or user permission
         </div>
       </div>
 
-      <div id="method-M000125" class="method-detail">
-        <a name="M000125"></a>
+      <div id="method-M000124" class="method-detail">
+        <a name="M000124"></a>
 
         <div class="method-heading">
-          <a href="#M000125" class="method-signature">
+          <a href="#M000124" class="method-signature">
           <span class="method-name">no_permission_redirection</span><span class="method-args">()</span>
           </a>
         </div>
@@ -509,8 +509,8 @@ he will be redirected to the default homepage with message &quot;<a
 href="Permission.html">Permission</a> denied&#8216;
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000125-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000125-source">
+            onclick="toggleCode('M000124-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000124-source">
 <pre>
      <span class="ruby-comment cmt"># File app/controllers/application_controller.rb, line 107</span>
 107:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">no_permission_redirection</span>

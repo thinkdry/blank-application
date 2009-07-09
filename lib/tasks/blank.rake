@@ -113,8 +113,8 @@ namespace :blank do
     @admin_ws = Permission.create(:name => 'workspace_administration', :type_permission => 'workspace') unless Permission.exists?(:name => 'workspace_administration', :type_permission => 'workspace')
     @role_ws.permissions << @admin_ws
     @role_mod.permissions << @admin_ws
+    p "Done"
   end
-  p "Done"
 
   desc "Load Permissions"
   task(:create_permissions => :environment) do
@@ -276,7 +276,19 @@ namespace :blank do
 		end
 
   end
-  p"------>>> Ready to Launch Blank <<<------"
+  
+  desc "Install Blank Application"
+	task :install => :environment do
+    p "Creating Database"
+		Rake::Task['db:create'].invoke
+    p "Migrating"
+		Rake::Task['db:migrate'].invoke
+    p "Setting Up Default Settings"
+		Rake::Task['blank:pump'].invoke
+    p "Setting Other Settings"
+    Rake::Task['blank:init'].invoke
+    p "Installed Blank Application Sucessfully."
+	end
 end
 
 

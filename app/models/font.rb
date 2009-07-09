@@ -13,6 +13,4 @@
 #  updated_at :datetime
 #
 
-class Font < ActiveRecord::Base
- 
-end
+class Font < ActiveRecord::Base;end
