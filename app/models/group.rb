@@ -33,10 +33,6 @@ class Group < ActiveRecord::Base
 
 	acts_as_item
   
-  def self.label
-    "Group"
-  end
-
   # Store the Group Objects and Check If the Member Exists Previously in the Group
   # 
   # params are selected_Option from View
