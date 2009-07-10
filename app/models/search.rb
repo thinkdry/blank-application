@@ -54,7 +54,7 @@ class Search < ActiveRecord::Base
 	end
 
 
-	def get_value_of_param(param_name)
+	def get_value_of_param(param_name)#:nodoc:
 		return self[:conditions][param_name]
 	end
 

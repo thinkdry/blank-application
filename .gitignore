@@ -14,6 +14,7 @@ db/cstore/**
 tmp/**/*
 db/*.sqlite3
 doc/api
+doc/app
 doc/plugins
 doc/*.dot
 public/uploaded_files/**/*

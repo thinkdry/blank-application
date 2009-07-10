@@ -2,7 +2,7 @@
 
   <% is_copyright = (@current_object.state == 'copyright') ? true : false %>
   
-  <%= f.text_field :link, :label => I18n.t('bookmark.field.link_label')+" : " , :readonly => is_copyright %>
+  <%= f.text_field :link, :label => I18n.t('bookmark.field.link_label')+" * : " , :readonly => is_copyright %>
   <%#= f.text_field :authors, :label => I18n.t('bookmark.field.author_label').pluralize + " : ", :readonly => is_copyright %>
   <%= f.text_field :categories, :label => I18n.t('bookmark.field.categories_label')+ " : ", :readonly => is_copyright %>
   <%= f.text_field :copyright, :label => I18n.t('bookmark.field.copyright_label') + " : ", :readonly => is_copyright %>

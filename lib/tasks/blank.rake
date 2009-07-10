@@ -12,13 +12,15 @@ namespace :blank do
 		Rake::Task['blank:pump'].invoke
     p "Setting Other Settings"
     Rake::Task['blank:init'].invoke
+    p "Starting Backgroundrb"
+    system("ruby script/backgroundrb stop")
+    system("ruby script/backgroundrb start")
     Rake::Task['blank:xapian_rebuild'].invoke
     p "Installed Blank Application Sucessfully."
 	end
 
 	desc "Initializing Blank Engine"
 	task :init => :environment do
-		p "===== ENVIRONMENT : "+RAILS_ENV
 		Rake::Task['captcha:generate'].invoke
 	end
 
