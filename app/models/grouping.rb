@@ -21,7 +21,7 @@ class Grouping < ActiveRecord::Base
 
   belongs_to :person,     :class_name => "Person", :foreign_key => "groupable_id"
 
-  
+  # Member object Depending on group. Members can be People or Users
   def member
     self.groupable_type.classify.constantize.find(self.groupable_id)
   end

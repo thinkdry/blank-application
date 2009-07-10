@@ -1,9 +1,129 @@
-= BLANK APPLICATION - by thinkDRY
-
-
-=== Multimedia Content Management System.
-
+= BLANK APPLICATION - Multimedia Content Management System.
+ 
 ==== Author: ThinkDRY
+
 ==== Version: 1.02
 
----
+===General Requirements
+
+- Operating System : Ubuntu 8.04 or higher
+
+- Ruby : 1.8.7
+
+- RubyGems: 1.3.0 or higher
+
+- Rails:  2.3 or higher
+
+- Database: Mysql, SQLite
+
+====Ubuntu Packages Required:
+
+=====Xapian Package for Full text Xapian Search
+
+ - sudo apt-get install libxapian15 libxapian-ruby1.8
+
+=====Rfeedparser for Feed Sources
+
+ - sudo apt-get install libxml-ruby1.8 libxml-parser-ruby1.8
+
+=====FFMPEG Video Encoding & liblamemp3 for Audio Encoding
+
+For liblamemp3
+
+ - sudo apt-get install lame libmp3lame-dev
+
+For FFMPEG
+
+ - mkdir src
+
+ - cd src
+
+ - svn checkout svn://svn.mplayerhq.hu/ffmpeg/trunk ffmpeg
+
+ - cd ffmpeg
+
+ - ./configure --enable-libmp3lame
+
+ - make
+
+ - make install
+
+ - run "ffmpeg" to check installation is complete
+
+
+===Get Blank
+
+- Git repository on GitHub comming soon
+
+- Send a mail to the thinkdry team at team@thinkdry.com
+
+- Download from Thinkdry website
+
+
+===Installation & Setup
+
+1) Unzip the blank.zip package in the desired folder
+
+2) Database Initialization
+
+   Create a database.yml file in /config/ , an example model can be found in /config/install_files/ 
+
+   Note: .yml files require proper indentation to work properly.
+
+   Settings can be put depending on your Database for EX: for Mysql
+   
+   production:
+     adapter: mysql
+     encoding: utf8
+     database: blank_production
+     username: mysql_user_name
+     password: mysql_password
+     socket: /var/run/mysqld/mysqld.sock
+ 
+   Note: for socket path go to mysql prompt and type "status". Copy UNIX socket path.
+
+3) Action Mailer Initialization
+
+   Create a action_mailer.rb file in /config/initializers/ , an example model can be found in /config/install_files/
+
+   Settings: Ex:
+   
+   ActionMailer::Base.delivery_method = :smtp
+
+   ActionMailer::Base.smtp_settings = {
+       :address => 'smtp.thinkdry.net',
+       :domain => 'thinkdry.net',
+       :port => '25',
+       :user_name => 'test@thinkdry.net',
+       :password => 'test',
+       :authentication => :login
+      }
+
+   ActionMailer::Base.perform_deliveries = true
+
+   ActionMailer::Base.default_charset = "utf-8"
+
+   ActionMailer::Base.raise_delivery_errors = true
+   
+    
+
+4) Run the installation rake task:
+   
+   - rake blank:install RAILS_ENV=production
+
+5) Start the server with ./script/server -e production
+   
+   - Open http://localhost:3000/ in your browser
+
+   - Use The Default User Created by blank:install called 'boss' and password as 'monkey'
+
+   - Use the superadministration panel to customize 'Blank Application'
+
+
+
+====Thikdry Team
+
+====For troubleshooting and feedback mail team@thinkdry.com
+
+   
+

@@ -80,8 +80,9 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000240">permission_checking</a>&nbsp;&nbsp;
-      <a href="#M000241">rate</a>&nbsp;&nbsp;
+      <a href="#M000237">get_an_url</a>&nbsp;&nbsp;
+      <a href="#M000236">permission_checking</a>&nbsp;&nbsp;
+      <a href="#M000238">rate</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -103,11 +104,49 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000240" class="method-detail">
-        <a name="M000240"></a>
+      <div id="method-M000237" class="method-detail">
+        <a name="M000237"></a>
 
         <div class="method-heading">
-          <a href="#M000240" class="method-signature">
+          <a href="#M000237" class="method-signature">
+          <span class="method-name">get_an_url</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000237-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000237-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/acts_as_item/controller.rb, line 164</span>
+164:                         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_an_url</span>
+165:                                 <span class="ruby-comment cmt"># Critical for performance but important for security</span>
+166:                                 <span class="ruby-comment cmt"># TODO what if this item is not in fcke but not linked to a website ... (we should make restriction)</span>
+167:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">get_fcke_item_types</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:controller</span>].<span class="ruby-identifier">singularize</span>) <span class="ruby-comment cmt">#&amp;&amp; current_object.workspaces.delete_if{ |e| !e.websites.first }.size &gt; 0</span>
+168:                                         <span class="ruby-identifier">current_object</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:controller</span>].<span class="ruby-identifier">classify</span>.<span class="ruby-identifier">constantize</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>])
+169:                                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:controller</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'pages'</span>
+170:                                                 <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">root_url</span><span class="ruby-operator">+</span><span class="ruby-identifier">current_object</span>.<span class="ruby-identifier">sanitized_title</span>
+171:                                         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:controller</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'bookmarks'</span>
+172:                                                 <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">current_object</span>.<span class="ruby-identifier">link</span>
+173:                                         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:controller</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'cms_files'</span>
+174:                                                 <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">current_object</span>.<span class="ruby-identifier">cmsfile</span>.<span class="ruby-identifier">url</span>
+175:                                         <span class="ruby-keyword kw">else</span>
+176:                                                 <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">current_object</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:controller</span>].<span class="ruby-identifier">singularize</span>).<span class="ruby-identifier">url</span>
+177:                                         <span class="ruby-keyword kw">end</span>
+178:                                 <span class="ruby-keyword kw">else</span>
+179:                                         <span class="ruby-identifier">no_permission_redirection</span>
+180:                                 <span class="ruby-keyword kw">end</span>
+181:                         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000236" class="method-detail">
+        <a name="M000236"></a>
+
+        <div class="method-heading">
+          <a href="#M000236" class="method-signature">
           <span class="method-name">permission_checking</span><span class="method-args">()</span>
           </a>
         </div>
@@ -127,32 +166,32 @@ Just use in a before_filter checking the permission before each action
 specified
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000240-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000240-source">
+            onclick="toggleCode('M000236-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000236-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/acts_as_item/controller.rb, line 150</span>
-150:                         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">permission_checking</span>
-151:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:action</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'new'</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:action</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'create'</span>
-152:                                         <span class="ruby-identifier">build_object</span>
-153:                                         <span class="ruby-identifier">no_permission_redirection</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@current_user</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">send</span>(<span class="ruby-value str">&quot;accepts_new_for?&quot;</span>.<span class="ruby-identifier">to_sym</span>, <span class="ruby-ivar">@current_user</span>)
-154:                                 <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:action</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'edit'</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:action</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'update'</span>
-155:                                         <span class="ruby-identifier">current_object</span>
-156:                                         <span class="ruby-identifier">no_permission_redirection</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@current_user</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">send</span>(<span class="ruby-value str">&quot;accepts_edit_for?&quot;</span>.<span class="ruby-identifier">to_sym</span>, <span class="ruby-ivar">@current_user</span>)
-157:                                 <span class="ruby-keyword kw">else</span>
-158:                                         <span class="ruby-identifier">current_object</span>
-159:                                         <span class="ruby-identifier">no_permission_redirection</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@current_user</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;accepts_#{params[:action]}_for?&quot;</span>.<span class="ruby-identifier">to_sym</span>, <span class="ruby-ivar">@current_user</span>)
-160:                                 <span class="ruby-keyword kw">end</span>
-161:                         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/acts_as_item/controller.rb, line 151</span>
+151:                         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">permission_checking</span>
+152:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:action</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'new'</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:action</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'create'</span>
+153:                                         <span class="ruby-identifier">build_object</span>
+154:                                         <span class="ruby-identifier">no_permission_redirection</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@current_user</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">send</span>(<span class="ruby-value str">&quot;accepts_new_for?&quot;</span>.<span class="ruby-identifier">to_sym</span>, <span class="ruby-ivar">@current_user</span>)
+155:                                 <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:action</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'edit'</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:action</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'update'</span>
+156:                                         <span class="ruby-identifier">current_object</span>
+157:                                         <span class="ruby-identifier">no_permission_redirection</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@current_user</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">send</span>(<span class="ruby-value str">&quot;accepts_edit_for?&quot;</span>.<span class="ruby-identifier">to_sym</span>, <span class="ruby-ivar">@current_user</span>)
+158:                                 <span class="ruby-keyword kw">else</span>
+159:                                         <span class="ruby-identifier">current_object</span>
+160:                                         <span class="ruby-identifier">no_permission_redirection</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@current_user</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@current_object</span>.<span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;accepts_#{params[:action]}_for?&quot;</span>.<span class="ruby-identifier">to_sym</span>, <span class="ruby-ivar">@current_user</span>)
+161:                                 <span class="ruby-keyword kw">end</span>
+162:                         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000241" class="method-detail">
-        <a name="M000241"></a>
+      <div id="method-M000238" class="method-detail">
+        <a name="M000238"></a>
 
         <div class="method-heading">
-          <a href="#M000241" class="method-signature">
+          <a href="#M000238" class="method-signature">
           <span class="method-name">rate</span><span class="method-args">()</span>
           </a>
         </div>
@@ -171,17 +210,17 @@ Usage:
 will create new rating for the item and save it
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000241-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000241-source">
+            onclick="toggleCode('M000238-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000238-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/acts_as_item/controller.rb, line 170</span>
-170:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rate</span>
-171:         <span class="ruby-identifier">current_object</span>.<span class="ruby-identifier">add_rating</span>(<span class="ruby-constant">Rating</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">:rating</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:rated</span>].<span class="ruby-identifier">to_i</span>))
-172:                                 <span class="ruby-identifier">current_object</span>.<span class="ruby-identifier">rates_average</span> = <span class="ruby-identifier">current_object</span>.<span class="ruby-identifier">rating</span>
-173:                                 <span class="ruby-identifier">current_object</span>.<span class="ruby-identifier">save</span>
-174:                                 <span class="ruby-comment cmt"># TODO : refresh the rate box ...</span>
-175:         <span class="ruby-identifier">render</span> <span class="ruby-identifier">:nothing</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>
-176:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/acts_as_item/controller.rb, line 190</span>
+190:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rate</span>
+191:         <span class="ruby-identifier">current_object</span>.<span class="ruby-identifier">add_rating</span>(<span class="ruby-constant">Rating</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">:rating</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:rated</span>].<span class="ruby-identifier">to_i</span>))
+192:                                 <span class="ruby-identifier">current_object</span>.<span class="ruby-identifier">rates_average</span> = <span class="ruby-identifier">current_object</span>.<span class="ruby-identifier">rating</span>
+193:                                 <span class="ruby-identifier">current_object</span>.<span class="ruby-identifier">save</span>
+194:                                 <span class="ruby-comment cmt"># TODO : refresh the rate box ...</span>
+195:         <span class="ruby-identifier">render</span> <span class="ruby-identifier">:nothing</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>
+196:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
