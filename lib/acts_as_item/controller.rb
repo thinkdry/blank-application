@@ -176,7 +176,7 @@ module ActsAsItem
 				if get_fcke_item_types.include?(params[:controller].singularize) #&& current_object.workspaces.delete_if{ |e| !e.websites.first }.size > 0
 					current_object = params[:controller].classify.constantize.find(params[:id])
 					if params[:controller] == 'pages'
-						redirect_to root_url+current_object.sanitized_title
+						redirect_to root_url+current_object.title_sanitized
 					elsif params[:controller] == 'bookmarks'
 						redirect_to current_object.link
 					elsif params[:controller] == 'cms_files'
