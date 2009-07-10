@@ -45,7 +45,7 @@
       <div class="list">
     <% end -%>
     <%= image_tag(object.image.url(:thumb).split("?")[0], :border=>0, :width => "50") if params[:selected_item]=="images" %>
-    <%= link_to_function object.title,"javascript:SelectFile('#{root_url}#{object.class.to_s.underscore.pluralize}/#{object.id}/get_an_url')"  %>
+    <%= link_to_function object.title,"javascript:SelectFile('#{root_url}#{object.class.to_s.underscore.pluralize}/#{object.id}/redirect_to_content')"  %>
     </div>
     <% i= i+1%>
   <% end %>
