@@ -23,8 +23,8 @@
     <%= f.text_field :description, :label => I18n.t('item.field.description_label') + ' * :', :hint => I18n.t('item.field.description_hint') %>
 
     <%= capture(f, &block) %>
-    
-    <%= item_status_fields(f, @current_object) %>
+
+    <%= item_workspaces_checkboxes(f, @current_object) %>
     
     <%= error_message_on :current_object, :items %>
 

@@ -133,7 +133,7 @@ module ActsAsItem
     # - model: Article,Image,Audio,Video.... (may be any Item type)
 		def content_path(model)
 			if current_workspace
-				workspace_content_url(:item_type => model.underscore.pluralize)
+				workspace_url(current_workspace.id)+"?#{model.underscore.pluralize}"
       else
         content_url(:item_type => model.underscore.pluralize)
       end
