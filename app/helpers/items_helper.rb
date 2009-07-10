@@ -92,17 +92,6 @@ module ItemsHelper
       })
   end
 
-  # Item Status Fields
-  #
-  # Usage:
-  #
-  # <tt>item_status_fields(form, article)</tt>
-  #
-  # will return item status fields for the artile
-  def item_status_fields(form, item)
-    render :partial => "items/status", :locals => { :f => form, :item => item }
-  end
-
 	# Item Category Fields
   #
   # Usage:
@@ -282,5 +271,49 @@ module ItemsHelper
       render :nothing => true
     end
   end
-	
+
+	# Workspaces checkboxes for item form
+  #
+  # Usage:
+  #
+  # <tt>item_status_fields(form, article)</tt>
+  #
+  # will return all the checkboxes linked to workspaces for that item, with the different options set (disabled, checked or hidden)
+	def item_workspaces_checkboxes(form, item)
+		strg = ""
+		item_class_name = item.class.to_s.underscore
+		check_box_tag_name = "#{item_class_name}[associated_workspaces][]"
+		res=[]
+		# Workspace list allowing user to add new item and accepting items of that type
+		list = (res + Workspace.allowed_user_with_permission(@current_user.id, item_class_name+"_new")).uniq.delete_if{ |w| !w.ws_items.to_s.split(',').include?(item_class_name) }
+		#
+		if (list.size > 1 || @current_user.has_system_role('superadmin'))
+			strg += "<label>#{I18n.t('general.object.workspace').camelize+'(s) :'}</label><div class='formElement'>"
+			#form.field(:workspaces, :label => I18n.t('general.object.workspace').camelize+'(s) :', :ajax => false)
+			list.collect do |w|
+				# Setting the checked status form that workspace
+				if params[item.class.to_s.downcase] && params[item.class.to_s.downcase][:associated_workspaces]
+           checked = params[item.class.to_s.downcase][:associated_workspaces].include?(w.id.to_s)
+				else
+           checked = Item.exists?(:workspace_id => w.id, :itemable_id => item.id, :itemable_type => item.class.to_s)
+				end
+				# Creating the checkboxes
+				if ((w.state == 'private') && (w.creator_id == @current_user.id) && (item.new_record? || item.user_id==@current_user.id)) || (list.size==1) || (w == current_workspace)
+					strg += check_box_tag(check_box_tag_name, w.id, true, :disabled => true, :class => 'checkboxes') + ' ' + w.title + hidden_field_tag(check_box_tag_name, w.id.to_s) + '<br />'
+				else
+					strg += check_box_tag(check_box_tag_name, w.id, checked, :class => 'checkboxes') + ' ' + w.title + '<br />'
+				end
+			end
+			strg += '</div>'
+		elsif (list.size > 0)
+			list.each do |ws|
+				strg += hidden_field_tag(check_box_tag_name, ws.id.to_s)
+			end
+		end
+		(item.workspaces - list).each do |ws|
+			strg += hidden_field_tag(check_box_tag_name, ws.id.to_s)
+		end
+		return strg
+	end
+
 end

@@ -32,7 +32,7 @@ module ActsAsItem
 				end
 
 				before_filter :permission_checking, :only => [:new, :create, :edit, :update, :show, :destroy]
-				skip_before_filter :logged_in?, :only => [:get_an_url]
+				skip_before_filter :is_logged?, :only => [:redirect_to_content]
 
         make_resourceful do
           actions :all
@@ -161,7 +161,16 @@ module ActsAsItem
 				end
 			end
 
-			def get_an_url
+			# Function allowing to get directly the content of the item, not details like title or description
+			#
+      # Included in the Controller of the Items
+      #
+      # Usage:
+      #
+      # /images/123/redirect_to_content
+			# The return of this url is directly the image linked t that article.
+      #
+			def redirect_to_content
 				# Critical for performance but important for security
 				# TODO what if this item is not in fcke but not linked to a website ... (we should make restriction)
 				if get_fcke_item_types.include?(params[:controller].singularize) #&& current_object.workspaces.delete_if{ |e| !e.websites.first }.size > 0
