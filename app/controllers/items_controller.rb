@@ -41,6 +41,7 @@ class ItemsController < ApplicationController
   #
   def display_item_in_pop_up
     @workspace = (params[:workspace_id] && !params[:workspace_id].blank?) ? Workspace.find(params[:workspace_id]) : nil
+		@workspaces = current_user.has_system_role('superadmin') ? Workspace.all : current_user.workspaces
 		if params[:selected_item] == 'all'
 			@selected_item_types = get_fcke_item_types
 			@item_types = (item_types_allowed_to(current_user, 'show', @workspace)&@selected_item_types)
@@ -71,9 +72,8 @@ class ItemsController < ApplicationController
 				end
 			end
 		else
-				
+				###
 		end
-    @base_url = request.url.split(request.request_uri())[0]
 		#if @current_objects.first
 			render :layout => 'pop_up', :object => @current_objects
 		#else

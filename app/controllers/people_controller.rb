@@ -136,6 +136,7 @@ class PeopleController < ApplicationController
             end
           end
           @unsaved_emails = []
+					empty_emails = 0
           @parsed_file.each_index do |index|
             if index != 0
               i = 0
@@ -146,18 +147,21 @@ class PeopleController < ApplicationController
                 end
                 i+=1
               end
-              if !details['email'].nil? 
+              if !details['email'].nil?
                 person = Person.new(details.merge({:newsletter => true}))
                 person.user_id = current_user.id
                 person.origin = "CSV importation"
                 if !person.validate_uniqueness_of_email || !person.save
                   @unsaved_emails << person.email
                 end
-              end
+							else
+								empty_emails +=1
+							end
             end
           end
-          flash.now[:notice] = I18n.t('people.import_people.saved_records_flash_notice') if @unsaved_emails.empty?
+          flash.now[:notice] = I18n.t('people.import_people.saved_records_flash_notice') if @unsaved_emails.empty? && empty_emails == 0
           flash.now[:error] = I18n.t('people.import_people.unsaved_records_flash_error1')+'<b> '+@unsaved_emails.join(',')+' </b>'+I18n.t('people.import_people.unsaved_records_flash_error2') if !@unsaved_emails.empty?
+					flash.now[:error] = "#{empty_emails} contacts n'ont pas été sauvegardés car l'email était vide." if empty_emails > 0
         rescue Exception => e
           logger.error ">>>>>>>>>>>>>>>>>>>"
           logger.error " Problem while parsing csv file "+ e
