@@ -15,12 +15,10 @@ ActionController::Base.send(:include, ActsAsItem::ControllerMethods)
 CAPTCHA_IMAGES_NUMBER = 10
 
 # Defining the global variable
-ITEMS = ['article', 'image', 'cms_file', 'video', 'audio', 'publication', 'feed_source', 'bookmark','newsletter','group']
+ITEMS = ['article', 'image', 'cms_file', 'video', 'audio', 'feed_source', 'bookmark','newsletter','group']
 LANGUAGES = ['en-US', 'fr-FR']
-FEED_ITEMS_IMPORTATION_TYPES = ['bookmark', 'publication']
 WS_TYPES = ['closed', 'public', 'authorized', 'archived']
 RIGHT_TYPES = ['system', 'workspace']
-ITEM_CATEGORIES = ['cat1', 'cat2', 'cat3']
 COMMENT_STATE = ['posted', 'validated', 'rejected']
 DEFAULT_COMMENT_STATE = 'validated'
 LAYOUTS_AVAILABLE = ['application', 'app_fat_menu']

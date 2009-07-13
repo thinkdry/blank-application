@@ -28,6 +28,8 @@ class Article < ActiveRecord::Base
 
   # Validation's
   validates_presence_of :body, :on => :update
+
+  acts_as_xapian :texts => [:title, :description, :keywords_list, :body]
   
   # Association of Files to Article using PaperClip
   # 

@@ -11,17 +11,29 @@
       <%= f.password_field :password, :label => I18n.t('user.field.password_label'), :hint => I18n.t('user.field.password_hint') %>
       <%= f.password_field :password_confirmation, :label => I18n.t('user.field.confirm_password_label'), :hint => I18n.t('user.field.confirm_password_hint') %>
     <% end %>
-
     <% if !@current_object.new_record? || (@current_user && @current_user.has_system_role("superadmin")) %>
-      <%= f.select :system_role_id, @roles.map{ |e| [I18n.t('general.role.'+e.name), e.id] }, :label => I18n.t('user.field.system_role_id_label')+" * : " %>
+      <%= f.select :system_role_id, @roles.reverse.map{ |e| [I18n.t('general.role.'+e.name), e.id] }, :label => I18n.t('user.field.system_role_id_label')+" * : " %>
     <% elsif !@current_object.new_record? || (@current_user && @current_user.has_system_role("admin")) %>
       <%= f.select :system_role_id, [[I18n.t('general.role.user'), Role.find(:first, :conditions => { :name => 'user' }).id]], :label => I18n.t('user.field.system_role_id_label')+" * : " %>
     <% end %>
-
+    <label><%= I18n.t('people.field.salutation_label') %> : </label>
+    <div class="formElement">
+      <% %w(Mr Ms Miss).each do |s|  %>
+        <input id="user_salutation_<%= s.downcase %>" type="radio" <%= "checked=true" if @current_object.salutation == s %> value="<%= s %>" name="user[salutation]" class = "checkboxes" /><%= I18n.t("general.common_word.#{s}") %>
+      <% end %>
+      <div id="errors_for_User_salutation"> </div>
+    </div>
     <%= f.text_field :firstname, :label => I18n.t('user.field.first_name_label')+" * : " %>
     <%= f.text_field :lastname, :label => I18n.t('user.field.last_name_label')+" * : " %>
-    <%= f.select :gender, ["#{I18n.t('general.common_word.Male')}", "#{I18n.t('general.common_word.Female')}"], :label => I18n.t('user.field.gender_label')+" : "  %>
-    <%= f.date_select :date_of_birth, :label => I18n.t('user.field.date_of_birth_label')+" : " , :start_year => (Time.now.year - 100), :end_year => Time.now.year , :order => [:month , :day, :year ]%>
+    <label>Gender</label>
+    <div class="formElement">
+      <% %w(Male Female).each do |s|  %>
+        <input id="user_gender_<%= s.downcase %>" type="radio" <%= "checked=true" if @current_object.gender == s %> value="<%= s %>" name="user[gender]" class = "checkboxes" /><%= I18n.t("general.common_word.#{s}") %>
+      <% end %>
+      <div id="errors_for_User_gender"> </div>
+    </div>
+    <%#= f.select :gender, ["","#{I18n.t('general.common_word.Male')}", "#{I18n.t('general.common_word.Female')}"], :label => I18n.t('user.field.gender_label')+" : "  %>
+    <%= f.date_select :date_of_birth, :label => I18n.t('user.field.date_of_birth_label')+" : " , :start_year => (Time.now.year - 100), :end_year => (Time.now.year - 7) , :order => [:month , :day, :year ], :include_blank => true%>
     <%= f.country_select :nationality, {I18n.t('general.common_word.select_country')=>''}, { :label => I18n.t('user.field.nationality_label')+" : " } %>
     <%= f.text_area :address, :size => "40x6", :label => I18n.t('user.field.address_label')+" : ", :hint => I18n.t('user.field.address_hint')%>
     <%= f.text_field :phone, :label => I18n.t('user.field.phone_label')+" : ", :hint => I18n.t('user.field.phone_hint') %>

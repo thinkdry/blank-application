@@ -16,7 +16,6 @@
 
     <%= f.text_field :title, :label => I18n.t('item.field.title_label') + " * :", :hint => I18n.t('item.field.title_hint'), :readonly => is_copyright %>
 
-    <%= item_category_fields(f, @current_object) %>
 
     <%= item_keywords_fields(f, @current_object) %>
     

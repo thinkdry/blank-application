@@ -10,7 +10,7 @@
 
 <% if @current_object.accepts_comment_for?(@current_user) %>
   <div id ="reply" style="display:none;top: 242px; margin-top: 0pt;">
-    <fieldset id="new_comment_form_box" style="margin-top:10px">
+    <fieldset id="new_reply_form_box" style="margin-top:10px">
       <div id="'reply_content">
         <%=link_to_function image_tag('/images/x_grey.png'), :onclick => "$('reply').style.display='none'", :style => "float:right;padding-top:10px;" %>
         <p><%= I18n.t('general.common_word.your').camelize+ ' Reply'%> : </p>
@@ -22,7 +22,7 @@
             </div>
           <% end %>
           <input type="hidden" id ="comment_parent_id" name="comment[parent_id]">
-          <button type="submit" class="submit_button"><%=I18n.t('comment.add_comment.button_publish')%></button>
+          <button type="submit" class="submit_button">Reply</button>
         </form>
       </div>
 

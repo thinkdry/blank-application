@@ -125,7 +125,7 @@ class User < ActiveRecord::Base
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :password, :password_confirmation, :firstname, :lastname, :address, :company, :phone, :mobile, :activity, :nationality,:edito, :avatar, :newsletter, :system_role_id, :last_connected_at, :u_layout, :u_language, :u_per_page, :date_of_birth, :gender
+  attr_accessible :login, :email, :password, :password_confirmation, :firstname, :lastname, :address, :company, :phone, :mobile, :activity, :nationality,:edito, :avatar, :newsletter, :system_role_id, :last_connected_at, :u_layout, :u_language, :u_per_page, :date_of_birth, :gender, :salutation
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   #
@@ -347,7 +347,7 @@ class User < ActiveRecord::Base
 
   # User Full Name 'Lastname FirstName'
 	def full_name
-		return self.lastname.to_s+" "+self.firstname.to_s
+		return (self.salutation ? self.salutation : "") + " " + self.lastname.to_s + " " + self.firstname.to_s
   end
 
   # Create Private worksapce for User on creation called 'Private space of user_login'

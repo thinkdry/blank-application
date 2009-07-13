@@ -38,4 +38,6 @@ include Authentication
 
   validates_format_of       :from_email,    :with => RE_EMAIL_OK
 
+  acts_as_xapian :texts => [:title, :description, :keywords_list, :body, :subject]
+
 end

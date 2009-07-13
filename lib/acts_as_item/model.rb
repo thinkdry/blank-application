@@ -228,16 +228,6 @@ module ActsAsItem
         self.class.icon
       end
 
-      # Assign Categories to current Item ( One Item can be associated with many Categories)
-      #
-      # Usage:
-      #
-      # <tt>article.categories_field = ["category1","category2","category3"] </tt>
-      #
-      # will assign a string "," join to category field
-      def categories_field= params
-        self[:category] = params.join(",")
-      end
 
       # Assign Worksapces to current Item ( One Item can be associated with many Worksapces)
       #

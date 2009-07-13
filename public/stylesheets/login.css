@@ -14,7 +14,7 @@ body {
 	padding:25px 25px 0;
 	text-align:left;
 	width:400px;
-	height:320px;
+	height:350px;
 }
 a:link {
 	color: #7B003B;
@@ -116,7 +116,6 @@ form  {
 	width:300px;
 	margin:0 auto;
 	overflow:auto;
-	margin-top:20px;
 	padding-left:15px;
 }
 #actionlogin p{
