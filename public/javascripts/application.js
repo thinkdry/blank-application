@@ -228,7 +228,7 @@ function do_search(){
     return valid;
 }
   
-function dodo(name, model_name, place_id) {
+function text_insert(name, model_name, place_id) {
   if (name != 0) {
   var dadiv = new Element('div', { 'id': name+'_000', 'class':'keyword_label' }).insert(name)
   var dadelete = new Element('a', { 'onclick': 'this.parentNode.remove(); return false;' }).insert('<img width="15" src="/images/icons/delete.png" alt="Delete"/>')

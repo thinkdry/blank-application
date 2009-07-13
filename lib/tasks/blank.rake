@@ -138,11 +138,6 @@ namespace :blank do
   task(:create_permissions => :environment) do
     p "Loading Permissions ..."
 		Permission.delete_all
-    ITEM_CATEGORIES.each do |cat|
-      ['new','edit', 'show', 'destroy'].each do |action|
-        Permission.create(:name => 'item_cat_'+cat+'_'+action,  :type_permission => 'workspace') unless Permission.exists?(:name => 'item_cat_'+cat+'_'+action,  :type_permission => 'workspace')
-      end
-    end
     (['users', 'workspaces']+ITEMS).each do |controller|
       ['new','edit', 'show', 'destroy'].each do |action|
         if controller=="users"

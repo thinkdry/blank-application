@@ -4,7 +4,8 @@
 	</div>
 	<div id="area_TITLE_right">
 		<h1>
-			<%=I18n.t('workspace.show.title')%> <%= @current_object.title %>
+			<%=I18n.t('workspace.show.title')%> <%=  @current_object.title %>
+            <%= link_to image_tag('/images/icons/pencil.png'), edit_workspace_path(@workspace.id)  %>
 		</h1>
 		<%= @current_object.description %>
 

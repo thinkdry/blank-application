@@ -28,6 +28,8 @@
 #  origin        :string(255)
 #
 
+require 'country_select'
+
 class Person < ActiveRecord::Base
   include Authentication
 

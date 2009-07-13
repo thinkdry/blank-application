@@ -81,13 +81,11 @@ module ActsAsItem
           # Makes `current_user` as author for the current_object
           before :create do
 						# Trick used in case there is no params (meaning none is selected)
-						params[@current_object.class.to_s.underscore][:categories_field] ||= []
 						params[@current_object.class.to_s.underscore][:keywords_field] ||= []
             current_object.user_id = current_user.id
           end
 
 					before :update do
-						params[@current_object.class.to_s.underscore][:categories_field] ||= []
 						params[@current_object.class.to_s.underscore][:keywords_field] ||= []
 					end
 

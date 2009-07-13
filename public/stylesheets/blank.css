@@ -915,6 +915,19 @@ ul.top_box li{
 	clear:both;
 }
 
+#content_show fieldset#new_reply_form_box {
+	padding:0px 30px 20px;
+	margin-top:50px;
+	margin-left:0px;
+	clear:both;
+}
+
+#content_show #new_reply_form_box textarea {
+	width:99%;
+	margin:0px 0px 20px;
+	height:auto;
+}
+
 #content_show #new_comment_form_box textarea {
 	width:99%;
 	margin:0px 0px 20px;
@@ -1218,7 +1231,7 @@ ul.top_box li{
 	margin-bottom:50px;
 }
 .bigName{
-	font-size:150%:
+	font-size:150%;
 }
 th{
 	color:#F79646;

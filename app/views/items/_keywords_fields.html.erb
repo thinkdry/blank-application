@@ -8,7 +8,7 @@
         });
       </script>
     <%= button_to_function(I18n.t('item.field.add_keyword'), 
-						  "dodo($('keyword_value').value, 
+						  "text_insert($('keyword_value').value,
 						  '#{@current_object.class.to_s.underscore}', 
 						  'keywords_list'); 
 						  $('keyword_value').value=''",

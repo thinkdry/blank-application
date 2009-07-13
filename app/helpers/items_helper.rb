@@ -92,17 +92,7 @@ module ItemsHelper
       })
   end
 
-	# Item Category Fields
-  #
-  # Usage:
-  #
-  # <tt>item_category_fields(form, article)</tt>
-  #
-  # will return item category fields for the artile
-  def item_category_fields(form, item)
-    render :partial => "items/category", :locals => { :f => form, :item => item }
-	end
-
+	
 	# Item Keywords Fields
   #
   # Usage:

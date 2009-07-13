@@ -3,32 +3,38 @@
 
   <% form_for @person,:builder => BlankFormBuilder, :html => {:multipart=> true} do |f| -%>
     <%= f.text_field :email, :label => I18n.t('people.field.email_label') +" * : " %>
-    <%= f.text_field :first_name, :label => I18n.t('people.field.first_name_label') +" : " %>
-    <%= f.text_field :last_name, :label => I18n.t('people.field.last_name_label') +" : " %>
     <label><%= I18n.t('people.field.salutation_label') %> : </label>
     <div class="formElement">
-        <input id="person_salutation_mr" type="radio" <%= "checked=true" if @person.salutation == 'Mr'%> value="Mr" name="person[salutation]" class = "checkboxes" /><%= I18n.t('general.common_word.Mr') %>
-        <input id="person_salutation_ms" type="radio" <%= "checked=true" if @person.salutation == 'Ms'%> value="Ms" name="person[salutation]" class = "checkboxes" /><%= I18n.t('general.common_word.Ms') %>
-        <input id="person_salutation_ms" type="radio" <%= "checked=true" if @person.salutation == 'Miss'%> value="Miss" name="person[salutation]" class = "checkboxes" /><%= I18n.t('general.common_word.Miss') %>
-        <div id="errors_for_Person_salutation"> </div>
+      <% %w(Mr Ms Miss).each do |s|  %>
+        <input id="person_salutation_<%= s.downcase %>" type="radio" <%= "checked=true" if @person.salutation == s %> value="<%= s %>" name="person[salutation]" class = "checkboxes" /><%= I18n.t("general.common_word.#{s}") %>
+      <% end %>
+      <div id="errors_for_Person_salutation"> </div>
     </div>
-    <%= f.date_select :date_of_birth, :label => I18n.t('people.field.date_of_birth_label')+" : ", :start_year => (Time.now.year - 100), :end_year => Time.now.year , :order => [:month , :day, :year ] %>
-    <%= f.select :gender, %w(Male Female).collect{|gender| [I18n.t('general.common_word.'+gender),gender]}, :label => I18n.t('people.field.gender_label') +" : " %>
-    
+    <%= f.text_field :first_name, :label => I18n.t('people.field.first_name_label') +" : " %>
+    <%= f.text_field :last_name, :label => I18n.t('people.field.last_name_label') +" : " %>
+    <%= f.date_select :date_of_birth, :label => I18n.t('people.field.date_of_birth_label')+" : ", :start_year => (Time.now.year - 100), :end_year => (Time.now.year - 7 ) , :order => [:month , :day, :year ], :include_blank => true %>
+    <label>Gender</label>
+    <div class="formElement">
+      <% %w(Male Female).each do |s|  %>
+        <input id="person_gender_<%= s.downcase %>" type="radio" <%= "checked=true" if @person.gender == s %> value="<%= s %>" name="person[gender]" class = "checkboxes" /><%= I18n.t("general.common_word.#{s}") %>
+      <% end %>
+      <div id="errors_for_Person_gender"> </div>
+    </div>
+    <%#= f.select :gender, %w(Male Female).collect{|gender| [I18n.t('general.common_word.'+gender),gender]}, :label => I18n.t('people.field.gender_label') +" : " %>
     <%= f.text_field :primary_phone, :label => I18n.t('people.field.primary_phone_label') +" : " %>
     <%= f.text_field :mobile_phone, :label => I18n.t('people.field.mobile_phone_label') +" : " %>
     <%= f.text_field :fax, :label => I18n.t('people.field.fax_label') +" : " %>
     <%= f.text_field :street, :label => I18n.t('people.field.street_label') +" : " %>
     <%= f.text_field :city, :label => I18n.t('people.field.city_label') +" : " %>
     <%= f.text_field :postal_code, :label => I18n.t('people.field.postal_code_label') +" : " %>
-    <%= f.country_select :country, nil, {}, :label => I18n.t('people.field.country_label') +" : " %>
+    <%= f.country_select :country, {I18n.t('general.common_word.select_country')=>''}, { :label => I18n.t('user.field.nationality_label')+" : " } %>
     <%= f.text_field :company, :label => I18n.t('people.field.company_label') +" : " %>
     <%= f.text_field :job_title, :label => I18n.t('people.field.job_title_label') +" : " %>
     <%= f.text_field :web_page, :label => I18n.t('people.field.web_page_label') +" : " %>
     <%= f.text_area :notes, :size => "40x6", :label => I18n.t('people.field.notes_label') +" : "%>
     <%= f.check_box :newsletter ,:label => I18n.t('people.field.newsletter_lable')+" : ", :class => "checkboxes"%>
     <%= f.hidden_field :origin,:value=>"Creation"  %>
-	<% button_text = @person.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update') %>
+    <% button_text = @person.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update') %>
     <button type="submit" class="submit_button"><%= button_text%></button>
   <% end %>
 

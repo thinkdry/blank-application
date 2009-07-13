@@ -52,17 +52,6 @@
 	      <%= checkboxes_from_list(WS_TYPES, "sa_ws_types", @conf, "conf") %>
 	  </div>	
 		
-      <label>Item categories :</label>
-	  <div class="formElement">
-	      <%= checkboxes_from_list(ITEM_CATEGORIES, "sa_item_categories", @conf, "conf") %>
-	  </div>
-
-	  
-      <label>Feed items imporation types :</label>
-      <div class="formElement">
-    	  <%= checkboxes_from_list(FEED_ITEMS_IMPORTATION_TYPES, "sa_feed_items_importation_types", @conf, "conf") %>
-      </div>
-
       <label>Per page default value :</label>
       <div class="formElement"><%= text_field_tag 'conf[sa_per_page_default]', @conf['sa_per_page_default'] %></div>
 

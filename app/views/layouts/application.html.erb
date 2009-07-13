@@ -99,6 +99,8 @@
         <% if (tmp=(get_allowed_item_types(current_workspace).first.to_s.pluralize)) %>
           <p><%= image_tag "/images/icons/content.png" %><%= link_to I18n.t('layout.application.content'), content_path(tmp) %></p>
         <% end %>
+        <p><%= image_tag "/images/icons/subscribe.gif" %><%= link_to I18n.t('layout.application.subscribers'), '/people' %></p>
+        <p><%= image_tag "/images/icons/user_48.png", :height => '32', :width => '32' %><%= link_to I18n.t('layout.application.users'), '/users' %></p>
       </div>
     </div>
     <div id="middle-middle">

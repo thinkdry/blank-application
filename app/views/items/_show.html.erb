@@ -61,14 +61,7 @@
     </div>
   </div>
   <div class="item_description"><%= object.description %></div>
-
   <%= capture(&block) %>
-
-  <% if @configuration['sa_item_categories'].size > 0 %>
-    <h2>Categories :</h2>
-    <div><%= object.category %></div>
-  <% end %>
-  
   <%= print_comments_part(object) %>
 
 </div>
