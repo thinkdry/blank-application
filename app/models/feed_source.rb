@@ -22,10 +22,9 @@
 #  image           :string(255)
 #  created_at      :datetime
 #  updated_at      :datetime
-#  viewed_number   :integer(4)
-#  rates_average   :integer(4)
-#  comments_number :integer(4)
-#  category        :string(255)
+#  viewed_number   :integer(4)      default(0)
+#  rates_average   :integer(4)      default(0)
+#  comments_number :integer(4)      default(0)
 #
 
 require 'rss/1.0'

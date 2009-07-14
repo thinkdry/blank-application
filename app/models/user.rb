@@ -36,6 +36,7 @@
 #  u_language                :string(255)
 #  date_of_birth             :date
 #  gender                    :string(255)
+#  salutation                :string(255)
 #
 
 require 'digest/sha1'

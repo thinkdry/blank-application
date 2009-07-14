@@ -3,7 +3,7 @@
 #
 # Table name: generic_items
 #
-#  item_type          :string(11)      default(""), not null
+#  item_type          :string(10)      default(""), not null
 #  id                 :integer(4)      default(0), not null, primary key
 #  user_id            :integer(4)
 #  user_name          :text(2147483647

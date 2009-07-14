@@ -1,3 +1,44 @@
+# == Schema Information
+# Schema version: 20181126085723
+#
+# Table name: users
+#
+#  id                        :integer(4)      not null, primary key
+#  login                     :string(40)
+#  firstname                 :string(255)
+#  lastname                  :string(255)
+#  email                     :string(255)
+#  address                   :string(500)
+#  company                   :string(255)
+#  phone                     :string(255)
+#  mobile                    :string(255)
+#  activity                  :string(255)
+#  nationality               :string(255)
+#  edito                     :text
+#  avatar_file_name          :string(255)
+#  avatar_content_type       :string(255)
+#  avatar_file_size          :integer(4)
+#  avatar_updated_at         :datetime
+#  crypted_password          :string(40)
+#  salt                      :string(40)
+#  activation_code           :string(40)
+#  activated_at              :datetime
+#  password_reset_code       :string(40)
+#  system_role_id            :integer(4)
+#  created_at                :datetime
+#  updated_at                :datetime
+#  remember_token            :string(40)
+#  remember_token_expires_at :datetime
+#  newsletter                :boolean(1)
+#  last_connected_at         :datetime
+#  u_layout                  :string(255)
+#  u_per_page                :integer(4)
+#  u_language                :string(255)
+#  date_of_birth             :date
+#  gender                    :string(255)
+#  salutation                :string(255)
+#
+
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 require File.expand_path(File.dirname(__FILE__) + '/items_spec_helper')
 

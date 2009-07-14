@@ -14,11 +14,9 @@
 #  cmsfile_updated_at   :datetime
 #  created_at           :datetime
 #  updated_at           :datetime
-#  tags                 :string(255)
-#  viewed_number        :integer(4)
-#  rates_average        :integer(4)
-#  comments_number      :integer(4)
-#  category             :string(255)
+#  viewed_number        :integer(4)      default(0)
+#  rates_average        :integer(4)      default(0)
+#  comments_number      :integer(4)      default(0)
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')

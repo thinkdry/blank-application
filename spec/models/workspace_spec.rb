@@ -17,12 +17,6 @@
 #  logo_file_size     :integer(4)
 #  ws_available_types :string(255)     default("")
 #
-#Parameters: {"workspace"=>{"title"=>"Private for Boss",
-# "existing_user_attributes"=>{"1"=>{"role_id"=>"4", "user_id"=>"1"}},
-# "ws_item_categories"=>["cat1", "cat2", "cat3"],
-# "description"=>"<p>Private Workspace for Boss</p>",
-#  "ws_items"=>["article", "image", "cms_file", "video", "audio", "feed_source", "newsletter", "group"]},
-#  "id"=>"1"}
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 require File.expand_path(File.dirname(__FILE__) + '/items_spec_helper')
