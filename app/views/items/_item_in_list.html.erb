@@ -4,16 +4,16 @@
   <% else -%>
     <div class="sensor_in_list" onclick="toggleAccordion('itemInformations_<%=@i%>');">
 
-  <% end -%>
-  <div class="left_part_sensor">
-    <a id="items_link" ><%= object.title%></a>
+    <% end -%>
+    <div class="left_part_sensor">
+      <a id="items_link" ><%= object.title%></a>
+    </div>
+    <div class="right_part_sensor"><%= I18n.l object.created_at, :format =>:verb %></div>
   </div>
-  <div class="right_part_sensor"><%= I18n.l object.created_at, :format =>:verb %></div>
-</div>
-<div id="itemInformations_<%=@i%>" style="display:none;" name="itemInformations">
-  <div class="lift_items">
-    <%= render :partial => "items/preview", :object => object %>
+  <div id="itemInformations_<%=@i%>" style="display:none;" name="itemInformations">
+    <div class="lift_items">
+      <%= render :partial => "items/preview", :object => object %>
+    </div>
   </div>
-</div>
-<% @i += 1%>
+  <% @i += 1%>
 <% end %>

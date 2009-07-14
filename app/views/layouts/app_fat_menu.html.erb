@@ -1,47 +1,42 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
-  <link rel="shortcut icon" href="<%= @configuration['sa_favicon_url'] %>"/>
-  <meta http-equiv="X-UA-Compatible" content="IE=7" />
-  <link rel="stylesheet" type="text/css" href="/stylesheets/blank.css" />
-  <%#= stylesheet_link_tag "application_bis.css" %>
-  <%#= stylesheet_link_tag "form.css" %>
-  <%= stylesheet_link_tag "starbox.css" %>
-  <%#= stylesheet_link_tag "middle_bis.css" %>
-  
-  <!--[if IE]>
-	<link rel="stylesheet" type="text/css" href="/stylesheets/ie.css" />
-  <![endif]--> 
-  <link rel="stylesheet" type="text/css" href="/prototip2.0.4/css/prototip.css" />
+  <head>
+    <link rel="shortcut icon" href="<%= @configuration['sa_favicon_url'] %>"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=7" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/blank.css" />
+    <%= stylesheet_link_tag "starbox.css" %>
+    <!--[if IE]>
+      <link rel="stylesheet" type="text/css" href="/stylesheets/ie.css" />
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/prototip2.0.4/css/prototip.css" />
 
-  <title>
-    <%= I18n.t 'layout.application.title' %> -
-    <%= params[:action].capitalize if params[:action] != 'index' %>
-    <%= params[:controller].capitalize %>
-  </title>
-   <%#= javascript_include_tag :all, :cache => true %>
-   <%= javascript_include_tag 'prototype', 'effects', 'controls', 'ajax_validation', 'application', 'livepipe', 'tabs', 'scriptaculous', 'starbox', :cache => "all" %>
+    <title>
+      <%= I18n.t 'layout.application.title' %> -
+      <%= params[:action].capitalize if params[:action] != 'index' %>
+      <%= params[:controller].capitalize %>
+    </title>
+    <%#= javascript_include_tag :all, :cache => true %>
+    <%= javascript_include_tag 'prototype', 'effects', 'controls', 'ajax_validation', 'application', 'livepipe', 'tabs', 'scriptaculous', 'starbox', :cache => "all" %>
 
-   <script type='text/javascript' src='/prototip2.0.4/js/prototip.js'></script>
-   <%= calendar_date_select_includes %>
-</head>
+    <script type='text/javascript' src='/prototip2.0.4/js/prototip.js'></script>
+    <%= calendar_date_select_includes %>
+  </head>
 
-<body>
-<div id="page_container">
-  <div id="header">
-  	<%= render :partial => "layouts/header"%>
-  </div>	
-  <div id="container">
-    <div id="middle-middle">
-      <%= content_tag(:div, flash[:notice], :class => 'notice') if flash[:notice] %>
-      <%= content_tag(:div, flash[:error], :class => 'error') if flash[:error] %>
-      <%= yield %>
+  <body>
+    <div id="page_container">
+      <div id="header">
+        <%= render :partial => "layouts/header"%>
+      </div>
+      <div id="container">
+        <div id="middle-middle">
+          <%= content_tag(:div, flash[:notice], :class => 'notice') if flash[:notice] %>
+          <%= content_tag(:div, flash[:error], :class => 'error') if flash[:error] %>
+          <%= yield %>
+        </div>
+      </div>
+      <div id="footer">
+        <%= render :partial => "layouts/footer"%>
+      </div>
     </div>
-  </div>
-  <div id="footer">
-     <%= render :partial => "layouts/footer"%>
-  </div>
-</div>
-</body>
+  </body>
 </html>
-	
