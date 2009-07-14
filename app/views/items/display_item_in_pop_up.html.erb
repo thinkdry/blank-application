@@ -8,7 +8,7 @@
       <br/>
       <label><%= I18n.t 'layout.popup.filter_by_workspace' %>:</label>
       <p>
-        <% for ws in @current_user.workspaces %>
+        <% for ws in @workspaces %>
           <% if i=(get_allowed_item_types(ws) & @selected_item_types).first %>
             <%= link_to ws.title , '/display_content_list/'+params[:selected_item]+'?workspace_id='+ws.id.to_s+'&item_type='+i %> |
           <% end %>

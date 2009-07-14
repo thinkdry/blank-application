@@ -131,7 +131,7 @@ module ActsAsItem
     # Parameters:
     #
     # - model: Article,Image,Audio,Video.... (may be any Item type)
-		def content_tabs_path(model)
+		def content_path(model)
 			if current_workspace
 				workspace_url(current_workspace.id)+"?item_type=#{model.underscore.pluralize}"
       else
