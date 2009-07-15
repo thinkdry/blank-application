@@ -18,6 +18,10 @@
 
 ====Ubuntu Packages Required:
 
+=====ImageMagick:
+
+ - sudo apt-get install imagemagick libmagick9-dev
+
 =====Xapian Package for Full text Xapian Search
 
  - sudo apt-get install libxapian15 libxapian-ruby1.8
@@ -49,6 +53,21 @@ For FFMPEG
  - make install
 
  - run "ffmpeg" to check installation is complete
+
+===Ruby Gems Required 
+
+====Mysql(if you want to use Mysql Database)
+
+sudo gem install mysql
+
+====Mongrel(if you want to use Mongrel Server)
+
+sudo gem install mongrel
+
+====Rspec
+
+ - sudo gem install rspec
+ - sudo gem install rspec-rails
 
 
 ===Get Blank
