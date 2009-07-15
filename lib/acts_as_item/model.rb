@@ -56,6 +56,7 @@ module ActsAsItem
 				named_scope :advanced_on_fields,
 					lambda { |condition| { :conditions => condition }	}
 
+				# TODO todo
 				named_scope :in_workspaces,
 					lambda { |workspace_ids| { :select => "DISTINCT *", :joins => "LEFT JOIN items ON (items.itemable_type = '#{self.class_name}' AND items.workspace_id IN ['1'])" } }
 

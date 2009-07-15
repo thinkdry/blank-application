@@ -40,9 +40,9 @@ LANGUAGES.each do |l|
 	I18n.load_path << "#{LOCALES_DIRECTORY}/#{l}.yml"
 end
 
+# Variable used by ExceptionNotifier plugin
 APPLICATION_ADMINS = ['paco@thinkdry.com', 'anup.nivargi@thinkdry.com',	'nagarjuna@thinkdry.com', 'sylvain@thinkdry.com']
 APPLICATION_NAME = get_sa_config['sa_application_name']
-
 ExceptionNotifier.exception_recipients = APPLICATION_ADMINS
 ExceptionNotifier.sender_address = 'admin@thinkdry.com'
 ExceptionNotifier.email_prefix = APPLICATION_NAME
