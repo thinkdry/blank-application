@@ -1,0 +1,23 @@
+development:
+  adapter: mysql
+  encoding: utf8
+  database: blank_development
+  username: user
+  password: password
+  socket: /var/run/mysqld/mysqld.sock
+
+test:
+  adapter: mysql
+  encoding: utf8
+  database: blank_test
+  username: user
+  password: password
+  socket: /var/run/mysqld/mysqld.sock
+
+production:
+  adapter: mysql
+  encoding: utf8
+  database: blank_production
+  username: user
+  password: password
+  socket: /var/run/mysqld/mysqld.sock
