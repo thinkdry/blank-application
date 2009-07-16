@@ -14,11 +14,7 @@
             <ul>
               <% item_types_allowed_to(@current_user, 'new', current_workspace).each do |type| %>
                 <li>
-                  <% if type=='feed_source' -%>
-                    <%= link_to I18n.t('general.item.' + type), "/feed_sources/what_to_do" %>
-                  <% else -%>
-                    <%= link_to I18n.t('general.item.' + type), new_item_path(type.camelize)%>
-                  <% end -%>
+                  <%= link_to I18n.t('general.item.' + type), new_item_path(type.camelize)%>
                 </li>
               <% end %>
             </ul>

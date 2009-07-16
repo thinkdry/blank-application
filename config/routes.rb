@@ -101,7 +101,6 @@ ActionController::Routing::Routes.draw do |map|
 
   # Feed related routes
 	map.check_feed '/feed_sources/check_feed', :controller => 'feed_sources', :action => 'check_feed'
-  map.what_to_do '/feed_sources/what_to_do', :controller => 'feed_sources', :action => 'what_to_do'
 
   # Newsletter related routes
   map.send_newsletter '/send_newsletter', :controller => 'newsletters', :action => 'send_newsletter'

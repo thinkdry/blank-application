@@ -1,12 +1,12 @@
 <fieldset>
   <legend><img src="/images/item_icons/<%= @current_object.class.to_s %>_add.png"/><%= title %></legend>
   <% form_for @current_object,
-      :builder => BlankFormBuilder,
-      :url => (@current_object.new_record? ? items_path(@current_object.class.to_s) : item_path(@current_object)),
-      :html => {
-        :method => (@current_object.new_record? ? :post : :put),
-        :multipart => true
-      } do |f| -%>
+    :builder => BlankFormBuilder,
+    :url => (@current_object.new_record? ? items_path(@current_object.class.to_s) : item_path(@current_object)),
+    :html => {
+    :method => (@current_object.new_record? ? :post : :put),
+    :multipart => true
+  } do |f| -%>
 
     <% is_copyright = (@current_object.state == 'copyright') ? true : false %>
     <% if is_copyright %>
@@ -18,17 +18,17 @@
 
 
     <%= item_keywords_fields(f, @current_object) %>
-    
+
     <%= f.text_field :description, :label => I18n.t('item.field.description_label') + ' * :', :hint => I18n.t('item.field.description_hint') %>
 
     <%= capture(f, &block) %>
 
     <%= item_workspaces_checkboxes(f, @current_object) %>
-    
+
     <%= error_message_on :current_object, :items %>
 
     <button id="submit_button" class="submit_button" type="submit">
-        <%= current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update')%>
+      <%= current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update')%>
     </button>
 
   <% end -%>

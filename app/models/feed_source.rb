@@ -29,9 +29,8 @@
 
 require 'rss/1.0'
 require 'rss/2.0'
-require 'open-uri'
 require 'regexps'
-require 'rfeedparser'
+require 'feedzirra'
 
 class FeedSource < ActiveRecord::Base
 
@@ -42,10 +41,6 @@ class FeedSource < ActiveRecord::Base
 
   # Validations
   validates_presence_of :url
-
-	#validates_uniqueness_of :title, :message => "Ce nom est déjà utilisé."
-  
-	#validates_uniqueness_of :url, :message => "Ce feed est déjà utilisé."
 
 	validates_format_of :url, :with => /#{URL}/ix, :message=>"The format of the url is not valid."
   
@@ -99,27 +94,23 @@ class FeedSource < ActiveRecord::Base
   #
   # will update with latest feeds available on the feedsource url
   #
-	def import_latest_items
-		feed = self.rss_content2
-		#feed.clean!
-		feed.entries.each do |item|
+  def import_latest_items
+    feed = Feedzirra::Feed.fetch_and_parse(self.url)
+    feed.entries.each do |item|
 			# Be sure that the item hasnt been imported before
-			if self.feed_items.count(:conditions => { :guid => item.guid, :feed_source_id => self.id }) <= 0
+			if self.feed_items.count(:conditions => { :guid => item.id, :feed_source_id => self.id }) <= 0
 				FeedItem.create({
             :feed_source_id => self.id,
-            :guid						=> item.guid,
+            :guid						=> item.id,
             :title					=> item.title,
-            :description		=> item.description,
-            :enclosures     => item.enclosures,
-            #:authors				=> item.authors.join(' ,'),
-            :date_published => item.issued,
-            :last_updated		=> item.date,
-            :categories			=> item.tags ? item.tags.map{ |tag| tag["term"]}.to_s : nil,
-            :link           => item.url,
-            :copyright			=> item.rights })
+            :description		=> item.summary,
+            :authors				=> item.author,
+            :date_published => item.published,
+            :categories			=> item.categories.join(','),
+            :link           => item.url})
 			end
 		end
-	end
+  end
 
   # Check If the given URL is RSS/Atom compliant to Fetch Feed's
   # 
