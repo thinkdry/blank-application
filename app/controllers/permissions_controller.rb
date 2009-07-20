@@ -1,5 +1,6 @@
 class PermissionsController < ApplicationController #:nodoc: all
 
+	# Filter to just allow 'superadmin' user to access to that resource
 	before_filter :is_superadmin?
 
   # GET /permissions

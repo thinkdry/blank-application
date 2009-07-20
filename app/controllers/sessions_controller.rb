@@ -1,18 +1,21 @@
-# This controller handles the login/logout function of the site.  
+# This controller handles the functions relative to the session of a logged user.
+#
 class SessionsController < ApplicationController
-  
+
+	# Filter skipping the authentication for the following action, except for 'destroy' and 'change_language' actions.
   skip_before_filter :is_logged?, :except => [:destroy, :change_language]
+
+	# To overwrite the layout define inside 'application_controller.rb' with the login layout.
   layout 'login'
 
-  # Login Page for New Session
-  #
-  # Usage URL:
-  #
-  # /login
-  #
-  def new;end
-
-  # Create New Session for given Login and Passowrd
+	# Session creation
+	#
+  # This function is creating a new session for given login and password,
+	# or if the uthentication is not proved, it is redirecting on le login page.
+	#
+	# Usage URL :
+	# - /login
+	#
   def create
     logout_keeping_session!
     user = User.authenticate(params[:login], params[:password])
@@ -36,9 +39,11 @@ class SessionsController < ApplicationController
     end
   end
 
-  # Update Last Logged In attribute and Kill User Session
+  # Session deletion
+	#
+	# 
   # 
-  # Usage URL
+  # Usage URL :
   # 
   # /logout
   #

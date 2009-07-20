@@ -1,22 +1,24 @@
+# This controller is managing the different actions relative to the Audio item.
+#
+# It is using a mixin function called 'acts_as_item' from the ActsAsItem::ControllerMethods::ClassMethods,
+# so see the documentation of that module for further informations.
+#
 class AudiosController < ApplicationController
-  acts_as_ajax_validation
 
+	# Method defined in the ActsAsItem:ControllerMethods:ClassMethods (see that library fro more information)
   acts_as_item do
+		#Filter calling the encoder method of ConverterWorker with parameters
     after :create, :update do
-      #Call the encoder method of ConverterWorker with Parameters
       @current_object.update_attributes(:state=>"uploaded")
       MiddleMan.worker(:converter_worker).async_newthread(:arg=>{:type=>"audio", :id => @current_object.id, :enc=>"mp3"})
     end
   end
 
-  # Method to Get Progress of Encoding through Backgroundrb Converter Worker
+  # AJAX action to get the encoding progress through Backgroundrb Converter Worker
   #
-  # Usage URL:
-  #
-  # /audios/get_audio_progress?id=1&check=true
-  #
+  # This function is linked to an url and called by an AJAX request.
   def get_audio_progress
-    @current_object=Audio.find_by_id(params[:id])
+    @current_object=Audio.find(params[:id])
     if params[:check] && params[:check] == 'true'
       render :text => @current_object.state
     else
@@ -24,11 +26,10 @@ class AudiosController < ApplicationController
     end
   end
 
-  # Return Download Link for Audio File
+  # Action to download the file link to an Audio item
   #
-  # Usage URL:
-  #
-  # /audios/download/:id
+	# This function is linked to an url allowing to get the file by downloading
+	# (and not trying to open it with the browser)
   def download
     @audio = Audio.find(params[:id])
     send_file(RAILS_ROOT+"/public"+@audio.audio.url.split("?")[0], :disposition => 'inline', :stream => false)

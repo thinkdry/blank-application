@@ -1,11 +1,14 @@
 require 'fileutils'
 
+# This controller is managing the different actions relative to the Article item.
+#
+# It is using a mixin function called 'acts_as_item' from the ActsAsItem::ControllerMethods::ClassMethods,
+# so see the documentation of that module for further informations.
+#
 class ArticlesController < ApplicationController
-          
 
-  acts_as_ajax_validation
+	# Method defined in the ActsAsItem:ControllerMethods:ClassMethods (see that library fro more information)
   acts_as_item do
-
 		after :create do
 			if !(Dir[RAILS_ROOT+"/public/uploaded_files/article/#{current_user.login}_#{current_user.id}"]).blank?
 				FileUtils.mv(RAILS_ROOT+"/public/uploaded_files/article/#{current_user.login}_#{current_user.id}", RAILS_ROOT+"/public/uploaded_files/article/#{@current_object.id}")
@@ -13,22 +16,18 @@ class ArticlesController < ApplicationController
 				@current_object.save
 			end
 		end
-
+		# After the creation, redirection to the edition in order to be able to set the body
 		response_for :create do |format|
 			format.html { redirect_to edit_item_path(@current_object) }
 			format.xml { render :xml => @current_object }
 			format.json { render :json => @current_object }
 		end
-
 	end
-
   
-  # Remove File Associated with the Article
+  # Remove a file associated with the article
   #
-  # Usage URL:
-  #
-  # /articles/removeFile?id=1
-	def removeFile
+	# This function is linked to an url allowing to delete the file linked to the article through an AJAX request.
+	def remove_file
 	  object = ArticleFile.find(params[:id])
 		if object.article.accepts_edit_for?(@current_user)
 			if ArticleFile.find(params[:id]).destroy
@@ -38,5 +37,5 @@ class ArticlesController < ApplicationController
 			end
 		end
   end
-# TODO 'removeFile' should be made to ruby style method name ex: remove_associated_file
+	
 end

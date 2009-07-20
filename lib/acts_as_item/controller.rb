@@ -21,6 +21,7 @@ module ActsAsItem
       #     end
       def acts_as_item &block
         include ActsAsItem::ControllerMethods::InstanceMethods
+				acts_as_ajax_validation
 				acts_as_commentable
 				acts_as_keywordable
 

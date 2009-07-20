@@ -3,13 +3,13 @@
   <%= @current_object.body %>
 
   <fieldset id="send_newsletter_form">
-  	<form id="send_newsletter" class="new_comment" method="post" action="/send_newsletter/">
+  	<form id="send_newsletter" class="new_comment" method="post" action="<%= send_to_a_group_newsletter_path(@current_object) %>">
       <label><%= I18n.t('newsletter.send_newsletter.send_newsletter_to_user_list') %></label>
       <input type="hidden" name="newsletter_id" value="<%= @current_object.id %>">
 	  <div class="formElement">
 	      <select name="group_id" id="group_id">
 	        <option value="0">--------------</option>
-	        <%for group in groups_of_workspaces_of_item(@current_object)%>
+	        <%for group in get_items_list('group')%>
 	          <option value="<%=group.id%>"> <%=group.title%> </option>
 	        <% end %>
 	      </select>

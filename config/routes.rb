@@ -48,7 +48,8 @@ ActionController::Routing::Routes.draw do |map|
   map.forgot_password '/forgot_password', :controller => 'users', :action => 'forgot_password'
   #map.change_password '/change_password', :controller => 'users', :action => 'change_password'
   map.reset_password '/reset_password/:password_reset_code', :controller => 'users', :action => 'reset_password'
-  map.resources :users, :member => { :administration => :any }, :collection => { :autocomplete_on => :any, :validate => :any,:ajax_index => :get }
+  map.resources :users, :member => { :administration => :any, :locking => :any },
+			:collection => {:autocomplete_on => :any, :validate => :any, :ajax_index => :get }
 	map.resource :session, :member => { :change_language => :any }
 
   # Routes for People
@@ -83,15 +84,20 @@ ActionController::Routing::Routes.draw do |map|
 
   # Items are CMS component types
   # Those items may be scoped to different resources
-  def items_resources(parent)  	
+  def items_resources(parent)
  		(ITEMS+['item']).each do |name|
-      parent.resources name.pluralize.to_sym, :member => {
-        :rate => :any,
-        :add_tag => :any,
-        :remove_tag => :any,
-        :add_comment => :any,
-				:redirect_to_content => :any
-      }, :collection => {:validate => :any}
+			member_to_set = {
+					:rate => :any,
+					:add_comment => :any,
+					:redirect_to_content => :any
+			}
+			member_to_set.merge!({:remove_file => :any}) if name=='article'
+			member_to_set.merge!({:get_video_progress => :any}) if name=='video'
+			member_to_set.merge!({:get_audio_progress => :any}) if name=='audio'
+			member_to_set.merge!({:send_to_a_group => :any}) if name=='newsletter'
+			member_to_set.merge!({:download => :any}) if ['audio', 'video', 'cms_file', 'image'].include?(name)
+			member_to_set.merge!({:export_to_csv => :any}) if name=='group'
+      parent.resources name.pluralize.to_sym, :member => member_to_set, :collection => {:validate => :any}
     end
     # Displaying Items
     parent.content '/content/:item_type', :controller => 'items', :action => 'index'
@@ -104,12 +110,13 @@ ActionController::Routing::Routes.draw do |map|
   map.what_to_do '/feed_sources/what_to_do', :controller => 'feed_sources', :action => 'what_to_do'
 
   # Newsletter related routes
-  map.send_newsletter '/send_newsletter', :controller => 'newsletters', :action => 'send_newsletter'
   map.unsubscribe_for_newsletter '/unsubscribe_for_newsletter', :controller => 'newsletters', :action => 'unsubscribe'
 
   # Displaying items in POP UP for fck editor
   map.display_content_list '/display_content_list/:selected_item', :controller => 'items', :action => 'display_item_in_pop_up'
-	
+	# FCKUPLOAD route for uploads throught fckeditor
+  map.connect '/fckuploads', :controller => 'fck_uploads', :action => 'create'
+
   # Items created outside any workspace are private or fully public.
   # Items may be acceded by a list that gives all items the user can consult.
   # => (his items, the public items, and items in workspaces he has permissions)
@@ -123,21 +130,6 @@ ActionController::Routing::Routes.draw do |map|
   # Search related routes
   map.resources :searches, :collection => { :print_advanced => :any }
  
-  # Route to export Group Members
-  map.export_group '/export_group/:id', :controller => 'groups', :action => 'export_group'
-
-  # Routes for Specific Image, Videos, CmsFile, Audios
-  map.get_audio_progress '/get_audio_progress', :controller => 'audios', :action => 'get_audio_progress'
-  map.get_video_progress '/get_video_progress', :controller => 'videos', :action => 'get_video_progress'
-  map.remove_article_file '/articles/removeFile', :controller => 'articles', :action => 'removeFile'
-  map.download_audio '/audios/download/:id', :controller => 'audios', :action => 'download'
-  map.download_audio '/videos/download/:id', :controller => 'videos', :action => 'download'
-  map.download_image '/images/download/:id', :controller => 'images', :action => 'download'
-  map.download_cms_file '/cms_files/download/:id', :controller => 'cms_files', :action => 'download'
-
-  # FCKUPLOAD route for uploads throught fckeditor
-  map.connect '/fckuploads', :controller => 'fck_uploads', :action => 'create'
-
   # Install the default routes as the lowest priority.
 	#map.connect ':controller/:action/:id'
   #map.connect ':controller/:action/:id.:format'

@@ -1,22 +1,33 @@
+# This controller is managing the different actions relative to the Newsletter item.
+#
+# It is using a mixin function called 'acts_as_item' from the ActsAsItem::ControllerMethods::ClassMethods,
+# so see the documentation of that module for further informations.
+#
 class NewslettersController < ApplicationController
 
-  acts_as_ajax_validation
+	# Filter skipping the 'is_logged?' filter to allow non-logged user to unsubscribe from the newsletter
+	skip_before_filter :is_logged?, :only => ['unsubscribe']
+
+	# Method defined in the ActsAsItem:ControllerMethods:ClassMethods (see that library fro more information)
   acts_as_item do
+		# After the creation, redirection to the edition in order to be able to set the body
     response_for :create do |format|
 			format.html { redirect_to edit_item_path(@current_object) }
 			format.xml { render :xml => @current_object }
 			format.json { render :json => @current_object }
 		end
   end
-  skip_before_filter :is_logged?, :only => ['unsubscribe']
 
-  # Method to Send Newsletter to Selected Group
-  # 
-  # Usage URL:
-  # 
-  # /send_newsletter?group_id=1&newsletter_id=2
+  # Action sending the newsletter to a selected group
   #
-  def send_newsletter
+	# This function s creating the QueuedMail objects that are defining the different newsletter
+	# to be sent to the members of the specified group (found with 'group_id parameter).
+	# It is redirecting on the newsletter show page.
+	#
+  # Usage URL:
+  # - newsletters/1/send_to_a_group
+  # - workspaces/1/newsletters/1/send_to_a_group
+  def send_to_a_group
     @group = Group.find(params[:group_id])
     @newsletter = Newsletter.find(params[:newsletter_id])
     if GroupsNewsletter.new(:group_id => @group.id,:newsletter_id => @newsletter.id,:sent_on=>Time.now).save
@@ -27,12 +38,14 @@ class NewslettersController < ApplicationController
         end
       end
       MiddleMan.worker(:cronjob_worker).async_newthread
-      redirect_to newsletter_path(@newsletter)
+      redirect_to (current_workspace ? workspace_path(current_workspace.id)+newsletter_path(@newsletter) : newsletter_path(@newsletter))
     end
   end
 
-  # Method to Unsubscribe from a newsletter for given E-Mail
-  # 
+  # Method to unsubscribe from a newsletter for given email address
+  #
+	# TODO bl i
+	#
   # Usage URL:
   # 
   # /unsubscribe_for_newsletter?member_type=people

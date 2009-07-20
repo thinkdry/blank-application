@@ -36,7 +36,7 @@ class UsersController < ApplicationController
 	end
 
   make_resourceful do
-    actions :all
+    actions :all, :except => [:create]
 
 #    before :destroy do
 #      no_permission_redirection unless @current_user && @current_object.accepts_destroy_for?(@current_user)
@@ -109,6 +109,24 @@ class UsersController < ApplicationController
 
   end
 
+	def locking
+		current_object
+		if @current_object.activation_code == 'unlocked'
+			if @current_object.lock
+				flash[:notice] = 'User locked'
+			else
+				flash[:error] = 'Error'
+			end
+		else
+			if @current_object.unlock
+				flash[:notice] = 'User locked'
+			else
+				flash[:error] = 'Error'
+			end
+		end
+		redirect_to '/users'
+	end
+
   # Create New User /users/new
   def create #:nodoc:
     # System role by default, secure assignement
@@ -157,13 +175,13 @@ class UsersController < ApplicationController
 		if @current_user.has_system_role('superadmin')
 			tmp = User.all
 		elsif @current_user.has_system_role('admin')
-			tmp = User.find_by_sql("SELECT users.* FROM users, roles WHERE users.system_role_id=roles.id AND roles.name!='superadmin'")
+			tmp = User.find_by_sql("SELECT users.* FROM users, roles WHERE users.system_role_id=roles.id AND roles.name!='superadmin' AND users.activation_code!='locked'")
 		else
 			tmp = []
 			Workspace.allowed_user_with_permission(@current_user.id, 'user_show').each do |w|
 				tmp << w.users
 			end
-			tmp = tmp.uniq
+			tmp = tmp.uniq.delete_if{ |u| u.activated_at.nil? }
 		end
 		@current_objects ||= @users = tmp.paginate(:page => params[:page], :order => :login, :per_page => get_per_page_value)
 	end

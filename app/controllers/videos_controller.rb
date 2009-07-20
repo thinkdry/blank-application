@@ -1,6 +1,13 @@
+# This controller is managing the different actions relative to the Video item.
+#
+# It is using a mixin function called 'acts_as_item' from the ActsAsItem::ControllerMethods::ClassMethods,
+# so see the documentation of that module for further informations.
+#
 class VideosController < ApplicationController	
-  acts_as_ajax_validation
+
+	# Method defined in the ActsAsItem:ControllerMethods:ClassMethods (see that library fro more information)
 	acts_as_item do
+		#Filter calling the encoder method of ConverterWorker with parameters
     after :create, :update do
       #Call the encoder method of ConverterWorker with parameters
       @current_object.update_attributes(:state=>"uploaded")
@@ -8,14 +15,11 @@ class VideosController < ApplicationController
     end
   end
 
-  # Method to Get Progress of Encoding through Backgroundrb Converter Worker
-  # 
-  # Usage URL:
+  # AJAX action to get the encoding progress through Backgroundrb Converter Worker
   #
-  # /audios/get_video_progress?id=1&check=true
-  #
+  # This function is linked to an url and called by an AJAX request.
   def get_video_progress
-    @current_object = Video.find(:first, :conditions => { :id => params[:id].to_i })
+    @current_object = Video.find(:id => params[:id].to_i)
     if params[:check] && params[:check] == 'true'
       render :text => @current_object.state
     else
@@ -23,11 +27,10 @@ class VideosController < ApplicationController
     end
   end
 
-  # Return Download Link for Video File
+  # Action to download the file link to an Video item
   #
-  # Usage URL:
-  #
-  # /videos/download/:id
+	# This function is linked to an url allowing to get the file by downloading
+	# (and not trying to open it with the browser)
   def download
     @video = Video.find(params[:id])
     send_file(RAILS_ROOT+"/public"+@video.video.url.split("?")[0], :disposition => 'inline', :stream => false)

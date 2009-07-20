@@ -24,6 +24,7 @@ DEFAULT_COMMENT_STATE = 'validated'
 LAYOUTS_AVAILABLE = ['application', 'app_fat_menu']
 
 SEARCH_FILTERS = ['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title']
+IMAGE_TYPES = ["image/jpeg", "image/pjpeg", "image/gif", "image/png", "image/x-png", "image/ico"]
 
 # Setting the locales files and the default language
 I18n.default_locale = "en-US"

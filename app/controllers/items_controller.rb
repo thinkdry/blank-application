@@ -1,11 +1,14 @@
 class ItemsController < ApplicationController
 
-  # Items Index Page(Content Page) for Showing Items By Category
+  # Action rendering the content tabs page for items
   #
-  # Usage URL:
-  #
-  # /content/:item_type
-  #
+	# This action is retrieving the items list of the type given by the 'item_type' parameters (HTTP parameters).
+	# If this prameters is not given it will select automatically the first type available.
+	# It is so rendering the 'items/index.html.erb' view template.
+	#
+	# Usage URL :
+	# - /content
+	# - /content?item_type=article
   def index
 		params[:item_type] ||= get_allowed_item_types(current_workspace).first.pluralize
 		@current_objects = get_items_list(params[:item_type], current_workspace)
@@ -18,11 +21,14 @@ class ItemsController < ApplicationController
 		end
   end
 
-  # Ajax Pagination for Items for selected Item type
+  # Ajax action managing pagination for items tabs
   #
+	# This function will refresh the tabs of the specified item type inside the content tabs list.
+	# It is linked to an url and managed an AJAX request.
+	#
   # Usage URL:
-  #
-  # /ajax_content/:item_type
+  # - /ajax_content
+	# - /ajax_content?item_type=article
   #
   def ajax_index
 		params[:item_type] ||= get_allowed_item_types(current_workspace).first.pluralize
@@ -30,15 +36,15 @@ class ItemsController < ApplicationController
 		@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
     @i = 0
 		render :partial => "items/items_list", :layout => false, :locals => { :ajax_url => current_workspace ? "/workspaces/#{current_workspace.id}/ajax_content/"+params[:item_type] : "/ajax_content/#{params[:item_type]}" }
-		#render :text => display_item_in_list(@paginated_objects), :layout => false
   end
 
-  # Displaying Items in Pop Up Window for FCKEditor for defined Item Type
-  # 
-  # Usage URL
-  # 
-  # '/display_content_list/:selected_item
+  # Action displaying items of the specified FCKeditor action ('selected_item' parameters)
   #
+	# This function will generate the list of the specified item type ('item_type' parameters),
+	# and with other parameters like the workspace selected, in order to filter the results.
+	#
+  # Usage URL :
+  # - '/display_content_list/:selected_item
   def display_item_in_pop_up
     @workspace = (params[:workspace_id] && !params[:workspace_id].blank?) ? Workspace.find(params[:workspace_id]) : nil
 		@workspaces = current_user.has_system_role('superadmin') ? Workspace.all : current_user.workspaces

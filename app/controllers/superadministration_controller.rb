@@ -59,7 +59,6 @@ class SuperadministrationController < ApplicationController
     end
     # Update the default ws_config (with the id 1 normaly ...)
     #@default_conf = WsConfig.find(1)
-    #@default_conf.update_attributes(:ws_items => check_to_tab('items').join(','), :ws_feed_items_importation_types => check_to_tab('feed_items_importation_types').join(','))
 
     #File.rename("#{RAILS_ROOT}/config/customs/sa_config.yml", "#{RAILS_ROOT}/config/customs/old_sa_config.yml")
 			

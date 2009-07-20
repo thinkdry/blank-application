@@ -1,21 +1,24 @@
-class GroupsController < ApplicationController
-  require 'fastercsv'
-  require 'csv'
-  acts_as_ajax_validation
-  acts_as_item do
+# This controller is managing the different actions relative to the Group item.
+#
+# It is using a mixin function called 'acts_as_item' from the ActsAsItem::ControllerMethods::ClassMethods,
+# so see the documentation of that module for further informations.
+#
+require 'fastercsv'
 
+class GroupsController < ApplicationController
+  
+	# Method defined in the ActsAsItem:ControllerMethods:ClassMethods (see that library fro more information)
+  acts_as_item do
+		#
     after :create, :update do
       @current_object.groupable_objects = params[:selected_Options]
     end
   end
 
-  # Method to Export Members of Groups to .csv file format
+  # Export members of the group to .csv file format
   #
-  # Usage URL:
-  #
-  # /export_group/:id
-  #
-  def export_group
+  # This function is linked to an url and allows to generate and download the cvs file.
+  def export_to_csv
     @group = Group.find(params[:id])
     @members = @group.members
     @outfile = "group_people_" + Time.now.strftime("%m-%d-%Y") + ".csv"

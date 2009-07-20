@@ -8,7 +8,7 @@
         <% end %>
         </ul>
   </div>
-
-  <%= link_to "Export this group to CSV", export_group_path(@current_object.id) %>
+  <br /><br />
+  <%= link_to "Export this group to CSV", export_to_csv_group_path(@current_object.id) %>
 
 <% end %>

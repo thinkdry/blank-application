@@ -365,13 +365,27 @@ class User < ActiveRecord::Base
       :role_id => Role.find_by_name('ws_admin').id)
 	end
 
-	# Activates the user in the database.
+	# Activate the user in the database.
   def activate
     @activated = true
     self.activated_at = Time.now.utc
-    self.activation_code = nil
+    self.activation_code = 'unlocked'
     save(false)
   end
+
+	# Lock the user in the database
+	def lock
+		self.activated_at = nil
+    self.activation_code = 'locked'
+    save(false)
+	end
+
+	# Unlock the user in the database
+	def unlock
+		self.activated_at = Time.now
+    self.activation_code = 'unlocked'
+    save(false)
+	end
 
   # Check if User is Active
   # 

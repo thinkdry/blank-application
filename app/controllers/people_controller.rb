@@ -1,10 +1,8 @@
+require 'fastercsv'
+
 class PeopleController < ApplicationController
 
-	require 'fastercsv'
-  require 'csv'
-  
-  acts_as_ajax_validation
-
+	# Method defined in the ActsAsItem:ControllerMethods:ClassMethods (see that library fro more information)
   make_resourceful do
     actions :show, :new, :edit, :update, :destroy
   end

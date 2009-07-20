@@ -1,8 +1,8 @@
 class FeedSourcesController < ApplicationController
-  
-	acts_as_ajax_validation
-  acts_as_item do
 
+	# Method defined in the ActsAsItem:ControllerMethods:ClassMethods (see that library fro more information)
+  acts_as_item do
+		# 
 		before :new do
 			if params[:url]
 				#if (@feed=FeedNormalizer::FeedNormalizer.parse open(params[:url]), :force_parser => FeedNormalizer::SimpleRssParser)

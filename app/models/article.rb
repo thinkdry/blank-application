@@ -16,8 +16,15 @@
 #  comments_number :integer(4)      default(0)
 #
 
+# This class is defining an item object called 'Article'.
+# You can use it to publish a text content on wich you can apply CSS style through FCKeditor functionality.
+# You can also linked files to that article.
+#
+# See the ActsAsItem:ModelMethods module to have further informations.
+#
 class Article < ActiveRecord::Base
-  include ActionView::Helpers::SanitizeHelper
+	
+  #include ActionView::Helpers::SanitizeHelper
 
   # Item specific Library - /lib/acts_as_item
   acts_as_item
