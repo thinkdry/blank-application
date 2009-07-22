@@ -8,7 +8,9 @@
         <% end %>
         </ul>
   </div>
-  <br /><br />
-  <%= link_to "Export this group to CSV", export_to_csv_group_path(@current_object.id) %>
+
+  <form action="<%= export_to_csv_group_path(@current_object.id) %>">
+    <button id="submit_button" class="submit_button" type="submit"><%= I18n.t('group.show.export_to_csv') %></button>
+  </form>
 
 <% end %>

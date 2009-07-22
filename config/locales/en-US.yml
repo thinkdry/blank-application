@@ -241,6 +241,8 @@ en-US:
       delete_confirm: Are you sure!
       add_new_group: Add a new group
       members: Members
+    show:
+      export_to_csv: Export this group to CSV file
   time: 
     am: am
     formats: 

@@ -267,6 +267,8 @@ fr-FR:
       delete_confirm: "Etes vous s\xC3\xBBr?"
       add_new_group: Ajouter un nouveau groupe
       members: Membres
+    show:
+      export_to_csv: Export this group to CSV file
   date: 
     order: 
     - :year
