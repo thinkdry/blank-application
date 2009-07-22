@@ -15,10 +15,20 @@
 #  updated_at      :datetime
 #
 
+# This class is defining an item object called 'Group'.
+#
+# You can use it to link different email addresses from the current user contacts.
+# Thus, it becomes easy to send newsletters to these contacts, or to share these contacts inside a workpace.
+#
+# See the ActsAsItem:ModelMethods module to have further informations.
+#
 class Group < ActiveRecord::Base
 
+	# Method defined in the ActsAsItem:ModelMethods:ClassMethods (see that library fro more information)
+	acts_as_item
+	# Relation N-N to 'newsletters' table
   has_and_belongs_to_many :newsletters
-
+	# Relation 1-N 
   has_many :groups_newsletters, :dependent => :delete_all
 
   has_many :groupings, :dependent => :delete_all
@@ -26,10 +36,9 @@ class Group < ActiveRecord::Base
   has_many :users, :through => :groupings, :source => :user,
     :conditions => "groupings.groupable_type = 'User'", :order => 'email ASC'
 
-  has_many :people,    :through => :groupings, :source => :person,
+  has_many :people, :through => :groupings, :source => :person,
     :conditions => "groupings.groupable_type = 'Person'", :order => 'email ASC'
 
-	acts_as_item
   
   # Store the Group Objects and Check If the Member Exists Previously in the Group
   # 

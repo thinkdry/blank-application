@@ -1,13 +1,18 @@
 <% form_for_item @current_object, title do |f| %>
 
   <% is_copyright = (@current_object.state == 'copyright') ? true : false %>
-    
-    <%= f.text_field :url, :label => I18n.t('rss_feed.field.url_label')+" : ", :readonly => is_copyright %>
-    <%#= f.text_field :authors, :label => I18n.t('rss_feed.field.author_label')+" : ", :readonly => is_copyright %>
-    <%= f.text_field :copyright, :label => I18n.t('rss_feed.field.copyright_label')+" : ", :readonly => is_copyright %>
-	<% if is_copyright %>
-      <%= f.datetime_select :last_updated, :label => I18n.t('rss_feed.field.last_updated_label')+" :", :readonly => is_copyright %>
-    <% else %>
-	    <div class="CommonMessage"><%=I18n.t('rss_feed.new.automatic_date_field')%></div>
-	<% end %>
-  <% end  %>
+  <div id="add_keyword">
+    <%= f.text_field :url, :label => I18n.t('rss_feed.field.url_label')+" : " %>
+    <div id="loading" style="display:none;float:right">
+      <img src="/images/loading.gif">
+    </div>
+    <%= button_to_function(I18n.t("rss_feed.what_to_do.new_rss_feed_check"), :onclick =>"check_feed()" ,:class => 'smallSubmit leftAlign') %>
+  </div>
+  <%#= f.text_field :authors, :label => I18n.t('rss_feed.field.author_label')+" : ", :readonly => is_copyright %>
+  <%= f.text_field :copyright, :label => I18n.t('rss_feed.field.copyright_label')+" : ", :readonly => is_copyright %>
+  <% if is_copyright %>
+    <%= f.datetime_select :last_updated, :label => I18n.t('rss_feed.field.last_updated_label')+" :", :readonly => is_copyright %>
+  <% else %>
+    <div class="CommonMessage"><%=I18n.t('rss_feed.new.automatic_date_field')%></div>
+  <% end %>
+<% end  %>

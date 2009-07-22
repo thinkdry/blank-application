@@ -16,11 +16,16 @@
 #  average_rate       :decimal(14, 4)
 #
 
+# This object is linked to an SQL view (called 'generic_items').
+#
+# It is loading all the common fields of all the items of the databse inside an SQL view,
+# allowing to get results on multiple models list easily.
 class GenericItem < ActiveRecord::Base
 
   #View to Get Items
 	self.inheritance_column = :item_type
 
+	# Code building the scopes allowing to retrieve the different item types from the SQL view
 	ITEMS.each do |item|
 		named_scope item.pluralize.to_sym,
 			:conditions => { :item_type => item.camelize }

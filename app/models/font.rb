@@ -13,4 +13,7 @@
 #  updated_at :datetime
 #
 
+# This object is used to store some paramters for CSS management.
+#
+# It is actually not maintained but we let it for future usage.
 class Font < ActiveRecord::Base;end

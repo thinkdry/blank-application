@@ -31,7 +31,7 @@ require 'rss/1.0'
 require 'rss/2.0'
 require 'open-uri'
 require 'regexps'
-require 'rfeedparser'
+require 'feedzirra'
 
 # This class is defining an item object called 'FeedSource'.
 #
@@ -53,93 +53,79 @@ class FeedSource < ActiveRecord::Base
   validates_presence_of :url
 	# Validation of the format of the 'url' field
 	validates_format_of :url, :with => /#{URL}/ix, :message=> "The format of the url is not valid."
-  # Validation of the 
-	validate :feed_compliance
 
-  def validate #:nodoc:
-    rss_valid?
+  # Check if the given url is a valid rss/xml feed
+	#
+	# This method will check if the url passed if a valid web feed,
+	# and return true if yes, and false if not.
+  #
+  # Usage :
+  # FeedSource.valid_feed('http://somesite.com/articles.rss')
+  def self.valid_feed?(feed_url)
+    begin
+      open(feed_url) do |http|
+        p http.content_type
+        if http.content_type.include?('rss') ||  http.content_type.include?('xml')
+          return true
+        else
+          return false
+        end
+      end
+    rescue
+      return false
+    end
+    
+  end
+  
+  # Import the Latest Updates of the Saved Feeds
+	#
+	# This method checks the latest feed items available,
+	# and imports them inside the database ('feed_items' table).
+  #
+  # Usage :
+  # feedsource.import_latest_items
+  def import_latest_items
+    feed = Feedzirra::Feed.fetch_and_parse(self.url)
+    feed.entries.each do |item|
+      # Be sure that the item hasnt been imported before
+      if self.feed_items.count(:conditions => { :guid => item.id, :feed_source_id => self.id }) <= 0
+        FeedItem.create({
+            :feed_source_id => self.id,
+            :guid						=> item.id,
+            :title					=> item.title,
+            :description		=> item.summary,
+            :authors				=> item.author,
+            :date_published => item.published,
+            :categories			=> item.categories.join(','),
+            :link           => item.url})
+      end
+    end
+  end
+
+	# To implement
+	#
+	#
+  def self.update_existing_feeds
+    @feeds = FeedSource.all
+    @feeds.each do |feed|
+      updated_feed = Feedzirra::Feed.update(feed)
+      if updated_feed.updated?
+        updated_feed.new_entries.each do |item|
+          if self.feed_items.count(:conditions => { :guid => item.id, :feed_source_id => self.id }) <= 0
+            FeedItem.create({
+                :feed_source_id => self.id,
+                :guid						=> item.id,
+                :title					=> item.title,
+                :description		=> item.summary,
+                :authors				=> item.author,
+                :date_published => item.published,
+                :categories			=> item.categories.join(','),
+                :link           => item.url})
+          end
+        end
+      end
+    end
   end
 
   
-  def rss_valid? #:nodoc:
-    begin
-      rss_content
-    rescue Exception => e
-      errors.add(:url, "Erreur lors de l'importation des flux, adresse invalide ?")
-    end
-  end
-
-  # Check if RSS/Atom Feed can be Parsed for Reading
-  #
-  # Read the rss_content of the URL and parse it.
-  #
-  # if it is valid rss then it is accepted or else rejected
-  #
-  def rss_content
-		return @rss if @rss
-    content = String.new # raw content of rss feed will be loaded here
-    open(self.url) { |s| content = s.read }
-		if !(content.blank? || content.nil?)
-			if (@rss = RSS::Parser.parse(content, false))
-				
-			else
-				p "Impossible de parser le flux "+self.name
-				#redirect_to feed_contents_url
-			end
-		else
-			p "Aucun contenu pour l'url "+self.url
-			#redirect_to feed_contents_url
-		end
-  end
-
-  def rss_content2 #:nodoc:
-    return FeedParser.parse(open(self.url))
-  end
-
-  # Import the Latest Updates of the Saved Feeds
-  #
-  # Usage:
-  #
-  # feedsource.import_latest_items
-  #
-  # will update with latest feeds available on the feedsource url
-  #
-	def import_latest_items
-		feed = self.rss_content2
-		#feed.clean!
-		feed.entries.each do |item|
-			# Be sure that the item hasnt been imported before
-			if self.feed_items.count(:conditions => { :guid => item.guid, :feed_source_id => self.id }) <= 0
-				FeedItem.create({
-            :feed_source_id => self.id,
-            :guid						=> item.guid,
-            :title					=> item.title,
-            :description		=> item.description,
-            :enclosures     => item.enclosures,
-            #:authors				=> item.authors.join(' ,'),
-            :date_published => item.issued,
-            :last_updated		=> item.date,
-            :categories			=> item.tags ? item.tags.map{ |tag| tag["term"]}.to_s : nil,
-            :link           => item.url,
-            :copyright			=> item.rights })
-			end
-		end
-	end
-
-  # Check If the given URL is RSS/Atom compliant to Fetch Feed's
-  # 
-  # will return true if the feed is RSS/Atom compliant else will return false for invalid URL
-  #
-	def feed_compliance
-	  begin
-		  open(self.url) do |http|
-        response = http.read
-        result = RSS::Parser.parse(response, false)
-      end
-      t = true
-    rescue
-	    self.errors.add(:url, "The url entered is not a compliant RSS/Atom Feed") 
-    end
-  end
-
 end
