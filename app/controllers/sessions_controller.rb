@@ -15,7 +15,6 @@ class SessionsController < ApplicationController
 	#
 	# Usage URL :
 	# - /login
-	#
   def create
     logout_keeping_session!
     user = User.authenticate(params[:login], params[:password])
@@ -30,7 +29,8 @@ class SessionsController < ApplicationController
       redirect_back_or_default('/')
       flash[:notice] = I18n.t('user.session.flash_notice')
     else
-      note_failed_signin
+      flash[:error] =  I18n.t('user.session.login_error')+ ' '+ params[:login]
+			logger.warn "Failed login for '#{params[:login]}' from #{request.remote_ip} at #{Time.now.utc}"
       @login       = params[:login]
       @remember_me = params[:remember_me]
       flash[:error] = I18n.t('user.session.flash_error')
@@ -41,35 +41,28 @@ class SessionsController < ApplicationController
 
   # Session deletion
 	#
-	# 
-  # 
+	# This function is destroying the session of the current user, updating his 'last_connected_at' field,
+	# and redirecting on the root page.
+	#
   # Usage URL :
-  # 
-  # /logout
-  #
+  # - /logout
   def destroy
     User.find(current_user.id).update_attributes(:last_connected_at => Time.now)
     logout_killing_session!
-    flash[:notice] = "Vous avez été déconnecté"
+    flash[:notice] = I18n.t('user.session.logout_notice')
     redirect_back_or_default('/')
   end
 
-  # Change Language Option for Current User
+  # Update the current language
   #
-  # Usage URL
+  # This function analyze the paramater 'locale' and set from it the new locale for the current user.
   #
-  # /session/change_language
-  #
+	# Usage URL :
+  # - /session/change_language
 	def change_language
     current_user.update_attributes(:u_language => params[:locale])
 		render(:update) { |page| page.call 'location.reload' }
 		#redirect_back_or_default('/')
   end
 
-protected
-  # Track failed login attempts
-  def note_failed_signin
-    flash[:error] = "Impossible de vous connecter en tant que '#{params[:login]}'"
-    logger.warn "Failed login for '#{params[:login]}' from #{request.remote_ip} at #{Time.now.utc}"
-  end
 end

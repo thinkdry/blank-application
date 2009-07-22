@@ -19,41 +19,47 @@
 #  comments_number    :integer(4)      default(0)
 #
 
+# This class is defining an item object called 'Audio'.
+#
+# You can use it to publish an audio content from different format like MP3, OGG, ... .
+# Your audio file will automatically be converted into MP3 on the server,
+# using the FFMPEG encoder (launched through Backgroundrb plugin, 'converter_worker' task).
+#
+# On the show page, a Flash player will allow you to play this file.
+#
+# See the ActsAsItem:ModelMethods module to have further informations.
+#
 class Audio < ActiveRecord::Base
 
-  # Item specific Library - /lib/acts_as_item
+  # Method defined in the ActsAsItem:ModelMethods:ClassMethods (see that library fro more information)
   acts_as_item
-
-  # Paperclip Attachment 
+  # Paperclip attachment definition
   has_attached_file :audio,
     :url =>  "/uploaded_files/audio/:id/:style/:basename.:extension",
     :path => ":rails_root/public/uploaded_files/audio/:id/:style/:basename.:extension"
-
-  # Paperclip Validations
+  # Validation of the presence of a attached file
   validates_attachment_presence :audio
-
+	# Validation of the type of the attached file
   #validates_attachment_content_type :audio, :content_type => ['audio/wav','audio/x-wav', 'audio/mpeg', 'audio/x-ms-wma', 'video/mp4' ]
-
+	# Validation of the size of the attached file
   validates_attachment_size(:audio, :less_than => 25.megabytes)
 
-  # Media Type for the Model used in Converter Worker for Encoding.
+  # Media type used for the MP3 encoding
   #
-  # Usage:
-  #
+	# This method returns a media type used inside the 'converter_worker' task during the encoding.
+	#
+  # Usage :
   # <tt>object.media_type</tt>
-  #
-  # will return the media type as audio
   def media_type
     audio
   end
 
-  # Codec used for Encoding Audio to MP3 using FFMPEG.
+  # Codec used for the MP3 encoding
   #
-  # Usage:
-  #
+	# This method returns the codec used by FFMPEG for the encoding (inside 'converter worker' task).
+	#
+  # Usage :
   # <tt>object.codec</tt>
-  #
-  # will return the codec to be used for encoding
   def codec
     "-acodec libmp3lame -y"
   end

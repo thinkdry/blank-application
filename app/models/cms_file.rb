@@ -19,19 +19,27 @@
 #  comments_number      :integer(4)      default(0)
 #
 
+# This class is defining an item object called 'CmsFile'.
+#
+# You can use it to add a file, according the different types allowed and respecting the maximum size.
+#
+# On the show page, a link allowing to download that file is set.
+#
+# See the ActsAsItem:ModelMethods module to have further informations.
+#
 class CmsFile < ActiveRecord::Base
 
+	# Method defined in the ActsAsItem:ModelMethods:ClassMethods (see that library fro more information)
   acts_as_item
-
+	# Paperclip attachment definition
   has_attached_file :cmsfile,
     :url =>    "/uploaded_files/cmsfile/:id/:style/:basename.:extension",
     :path => ":rails_root/public/uploaded_files/cmsfile/:id/:style/:basename.:extension"
-  
+  # Validation of the presence of a attached file
   validates_attachment_presence :cmsfile
-  
-  # TODO Need to find proper content-types sent by different browsers, currently validation managed through javascript
+	# Validation of the type of the attached file
   #	validates_attachment_content_type :cmsfile, :content_type => ['application/pdf', 'text/plain','application/octet-stream','application/msword', 'application/rtf']
-
+	# Validation of the size of the attached file
   validates_attachment_size(:cmsfile, :less_than => 25.megabytes)
 
 end

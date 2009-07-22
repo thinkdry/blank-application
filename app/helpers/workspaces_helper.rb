@@ -11,23 +11,18 @@ module WorkspacesHelper
     workspaces.collect { |ws| link_to_workspace(ws) }.join(', ')
   end
 
-
+	# Helper method returning a field for user association (in Javascript)
   def new_user(object)
     javascript_tag js_add_new_user(object)
   end
 
-  # Link to New USer in UserWorksapce
+  # Helper method creating a link calling a Javascript function adding a field for user association
   def link_to_new_user(name)
     link_to_function name, js_add_new_user(UsersWorkspace.new)
   end
 
-  # User list of worksapces for given role
-  def user_list_of(workspace, role)
-    list = workspace.send(role)
-    list.empty? ? '- Aucun -' : list.map { |u| link_to_user(u) }.join(', ')
-  end
-  
   private
+	# Helper method inserting the famous field for user association
   def js_add_new_user(object)
     update_page do |p|
       p.insert_html :bottom, 'newuser', :partial => 'user', :object => object

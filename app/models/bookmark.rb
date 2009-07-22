@@ -23,11 +23,21 @@
 #  comments_number :integer(4)      default(0)
 #
 
+# This class is defining an item object called 'Bookmark'.
+#
+# You can use it to create a bookmark, just filling the 'link' field with the url you want to save.
+# You have also access to other fields like 'description' in order to give more informations
+# to the search engine of the application.
+#
+# On the show page, a direct link to that url will be present.
+#
+# See the ActsAsItem:ModelMethods module to have further informations.
+#
 class Bookmark < ActiveRecord::Base
   
-	# Item specific Library - /lib/acts_as_item
+	# Method defined in the ActsAsItem:ModelMethods:ClassMethods (see that library fro more information)
 	acts_as_item
-
+	# Validation of the presence of the 'link' field
   validates_presence_of :link
 
 end

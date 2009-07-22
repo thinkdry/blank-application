@@ -19,24 +19,25 @@
 #  updated_at     :datetime
 #
 
+# This object is managing the items present inside a Web feed.
+#
+# It allows to save the different items inside the database,
+# to filter it easily and also to get new content easily.
+#
+# This object is considered actually as an Item of the Blank application,
+# but a functionnality allows you to import a feed item as a Bookmark object,
+# that is the trick to really got the information of a feed item inside the CMS.
 class FeedItem < ActiveRecord::Base
 
-	include ActionView::Helpers
-	include ActionView::Helpers::SanitizeHelper
-
+	# Relation N-1 with the 'feed_sources' table
   belongs_to :feed_source
 
-  # Latest 5 Feed_Items
+	# Scope getting the latest 5 feed items entered inside the database
   named_scope :latest,
     :order => 'last_updated DESC',
     :limit => 5
 
-  # Assign the description to Feed Item
-  def description=(value)
-    super(value)
-  end
-
-  # FeedItems from given Workspace
+  # Scope getting the feed items for a specific workspace
 	named_scope :from_workspace, lambda { |ws_id|
     raise 'WS expected' unless ws_id
     { :select => 'feed_items.*',
@@ -47,7 +48,7 @@ class FeedItem < ActiveRecord::Base
     }
   }
 
-  # FeedItems for given User
+  # Scope getting the feed items for a specific user
   named_scope :consultable_by, lambda { |user_id|
     raise 'User expected' unless user_id
     return { } if User.find(user_id).has_system_role('superadmin')

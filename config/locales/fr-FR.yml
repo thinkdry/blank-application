@@ -58,6 +58,8 @@ fr-FR:
       login_button: Se connecter
       password_label: Mot de passe
       remember_me: "M\xC3\xA9moriser"
+      logout_notice: Vous avez \xC3\xA9t\xC3\xA9 d\xC3\xA9connect\xC3\xA9(e).
+      login_error: Impossible de vous connecter en tant que
     reset_password: 
       flash_notice: "Le mot de passe vient d'\xC3\xAAtre modifi\xC3\xA9."
       title: "R\xC3\xA9initialiser le mot de passe"

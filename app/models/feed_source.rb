@@ -33,22 +33,27 @@ require 'open-uri'
 require 'regexps'
 require 'rfeedparser'
 
+# This class is defining an item object called 'FeedSource'.
+#
+# You can use it to define a Web feed by different ways :
+# - Checking an existing url on Internet
+# - Defining an url of the Blank application (on items list, search results, ... with filters)
+#
+# On the show page, a button allows you to print the different feed items link to your feed source.
+#
+# See the ActsAsItem:ModelMethods module to have further informations.
+#
 class FeedSource < ActiveRecord::Base
 
-  # Item specific Library - /lib/acts_as_item
+  # Method defined in the ActsAsItem:ModelMethods:ClassMethods (see that library fro more information)
   acts_as_item
-  
+  # Relation 1-N with the 'feed_sources' table
 	has_many :feed_items , :dependent => :delete_all
-
-  # Validations
+  # Validation of the presence of the 'url' field
   validates_presence_of :url
-
-	#validates_uniqueness_of :title, :message => "Ce nom est déjà utilisé."
-  
-	#validates_uniqueness_of :url, :message => "Ce feed est déjà utilisé."
-
-	validates_format_of :url, :with => /#{URL}/ix, :message=>"The format of the url is not valid."
-  
+	# Validation of the format of the 'url' field
+	validates_format_of :url, :with => /#{URL}/ix, :message=> "The format of the url is not valid."
+  # Validation of the 
 	validate :feed_compliance
 
   def validate #:nodoc:

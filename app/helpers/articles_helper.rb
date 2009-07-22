@@ -1,34 +1,21 @@
 module ArticlesHelper
 
-
-
+	# Helper method returning a file field for file association (in Javascript)
   def new_file(object)
     javascript_tag js_add_new_file(object)
   end
 
-  # 'Add a New File' Link for the Article, will generate a file input box for file assocaition
+  # Helper method creating a link calling a Javascript function adding a file field for file association
   def link_to_new_file(name)
     link_to_function name, js_add_new_file(ArticleFile.new)
   end
   
   private
+	# Helper method inserting the famous file field for file association
   def js_add_new_file(object)
     update_page do |p|
       p.insert_html :bottom, 'files', :partial => 'file', :object => object
     end
   end  
   
-  # override of acts_as_item helper.
-  # used in popup of fckeditor to display the item : 
-  # Link on title, for article, link on image for image etc.
-  def item_display_for_pop_up(url, object)
-    link_to_function object.title, "javascript:SelectFile('" + url + "')"
-  end
-	
 end
-
-#    if object.class == 'Image'
-#      obj= Image.find_by_id(object.id)
-#      url = '/uploaded_files/image/'+obj.id.to_s+'/original/'+obj.image_file_name
-#      link_to_function obj.title, "javascript:SelectFile('" + url + "')"
-#    else

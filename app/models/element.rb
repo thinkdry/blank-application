@@ -11,4 +11,7 @@
 #  updated_at :datetime
 #
 
+# This object is used to store some parameters for the CSS management.
+#
+# It is actually not maintained but we let it for future usage.
 class Element < ActiveRecord::Base;end

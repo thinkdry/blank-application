@@ -1,28 +1,25 @@
 module ItemsHelper
 
-  # Rating Item
+  # Rating an item
+	#
+	# This helper method will return the Javascript elements allowing to rate an item.
   # 
-  # Usage:
-  # 
-  # <tt>item_rate(article_object)</tt>
-  # 
-  # will return the javascript for rating the object
-  # 
-  # Parameters:
-  # 
-  # - object: Item Object ex:article,image......
-  # - rerate: true or false
+  # Parameters :
+  # - object: Item instance
+  # - rerate: Boolean value (true or false)
   # - onRate: Ajax Request to Store Rating with parameters
   # - locked: true or false to lock or unlock rating on item
+	# 
+	# Usage :
+  # <tt>item_rate(@current_object)</tt>
   def item_rate(object, params = {})
-    params = {
+    params ||= {
       :rerate => false,
   		:onRate => "function(element, info) {
   			new Ajax.Request('#{rate_item_path(object)}', {
   				parameters: info
   			})}"
-    } if params.empty?
-
+    }
     params_to_js_hash = '{' + params.collect { |k, v| "#{k}: #{v}" }.join(', ') + '}'
     div_id = "rating_#{object.class.to_s.underscore}_#{object.id}_#{rand(1000)}"
     content_tag(:div, nil, { :id => div_id, :class => :rating }) +
@@ -33,30 +30,46 @@ module ItemsHelper
 
   # Rating Item Locked
   #
-  # Usage:
-  #
+	# This helper method will return the Javascript element defining the rate of the item.
+	#
+	# Parameter :
+	# - object: Item instance
+	#
+  # Usage :
   # <tt>item_rate_locked(article_object)</tt>
-  #
-  # will return the rating for item, rating item not possible
   def item_rate_locked(object)
     item_rate(object, :locked => true)
   end
 
+	# Override of ActsAsItem helper method
+	#
+  # This method will override the method used in popup of fckeditor to display the item :
+  # link on title for article, link on image for image, ...
+	#
+	# Parameters :
+	# - url: String defining the url to get the resource to link to
+	# - object: Item instance
+	#
+	# Usage :
+	# item_display_for_pop_up(@image.url, @image)
+  def item_display_for_pop_up(url, object)
+    link_to_function object.title, "javascript:SelectFile('" + url + "')"
+  end
 
-	# Form For Item(Default Fields)
+
+	# Form for Item instance (Common fields)
   #
-  # Usage:
-  #
+	# This helper method will render the partial items/_form.html.erb and passed
+	# some parameters to it link the block to bind to that form.
+	#
+  #  Parameters :
+  #  object: Instance of an Item object
+  #  title : String defining the form title
+  #  &block : Block to bind to the partial for specific fields of that item object
+	#
+	# Usage :
   # <tt>form_for_item article_object, title do |f| </tt>
   # <tt>end</tt>
-  #
-  #  will return the form for default item fields like 'title', 'description', 'keywords', 'workspaces'
-  #
-  #  Parameters:
-  #
-  #  object: item_object:
-  #  title : title of form
-  #  &block : item specific form elements to bind to item form
   def form_for_item(object, title = '', &block)
 		concat(render(:partial => "items/form", :locals => { :block => block, :title => title }), block.binding)
   end
@@ -73,13 +86,17 @@ module ItemsHelper
       block.binding
   end
   
-	# FCKEditor Field for Workspace & Article
+	# FCKEditor field initialisation
   #
-  # Usage:
-  #
+	# This helper method will define the different Javascript settings needed by FCKeditor text area field
+	# defined in the blank_form_builder.rb initializer.
+	#
+	# Parameters :
+	# - object: Item instance
+	# - attribute: String defining the instance attribute to configure for FCKeditor
+	#
+  # Usage :
   # f.advanced_editor(:body, 'Article' + ' * :')
-  #
-  # will return the fckeditor for article body
 	def advanced_editor_on(object, attribute)
     '<script type="text/javascript" src="/fckeditor/fckeditor.js"></script>' +
       javascript_tag(%{
@@ -91,12 +108,11 @@ module ItemsHelper
         
       })
   end
-
 	
 	# Item Keywords Fields
+	#
   #
-  # Usage:
-  #
+  # Usage :
   # <tt>item_keywords_fields(form, article)</tt>
   #
   # will return item keywords fields for the artile
@@ -104,19 +120,19 @@ module ItemsHelper
     render :partial => "items/keywords_fields", :locals => { :f => form, :item => item }
 	end
 
-	# Displays Item Type in Tabs with Items List
+	# Dislay of the given item type in content tabs list
   #
-  # Usage:
+	# This helper method gets the item list to display,
+	# and generates the HTML code displaying that list,
+	# inside a content tabs list.
   #
-  # display_tabs_items_list('article', paginated_objects, ajax_items_path('article'))
-  #
-  # will return the tabs for item_type passed
-  #
-  # Parameters:
-  #
-  # - item_type: can be any item type ex:article,image......
-  # - items_list: list of items to be displayed for the tab
+  # Parameters :
+  # - item_type: String defining the item type to display
+  # - items_list: 
   # - ajax_url: ajax item path for the item_type
+	# 
+	# Usage :
+  # display_tabs_items_list('article', paginated_objects, ajax_items_path('article'))
   def display_tabs_items_list(item_type, items_list, ajax_url)
 		item_types = get_allowed_item_types(current_workspace)
 		item_type ||= item_types.first.to_s.pluralize
@@ -178,12 +194,8 @@ module ItemsHelper
   # - items_list: list of items to be displayed for the tab
   # - ajax_url: ajax item path for the item_type
 	def display_items_list(items_list, ajax_url, partial_used='items/items_list')
-		if items_list.first
-	    content = render :partial => partial_used, :locals => { :ajax_url => ajax_url }
-      content_tag(:div, content, :id => "object-list")
-		else
-			render :text => "<br /><br />"+I18n.t('item.common_word.list_empty')
-		end
+	  content = render :partial => partial_used, :locals => { :ajax_url => ajax_url }
+		return content_tag(:div, content, :id => "object-list")
 	end
 
 	# Items List

@@ -1,17 +1,24 @@
-<script type="text/javascript" src="/videoplayer/swfobject.js"></script>
-<%= display_classify_bar(['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title'], ajax_url, 'object-list') %>
-<div id="content">
-  <input type="hidden" id="total_items" value="<%= @paginated_objects.length %>">
-  <%= display_item_in_list(@paginated_objects) %>
-</div>
+<% if @paginated_objects.first %>
 
-<%#= will_paginate @paginated_objects %>
-<%= remote_pagination(@paginated_objects, ajax_url,  'object-list') %>
+  <script type="text/javascript" src="/videoplayer/swfobject.js"></script>
+  <%= display_classify_bar(['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title'], ajax_url, 'object-list') %>
+  <div id="content">
+    <input type="hidden" id="total_items" value="<%= @paginated_objects.length %>">
+    <%= display_item_in_list(@paginated_objects) %>
+  </div>
 
-<div class="other_output_format">
-  <%= I18n.t('item.show.get_in_another_format')%>:
-  <%= link_to_function image_tag('/images/icons/xml.png'), "params('#{content_path(:item_type => params[:item_type])}','format=xml')" %>
-  <%= link_to_function image_tag('/images/icons/json.png'), "params('#{content_path(:item_type => params[:item_type])}','format=json')" %>
-  <%= link_to_function image_tag('/images/icons/atom.png'), "params('#{content_path(:item_type => params[:item_type])}','format=atom')" %>
-</div>
+  <%#= will_paginate @paginated_objects %>
+  <%= remote_pagination(@paginated_objects, ajax_url,  'object-list') %>
 
+  <div class="other_output_format">
+    <%= I18n.t('item.show.get_in_another_format')%>:
+    <%= link_to_function image_tag('/images/icons/xml.png'), "params('#{content_path(:item_type => params[:item_type])}','format=xml')" %>
+    <%= link_to_function image_tag('/images/icons/json.png'), "params('#{content_path(:item_type => params[:item_type])}','format=json')" %>
+    <%= link_to_function image_tag('/images/icons/atom.png'), "params('#{content_path(:item_type => params[:item_type])}','format=atom')" %>
+  </div>
+
+<% else %>
+
+<br /><br /><%= I18n.t('item.common_word.list_empty') %><br /><br />
+
+<% end %>

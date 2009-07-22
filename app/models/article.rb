@@ -17,6 +17,7 @@
 #
 
 # This class is defining an item object called 'Article'.
+# 
 # You can use it to publish a text content on wich you can apply CSS style through FCKeditor functionality.
 # You can also linked files to that article.
 #
@@ -24,19 +25,17 @@
 #
 class Article < ActiveRecord::Base
 	
-  #include ActionView::Helpers::SanitizeHelper
-
-  # Item specific Library - /lib/acts_as_item
+  # Method defined in the ActsAsItem:ModelMethods:ClassMethods (see that library fro more information)
   acts_as_item
-
+	# Relation 1-N to the table 'article_files', managing the files linked to the article
   has_many :article_files, :dependent => :delete_all
-
-  # Validation's
+	# Overwriting of the ActsAsXapian specification define in ActsAsItem,
+	# in order to include the 'body' field inside the Xapian index
+	acts_as_xapian :texts => [:title, :description, :keywords_list, :body]
+  # Validation of the presence of the 'body' field (for the update only)
   validates_presence_of :body, :on => :update
-
-  acts_as_xapian :texts => [:title, :description, :keywords_list, :body]
   
-  # Association of Files to Article using PaperClip
+  # Files association to an Article using PaperClip plugin
   # 
   # file_attributes are the associated files using paperclip attachment
   def new_file_attributes= file_attributes

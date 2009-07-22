@@ -59,6 +59,8 @@ en-US:
       login_button: Login
       password_label: Password
       remember_me: Remember me
+      logout_notice: You have been disconnected.
+      login_error: Impossible to be connected with
     reset_password: 
       flash_notice: Password has been Successfully Changed.
       title: Reset Password
