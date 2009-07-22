@@ -43,11 +43,12 @@ class FeedSourcesController < ApplicationController
 		elsif (@feed=FeedSource.find(:first, :conditions => { :url => daurl, :user_id => current_user.id }))
 			flash[:notice] = I18n.t('rss_feed.chek_feed.flash_notice_already_subscribed')
 			render :text => "exists-#{@feed.id}"
-		elsif (@feed=Feedzirra::Feed.fetch_and_parse(daurl,
-          :on_success => lambda {render :text => 'new'},
-          :on_failure => lambda {render :text => I18n.t('rss_feed.new.flash_notice_invalid')}))
-    else
-      render :text => I18n.t('rss_feed.new.flash_notice_invalid')
+		else
+      if FeedSource.valid_feed?(daurl)
+        render :text => 'new'
+      else
+        render :text => I18n.t('rss_feed.new.flash_notice_invalid')
+      end
 		end
   end
 	
