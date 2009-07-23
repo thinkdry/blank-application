@@ -1,5 +1,5 @@
 require 'fastercsv'
-
+require 'csv'
 class PeopleController < ApplicationController
 
 	# Method defined in the ActsAsItem:ControllerMethods:ClassMethods (see that library fro more information)
