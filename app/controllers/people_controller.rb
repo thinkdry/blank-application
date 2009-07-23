@@ -1,6 +1,8 @@
 require 'fastercsv'
 require 'csv'
 
+# This controller manage the actions linked to the Person object.
+#
 class PeopleController < ApplicationController
 
 	# Method getting a mixin managing the form validation with AJAX
