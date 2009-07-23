@@ -434,23 +434,24 @@ fr-FR:
     copyright: Copyright
   newsletter: 
     new: 
-      title: Add Newsletter
+      title: Ajouter une newsletter
     edit: 
-      title: Edit Newsletter
+      title: Editez une newsletter
     field: 
-      body_label: Body
-      from_email_hint: Evoyer l'email depuis cette adresse
+      body_label: Corps
+      from_email_hint: Envoyer l'email depuis cette adresse
       subject_label: Sujet
-      body_hint: Body of this Newsletter
+      body_hint: Entrer le corps de la newsletter
       subject_hint: Sujet de l'email
       from_email_label: Depuis l'email
     send_newsletter: 
-      send_to: Send to
-      sent_to: Sent to
-      send_newsletter: Send Newsletter
-      send_newsletter_to_user_list: Send this Newsletter to user list
+      send_to: Envoyer
+      send_newsletter: Envoyer la newsletter
+      send_newsletter_to_user_list: Envoyez la newsletter à cette liste d'utilisateurs
     unsubscribe: 
-      flash_notice: Unsubscribed successfully.
+      flash_notice: Vous avez \xC3\xA9t\xC3\xA9 d\xC3\xA9sinscrit de cette newsletter.
+    show:
+      not_already_sent: Cette newsletter n'a pas encore \xC3\xA9t\xC3\xA9 envoy\xC3\xA9e.
   item: 
     new: 
       flash_notice: "Cr\xC3\xA9\xC3\xA9 avec succ\xC3\xA8s"

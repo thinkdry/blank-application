@@ -435,12 +435,13 @@ en-US:
       body_hint: Body of this Newsletter
       from_email_label: From email
     send_newsletter: 
-      send_to: Send to
       sent_to: Sent to
       send_newsletter: Send Newsletter
       send_newsletter_to_user_list: Send this Newsletter to user list
     unsubscribe: 
       flash_notice: Unsubscribed successfully.
+    show:
+      not_already_sent: This newsletter has not been send to any group yet.
   page: 
     new: 
       title: Add a New Page
