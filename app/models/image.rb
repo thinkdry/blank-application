@@ -19,31 +19,35 @@
 #  comments_number    :integer(4)      default(0)
 #
 
+# This class is defining an item object called 'Image'.
+#
+# You can use it to upload an image in the Blank application,
+# according to the file types available and the size of the file.
+#
+# See the ActsAsItem:ModelMethods module to have further informations.
+#
 class Image < ActiveRecord::Base
 
-  # Item specific Library - /lib/acts_as_item
+  # Method defined in the ActsAsItem:ModelMethods:ClassMethods (see that library fro more information)
   acts_as_item
-
-  # Paperclip Attachment 
+  # Paperclip attachment definition
   has_attached_file :image,
     :url =>    "/uploaded_files/image/:id/:style/:basename.:extension",
     :path => ":rails_root/public/uploaded_files/image/:id/:style/:basename.:extension",
     :styles => { :medium => "300x300>", :thumb => "48x48>" }
-
-  # Paperclip Validation
+  # Validation of the presence of an attached file
   validates_attachment_presence :image
-
+	# Validation of the type of the attached file
   validates_attachment_content_type :image, :content_type => ['image/jpeg','image/jpg', 'image/png', 'image/gif','image/bmp', 'image/x-png', 'image/pjpeg']
-
+	# Validation of the size of the attached file
   validates_attachment_size(:image, :less_than => 25.megabytes)
 
-  # Media Type for the Model.
+  # Media Type for the object
+	#
+	# No actual use but consistency with other media type (Video, Audio).
   #
   # Usage:
-  #
   # <tt>object.media_type</tt>
-  #
-  # will return the media type as image
   def media_type
     image
   end

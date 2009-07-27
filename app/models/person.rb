@@ -30,29 +30,31 @@
 
 require 'country_select'
 
+# This class is defining an object called 'Person'.
+#
+# It is actually the basic way to add a contact inside the application.
+# This object is depending of an User object (the one who have created the Person object).
+# After the creation, it is possible to create a Group item and add the contact (Perrson) to it,
+# in order to share these contacts in a workspace.
+#
 class Person < ActiveRecord::Base
-  include Authentication
 
+	# Relation N-1 to 'groupings' table
   has_many :groupings, :as => :groupable, :dependent => :delete_all
-
-  has_many :member_in, :through => :groupings, :source => :group
-
-  #Validations
-  validates_presence_of     :email
-
-  validates_length_of       :email,    :within => 6..100
-
-  #validates_uniqueness_of   :email,    :case_sensitive => false
-
-  validates_format_of       :email,    :with => RE_EMAIL_OK
+  # Validation of the presence of this attribute
+  validates_presence_of :email
+	# Validationof the size of this attribute
+  validates_length_of :email, :within => 6..100
+	# Validation of the format of this attribute
+  validates_format_of :email, :with => RE_EMAIL_OK
 
   # Check with previously existing email for uniqueness
+	#
+	# This method checks if the email address is uniq for the user who has created the object.
+	# TODO Put it has AJAX validation
   #
-  # Usage:
-  #
+  # Usage :
   # <tt>person.validate_uniqueness_of_email</tt>
-  #
-  # will return true if email is unique else return false
   def validate_uniqueness_of_email
     Person.exists?(:email=>self.email,:user_id => self.user_id)
     if Person.exists?(:email=>self.email,:user_id => self.user_id)
@@ -63,29 +65,17 @@ class Person < ActiveRecord::Base
     end
   end
 
-  # Full Name of the Person 'Last Name First Name'
-  #
-  # Usage:
-  #
-  # <tt>perosn.full_name</tt>
-  #
-  # will return the 'lastname firstname' of person
+  # Return the full name of the contact (Person)
   def full_name
-		return self.last_name.to_s+" "+self.first_name.to_s
+		return self.salutation.to_s + " " + self.last_name.to_s + " " + self.first_name.to_s
   end
 
+	# Return the People format of the object (here, itself)
   def to_people
     return self
   end
 
-  # Person or User to Group Member
-  #
-  # Usage:
-  #
-  # <tt>person.to_group_member</tt>
-  # <tt>user.to_group_member</tt>
-  #
-  # Will return the object of person for group
+  # Method returning the object mapped into a Hash with just some attributes
   def to_group_member
     return { :model => 'Person', :id => self.id, :email => self.email, :first_name => self.first_name, :last_name => self.last_name, :origin => self.origin, :created_at => self.created_at, :newsletter => self.newsletter }
   end

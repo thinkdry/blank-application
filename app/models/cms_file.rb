@@ -35,7 +35,7 @@ class CmsFile < ActiveRecord::Base
   has_attached_file :cmsfile,
     :url =>    "/uploaded_files/cmsfile/:id/:style/:basename.:extension",
     :path => ":rails_root/public/uploaded_files/cmsfile/:id/:style/:basename.:extension"
-  # Validation of the presence of a attached file
+  # Validation of the presence of an attached file
   validates_attachment_presence :cmsfile
 	# Validation of the type of the attached file
   #	validates_attachment_content_type :cmsfile, :content_type => ['application/pdf', 'text/plain','application/octet-stream','application/msword', 'application/rtf']

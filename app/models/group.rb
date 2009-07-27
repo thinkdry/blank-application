@@ -30,21 +30,24 @@ class Group < ActiveRecord::Base
   has_and_belongs_to_many :newsletters
 	# Relation 1-N 
   has_many :groups_newsletters, :dependent => :delete_all
-
+	# Relation N-1 to the 'groupings' table, defining the object composing the group
   has_many :groupings, :dependent => :delete_all
-
+	# Relation N-1 to the 'groupings' table and scoping the User objects
   has_many :users, :through => :groupings, :source => :user,
     :conditions => "groupings.groupable_type = 'User'", :order => 'email ASC'
-
+	# Relation N-1 to the 'groupings' table and scoping the Person objects
   has_many :people, :through => :groupings, :source => :person,
     :conditions => "groupings.groupable_type = 'Person'", :order => 'email ASC'
-
   
-  # Store the Group Objects and Check If the Member Exists Previously in the Group
+  # Setting the Grouping objects given as parameters
   # 
-  # params are selected_Option from View
-  #
-  # selected_Option : "class_id","class_id"...
+  # This method allows to manage directly the objects to link to this group and sent by the form.
+	# Depending of the values retrieved from the paramter, it will create or delete Grouping objects.
+	# The parameter has to be a array of string following the syntax :
+	# - (object_name)_(object_id)
+	#
+	# Usage :
+	# - @group.groupable_objects= ['User_1', 'Person_23', .... ]
   def groupable_objects= params 
     tmp = []
     params.split(',').each do |option|
@@ -58,7 +61,11 @@ class Group < ActiveRecord::Base
     end
   end
 
-  # Sorting Members(People and Users) According to Email
+  # List of the objects composing the Group, ordered by email
+	#
+	# This method will return a list of the objects composing the group,
+	# converted with the 'to_people' method in order to be able to order the list properly.
+	# By the way, it will allow to manage this list in a generic way.
   def members
     (self.users + self.people).map{ |e| e.to_people }.sort! { |a,b| a.email.downcase <=> b.email.downcase }
   end

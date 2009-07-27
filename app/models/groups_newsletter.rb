@@ -9,10 +9,13 @@
 #  sent_on       :datetime
 #
 
+# This object is used to manage the join between Newsletter object and Group object.
+# It is defined just to support the double :has_many relationship.
 class GroupsNewsletter < ActiveRecord::Base
 
+	# Realtion 1-N with 'groups' table
   belongs_to :group
-  
+  # Relation 1-N with 'newsletters' table
   belongs_to :newsletter
   
 end

@@ -445,7 +445,7 @@ fr-FR:
       subject_hint: Sujet de l'email
       from_email_label: Depuis l'email
     send_newsletter: 
-      send_to: Envoyer
+      send_to: Envoyée à
       send_newsletter: Envoyer la newsletter
       send_newsletter_to_user_list: Envoyez la newsletter à cette liste d'utilisateurs
     unsubscribe: 

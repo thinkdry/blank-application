@@ -11,28 +11,31 @@
 #  updated_at    :datetime
 #
 
+# This object is used to define the relation between Workspace and item types, so it is a polymorphic relation.
+#
 class Item < ActiveRecord::Base
 
+	# Relation 1-N with the 'workspaces' table
   belongs_to :workspace
-
+	# Polymorphic relation with the items tables
   belongs_to :itemable, :polymorphic => true, :include => :user
 
-  # Current Item Type
+  # Method retreiving the item object using the polymorphic relation
 	def get_item #:nodoc:
 		return self.itemable_type.classify.constantize.find(self.itemable_id)
 	end
 
-  # Current Item Type Title
+  # Method retrieving the title of the item object
 	def title #:nodoc:
 		return self.get_item.title
 	end
 
-  # Current Item Type Description
+  # Method retrieving the title of the description object
 	def description #:nodoc:
 		return self.get_item.description
 	end
 
-  # Permission for User in given Worksapce
+  # Scope retrieving the items list dependng of the workspace and the user
 	named_scope :allowed_user_with_permission_in_workspace, lambda { |user_id, permission_name, workspace_ids|
 		raise 'User required' unless user_id
 		raise 'Permission name' unless permission_name

@@ -57,6 +57,7 @@ Rails::Initializer.run do |config|
   # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
 	#config.plugin_paths += %W( #{RAILS_ROOT}/blank_modules )
 	#config.plugin_paths += %W( #{RAILS_ROOT}/blank_modules/aep_beast/plugins )
+  config.plugin_paths += %W( #{RAILS_ROOT}/vendor/engines )
 
   # Add additional load paths for your own custom dirs
   # config.load_paths += %W( #{RAILS_ROOT}/extras )

@@ -69,7 +69,6 @@ ActionController::Routing::Routes.draw do |map|
 
   # Routes for Roles and Permissions in BA
   map.resources :roles
-
   map.resources :permissions
 
   # Routes for Comments

@@ -18,17 +18,19 @@
 
 ====Ubuntu Packages Required:
 
-=====ImageMagick:
+=====ImageMagick gem madatory packages :
 
  - sudo apt-get install imagemagick libmagick9-dev
 
-=====Xapian Package for Full text Xapian Search
+=====Xapian plugin mandatory packages :
 
  - sudo apt-get install libxapian15 libxapian-ruby1.8
 
-=====Rfeedparser for Feed Sources
+=====FeedZirra mandatory packages and installation
 
- - sudo apt-get install libxml-ruby1.8 libxml-parser-ruby1.8
+ - sudo apt-get install libxslt-ruby1.8 libxslt1-dev libcurl4-gnutls-dev
+ - sudo gem sources -a http://gems.github.com
+ - sudo gem install pauldix-feedzirra
 
 =====FFMPEG Video Encoding & liblamemp3 for Audio Encoding
 

@@ -21,37 +21,60 @@
 #  comments_number    :integer(4)      default(0)
 #
 
-#require 'heywatch'
-#require 'ftools'
-
+# This class is defining an item object called 'Video'.
+#
+# You can use it to upload an video file in the Blank application,
+# according to the file types available and the size of the file.
+# Your video file will automatically be converted into FLV (Flash video format) on the server,
+# using the FFMPEG encoder (launched through Backgroundrb plugin, 'converter_worker' task).
+#
+# On the show page, a Flash player will allow you to play this file.
+#
+# See the ActsAsItem:ModelMethods module to have further informations.
+#
 class Video < ActiveRecord::Base
 
-  # Item specific Library - /lib/acts_as_item
+  # Method defined in the ActsAsItem:ModelMethods:ClassMethods (see that library fro more information)
   acts_as_item
-
-  # Paperclip Attachment 
+  # Paperclip attachment definition
   has_attached_file :video,
 		:url =>    "/uploaded_files/video/:id/:style/:basename.:extension",
     :path => ":rails_root/public/uploaded_files/video/:id/:style/:basename.:extension"
-
-  # Paperclip Validations
+  # P# Validation of the presence of a attached file
   validates_attachment_presence :video
-
+	# Validation of the type of the attached file
   #validates_attachment_content_type :video, :content_type => ['video/quicktime','video/x-flash-video', 'video/x-flv', 'video/mpeg','video/3gpp', 'video/x-msvideo']
-
+	# Validation of the size of the attached file
   validates_attachment_size(:video, :less_than => 100.megabytes)
 
-  # Media Type for the Model used in Converter Worker for Encoding.
-  def media_type
+	# Media type used for the FLV encoding
+  #
+	# This method returns a media type used inside the 'converter_worker' task during the encoding.
+	#
+  # Usage :
+  # <tt>object.media_type</tt>
+	def media_type
     video
   end
 
-  # Codec used for Encoding Video to FLV using FFMPEG.
+  # Codec used for the MP3 encoding (general video file)
+  #
+	# This method returns the codec and parameters used by FFMPEG
+	#  for encoding the file atached into FLV format (inside 'converter worker' task).
+	#
+  # Usage :
+  # <tt>object.codec</tt>
   def codec
     "-ar 22050 -ab 32 -f flv -y"
   end
 
-  # Codec used for Encoding 3gp Video to FLV using FFMPEG.
+  # Codec used for the MP3 encoding (in the case of 3gp file)
+  #
+	# This method returns the codec and parameters used by FFMPEG
+	# for encoding the 3gp attached file into FLV format (inside 'converter worker' task).
+	#
+  # Usage :
+  # <tt>object.codec_3gp</tt>
   def codec_3gp
     "-ar 22050 -ab 32 -sameq -an -y"
   end

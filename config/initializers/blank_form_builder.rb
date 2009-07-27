@@ -1,3 +1,7 @@
+# This FormBuilder will define a generic form for the Bank application,
+# setting the special case of the FCKeditor field,
+# and also managing the AJAX validation by adding the <div> necessary for that plugin.
+#
 module ActionView::Base::CompiledTemplates
   class BlankFormBuilder < LabelFormBuilder
     def default_template(object)

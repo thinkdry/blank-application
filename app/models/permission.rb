@@ -11,15 +11,16 @@
 #  type_permission :string(255)
 #
 
+# This object deals with the permission on the Blank application, on the 'system' level
+# and on the 'workspace' level (according to the value set on the 'type_permission' attribute).
+#
 class Permission < ActiveRecord::Base
   
-  # a role can have many permissions, and a permission can have many roles
+  # Relation N-N with the 'roles' table
   has_and_belongs_to_many :roles
-  
-  validates_presence_of :name
-
+  # Validation of the presence of these attributes
+  validates_presence_of :name, :type_permission
+	# Validation of the uniqueness of this attribute
   validates_uniqueness_of :name
-
-  validates_presence_of :type_permission
   
 end

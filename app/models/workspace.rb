@@ -18,55 +18,57 @@
 #  ws_available_types :string(255)     default("")
 #
 
+# This object deals with the link between users and items.
+# Actually, an item is linked to a workspace (through the 'items' table)
+# and an user too (through the 'users_workspaces' table, with a specific role).
+#
 class Workspace < ActiveRecord::Base
-	
+
+	# Relation N-1 with the 'users_workspaces' table
 	has_many :users_workspaces, :dependent => :delete_all
-
+	# Relation N-1 getting the roles linked to that workspace, through the 'users_workspaces' table
 	has_many :roles, :through => :users_workspaces
-
+	# Relation N-1 getting the users linked to that workspace, through the 'users_workspaces' table
 	has_many :users, :through => :users_workspaces
-
+	# Relation N-1 with the 'items' table
 	has_many :items, :dependent => :delete_all
-
-  has_many_polymorphs :itemables, :from => ITEMS.map{ |item| item.pluralize.to_sym }, :through => :items
-
+	# Relation N-1 getting the different item types, through the 'items' table
+	ITEMS.each do |item|
+		has_many item.pluralize.to_sym, :source => :itemable, :through => :items, :source_type => item.classify.to_s, :class_name => item.classify.to_s
+	end
+	# Relation N-1 getting the FeedItem objects, through the 'feed_sources' table
 	has_many :feed_items, :through => :feed_sources
-
+	# Relation 1-N to the 'users' table
 	belongs_to :creator, :class_name => 'User'
-
-	belongs_to :ws_config
-
+	# Method defining the attibute to index for the Xapian research
 	acts_as_xapian :texts => [:title, :description]
 
-  # Paperclip Attachment
+  # Paperclip attachment definition
 	has_attached_file :logo,
     :default_url => "/images/logo.png",
     :url =>  "/uploaded_files/workspace/:id/:style/:basename.:extension",
     :path => ":rails_root/public/uploaded_files/workspace/:id/:style/:basename.:extension",
 		:styles => { :medium => "450x100>", :thumb => "48x48>" }
-
-  # Paperclip Validations
+  # Validation of the type of a attached file
   validates_attachment_content_type :logo, :content_type => ['image/jpeg','image/jpg', 'image/png', 'image/gif','image/bmp' ]
-
+	# Validation of the size of a attached file
   validates_attachment_size :logo, :less_than => 2.megabytes
-
-  # Validations
-
+	# Validation of the prsence of these fields
 	validates_presence_of :title, :description
-
+	#
 	validates_associated :users_workspaces
-
+	# Validation of the uniqueness of users associated to that workspace
 	validate :uniqueness_of_users
 
 	# After Updation Save the associated Users in UserWorkspaces
 	after_update  :save_users_workspaces
 
-  # Latest 5 workspaces
+  # Scope getting the 5 last workspaces created
   named_scope :latest,
     :order => 'created_at DESC',
     :limit => 5
 
-  # Get the Users for the workspace with allowed permission
+  # Scope getting the workspaces authorized for an user with a specific permission
 	named_scope :allowed_user_with_permission, lambda { |user_id, permission_name|
 		raise 'User required' unless user_id
 		raise 'Permission name' unless permission_name
@@ -82,7 +84,7 @@ class Workspace < ActiveRecord::Base
 		end
 	}
 
-  # Get the Workspace for the Users with given Role
+  # Scope getting the workspaces authorized for an user with a specific role
 	named_scope :allowed_user_with_ws_role, lambda { |user_id, role_name|
 		raise 'User required' unless user_id
 		raise 'Role name' unless role_name
@@ -91,7 +93,7 @@ class Workspace < ActiveRecord::Base
 			:conditions => "roles.name = '#{role_name.to_s}'" }
 	}
 
-  # Unique User for UserWorkspace after Worksapce Update
+  # Method used for the validation of the uniqueness of users linked to the workspace
 	def uniqueness_of_users #:nodoc:
 	  new_users = self.users_workspaces.collect { |e| e.user }
 	  new_users.size.times do
@@ -99,17 +101,15 @@ class Workspace < ActiveRecord::Base
 	  end
   end
 
-  # Users of the worksapce with the defined Roles
+  # Users of the workspace with the defined role
   #
-  # Usage:
-  #
+	# This method retrieves the users of the given role in that workspace.
+	#
+  # Usage :
   # <tt>workspace.users_by_role('ws_admin')</tt>
   #
-  # will return all the users associated with the workspace with role 'ws_admin'
-  #
-  # Parameters:
-  #
-  # - role_name: ws_admin, moderator, writer, reader
+  # Parameters :
+  # - role_name: String defining the role name (ex : 'superadmin', 'reader', ...)
 	def users_by_role role_name
 	  role = self.roles.find_by_name(role_name)
 	  res = []
@@ -123,17 +123,35 @@ class Workspace < ActiveRecord::Base
 		return res
   end
 
-  # Item Types for the Workspace Joined By ','
+  # Method setting the item types available for that workspace
+	#
+	# This method will convert the Array given in parameters in an String, where
+	# the different elements of this array are joined by ','.
+	#
+	# Parameters :
+	# - params: Array of Strings defining the item types
 	def ws_items= params
 		self[:ws_items] = params.join(',')
 	end
 
-  # Category for the Workspace Joined By ','
+  # Method setting the item categories available for that workspace
+	#
+	# This method will convert the Array given in parameters in an String, where
+	# the different elements of this array are joined by ','.
+	#
+	# Parameters :
+	# - params: Array of Strings defining the item categories
 	def ws_item_categories= params
 		self[:ws_item_categories] = params.join(',')
 	end
 
-  # Available Worksapce Types for Worksapce
+  # Method setting the available types available for that workspace
+	#
+	# This method will convert the Array given in parameters in an String, where
+	# the different elements of this array are joined by ','.
+	#
+	# Parameters :
+	# - params: Array of Strings defining the available types
 	def ws_available_types= params
 		self[:available_types] = params.join(',')
 	end
@@ -164,9 +182,8 @@ class Workspace < ActiveRecord::Base
 
   # Check User for permission to view the Workspace
   #
-  # Usage:
-  #
-  # <tt>workspace.accepts_show_for? user</tt>
+  # Usage :
+  # <tt>workspace.accepts_show_for?(user)</tt>
   #
   # will return true if the user has permission
 	def accepts_show_for? user

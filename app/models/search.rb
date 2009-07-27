@@ -14,9 +14,15 @@
 #  filter_limit    :integer
 #
 
-
+# This object manage the research on the Blank application.
+# It is actally tableless. TODO Save search params
+#
+# The Search object is waiting for various parameters allowing it to request the database,
+# and the order the results.
+#
 class Search < ActiveRecord::Base
-  # Tableless model
+
+	# Tableless model
   def self.columns() @columns ||= []; end
 
   def self.column(name, sql_type = nil, default = nil, null = true)
