@@ -10,9 +10,15 @@
 #  updated_at :datetime
 #
 
+# This class is used to manage the Keyword objects.
+# Keywords allowed to add sense to an object.
+#
 class Keyword < ActiveRecord::Base
+
+	# Relation N-1 to the 'keywordings' table
   has_many :keywordings
 
+	# Method retrieving the objects linked to a keyword
 	def get_object_linked
 		self.keywordings.map{ |e| e.keywordable }
 	end

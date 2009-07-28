@@ -43,86 +43,77 @@ require 'digest/sha1'
 require 'regexps'
 require 'country_select'
 
+# This class is managing the User object, used for authentication inside the Blank application.
+# It is linked with the RestfulAuthenticatin plugin which is providing hte authentication system,
+# the session management (with the Session object present).
+#
 class User < ActiveRecord::Base
+
+	# Libraries from RestfulAuthenticatin plugin
   include Authentication
   include Authentication::ByPassword
   include Authentication::ByCookieToken
+	# Library provinding access to the Blank application configuration
 	include Configuration
-
+	# Relation N-1 with the 'users_workspaces' table
   has_many :users_workspaces, :dependent => :delete_all
-
+	# Relation N-1 getting Workspace objects through the 'users_workspaces' table
   has_many :workspaces, :through => :users_workspaces
-
+	# Relation N-1 getting workspace Role objects through the 'users_workspaces' table
   has_many :workspace_roles, :through => :users_workspaces, :source => :role
-
+	# Relation N-1 with the different item type objects tables
+	# TODO removed this relation, access to items is done through workspaces
 	ITEMS.each do |item|
 		has_many item.pluralize.to_sym
 	end
-
+	# Relation N-1 with the 'rattings' table
   has_many :rattings
-
+	# Relation N-1 with the 'comments' table
   has_many :comments
-
+	# Relation N-1 getting the FeedItem objects through the 'feed_sources' table
   has_many :feed_items, :through => :feed_sources, :order => "last_updated DESC"
-
+	# Relation N-1 with the polymorphic 'groupings' table
   has_many :groupings, :as => :groupable, :dependent => :delete_all
-
-  has_many :member_in, :through => :groupings, :source => :group
-
+	# Relation N-1 with the 'people' table
   has_many :people, :order => 'email ASC'
-
+	# # Method setting the different attribute to index for the Xapian research
 	acts_as_xapian :texts => [:login, :firstname, :lastname]
 
-  # Paperclip attachment for avatar
+  # Paperclip attachment definition for user avatar
   has_attached_file :avatar,
     :default_url => "/images/default_avatar.png",
     :url =>  "/uploaded_files/user/:id/:style/:basename.:extension",
     :path => ":rails_root/public/uploaded_files/user/:id/:style/:basename.:extension",
     :styles => {
     :thumb=> "100x200>"}
-  
-  # Paperclip Validations
+  # Validation of the content type of the avatar file
   validates_attachment_content_type :avatar, :content_type => ['image/jpeg','image/jpg', 'image/png', 'image/gif','image/bmp']
-  validates_attachment_size(:avatar, :less_than => 5.megabytes)
+  # Validation of the size of the avatar file
+	validates_attachment_size(:avatar, :less_than => 5.megabytes)
 
-  # Validations
-  validates_presence_of     :login
-
-  validates_length_of       :login,     :within => 3..40
-
-  validates_uniqueness_of   :login,     :case_sensitive => false, :on => :create
-
-  validates_format_of       :login,     :with => /\A[a-z_-]+\z/
-
-  validates_presence_of     :email
-
-  validates_length_of       :email,    :within => 6..100
-
-  validates_uniqueness_of   :email,    :case_sensitive => false, :on => :create
-
-  validates_format_of       :email,    :with => RE_EMAIL_OK
-
+  # Validationof the presence of these attributes
+  validates_presence_of     :login, :email, :firstname, :lastname
 	validates_presence_of     :password, :on => :create
-
 	validates_presence_of     :password_confirmation, :on => :create
-
+	# Validation of the confirmation of this attribute
 	validates_confirmation_of :password, :on => :create
-
-  validates_presence_of     :firstname, :lastname
-
+	# Validation of the uniqueness of these attributes
+  validates_uniqueness_of   :login,     :case_sensitive => false, :on => :create
+	validates_uniqueness_of   :email,    :case_sensitive => false, :on => :create
+	# Validation of the length of these attributes
+  validates_length_of       :login,     :within => 3..40
+	validates_length_of       :email,    :within => 6..100
+	# Validation of the format of these fields
+  validates_format_of       :login,     :with => /\A[a-z_-]+\z/
+  validates_format_of       :email,    :with => RE_EMAIL_OK
   validates_format_of       :firstname, :lastname, :company, :with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL})+\Z/, :allow_blank => true
-			  
   validates_format_of       :address, :with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL}|#{NUM})+\Z/, :allow_blank => true
-  
   validates_format_of       :phone,  :mobile, :with => /\A(#{NUM}){10}\Z/, :allow_blank => true
-  
 
   # Encrypt the password before storing in the database
 	before_save :encrypt_password
-
   # Create the activation code before creating the user for email activation
   before_create :make_activation_code
-
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
@@ -134,18 +125,15 @@ class User < ActiveRecord::Base
   # We really need a Dispatch Chain here or something.
   # This will also let us return a human error message.
   #
-
-  # latest 5 users
-  named_scope :latest,
-    :order => 'created_at DESC',
-    :limit => 5
-  
-  def self.authenticate(login, password)
+	def self.authenticate(login, password)
     u = find_by_login(login) # need to get the salt
     u && u.authenticated?(password) ? u : nil
   end
 
-  #TODO check for duplicate email in the user query, and duplicate emails between users email and people emails (refer blank_application_backup_code in public/)
+  # Scope geeting the 5 latest users
+  named_scope :latest,
+    :order => 'created_at DESC',
+    :limit => 5
 
   # Contact List for the User with desired output format for newsletter
 	def get_contacts_list(restriction, output_format, newsletter)

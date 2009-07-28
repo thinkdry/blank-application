@@ -10,9 +10,13 @@
 #  updated_at :datetime
 #
 
+# This class is used to manage the relation between a Keyword object and his relative object.
+#
 class Keywording < ActiveRecord::Base
-  
+
+	# Relation 1-N with the 'keywords' table
 	belongs_to :keyword
+	# Polymorphic relation definition
   belongs_to :keywordable, :polymorphic => true
 
 end

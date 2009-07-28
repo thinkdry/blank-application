@@ -1,3 +1,5 @@
+# This module is defining the mixin methods allowing an object to get and manage comments.
+#
 module ActsAsCommentable
   module ControllerMethods
     
@@ -6,12 +8,15 @@ module ActsAsCommentable
     end
     
     module ClassMethods
+			# Mixin method used for the controller
       def acts_as_commentable
+				# Inclusion of the instance methods inside the mixin
         include ActsAsCommentable::ControllerMethods::InstanceMethods
 			end
     end
     
     module InstanceMethods
+			# Action to add a comment to the object
       def add_comment
         if logged_in?
           comment = current_object.comments.create(params[:comment].merge(:user => @current_user, :state => DEFAULT_COMMENT_STATE))
@@ -53,9 +58,13 @@ module ActsAsCommentable
 		end
 
 		module ClassMethods
+			# Mixin method used for the model
 			def acts_as_commentable
+				# Relation N-1 to the 'comments' table to get ALL the comments
 				has_many :all_comments, :class_name => 'Comment', :as => :commentable, :dependent => :delete_all
+				# Relation N-1 to the 'comments' table to get the VALIDATED comments
 				has_many :comments, :as => :commentable, :order => 'created_at ASC', :conditions => { :state => 'validated', :parent_id => nil}
+				# Inclusion of the instance methods inside the mixin
 				include ActsAsCommentable::ModelMethods::InstanceMethods
 			end
 		end

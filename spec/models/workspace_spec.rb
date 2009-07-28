@@ -84,7 +84,7 @@ describe Workspace do
     it "has many items" do
       Workspace.reflect_on_association(:items).to_hash.should == {
         :macro => :has_many,
-        :options => {:class_name=>"Item", :foreign_key=>"workspace_id", :extend=>[], :dependent=>:destroy},
+        :options => {:extend=>[], :dependent=>:delete_all},
         :class_name => 'Item'
       }
     end
@@ -95,15 +95,7 @@ describe Workspace do
         :class_name => 'Creator'
       }
     end
-    it "belongs to ws config " do
-      Workspace.reflect_on_association(:ws_config).to_hash.should == {
-        :macro => :belongs_to,
-        :options => {},
-        :class_name => 'WsConfig'
-
-      }
-    end
-
+    
   end
 
   describe "should have named scopes" do

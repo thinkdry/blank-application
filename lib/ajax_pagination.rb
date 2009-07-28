@@ -2,19 +2,18 @@ module AjaxPagination
 
   # TODO enhance, test and include in library
 
-  # Ajax Pagination For Content Page
+  # Ajax Pagination for objects list
   #
-  # Usage:Called from the View as
-  #
-  # <tt>remote_pagination(@paginated_objects, ajax_url,  'object-list')</tt>
-  #
-  # will refresh the div with new paginated_objects
-  #
-  # Parameters
-  #
-  # - collection: Collection of Item
-  # - url: '/people/ajax_index/?page=' last parameter in the url should be 'page='
-  # - refeshed_div: 'object-list'
+	# This helper method will manage all the pagination in the view,
+	# refreshing the div with the new values (from the collection) given from the url.
+	#
+	# Parameters :
+  # - collection: Collection of items (Array)
+  # - url: String defining the URL to call for the AJAX request (the last parameter in the url should be 'page=')
+  # - refeshed_div: String defining the name of the div to refresh
+	#
+  # Usage in a view :
+  # - <tt>remote_pagination(@paginated_objects, ajax_url,  'object-list')</tt>
   def remote_pagination(collection, url, refreshed_div)
 		#url = request.url.split('?').first
 		url = url.split('?').first
@@ -50,18 +49,17 @@ module AjaxPagination
     end
   end
 
-  # Page Numbers that should be Visible for Pagination
+  # Pages number visible for pagination
   #
-  # Usage:
-  #
-  # <tt>visible_page_numbers(5,20)</tt>
-  #
-  # will return array of visible numbers
-  #
-  # Parameters:
-  #
-  # - current_page: current_page_number
-  # - total_pages: total_pages
+	# This helper method will generate the links allowing to navigate through the pages
+	# generated with the pagination.
+	#
+	# Parameters :
+  # - current_page: Integer defining the current page number
+  # - total_pages: Integer defining the total pages number for the collection
+	#
+  # Usage :
+  # - <tt>visible_page_numbers(5,20)</tt>
   def visible_page_numbers(current_page,total_pages)
       inner_window, outer_window = 4, 1
       window_from = current_page - inner_window

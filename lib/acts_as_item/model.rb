@@ -1,51 +1,41 @@
-# ActsAsItem Specifying Defaut Functanality of the Item(ex: Article, Image, Video...............)
+# This module is defining the different methods required by an Object model to acts like an Item.
+# It is so defining the mixin method that will include all these required methods inside this Object model.
 #
-# Helps Make Code 'DRY'
-
 module ActsAsItem
   module ModelMethods
-		include Configuration
 
     def self.included(base)
       base.extend ClassMethods
     end
 
     module ClassMethods
-      def item?
-        return true if self.respond_to?(:item)
-        false
-      end
-      # ActsAsItem Library for Item Specific Code - Specific Model Methods to All Items
+      # Mixin adding initialisation and definition of an item model
       #
-      # Included in the Models of the Items
+      # This method initialize a model by mixin of the specified methods.
       #
-      # Usage:
-      #
+      # Usage :
       # app/models/article.rb
-      # 
       #     class Article < ActiveRecord::Base
       #      acts_as_item
       #     end
       def acts_as_item
-        
+        # Mixin to add ActsAsRateable methods inside the model
         acts_as_rateable
-
+				# Mixin to add ActsAsKeywordable methods inside the model
 				acts_as_keywordable
-
+				# Mixin to add ActsAsCommentable methods inside the model
 				acts_as_commentable
-
+				# Method setting the different attribute to index for the Xapian research
 				acts_as_xapian :texts => [:title, :description, :keywords_list]
-				
+				# Relation N-1 with the 'items' table (Join table)
 				has_many :items, :as => :itemable, :dependent => :delete_all
-
+				# Relation N-1 getting the Workspace objects through 'item' table
 				has_many :workspaces, :through => :items
-
+				# Relation 1-N with 'users' table
         belongs_to :user
-
-        # Validations
+        # Validation of the presence of these fields
         validates_presence_of	:title, :description, :user
-
-        # Ensure that item is associated to one or more workspaces throught items table
+        # Valdation of the fact that the item is associated to one or more workspaces throught items table
         validates_presence_of :items, :message => "Sélectionner au moins un espace de travail"
 
 				# Retrieve the results matching with Xapian indewes and ordered by weight
@@ -70,6 +60,7 @@ module ActsAsItem
           end
         }
 
+				# Inclusion of the instance methods inside the mixin
         include ActsAsItem::ModelMethods::InstanceMethods
 
       end
@@ -78,10 +69,8 @@ module ActsAsItem
       #
       # Icon is used to associate every item type with image thumbnail of size 32x32px in default back office view.
       #
-      # Usage:
-      #
+      # Usage :
       # <tt>Article.icon</tt>
-      #
       # will return "/item_icons/article.png
       def icon
         'item_icons/' + self.to_s.underscore + '.png'
@@ -89,10 +78,8 @@ module ActsAsItem
 
       # Icon_48 is other image to associate every item type with image thumbnail of size 48x48px in default back office view.
       #
-      # Usage:
-      #
+      # Usage :
       # <tt>Article.icon_48</tt>
-      #
       # will return "/item_icons/article_48.png
       def icon_48
         'item_icons/' + self.to_s.underscore + '_48.png'
@@ -100,10 +87,8 @@ module ActsAsItem
 
       # Label is used to return the name of the item type.
       #
-      # Usage:
-      #
+      # Usage :
       # <tt>Image.label</tt>
-      #
       # will return "Image"
 			def label
 				I18n.t("general.item.#{self.model_name.underscore}")
@@ -111,24 +96,17 @@ module ActsAsItem
 
       # List the Items in the Worksapce for the User with permission.
       #
-      # Usage:
-      #
+      # Usage :
       # <tt>Article.get_items_list_for_user_with_permission_in_workspace(user_object,'show',workspace_object,'created_at','desc',10)</tt>
       #
       # Will Return the object of type article with defined filters
       #
       # Parameters:
-      #
       # - user: Logged in User
-      #
       # - action : 'show','new','edit','destroy'
-      #
       # - workspace : Workspace of User
-      #
       # - filter_name: 'created_at','updated_at','title'..... default: 'created_at'
-      #
       # - filter_way: 'asc' or 'desc' default: 'desc'
-      #
       # - limit: 'number' default: 10
 			def get_items_list_for_user_with_permission_in_workspace(user, action, workspace, filter_name, filter_way, filter_limit)
 				filter_name ||= 'created_at'
@@ -152,14 +130,10 @@ module ActsAsItem
       #
       # Will Return the object of type article with defined filters
       #
-      # Parameters:
-      #
+      # Parameters :
       # - action : 'show','new','edit','destroy'
-      #
       # - filter_name: 'created_at','updated_at','title'..... default: 'created_at'
-      #
       # - filter_way: 'asc' or 'desc' default: 'desc'
-      #
       # - limit: 'number' default: 10
 			def get_items_list_for_user_with_permission(user, action, filter_name, filter_way, filter_limit)
 				filter_name ||= 'created_at'
@@ -220,10 +194,8 @@ module ActsAsItem
       #
       # Icon is used to associate every item type with image thumbnail of size 32x32px in default back office view.
       #
-      # Usage:
-      #
+      # Usage :
       # <tt>article.icon</tt>
-      #
       # will return "/item_icons/article.png
       def icon
         self.class.icon
@@ -232,10 +204,8 @@ module ActsAsItem
 
       # Assign Worksapces to current Item ( One Item can be associated with many Worksapces)
       #
-      # Usage:
-      #
+      # Usage :
       # <tt>article.assoicated_workspaces = [workspace1.id, workspace2.id]</tt>
-      #
       # will assign workspaces to the item
       def associated_workspaces= workspace_ids
         self.items = workspace_ids.collect { |id| self.items.build(:workspace_id => id) }

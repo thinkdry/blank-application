@@ -1,5 +1,6 @@
 class UserMailer < ActionMailer::Base
 
+	# Library included to get the application configuration methods
 	include Configuration
 
   # Return the current set sa_application_url in Superadministration
@@ -7,7 +8,7 @@ class UserMailer < ActionMailer::Base
 		return get_sa_config['sa_application_url']
   end
 
-# Return the current set sa_application_name in Superadministration
+	# Return the current set sa_application_name in Superadministration
 	def site_name
 		return get_sa_config['sa_application_name']
 	end

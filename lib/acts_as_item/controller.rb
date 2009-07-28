@@ -1,3 +1,6 @@
+# This module is defining the different methods and actions required by an Object controller to acts like an Item.
+# It is so defining the mixin method that will include all these required methods and actions inside this Object controller.
+#
 module ActsAsItem
   module ControllerMethods
     
@@ -6,23 +9,29 @@ module ActsAsItem
     end
     
     module ClassMethods
-      # ActsAsItem Library for Item Specific Code - Specific Controller Methods to All Items
+      # Mixin adding initialisation and definition of an item controller
       #
-      # Included in the Controller of the Items
+      # This method initialize a controller by mixin of the specified methods,
+			# and it can take a block in parameter to add others MakeResourceful plugin filters.
       #
-      # Usage:
-      #
+      # Usage :
       # app/controllers/articles_controller.rb
       #
       #     class ArticlesController < ApplicationController
       #      acts_as_item do
-      #       ....some...code..
+      #         before :create do
+			#           ....
+			#         end
       #       end
       #     end
       def acts_as_item &block
+				# Inclusion of the instance methods inside the mixin method
         include ActsAsItem::ControllerMethods::InstanceMethods
+				# Declaration of the AjaxValidation plugin
 				acts_as_ajax_validation
+				# Declaration of the ActAsCommentable plugin
 				acts_as_commentable
+				# Declaration of the ActsAsKeywordable plugin
 				acts_as_keywordable
 
 				# Filter allowing to update the Xapian index with the delta brought by that object (Superfast solution, but performance less)
@@ -32,74 +41,72 @@ module ActsAsItem
 					end
 				end
 
+				# Filter checking the permission depending of the action and the controller given with request params
 				before_filter :permission_checking, :only => [:new, :create, :edit, :update, :show, :destroy]
+				# Filter skipped in case of the 'redirect_to_content action'
 				skip_before_filter :is_logged?, :only => [:redirect_to_content]
 
+				# MakeResourceful definitions
         make_resourceful do
+					# Declaration of all the CRUD methods : new,create,edit,update,show,index
           actions :all
+					# 
           belongs_to :workspace
 
+					# Inclusion of the block if a block is found
           self.instance_eval &block if block_given?
-          
+
+					# Filter setting the Flash message linked to that action
           after :create do
             flash[:notice] = @current_object.class.label+' '+I18n.t('item.new.flash_notice')
           end
-
+					# Filter setting the Flash message linked to that action
           after :create_fails do
             flash[:error] = @current_object.class.label+' '+I18n.t('item.new.flash_error')
           end
-
+					# Filter setting the Flash message linked to that action, and removing the item information (used by FCKeditor)
           after :update do
             session[:fck_item_id] = nil
             session[:fck_item_type] = nil
             flash[:notice] = @current_object.class.label+' '+I18n.t('item.edit.flash_notice')
           end
-          
+          # Filter setting the Flash message linked to that action
           after :update_fails do
             flash[:error] = @current_object.class.label+' '+I18n.t('item.edit.flash_error')
           end
-
-#          before :new, :create do
-#            no_permission_redirection unless @current_object && @current_object.accepts_new_for?(@current_user)
-#          end
-
+					# Filter updating the 'viewed_number' attribute of the item
           before :show do
-#            no_permission_redirection unless @current_object && @current_object.accepts_show_for?(@current_user)
 						@current_object.viewed_number = @current_object.viewed_number.to_i + 1
 						@current_object.save
           end
-
+					# Filter saving in the session the item information (used by FCKeditor)
           before :edit, :update do
-#            no_permission_redirection unless @current_object.accepts_edit_for?(@current_user)
 						session[:fck_item_id] = @current_object.id
             session[:fck_item_type] = @current_object.class.to_s
           end
-
-          before :destroy do
-#            no_permission_redirection unless @current_object && @current_object.accepts_destroy_for?(@current_user)
-          end
-
           # Makes `current_user` as author for the current_object
           before :create do
 						# Trick used in case there is no params (meaning none is selected)
 						params[@current_object.class.to_s.underscore][:keywords_field] ||= []
             current_object.user_id = current_user.id
           end
-
+					# Filter setting the keywords value in case the list is empty (else the application will think there is no field ...)
 					before :update do
 						params[@current_object.class.to_s.underscore][:keywords_field] ||= []
 					end
-
+					# 
 					before :index do
 						# Just to manage the permission of creation (trick avoiding one more loop)
 						params[:item_type] = @current_objects.first.class.to_s.underscore
 						@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
 					end
-
+					# Response redirecting to the show page after the create action,
+					# In the case of Article, Page or Newsletter, it is redirecting to the edition page
+					# in order to fill the 'body' field.
 					response_for :create do |format|
-						format.html { (@current_object.class.to_s == 'Article' || @current_object.class.to_s == 'Page') ? redirect_to(edit_item_path(@current_object)) : redirect_to(item_path(@current_object)) }
+						format.html { (['Article', 'Page', 'Newsletter'].include?(@current_object.class.to_s)) ? redirect_to(edit_item_path(@current_object)) : redirect_to(item_path(@current_object)) }
 					end
-
+					# Response redirecting to the show page after the edition
 					response_for :update do |format|
 						format.html { redirect_to item_path(@current_object) }
 					end
@@ -141,11 +148,8 @@ module ActsAsItem
     module InstanceMethods
 			# Function testing the auhorization on an instance of that item type
       #
-      # Included in the Controller of the Items
-      #
-      # Usage:
-      #
-      # Just use in a before_filter checking the permission before each action specified
+      # This method will check the permission of an user for the item type and the action defined
+			# in the request.
       #
 			def permission_checking
 				if params[:action] == 'new' || params[:action] == 'create'
@@ -162,13 +166,10 @@ module ActsAsItem
 
 			# Function allowing to get directly the content of the item, not details like title or description
 			#
-      # Included in the Controller of the Items
+      # This method will return a link to the resource defining by the item.
       #
-      # Usage:
-      #
+      # Usage URL :
       # /images/123/redirect_to_content
-			# The return of this url is directly the image linked t that article.
-      #
 			def redirect_to_content
 				# Critical for performance but important for security
 				# TODO what if this item is not in fcke but not linked to a website ... (we should make restriction)
@@ -190,7 +191,7 @@ module ActsAsItem
 			
       # Rate the Item
       #
-      # Usage:
+      # Usage :
       #
       # <tt>article.rate</tt>
       #

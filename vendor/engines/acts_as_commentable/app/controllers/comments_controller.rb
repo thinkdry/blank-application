@@ -1,12 +1,17 @@
+# This controller manages the actions relation to the Comment object.
 class CommentsController < ApplicationController
 
+	#
 	unloadable
-
+	# Filters managing the rights on the comment actions
 	before_filter :is_superadmin?, :only => ['index', 'edit', 'update', 'destroy']
   before_filter :is_admin?, :only => ['index', 'edit', 'update', 'destroy']
 
-  # GET /comments
-  # GET /comments.xml
+	# Standart action for list presentation
+	#
+	# Usage URL :
+  # - GET /comments
+  # - GET /comments.xml
   def index
 		if params[:on_state] && (params[:on_state] != 'all')
 			@current_objects = Comment.find(:all, :order => 'created_at DESC', :conditions => { :state => params[:on_state], :parent_id => nil }).paginate(:per_page => get_per_page_value, :page => params[:page])
@@ -19,7 +24,10 @@ class CommentsController < ApplicationController
     end
   end
 
-	# GET /comments/new
+	# Standart action for new form presentation
+	#
+	# Usage URL :
+	# - GET /comments/new
   def new
     @current_object = Comment.new
 		respond_to do |format|
@@ -28,7 +36,10 @@ class CommentsController < ApplicationController
     end
   end
 
-  # GET /comments/1/edit
+	# Standart action for edit form presentation
+	#
+	# Usage URL :
+  # - GET /comments/:id/edit
   def edit
     @current_object = Comment.find(params[:id])
 		respond_to do |format|
@@ -37,8 +48,11 @@ class CommentsController < ApplicationController
     end
   end
 
-  # POST /comments
-  # POST /comments.xml
+	# Standart action for object creation
+	#
+	# Usage URL :
+  # - POST /comments
+  # - POST /comments.xml
   def create
     @current_object = Comment.new(params[:comment])
 		respond_to do |format|
@@ -54,8 +68,11 @@ class CommentsController < ApplicationController
 		end
   end
 
-  # PUT /comments/1
-  # PUT /comments/1.xml
+	# Standart action for object updation
+	#
+	# Usage URL :
+  # - PUT /comments/1
+  # - PUT /comments/1.xml
   def update
     @current_object = Comment.find(params[:id])
     respond_to do |format|
@@ -71,8 +88,11 @@ class CommentsController < ApplicationController
 		end
   end
 
-  # DELETE /comments/1
-  # DELETE /comments/1.xml
+	# Standart action for object deletion
+	#
+	# Usage URL :
+  # - DELETE /comments/1
+  # - DELETE /comments/1.xml
   def destroy
     @current_object = Comment.find(params[:id])
 		respond_to do |format|
@@ -90,7 +110,7 @@ class CommentsController < ApplicationController
 		end
   end
 
-	# Change the state of the comment : posted, validated, rejected
+	# Acction allowing to change the state of the comment : posted, validated, rejected
 	def change_state
 		@current_object = Comment.find(params[:id])
 		@current_object.state = params[:new_state]
@@ -98,6 +118,7 @@ class CommentsController < ApplicationController
 		redirect_to comments_url
 	end
 
+	# Action allowing to reply on a posted comment, with Captcha or not
   def add_reply
     if logged_in?
       @current_object = Comment.create(params[:comment].merge(:user => @current_user, :state => DEFAULT_COMMENT_STATE))

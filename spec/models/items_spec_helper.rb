@@ -105,7 +105,7 @@ module ItemsSpecHelper
   def workspace_item_associations
     {
       :macro => :has_many,
-      :options => {:through=>:items, :source=>:workspace, :group=>nil, :foreign_key=>"workspace_id", :limit=>nil, :extend=>[], :class_name=>"Workspace", :offset=>nil, :order=>nil, :conditions=>nil},
+      :options => {:through=>:items, :extend=>[]},
       :class_name => "Workspace"
     }
   end
@@ -121,7 +121,7 @@ module ItemsSpecHelper
   def items_associations
     {
       :macro => :has_many,
-      :options => {:dependent=>:destroy, :conditions=>nil, :as=>:itemable, :extend=>[], :class_name=>"Item", :order=>nil},
+      :options => {:dependent=>:delete_all, :as=>:itemable, :extend=>[]},
       :class_name => "Item"
     }
   end

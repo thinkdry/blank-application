@@ -1,6 +1,6 @@
 <div class="comment_info">
   RE:-
-  <%= link_to_user object.user %><%=I18n.t('general.common_word.on1')%> <%= I18n.l object.created_at, :format => :short1 %>
+  <%= link_to_user User.find(object.user_id) %><%=I18n.t('general.common_word.on1')%>&nbsp;<%= I18n.l object.created_at, :format => :short1 %>
 </div>
 <div class="comment_text">
   <i><%= object.text %></i>
