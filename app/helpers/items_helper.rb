@@ -256,9 +256,11 @@ module ItemsHelper
 	def safe_url(url, params)
 		# TODO generic allowing to replace params in url
 		# trick, work just for classify_bar case
-		prev_params = (a=request.url.split('?')).size > 1 ? '?'+a.last : ''
+#		prev_params = (a=request.url.split('?')).size > 1 ? '?'+a.last : ''
 		#raise request.url.split('?').size.inspect
-		return (url+prev_params).split(params.first.split('=').first).first + ((url+prev_params).include?('?') ? '&' : '?') +params.join('&')
+#		return (url+prev_params).split(params.first.split('=').first).first + ((url+prev_params).include?('?') ? '&' : '?') +params.join('&')
+
+    return url+'/?'+params.join('&')
 	end
 
   # Render Specific Partial according to Item Type passed
