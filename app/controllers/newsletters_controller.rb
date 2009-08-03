@@ -5,8 +5,7 @@
 #
 class NewslettersController < ApplicationController
 
-	# Filter skipping the 'is_logged?' filter to allow non-logged user to unsubscribe from the newsletter
-	skip_before_filter :is_logged?, :only => ['unsubscribe']
+	
 
 	# Method defined in the ActsAsItem:ControllerMethods:ClassMethods (see that library fro more information)
   acts_as_item do
@@ -17,6 +16,9 @@ class NewslettersController < ApplicationController
 			format.json { render :json => @current_object }
 		end
   end
+
+  # Filter skipping the 'is_logged?' filter to allow non-logged user to unsubscribe from the newsletter
+	skip_before_filter :is_logged?, :only => [:unsubscribe]
 
   # Action sending the newsletter to a selected group
   #
@@ -33,7 +35,7 @@ class NewslettersController < ApplicationController
     if GroupsNewsletter.new(:group_id => @group.id,:newsletter_id => @newsletter.id,:sent_on=>Time.now).save
       for member in @group.members
         if member.newsletter
-          args = [member.email,member.class.to_s.downcase,@newsletter.from_email,@newsletter.subject, @newsletter.description, @newsletter.body]
+          args = [member.email,member.model_name,@newsletter.from_email,@newsletter.subject, @newsletter.description, @newsletter.body]
           QueuedMail.add("UserMailer","send_newsletter", args, 0)
         end
       end
@@ -48,12 +50,15 @@ class NewslettersController < ApplicationController
 	#
   # Usage URL:
   # 
-  # /unsubscribe_for_newsletter?member_type=people
+  # /unsubscribe_for_newsletter?member_type=people&email=abc@abc.com
   #
   def unsubscribe
     @member = params[:member_type].classify.constantize.find_by_email(params[:email])
-    if @member.update_attributes(:newsletter => false)
+    if @member.update_attribute(:newsletter, false)
       flash[:notice] = I18n.t('newsletter.unsubscribe.flash_notice')
+      redirect_to @configuration['sa_application_url']
+    else
+      flash[:error] = "Unable to unsubscribe. Please try again."
       redirect_to @configuration['sa_application_url']
     end
   end

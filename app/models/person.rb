@@ -48,6 +48,8 @@ class Person < ActiveRecord::Base
 	# Validation of the format of this attribute
   validates_format_of :email, :with => RE_EMAIL_OK
 
+  attr_accessor :model_name
+
   # Check with previously existing email for uniqueness
 	#
 	# This method checks if the email address is uniq for the user who has created the object.
@@ -72,7 +74,9 @@ class Person < ActiveRecord::Base
 
 	# Return the People format of the object (here, itself)
   def to_people
-    return self
+    people = self
+    people.model_name = "Person"
+    return people
   end
 
   # Method returning the object mapped into a Hash with just some attributes

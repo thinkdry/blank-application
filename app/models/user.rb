@@ -168,7 +168,7 @@ class User < ActiveRecord::Base
     return Person.new(:first_name => self.firstname, :last_name => self.lastname,:email => self.email,
       :primary_phone => self.phone, :mobile_phone => self.mobile,:city => self.address,
       :country => self.nationality,:company => self.company,:job_title => self.activity,
-      :newsletter => self.newsletter,:created_at => self.created_at,:updated_at => self.updated_at)
+      :newsletter => self.newsletter,:created_at => self.created_at,:updated_at => self.updated_at,:model_name => "User")
   end
 
   # User as a Group Member
