@@ -1,11 +1,11 @@
 <%# item_preview( :title => I18n.t('video.field.video_label'),  :object => object ) do %>
   <div id ="progress">
     <% if object.state=="encoded" %>
-      <%= render :partial => "videos/player", :object => object %>
+      <%= render :partial => "videos/player.html", :object => object %>
     <% else %>
       <%= object.state.capitalize %>
     <% end %>
   </div>
   <br /><br />
-  <%= image_tag("icons/download.png")%><%= link_to I18n.t('general.button.download'), "/videos/download/#{object.id}" %>
+  <%= image_tag("icons/download.png")%><%= link_to I18n.t('general.button.download'), download_video_path(object.id) %>
 <%# end %>

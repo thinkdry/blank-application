@@ -94,6 +94,31 @@ module ActsAsItem
 				I18n.t("general.item.#{self.model_name.underscore}")
 			end
 
+      
+			def get_items_list_for_user_with_permission_in_workspace(user, action, workspace, filter_name, filter_way)
+				filter_name ||= 'created_at'
+				filter_way ||= 'desc'
+				# System permission checked or Workspace permission checked
+				if user.has_system_permission(self.model_name.underscore, action) || user.has_workspace_permission(workspace.id, self.model_name.underscore, action)
+					return workspace.send(self.model_name.underscore.pluralize.to_sym).all(:order => filter_name+' '+filter_way)
+				else
+					return []
+				end
+			end
+
+      
+			def get_items_list_for_user_with_permission(user, action, filter_name, filter_way)
+				filter_name ||= 'created_at'
+				filter_way ||= 'desc'
+				# System permission checked
+				if user.has_system_permission(self.model_name.underscore, action)
+					return self.all(:order => filter_name+' '+filter_way)
+        else
+          return self.find_by_sql("select a.* from #{self.model_name.pluralize.underscore} a,items it,users_workspaces u_s where a.id = it.itemable_id and it.itemable_type = '#{self.model_name}' and it.workspace_id = u_s.workspace_id and u_s.user_id = #{user.id} and u_s.role_id in (select p_s.role_id from permissions_roles p_s where p_s.permission_id in (select p.id from permissions p where p.name = '#{self.model_name.underscore+'_'+action}'))  GROUP BY a.id ORDER BY #{'a.'+filter_name} #{filter_way}")
+				end
+			end
+
+      # new code
       # List the Items in the Worksapce for the User with permission.
       #
       # Usage :
@@ -108,20 +133,19 @@ module ActsAsItem
       # - filter_name: 'created_at','updated_at','title'..... default: 'created_at'
       # - filter_way: 'asc' or 'desc' default: 'desc'
       # - limit: 'number' default: 10
-			def get_items_list_for_user_with_permission_in_workspace(user, action, workspace, filter_name, filter_way, filter_limit)
+      def get_paginated_items_list_for_user_with_permission_in_workspace(user, action, workspace, filter_name, filter_way, filter_limit, page)
 				filter_name ||= 'created_at'
 				filter_way ||= 'desc'
+        page ||= 1
 				# System permission checked
-				if user.has_system_permission(self.model_name.underscore, action)
-					return workspace.send(self.model_name.underscore.pluralize.to_sym).all(:order => filter_name+' '+filter_way, :limit => filter_limit)
-          # Workspace permission checked
-				elsif user.has_workspace_permission(workspace.id, self.model_name.underscore, action)
-					return workspace.send(self.model_name.underscore.pluralize.to_sym).all(:order => filter_name+' '+filter_way, :limit => filter_limit)
+				if user.has_system_permission(self.model_name.underscore, action) or user.has_workspace_permission(workspace.id, self.model_name.underscore, action)
+          return workspace.send(self.model_name.underscore.pluralize.to_sym).paginate(:per_page => filter_limit,:page => page, :order => filter_name+' '+filter_way)
 				else
 					return []
 				end
 			end
-
+      
+      # will return paginated items
       # List the Items for the User with permission.
       #
       # Usage:
@@ -135,36 +159,19 @@ module ActsAsItem
       # - filter_name: 'created_at','updated_at','title'..... default: 'created_at'
       # - filter_way: 'asc' or 'desc' default: 'desc'
       # - limit: 'number' default: 10
-			def get_items_list_for_user_with_permission(user, action, filter_name, filter_way, filter_limit)
-				filter_name ||= 'created_at'
+      def get_paginated_items_list_for_user_with_permission(user, action, filter_name, filter_way, filter_limit, page)
+        filter_name ||= 'created_at'
 				filter_way ||= 'desc'
-        filter_limit ||= 10
-				# System permission checked
-				if user.has_system_permission(self.model_name.underscore, action)
-					return self.all(:order => filter_name+' '+filter_way, :limit => filter_limit)
-          # Workspace permission checked
-          #raise user.workspaces.inspect
-				elsif !(wsl=user.workspaces).blank?
-					res = []
+        page ||= 1
+        # System permission checked
+        if user.has_system_permission(self.model_name.underscore, action)
+          return self.paginate(:per_page => filter_limit, :page => page ,:order => filter_name+' '+filter_way)
+        else
 					# TODO : directly with custom SQL
-					wsl.each do |ws|
-						if user.has_workspace_permission(ws.id, self.model_name.underscore, action)
-							res = res + ws.send(self.model_name.underscore.pluralize.to_sym)
-						end
-					end
-					if filter_way == 'desc'
-						res = res.sort{ |x, y| y.send(filter_name.to_sym) <=> x.send(filter_name.to_sym) }
-					else
-						res = res.sort{ |x, y| x.send(filter_name.to_sym) <=> y.send(filter_name.to_sym) }
-					end
-					if filter_limit
-						res = res[0..filter_limit]
-					end
-					return res
-				else
-					return []
+          return self.paginate_by_sql("select a.* from #{self.model_name.pluralize.underscore} a,items it,users_workspaces u_s where a.id = it.itemable_id and it.itemable_type = '#{self.model_name}' and it.workspace_id = u_s.workspace_id and u_s.user_id = #{user.id} and u_s.role_id in (select p_s.role_id from permissions_roles p_s where p_s.permission_id in (select p.id from permissions p where p.name = '#{self.model_name.underscore+'_'+action}'))  GROUP BY a.id ORDER BY #{'a.'+filter_name} #{filter_way}",:per_page => filter_limit,:page => page)
 				end
-			end
+      end
+      #
 
 			private
 			def get_sa_config

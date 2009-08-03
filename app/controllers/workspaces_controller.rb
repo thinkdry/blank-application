@@ -25,8 +25,11 @@ class WorkspacesController < ApplicationController
       params[:id] ||= params[:workspace_id]
 			# Just for the first load of the show, means without item selected
       params[:item_type] ||= get_allowed_item_types(@current_object).first.to_s.pluralize
-			@current_objects = get_items_list(params[:item_type], @current_object)
-			@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
+#			@current_objects = get_items_list(params[:item_type], @current_object)
+#			@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
+      #<!-- new code
+      @paginated_objects = get_paginated_items_list(params[:item_type], @current_object)
+      # -->
     end
 
 		before :new do
