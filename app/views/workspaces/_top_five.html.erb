@@ -1,10 +1,12 @@
 <%
 	if current_workspace
-		items = GenericItem.from_workspace(current_workspace.id)
-        feed_items = FeedItem.from_workspace(current_workspace.id)
+		most_commented = GenericItem.from_workspace(current_workspace.id).most_commented.to_a
+        best_rated = GenericItem.from_workspace(current_workspace.id).best_rated.to_a
+        feed_items = FeedItem.from_workspace(current_workspace.id).latest
 	else
-		items = GenericItem.consultable_by(current_user.id)
-        feed_items = FeedItem.consultable_by(current_user.id)
+        most_commented = GenericItem.consultable_by(current_user.id).most_commented.to_a
+        best_rated = GenericItem.consultable_by(current_user.id).best_rated.to_a
+        feed_items = FeedItem.consultable_by(current_user.id).latest
 	end
  %>
  <ul id="top_five_tabs">  
@@ -35,13 +37,13 @@
     <ul>
   	<%= render 	:partial => "items/item_in_top_box",
 				:locals =>{:type_of_list => 'rated'},
-  				:collection => items.best_rated.to_a -%>
+  				:collection => best_rated -%>
   	</ul>
   </div>
   <div id="four">
     <ul>
   	<%= render 	:partial => "items/item_in_top_box",
-  				:collection => items.most_commented.to_a, 
+  				:collection => most_commented, 
 				:locals => {:type_of_list => 'comments'} -%>
   	</ul>
   </div>
@@ -49,7 +51,7 @@
     <ul>
     <% if feed_items.latest.to_a.size > 0 -%>
   	<%= render 	:partial => "items/feed_item_in_top_box",
-  				:collection => feed_items.latest.to_a -%>
+  				:collection => feed_items.to_a -%>
 	<% else -%>
 		<li><%=I18n.t('workspace.show.no_feed_items')%></li>
 	<% end -%>

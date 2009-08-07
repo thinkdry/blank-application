@@ -1,9 +1,11 @@
 <%
 	if current_workspace
-		items = GenericItem.from_workspace(current_workspace.id)
+		most_commented = GenericItem.from_workspace(current_workspace.id).most_commented.to_a
+        best_rated = GenericItem.from_workspace(current_workspace.id).best_rated.to_a
         feed_items = FeedItem.from_workspace(current_workspace.id)
 	else
-		items = GenericItem.consultable_by(current_user.id)
+        most_commented = GenericItem.consultable_by(current_user.id).most_commented.to_a
+        best_rated = GenericItem.consultable_by(current_user.id).best_rated.to_a
         feed_items = FeedItem.consultable_by(current_user.id)
 	end
  %>
@@ -80,14 +82,14 @@
     <ul class="top_box">
   	<%= render 	:partial => "items/item_in_top_box",
 				:locals =>{:type_of_list => 'comment'},
-  				:collection => items.most_commented.to_a %>
+  				:collection => most_commented %>
   	</ul>
   </div>
   <div id="two">
     <ul class="top_box">
   	<%= render 	:partial => "items/item_in_top_box",
 				:locals =>{:type_of_list => 'rated'},
-  				:collection => items.best_rated.to_a %>
+  				:collection => best_rated %>
   	</ul>
   </div>
   <div id="three">
