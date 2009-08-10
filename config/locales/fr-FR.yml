@@ -235,7 +235,7 @@ fr-FR:
             avatar: 
               content_type: "L'image n'est pas un type de fichier autoris\xC3\xA9"
             login: 
-              invalid: "{{attribute}} invalide : ne doit contenir que des lettres."
+              invalid: "Le champ '{{attribute}}' ne doit contenir que des caractères alpha-numériques."
   time: 
     am: am
     formats: 

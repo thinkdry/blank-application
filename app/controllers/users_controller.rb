@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 	def permission_checking
 		if params[:action] == 'new' || params[:action] == 'create'
 			build_object
-			no_permission_redirection unless @current_user && @current_object.send("accepts_new_for?".to_sym, @current_user)
+			no_permission_redirection unless (@current_user.nil? && is_allowed_free_user_creation?) || (@current_user && @current_object.send("accepts_new_for?".to_sym, @current_user))
 		elsif params[:action] == 'edit' || params[:action] == 'update'
 			current_object
 			no_permission_redirection unless @current_user && @current_object.send("accepts_edit_for?".to_sym, @current_user)
@@ -38,32 +38,18 @@ class UsersController < ApplicationController
   make_resourceful do
     actions :all, :except => [:create]
 
-#    before :destroy do
-#      no_permission_redirection unless @current_user && @current_object.accepts_destroy_for?(@current_user)
-#    end
-#
-#    before :edit, :update do
-#      no_permission_redirection unless @current_user && @current_object.accepts_edit_for?(@current_user)
-#    end
-
     before :new do
 			if logged_in?
 				@search ||= Search.new
         get_roles
-				no_permission_redirection unless @current_user && @current_object.accepts_new_for?(@current_user)
 			elsif is_allowed_free_user_creation?
-        # TODO double render in case captcha failing, remove make resourceful, refactoring
-        #				if @current_object.login # captcha just on create
-        #          render :action => 'new', :layout => 'login' unless yacaph_validated?
-        #        end
+				if @current_object.login # captcha just on create
+					render :action => 'new', :layout => 'login' unless yacaph_validated?
+        end
 			else
 				no_permission_redirection
 			end
     end
-
-#    before :show do
-#			no_permission_redirection unless @current_user && @current_object.accepts_show_for?(@current_user)
-#    end
 
 		before :edit do
 			get_roles
