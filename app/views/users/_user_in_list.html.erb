@@ -10,6 +10,7 @@
       <% else %>
         <%= link_to (object.activation_code=='locked' ? 'Unlock' : 'Lock'), locking_user_path(object.id) %><br />
       <% end %>
+      <i>- Role: <%= object.system_role.name %></i><br />
       <i><%=" - Last Connected: " + (object.last_connected_at ? time_ago_in_words(object.last_connected_at) : 'unknow but created at '+object.created_at.to_s) %></i><br />
       <i><%=" - State: " + object.activation_code.to_s %></i>
 	<% end %>
