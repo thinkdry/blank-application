@@ -21,7 +21,8 @@ namespace :blank do
 
 	desc "Initializing Blank Engine"
 	task :init => :environment do
-		Rake::Task['captcha:generate'].invoke
+		system("rake captcha:generate COUNT=10")
+		#Rake::Task['captcha:generate'].invoke
 	end
 
 	desc "Initializing Blank Engine"
