@@ -2,8 +2,9 @@ require "cases/helper"
 require 'models/company'
 require 'models/topic'
 require 'models/edge'
-require 'models/club'
-require 'models/organization'
+require 'models/owner'
+require 'models/pet'
+require 'models/toy'
 
 Company.has_many :accounts
 
@@ -12,7 +13,7 @@ class NumericData < ActiveRecord::Base
 end
 
 class CalculationsTest < ActiveRecord::TestCase
-  fixtures :companies, :accounts, :topics
+  fixtures :companies, :accounts, :topics, :owners, :pets, :toys
 
   def test_should_sum_field
     assert_equal 318, Account.sum(:credit_limit)
@@ -205,7 +206,7 @@ class CalculationsTest < ActiveRecord::TestCase
     c = Company.count(:all, :group => "UPPER(#{QUOTED_TYPE})")
     assert_equal 2, c[nil]
     assert_equal 1, c['DEPENDENTFIRM']
-    assert_equal 4, c['CLIENT']
+    assert_equal 3, c['CLIENT']
     assert_equal 2, c['FIRM']
   end
 
@@ -213,7 +214,7 @@ class CalculationsTest < ActiveRecord::TestCase
     c = Company.count(:all, :group => "UPPER(companies.#{QUOTED_TYPE})")
     assert_equal 2, c[nil]
     assert_equal 1, c['DEPENDENTFIRM']
-    assert_equal 4, c['CLIENT']
+    assert_equal 3, c['CLIENT']
     assert_equal 2, c['FIRM']
   end
 
@@ -223,10 +224,6 @@ class CalculationsTest < ActiveRecord::TestCase
 
   def test_should_sum_scoped_field
     assert_equal 15, companies(:rails_core).companies.sum(:id)
-  end
-
-  def test_should_sum_scoped_field_with_from
-    assert_equal Club.count, Organization.clubs.count
   end
 
   def test_should_sum_scoped_field_with_conditions
@@ -239,7 +236,7 @@ class CalculationsTest < ActiveRecord::TestCase
     assert_equal 8, c['Jadedpixel']
   end
 
-  def test_should_group_by_summed_field_through_association_and_having
+  def test_should_group_by_summed_field_with_conditions_and_having
     c = companies(:rails_core).companies.sum(:id, :group => :name,
                                                   :having => 'sum(id) > 7')
     assert_nil      c['Leetsoft']
@@ -270,19 +267,6 @@ class CalculationsTest < ActiveRecord::TestCase
     assert_equal 4, Account.count(:distinct => true, :include => :firm, :select => :credit_limit)
   end
 
-  def test_should_count_scoped_select
-    Account.update_all("credit_limit = NULL")
-    assert_equal 0, Account.scoped(:select => "credit_limit").count
-  end
-
-  def test_should_count_scoped_select_with_options
-    Account.update_all("credit_limit = NULL")
-    Account.last.update_attribute('credit_limit', 49)
-    Account.first.update_attribute('credit_limit', 51)
-
-    assert_equal 1, Account.scoped(:select => "credit_limit").count(:conditions => ['credit_limit >= 50'])
-  end
-
   def test_should_count_manual_select_with_include
     assert_equal 6, Account.count(:select => "DISTINCT accounts.id", :include => :firm)
   end
@@ -303,13 +287,12 @@ class CalculationsTest < ActiveRecord::TestCase
     assert_raise(ArgumentError) { Account.count(1, 2, 3) }
   end
 
+  def test_count_with_scoped_has_many_through_association
+    assert_equal 1, owners(:blackbeard).toys.with_name('Bone').count
+  end
+
   def test_should_sum_expression
-    # Oracle adapter returns floating point value 636.0 after SUM
-    if current_adapter?(:OracleAdapter)
-      assert_equal 636, Account.sum("2 * credit_limit")
-    else
-      assert_equal '636', Account.sum("2 * credit_limit")
-    end
+    assert_equal '636', Account.sum("2 * credit_limit")
   end
 
   def test_count_with_from_option

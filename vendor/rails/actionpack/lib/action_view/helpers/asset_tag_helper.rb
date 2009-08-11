@@ -1,7 +1,6 @@
 require 'cgi'
 require 'action_view/helpers/url_helper'
 require 'action_view/helpers/tag_helper'
-require 'active_support/core_ext/file'
 
 module ActionView
   module Helpers #:nodoc:
@@ -171,7 +170,7 @@ module ActionView
       end
 
       # Computes the path to a javascript asset in the public javascripts directory.
-      # If the +source+ filename has no extension, .js will be appended (except for explicit URIs)
+      # If the +source+ filename has no extension, .js will be appended.
       # Full paths from the document root will be passed through.
       # Used internally by javascript_include_tag to build the script path.
       #
@@ -179,7 +178,7 @@ module ActionView
       #   javascript_path "xmlhr" # => /javascripts/xmlhr.js
       #   javascript_path "dir/xmlhr.js" # => /javascripts/dir/xmlhr.js
       #   javascript_path "/dir/xmlhr" # => /dir/xmlhr.js
-      #   javascript_path "http://www.railsapplication.com/js/xmlhr" # => http://www.railsapplication.com/js/xmlhr
+      #   javascript_path "http://www.railsapplication.com/js/xmlhr" # => http://www.railsapplication.com/js/xmlhr.js
       #   javascript_path "http://www.railsapplication.com/js/xmlhr.js" # => http://www.railsapplication.com/js/xmlhr.js
       def javascript_path(source)
         compute_public_path(source, 'javascripts', 'js')
@@ -286,7 +285,7 @@ module ActionView
           end
           javascript_src_tag(joined_javascript_name, options)
         else
-          ensure_javascript_sources!(expand_javascript_sources(sources, recursive)).collect { |source| javascript_src_tag(source, options) }.join("\n")
+          expand_javascript_sources(sources, recursive).collect { |source| javascript_src_tag(source, options) }.join("\n")
         end
       end
 
@@ -337,7 +336,7 @@ module ActionView
       end
 
       # Computes the path to a stylesheet asset in the public stylesheets directory.
-      # If the +source+ filename has no extension, <tt>.css</tt> will be appended (except for explicit URIs).
+      # If the +source+ filename has no extension, <tt>.css</tt> will be appended.
       # Full paths from the document root will be passed through.
       # Used internally by +stylesheet_link_tag+ to build the stylesheet path.
       #
@@ -345,8 +344,8 @@ module ActionView
       #   stylesheet_path "style" # => /stylesheets/style.css
       #   stylesheet_path "dir/style.css" # => /stylesheets/dir/style.css
       #   stylesheet_path "/dir/style.css" # => /dir/style.css
-      #   stylesheet_path "http://www.railsapplication.com/css/style" # => http://www.railsapplication.com/css/style
-      #   stylesheet_path "http://www.railsapplication.com/css/style.css" # => http://www.railsapplication.com/css/style.css
+      #   stylesheet_path "http://www.railsapplication.com/css/style" # => http://www.railsapplication.com/css/style.css
+      #   stylesheet_path "http://www.railsapplication.com/css/style.js" # => http://www.railsapplication.com/css/style.css
       def stylesheet_path(source)
         compute_public_path(source, 'stylesheets', 'css')
       end
@@ -435,7 +434,7 @@ module ActionView
           end
           stylesheet_tag(joined_stylesheet_name, options)
         else
-          ensure_stylesheet_sources!(expand_stylesheet_sources(sources, recursive)).collect { |source| stylesheet_tag(source, options) }.join("\n")
+          expand_stylesheet_sources(sources, recursive).collect { |source| stylesheet_tag(source, options) }.join("\n")
         end
       end
 
@@ -453,36 +452,6 @@ module ActionView
         compute_public_path(source, 'images')
       end
       alias_method :path_to_image, :image_path # aliased to avoid conflicts with an image_path named route
-
-      # Computes the path to a video asset in the public videos directory.
-      # Full paths from the document root will be passed through.
-      # Used internally by +video_tag+ to build the video path.
-      #
-      # ==== Examples
-      #   video_path("hd")                                            # => /videos/hd
-      #   video_path("hd.avi")                                        # => /videos/hd.avi
-      #   video_path("trailers/hd.avi")                               # => /videos/trailers/hd.avi
-      #   video_path("/trailers/hd.avi")                              # => /trailers/hd.avi
-      #   video_path("http://www.railsapplication.com/vid/hd.avi") # => http://www.railsapplication.com/vid/hd.avi
-      def video_path(source)
-        compute_public_path(source, 'videos')
-      end
-      alias_method :path_to_video, :video_path # aliased to avoid conflicts with a video_path named route
-
-      # Computes the path to an audio asset in the public audios directory.
-      # Full paths from the document root will be passed through.
-      # Used internally by +audio_tag+ to build the audio path.
-      #
-      # ==== Examples
-      #   audio_path("horse")                                            # => /audios/horse
-      #   audio_path("horse.wav")                                        # => /audios/horse.avi
-      #   audio_path("sounds/horse.wav")                                 # => /audios/sounds/horse.avi
-      #   audio_path("/sounds/horse.wav")                                # => /sounds/horse.avi
-      #   audio_path("http://www.railsapplication.com/sounds/horse.wav") # => http://www.railsapplication.com/sounds/horse.wav
-      def audio_path(source)
-        compute_public_path(source, 'audios')
-      end
-      alias_method :path_to_audio, :audio_path # aliased to avoid conflicts with an audio_path named route
 
       # Returns an html image tag for the +source+. The +source+ can be a full
       # path or a file that exists in your public images directory.
@@ -520,8 +489,8 @@ module ActionView
       def image_tag(source, options = {})
         options.symbolize_keys!
 
-        src = options[:src] = path_to_image(source)
-        options[:alt]     ||= File.basename(src, '.*').split('.').first.to_s.capitalize
+        options[:src] = path_to_image(source)
+        options[:alt] ||= File.basename(options[:src], '.*').split('.').first.to_s.capitalize
 
         if size = options.delete(:size)
           options[:width], options[:height] = size.split("x") if size =~ %r{^\d+x\d+$}
@@ -529,79 +498,10 @@ module ActionView
 
         if mouseover = options.delete(:mouseover)
           options[:onmouseover] = "this.src='#{image_path(mouseover)}'"
-          options[:onmouseout]  = "this.src='#{src}'"
+          options[:onmouseout]  = "this.src='#{image_path(options[:src])}'"
         end
 
         tag("img", options)
-      end
-
-      # Returns an html video tag for the +sources+. If +sources+ is a string,
-      # a single video tag will be returned. If +sources+ is an array, a video
-      # tag with nested source tags for each source will be returned. The
-      # +sources+ can be full paths or files that exists in your public videos
-      # directory.
-      #
-      # ==== Options
-      # You can add HTML attributes using the +options+. The +options+ supports
-      # two additional keys for convenience and conformance:
-      #
-      # * <tt>:poster</tt> - Set an image (like a screenshot) to be shown
-      #   before the video loads. The path is calculated like the +src+ of +image_tag+.
-      # * <tt>:size</tt> - Supplied as "{Width}x{Height}", so "30x45" becomes
-      #   width="30" and height="45". <tt>:size</tt> will be ignored if the
-      #   value is not in the correct format.
-      #
-      # ==== Examples
-      #  video_tag("trailer")  # =>
-      #    <video src="/videos/trailer" />
-      #  video_tag("trailer.ogg")  # =>
-      #    <video src="/videos/trailer.ogg" />
-      #  video_tag("trailer.ogg", :controls => true, :autobuffer => true)  # =>
-      #    <video autobuffer="autobuffer" controls="controls" src="/videos/trailer.ogg" />
-      #  video_tag("trailer.m4v", :size => "16x10", :poster => "screenshot.png")  # =>
-      #    <video src="/videos/trailer.m4v" width="16" height="10" poster="/images/screenshot.png" />
-      #  video_tag("/trailers/hd.avi", :size => "16x16")  # =>
-      #    <video src="/trailers/hd.avi" width="16" height="16" />
-      #  video_tag("/trailers/hd.avi", :height => '32', :width => '32') # =>
-      #    <video height="32" src="/trailers/hd.avi" width="32" />
-      #  video_tag(["trailer.ogg", "trailer.flv"]) # =>
-      #    <video><source src="trailer.ogg" /><source src="trailer.ogg" /><source src="trailer.flv" /></video>
-      #  video_tag(["trailer.ogg", "trailer.flv"] :size => "160x120") # =>
-      #    <video height="120" width="160"><source src="trailer.ogg" /><source src="trailer.flv" /></video>
-      def video_tag(sources, options = {})
-        options.symbolize_keys!
-
-        options[:poster] = path_to_image(options[:poster]) if options[:poster]
-
-        if size = options.delete(:size)
-          options[:width], options[:height] = size.split("x") if size =~ %r{^\d+x\d+$}
-        end
-
-        if sources.is_a?(Array)
-          content_tag("video", options) do
-            sources.map { |source| tag("source", :src => source) }.join
-          end
-        else
-          options[:src] = path_to_video(sources)
-          tag("video", options)
-        end
-      end
-
-      # Returns an html audio tag for the +source+.
-      # The +source+ can be full path or file that exists in
-      # your public audios directory.
-      #
-      # ==== Examples
-      #  audio_tag("sound")  # =>
-      #    <audio src="/audios/sound" />
-      #  audio_tag("sound.wav")  # =>
-      #    <audio src="/audios/sound.wav" />
-      #  audio_tag("sound.wav", :autoplay => true, :controls => true)  # =>
-      #    <audio autoplay="autoplay" controls="controls" src="/audios/sound.wav" />
-      def audio_tag(source, options = {})
-        options.symbolize_keys!
-        options[:src] = path_to_audio(source)
-        tag("audio", options)
       end
 
       def self.cache_asset_timestamps
@@ -629,11 +529,11 @@ module ActionView
           has_request = @controller.respond_to?(:request)
 
           source_ext = File.extname(source)[1..-1]
-          if ext && !is_uri?(source) && (source_ext.blank? || (ext != source_ext && File.exist?(File.join(ASSETS_DIR, dir, "#{source}.#{ext}"))))
+          if ext && (source_ext.blank? || (ext != source_ext && File.exist?(File.join(ASSETS_DIR, dir, "#{source}.#{ext}"))))
             source += ".#{ext}"
           end
 
-          unless is_uri?(source)
+          unless source =~ %r{^[-a-z]+://}
             source = "/#{dir}/#{source}" unless source[0] == ?/
 
             source = rewrite_asset_path(source)
@@ -645,10 +545,10 @@ module ActionView
             end
           end
 
-          if include_host && !is_uri?(source)
+          if include_host && source !~ %r{^[-a-z]+://}
             host = compute_asset_host(source)
 
-            if has_request && !host.blank? && !is_uri?(host)
+            if has_request && !host.blank? && host !~ %r{^[-a-z]+://}
               host = "#{@controller.request.protocol}#{host}"
             end
 
@@ -656,10 +556,6 @@ module ActionView
           else
             source
           end
-        end
-
-        def is_uri?(path)
-          path =~ %r{^[-a-z]+://}
         end
 
         # Pick an asset host for this source. Returns +nil+ if no host is set,
@@ -768,28 +664,13 @@ module ActionView
           end
         end
 
-        def ensure_stylesheet_sources!(sources)
-          sources.each do |source|
-            asset_file_path!(path_to_stylesheet(source))
-          end
-          return sources
-        end
-
-        def ensure_javascript_sources!(sources)
-          sources.each do |source|
-            asset_file_path!(path_to_javascript(source))
-          end
-          return sources
-        end
-
         def join_asset_file_contents(paths)
-          paths.collect { |path| File.read(asset_file_path!(path)) }.join("\n\n")
+          paths.collect { |path| File.read(asset_file_path(path)) }.join("\n\n")
         end
 
         def write_asset_file_contents(joined_asset_path, asset_paths)
-
           FileUtils.mkdir_p(File.dirname(joined_asset_path))
-          File.atomic_write(joined_asset_path) { |cache| cache.write(join_asset_file_contents(asset_paths)) }
+          File.open(joined_asset_path, "w+") { |cache| cache.write(join_asset_file_contents(asset_paths)) }
 
           # Set mtime to the latest of the combined files to allow for
           # consistent ETag without a shared filesystem.
@@ -799,14 +680,6 @@ module ActionView
 
         def asset_file_path(path)
           File.join(ASSETS_DIR, path.split('?').first)
-        end
-
-        def asset_file_path!(path)
-          unless is_uri?(path)
-            absolute_path = asset_file_path(path)
-            raise(Errno::ENOENT, "Asset file not found at '#{absolute_path}'" ) unless File.exist?(absolute_path)
-            return absolute_path
-          end
         end
 
         def collect_asset_files(*path)

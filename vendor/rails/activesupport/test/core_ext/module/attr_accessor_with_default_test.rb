@@ -1,5 +1,4 @@
 require 'abstract_unit'
-require 'active_support/core_ext/module/attr_accessor_with_default'
 
 class AttrAccessorWithDefaultTest < Test::Unit::TestCase
   def setup

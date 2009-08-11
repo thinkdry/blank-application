@@ -1,7 +1,5 @@
-require 'active_support/ordered_hash'
-
 module ActiveSupport #:nodoc:
-  class OrderedOptions < OrderedHash
+  class OrderedOptions < OrderedHash #:nodoc:
     def []=(key, value)
       super(key.to_sym, value)
     end

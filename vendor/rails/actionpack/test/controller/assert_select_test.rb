@@ -66,14 +66,12 @@ class AssertSelectTest < ActionController::TestCase
   tests AssertSelectController
 
   def setup
-    super
     ActionMailer::Base.delivery_method = :test
     ActionMailer::Base.perform_deliveries = true
     ActionMailer::Base.deliveries = []
   end
 
   def teardown
-    super
     ActionMailer::Base.deliveries.clear
   end
 
@@ -256,13 +254,6 @@ class AssertSelectTest < ActionController::TestCase
       page.insert_html :bottom, "test2", "<div id=\"2\">foo</div>"
     end
     assert_raise(Assertion) {assert_select_rjs :insert, :top, "test2"}
-  end
-  
-  def test_assert_select_rjs_for_redirect_to
-    render_rjs do |page|
-      page.redirect_to '/'
-    end
-    assert_select_rjs :redirect, '/'
   end
 
   def test_elect_with_xml_namespace_attributes

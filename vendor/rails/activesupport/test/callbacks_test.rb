@@ -7,11 +7,11 @@ class Record
 
   class << self
     def callback_symbol(callback_method)
-      method_name = "#{callback_method}_method"
-      define_method(method_name) do
-        history << [callback_method, :symbol]
+      returning("#{callback_method}_method") do |method_name|
+        define_method(method_name) do
+          history << [callback_method, :symbol]
+        end
       end
-      method_name
     end
 
     def callback_string(callback_method)

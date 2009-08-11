@@ -13,7 +13,7 @@ module ActionController #:nodoc:
   #
   # == Caching stores
   #
-  # All the caching stores from ActiveSupport::Cache are available to be used as backends for Action Controller caching. This setting only
+  # All the caching stores from ActiveSupport::Cache is available to be used as backends for Action Controller caching. This setting only
   # affects action and fragment caching as page caching is always written to disk.
   #
   # Configuration examples (MemoryStore is the default):
@@ -24,31 +24,31 @@ module ActionController #:nodoc:
   #   ActionController::Base.cache_store = :mem_cache_store, "localhost"
   #   ActionController::Base.cache_store = MyOwnStore.new("parameter")
   module Caching
-    extend ActiveSupport::Concern
-
     autoload :Actions, 'action_controller/caching/actions'
     autoload :Fragments, 'action_controller/caching/fragments'
     autoload :Pages, 'action_controller/caching/pages'
-    autoload :Sweeper, 'action_controller/caching/sweeping'
+    autoload :Sweeper, 'action_controller/caching/sweeper'
     autoload :Sweeping, 'action_controller/caching/sweeping'
 
-    included do
-      @@cache_store = nil
-      cattr_reader :cache_store
+    def self.included(base) #:nodoc:
+      base.class_eval do
+        @@cache_store = nil
+        cattr_reader :cache_store
 
-      # Defines the storage option for cached fragments
-      def self.cache_store=(store_option)
-        @@cache_store = ActiveSupport::Cache.lookup_store(store_option)
-      end
+        # Defines the storage option for cached fragments
+        def self.cache_store=(store_option)
+          @@cache_store = ActiveSupport::Cache.lookup_store(store_option)
+        end
 
-      include Pages, Actions, Fragments
-      include Sweeping if defined?(ActiveRecord)
+        include Pages, Actions, Fragments
+        include Sweeping if defined?(ActiveRecord)
 
-      @@perform_caching = true
-      cattr_accessor :perform_caching
+        @@perform_caching = true
+        cattr_accessor :perform_caching
 
-      def self.cache_configured?
-        perform_caching && cache_store
+        def self.cache_configured?
+          perform_caching && cache_store
+        end
       end
     end
 

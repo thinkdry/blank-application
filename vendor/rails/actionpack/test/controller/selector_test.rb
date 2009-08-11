@@ -5,7 +5,6 @@
 
 require 'abstract_unit'
 require 'controller/fake_controllers'
-require 'action_controller/vendor/html-scanner'
 
 class SelectorTest < Test::Unit::TestCase
   #

@@ -1,9 +1,5 @@
 require 'abstract_unit'
-require 'active_support/core_ext/array'
-require 'active_support/core_ext/big_decimal'
-require 'active_support/core_ext/object/conversions'
-
-require 'active_support/core_ext' # FIXME: pulling in all to_xml extensions
+require 'bigdecimal'
 
 class ArrayExtAccessTests < Test::Unit::TestCase
   def test_from
@@ -301,13 +297,6 @@ class ArrayToXmlTests < Test::Unit::TestCase
   def test_to_xml_with_empty
     xml = [].to_xml
     assert_match(/type="array"\/>/, xml)
-  end
-
-  def test_to_xml_dups_options
-    options = {:skip_instruct => true}
-    [].to_xml(options)
-    # :builder, etc, shouldn't be added to options
-    assert_equal({:skip_instruct => true}, options)
   end
 end
 

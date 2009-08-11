@@ -1,5 +1,4 @@
 require 'abstract_unit'
-require 'active_support/core_ext/integer'
 
 class IntegerExtTest < Test::Unit::TestCase
   def test_even

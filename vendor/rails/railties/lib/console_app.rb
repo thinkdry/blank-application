@@ -1,4 +1,3 @@
-require 'active_support/all'
 require 'active_support/test_case'
 require 'action_controller'
 
@@ -25,7 +24,7 @@ end
 #reloads the environment
 def reload!
   puts "Reloading..."
-  ActionController::Dispatcher.new
-  ActionController::Dispatcher.router.reload
+  Dispatcher.cleanup_application
+  Dispatcher.reload_application
   true
 end

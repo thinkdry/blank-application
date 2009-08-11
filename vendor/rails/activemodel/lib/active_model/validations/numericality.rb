@@ -5,9 +5,10 @@ module ActiveModel
                                   :equal_to => '==', :less_than => '<', :less_than_or_equal_to => '<=',
                                   :odd => 'odd?', :even => 'even?' }.freeze
 
+
       # Validates whether the value of the specified attribute is numeric by trying to convert it to
-      # a float with Kernel.Float (if <tt>only_integer</tt> is false) or applying it to the regular expression
-      # <tt>/\A[\+\-]?\d+\Z/</tt> (if <tt>only_integer</tt> is set to true).
+      # a float with Kernel.Float (if <tt>integer</tt> is false) or applying it to the regular expression
+      # <tt>/\A[\+\-]?\d+\Z/</tt> (if <tt>integer</tt> is true).
       #
       #   class Person < ActiveRecord::Base
       #     validates_numericality_of :value, :on => :create
@@ -32,8 +33,9 @@ module ActiveModel
       #   not occur (e.g. <tt>:unless => :skip_validation</tt>, or <tt>:unless => Proc.new { |user| user.signup_step <= 2 }</tt>).  The
       #   method, proc or string should return or evaluate to a true or false value.
       def validates_numericality_of(*attr_names)
-        configuration = { :only_integer => false, :allow_nil => false }
+        configuration = { :on => :save, :only_integer => false, :allow_nil => false }
         configuration.update(attr_names.extract_options!)
+
 
         numericality_options = ALL_NUMERICALITY_CHECKS.keys & configuration.keys
 
@@ -42,41 +44,33 @@ module ActiveModel
         end
 
         validates_each(attr_names,configuration) do |record, attr_name, value|
-          before_type_cast = "#{attr_name}_before_type_cast"
-
-          if record.respond_to?(before_type_cast.to_sym)
-            raw_value = record.send("#{attr_name}_before_type_cast") || value
-          else
-            raw_value = value
-          end
+          raw_value = record.send("#{attr_name}_before_type_cast") || value
 
           next if configuration[:allow_nil] and raw_value.nil?
 
           if configuration[:only_integer]
             unless raw_value.to_s =~ /\A[+-]?\d+\Z/
-              record.errors.add(attr_name, :not_a_number, :value => raw_value, :default => configuration[:message])
+              record.errors.add(attr_name, configuration[:message] || ActiveRecord::Errors.default_error_messages[:not_a_number])
               next
             end
             raw_value = raw_value.to_i
           else
-            begin
-              raw_value = Kernel.Float(raw_value)
+           begin
+              raw_value = Kernel.Float(raw_value.to_s)
             rescue ArgumentError, TypeError
-              record.errors.add(attr_name, :not_a_number, :value => raw_value, :default => configuration[:message])
+              record.errors.add(attr_name, configuration[:message] || ActiveRecord::Errors.default_error_messages[:not_a_number])
               next
             end
           end
 
           numericality_options.each do |option|
             case option
-            when :odd, :even
-              unless raw_value.to_i.method(ALL_NUMERICALITY_CHECKS[option])[]
-                record.errors.add(attr_name, option, :value => raw_value, :default => configuration[:message])
-              end
-            else
-              unless raw_value.method(ALL_NUMERICALITY_CHECKS[option])[configuration[option]]
-                record.errors.add(attr_name, option, :default => configuration[:message], :value => raw_value, :count => configuration[option])
-              end
+              when :odd, :even
+                record.errors.add(attr_name, configuration[:message] || ActiveRecord::Errors.default_error_messages[option]) unless raw_value.to_i.method(ALL_NUMERICALITY_CHECKS[option])[]
+              else
+                message = configuration[:message] || ActiveRecord::Errors.default_error_messages[option]
+                message = message % configuration[option] if configuration[option]
+                record.errors.add(attr_name, message) unless raw_value.method(ALL_NUMERICALITY_CHECKS[option])[configuration[option]]
             end
           end
         end

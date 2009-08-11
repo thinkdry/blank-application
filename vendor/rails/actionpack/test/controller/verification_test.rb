@@ -103,15 +103,17 @@ class VerificationTest < ActionController::TestCase
     end
 
     protected
+      def rescue_action(e) raise end
 
-    def unconditional_redirect
-      redirect_to :action => "unguarded"
-    end
+      def unconditional_redirect
+        redirect_to :action => "unguarded"
+      end
   end
 
-  tests TestController
-
-  setup do
+  def setup
+    @controller = TestController.new
+    @request    = ActionController::TestRequest.new
+    @response   = ActionController::TestResponse.new
     ActionController::Routing::Routes.add_named_route :foo, '/foo', :controller => 'test', :action => 'foo'
   end
 
@@ -182,7 +184,7 @@ class VerificationTest < ActionController::TestCase
 
   def test_unguarded_without_params
     get :unguarded
-    assert @response.body.blank?
+    assert_equal "", @response.body
   end
 
   def test_guarded_in_session_with_prereqs

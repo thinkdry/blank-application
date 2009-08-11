@@ -21,9 +21,16 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #++
 
-actionpack_path = "#{File.dirname(__FILE__)}/../../actionpack/lib"
-$:.unshift(actionpack_path) if File.directory?(actionpack_path)
-require 'action_controller'
+begin
+  require 'action_controller'
+rescue LoadError
+  actionpack_path = "#{File.dirname(__FILE__)}/../../actionpack/lib"
+  if File.directory?(actionpack_path)
+    $:.unshift actionpack_path
+    require 'action_controller'
+  end
+end
+
 require 'action_view'
 
 module ActionMailer

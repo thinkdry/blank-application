@@ -1,7 +1,5 @@
 require 'abstract_unit'
-require 'active_support/core_ext/hash'
-require 'bigdecimal'
-require 'active_support/core_ext/string/access'
+require 'builder'
 
 class HashExtTest < Test::Unit::TestCase
   def setup
@@ -265,18 +263,6 @@ class HashExtTest < Test::Unit::TestCase
     assert_equal expected, hash_1
   end
 
-  def test_deep_merge_on_indifferent_access
-    hash_1 = HashWithIndifferentAccess.new({ :a => "a", :b => "b", :c => { :c1 => "c1", :c2 => "c2", :c3 => { :d1 => "d1" } } })
-    hash_2 = HashWithIndifferentAccess.new({ :a => 1, :c => { :c1 => 2, :c3 => { :d2 => "d2" } } })
-    hash_3 = { :a => 1, :c => { :c1 => 2, :c3 => { :d2 => "d2" } } }
-    expected = { "a" => 1, "b" => "b", "c" => { "c1" => 2, "c2" => "c2", "c3" => { "d1" => "d1", "d2" => "d2" } } }
-    assert_equal expected, hash_1.deep_merge(hash_2)
-    assert_equal expected, hash_1.deep_merge(hash_3)
-
-    hash_1.deep_merge!(hash_2)
-    assert_equal expected, hash_1
-  end
-
   def test_reverse_merge
     defaults = { :a => "x", :b => "y", :c => 10 }.freeze
     options  = { :a => 1, :b => 2 }
@@ -417,29 +403,87 @@ class HashToXmlTest < Test::Unit::TestCase
     @xml_options = { :root => :person, :skip_instruct => true, :indent => 0 }
   end
 
+ def test_default_values_for_rename_keys
+   assert_equal true,ActiveSupport.dasherize_xml
+   assert_equal false,ActiveSupport.camelize_xml
+  end
+
   def test_one_level
     xml = { :name => "David", :street => "Paulina" }.to_xml(@xml_options)
     assert_equal "<person>", xml.first(8)
     assert xml.include?(%(<street>Paulina</street>))
     assert xml.include?(%(<name>David</name>))
   end
-
+  # we add :camelize => false because otherwise we'd be accidentally testing the default value for :camelize
   def test_one_level_dasherize_false
-    xml = { :name => "David", :street_name => "Paulina" }.to_xml(@xml_options.merge(:dasherize => false))
+    xml = { :name => "David", :street_name => "Paulina" }.to_xml(@xml_options.merge(:dasherize => false,:camelize=>false))
     assert_equal "<person>", xml.first(8)
     assert xml.include?(%(<street_name>Paulina</street_name>))
     assert xml.include?(%(<name>David</name>))
   end
 
   def test_one_level_dasherize_true
-    xml = { :name => "David", :street_name => "Paulina" }.to_xml(@xml_options.merge(:dasherize => true))
+    xml = { :name => "David", :street_name => "Paulina" }.to_xml(@xml_options.merge(:dasherize => true,:camelize=>false))
     assert_equal "<person>", xml.first(8)
     assert xml.include?(%(<street-name>Paulina</street-name>))
     assert xml.include?(%(<name>David</name>))
   end
 
+  def test_one_level_dasherize_default_false
+    current_default = ActiveSupport.dasherize_xml
+    ActiveSupport.dasherize_xml = false
+    xml = { :name => "David", :street_name => "Paulina" }.to_xml(@xml_options.merge(:camelize=>false))
+    assert_equal "<person>", xml.first(8)
+    assert xml.include?(%(<street_name>Paulina</street_name>))
+    assert xml.include?(%(<name>David</name>))
+    ensure
+    ActiveSupport.dasherize_xml = current_default
+  end
+
+  def test_one_level_dasherize_default_true
+    current_default = ActiveSupport.dasherize_xml
+    ActiveSupport.dasherize_xml = true
+    xml = { :name => "David", :street_name => "Paulina" }.to_xml(@xml_options.merge(:camelize=>false))
+    assert_equal "<person>", xml.first(8)
+    assert xml.include?(%(<street-name>Paulina</street-name>))
+    assert xml.include?(%(<name>David</name>))
+    ensure
+    ActiveSupport.dasherize_xml = current_default
+  end
+
   def test_one_level_camelize_true
-    xml = { :name => "David", :street_name => "Paulina" }.to_xml(@xml_options.merge(:camelize => true))
+    xml = { :name => "David", :street_name => "Paulina" }.to_xml(@xml_options.merge(:camelize => true,:dasherize => false))
+    assert_equal "<Person>", xml.first(8)
+    assert xml.include?(%(<StreetName>Paulina</StreetName>))
+    assert xml.include?(%(<Name>David</Name>))
+  end
+
+  #camelize=>false is already tested above
+
+  def test_one_level_camelize_default_false
+    current_default = ActiveSupport.camelize_xml
+    ActiveSupport.camelize_xml = false
+    xml = { :name => "David", :street_name => "Paulina" }.to_xml(@xml_options.merge(:dasherize => false))
+    assert_equal "<person>", xml.first(8)
+    assert xml.include?(%(<street_name>Paulina</street_name>))
+    assert xml.include?(%(<name>David</name>))
+    ensure
+    ActiveSupport.camelize_xml = current_default
+  end
+
+  def test_one_level_camelize_default_true
+    current_default = ActiveSupport.camelize_xml
+    ActiveSupport.camelize_xml = true
+    xml = { :name => "David", :street_name => "Paulina" }.to_xml(@xml_options.merge(:dasherize => false))
+    assert_equal "<Person>", xml.first(8)
+    assert xml.include?(%(<StreetName>Paulina</StreetName>))
+    assert xml.include?(%(<Name>David</Name>))
+    ensure
+    ActiveSupport.camelize_xml = current_default
+  end
+
+  def test_one_level_camelize_true_dasherize_true
+    xml = { :name => "David", :street_name => "Paulina" }.to_xml(@xml_options.merge(:dasherize => true,:camelize=>true))
     assert_equal "<Person>", xml.first(8)
     assert xml.include?(%(<StreetName>Paulina</StreetName>))
     assert xml.include?(%(<Name>David</Name>))
@@ -658,6 +702,16 @@ class HashToXmlTest < Test::Unit::TestCase
     assert_equal expected_topic_hash, Hash.from_xml(topic_xml)["rsp"]["photos"]["photo"]
   end
   
+  def test_empty_array_from_xml
+    blog_xml = <<-XML
+      <blog>
+        <posts type="array"></posts>
+      </blog>
+    XML
+    expected_blog_hash = {"blog" => {"posts" => []}}
+    assert_equal expected_blog_hash, Hash.from_xml(blog_xml)
+  end
+
   def test_all_caps_key_from_xml
     test_xml = <<-EOT
       <ABC3XYZ>
@@ -672,16 +726,6 @@ class HashToXmlTest < Test::Unit::TestCase
     }
 
     assert_equal expected_hash, Hash.from_xml(test_xml)
-  end
-
-  def test_empty_array_from_xml
-    blog_xml = <<-XML
-      <blog>
-        <posts type="array"></posts>
-      </blog>
-    XML
-    expected_blog_hash = {"blog" => {"posts" => []}}
-    assert_equal expected_blog_hash, Hash.from_xml(blog_xml)
   end
 
   def test_empty_array_with_whitespace_from_xml
@@ -891,13 +935,6 @@ class HashToXmlTest < Test::Unit::TestCase
     assert_equal 15,    alert_at.hour
     assert_equal 30,    alert_at.min
     assert_equal 45,    alert_at.sec
-  end
-
-  def test_to_xml_dups_options
-    options = {:skip_instruct => true}
-    {}.to_xml(options)
-    # :builder, etc, shouldn't be added to options
-    assert_equal({:skip_instruct => true}, options)
   end
 end
 

@@ -1,6 +1,6 @@
 require 'abstract_unit'
 
-class MemoizableTest < ActiveSupport::TestCase
+class MemoizableTest < Test::Unit::TestCase
   class Person
     extend ActiveSupport::Memoizable
 
@@ -125,13 +125,8 @@ class MemoizableTest < ActiveSupport::TestCase
   end
 
   def test_memorized_results_are_immutable
-    # This is purely a performance enhancement that we can revisit once the rest of
-    # the code is in place. Ideally, we'd be able to do memoization in a freeze-friendly
-    # way without amc hacks
-    pending do
-      assert_equal "Josh", @person.name
-      assert_raise(ActiveSupport::FrozenObjectError) { @person.name.gsub!("Josh", "Gosh") }
-    end
+    assert_equal "Josh", @person.name
+    assert_raise(ActiveSupport::FrozenObjectError) { @person.name.gsub!("Josh", "Gosh") }
   end
 
   def test_reloadable

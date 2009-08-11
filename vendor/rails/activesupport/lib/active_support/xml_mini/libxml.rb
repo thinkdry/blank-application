@@ -5,37 +5,31 @@ module ActiveSupport
   module XmlMini_LibXML #:nodoc:
     extend self
 
-    # Parse an XML Document string or IO into a simple hash using libxml.
-    # data::
-    #   XML Document string or IO to parse
-    def parse(data)
-      if !data.respond_to?(:read)
-        data = StringIO.new(data || '')
-      end
-      
+    # Parse an XML Document string into a simple hash using libxml.
+    # string::
+    #   XML Document string to parse
+    def parse(string)
       LibXML::XML.default_keep_blanks = false
-      
-      char = data.getc
-      if char.nil?
+
+      if string.blank?
         {}
       else
-        data.ungetc(char)
-        LibXML::XML::Parser.io(data).parse.to_hash
+        LibXML::XML::Parser.string(string.strip).parse.to_hash
       end
     end
 
   end
 end
 
-module LibXML #:nodoc:
-  module Conversions #:nodoc:
-    module Document #:nodoc:
+module LibXML
+  module Conversions
+    module Document
       def to_hash
         root.to_hash
       end
     end
 
-    module Node #:nodoc:
+    module Node
       CONTENT_ROOT = '__content__'
       LIB_XML_LIMIT = 30000000 # Hardcoded LibXML limit
 

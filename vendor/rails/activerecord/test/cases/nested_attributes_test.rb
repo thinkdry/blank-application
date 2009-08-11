@@ -4,9 +4,6 @@ require "models/ship"
 require "models/bird"
 require "models/parrot"
 require "models/treasure"
-require "models/man"
-require "models/interest"
-require 'active_support/hash_with_indifferent_access'
 
 module AssertRaiseWithMessage
   def assert_raise_with_message(expected_exception, expected_message)
@@ -34,25 +31,9 @@ class TestNestedAttributesInGeneral < ActiveRecord::TestCase
   end
 
   def test_should_add_a_proc_to_reject_new_nested_attributes_procs
-    [:parrots, :birds, :birds_with_reject_all_blank].each do |name|
+    [:parrots, :birds].each do |name|
       assert_instance_of Proc, Pirate.reject_new_nested_attributes_procs[name]
     end
-  end
-
-  def test_should_not_build_a_new_record_if_reject_all_blank_returns_false
-    pirate = Pirate.create!(:catchphrase => "Don' botharrr talkin' like one, savvy?")
-    pirate.birds_with_reject_all_blank_attributes = [{:name => '', :color => ''}]
-    pirate.save!
-
-    assert pirate.birds_with_reject_all_blank.empty?
-  end
-
-  def test_should_build_a_new_record_if_reject_all_blank_does_not_return_false
-    pirate = Pirate.create!(:catchphrase => "Don' botharrr talkin' like one, savvy?")
-    pirate.birds_with_reject_all_blank_attributes = [{:name => 'Tweetie', :color => ''}]
-    pirate.save!
-
-    assert_equal 1, pirate.birds_with_reject_all_blank.count
   end
 
   def test_should_raise_an_ArgumentError_for_non_existing_associations
@@ -470,41 +451,6 @@ module NestedAttributesOnACollectionAssociationTests
 
   def test_should_automatically_enable_autosave_on_the_association
     assert Pirate.reflect_on_association(@association_name).options[:autosave]
-  end
-
-  def test_validate_presence_of_parent__works_with_inverse_of
-    Man.accepts_nested_attributes_for(:interests)
-    assert_equal :man, Man.reflect_on_association(:interests).options[:inverse_of]
-    assert_equal :interests, Interest.reflect_on_association(:man).options[:inverse_of]
-
-    repair_validations(Interest) do
-      Interest.validates_presence_of(:man)
-      assert_difference 'Man.count' do
-        assert_difference 'Interest.count', 2 do
-          man = Man.create!(:name => 'John',
-                            :interests_attributes => [{:topic=>'Cars'}, {:topic=>'Sports'}])
-          assert_equal 2, man.interests.count
-        end
-      end
-    end
-  end
-
-  def test_validate_presence_of_parent__fails_without_inverse_of
-    Man.accepts_nested_attributes_for(:interests)
-    Man.reflect_on_association(:interests).options.delete(:inverse_of)
-    Interest.reflect_on_association(:man).options.delete(:inverse_of)
-
-    repair_validations(Interest) do
-      Interest.validates_presence_of(:man)
-      assert_no_difference ['Man.count', 'Interest.count'] do
-        man = Man.create(:name => 'John',
-                         :interests_attributes => [{:topic=>'Cars'}, {:topic=>'Sports'}])
-        assert !man.errors[:interests_man].empty?
-      end
-    end
-    # restore :inverse_of
-    Man.reflect_on_association(:interests).options[:inverse_of] = :man
-    Interest.reflect_on_association(:man).options[:inverse_of] = :interests
   end
 
   private

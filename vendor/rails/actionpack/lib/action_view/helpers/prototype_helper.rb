@@ -1,7 +1,5 @@
 require 'set'
 require 'active_support/json'
-require 'active_support/core_ext/object/extending'
-require 'active_support/core_ext/object/returning'
 
 module ActionView
   module Helpers
@@ -574,7 +572,6 @@ module ActionView
       # #include_helpers_from_context has nothing to overwrite.
       class JavaScriptGenerator #:nodoc:
         def initialize(context, &block) #:nodoc:
-          context._evaluate_assigns_and_ivars
           @context, @lines = context, []
           include_helpers_from_context
           @context.with_output_buffer(@lines) do
@@ -976,7 +973,7 @@ module ActionView
             def loop_on_multiple_args(method, ids)
               record(ids.size>1 ?
                 "#{javascript_object_for(ids)}.each(#{method})" :
-                "#{method}(#{javascript_object_for(ids.first)})")
+                "#{method}(#{::ActiveSupport::JSON.encode(ids.first)})")
             end
 
             def page
@@ -990,13 +987,13 @@ module ActionView
             end
 
             def render(*options_for_render)
-              old_formats = @context && @context.formats
-              @context.formats = [:html] if @context
+              old_format = @context && @context.template_format
+              @context.template_format = :html if @context
               Hash === options_for_render.first ?
                 @context.render(*options_for_render) :
                   options_for_render.first.to_s
             ensure
-              @context.formats = old_formats if @context
+              @context.template_format = old_format if @context
             end
 
             def javascript_object_for(object)
@@ -1176,18 +1173,18 @@ module ActionView
 
     class JavaScriptVariableProxy < JavaScriptProxy #:nodoc:
       def initialize(generator, variable)
-        @variable = ::ActiveSupport::JSON::Variable.new(variable)
+        @variable = variable
         @empty    = true # only record lines if we have to.  gets rid of unnecessary linebreaks
         super(generator)
       end
 
       # The JSON Encoder calls this to check for the +to_json+ method
       # Since it's a blank slate object, I suppose it responds to anything.
-      def respond_to?(*)
+      def respond_to?(method)
         true
       end
 
-      def as_json(options = nil)
+      def to_json(options = nil)
         @variable
       end
 

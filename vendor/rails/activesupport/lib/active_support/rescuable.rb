@@ -1,6 +1,3 @@
-require 'active_support/core_ext/class/inheritable_attributes'
-require 'active_support/core_ext/proc'
-
 module ActiveSupport
   # Rescuable module adds support for easier exception handling.
   module Rescuable

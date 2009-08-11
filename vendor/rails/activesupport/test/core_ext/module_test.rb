@@ -1,5 +1,4 @@
 require 'abstract_unit'
-require 'active_support/core_ext/module'
 
 module One
   Constant1 = "Hello World"
@@ -32,7 +31,7 @@ end
 Somewhere = Struct.new(:street, :city)
 
 Someone   = Struct.new(:name, :place) do
-  delegate :street, :city, :to_f, :to => :place
+  delegate :street, :city, :to => :place
   delegate :state, :to => :@place
   delegate :upcase, :to => "place.city"
 end
@@ -44,7 +43,6 @@ end
 
 Project   = Struct.new(:description, :person) do
   delegate :name, :to => :person, :allow_nil => true
-  delegate :to_f, :to => :description, :allow_nil => true
 end
 
 class Name
@@ -144,16 +142,6 @@ class ModuleTest < Test::Unit::TestCase
   def test_delegation_without_allow_nil_and_nil_value
     david = Someone.new("David")
     assert_raise(RuntimeError) { david.street }
-  end
-
-  def test_delegation_to_method_that_exists_on_nil
-    nil_person = Someone.new(nil)
-    assert_equal 0.0, nil_person.to_f
-  end
-
-  def test_delegation_to_method_that_exists_on_nil_when_allowing_nil
-    nil_project = Project.new(nil)
-    assert_equal 0.0, nil_project.to_f
   end
 
   def test_parent

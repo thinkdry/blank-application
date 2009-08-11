@@ -1,5 +1,5 @@
+# encoding: binary
 require 'active_record/connection_adapters/abstract_adapter'
-require 'active_support/core_ext/kernel/requires'
 
 module ActiveRecord
   class Base
@@ -27,6 +27,7 @@ module ActiveRecord
 
       private
         def parse_sqlite_config!(config)
+          config[:database] ||= config[:dbfile]
           # Require database.
           unless config[:database]
             raise ArgumentError, "No database file specified. Missing argument: database"
@@ -46,6 +47,7 @@ module ActiveRecord
     class SQLiteColumn < Column #:nodoc:
       class <<  self
         def string_to_binary(value)
+          value = value.dup.force_encoding(Encoding::BINARY) if value.respond_to?(:force_encoding)
           value.gsub(/\0|\%/n) do |b|
             case b
               when "\0" then "%00"
@@ -55,6 +57,7 @@ module ActiveRecord
         end
 
         def binary_to_string(value)
+          value = value.dup.force_encoding(Encoding::BINARY) if value.respond_to?(:force_encoding)
           value.gsub(/%00|%25/n) do |b|
             case b
               when "%00" then "\0"
@@ -98,10 +101,6 @@ module ActiveRecord
       end
 
       def supports_migrations? #:nodoc:
-        true
-      end
-
-      def supports_primary_key? #:nodoc:
         true
       end
 
@@ -152,16 +151,6 @@ module ActiveRecord
 
       def quote_column_name(name) #:nodoc:
         %Q("#{name}")
-      end
-
-      # Quote date/time values for use in SQL input. Includes microseconds
-      # if the value is a Time responding to usec.
-      def quoted_date(value) #:nodoc:
-        if value.acts_like?(:time) && value.respond_to?(:usec)
-          "#{super}.#{sprintf("%06d", value.usec)}"
-        else
-          super
-        end
       end
 
 
@@ -248,7 +237,7 @@ module ActiveRecord
       end
 
       def rename_table(name, new_name)
-        execute "ALTER TABLE #{quote_table_name(name)} RENAME TO #{quote_table_name(new_name)}"
+        execute "ALTER TABLE #{name} RENAME TO #{new_name}"
       end
 
       # See: http://www.sqlite.org/lang_altertable.html
@@ -434,16 +423,6 @@ module ActiveRecord
             'INTEGER PRIMARY KEY NOT NULL'.freeze
           end
         end
-
-        def translate_exception(exception, message)
-          case exception.message
-          when /column(s)? .* (is|are) not unique/
-            RecordNotUnique.new(message, exception)
-          else
-            super
-          end
-        end
-
     end
 
     class SQLite2Adapter < SQLiteAdapter # :nodoc:

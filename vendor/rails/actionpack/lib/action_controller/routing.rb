@@ -1,9 +1,5 @@
 require 'cgi'
 require 'uri'
-require 'set'
-
-require 'active_support/core_ext/module/aliasing'
-require 'active_support/core_ext/module/attribute_accessors'
 require 'action_controller/routing/optimisations'
 require 'action_controller/routing/routing_ext'
 require 'action_controller/routing/route'
@@ -139,7 +135,7 @@ module ActionController
   #   # In routes.rb
   #   map.with_options :controller => 'blog' do |blog|
   #     blog.show    '',            :action  => 'list'
-  #     blog.delete  'delete/:id',  :action  => 'delete'
+  #     blog.delete  'delete/:id',  :action  => 'delete',
   #     blog.edit    'edit/:id',    :action  => 'edit'
   #   end
   #

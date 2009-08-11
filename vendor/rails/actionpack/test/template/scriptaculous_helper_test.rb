@@ -4,7 +4,6 @@ class ScriptaculousHelperTest < ActionView::TestCase
   tests ActionView::Helpers::ScriptaculousHelper
 
   def setup
-    super
     @controller = Class.new do
       def url_for(options)
         url =  "http://www.example.com/"

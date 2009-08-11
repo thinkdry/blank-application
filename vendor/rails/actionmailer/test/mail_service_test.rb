@@ -6,10 +6,10 @@ class FunkyPathMailer < ActionMailer::Base
 
   def multipart_with_template_path_with_dots(recipient)
     recipients recipient
-    subject    "This path has dots"
+    subject    "Have a lovely picture"
     from       "Chad Fowler <chad@chadfowler.com>"
-    attachment :content_type => "text/plain",
-      :body => "dots dots dots..."
+    attachment :content_type => "image/jpeg",
+      :body => "not really a jpeg, we're only testing, after all"
   end
 end
 
@@ -18,6 +18,7 @@ class TestMailer < ActionMailer::Base
     @recipients   = recipient
     @subject      = "[Signed up] Welcome #{recipient}"
     @from         = "system@loudthinking.com"
+    @sent_on      = Time.local(2004, 12, 12)
     @body["recipient"] = recipient
   end
 
@@ -337,7 +338,6 @@ class ActionMailerTest < Test::Unit::TestCase
 
   def test_nested_parts_with_body
     created = nil
-    TestMailer.create_nested_multipart_with_body(@recipient)
     assert_nothing_raised { created = TestMailer.create_nested_multipart_with_body(@recipient)}
     assert_equal 1,created.parts.size
     assert_equal 2,created.parts.first.parts.size
@@ -351,19 +351,17 @@ class ActionMailerTest < Test::Unit::TestCase
 
   def test_attachment_with_custom_header
     created = nil
-    assert_nothing_raised { created = TestMailer.create_attachment_with_custom_header(@recipient) }
-    assert created.parts.any? { |p| p.header['content-id'].to_s == "<test@test.com>" }
+    assert_nothing_raised { created = TestMailer.create_attachment_with_custom_header(@recipient)}
+    assert_equal "<test@test.com>", created.parts[1].header['content-id'].to_s
   end
 
   def test_signed_up
-    Time.stubs(:now => Time.now)
-
     expected = new_mail
     expected.to      = @recipient
     expected.subject = "[Signed up] Welcome #{@recipient}"
     expected.body    = "Hello there, \n\nMr. #{@recipient}"
     expected.from    = "system@loudthinking.com"
-    expected.date    = Time.now
+    expected.date    = Time.local(2004, 12, 12)
 
     created = nil
     assert_nothing_raised { created = TestMailer.create_signed_up(@recipient) }
@@ -567,33 +565,13 @@ class ActionMailerTest < Test::Unit::TestCase
     TestMailer.deliver_signed_up(@recipient)
   end
 
-  class FakeLogger
-    attr_reader :info_contents, :debug_contents
-    
-    def initialize
-      @info_contents, @debug_contents = "", ""
-    end
-    
-    def info(str = nil, &blk)
-      @info_contents << str if str
-      @info_contents << blk.call if block_given?
-    end
-    
-    def debug(str = nil, &blk)
-      @debug_contents << str if str
-      @debug_contents << blk.call if block_given?
-    end
-  end
-
   def test_delivery_logs_sent_mail
     mail = TestMailer.create_signed_up(@recipient)
-    # logger = mock()
-    # logger.expects(:info).with("Sent mail to #{@recipient}")
-    # logger.expects(:debug).with("\n#{mail.encoded}")
-    TestMailer.logger = FakeLogger.new
+    logger = mock()
+    logger.expects(:info).with("Sent mail to #{@recipient}")
+    logger.expects(:debug).with("\n#{mail.encoded}")
+    TestMailer.logger = logger
     TestMailer.deliver_signed_up(@recipient)
-    assert(TestMailer.logger.info_contents =~ /Sent mail to #{@recipient}/)
-    assert_equal(TestMailer.logger.debug_contents, "\n#{mail.encoded}")
   end
 
   def test_unquote_quoted_printable_subject
@@ -828,7 +806,7 @@ EOF
     assert_equal 3, mail.parts.length
     assert_equal "1.0", mail.mime_version
     assert_equal "multipart/alternative", mail.content_type
-    assert_equal "application/x-yaml", mail.parts[0].content_type
+    assert_equal "text/yaml", mail.parts[0].content_type
     assert_equal "utf-8", mail.parts[0].sub_header("content-type", "charset")
     assert_equal "text/plain", mail.parts[1].content_type
     assert_equal "utf-8", mail.parts[1].sub_header("content-type", "charset")
@@ -839,11 +817,11 @@ EOF
   def test_implicitly_multipart_messages_with_custom_order
     assert ActionView::Template.template_handler_extensions.include?("bak"), "bak extension was not registered"
 
-    mail = TestMailer.create_implicitly_multipart_example(@recipient, nil, ["application/x-yaml", "text/plain"])
+    mail = TestMailer.create_implicitly_multipart_example(@recipient, nil, ["text/yaml", "text/plain"])
     assert_equal 3, mail.parts.length
     assert_equal "text/html", mail.parts[0].content_type
     assert_equal "text/plain", mail.parts[1].content_type
-    assert_equal "application/x-yaml", mail.parts[2].content_type
+    assert_equal "text/yaml", mail.parts[2].content_type
   end
 
   def test_implicitly_multipart_messages_with_charset
@@ -888,18 +866,6 @@ EOF
     assert_match %r{^To: #{@recipient}}, MockSMTP.deliveries[0][0]
     assert_no_match %r{^Bcc: root@loudthinking.com}, MockSMTP.deliveries[0][0]
   end
-
-   def test_file_delivery_should_create_a_file
-     ActionMailer::Base.delivery_method = :file
-     tmp_location = ActionMailer::Base.file_settings[:location]
-
-     TestMailer.deliver_cc_bcc(@recipient)
-     assert File.exists?(tmp_location)
-     assert File.directory?(tmp_location)
-     assert File.exists?(File.join(tmp_location, @recipient))
-     assert File.exists?(File.join(tmp_location, 'nobody@loudthinking.com'))
-     assert File.exists?(File.join(tmp_location, 'root@loudthinking.com'))
-   end
 
   def test_recursive_multipart_processing
     fixture = File.read(File.dirname(__FILE__) + "/fixtures/raw_email7")
@@ -954,8 +920,8 @@ EOF
   def test_multipart_with_template_path_with_dots
     mail = FunkyPathMailer.create_multipart_with_template_path_with_dots(@recipient)
     assert_equal 2, mail.parts.length
-    assert "text/plain", mail.parts[1].content_type
-    assert "utf-8", mail.parts[1].charset
+    assert_equal 'text/plain', mail.parts[0].content_type
+    assert_equal 'utf-8', mail.parts[0].charset
   end
 
   def test_custom_content_type_attributes
@@ -1010,13 +976,13 @@ end
 
 class InheritableTemplateRootTest < Test::Unit::TestCase
   def test_attr
-    expected = File.expand_path("#{File.dirname(__FILE__)}/fixtures/path.with.dots")
+    expected = "#{File.dirname(__FILE__)}/fixtures/path.with.dots"
     assert_equal expected, FunkyPathMailer.template_root.to_s
 
     sub = Class.new(FunkyPathMailer)
     sub.template_root = 'test/path'
 
-    assert_equal File.expand_path('test/path'), sub.template_root.to_s
+    assert_equal 'test/path', sub.template_root.to_s
     assert_equal expected, FunkyPathMailer.template_root.to_s
   end
 end

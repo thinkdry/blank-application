@@ -1,19 +1,15 @@
 module ActiveSupport
-  FrozenObjectError = RUBY_VERSION < '1.9' ? TypeError : RuntimeError
+  if RUBY_VERSION >= '1.9'
+    FrozenObjectError = RuntimeError
+  else
+    FrozenObjectError = TypeError
+  end
 end
 
 # TODO: Turn all this into using the BacktraceCleaner.
 class Exception # :nodoc:
-  # Clean the paths contained in the message.
-  def self.clean_paths(string)
-    require 'pathname' unless defined? Pathname
-    string.gsub(%r{[\w. ]+(/[\w. ]+)+(\.rb)?(\b|$)}) do |path|
-      Pathname.new(path).cleanpath
-    end
-  end
-
   def clean_message
-    Exception.clean_paths(message)
+    Pathname.clean_within message
   end
 
   TraceSubstitutions = []
@@ -22,10 +18,9 @@ class Exception # :nodoc:
 
   def clean_backtrace
     backtrace.collect do |line|
-      substituted = TraceSubstitutions.inject(line) do |result, (regexp, sub)|
+      Pathname.clean_within(TraceSubstitutions.inject(line) do |result, (regexp, sub)|
         result.gsub regexp, sub
-      end
-      Exception.clean_paths(substituted)
+      end)
     end
   end
 

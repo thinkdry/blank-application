@@ -1,6 +1,4 @@
 require 'abstract_unit'
-require 'active_support/time'
-require 'active_support/json'
 
 class TimeWithZoneTest < Test::Unit::TestCase
 
@@ -92,7 +90,7 @@ class TimeWithZoneTest < Test::Unit::TestCase
   end
 
   def test_xmlschema_with_fractional_seconds
-    @twz += 0.1234560001 # advance the time by a fraction of a second
+    @twz += 0.123456 # advance the time by a fraction of a second
     assert_equal "1999-12-31T19:00:00.123-05:00", @twz.xmlschema(3)
     assert_equal "1999-12-31T19:00:00.123456-05:00", @twz.xmlschema(6)
     assert_equal "1999-12-31T19:00:00.123456-05:00", @twz.xmlschema(12)
@@ -318,10 +316,6 @@ class TimeWithZoneTest < Test::Unit::TestCase
     assert @twz.is_a?(Time)
     assert @twz.kind_of?(Time)
     assert @twz.is_a?(ActiveSupport::TimeWithZone)
-  end
-  
-  def test_class_name
-    assert_equal 'Time', ActiveSupport::TimeWithZone.name
   end
 
   def test_method_missing_with_time_return_value

@@ -11,23 +11,14 @@ class LoggingTest < ActionController::TestCase
 
   class MockLogger
     attr_reader :logged
-    attr_accessor :level
     
-    def initialize
-      @level = Logger::DEBUG
-    end
-    
-    def method_missing(method, *args, &blk)
+    def method_missing(method, *args)
       @logged ||= []
       @logged << args.first
-      @logged << blk.call if block_given?
     end
   end
 
-  def setup
-    super
-    set_logger
-  end
+  setup :set_logger
 
   def test_logging_without_parameters
     get :show
@@ -36,7 +27,7 @@ class LoggingTest < ActionController::TestCase
   end
 
   def test_logging_with_parameters
-    get :show, :id => '10'
+    get :show, :id => 10
     assert_equal 3, logs.size
 
     params = logs.detect {|l| l =~ /Parameters/ }
@@ -50,6 +41,6 @@ class LoggingTest < ActionController::TestCase
   end
   
   def logs
-    @logs ||= @controller.logger.logged.compact.map {|l| l.to_s.strip}
+    @logs ||= @controller.logger.logged.compact.map {|l| l.strip}
   end
 end

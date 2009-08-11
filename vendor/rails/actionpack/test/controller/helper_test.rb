@@ -1,5 +1,4 @@
 require 'abstract_unit'
-require 'active_support/core_ext/kernel/reporting'
 
 ActionController::Base.helpers_dir = File.dirname(__FILE__) + '/../fixtures/helpers'
 
@@ -27,7 +26,7 @@ module Fun
   end
 end
 
-class AllHelpersController < ActionController::Base
+class ApplicationController < ActionController::Base
   helper :all
 end
 
@@ -102,32 +101,24 @@ class HelperTest < Test::Unit::TestCase
     assert master_helper_methods.include?('delegate_attr=')
   end
 
-  def call_controller(klass, action)
-    request  = ActionController::TestRequest.new
-    klass.action(action).call(request.env)    
-  end
-
   def test_helper_for_nested_controller
-    assert_equal 'hello: Iz guuut!', 
-      call_controller(Fun::GamesController, "render_hello_world").last.body
-    # request  = ActionController::TestRequest.new
-    # 
-    # resp = Fun::GamesController.action(:render_hello_world).call(request.env)
-    # assert_equal 'hello: Iz guuut!', resp.last.body
+    request  = ActionController::TestRequest.new
+    response = ActionController::TestResponse.new
+    request.action = 'render_hello_world'
+
+    assert_equal 'hello: Iz guuut!', Fun::GamesController.process(request, response).body
   end
 
   def test_helper_for_acronym_controller
-    assert_equal "test: baz", call_controller(Fun::PdfController, "test").last.body
-    # 
-    # request  = ActionController::TestRequest.new
-    # response = ActionController::TestResponse.new
-    # request.action = 'test'
-    # 
-    # assert_equal 'test: baz', Fun::PdfController.process(request, response).body
+    request  = ActionController::TestRequest.new
+    response = ActionController::TestResponse.new
+    request.action = 'test'
+
+    assert_equal 'test: baz', Fun::PdfController.process(request, response).body
   end
 
   def test_all_helpers
-    methods = AllHelpersController._helpers.instance_methods.map {|m| m.to_s}
+    methods = ApplicationController.master_helper_module.instance_methods.map(&:to_s)
 
     # abc_helper.rb
     assert methods.include?('bare_a')
@@ -143,7 +134,7 @@ class HelperTest < Test::Unit::TestCase
     @controller_class.helpers_dir = File.dirname(__FILE__) + '/../fixtures/alternate_helpers'
 
     # Reload helpers
-    @controller_class._helpers = Module.new
+    @controller_class.master_helper_module = Module.new
     @controller_class.helper :all
 
     # helpers/abc_helper.rb should not be included
@@ -154,7 +145,7 @@ class HelperTest < Test::Unit::TestCase
   end
 
   def test_helper_proxy
-    methods = AllHelpersController.helpers.methods.map(&:to_s)
+    methods = ApplicationController.helpers.methods.map(&:to_s)
 
     # ActionView
     assert methods.include?('pluralize')
@@ -171,11 +162,11 @@ class HelperTest < Test::Unit::TestCase
 
   private
     def expected_helper_methods
-      TestHelper.instance_methods.map {|m| m.to_s }
+      TestHelper.instance_methods.map(&:to_s)
     end
 
     def master_helper_methods
-      @controller_class._helpers.instance_methods.map {|m| m.to_s }
+      @controller_class.master_helper_module.instance_methods.map(&:to_s)
     end
 
     def missing_methods
@@ -213,11 +204,6 @@ class IsolatedHelpersTest < Test::Unit::TestCase
     end
   end
 
-  def call_controller(klass, action)
-    request  = ActionController::TestRequest.new
-    klass.action(action).call(request.env)    
-  end
-
   def setup
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
@@ -225,14 +211,14 @@ class IsolatedHelpersTest < Test::Unit::TestCase
   end
 
   def test_helper_in_a
-    assert_raise(ActionView::TemplateError) { call_controller(A, "index") }
+    assert_raise(NameError) { A.process(@request, @response) }
   end
 
   def test_helper_in_b
-    assert_equal 'B', call_controller(B, "index").last.body
+    assert_equal 'B', B.process(@request, @response).body
   end
 
   def test_helper_in_c
-    assert_equal 'C', call_controller(C, "index").last.body
+    assert_equal 'C', C.process(@request, @response).body
   end
 end

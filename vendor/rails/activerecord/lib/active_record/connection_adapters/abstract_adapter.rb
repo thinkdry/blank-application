@@ -12,8 +12,6 @@ require 'active_record/connection_adapters/abstract/connection_pool'
 require 'active_record/connection_adapters/abstract/connection_specification'
 require 'active_record/connection_adapters/abstract/query_cache'
 
-require 'active_support/core_ext/benchmark'
-
 module ActiveRecord
   module ConnectionAdapters # :nodoc:
     # ActiveRecord supports multiple database systems. AbstractAdapter and
@@ -53,13 +51,6 @@ module ActiveRecord
       # Does this adapter support migrations?  Backend specific, as the
       # abstract adapter always returns +false+.
       def supports_migrations?
-        false
-      end
-
-      # Can this adapter determine the primary key for tables not attached
-      # to an ActiveRecord class, such as join tables?  Backend specific, as
-      # the abstract adapter always returns +false+.
-      def supports_primary_key?
         false
       end
 
@@ -218,13 +209,8 @@ module ActiveRecord
           @last_verification = 0
           message = "#{e.class.name}: #{e.message}: #{sql}"
           log_info(message, name, 0)
-          raise translate_exception(e, message)
+          raise ActiveRecord::StatementInvalid, message
         end
-
-      def translate_exception(e, message)
-        # override in derived class
-        ActiveRecord::StatementInvalid.new(message)
-      end
 
         def format_log_entry(message, dump = nil)
           if ActiveRecord::Base.colorize_logging

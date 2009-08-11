@@ -1,5 +1,4 @@
 # encoding: utf-8
-require 'active_support/core_ext/string/behavior'
 
 module ActiveSupport #:nodoc:
   module Multibyte #:nodoc:
@@ -206,22 +205,7 @@ module ActiveSupport #:nodoc:
       #   'Café périferôl'.mb_chars.index('ô') #=> 12
       #   'Café périferôl'.mb_chars.index(/\w/u) #=> 0
       def index(needle, offset=0)
-        wrapped_offset = self.first(offset).wrapped_string.length
-        index = @wrapped_string.index(needle, wrapped_offset)
-        index ? (self.class.u_unpack(@wrapped_string.slice(0...index)).size) : nil
-      end
-
-      # Returns the position _needle_ in the string, counting in
-      # codepoints, searching backward from _offset_ or the end of the
-      # string. Returns +nil+ if _needle_ isn't found.
-      #
-      # Example:
-      #   'Café périferôl'.mb_chars.rindex('é') #=> 6
-      #   'Café périferôl'.mb_chars.rindex(/\w/u) #=> 13
-      def rindex(needle, offset=nil)
-        offset ||= length
-        wrapped_offset = self.first(offset).wrapped_string.length
-        index = @wrapped_string.rindex(needle, wrapped_offset)
+        index = @wrapped_string.index(needle, offset)
         index ? (self.class.u_unpack(@wrapped_string.slice(0...index)).size) : nil
       end
 

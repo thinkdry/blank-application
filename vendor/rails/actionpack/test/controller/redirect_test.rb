@@ -4,8 +4,6 @@ class WorkshopsController < ActionController::Base
 end
 
 class Workshop
-  extend ActiveModel::Naming
-  include ActiveModel::Conversion
   attr_accessor :id, :new_record
 
   def initialize(id, new_record)
@@ -32,10 +30,6 @@ class RedirectController < ActionController::Base
 
   def redirect_with_status_hash
     redirect_to({:action => "hello_world"}, {:status => 301})
-  end
-
-  def redirect_with_protocol
-    redirect_to :action => "hello_world", :protocol => "https"
   end
 
   def url_redirect_with_status
@@ -134,12 +128,6 @@ class RedirectTest < ActionController::TestCase
     get :redirect_with_status_hash
     assert_response 301
     assert_equal "http://test.host/redirect/hello_world", redirect_to_url
-  end
-
-  def test_redirect_with_protocol
-    get :redirect_with_protocol
-    assert_response 302
-    assert_equal "https://test.host/redirect/hello_world", redirect_to_url
   end
 
   def test_url_redirect_with_status
@@ -243,6 +231,14 @@ class RedirectTest < ActionController::TestCase
     get :redirect_to_new_record
     assert_equal "http://test.host/workshops", redirect_to_url
     assert_redirected_to Workshop.new(5, true)
+  end
+
+  def test_redirect_with_partial_params
+    get :module_redirect
+
+    assert_deprecated do
+      assert_redirected_to :action => 'hello_world'
+    end
   end
 
   def test_redirect_to_nil

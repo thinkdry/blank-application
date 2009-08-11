@@ -1,6 +1,3 @@
-require 'active_support/backtrace_cleaner'
-require 'rails/gem_dependency'
-
 module Rails
   class BacktraceCleaner < ActiveSupport::BacktraceCleaner
     ERB_METHOD_SIG = /:in `_run_erb_.*/

@@ -14,9 +14,7 @@ require 'models/citation'
 
 class AssociationsJoinModelTest < ActiveRecord::TestCase
   self.use_transactional_fixtures = false
-  fixtures :posts, :authors, :categories, :categorizations, :comments, :tags, :taggings, :author_favorites, :vertices, :items, :books,
-    # Reload edges table from fixtures as otherwise repeated test was failing
-    :edges
+  fixtures :posts, :authors, :categories, :categorizations, :comments, :tags, :taggings, :author_favorites, :vertices, :items, :books
 
   def test_has_many
     assert authors(:david).categories.include?(categories(:general))
@@ -319,11 +317,11 @@ class AssociationsJoinModelTest < ActiveRecord::TestCase
   end
 
   def test_belongs_to_polymorphic_with_counter_cache
-    assert_equal 1, posts(:welcome)[:taggings_count]
+    assert_equal 0, posts(:welcome)[:taggings_count]
     tagging = posts(:welcome).taggings.create(:tag => tags(:general))
-    assert_equal 2, posts(:welcome, :reload)[:taggings_count]
-    tagging.destroy
     assert_equal 1, posts(:welcome, :reload)[:taggings_count]
+    tagging.destroy
+    assert posts(:welcome, :reload)[:taggings_count].zero?
   end
 
   def test_unavailable_through_reflection
@@ -345,16 +343,14 @@ class AssociationsJoinModelTest < ActiveRecord::TestCase
   end
 
   def test_has_many_polymorphic_with_source_type
-    # added sort by ID as otherwise Oracle select sometimes returned rows in different order
-    assert_equal posts(:welcome, :thinking).sort_by(&:id), tags(:general).tagged_posts.sort_by(&:id)
+    assert_equal posts(:welcome, :thinking), tags(:general).tagged_posts
   end
 
   def test_eager_has_many_polymorphic_with_source_type
     tag_with_include = Tag.find(tags(:general).id, :include => :tagged_posts)
     desired = posts(:welcome, :thinking)
     assert_no_queries do
-      # added sort by ID as otherwise test using JRuby was failing as array elements were in different order
-      assert_equal desired.sort_by(&:id), tag_with_include.tagged_posts.sort_by(&:id)
+      assert_equal desired, tag_with_include.tagged_posts
     end
     assert_equal 5, tag_with_include.taggings.length
   end
@@ -381,7 +377,7 @@ class AssociationsJoinModelTest < ActiveRecord::TestCase
   end
 
   def test_has_many_through_polymorphic_has_one
-    assert_equal Tagging.find(1,2), authors(:david).tagging
+    assert_raise(ActiveRecord::HasManyThroughSourceAssociationMacroError) { authors(:david).tagging }
   end
 
   def test_has_many_through_polymorphic_has_many

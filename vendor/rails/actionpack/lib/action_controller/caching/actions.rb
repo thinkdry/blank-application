@@ -61,8 +61,9 @@ module ActionController #:nodoc:
           filter_options = { :only => actions, :if => options.delete(:if), :unless => options.delete(:unless) }
 
           cache_filter = ActionCacheFilter.new(:layout => options.delete(:layout), :cache_path => options.delete(:cache_path), :store_options => options)
-
-          around_filter cache_filter, filter_options
+          around_filter(filter_options) do |controller, action|
+            cache_filter.filter(controller, action)
+          end
         end
       end
 
@@ -84,15 +85,14 @@ module ActionController #:nodoc:
           @options = options
         end
 
-        def filter(controller)
+        def filter(controller, action)
           should_continue = before(controller)
-          yield if should_continue
+          action.call if should_continue
           after(controller)
         end
 
         def before(controller)
           cache_path = ActionCachePath.new(controller, path_options_for(controller, @options.slice(:cache_path)))
-
           if cache = controller.read_fragment(cache_path.path, @options[:store_options])
             controller.rendered_action_cache = true
             set_content_type!(controller, cache_path.extension)
@@ -129,8 +129,7 @@ module ActionController #:nodoc:
           end
 
           def content_for_layout(controller)
-            template = controller.view_context
-            template.layout && template.instance_variable_get('@cached_content_for_layout')
+            controller.response.layout && controller.response.template.instance_variable_get('@cached_content_for_layout')
           end
       end
 
@@ -143,7 +142,7 @@ module ActionController #:nodoc:
           end
         end
         
-        # If +infer_extension+ is true, the cache path extension is looked up from the request's path & format.
+        # When true, infer_extension will look up the cache path extension from the request's path & format.
         # This is desirable when reading and writing the cache, but not when expiring the cache -
         # expire_action should expire the same files regardless of the request format.
         def initialize(controller, options = {}, infer_extension = true)

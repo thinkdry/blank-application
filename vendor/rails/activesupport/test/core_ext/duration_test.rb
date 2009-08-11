@@ -1,5 +1,4 @@
 require 'abstract_unit'
-require 'active_support/time'
 
 class DurationTest < ActiveSupport::TestCase
   def test_inspect
@@ -43,23 +42,43 @@ class DurationTest < ActiveSupport::TestCase
   end
 
   def test_since_and_ago_with_fractional_days
-    t = Time.local(2000)
+    Time.stubs(:now).returns Time.local(2000)
     # since
-    assert_equal 36.hours.since(t), 1.5.days.since(t)
-    assert_in_delta((24 * 1.7).hours.since(t), 1.7.days.since(t), 1)
+    assert_equal 36.hours.since, 1.5.days.since
+    assert_in_delta((24 * 1.7).hours.since, 1.7.days.since, 0.01)
     # ago
-    assert_equal 36.hours.ago(t), 1.5.days.ago(t)
-    assert_in_delta((24 * 1.7).hours.ago(t), 1.7.days.ago(t), 1)
+    assert_equal 36.hours.ago, 1.5.days.ago
+    assert_in_delta((24 * 1.7).hours.ago, 1.7.days.ago, 0.01)
   end
 
   def test_since_and_ago_with_fractional_weeks
-    t = Time.local(2000)
+    Time.stubs(:now).returns Time.local(2000)
     # since
-    assert_equal((7 * 36).hours.since(t), 1.5.weeks.since(t))
-    assert_in_delta((7 * 24 * 1.7).hours.since(t), 1.7.weeks.since(t), 1)
+    assert_equal((7 * 36).hours.since, 1.5.weeks.since)
+    assert_in_delta((7 * 24 * 1.7).hours.since, 1.7.weeks.since, 0.01)
     # ago
-    assert_equal((7 * 36).hours.ago(t), 1.5.weeks.ago(t))
-    assert_in_delta((7 * 24 * 1.7).hours.ago(t), 1.7.weeks.ago(t), 1)
+    assert_equal((7 * 36).hours.ago, 1.5.weeks.ago)
+    assert_in_delta((7 * 24 * 1.7).hours.ago, 1.7.weeks.ago, 0.01)
+  end
+
+  def test_deprecated_fractional_years
+    years_re = /Fractional years are not respected\. Convert value to integer before calling #years\./
+    assert_deprecated(years_re){1.0.years}
+    assert_deprecated(years_re){1.5.years}
+    assert_not_deprecated{1.years}
+    assert_deprecated(years_re){1.0.year}
+    assert_deprecated(years_re){1.5.year}
+    assert_not_deprecated{1.year}
+  end
+
+  def test_deprecated_fractional_months
+    months_re = /Fractional months are not respected\. Convert value to integer before calling #months\./
+    assert_deprecated(months_re){1.5.months}
+    assert_deprecated(months_re){1.0.months}
+    assert_not_deprecated{1.months}
+    assert_deprecated(months_re){1.5.month}
+    assert_deprecated(months_re){1.0.month}
+    assert_not_deprecated{1.month}
   end
 
   def test_since_and_ago_anchored_to_time_now_when_time_zone_default_not_set
@@ -90,18 +109,6 @@ class DurationTest < ActiveSupport::TestCase
     end
   ensure
     Time.zone_default = nil
-  end
-  
-  def test_adding_hours_across_dst_boundary
-    with_env_tz 'CET' do
-      assert_equal Time.local(2009,3,29,0,0,0) + 24.hours, Time.local(2009,3,30,1,0,0)
-    end
-  end
-  
-  def test_adding_day_across_dst_boundary
-    with_env_tz 'CET' do
-      assert_equal Time.local(2009,3,29,0,0,0) + 1.day, Time.local(2009,3,30,0,0,0)
-    end
   end
 
   protected

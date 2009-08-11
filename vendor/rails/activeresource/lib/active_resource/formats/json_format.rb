@@ -1,5 +1,3 @@
-require 'active_support/json'
-
 module ActiveResource
   module Formats
     module JsonFormat

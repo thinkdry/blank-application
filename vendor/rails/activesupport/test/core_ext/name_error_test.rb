@@ -1,5 +1,4 @@
 require 'abstract_unit'
-require 'active_support/core_ext/name_error'
 
 class NameErrorTest < Test::Unit::TestCase
   def test_name_error_should_set_missing_name

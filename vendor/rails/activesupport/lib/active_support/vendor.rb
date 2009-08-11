@@ -6,17 +6,18 @@ begin
 rescue Gem::LoadError
   $:.unshift "#{File.dirname(__FILE__)}/vendor/builder-2.1.2"
 end
+require 'builder'
 
 begin
-  gem 'memcache-client', '>= 1.6.5'
+  gem 'memcache-client', '>= 1.7.4'
 rescue Gem::LoadError
-  $:.unshift "#{File.dirname(__FILE__)}/vendor/memcache-client-1.6.5"
+  $:.unshift "#{File.dirname(__FILE__)}/vendor/memcache-client-1.7.4"
 end
 
 begin
-  gem 'tzinfo', '~> 0.3.13'
+  gem 'tzinfo', '~> 0.3.12'
 rescue Gem::LoadError
-  $:.unshift "#{File.dirname(__FILE__)}/vendor/tzinfo-0.3.13"
+  $:.unshift "#{File.dirname(__FILE__)}/vendor/tzinfo-0.3.12"
 end
 
 begin

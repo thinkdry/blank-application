@@ -1,6 +1,5 @@
 require 'abstract_unit'
 require 'active_support/xml_mini'
-require 'active_support/core_ext/hash/conversions'
 
 begin
   gem 'nokogiri', '>= 1.1.1'
@@ -146,19 +145,6 @@ class NokogiriEngineTest < Test::Unit::TestCase
       morning
     </root>
     eoxml
-  end
-
-  def test_parse_from_io
-    io = StringIO.new(<<-eoxml)
-    <root>
-      good
-      <products>
-        hello everyone
-      </products>
-      morning
-    </root>
-    eoxml
-    XmlMini.parse(io)
   end
 
   private

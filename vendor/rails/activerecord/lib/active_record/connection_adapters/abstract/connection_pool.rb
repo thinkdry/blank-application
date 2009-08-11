@@ -1,6 +1,5 @@
 require 'monitor'
 require 'set'
-require 'active_support/core_ext/module/synchronization'
 
 module ActiveRecord
   # Raised when a connection could not be obtained within the connection
@@ -108,14 +107,13 @@ module ActiveRecord
         checkin conn if conn
       end
 
-      # If a connection already exists yield it to the block.  If no connection
-      # exists checkout a connection, yield it to the block, and checkin the 
-      # connection when finished.
+      # Reserve a connection, and yield it to a block. Ensure the connection is
+      # checked back in when finished.
       def with_connection
-        fresh_connection = true unless @reserved_connections[current_connection_id]
-        yield connection
+        conn = checkout
+        yield conn
       ensure
-        release_connection if fresh_connection
+        checkin conn
       end
 
       # Returns true if a connection has already been opened.
@@ -362,7 +360,7 @@ module ActiveRecord
       def call(env)
         @app.call(env)
       ensure
-        # Don't return connection (and perform implicit rollback) if
+        # Don't return connection (and peform implicit rollback) if
         # this request is a part of integration test
         unless env.key?("rack.test")
           ActiveRecord::Base.clear_active_connections!

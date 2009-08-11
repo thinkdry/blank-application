@@ -9,11 +9,8 @@ ActionView::Template::register_template_handler :mab,
 
 ActionController::Base.view_paths = [ File.dirname(__FILE__) + '/../fixtures/layout_tests/' ]
 
-require "fixture_template"
-
 class LayoutTest < ActionController::Base
   def self.controller_path; 'views' end
-  def self._implied_layout_name; to_s.underscore.gsub(/_controller$/, '') ; end
   self.view_paths = ActionController::Base.view_paths.dup
 end
 
@@ -40,7 +37,6 @@ end
 
 class LayoutAutoDiscoveryTest < ActionController::TestCase
   def setup
-    super
     @request.host = "www.nextangle.com"
   end
 
@@ -59,19 +55,23 @@ class LayoutAutoDiscoveryTest < ActionController::TestCase
   def test_third_party_template_library_auto_discovers_layout
     @controller = ThirdPartyTemplateLibraryController.new
     get :hello
+    assert_equal 'layouts/third_party_template_library.mab', @controller.active_layout.to_s
+    assert_equal 'layouts/third_party_template_library', @response.layout
     assert_response :success
-    assert_equal 'layouts/third_party_template_library.mab', @response.body
+    assert_equal 'Mab', @response.body
   end
 
-  def test_namespaced_controllers_auto_detect_layouts1
+  def test_namespaced_controllers_auto_detect_layouts
     @controller = ControllerNameSpace::NestedController.new
     get :hello
+    assert_equal 'layouts/controller_name_space/nested', @controller.active_layout.to_s
     assert_equal 'controller_name_space/nested.rhtml hello.rhtml', @response.body
   end
 
-  def test_namespaced_controllers_auto_detect_layouts2
+  def test_namespaced_controllers_auto_detect_layouts
     @controller = MultipleExtensions.new
     get :hello
+    assert_equal 'layouts/multiple_extensions.html.erb', @controller.active_layout.to_s
     assert_equal 'multiple_extensions.html.erb hello.rhtml', @response.body.strip
   end
 end
@@ -94,14 +94,6 @@ class PrependsViewPathController < LayoutTest
   end
 end
 
-class OnlyLayoutController < LayoutTest
-  layout 'item', :only => "hello"
-end
-
-class ExceptLayoutController < LayoutTest
-  layout 'item', :except => "goodbye"
-end
-
 class SetsLayoutInRenderController < LayoutTest
   def hello
     render :layout => 'third_party_template_library'
@@ -115,60 +107,45 @@ class RendersNoLayoutController < LayoutTest
 end
 
 class LayoutSetInResponseTest < ActionController::TestCase
-  include ActionView::TemplateHandlers
-  
   def test_layout_set_when_using_default_layout
     @controller = DefaultLayoutController.new
     get :hello
-    assert @controller.template.layout.include?('layouts/layout_test')
+    assert_equal 'layouts/layout_test', @response.layout
   end
 
   def test_layout_set_when_set_in_controller
     @controller = HasOwnLayoutController.new
     get :hello
-    assert @controller.template.layout.include?('layouts/item')
-  end
-  
-  def test_layout_only_exception_when_included
-    @controller = OnlyLayoutController.new
-    get :hello
-    assert @controller.template.layout.include?('layouts/item')
-  end
-
-  def test_layout_only_exception_when_excepted
-    @controller = OnlyLayoutController.new
-    get :goodbye
-    assert !@response.body.include?("item.rhtml"), "#{@response.body.inspect} included 'item.rhtml'"
-  end
-
-  def test_layout_except_exception_when_included
-    @controller = ExceptLayoutController.new
-    get :hello
-    assert @controller.template.layout.include?('layouts/item')
-  end
-
-  def test_layout_except_exception_when_excepted
-    @controller = ExceptLayoutController.new
-    get :goodbye
-    assert !@response.body.include?("item.rhtml"), "#{@response.body.inspect} included 'item.rhtml'"
+    assert_equal 'layouts/item', @response.layout
   end
 
   def test_layout_set_when_using_render
     @controller = SetsLayoutInRenderController.new
     get :hello
-    assert @controller.template.layout.include?('layouts/third_party_template_library')
+    assert_equal 'layouts/third_party_template_library', @response.layout
   end
 
   def test_layout_is_not_set_when_none_rendered
     @controller = RendersNoLayoutController.new
     get :hello
-    assert_nil @controller.template.layout
+    assert_nil @response.layout
+  end
+
+  def test_exempt_from_layout_honored_by_render_template
+    ActionController::Base.exempt_from_layout :rhtml
+    @controller = RenderWithTemplateOptionController.new
+
+    get :hello
+    assert_equal "alt/hello.rhtml", @response.body.strip
+
+  ensure
+    ActionController::Base.exempt_from_layout.delete(/\.rhtml$/)
   end
 
   def test_layout_is_picked_from_the_controller_instances_view_path
     @controller = PrependsViewPathController.new
     get :hello
-    assert @controller.template.layout =~ /layouts\/alt\.\w+/
+    assert_equal 'layouts/alt', @response.layout
   end
 
   def test_absolute_pathed_layout
@@ -191,7 +168,8 @@ end
 class LayoutExceptionRaised < ActionController::TestCase
   def test_exception_raised_when_layout_file_not_found
     @controller = SetsNonExistentLayoutFile.new
-    assert_raise(ActionView::MissingTemplate) { get :hello }
+    get :hello
+    assert_kind_of ActionView::MissingTemplate, @response.template.instance_eval { @exception }
   end
 end
 
@@ -219,7 +197,8 @@ unless RUBY_PLATFORM =~ /(:?mswin|mingw|bccwin)/
       @controller = LayoutSymlinkedTest.new
       get :hello
       assert_response 200
-      assert @controller.template.layout.include?("layouts/symlinked/symlinked_layout")
+      assert_equal "layouts/symlinked/symlinked_layout", @response.layout
     end
   end
 end
+

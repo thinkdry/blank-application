@@ -1,6 +1,5 @@
 require "cases/helper"
 require 'models/customer'
-require 'active_support/core_ext/exception'
 
 class AggregationsTest < ActiveRecord::TestCase
   fixtures :customers

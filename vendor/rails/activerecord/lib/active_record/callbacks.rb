@@ -22,7 +22,7 @@ module ActiveRecord
   # * (8) <tt>after_save</tt>
   #
   # That's a total of eight callbacks, which gives you immense power to react and prepare for each state in the
-  # Active Record lifecycle. The sequence for calling <tt>Base#save</tt> for an existing record is similar, except that each 
+  # Active Record lifecycle. The sequence for calling <tt>Base#save</tt> an existing record is similar, except that each 
   # <tt>_on_create</tt> callback is replaced by the corresponding <tt>_on_update</tt> callback.
   #
   # Examples:
@@ -211,23 +211,21 @@ module ActiveRecord
   # needs to be aware of it because an ordinary +save+ will raise such exception
   # instead of quietly returning +false+.
   module Callbacks
-    extend ActiveSupport::Concern
-
     CALLBACKS = %w(
       after_find after_initialize before_save after_save before_create after_create before_update after_update before_validation
       after_validation before_validation_on_create after_validation_on_create before_validation_on_update
       after_validation_on_update before_destroy after_destroy
     )
 
-    included do
-      extend Observable
+    def self.included(base) #:nodoc:
+      base.extend Observable
 
       [:create_or_update, :valid?, :create, :update, :destroy].each do |method|
-        alias_method_chain method, :callbacks
+        base.send :alias_method_chain, method, :callbacks
       end
 
-      include ActiveSupport::Callbacks
-      define_callbacks *CALLBACKS
+      base.send :include, ActiveSupport::Callbacks
+      base.define_callbacks *CALLBACKS
     end
 
     # Is called when the object was instantiated by one of the finders, like <tt>Base.find</tt>.
@@ -262,10 +260,6 @@ module ActiveRecord
     # Is called _after_ <tt>Base.save</tt> on new objects that haven't been saved yet (no record exists).
     # Note that this callback is still wrapped in the transaction around +save+. For example, if you
     # invoke an external indexer at this point it won't see the changes in the database.
-    #
-    #  class Contact < ActiveRecord::Base
-    #    after_create { |record| logger.info( "Contact #{record.id} was created." ) }
-    #  end
     def after_create() end
     def create_with_callbacks #:nodoc:
       return false if callback(:before_create) == false
@@ -276,19 +270,11 @@ module ActiveRecord
     private :create_with_callbacks
 
     # Is called _before_ <tt>Base.save</tt> on existing objects that have a record.
-    #
-    #  class Contact < ActiveRecord::Base
-    #    before_update { |record| logger.info( "Contact #{record.id} is about to be updated." ) }
-    #  end
     def before_update() end
 
     # Is called _after_ <tt>Base.save</tt> on existing objects that have a record.
     # Note that this callback is still wrapped in the transaction around +save+. For example, if you
     # invoke an external indexer at this point it won't see the changes in the database.
-    #
-    #  class Contact < ActiveRecord::Base
-    #    after_update { |record| logger.info( "Contact #{record.id} was updated." ) }
-    #  end
     def after_update() end
 
     def update_with_callbacks(*args) #:nodoc:
@@ -338,10 +324,6 @@ module ActiveRecord
     #
     # Note: If you need to _destroy_ or _nullify_ associated records first,
     # use the <tt>:dependent</tt> option on your associations.
-    #
-    #  class Contact < ActiveRecord::Base
-    #    after_destroy { |record| logger.info( "Contact #{record.id} is about to be destroyed." ) }
-    #  end
     def before_destroy() end
 
     # Is called _after_ <tt>Base.destroy</tt> (and all the attributes have been frozen).
@@ -365,9 +347,14 @@ module ActiveRecord
           result = send(method)
         end
 
-        notify_observers(method)
+        notify(method)
 
         return result
+      end
+
+      def notify(method) #:nodoc:
+        self.class.changed
+        self.class.notify_observers(method, self)
       end
   end
 end

@@ -1,6 +1,5 @@
 # encoding: utf-8
 require 'abstract_unit'
-require 'active_support/json'
 
 class TestJSONEncoding < Test::Unit::TestCase
   class Foo
@@ -10,8 +9,8 @@ class TestJSONEncoding < Test::Unit::TestCase
   end
 
   class Custom
-    def as_json(options)
-      'custom'
+    def to_json(options)
+      '"custom"'
     end
   end
 
@@ -65,9 +64,9 @@ class TestJSONEncoding < Test::Unit::TestCase
 
   def test_hash_encoding
     assert_equal %({\"a\":\"b\"}), ActiveSupport::JSON.encode(:a => :b)
-    assert_equal %({\"a\":1}), ActiveSupport::JSON.encode('a' => 1)
+    assert_equal %({\"a\":1}),     ActiveSupport::JSON.encode('a' => 1)
     assert_equal %({\"a\":[1,2]}), ActiveSupport::JSON.encode('a' => [1,2])
-    assert_equal %({"1":2}), ActiveSupport::JSON.encode(1 => 2)
+    assert_equal %({"1":2}),       ActiveSupport::JSON.encode(1 => 2)
 
     sorted_json = '{' + ActiveSupport::JSON.encode(:a => :b, :c => :d)[1..-2].split(',').sort.join(',') + '}'
     assert_equal %({\"a\":\"b\",\"c\":\"d\"}), sorted_json
@@ -140,10 +139,22 @@ class TestJSONEncoding < Test::Unit::TestCase
 end
 
 class JsonOptionsTests < Test::Unit::TestCase
+  # The json extension passes internal state to to_json
+  def test_non_hash_options_should_be_tolerated
+    faux_internal_state_object = Object.new
+
+    value = Object.new
+    def value.to_json(options) options end
+
+    assert_kind_of Hash, ActiveSupport::JSON.encode(value, faux_internal_state_object)
+  end
+
   def test_enumerable_should_passthrough_options_to_elements
-    value, options = Object.new, Object.new
-    def value.as_json(options) options end
-    def options.encode_json(encoder) self end
-    assert_equal options, ActiveSupport::JSON.encode(value, options)
+    json_options = { :include => :posts }
+    ActiveSupport::JSON.expects(:encode).with(1, json_options)
+    ActiveSupport::JSON.expects(:encode).with(2, json_options)
+    ActiveSupport::JSON.expects(:encode).with('foo', json_options)
+
+    [1, 2, 'foo'].to_json(json_options)
   end
 end

@@ -1,10 +1,11 @@
 require 'abstract_unit'
 
 silence_warnings do
-  class Post < Struct.new(:title, :author_name, :body, :secret, :written_on, :cost)
-    extend ActiveModel::Naming
-    include ActiveModel::Conversion
-
+  Post = Struct.new(:title, :author_name, :body, :secret, :written_on, :cost)
+  Post.class_eval do
+    alias_method :title_before_type_cast, :title unless respond_to?(:title_before_type_cast)
+    alias_method :body_before_type_cast, :body unless respond_to?(:body_before_type_cast)
+    alias_method :author_name_before_type_cast, :author_name unless respond_to?(:author_name_before_type_cast)
     alias_method :secret?, :secret
 
     def new_record=(boolean)
@@ -26,9 +27,6 @@ silence_warnings do
   end
 
   class Comment
-    extend ActiveModel::Naming
-    include ActiveModel::Conversion
-
     attr_reader :id
     attr_reader :post_id
     def initialize(id = nil, post_id = nil); @id, @post_id = id, post_id end
@@ -45,9 +43,6 @@ silence_warnings do
   end
 
   class Tag
-    extend ActiveModel::Naming
-    include ActiveModel::Conversion
-
     attr_reader :id
     attr_reader :post_id
     def initialize(id = nil, post_id = nil); @id, @post_id = id, post_id end
@@ -64,9 +59,6 @@ silence_warnings do
   end
 
   class CommentRelevance
-    extend ActiveModel::Naming
-    include ActiveModel::Conversion
-
     attr_reader :id
     attr_reader :comment_id
     def initialize(id = nil, comment_id = nil); @id, @comment_id = id, comment_id end
@@ -79,9 +71,6 @@ silence_warnings do
   end
 
   class TagRelevance
-    extend ActiveModel::Naming
-    include ActiveModel::Conversion
-
     attr_reader :id
     attr_reader :tag_id
     def initialize(id = nil, tag_id = nil); @id, @tag_id = id, tag_id end
@@ -103,12 +92,11 @@ class FormHelperTest < ActionView::TestCase
   tests ActionView::Helpers::FormHelper
 
   def setup
-    super
     @post = Post.new
     @comment = Comment.new
     def @post.errors()
       Class.new{
-        def [](field); field == "author_name" ? ["can't be empty"] : [] end
+        def on(field); "can't be empty" if field == "author_name"; end
         def empty?() false end
         def count() 1 end
         def full_messages() [ "Author name can't be empty" ] end
@@ -155,22 +143,6 @@ class FormHelperTest < ActionView::TestCase
 
   def test_label_with_for_attribute_as_string
     assert_dom_equal('<label for="my_for">Title</label>', label(:post, :title, nil, "for" => "my_for"))
-  end
-
-  def test_label_with_id_attribute_as_symbol
-    assert_dom_equal('<label for="post_title" id="my_id">Title</label>', label(:post, :title, nil, :id => "my_id"))
-  end
-
-  def test_label_with_id_attribute_as_string
-    assert_dom_equal('<label for="post_title" id="my_id">Title</label>', label(:post, :title, nil, "id" => "my_id"))
-  end
-
-  def test_label_with_for_and_id_attributes_as_symbol
-    assert_dom_equal('<label for="my_for" id="my_id">Title</label>', label(:post, :title, nil, :for => "my_for", :id => "my_id"))
-  end
-
-  def test_label_with_for_and_id_attributes_as_string
-    assert_dom_equal('<label for="my_for" id="my_id">Title</label>', label(:post, :title, nil, "for" => "my_for", "id" => "my_id"))
   end
 
   def test_label_for_radio_buttons_with_value
@@ -320,16 +292,6 @@ class FormHelperTest < ActionView::TestCase
   def test_radio_button_respects_passed_in_id
      assert_dom_equal('<input checked="checked" id="foo" name="post[secret]" type="radio" value="1" />',
        radio_button("post", "secret", "1", :id=>"foo")
-    )
-  end
-
-  def test_radio_button_with_booleans
-    assert_dom_equal('<input id="post_secret_true" name="post[secret]" type="radio" value="true" />',
-      radio_button("post", "secret", true)
-    )
-
-    assert_dom_equal('<input id="post_secret_false" name="post[secret]" type="radio" value="false" />',
-      radio_button("post", "secret", false)
     )
   end
 
@@ -1061,8 +1023,8 @@ class FormHelperTest < ActionView::TestCase
   end
 
   def test_default_form_builder
-    old_default_form_builder, ActionView.default_form_builder =
-      ActionView.default_form_builder, LabelledFormBuilder
+    old_default_form_builder, ActionView::Base.default_form_builder =
+      ActionView::Base.default_form_builder, LabelledFormBuilder
 
     form_for(:post, @post) do |f|
       concat f.text_field(:title)
@@ -1079,7 +1041,7 @@ class FormHelperTest < ActionView::TestCase
 
     assert_dom_equal expected, output_buffer
   ensure
-    ActionView.default_form_builder = old_default_form_builder
+    ActionView::Base.default_form_builder = old_default_form_builder
   end
 
   def test_default_form_builder_with_active_record_helpers

@@ -1,11 +1,6 @@
 module ActiveRecord
   module Associations
     class HasAndBelongsToManyAssociation < AssociationCollection #:nodoc:
-      def initialize(owner, reflection)
-        super
-        @primary_key_list = {}
-      end
-
       def create(attributes = {})
         create_record(attributes) { |record| insert_record(record) }
       end
@@ -22,12 +17,6 @@ module ActiveRecord
         @reflection.reset_column_information
       end
 
-      def has_primary_key?
-        return @has_primary_key unless @has_primary_key.nil?
-        @has_primary_key = (ActiveRecord::Base.connection.supports_primary_key? &&
-          ActiveRecord::Base.connection.primary_key(@reflection.options[:join_table]))
-      end
-
       protected
         def construct_find_options!(options)
           options[:joins]      = @join_sql
@@ -40,11 +29,6 @@ module ActiveRecord
         end
 
         def insert_record(record, force = true, validate = true)
-          if has_primary_key?
-            raise ActiveRecord::ConfigurationError,
-              "Primary key is not allowed in a has_and_belongs_to_many join table (#{@reflection.options[:join_table]})."
-          end
-
           if record.new_record?
             if force
               record.save!
@@ -101,7 +85,15 @@ module ActiveRecord
 
           @join_sql = "INNER JOIN #{@owner.connection.quote_table_name @reflection.options[:join_table]} ON #{@reflection.quoted_table_name}.#{@reflection.klass.primary_key} = #{@owner.connection.quote_table_name @reflection.options[:join_table]}.#{@reflection.association_foreign_key}"
 
-          construct_counter_sql
+          if @reflection.options[:counter_sql]
+            @counter_sql = interpolate_sql(@reflection.options[:counter_sql])
+          elsif @reflection.options[:finder_sql]
+            # replace the SELECT clause with COUNT(*), preserving any hints within /* ... */
+            @reflection.options[:counter_sql] = @reflection.options[:finder_sql].sub(/SELECT (\/\*.*?\*\/ )?(.*)\bFROM\b/im) { "SELECT #{$1}COUNT(*) FROM" }
+            @counter_sql = interpolate_sql(@reflection.options[:counter_sql])
+          else
+            @counter_sql = @finder_sql
+          end
         end
 
         def construct_scope

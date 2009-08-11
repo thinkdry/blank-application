@@ -20,17 +20,19 @@ class MissingSourceFile < LoadError #:nodoc:
   REGEXPS = [
     [/^no such file to load -- (.+)$/i, 1],
     [/^Missing \w+ (file\s*)?([^\s]+.rb)$/i, 2],
-    [/^Missing API definition file in (.+)$/i, 1],
-    [/win32/, 0]
+    [/^Missing API definition file in (.+)$/i, 1]
   ] unless defined?(REGEXPS)
 end
 
-class LoadError
-  def self.new(*args)
-    if self == LoadError
-      MissingSourceFile.from_message(args.first)
-    else
-      super
+module ActiveSupport #:nodoc:
+  module CoreExtensions #:nodoc:
+    module LoadErrorExtensions #:nodoc:
+      module LoadErrorClassMethods #:nodoc:
+        def new(*args)
+          (self == LoadError && MissingSourceFile.from_message(args.first)) || super
+        end
+      end
+      ::LoadError.extend(LoadErrorClassMethods)
     end
   end
 end

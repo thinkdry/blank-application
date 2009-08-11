@@ -1,72 +1,111 @@
-module ActionController
-  autoload :Base,                 "action_controller/base"
-  autoload :ConditionalGet,       "action_controller/metal/conditional_get"
-  autoload :HideActions,          "action_controller/metal/hide_actions"
-  autoload :Metal,                "action_controller/metal"
-  autoload :Layouts,              "action_controller/metal/layouts"
-  autoload :RackConvenience,      "action_controller/metal/rack_convenience"
-  autoload :Rails2Compatibility,  "action_controller/metal/compatibility"
-  autoload :Redirector,           "action_controller/metal/redirector"
-  autoload :RenderingController,  "action_controller/metal/rendering_controller"
-  autoload :RenderOptions,        "action_controller/metal/render_options"
-  autoload :Rescue,               "action_controller/metal/rescuable"
-  autoload :Responder,            "action_controller/metal/responder"
-  autoload :Testing,              "action_controller/metal/testing"
-  autoload :UrlFor,               "action_controller/metal/url_for"
-  autoload :Session,              "action_controller/metal/session"
-  autoload :Helpers,              "action_controller/metal/helpers"
+#--
+# Copyright (c) 2004-2009 David Heinemeier Hansson
+#
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+# LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+# OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+# WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#++
 
-  # Ported modules
-  # require 'action_controller/routing'
-  autoload :Caching,           'action_controller/caching'
-  autoload :Dispatcher,        'action_controller/dispatch/dispatcher'
-  autoload :Integration,       'action_controller/testing/integration'
-  autoload :MimeResponds,      'action_controller/metal/mime_responds'
-  autoload :PolymorphicRoutes, 'action_controller/routing/generation/polymorphic_routes'
-  autoload :RecordIdentifier,  'action_controller/record_identifier'
-  autoload :Resources,         'action_controller/routing/resources'
-  autoload :SessionManagement, 'action_controller/metal/session_management'
-  autoload :TestCase,          'action_controller/testing/test_case'
-  autoload :TestProcess,       'action_controller/testing/process'
-  autoload :UrlRewriter,       'action_controller/routing/generation/url_rewriter'
-  autoload :UrlWriter,         'action_controller/routing/generation/url_rewriter'
-
-  autoload :Verification,             'action_controller/metal/verification'
-  autoload :Flash,                    'action_controller/metal/flash'
-  autoload :RequestForgeryProtection, 'action_controller/metal/request_forgery_protection'
-  autoload :Streaming,                'action_controller/metal/streaming'
-  autoload :HttpAuthentication,       'action_controller/metal/http_authentication'
-  autoload :FilterParameterLogging,   'action_controller/metal/filter_parameter_logging'
-  autoload :Translation,              'action_controller/translation'
-  autoload :Cookies,                  'action_controller/metal/cookies'
-
-  autoload :ActionControllerError,    'action_controller/metal/exceptions'
-  autoload :SessionRestoreError,      'action_controller/metal/exceptions'
-  autoload :RenderError,              'action_controller/metal/exceptions'
-  autoload :RoutingError,             'action_controller/metal/exceptions'
-  autoload :MethodNotAllowed,         'action_controller/metal/exceptions'
-  autoload :NotImplemented,           'action_controller/metal/exceptions'
-  autoload :UnknownController,        'action_controller/metal/exceptions'
-  autoload :MissingFile,              'action_controller/metal/exceptions'
-  autoload :RenderError,              'action_controller/metal/exceptions'
-  autoload :SessionOverflowError,     'action_controller/metal/exceptions'
-  autoload :UnknownHttpMethod,        'action_controller/metal/exceptions'
-
-  autoload :Routing,                  'action_controller/routing'
+begin
+  require 'active_support'
+rescue LoadError
+  activesupport_path = "#{File.dirname(__FILE__)}/../../activesupport/lib"
+  if File.directory?(activesupport_path)
+    $:.unshift activesupport_path
+    require 'active_support'
+  end
 end
 
+gem 'rack', '~> 1.0.0'
+require 'rack'
+
+module ActionController
+  # TODO: Review explicit to see if they will automatically be handled by
+  # the initilizer if they are really needed.
+  def self.load_all!
+    [Base, CGIHandler, CgiRequest, Request, Response, Http::Headers, UrlRewriter, UrlWriter]
+  end
+
+  autoload :Base, 'action_controller/base'
+  autoload :Benchmarking, 'action_controller/benchmarking'
+  autoload :Caching, 'action_controller/caching'
+  autoload :Cookies, 'action_controller/cookies'
+  autoload :Dispatcher, 'action_controller/dispatcher'
+  autoload :Failsafe, 'action_controller/failsafe'
+  autoload :Filters, 'action_controller/filters'
+  autoload :Flash, 'action_controller/flash'
+  autoload :Helpers, 'action_controller/helpers'
+  autoload :HttpAuthentication, 'action_controller/http_authentication'
+  autoload :Integration, 'action_controller/integration'
+  autoload :IntegrationTest, 'action_controller/integration'
+  autoload :Layout, 'action_controller/layout'
+  autoload :MiddlewareStack, 'action_controller/middleware_stack'
+  autoload :MimeResponds, 'action_controller/mime_responds'
+  autoload :ParamsParser, 'action_controller/params_parser'
+  autoload :PolymorphicRoutes, 'action_controller/polymorphic_routes'
+  autoload :RecordIdentifier, 'action_controller/record_identifier'
+  autoload :Reloader, 'action_controller/reloader'
+  autoload :Request, 'action_controller/request'
+  autoload :RequestForgeryProtection, 'action_controller/request_forgery_protection'
+  autoload :Rescue, 'action_controller/rescue'
+  autoload :Resources, 'action_controller/resources'
+  autoload :Response, 'action_controller/response'
+  autoload :RewindableInput, 'action_controller/rewindable_input'
+  autoload :Routing, 'action_controller/routing'
+  autoload :SessionManagement, 'action_controller/session_management'
+  autoload :StatusCodes, 'action_controller/status_codes'
+  autoload :Streaming, 'action_controller/streaming'
+  autoload :TestCase, 'action_controller/test_case'
+  autoload :TestProcess, 'action_controller/test_process'
+  autoload :Translation, 'action_controller/translation'
+  autoload :UploadedFile, 'action_controller/uploaded_file'
+  autoload :UploadedStringIO, 'action_controller/uploaded_file'
+  autoload :UploadedTempfile, 'action_controller/uploaded_file'
+  autoload :UrlRewriter, 'action_controller/url_rewriter'
+  autoload :UrlWriter, 'action_controller/url_rewriter'
+  autoload :Verification, 'action_controller/verification'
+
+  module Assertions
+    autoload :DomAssertions, 'action_controller/assertions/dom_assertions'
+    autoload :ModelAssertions, 'action_controller/assertions/model_assertions'
+    autoload :ResponseAssertions, 'action_controller/assertions/response_assertions'
+    autoload :RoutingAssertions, 'action_controller/assertions/routing_assertions'
+    autoload :SelectorAssertions, 'action_controller/assertions/selector_assertions'
+    autoload :TagAssertions, 'action_controller/assertions/tag_assertions'
+  end
+
+  module Http
+    autoload :Headers, 'action_controller/headers'
+  end
+
+  module Session
+    autoload :AbstractStore, 'action_controller/session/abstract_store'
+    autoload :CookieStore, 'action_controller/session/cookie_store'
+    autoload :MemCacheStore, 'action_controller/session/mem_cache_store'
+  end
+
+  # DEPRECATE: Remove CGI support
+  autoload :CgiRequest, 'action_controller/cgi_process'
+  autoload :CGIHandler, 'action_controller/cgi_process'
+end
+
+autoload :Mime, 'action_controller/mime_type'
+
 autoload :HTML, 'action_controller/vendor/html-scanner'
-autoload :AbstractController, 'abstract_controller'
 
-autoload :Rack,                       'action_dispatch'
-autoload :ActionDispatch,             'action_dispatch'
-autoload :ActionView,                 'action_view'
-
-# Common ActiveSupport usage in ActionController
-require "active_support/concern"
-require 'active_support/core_ext/class/attribute_accessors'
-require 'active_support/core_ext/load_error'
-require 'active_support/core_ext/module/attr_internal'
-require 'active_support/core_ext/module/delegation'
-require 'active_support/core_ext/name_error'
-require 'active_support/inflector'
+require 'action_view'

@@ -1,12 +1,4 @@
-require 'active_support/core_ext/module/delegation'
-
 module ActiveRecord
-  class InverseOfAssociationNotFoundError < ActiveRecordError #:nodoc:
-    def initialize(reflection)
-      super("Could not find the inverse association for #{reflection.name} (#{reflection.options[:inverse_of].inspect} in #{reflection.class_name})")
-    end
-  end
-
   class HasManyThroughAssociationNotFoundError < ActiveRecordError #:nodoc:
     def initialize(owner_class_name, reflection)
       super("Could not find the association #{reflection.options[:through].inspect} in model #{owner_class_name}")
@@ -42,12 +34,11 @@ module ActiveRecord
     end
   end
 
-  class HasManyThroughCantAssociateThroughHasOneOrManyReflection < ActiveRecordError #:nodoc:
+  class HasManyThroughCantAssociateThroughHasManyReflection < ActiveRecordError #:nodoc:
     def initialize(owner, reflection)
       super("Cannot modify association '#{owner.class.name}##{reflection.name}' because the source reflection class '#{reflection.source_reflection.class_name}' is associated to '#{reflection.through_reflection.class_name}' via :#{reflection.source_reflection.macro}.")
     end
   end
-
   class HasManyThroughCantAssociateNewRecords < ActiveRecordError #:nodoc:
     def initialize(owner, reflection)
       super("Cannot associate new records through '#{owner.class.name}##{reflection.name}' on '#{reflection.source_reflection.class_name rescue nil}##{reflection.source_reflection.name rescue nil}'. Both records must have an id in order to create the has_many :through record associating them.")
@@ -80,8 +71,6 @@ module ActiveRecord
 
   # See ActiveRecord::Associations::ClassMethods for documentation.
   module Associations # :nodoc:
-    extend ActiveSupport::Concern
-
     # These classes will be loaded when associations are created.
     # So there is no need to eager load them.
     autoload :AssociationCollection, 'active_record/associations/association_collection'
@@ -93,6 +82,10 @@ module ActiveRecord
     autoload :HasManyThroughAssociation, 'active_record/associations/has_many_through_association'
     autoload :HasOneAssociation, 'active_record/associations/has_one_association'
     autoload :HasOneThroughAssociation, 'active_record/associations/has_one_through_association'
+
+    def self.included(base)
+      base.extend(ClassMethods)
+    end
 
     # Clears out the association cache
     def clear_association_cache #:nodoc:
@@ -417,32 +410,6 @@ module ActiveRecord
     #   @firm.clients.collect { |c| c.invoices }.flatten # select all invoices for all clients of the firm
     #   @firm.invoices                                   # selects all invoices by going through the Client join model.
     #
-    # Similarly you can go through a +has_one+ association on the join model:
-    #
-    #   class Group < ActiveRecord::Base
-    #     has_many   :users
-    #     has_many   :avatars, :through => :users
-    #   end
-    #
-    #   class User < ActiveRecord::Base
-    #     belongs_to :group
-    #     has_one    :avatar
-    #   end
-    #
-    #   class Avatar < ActiveRecord::Base
-    #     belongs_to :user
-    #   end
-    #
-    #   @group = Group.first
-    #   @group.users.collect { |u| u.avatar }.flatten # select all avatars for all users in the group
-    #   @group.avatars                                # selects all avatars by going through the User join model.
-    #
-    # An important caveat with going through +has_one+ or +has_many+ associations on the join model is that these associations are 
-    # *read-only*.  For example, the following would not work following the previous example:
-    #
-    #   @group.avatars << Avatar.new                # this would work if User belonged_to Avatar rather than the other way around.
-    #   @group.avatars.delete(@group.avatars.last)  # so would this
-    #
     # === Polymorphic Associations
     #
     # Polymorphic associations on models are not restricted on what types of models they can be associated with.  Rather, they
@@ -546,13 +513,13 @@ module ActiveRecord
     #  
     #   Post.find(:all, :include => [ :author, :comments ], :conditions => ['comments.approved = ?', true])
     #
-    # This will result in a single SQL query with joins along the lines of: <tt>LEFT OUTER JOIN comments ON comments.post_id = posts.id</tt> and
+    # will result in a single SQL query with joins along the lines of: <tt>LEFT OUTER JOIN comments ON comments.post_id = posts.id</tt> and
     # <tt>LEFT OUTER JOIN authors ON authors.id = posts.author_id</tt>. Note that using conditions like this can have unintended consequences.
     # In the above example posts with no approved comments are not returned at all, because the conditions apply to the SQL statement as a whole
     # and not just to the association. You must disambiguate column references for this fallback to happen, for example
     # <tt>:order => "author.name DESC"</tt> will work but <tt>:order => "name DESC"</tt> will not. 
     #
-    # If you do want eager load only some members of an association it is usually more natural to <tt>:include</tt> an association
+    # If you do want eagerload only some members of an association it is usually more natural to <tt>:include</tt> an association
     # which has conditions defined on it:
     #
     #   class Post < ActiveRecord::Base
@@ -561,7 +528,7 @@ module ActiveRecord
     #
     #   Post.find(:all, :include => :approved_comments)
     #
-    # This will load posts and eager load the +approved_comments+ association, which contains only those comments that have been approved.
+    # will load posts and eager load the +approved_comments+ association, which contains only those comments that have been approved.
     #
     # If you eager load an association with a specified <tt>:limit</tt> option, it will be ignored, returning all the associated objects:
     #
@@ -584,7 +551,7 @@ module ActiveRecord
     #
     #   Address.find(:all, :include => :addressable)
     #
-    # This will execute one query to load the addresses and load the addressables with one query per addressable type.
+    # will execute one query to load the addresses and load the addressables with one query per addressable type. 
     # For example if all the addressables are either of class Person or Company then a total of 3 queries will be executed. The list of
     # addressable types to load is determined on the back of the addresses loaded. This is not supported if Active Record has to fallback
     # to the previous implementation of eager loading and will raise ActiveRecord::EagerLoadPolymorphicError. The reason is that the parent 
@@ -667,60 +634,6 @@ module ActiveRecord
     #       end
     #     end
     #   end
-    #
-    # == Bi-directional associations
-    #
-    # When you specify an association there is usually an association on the associated model that specifies the same
-    # relationship in reverse.  For example, with the following models:
-    #
-    #    class Dungeon < ActiveRecord::Base
-    #      has_many :traps
-    #      has_one :evil_wizard
-    #    end
-    #
-    #    class Trap < ActiveRecord::Base
-    #      belongs_to :dungeon
-    #    end
-    #
-    #    class EvilWizard < ActiveRecord::Base
-    #      belongs_to :dungeon
-    #    end
-    #
-    # The +traps+ association on +Dungeon+ and the the +dungeon+ association on +Trap+ are the inverse of each other and the
-    # inverse of the +dungeon+ association on +EvilWizard+ is the +evil_wizard+ association on +Dungeon+ (and vice-versa).  By default,
-    # +ActiveRecord+ doesn't do know anything about these inverse relationships and so no object loading optimisation is possible.  For example:
-    #
-    #    d = Dungeon.first
-    #    t = d.traps.first
-    #    d.level == t.dungeon.level # => true
-    #    d.level = 10
-    #    d.level == t.dungeon.level # => false
-    #
-    # The +Dungeon+ instances +d+ and <tt>t.dungeon</tt> in the above example refer to the same object data from the database, but are 
-    # actually different in-memory copies of that data.  Specifying the <tt>:inverse_of</tt> option on associations lets you tell
-    # +ActiveRecord+ about inverse relationships and it will optimise object loading.  For example, if we changed our model definitions to:
-    #
-    #    class Dungeon < ActiveRecord::Base
-    #      has_many :traps, :inverse_of => :dungeon
-    #      has_one :evil_wizard, :inverse_of => :dungeon
-    #    end
-    #
-    #    class Trap < ActiveRecord::Base
-    #      belongs_to :dungeon, :inverse_of => :traps
-    #    end
-    #
-    #    class EvilWizard < ActiveRecord::Base
-    #      belongs_to :dungeon, :inverse_of => :evil_wizard
-    #    end
-    #
-    # Then, from our code snippet above, +d+ and <tt>t.dungeon</tt> are actually the same in-memory instance and our final <tt>d.level == t.dungeon.level</tt>
-    # will return +true+.
-    #
-    # There are limitations to <tt>:inverse_of</tt> support:
-    #
-    # * does not work with <tt>:through</tt> associations.
-    # * does not work with <tt>:polymorphic</tt> associations.
-    # * for +belongs_to+ associations +has_many+ inverse associations are ignored.
     #
     # == Type safety with <tt>ActiveRecord::AssociationTypeMismatch</tt>
     #
@@ -846,7 +759,7 @@ module ActiveRecord
       # [:through]
       #   Specifies a Join Model through which to perform the query.  Options for <tt>:class_name</tt> and <tt>:foreign_key</tt>
       #   are ignored, as the association uses the source reflection. You can only use a <tt>:through</tt> query through a <tt>belongs_to</tt>
-      #   <tt>has_one</tt> or <tt>has_many</tt> association on the join model.
+      #   or <tt>has_many</tt> association on the join model.
       # [:source]
       #   Specifies the source association name used by <tt>has_many :through</tt> queries.  Only use it if the name cannot be
       #   inferred from the association.  <tt>has_many :subscribers, :through => :subscriptions</tt> will look for either <tt>:subscribers</tt> or
@@ -862,10 +775,6 @@ module ActiveRecord
       #   If false, don't validate the associated objects when saving the parent object. true by default.
       # [:autosave]
       #   If true, always save any loaded members and destroy members marked for destruction, when saving the parent object. Off by default.
-      # [:inverse_of]
-      #   Specifies the name of the <tt>belongs_to</tt> association on the associated object that is the inverse of this <tt>has_many</tt> 
-      #   association.  Does not work in combination with <tt>:through</tt> or <tt>:as</tt> options.  
-      #   See ActiveRecord::Associations::ClassMethods's overview on Bi-directional assocations for more detail.
       #
       # Option examples:
       #   has_many :comments, :order => "posted_on"
@@ -975,10 +884,6 @@ module ActiveRecord
       #   If false, don't validate the associated object when saving the parent object. +false+ by default.
       # [:autosave]
       #   If true, always save the associated object or destroy it if marked for destruction, when saving the parent object. Off by default.
-      # [:inverse_of]
-      #   Specifies the name of the <tt>belongs_to</tt> association on the associated object that is the inverse of this <tt>has_one</tt> 
-      #   association.  Does not work in combination with <tt>:through</tt> or <tt>:as</tt> options.  
-      #   See ActiveRecord::Associations::ClassMethods's overview on Bi-directional assocations for more detail.
       #
       # Option examples:
       #   has_one :credit_card, :dependent => :destroy  # destroys the associated credit card
@@ -1081,10 +986,6 @@ module ActiveRecord
       # [:touch]
       #   If true, the associated object will be touched (the updated_at/on attributes set to now) when this record is either saved or
       #   destroyed. If you specify a symbol, that attribute will be updated with the current time instead of the updated_at/on attribute.
-      # [:inverse_of]
-      #   Specifies the name of the <tt>has_one</tt> or <tt>has_many</tt> association on the associated object that is the inverse of this <tt>belongs_to</tt> 
-      #   association.  Does not work in combination with the <tt>:polymorphic</tt> options.  
-      #   See ActiveRecord::Associations::ClassMethods's overview on Bi-directional assocations for more detail.
       #
       # Option examples:
       #   belongs_to :firm, :foreign_key => "client_of"
@@ -1294,7 +1195,7 @@ module ActiveRecord
 
       private
         # Generates a join table name from two provided table names.
-        # The names in the join table names end up in lexicographic order.
+        # The names in the join table namesme end up in lexicographic order.
         #
         #   join_table_name("members", "clubs")         # => "clubs_members"
         #   join_table_name("members", "special_clubs") # => "members_special_clubs"
@@ -1338,8 +1239,13 @@ module ActiveRecord
               association = association_proxy_class.new(self, reflection)
             end
 
-            association.replace(new_value)
-            association_instance_set(reflection.name, new_value.nil? ? nil : association)
+            if association_proxy_class == HasOneThroughAssociation
+              association.create_through_record(new_value)
+              self.send(reflection.name, new_value)
+            else
+              association.replace(new_value)
+              association_instance_set(reflection.name, new_value.nil? ? nil : association)
+            end
           end
 
           define_method("set_#{reflection.name}_target") do |target|
@@ -1369,16 +1275,9 @@ module ActiveRecord
             if send(reflection.name).loaded? || reflection.options[:finder_sql]
               send(reflection.name).map(&:id)
             else
-              if reflection.through_reflection && reflection.source_reflection.belongs_to?
-                through = reflection.through_reflection
-                primary_key = reflection.source_reflection.primary_key_name
-                send(through.name).all(:select => "DISTINCT #{through.quoted_table_name}.#{primary_key}").map!(&:"#{primary_key}")
-              else
-                send(reflection.name).all(:select => "#{reflection.quoted_table_name}.#{reflection.klass.primary_key}").map!(&:id)
-              end
+              send(reflection.name).all(:select => "#{reflection.quoted_table_name}.#{reflection.klass.primary_key}").map(&:id)
             end
           end
-
         end
 
         def collection_accessor_methods(reflection, association_proxy_class, writer = true)
@@ -1394,7 +1293,7 @@ module ActiveRecord
 
             define_method("#{reflection.name.to_s.singularize}_ids=") do |new_value|
               ids = (new_value || []).reject { |nid| nid.blank? }
-              send("#{reflection.name}=", reflection.klass.find(ids))
+              send("#{reflection.name}=", reflection.class_name.constantize.find(ids))
             end
           end
         end
@@ -1592,7 +1491,7 @@ module ActiveRecord
           :finder_sql, :counter_sql,
           :before_add, :after_add, :before_remove, :after_remove,
           :extend, :readonly,
-          :validate, :inverse_of
+          :validate
         ]
 
         def create_has_many_reflection(association_id, options, &extension)
@@ -1606,7 +1505,7 @@ module ActiveRecord
         @@valid_keys_for_has_one_association = [
           :class_name, :foreign_key, :remote, :select, :conditions, :order,
           :include, :dependent, :counter_cache, :extend, :as, :readonly,
-          :validate, :primary_key, :inverse_of
+          :validate, :primary_key
         ]
 
         def create_has_one_reflection(association_id, options)
@@ -1625,7 +1524,7 @@ module ActiveRecord
         @@valid_keys_for_belongs_to_association = [
           :class_name, :primary_key, :foreign_key, :foreign_type, :remote, :select, :conditions,
           :include, :dependent, :counter_cache, :extend, :polymorphic, :readonly,
-          :validate, :touch, :inverse_of
+          :validate, :touch
         ]
 
         def create_belongs_to_reflection(association_id, options)
@@ -1766,7 +1665,7 @@ module ActiveRecord
 
         def tables_in_string(string)
           return [] if string.blank?
-          string.scan(/([a-zA-Z_][\.\w]+).?\./).flatten
+          string.scan(/([\.a-zA-Z_]+).?\./).flatten
         end
 
         def tables_in_hash(hash)
@@ -1939,7 +1838,7 @@ module ActiveRecord
                     descendant
                   end.flatten.compact
 
-                  remove_duplicate_results!(reflection.klass, parent_records, associations[name]) unless parent_records.empty?
+                  remove_duplicate_results!(reflection.class_name.constantize, parent_records, associations[name]) unless parent_records.empty?
                 end
             end
           end
@@ -2026,25 +1925,19 @@ module ActiveRecord
                   return nil if record.id.to_s != join.parent.record_id(row).to_s or row[join.aliased_primary_key].nil?
                   association = join.instantiate(row)
                   collection.target.push(association)
-                  collection.__send__(:set_inverse_instance, association, record)
                 when :has_one
                   return if record.id.to_s != join.parent.record_id(row).to_s
                   return if record.instance_variable_defined?("@#{join.reflection.name}")
                   association = join.instantiate(row) unless row[join.aliased_primary_key].nil?
-                  set_target_and_inverse(join, association, record)
+                  record.send("set_#{join.reflection.name}_target", association)
                 when :belongs_to
                   return if record.id.to_s != join.parent.record_id(row).to_s or row[join.aliased_primary_key].nil?
                   association = join.instantiate(row)
-                  set_target_and_inverse(join, association, record)
+                  record.send("set_#{join.reflection.name}_target", association)
                 else
                   raise ConfigurationError, "unknown macro: #{join.reflection.macro}"
               end
               return association
-            end
-
-            def set_target_and_inverse(join, association, record)
-              association_proxy = record.send("set_#{join.reflection.name}_target", association)
-              association_proxy.__send__(:set_inverse_instance, association, record)
             end
 
           class JoinBase # :nodoc:

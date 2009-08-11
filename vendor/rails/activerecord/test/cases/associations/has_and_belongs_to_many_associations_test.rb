@@ -24,7 +24,6 @@ require 'models/club'
 require 'models/member'
 require 'models/membership'
 require 'models/sponsor'
-require 'active_support/core_ext/string/conversions'
 
 class ProjectWithAfterCreateHook < ActiveRecord::Base
   set_table_name 'projects'
@@ -284,14 +283,12 @@ class HasAndBelongsToManyAssociationsTest < ActiveRecord::TestCase
   end
 
   def test_creation_respects_hash_condition
-    # in Oracle '' is saved as null therefore need to save ' ' in not null column
-    post = categories(:general).post_with_conditions.build(:body => ' ')
+    post = categories(:general).post_with_conditions.build(:body => '')
 
     assert        post.save
     assert_equal  'Yet Another Testing Title', post.title
 
-    # in Oracle '' is saved as null therefore need to save ' ' in not null column
-    another_post = categories(:general).post_with_conditions.create(:body => ' ')
+    another_post = categories(:general).post_with_conditions.create(:body => '')
 
     assert        !another_post.new_record?
     assert_equal  'Yet Another Testing Title', another_post.title
@@ -803,13 +800,6 @@ class HasAndBelongsToManyAssociationsTest < ActiveRecord::TestCase
     developer.save
     developer.reload
     assert_equal 1, developer.projects.count
-  end
-
-  unless current_adapter?(:PostgreSQLAdapter)
-    def test_count_with_finder_sql
-      assert_equal 3, projects(:active_record).developers_with_finder_sql.count
-      assert_equal 3, projects(:active_record).developers_with_multiline_finder_sql.count
-    end
   end
 
   def test_association_proxy_transaction_method_starts_transaction_in_association_class

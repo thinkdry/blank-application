@@ -1,5 +1,4 @@
 require 'abstract_unit'
-require 'active_support/core_ext/class/inheritable_attributes'
 
 class ClassInheritableAttributesTest < Test::Unit::TestCase
   def setup

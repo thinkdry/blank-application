@@ -1,7 +1,9 @@
 module ActiveRecord
   # See ActiveRecord::AssociationPreload::ClassMethods for documentation.
   module AssociationPreload #:nodoc:
-    extend ActiveSupport::Concern
+    def self.included(base)
+      base.extend(ClassMethods)
+    end
 
     # Implements the details of eager loading of ActiveRecord associations.
     # Application developers should not use this module directly.
@@ -28,7 +30,7 @@ module ActiveRecord
     # 'books' table is useful; the joined 'authors' data is just redundant, and
     # processing this redundant data takes memory and CPU time. The problem
     # quickly becomes worse and worse as the level of eager loading increases
-    # (i.e. if ActiveRecord is to eager load the associations' associations as
+    # (i.e. if ActiveRecord is to eager load the associations' assocations as
     # well).
     #
     # The second strategy is to use multiple database queries, one for each
@@ -58,7 +60,7 @@ module ActiveRecord
       # +associations+ specifies one or more associations that you want to
       # preload. It may be:
       # - a Symbol or a String which specifies a single association name. For
-      #   example, specifying +:books+ allows this method to preload all books
+      #   example, specifiying +:books+ allows this method to preload all books
       #   for an Author.
       # - an Array which specifies multiple association names. This array
       #   is processed recursively. For example, specifying <tt>[:avatar, :books]</tt>
@@ -124,7 +126,6 @@ module ActiveRecord
           association_proxy = parent_record.send(reflection_name)
           association_proxy.loaded
           association_proxy.target.push(*[associated_record].flatten)
-          association_proxy.__send__(:set_inverse_instance, associated_record, parent_record)
         end
       end
 
@@ -151,8 +152,7 @@ module ActiveRecord
           seen_keys[associated_record[key].to_s] = true
           mapped_records = id_to_record_map[associated_record[key].to_s]
           mapped_records.each do |mapped_record|
-            association_proxy = mapped_record.send("set_#{reflection_name}_target", associated_record)
-            association_proxy.__send__(:set_inverse_instance, associated_record, mapped_record)
+            mapped_record.send("set_#{reflection_name}_target", associated_record)
           end
         end
       end

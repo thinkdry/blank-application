@@ -1,4 +1,4 @@
-require 'active_support/core_ext/kernel/reporting'
+require 'active_resource/connection'
 
 module ActiveResource
   class InvalidRequestError < StandardError; end #:nodoc:
@@ -129,11 +129,7 @@ module ActiveResource
           def #{method}(path, #{'body, ' if has_body}headers)
             request = ActiveResource::Request.new(:#{method}, path, #{has_body ? 'body, ' : 'nil, '}headers)
             self.class.requests << request
-            if response = self.class.responses.assoc(request)
-              response[1]
-            else
-              raise InvalidRequestError.new("No response recorded for \#{request}")
-            end
+            self.class.responses.assoc(request).try(:second) || raise(InvalidRequestError.new("No response recorded for \#{request}"))
           end
         EOE
       end

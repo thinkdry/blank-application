@@ -5,18 +5,12 @@ require 'models/company'
 require 'models/company_in_module'
 require 'models/subscriber'
 require 'models/pirate'
-require 'models/price_estimate'
 
 class ReflectionTest < ActiveRecord::TestCase
-  fixtures :topics, :customers, :companies, :subscribers, :price_estimates
+  fixtures :topics, :customers, :companies, :subscribers
 
   def setup
     @first = Topic.find(1)
-  end
-
-  def test_human_name
-    assert_equal "Price estimate", PriceEstimate.human_name
-    assert_equal "Subscriber", Subscriber.human_name
   end
 
   def test_column_null_not_null
@@ -176,8 +170,8 @@ class ReflectionTest < ActiveRecord::TestCase
 
   def test_reflection_of_all_associations
     # FIXME these assertions bust a lot
-    assert_equal 31, Firm.reflect_on_all_associations.size
-    assert_equal 24, Firm.reflect_on_all_associations(:has_many).size
+    assert_equal 28, Firm.reflect_on_all_associations.size
+    assert_equal 21, Firm.reflect_on_all_associations(:has_many).size
     assert_equal 7, Firm.reflect_on_all_associations(:has_one).size
     assert_equal 0, Firm.reflect_on_all_associations(:belongs_to).size
   end

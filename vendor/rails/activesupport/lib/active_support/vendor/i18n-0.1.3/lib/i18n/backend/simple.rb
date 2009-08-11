@@ -1,4 +1,4 @@
-require 'i18n/exceptions'
+require 'yaml'
 
 module I18n
   module Backend
@@ -186,7 +186,6 @@ module I18n
         # Loads a YAML translations file. The data must have locales as
         # toplevel keys.
         def load_yml(filename)
-          require 'yaml' unless defined? :YAML
           YAML::load(IO.read(filename))
         end
 

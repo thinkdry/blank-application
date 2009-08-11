@@ -1,5 +1,4 @@
 require 'active_record/connection_adapters/abstract_adapter'
-require 'active_support/core_ext/kernel/requires'
 
 begin
   require_library_or_gem 'pg'
@@ -40,12 +39,6 @@ module ActiveRecord
   end
 
   module ConnectionAdapters
-    class TableDefinition
-      def xml(*args)
-        options = args.extract_options!
-        column(args[0], 'xml', options)
-      end
-    end
     # PostgreSQL-specific extensions to column definitions in a table.
     class PostgreSQLColumn < Column #:nodoc:
       # Instantiates a new PostgreSQL column definition in a table.
@@ -74,7 +67,7 @@ module ActiveRecord
           # depending on the server specifics
           super
         end
-
+  
         # Maps PostgreSQL-specific data types to logical Rails types.
         def simplified_type(field_type)
           case field_type
@@ -106,10 +99,10 @@ module ActiveRecord
               :string
             # XML type
             when /^xml$/
-              :xml
+              :string
             # Arrays
             when /^\D+\[\]$/
-              :string
+              :string              
             # Object identifier types
             when /^oid$/
               :integer
@@ -118,7 +111,7 @@ module ActiveRecord
               super
           end
         end
-
+  
         # Extracts the value from a PostgreSQL column default definition.
         def self.extract_value_from_default(default)
           case default
@@ -201,8 +194,7 @@ module ActiveRecord
         :time        => { :name => "time" },
         :date        => { :name => "date" },
         :binary      => { :name => "bytea" },
-        :boolean     => { :name => "boolean" },
-        :xml         => { :name => "xml" }
+        :boolean     => { :name => "boolean" }
       }
 
       # Returns 'PostgreSQL' as adapter name for identification purposes.
@@ -257,11 +249,6 @@ module ActiveRecord
         true
       end
 
-      # Does PostgreSQL support finding primary key on non-ActiveRecord tables?
-      def supports_primary_key? #:nodoc:
-        true
-      end
-
       # Does PostgreSQL support standard conforming strings?
       def supports_standard_conforming_strings?
         # Temporarily set the client message level above error to prevent unintentional
@@ -285,7 +272,7 @@ module ActiveRecord
       def supports_ddl_transactions?
         true
       end
-
+      
       def supports_savepoints?
         true
       end
@@ -377,7 +364,7 @@ module ActiveRecord
         if value.kind_of?(String) && column && column.type == :binary
           "#{quoted_string_prefix}'#{escape_bytea(value)}'"
         elsif value.kind_of?(String) && column && column.sql_type =~ /^xml$/
-          "xml E'#{quote_string(value)}'"
+          "xml '#{quote_string(value)}'"
         elsif value.kind_of?(Numeric) && column && column.sql_type =~ /^money$/
           # Not truly string input, so doesn't require (or allow) escape string syntax.
           "'#{value.to_s}'"
@@ -576,7 +563,7 @@ module ActiveRecord
       def rollback_db_transaction
         execute "ROLLBACK"
       end
-
+      
       if defined?(PGconn::PQTRANS_IDLE)
         # The ruby-pg driver supports inspecting the transaction status,
         # while the ruby-postgres driver does not.
@@ -823,12 +810,6 @@ module ActiveRecord
         nil
       end
 
-      # Returns just a table's primary key
-      def primary_key(table)
-        pk_and_sequence = pk_and_sequence_for(table)
-        pk_and_sequence && pk_and_sequence.first
-      end
-
       # Renames a table.
       def rename_table(name, new_name)
         execute "ALTER TABLE #{quote_table_name(name)} RENAME TO #{quote_table_name(new_name)}"
@@ -927,18 +908,18 @@ module ActiveRecord
         sql = "DISTINCT ON (#{columns}) #{columns}, "
         sql << order_columns * ', '
       end
-
+      
       # Returns an ORDER BY clause for the passed order option.
-      #
+      # 
       # PostgreSQL does not allow arbitrary ordering when using DISTINCT ON, so we work around this
       # by wrapping the +sql+ string as a sub-select and ordering in that query.
       def add_order_by_for_association_limiting!(sql, options) #:nodoc:
         return sql if options[:order].blank?
-
+        
         order = options[:order].split(',').collect { |s| s.strip }.reject(&:blank?)
         order.map! { |s| 'DESC' if s =~ /\bdesc$/i }
         order = order.zip((0...order.size).to_a).map { |s,i| "id_list.alias_#{i} #{s}" }.join(', ')
-
+        
         sql.replace "SELECT * FROM (#{sql}) AS id_list ORDER BY #{order}"
       end
 
@@ -957,17 +938,6 @@ module ActiveRecord
                 0
               end
             end
-        end
-
-        def translate_exception(exception, message)
-          case exception.message
-          when /duplicate key value violates unique constraint/
-            RecordNotUnique.new(message, exception)
-          when /violates foreign key constraint/
-            InvalidForeignKey.new(message, exception)
-          else
-            super
-          end
         end
 
       private
@@ -1062,7 +1032,7 @@ module ActiveRecord
                 if res.ftype(cell_index) == MONEY_COLUMN_TYPE_OID
                   # Because money output is formatted according to the locale, there are two
                   # cases to consider (note the decimal separators):
-                  #  (1) $12,345,678.12
+                  #  (1) $12,345,678.12        
                   #  (2) $12.345.678,12
                   case column = row[cell_index]
                     when /^-?\D+[\d,]+\.\d{2}$/  # (1)
@@ -1122,4 +1092,3 @@ module ActiveRecord
     end
   end
 end
-

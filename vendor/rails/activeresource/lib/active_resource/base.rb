@@ -1,16 +1,6 @@
-require 'active_support'
-require 'active_support/core_ext/class/attribute_accessors'
-require 'active_support/core_ext/class/inheritable_attributes'
-require 'active_support/core_ext/kernel/reporting'
-require 'active_support/core_ext/module/attr_accessor_with_default'
-require 'active_support/core_ext/module/delegation'
-require 'active_support/core_ext/module/aliasing'
-require 'active_support/core_ext/object/blank'
-require 'active_support/core_ext/object/misc'
+require 'active_resource/connection'
+require 'cgi'
 require 'set'
-require 'uri'
-
-require 'active_resource/exceptions'
 
 module ActiveResource
   # ActiveResource::Base is the main class for mapping RESTful resources as models in a Rails application.
@@ -29,7 +19,7 @@ module ActiveResource
   #   end
   #
   # Now the Person class is mapped to RESTful resources located at <tt>http://api.people.com:3000/people/</tt>, and
-  # you can now use Active Resource's lifecycle methods to manipulate resources. In the case where you already have
+  # you can now use Active Resource's lifecycles methods to manipulate resources. In the case where you already have
   # an existing model with the same name as the desired RESTful resource you can set the +element_name+ value.
   #
   #   class PersonResource < ActiveResource::Base
@@ -103,8 +93,6 @@ module ActiveResource
   #
   # Many REST APIs will require authentication, usually in the form of basic
   # HTTP authentication.  Authentication can be specified by:
-  #
-  # === HTTP Basic Authentication
   # * putting the credentials in the URL for the +site+ variable.
   #
   #    class Person < ActiveResource::Base
@@ -124,20 +112,6 @@ module ActiveResource
   #
   # Note: Some values cannot be provided in the URL passed to site.  e.g. email addresses
   # as usernames.  In those situations you should use the separate user and password option.
-  #
-  # === Certificate Authentication
-  #
-  # * End point uses an X509 certificate for authentication. <tt>See ssl_options=</tt> for all options.
-  #
-  #    class Person < ActiveResource::Base
-  #      self.site = "https://secure.api.people.com/"
-  #      self.ssl_options = {:cert         => OpenSSL::X509::Certificate.new(File.open(pem_file))
-  #                          :key          => OpenSSL::PKey::RSA.new(File.open(pem_file)),
-  #                          :ca_path      => "/path/to/OpenSSL/formatted/CA_Certs",
-  #                          :verify_mode  => OpenSSL::SSL::VERIFY_PEER}
-  #    end
-  #
-  #
   # == Errors & Validation
   #
   # Error handling and validation is handled in much the same manner as you're used to seeing in
@@ -164,7 +138,6 @@ module ActiveResource
   # * 404 - ActiveResource::ResourceNotFound
   # * 405 - ActiveResource::MethodNotAllowed
   # * 409 - ActiveResource::ResourceConflict
-  # * 410 - ActiveResource::ResourceGone
   # * 422 - ActiveResource::ResourceInvalid (rescued by save as validation errors)
   # * 401..499 - ActiveResource::ClientError
   # * 500..599 - ActiveResource::ServerError
@@ -183,9 +156,9 @@ module ActiveResource
   #
   # === Validation errors
   #
-  # Active Resource supports validations on resources and will return errors if any of these validations fail
+  # Active Resource supports validations on resources and will return errors if any these validations fail
   # (e.g., "First name can not be blank" and so on).  These types of errors are denoted in the response by
-  # a response code of <tt>422</tt> and an XML or JSON representation of the validation errors.  The save operation will
+  # a response code of <tt>422</tt> and an XML representation of the validation errors.  The save operation will
   # then fail (with a <tt>false</tt> return value) and the validation errors can be accessed on the resource in question.
   #
   #   ryan = Person.find(1)
@@ -194,14 +167,10 @@ module ActiveResource
   #
   #   # When
   #   # PUT http://api.people.com:3000/people/1.xml
-  #   # or
-  #   # PUT http://api.people.com:3000/people/1.json
   #   # is requested with invalid values, the response is:
   #   #
   #   # Response (422):
   #   # <errors type="array"><error>First cannot be empty</error></errors>
-  #   # or
-  #   # {"errors":["First cannot be empty"]}
   #   #
   #
   #   ryan.errors.invalid?(:first)  # => true
@@ -277,22 +246,6 @@ module ActiveResource
         end
       end
 
-      # Gets the \proxy variable if a proxy is required
-      def proxy
-        # Not using superclass_delegating_reader. See +site+ for explanation
-        if defined?(@proxy)
-          @proxy
-        elsif superclass != Object && superclass.proxy
-          superclass.proxy.dup.freeze
-        end
-      end
-
-      # Sets the URI of the http proxy to the value in the +proxy+ argument.
-      def proxy=(proxy)
-        @connection = nil
-        @proxy = proxy.nil? ? nil : create_proxy_uri_from(proxy)
-      end
-
       # Gets the \user for REST HTTP authentication.
       def user
         # Not using superclass_delegating_reader. See +site+ for explanation
@@ -344,7 +297,7 @@ module ActiveResource
 
       # Returns the current format, default is ActiveResource::Formats::XmlFormat.
       def format
-        read_inheritable_attribute(:format) || ActiveResource::Formats::XmlFormat
+        read_inheritable_attribute(:format) || ActiveResource::Formats[:xml]
       end
 
       # Sets the number of seconds after which requests to the REST API should time out.
@@ -362,42 +315,15 @@ module ActiveResource
         end
       end
 
-      # Options that will get applied to an SSL connection.
-      #
-      # * <tt>:key</tt> - An OpenSSL::PKey::RSA or OpenSSL::PKey::DSA object.
-      # * <tt>:cert</tt> - An OpenSSL::X509::Certificate object as client certificate
-      # * <tt>:ca_file</tt> - Path to a CA certification file in PEM format. The file can contrain several CA certificates.
-      # * <tt>:ca_path</tt> - Path of a CA certification directory containing certifications in PEM format.
-      # * <tt>:verify_mode</tt> - Flags for server the certification verification at begining of SSL/TLS session. (OpenSSL::SSL::VERIFY_NONE or OpenSSL::SSL::VERIFY_PEER is acceptable)
-      # * <tt>:verify_callback</tt> - The verify callback for the server certification verification.
-      # * <tt>:verify_depth</tt> - The maximum depth for the certificate chain verification.
-      # * <tt>:cert_store</tt> - OpenSSL::X509::Store to verify peer certificate.
-      # * <tt>:ssl_timeout</tt> -The SSL timeout in seconds.
-      def ssl_options=(opts={})
-        @connection   = nil
-        @ssl_options  = opts
-      end
-
-      # Returns the SSL options hash.
-      def ssl_options
-        if defined?(@ssl_options)
-          @ssl_options
-        elsif superclass != Object && superclass.ssl_options
-          superclass.ssl_options
-        end
-      end
-
       # An instance of ActiveResource::Connection that is the base \connection to the remote service.
       # The +refresh+ parameter toggles whether or not the \connection is refreshed at every request
       # or not (defaults to <tt>false</tt>).
       def connection(refresh = false)
         if defined?(@connection) || superclass == Object
           @connection = Connection.new(site, format) if refresh || @connection.nil?
-          @connection.proxy = proxy if proxy
           @connection.user = user if user
           @connection.password = password if password
           @connection.timeout = timeout if timeout
-          @connection.ssl_options = ssl_options if ssl_options
           @connection
         else
           superclass.connection
@@ -410,9 +336,9 @@ module ActiveResource
 
       # Do not include any modules in the default element name. This makes it easier to seclude ARes objects
       # in a separate namespace without having to set element_name repeatedly.
-      attr_accessor_with_default(:element_name)    { ActiveSupport::Inflector.underscore(to_s.split("::").last) } #:nodoc:
+      attr_accessor_with_default(:element_name)    { to_s.split("::").last.underscore } #:nodoc:
 
-      attr_accessor_with_default(:collection_name) { ActiveSupport::Inflector.pluralize(element_name) } #:nodoc:
+      attr_accessor_with_default(:collection_name) { element_name.pluralize } #:nodoc:
       attr_accessor_with_default(:primary_key, 'id') #:nodoc:
       
       # Gets the \prefix for a resource's nested URL (e.g., <tt>prefix/collectionname/1.xml</tt>)
@@ -448,7 +374,7 @@ module ActiveResource
         end_code
         silence_warnings { instance_eval code, __FILE__, __LINE__ }
       rescue
-        logger.error "Couldn't set prefix: #{$!}\n  #{code}" if logger
+        logger.error "Couldn't set prefix: #{$!}\n  #{code}"
         raise
       end
 
@@ -487,7 +413,7 @@ module ActiveResource
       # will split from the +prefix_options+.
       #
       # ==== Options
-      # * +prefix_options+ - A hash to add a prefix to the request for nested URLs (e.g., <tt>:account_id => 19</tt>
+      # * +prefix_options+ - A hash to add a prefix to the request for nested URL's (e.g., <tt>:account_id => 19</tt>
       #   would yield a URL like <tt>/accounts/19/purchases.xml</tt>).
       # * +query_options+ - A hash to add items to the query string for the request.
       #
@@ -631,7 +557,7 @@ module ActiveResource
           response.code.to_i == 200
         end
         # id && !find_single(id, options).nil?
-      rescue ActiveResource::ResourceNotFound, ActiveResource::ResourceGone
+      rescue ActiveResource::ResourceNotFound
         false
       end
 
@@ -683,11 +609,6 @@ module ActiveResource
         # Accepts a URI and creates the site URI from that.
         def create_site_uri_from(site)
           site.is_a?(URI) ? site.dup : URI.parse(site)
-        end
-
-        # Accepts a URI and creates the proxy URI from that.
-        def create_proxy_uri_from(proxy)
-          proxy.is_a?(URI) ? proxy.dup : URI.parse(proxy)
         end
 
         # contains a set of the current prefix parameters.
@@ -770,7 +691,7 @@ module ActiveResource
     end
 
 
-    # Returns +true+ if this object hasn't yet been saved, otherwise, returns +false+.
+    # A method to determine if the resource a \new object (i.e., it has not been POSTed to the remote service yet).
     #
     # ==== Examples
     #   not_new = Computer.create(:brand => 'Apple', :make => 'MacBook', :vendor => 'MacMall')
@@ -839,7 +760,7 @@ module ActiveResource
       id.hash
     end
 
-    # Duplicates the current resource without saving it.
+    # Duplicate the current resource without saving it.
     #
     # ==== Examples
     #   my_invoice = Invoice.create(:customer => 'That Company')
@@ -858,8 +779,8 @@ module ActiveResource
       end
     end
 
-    # Saves (+POST+) or \updates (+PUT+) a resource.  Delegates to +create+ if the object is \new,
-    # +update+ if it exists. If the response to the \save includes a body, it will be assumed that this body
+    # A method to \save (+POST+) or \update (+PUT+) a resource.  It delegates to +create+ if a \new object, 
+    # +update+ if it is existing. If the response to the \save includes a body, it will be assumed that this body
     # is XML for the final object as it looked after the \save (which would include attributes like +created_at+
     # that weren't part of the original submit).
     #
@@ -911,7 +832,7 @@ module ActiveResource
       !new? && self.class.exists?(to_param, :params => prefix_options)
     end
 
-    # Converts the resource to an XML string representation.
+     # Converts the resource to an XML string representation.
     #
     # ==== Options
     # The +options+ parameter is handed off to the +to_xml+ method on each
@@ -920,7 +841,14 @@ module ActiveResource
     #
     # * <tt>:indent</tt> - Set the indent level for the XML output (default is +2+).
     # * <tt>:dasherize</tt> - Boolean option to determine whether or not element names should
-    #   replace underscores with dashes (default is <tt>false</tt>).
+    #   replace underscores with dashes. Default is <tt>true</tt>. The default can be set to <tt>false</tt>
+    #   by setting the module attribute <tt>ActiveSupport.dasherize_xml = false</tt> in an initializer. Because save
+    #   uses this method, and there are no options on save, then you will have to set the default if you don't
+    #   want underscores in element names to become dashes when the resource is saved. This is important when
+    #   integrating with non-Rails applications.
+    # * <tt>:camelize</tt> - Boolean option to determine whether or not element names should be converted
+    #   to camel case, e.g some_name to SomeName. Default is <tt>false</tt>. Like <tt>:dasherize</tt> you can
+    #   change the default by setting the module attribute <tt>ActiveSupport.camelise_xml = true</tt> in an initializer.
     # * <tt>:skip_instruct</tt> - Toggle skipping the +instruct!+ call on the XML builder
     #   that generates the XML declaration (default is <tt>false</tt>).
     #
@@ -973,7 +901,7 @@ module ActiveResource
     # applicable depend on the configured encoding format.
     def encode(options={})
       case self.class.format
-        when ActiveResource::Formats::XmlFormat
+        when ActiveResource::Formats[:xml]
           self.class.format.encode(attributes, {:root => self.class.element_name}.merge(options))
         else
           self.class.format.encode(attributes, options)
@@ -1024,13 +952,7 @@ module ActiveResource
           case value
             when Array
               resource = find_or_create_resource_for_collection(key)
-              value.map do |attrs|
-                if attrs.is_a?(String) || attrs.is_a?(Numeric)
-                  attrs.duplicable? ? attrs.dup : attrs
-                else
-                  resource.new(attrs)
-                end
-              end
+              value.map { |attrs| attrs.is_a?(String) ? attrs.dup : resource.new(attrs) }
             when Hash
               resource = find_or_create_resource_for(key)
               resource.new(value)
@@ -1104,7 +1026,7 @@ module ActiveResource
     private
       # Tries to find a resource for a given collection name; if it fails, then the resource is created
       def find_or_create_resource_for_collection(name)
-        find_or_create_resource_for(ActiveSupport::Inflector.singularize(name.to_s))
+        find_or_create_resource_for(name.to_s.singularize)
       end
 
       # Tries to find a resource in a non empty list of nested modules
@@ -1157,10 +1079,5 @@ module ActiveResource
             attributes.has_key?(method_name) ? attributes[method_name] : super
         end
       end
-  end
-
-  class Base
-    extend ActiveModel::Naming
-    include CustomMethods, Observing, Validations
   end
 end

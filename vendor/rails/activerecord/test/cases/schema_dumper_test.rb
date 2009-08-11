@@ -114,11 +114,6 @@ class SchemaDumperTest < ActiveRecord::TestCase
       assert_match %r{c_int_6.*:limit => 6}, output
       assert_match %r{c_int_7.*:limit => 7}, output
       assert_match %r{c_int_8.*:limit => 8}, output
-    elsif current_adapter?(:OracleAdapter)
-      assert_match %r{c_int_5.*:limit => 5}, output
-      assert_match %r{c_int_6.*:limit => 6}, output
-      assert_match %r{c_int_7.*:limit => 7}, output
-      assert_match %r{c_int_8.*:limit => 8}, output
     else
       assert_match %r{c_int_5.*:limit => 8}, output
       assert_match %r{c_int_6.*:limit => 8}, output
@@ -161,7 +156,7 @@ class SchemaDumperTest < ActiveRecord::TestCase
     index_definition = standard_dump.split(/\n/).grep(/add_index.*companies/).first.strip
     assert_equal 'add_index "companies", ["firm_id", "type", "rating", "ruby_type"], :name => "company_index"', index_definition
   end
-
+  
   def test_schema_dump_should_honor_nonstandard_primary_keys
     output = standard_dump
     match = output.match(%r{create_table "movies"(.*)do})
@@ -195,32 +190,4 @@ class SchemaDumperTest < ActiveRecord::TestCase
     output = stream.string
     assert_match %r{:precision => 3,[[:space:]]+:scale => 2,[[:space:]]+:default => 2.78}, output
   end
-
-  if current_adapter?(:PostgreSQLAdapter)
-    def test_schema_dump_includes_xml_shorthand_definition
-      output = standard_dump
-      if %r{create_table "postgresql_xml_data_type"} =~ output
-        assert_match %r{t.xml "data"}, output
-      end
-    end
-  end
-
-  def test_schema_dump_keeps_large_precision_integer_columns_as_decimal
-    output = standard_dump
-    # Oracle supports precision up to 38 and it identifies decimals with scale 0 as integers
-    if current_adapter?(:OracleAdapter)
-      assert_match %r{t.integer\s+"atoms_in_universe",\s+:precision => 38,\s+:scale => 0}, output
-    else
-      assert_match %r{t.decimal\s+"atoms_in_universe",\s+:precision => 55,\s+:scale => 0}, output
-    end
-  end
-
-  def test_schema_dump_keeps_id_column_when_id_is_false_and_id_column_added
-    output = standard_dump
-    match = output.match(%r{create_table "goofy_string_id"(.*)do.*\n(.*)\n})
-    assert_not_nil(match, "goofy_string_id table not found")
-    assert_match %r(:id => false), match[1], "no table id not preserved"
-    assert_match %r{t.string[[:space:]]+"id",[[:space:]]+:null => false$}, match[2], "non-primary key id column not preserved"
-  end
 end
-

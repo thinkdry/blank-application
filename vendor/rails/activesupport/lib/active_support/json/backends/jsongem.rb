@@ -8,11 +8,8 @@ module ActiveSupport
       module JSONGem
         extend self
 
-        # Parses a JSON string or IO and convert it into an object
+        # Converts a JSON string into a Ruby object.
         def decode(json)
-          if json.respond_to?(:read)
-            json = json.read
-          end
           data = ::JSON.parse(json)
           if ActiveSupport.parse_json_times
             convert_dates_from(data)

@@ -1,5 +1,4 @@
 require 'plugin_test_helper'
-require 'rails/gem_dependency'
 
 class Rails::GemDependency
   public :install_command, :unpack_command

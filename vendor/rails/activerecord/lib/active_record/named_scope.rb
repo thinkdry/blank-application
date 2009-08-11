@@ -1,11 +1,5 @@
-require 'active_support/core_ext/array'
-require 'active_support/core_ext/hash/except'
-require 'active_support/core_ext/object/metaclass'
-
 module ActiveRecord
   module NamedScope
-    extend ActiveSupport::Concern
-
     # All subclasses of ActiveRecord::Base have one named scope:
     # * <tt>scoped</tt> - which allows for the creation of anonymous \scopes, on the fly: <tt>Shirt.scoped(:conditions => {:color => 'red'}).scoped(:include => :washing_instructions)</tt>
     #
@@ -13,8 +7,11 @@ module ActiveRecord
     # intermediate values (scopes) around as first-class objects is convenient.
     #
     # You can define a scope that applies to all finders using ActiveRecord::Base.default_scope.
-    included do
-      named_scope :scoped, lambda { |scope| scope }
+    def self.included(base)
+      base.class_eval do
+        extend ClassMethods
+        named_scope :scoped, lambda { |scope| scope }
+      end
     end
 
     module ClassMethods
@@ -92,10 +89,15 @@ module ActiveRecord
             when Hash
               options
             when Proc
-              options.call(*args)
+              case parent_scope
+              when Scope
+                with_scope(:find => parent_scope.proxy_options) { options.call(*args) }
+              else
+                options.call(*args)
+              end
           end, &block)
         end
-        metaclass.instance_eval do
+        (class << self; self end).instance_eval do
           define_method name do |*args|
             scopes[name].call(self, *args)
           end
@@ -105,7 +107,7 @@ module ActiveRecord
 
     class Scope
       attr_reader :proxy_scope, :proxy_options, :current_scoped_methods_when_defined
-      NON_DELEGATE_METHODS = %w(nil? send object_id class extend find size count sum average maximum minimum paginate first last empty? any? many? respond_to?).to_set
+      NON_DELEGATE_METHODS = %w(nil? send object_id class extend find size count sum average maximum minimum paginate first last empty? any? respond_to?).to_set
       [].methods.each do |m|
         unless m =~ /^__/ || NON_DELEGATE_METHODS.include?(m.to_s)
           delegate m, :to => :proxy_found
@@ -161,15 +163,6 @@ module ActiveRecord
           proxy_found.any? { |*block_args| yield(*block_args) }
         else
           !empty?
-        end
-      end
-
-      # Returns true if the named scope has more than 1 matching record.
-      def many?
-        if block_given?
-          proxy_found.many? { |*block_args| yield(*block_args) }
-        else
-          size > 1
         end
       end
 

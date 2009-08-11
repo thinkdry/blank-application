@@ -1,15 +1,8 @@
 require 'abstract_unit'
-require 'active_model'
 
-class Bunny < Struct.new(:Bunny, :id)
-  extend ActiveModel::Naming
-  include ActiveModel::Conversion
-end
+Bunny = Struct.new(:Bunny, :id)
 
 class Author
-  extend ActiveModel::Naming
-  include ActiveModel::Conversion
-
   attr_reader :id
   def save; @id = 1 end
   def new_record?; @id.nil? end
@@ -19,8 +12,6 @@ class Author
 end
 
 class Article
-  extend ActiveModel::Naming
-  include ActiveModel::Conversion
   attr_reader :id
   attr_reader :author_id
   def save; @id = 1; @author_id = 1 end
@@ -34,10 +25,9 @@ class Author::Nested < Author; end
 
 
 class PrototypeHelperBaseTest < ActionView::TestCase
-  attr_accessor :formats, :output_buffer
+  attr_accessor :template_format, :output_buffer
 
   def setup
-    super
     @template = self
     @controller = Class.new do
       def url_for(options)
@@ -70,8 +60,6 @@ class PrototypeHelperBaseTest < ActionView::TestCase
 end
 
 class PrototypeHelperTest < PrototypeHelperBaseTest
-  def _evaluate_assigns_and_ivars() end
-
   def setup
     @record = @author = Author.new
     @article = Article.new
@@ -314,8 +302,6 @@ class JavaScriptGeneratorTest < PrototypeHelperBaseTest
     super
     @generator = create_generator
   end
-
-  def _evaluate_assigns_and_ivars() end
 
   def test_insert_html_with_string
     assert_equal 'Element.insert("element", { top: "\\u003Cp\\u003EThis is a test\\u003C/p\\u003E" });',

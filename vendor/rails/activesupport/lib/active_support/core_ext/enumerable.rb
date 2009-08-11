@@ -42,7 +42,7 @@ module Enumerable
   #
   # The latter is a shortcut for:
   #
-  #  payments.inject(0) { |sum, p| sum + p.price }
+  #  payments.inject { |sum, p| sum + p.price }
   #
   # It can also calculate the sum without the use of a block.
   #
@@ -55,10 +55,12 @@ module Enumerable
   #  [].sum(Payment.new(0)) { |i| i.amount } # => Payment.new(0)
   #
   def sum(identity = 0, &block)
+    return identity unless size > 0
+
     if block_given?
-      map(&block).sum(identity)
+      map(&block).sum
     else
-      inject { |sum, element| sum + element } || identity
+      inject { |sum, element| sum + element }
     end
   end
 
@@ -75,10 +77,11 @@ module Enumerable
   #   (1..5).each_with_object(1) { |value, memo| memo *= value } # => 1
   #
   def each_with_object(memo, &block)
-    each do |element|
-      block.call(element, memo)
+    returning memo do |m|
+      each do |element|
+        block.call(element, m)
+      end
     end
-    memo
   end unless [].respond_to?(:each_with_object)
 
   # Convert an enumerable to a hash. Examples:
@@ -110,14 +113,4 @@ module Enumerable
   def none?(&block)
     !any?(&block)
   end unless [].respond_to?(:none?)
-end
-
-class Range #:nodoc:
-  # Optimize range sum to use arithmetic progression if a block is not given and
-  # we have a range of numeric values.
-  def sum(identity = 0)
-    return super if block_given? || !(first.instance_of?(Integer) && last.instance_of?(Integer))
-    actual_last = exclude_end? ? (last - 1) : last
-    (actual_last - first + 1) * (actual_last + first) / 2
-  end
 end

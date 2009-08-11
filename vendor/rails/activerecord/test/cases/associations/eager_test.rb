@@ -589,10 +589,6 @@ class EagerAssociationTest < ActiveRecord::TestCase
     assert_equal posts(:sti_post_and_comments, :sti_comments), Post.find(:all, :include => [:author, :comments], :conditions => "authors.name = 'David'", :order => 'UPPER(posts.title) DESC, posts.id', :limit => 2, :offset => 1)
   end
 
-  def test_limited_eager_with_numeric_in_association
-    assert_equal people(:david, :susan), Person.find(:all, :include => [:readers, :primary_contact, :number1_fan], :conditions => "number1_fans_people.first_name like 'M%'", :order => 'people.id', :limit => 2, :offset => 0)
-  end
-
   def test_preload_with_interpolation
     assert_equal [comments(:greetings)], Post.find(posts(:welcome).id, :include => :comments_with_interpolated_conditions).comments_with_interpolated_conditions
   end
@@ -813,12 +809,7 @@ class EagerAssociationTest < ActiveRecord::TestCase
 
   def test_include_has_many_using_primary_key
     expected = Firm.find(1).clients_using_primary_key.sort_by &:name
-    # Oracle adapter truncates alias to 30 characters
-    if current_adapter?(:OracleAdapter)
-      firm = Firm.find 1, :include => :clients_using_primary_key, :order => 'clients_using_primary_keys_companies'[0,30]+'.name'
-    else
-      firm = Firm.find 1, :include => :clients_using_primary_key, :order => 'clients_using_primary_keys_companies.name'
-    end
+    firm = Firm.find 1, :include => :clients_using_primary_key, :order => 'clients_using_primary_keys_companies.name'
     assert_no_queries do
       assert_equal expected, firm.clients_using_primary_key
     end

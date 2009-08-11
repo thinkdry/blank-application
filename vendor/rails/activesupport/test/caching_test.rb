@@ -1,6 +1,5 @@
 require 'logger'
 require 'abstract_unit'
-require 'active_support/cache'
 
 class CacheKeyTest < ActiveSupport::TestCase
   def test_expand_cache_key
@@ -13,6 +12,12 @@ class CacheStoreSettingTest < ActiveSupport::TestCase
     store = ActiveSupport::Cache.lookup_store :file_store, "/path/to/cache/directory"
     assert_kind_of(ActiveSupport::Cache::FileStore, store)
     assert_equal "/path/to/cache/directory", store.cache_path
+  end
+
+  def test_drb_fragment_cache_store
+    store = ActiveSupport::Cache.lookup_store :drb_store, "druby://localhost:9192"
+    assert_kind_of(ActiveSupport::Cache::DRbStore, store)
+    assert_equal "druby://localhost:9192", store.address
   end
 
   def test_mem_cache_fragment_cache_store
@@ -147,22 +152,6 @@ class FileStoreTest < ActiveSupport::TestCase
   end
 
   include CacheStoreBehavior
-
-  def test_expires_in
-    time = Time.local(2008, 4, 24)
-    Time.stubs(:now).returns(time)
-    File.stubs(:mtime).returns(time)
-
-    @cache.write('foo', 'bar')
-    cache_read = lambda { @cache.read('foo', :expires_in => 1.minute) }
-    assert_equal 'bar', cache_read.call
-
-    Time.stubs(:now).returns(time + 30.seconds)
-    assert_equal 'bar', cache_read.call
-
-    Time.stubs(:now).returns(time + 2.minutes)
-    assert_nil cache_read.call
-  end
 end
 
 class MemoryStoreTest < ActiveSupport::TestCase
@@ -176,12 +165,6 @@ class MemoryStoreTest < ActiveSupport::TestCase
     @cache.write('foo', 'bar')
     assert_raise(ActiveSupport::FrozenObjectError) { @cache.read('foo').gsub!(/.*/, 'baz') }
     assert_equal 'bar', @cache.read('foo')
-  end
-
-  def test_original_store_objects_should_not_be_immutable
-    bar = 'bar'
-    @cache.write('foo', bar)
-    assert_nothing_raised { bar.gsub!(/.*/, 'baz') }
   end
 end
 

@@ -1,6 +1,5 @@
 require 'abstract_unit'
 require 'stringio'
-require 'active_support/core_ext/logger'
 
 class CleanLoggerTest < Test::Unit::TestCase
   def setup

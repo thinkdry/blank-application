@@ -1,13 +1,11 @@
 require 'abstract_unit'
 
 class Post
-  extend ActiveModel::Naming
-  include ActiveModel::Conversion
   def id
      45
   end
   def body
-    super || "What a wonderful world!"
+    "What a wonderful world!"
   end
 end
 
@@ -15,7 +13,6 @@ class RecordTagHelperTest < ActionView::TestCase
   tests ActionView::Helpers::RecordTagHelper
 
   def setup
-    super
     @post = Post.new
   end
 

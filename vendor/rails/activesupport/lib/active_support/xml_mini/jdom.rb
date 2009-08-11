@@ -24,19 +24,15 @@ module ActiveSupport
     node_type_map = {}
     NODE_TYPE_NAMES.each { |type| node_type_map[Node.send(type)] = type }
 
-    # Parse an XML Document string or IO into a simple hash using Java's jdom.
-    # data::
-    #   XML Document string or IO to parse
-    def parse(data)
-      if data.respond_to?(:read)
-        data = data.read
-      end
-
-      if data.blank?
+    # Parse an XML Document string into a simple hash using Java's jdom.
+    # string::
+    #   XML Document string to parse
+    def parse(string)
+      if string.blank?
         {}
       else
         @dbf = DocumentBuilderFactory.new_instance
-        xml_string_reader = StringReader.new(data)
+        xml_string_reader = StringReader.new(string)
         xml_input_source = InputSource.new(xml_string_reader)
         doc = @dbf.new_document_builder.parse(xml_input_source)
         merge_element!({}, doc.document_element)
@@ -78,7 +74,7 @@ module ActiveSupport
     # Merge all the texts of an element into the hash
     #
     # hash::
-    #   Hash to add the converted element to.
+    #   Hash to add the converted emement to.
     # element::
     #   XML element whose texts are to me merged into the hash
     def merge_texts!(hash, element)

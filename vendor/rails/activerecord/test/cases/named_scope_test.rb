@@ -1,5 +1,4 @@
 require "cases/helper"
-require 'active_support/core_ext/array/random_access'
 require 'models/post'
 require 'models/topic'
 require 'models/comment'
@@ -154,8 +153,7 @@ class NamedScopeTest < ActiveRecord::TestCase
     assert !authors(:david).posts.ranked_by_comments.limit(5).empty?
     assert_not_equal Post.ranked_by_comments.limit(5), authors(:david).posts.ranked_by_comments.limit(5)
     assert_not_equal Post.top(5), authors(:david).posts.top(5)
-    # Oracle sometimes sorts differently if WHERE condition is changed
-    assert_equal authors(:david).posts.ranked_by_comments.limit(5).sort_by(&:id), authors(:david).posts.top(5).sort_by(&:id)
+    assert_equal authors(:david).posts.ranked_by_comments.limit(5), authors(:david).posts.top(5)
     assert_equal Post.ranked_by_comments.limit(5), Post.top(5)
   end
 
@@ -236,40 +234,6 @@ class NamedScopeTest < ActiveRecord::TestCase
     assert_no_queries { assert topics.any? }
   end
 
-  def test_many_should_not_load_results
-    topics = Topic.base
-    assert_queries(2) do
-      topics.many?   # use count query
-      topics.collect # force load
-      topics.many?   # use loaded (no query)
-    end
-  end
-
-  def test_many_should_call_proxy_found_if_using_a_block
-    topics = Topic.base
-    assert_queries(1) do
-      topics.expects(:size).never
-      topics.many? { true }
-    end
-  end
-
-  def test_many_should_not_fire_query_if_named_scope_loaded
-    topics = Topic.base
-    topics.collect # force load
-    assert_no_queries { assert topics.many? }
-  end
-
-  def test_many_should_return_false_if_none_or_one
-    topics = Topic.base.scoped(:conditions => {:id => 0})
-    assert !topics.many?
-    topics = Topic.base.scoped(:conditions => {:id => 1})
-    assert !topics.many?
-  end
-
-  def test_many_should_return_true_if_more_than_one
-    assert Topic.base.many?
-  end
-
   def test_should_build_with_proxy_options
     topic = Topic.approved.build({})
     assert topic.approved
@@ -301,7 +265,7 @@ class NamedScopeTest < ActiveRecord::TestCase
   end
 
   def test_rand_should_select_a_random_object_from_proxy
-    assert_kind_of Topic, Topic.approved.rand
+    assert Topic.approved.rand.is_a?(Topic)
   end
 
   def test_should_use_where_in_query_for_named_scope
@@ -355,6 +319,10 @@ class NamedScopeTest < ActiveRecord::TestCase
     assert_equal [posts(:sti_comments)], Post.with_special_comments.with_post(4).all.uniq
   end
 
+  def test_methods_invoked_within_scopes_should_respect_scope
+    assert_equal [], Topic.approved.by_rejected_ids.proxy_options[:conditions][:id]
+  end
+
   def test_named_scopes_batch_finders
     assert_equal 3, Topic.approved.count
 
@@ -368,15 +336,9 @@ class NamedScopeTest < ActiveRecord::TestCase
       end
     end
   end
-
-  def test_table_names_for_chaining_scopes_with_and_without_table_name_included
-    assert_nothing_raised do
-      Comment.for_first_post.for_first_author.all
-    end
-  end
 end
 
-class DynamicScopeMatchTest < ActiveRecord::TestCase
+class DynamicScopeMatchTest < ActiveRecord::TestCase  
   def test_scoped_by_no_match
     assert_nil ActiveRecord::DynamicScopeMatch.match("not_scoped_at_all")
   end
@@ -390,8 +352,6 @@ class DynamicScopeMatchTest < ActiveRecord::TestCase
 end
 
 class DynamicScopeTest < ActiveRecord::TestCase
-  fixtures :posts
-
   def test_dynamic_scope
     assert_equal Post.scoped_by_author_id(1).find(1), Post.find(1)
     assert_equal Post.scoped_by_author_id_and_title(1, "Welcome to the weblog").first, Post.find(:first, :conditions => { :author_id => 1, :title => "Welcome to the weblog"})

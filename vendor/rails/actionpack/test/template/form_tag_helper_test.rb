@@ -4,7 +4,6 @@ class FormTagHelperTest < ActionView::TestCase
   tests ActionView::Helpers::FormTagHelper
 
   def setup
-    super
     @controller = Class.new do
       def url_for(options)
         "http://www.example.com"
@@ -134,18 +133,6 @@ class FormTagHelperTest < ActionView::TestCase
   def test_select_tag_id_sanitized
     input_elem = root_elem(select_tag("project[1]people", "<option>david</option>"))
     assert_match VALID_HTML_ID, input_elem['id']
-  end
-
-  def test_select_tag_with_include_blank
-    actual = select_tag "places", "<option>Home</option><option>Work</option><option>Pub</option>", :include_blank => true
-    expected = %(<select id="places" name="places"><option value=""></option><option>Home</option><option>Work</option><option>Pub</option></select>)
-    assert_dom_equal expected, actual
-  end
-
-  def test_select_tag_with_include_blank_with_string
-    actual = select_tag "places", "<option>Home</option><option>Work</option><option>Pub</option>", :include_blank => "string"
-    expected = %(<select id="places" name="places"><option value="">string</option><option>Home</option><option>Work</option><option>Pub</option></select>)
-    assert_dom_equal expected, actual
   end
 
   def test_text_area_tag_size_string

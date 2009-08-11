@@ -1,5 +1,4 @@
 require 'abstract_unit'
-require 'controller/fake_models'
 
 class RespondToController < ActionController::Base
   layout :set_layout
@@ -87,7 +86,6 @@ class RespondToController < ActionController::Base
       type.mobile { render :text => "Mobile" }
     end
   ensure
-    Mime::SET.delete(:mobile)
     Mime.module_eval { remove_const :MOBILE if const_defined?(:MOBILE) }
   end
 
@@ -100,7 +98,6 @@ class RespondToController < ActionController::Base
     end
 
   ensure
-    Mime::SET.delete(:mobile)
     Mime.module_eval { remove_const :MOBILE if const_defined?(:MOBILE) }
   end
 
@@ -135,7 +132,6 @@ class RespondToController < ActionController::Base
     end
 
   ensure
-    Mime::SET.delete(:iphone)
     Mime.module_eval { remove_const :IPHONE if const_defined?(:IPHONE) }
   end
 
@@ -149,7 +145,6 @@ class RespondToController < ActionController::Base
     end
 
   ensure
-    Mime::SET.delete(:iphone)
     Mime.module_eval { remove_const :IPHONE if const_defined?(:IPHONE) }
   end
 
@@ -167,17 +162,15 @@ class RespondToController < ActionController::Base
     end
 end
 
-class RespondToControllerTest < ActionController::TestCase
+class MimeControllerTest < ActionController::TestCase
   tests RespondToController
 
   def setup
-    super
     ActionController::Base.use_accept_header = true
     @request.host = "www.example.com"
   end
 
   def teardown
-    super
     ActionController::Base.use_accept_header = false
   end
 
@@ -441,18 +434,18 @@ class RespondToControllerTest < ActionController::TestCase
   def test_render_action_for_html
     @controller.instance_eval do
       def render(*args)
-        @action = args.first[:action] unless args.empty?
-        @action ||= action_name
-
-        response.body = "#{@action} - #{formats}"
+        unless args.empty?
+          @action = args.first[:action]
+        end
+        response.body = "#{@action} - #{@template.template_format}"
       end
     end
 
     get :using_defaults
-    assert_equal "using_defaults - #{[:html].to_s}", @response.body
+    assert_equal "using_defaults - html", @response.body
 
     get :using_defaults, :format => "xml"
-    assert_equal "using_defaults - #{[:xml].to_s}", @response.body
+    assert_equal "using_defaults - xml", @response.body
   end
 
   def test_format_with_custom_response_type
@@ -470,300 +463,13 @@ class RespondToControllerTest < ActionController::TestCase
     assert_equal '<html><div id="iphone">Hello iPhone future from iPhone!</div></html>', @response.body
     assert_equal "text/html", @response.content_type
   end
-end
 
-class RespondWithController < ActionController::Base
-  respond_to :html, :json
-  respond_to :xml, :except => :using_defaults
-  respond_to :js,  :only => [ :using_defaults, :using_resource ]
+  def test_format_with_custom_response_type_and_request_headers_with_only_one_layout_present
+    get :iphone_with_html_response_type_without_layout
+    assert_equal '<html><div id="html_missing">Hello future from Firefox!</div></html>', @response.body
 
-  def using_defaults
-    respond_to do |format|
-      format.csv { render :text => "CSV" }
-    end
-  end
-
-  def using_defaults_with_type_list
-    respond_to(:js, :xml)
-  end
-
-  def default_overwritten
-    respond_to do |format|
-      format.html { render :text => "HTML" }
-    end
-  end
-
-  def using_resource
-    respond_with(Customer.new("david", 13))
-  end
-
-  def using_resource_with_parent
-    respond_with([Quiz::Store.new("developer?", 11), Customer.new("david", 13)])
-  end
-
-  def using_resource_with_status_and_location
-    respond_with(Customer.new("david", 13), :location => "http://test.host/", :status => :created)
-  end
-
-  def using_resource_with_responder
-    responder = proc { |c, r, o| c.render :text => "Resource name is #{r.name}" }
-    respond_with(Customer.new("david", 13), :responder => responder)
-  end
-
-protected
-
-  def _render_js(js, options)
-    self.content_type ||= Mime::JS
-    self.response_body = js.respond_to?(:to_js) ? js.to_js : js
-  end
-end
-
-class InheritedRespondWithController < RespondWithController
-  clear_respond_to
-  respond_to :xml, :json
-
-  def index
-    respond_with(Customer.new("david", 13)) do |format|
-      format.json { render :text => "JSON" }
-    end
-  end
-end
-
-class RespondWithControllerTest < ActionController::TestCase
-  tests RespondWithController
-
-  def setup
-    super
-    ActionController::Base.use_accept_header = true
-    @request.host = "www.example.com"
-
-    ActionController::Routing::Routes.draw do |map|
-      map.resources :customers
-      map.resources :quiz_stores, :has_many => :customers
-    end
-  end
-
-  def teardown
-    super
-    ActionController::Base.use_accept_header = false
-  end
-
-  def test_using_defaults
-    @request.accept = "*/*"
-    get :using_defaults
-    assert_equal "text/html", @response.content_type
-    assert_equal 'Hello world!', @response.body
-
-    @request.accept = "text/csv"
-    get :using_defaults
-    assert_equal "text/csv", @response.content_type
-    assert_equal "CSV", @response.body
-
-    @request.accept = "text/javascript"
-    get :using_defaults
-    assert_equal "text/javascript", @response.content_type
-    assert_equal '$("body").visualEffect("highlight");', @response.body
-  end
-
-  def test_using_defaults_with_type_list
-    @request.accept = "*/*"
-    get :using_defaults_with_type_list
-    assert_equal "text/javascript", @response.content_type
-    assert_equal '$("body").visualEffect("highlight");', @response.body
-
-    @request.accept = "application/xml"
-    get :using_defaults_with_type_list
-    assert_equal "application/xml", @response.content_type
-    assert_equal "<p>Hello world!</p>\n", @response.body
-  end
-
-  def test_default_overwritten
-    get :default_overwritten
-    assert_equal "text/html", @response.content_type
-    assert_equal "HTML", @response.body
-  end
-
-  def test_using_resource
-    @request.accept = "text/javascript"
-    get :using_resource
-    assert_equal "text/javascript", @response.content_type
-    assert_equal '$("body").visualEffect("highlight");', @response.body
-
-    @request.accept = "application/xml"
-    get :using_resource
-    assert_equal "application/xml", @response.content_type
-    assert_equal "XML", @response.body
-
-    @request.accept = "application/json"
-    assert_raise ActionView::MissingTemplate do
-      get :using_resource
-    end
-  end
-
-  def test_using_resource_for_post_with_html
-    post :using_resource
-    assert_equal "text/html", @response.content_type
-    assert_equal 302, @response.status
-    assert_equal "http://www.example.com/customers/13", @response.location
-    assert @response.redirect?
-
-    errors = { :name => :invalid }
-    Customer.any_instance.stubs(:errors).returns(errors)
-    post :using_resource
-    assert_equal "text/html", @response.content_type
-    assert_equal 200, @response.status
-    assert_equal "New world!\n", @response.body
-    assert_nil @response.location
-  end
-
-  def test_using_resource_for_post_with_xml
-    @request.accept = "application/xml"
-
-    post :using_resource
-    assert_equal "application/xml", @response.content_type
-    assert_equal 201, @response.status
-    assert_equal "XML", @response.body
-    assert_equal "http://www.example.com/customers/13", @response.location
-
-    errors = { :name => :invalid }
-    Customer.any_instance.stubs(:errors).returns(errors)
-    post :using_resource
-    assert_equal "application/xml", @response.content_type
-    assert_equal 422, @response.status
-    assert_equal errors.to_xml, @response.body
-    assert_nil @response.location
-  end
-
-  def test_using_resource_for_put_with_html
-    put :using_resource
-    assert_equal "text/html", @response.content_type
-    assert_equal 302, @response.status
-    assert_equal "http://www.example.com/customers/13", @response.location
-    assert @response.redirect?
-
-    errors = { :name => :invalid }
-    Customer.any_instance.stubs(:errors).returns(errors)
-    put :using_resource
-    assert_equal "text/html", @response.content_type
-    assert_equal 200, @response.status
-    assert_equal "Edit world!\n", @response.body
-    assert_nil @response.location
-  end
-
-  def test_using_resource_for_put_with_xml
-    @request.accept = "application/xml"
-
-    put :using_resource
-    assert_equal "application/xml", @response.content_type
-    assert_equal 200, @response.status
-    assert_equal " ", @response.body
-
-    errors = { :name => :invalid }
-    Customer.any_instance.stubs(:errors).returns(errors)
-    put :using_resource
-    assert_equal "application/xml", @response.content_type
-    assert_equal 422, @response.status
-    assert_equal errors.to_xml, @response.body
-    assert_nil @response.location
-  end
-
-  def test_using_resource_for_delete_with_html
-    Customer.any_instance.stubs(:destroyed?).returns(true)
-    delete :using_resource
-    assert_equal "text/html", @response.content_type
-    assert_equal 302, @response.status
-    assert_equal "http://www.example.com/customers", @response.location
-  end
-
-  def test_using_resource_for_delete_with_xml
-    Customer.any_instance.stubs(:destroyed?).returns(true)
-    @request.accept = "application/xml"
-    delete :using_resource
-    assert_equal "application/xml", @response.content_type
-    assert_equal 200, @response.status
-    assert_equal " ", @response.body
-  end
-
-  def test_using_resource_with_parent_for_get
-    @request.accept = "application/xml"
-    get :using_resource_with_parent
-    assert_equal "application/xml", @response.content_type
-    assert_equal 200, @response.status
-    assert_equal "XML", @response.body
-  end
-
-  def test_using_resource_with_parent_for_post
-    @request.accept = "application/xml"
-
-    post :using_resource_with_parent
-    assert_equal "application/xml", @response.content_type
-    assert_equal 201, @response.status
-    assert_equal "XML", @response.body
-    assert_equal "http://www.example.com/quiz_stores/11/customers/13", @response.location
-
-    errors = { :name => :invalid }
-    Customer.any_instance.stubs(:errors).returns(errors)
-    post :using_resource
-    assert_equal "application/xml", @response.content_type
-    assert_equal 422, @response.status
-    assert_equal errors.to_xml, @response.body
-    assert_nil @response.location
-  end
-
-  def test_clear_respond_to
-    @controller = InheritedRespondWithController.new
-    @request.accept = "text/html"
-    get :index
-    assert_equal 406, @response.status
-  end
-
-  def test_first_in_respond_to_has_higher_priority
-    @controller = InheritedRespondWithController.new
-    @request.accept = "*/*"
-    get :index
-    assert_equal "application/xml", @response.content_type
-    assert_equal "XML", @response.body
-  end
-
-  def test_no_double_render_is_raised
-    @request.accept = "text/html"
-    assert_raise ActionView::MissingTemplate do
-      get :using_resource
-    end
-  end
-
-  def test_using_resource_with_status_and_location
-    @request.accept = "text/html"
-    post :using_resource_with_status_and_location
-    assert @response.redirect?
-    assert_equal "http://test.host/", @response.location
-
-    @request.accept = "application/xml"
-    get :using_resource_with_status_and_location
-    assert_equal 201, @response.status
-  end
-
-  def test_using_resource_with_responder
-    get :using_resource_with_responder
-    assert_equal "Resource name is david", @response.body
-  end
-
-  def test_not_acceptable
-    @request.accept = "application/xml"
-    get :using_defaults
-    assert_equal 406, @response.status
-
-    @request.accept = "text/html"
-    get :using_defaults_with_type_list
-    assert_equal 406, @response.status
-
-    @request.accept = "application/json"
-    get :using_defaults_with_type_list
-    assert_equal 406, @response.status
-
-    @request.accept = "text/javascript"
-    get :default_overwritten
-    assert_equal 406, @response.status
+    @request.accept = "text/iphone"
+    assert_raise(ActionView::MissingTemplate) { get :iphone_with_html_response_type_without_layout }
   end
 end
 
@@ -776,29 +482,35 @@ class PostController < AbstractPostController
   around_filter :with_iphone
 
   def index
-    respond_to(:html, :iphone)
+    respond_to do |type|
+      type.html
+      type.iphone
+    end
   end
 
-protected
-
-  def with_iphone
-    Mime::Type.register_alias("text/html", :iphone)
-    request.format = "iphone" if request.env["HTTP_ACCEPT"] == "text/iphone"
-    yield
-  ensure
-    Mime::SET.delete(:iphone)
-    Mime.module_eval { remove_const :IPHONE if const_defined?(:IPHONE) }
-  end
+  protected
+    def with_iphone
+      Mime::Type.register_alias("text/html", :iphone)
+      request.format = "iphone" if request.env["HTTP_ACCEPT"] == "text/iphone"
+      yield
+    ensure
+      Mime.module_eval { remove_const :IPHONE if const_defined?(:IPHONE) }
+    end
 end
 
 class SuperPostController < PostController
+  def index
+    respond_to do |type|
+      type.html
+      type.iphone
+    end
+  end
 end
 
 class MimeControllerLayoutsTest < ActionController::TestCase
   tests PostController
 
   def setup
-    super
     @request.host = "www.example.com"
   end
 
@@ -815,7 +527,7 @@ class MimeControllerLayoutsTest < ActionController::TestCase
     @controller = SuperPostController.new
 
     get :index
-    assert_equal '<html><div id="html">Super Firefox</div></html>', @response.body
+    assert_equal 'Super Firefox', @response.body
 
     @request.accept = "text/iphone"
     get :index

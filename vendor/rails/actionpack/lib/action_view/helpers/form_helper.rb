@@ -2,8 +2,6 @@ require 'cgi'
 require 'action_view/helpers/date_helper'
 require 'action_view/helpers/tag_helper'
 require 'action_view/helpers/form_tag_helper'
-require 'active_support/core_ext/class/inheritable_attributes'
-require 'active_support/core_ext/hash/slice'
 
 module ActionView
   module Helpers
@@ -288,8 +286,6 @@ module ActionView
       def apply_form_for_options!(object_or_array, options) #:nodoc:
         object = object_or_array.is_a?(Array) ? object_or_array.last : object_or_array
 
-        object = convert_to_model(object)
-
         html_options =
           if object.respond_to?(:new_record?) && object.new_record?
             { :class  => dom_class(object, :new),  :id => dom_id(object), :method => :post }
@@ -490,7 +486,7 @@ module ActionView
           object_name = ActionController::RecordIdentifier.singular_class_name(object)
         end
 
-        builder = options[:builder] || ActionView.default_form_builder
+        builder = options[:builder] || ActionView::Base.default_form_builder
         yield builder.new(object_name, object, self, options, block)
       end
 
@@ -628,15 +624,15 @@ module ActionView
 
       # Returns a checkbox tag tailored for accessing a specified attribute (identified by +method+) on an object
       # assigned to the template (identified by +object+). This object must be an instance object (@object) and not a local object.
-      # It's intended that +method+ returns an integer and if that integer is above zero, then the checkbox is checked.
-      # Additional options on the input tag can be passed as a hash with +options+. The +checked_value+ defaults to 1
+      # It's intended that +method+ returns an integer and if that integer is above zero, then the checkbox is checked. 
+      # Additional options on the input tag can be passed as a hash with +options+. The +checked_value+ defaults to 1 
       # while the default +unchecked_value+ is set to 0 which is convenient for boolean values.
       #
       # ==== Gotcha
       #
       # The HTML specification says unchecked check boxes are not successful, and
       # thus web browsers do not send them. Unfortunately this introduces a gotcha:
-      # if an +Invoice+ model has a +paid+ flag, and in the form that edits a paid
+      # if an Invoice model has a +paid+ flag, and in the form that edits a paid
       # invoice the user unchecks its check box, no +paid+ parameter is sent. So,
       # any mass-assignment idiom like
       #
@@ -644,15 +640,12 @@ module ActionView
       #
       # wouldn't update the flag.
       #
-      # To prevent this the helper generates an auxiliary hidden field before
-      # the very check box. The hidden field has the same name and its
-      # attributes mimick an unchecked check box.
-      #
-      # This way, the client either sends only the hidden field (representing
-      # the check box is unchecked), or both fields. Since the HTML specification
-      # says key/value pairs have to be sent in the same order they appear in the
-      # form, and parameters extraction gets the last occurrence of any repeated
-      # key in the query string, that works for ordinary forms.
+      # To prevent this the helper generates a hidden field with the same name as
+      # the checkbox after the very check box. So, the client either sends only the
+      # hidden field (representing the check box is unchecked), or both fields.
+      # Since the HTML specification says key/value pairs have to be sent in the
+      # same order they appear in the form and Rails parameters extraction always
+      # gets the first occurrence of any given key, that works in ordinary forms.
       #
       # Unfortunately that workaround does not work when the check box goes
       # within an array-like parameter, as in
@@ -663,26 +656,22 @@ module ActionView
       #   <% end %>
       #
       # because parameter name repetition is precisely what Rails seeks to distinguish
-      # the elements of the array. For each item with a checked check box you
-      # get an extra ghost item with only that attribute, assigned to "0".
-      #
-      # In that case it is preferable to either use +check_box_tag+ or to use
-      # hashes instead of arrays.
+      # the elements of the array.
       #
       # ==== Examples
       #   # Let's say that @post.validated? is 1:
       #   check_box("post", "validated")
-      #   # => <input name="post[validated]" type="hidden" value="0" />
-      #   #    <input type="checkbox" id="post_validated" name="post[validated]" value="1" />
+      #   # => <input type="checkbox" id="post_validated" name="post[validated]" value="1" />
+      #   #    <input name="post[validated]" type="hidden" value="0" />
       #
       #   # Let's say that @puppy.gooddog is "no":
       #   check_box("puppy", "gooddog", {}, "yes", "no")
-      #   # => <input name="puppy[gooddog]" type="hidden" value="no" />
-      #   #    <input type="checkbox" id="puppy_gooddog" name="puppy[gooddog]" value="yes" />
+      #   # => <input type="checkbox" id="puppy_gooddog" name="puppy[gooddog]" value="yes" />
+      #   #    <input name="puppy[gooddog]" type="hidden" value="no" />
       #
       #   check_box("eula", "accepted", { :class => 'eula_check' }, "yes", "no")
-      #   # => <input name="eula[accepted]" type="hidden" value="no" />
-      #   #    <input type="checkbox" class="eula_check" id="eula_accepted" name="eula[accepted]" value="yes" />
+      #   # => <input type="checkbox" class="eula_check" id="eula_accepted" name="eula[accepted]" value="yes" />
+      #   #    <input name="eula[accepted]" type="hidden" value="no" />
       #
       def check_box(object_name, method, options = {}, checked_value = "1", unchecked_value = "0")
         InstanceTag.new(object_name, method, self, options.delete(:object)).to_check_box_tag(options, checked_value, unchecked_value)
@@ -711,8 +700,7 @@ module ActionView
       end
     end
 
-    module InstanceTagMethods #:nodoc:
-      extend ActiveSupport::Concern
+    class InstanceTag #:nodoc:
       include Helpers::TagHelper, Helpers::FormTagHelper
 
       attr_reader :method_name, :object_name
@@ -738,7 +726,6 @@ module ActionView
         options = options.stringify_keys
         tag_value = options.delete("value")
         name_and_id = options.dup
-        name_and_id["id"] = name_and_id["for"]
         add_default_name_and_id_for_value(tag_value, name_and_id)
         options.delete("index")
         options["for"] ||= name_and_id["id"]
@@ -836,7 +823,7 @@ module ActionView
         self.class.value_before_type_cast(object, @method_name)
       end
 
-      module ClassMethods
+      class << self
         def value(object, method_name)
           object.send method_name unless object.nil?
         end
@@ -873,8 +860,8 @@ module ActionView
 
       private
         def add_default_name_and_id_for_value(tag_value, options)
-          unless tag_value.nil?
-            pretty_tag_value = tag_value.to_s.gsub(/\s/, "_").gsub(/\W/, "").downcase
+          if tag_value
+            pretty_tag_value    = tag_value.to_s.gsub(/\s/, "_").gsub(/\W/, "").downcase
             specified_id = options["id"]
             add_default_name_and_id(options)
             options["id"] += "_#{pretty_tag_value}" unless specified_id
@@ -922,24 +909,12 @@ module ActionView
         end
     end
 
-    class InstanceTag
-      include InstanceTagMethods
-    end
-
     class FormBuilder #:nodoc:
       # The methods which wrap a form helper call.
       class_inheritable_accessor :field_helpers
       self.field_helpers = (FormHelper.instance_methods - ['form_for'])
 
       attr_accessor :object_name, :object, :options
-
-      def self.model_name
-        @model_name ||= Struct.new(:partial_path).new(name.demodulize.underscore.sub!(/_builder$/, ''))
-      end
-
-      def to_model
-        self
-      end
 
       def initialize(object_name, object, template, options, proc)
         @nested_child_index = {}
@@ -1038,7 +1013,7 @@ module ActionView
         def fields_for_with_nested_attributes(association_name, args, block)
           name = "#{object_name}[#{association_name}_attributes]"
           association = @object.send(association_name)
-          explicit_object = args.first.to_model if args.first.respond_to?(:to_model)
+          explicit_object = args.first if args.first.respond_to?(:new_record?)
 
           if association.is_a?(Array)
             children = explicit_object ? [explicit_object] : association
@@ -1070,21 +1045,8 @@ module ActionView
     end
   end
 
-  class << ActionView
-    attr_accessor :default_form_builder
+  class Base
+    cattr_accessor :default_form_builder
+    self.default_form_builder = ::ActionView::Helpers::FormBuilder
   end
-
-  self.default_form_builder = ::ActionView::Helpers::FormBuilder
-
-  # 2.3 compatibility
-  class << Base
-    def default_form_builder=(builder)
-      ActionView.default_form_builder = builder
-    end
-
-    def default_form_builder
-      ActionView.default_form_builder
-    end
-  end
-
 end

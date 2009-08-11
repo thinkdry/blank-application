@@ -1,7 +1,6 @@
-require 'active_support/core_ext/class/attribute_accessors'
-
 # Adds the 'around_level' method to Logger.
-class Logger #:nodoc:
+
+class Logger
   def self.define_around_helper(level)
     module_eval <<-end_eval
       def around_#{level}(before_message, after_message, &block)  # def around_debug(before_message, after_message, &block)

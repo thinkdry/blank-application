@@ -1,5 +1,3 @@
-require 'active_support/core_ext/array/extract_options'
-
 # Extends the class object with class and instance accessors for class attributes,
 # just like the native attr* accessors for instance attributes.
 #
@@ -12,7 +10,7 @@ class Class
   def cattr_reader(*syms)
     syms.flatten.each do |sym|
       next if sym.is_a?(Hash)
-      class_eval(<<-EOS, __FILE__, __LINE__ + 1)
+      class_eval(<<-EOS, __FILE__, __LINE__)
         unless defined? @@#{sym}  # unless defined? @@hair_colors
           @@#{sym} = nil          #   @@hair_colors = nil
         end                       # end
@@ -31,7 +29,7 @@ class Class
   def cattr_writer(*syms)
     options = syms.extract_options!
     syms.flatten.each do |sym|
-      class_eval(<<-EOS, __FILE__, __LINE__ + 1)
+      class_eval(<<-EOS, __FILE__, __LINE__)
         unless defined? @@#{sym}                       # unless defined? @@hair_colors
           @@#{sym} = nil                               #   @@hair_colors = nil
         end                                            # end

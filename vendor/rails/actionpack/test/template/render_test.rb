@@ -13,7 +13,7 @@ module RenderTestCases
     I18n.backend.store_translations 'pt-BR', {}
 
     # Ensure original are still the same since we are reindexing view paths
-    assert_equal ORIGINAL_LOCALES, I18n.available_locales.map {|l| l.to_s }.sort
+    assert_equal ORIGINAL_LOCALES, I18n.available_locales.map(&:to_s).sort
   end
 
   def test_render_file
@@ -29,13 +29,11 @@ module RenderTestCases
   end
 
   def test_render_file_with_localization
-    begin
-      old_locale = I18n.locale
-      I18n.locale = :da
-      assert_equal "Hey verden", @view.render(:file => "test/hello_world")
-    ensure
-      I18n.locale = old_locale
-    end
+    old_locale = I18n.locale
+    I18n.locale = :da
+    assert_equal "Hey verden", @view.render(:file => "test/hello_world")
+  ensure
+    I18n.locale = old_locale
   end
 
   def test_render_file_with_dashed_locale
@@ -44,6 +42,25 @@ module RenderTestCases
     assert_equal "Ola mundo", @view.render(:file => "test/hello_world")
   ensure
     I18n.locale = old_locale
+  end
+
+  def test_render_implicit_html_template_from_xhr_request
+    old_format = @view.template_format
+    @view.template_format = :js
+    assert_equal "Hello HTML!", @view.render(:file => "test/render_implicit_html_template_from_xhr_request")
+  ensure
+    @view.template_format = old_format
+  end
+
+  def test_render_implicit_html_template_from_xhr_request_with_localization
+    old_locale = I18n.locale
+    old_format = @view.template_format
+    I18n.locale = :da
+    @view.template_format = :js
+    assert_equal "Hey HTML!\n", @view.render(:file => "test/render_implicit_html_template_from_xhr_request")
+  ensure
+    I18n.locale = old_locale
+    @view.template_format = old_format
   end
 
   def test_render_file_at_top_level
@@ -66,6 +83,10 @@ module RenderTestCases
 
   def test_render_file_not_using_full_path_with_dot_in_path
     assert_equal "The secret is in the sauce\n", @view.render(:file => "test/dot.directory/render_file_with_ivar")
+  end
+
+  def test_render_has_access_current_template
+    assert_equal "test/template.erb", @view.render(:file => "test/template.erb")
   end
 
   def test_render_update
@@ -165,7 +186,7 @@ module RenderTestCases
 
   # TODO: The reason for this test is unclear, improve documentation
   def test_render_missing_xml_partial_and_raise_missing_template
-    @view.formats = [:xml]
+    @view.template_format = :xml
     assert_raise(ActionView::MissingTemplate) { @view.render(:partial => "test/layout_for_partial") }
   end
 
@@ -213,6 +234,10 @@ module RenderTestCases
     end
   end
 
+  def test_template_with_malformed_template_handler_is_reachable_through_its_exact_filename
+    assert_equal "Don't render me!", @view.render(:file => 'test/malformed/malformed.html.erb~')
+  end
+
   def test_render_with_layout
     assert_equal %(<title></title>\nHello world!\n),
       @view.render(:file => "test/hello_world.erb", :layout => "layouts/yield")
@@ -224,51 +249,42 @@ module RenderTestCases
   end
 
   if '1.9'.respond_to?(:force_encoding)
-    def test_render_utf8_template_with_magic_comment
-      with_external_encoding Encoding::ASCII_8BIT do
-        result = @view.render(:file => "test/utf8_magic.html.erb", :layouts => "layouts/yield")
-        assert_equal "Русский текст\nUTF-8\nUTF-8\nUTF-8\n", result
-        assert_equal Encoding::UTF_8, result.encoding
-      end
-    end
-
-    def test_render_utf8_template_with_default_external_encoding
-      with_external_encoding Encoding::UTF_8 do
-        result = @view.render(:file => "test/utf8.html.erb", :layouts => "layouts/yield")
-        assert_equal "Русский текст\nUTF-8\nUTF-8\nUTF-8\n", result
-        assert_equal Encoding::UTF_8, result.encoding
-      end
-    end
-
-    def with_external_encoding(encoding)
-      old, Encoding.default_external = Encoding.default_external, encoding
-      yield
-    ensure
-      Encoding.default_external = old
+    def test_render_utf8_template
+      result = @view.render(:file => "test/utf8.html.erb", :layouts => "layouts/yield")
+      assert_equal "Русский текст\n日本語のテキスト", result
+      assert_equal Encoding::UTF_8, result.encoding
     end
   end
 end
 
-class CachedViewRenderTest < ActiveSupport::TestCase
-  include RenderTestCases
-
-  # Ensure view path cache is primed
-  def setup
-    view_paths = ActionController::Base.view_paths
-    assert_equal ActionView::FileSystemResolverWithFallback, view_paths.first.class
+module TemplatesSetupTeardown
+  def setup_view_paths_for(new_cache_template_loading)
+    @previous_cache_template_loading, ActionView::Base.cache_template_loading = ActionView::Base.cache_template_loading, new_cache_template_loading
+    view_paths = new_cache_template_loading ? CACHED_VIEW_PATHS : ActionView::Base.process_view_paths(CACHED_VIEW_PATHS.map(&:to_s))
+    assert_equal(new_cache_template_loading ? ActionView::Template::EagerPath : ActionView::ReloadableTemplate::ReloadablePath, view_paths.first.class)
     setup_view(view_paths)
   end
-end
-
-class LazyViewRenderTest < ActiveSupport::TestCase
-  include RenderTestCases
-
-  # Test the same thing as above, but make sure the view path
-  # is not eager loaded
-  def setup
-    path = ActionView::FileSystemResolverWithFallback.new(FIXTURE_LOAD_PATH)
-    view_paths = ActionView::Base.process_view_paths(path)
-    assert_equal ActionView::FileSystemResolverWithFallback, view_paths.first.class
-    setup_view(view_paths)
+  
+  def teardown
+    ActionView::Base.cache_template_loading = @previous_cache_template_loading
   end
 end
+
+class CachedRenderTest < Test::Unit::TestCase
+  include TemplatesSetupTeardown
+  include RenderTestCases
+
+  def setup
+    setup_view_paths_for(cache_templates = true)
+  end
+end
+
+class ReloadableRenderTest < Test::Unit::TestCase
+  include TemplatesSetupTeardown
+  include RenderTestCases
+
+  def setup
+    setup_view_paths_for(cache_templates = false)
+  end
+end
+

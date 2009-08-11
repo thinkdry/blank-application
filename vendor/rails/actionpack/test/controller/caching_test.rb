@@ -8,6 +8,10 @@ FILE_STORE_PATH = File.join(File.dirname(__FILE__), '/../temp/', CACHE_DIR)
 ActionController::Base.page_cache_directory = FILE_STORE_PATH
 ActionController::Base.cache_store = :file_store, FILE_STORE_PATH
 
+# Force sweeper classes to load
+ActionController::Caching::Sweeper
+ActionController::Caching::Sweeping
+
 class PageCachingTestController < ActionController::Base
   caches_page :ok, :no_content, :if => Proc.new { |c| !c.request.format.json? }
   caches_page :found, :not_found
@@ -45,13 +49,10 @@ end
 
 class PageCachingTest < ActionController::TestCase
   def setup
-    super
     ActionController::Base.perform_caching = true
 
-    ActionController::Routing::Routes.clear!
-
     ActionController::Routing::Routes.draw do |map|
-      map.main '', :controller => 'posts', :format => nil
+      map.main '', :controller => 'posts'
       map.formatted_posts 'posts.:format', :controller => 'posts'
       map.resources :posts
       map.connect ':controller/:action/:id'
@@ -113,7 +114,7 @@ class PageCachingTest < ActionController::TestCase
   end
 
   def test_should_cache_ok_at_custom_path
-    @request.request_uri = "/index.html"
+    @request.stubs(:path).returns("/index.html")
     get :ok
     assert_response :ok
     assert File.exist?("#{FILE_STORE_PATH}/index.html")
@@ -151,9 +152,6 @@ class PageCachingTest < ActionController::TestCase
 end
 
 class ActionCachingTestController < ActionController::Base
-  rescue_from(Exception) { head 500 }
-  rescue_from(ActiveRecord::RecordNotFound) { head :not_found }
-
   caches_action :index, :redirected, :forbidden, :if => Proc.new { |c| !c.request.format.json? }, :expires_in => 1.hour
   caches_action :show, :cache_path => 'http://test.host/custom/show'
   caches_action :edit, :cache_path => Proc.new { |c| c.params[:id] ? "http://test.host/#{c.params[:id]};edit" : "http://test.host/edit" }
@@ -242,7 +240,6 @@ end
 
 class ActionCacheTest < ActionController::TestCase
   def setup
-    super
     reset!
     FileUtils.mkdir_p(FILE_STORE_PATH)
     @path_class = ActionController::Caching::Actions::ActionCachePath
@@ -364,7 +361,7 @@ class ActionCacheTest < ActionController::TestCase
     cached_time = content_to_cache
     reset!
 
-    @request.request_uri = "/action_caching_test/expire.xml"
+    @request.set_REQUEST_URI "/action_caching_test/expire.xml"
     get :expire, :format => :xml
     reset!
 
@@ -525,7 +522,6 @@ end
 
 class FragmentCachingTest < ActionController::TestCase
   def setup
-    super
     ActionController::Base.perform_caching = true
     @store = ActiveSupport::Cache::MemoryStore.new
     ActionController::Base.cache_store = @store
@@ -625,21 +621,6 @@ class FragmentCachingTest < ActionController::TestCase
     assert !fragment_computed
     assert_equal 'generated till now -> fragment content', buffer
   end
-
-  def test_fragment_for_logging
-    fragment_computed = false
-
-    @controller.class.expects(:benchmark).with('Cached fragment exists?: views/expensive')
-    @controller.class.expects(:benchmark).with('Cached fragment miss: views/expensive')
-    @controller.class.expects(:benchmark).with('Cached fragment hit: views/expensive').never
-
-    buffer = 'generated till now -> '
-    @controller.fragment_for(buffer, 'expensive') { fragment_computed = true }
-
-    assert fragment_computed
-    assert_equal 'generated till now -> ', buffer
-  end
-
 end
 
 class FunctionalCachingController < ActionController::Base
@@ -673,7 +654,6 @@ end
 
 class FunctionalFragmentCachingTest < ActionController::TestCase
   def setup
-    super
     ActionController::Base.perform_caching = true
     @store = ActiveSupport::Cache::MemoryStore.new
     ActionController::Base.cache_store = @store

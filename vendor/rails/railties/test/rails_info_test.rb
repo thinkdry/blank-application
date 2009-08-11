@@ -1,12 +1,9 @@
 $:.unshift File.dirname(__FILE__) + "/../lib"
 $:.unshift File.dirname(__FILE__) + "/../builtin/rails_info"
 $:.unshift File.dirname(__FILE__) + "/../../activesupport/lib"
-$:.unshift File.dirname(__FILE__) + "/../../actionpack/lib"
 
 require 'test/unit'
 require 'active_support'
-require 'active_support/test_case'
-require 'action_controller'
 
 unless defined?(Rails) && defined?(Rails::Info)
   module Rails
@@ -14,9 +11,7 @@ unless defined?(Rails) && defined?(Rails::Info)
   end
 end
 
-require "active_support/core_ext/kernel/reporting"
-
-class InfoTest < ActiveSupport::TestCase
+class InfoTest < Test::Unit::TestCase
   def setup
     Rails.send :remove_const, :Info
     silence_warnings { load 'rails/info.rb' }
@@ -74,18 +69,6 @@ EOS
     Rails::Info.frameworks.each do |framework|
       dir = File.dirname(__FILE__) + "/../../" + framework.gsub('_', '')
       assert File.directory?(dir), "#{framework.classify} does not exist"
-    end
-  end
-
-  def test_middleware_property
-    assert property_defined?('Middleware')
-  end
-
-  def test_html_includes_middleware
-    html = Rails::Info.to_html
-    assert html.include?('<tr><td class="name">Middleware</td>')
-    properties.value_for('Middleware').each do |value|
-      assert html.include?("<li>#{CGI.escapeHTML(value)}</li>")
     end
   end
 

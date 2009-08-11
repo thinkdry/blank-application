@@ -25,7 +25,7 @@ module Rails
       end
       
       def plugin_names
-        plugins.map {|plugin| plugin.name }
+        plugins.map(&:name)
       end
     end
     

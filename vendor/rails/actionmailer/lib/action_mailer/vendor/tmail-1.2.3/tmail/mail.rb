@@ -518,7 +518,6 @@ module TMail
 
     def parse_body( f = nil )
       return if @body_parsed
-      
       if f
         parse_body_0 f
       else

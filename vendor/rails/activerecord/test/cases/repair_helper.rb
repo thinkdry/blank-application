@@ -1,7 +1,11 @@
 module ActiveRecord
   module Testing
     module RepairHelper
-      extend ActiveSupport::Concern
+      def self.included(base)
+        base.class_eval do
+          extend ClassMethods
+        end
+      end
 
       module Toolbox
         def self.record_validations(*model_classes)

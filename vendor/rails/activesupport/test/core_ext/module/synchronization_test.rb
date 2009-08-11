@@ -1,8 +1,5 @@
 require 'abstract_unit'
 
-require 'active_support/core_ext/class/attribute_accessors'
-require 'active_support/core_ext/module/synchronization'
-
 class SynchronizationTest < Test::Unit::TestCase
   def setup
     @target = Class.new

@@ -1,3 +1,5 @@
+require 'active_model/state_machine/state_transition'
+
 module ActiveModel
   module StateMachine
     class Event
@@ -51,12 +53,12 @@ module ActiveModel
         self
       end
 
-      private
-        def transitions(trans_opts)
-          Array(trans_opts[:from]).each do |s|
-            @transitions << StateTransition.new(trans_opts.merge({:from => s.to_sym}))
-          end
+    private
+      def transitions(trans_opts)
+        Array(trans_opts[:from]).each do |s|
+          @transitions << StateTransition.new(trans_opts.merge({:from => s.to_sym}))
         end
+      end
     end
   end
 end

@@ -1,5 +1,3 @@
-require 'active_support/core_ext/hash/except'
-
 module ActionController
   module Routing
     class RouteBuilder #:nodoc:

@@ -249,6 +249,24 @@ class BelongsToAssociationsTest < ActiveRecord::TestCase
     assert_equal 1, Topic.find(topic.id)[:replies_count]
   end
 
+  def test_belongs_to_counter_after_save
+    topic = Topic.create("title" => "monday night")
+    topic.replies.create("title" => "re: monday night", "content" => "football")
+    assert_equal 1, Topic.find(topic.id).send(:read_attribute, "replies_count")
+
+    topic.save
+    assert_equal 1, Topic.find(topic.id).send(:read_attribute, "replies_count")
+  end
+
+  def test_belongs_to_counter_after_update_attributes
+    topic = Topic.create("title" => "37s")
+    topic.replies.create("title" => "re: 37s", "content" => "rails")
+    assert_equal 1, Topic.find(topic.id).send(:read_attribute, "replies_count")
+
+    topic.update_attributes("title" => "37signals")
+    assert_equal 1, Topic.find(topic.id).send(:read_attribute, "replies_count")
+  end
+
   def test_assignment_before_child_saved
     final_cut = Client.new("name" => "Final Cut")
     firm = Firm.find(1)
@@ -275,8 +293,7 @@ class BelongsToAssociationsTest < ActiveRecord::TestCase
 
   def test_new_record_with_foreign_key_but_no_object
     c = Client.new("firm_id" => 1)
-    # sometimes tests on Oracle fail if ORDER BY is not provided therefore add always :order with :first
-    assert_equal Firm.find(:first, :order => "id"), c.firm_with_basic_id
+    assert_equal Firm.find(:first), c.firm_with_basic_id
   end
 
   def test_forgetting_the_load_when_foreign_key_enters_late
@@ -284,8 +301,7 @@ class BelongsToAssociationsTest < ActiveRecord::TestCase
     assert_nil c.firm_with_basic_id
 
     c.firm_id = 1
-    # sometimes tests on Oracle fail if ORDER BY is not provided therefore add always :order with :first
-    assert_equal Firm.find(:first, :order => "id"), c.firm_with_basic_id
+    assert_equal Firm.find(:first), c.firm_with_basic_id
   end
 
   def test_field_name_same_as_foreign_key
@@ -353,7 +369,7 @@ class BelongsToAssociationsTest < ActiveRecord::TestCase
     member = Member.create
     sponsor.sponsorable = member
     assert_equal "Member", sponsor.sponsorable_type
-    
+
     # should update when assigning a new record
     sponsor = Sponsor.new
     member = Member.new
@@ -374,15 +390,15 @@ class BelongsToAssociationsTest < ActiveRecord::TestCase
     essay.writer = writer
     assert_equal "Author", essay.writer_type
   end
-  
+
   def test_polymorphic_assignment_updates_foreign_id_field_for_new_and_saved_records
     sponsor = Sponsor.new
     saved_member = Member.create
     new_member = Member.new
-    
+
     sponsor.sponsorable = saved_member
     assert_equal saved_member.id, sponsor.sponsorable_id
-    
+
     sponsor.sponsorable = new_member
     assert_equal nil, sponsor.sponsorable_id
   end

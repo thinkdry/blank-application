@@ -14,11 +14,6 @@ require 'connection'
 
 require 'cases/repair_helper'
 
-begin
-  require 'ruby-debug'
-rescue LoadError
-end
-
 # Show backtraces for deprecated behavior for quicker cleanup.
 ActiveSupport::Deprecation.debug = true
 
@@ -61,7 +56,7 @@ end
 
 class ActiveSupport::TestCase
   include ActiveRecord::TestFixtures
-  include ActiveModel::ValidationsRepairHelper
+  include ActiveRecord::Testing::RepairHelper
 
   self.fixture_path = FIXTURES_ROOT
   self.use_instantiated_fixtures  = false
@@ -70,21 +65,4 @@ class ActiveSupport::TestCase
   def create_fixtures(*table_names, &block)
     Fixtures.create_fixtures(ActiveSupport::TestCase.fixture_path, table_names, {}, &block)
   end
-end
-
-# silence verbose schema loading
-original_stdout = $stdout
-$stdout = StringIO.new
-
-begin
-  adapter_name = ActiveRecord::Base.connection.adapter_name.downcase
-  adapter_specific_schema_file = SCHEMA_ROOT + "/#{adapter_name}_specific_schema.rb"
-
-  load SCHEMA_ROOT + "/schema.rb"
-
-  if File.exists?(adapter_specific_schema_file)
-    load adapter_specific_schema_file
-  end
-ensure
-  $stdout = original_stdout
 end

@@ -1,5 +1,4 @@
 require 'abstract_unit'
-require 'logger'
 require 'pp' # require 'pp' early to prevent hidden_methods from not picking up the pretty-print methods until too late
 
 # Provide some controller to run the tests on.
@@ -28,7 +27,6 @@ class EmptyController < ActionController::Base
 end
 class NonEmptyController < ActionController::Base
   def public_action
-    render :nothing => true
   end
   
   hide_action :hidden_action
@@ -53,7 +51,6 @@ end
 
 class DefaultUrlOptionsController < ActionController::Base
   def default_url_options_action
-    render :nothing => true
   end
 
   def default_url_options(options = nil)
@@ -87,11 +84,11 @@ class ControllerInstanceTests < Test::Unit::TestCase
   def test_action_methods
     @empty_controllers.each do |c|
       hide_mocha_methods_from_controller(c)
-      assert_equal Set.new, c.class.__send__(:action_methods), "#{c.controller_path} should be empty!"
+      assert_equal Set.new, c.__send__(:action_methods), "#{c.controller_path} should be empty!"
     end
     @non_empty_controllers.each do |c|
       hide_mocha_methods_from_controller(c)
-      assert_equal Set.new(%w(public_action)), c.class.__send__(:action_methods), "#{c.controller_path} should not be empty!"
+      assert_equal Set.new(%w(public_action)), c.__send__(:action_methods), "#{c.controller_path} should not be empty!"
     end
   end
 
@@ -117,7 +114,7 @@ class PerformActionTest < ActionController::TestCase
     end
 
     def method_missing(method, *args)
-      @logged << args.first.to_s
+      @logged << args.first
     end
   end
 
@@ -145,8 +142,7 @@ class PerformActionTest < ActionController::TestCase
   
   def test_method_missing_is_not_an_action_name
     use_controller MethodMissingController
-
-    assert ! @controller.__send__(:action_method?, 'method_missing')
+    assert ! @controller.__send__(:action_methods).include?('method_missing')
     
     get :method_missing
     assert_response :success
@@ -155,8 +151,11 @@ class PerformActionTest < ActionController::TestCase
   
   def test_get_on_hidden_should_fail
     use_controller NonEmptyController
-    assert_raise(ActionController::UnknownAction) { get :hidden_action }
-    assert_raise(ActionController::UnknownAction) { get :another_hidden_action }
+    get :hidden_action
+    assert_response 404
+    
+    get :another_hidden_action
+    assert_response 404
   end
 
   def test_namespaced_action_should_log_module_name
@@ -171,7 +170,6 @@ class DefaultUrlOptionsTest < ActionController::TestCase
   tests DefaultUrlOptionsController
 
   def setup
-    super
     @request.host = 'www.example.com'
     rescue_action_in_public!
   end
@@ -195,7 +193,6 @@ class EmptyUrlOptionsTest < ActionController::TestCase
   tests NonEmptyController
 
   def setup
-    super
     @request.host = 'www.example.com'
     rescue_action_in_public!
   end

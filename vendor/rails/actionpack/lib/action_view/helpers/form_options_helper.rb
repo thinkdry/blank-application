@@ -162,90 +162,36 @@ module ActionView
         InstanceTag.new(object, method, self, options.delete(:object)).to_collection_select_tag(collection, value_method, text_method, options, html_options)
       end
 
-
-      # Returns <tt><select></tt>, <tt><optgroup></tt> and <tt><option></tt> tags for the collection of existing return values of
-      # +method+ for +object+'s class. The value returned from calling +method+ on the instance +object+ will
-      # be selected. If calling +method+ returns +nil+, no selection is made without including <tt>:prompt</tt>
-      # or <tt>:include_blank</tt> in the +options+ hash.
-      #
-      # Parameters:
-      # * +object+ - The instance of the class to be used for the select tag
-      # * +method+ - The attribute of +object+ corresponding to the select tag
-      # * +collection+ - An array of objects representing the <tt><optgroup></tt> tags.
-      # * +group_method+ - The name of a method which, when called on a member of +collection+, returns an
-      #   array of child objects representing the <tt><option></tt> tags.
-      # * +group_label_method+ - The name of a method which, when called on a member of +collection+, returns a
-      #   string to be used as the +label+ attribute for its <tt><optgroup></tt> tag.
-      # * +option_key_method+ - The name of a method which, when called on a child object of a member of
-      #   +collection+, returns a value to be used as the +value+ attribute for its <tt><option></tt> tag.
-      # * +option_value_method+ - The name of a method which, when called on a child object of a member of
-      #   +collection+, returns a value to be used as the contents of its <tt><option></tt> tag.
-      #
-      # Example object structure for use with this method:
-      #   class Continent < ActiveRecord::Base
-      #     has_many :countries
-      #     # attribs: id, name
-      #   end
-      #   class Country < ActiveRecord::Base
-      #     belongs_to :continent
-      #     # attribs: id, name, continent_id
-      #   end
-      #   class City < ActiveRecord::Base
-      #     belongs_to :country
-      #     # attribs: id, name, country_id
-      #   end
-      #
-      # Sample usage:
-      #   grouped_collection_select(:city, :country_id, @continents, :countries, :name, :id, :name)
-      #
-      # Possible output:
-      #   <select name="city[country_id]">
-      #     <optgroup label="Africa">
-      #       <option value="1">South Africa</option>
-      #       <option value="3">Somalia</option>
-      #     </optgroup>
-      #     <optgroup label="Europe">
-      #       <option value="7" selected="selected">Denmark</option>
-      #       <option value="2">Ireland</option>
-      #     </optgroup>
-      #   </select>
-      #
-      def grouped_collection_select(object, method, collection, group_method, group_label_method, option_key_method, option_value_method, options = {}, html_options = {})
-        InstanceTag.new(object, method, self, options.delete(:object)).to_grouped_collection_select_tag(collection, group_method, group_label_method, option_key_method, option_value_method, options, html_options)
-      end
-
-
-
       # Return select and option tags for the given object and method, using
       # #time_zone_options_for_select to generate the list of option tags.
       #
       # In addition to the <tt>:include_blank</tt> option documented above,
       # this method also supports a <tt>:model</tt> option, which defaults
-      # to ActiveSupport::TimeZone. This may be used by users to specify a
-      # different time zone model object. (See +time_zone_options_for_select+
-      # for more information.)
+      # to TimeZone. This may be used by users to specify a different time
+      # zone model object. (See +time_zone_options_for_select+ for more
+      # information.)
       #
-      # You can also supply an array of ActiveSupport::TimeZone objects
+      # You can also supply an array of TimeZone objects
       # as +priority_zones+, so that they will be listed above the rest of the
-      # (long) list. (You can use ActiveSupport::TimeZone.us_zones as a convenience
-      # for obtaining a list of the US time zones, or a Regexp to select the zones
+      # (long) list. (You can use TimeZone.us_zones as a convenience for
+      # obtaining a list of the US time zones, or a Regexp to select the zones
       # of your choice)
       #
       # Finally, this method supports a <tt>:default</tt> option, which selects
-      # a default ActiveSupport::TimeZone if the object's time zone is +nil+.
+      # a default TimeZone if the object's time zone is +nil+.
       #
       # Examples:
       #   time_zone_select( "user", "time_zone", nil, :include_blank => true)
       #
       #   time_zone_select( "user", "time_zone", nil, :default => "Pacific Time (US & Canada)" )
       #
-      #   time_zone_select( "user", 'time_zone', ActiveSupport::TimeZone.us_zones, :default => "Pacific Time (US & Canada)")
+      #   time_zone_select( "user", 'time_zone', TimeZone.us_zones, :default => "Pacific Time (US & Canada)")
       #
-      #   time_zone_select( "user", 'time_zone', [ ActiveSupport::TimeZone['Alaska'], ActiveSupport::TimeZone['Hawaii'] ])
+      #   time_zone_select( "user", 'time_zone', [ TimeZone['Alaska'], TimeZone['Hawaii'] ])
       #
       #   time_zone_select( "user", 'time_zone', /Australia/)
       #
-      #   time_zone_select( "user", "time_zone", ActiveSupport::Timezone.all.sort, :model => ActiveSupport::Timezone)
+      #   time_zone_select( "user", "time_zone", TZInfo::Timezone.all.sort, :model => TZInfo::Timezone)
       def time_zone_select(object, method, priority_zones = nil, options = {}, html_options = {})
         InstanceTag.new(object, method, self,  options.delete(:object)).to_time_zone_select_tag(priority_zones, options, html_options)
       end
@@ -447,20 +393,20 @@ module ActionView
       end
 
       # Returns a string of option tags for pretty much any time zone in the
-      # world. Supply a ActiveSupport::TimeZone name as +selected+ to have it
-      # marked as the selected option tag. You can also supply an array of
-      # ActiveSupport::TimeZone objects as +priority_zones+, so that they will
-      # be listed above the rest of the (long) list. (You can use
-      # ActiveSupport::TimeZone.us_zones as a convenience for obtaining a list
-      # of the US time zones, or a Regexp to select the zones of your choice)
+      # world. Supply a TimeZone name as +selected+ to have it marked as the
+      # selected option tag. You can also supply an array of TimeZone objects
+      # as +priority_zones+, so that they will be listed above the rest of the
+      # (long) list. (You can use TimeZone.us_zones as a convenience for
+      # obtaining a list of the US time zones, or a Regexp to select the zones
+      # of your choice)
       #
       # The +selected+ parameter must be either +nil+, or a string that names
-      # a ActiveSupport::TimeZone.
+      # a TimeZone.
       #
-      # By default, +model+ is the ActiveSupport::TimeZone constant (which can
-      # be obtained in Active Record as a value object). The only requirement
-      # is that the +model+ parameter be an object that responds to +all+, and
-      # returns an array of objects that represent time zones.
+      # By default, +model+ is the TimeZone constant (which can be obtained
+      # in Active Record as a value object). The only requirement is that the
+      # +model+ parameter be an object that responds to +all+, and returns
+      # an array of objects that represent time zones.
       #
       # NOTE: Only the option tags are returned, you have to wrap this call in
       # a regular HTML select tag.
@@ -544,15 +490,6 @@ module ActionView
         )
       end
 
-      def to_grouped_collection_select_tag(collection, group_method, group_label_method, option_key_method, option_value_method, options, html_options)
-        html_options = html_options.stringify_keys
-        add_default_name_and_id(html_options)
-        value = value(object)
-        content_tag(
-          "select", add_options(option_groups_from_collection_for_select(collection, group_method, group_label_method, option_key_method, option_value_method, value), options, value), html_options
-        )
-      end
-
       def to_time_zone_select_tag(priority_zones, options, html_options)
         html_options = html_options.stringify_keys
         add_default_name_and_id(html_options)
@@ -585,10 +522,6 @@ module ActionView
 
       def collection_select(method, collection, value_method, text_method, options = {}, html_options = {})
         @template.collection_select(@object_name, method, collection, value_method, text_method, objectify_options(options), @default_options.merge(html_options))
-      end
-
-      def grouped_collection_select(method, collection, group_method, group_label_method, option_key_method, option_value_method, options = {}, html_options = {})
-        @template.grouped_collection_select(@object_name, method, collection, group_method, group_label_method, option_key_method, option_value_method, objectify_options(options), @default_options.merge(html_options))
       end
 
       def time_zone_select(method, priority_zones = nil, options = {}, html_options = {})

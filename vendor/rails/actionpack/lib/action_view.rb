@@ -21,36 +21,34 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #++
 
-activesupport_path = "#{File.dirname(__FILE__)}/../../activesupport/lib"
-$:.unshift activesupport_path if File.directory?(activesupport_path)
-require 'active_support'
-require 'active_support/core_ext/class/attribute_accessors'
-
-require File.join(File.dirname(__FILE__), "action_pack")
+begin
+  require 'active_support'
+rescue LoadError
+  activesupport_path = "#{File.dirname(__FILE__)}/../../activesupport/lib"
+  if File.directory?(activesupport_path)
+    $:.unshift activesupport_path
+    require 'active_support'
+  end
+end
 
 module ActionView
   def self.load_all!
-    [Context, Base, InlineTemplate, TemplateError]
+    [Base, InlineTemplate, TemplateError]
   end
 
-  autoload :Base,              'action_view/base'
-  autoload :Context,           'action_view/context'
-  autoload :Helpers,           'action_view/helpers'
-  autoload :InlineTemplate,    'action_view/template/inline'
-  autoload :MissingTemplate,   'action_view/base'
-  autoload :Partials,          'action_view/render/partials'
-  autoload :Resolver,          'action_view/template/resolver'
-  autoload :PathSet,           'action_view/paths'
-  autoload :Rendering,         'action_view/render/rendering'
-  autoload :Renderable,        'action_view/template/renderable'
-  autoload :RenderablePartial, 'action_view/template/partial'
-  autoload :Template,          'action_view/template/template'
-  autoload :TemplateError,     'action_view/template/error'
-  autoload :TemplateHandler,   'action_view/template/handler'
-  autoload :TemplateHandlers,  'action_view/template/handlers'
-  autoload :TextTemplate,      'action_view/template/text'
-  autoload :Helpers,           'action_view/helpers'
-  autoload :FileSystemResolverWithFallback, 'action_view/template/resolver'
+  autoload :Base, 'action_view/base'
+  autoload :Helpers, 'action_view/helpers'
+  autoload :InlineTemplate, 'action_view/inline_template'
+  autoload :Partials, 'action_view/partials'
+  autoload :PathSet, 'action_view/paths'
+  autoload :Renderable, 'action_view/renderable'
+  autoload :RenderablePartial, 'action_view/renderable_partial'
+  autoload :Template, 'action_view/template'
+  autoload :ReloadableTemplate, 'action_view/reloadable_template'
+  autoload :TemplateError, 'action_view/template_error'
+  autoload :TemplateHandler, 'action_view/template_handler'
+  autoload :TemplateHandlers, 'action_view/template_handlers'
+  autoload :Helpers, 'action_view/helpers'
 end
 
 class ERB

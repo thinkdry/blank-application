@@ -35,10 +35,10 @@ module Rails
     def load_paths
       report_nonexistant_or_empty_plugin! unless valid?
       
-      load_paths = []
-      load_paths << lib_path  if has_lib_directory?
-      load_paths << app_paths if has_app_directory?
-      load_paths.flatten
+      returning [] do |load_paths|
+        load_paths << lib_path  if has_lib_directory?
+        load_paths << app_paths if has_app_directory?
+      end.flatten
     end
     
     # Evaluates a plugin's init.rb file.
@@ -139,7 +139,6 @@ module Rails
 
       def evaluate_init_rb(initializer)
         if has_init_file?
-          require 'active_support/core_ext/kernel/reporting'
           silence_warnings do
             # Allow plugins to reference the current configuration object
             config = initializer.configuration

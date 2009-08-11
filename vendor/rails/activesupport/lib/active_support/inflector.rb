@@ -1,8 +1,6 @@
 # encoding: utf-8
+require 'singleton'
 require 'iconv'
-require 'active_support/core_ext/object/blank'
-require 'active_support/core_ext/string/access'
-require 'active_support/core_ext/string/multibyte'
 
 module ActiveSupport
   # The Inflector transforms words from singular to plural, class names to table names, modularized class names to ones without,
@@ -32,9 +30,7 @@ module ActiveSupport
     # pluralization and singularization rules that is runs. This guarantees that your rules run before any of the rules that may
     # already have been loaded.
     class Inflections
-      def self.instance
-        @__instance__ ||= new
-      end
+      include Singleton
 
       attr_reader :plurals, :singulars, :uncountables, :humans
 
@@ -69,13 +65,10 @@ module ActiveSupport
         @uncountables.delete(plural)
         if singular[0,1].upcase == plural[0,1].upcase
           plural(Regexp.new("(#{singular[0,1]})#{singular[1..-1]}$", "i"), '\1' + plural[1..-1])
-          plural(Regexp.new("(#{plural[0,1]})#{plural[1..-1]}$", "i"), '\1' + plural[1..-1])
           singular(Regexp.new("(#{plural[0,1]})#{plural[1..-1]}$", "i"), '\1' + singular[1..-1])
         else
           plural(Regexp.new("#{singular[0,1].upcase}(?i)#{singular[1..-1]}$"), plural[0,1].upcase + plural[1..-1])
           plural(Regexp.new("#{singular[0,1].downcase}(?i)#{singular[1..-1]}$"), plural[0,1].downcase + plural[1..-1])
-          plural(Regexp.new("#{plural[0,1].upcase}(?i)#{plural[1..-1]}$"), plural[0,1].upcase + plural[1..-1])
-          plural(Regexp.new("#{plural[0,1].downcase}(?i)#{plural[1..-1]}$"), plural[0,1].downcase + plural[1..-1])
           singular(Regexp.new("#{plural[0,1].upcase}(?i)#{plural[1..-1]}$"), singular[0,1].upcase + singular[1..-1])
           singular(Regexp.new("#{plural[0,1].downcase}(?i)#{plural[1..-1]}$"), singular[0,1].downcase + singular[1..-1])
         end
@@ -158,7 +151,7 @@ module ActiveSupport
     # Examples:
     #   "posts".singularize            # => "post"
     #   "octopi".singularize           # => "octopus"
-    #   "sheep".singularize            # => "sheep"
+    #   "sheep".singluarize            # => "sheep"
     #   "word".singularize             # => "word"
     #   "CamelOctopi".singularize      # => "CamelOctopus"
     def singularize(word)
@@ -186,7 +179,7 @@ module ActiveSupport
       if first_letter_in_uppercase
         lower_case_and_underscored_word.to_s.gsub(/\/(.?)/) { "::#{$1.upcase}" }.gsub(/(?:^|_)(.)/) { $1.upcase }
       else
-        lower_case_and_underscored_word.to_s.first.downcase + camelize(lower_case_and_underscored_word)[1..-1]
+        lower_case_and_underscored_word.first.downcase + camelize(lower_case_and_underscored_word)[1..-1]
       end
     end
 
@@ -264,9 +257,9 @@ module ActiveSupport
     #   <%= link_to(@person.name, person_path(@person)) %>
     #   # => <a href="/person/1-donald-e-knuth">Donald E. Knuth</a>
     def parameterize(string, sep = '-')
-      # replace accented chars with their ascii equivalents
+      # replace accented chars with ther ascii equivalents
       parameterized_string = transliterate(string)
-      # Turn unwanted chars into the separator
+      # Turn unwanted chars into the seperator
       parameterized_string.gsub!(/[^a-z0-9\-_\+]+/i, sep)
       unless sep.blank?
         re_sep = Regexp.escape(sep)
@@ -408,3 +401,6 @@ end
 # in case active_support/inflector is required without the rest of active_support
 require 'active_support/inflections'
 require 'active_support/core_ext/string/inflections'
+unless String.included_modules.include?(ActiveSupport::CoreExtensions::String::Inflections)
+  String.send :include, ActiveSupport::CoreExtensions::String::Inflections
+end

@@ -1,5 +1,3 @@
-require 'active_support/core_ext/object/duplicable'
-
 module ActiveSupport
   module Cache
     module Strategy
@@ -29,11 +27,6 @@ module ActiveSupport
                 Thread.current[:#{thread_local_key}] = nil
               end
             EOS
-
-            def klass.to_s
-              "ActiveSupport::Cache::Strategy::LocalCache"
-            end
-
             klass
           end
         end

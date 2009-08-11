@@ -1,16 +1,13 @@
 require 'abstract_unit'
 require 'stringio'
 require 'fileutils'
-require 'active_support/buffered_logger'
 
 class BufferedLoggerTest < Test::Unit::TestCase
-  Logger = ActiveSupport::BufferedLogger
-
   def setup
     @message = "A debug message"
     @integer_message = 12345
     @output  = StringIO.new
-    @logger  = Logger.new(@output)
+    @logger  = ActiveSupport::BufferedLogger.new(@output)
   end
 
   def test_should_log_debugging_message_when_debugging
@@ -78,9 +75,9 @@ class BufferedLoggerTest < Test::Unit::TestCase
 
     define_method "test_disabling_auto_flush_with_#{disable.inspect}_should_flush_at_max_buffer_size_as_failsafe" do
       @logger.auto_flushing = disable
-      assert_equal Logger::MAX_BUFFER_SIZE, @logger.auto_flushing
+      assert_equal ActiveSupport::BufferedLogger::MAX_BUFFER_SIZE, @logger.auto_flushing
 
-      (Logger::MAX_BUFFER_SIZE - 1).times do
+      (ActiveSupport::BufferedLogger::MAX_BUFFER_SIZE - 1).times do
         @logger.info 'wait for it..'
         assert @output.string.empty?, @output.string
       end
@@ -91,8 +88,8 @@ class BufferedLoggerTest < Test::Unit::TestCase
   end
 
   def test_should_know_if_its_loglevel_is_below_a_given_level
-    Logger::Severity.constants.each do |level|
-      @logger.level = Logger::Severity.const_get(level) - 1
+    ActiveSupport::BufferedLogger::Severity.constants.each do |level|
+      @logger.level = ActiveSupport::BufferedLogger::Severity.const_get(level) - 1
       assert @logger.send("#{level.downcase}?"), "didn't know if it was #{level.downcase}? or below"
     end
   end
@@ -113,7 +110,7 @@ class BufferedLoggerTest < Test::Unit::TestCase
     tmp_directory = File.join(File.dirname(__FILE__), "tmp")
     log_file = File.join(tmp_directory, "development.log")
     assert !File.exist?(tmp_directory)
-    @logger  = Logger.new(log_file)
+    @logger  = ActiveSupport::BufferedLogger.new(log_file)
     assert File.exist?(tmp_directory)
   ensure
     FileUtils.rm_rf(tmp_directory)
