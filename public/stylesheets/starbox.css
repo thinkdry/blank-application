@@ -1,4 +1,4 @@
-/* Starbox.css 
+/* Starbox.css
    Part of http://www.nickstakenburg.com/projects/starbox/
 */
 
@@ -14,11 +14,11 @@
 
 .starbox .dotted .stars,
 .starbox .dotted .hover .stars,
-.starbox .dotted .rated .stars, 
+.starbox .dotted .rated .stars,
 .starbox .dotted .rated .hover .stars { background: url(../images/starbox/background_dotted.gif) top left repeat-x; }
 .starbox .dotted .colorbar,
 .starbox .dotted .hover .colorbar,
-.starbox .dotted .rated .colorbar, 
+.starbox .dotted .rated .colorbar,
 .starbox .dotted .rated .hover .colorbar { background: #000000; }
 .starbox .dotted .ghost { background: #666666; }
 
