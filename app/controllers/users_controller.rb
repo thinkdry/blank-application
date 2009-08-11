@@ -270,6 +270,18 @@ class UsersController < ApplicationController
     end
   end
 
+  # allow only post pethod to resend activation mail again or activate manually by admin only and parameter id is user's activation_code
+  def resend_activation_mail_or_activate_manually
+    if @current_user.has_system_role('admin') and @user = User.find_by_activation_code(params[:id])
+      UserMailer.deliver_signup_notification(@user) if !params[:resend_activation_mail].nil?
+      @user.activate if !params[:activate_manually].nil?
+      redirect_to users_path
+    else
+      flash[:error] = "Permission denied"
+      redirect_to '/'
+    end
+  end
+
   private
   def get_roles
     if (@current_user.has_system_role('superadmin') || @current_user.has_system_role('admin'))

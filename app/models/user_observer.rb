@@ -17,8 +17,7 @@ class UserObserver < ActiveRecord::Observer
 		if is_mandatory_user_activation?
 			UserMailer.deliver_signup_notification(user)
 		else
-			user.activated_at = Time.now
-			user.save
+			user.activate
 		end
 	end
 

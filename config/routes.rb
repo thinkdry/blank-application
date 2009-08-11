@@ -48,7 +48,7 @@ ActionController::Routing::Routes.draw do |map|
   map.forgot_password '/forgot_password', :controller => 'users', :action => 'forgot_password'
   #map.change_password '/change_password', :controller => 'users', :action => 'change_password'
   map.reset_password '/reset_password/:password_reset_code', :controller => 'users', :action => 'reset_password'
-  map.resources :users, :member => { :administration => :any, :locking => :any },
+  map.resources :users, :member => { :administration => :any, :locking => :any, :resend_activation_mail_or_activate_manually => :post },
 			:collection => {:autocomplete_on => :any, :validate => :any, :ajax_index => :get }
 	map.resource :session, :member => { :change_language => :any }
 
