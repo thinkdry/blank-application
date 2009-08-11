@@ -1,4 +1,6 @@
-module ActionController  
+require 'active_support/core_ext/module'
+
+module ActionController
   # The record identifier encapsulates a number of naming conventions for dealing with records, like Active Records or 
   # Active Resources or pretty much any other model type that has an id. These patterns are then used to try elevate
   # the view actions to a higher logical level. Example:
@@ -33,21 +35,6 @@ module ActionController
 
     JOIN = '_'.freeze
     NEW = 'new'.freeze
-
-    # Returns plural/singular for a record or class. Example:
-    #
-    #   partial_path(post)                   # => "posts/post"
-    #   partial_path(Person)                 # => "people/person"
-    #   partial_path(Person, "admin/games")  # => "admin/people/person"
-    def partial_path(record_or_class, controller_path = nil)
-      name = model_name_from_record_or_class(record_or_class)
-
-      if controller_path && controller_path.include?("/")
-        "#{File.dirname(controller_path)}/#{name.partial_path}"
-      else
-        name.partial_path
-      end
-    end
 
     # The DOM class convention is to use the singular form of an object or class. Examples:
     #

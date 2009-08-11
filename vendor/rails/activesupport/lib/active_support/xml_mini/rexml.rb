@@ -1,3 +1,5 @@
+require 'active_support/core_ext/object/blank'
+
 # = XmlMini ReXML implementation
 module ActiveSupport
   module XmlMini_REXML #:nodoc:
@@ -5,17 +7,27 @@ module ActiveSupport
 
     CONTENT_KEY = '__content__'.freeze
 
-    # Parse an XML Document string into a simple hash
+    # Parse an XML Document string or IO into a simple hash
     #
     # Same as XmlSimple::xml_in but doesn't shoot itself in the foot,
     # and uses the defaults from ActiveSupport
     #
-    # string::
-    #   XML Document string to parse
-    def parse(string)
-      require 'rexml/document' unless defined?(REXML::Document)
-      doc = REXML::Document.new(string)
-      merge_element!({}, doc.root)
+    # data::
+    #   XML Document string or IO to parse
+    def parse(data)
+      if !data.respond_to?(:read)
+        data = StringIO.new(data || '')
+      end
+      
+      char = data.getc
+      if char.nil?
+        {}
+      else
+        data.ungetc(char)
+        require 'rexml/document' unless defined?(REXML::Document)
+        doc = REXML::Document.new(data)
+        merge_element!({}, doc.root)
+      end
     end
 
     private
@@ -48,7 +60,7 @@ module ActiveSupport
       # Merge all the texts of an element into the hash
       #
       # hash::
-      #   Hash to add the converted emement to.
+      #   Hash to add the converted element to.
       # element::
       #   XML element whose texts are to me merged into the hash
       def merge_texts!(hash, element)
@@ -56,7 +68,9 @@ module ActiveSupport
           hash
         else
           # must use value to prevent double-escaping
-          merge!(hash, CONTENT_KEY, element.texts.sum(&:value))
+          texts = ''
+          element.texts.each { |t| texts << t.value }
+          merge!(hash, CONTENT_KEY, texts)
         end
       end
 

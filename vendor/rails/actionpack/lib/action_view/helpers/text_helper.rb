@@ -33,30 +33,36 @@ module ActionView
       end
 
       # Truncates a given +text+ after a given <tt>:length</tt> if +text+ is longer than <tt>:length</tt>
-      # (defaults to 30). The last characters will be replaced with the <tt>:omission</tt> (defaults to "...").
+      # (defaults to 30). The last characters will be replaced with the <tt>:omission</tt> (defaults to "...")
+      # for a total length not exceeding <tt>:length</tt>.
+      #
+      # Pass a <tt>:separator</tt> to truncate +text+ at a natural break.
       #
       # ==== Examples
       #
       #   truncate("Once upon a time in a world far far away")
-      #   # => Once upon a time in a world f...
+      #   # => Once upon a time in a world...
+      #
+      #   truncate("Once upon a time in a world far far away", :separator => ' ')
+      #   # => Once upon a time in a world...
       #
       #   truncate("Once upon a time in a world far far away", :length => 14)
       #   # => Once upon a...
       #
       #   truncate("And they found that many people were sleeping better.", :length => 25, "(clipped)")
-      #   # => And they found that many (clipped)
+      #   # => And they found t(clipped)
       #
-      #   truncate("And they found that many people were sleeping better.", :omission => "... (continued)", :length => 15)
-      #   # => And they found... (continued)
+      #   truncate("And they found that many people were sleeping better.", :omission => "... (continued)", :length => 25)
+      #   # => And they f... (continued)
       #
       # You can still use <tt>truncate</tt> with the old API that accepts the
       # +length+ as its optional second and the +ellipsis+ as its
       # optional third parameter:
       #   truncate("Once upon a time in a world far far away", 14)
-      #   # => Once upon a time in a world f...
+      #   # => Once upon a...
       #
-      #   truncate("And they found that many people were sleeping better.", 15, "... (continued)")
-      #   # => And they found... (continued)
+      #   truncate("And they found that many people were sleeping better.", 25, "... (continued)")
+      #   # => And they f... (continued)
       def truncate(text, *args)
         options = args.extract_options!
         unless args.empty?
@@ -71,7 +77,8 @@ module ActionView
         if text
           l = options[:length] - options[:omission].mb_chars.length
           chars = text.mb_chars
-          (chars.length > options[:length] ? chars[0...l] + options[:omission] : text).to_s
+          stop = options[:separator] ? (chars.rindex(options[:separator].mb_chars, l) || l) : l
+          (chars.length > options[:length] ? chars[0...stop] + options[:omission] : text).to_s
         end
       end
 
@@ -234,12 +241,20 @@ module ActionView
       #
       #   textilize("Visit the Rails website "here":http://www.rubyonrails.org/.)
       #   # => "<p>Visit the Rails website <a href="http://www.rubyonrails.org/">here</a>.</p>"
-      def textilize(text)
+      #
+      #   textilize("This is worded <strong>strongly</strong>")
+      #   # => "<p>This is worded <strong>strongly</strong></p>"
+      #
+      #   textilize("This is worded <strong>strongly</strong>", :filter_html)
+      #   # => "<p>This is worded &lt;strong&gt;strongly&lt;/strong&gt;</p>"
+      #
+      def textilize(text, *options)
+        options ||= [:hard_breaks]
+
         if text.blank?
           ""
         else
-          textilized = RedCloth.new(text, [ :hard_breaks ])
-          textilized.hard_breaks = true if textilized.respond_to?(:hard_breaks=)
+          textilized = RedCloth.new(text, options)
           textilized.to_html
         end
       end
@@ -324,7 +339,7 @@ module ActionView
 
       # Turns all URLs and e-mail addresses into clickable links. The <tt>:link</tt> option
       # will limit what should be linked. You can add HTML attributes to the links using
-      # <tt>:href_options</tt>. Possible values for <tt>:link</tt> are <tt>:all</tt> (default),
+      # <tt>:html</tt>. Possible values for <tt>:link</tt> are <tt>:all</tt> (default),
       # <tt>:email_addresses</tt>, and <tt>:urls</tt>. If a block is given, each URL and
       # e-mail address is yielded and the result is used as the link text.
       #
@@ -341,7 +356,7 @@ module ActionView
       #   # => "Visit http://www.loudthinking.com/ or e-mail <a href=\"mailto:david@loudthinking.com\">david@loudthinking.com</a>"
       #
       #   post_body = "Welcome to my new blog at http://www.myblog.com/.  Please e-mail me at me@email.com."
-      #   auto_link(post_body, :href_options => { :target => '_blank' }) do |text|
+      #   auto_link(post_body, :html => { :target => '_blank' }) do |text|
       #     truncate(text, 15)
       #   end
       #   # => "Welcome to my new blog at <a href=\"http://www.myblog.com/\" target=\"_blank\">http://www.m...</a>.
@@ -359,7 +374,7 @@ module ActionView
       #   auto_link(post_body, :all, :target => "_blank")     # => Once upon\na time
       #   # => "Welcome to my new blog at <a href=\"http://www.myblog.com/\" target=\"_blank\">http://www.myblog.com</a>.
       #         Please e-mail me at <a href=\"mailto:me@email.com\">me@email.com</a>."
-      def auto_link(text, *args, &block)#link = :all, href_options = {}, &block)
+      def auto_link(text, *args, &block)#link = :all, html = {}, &block)
         return '' if text.blank?
 
         options = args.size == 2 ? {} : args.extract_options! # this is necessary because the old auto_link API has a Hash as its last parameter
@@ -431,7 +446,7 @@ module ActionView
       end
 
       # Returns the current cycle string after a cycle has been started. Useful
-      # for complex table highlighing or any other design need which requires
+      # for complex table highlighting or any other design need which requires
       # the current cycle string in more than one place.
       #
       # ==== Example
@@ -535,25 +550,26 @@ module ActionView
           link_attributes = html_options.stringify_keys
           text.gsub(AUTO_LINK_RE) do
             href = $&
-            punctuation = ''
+            punctuation = []
             left, right = $`, $'
             # detect already linked URLs and URLs in the middle of a tag
             if left =~ /<[^>]+$/ && right =~ /^[^>]*>/
-              # do not change string; URL is alreay linked
+              # do not change string; URL is already linked
               href
             else
               # don't include trailing punctuation character as part of the URL
-              if href.sub!(/[^\w\/-]$/, '') and punctuation = $& and opening = BRACKETS[punctuation]
-                if href.scan(opening).size > href.scan(punctuation).size
-                  href << punctuation
-                  punctuation = ''
+              while href.sub!(/[^\w\/-]$/, '')
+                punctuation.push $&
+                if opening = BRACKETS[punctuation.last] and href.scan(opening).size > href.scan(punctuation.last).size
+                  href << punctuation.pop
+                  break
                 end
               end
 
               link_text = block_given?? yield(href) : href
               href = 'http://' + href unless href.index('http') == 0
 
-              content_tag(:a, h(link_text), link_attributes.merge('href' => href)) + punctuation
+              content_tag(:a, h(link_text), link_attributes.merge('href' => href)) + punctuation.reverse.join('')
             end
           end
         end

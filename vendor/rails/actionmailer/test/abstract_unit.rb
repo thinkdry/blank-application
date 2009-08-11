@@ -1,9 +1,6 @@
 require 'rubygems'
 require 'test/unit'
 
-gem 'mocha', '>= 0.9.5'
-require 'mocha'
-
 $:.unshift "#{File.dirname(__FILE__)}/../lib"
 $:.unshift "#{File.dirname(__FILE__)}/../../activesupport/lib"
 $:.unshift "#{File.dirname(__FILE__)}/../../actionpack/lib"
@@ -19,7 +16,6 @@ ActionView::Template.register_template_handler :bak, lambda { |template| "Lame b
 
 $:.unshift "#{File.dirname(__FILE__)}/fixtures/helpers"
 
-ActionView::Base.cache_template_loading = true
 FIXTURE_LOAD_PATH = File.join(File.dirname(__FILE__), 'fixtures')
 ActionMailer::Base.template_root = FIXTURE_LOAD_PATH
 

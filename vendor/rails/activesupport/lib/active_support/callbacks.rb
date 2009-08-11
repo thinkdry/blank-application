@@ -1,3 +1,5 @@
+require 'active_support/core_ext/array/extract_options'
+
 module ActiveSupport
   # Callbacks are hooks into the lifecycle of an object that allow you to trigger logic
   # before or after an alteration of the object state.
@@ -204,7 +206,7 @@ module ActiveSupport
     module ClassMethods
       def define_callbacks(*callbacks)
         callbacks.each do |callback|
-          class_eval <<-"end_eval"
+          class_eval <<-"end_eval", __FILE__, __LINE__ + 1
             def self.#{callback}(*methods, &block)                             # def self.before_save(*methods, &block)
               callbacks = CallbackChain.build(:#{callback}, *methods, &block)  #   callbacks = CallbackChain.build(:before_save, *methods, &block)
               @#{callback}_callbacks ||= CallbackChain.new                     #   @before_save_callbacks ||= CallbackChain.new
@@ -235,7 +237,7 @@ module ActiveSupport
     #  * the result from the callback
     #  * the object which has the callback
     #
-    # If the result from the block evaluates to false, the callback chain is stopped.
+    # If the result from the block evaluates to +true+, the callback chain is stopped.
     #
     # Example:
     #   class Storage

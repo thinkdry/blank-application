@@ -20,7 +20,8 @@ class TestPluginLoader < Test::Unit::TestCase
 
     @configuration     = Rails::Configuration.new
     @configuration.plugin_paths << plugin_fixture_root_path
-    @initializer       = Rails::Initializer.new(@configuration)
+    @initializer       = Rails::Initializer.default
+    @initializer.config = @configuration
     @valid_plugin_path = plugin_fixture_path('default/stubby')
     @empty_plugin_path = plugin_fixture_path('default/empty')
 
@@ -132,8 +133,8 @@ class TestPluginLoader < Test::Unit::TestCase
 
     @loader.send :add_engine_view_paths
     
-    assert_equal [ File.join(plugin_fixture_path('engines/engine'), 'app', 'views') ], ActionController::Base.view_paths
-    assert_equal [ File.join(plugin_fixture_path('engines/engine'), 'app', 'views') ], ActionMailer::Base.view_paths
+    assert_equal [ File.join(plugin_fixture_path('engines/engine'), 'app', 'views') ], ActionController::Base.view_paths.map { |p| p.to_s }
+    assert_equal [ File.join(plugin_fixture_path('engines/engine'), 'app', 'views') ], ActionMailer::Base.view_paths.map { |p| p.to_s }
   end
   
   def test_should_add_plugin_load_paths_to_Dependencies_load_once_paths

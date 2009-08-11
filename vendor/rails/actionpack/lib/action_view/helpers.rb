@@ -1,6 +1,7 @@
 module ActionView #:nodoc:
   module Helpers #:nodoc:
-    autoload :ActiveRecordHelper, 'action_view/helpers/active_record_helper'
+    autoload :ActiveModelHelper, 'action_view/helpers/active_model_helper'
+    autoload :AjaxHelper, 'action_view/helpers/ajax_helper'
     autoload :AssetTagHelper, 'action_view/helpers/asset_tag_helper'
     autoload :AtomFeedHelper, 'action_view/helpers/atom_feed_helper'
     autoload :BenchmarkHelper, 'action_view/helpers/benchmark_helper'
@@ -11,7 +12,7 @@ module ActionView #:nodoc:
     autoload :FormHelper, 'action_view/helpers/form_helper'
     autoload :FormOptionsHelper, 'action_view/helpers/form_options_helper'
     autoload :FormTagHelper, 'action_view/helpers/form_tag_helper'
-    autoload :JavascriptHelper, 'action_view/helpers/javascript_helper'
+    autoload :JavaScriptHelper, 'action_view/helpers/javascript_helper'
     autoload :NumberHelper, 'action_view/helpers/number_helper'
     autoload :PrototypeHelper, 'action_view/helpers/prototype_helper'
     autoload :RecordIdentificationHelper, 'action_view/helpers/record_identification_helper'
@@ -31,7 +32,7 @@ module ActionView #:nodoc:
       include SanitizeHelper::ClassMethods
     end
 
-    include ActiveRecordHelper
+    include ActiveModelHelper
     include AssetTagHelper
     include AtomFeedHelper
     include BenchmarkHelper

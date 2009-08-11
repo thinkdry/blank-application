@@ -20,7 +20,7 @@ h3. Introduction to Testing
 
 Testing support was woven into the Rails fabric from the beginning. It wasn't an "oh! let's bolt on support for running tests because they're new and cool" epiphany. Just about every Rails application interacts heavily with a database - and, as a result, your tests will need a database to interact with as well. To write efficient tests, you'll need to understand how to set up this database and populate it with sample data.
 
-h4. The 3 Environments
+h4. The Three Environments
 
 Every Rails application you build has 3 sides: a side for production, a side for development, and a side for testing.
 
@@ -52,7 +52,7 @@ h4. The Low-Down on Fixtures
 
 For good tests, you'll need to give some thought to setting up test data. In Rails, you can handle this by defining and customizing fixtures.
 
-h5. What Are Fixtures?
+h5. What are Fixtures?
 
 _Fixtures_ is a fancy word for sample data. Fixtures allow you to populate your testing database with predefined data before your tests run. Fixtures are database independent and assume one of two formats: *YAML* or *CSV*. In this guide we will use *YAML* which is the preferred format.
 
@@ -110,9 +110,9 @@ h5. Fixtures in Action
 
 Rails by default automatically loads all fixtures from the 'test/fixtures' folder for your unit and functional test. Loading involves three steps:
 
- * Remove any existing data from the table corresponding to the fixture
- * Load the fixture data into the table
- * Dump the fixture data into a variable in case you want to access it directly
+* Remove any existing data from the table corresponding to the fixture
+* Load the fixture data into the table
+* Dump the fixture data into a variable in case you want to access it directly
 
 h5. Hashes with Special Powers
 
@@ -140,9 +140,9 @@ h3. Unit Testing your Models
 
 In Rails, unit tests are what you write to test your models.
 
-For this guide we will be using Rails _scaffolding_. It will create the model, a migration, controller and views for the new resource in a single operation. It will also create a full test suite following Rails best practises. I will be using examples from this generated code and would be supplementing it with additional examples where necessary.
+For this guide we will be using Rails _scaffolding_. It will create the model, a migration, controller and views for the new resource in a single operation. It will also create a full test suite following Rails best practices. I will be using examples from this generated code and would be supplementing it with additional examples where necessary.
 
-NOTE: For more information on Rails _scaffolding_, refer to "Getting Started with Rails":../getting_started_with_rails.html
+NOTE: For more information on Rails _scaffolding_, refer to "Getting Started with Rails":getting_started.html
 
 When you use +script/generate scaffold+, for a resource among other things it creates a test stub in the +test/unit+ folder:
 
@@ -211,7 +211,7 @@ $ rake db:migrate
 $ rake db:test:load
 </shell>
 
-Above +rake db:migrate+ runs any pending migrations on the _developemnt_ environment and updates +db/schema.rb+. +rake db:test:load+ recreates the test database from the current db/schema.rb. On subsequent attempts it is a good to first run +db:test:prepare+ as it first checks for pending migrations and warns you appropriately.
+Above +rake db:migrate+ runs any pending migrations on the _development_ environment and updates +db/schema.rb+. +rake db:test:load+ recreates the test database from the current db/schema.rb. On subsequent attempts it is a good to first run +db:test:prepare+ as it first checks for pending migrations and warns you appropriately.
 
 NOTE: +db:test:prepare+ will fail with an error if db/schema.rb doesn't exists.
 
@@ -372,7 +372,7 @@ NameError: undefined local variable or method `some_undefined_variable' for #<Po
 
 Notice the 'E' in the output. It denotes a test with error.
 
-NOTE: The execution of each test method stops as soon as any error or a assertion failure is encountered, and the test suite continues with the next method. All test methods are executed in alphabetical order.
+NOTE: The execution of each test method stops as soon as any error or an assertion failure is encountered, and the test suite continues with the next method. All test methods are executed in alphabetical order.
 
 h4. What to Include in Your Unit Tests
 
@@ -413,6 +413,8 @@ h4. Rails Specific Assertions
 
 Rails adds some custom assertions of its own to the +test/unit+ framework:
 
+NOTE: +assert_valid(record)+ has been deprecated. Please use +assert(record.valid?)+ instead.
+
 |_.Assertion                                                                        |_.Purpose|
 |+assert_valid(record)+                                                             |Ensures that the passed record is valid by Active Record standards and returns any error messages if it is not.|
 |+assert_difference(expressions, difference = 1, message = nil) {...}+           |Test numeric difference between the return value of an expression as a result of what is evaluated in the yielded block.|
@@ -429,7 +431,7 @@ h3. Functional Tests for Your Controllers
 
 In Rails, testing the various actions of a single controller is called writing functional tests for that controller. Controllers handle the incoming web requests to your application and eventually respond with a rendered view.
 
-h4. What to include in your Functional Tests
+h4. What to Include in your Functional Tests
 
 You should test for things such as:
 
@@ -437,7 +439,7 @@ You should test for things such as:
 * was the user redirected to the right page?
 * was the user successfully authenticated?
 * was the correct object stored in the response template?
-* was the appropriate message displayed to the user in the view
+* was the appropriate message displayed to the user in the view?
 
 Now that we have used Rails scaffold generator for our +Post+ resource, it has already created the controller code and functional tests. You can take look at the file +posts_controller_test.rb+ in the +test/functional+ directory.
 
@@ -500,7 +502,7 @@ If you're familiar with the HTTP protocol, you'll know that +get+ is a type of r
 
 All of request types are methods that you can use, however, you'll probably end up using the first two more often than the others.
 
-h4. The 4 Hashes of the Apocalypse
+h4. The Four Hashes of the Apocalypse
 
 After a request has been made by using one of the 5 methods (+get+, +post+, etc.) and processed, you will have 4 Hash objects ready for use:
 
@@ -582,15 +584,15 @@ assert_select "ol" do
 end
 </ruby>
 
-The +assert_select+ assertion is quite powerful. For more advanced usage, refer to its "documentation":http://api.rubyonrails.com/classes/ActionController/Assertions/SelectorAssertions.html.
+The +assert_select+ assertion is quite powerful. For more advanced usage, refer to its "documentation":http://api.rubyonrails.org/classes/ActionController/Assertions/SelectorAssertions.html.
 
-h5. Additional View-based Assertions
+h5. Additional View-Based Assertions
 
 There are more assertions that are primarily used in testing views:
 
 |_.Assertion                                                                        |_.Purpose|
 |+assert_select_email+                                                              |Allows you to make assertions on the body of an e-mail. |
-|+assert_select_rjs+                                                                |Allows you to make assertions on RJS response. +assert_select_rjs+ has variants which allow you to narrow down on the updated element or even a particular operation on an element.|
+|+assert_select_rjs+                                                                |Allows you to make assertions on an RJS response. +assert_select_rjs+ has variants which allow you to narrow down on the updated element or even a particular operation on an element.|
 |+assert_select_encoded+                                                            |Allows you to make assertions on encoded HTML. It does this by un-encoding the contents of each element and then calling the block with all the un-encoded elements.|
 |+css_select(selector)+  or +css_select(element, selector)+                         |Returns an array of all the elements selected by the _selector_. In the second variant it first matches the base _element_ and tries to match the _selector_ expression on any of its children. If there are no matches both variants return an empty array.|
 
@@ -631,7 +633,7 @@ end
 
 Integration tests inherit from +ActionController::IntegrationTest+. This makes available some additional helpers to use in your integration tests. Also you need to explicitly include the fixtures to be made available to the test.
 
-h4. Helpers Available for Integration tests
+h4. Helpers Available for Integration Tests
 
 In addition to the standard testing helpers, there are some additional helpers available to integration tests:
 
@@ -699,7 +701,7 @@ class UserFlowsTest < ActionController::IntegrationTest
 
     # User avs can browse site
     avs.browses_site
-    # User guest can browse site aswell
+    # User guest can browse site as well
     guest.browses_site
 
     # Continue with other assertions
@@ -730,7 +732,7 @@ end
 
 h3. Rake Tasks for Running your Tests
 
-You don't need to set up and run your tests by hand on a test-by-test basis. Rails comes with a number of rake tasks to help in testing. The table below lists all rake tasks that come along in the default Rakefile when you initiate a Rail project.
+You don't need to set up and run your tests by hand on a test-by-test basis. Rails comes with a number of rake tasks to help in testing. The table below lists all rake tasks that come along in the default Rakefile when you initiate a Rails project.
 
 |_.Tasks                         |_.Description|
 |+rake test+                     |Runs all unit, functional and integration tests. You can also simply run +rake+ as the _test_ target is the default.|
@@ -741,7 +743,7 @@ You don't need to set up and run your tests by hand on a test-by-test basis. Rai
 |+rake test:uncommitted+         |Runs all the tests which are uncommitted. Only supports Subversion|
 |+rake test:plugins+             |Run all the plugin tests from +vendor/plugins/*/**/test+ (or specify with +PLUGIN=_name_+)|
 
-h3. Brief Note About Test::Unit
+h3. Brief Note About +Test::Unit+
 
 Ruby ships with a boat load of libraries. One little gem of a library is +Test::Unit+, a framework for unit testing in Ruby. All the basic assertions discussed above are actually defined in +Test::Unit::Assertions+. The class +ActiveSupport::TestCase+ which we have been using in our unit and functional tests extends +Test::Unit::TestCase+ that it is how we can use all the basic assertions in our tests.
 
@@ -836,7 +838,7 @@ end
 
 h3. Testing Routes
 
-Like everything else in you Rails application, it's recommended to test you routes. An example test for a route in the default +show+ action of +Posts+ controller above should look like:
+Like everything else in your Rails application, it is recommended that you test your routes. An example test for a route in the default +show+ action of +Posts+ controller above should look like:
 
 <ruby>
 def test_should_route_to_post
@@ -860,7 +862,7 @@ The goals of testing your +ActionMailer+ classes are to ensure that:
 
 h5. From All Sides
 
-There are two aspects of testing your mailer, the unit tests and the functional tests. In the unit tests, you run the mailer in isolation with tightly controlled inputs and compare the output to a knownvalue (a fixture -- yay! more fixtures!). In the functional tests you don't so much test the minute details produced by the mailer Instead we test that our controllers and models are using the mailer in the right way. You test to prove that the right email was sent at the right time.
+There are two aspects of testing your mailer, the unit tests and the functional tests. In the unit tests, you run the mailer in isolation with tightly controlled inputs and compare the output to a known value (a fixture -- yay! more fixtures!). In the functional tests you don't so much test the minute details produced by the mailer Instead we test that our controllers and models are using the mailer in the right way. You test to prove that the right email was sent at the right time.
 
 h4. Unit Testing
 
@@ -872,7 +874,7 @@ For the purposes of unit testing a mailer, fixtures are used to provide an examp
 
 When you generated your mailer, the generator creates stub fixtures for each of the mailers actions. If you didn't use the generator you'll have to make those files yourself.
 
-h5. The Basic Test case
+h5. The Basic Test Case
 
 Here's a unit test to test a mailer named +UserMailer+ whose action +invite+ is used to send an invitation to a friend. It is an adapted version of the base test created by the generator for an +invite+ action.
 

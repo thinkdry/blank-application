@@ -1,3 +1,5 @@
+require 'active_support/core_ext/float/rounding'
+
 module ActionView
   module Helpers #:nodoc:
     # Provides methods for converting numbers into formatted strings.
@@ -140,7 +142,7 @@ module ActionView
       #  number_with_delimiter(12345678)                        # => 12,345,678
       #  number_with_delimiter(12345678.05)                     # => 12,345,678.05
       #  number_with_delimiter(12345678, :delimiter => ".")     # => 12.345.678
-      #  number_with_delimiter(12345678, :seperator => ",")     # => 12,345,678
+      #  number_with_delimiter(12345678, :separator => ",")     # => 12,345,678
       #  number_with_delimiter(98765432.98, :delimiter => " ", :separator => ",")
       #  # => 98 765 432,98
       #
@@ -213,7 +215,7 @@ module ActionView
         delimiter ||= (options[:delimiter] || defaults[:delimiter])
 
         begin
-          rounded_number = (Float(number) * (10 ** precision)).round.to_f / 10 ** precision
+          rounded_number = BigDecimal.new((Float(number) * (10 ** precision)).to_s).round.to_f / 10 ** precision
           number_with_delimiter("%01.#{precision}f" % rounded_number,
             :separator => separator,
             :delimiter => delimiter)
@@ -245,6 +247,11 @@ module ActionView
       #  number_to_human_size(1234567, :precision => 2)                     # => 1.18 MB
       #  number_to_human_size(483989, :precision => 0)                      # => 473 KB
       #  number_to_human_size(1234567, :precision => 2, :separator => ',')  # => 1,18 MB
+      #
+      # Zeros after the decimal point are always stripped out, regardless of the
+      # specified precision:
+      #  helper.number_to_human_size(1234567890123, :precision => 5)        # => "1.12283 TB"
+      #  helper.number_to_human_size(524288000, :precision=>5)              # => "500 MB"
       #
       # You can still use <tt>number_to_human_size</tt> with the old API that accepts the
       # +precision+ as its optional second parameter:
@@ -291,7 +298,7 @@ module ActionView
               :precision => precision,
               :separator => separator,
               :delimiter => delimiter
-            ).sub(/(\d)(#{escaped_separator}[1-9]*)?0+\z/, '\1\2').sub(/#{escaped_separator}\z/, '')
+            ).sub(/(#{escaped_separator})(\d*[1-9])?0+\z/, '\1\2').sub(/#{escaped_separator}\z/, '')
             storage_units_format.gsub(/%n/, formatted_number).gsub(/%u/, unit)
           rescue
             number

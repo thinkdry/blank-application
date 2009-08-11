@@ -1,4 +1,13 @@
 require 'benchmark'
+require 'active_support/core_ext/benchmark'
+require 'active_support/core_ext/exception'
+require 'active_support/core_ext/class/attribute_accessors'
+
+%w(hash nil string time date date_time array big_decimal range object boolean).each do |library|
+  require "active_support/core_ext/#{library}/conversions"
+end
+
+# require 'active_support/core_ext' # FIXME: pulling in all to_param extensions
 
 module ActiveSupport
   # See ActiveSupport::Cache::Store for documentation.
@@ -6,7 +15,6 @@ module ActiveSupport
     autoload :FileStore, 'active_support/cache/file_store'
     autoload :MemoryStore, 'active_support/cache/memory_store'
     autoload :SynchronizedMemoryStore, 'active_support/cache/synchronized_memory_store'
-    autoload :DRbStore, 'active_support/cache/drb_store'
     autoload :MemCacheStore, 'active_support/cache/mem_cache_store'
     autoload :CompressedMemCacheStore, 'active_support/cache/compressed_mem_cache_store'
 
@@ -26,8 +34,8 @@ module ActiveSupport
     #   ActiveSupport::Cache.lookup_store(:memory_store)
     #   # => returns a new ActiveSupport::Cache::MemoryStore object
     #   
-    #   ActiveSupport::Cache.lookup_store(:drb_store)
-    #   # => returns a new ActiveSupport::Cache::DRbStore object
+    #   ActiveSupport::Cache.lookup_store(:mem_cache_store)
+    #   # => returns a new ActiveSupport::Cache::MemCacheStore object
     #
     # Any additional arguments will be passed to the corresponding cache store
     # class's constructor:
@@ -44,7 +52,7 @@ module ActiveSupport
 
       case store
       when Symbol
-        store_class_name = (store == :drb_store ? "DRbStore" : store.to_s.camelize)
+        store_class_name = store.to_s.camelize
         store_class = ActiveSupport::Cache.const_get(store_class_name)
         store_class.new(*parameters)
       when nil
@@ -91,10 +99,15 @@ module ActiveSupport
     class Store
       cattr_accessor :logger
 
+      attr_reader :silence, :logger_off
+
       def silence!
         @silence = true
         self
       end
+
+      alias silence? silence
+      alias logger_off? logger_off
 
       # Fetches data from the cache, using the given key. If there is data in
       # the cache with the given key, then that data is returned.
@@ -126,8 +139,8 @@ module ActiveSupport
       #
       # For example, MemCacheStore's #write method supports the +:expires_in+
       # option, which tells the memcached server to automatically expire the
-      # cache item after a certain period. We can use this option with #fetch
-      # too:
+      # cache item after a certain period. This options is also supported by
+      # FileStore's #read method. We can use this option with #fetch too:
       #
       #   cache = ActiveSupport::Cache::MemCacheStore.new
       #   cache.fetch("foo", :force => true, :expires_in => 5.seconds) do
@@ -166,6 +179,10 @@ module ActiveSupport
       # You may also specify additional options via the +options+ argument.
       # The specific cache store implementation will decide what to do with
       # +options+.
+      #
+      # For example, FileStore supports the +:expires_in+ option, which
+      # makes the method return nil for cache items older than the specified
+      # period.
       def read(key, options = nil)
         log("read", key, options)
       end
@@ -220,8 +237,16 @@ module ActiveSupport
       end
 
       private
+        def expires_in(options)
+          expires_in = options && options[:expires_in]
+
+          raise ":expires_in must be a number" if expires_in && !expires_in.is_a?(Numeric)
+
+          expires_in || 0
+        end
+
         def log(operation, key, options)
-          logger.debug("Cache #{operation}: #{key}#{options ? " (#{options.inspect})" : ""}") if logger && !@silence && !@logger_off
+          logger.debug("Cache #{operation}: #{key}#{options ? " (#{options.inspect})" : ""}") if logger && !silence? && !logger_off?
         end
     end
   end

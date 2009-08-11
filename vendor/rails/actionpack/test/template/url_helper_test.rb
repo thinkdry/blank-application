@@ -7,6 +7,7 @@ class UrlHelperTest < ActionView::TestCase
   tests ActionView::Helpers::UrlHelper
 
   def setup
+    super
     @controller = Class.new do
       attr_accessor :url, :request
       def url_for(options)
@@ -219,6 +220,14 @@ class UrlHelperTest < ActionView::TestCase
     )
   end
 
+  def test_link_tag_using_delete_javascript_and_href_and_confirm
+    assert_dom_equal(
+      "<a href='\#' onclick=\"if (confirm('Are you serious?')) { var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = 'http://www.example.com';var m = document.createElement('input'); m.setAttribute('type', 'hidden'); m.setAttribute('name', '_method'); m.setAttribute('value', 'delete'); f.appendChild(m);f.submit(); };return false;\">Destroy</a>",
+      link_to("Destroy", "http://www.example.com", :method => :delete, :href => '#', :confirm => "Are you serious?"),
+      "When specifying url, form should be generated with it, but not this.href"
+    )
+  end
+
   def test_link_tag_using_post_javascript_and_popup
     assert_raise(ActionView::ActionViewError) { link_to("Hello", "http://www.example.com", :popup => true, :method => :post, :confirm => "Are you serious?") }
   end
@@ -380,6 +389,7 @@ class UrlHelperWithControllerTest < ActionView::TestCase
   tests ActionView::Helpers::UrlHelper
 
   def setup
+    super
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
     @controller = UrlHelperController.new
@@ -458,6 +468,7 @@ class LinkToUnlessCurrentWithControllerTest < ActionView::TestCase
   tests ActionView::Helpers::UrlHelper
 
   def setup
+    super
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
     @controller = TasksController.new
@@ -491,6 +502,8 @@ class LinkToUnlessCurrentWithControllerTest < ActionView::TestCase
 end
 
 class Workshop
+  extend ActiveModel::Naming
+  include ActiveModel::Conversion
   attr_accessor :id, :new_record
 
   def initialize(id, new_record)
@@ -507,6 +520,8 @@ class Workshop
 end
 
 class Session
+  extend ActiveModel::Naming
+  include ActiveModel::Conversion
   attr_accessor :id, :workshop_id, :new_record
 
   def initialize(id, new_record)
@@ -560,6 +575,7 @@ class PolymorphicControllerTest < ActionView::TestCase
   tests ActionView::Helpers::UrlHelper
 
   def setup
+    super
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
   end

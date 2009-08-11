@@ -9,6 +9,8 @@ class Company < AbstractCompany
   validates_presence_of :name
 
   has_one :dummy_account, :foreign_key => "firm_id", :class_name => "Account"
+  has_many :contracts
+  has_many :developers, :through => :contracts
 
   def arbitrary_method
     "I am Jack's profound disappointment"
@@ -48,6 +50,10 @@ class Firm < Company
   has_many :clients_with_interpolated_conditions, :class_name => "Client", :conditions => 'rating > #{rating}'
   has_many :clients_like_ms_with_hash_conditions, :conditions => { :name => 'Microsoft' }, :class_name => "Client", :order => "id"
   has_many :clients_using_sql, :class_name => "Client", :finder_sql => 'SELECT * FROM companies WHERE client_of = #{id}'
+  has_many :clients_using_multiline_sql, :class_name => "Client", :finder_sql => '
+  SELECT
+  companies.*
+  FROM companies WHERE companies.client_of = #{id}'
   has_many :clients_using_counter_sql, :class_name => "Client",
            :finder_sql  => 'SELECT * FROM companies WHERE client_of = #{id}',
            :counter_sql => 'SELECT COUNT(*) FROM companies WHERE client_of = #{id}'
@@ -69,20 +75,17 @@ class Firm < Company
   has_one :unvalidated_account, :foreign_key => "firm_id", :class_name => 'Account', :validate => false
   has_one :account_with_select, :foreign_key => "firm_id", :select => "id, firm_id", :class_name=>'Account'
   has_one :readonly_account, :foreign_key => "firm_id", :class_name => "Account", :readonly => true
-  has_one :account_using_primary_key, :primary_key => "firm_id", :class_name => "Account"
+  # added order by id as in fixtures there are two accounts for Rails Core
+  # Oracle tests were failing because of that as the second fixture was selected
+  has_one :account_using_primary_key, :primary_key => "firm_id", :class_name => "Account", :order => "id"
   has_one :deletable_account, :foreign_key => "firm_id", :class_name => "Account", :dependent => :delete
 end
 
 class DependentFirm < Company
-  has_one :account, :foreign_key => "firm_id", :dependent => :nullify
+  # added order by id as in fixtures there are two accounts for Rails Core
+  # Oracle tests were failing because of that as the second fixture was selected
+  has_one :account, :foreign_key => "firm_id", :dependent => :nullify, :order => "id"
   has_many :companies, :foreign_key => 'client_of', :order => "id", :dependent => :nullify
-end
-
-class ExclusivelyDependentFirm < Company
-  has_one :account, :foreign_key => "firm_id", :dependent => :delete
-  has_many :dependent_sanitized_conditional_clients_of_firm, :foreign_key => "client_of", :class_name => "Client", :order => "id", :dependent => :delete_all, :conditions => "name = 'BigShot Inc.'"
-  has_many :dependent_conditional_clients_of_firm, :foreign_key => "client_of", :class_name => "Client", :order => "id", :dependent => :delete_all, :conditions => ["name = ?", 'BigShot Inc.']
-  has_many :dependent_hash_conditional_clients_of_firm, :foreign_key => "client_of", :class_name => "Client", :order => "id", :dependent => :delete_all, :conditions => {:name => 'BigShot Inc.'}
 end
 
 class Client < Company
@@ -91,6 +94,7 @@ class Client < Company
   belongs_to :firm_with_select, :class_name => "Firm", :foreign_key => "firm_id", :select => "id"
   belongs_to :firm_with_other_name, :class_name => "Firm", :foreign_key => "client_of"
   belongs_to :firm_with_condition, :class_name => "Firm", :foreign_key => "client_of", :conditions => ["1 = ?", 1]
+  belongs_to :firm_with_primary_key, :class_name => "Firm", :primary_key => "name", :foreign_key => "firm_name"
   belongs_to :readonly_firm, :class_name => "Firm", :foreign_key => "firm_id", :readonly => true
 
   # Record destruction so we can test whether firm.clients.clear has
@@ -125,6 +129,12 @@ class Client < Company
   end
 end
 
+class ExclusivelyDependentFirm < Company
+  has_one :account, :foreign_key => "firm_id", :dependent => :delete
+  has_many :dependent_sanitized_conditional_clients_of_firm, :foreign_key => "client_of", :class_name => "Client", :order => "id", :dependent => :delete_all, :conditions => "name = 'BigShot Inc.'"
+  has_many :dependent_conditional_clients_of_firm, :foreign_key => "client_of", :class_name => "Client", :order => "id", :dependent => :delete_all, :conditions => ["name = ?", 'BigShot Inc.']
+  has_many :dependent_hash_conditional_clients_of_firm, :foreign_key => "client_of", :class_name => "Client", :order => "id", :dependent => :delete_all, :conditions => {:name => 'BigShot Inc.'}
+end
 
 class SpecialClient < Client
 end
@@ -146,10 +156,13 @@ class Account < ActiveRecord::Base
     true
   end
 
+  validate :check_empty_credit_limit
+
   protected
-    def validate
-      errors.add_on_empty "credit_limit"
-    end
+
+  def check_empty_credit_limit
+    errors.add_on_empty "credit_limit"
+  end
 
   private
 

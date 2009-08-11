@@ -1,11 +1,13 @@
 module ActiveModel
   module StateMachine
-    class InvalidTransition < Exception
-    end
+    autoload :Event, 'active_model/state_machine/event'
+    autoload :Machine, 'active_model/state_machine/machine'
+    autoload :State, 'active_model/state_machine/state'
+    autoload :StateTransition, 'active_model/state_machine/state_transition'
 
-    def self.included(base)
-      require 'active_model/state_machine/machine'
-      base.extend ClassMethods
+    extend ActiveSupport::Concern
+
+    class InvalidTransition < Exception
     end
 
     module ClassMethods

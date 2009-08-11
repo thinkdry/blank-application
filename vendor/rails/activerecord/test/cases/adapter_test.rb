@@ -63,6 +63,18 @@ class AdapterTest < ActiveRecord::TestCase
     def test_show_nonexistent_variable_returns_nil
       assert_nil @connection.show_variable('foo_bar_baz')
     end
+
+    def test_not_specifying_database_name_for_cross_database_selects
+      assert_nothing_raised do
+        ActiveRecord::Base.establish_connection({
+          :adapter  => 'mysql',
+          :username => 'rails'
+        })
+        ActiveRecord::Base.connection.execute "SELECT activerecord_unittest.pirates.*, activerecord_unittest2.courses.* FROM activerecord_unittest.pirates, activerecord_unittest2.courses"
+      end
+
+      ActiveRecord::Base.establish_connection 'arunit'
+    end
   end
 
   if current_adapter?(:PostgreSQLAdapter)
@@ -112,22 +124,34 @@ class AdapterTest < ActiveRecord::TestCase
 
   def test_add_limit_offset_should_sanitize_sql_injection_for_limit_without_comas
     sql_inject = "1 select * from schema"
-      assert_equal " LIMIT 1", @connection.add_limit_offset!("", :limit=>sql_inject)
-    if current_adapter?(:MysqlAdapter)
-      assert_equal " LIMIT 7, 1", @connection.add_limit_offset!("", :limit=>sql_inject, :offset=>7)
-    else
-      assert_equal " LIMIT 1 OFFSET 7", @connection.add_limit_offset!("", :limit=>sql_inject, :offset=>7)
-    end
+    assert_no_match /schema/, @connection.add_limit_offset!("", :limit=>sql_inject)
+    assert_no_match /schema/, @connection.add_limit_offset!("", :limit=>sql_inject, :offset=>7)
   end
 
   def test_add_limit_offset_should_sanitize_sql_injection_for_limit_with_comas
     sql_inject = "1, 7 procedure help()"
-    if current_adapter?(:MysqlAdapter)
-      assert_equal " LIMIT 1,7", @connection.add_limit_offset!("", :limit=>sql_inject)
-      assert_equal " LIMIT 7, 1", @connection.add_limit_offset!("", :limit=> '1 ; DROP TABLE USERS', :offset=>7)
-    else
-      assert_equal " LIMIT 1,7", @connection.add_limit_offset!("", :limit=>sql_inject)
-      assert_equal " LIMIT 1,7 OFFSET 7", @connection.add_limit_offset!("", :limit=>sql_inject, :offset=>7)
+    assert_no_match /procedure/, @connection.add_limit_offset!("", :limit=>sql_inject)
+    assert_no_match /procedure/, @connection.add_limit_offset!("", :limit=>sql_inject, :offset=>7)
+  end
+
+  def test_uniqueness_violations_are_translated_to_specific_exception
+    @connection.execute "INSERT INTO subscribers(nick) VALUES('me')"
+    assert_raises(ActiveRecord::RecordNotUnique) do
+      @connection.execute "INSERT INTO subscribers(nick) VALUES('me')"
+    end
+  end
+
+  def test_foreign_key_violations_are_translated_to_specific_exception
+    unless @connection.adapter_name == 'SQLite'
+      assert_raises(ActiveRecord::InvalidForeignKey) do
+        # Oracle adapter uses prefetched primary key values from sequence and passes them to connection adapter insert method
+        if @connection.prefetch_primary_key?
+          id_value = @connection.next_sequence_value(@connection.default_sequence_name("fk_test_has_fk", "id"))
+          @connection.execute "INSERT INTO fk_test_has_fk (id, fk_id) VALUES (#{id_value},0)"
+        else
+          @connection.execute "INSERT INTO fk_test_has_fk (fk_id) VALUES (0)"
+        end
+      end
     end
   end
 end

@@ -34,7 +34,7 @@ module ActiveSupport
           result
         end
       end
-
+      
       module ForClassicTestUnit
         # For compatibility with Ruby < 1.8.6
         PASSTHROUGH_EXCEPTIONS = Test::Unit::TestCase::PASSTHROUGH_EXCEPTIONS rescue [NoMemoryError, SignalException, Interrupt, SystemExit]

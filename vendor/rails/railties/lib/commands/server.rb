@@ -1,15 +1,7 @@
-require 'active_support'
 require 'action_controller'
 
 require 'fileutils'
 require 'optparse'
-
-# TODO: Push Thin adapter upstream so we don't need worry about requiring it
-begin
-  require_library_or_gem 'thin'
-rescue Exception
-  # Thin not available
-end
 
 options = {
   :Port        => 3000,
@@ -23,17 +15,17 @@ options = {
 
 ARGV.clone.options do |opts|
   opts.on("-p", "--port=port", Integer,
-          "Runs Rails on the specified port.", "Default: 3000") { |v| options[:Port] = v }
+          "Runs Rails on the specified port.", "Default: #{options[:Port]}") { |v| options[:Port] = v }
   opts.on("-b", "--binding=ip", String,
-          "Binds Rails to the specified ip.", "Default: 0.0.0.0") { |v| options[:Host] = v }
+          "Binds Rails to the specified ip.", "Default: #{options[:Host]}") { |v| options[:Host] = v }
   opts.on("-c", "--config=file", String,
           "Use custom rackup configuration file") { |v| options[:config] = v }
   opts.on("-d", "--daemon", "Make server run as a Daemon.") { options[:detach] = true }
   opts.on("-u", "--debugger", "Enable ruby-debugging for the server.") { options[:debugger] = true }
   opts.on("-e", "--environment=name", String,
           "Specifies the environment to run this server under (test/development/production).",
-          "Default: development") { |v| options[:environment] = v }
-  opts.on("-P", "--path=/path", String, "Runs Rails app mounted at a specific path.", "Default: /") { |v| options[:path] = v }
+          "Default: #{options[:environment]}") { |v| options[:environment] = v }
+  opts.on("-P", "--path=/path", String, "Runs Rails app mounted at a specific path.", "Default: #{options[:path]}") { |v| options[:path] = v }
 
   opts.separator ""
 

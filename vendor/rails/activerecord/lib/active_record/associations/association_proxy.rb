@@ -53,6 +53,7 @@ module ActiveRecord
 
       def initialize(owner, reflection)
         @owner, @reflection = owner, reflection
+        reflection.check_validity!
         Array(reflection.options[:extend]).each { |ext| proxy_extend(ext) }
         reset
       end
@@ -169,8 +170,8 @@ module ActiveRecord
         end
 
         # Forwards the call to the reflection class.
-        def sanitize_sql(sql)
-          @reflection.klass.send(:sanitize_sql, sql)
+        def sanitize_sql(sql, table_name = @reflection.klass.quoted_table_name)
+          @reflection.klass.send(:sanitize_sql, sql, table_name)
         end
 
         # Assigns the ID of the owner to the corresponding foreign key in +record+.
@@ -273,6 +274,19 @@ module ActiveRecord
         # Returns the ID of the owner, quoted if needed.
         def owner_quoted_id
           @owner.quoted_id
+        end
+
+        def set_inverse_instance(record, instance)
+          return if record.nil? || !we_can_set_the_inverse_on_this?(record)
+          inverse_relationship = @reflection.inverse_of
+          unless inverse_relationship.nil?
+            record.send(:"set_#{inverse_relationship.name}_target", instance)
+          end
+        end
+
+        # Override in subclasses
+        def we_can_set_the_inverse_on_this?(record)
+          false
         end
     end
   end

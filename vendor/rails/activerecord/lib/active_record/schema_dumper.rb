@@ -1,5 +1,5 @@
 require 'stringio'
-require 'bigdecimal'
+require 'active_support/core_ext/big_decimal'
 
 module ActiveRecord
   # This class is used to dump the database schema for some connection to some
@@ -78,11 +78,13 @@ HEADER
         begin
           tbl = StringIO.new
 
+          # first dump primary key column
           if @connection.respond_to?(:pk_and_sequence_for)
             pk, pk_seq = @connection.pk_and_sequence_for(table)
+          elsif @connection.respond_to?(:primary_key)
+            pk = @connection.primary_key(table)
           end
-          pk ||= 'id'
-
+          
           tbl.print "  create_table #{table.inspect}"
           if columns.detect { |c| c.name == pk }
             if pk != 'id'
@@ -94,13 +96,21 @@ HEADER
           tbl.print ", :force => true"
           tbl.puts " do |t|"
 
+          # then dump all non-primary key columns
           column_specs = columns.map do |column|
             raise StandardError, "Unknown type '#{column.sql_type}' for column '#{column.name}'" if @types[column.type].nil?
             next if column.name == pk
             spec = {}
             spec[:name]      = column.name.inspect
-            spec[:type]      = column.type.to_s
-            spec[:limit]     = column.limit.inspect if column.limit != @types[column.type][:limit] && column.type != :decimal
+            
+            # AR has an optimisation which handles zero-scale decimals as integers.  This
+            # code ensures that the dumper still dumps the column as a decimal.
+            spec[:type]      = if column.type == :integer && [/^numeric/, /^decimal/].any? { |e| e.match(column.sql_type) }
+                                 'decimal'
+                               else
+                                 column.type.to_s
+                               end
+            spec[:limit]     = column.limit.inspect if column.limit != @types[column.type][:limit] && spec[:type] != 'decimal'
             spec[:precision] = column.precision.inspect if !column.precision.nil?
             spec[:scale]     = column.scale.inspect if !column.scale.nil?
             spec[:null]      = 'false' if !column.null

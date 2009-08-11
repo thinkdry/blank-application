@@ -11,7 +11,7 @@ module ActiveRecord
     # ones created with +build+ are added to the target. So, the target may be
     # non-empty and still lack children waiting to be read from the database.
     # If you look directly to the database you cannot assume that's the entire
-    # collection because new records may have beed added to the target, etc.
+    # collection because new records may have been added to the target, etc.
     #
     # If you need to work on all current children, new and existing records,
     # +load_target+ and the +loaded+ flag are your friends.
@@ -143,6 +143,8 @@ module ActiveRecord
       end
 
       # Remove all records from this association
+      #
+      # See delete for more info.
       def delete_all
         load_target
         delete(@target)
@@ -200,12 +202,13 @@ module ActiveRecord
         end
       end
 
-      # Destroy +records+ and remove from this association calling +before_remove+
-      # and +after_remove+ callbacks.
+      # Destroy +records+ and remove them from this association calling
+      # +before_remove+ and +after_remove+ callbacks.
       #
-      # Note this method will always remove records from database ignoring the
-      # +:dependent+ option.
+      # Note that this method will _always_ remove records from the database
+      # ignoring the +:dependent+ option.
       def destroy(*records)
+        records = find(records) if records.any? {|record| record.kind_of?(Fixnum) || record.kind_of?(String)}
         remove_records(records) do |records, old_records|
           old_records.each { |record| record.destroy }
         end
@@ -226,7 +229,9 @@ module ActiveRecord
         self
       end
 
-      # Destory all the records from this association
+      # Destroy all the records from this association.
+      #
+      # See destroy for more info.
       def destroy_all
         load_target
         destroy(@target)
@@ -298,6 +303,15 @@ module ActiveRecord
         end
       end
 
+      # Returns true if the collection has more than 1 record. Equivalent to collection.size > 1.
+      def many?
+        if block_given?
+          method_missing(:many?) { |*block_args| yield(*block_args) }
+        else
+          size > 1
+        end
+      end
+
       def uniq(collection = self)
         seen = Set.new
         collection.inject([]) do |kept, record|
@@ -338,7 +352,19 @@ module ActiveRecord
       protected
         def construct_find_options!(options)
         end
-        
+
+        def construct_counter_sql
+          if @reflection.options[:counter_sql]
+            @counter_sql = interpolate_sql(@reflection.options[:counter_sql])
+          elsif @reflection.options[:finder_sql]
+            # replace the SELECT clause with COUNT(*), preserving any hints within /* ... */
+            @reflection.options[:counter_sql] = @reflection.options[:finder_sql].sub(/SELECT\b(\/\*.*?\*\/ )?(.*)\bFROM\b/im) { "SELECT #{$1}COUNT(*) FROM" }
+            @counter_sql = interpolate_sql(@reflection.options[:counter_sql])
+          else
+            @counter_sql = @finder_sql
+          end
+        end
+
         def load_target
           if !@owner.new_record? || foreign_key_present
             begin
@@ -395,11 +421,14 @@ module ActiveRecord
               find(:all)
             end
 
-          @reflection.options[:uniq] ? uniq(records) : records
+          records = @reflection.options[:uniq] ? uniq(records) : records
+          records.each do |record|
+            set_inverse_instance(record, @owner)
+          end
+          records
         end
 
       private
-
         def create_record(attrs)
           attrs.update(@reflection.options[:conditions]) if @reflection.options[:conditions].is_a?(Hash)
           ensure_owner_is_not_new
@@ -429,6 +458,7 @@ module ActiveRecord
           @target ||= [] unless loaded?
           @target << record unless @reflection.options[:uniq] && @target.include?(record)
           callback(:after_add, record)
+          set_inverse_instance(record, @owner)
           record
         end
 

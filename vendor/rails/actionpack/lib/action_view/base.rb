@@ -1,12 +1,16 @@
+require 'active_support/core_ext/module/attr_internal'
+require 'active_support/core_ext/module/delegation'
+
 module ActionView #:nodoc:
   class ActionViewError < StandardError #:nodoc:
   end
 
   class MissingTemplate < ActionViewError #:nodoc:
-    attr_reader :path
+    attr_reader :path, :action_name
 
     def initialize(paths, path, template_format = nil)
       @path = path
+      @action_name = path.split("/").last.split(".")[0...-1].join(".")
       full_template_path = path.include?('.') ? path : "#{path}.erb"
       display_paths = paths.compact.join(":")
       template_type = (path =~ /layouts/i) ? 'layout' : 'template'
@@ -160,19 +164,20 @@ module ActionView #:nodoc:
   #
   # See the ActionView::Helpers::PrototypeHelper::GeneratorMethods documentation for more details.
   class Base
-    include Helpers, Partials, ::ERB::Util
+    module Subclasses
+    end
+
+    include Helpers, Rendering, Partials, ::ERB::Util
+
     extend ActiveSupport::Memoizable
 
-    attr_accessor :base_path, :assigns, :template_extension
+    attr_accessor :base_path, :assigns, :template_extension, :formats
     attr_accessor :controller
-
-    attr_writer :template_format
-
-    attr_accessor :output_buffer
+    attr_internal :captures
 
     class << self
       delegate :erb_trim_mode=, :to => 'ActionView::TemplateHandlers::ERB'
-      delegate :logger, :to => 'ActionController::Base'
+      delegate :logger, :to => 'ActionController::Base', :allow_nil => true
     end
 
     @@debug_rjs = false
@@ -191,167 +196,95 @@ module ActionView #:nodoc:
       ActionController::Base.allow_concurrency || (cache_template_loading.nil? ? !ActiveSupport::Dependencies.load? : cache_template_loading)
     end
 
-    attr_internal :request
+    attr_internal :request, :layout
+
+    def controller_path
+      @controller_path ||= controller && controller.controller_path
+    end
 
     delegate :request_forgery_protection_token, :template, :params, :session, :cookies, :response, :headers,
-             :flash, :logger, :action_name, :controller_name, :to => :controller
+             :flash, :action_name, :controller_name, :to => :controller
 
-    module CompiledTemplates #:nodoc:
-      # holds compiled template code
-    end
-    include CompiledTemplates
+    delegate :logger, :to => :controller, :allow_nil => true
+
+    delegate :find, :to => :view_paths
+
+    include Context
 
     def self.process_view_paths(value)
       ActionView::PathSet.new(Array(value))
     end
 
+    extlib_inheritable_accessor :helpers
     attr_reader :helpers
 
-    class ProxyModule < Module
-      def initialize(receiver)
-        @receiver = receiver
+    def self.for_controller(controller)
+      @views ||= {}
+
+      # TODO: Decouple this so helpers are a separate concern in AV just like
+      # they are in AC.
+      if controller.class.respond_to?(:_helper_serial)
+        klass = @views[controller.class._helper_serial] ||= Class.new(self) do
+          Subclasses.const_set(controller.class.name.gsub(/::/, '__'), self)
+
+          if controller.respond_to?(:_helpers)
+            include controller._helpers
+            self.helpers = controller._helpers
+          end
+        end
+      else
+        klass = self
       end
 
-      def include(*args)
-        super(*args)
-        @receiver.extend(*args)
-      end
+      klass.new(controller.class.view_paths, {}, controller)
     end
 
-    def initialize(view_paths = [], assigns_for_first_render = {}, controller = nil)#:nodoc:
-      @assigns = assigns_for_first_render
-      @assigns_added = nil
+    def initialize(view_paths = [], assigns_for_first_render = {}, controller = nil, formats = nil)#:nodoc:
+      @formats = formats || [:html]
+      @assigns = assigns_for_first_render.each { |key, value| instance_variable_set("@#{key}", value) }
       @controller = controller
-      @helpers = ProxyModule.new(self)
+      @helpers = self.class.helpers || Module.new
+      @_content_for = Hash.new {|h,k| h[k] = "" }
       self.view_paths = view_paths
-
-      @_first_render = nil
-      @_current_render = nil
     end
 
+    attr_internal :template
     attr_reader :view_paths
 
     def view_paths=(paths)
       @view_paths = self.class.process_view_paths(paths)
-      # we might be using ReloadableTemplates, so we need to let them know this a new request
-      @view_paths.load!
-    end
-
-    # Returns the result of a render that's dictated by the options hash. The primary options are:
-    #
-    # * <tt>:partial</tt> - See ActionView::Partials.
-    # * <tt>:update</tt> - Calls update_page with the block given.
-    # * <tt>:file</tt> - Renders an explicit template file (this used to be the old default), add :locals to pass in those.
-    # * <tt>:inline</tt> - Renders an inline template similar to how it's done in the controller.
-    # * <tt>:text</tt> - Renders the text passed in out.
-    #
-    # If no options hash is passed or :update specified, the default is to render a partial and use the second parameter
-    # as the locals hash.
-    def render(options = {}, local_assigns = {}, &block) #:nodoc:
-      local_assigns ||= {}
-
-      case options
-      when Hash
-        options = options.reverse_merge(:locals => {})
-        if options[:layout]
-          _render_with_layout(options, local_assigns, &block)
-        elsif options[:file]
-          template = self.view_paths.find_template(options[:file], template_format)
-          template.render_template(self, options[:locals])
-        elsif options[:partial]
-          render_partial(options)
-        elsif options[:inline]
-          InlineTemplate.new(options[:inline], options[:type]).render(self, options[:locals])
-        elsif options[:text]
-          options[:text]
-        end
-      when :update
-        update_page(&block)
-      else
-        render_partial(:partial => options, :locals => local_assigns)
-      end
-    end
-
-    # The format to be used when choosing between multiple templates with
-    # the same name but differing formats.  See +Request#template_format+
-    # for more details.
-    def template_format
-      if defined? @template_format
-        @template_format
-      elsif controller && controller.respond_to?(:request)
-        @template_format = controller.request.template_format.to_sym
-      else
-        @template_format = :html
-      end
-    end
-
-    # Access the current template being rendered.
-    # Returns a ActionView::Template object.
-    def template
-      @_current_render
-    end
-
-    def template=(template) #:nodoc:
-      @_first_render ||= template
-      @_current_render = template
     end
 
     def with_template(current_template)
+      _evaluate_assigns_and_ivars
       last_template, self.template = template, current_template
+      last_formats, self.formats = formats, current_template.formats
       yield
     ensure
-      self.template = last_template
+      self.template, self.formats = last_template, last_formats
     end
 
-    private
-      # Evaluates the local assigns and controller ivars, pushes them to the view.
-      def _evaluate_assigns_and_ivars #:nodoc:
-        unless @assigns_added
-          @assigns.each { |key, value| instance_variable_set("@#{key}", value) }
-          _copy_ivars_from_controller
-          @assigns_added = true
-        end
+    def punctuate_body!(part)
+      flush_output_buffer
+      response.body_parts << part
+      nil
+    end
+
+    # Evaluates the local assigns and controller ivars, pushes them to the view.
+    def _evaluate_assigns_and_ivars #:nodoc:
+      @assigns_added ||= _copy_ivars_from_controller
+    end
+
+  private
+
+    def _copy_ivars_from_controller #:nodoc:
+      if @controller
+        variables = @controller.instance_variable_names
+        variables -= @controller.protected_instance_variables if @controller.respond_to?(:protected_instance_variables)
+        variables.each { |name| instance_variable_set(name, @controller.instance_variable_get(name)) }
       end
+      true
+    end
 
-      def _copy_ivars_from_controller #:nodoc:
-        if @controller
-          variables = @controller.instance_variable_names
-          variables -= @controller.protected_instance_variables if @controller.respond_to?(:protected_instance_variables)
-          variables.each { |name| instance_variable_set(name, @controller.instance_variable_get(name)) }
-        end
-      end
-
-      def _set_controller_content_type(content_type) #:nodoc:
-        if controller.respond_to?(:response)
-          controller.response.content_type ||= content_type
-        end
-      end
-
-      def _render_with_layout(options, local_assigns, &block) #:nodoc:
-        partial_layout = options.delete(:layout)
-
-        if block_given?
-          begin
-            @_proc_for_layout = block
-            concat(render(options.merge(:partial => partial_layout)))
-          ensure
-            @_proc_for_layout = nil
-          end
-        else
-          begin
-            original_content_for_layout = @content_for_layout if defined?(@content_for_layout)
-            @content_for_layout = render(options)
-
-            if (options[:inline] || options[:file] || options[:text])
-              @cached_content_for_layout = @content_for_layout
-              render(:file => partial_layout, :locals => local_assigns)
-            else
-              render(options.merge(:partial => partial_layout))
-            end
-          ensure
-            @content_for_layout = original_content_for_layout
-          end
-        end
-      end
   end
 end

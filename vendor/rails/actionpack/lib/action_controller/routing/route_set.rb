@@ -155,7 +155,7 @@ module ActionController
 
           def define_url_helper(route, name, kind, options)
             selector = url_helper_name(name, kind)
-            # The segment keys used for positional paramters
+            # The segment keys used for positional parameters
 
             hash_access_method = hash_access_name(name, kind)
 
@@ -305,6 +305,7 @@ module ActionController
       end
 
       def add_route(path, options = {})
+        options.each { |k, v| options[k] = v.to_s if [:controller, :action].include?(k) && v.is_a?(Symbol) }
         route = builder.build(path, options)
         routes << route
         route
@@ -406,9 +407,24 @@ module ActionController
           # don't use the recalled keys when determining which routes to check
           routes = routes_by_controller[controller][action][options.reject {|k,v| !v}.keys.sort_by { |x| x.object_id }]
 
-          routes.each do |route|
+          routes[1].each_with_index do |route, index|
             results = route.__send__(method, options, merged, expire_on)
-            return results if results && (!results.is_a?(Array) || results.first)
+            if results && (!results.is_a?(Array) || results.first)
+
+              # Compare results with Rails 3.0 behavior
+              if routes[0][index] != route
+                routes[0].each do |route2|
+                  new_results = route2.__send__(method, options, merged, expire_on)
+                  if new_results && (!new_results.is_a?(Array) || new_results.first)
+                    ActiveSupport::Deprecation.warn "The URL you generated will use the first matching route in routes.rb rather than the \"best\" match. " +
+                      "In Rails 3.0 #{new_results} would of been generated instead of #{results}"
+                    break
+                  end
+                end
+              end
+
+              return results
+            end
           end
         end
 
@@ -428,15 +444,15 @@ module ActionController
       end
 
       def call(env)
-        request = Request.new(env)
+        request = ActionDispatch::Request.new(env)
         app = Routing::Routes.recognize(request)
-        app.call(env).to_a
+        app.action(request.parameters[:action] || 'index').call(env)
       end
 
       def recognize(request)
         params = recognize_path(request.path, extract_request_environment(request))
         request.path_parameters = params.with_indifferent_access
-        "#{params[:controller].camelize}Controller".constantize
+        "#{params[:controller].to_s.camelize}Controller".constantize
       end
 
       def recognize_path(path, environment={})
@@ -447,7 +463,10 @@ module ActionController
         @routes_by_controller ||= Hash.new do |controller_hash, controller|
           controller_hash[controller] = Hash.new do |action_hash, action|
             action_hash[action] = Hash.new do |key_hash, keys|
-              key_hash[keys] = routes_for_controller_and_action_and_keys(controller, action, keys)
+              key_hash[keys] = [
+                routes_for_controller_and_action_and_keys(controller, action, keys),
+                deprecated_routes_for_controller_and_action_and_keys(controller, action, keys)
+              ]
             end
           end
         end
@@ -459,17 +478,16 @@ module ActionController
         merged = options if expire_on[:controller]
         action = merged[:action] || 'index'
 
-        routes_by_controller[controller][action][merged.keys]
-      end
-
-      def routes_for_controller_and_action(controller, action)
-        selected = routes.select do |route|
-          route.matches_controller_and_action? controller, action
-        end
-        (selected.length == routes.length) ? routes : selected
+        routes_by_controller[controller][action][merged.keys][1]
       end
 
       def routes_for_controller_and_action_and_keys(controller, action, keys)
+        routes.select do |route|
+          route.matches_controller_and_action? controller, action
+        end
+      end
+
+      def deprecated_routes_for_controller_and_action_and_keys(controller, action, keys)
         selected = routes.select do |route|
           route.matches_controller_and_action? controller, action
         end

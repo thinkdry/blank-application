@@ -1,3 +1,5 @@
+require 'active_support/core_ext/object/metaclass'
+
 module ActiveRecord
   class IrreversibleMigration < ActiveRecordError#:nodoc:
   end
@@ -107,8 +109,8 @@ module ActiveRecord
   #   script/generate migration MyNewMigration
   #
   # where MyNewMigration is the name of your migration. The generator will
-  # create an empty migration file <tt>nnn_my_new_migration.rb</tt> in the <tt>db/migrate/</tt>
-  # directory where <tt>nnn</tt> is the next largest migration number.
+  # create an empty migration file <tt>timestamp_my_new_migration.rb</tt> in the <tt>db/migrate/</tt>
+  # directory where <tt>timestamp</tt> is the UTC formatted date and time that the migration was generated.
   #
   # You may then edit the <tt>self.up</tt> and <tt>self.down</tt> methods of
   # MyNewMigration.
@@ -116,7 +118,7 @@ module ActiveRecord
   # There is a special syntactic shortcut to generate migrations that add fields to a table.
   #   script/generate migration add_fieldname_to_tablename fieldname:string
   #
-  # This will generate the file <tt>nnn_add_fieldname_to_tablename</tt>, which will look like this:
+  # This will generate the file <tt>timestamp_add_fieldname_to_tablename</tt>, which will look like this:
   #   class AddFieldnameToTablename < ActiveRecord::Migration
   #     def self.up
   #       add_column :tablenames, :fieldname, :string
@@ -300,8 +302,7 @@ module ActiveRecord
 
           case sym
             when :up, :down
-              klass = (class << self; self; end)
-              klass.send(:alias_method_chain, sym, "benchmarks")
+              metaclass.send(:alias_method_chain, sym, "benchmarks")
           end
         ensure
           @ignore_new_methods = false
@@ -387,13 +388,11 @@ module ActiveRecord
       end
 
       def rollback(migrations_path, steps=1)
-        migrator = self.new(:down, migrations_path)
-        start_index = migrator.migrations.index(migrator.current_migration)
-        
-        return unless start_index
-        
-        finish = migrator.migrations[start_index + steps]
-        down(migrations_path, finish ? finish.version : 0)
+        move(:down, migrations_path, steps)
+      end
+
+      def forward(migrations_path, steps=1)
+        move(:up, migrations_path, steps)
       end
 
       def up(migrations_path, target_version = nil)
@@ -428,6 +427,19 @@ module ActiveRecord
       def proper_table_name(name)
         # Use the Active Record objects own table_name, or pre/suffix from ActiveRecord::Base if name is a symbol/string
         name.table_name rescue "#{ActiveRecord::Base.table_name_prefix}#{name}#{ActiveRecord::Base.table_name_suffix}"
+      end
+
+      private
+
+      def move(direction, migrations_path, steps)
+        migrator = self.new(direction, migrations_path)
+        start_index = migrator.migrations.index(migrator.current_migration)
+
+        if start_index
+          finish = migrator.migrations[start_index + steps]
+          version = finish ? finish.version : 0
+          send(direction, migrations_path, version)
+        end
       end
     end
 
@@ -511,11 +523,11 @@ module ActiveRecord
             raise DuplicateMigrationNameError.new(name.camelize) 
           end
           
-          klasses << returning(MigrationProxy.new) do |migration|
-            migration.name     = name.camelize
-            migration.version  = version
-            migration.filename = file
-          end
+          migration = MigrationProxy.new
+          migration.name     = name.camelize
+          migration.version  = version
+          migration.filename = file
+          klasses << migration
         end
         
         migrations = migrations.sort_by(&:version)

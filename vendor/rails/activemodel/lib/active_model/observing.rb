@@ -1,70 +1,177 @@
 require 'observer'
 require 'singleton'
-require 'active_model/core'
+require 'active_support/core_ext/array/wrap'
+require 'active_support/core_ext/module/aliasing'
+require 'active_support/core_ext/string/inflections'
 
 module ActiveModel
   module Observing
+    extend ActiveSupport::Concern
+
+    included do
+      extend Observable
+    end
+
     module ClassMethods
-      def observers
-        @observers ||= []
-      end
-      
+      # Activates the observers assigned. Examples:
+      #
+      #   # Calls PersonObserver.instance
+      #   ActiveRecord::Base.observers = :person_observer
+      #
+      #   # Calls Cacher.instance and GarbageCollector.instance
+      #   ActiveRecord::Base.observers = :cacher, :garbage_collector
+      #
+      #   # Same as above, just using explicit class references
+      #   ActiveRecord::Base.observers = Cacher, GarbageCollector
+      #
+      # Note: Setting this does not instantiate the observers yet. +instantiate_observers+ is
+      # called during startup, and before each development request.
       def observers=(*values)
         @observers = values.flatten
       end
-      
+
+      # Gets the current observers.
+      def observers
+        @observers ||= []
+      end
+
+      # Instantiate the global Active Record observers.
       def instantiate_observers
         observers.each { |o| instantiate_observer(o) }
       end
-    
-    protected
-      def instantiate_observer(observer)
-        # string/symbol
-        if observer.respond_to?(:to_sym)
-          observer = observer.to_s.camelize.constantize.instance
-        elsif observer.respond_to?(:instance)
-          observer.instance
-        else
-          raise ArgumentError, "#{observer} must be a lowercase, underscored class name (or an instance of the class itself) responding to the instance method. Example: Person.observers = :big_brother # calls BigBrother.instance"
+
+      # Wraps methods with before and after notifications.
+      #
+      #   wrap_with_notifications :create, :save, :update, :destroy
+      def wrap_with_notifications(*methods)
+        methods.each do |method|
+          class_eval(<<-EOS, __FILE__, __LINE__ + 1)
+            def #{method}_with_notifications(*args, &block)
+              notify_observers(:before_#{method})
+              result = #{method}_without_notifications(*args, &block)
+              notify_observers(:after_#{method})
+              result
+            end
+          EOS
+          alias_method_chain(method, :notifications)
         end
       end
-      
-      # Notify observers when the observed class is subclassed.
-      def inherited(subclass)
-        super
-        changed
-        notify_observers :observed_class_inherited, subclass
+
+      protected
+        def instantiate_observer(observer) #:nodoc:
+          # string/symbol
+          if observer.respond_to?(:to_sym)
+            observer = observer.to_s.camelize.constantize.instance
+          elsif observer.respond_to?(:instance)
+            observer.instance
+          else
+            raise ArgumentError, "#{observer} must be a lowercase, underscored class name (or an instance of the class itself) responding to the instance method. Example: Person.observers = :big_brother # calls BigBrother.instance"
+          end
+        end
+
+        # Notify observers when the observed class is subclassed.
+        def inherited(subclass)
+          super
+          changed
+          notify_observers :observed_class_inherited, subclass
+        end
+    end
+
+    private
+      # Fires notifications to model's observers
+      #
+      # def save
+      #   notify_observers(:before_save)
+      #   ...
+      #   notify_observers(:after_save)
+      # end
+      def notify_observers(method)
+        self.class.changed
+        self.class.notify_observers(method, self)
       end
-    end
-    
-    def self.included(receiver)
-      receiver.extend Observable, ClassMethods
-    end
   end
 
+  # Observer classes respond to lifecycle callbacks to implement trigger-like
+  # behavior outside the original class. This is a great way to reduce the
+  # clutter that normally comes when the model class is burdened with
+  # functionality that doesn't pertain to the core responsibility of the
+  # class. Example:
+  #
+  #   class CommentObserver < ActiveModel::Observer
+  #     def after_save(comment)
+  #       Notifications.deliver_comment("admin@do.com", "New comment was posted", comment)
+  #     end
+  #   end
+  #
+  # This Observer sends an email when a Comment#save is finished.
+  #
+  #   class ContactObserver < ActiveModel::Observer
+  #     def after_create(contact)
+  #       contact.logger.info('New contact added!')
+  #     end
+  #
+  #     def after_destroy(contact)
+  #       contact.logger.warn("Contact with an id of #{contact.id} was destroyed!")
+  #     end
+  #   end
+  #
+  # This Observer uses logger to log when specific callbacks are triggered.
+  #
+  # == Observing a class that can't be inferred
+  #
+  # Observers will by default be mapped to the class with which they share a name. So CommentObserver will
+  # be tied to observing Comment, ProductManagerObserver to ProductManager, and so on. If you want to name your observer
+  # differently than the class you're interested in observing, you can use the Observer.observe class method which takes
+  # either the concrete class (Product) or a symbol for that class (:product):
+  #
+  #   class AuditObserver < ActiveModel::Observer
+  #     observe :account
+  #
+  #     def after_update(account)
+  #       AuditTrail.new(account, "UPDATED")
+  #     end
+  #   end
+  #
+  # If the audit observer needs to watch more than one kind of object, this can be specified with multiple arguments:
+  #
+  #   class AuditObserver < ActiveModel::Observer
+  #     observe :account, :balance
+  #
+  #     def after_update(record)
+  #       AuditTrail.new(record, "UPDATED")
+  #     end
+  #   end
+  #
+  # The AuditObserver will now act on both updates to Account and Balance by treating them both as records.
+  #
   class Observer
     include Singleton
-    attr_writer :observed_classes
 
     class << self
-      attr_accessor :models
       # Attaches the observer to the supplied model classes.
       def observe(*models)
-        @models = models.flatten
-        @models.collect! { |model| model.respond_to?(:to_sym) ? model.to_s.camelize.constantize : model }
+        models.flatten!
+        models.collect! { |model| model.respond_to?(:to_sym) ? model.to_s.camelize.constantize : model }
+        define_method(:observed_classes) { models }
       end
 
-      def observed_class_name
-        @observed_class_name ||= 
-          if guessed_name = name.scan(/(.*)Observer/)[0]
-            @observed_class_name = guessed_name[0]
-          end
+      # Returns an array of Classes to observe.
+      #
+      # You can override this instead of using the +observe+ helper.
+      #
+      #   class AuditObserver < ActiveModel::Observer
+      #     def self.observed_classes
+      #       [AccountObserver, BalanceObserver]
+      #     end
+      #   end
+      def observed_classes
+        Array.wrap(observed_class)
       end
 
       # The class observed by default is inferred from the observer's class name:
-      #   assert_equal [Person], PersonObserver.observed_class
+      #   assert_equal Person, PersonObserver.observed_class
       def observed_class
-        if observed_class_name
+        if observed_class_name = name[/(.*)Observer/, 1]
           observed_class_name.constantize
         else
           nil
@@ -74,8 +181,11 @@ module ActiveModel
 
     # Start observing the declared classes and their subclasses.
     def initialize
-      self.observed_classes = self.class.models if self.class.models
-      observed_classes.each { |klass| klass.add_observer(self) }
+      observed_classes.each { |klass| add_observer!(klass) }
+    end
+
+    def observed_classes #:nodoc:
+      self.class.observed_classes
     end
 
     # Send observed_method(object) if the method exists.
@@ -87,12 +197,12 @@ module ActiveModel
     # Passes the new subclass.
     def observed_class_inherited(subclass) #:nodoc:
       self.class.observe(observed_classes + [subclass])
-      subclass.add_observer(self)
+      add_observer!(subclass)
     end
 
-  protected
-    def observed_classes
-      @observed_classes ||= [self.class.observed_class]
-    end
+    protected
+      def add_observer!(klass) #:nodoc:
+        klass.add_observer(self)
+      end
   end
 end

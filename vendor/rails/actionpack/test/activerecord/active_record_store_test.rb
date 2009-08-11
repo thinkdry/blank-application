@@ -13,6 +13,7 @@ class ActiveRecordStoreTest < ActionController::IntegrationTest
     end
 
     def set_session_value
+      raise "missing session!" unless session
       session[:foo] = params[:foo] || "bar"
       head :ok
     end
@@ -27,9 +28,9 @@ class ActiveRecordStoreTest < ActionController::IntegrationTest
     end
 
     def call_reset_session
-      session[:bar]
+      session[:foo]
       reset_session
-      session[:bar] = "baz"
+      session[:foo] = "baz"
       head :ok
     end
 
@@ -45,23 +46,27 @@ class ActiveRecordStoreTest < ActionController::IntegrationTest
     ActiveRecord::SessionStore.session_class.drop_table!
   end
 
-  def test_setting_and_getting_session_value
-    with_test_route_set do
-      get '/set_session_value'
-      assert_response :success
-      assert cookies['_session_id']
+  %w{ session sql_bypass }.each do |class_name|
+    define_method("test_setting_and_getting_session_value_with_#{class_name}_store") do
+      with_store class_name do
+        with_test_route_set do
+          get '/set_session_value'
+          assert_response :success
+          assert cookies['_session_id']
 
-      get '/get_session_value'
-      assert_response :success
-      assert_equal 'foo: "bar"', response.body
+          get '/get_session_value'
+          assert_response :success
+          assert_equal 'foo: "bar"', response.body
 
-      get '/set_session_value', :foo => "baz"
-      assert_response :success
-      assert cookies['_session_id']
+          get '/set_session_value', :foo => "baz"
+          assert_response :success
+          assert cookies['_session_id']
 
-      get '/get_session_value'
-      assert_response :success
-      assert_equal 'foo: "baz"', response.body
+          get '/get_session_value'
+          assert_response :success
+          assert_equal 'foo: "baz"', response.body
+        end
+      end
     end
   end
 
@@ -86,7 +91,7 @@ class ActiveRecordStoreTest < ActionController::IntegrationTest
 
       get '/get_session_value'
       assert_response :success
-      assert_equal 'foo: nil', response.body
+      assert_equal 'foo: "baz"', response.body
 
       get '/get_session_id'
       assert_response :success
@@ -170,5 +175,12 @@ class ActiveRecordStoreTest < ActionController::IntegrationTest
         end
         yield
       end
+    end
+
+    def with_store(class_name)
+      session_class, ActiveRecord::SessionStore.session_class =
+        ActiveRecord::SessionStore.session_class, "ActiveRecord::SessionStore::#{class_name.camelize}".constantize
+      yield
+      ActiveRecord::SessionStore.session_class = session_class
     end
 end

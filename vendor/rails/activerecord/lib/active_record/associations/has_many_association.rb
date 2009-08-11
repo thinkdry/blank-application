@@ -74,6 +74,7 @@ module ActiveRecord
                 "#{@reflection.primary_key_name} = NULL", 
                 "#{@reflection.primary_key_name} = #{owner_quoted_id} AND #{@reflection.klass.primary_key} IN (#{ids})"
               )
+              @owner.class.update_counters(@owner.id, cached_counter_attribute_name => -records.size) if has_cached_counter?
           end
         end
 
@@ -97,15 +98,7 @@ module ActiveRecord
               @finder_sql << " AND (#{conditions})" if conditions
           end
 
-          if @reflection.options[:counter_sql]
-            @counter_sql = interpolate_sql(@reflection.options[:counter_sql])
-          elsif @reflection.options[:finder_sql]
-            # replace the SELECT clause with COUNT(*), preserving any hints within /* ... */
-            @reflection.options[:counter_sql] = @reflection.options[:finder_sql].sub(/SELECT (\/\*.*?\*\/ )?(.*)\bFROM\b/im) { "SELECT #{$1}COUNT(*) FROM" }
-            @counter_sql = interpolate_sql(@reflection.options[:counter_sql])
-          else
-            @counter_sql = @finder_sql
-          end
+          construct_counter_sql
         end
 
         def construct_scope
@@ -115,6 +108,11 @@ module ActiveRecord
             :find => { :conditions => @finder_sql, :readonly => false, :order => @reflection.options[:order], :limit => @reflection.options[:limit], :include => @reflection.options[:include]},
             :create => create_scoping
           }
+        end
+
+        def we_can_set_the_inverse_on_this?(record)
+          inverse = @reflection.inverse_of
+          return !inverse.nil?
         end
     end
   end

@@ -21,18 +21,19 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #++
 
+activesupport_path = "#{File.dirname(__FILE__)}/../../activesupport/lib"
+$:.unshift(activesupport_path) if File.directory?(activesupport_path)
+require 'active_support'
+
 begin
-  require 'active_support'
+  require 'active_model'
 rescue LoadError
-  activesupport_path = "#{File.dirname(__FILE__)}/../../activesupport/lib"
-  if File.directory?(activesupport_path)
-    $:.unshift activesupport_path
-    require 'active_support'
-  end
+  $:.unshift "#{File.dirname(__FILE__)}/../../activemodel/lib"
+  require 'active_model'  
 end
 
 module ActiveRecord
-  # TODO: Review explicit loads to see if they will automatically be handled by the initilizer.
+  # TODO: Review explicit loads to see if they will automatically be handled by the initializer.
   def self.load_all!
     [Base, DynamicFinderMatch, ConnectionAdapters::AbstractAdapter]
   end
@@ -51,24 +52,35 @@ module ActiveRecord
   autoload :Batches, 'active_record/batches'
   autoload :Calculations, 'active_record/calculations'
   autoload :Callbacks, 'active_record/callbacks'
-  autoload :Dirty, 'active_record/dirty'
   autoload :DynamicFinderMatch, 'active_record/dynamic_finder_match'
   autoload :DynamicScopeMatch, 'active_record/dynamic_scope_match'
   autoload :Migration, 'active_record/migration'
   autoload :Migrator, 'active_record/migration'
   autoload :NamedScope, 'active_record/named_scope'
   autoload :NestedAttributes, 'active_record/nested_attributes'
-  autoload :Observing, 'active_record/observer'
+  autoload :Observer, 'active_record/observer'
   autoload :QueryCache, 'active_record/query_cache'
   autoload :Reflection, 'active_record/reflection'
   autoload :Schema, 'active_record/schema'
   autoload :SchemaDumper, 'active_record/schema_dumper'
   autoload :Serialization, 'active_record/serialization'
   autoload :SessionStore, 'active_record/session_store'
+  autoload :StateMachine, 'active_record/state_machine'
   autoload :TestCase, 'active_record/test_case'
   autoload :Timestamp, 'active_record/timestamp'
   autoload :Transactions, 'active_record/transactions'
+  autoload :Validator, 'active_record/validator'
   autoload :Validations, 'active_record/validations'
+
+  module AttributeMethods
+    autoload :BeforeTypeCast, 'active_record/attribute_methods/before_type_cast'
+    autoload :Dirty, 'active_record/attribute_methods/dirty'
+    autoload :PrimaryKey, 'active_record/attribute_methods/primary_key'
+    autoload :Query, 'active_record/attribute_methods/query'
+    autoload :Read, 'active_record/attribute_methods/read'
+    autoload :TimeZoneConversion, 'active_record/attribute_methods/time_zone_conversion'
+    autoload :Write, 'active_record/attribute_methods/write'
+  end
 
   module Locking
     autoload :Optimistic, 'active_record/locking/optimistic'
@@ -80,5 +92,4 @@ module ActiveRecord
   end
 end
 
-require 'active_record/i18n_interpolation_deprecation'
 I18n.load_path << File.dirname(__FILE__) + '/active_record/locale/en.yml'

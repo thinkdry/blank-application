@@ -1,11 +1,17 @@
 require 'abstract_unit'
 require 'testing_sandbox'
+begin
+  require 'redcloth'
+rescue LoadError
+  $stderr.puts "Skipping textilize tests. `gem install RedCloth` to enable."
+end
 
 class TextHelperTest < ActionView::TestCase
   tests ActionView::Helpers::TextHelper
   include TestingSandbox
 
   def setup
+    super
     # This simulates the fact that instance variables are reset every time
     # a view is rendered.  The cycle helper depends on this behavior.
     @_cycles = nil if (defined? @_cycles)
@@ -48,6 +54,9 @@ class TextHelperTest < ActionView::TestCase
     assert_equal "This is a string that wil[...]", truncate("This is a string that will go longer then the default truncate length of 30", :omission => "[...]")
     assert_equal "Hello W...", truncate("Hello World!", :length => 10)
     assert_equal "Hello[...]", truncate("Hello World!", :omission => "[...]", :length => 10)
+    assert_equal "Hello[...]", truncate("Hello Big World!", :omission => "[...]", :length => 13, :separator => ' ')
+    assert_equal "Hello Big[...]", truncate("Hello Big World!", :omission => "[...]", :length => 14, :separator => ' ')
+    assert_equal "Hello Big[...]", truncate("Hello Big World!", :omission => "[...]", :length => 15, :separator => ' ')
   end
 
   if RUBY_VERSION < '1.9.0'
@@ -400,6 +409,13 @@ class TextHelperTest < ActionView::TestCase
       auto_link("Welcome to my new blog at http://www.myblog.com/. Please e-mail me at me@email.com.",
                 :link => :all, :html => { :class => "menu", :target => "_blank" })
   end
+  
+  def test_auto_link_with_multiple_trailing_punctuations
+    url = "http://youtube.com"
+    url_result = generate_result(url)
+    assert_equal url_result, auto_link(url)
+    assert_equal "(link: #{url_result}).", auto_link("(link: #{url}).")
+  end
 
   def test_cycle_class
     value = Cycle.new("one", 2, "3")
@@ -516,5 +532,23 @@ class TextHelperTest < ActionView::TestCase
     assert_equal("blue", cycle("red", "blue"))
     assert_equal("red", cycle("red", "blue"))
     assert_equal(%w{Specialized Fuji Giant}, @cycles)
+  end
+
+  if defined? RedCloth
+    def test_textilize
+      assert_equal("<p><strong>This is Textile!</strong>  Rejoice!</p>", textilize("*This is Textile!*  Rejoice!"))
+    end
+
+    def test_textilize_with_blank
+      assert_equal("", textilize(""))
+    end
+
+    def test_textilize_with_options
+      assert_equal("<p>This is worded &lt;strong&gt;strongly&lt;/strong&gt;</p>", textilize("This is worded <strong>strongly</strong>", :filter_html))
+    end
+
+    def test_textilize_with_hard_breaks
+      assert_equal("<p>This is one scary world.<br />\n True.</p>", textilize("This is one scary world.\n True."))
+    end
   end
 end

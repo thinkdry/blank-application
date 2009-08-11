@@ -12,7 +12,7 @@ module ActiveSupport
     #   and MemCacheStore will load balance between all available servers. If a
     #   server goes down, then MemCacheStore will ignore it until it goes back
     #   online.
-    # - Time-based expiry support. See #write and the +:expires_in+ option.
+    # - Time-based expiry support. See #write and the <tt>:expires_in</tt> option.
     # - Per-request in memory cache for all communication with the MemCache server(s).
     class MemCacheStore < Store
       module Response # :nodoc:
@@ -23,7 +23,12 @@ module ActiveSupport
         DELETED     = "DELETED\r\n"
       end
 
-      attr_reader :addresses
+      def self.build_mem_cache(*addresses)
+        addresses = addresses.flatten
+        options = addresses.extract_options!
+        addresses = ["localhost"] if addresses.empty?
+        MemCache.new(addresses, options)
+      end
 
       # Creates a new MemCacheStore object, with the given memcached server
       # addresses. Each address is either a host name, or a host-with-port string
@@ -34,13 +39,18 @@ module ActiveSupport
       # If no addresses are specified, then MemCacheStore will connect to
       # localhost port 11211 (the default memcached port).
       def initialize(*addresses)
-        addresses = addresses.flatten
-        options = addresses.extract_options!
-        addresses = ["localhost"] if addresses.empty?
-        @addresses = addresses
-        @data = MemCache.new(addresses, options)
+        if addresses.first.respond_to?(:get)
+          @data = addresses.first
+        else
+          @data = self.class.build_mem_cache(*addresses)
+        end
 
         extend Strategy::LocalCache
+      end
+
+      # Reads multiple keys from the cache.
+      def read_multi(*keys)
+        @data.get_multi keys
       end
 
       def read(key, options = nil) # :nodoc:
@@ -54,9 +64,9 @@ module ActiveSupport
       # Writes a value to the cache.
       #
       # Possible options:
-      # - +:unless_exist+ - set to true if you don't want to update the cache
+      # - <tt>:unless_exist</tt> - set to true if you don't want to update the cache
       #   if the key is already set.
-      # - +:expires_in+ - the number of seconds that this value may stay in
+      # - <tt>:expires_in</tt> - the number of seconds that this value may stay in
       #   the cache. See ActiveSupport::Cache::Store#write for an example.
       def write(key, value, options = nil)
         super
@@ -120,10 +130,6 @@ module ActiveSupport
       end
 
       private
-        def expires_in(options)
-          (options && options[:expires_in]) || 0
-        end
-
         def raw?(options)
           options && options[:raw]
         end

@@ -119,6 +119,7 @@ XML
   end
 
   def setup
+    super
     @controller = TestController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
@@ -127,6 +128,7 @@ XML
   end
 
   def teardown
+    super
     ActionController::Routing::Routes.reload
   end
 
@@ -182,12 +184,6 @@ XML
     assert_equal Hash.new, @controller.session.to_hash
   end
 
-  def test_session_is_cleared_from_response_after_reset_session
-    process :set_session
-    process :reset_the_session
-    assert_equal Hash.new, @response.session.to_hash
-  end
-
   def test_session_is_cleared_from_request_after_reset_session
     process :set_session
     process :reset_the_session
@@ -205,7 +201,7 @@ XML
   end
 
   def test_process_with_request_uri_with_params_with_explicit_uri
-    @request.set_REQUEST_URI "/explicit/uri"
+    @request.request_uri = "/explicit/uri"
     process :test_uri, :id => 7
     assert_equal "/explicit/uri", @response.body
   end
@@ -216,7 +212,7 @@ XML
   end
 
   def test_process_with_query_string_with_explicit_uri
-    @request.set_REQUEST_URI "/explicit/uri?q=test?extra=question"
+    @request.request_uri = "/explicit/uri?q=test?extra=question"
     process :test_query_string
     assert_equal "q=test?extra=question", @response.body
   end
@@ -515,6 +511,14 @@ XML
     assert_nil @request.instance_variable_get("@request_method")
   end
 
+  def test_params_reset_after_post_request
+    post :no_op, :foo => "bar"
+    assert_equal "bar", @request.params[:foo]
+    @request.recycle!
+    post :no_op
+    assert @request.params[:foo].blank?
+  end
+
   %w(controller response request).each do |variable|
     %w(get post put delete head process).each do |method|
       define_method("test_#{variable}_missing_for_#{method}_raises_error") do
@@ -610,7 +614,9 @@ XML
 
   def test_binary_content_works_with_send_file
     get :test_send_file
-    assert_nothing_raised(NoMethodError) { @response.binary_content }
+    assert_deprecated do
+      assert_nothing_raised(NoMethodError) { @response.binary_content }
+    end
   end
 
   protected
@@ -623,33 +629,6 @@ XML
         yield set
       end
     end
-end
-
-class CleanBacktraceTest < ActionController::TestCase
-  def test_should_reraise_the_same_object
-    exception = ActiveSupport::TestCase::Assertion.new('message')
-    clean_backtrace { raise exception }
-  rescue Exception => caught
-    assert_equal exception.object_id, caught.object_id
-    assert_equal exception.message, caught.message
-  end
-
-  def test_should_clean_assertion_lines_from_backtrace
-    path = File.expand_path("#{File.dirname(__FILE__)}/../../lib/action_controller")
-    exception = ActiveSupport::TestCase::Assertion.new('message')
-    exception.set_backtrace ["#{path}/abc", "#{path}/assertions/def"]
-    clean_backtrace { raise exception }
-  rescue Exception => caught
-    assert_equal ["#{path}/abc"], caught.backtrace
-  end
-
-  def test_should_only_clean_assertion_failure_errors
-    clean_backtrace do
-      raise "can't touch this", [File.expand_path("#{File.dirname(__FILE__)}/../../lib/action_controller/assertions/abc")]
-    end
-  rescue => caught
-    assert !caught.backtrace.empty?
-  end
 end
 
 class InferringClassNameTest < ActionController::TestCase

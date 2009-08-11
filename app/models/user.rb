@@ -101,7 +101,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of   :login,     :case_sensitive => false, :on => :create
 	validates_uniqueness_of   :email,    :case_sensitive => false, :on => :create
 	# Validation of the length of these attributes
-  validates_length_of       :login,     :within => 4..40
+  validates_length_of       :login,     :within => 3..40
 	validates_length_of       :email,    :within => 6..100
 	# Validation of the format of these fields
   validates_format_of       :login,    :with => /\A[0-9A-Za-z_-]+\z/

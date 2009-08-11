@@ -1,4 +1,5 @@
 require 'abstract_unit'
+require 'logger'
 
 class Address
   def Address.count(conditions = nil, join = nil)
@@ -23,6 +24,7 @@ class AddressesTest < ActionController::TestCase
   tests AddressesTestController
 
   def setup
+    super
     # enable a logger so that (e.g.) the benchmarking stuff runs, so we can get
     # a more accurate simulation of what happens in "real life".
     @controller.logger = Logger.new(nil)

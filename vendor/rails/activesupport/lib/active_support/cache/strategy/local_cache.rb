@@ -1,3 +1,5 @@
+require 'active_support/core_ext/object/duplicable'
+
 module ActiveSupport
   module Cache
     module Strategy
@@ -27,6 +29,11 @@ module ActiveSupport
                 Thread.current[:#{thread_local_key}] = nil
               end
             EOS
+
+            def klass.to_s
+              "ActiveSupport::Cache::Strategy::LocalCache"
+            end
+
             klass
           end
         end
@@ -38,7 +45,7 @@ module ActiveSupport
           elsif value.nil?
             value = super
             local_cache.write(key, value || NULL) if local_cache
-            value
+            value.duplicable? ? value.dup : value
           else
             # forcing the value to be immutable
             value.duplicable? ? value.dup : value
