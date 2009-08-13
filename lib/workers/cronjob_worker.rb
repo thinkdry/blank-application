@@ -16,10 +16,12 @@ class CronjobWorker < BackgrounDRb::MetaWorker
     logger.info "Updating Feed Sources"
     FeedSource.all.each do |s|
       s.import_latest_items
+    logger.info "Removing Expired Feed Items"
+      s.remove_expired_feed_items
     end
     logger.info "Updated Feed sources"
   end
-
+  
   # Method to Update Xapian Indexes
   def update_xapian_index
     logger.info "Updating Xapian Indexes"

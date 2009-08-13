@@ -109,6 +109,32 @@
                       //]]>
                     </script>
 	</li>
+    <li>
+    	<%= link_to_remote image_tag ('/images/icons/cron.jpg'),
+							:html => { :id => 'cron', :class => params[:part] == 'cron' ? 'active' : '' },
+							:before => "selectTab('cron')",
+							:update => 'top_box',
+							:url => superadministration_path(:part => 'cron') %>
+		<div id="cron_tip" style="display:none;" class="tipTitle">Cron Task Manager</div>
+		<script type='text/javascript'>
+                      //<![CDATA[
+                        new Tip('cron',  $('cron_tip'),
+                            { effect: 'appear',
+                              duration: 1,
+                              delay:0,
+                              hook: { target: 'topMiddle', tip: 'bottomMiddle' },
+                              hideOn: { element: 'tip', event: 'mouseout' },
+                              stem: 'bottomMiddle',
+                              hideOthers: 'true',
+                              hideAfter: 1,
+                              width: 'auto',
+                              border: 1,
+                              offset: { x: 0, y: 3 },
+                              radius: 0
+                            });
+                      //]]>
+                    </script>
+	</li>
 </ul>
 
 <div id="top_content">

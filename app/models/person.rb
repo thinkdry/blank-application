@@ -44,7 +44,7 @@ class Person < ActiveRecord::Base
   # Validation of the presence of this attribute
   validates_presence_of :email
 	# Validationof the size of this attribute
-  validates_length_of :email, :within => 6..100
+  validates_length_of :email, :within => 10..40
 	# Validation of the format of this attribute
   validates_format_of :email, :with => RE_EMAIL_OK
 
@@ -76,7 +76,6 @@ class Person < ActiveRecord::Base
   # Usage :
   # <tt>person.validate_uniqueness_of_email</tt>
   def validate_uniqueness_of_email
-    Person.exists?(:email=>self.email,:user_id => self.user_id)
     if Person.exists?(:email=>self.email,:user_id => self.user_id)
       self.errors.add(:email, :taken)
       return false

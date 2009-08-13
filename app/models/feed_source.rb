@@ -48,7 +48,7 @@ class FeedSource < ActiveRecord::Base
   # Method defined in the ActsAsItem:ModelMethods:ClassMethods (see that library fro more information)
   acts_as_item
   # Relation 1-N with the 'feed_sources' table
-	has_many :feed_items , :dependent => :delete_all
+	has_many :feed_items , :order => "date_published DESC", :dependent => :delete_all
   # Validation of the presence of the 'url' field
   validates_presence_of :url
 	# Validation of the format of the 'url' field
@@ -102,30 +102,41 @@ class FeedSource < ActiveRecord::Base
     end
   end
 
-	# To implement
-	#
-	#
-  def self.update_existing_feeds
-    @feeds = FeedSource.all
-    @feeds.each do |feed|
-      updated_feed = Feedzirra::Feed.update(feed)
-      if updated_feed.updated?
-        updated_feed.new_entries.each do |item|
-          if self.feed_items.count(:conditions => { :guid => item.id, :feed_source_id => self.id }) <= 0
-            FeedItem.create({
-                :feed_source_id => self.id,
-                :guid						=> item.id,
-                :title					=> item.title,
-                :description		=> item.summary,
-                :authors				=> item.author,
-                :date_published => item.published,
-                :categories			=> item.categories.join(','),
-                :link           => item.url})
-          end
-        end
+  def remove_expired_feed_items
+    p "Inside expire feed"
+    feed_items = self.feed_items.find(:all,:limit => 150)
+    if feed_items && feed_items.size == 150
+      self.feed_items.find(:all, :conditions => ["date_published < ?", feed_items.last.date_published]).each do |feed|
+        logger.info "Removing Feed Item with id #{feed.id}"
+        feed.destroy
       end
     end
   end
+
+	# To implement
+	#
+	#
+  #  def update_existing_feeds
+  #    @feeds = FeedSource.all
+  #    @feeds.each do |feed|
+  #      updated_feed = Feedzirra::Feed.update(feed)
+  #      if updated_feed.updated?
+  #        updated_feed.new_entries.each do |item|
+  #          if self.feed_items.count(:conditions => { :guid => item.id, :feed_source_id => self.id }) <= 0
+  #            FeedItem.create({
+  #                :feed_source_id => self.id,
+  #                :guid						=> item.id,
+  #                :title					=> item.title,
+  #                :description		=> item.summary,
+  #                :authors				=> item.author,
+  #                :date_published => item.published,
+  #                :categories			=> item.categories.join(','),
+  #                :link           => item.url})
+  #          end
+  #        end
+  #      end
+  #    end
+  #  end
 
   
 end

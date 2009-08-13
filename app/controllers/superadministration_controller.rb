@@ -23,6 +23,8 @@ class SuperadministrationController < ApplicationController
       @roles = Role.all
       @workspace_roles = Role.find(:all, :conditions => {:type_role => "workspace"})
       @system_roles = Role.find(:all, :conditions => {:type_role => "system"})
+    elsif params[:part] == 'cron'
+      
     else
       flash[:notice] = "Unexisting section"
       redirect_to '/'
@@ -183,6 +185,21 @@ class SuperadministrationController < ApplicationController
 		end
 		redirect_to '/superadministration/translations'
 	end
+
+  def cron_task
+    if params[:job] == 'xapian'
+      MiddleMan.worker(:cronjob_worker).update_xapian_index
+    end
+    if params[:job] == 'feeds'
+      MiddleMan.worker(:cronjob_worker).update_feed_source
+    end
+    if params[:job] == 'newsletter'
+      MiddleMan.worker(:cronjob_worker).send_newsletter
+    end
+    render :update do |page|
+      page.call 'alert', "#{params[:job]} Updated Sucessfully"
+    end
+  end
 
 
   private
