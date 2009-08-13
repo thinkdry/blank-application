@@ -62,10 +62,10 @@ class User < ActiveRecord::Base
 	# Relation N-1 getting workspace Role objects through the 'users_workspaces' table
   has_many :workspace_roles, :through => :users_workspaces, :source => :role
 	# Relation N-1 with the different item type objects tables
-	# TODO removed this relation, access to items is done through workspaces
-	ITEMS.each do |item|
-		has_many item.pluralize.to_sym
-	end
+#	# TODO removed this relation, access to items is done through workspaces
+#	ITEMS.each do |item|
+#		has_many item.pluralize.to_sym
+#	end
 	# Relation N-1 with the 'rattings' table
   has_many :rattings
 	# Relation N-1 with the 'comments' table
@@ -104,7 +104,7 @@ class User < ActiveRecord::Base
   validates_length_of       :login,     :within => 3..40
 	validates_length_of       :email,    :within => 6..40
 	# Validation of the format of these fields
-  validates_format_of       :login,     :with => /\A[a-z_-]+\z/
+  validates_format_of       :login,    :with => /\A[0-9A-Za-z_-]+\z/
   validates_format_of       :email,    :with => RE_EMAIL_OK
   validates_format_of       :firstname, :lastname, :company, :with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL})+\Z/, :allow_blank => true
   validates_format_of       :address, :with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL}|#{NUM})+\Z/, :allow_blank => true

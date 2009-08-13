@@ -24,7 +24,7 @@ module ItemsHelper
     div_id = "rating_#{object.class.to_s.underscore}_#{object.id}_#{rand(1000)}"
     content_tag(:div, nil, { :id => div_id, :class => :rating }) +
       javascript_tag(%{
-			new Starbox("#{div_id}", #{object.rating}, #{params_to_js_hash});
+			new Starbox("#{div_id}", #{object.rates_average}, #{params_to_js_hash});
       })
   end
 

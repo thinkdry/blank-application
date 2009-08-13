@@ -64,12 +64,12 @@ class GenericItem < ActiveRecord::Base
 
   # 5 Most Commented Items
   named_scope :most_commented,
-    :order => 'generic_items.number_of_comments DESC',
+    :order => 'generic_items.comments_number DESC',
     :limit => 5
 
   # 5 Best Rated Items
   named_scope :best_rated,
-    :order => 'generic_items.average_rate DESC',
+    :order => 'generic_items.rates_average DESC',
     :limit => 5
    # 5 latest Items
   named_scope :latest,
@@ -80,9 +80,9 @@ class GenericItem < ActiveRecord::Base
     :order => 'generic_items.created_at DESC'
   # Latest Commented
   named_scope :commented,
-    :order => 'generic_items.number_of_comments DESC'
+    :order => 'generic_items.comments_number DESC'
   # Latest Rated
   named_scope :rated,
-    :order => 'generic_items.average_rate DESC'
+    :order => 'generic_items.rates_average DESC'
 	
 end

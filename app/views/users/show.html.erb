@@ -25,9 +25,18 @@
     </p>
     <p><%= @current_object.edito %></p>
   </div>
+  <div class="clear"></div>
+  <% if @current_object.activation_code.to_s.length > 15 and current_user.has_system_role('admin') %>
+    <form action="<%= resend_activation_mail_or_activate_manually_user_path(@current_object.activation_code) %>" method="post" >
+      <input type="submit" name="resend_activation_mail" value="Resend activation mail" />
+      <input type="submit" name="activate_manually" value="Activate manually" />
+    </form>
+  <% end %>
 </div>
 
-<%= render :partial => 'workspaces' %>
+
+
+<%= render :partial => 'workspaces', :object => @current_object %>
 
 <div class="clear"></div>
 

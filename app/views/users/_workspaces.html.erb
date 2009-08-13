@@ -1,14 +1,16 @@
-<div>
-  <h1><%= I18n.t('home.index.title')%></h1>
-  <% @current_user.workspace_roles.uniq.each do |r| %>
-    <h4><%= I18n.t('general.common_word.role') + ' \'' + I18n.t('general.role.'+r.name) + '\''%></h4>
-    <%#= links_to_workspace_collection(Workspace.allowed_for_user_with_(@current_user, )) || '- ' +I18n.t('general.common_word.none')+' -' %>
-    <ul>
-      <% Workspace.allowed_user_with_ws_role(@current_user.id, r.name).each do |ws| -%>
-        <li>
-          <%= link_to ws.title, workspace_path(ws.id) %>
-        </li>
-      <% end -%>
-    </ul>
-  <% end %>
-</div>
+<% if ws_roles = object.workspace_roles.uniq and !ws_roles.empty? %>
+  <div>
+    <h1><%= I18n.t('home.index.title')%></h1>
+    <% ws_roles.each do |r| %>
+      <h4><%= I18n.t('general.common_word.role') + ' \'' + I18n.t('general.role.'+r.name) + '\''%></h4>
+      <%#= links_to_workspace_collection(Workspace.allowed_for_user_with_(@current_user, )) || '- ' +I18n.t('general.common_word.none')+' -' %>
+      <ul>
+        <% Workspace.allowed_user_with_ws_role(object.id, r.name).each do |ws| -%>
+          <li>
+            <%= link_to ws.title, workspace_path(ws.id) %>
+          </li>
+        <% end -%>
+      </ul>
+    <% end %>
+  </div>
+<% end %>

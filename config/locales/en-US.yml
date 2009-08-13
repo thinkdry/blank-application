@@ -132,7 +132,7 @@ en-US:
             avatar: 
               content_type: Image is not one of the allowed file types.
             login: 
-              invalid: "{{attribute}} invalid: can take only letters."
+              invalid: "The '{{attribute}}' field can take only alpha-numeric characters."
     menu: 
       add: Add
       add_help: This menu helps you to add content

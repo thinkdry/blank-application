@@ -21,7 +21,8 @@ namespace :blank do
 
 	desc "Initializing Blank Engine"
 	task :init => :environment do
-		Rake::Task['captcha:generate'].invoke
+		system("rake captcha:generate COUNT=10")
+		#Rake::Task['captcha:generate'].invoke
 	end
 
 	desc "Initializing Blank Engine"
@@ -247,6 +248,40 @@ namespace :blank do
       Element.create(:name => "clicked", :bgcolor => "#FF9933", :template => "current")
     end
     p "Done"
+  end
+
+  desc "To Recreate generic_items view"
+  task :recreate_generic_items_view => :environment do
+    puts "Recreating generic_items view...."
+    subqueries = Array.new
+    ITEMS.map{ |item| item.to_sym }.each do |model|
+      table_name = model.to_s.pluralize
+      model_name = model.to_s.classify
+      subqueries << %{
+        SELECT
+          '#{model_name}' as item_type,
+          id,
+          user_id,
+          ( SELECT CONCAT_WS(' ', users.login, users.firstname, users.lastname)
+            FROM users
+            WHERE users.id = #{table_name}.user_id
+          ) as user_name,
+          title,
+          description,
+          created_at,
+          updated_at,
+          comments_number,
+          ( SELECT GROUP_CONCAT(workspaces.title)
+            FROM items, workspaces
+            WHERE
+              #{table_name}.id = items.itemable_id AND
+              items.itemable_type = '#{model_name}' AND
+              workspaces.id = items.workspace_id
+          ) AS workspace_titles,
+          rates_average
+        FROM #{table_name} }
+    end
+    ActiveRecord::Base.connection.execute("CREATE OR REPLACE VIEW generic_items AS #{subqueries.join(' UNION ALL ')}".tr_s(" \n", ' '))
   end
 
   namespace :maintaining do

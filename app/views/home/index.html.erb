@@ -2,7 +2,7 @@
   <%= render :partial => "items/top_box" %>
 </div>
 <div class="area_LEFT">
-	<%= render :partial => 'users/workspaces' %>
+	<%= render :partial => 'users/workspaces', :object => @current_user %>
 </div>
 <div class="clear"></div>
 <%= render :partial => "latest" %>

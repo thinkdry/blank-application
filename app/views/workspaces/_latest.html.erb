@@ -10,8 +10,8 @@
 						<p><%= link_to_user(item.user) %></p>
 						<p><%= I18n.l item.created_at, :format => :long %></p>
 						<p>
-							<%= item.comments.count%>
-						  	<%= item.comments.count > 1 ? I18n.t("item.common_word.comment").pluralize : I18n.t("item.common_word.comment")%>
+							<%= item.comments_number%>
+						  	<%= item.comments_number > 1 ? I18n.t("item.common_word.comment").pluralize : I18n.t("item.common_word.comment")%>
 						</p>
 						<p><%= item_rate_locked(item) %></p>
 						<p class="description_tip"><%= item.description%></p>
