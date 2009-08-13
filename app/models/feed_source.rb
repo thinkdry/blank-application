@@ -52,7 +52,7 @@ class FeedSource < ActiveRecord::Base
   # Validation of the presence of the 'url' field
   validates_presence_of :url
 	# Validation of the format of the 'url' field
-	validates_format_of :url, :with => /#{URL}/ix, :message=> "The format of the url is not valid."
+	validates_format_of :url, :with => /#{URL}/ix
 
   # Check if the given url is a valid rss/xml feed
 	#

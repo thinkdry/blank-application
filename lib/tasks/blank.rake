@@ -271,13 +271,6 @@ namespace :blank do
           created_at,
           updated_at,
           comments_number,
-          ( SELECT GROUP_CONCAT(workspaces.title)
-            FROM items, workspaces
-            WHERE
-              #{table_name}.id = items.itemable_id AND
-              items.itemable_type = '#{model_name}' AND
-              workspaces.id = items.workspace_id
-          ) AS workspace_titles,
           rates_average
         FROM #{table_name} }
     end

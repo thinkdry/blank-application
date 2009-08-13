@@ -9,7 +9,7 @@
     <div class="file_infos_box">
       <p><%= link_to_user object.user %></p>
       <p><%= I18n.l object.created_at, :format =>:long %></p>
-      <p><%= object.comments.size %> <%= object.comments.count > 1 ? I18n.t("item.common_word.comment").pluralize : I18n.t("item.common_word.comment")%></p>
+      <p><%= object.comments_number %> <%= object.comments_number > 1 ? I18n.t("item.common_word.comment").pluralize : I18n.t("item.common_word.comment")%></p>
       <p><%= item_rate_locked(object) %></p>
       <p>
         <%= I18n.t("item.show.associated_workspace") %><br/>

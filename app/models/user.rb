@@ -107,17 +107,24 @@ class User < ActiveRecord::Base
   validates_format_of       :login,    :with => /\A[0-9A-Za-z_-]+\z/
   validates_format_of       :email,    :with => RE_EMAIL_OK
   validates_format_of       :firstname, :lastname, :company, :with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL})+\Z/, :allow_blank => true
-  validates_format_of       :address, :with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL}|#{NUM})+\Z/, :allow_blank => true
+#  validates_format_of       :address, :with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL}|#{NUM})+\Z/, :allow_blank => true
   validates_format_of       :phone,  :mobile, :with => /\A(#{NUM}){10}\Z/, :allow_blank => true
 
   # Encrypt the password before storing in the database
-	before_save :encrypt_password
+	before_save :encrypt_password, :remove_scripting_tags
   # Create the activation code before creating the user for email activation
   before_create :make_activation_code
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
   attr_accessible :login, :email, :password, :password_confirmation, :firstname, :lastname, :address, :company, :phone, :mobile, :activity, :nationality,:edito, :avatar, :newsletter, :system_role_id, :last_connected_at, :u_layout, :u_language, :u_per_page, :date_of_birth, :gender, :salutation
+
+  # remove script tags like javascript/html tags
+  def remove_scripting_tags
+    self.address = ActionController::Base.helpers.strip_tags(self.address)
+    self.edito = ActionController::Base.helpers.strip_tags(self.edito)
+    self.activity = ActionController::Base.helpers.strip_tags(self.activity)
+  end
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   #

@@ -39,5 +39,14 @@ class Bookmark < ActiveRecord::Base
 	acts_as_item
 	# Validation of the presence of the 'link' field
   validates_presence_of :link
+  validates_format_of   :link, :with => /#{URL}/ix
+
+  before_save :remove_scripting_tags
+  
+  # remove script tags like javascript/html tags
+  def remove_scripting_tags
+    self.copyright = ActionController::Base.helpers.strip_tags(self.copyright)
+    self.categories = ActionController::Base.helpers.strip_tags(self.categories)
+  end
 
 end

@@ -38,6 +38,8 @@ module ActsAsItem
         # Valdation of the fact that the item is associated to one or more workspaces throught items table
         validates_presence_of :items, :message => "Sélectionner au moins un espace de travail"
 
+        before_save :remove_scripting_tags
+
 				# Retrieve the results matching with Xapian indewes and ordered by weight
 				named_scope :full_text_with_xapian,
 					lambda { |text| { :conditions => ["#{self.class_name.underscore.pluralize}.id in (?)", ActsAsXapian::Search.new([self.class_name.classify.constantize], text, :limit => 100000).results.sort{ |x, y| x[:weight] <=> y[:weight]}.collect{|x| x[:model].id}] } }
@@ -185,7 +187,6 @@ module ActsAsItem
     end
 
     module InstanceMethods
-
       # List Workspace Title's to which the Item is Associated
       #
       # Usage:
@@ -294,6 +295,12 @@ module ActsAsItem
 			def accepts_tag_for?(user)
 				return accepting_action(user, 'tag')
 			end
+
+      # will remove javascript/html tags from title and description
+      def remove_scripting_tags
+        self.title = ActionController::Base.helpers.strip_tags(self.title)
+        self.description =  ActionController::Base.helpers.strip_tags(self.description)
+      end
 
 			private
 			def get_sa_config

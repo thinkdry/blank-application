@@ -1,7 +1,7 @@
 <fieldset>
   <legend><%= image_tag(@current_object.avatar.url(:thumb), :class => "avatar")%><%=I18n.t('user.new.title')%></legend>
 
-  <% form_for @current_object,:builder => BlankFormBuilder, :html => {:multipart=> true} do |f| -%>
+  <% form_for @current_object,:builder => BlankFormBuilder, :html => {:multipart=> true } do |f| -%>
     <%= f.text_field :login, :label => I18n.t('user.field.login_label')+" * : ", :hint => I18n.t('user.field.login_hint') %>
     <%= f.text_field :email, :label => I18n.t('user.field.email_label')+" * : " %>
     <% if @current_object.new_record? %>
@@ -59,7 +59,7 @@
       <% end %>
     <% end %>
     <% button_text = current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update') %>
-    <button type="submit" class="submit_button"><%= button_text%></button>
+    <button type="submit" class="submit_button" ><%= button_text%></button>
   <% end %>
 
 </fieldset>
