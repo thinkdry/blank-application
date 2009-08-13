@@ -1,19 +1,19 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe HomeController do
-
+#describe HomeController do
+#
 #  describe "responding to GET index" do
 #    fixtures :users
 #
 #    before(:each) do
-#      controller.send(:current_user=, users(:luc))
-#      get :index
+#      @current_user = users(:luc)
+#      get 'index'
 #    end
 #
 #    it "should assigns latest_items" do
-#      assigns[:latest_items].should_not be_nil
+#      assigns[:latest_users].should_not be_nil
 #    end
-#
+
 #    it "should assigns latest_users" do
 #      assigns[:latest_users].should_not be_nil
 #    end
@@ -48,6 +48,6 @@ describe HomeController do
 #
 #    end
     
- # end
+# end
   
-end
+#end

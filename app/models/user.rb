@@ -102,7 +102,7 @@ class User < ActiveRecord::Base
 	validates_uniqueness_of   :email,    :case_sensitive => false, :on => :create
 	# Validation of the length of these attributes
   validates_length_of       :login,     :within => 3..40
-	validates_length_of       :email,    :within => 6..100
+	validates_length_of       :email,    :within => 6..40
 	# Validation of the format of these fields
   validates_format_of       :login,     :with => /\A[a-z_-]+\z/
   validates_format_of       :email,    :with => RE_EMAIL_OK

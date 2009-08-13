@@ -45,7 +45,7 @@ require File.expand_path(File.dirname(__FILE__) + '/items_spec_helper')
 describe User do
   fixtures :roles, :permissions,:permissions_roles, :users, :workspaces, :users_workspaces
 
-  def user
+  def object
     User.new
   end
 
@@ -68,7 +68,7 @@ describe User do
   end
 
   before(:each) do
-    @user = user
+    @user = object
   end
 
   it "should be valid" do
@@ -235,14 +235,6 @@ describe User do
       }
     end
 
-    it "has many members_in" do
-      User.reflect_on_association(:member_in).to_hash.should == {
-        :macro => :has_many,
-        :options => {:through => :groupings, :source => :group,:extend=>[]},
-        :class_name => "MemberIn"
-      }
-    end
-
     it "has many people" do
       User.reflect_on_association(:people).to_hash.should == {
         :macro => :has_many,
@@ -296,7 +288,7 @@ describe User do
     
     it "should return full name" do
       @user = users(:peter)
-      @user.full_name.should == 'parker peter'
+      @user.full_name.strip.should == 'parker peter'
     end
 
   end
