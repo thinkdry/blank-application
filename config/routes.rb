@@ -62,6 +62,7 @@ ActionController::Routing::Routes.draw do |map|
 	map.language_switching_superadministration 'superadministration/language_switching', :controller => 'superadministration', :action => 'language_switching'
 	map.translations_changing_superadministration 'superadministration/translations_changing', :controller => 'superadministration', :action => 'translations_changing'
 	map.translations_new_superadministration 'superadministration/translations_new', :controller => 'superadministration', :action => 'translations_new'
+  map.cron_task_superadministration 'superadministration/cron_task', :controller => 'superadministration', :action => 'cron_task'
 	map.superadministration '/superadministration/:part', :controller => 'superadministration', :action => 'superadministration'
 
   # Route for HomePage
