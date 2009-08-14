@@ -1,4 +1,4 @@
-<% form_for_item @current_object, title do |f| %>
+<% form_for_item @current_object, I18n.t('rss_feed.new.title') do |f| %>
 
   <% is_copyright = (@current_object.state == 'copyright') ? true : false %>
   <div id="add_keyword">
