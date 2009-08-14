@@ -54,6 +54,8 @@ class FeedSource < ActiveRecord::Base
 	# Validation of the format of the 'url' field
 	validates_format_of :url, :with => /#{URL}/ix
 
+  validates_not_format_of   :copyright, :with => /(#{SCRIPTING_TAGS})/, :allow_blank => true
+
   # Check if the given url is a valid rss/xml feed
 	#
 	# This method will check if the url passed if a valid web feed,

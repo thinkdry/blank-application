@@ -47,27 +47,12 @@ class Person < ActiveRecord::Base
   validates_length_of :email, :within => 10..40
 	# Validation of the format of this attribute
   validates_format_of :email, :with => RE_EMAIL_OK
+  validates_format_of       :primary_phone,  :mobile_phone, :with => /\A(#{NUM}){10}\Z/, :allow_blank => true
+  # Validation of fields not in format of
+  validates_not_format_of   :first_name, :last_name, :fax, :street, :city, :postal_code, :company,:job_title, :web_page, :notes,  :with => /(#{SCRIPTING_TAGS})/, :allow_blank => true
 
   attr_accessor :model_name
 
-  before_save :remove_scripting_tags
-
-  # remove script tags like javascript/html tags
-  def remove_scripting_tags
-    self.first_name = ActionController::Base.helpers.strip_tags(self.first_name)
-    self.last_name = ActionController::Base.helpers.strip_tags(self.last_name)
-    self.primary_phone = ActionController::Base.helpers.strip_tags(self.primary_phone)
-    self.mobile_phone = ActionController::Base.helpers.strip_tags(self.mobile_phone)
-    self.fax = ActionController::Base.helpers.strip_tags(self.fax)
-    self.street = ActionController::Base.helpers.strip_tags(self.street)
-    self.city = ActionController::Base.helpers.strip_tags(self.city)
-    self.postal_code = ActionController::Base.helpers.strip_tags(self.postal_code)
-    self.company = ActionController::Base.helpers.strip_tags(self.company)
-    self.job_title = ActionController::Base.helpers.strip_tags(self.job_title)
-    self.web_page = ActionController::Base.helpers.strip_tags(self.web_page)
-    self.notes = ActionController::Base.helpers.strip_tags(self.notes)
-  end
-  
   # Check with previously existing email for uniqueness
 	#
 	# This method checks if the email address is uniq for the user who has created the object.

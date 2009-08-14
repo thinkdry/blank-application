@@ -59,11 +59,11 @@ class Workspace < ActiveRecord::Base
 	validates_associated :users_workspaces
 	# Validation of the uniqueness of users associated to that workspace
 	validate :uniqueness_of_users
-
+  # Validation of fields not in format of
+  validates_not_format_of   :title, :with => /(#{SCRIPTING_TAGS})/
 	# After Updation Save the associated Users in UserWorkspaces
 	after_update  :save_users_workspaces
 
-  before_save :remove_scripting_tags
   # Scope getting the 5 last workspaces created
   named_scope :latest,
     :order => 'created_at DESC',
@@ -93,11 +93,6 @@ class Workspace < ActiveRecord::Base
         "LEFT JOIN roles ON roles.id = users_workspaces.role_id",
 			:conditions => "roles.name = '#{role_name.to_s}'" }
 	}
-
-  # remove script tags like javascript/html tags
-  def remove_scripting_tags
-    self.title = ActionController::Base.helpers.strip_tags(self.title)
-  end
 
   # Method used for the validation of the uniqueness of users linked to the workspace
 	def uniqueness_of_users #:nodoc:

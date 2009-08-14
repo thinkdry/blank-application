@@ -37,8 +37,8 @@ module ActsAsItem
         validates_presence_of	:title, :description, :user
         # Valdation of the fact that the item is associated to one or more workspaces throught items table
         validates_presence_of :items, :message => "Sélectionner au moins un espace de travail"
-
-        before_save :remove_scripting_tags
+        # Validation of fields not in format of
+        validates_not_format_of   :title, :description, :with => /(#{SCRIPTING_TAGS})/
 
 				# Retrieve the results matching with Xapian indewes and ordered by weight
 				named_scope :full_text_with_xapian,
@@ -295,12 +295,6 @@ module ActsAsItem
 			def accepts_tag_for?(user)
 				return accepting_action(user, 'tag')
 			end
-
-      # will remove javascript/html tags from title and description
-      def remove_scripting_tags
-        self.title = ActionController::Base.helpers.strip_tags(self.title)
-        self.description =  ActionController::Base.helpers.strip_tags(self.description)
-      end
 
 			private
 			def get_sa_config

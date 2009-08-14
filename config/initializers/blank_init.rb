@@ -15,6 +15,9 @@ ActionController::Base.send(:include, ActsAsItem::ControllerMethods)
 #require "acts_as_item/helper.rb"
 #ApplicationHelper.send(:include, ActsAsItem::HelperMethods)
 
+#ActiveRecord::Base.send(:include, CustomModelValidations)
+include CustomModelValidations
+
 # Defining the global variable
 ITEMS = ['article', 'image', 'cms_file', 'video', 'audio', 'feed_source', 'bookmark','newsletter','group']
 # Variable defining the languages available for the application
