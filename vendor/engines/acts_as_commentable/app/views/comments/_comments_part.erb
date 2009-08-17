@@ -1,6 +1,6 @@
 <div id="ajax_info" style="color:green"></div>
 <div id="comments_list">
-  <% if object.comments.size > 0 %>
+  <% if object.comments_number > 0 %>
     <h2><%= image_tag 'icons/comments.png'%><%=I18n.t('general.object.comment').pluralize.camelize %></h2>
     <div class="comment_bloc">
       <%= render :partial => "comments/comment_in_list", :collection => object.comments %>
