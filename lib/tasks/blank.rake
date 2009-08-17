@@ -303,7 +303,7 @@ namespace :blank do
 			ITEMS.each do |item|
         puts "Updating for #{item}"
 				(item.classify.constantize).all.each do |e|
-          puts "Updating item with id = #{e.id}"
+          puts "Updating #{item} with id = #{e.id}"
           if !e.workspaces.blank?
             if e.comments_number.nil?
               e.comments_number = 0
@@ -317,6 +317,7 @@ namespace :blank do
             if e.save
               puts "Updated record #{e.id}"
             else
+              puts "Updating Record with id #{e.id} failed"
               puts e.errors.inspect
             end
           else
