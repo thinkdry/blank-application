@@ -301,8 +301,10 @@ namespace :blank do
 		task :default_values_for_items => :environment do
 			#['article', 'image', 'cms_file', 'video', 'audio', 'publication', 'feed_source', 'bookmark','newsletter','group'].each do |item|
 			ITEMS.each do |item|
+        puts "Updating for #{item}"
 				(item.classify.constantize).all.each do |e|
-          if !e.workspaces.nil? || !e.workspaces.blank?
+          puts "Updating #{item} with id = #{e.id}"
+          if !e.workspaces.blank?
             if e.comments_number.nil?
               e.comments_number = 0
             end
@@ -312,9 +314,16 @@ namespace :blank do
             if e.viewed_number.nil?
               e.viewed_number = 0
             end
-            e.save
+            if e.save
+              puts "Updated record #{e.id}"
+            else
+              puts "Updating Record with id #{e.id} failed"
+              puts e.errors.inspect
+            end
           else
+            puts "Destroying record #{e.id} of type #{item}"
             e.destroy
+            puts "Destroyed"
           end
 				end
 			end
