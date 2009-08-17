@@ -62,7 +62,7 @@ module ActsAsItem
           end
 					# Filter setting the Flash message linked to that action
           after :create_fails do
-            flash[:error] = @current_object.class.label+' '+I18n.t('item.new.flash_error')
+            flash.now[:error] = @current_object.class.label+' '+I18n.t('item.new.flash_error')
           end
 					# Filter setting the Flash message linked to that action, and removing the item information (used by FCKeditor)
           after :update do
@@ -72,7 +72,7 @@ module ActsAsItem
           end
           # Filter setting the Flash message linked to that action
           after :update_fails do
-            flash[:error] = @current_object.class.label+' '+I18n.t('item.edit.flash_error')
+            flash.now[:error] = @current_object.class.label+' '+I18n.t('item.edit.flash_error')
           end
 					# Filter updating the 'viewed_number' attribute of the item
           before :show do

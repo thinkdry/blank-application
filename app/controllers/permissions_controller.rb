@@ -3,6 +3,8 @@ class PermissionsController < ApplicationController #:nodoc: all
 	# Filter to just allow 'superadmin' user to access to that resource
 	before_filter :is_superadmin?
 
+  acts_as_ajax_validation
+  
   # GET /permissions
   # GET /permissions.xml
   def index
@@ -51,18 +53,21 @@ class PermissionsController < ApplicationController #:nodoc: all
     @permission = Permission.new(params[:permission])
     # respond_to do |format|
     if @permission.save
-      flash[:notice] = 'Permission was successfully created.'
+      flash.now[:notice] = 'Permission was successfully created.'
       #format.html { redirect_to(permission_path(@permission)) }
       #format.xml  { render :xml => @permission, :status => :created, :location => permission_path(@permission) }
+      @permissions= Permission.find(:all)
+      render :update do |page|
+        page.replace_html  'roles', :partial => 'index', :object=> @permissions
+      end
     else
-      flash[:notice] = 'Permission Creation Failed.'
+      render :update do |page|
+        page.replace_html  'roles', :partial => 'new'
+      end
       #format.html { render :action => "new" }
       #format.xml  { render :xml => @permission.errors, :status => :unprocessable_entity }
     end
-    @permissions= Permission.find(:all)
-    render :update do |page|
-      page.replace_html  'roles', :partial => 'index', :object=> @permissions
-    end
+    
     #end
   end
 
@@ -72,11 +77,11 @@ class PermissionsController < ApplicationController #:nodoc: all
     @permission = Permission.find(params[:id])
     #respond_to do |format|
     if @permission.update_attributes(params[:permission])
-      flash[:notice] = 'Permission was successfully updated.'
+      flash.now[:notice] = 'Permission was successfully updated.'
       #format.html { redirect_to(permission_path(@permission)) }
       #format.xml  { head :ok }
     else
-      flash[:notice] = 'Permission Updation Failed.'
+      flash.now[:notice] = 'Permission Updation Failed.'
       #format.html { render :action => "edit" }
       #format.xml  { render :xml => @permission.errors, :status => :unprocessable_entity }
     end

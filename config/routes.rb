@@ -70,7 +70,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # Routes for Roles and Permissions in BA
   map.resources :roles
-  map.resources :permissions
+  map.resources :permissions, :collection => {:validate => :any}
 
   # Routes for Comments
 	map.resources :comments, :only => [:index, :edit, :update, :destroy], :member => { :change_state => :any, :add_reply => :any}

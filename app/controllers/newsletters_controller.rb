@@ -55,11 +55,10 @@ class NewslettersController < ApplicationController
   def unsubscribe
     @member = params[:member_type].classify.constantize.find_by_email(params[:email])
     if @member.update_attribute(:newsletter, false)
-      flash[:notice] = I18n.t('newsletter.unsubscribe.flash_notice')
-      redirect_to @configuration['sa_application_url']
+      flash.now[:notice] = I18n.t('newsletter.unsubscribe.flash_notice')
     else
-      flash[:error] = "Unable to unsubscribe. Please try again."
-      redirect_to @configuration['sa_application_url']
+      flash.now[:error] = "Unable to unsubscribe. Please try again."
     end
+    redirect_to @configuration['sa_application_url']
   end
 end
