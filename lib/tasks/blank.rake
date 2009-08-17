@@ -302,20 +302,23 @@ namespace :blank do
 			#['article', 'image', 'cms_file', 'video', 'audio', 'publication', 'feed_source', 'bookmark','newsletter','group'].each do |item|
 			ITEMS.each do |item|
 				(item.classify.constantize).all.each do |e|
-					if e.comments_number.nil?
-						e.comments_number = 0
-					end
-					if e.rates_average.nil?
-						e.rates_average = 0
-					end
-					if e.viewed_number.nil?
-						e.viewed_number = 0
-					end
-					e.save
+          if !e.workspaces.nil? || !e.workspaces.blank?
+            if e.comments_number.nil?
+              e.comments_number = 0
+            end
+            if e.rates_average.nil?
+              e.rates_average = 0
+            end
+            if e.viewed_number.nil?
+              e.viewed_number = 0
+            end
+            e.save
+          else
+            e.destroy
+          end
 				end
 			end
 		end
-
   end
   
   
