@@ -38,7 +38,7 @@ module ActsAsItem
         # Valdation of the fact that the item is associated to one or more workspaces throught items table
         validates_presence_of :items, :message => "Sélectionner au moins un espace de travail"
         # Validation of fields not in format of
-        validates_not_format_of   :title, :description, :with => /(#{SCRIPTING_TAGS})/
+        validates_not_format_of :title, :description, :with => /(#{SCRIPTING_TAGS})/
 
 				# Retrieve the results matching with Xapian indewes and ordered by weight
 				named_scope :full_text_with_xapian,
@@ -216,7 +216,17 @@ module ActsAsItem
       # <tt>article.assoicated_workspaces = [workspace1.id, workspace2.id]</tt>
       # will assign workspaces to the item
       def associated_workspaces= workspace_ids
-        self.items = workspace_ids.collect { |id| self.items.build(:workspace_id => id) }
+        tmp = workspace_ids
+        if self.id
+          self.items.each do |i|
+            i.delete unless tmp.delete(i.id.to_s)
+          end
+          tmp.each do |id|
+            Item.create(:workspace_id => id,:itemable_id => self.id, :itemable_type => self.class.to_s)
+          end
+        else
+          self.items = workspace_ids.collect { |id| self.items.build(:workspace_id => id) }
+        end
       end
       
       # Check User for permission to view the Item
