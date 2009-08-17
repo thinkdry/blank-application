@@ -33,7 +33,7 @@ class SessionsController < ApplicationController
 			logger.warn "Failed login for '#{params[:login]}' from #{request.remote_ip} at #{Time.now.utc}"
       @login       = params[:login]
       @remember_me = params[:remember_me]
-      flash[:error] = I18n.t('user.session.flash_error')
+      flash.now[:error] = I18n.t('user.session.flash_error')
       render :action => 'new'
        
     end

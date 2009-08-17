@@ -85,12 +85,12 @@ class UsersController < ApplicationController
       #			if is_given_private_workspace && !Workspace.exists?(:creator_id => @current_object.id, :state => 'private')
       #				@current_object.create_private_workspace
       #			end
-			flash[:notice] = I18n.t('user.edit.flash_notice')
+			flash.now[:notice] = I18n.t('user.edit.flash_notice')
     end
 
     after :update_fails do
 			get_roles
-			flash[:error] = I18n.t('user.edit.flash_error')
+			flash.now[:error] = I18n.t('user.edit.flash_error')
     end
 
   end
@@ -143,7 +143,7 @@ class UsersController < ApplicationController
         get_roles
         @search ||= Search.new
       end
-      flash[:error] = I18n.t('user.new.flash_error')
+      flash.now[:error] = I18n.t('user.new.flash_error')
       respond_to do |format|
         format.html { render :action => 'new', :layout => (current_user ? get_da_layout : 'login') }
       end
@@ -229,7 +229,7 @@ class UsersController < ApplicationController
           flash[:notice] = "#{@user.login},"+I18n.t('user.reset_password.flash_notice')
           redirect_to "/login"
         else
-          flash[:error] = I18n.t('user.reset_password.flash_error')
+          flash.now[:error] = I18n.t('user.reset_password.flash_error')
           render :action => :reset_password
         end
       end

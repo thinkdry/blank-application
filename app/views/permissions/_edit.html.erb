@@ -1,12 +1,4 @@
 <h1>Editing Permission</h1>
 
-
-<% remote_form_for(@permission) do |f| %>
-
-  <%= render :partial => 'form', :locals => {:f => f} %>
-  <p>
-    <%= f.submit "Update" %>
-  </p>
-<% end %>
-
+<%= render :partial => 'form' %>
 
