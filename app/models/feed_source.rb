@@ -106,9 +106,9 @@ class FeedSource < ActiveRecord::Base
 
   def remove_expired_feed_items
     p "Inside expire feed"
-    feed_items = self.feed_items.find(:all,:limit => 150)
-    if feed_items && feed_items.size >= 150
-      self.feed_items.find(:all, :conditions => ["date_published < ?", feed_items.last.date_published]).each do |feed|
+    feed_items_to_keep = self.feed_items.find(:all,:limit => 150)
+    if feed_items_to_keep && self.feed_items.count > 150
+      self.feed_items.find(:all, :conditions => ["date_published < ?", feed_items_to_keep.last.date_published]).each do |feed|
         logger.info "Removing Feed Item with id #{feed.id}"
         feed.destroy
       end
