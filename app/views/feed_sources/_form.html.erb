@@ -2,7 +2,7 @@
 
   <% is_copyright = (@current_object.state == 'copyright') ? true : false %>
   <div id="add_keyword">
-    <%= f.text_field :url, :label => I18n.t('rss_feed.field.url_label')+" : " %>
+    <%= f.text_field :url, :label => I18n.t('rss_feed.field.url_label')+" : "  %>
     <div id="loading" style="display:none;float:right">
       <img src="/images/loading.gif">
     </div>
@@ -16,3 +16,8 @@
     <div class="CommonMessage"><%=I18n.t('rss_feed.new.automatic_date_field')%></div>
   <% end %>
 <% end  %>
+<script>
+    <%  if !@valid_url %>
+      $('submit_button').onclick = function(){return check_feed_url('<%= I18n.t("rss_feed.new.flash_notice_invalid") %>')};
+    <% end %>
+</script>

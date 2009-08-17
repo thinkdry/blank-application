@@ -14,6 +14,7 @@ class FeedSourcesController < ApplicationController
 						:state => 'copyright'
 					)
 					flash.now[:notice] = I18n.t('rss_feed.new.flash_notice_valid')
+          @valid_url = true
 				else
 					flash.now[:error] = I18n.t('rss_feed.new.flash_notice_invalid')
 				end

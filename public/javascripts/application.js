@@ -267,7 +267,8 @@ function check_feed(){
                 window.location.href = window.location.href.split('feed_sources')[0] + 'feed_sources/new?url='+url;
             }else{
                 alert(text);
-                $('loading').style.display = 'none';;
+                $('loading').style.display = 'none';
+                return false;
             }
             $('loading').style.display = 'none';
         },
@@ -291,4 +292,11 @@ function validate_fields_format(fields,error_divs){
         return false;
     }
 
+}
+function check_feed_url(message){
+    if($('feed_source_url').value != ''){
+       if(!check_feed()){
+           return false;
+       }
+    }else{alert(message); return false;}
 }
