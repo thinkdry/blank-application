@@ -1,62 +1,85 @@
-  <% form_for :general, :url => general_changing_superadministration_path, :html => {:multipart => true, :class => "fieldsetSimulation"} do |f| -%>
+<% form_for :general, :url => general_changing_superadministration_path, :html => {:multipart => true, :class => "fieldsetSimulation"} do |f| -%>
 
-      <label>Application name:</label>
-      <div class="formElement"><%= text_field_tag 'conf[sa_application_name]', @conf['sa_application_name'] %></div>
+  <label>Application name:</label>
+  <div class="formElement"><%= text_field_tag 'conf[sa_application_name]', @conf['sa_application_name'] %></div>
 
-      <label>Favicon Management :</label>
-      <div class="formElement">
-			<%= file_field 'pictures', 'favicon' %><br/>
-			<%= image_tag(@conf['sa_favicon_url'].to_s) %>
-	  </div>
-      
-      <label>Logo management :</label>
-      <div class="formElement">
-      		<%= file_field 'pictures', 'logo' %>
-      		<%= image_tag(@conf['sa_logo_url'].to_s) %>
-      </div>
+  <label>Favicon Management :</label>
+  <div class="formElement">
+    <%= file_field 'pictures', 'favicon' %><br/>
+    <%= image_tag(@conf['sa_favicon_url'].to_s) %>
+  </div>
 
-      <label>Application URL :</label>
-      <div class="formElement"><%= text_field_tag 'conf[sa_application_url]', @conf['sa_application_url'] %></div>
+  <label>Logo management :</label>
+  <div class="formElement">
+    <%= file_field 'pictures', 'logo' %>
+    <%= image_tag(@conf['sa_logo_url'].to_s) %>
+  </div>
 
-      <label>Contact email :</label>
-      <div class="formElement"><%= text_field_tag 'conf[sa_contact_email]', @conf['sa_contact_email'] %></div>
+  <label>Application URL :</label>
+  <div class="formElement"><%= text_field_tag 'conf[sa_application_url]', @conf['sa_application_url'] %></div>
+
+  <label>Contact email :</label>
+  <div class="formElement"><%= text_field_tag 'conf[sa_contact_email]', @conf['sa_contact_email'] %></div>
 
 
-      <label>Allowed free user creation</label>
-      <div class="formElement">
-      	<%= check_box :conf, :sa_allowed_free_user_creation, { :checked => (@conf['sa_allowed_free_user_creation']=='true'), :class => "checkboxes" }, true, false %>
-	  </div>
-      
-      <label>Automatic private worskpace creation</label>
-      <div class="formElement">
-      	<%= check_box :conf, :sa_automatic_private_workspace, { :checked => (@conf['sa_automatic_private_workspace']=='true'), :class => "checkboxes" }, true, false %>
-	  </div>
+  <label>Allowed free user creation</label>
+  <div class="formElement">
+    <%= check_box :conf, :sa_allowed_free_user_creation, { :checked => (@conf['sa_allowed_free_user_creation']=='true'), :class => "checkboxes" }, true, false %>
+  </div>
 
-      <label>Mandatory user activation</label>
-      <div class="formElement">
-      	<%= check_box :conf, :sa_mandatory_user_activation, { :checked => (@conf['sa_mandatory_user_activation']=='true'), :class => "checkboxes" }, true, false %>
-	  </div>
+  <label>Automatic private worskpace creation</label>
+  <div class="formElement">
+    <%= check_box :conf, :sa_automatic_private_workspace, { :checked => (@conf['sa_automatic_private_workspace']=='true'), :class => "checkboxes" }, true, false %>
+  </div>
 
-      <label>Available items :</label>
-      <div class="formElement">
-      	<%= checkboxes_from_list(ITEMS, "sa_items", @conf, "conf") %>
-	  </div>
-      
-      <label>Available languages :</label>
-      <div class="formElement">
-      	<%= checkboxes_from_list(LANGUAGES, "sa_languages", @conf, "conf") %>
-	  </div>
+  <label>Mandatory user activation</label>
+  <div class="formElement">
+    <%= check_box :conf, :sa_mandatory_user_activation, { :checked => (@conf['sa_mandatory_user_activation']=='true'), :class => "checkboxes" }, true, false %>
+  </div>
 
-      <label>Workspaces types :</label>
-	  <div class="formElement">
-	      <%= checkboxes_from_list(WS_TYPES, "sa_ws_types", @conf, "conf") %>
-	  </div>	
-		
-      <label>Per page default value :</label>
-      <div class="formElement"><%= text_field_tag 'conf[sa_per_page_default]', @conf['sa_per_page_default'] %></div>
+  <label>Available items :</label>
+  <div class="formElement">
+    <%= checkboxes_from_list(ITEMS, "sa_items", @conf, "conf") %>
+  </div>
 
-      <label>Default layout :</label>
-      <div class="formElement"><%= select_tag 'conf[sa_layout]', options_for_select(LAYOUTS_AVAILABLE,@conf['sa_layout']) %></div>
+  <label>Available languages :</label>
+  <div class="formElement">
+    <%= checkboxes_from_list(LANGUAGES, "sa_languages", @conf, "conf") %>
+  </div>
 
-      <div class="centerButton"><button type="submit" class="submit_button"><%=I18n.t('general.button.update')%></button></div>
+  <label>Workspaces types :</label>
+  <div class="formElement">
+    <%= checkboxes_from_list(WS_TYPES, "sa_ws_types", @conf, "conf") %>
+  </div>
+
+  <label>Per page default value :</label>
+  <div class="formElement"><%= text_field_tag 'conf[sa_per_page_default]', @conf['sa_per_page_default'] %></div>
+
+  <label>Default layout :</label>
+  <div class="formElement"><%= select_tag 'conf[sa_layout]', options_for_select(LAYOUTS_AVAILABLE,@conf['sa_layout']) %></div>
+
+  <label>Exception followers :</label>
+  <div class="formElement">
+    <div id="followers_email" >
+      <% if @conf['sa_exception_followers_email'] %>
+        <% @conf['sa_exception_followers_email'].each do |email| %>
+          <div id="<%= email %>">
+            <%= email %>
+            <a onclick="this.parentNode.remove(); return false;">
+              <img width="15" alt="Delete" src="/images/icons/delete.png"/>
+            </a>
+            <input type="hidden" value="<%= email %>" name="conf[sa_exception_followers_email][]"/>
+          </div>
+
+        <% end %>
+      <% end %>
+    </div>
+    <br />
+    <input type="text" id="new_follower_email" name="new_follower_email" value="" />
+    <%= button_to_function("Add new follower email",
+      "add_new_follower()",
+      :id => "small_submit") %>
+  </div>
+
+  <div class="centerButton"><button type="submit" class="submit_button"><%=I18n.t('general.button.update')%></button></div>
 <% end %>

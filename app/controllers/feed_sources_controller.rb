@@ -3,9 +3,9 @@ class FeedSourcesController < ApplicationController
 	# Method defined in the ActsAsItem:ControllerMethods:ClassMethods (see that library fro more information)
   acts_as_item do
 		# 
-		before :new do
-			if params[:url]
-				if 	(@feed=Feedzirra::Feed.fetch_and_parse(params[:url]))
+		before :create do
+			if !@current_object.url.blank?
+				if 	(@feed=Feedzirra::Feed.fetch_and_parse(@current_object.url))
 					@current_object = FeedSource.new(
 						:etag => @feed.etag,
 						:title => @feed.title,
@@ -13,26 +13,21 @@ class FeedSourcesController < ApplicationController
 						:url => @feed.feed_url,
 						:state => 'copyright'
 					)
-					flash.now[:notice] = I18n.t('rss_feed.new.flash_notice_valid')
-          @valid_url = true
-				else
-					flash.now[:error] = I18n.t('rss_feed.new.flash_notice_invalid')
 				end
-			end
-		end
+      end
 
-    after :create do 
-      # After addition of a source, import the RSS into DB.
-      @current_object.import_latest_items
-    end
+      after :create do
+        # After addition of a source, import the RSS into DB.
+        @current_object.import_latest_items
+      end
     
-    before :show do
-      #      permit "consultation of current_object"
-			@feed_items = @current_object.feed_items.paginate(:page => params[:page], :per_page => get_per_page_value)
-    end
+      before :show do
+        #      permit "consultation of current_object"
+        @feed_items = @current_object.feed_items.paginate(:page => params[:page], :per_page => get_per_page_value)
+      end
 		
+    end
   end
-
   # Method to Validate the Feed for Blank or if the feed is existing for the User
   # 
   # /feed_sources/check_feed

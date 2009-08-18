@@ -255,48 +255,50 @@ function text_insert(name, model_name, place_id) {
 
 function check_feed(){
     var url= $('feed_source_url').value;
-    new Ajax.Request("/feed_sources/check_feed?url="+url,{
-        onLoading: function(){
-            $('loading').style.display = 'block';
-        },
-        onComplete: function(transport){
-            var text = transport.responseText;
-            if(text.split('-')[0] == 'exists'){
-                window.location.href = window.location.href.split('feed_sources')[0] + 'feed_sources/'+text.split('-')[1];
-            }else if(text == 'new'){
-                window.location.href = window.location.href.split('feed_sources')[0] + 'feed_sources/new?url='+url;
-            }else{
-                alert(text);
-                $('loading').style.display = 'none';
-                return false;
-            }
-            $('loading').style.display = 'none';
-        },
-        method: 'get'
-    });
-}
+    if(url != 0){
+        new Ajax.Request("/feed_sources/check_feed?url="+url,{
+            onLoading: function(){
+                $('loading').style.display = 'block';
+            },
+            onSuccess: function(transport){
+                var text = transport.responseText;
+                if(text.split('-')[0] == 'exists'){
+                    window.location.href = window.location.href.split('feed_sources')[0] + 'feed_sources/'+text.split('-')[1];
+                }else if(text == 'new'){
+                    $('loading').style.display = 'none';
 
-function validate_fields_format(fields,error_divs){
-    var valid = true;
-    for(i=0; i<fields.length; i++){
-        value = $(fields[i]).value;
-        if(value.length != (value.replace(/<(\S+).*>(|.*)<\/(\S+).*>|<%(.*)%>|<%=(.*)%>+/g, "")).length){
-            // alert(fields[i]);
-            $(error_divs[i]).innerHTML = "<div class='formError'>Should not contain scripting tags</div>"
-            valid = false
-        }
-    }
-    if(valid){
-        return true;
+                    //window.location.href = window.location.href.split('feed_sources')[0] + 'feed_sources/new?url='+url;
+                    return true;
+                }else{
+                    alert(text);
+                    $('loading').style.display = 'none';
+                    return false;
+                }
+                $('loading').style.display = 'none';
+            },
+            method: 'get'
+        });
     }else{
         return false;
     }
-
 }
-function check_feed_url(message){
-    if($('feed_source_url').value != ''){
-       if(!check_feed()){
-           return false;
-       }
-    }else{alert(message); return false;}
+function add_new_follower(){
+    var email = $('new_follower_email').value;
+    if(email != 0){
+        var new_email = new Element('div', {
+            'id': email,
+        }).insert(email)
+        var delete_email = new Element('a', {
+            'onclick': 'this.parentNode.remove(); return false;'
+        }).insert('<img width="15" src="/images/icons/delete.png" alt="Delete"/>')
+        var hidden_email = new Element('input', {
+            'type': 'hidden',
+            'value': email,
+            'name': 'conf[sa_exception_followers_email][]'
+        })
+        new_email.appendChild(delete_email)
+        new_email.appendChild(hidden_email)
+        $('followers_email').insert(new_email);
+        $('new_follower_email').value = '';
+    }
 }

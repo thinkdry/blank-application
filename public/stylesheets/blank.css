@@ -1354,7 +1354,7 @@ fieldset{
   margin-left: 10px;
 }
 
-.submit_button{
+.submit_button {
 	background:transparent url(/images/button.png) no-repeat scroll 0 20px;
 	border:medium none;
 	clear:both;
@@ -1369,7 +1369,7 @@ fieldset{
 	font-size:90%;
 }
 
-.smallSubmit{
+.smallSubmit, .fieldsetSimulation #small_submit{
 	background:transparent url('/images/smallButton.png') no-repeat;
 	border:none;
 	color:#fff;
@@ -1409,12 +1409,12 @@ form br{
 	clear:both;
 }
 
-#keyword_value, #website_url_name_value {
+#keyword_value, #website_url_name_value, #new_follower_email {
 	width:500px;
 	float:left;
 }
 
-.leftAlign{
+.leftAlign, .fieldsetSimulation #small_submit{
 	margin-top:0;
 	margin-left:20px;
 	float:right;

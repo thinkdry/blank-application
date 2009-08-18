@@ -42,7 +42,7 @@ class SuperadministrationController < ApplicationController
 	def general_changing
     list = ['items', 'languages', 'feed_items_importation_types', 'ws_types', 'item_categories']
     list2 = ['sa_application_name', 'sa_application_url', 'sa_contact_email', 'sa_allowed_free_user_creation',
-      'sa_automatic_private_workspace', 'sa_mandatory_user_activation', 'sa_per_page_default', 'sa_layout']
+      'sa_automatic_private_workspace', 'sa_mandatory_user_activation', 'sa_per_page_default', 'sa_layout', 'sa_exception_followers_email']
     @conf = @configuration
     if params[:pictures]
       if !params[:pictures][:logo].blank? && (IMAGE_TYPES.include?(params[:pictures][:logo].content_type.chomp))
@@ -201,7 +201,7 @@ class SuperadministrationController < ApplicationController
     end
   end
 
-
+  
   private
   def translation_options
 		@translation_sections = ['general', 'layout', 'user', 'workspace', 'item']+ITEMS+['superadministration', 'others']
