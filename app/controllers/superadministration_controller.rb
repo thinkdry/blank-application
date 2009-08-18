@@ -196,8 +196,12 @@ class SuperadministrationController < ApplicationController
     if params[:job] == 'newsletter'
       MiddleMan.worker(:cronjob_worker).send_newsletter
     end
+    if params[:job] == 'restart_server'
+      system "touch #{RAILS_ROOT}/tmp/restart.txt" # tells passenger to restart the
+      message = "Server restarted successfully"
+    end
     render :update do |page|
-      page.call 'alert', "#{params[:job]} Updated Sucessfully"
+      page.call 'alert', message.nil? ? "#{params[:job]} Updated Sucessfully " : message
     end
   end
 
