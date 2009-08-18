@@ -5,8 +5,6 @@
 #
 class NewslettersController < ApplicationController
 
-	
-
 	# Method defined in the ActsAsItem:ControllerMethods:ClassMethods (see that library fro more information)
   acts_as_item do
 		# After the creation, redirection to the edition in order to be able to set the body
@@ -16,9 +14,6 @@ class NewslettersController < ApplicationController
 			format.json { render :json => @current_object }
 		end
   end
-
-  # Filter skipping the 'is_logged?' filter to allow non-logged user to unsubscribe from the newsletter
-	skip_before_filter :is_logged?, :only => [:unsubscribe]
 
   # Action sending the newsletter to a selected group
   #
@@ -33,33 +28,16 @@ class NewslettersController < ApplicationController
     @group = Group.find(params[:group_id])
     @newsletter = Newsletter.find(params[:newsletter_id])
     if GroupsNewsletter.new(:group_id => @group.id,:newsletter_id => @newsletter.id,:sent_on=>Time.now).save
-      for member in @group.members
-        if member.newsletter
-          args = [member.email,member.model_name,@newsletter.from_email,@newsletter.subject, @newsletter.description, @newsletter.body]
+      for member in @group.contacts_workspaces
+        if member.state != 'unsubscribed'
+          args = [member.to_group_member['email'],member.to_group_member['id'],@newsletter.from_email,
+							@newsletter.subject, @newsletter.description, @newsletter.body]
           QueuedMail.add("UserMailer","send_newsletter", args, 0)
         end
       end
-      #MiddleMan.worker(:cronjob_worker).async_newthread
+      MiddleMan.worker(:cronjob_worker).async_newthread
       redirect_to (current_workspace ? workspace_path(current_workspace.id)+newsletter_path(@newsletter) : newsletter_path(@newsletter))
     end
   end
 
-  # Method to unsubscribe from a newsletter for given email address
-  #
-	# TODO bl i
-	#
-  # Usage URL:
-  # 
-  # /unsubscribe_for_newsletter?member_type=people&email=abc@abc.com
-  #
-  def unsubscribe
-    @member = params[:member_type].classify.constantize.find_by_email(params[:email])
-    if @member.update_attribute(:newsletter, false)
-      flash[:notice] = I18n.t('newsletter.unsubscribe.flash_notice')
-      redirect_to @configuration['sa_application_url']
-    else
-      flash[:error] = "Unable to unsubscribe. Please try again."
-      redirect_to @configuration['sa_application_url']
-    end
-  end
 end

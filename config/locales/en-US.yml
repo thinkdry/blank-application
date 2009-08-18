@@ -167,7 +167,8 @@ en-US:
       select_a_file: Select a Link
       select_from_file: Select from file system
       feed_item_importation_type: Feed Items Imporation Types
-    common_word: 
+    common_word:
+      all: All
       from1: From
       to1: To
       and: and
@@ -225,7 +226,7 @@ en-US:
     menu: 
       add: Add
       add_help: This menu helps you to add content
-  groups: 
+  group: 
     new: 
       title: New Group
     edit: 
@@ -233,16 +234,17 @@ en-US:
     field: 
       people_label: People
       available_people_label: Available People
-      title_label: Title
-      description_label: Description
       assigned_people_label: Assigned People
     index: 
-      title: Groups
-      delete_confirm: Are you sure!
+      title: Groups list
       add_new_group: Add a new group
       members: Members
-    show:
+      go_to_contacts: See all the contacts of that workspace
+    show: 
       export_to_csv: Export this group to CSV file
+    contacts:
+      title: Workspace contacts management
+      add_people: Add a new person as contact
   time: 
     am: am
     formats: 
@@ -462,7 +464,9 @@ en-US:
     edit: 
       flash_notice: Updated Successfully
       flash_error: Updation Failed
-    destroy: 
+    destroy:
+      flash_notice: Deleted Sucessfully
+      flash_error: Deletion Failed
       delete_conform: Are you sure you want to delete this item?
     field: 
       add_keyword: Add a keyword

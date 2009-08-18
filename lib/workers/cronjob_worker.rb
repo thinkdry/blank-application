@@ -1,9 +1,10 @@
 class CronjobWorker < BackgrounDRb::MetaWorker
+	
   set_worker_name :cronjob_worker
   pool_size 5
 
   def create(args = nil)
-    puts "Started Worker for FeedSource, Xapian Index Updation & Newsletter"
+    puts "CronJob Workers initialisation done ..."
   end
 
   # Create New Thread for Sending Newsletter Asynchronously
@@ -13,33 +14,43 @@ class CronjobWorker < BackgrounDRb::MetaWorker
 
   # Method to Update Feed Sources
   def update_feed_source
-    logger.info "Updating Feed Sources"
+    logger.info "#{Time.now} : Updating Feed Sources ..."
     FeedSource.all.each do |s|
-      s.import_latest_items
+			begin
+				s.import_latest_items
+			rescue
+				logger.info "  #{Time.now} : Error updating Feed Source #{s.id}"
+			end
     end
-    logger.info "Updated Feed sources"
+    logger.info "#{Time.now} : Updated Feed sources"
   end
 
   # Method to Update Xapian Indexes
   def update_xapian_index
-    logger.info "Updating Xapian Indexes"
+    logger.info "#{Time.now} : Updating Xapian indexes ..."
     command=<<-end_command
     rake xapian:update_index RAILS_ENV=#{RAILS_ENV}
     end_command
     command.gsub!(/\s+/, " ")
-    system(command)
-    logger.info "Updated Xapian Indexes"
+		if system(command)
+			logger.info "#{Time.now} : Xapian index update success#{ $?.exitstatus == 0 ? '' : ', but exit status equal to '+exitstatus.to_s }"
+		else
+			loger.info "#{Time.now} : Xapian index update failed"
+		end
   end
 
   # Method to Send Newsletter to Subscribed Members
 	def send_newsletter
-		logger.info "Sending the newsletters"
+		logger.info "#{Time.now} : Sending newsletters ..."
 		command=<<-end_command
       ruby script/runner QueuedMail.send_email
     end_command
     command.gsub!(/\s+/, " ")
-    system(command)
-    logger.info "Sent the newsletters on #{Time.now}"
+		if system(command)
+			logger.info "#{Time.now} : Newsletter sending success#{ $?.exitstatus == 0 ? '' : ', but exit status equal to '+exitstatus.to_s }"
+		else
+			loger.info "#{Time.now} : Newsletter sending failed"
+		end
 	end
 
 end

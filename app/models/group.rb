@@ -15,6 +15,8 @@
 #  updated_at      :datetime
 #
 
+require 'fastercsv'
+
 # This class is defining an item object called 'Group'.
 #
 # You can use it to link different email addresses from the current user contacts.
@@ -22,10 +24,13 @@
 #
 # See the ActsAsItem:ModelMethods module to have further informations.
 #
+
 class Group < ActiveRecord::Base
 
-	# Method defined in the ActsAsItem:ModelMethods:ClassMethods (see that library fro more information)
-	acts_as_item
+	# 
+	belongs_to :workspace
+	# Mixin to add ActsAsCommentable methods inside the model
+	acts_as_commentable
 	# Relation N-N to 'newsletters' table
   has_and_belongs_to_many :newsletters
 	# Relation 1-N 
@@ -33,12 +38,10 @@ class Group < ActiveRecord::Base
 	# Relation N-1 to the 'groupings' table, defining the object composing the group
   has_many :groupings, :dependent => :delete_all
 	# Relation N-1 to the 'groupings' table and scoping the User objects
-  has_many :users, :through => :groupings, :source => :user,
-    :conditions => "groupings.groupable_type = 'User'", :order => 'email ASC'
-	# Relation N-1 to the 'groupings' table and scoping the Person objects
-  has_many :people, :through => :groupings, :source => :person,
-    :conditions => "groupings.groupable_type = 'Person'", :order => 'email ASC'
-  
+  has_many :contacts_workspaces, :through => :groupings
+  # Validation of the presence of these fields
+  validates_presence_of	:title, :description
+	
   # Setting the Grouping objects given as parameters
   # 
   # This method allows to manage directly the objects to link to this group and sent by the form.
@@ -49,25 +52,36 @@ class Group < ActiveRecord::Base
 	# Usage :
 	# - @group.groupable_objects= ['User_1', 'Person_23', .... ]
   def groupable_objects= params 
-    tmp = []
-    params.split(',').each do |option|
-      tmp << option.split('_')[0].classify.constantize.find(option.split('_')[1])
+    tmp = params.split(',') || []
+    self.contacts_workspaces.each do |k|
+      self.contacts_workspaces.delete(k) unless tmp.delete(k.id.to_s)
     end
-    self.groupings.each do |k|
-      self.send(k.groupable_type.underscore.pluralize).delete(k.member) unless tmp.delete(k.member)
-    end
-    tmp.each do |obj|
-      self.groupings << groupings.build(:group_id => self.id, :groupable_id => obj.id,:groupable_type =>obj.class.to_s)
+    tmp.each do |cw_id|
+      self.groupings << groupings.build(:group_id => self.id, :contacts_workspace_id => cw_id)
     end
   end
+
+	def export_to_csv
+    return FasterCSV.generate do |csv|
+      csv << ["First name", "Last name", "Email", "Gender", "Primary phone", "Mobile phone", "Fax", "Street", "City",
+				"Postal code", "Country", "Company", "Web page", "Job title", "Notes","Newsletter","Salutation",
+				"Date of birth","Subscribed on","Updated at"]
+      self.members.each do |member|
+				csv << [member.first_name, member.last_name, member.email, member.gender, member.primary_phone,
+						member.mobile_phone, member.fax, member.street, member.city, member.postal_code, member.country,
+            member.company, member.web_page, member.job_title, member.notes, member.newsletter, member.salutation,
+            member.date_of_birth, member.created_at, member.updated_at]
+				end
+			end
+	end
 
   # List of the objects composing the Group, ordered by email
 	#
 	# This method will return a list of the objects composing the group,
-	# converted with the 'to_people' method in order to be able to order the list properly.
+	# converted with the 'to_person' method in order to be able to order the list properly.
 	# By the way, it will allow to manage this list in a generic way.
   def members
-    (self.users + self.people).map{ |e| e.to_people }.sort! { |a,b| a.email.downcase <=> b.email.downcase }
+    return self.contacts_workspaces.map{ |e| e.contactable.to_person }.sort!{ |a,b| a.email.downcase <=> b.email.downcase }
   end
 
 end

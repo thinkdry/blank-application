@@ -8,7 +8,7 @@ class WorkspacesController < ApplicationController
 		if params[:action] == 'new' || params[:action] == 'create'
 			build_object
 			no_permission_redirection unless @current_user && @current_object.send("accepts_new_for?".to_sym, @current_user)
-		elsif params[:action] == 'edit' || params[:action] == 'update'
+		elsif params[:action] == 'edit' || params[:action] == 'update' #|| params[:action] == 'add_new_user'
 			current_object
 			no_permission_redirection unless @current_user && @current_object.send("accepts_edit_for?".to_sym, @current_user)
 		else

@@ -148,7 +148,8 @@ fr-FR:
       select_a_file: Choisir un lien
       select_from_file: Selectionner depuis le file system
       feed_item_importation_type: Type d'import
-    common_word: 
+    common_word:
+      all: Tous
       from1: du
       to1: au
       and: et
@@ -259,16 +260,17 @@ fr-FR:
     field: 
       people_label: Contacts
       available_people_label: "Contacts \xC3\xA0 disposition"
-      title_label: Titre
-      description_label: Description
       assigned_people_label: "Contacts d\xC3\xA9sign\xC3\xA9s"
     index: 
-      title: Groupes
-      delete_confirm: "Etes vous s\xC3\xBBr?"
+      title: Liste des groupes
       add_new_group: Ajouter un nouveau groupe
       members: Membres
+      go_to_contacts: Voir tous les contacts de ce workspace
     show:
       export_to_csv: Export this group to CSV file
+    contacts:
+      title: Management des contacts du workspace
+      add_people: Ajouter un nouveau contact
   date: 
     order: 
     - :year
@@ -455,10 +457,10 @@ fr-FR:
   item: 
     new: 
       flash_notice: "Cr\xC3\xA9\xC3\xA9 avec succ\xC3\xA8s"
-      flash_error: "Erreur dans la cr\xC3\xA9ation"
+      flash_error: "La cr\xC3\xA9ation a \xC3\xA9chou\xC3\xA9e."
     edit: 
       flash_notice: "Mise a jour effectu\xC3\xA9e"
-      flash_error: "La mise a jour n'a pas pu \xC3\xAAtre effectu\xC3\xA9e"
+      flash_error: "La mise a jour a \xC3\xA9chou\xC3\xA9e."
     field: 
       keyword_hint: Saisissez les keywords pour cette page
       add_keyword: Ajouter un keyword
@@ -470,7 +472,9 @@ fr-FR:
       keyword_label: Keywords
       description_hint: Description de l'Objet
       add_tag: "Ajouter une \xC3\xA9tiquette"
-    destroy: 
+    destroy:
+      flash_notice: "Supprim\xC3\xA9 avec succ\xC3\xA8s"
+      flash_error: "La suppression a \xC3\xA9chou\xC3\xA9e."
       delete_conform: "\xC3\x8Ates-vous s\xC3\xBBr de vouloir supprimer cet objet?"
     index: 
       no_item: Il n'y a pas d'item de ce type.

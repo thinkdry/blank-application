@@ -1,0 +1,20 @@
+<div class="file_infos">
+  <div class="file_infos_box">
+    <p><%#= link_to_user object.user %></p>
+    <p><%= I18n.l object.created_at, :format =>:long %></p>
+  </div>
+  <div class="file_infos_box">
+  </div>
+  <div class="file_infos_box">
+    <div align="right">
+      <%= link_to image_tag('icons/play.png'), item_path(object) %>
+        <%= link_to image_tag('icons/comments.png'), item_path(object) + '#new_comment_form_box' %>
+      <%= link_to image_tag('icons/printer.png'), 'javascript:window.print();' %>
+        <%= link_to image_tag('icons/pencil.png'), edit_item_path(object)%>
+        <%= link_to image_tag('icons/delete.png'), item_path(object), :method => :delete, :confirm =>  I18n.t('item.destroy.delete_conform')%>
+    </div>
+    <div class="output_format">
+    </div>
+  </div>
+</div>
+<div class="item_description"><%= object.description %></div>

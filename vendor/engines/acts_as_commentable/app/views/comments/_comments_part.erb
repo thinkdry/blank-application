@@ -8,7 +8,7 @@
   <% end %>
 </div>
 
-<% if @current_object.accepts_comment_for?(@current_user) %>
+<% if permission || @current_object.accepts_comment_for?(@current_user) %>
   <div id ="reply" style="display:none;top: 242px; margin-top: 0pt;">
     <fieldset id="new_reply_form_box" style="margin-top:10px">
       <div id="'reply_content">
@@ -29,7 +29,7 @@
     </fieldset>
   </div>
 <% end %>
-<% if @current_object.accepts_comment_for?(@current_user) %>
+<% if permission || @current_object.accepts_comment_for?(@current_user) %>
   <fieldset id="new_comment_form_box">
     <p><%= I18n.t('general.common_word.your').camelize+' '+I18n.t('general.object.comment')%> :</p>
     <form id="new_comment" class="new_comment" onsubmit="if($('comment_box').value != 0){new Ajax.Request('<%=add_comment_item_path(@current_object)%>', {asynchronous:true, evalScripts:true, onComplete:function(request){$('comment_box').writeAttribute('disabled', false);$('comment_box').value = ''}, onLoading:function(request){$('comment_box').writeAttribute('disabled')}, parameters:Form.serialize(this)}); return false;}else{return false;}" method="post" action="<%=add_comment_item_path(@current_object)%>">
