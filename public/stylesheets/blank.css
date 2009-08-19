@@ -1070,14 +1070,17 @@ ul.top_box li{
 	overflow:visible;
 }
 
-#left_select_box, #right_select_box{width:230px;}
+#left_select_box, #right_select_box{
+        width:315px;
+}
+
 #right_select_box{
 	margin-top:13px;
 	padding-left:35px;
 }
 
 #left_select_box select, #right_select_box select{
-	width:230px;
+	width:315px;
 }
 .optionAssignmentLabel{
 	margin-bottom:3px;
@@ -1089,7 +1092,6 @@ ul.top_box li{
 }
 #select_boxes{
 	margin-top:4px;
-	overflow:auto;
 }
 
 #person_details_row{
