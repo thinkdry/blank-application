@@ -21,10 +21,12 @@ class CronjobWorker < BackgrounDRb::MetaWorker
 			rescue
 				logger.info "  #{Time.now} : Error updating Feed Source #{s.id}"
 			end
+			#logger.info "Removing Expired Feed Items"
+      #s.remove_expired_feed_items
     end
     logger.info "#{Time.now} : Updated Feed sources"
   end
-
+  
   # Method to Update Xapian Indexes
   def update_xapian_index
     logger.info "#{Time.now} : Updating Xapian indexes ..."

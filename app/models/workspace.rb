@@ -62,7 +62,8 @@ class Workspace < ActiveRecord::Base
 	validates_associated :users_workspaces
 	# Validation of the uniqueness of users associated to that workspace
 	validate :uniqueness_of_users
-
+  # Validation of fields not in format of
+  validates_not_format_of   :title, :with => /(#{SCRIPTING_TAGS})/
 	# After Updation Save the associated Users in UserWorkspaces
 	after_update  :save_users_workspaces
 

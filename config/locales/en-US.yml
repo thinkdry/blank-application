@@ -327,6 +327,7 @@ en-US:
       name: Name
       title: Add a New User
       role: Role
+      user_exist_alert: This user is already selected
     edit: 
       flash_notice: Workspace Updated Successfully
       title: Modifiy Workspace

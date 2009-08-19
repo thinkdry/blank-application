@@ -44,9 +44,12 @@ class Person < ActiveRecord::Base
   # Validation of the presence of this attribute
   validates_presence_of :email
 	# Validationof the size of this attribute
-  validates_length_of :email, :within => 6..100
+  validates_length_of :email, :within => 10..40
 	# Validation of the format of this attribute
   validates_format_of :email, :with => RE_EMAIL_OK
+  validates_format_of       :primary_phone,  :mobile_phone, :with => /\A(#{NUM}){10}\Z/, :allow_blank => true
+  # Validation of fields not in format of
+  validates_not_format_of   :first_name, :last_name, :fax, :street, :city, :postal_code, :company,:job_title, :web_page, :notes,  :with => /(#{SCRIPTING_TAGS})/, :allow_blank => true
 
   attr_accessor :model_name
 
@@ -58,7 +61,6 @@ class Person < ActiveRecord::Base
   # Usage :
   # <tt>person.validate_uniqueness_of_email</tt>
   def validate_uniqueness_of_email
-    Person.exists?(:email=>self.email,:user_id => self.user_id)
     if Person.exists?(:email=>self.email,:user_id => self.user_id)
       self.errors.add(:email, :taken)
       return false

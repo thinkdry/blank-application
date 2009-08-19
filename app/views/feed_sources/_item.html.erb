@@ -1,12 +1,10 @@
 <div class="pubmed_item">
-  <%= link_to item.title, item.link, :popup=>['new_window'] %>
+  <h3><%= link_to item.title, item.link, :popup=>['new_window'] %></h3>
+  <h5><%= I18n.l(item.date_published :format => :long) %></h5>
   <div class="description"><%= item.description %></div>
   <div class="links">
-    <%#= image_tag("item_icons/publication_add.png") %>
-  	<%#= link_to I18n.t('rss_feed.show.add_publication'), new_publication_path(:feed_item_id => item.id) %>
-  	&nbsp;-&nbsp;
-  	<%= image_tag("item_icons/bookmark_add.png") %>
-  	<%= link_to I18n.t('rss_feed.show.add_bookmark'), new_bookmark_path(:feed_item_id => item.id) %>
+    <%= image_tag("item_icons/Bookmark_add.png") %>
+    <%= link_to I18n.t('rss_feed.show.add_bookmark'), new_bookmark_path(:feed_item_id => item.id) %>
     <%# Specify the weight & width :popup=>['new_window','height=800,width=1024'] %>
   </div>
 </div>

@@ -69,7 +69,7 @@ class RolesController < ApplicationController #:nodoc: all
       #        format.html { redirect_to(role_path(@role)) }
       #        format.xml  { render :xml => @role, :status => :created, :location => role_path(@role) }
     else
-      flash[:notice] = 'Role Creation Failed.'
+      flash[:error] = 'Role Creation Failed.'
       #        format.html { render :action => "new" }
       #        format.xml  { render :xml => @role.errors, :status => :unprocessable_entity }
     end
@@ -106,7 +106,7 @@ class RolesController < ApplicationController #:nodoc: all
   def destroy
     @role = Role.find(params[:id])
     if @role.name == 'superadmin'
-      flash[:notice] = "SuperAdministrator Cannot Be Deleted!"
+      flash[:error] = "SuperAdministrator Cannot Be Deleted!"
       redirect_to '/superadministration/rights'
     else
       @role.destroy

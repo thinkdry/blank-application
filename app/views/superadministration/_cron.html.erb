@@ -1,0 +1,5 @@
+<%= button_to_remote "Update Xapian Indexes", :url => cron_task_superadministration_path(:job => 'xapian') %><br /><br />
+<%= button_to_remote "Update Feed Sources", :url => cron_task_superadministration_path(:job => 'feeds')%><br /><br />
+<%= button_to_remote "Send Pending Newsletters", :url => cron_task_superadministration_path(:job => 'newsletter')%><br /><br />
+<%= button_to_remote "Restart passenger", :url => cron_task_superadministration_path(:job => 'restart_server')%><br />
+

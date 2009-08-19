@@ -102,13 +102,15 @@ class User < ActiveRecord::Base
 	validates_uniqueness_of   :email,    :case_sensitive => false, :on => :create
 	# Validation of the length of these attributes
   validates_length_of       :login,     :within => 3..40
-	validates_length_of       :email,    :within => 6..100
+	validates_length_of       :email,    :within => 6..40
 	# Validation of the format of these fields
   validates_format_of       :login,    :with => /\A[0-9A-Za-z_-]+\z/
   validates_format_of       :email,    :with => RE_EMAIL_OK
   validates_format_of       :firstname, :lastname, :company, :with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL})+\Z/, :allow_blank => true
-  validates_format_of       :address, :with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL}|#{NUM})+\Z/, :allow_blank => true
+#  validates_format_of       :address, :with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL}|#{NUM})+\Z/, :allow_blank => true
   validates_format_of       :phone,  :mobile, :with => /\A(#{NUM}){10}\Z/, :allow_blank => true
+  # Validation of fields not in format of
+  validates_not_format_of   :address, :edito, :activity, :with => /(#{SCRIPTING_TAGS})/, :allow_blank => true
 
   # Encrypt the password before storing in the database
 	before_save :encrypt_password
@@ -118,6 +120,7 @@ class User < ActiveRecord::Base
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
   attr_accessible :login, :email, :password, :password_confirmation, :firstname, :lastname, :address, :company, :phone, :mobile, :activity, :nationality,:edito, :avatar, :newsletter, :system_role_id, :last_connected_at, :u_layout, :u_language, :u_per_page, :date_of_birth, :gender, :salutation
+
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   #

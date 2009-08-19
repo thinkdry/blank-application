@@ -36,6 +36,8 @@ include Authentication
   has_and_belongs_to_many :groups
 	# Relation N-1 with 'groups_newsletters' table
   has_many :groups_newsletters, :dependent => :delete_all
+  # Validation of the presence of body on edition of newsletter
+  validates_presence_of :body, :on => :update
   # Validation of the presence of the field passed
   validates_presence_of     :from_email
 	# Validation of the size of the field passed

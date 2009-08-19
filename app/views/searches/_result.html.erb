@@ -8,6 +8,6 @@
   <div style="float:left">
     <%=I18n.t('general.common_word.on1')%> <%= I18n.l object.created_at, :format => :long %>
     <%=I18n.t('item.common_word.tag').pluralize%> : <%= object.keywords_list %> -
-  &nbsp;<%= object.comments.size %> <%=I18n.t('item.common_word.comment').pluralize%> -</div>
+  &nbsp;<%= object.comments_number %> <%=I18n.t('item.common_word.comment').pluralize%> -</div>
   <div style="float:left"><%= item_rate_locked(object) %></div>
 </div>

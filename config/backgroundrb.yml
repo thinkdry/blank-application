@@ -6,7 +6,7 @@
 :schedules:
   :cronjob_worker:
     :update_feed_source:
-      :trigger_args: 0 0 1 * * *
+      :trigger_args: 0 0 * * * * *
     :update_xapian_index:
       :trigger_args: 0 0 * * * * *
     :send_newsletter:

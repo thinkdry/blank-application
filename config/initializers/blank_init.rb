@@ -15,6 +15,9 @@ ActionController::Base.send(:include, ActsAsItem::ControllerMethods)
 #require "acts_as_item/helper.rb"
 #ApplicationHelper.send(:include, ActsAsItem::HelperMethods)
 
+#ActiveRecord::Base.send(:include, CustomModelValidations)
+include CustomModelValidations
+
 # Defining the global variable
 ITEMS = ['article', 'image', 'cms_file', 'video', 'audio', 'feed_source', 'bookmark','newsletter']
 # Variable defining the languages available for the application
@@ -53,7 +56,7 @@ LANGUAGES.each do |l|
 end
 
 # Variable used by ExceptionNotifier plugin
-APPLICATION_ADMINS = ['paco@thinkdry.com', 'anup.nivargi@thinkdry.com',	'nagarjuna@thinkdry.com', 'sylvain@thinkdry.com']
+APPLICATION_ADMINS = get_sa_config['sa_exception_followers_email']
 APPLICATION_NAME = get_sa_config['sa_application_name']
 ExceptionNotifier.exception_recipients = APPLICATION_ADMINS
 ExceptionNotifier.sender_address = 'admin@thinkdry.com'

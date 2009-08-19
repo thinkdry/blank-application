@@ -62,6 +62,7 @@ ActionController::Routing::Routes.draw do |map|
 	map.language_switching_superadministration 'superadministration/language_switching', :controller => 'superadministration', :action => 'language_switching'
 	map.translations_changing_superadministration 'superadministration/translations_changing', :controller => 'superadministration', :action => 'translations_changing'
 	map.translations_new_superadministration 'superadministration/translations_new', :controller => 'superadministration', :action => 'translations_new'
+  map.cron_task_superadministration 'superadministration/cron_task', :controller => 'superadministration', :action => 'cron_task'
 	map.superadministration '/superadministration/:part', :controller => 'superadministration', :action => 'superadministration'
 
   # Route for HomePage
@@ -69,7 +70,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # Routes for Roles and Permissions in BA
   map.resources :roles
-  map.resources :permissions
+  map.resources :permissions, :collection => {:validate => :any}
 
   # Routes for Comments
 	map.resources :comments, :only => [:index, :edit, :update, :destroy], :member => { :change_state => :any, :add_reply => :any}

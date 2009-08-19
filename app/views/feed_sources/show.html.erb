@@ -2,10 +2,11 @@
 
 	URL : <%= @current_object.url %><br /><br/>
 	
-	<h2><%= link_to_function "#{I18n.t('rss_feed.show.print_item')} (#{@current_object.feed_items.size})", "{ if ($('itemss').visible()) $('itemss').writeAttribute('class', 'visible'); else $('itemss').writeAttribute('class', 'hidden'); }" %></h2>
-	<div id='itemss' class='hidden' onload="Element.hide( this ) ">
+	<h2>Feed Items<%#= link_to_function "#{I18n.t('rss_feed.show.print_item')} (#{@current_object.feed_items.size})", "{ if ($('itemss').visible()) $('itemss').writeAttribute('class', 'visible'); else $('itemss').writeAttribute('class', 'hidden'); }" %></h2>
+    <div id='itemss' class='hidden' onload="Element.hide( this ) "></div>
+      <div id="itemss">
 	  <%= render :partial => "item", :collection => @feed_items %>
-	  <%= will_paginate @feed_items %>
+	  <center><%= will_paginate @feed_items %></center>
 	</div>
 
 <% end %>

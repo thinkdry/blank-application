@@ -337,6 +337,7 @@ fr-FR:
       name: Nom
       title: Ajouter un nouvel utilisateur
       role: "R\xC3\xB4le"
+      user_exist_alert: Cet utilisateur est déjà sélectionné
     edit: 
       flash_notice: "L'espace de travail a \xC3\xA9t\xC3\xA9 mis \xC3\xA0 jour"
       title: Modifier l'espace de travail
