@@ -39,8 +39,8 @@ require 'country_select'
 #
 class Person < ActiveRecord::Base
 
-	# Relation N-1 to 'groupings' table
-  has_many :groupings, :as => :groupable, :dependent => :delete_all
+	# Relation N-1 with the polymorphic 'contacts_workspaces' table
+  has_many :contacts_workspaces, :as => :contactable, :dependent => :delete_all
   # Validation of the presence of this attribute
   validates_presence_of :email
 	# Validationof the size of this attribute
@@ -75,15 +75,10 @@ class Person < ActiveRecord::Base
   end
 
 	# Return the People format of the object (here, itself)
-  def to_people
-    people = self
-    people.model_name = "Person"
-    return people
-  end
-
-  # Method returning the object mapped into a Hash with just some attributes
-  def to_group_member
-    return { :model => 'Person', :id => self.id, :email => self.email, :first_name => self.first_name, :last_name => self.last_name, :origin => self.origin, :created_at => self.created_at, :newsletter => self.newsletter }
+  def to_person
+    person = self
+    person.model_name = "Person"
+    return person
   end
 
 end

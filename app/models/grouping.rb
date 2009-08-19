@@ -18,15 +18,12 @@ class Grouping < ActiveRecord::Base
 	# Relation 1-N with 'groups' table
   belongs_to :group
 	# Polymorphic relation definition
-  belongs_to :groupable, :polymorphic => true
-	# Relation with the 'users' table using the polymorphic definition
-  belongs_to :user, :class_name => "User", :foreign_key => "groupable_id"
-	# Relation with the 'people' table using the polymorphic definition
-  belongs_to :person, :class_name => "Person", :foreign_key => "groupable_id"
+  belongs_to :contacts_workspace
 
   # Method getting the instance of the object defined by the Grouping object
   def member
-    self.groupable_type.classify.constantize.find(self.groupable_id)
+		m = self.contacts_workspace
+    return m.groupable_type.classify.constantize.find(m.groupable_id)
   end
 
 end

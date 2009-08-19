@@ -72,8 +72,8 @@ class User < ActiveRecord::Base
   has_many :comments
 	# Relation N-1 getting the FeedItem objects through the 'feed_sources' table
   has_many :feed_items, :through => :feed_sources, :order => "last_updated DESC"
-	# Relation N-1 with the polymorphic 'groupings' table
-  has_many :groupings, :as => :groupable, :dependent => :delete_all
+	# Relation N-1 with the polymorphic 'contacts_workspaces' table
+  has_many :contacts_workspaces, :as => :contactable, :dependent => :delete_all
 	# Relation N-1 with the 'people' table
   has_many :people, :order => 'email ASC'
 	# # Method setting the different attribute to index for the Xapian research
@@ -167,18 +167,12 @@ class User < ActiveRecord::Base
 	end
 
   # User as people for newsletter subscription
-  def to_people
+  def to_person
     return Person.new(:first_name => self.firstname, :last_name => self.lastname,:email => self.email,
       :primary_phone => self.phone, :mobile_phone => self.mobile,:city => self.address,
       :country => self.nationality,:company => self.company,:job_title => self.activity,
       :newsletter => self.newsletter,:created_at => self.created_at,:updated_at => self.updated_at,:model_name => "User")
   end
-
-  # User as a Group Member
-  def to_group_member
-    return { :model => 'User', :id => self.id, :email => self.email, :first_name => self.firstname, :last_name => self.lastname, :origin => 'user registred', :created_at => self.created_at, :newsletter => self.newsletter }
-  end
-
 
   # Display Name of User(login)
 	def display_name

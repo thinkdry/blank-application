@@ -40,6 +40,9 @@ class Workspace < ActiveRecord::Base
 	has_many :feed_items, :through => :feed_sources
 	# Relation 1-N to the 'users' table
 	belongs_to :creator, :class_name => 'User'
+
+	has_many :contacts_workspaces
+	has_many :groups
 	# Method defining the attibute to index for the Xapian research
 	acts_as_xapian :texts => [:title, :description]
 

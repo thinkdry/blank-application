@@ -1,0 +1,19 @@
+<% div_for(group_in_list, :class => "item_in_list") do %>
+  <% if @i%2 == 0 -%>
+    <div class="sensor_in_list_alternate" onclick="toggleAccordion('itemInformations_<%=@i%>');">
+  <% else -%>
+    <div class="sensor_in_list" onclick="toggleAccordion('itemInformations_<%=@i%>');">
+
+    <% end -%>
+    <div class="left_part_sensor">
+      <a id="items_link" ><%= object.title%></a>
+    </div>
+    <div class="right_part_sensor"><%= I18n.l object.created_at, :format =>:verb %></div>
+  </div>
+  <div id="itemInformations_<%=@i%>" style="display:block;" name="itemInformations">
+    <div class="lift_items">
+      <%= render :partial => "groups/preview", :object => object %>
+    </div>
+  </div>
+  <% @i += 1%>
+<% end %>

@@ -4,7 +4,7 @@ class ConverterWorker < BackgrounDRb::MetaWorker
   pool_size 5
 
   def create(args = nil)
-    puts "Started BackgrounDRb for Encoding"
+    puts "Converter Worker initialisation done ..."
   end
 
   # Create New Thread for Encoding Asynchronously

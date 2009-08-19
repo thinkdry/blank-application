@@ -1,16 +1,57 @@
-<% item_show( :title => 'Group',  :object => @current_object ) do %>
+<link href="/stylesheets/comments.css" media="screen" rel="stylesheet" type="text/css" />
+<div id="content_show">
+  <h1>
+    <%= link_to image_tag("/images/icons/left.png"), workspace_groups_path(@current_object.workspace_id) %>
+    <%#= image_tag object.icon %>
+    <%= @current_object.title %>
+  </h1>
+  <div class="file_infos">
+    <div class="file_infos_box">
+      <p><%#= link_to_user @current_object.user %></p>
+      <p><%= I18n.l @current_object.created_at, :format =>:long %></p>
+      <p><%= @current_object.comments.size %> <%= @current_object.comments.count > 1 ? I18n.t("item.common_word.comment").pluralize : I18n.t("item.common_word.comment")%></p>
+      <p><%#= item_rate_locked(object) %></p>
+      <p>
+        <%= I18n.t("item.show.associated_workspace") %><br/>
+        <%= link_to @current_object.workspace.title, workspace_path(@current_object.workspace_id) %><br/>
+      </p>
+    </div>
+    <div class="file_infos_box">
+      <%#= image_tag '/images/icons/tag_blue.png', :align => "left"%><%#= ((l=@current_object.keywords_list).size > 0) ? l.split(',').map{ |e| link_to(e, searches_path('search[full_text_field]' => e))}.join(', ') : I18n.t('general.common_word.none') %>
+    </div>
+    <div class="file_infos_box">
+      <div align="right">
+        <%= link_to image_tag('icons/comments.png'), '#new_comment_form_box' %>
+        <%= link_to image_tag('icons/printer.png'), 'javascript:window.print();' %>
+        <%= link_to image_tag('icons/pencil.png'), edit_workspace_group_path(params[:workspace_id], @current_object)%>
+        <%= link_to image_tag('icons/delete.png'), workspace_group_path(params[:workspace_id], @current_object), :method => :delete, :confirm =>  I18n.t('item.destroy.delete_conform')%>
+      </div>
+      <div class="output_format">
+        <%#=I18n.t('item.common_word.output_formate') %>:
+        <%#= link_to image_tag('/images/icons/xml.png'), item_path(object)+".xml", :class => 'output_format_link' %>
+        <%#= link_to image_tag('/images/icons/json.png'), item_path(object)+".json", :class => 'output_format_link' %>
+      </div>
+      <div class="add_item_type">
+        <p><%= image_tag "/images/icons/add.png", :width => "30"%><a href="<%=  new_workspace_group_path(params[:workspace_id], @current_object.class.to_s)%>"><%= I18n.t('layout.application.add_content')%></a></p>
+      </div>
+    </div>
+  </div>
+  <div class="item_description"><%= @current_object.description %></div>
+
 
 <div id="group_members">
-    <h2><%= I18n.t('groups.index.members')  %> </h2>
+    <h2><%= I18n.t('group.index.members')  %> </h2>
         <ul>
-        <%for member in @current_object.members %>
-          <li> <%= member.email %> (<%= member.full_name %>) </li>
+        <% for member in @current_object.contacts_workspaces.map{ |e| e.to_group_member }.sort!{ |a,b| a['email'] <=> b['email'] } %>
+          <li> <%= member['email'] %> (<%= member['first_name'].to_s+' '+member['last_name'].to_s %>) </li>
         <% end %>
         </ul>
-  </div>
+</div>
 
-  <form action="<%= export_to_csv_group_path(@current_object.id) %>">
+  <form action="<%= export_to_csv_workspace_group_path(@current_object.workspace_id, @current_object.id) %>">
     <button id="submit_button" class="submit_button" type="submit"><%= I18n.t('group.show.export_to_csv') %></button>
   </form>
 
-<% end %>
+  <%= print_comments_part(@current_object, true) %>
+
+</div>

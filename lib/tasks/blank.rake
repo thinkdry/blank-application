@@ -165,6 +165,7 @@ namespace :blank do
     end
 		Permission.create(:name => 'user_configure', :type_permission => 'system')
 		Permission.create(:name => 'workspace_administrate', :type_permission => 'workspace')
+		Permission.create(:name => 'workspace_contacts_management', :type_permission => 'workspace')
     p "Done"
   end
 

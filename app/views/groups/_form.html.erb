@@ -1,15 +1,32 @@
-<% form_for_item @current_object, title do |f| -%>
+<fieldset>
+  <legend><img src="/images/item_icons/<%= @current_object.class.to_s %>_add.png"/><%= title %></legend>
+  <% form_for @current_object,
+    :builder => BlankFormBuilder,
+    :url => (@current_object.new_record? ? workspace_groups_path(current_workspace.id) : workspace_group_path(current_workspace.id, @current_object)),
+    :html => {
+    :method => (@current_object.new_record? ? :post : :put),
+    :multipart => true
+  } do |f| -%>
 
-  <% f.field :people, :label => I18n.t('groups.field.people_label')+' :' do %>
-      <input type="hidden" name="group_id" id="group_id" value="<%=@group.id%>">
+    <% is_copyright = (@current_object.state == 'copyright') ? true : false %>
+    <% if is_copyright %>
+      <%= f.hidden_field :state, :value => 'copyright' %>
+      <%=I18n.t('copyright.copyright_restriction')%><br />
+    <% end %>
+
+    <%= f.text_field :title, :label => I18n.t('item.field.title_label') + " * :", :hint => I18n.t('item.field.title_hint'), :readonly => is_copyright %>
+
+    <%= f.text_field :description, :label => I18n.t('item.field.description_label') + ' * :', :hint => I18n.t('item.field.description_hint') %>
+
+    <% f.field :people, :label => I18n.t('group.field.people_label')+' :' do %>
+      <input type="hidden" name="group_id" id="group_id" value="<%=@current_object.id%>">
         <div id="select_boxes">
-          <%a =[]; @group.groupings.collect{|member| a << member.groupable_type.downcase+'_'+member.groupable_id.to_s} %>
-         <input type="hidden" name="selected_Options" id="selected_Options" value="<%= a.join(',').to_s%>">
+         <input type="hidden" name="selected_Options" id="selected_Options" value="<%= @selected_members.map{ |e| e['id'] }.join(',') %>">
           <div id="left_select_box">
         	<div class="optionAssignmentLabel">
                <%= I18n.t('groups.field.available_people_label') %>
               <select id="start_with" name="start_with" style="width: 60px;" onchange="show_people();" >
-                <option value="tous">Tous</option>
+                <option value="all"><%= I18n.t('general.common_word.all') %></option>
                 <% ('a'..'z').each do |alpha| %>
                   <option value="<%=alpha%>"><%= alpha.capitalize%></option>
                 <% end %>
@@ -17,13 +34,13 @@
               </select>
               <script type='text/javascript'>
                 function show_people(){
-                  new Ajax.Request('/people/filter/?start_with='+$('start_with').value+'&group_id='+$('group_id').value, {method: "get" ,asynchronous:true, evalScripts:true})
+                  new Ajax.Request('/workspaces/<% params[:workspace_id] %>/groups/filtering_contacts/?start_with='+$('start_with').value+'&group_id='+$('group_id').value, {method: "get" ,asynchronous:true, evalScripts:true})
                 }
               </script>
             </div>
             <select name="assignedPeople" id="assignedOptions" size="5" multiple class="theatreSelection" >
-              <% for mem in @current_user.get_contacts_list('all', 'group_member', true) %>
-                <%= content_tag(:option, mem[:email], :value => mem[:model]+'_'+mem[:id].to_s) if !@group.groupings.include?(Grouping.find(:first, :conditions => {:group_id => @group.id,:groupable_id => mem[:id], :groupable_type => mem[:model] }))%>
+              <% for mem in @remaining_members %>
+                <%= content_tag(:option, mem['email'], :value => mem['id'].to_s) %>
               <% end %>
         	</select>
              <br />
@@ -39,8 +56,6 @@
                 else
                   for(i=0;i<multi.options.length;i++)
                     multi.options[i].selected=false;
-
-
               }
             </script>
           </div>
@@ -52,8 +67,8 @@
 		  <div id="right_select_box" >
             <div class="optionAssignmentLabel"> <%= I18n.t('groups.field.assigned_people_label') %></div>
             <select name="availableOptions" id="availableOptions" size="5" multiple >
-                <% for group_member in @group.groupings %>
-                  <%= content_tag(:option, group_member.member.email, :value => group_member.groupable_type.downcase+'_'+group_member.groupable_id.to_s) %>
+                <% for mem in @selected_members %>
+                  <%= content_tag(:option, mem['email'], :value => mem['id'].to_s) %>
                 <% end %>
             </select>
             <div id="send_all_buttons">
@@ -61,4 +76,10 @@
             </div>
           </div>
      <% end %>
-<% end -%>
+    <button id="submit_button" class="submit_button" type="submit">
+      <%= @current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update')%>
+    </button>
+
+  <% end -%>
+
+</fieldset>

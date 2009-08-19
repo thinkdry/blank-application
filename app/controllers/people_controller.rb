@@ -11,17 +11,58 @@ class PeopleController < ApplicationController
 	# Method defined in the ActsAsItem:ControllerMethods:ClassMethods (see that library fro more information)
   make_resourceful do
     actions :show, :new, :edit, :update, :destroy
+
+		response_for :new do |format|
+			format.html { redirect_to (current_workspace ? new_workspace_person_path(current_workspace.id) : new_person_path) }
+		end
+
+		response_for :edit do |format|
+			format.html { redirect_to (current_workspace ? edit_workspace_person_path(current_workspace.id, @person.id) : edit_person_path(@person.id)) }
+		end
+
+		response_for :show, :update do |format|
+			format.html { redirect_to (current_workspace ? workspace_person_path(current_workspace.id, @person.id) : person_path(@person.id)) }
+		end
+
+		response_for :destroy do |format|
+			format.html { redirect_to (current_workspace ? workspace_contacts_groups_path(current_workspace.id) : people_path) }
+		end
+
   end
 
   # Method to create a New Person
   def create #:nodoc:
     @person = Person.new(params[:person])
     @person.user_id = current_user.id
-    if @person.validate_uniqueness_of_email && @person.save
-      redirect_to person_path(@person)
-    else
-      render :action=>'new'
+    if @person.validate_uniqueness_of_email
+			if@person.save
+			# If in a workspace, need to put the contacts_workspace link
+				if current_workspace
+					ContactsWorkspace.create(
+							:workspace_id => current_workspace.id,
+							:contactable_id => @person.id,
+							:contactable_type => @person.class_to_s,
+							:state => nil
+						)
+				end
+				flash[:notice] = 'Person saved'
+				redirect_to person_path(@person)
+			else
+				flash[:error] = 'Person non saved'
+				render :action=>'new'
+			end
+		else
+			flash[:error] = 'You have already a contact with that email.'
+			if current_workspace
+				tmp = Person.find(:first, :conditions => { :user_id => @current_user.id, :email => person.email })
+				ContactsWorkspace.create(
+						:workspace_id => current_workspace.id,
+						:contactable_id => tmp.id,
+						:contactable_type => 'Person'
+					)
+			end
     end
+		redirect_to (current_workspace ? workspace_person_path(current_workspace.id, @person.id) : person_path(@person.id))
   end
 
   # Method to Show all People 
@@ -37,24 +78,6 @@ class PeopleController < ApplicationController
 		params[:type] ||= {'newsletter' => '0'}
     @people = @current_user.get_contacts_list(params[:restriction], 'group_member', params[:type][:newsletter] == '1').paginate(:per_page => get_per_page_value, :page => params[:page])
     render :partial => 'people_list', :layout => false
-  end
-
-  # Method to replace HTML for Assigned Options with Filter
-  #
-  # Usage URL:
-  #
-  # /people/filter?group_id=1
-  def filter
-    @group = Group.find(params[:group_id]) if !params[:group_id].blank?
-    options = ""
-    for mem in @current_user.get_contacts_list('all', 'group_member', true).delete_if{ |e| e[:email].first != params[:start_with] && params[:start_with] != "tous"}
-      if @group.nil? or !@group.groupings.map{ |e| e.member.to_group_member}.include?(mem)
-        options = options+ "<option value = '#{mem[:model]}_#{mem[:id].to_s}'>#{mem[:email]}</option>"
-      end
-    end
-    render :update do |page|
-      page.replace_html 'assignedOptions' ,:text => options
-    end
   end
 
   # Method to Export People to .csv file format
@@ -155,9 +178,24 @@ class PeopleController < ApplicationController
                 person = Person.new(details.merge({:newsletter => true}))
                 person.user_id = current_user.id
                 person.origin = "CSV importation"
-                if !person.validate_uniqueness_of_email || !person.save
-                  @unsaved_emails << person.email
-                end
+                if person.validate_uniqueness_of_email
+									if person.save
+                  
+									else
+										@unsaved_emails << person.email
+									end
+								elsif person.valid?
+										if current_workspace
+											tmp = Person.find(:first, :conditions => { :user_id => @current_user.id, :email => person.email })
+											ContactsWorkspace.create(
+													:workspace_id => current_workspace.id,
+													:contactable_id => tmp.id,
+													:contactable_type => 'Person'
+											)
+										end
+								else
+									@unsaved_emails << person.email
+								end
 							else
 								empty_emails +=1
 							end
