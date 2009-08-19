@@ -390,6 +390,7 @@ fr-FR:
       automatic_date_field: Date Automatique
       flash_notice_valid: "Le flux RSS a envoy\xC3\xA9 ces informations, Validez les pour souscrire \xC3\xA0 ce flux."
       flash_notice_invalid: Flux RSS invalide
+      valid_feed: La validation de l'url de Feed a été effectué
     chek_feed: 
       flash_notice_already_subscribed: "D\xC3\xA9j\xC3\xA0 souscrit."
       flash_notice_blank: Noter ce flux.
@@ -397,6 +398,7 @@ fr-FR:
       title: Editer le flux RSS
     field: 
       url_label: URL
+      url_hint: Saisissez une url et vérifiez la validation
       author_label: Auteur
       last_updated_label: "Derni\xC3\xA8re mise \xC3\xA0 jour"
       copyright_label: Copyright
