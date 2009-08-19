@@ -264,24 +264,22 @@ function check_feed(){
                 var text = transport.responseText;
                 if(text.split('-')[0] == 'exists'){
                     window.location.href = window.location.href.split('feed_sources')[0] + 'feed_sources/'+text.split('-')[1];
-                }else if(text == 'new'){
+                }else if(text.split('-')[0] == 'new'){
                     $('loading').style.display = 'none';
-
-                    //window.location.href = window.location.href.split('feed_sources')[0] + 'feed_sources/new?url='+url;
-                    return true;
+                    alert(text.split('-')[1])
+                    $('submit_button').disabled = '';
+                //window.location.href = window.location.href.split('feed_sources')[0] + 'feed_sources/new?url='+url;
                 }else{
                     alert(text);
                     $('loading').style.display = 'none';
-                    return false;
                 }
                 $('loading').style.display = 'none';
             },
             method: 'get'
         });
-    }else{
-        return false;
     }
 }
+    
 function add_new_follower(){
     var email = $('new_follower_email').value;
     if(email != 0){
