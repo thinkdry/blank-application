@@ -42,6 +42,7 @@ class Workspace < ActiveRecord::Base
 	belongs_to :creator, :class_name => 'User'
 
 	has_many :contacts_workspaces
+  
 	has_many :groups
 	# Method defining the attibute to index for the Xapian research
 	acts_as_xapian :texts => [:title, :description]

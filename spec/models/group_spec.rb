@@ -23,22 +23,25 @@
 
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
-require File.expand_path(File.dirname(__FILE__) + '/items_spec_helper')
 
 describe Group do
-  include ItemsSpecHelper
   fixtures :people
-  def item
+  
+  def group
     Group.new
   end
 
 
   def group_attributes
-    item_attributes
+    {
+      :title => 'mygroup',
+      :description => 'my friends group',
+      :user_id => 1,
+    }
   end
 
   before(:each) do
-    @group = item
+    @group = group
   end
 
   it "should be valid" do
@@ -46,18 +49,18 @@ describe Group do
     @group.should be_valid
   end
 
-  it "should have groupable objects" do
-    # Dont know how to check.....just checked stupidly
-    @group.attributes = item_attributes
-    @group.groupable_objects = "Person_2,Person_1"
-    @group.groupings.last.should == @group.groupings.last
-  end
+#  it "should have groupable objects" do
+#    # Dont know how to check.....just checked stupidly
+#    @group.attributes = group_attributes
+#    @group.groupable_objects = "Person_2,Person_1"
+#    @group.groupings.last.should == @group.groupings.last
+#  end
 
-  it "should return members" do
-    @group.attributes = item_attributes
-    # Test Through fixtures
-    @group.members.should == []
-  end
+#  it "should return members" do
+#    @group.attributes = item_attributes
+#    # Test Through fixtures
+#    @group.members.should == []
+#  end
   describe "associations" do
 
     it "has and belongs to many newsletters" do
@@ -84,19 +87,11 @@ describe Group do
       }
     end
 
-    it "has many Users" do
-      Group.reflect_on_association(:users).to_hash.should == {
-        :class_name=>"User",
-        :options=>{:source=>:user, :through=>:groupings, :extend=>[],:order=>"email ASC", :conditions=>"groupings.groupable_type = 'User'"},
-        :macro=>:has_many,
-      }
-    end
-
-    it "has many People" do
-      Group.reflect_on_association(:people).to_hash.should == {
-        :class_name=>"Person",
-        :options=>{:source=>:person, :through=>:groupings, :extend=>[],:order=>"email ASC", :conditions=>"groupings.groupable_type = 'Person'"},
-        :macro=>:has_many,
+    it "has should belong to a workspace" do
+      Group.reflect_on_association(:workspace).to_hash.should == {
+        :class_name=>"Workspace",
+        :options=>{},
+        :macro=>:belongs_to,
       }
     end
 

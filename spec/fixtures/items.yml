@@ -1,0 +1,5 @@
+one:
+  id: 1
+  itemable_id: 1
+  itemable_type: Article
+  workspace_id: 1
