@@ -208,7 +208,7 @@ class SuperadministrationController < ApplicationController
   
   private
   def translation_options
-		@translation_sections = ['general', 'layout', 'user', 'workspace', 'item']+ITEMS+['superadministration', 'others']
+		@translation_sections = [['general', 'layout', 'user', 'workspace', 'item', 'group', 'people', 'comment',  'home']+ITEMS].flatten.sort
   end
 	
 end

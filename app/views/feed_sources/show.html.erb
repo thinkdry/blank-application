@@ -1,8 +1,8 @@
-<% item_show( :title => I18n.t('rss_feed.show.title'),  :object => @current_object ) do %>
+<% item_show( :title => I18n.t('feed_source.show.title'),  :object => @current_object ) do %>
 
 	URL : <%= @current_object.url %><br /><br/>
 	
-	<h2>Feed Items<%#= link_to_function "#{I18n.t('rss_feed.show.print_item')} (#{@current_object.feed_items.size})", "{ if ($('itemss').visible()) $('itemss').writeAttribute('class', 'visible'); else $('itemss').writeAttribute('class', 'hidden'); }" %></h2>
+	<h2>Feed Items<%#= link_to_function "#{I18n.t('feed_source.show.print_item')} (#{@current_object.feed_items.size})", "{ if ($('itemss').visible()) $('itemss').writeAttribute('class', 'visible'); else $('itemss').writeAttribute('class', 'hidden'); }" %></h2>
     <div id='itemss' class='hidden' onload="Element.hide( this ) "></div>
       <div id="itemss">
 	  <%= render :partial => "item", :collection => @feed_items %>

@@ -1071,7 +1071,7 @@ ul.top_box li{
 }
 
 #left_select_box, #right_select_box{
-        width:315px;
+        width:310px;
 }
 
 #right_select_box{
@@ -1080,7 +1080,7 @@ ul.top_box li{
 }
 
 #left_select_box select, #right_select_box select{
-	width:315px;
+	width:310px;
 }
 .optionAssignmentLabel{
 	margin-bottom:3px;

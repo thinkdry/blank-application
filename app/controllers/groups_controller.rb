@@ -104,8 +104,8 @@ class GroupsController < ApplicationController
 				end
 			elsif params[:to_do] == 'link' && params[:group_id]
 				params[:contacts_workspaces_ids].each do |e|
-					a=Grouping.new(:group_id => params[:group_id].to_i, :contacts_workspace_id => e.to_i)
-					a.save
+          a=Grouping.new(:group_id => params[:group_id].to_i, :contacts_workspace_id => e.to_i)
+          a.save
 				end
 			elsif params[:to_do] == 'unsubscribed'
 				params[:contacts_workspaces].each do |e|
@@ -136,10 +136,10 @@ class GroupsController < ApplicationController
 				}
 			)
 			if a.delete
-				flash[:notice] = 'Your subscription to the newsletter of that workspace has been removed.'
+				flash[:notice] = I18n.t('group.subscribe.unsubscribe_flash_notice')
 				redirect_to workspace_path(params[:workspace_id])
 			else
-				flash[:error] = 'Impossible to unsubscribe'
+				flash[:error] = I18n.t('group.subscribe.unsubscribe_flash_error')
 				redirect_to workspace_path(params[:workspace_id])
 			end
 		else
@@ -149,10 +149,10 @@ class GroupsController < ApplicationController
 				:contactable_type => @current_user.class.to_s,
 				:state => nil
 			)
-				flash[:notice] = 'Subscribed to the newsletter of that workspace'
+				flash[:notice] = I18n.t('group.subscribe.subscribe_flash_notice')
 				redirect_to workspace_path(params[:workspace_id])
 			else
-				flash[:error] = 'Impossible to subscribe'
+				flash[:error] = I18n.t('group.subscribe.subscribe_flash_error')
 				redirect_to workspace_path(params[:workspace_id])
 			end
 		end

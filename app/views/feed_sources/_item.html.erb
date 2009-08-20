@@ -4,7 +4,7 @@
   <div class="description"><%= item.description %></div>
   <div class="links">
     <%= image_tag("item_icons/Bookmark_add.png") %>
-    <%= link_to I18n.t('rss_feed.show.add_bookmark'), new_bookmark_path(:feed_item_id => item.id) %>
+    <%= link_to I18n.t('feed_source.show.add_bookmark'), new_bookmark_path(:feed_item_id => item.id) %>
     <%# Specify the weight & width :popup=>['new_window','height=800,width=1024'] %>
   </div>
 </div>
