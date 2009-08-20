@@ -101,6 +101,7 @@ class GroupsController < ApplicationController
 					if cw.contactable_type == 'WebsiteContact'
 						cw.contactable.delete
 					end
+					cw.delete
 				end
 			elsif params[:to_do] == 'link' && params[:group_id]
 				params[:contacts_workspaces_ids].each do |e|
@@ -120,9 +121,9 @@ class GroupsController < ApplicationController
 			current_objects = current_workspace.contacts_workspaces.delete_if do |cw|
 				cw.groupings.delete_if{ |e| !group_ids.include?(e.group_id) }.first
 			end
-			@current_objects = current_objects.map{ |e| e.to_group_member }.sort{ |a,b| a[params[:order]] <=> b[params[:order]] }
+			@current_objects = current_objects.map{ |e| e.to_group_member(@current_user.id) }.sort{ |a,b| a[params[:order]] <=> b[params[:order]] }
 		else
-			@current_objects = current_workspace.contacts_workspaces.map{ |e| e.to_group_member }.sort{ |a,b| a[params[:order]] <=> b[params[:order]] }
+			@current_objects = current_workspace.contacts_workspaces.map{ |e| e.to_group_member(@current_user.id) }.sort{ |a,b| a[params[:order]] <=> b[params[:order]] }
 		end
 	end
 

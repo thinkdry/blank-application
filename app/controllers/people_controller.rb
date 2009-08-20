@@ -12,20 +12,20 @@ class PeopleController < ApplicationController
   make_resourceful do
     actions :show, :new, :edit, :update, :destroy
 
-		response_for :new do |format|
-			format.html { redirect_to (current_workspace ? new_workspace_person_path(current_workspace.id) : new_person_path) }
-		end
+#		response_for :new do |format|
+#			format.html { redirect_to (current_workspace ? new_workspace_person_path(current_workspace.id) : new_person_path) }
+#		end
+#
+#		response_for :edit do |format|
+#			format.html { redirect_to (current_workspace ? edit_workspace_person_path(current_workspace.id, @person.id) : edit_person_path(@person.id)) }
+#		end
 
-		response_for :edit do |format|
-			format.html { redirect_to (current_workspace ? edit_workspace_person_path(current_workspace.id, @person.id) : edit_person_path(@person.id)) }
-		end
-
-		response_for :show, :update do |format|
+		response_for :update do |format|
 			format.html { redirect_to (current_workspace ? workspace_person_path(current_workspace.id, @person.id) : person_path(@person.id)) }
 		end
 
 		response_for :destroy do |format|
-			format.html { redirect_to (current_workspace ? workspace_contacts_groups_path(current_workspace.id) : people_path) }
+			format.html { redirect_to (current_workspace ? contacts_workspace_groups_path(current_workspace.id) : people_path) }
 		end
 
   end

@@ -13,7 +13,7 @@ class ContactsWorkspace < ActiveRecord::Base
 #			:conditions => {  } }
 #	}
 
-	def to_group_member
+	def to_group_member(user_id=nil)
 		return {
 				'id' => self.id,
 				'state' => self.state,
@@ -22,7 +22,8 @@ class ContactsWorkspace < ActiveRecord::Base
 				'email' => begin self.contactable.email rescue self.contactable.from_email end,
 				'first_name' => begin self.contactable.first_name rescue self.contactable.firstname end,
 				'last_name' => begin self.contactable.last_name rescue self.contactable.lastname end,
-				'created_at' => self.created_at
+				'created_at' => self.created_at,
+				'permission' => false || (user_id && self.contactable_type=='Person' && self.contactable.user_id==user_id)
 			}
 	end
 
