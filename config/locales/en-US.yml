@@ -72,6 +72,10 @@ en-US:
     show: 
       update_user: Update Private Information
       title: Private Information
+    locking:
+      lock_flash_notice: User locked
+      unlock_flash_notice: User unlocked
+      flash_error: Error
   article: 
     new: 
       title: Add a New Article
@@ -196,6 +200,8 @@ en-US:
       yes1: "yes"
       with: with
       select_country: Select country
+      last_connected: Last connected
+      state: State
     item: 
       article: Article
       audio: Audio
@@ -226,6 +232,8 @@ en-US:
     menu: 
       add: Add
       add_help: This menu helps you to add content
+    copyright:
+      copyright_restriction: Some fields can't be modified as this element is Copyright protected.
   group: 
     new: 
       title: New Group
@@ -245,6 +253,11 @@ en-US:
     contacts:
       title: Workspace contacts management
       add_people: Add a new person as contact
+    subscribe:
+      unsubscribe_flash_notice: Your subscription to the newsletter of that workspace has been removed.
+      unsubscribe_flash_error: Impossible to unsubscribe
+      subscribe_flash_notice: Subscribed to the newsletter of that workspace
+      subscribe_flash_error: Impossible to subscribe
   time: 
     am: am
     formats: 
@@ -359,6 +372,8 @@ en-US:
       subscription_as_reader: Subscription as Reader
       last_five_item: Last Five Items
       public_workspace: Public Workspace
+      subscribe_to_newsletter: Subscribe to the newsletter
+      unsubscribe_to_newsletter: Unsubscribe to the newsletter
     subscription: 
       flash_notice: "Vous \xC3\xAAtes inscrit sur cet espace de travail."
       flash_error: "Vous n'avez pas \xC3\xA9t\xC3\xA9 inscrit sur cet espace de travail."
@@ -374,7 +389,7 @@ en-US:
       request_to_workspace_administrator: Request to the workspace administrator
       administrator_of_workspace: You are the administrator of this workspace
       request_to_workspace_administrator_txt1: "Si vous voulez envoyez un demande particuli\xC3\xA8re \xC3\xA0 l'administrateur de cet espace de travail, remplissez l'encadr\xC3\xA9 ci-dessus afin de g\xC3\xA9n\xC3\xA9rer un email pour l'administrateur"
-  rss_feed: 
+  feed_source:
     new: 
       title: New RSS Feed
       automatic_date_field: Automatic Date Field
@@ -424,9 +439,6 @@ en-US:
       title: Edit file
     field: 
       file_label: File
-  copyright: 
-    copyright_restriction: Some fields can't be modified as this element is Copyright protected.
-    copyright: Copyright
   newsletter: 
     new: 
       title: Add Newsletter
@@ -499,7 +511,6 @@ en-US:
   people: 
     new: 
       title: New Person
-    imported_from_csv: Imported from CSV
     import_people: 
       note_label: Note
       unsaved_records_flash_error2: email ids. Because of invalid email formate or those are already exist.

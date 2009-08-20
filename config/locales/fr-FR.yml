@@ -46,6 +46,7 @@ fr-FR:
       email_label: Courriel
       nationality_label: "Nationalit\xC3\xA9"
       location_label: Emplacement
+      date_of_birth_label: Date de naissance
     session: 
       login_hint: Entez vos identifiants
       password_hint: Votre mot de passe
@@ -81,6 +82,10 @@ fr-FR:
     show: 
       update_user: "Mise \xC3\xA0 jour des informations personnelles"
       title: Informations personnelles
+    locking:
+      lock_flash_notice: Utilisateur bloqué
+      unlock_flash_notice: Utilisateur débloqué
+      flash_error: Erreur
   article: 
     new: 
       title: Ajouter un nouvel article
@@ -176,6 +181,9 @@ fr-FR:
       ajax_message_captcha_invalid: "Le code de v\xC3\xA9rification est incorrect."
       yes1: oui
       with: avec
+      select_country: Select country
+      last_connected: Dernier connecté
+      state: Etat
     item: 
       article: Article
       audio: Audio
@@ -208,6 +216,8 @@ fr-FR:
       workspace: espace de travail
       item: objet
       comment: commentaire
+    copyright:
+      copyright_restriction: "Certains \xC3\xA9l\xC3\xA9ments sont prot\xC3\xA9g\xC3\xA9s par le Copyright et ne peuvent \xC3\xAAtre modifi\xC3\xA9s."
   activerecord: 
     errors: 
       messages: 
@@ -252,7 +262,7 @@ fr-FR:
       short: time"%d %b %H:%M"
       long: "%B %d, %Y %H:%M"
     pm: pm
-  groups: 
+  group: 
     new: 
       title: Nouveau groupe
     edit: 
@@ -271,6 +281,11 @@ fr-FR:
     contacts:
       title: Management des contacts du workspace
       add_people: Ajouter un nouveau contact
+    subscribe:
+      unsubscribe_flash_notice:  Votre inscription à la newsletter de ce workspace a été supprimée
+      unsubscribe_flash_error: Impossible de se désinscrire
+      subscribe_flash_notice: Inscris à la newsletter de ce workspace
+      subscribe_flash_error:  Impossible de se désinscrire
   date: 
     order: 
     - :year
@@ -330,6 +345,7 @@ fr-FR:
       flash_notice: "L'espace de travail a \xC3\xA9t\xC3\xA9 cr\xC3\xA9\xC3\xA9"
       title: "Cr\xC3\xA9er un nouvel espace de travail"
       flash_error: "L'espace de travail n'a pas pu \xC3\xAAtre cr\xC3\xA9\xC3\xA9"
+      add_user_text: Afin d'ajouter des utilisateurs à ce workspace, vous devez tout d'abord le sauvegarder afin de vérifier son intégrité
     unsubscription: 
       flash_notice: "Vous \xC3\xAAtes d\xC3\xA9sinscrit de cet espace de travail."
       flash_error: "Vous n'avez pas \xC3\xA9t\xC3\xA9 d\xC3\xA9sinscrit de cet espace de travail."
@@ -369,6 +385,8 @@ fr-FR:
       subscription_as_reader: S'inscrire comme lecteur
       last_five_item: 5 derniers Objets
       public_workspace: Espace de travail publique
+      subscribe_to_newsletter: S'inscrire à la newsletter
+      unsubscribe_to_newsletter: Se désinscrire de la newsletter
     subscription: 
       flash_notice: "Vous \xC3\xAAtes inscrit sur cet espace de travail."
       flash_error: "Vous n'avez pas \xC3\xA9t\xC3\xA9 inscrit sur cet espace de travail."
@@ -384,7 +402,7 @@ fr-FR:
       request_to_workspace_administrator: Request to the workspace administrator
       administrator_of_workspace: "Vous \xC3\xAAtes l'administrateur de cet espace de travail."
       request_to_workspace_administrator_txt1: "Si vous voulez envoyer une demande particuli\xC3\xA8re \xC3\xA0 l'administrateur de cet espace de travail, remplissez l'encadr\xC3\xA9 ci-dessus afin de g\xC3\xA9n\xC3\xA9rer un email pour l'administrateur"
-  rss_feed: 
+  feed_source:
     new: 
       title: Nouveau flux RSS
       automatic_date_field: Date Automatique
@@ -434,9 +452,6 @@ fr-FR:
       title: Editer le fichier
     field: 
       file_label: fichier
-  copyright: 
-    copyright_restriction: "Certains \xC3\xA9l\xC3\xA9ments sont prot\xC3\xA9g\xC3\xA9s par le Copyright et ne peuvent \xC3\xAAtre modifi\xC3\xA9s."
-    copyright: Copyright
   newsletter: 
     new: 
       title: Ajouter une newsletter

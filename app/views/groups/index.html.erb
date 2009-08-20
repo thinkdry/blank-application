@@ -1,5 +1,6 @@
 <%= I18n.t('group.index.title')  %>
 <br />
+<input type="hidden" id="total_items" value="<%= @current_objects.length %>">
 <% @i=0; @current_objects.each do |g| %>
   <%= render :partial => 'groups/group_in_list', :object => g %>
 <% end %>

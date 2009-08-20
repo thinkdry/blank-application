@@ -11,7 +11,7 @@
     <% is_copyright = (@current_object.state == 'copyright') ? true : false %>
     <% if is_copyright %>
       <%= f.hidden_field :state, :value => 'copyright' %>
-      <%=I18n.t('copyright.copyright_restriction')%><br />
+      <%=I18n.t('general.copyright.copyright_restriction')%><br />
     <% end %>
 
     <%= f.text_field :title, :label => I18n.t('item.field.title_label') + " * :", :hint => I18n.t('item.field.title_hint'), :readonly => is_copyright %>
@@ -24,7 +24,7 @@
          <input type="hidden" name="selected_Options" id="selected_Options" value="<%= @selected_members.map{ |e| e['id'] }.join(',') %>">
           <div id="left_select_box">
         	<div class="optionAssignmentLabel">
-               <%= I18n.t('groups.field.available_people_label') %>
+               <%= I18n.t('group.field.available_people_label') %>
               <select id="start_with" name="start_with" style="width: 60px;" onchange="show_people();" >
                 <option value="all"><%= I18n.t('general.common_word.all') %></option>
                 <% ('a'..'z').each do |alpha| %>
@@ -34,7 +34,7 @@
               </select>
               <script type='text/javascript'>
                 function show_people(){
-                  new Ajax.Request('/workspaces/<% params[:workspace_id] %>/groups/filtering_contacts/?start_with='+$('start_with').value+'&group_id='+$('group_id').value, {method: "get" ,asynchronous:true, evalScripts:true})
+                  new Ajax.Request('/workspaces/<%= params[:workspace_id] %>/groups/filtering_contacts/?start_with='+$('start_with').value+'&group_id='+$('group_id').value, {method: "get" ,asynchronous:true, evalScripts:true})
                 }
               </script>
             </div>
@@ -65,7 +65,7 @@
 			<input type="button" class="sendRightButton" onclick="shiftLeft('assignedOptions','availableOptions', false)" class="theatreAssignment"/>
           </div>
 		  <div id="right_select_box" >
-            <div class="optionAssignmentLabel"> <%= I18n.t('groups.field.assigned_people_label') %></div>
+            <div class="optionAssignmentLabel"> <%= I18n.t('group.field.assigned_people_label') %></div>
             <select name="availableOptions" id="availableOptions" size="5" multiple >
                 <% for mem in @selected_members %>
                   <%= content_tag(:option, mem['email'], :value => mem['id'].to_s) %>

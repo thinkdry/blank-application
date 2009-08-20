@@ -99,15 +99,15 @@ class UsersController < ApplicationController
 		current_object
 		if @current_object.activation_code == 'unlocked'
 			if @current_object.lock
-				flash[:notice] = 'User locked'
+				flash[:notice] = I18n.t('user.locking.lock_flash_notice')
 			else
-				flash[:error] = 'Error'
+				flash[:error] = I18n.t('user.locking.flash_error')
 			end
 		else
 			if @current_object.unlock
-				flash[:notice] = 'User locked'
+				flash[:notice] = I18n.t('user.locking.unlock_flash_notice')
 			else
-				flash[:error] = 'Error'
+				flash[:error] = I18n.t('user.locking.flash_error')
 			end
 		end
 		redirect_to '/users'
