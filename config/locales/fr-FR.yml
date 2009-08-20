@@ -46,6 +46,7 @@ fr-FR:
       email_label: Courriel
       nationality_label: "Nationalit\xC3\xA9"
       location_label: Emplacement
+      date_of_birth_label: Date de naissance
     session: 
       login_hint: Entez vos identifiants
       password_hint: Votre mot de passe
@@ -176,6 +177,7 @@ fr-FR:
       ajax_message_captcha_invalid: "Le code de v\xC3\xA9rification est incorrect."
       yes1: oui
       with: avec
+      select_country: Select country
     item: 
       article: Article
       audio: Audio

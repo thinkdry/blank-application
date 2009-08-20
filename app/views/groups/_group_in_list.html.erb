@@ -10,7 +10,7 @@
     </div>
     <div class="right_part_sensor"><%= I18n.l object.created_at, :format =>:verb %></div>
   </div>
-  <div id="itemInformations_<%=@i%>" style="display:block;" name="itemInformations">
+  <div id="itemInformations_<%=@i%>" style="display:none;" name="itemInformations">
     <div class="lift_items">
       <%= render :partial => "groups/preview", :object => object %>
     </div>
