@@ -34,7 +34,7 @@
               </select>
               <script type='text/javascript'>
                 function show_people(){
-                  new Ajax.Request('/workspaces/<%= params[:workspace_id] %>/groups/filtering_contacts/?start_with='+$('start_with').value+'&group_id='+$('group_id').value, {method: "get" ,asynchronous:true, evalScripts:true})
+                  new Ajax.Request('/workspaces/<%= current_workspace.id %>/groups/filtering_contacts/?start_with='+$('start_with').value+'&group_id='+$('group_id').value, {method: "get" ,asynchronous:true, evalScripts:true})
                 }
               </script>
             </div>
@@ -45,7 +45,7 @@
         	</select>
              <br />
             <div id="send_all_buttons">
-              <input type="button" onclick="selectAll($('assignedOptions'),'assignedOptions')" value ="Tout sélectionner" style="width:180px;"/>
+              <input type="button" onclick="selectAll($('assignedOptions'),'assignedOptions')" value ="Tout select" style="width:180px;"/>
             </div>
             <script type="text/javascript" charset="utf-8">
               function selectAll(chkObj,id){

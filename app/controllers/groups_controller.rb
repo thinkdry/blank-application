@@ -81,11 +81,12 @@ class GroupsController < ApplicationController
   #
   # /people/filter?group_id=1
   def filtering_contacts
-    @group = Group.find(params[:group_id]) if !params[:group_id].blank?
+    group = Group.find(params[:group_id]) if !params[:group_id].blank?
     options = ""
-    for mem in @group.workspace.contacts_workspaces.map{ |e| e.to_group_member }.delete_if{ |e| e['email'].first != params[:start_with] && params[:start_with] != "all"}
-      if @group.nil? or !@group.groupings.map{ |e| e.member.to_group_member}.include?(mem)
-        options = options+ "<option value = '#{mem[:model]}_#{mem[:id].to_s}'>#{mem[:email]}</option>"
+		#raise current_workspace.contacts_workspaces.map{ |e| e.to_group_member }.delete_if{ |e| e['email'].first != params[:start_with] && params[:start_with] != "all"}.inspect
+    current_workspace.contacts_workspaces.map{ |e| e.to_group_member }.delete_if{ |e| e['email'].first != params[:start_with] && params[:start_with] != "all"}.each do |mem|
+      if group.nil? || !group.contacts_workspaces.map{ |e| e.to_group_member}.include?(mem)
+        options = options+ "<option value = '#{mem['id'].to_s}'>#{mem['email']}</option>"
       end
     end
     render :update do |page|
