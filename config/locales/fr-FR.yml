@@ -83,9 +83,9 @@ fr-FR:
       update_user: "Mise \xC3\xA0 jour des informations personnelles"
       title: Informations personnelles
     locking:
-      lock_flash_notice: User locked
-      unlock_flash_notice: User unlocked
-      flash_error: Error
+      lock_flash_notice: Utilisateur bloqué
+      unlock_flash_notice: Utilisateur débloqué
+      flash_error: Erreur
   article: 
     new: 
       title: Ajouter un nouvel article
@@ -182,8 +182,8 @@ fr-FR:
       yes1: oui
       with: avec
       select_country: Select country
-      last_connected: Last connected
-      state: State
+      last_connected: Dernier connecté
+      state: Etat
     item: 
       article: Article
       audio: Audio
@@ -282,10 +282,10 @@ fr-FR:
       title: Management des contacts du workspace
       add_people: Ajouter un nouveau contact
     subscribe:
-      unsubscribe_flash_notice: Your subscription to the newsletter of that workspace has been removed.
-      unsubscribe_flash_error: Impossible to unsubscribe
-      subscribe_flash_notice: Subscribed to the newsletter of that workspace
-      subscribe_flash_error: Impossible to subscribe
+      unsubscribe_flash_notice:  Votre inscription à la newsletter de ce workspace a été supprimée
+      unsubscribe_flash_error: Impossible de se désinscrire
+      subscribe_flash_notice: Inscris à la newsletter de ce workspace
+      subscribe_flash_error:  Impossible de se désinscrire
   date: 
     order: 
     - :year
@@ -345,7 +345,7 @@ fr-FR:
       flash_notice: "L'espace de travail a \xC3\xA9t\xC3\xA9 cr\xC3\xA9\xC3\xA9"
       title: "Cr\xC3\xA9er un nouvel espace de travail"
       flash_error: "L'espace de travail n'a pas pu \xC3\xAAtre cr\xC3\xA9\xC3\xA9"
-      add_user_text: In order to add users to this workspace, you have first to save it to check the integrity of that workspace.
+      add_user_text: Afin d'ajouter des utilisateurs à ce workspace, vous devez tout d'abord le sauvegarder afin de vérifier son intégrité
     unsubscription: 
       flash_notice: "Vous \xC3\xAAtes d\xC3\xA9sinscrit de cet espace de travail."
       flash_error: "Vous n'avez pas \xC3\xA9t\xC3\xA9 d\xC3\xA9sinscrit de cet espace de travail."
@@ -385,8 +385,8 @@ fr-FR:
       subscription_as_reader: S'inscrire comme lecteur
       last_five_item: 5 derniers Objets
       public_workspace: Espace de travail publique
-      subscribe_to_newsletter: Subscribe to the newsletter
-      unsubscribe_to_newsletter: Unsubscribe to the newsletter
+      subscribe_to_newsletter: S'inscrire à la newsletter
+      unsubscribe_to_newsletter: Se désinscrire de la newsletter
     subscription: 
       flash_notice: "Vous \xC3\xAAtes inscrit sur cet espace de travail."
       flash_error: "Vous n'avez pas \xC3\xA9t\xC3\xA9 inscrit sur cet espace de travail."
