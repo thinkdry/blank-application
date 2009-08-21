@@ -6,7 +6,7 @@
 	<% if @current_user.has_system_role('superadmin') %>
 	  <%= link_to image_tag('/images/icons/pencil.png', :width => "20"), edit_user_path(object.id) %>
 	  <% if object.activation_code.to_s.size > 10 %>
-        <%= link_to image_tag('/images/icons/delete.png', :width => "20"), user_path(object.id), :method => :delete, :confirm => 'Really ?' %><br />
+        <%= link_to image_tag('/images/icons/delete.png', :width => "20"), user_path(object.id), :method => :delete, :confirm => I18n.t('general.common_word.confirmation') %><br />
       <% else %>
         <%= link_to (object.activation_code=='locked' ? 'Unlock' : 'Lock'), locking_user_path(object.id) %><br />
       <% end %>

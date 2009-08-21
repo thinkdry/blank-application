@@ -202,6 +202,9 @@ en-US:
       select_country: Select country
       last_connected: Last connected
       state: State
+    common_message:
+      permission_denied: Permission denied
+      error_during_file_transfer: Error occured during file transfer
     item: 
       article: Article
       audio: Audio
@@ -374,6 +377,7 @@ en-US:
       public_workspace: Public Workspace
       subscribe_to_newsletter: Subscribe to the newsletter
       unsubscribe_to_newsletter: Unsubscribe to the newsletter
+      contacts_management: Contacts management
     subscription: 
       flash_notice: "Vous \xC3\xAAtes inscrit sur cet espace de travail."
       flash_error: "Vous n'avez pas \xC3\xA9t\xC3\xA9 inscrit sur cet espace de travail."

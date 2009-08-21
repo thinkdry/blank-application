@@ -530,5 +530,15 @@ DlgAboutInfo		: "Pour plus d'informations, aller à",
 DlgDivGeneralTab	: "Général",
 DlgDivAdvancedTab	: "Avancé",
 DlgDivStyle		: "Style",
-DlgDivInlineStyle	: "Attribut Style"
+DlgDivInlineStyle	: "Attribut Style",
+
+//uploaded file status alerts
+PleaseSelectFile : "Merci de sélectionner un fichier à envoyer",
+UploadedSuccessfully : "Votre fichier a été chargé avec succès",
+UploadedFileExistAndRenamedTo : "Un fichier avec le même nom existe déjà. Le fichier chargé a été renommé en ",
+InvalidFileType : "Type de fichier invalide",
+SecurityError : " Erreur de sécurité. Vous n'avez probablement pas assez de permission pour le charger. Merci de vérifier votre serveur.",
+ConnectorDisabled : "Le connecteur est désactivé",
+ErrorOnFileUpload : "Erreur sur l'envoi du fichier. Numéro d'erreur"
+
 };

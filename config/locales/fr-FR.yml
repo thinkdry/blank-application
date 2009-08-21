@@ -181,9 +181,12 @@ fr-FR:
       ajax_message_captcha_invalid: "Le code de v\xC3\xA9rification est incorrect."
       yes1: oui
       with: avec
-      select_country: Select country
+      select_country: Choisissez un pays
       last_connected: Dernier connecté
       state: Etat
+    common_message:
+      permission_denied: Permission refusée
+      error_during_file_transfer: Erreur durant l'envoi du fichier
     item: 
       article: Article
       audio: Audio
@@ -387,6 +390,7 @@ fr-FR:
       public_workspace: Espace de travail publique
       subscribe_to_newsletter: S'inscrire à la newsletter
       unsubscribe_to_newsletter: Se désinscrire de la newsletter
+      contacts_management: Contacts management
     subscription: 
       flash_notice: "Vous \xC3\xAAtes inscrit sur cet espace de travail."
       flash_error: "Vous n'avez pas \xC3\xA9t\xC3\xA9 inscrit sur cet espace de travail."
