@@ -102,7 +102,7 @@ describe User do
 
   it "should require login without special characters" do
     @user.attributes = user_attributes
-    @user.login = 'luc_23'
+    @user.login = 'luc.23'
     @user.should have(1).error_on(:login)
   end
 
@@ -200,15 +200,15 @@ describe User do
       }
     end
 
-    ITEMS.each do |item|
-      it "has many #{item}" do
-        User.reflect_on_association(item.pluralize.to_sym).to_hash.should == {
-          :macro => :has_many,
-          :options => {:extend => []},
-          :class_name => item.camelize
-        }
-      end
-    end
+#    ITEMS.each do |item|
+#      it "has many #{item}" do
+#        User.reflect_on_association(item.pluralize.to_sym).to_hash.should == {
+#          :macro => :has_many,
+#          :options => {:extend => []},
+#          :class_name => item.camelize
+#        }
+#      end
+#    end
 
     it "has many ratings" do
       User.reflect_on_association(:rattings).to_hash.should == {
@@ -223,15 +223,6 @@ describe User do
         :macro => :has_many,
         :options => {:extend=>[]},
         :class_name => "Comment"
-      }
-    end
-
-
-    it "has many groupings" do
-     User.reflect_on_association(:groupings).to_hash.should == {
-        :macro => :has_many,
-        :options => {:as => :groupable, :dependent => :delete_all,:extend=>[]},
-        :class_name => "Grouping"
       }
     end
 
@@ -252,10 +243,10 @@ describe User do
      @user.get_contacts_list('all',nil,false).should == Person.all
     end
 
-    it "should convert users to people" do
-      @user = users(:luc)
-      @user.to_people.class.to_s.should == 'Person'
-    end
+#    it "should convert users to people" do
+#      @user = users(:luc)
+#      @user.to_people.class.to_s.should == 'Person'
+#    end
 
     it "should convert user to group member" do
       # Dont know how to implement..... whats d use??
