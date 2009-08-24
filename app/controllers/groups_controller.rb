@@ -18,7 +18,10 @@ class GroupsController < ApplicationController
 	skip_before_filter :is_logged?, :only => [:unsubscribe]
 
 	def index
-		@current_objects = current_workspace.groups
+    filter_type = params[:filter_name] || 'created_at'
+		filter_way = params[:filter_way] ||= 'desc'
+    @paginated_objects = Group.paginate(:conditions => {:workspace_id => current_workspace.id}, :order => "#{filter_type} #{filter_way}", :per_page => get_per_page_value, :page => params[:page])
+    render :partial => 'group_in_list', :layout => false if request.xml_http_request?
 	end
 
 	def new
@@ -66,12 +69,12 @@ class GroupsController < ApplicationController
 
 	def destroy
 		@current_object = Group.find(params[:id])
-		if @current_object.delete
+		if @current_object.destroy
 			flash[:notice] = I18n.t('item.destroy.flash_notice')
-			redirect_to workspace_contacts_path(current_workspace.id)
+			redirect_to workspace_groups_path(current_workspace.id)
 		else
 			flash[:error] = I18n.t('item.destroy.flash_error')
-			redirect_to workspace_contacts_path(current_workspace.id)
+			redirect_to workspace_group_path(current_workspace.id, @current_object.id)
 		end
 	end
 
@@ -99,13 +102,15 @@ class GroupsController < ApplicationController
 				params[:contacts_workspaces_ids].each do |e|
 					cw=ContactsWorkspace.find(e)
 					if cw.contactable_type == 'WebsiteContact'
-						cw.contactable.delete
+						cw.contactable.destroy
 					end
 				end
 			elsif params[:to_do] == 'link' && params[:group_id]
 				params[:contacts_workspaces_ids].each do |e|
-          a=Grouping.new(:group_id => params[:group_id].to_i, :contacts_workspace_id => e.to_i)
-          a.save
+          if Grouping.find(:first, :conditions => {:group_id => params[:group_id].to_i, :contacts_workspace_id => e.to_i}).nil?
+            a=Grouping.new(:group_id => params[:group_id].to_i, :contacts_workspace_id => e.to_i)
+            a.save
+          end
 				end
 			elsif params[:to_do] == 'unsubscribed'
 				params[:contacts_workspaces].each do |e|
@@ -135,7 +140,7 @@ class GroupsController < ApplicationController
 					:state => nil
 				}
 			)
-			if a.delete
+			if a.destroy
 				flash[:notice] = I18n.t('group.subscribe.unsubscribe_flash_notice')
 				redirect_to workspace_path(params[:workspace_id])
 			else

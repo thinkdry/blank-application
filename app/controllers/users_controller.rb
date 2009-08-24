@@ -273,7 +273,7 @@ class UsersController < ApplicationController
       @user.activate if !params[:activate_manually].nil?
       redirect_to users_path
     else
-      flash[:error] = I18n.t('general.common_messages.permission_denied')
+      flash[:error] = I18n.t('general.common_message.permission_denied')
       redirect_to '/'
     end
   end

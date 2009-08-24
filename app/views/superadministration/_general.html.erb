@@ -44,7 +44,12 @@
 
   <label>Available languages :</label>
   <div class="formElement">
-    <%= checkboxes_from_list(LANGUAGES, "sa_languages", @conf, "conf") %>
+    <%#= checkboxes_from_list(LANGUAGES, "sa_languages", @conf, "conf") %>
+    <% LANGUAGES.each do |l| %>
+     <div class="checkbox_list_horizontal">
+      <%= check_box_tag("conf[sa_languages][]", "#{l}", ((ref=@conf['sa_languages']) ? ref.include?(l) : false), :class => "checkboxes")+' '+I18n.t('general.language.'+l) %>
+     </div>
+    <% end %>
   </div>
 
   <label>Workspaces types :</label>

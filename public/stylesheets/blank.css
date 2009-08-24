@@ -1216,11 +1216,11 @@ ul.top_box li{
 .checkbox_list_horizontal input{
 	margin:0 3px;
 }
-#search_header{
+#search_header, #groups_list_header{
 	padding:10px;
 	border-bottom:1px solid #CCCCCC;
 }
-#search_header h2{
+#search_header h2, #groups_list_header h2{
 	border-bottom:0;
 	margin:0;
 }
