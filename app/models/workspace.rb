@@ -238,6 +238,19 @@ class Workspace < ActiveRecord::Base
     return accepting_action(user, 'new', false, false, true)
   end
 
+  # will save contacts in contacts_workpsaces table and contact_ids = "Person_1,Person_2"
+  def selected_contacts= contact_ids
+    tmp = contact_ids.split(',') || []
+    self.contacts_workspaces.each do |k|
+      k.destroy unless tmp.delete(k.contactable_type+'_'+k.contactable_id.to_s)
+    end
+    tmp.each do |contact|
+      if !ContactsWorkspace.exists?(:workspace_id => self.id, :contactable_id => contact.split('_')[1], :contactable_type => contact.split('_')[0])
+        self.contacts_workspaces << contacts_workspaces.build(:workspace_id => self.id, :contactable_id => contact.split('_')[1], :contactable_type => contact.split('_')[0])
+      end
+    end
+  end
+
 	private
 	def accepting_action(user, action, spe_cond, sys_cond, ws_cond)
 		# Special access

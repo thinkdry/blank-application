@@ -41,6 +41,8 @@ class Person < ActiveRecord::Base
 
 	# Relation N-1 with the polymorphic 'contacts_workspaces' table
   has_many :contacts_workspaces, :as => :contactable, :dependent => :delete_all
+
+  has_many :workspaces , :through => :contacts_workspaces
   # Validation of the presence of this attribute
   validates_presence_of :email
 	# Validationof the size of this attribute
@@ -81,4 +83,20 @@ class Person < ActiveRecord::Base
     return person
   end
 
+  # Assign Worksapces to current Person ( One Person can be associated with many Worksapces)
+  #
+  # Usage :
+  # <tt>article.assoicated_workspaces ([workspace1.id, workspace2.id])</tt>
+  # will assign workspaces to the Person
+  def associated_workspaces(workspace_ids)
+    tmp = workspace_ids || []
+    self.contacts_workspaces.each do |k|
+      k.destroy unless tmp.delete(k.workspace_id.to_s)
+    end
+    tmp.each do |w_id|
+      if !ContactsWorkspace.exists?(:workspace_id => w_id, :contactable_id => self.id, :contactable_type => "Person")
+        self.contacts_workspaces << contacts_workspaces.build(:workspace_id => w_id, :contactable_id => self.id, :contactable_type => "Person")
+      end
+    end
+  end
 end

@@ -19,13 +19,17 @@ class PeopleController < ApplicationController
 #		response_for :edit do |format|
 #			format.html { redirect_to (current_workspace ? edit_workspace_person_path(current_workspace.id, @person.id) : edit_person_path(@person.id)) }
 #		end
-
+    after :update do
+      # to save assoceated workspaces of the person
+      @current_object.associated_workspaces(params[:associated_workspaces])
+    end
+    
 		response_for :update do |format|
-			format.html { redirect_to (current_workspace ? workspace_person_path(current_workspace.id, @person.id) : person_path(@person.id)) }
+			format.html { redirect_to(current_workspace ? workspace_person_path(current_workspace.id, @person.id) : person_path(@person.id)) }
 		end
 
 		response_for :destroy do |format|
-			format.html { redirect_to (current_workspace ? contacts_workspace_groups_path(current_workspace.id) : people_path) }
+			format.html { redirect_to(current_workspace ? contacts_workspace_groups_path(current_workspace.id) : people_path) }
 		end
 
   end
@@ -35,33 +39,16 @@ class PeopleController < ApplicationController
     @person = Person.new(params[:person])
     @person.user_id = current_user.id
     if @person.validate_uniqueness_of_email
-			if@person.save
-			# If in a workspace, need to put the contacts_workspace link
-				if current_workspace
-					ContactsWorkspace.create(
-							:workspace_id => current_workspace.id,
-							:contactable_id => @person.id,
-							:contactable_type => 'Person',
-							:state => nil
-						)
-				end
+			if @person.save
+        # to save assoceated workspaces of the person
+        @person.associated_workspaces(params[:associated_workspaces])
 				flash[:notice] = 'Person saved in your contact, and also to the current workspace contacts.'
-				redirect_to (current_workspace ? workspace_person_path(current_workspace.id, @person.id) : person_path(@person.id))
+				redirect_to(current_workspace ? workspace_person_path(current_workspace.id, @person.id) : person_path(@person.id))
 			else
 				flash[:error] = 'Person non saved'
 				render :action=>'new'
 			end
 		else
-			if current_workspace
-				if !ContactsWorkspace.exists?(:workspace_id => current_workspace.id, :contactable_type => 'Person', :contactable_id => @person.id)
-					tmp = Person.find(:first, :conditions => { :user_id => @current_user.id, :email => person.email })
-					ContactsWorkspace.create(
-							:workspace_id => current_workspace.id,
-							:contactable_id => tmp.id,
-							:contactable_type => 'Person'
-						)
-				end
-			end
 			flash[:error] = 'You have already a contact with that email, but so it has been added to that workspace.'
 			render :action=>'new'
     end
@@ -70,6 +57,7 @@ class PeopleController < ApplicationController
   # Method to Show all People 
   def index #:nodoc:
 		@people = @current_user.people.paginate(:per_page => get_per_page_value, :page => params[:page])
+#    @people = @current_user.people
   end
 
   # Method to all People for Ajax Pagination
@@ -178,13 +166,21 @@ class PeopleController < ApplicationController
                 person.origin = "CSV importation"
                 if person.validate_uniqueness_of_email
 									if person.save
-                  
+                    params[:associated_workspaces].each do |w_id|
+                      if !ContactsWorkspace.exists?(:workspace_id => w_id, :contactable_type => 'Person', :contactable_id => person.id)
+												ContactsWorkspace.create(
+														:workspace_id => w_id,
+														:contactable_id => person.id,
+														:contactable_type => 'Person'
+													)
+											end
+                    end
 									else
 										@unsaved_emails << person.email
 									end
 								elsif person.valid?
 										if current_workspace
-											if !ContactsWorkspace.exists?(:workspace_id => current_workspace.id, :contactable_type => 'Person', :contactable_id => @person.id)
+											if !ContactsWorkspace.exists?(:workspace_id => current_workspace.id, :contactable_type => 'Person', :contactable_id => person.id)
 												tmp = Person.find(:first, :conditions => { :user_id => @current_user.id, :email => person.email })
 												ContactsWorkspace.create(
 														:workspace_id => current_workspace.id,
@@ -204,6 +200,7 @@ class PeopleController < ApplicationController
           flash.now[:notice] = I18n.t('people.import_people.saved_records_flash_notice') if @unsaved_emails.empty? && empty_emails == 0
           flash.now[:error] = I18n.t('people.import_people.unsaved_records_flash_error1')+'<b> '+@unsaved_emails.join(',')+' </b>'+I18n.t('people.import_people.unsaved_records_flash_error2') if !@unsaved_emails.empty?
 					flash.now[:error] = "#{empty_emails} contacts n'ont pas été sauvegardés car l'email était vide." if empty_emails > 0
+          params[:associated_workspaces] = []
         rescue Exception => e
           logger.error ">>>>>>>>>>>>>>>>>>>"
           logger.error " Problem while parsing csv file "+ e

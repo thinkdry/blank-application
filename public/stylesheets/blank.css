@@ -1065,12 +1065,12 @@ ul.top_box li{
 	margin-top:9px;
 }
 
-#left_select_box, #left_right_buttons, #right_select_box{
+#left_select_box, #left_right_buttons, #right_select_box, #right_select_box2{
 	float:left;
 	overflow:visible;
 }
 
-#left_select_box, #right_select_box{
+#left_select_box, #right_select_box, #right_select_box2{
         width:310px;
 }
 
@@ -1079,7 +1079,11 @@ ul.top_box li{
 	padding-left:35px;
 }
 
-#left_select_box select, #right_select_box select{
+#right_select_box2{
+	padding-left:35px;
+}
+
+#left_select_box select, #right_select_box select, #right_select_box2 select{
 	width:310px;
 }
 .optionAssignmentLabel{
@@ -1093,7 +1097,10 @@ ul.top_box li{
 #select_boxes{
 	margin-top:4px;
 }
-
+#select_boxes2{
+	margin-top:4px;
+    margin-left:60px;
+}
 #person_details_row{
   margin-top:20px;
 }

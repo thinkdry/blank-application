@@ -202,6 +202,7 @@ en-US:
       select_country: Select country
       last_connected: Last connected
       state: State
+      select_all: Select all
     common_message:
       permission_denied: Permission denied
       error_during_file_transfer: Error occured during file transfer
@@ -393,6 +394,11 @@ en-US:
       request_to_workspace_administrator: Request to the workspace administrator
       administrator_of_workspace: You are the administrator of this workspace
       request_to_workspace_administrator_txt1: "Si vous voulez envoyez un demande particuli\xC3\xA8re \xC3\xA0 l'administrateur de cet espace de travail, remplissez l'encadr\xC3\xA9 ci-dessus afin de g\xC3\xA9n\xC3\xA9rer un email pour l'administrateur"
+    add_contacts:
+      title: Assign contacts to
+      current_contacts: Assigned contacts
+      available_contacts: Available contactas
+      flash_notice: Contacts are saved successfully
   feed_source:
     new: 
       title: New RSS Feed
@@ -515,7 +521,8 @@ en-US:
   people: 
     new: 
       title: New Person
-    import_people: 
+    import_people:
+      label: Import contacts from csv file
       note_label: Note
       unsaved_records_flash_error2: email ids. Because of invalid email formate or those are already exist.
       wrong_file_flash_error: Please select .csv file only.

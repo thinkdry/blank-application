@@ -23,7 +23,7 @@ class Grouping < ActiveRecord::Base
   # Method getting the instance of the object defined by the Grouping object
   def member
 		m = self.contacts_workspace
-    return m.groupable_type.classify.constantize.find(m.groupable_id)
+    return m.contactable_type.classify.constantize.find(m.contactable_id)
   end
 
 end

@@ -121,7 +121,7 @@ ActionController::Routing::Routes.draw do |map|
   items_resources(map)
   
   # Items in context of workspaces
-  map.resources :workspaces, :member => { :add_new_user => :any, :subscription => :any, :unsubscription => :any, :question => :any }, :collection => {:validate => :any} do |workspaces|
+  map.resources :workspaces, :member => { :add_new_user => :any, :subscription => :any, :unsubscription => :any, :question => :any , :add_contacts => :any}, :collection => {:validate => :any} do |workspaces|
     items_resources(workspaces)
 		workspaces.resources :groups, :collection => { :validate => :any, :filtering_contacts => :get, :contacts => :any, :do_on_contacts => :any, :subscribe => :any }, :member => { :export_to_csv => :any, :add_comment => :any }
 		workspaces.resources :people, :collection => { :export_people => :any, :import_people => :any,:ajax_index => :get,:get_empty_csv => :get, :validate => :any ,:filter => :get, :update_newsletter_column => :any}
