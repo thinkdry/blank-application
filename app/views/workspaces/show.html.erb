@@ -11,11 +11,11 @@
     </h1>
     <%= @current_object.description %>
 
-    <br><%= link_to 'Contacts management', workspace_groups_path(@workspace.id) %><br />
+    <br><%= link_to "#{I18n.t('workspace.show.contacts_management')}", workspace_groups_path(@workspace.id) %><br />
     <br><% if ContactsWorkspace.exists?(:workspace_id => @current_object.id, :contactable_type => 'User', :contactable_id => @current_user.id) %>
-      <%= link_to 'Unsubscribe to the newsletter', subscribe_workspace_groups_path(@workspace.id)+'?remove=yes' %>
+      <%= link_to "#{I18n.t('workspace.show.unsubscribe_to_newsletter')}", subscribe_workspace_groups_path(@workspace.id)+'?remove=yes' %>
     <% else %>
-      <%= link_to 'Subscribe to the newsletter', subscribe_workspace_groups_path(@workspace.id) %>
+      <%= link_to "#{I18n.t('workspace.show.subscribe_to_newsletter')}", subscribe_workspace_groups_path(@workspace.id) %>
     <% end %><br />
 
     <% if @workspace.creator == self.current_user || @current_object.accepts_edit_for?(@current_user) %>

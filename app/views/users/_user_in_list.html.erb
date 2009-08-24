@@ -6,13 +6,13 @@
 	<% if @current_user.has_system_role('superadmin') %>
 	  <%= link_to image_tag('/images/icons/pencil.png', :width => "20"), edit_user_path(object.id) %>
 	  <% if object.activation_code.to_s.size > 10 %>
-        <%= link_to image_tag('/images/icons/delete.png', :width => "20"), user_path(object.id), :method => :delete, :confirm => 'Really ?' %><br />
+        <%= link_to image_tag('/images/icons/delete.png', :width => "20"), user_path(object.id), :method => :delete, :confirm => I18n.t('general.common_word.confirmation') %><br />
       <% else %>
         <%= link_to (object.activation_code=='locked' ? 'Unlock' : 'Lock'), locking_user_path(object.id) %><br />
       <% end %>
-      <i>- Role: <%= object.system_role.name %></i><br />
-      <i><%=" - Last Connected: " + (object.last_connected_at ? time_ago_in_words(object.last_connected_at) : 'unknow but created at '+object.created_at.to_s) %></i><br />
-      <i><%=" - State: " + object.activation_code.to_s %></i>
+      <i>- <%= I18n.t('general.common_word.role').capitalize %>: <%= object.system_role.name %></i><br />
+      <i><%=" - #{ I18n.t('general.common_word.last_connected') }: " + (object.last_connected_at ? time_ago_in_words(object.last_connected_at) : 'unknow but created at '+object.created_at.to_s) %></i><br />
+      <i><%=" - #{ I18n.t('general.common_word.state') }: " + object.activation_code.to_s %></i>
 	<% end %>
    <% end %>
 </div>

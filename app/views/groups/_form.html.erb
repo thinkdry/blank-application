@@ -11,7 +11,7 @@
     <% is_copyright = (@current_object.state == 'copyright') ? true : false %>
     <% if is_copyright %>
       <%= f.hidden_field :state, :value => 'copyright' %>
-      <%=I18n.t('copyright.copyright_restriction')%><br />
+      <%=I18n.t('general.copyright.copyright_restriction')%><br />
     <% end %>
 
     <%= f.text_field :title, :label => I18n.t('item.field.title_label') + " * :", :hint => I18n.t('item.field.title_hint'), :readonly => is_copyright %>

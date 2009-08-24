@@ -1,0 +1,6 @@
+one:
+  id: 1
+  title: test article
+  description: test article description
+  body: article body
+  user_id: 1

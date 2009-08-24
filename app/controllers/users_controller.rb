@@ -99,15 +99,15 @@ class UsersController < ApplicationController
 		current_object
 		if @current_object.activation_code == 'unlocked'
 			if @current_object.lock
-				flash[:notice] = 'User locked'
+				flash[:notice] = I18n.t('user.locking.lock_flash_notice')
 			else
-				flash[:error] = 'Error'
+				flash[:error] = I18n.t('user.locking.flash_error')
 			end
 		else
 			if @current_object.unlock
-				flash[:notice] = 'User locked'
+				flash[:notice] = I18n.t('user.locking.unlock_flash_notice')
 			else
-				flash[:error] = 'Error'
+				flash[:error] = I18n.t('user.locking.flash_error')
 			end
 		end
 		redirect_to '/users'
@@ -273,7 +273,7 @@ class UsersController < ApplicationController
       @user.activate if !params[:activate_manually].nil?
       redirect_to users_path
     else
-      flash[:error] = "Permission denied"
+      flash[:error] = I18n.t('general.common_messages.permission_denied')
       redirect_to '/'
     end
   end

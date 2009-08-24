@@ -29,7 +29,7 @@ class FckUploadsController < ApplicationController
 			render :text => "<script type='text/javascript'>window.parent.OnUploadCompleted(0, #{(request.url.split(request.request_uri())[0]+dest_file).inspect})</script>", :layout => false		
     rescue Exception => e
       logger.error(e.to_s + "\n" + e.backtrace.collect { |trace|' ' + trace + "\n" }.to_s)
-      render :text => "<script type='text/javascript'>window.parent.OnUploadCompleted(1, '', '', #{I18n.t('message.error_during_file_transfer')})</script>", :layout => false
+      render :text => "<script type='text/javascript'>window.parent.OnUploadCompleted(1, '', '', \"#{I18n.t('general.common_message.error_during_file_transfer')}\")</script>", :layout => false
     end
   end
 end

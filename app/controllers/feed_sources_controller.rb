@@ -37,15 +37,15 @@ class FeedSourcesController < ApplicationController
   def check_feed
     daurl = params[:url]
     if daurl.blank?
-      render :text => I18n.t('rss_feed.chek_feed.flash_notice_blank')
+      render :text => I18n.t('feed_source.chek_feed.flash_notice_blank')
     elsif (@feed=FeedSource.find(:first, :conditions => { :url => daurl, :user_id => current_user.id }))
-      flash[:notice] = I18n.t('rss_feed.chek_feed.flash_notice_already_subscribed')
+      flash[:notice] = I18n.t('feed_source.chek_feed.flash_notice_already_subscribed')
       render :text => "exists-#{@feed.id}"
     else
       if FeedSource.valid_feed?(daurl)
-        render :text => "new-#{I18n.t('rss_feed.new.valid_feed')}"
+        render :text => "new-#{I18n.t('feed_source.new.valid_feed')}"
       else
-        render :text => I18n.t('rss_feed.new.flash_notice_invalid')
+        render :text => I18n.t('feed_source.new.flash_notice_invalid')
       end
     end
   end
