@@ -10,11 +10,16 @@
 <% @current_objects.each do |member| %>
   <%= "#{member['email']} (#{member['first_name']} #{member['last_name']}) -- #{member['contact_type']} -- #{member['state']}" %>
   <%= check_box_tag 'contacts_workspaces_ids[]', member['id'] %>
+  <% if member['permission'] %>
+    <%= link_to image_tag('/images/icons/play.png', :width => "20"), workspace_person_path(current_workspace.id, member['contact_id']) %>
+    <%= link_to image_tag('/images/icons/pencil.png', :width => "20"), edit_workspace_person_path(current_workspace.id, member['contact_id']) %>
+    <%= link_to image_tag('/images/icons/delete.png', :width => "20"), workspace_person_path(current_workspace.id, member['contact_id']), :method => :delete, :confirm => 'Be careful, this will remove definitively the person, use remove if you just want to remove it from that workspace, so are you sure ?' %><br />
+  <% end %>
   <br />
 <% end %>
 <br /><br />
 <u>Action :</u>
-<%= radio_button_tag 'to_do', 'remove' %> Remove these contacts |
+<%= radio_button_tag 'to_do', 'remove' %> Remove these contacts from that workspace |
 <%= radio_button_tag 'to_do', 'link' %> Link these contacts to the group : <%= select_tag 'group_id', options_for_select(current_workspace.groups.map{ |e| [e.title, e.id] }) %> |
 <%= radio_button_tag 'to_do', 'unsubscribe' %> Unsubscribe these contacts
 <br /><br />
