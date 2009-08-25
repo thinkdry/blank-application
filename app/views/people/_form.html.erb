@@ -1,7 +1,9 @@
 <fieldset>
   <legend><%= I18n.t('people.new.title') %></legend>
 
-  <% form_for @person,:builder => BlankFormBuilder, :html => {:multipart=> true} do |f| -%>
+  <% form_for @person,:builder => BlankFormBuilder, 
+    :url => (@person.new_record? ? (current_workspace ? workspace_people_path(current_workspace.id) : people_path) : (current_workspace ? workspace_person_path(current_workspace.id, @person.id) : person_path(@person.id))),
+    :html => {:method => (@person.new_record? ? :post : :put), :multipart=> true} do |f| -%>
     <%= f.text_field :email, :label => I18n.t('people.field.email_label') +" * : " %>
     <label><%= I18n.t('people.field.salutation_label') %> : </label>
     <div class="formElement">
@@ -33,6 +35,7 @@
     <%= f.text_field :web_page, :label => I18n.t('people.field.web_page_label') +" : " %>
     <%= f.text_area :notes, :size => "40x6", :label => I18n.t('people.field.notes_label') +" : "%>
     <%= f.check_box :newsletter ,:label => I18n.t('people.field.newsletter_lable')+" : ", :class => "checkboxes"%>
+    <%= associated_workspaces_checkboxes(f, @current_object, 'workspace_edit') %>
     <%= f.hidden_field :origin,:value=>"Creation"  %>
     <% button_text = @person.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update') %>
     <button type="submit" class="submit_button"><%= button_text%></button>

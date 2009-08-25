@@ -1,5 +1,6 @@
 <div id="area_PROFIL">
 	  <h2>
+        <%= link_to image_tag("/images/icons/left.png"), (current_workspace ? contacts_workspace_groups_path(current_workspace.id) : people_path) %>
         <%= I18n.t('general.common_word.'+@current_object.salutation)  if !@current_object.salutation.to_s.blank? || !@current_object.salutation.nil?   %>
 	  	<%= @current_object.first_name %> <%= @current_object.last_name %>
         <%= link_to image_tag('icons/pencil.png'), edit_person_path, :class => "pencil"  %>

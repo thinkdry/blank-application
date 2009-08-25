@@ -25,8 +25,8 @@ class WorkspacesController < ApplicationController
       params[:id] ||= params[:workspace_id]
 			# Just for the first load of the show, means without item selected
       params[:item_type] ||= get_allowed_item_types(@current_object).first.to_s.pluralize
-#			@current_objects = get_items_list(params[:item_type], @current_object)
-#			@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
+      #			@current_objects = get_items_list(params[:item_type], @current_object)
+      #			@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
       #<!-- new code
       @paginated_objects = get_paginated_items_list(params[:item_type], @current_object)
       # -->
@@ -77,12 +77,12 @@ class WorkspacesController < ApplicationController
 			format.html { redirect_to administration_user_url(@current_user.id) }
 		end
     
-#		response_for :show do |format|
-#      format.html { render :action => "show" }
-#      format.xml { render :xml => @current_object }
-#      format.json { render :json => @current_object }
-#      format.atom { render :template => "items/index.atom.builder", :layout => false }
-#    end
+    #		response_for :show do |format|
+    #      format.html { render :action => "show" }
+    #      format.xml { render :xml => @current_object }
+    #      format.json { render :json => @current_object }
+    #      format.atom { render :template => "items/index.atom.builder", :layout => false }
+    #    end
 	end
 
   # Set Worksapce if the Worksapce Parameter Exists
@@ -171,5 +171,23 @@ class WorkspacesController < ApplicationController
 		end
 	end
 
+  #To assing contacts to workspace URL: workspaces/1/add_contacts
+  def add_contacts
+    @current_object = Workspace.find(params[:id])
+    if current_user.has_workspace_permission(@current_object.id, 'workspace', 'contacts_management')
+      if request.get? 
+        @assigned_contacts = Person.find_by_sql("SELECT p.id, p.email FROM people p INNER JOIN contacts_workspaces cw ON cw.workspace_id = #{@current_object.id} WHERE ((cw.contactable_type = 'Person') AND (cw.contactable_id = p.id)) ORDER BY p.email ASC")
+        condition = @assigned_contacts.empty? ? "" : "p.id NOT IN (#{@assigned_contacts.map{|p| p.id}.join(',')}) AND "
+        @available_contacts = Person.find_by_sql("SELECT p.id, p.email FROM people p WHERE #{condition}p.user_id = #{current_user.id} ORDER BY p.email ASC")
+      else
+        flash[:notice] = I18n.t('workspace.add_contacts.flash_notice')
+        @current_object.selected_contacts = params[:selected_Options]
+        redirect_to add_contacts_workspace_path(@current_object.id)
+      end
+    else
+      flash[:error] = I18n.t('general.common_message.permission_denied')
+      redirect_to workspace_path(params[:id])
+    end
+  end
 
 end

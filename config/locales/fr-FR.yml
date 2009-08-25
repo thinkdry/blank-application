@@ -181,9 +181,13 @@ fr-FR:
       ajax_message_captcha_invalid: "Le code de v\xC3\xA9rification est incorrect."
       yes1: oui
       with: avec
-      select_country: Select country
+      select_country: Choisissez un pays
       last_connected: Dernier connecté
       state: Etat
+      select_all: Tout select
+    common_message:
+      permission_denied: Permission refusée
+      error_during_file_transfer: Erreur durant l'envoi du fichier
     item: 
       article: Article
       audio: Audio
@@ -387,6 +391,7 @@ fr-FR:
       public_workspace: Espace de travail publique
       subscribe_to_newsletter: S'inscrire à la newsletter
       unsubscribe_to_newsletter: Se désinscrire de la newsletter
+      contacts_management: Contacts management
     subscription: 
       flash_notice: "Vous \xC3\xAAtes inscrit sur cet espace de travail."
       flash_error: "Vous n'avez pas \xC3\xA9t\xC3\xA9 inscrit sur cet espace de travail."
@@ -402,6 +407,11 @@ fr-FR:
       request_to_workspace_administrator: Request to the workspace administrator
       administrator_of_workspace: "Vous \xC3\xAAtes l'administrateur de cet espace de travail."
       request_to_workspace_administrator_txt1: "Si vous voulez envoyer une demande particuli\xC3\xA8re \xC3\xA0 l'administrateur de cet espace de travail, remplissez l'encadr\xC3\xA9 ci-dessus afin de g\xC3\xA9n\xC3\xA9rer un email pour l'administrateur"
+    add_contacts:
+      title: Assign contacts to
+      current_contacts: Assigned contacts
+      available_contacts: Available contactas
+      flash_notice: Contacts are saved successfully
   feed_source:
     new: 
       title: Nouveau flux RSS

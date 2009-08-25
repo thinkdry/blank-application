@@ -80,15 +80,62 @@ module ApplicationHelper
     distance_in_minutes = (((to_time - from_time).abs)/60).round
     I18n.with_options :locale => options[:locale], :scope => 'datetime.distance_in_words' do |locale|
 			case distance_in_minutes
-				when 0..1           then (distance_in_minutes==0) ? (locale.t :less_than_a_minute, :count => 5) : (locale.t :one_minute_ago, :count => distance_in_minutes)
-				when 2..59          then locale.t :x_minutes_ago, :count => distance_in_minutes
-				when 60..90         then locale.t :one_hour_ago, :count => distance_in_minutes
-				when 90..1440       then locale.t :x_hours_ago, :count => (distance_in_minutes.to_f / 60.0).round
-				when 1440..2160     then locale.t :one_day_ago, :count => distance_in_minutes # 1 day to 1.5 days
-				when 2160..2880     then locale.t :x_days_ago, :count => (distance_in_minutes.to_f / 1440.0).round # 1.5 days to 2 days
+      when 0..1           then (distance_in_minutes==0) ? (locale.t :less_than_a_minute, :count => 5) : (locale.t :one_minute_ago, :count => distance_in_minutes)
+      when 2..59          then locale.t :x_minutes_ago, :count => distance_in_minutes
+      when 60..90         then locale.t :one_hour_ago, :count => distance_in_minutes
+      when 90..1440       then locale.t :x_hours_ago, :count => (distance_in_minutes.to_f / 60.0).round
+      when 1440..2160     then locale.t :one_day_ago, :count => distance_in_minutes # 1 day to 1.5 days
+      when 2160..2880     then locale.t :x_days_ago, :count => (distance_in_minutes.to_f / 1440.0).round # 1.5 days to 2 days
 			else
 				I18n.l from_time, :format => :long1
 			end
 		end
   end
+
+  # Workspaces checkboxes 
+  #
+  # Usage:
+  #
+  # <tt>item_status_fields(form, article)</tt>
+  #
+  # will return all the checkboxes linked to workspaces for that item, with the different options set (disabled, checked or hidden)
+	def associated_workspaces_checkboxes(form, object, permission = nil)
+		strg = ""
+		object_class_name = object.class.to_s.underscore
+		check_box_tag_name = "associated_workspaces[]"
+		res=[]
+    permission = permission || object_class_name+"_new"
+		# Workspace list allowing user to add new item and accepting items of that type
+		list = (res + Workspace.allowed_user_with_permission(@current_user.id, permission)).uniq
+		#
+		if (list.size > 1 || @current_user.has_system_role('superadmin'))
+			strg += "<label>#{I18n.t('general.object.workspace').camelize+'(s) :'}</label><div class='formElement'>"
+			#form.field(:workspaces, :label => I18n.t('general.object.workspace').camelize+'(s) :', :ajax => false)
+			list.collect do |w|
+				# Setting the checked status form that workspace
+				if params[:associated_workspaces]
+          checked = params[:associated_workspaces].include?(w.id.to_s)
+				else
+          checked = ContactsWorkspace.exists?(:workspace_id => w.id, :contactable_id => object.id, :contactable_type => object.class.to_s) if object
+				end
+				# Creating the checkboxes
+				if ((w.state == 'private') && (w.creator_id == @current_user.id) && object && (object.new_record? || object.user_id==@current_user.id)) || (list.size==1) || (w == current_workspace)
+					strg += check_box_tag(check_box_tag_name, w.id, true, :disabled => true, :class => 'checkboxes') + ' ' + w.title + hidden_field_tag(check_box_tag_name, w.id.to_s) + '<br />'
+				else
+					strg += check_box_tag(check_box_tag_name, w.id, checked, :class => 'checkboxes') + ' ' + w.title + '<br />'
+				end
+			end
+			strg += '</div>'
+		elsif (list.size > 0)
+			list.each do |ws|
+				strg += hidden_field_tag(check_box_tag_name, ws.id.to_s)
+			end
+		end
+    if object && object.workspaces
+      (object.workspaces - list).each do |ws|
+        strg += hidden_field_tag(check_box_tag_name, ws.id.to_s)
+      end
+    end
+		return strg
+	end
 end

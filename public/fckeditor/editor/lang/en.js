@@ -530,5 +530,15 @@ DlgAboutInfo		: "For further information go to",
 DlgDivGeneralTab	: "General",
 DlgDivAdvancedTab	: "Advanced",
 DlgDivStyle		: "Style",
-DlgDivInlineStyle	: "Inline Style"
+DlgDivInlineStyle	: "Inline Style",
+
+//uploaded file status alerts
+PleaseSelectFile : "Please select a file to upload",
+UploadedSuccessfully : "Your file has been successfully uploaded",
+UploadedFileExistAndRenamedTo : "A file with the same name is already available. The uploaded file has been renamed to ",
+InvalidFileType : "Invalid file type",
+SecurityError : "Security error. You probably don't have enough permissions to upload. Please check your server.",
+ConnectorDisabled : "The connector is disabled",
+ErrorOnFileUpload : "Error on file upload. Error number "
+
 };

@@ -1,14 +1,15 @@
-<%= (params[:restriction]=='all') ? 'All' : link_to('All', people_path(:restriction => 'all')) %> |
-<%= (params[:restriction]=='people') ? 'People' : link_to('People', people_path(:restriction => 'people')) %> |
-<%= (params[:restriction]=='users') ? 'Users' : link_to('Users', people_path(:restriction => 'users')) %> |
-<%= (params[:restriction]=='website_contacts') ? 'Website contacts' : link_to('Website contacts', people_path(:restriction => 'website_contacts')) %>
+<%#= (params[:restriction]=='all') ? 'All' : link_to('All', people_path(:restriction => 'all')) %> |
+<%#= (params[:restriction]=='people') ? 'People' : link_to('People', people_path(:restriction => 'people')) %> |
+<%#= (params[:restriction]=='users') ? 'Users' : link_to('Users', people_path(:restriction => 'users')) %> |
+<%#= (params[:restriction]=='website_contacts') ? 'Website contacts' : link_to('Website contacts', people_path(:restriction => 'website_contacts')) %>
 
 <% if @people.size > 0 %>
-<table  cellpadding="10" cellspacing="0">
+<table  cellpadding="5" cellspacing="0">
   <tr>
     <th width="10%"><%= I18n.t('people.field.origin_label') %></th>
     <th width="20%"><%= I18n.t('people.field.email_label') %></th>
     <th width="20%"><%= I18n.t('people.index.name') %></th>
+    <th> Workspaces</th>
     <th width="15%"><%= I18n.t('people.index.subscribed_on') %></th>
     <th width="10%"></th>
   </tr>
@@ -22,19 +23,20 @@
     <td> <%= person[:origin] %></td>
     <td> <%= person[:email] %></td>
     <td> <%= person[:first_name] %> <%= person[:last_name] %></td>
+    <td><%= person.workspaces.map{|w| w.title }.join(', ') %></td>
     <td> <%= I18n.l person[:created_at].to_datetime, :format => :long %> </td>
     <td>
-        <%= link_to image_tag("/images/icons/play.png", :width => "20", :alt => I18n.t('general.link.display')), eval("#{person[:model].underscore}_path(#{person[:id]})") %>
-          <% if person[:model] != 'User' %>
-            <%= link_to image_tag("/images/icons/pencil.png", :width => "20", :alt => I18n.t('general.link.edit')), eval("edit_#{person[:model].underscore}_path(#{person[:id]})") %>
-            <%= link_to image_tag("/images/icons/delete.png", :width => "20", :alt => I18n.t('general.link.delete')), eval("#{person[:model].underscore}_path(#{person[:id]})"), :method => :delete, :confirm => I18n.t('people.index.delete_confirm') %>
-            <span style="vertical-align:baseline;"><%= I18n.t('user.field.newsletter_label')%>
-            <%= check_box_tag("person_#{person[:id]}", "1", person[:newsletter] ,:class => "checkboxes", :onclick => remote_function(:url => {:controller => "people", :action => "update_newsletter_column" },  :with => "'id=#{person[:id]}&type=#{person[:model]}&newsletter='+$('person_#{person[:id]}').checked", :complete => "document.body.style.cursor = 'default';", :loading => "document.body.style.cursor = 'wait';" ))%>
-          <% else %>
-            <span style="vertical-align:baseline;"><%= I18n.t('user.field.newsletter_label')%>
-            <%= check_box_tag(nil, nil, person[:newsletter], :disabled => true, :class => "checkboxes") %>
-          <% end %>
-          </span>
+        <%= link_to image_tag("/images/icons/play.png", :width => "20", :alt => I18n.t('general.link.display')), eval("#{person.class.to_s.underscore}_path(#{person[:id]})") %>
+          <%# if person.class.to_s != 'User' %>
+            <%= link_to image_tag("/images/icons/pencil.png", :width => "20", :alt => I18n.t('general.link.edit')), eval("edit_#{person.class.to_s.underscore}_path(#{person[:id]})") %>
+            <%= link_to image_tag("/images/icons/delete.png", :width => "20", :alt => I18n.t('general.link.delete')), eval("#{person.class.to_s.underscore}_path(#{person[:id]})"), :method => :delete, :confirm => I18n.t('people.index.delete_confirm') %>
+           <!-- <span style="vertical-align:baseline;"><%#= I18n.t('user.field.newsletter_label')%> 
+            <%#= check_box_tag("person_#{person[:id]}", "1", person[:newsletter] ,:class => "checkboxes", :onclick => remote_function(:url => {:controller => "people", :action => "update_newsletter_column" },  :with => "'id=#{person[:id]}&type=#{person.class.to_s}&newsletter='+$('person_#{person[:id]}').checked", :complete => "document.body.style.cursor = 'default';", :loading => "document.body.style.cursor = 'wait';" ))%>
+          <%# else %>
+            <span style="vertical-align:baseline;"><%#= I18n.t('user.field.newsletter_label')%>
+            <%#= check_box_tag(nil, nil, person[:newsletter], :disabled => true, :class => "checkboxes") %>
+          <%# end %>
+          </span> -->
     </td>
   </tr>
   <% @i += 1%>

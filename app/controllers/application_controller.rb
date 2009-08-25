@@ -111,8 +111,8 @@ class ApplicationController < ActionController::Base
 	# Parameters :
 	# - message : String defining the message to send, default: nil
 	def no_permission_redirection(message=nil)
-		flash[:error] = message || "Permission denied"
-		if current_workspace
+		flash[:error] = message || I18n.t('general.common_message.permission_denied')
+		if current_workspace && current_workspace.accepts_show_for?(current_user)
 			redirect_to workspace_url(current_workspace.id)
 		else
 			redirect_to '/'

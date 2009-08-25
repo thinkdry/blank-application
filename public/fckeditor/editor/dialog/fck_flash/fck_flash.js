@@ -243,7 +243,7 @@ function OnUploadCompleted( errorNumber, fileUrl, fileName, customMsg )
 	switch ( errorNumber )
 	{
 		case 0 :	// No errors
-			alert( 'Your file has been successfully uploaded' ) ;
+			alert( FCKLang.UploadedSuccessfully ) ;
 			break ;
 		case 1 :	// Custom error
 			alert( customMsg ) ;
@@ -252,19 +252,19 @@ function OnUploadCompleted( errorNumber, fileUrl, fileName, customMsg )
 			alert( customMsg ) ;
 			break ;
 		case 201 :
-			alert( 'A file with the same name is already available. The uploaded file has been renamed to "' + fileName + '"' ) ;
+			alert( FCKLang.UploadedFileExistAndRenamedTo + fileName ) ;
 			break ;
 		case 202 :
-			alert( 'Invalid file type' ) ;
+			alert( FCKLang.InvalidFileType ) ;
 			return ;
 		case 203 :
-			alert( "Security error. You probably don't have enough permissions to upload. Please check your server." ) ;
+			alert( FCKLang.SecurityError ) ;
 			return ;
 		case 500 :
-			alert( 'The connector is disabled' ) ;
+			alert(  FCKLang.ConnectorDisabled) ;
 			break ;
 		default :
-			alert( 'Error on file upload. Error number: ' + errorNumber ) ;
+			alert( FCKLang.ErrorOnFileUpload + errorNumber ) ;
 			return ;
 	}
 
