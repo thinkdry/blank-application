@@ -123,6 +123,7 @@ class FeedSource < ActiveRecord::Base
 			begin
 				s.import_latest_items
 			rescue
+        s.errors.inspect
 				logger.info "  #{Time.now} : Error updating Feed Source #{s.id}"
 			end
 			#logger.info "Removing Expired Feed Items"

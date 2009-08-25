@@ -1,6 +1,7 @@
 class EncodingJob < Struct.new(:args)
 
   def perform
+    Rails.logger.info "Encoding #{args[:type]} with id #{args[:id]} at #{Time.now}"
     object=args[:type].classify.constantize.find_by_id(args[:id])
     success = system(convert_media(args[:type], object, args[:enc]))
     if success && $?.exitstatus == 0
@@ -15,7 +16,9 @@ class EncodingJob < Struct.new(:args)
           j=j*3
         end
       end
+      Rails.logger.info "Encoded Sucessfully for #{args[:type]} with id #{args[:id]} at #{Time.now}"
     else
+      Rails.logger.info "Encoding error for #{args[:type]} with id #{args[:id]} at #{Time.now}"
       object.update_attributes(:state=>"encoding_error")
     end
 
@@ -23,6 +26,7 @@ class EncodingJob < Struct.new(:args)
 
   # Method to convert the media to desired media (Default MP3 for Audio and FLV for Video)
   def convert_media(type, object, enc)
+    Rails.logger.info "Converting Media of type #{args[:type]} with id #{args[:id]} at #{Time.now}"
     media = File.join(File.dirname(object.media_type.path), "#{type}.#{enc}")
     File.open(media, 'w')
     if object.media_type.content_type.include?("audio/mpeg") || object.media_type.content_type.include?("video/x-flash-video") || object.media_type.content_type.include?("video/x-flv")

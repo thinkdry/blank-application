@@ -50,6 +50,7 @@ Rails::Initializer.run do |config|
 	#config.gem 'rfeedparser', :version => '=0.9.951', :lib => 'rfeedparser'
 	config.gem 'fastercsv', :version => '>=1.4.0', :lib => 'fastercsv'
 	config.gem 'rmagick', :version => '>=2.9.1', :lib => 'RMagick'
+  config.gem 'javan-whenever', :lib => false, :source => 'http://gems.github.com'
 
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.
