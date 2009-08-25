@@ -44,9 +44,12 @@ class NewslettersController < ApplicationController
           QueuedMail.add("UserMailer","send_newsletter", args, 0)
         end
       end
-      Delayed::Job.enqueue(NewsletterJob.new)
-      redirect_to(current_workspace ? workspace_path(current_workspace.id)+newsletter_path(@newsletter) : newsletter_path(@newsletter))
-    end
+      flash[:notice] = "Newsletter in queue"
+			Delayed::Job.enqueue(NewsletterJob.new)
+		else
+			flash[:error] = "Newsletter not queued"
+		end
+		redirect_to(current_workspace ? workspace_path(current_workspace.id)+newsletter_path(@newsletter) : newsletter_path(@newsletter))
   end
 
 end

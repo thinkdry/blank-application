@@ -166,7 +166,7 @@ function selectItemTab(idSelected){
 	
 //display the good tiem in a item list, google way of displaying.
 function toggleAccordion(idClicked){
-    var items_length = document.getElementById("total_items").value
+    var items_length = document.getElementById("total_items").value;
     for (var i=0 ; i < items_length ; ++i){
         var item_element = document.getElementById("itemInformations_"+i);
         if ("itemInformations_"+i != idClicked){
@@ -284,7 +284,7 @@ function add_new_follower(){
     var email = $('new_follower_email').value;
     if(email != 0){
         var new_email = new Element('div', {
-            'id': email,
+            'id': email
         }).insert(email)
         var delete_email = new Element('a', {
             'onclick': 'this.parentNode.remove(); return false;'

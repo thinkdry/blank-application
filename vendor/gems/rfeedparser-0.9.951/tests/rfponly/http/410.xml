@@ -1,7 +1,0 @@
-<!--
-Status:      410
-Description: return 410 status code
-Expect:      bozo and status == "410"
--->
-<feed version="0.3" xmlns="http://purl.org/atom/ns#">
-</feed>

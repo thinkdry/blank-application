@@ -1,8 +1,0 @@
-<!--
-Description: W3DTF can have fractions of a second
-Expect:      not bozo and feed['updated_parsed'] == (2008, 4, 8, 0, 30, 31, 1, 99, 0)
--->
-<feed xmlns="http://www.w3.org/2005/Atom">
-<id>tag:blogger.com,1999:blog-13418381</id>
-<updated>2008-04-08T06:00:31.223+05:30</updated>
-</feed>
