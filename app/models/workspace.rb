@@ -41,9 +41,18 @@ class Workspace < ActiveRecord::Base
 	# Relation 1-N to the 'users' table
 	belongs_to :creator, :class_name => 'User'
 
-	has_many :contacts_workspaces
+	has_many :contacts_workspaces,:dependent => :destroy
   
-	has_many :groups
+	has_many :groups, :dependent => :delete_all
+
+  has_many  :people,
+            :through      => :contacts_workspaces,
+            :source       => :contactable,
+            :source_type  => "Person",
+            :foreign_key => "contactable_id",
+            :conditions   => "contacts_workspaces.contactable_type = 'Person'",
+            :order => "people.email ASC"
+          
 	# Method defining the attibute to index for the Xapian research
 	acts_as_xapian :texts => [:title, :description]
 

@@ -18,6 +18,6 @@
 <br />
 ----------------------------------------------------------------
 <br />
-To unsubscribe for newsletters click <a href="<%=@url%>/unsubscribe_for_newsletter/?member_type=<%= @member_type %>&email=<%= @email %>" >here</a>
+To unsubscribe for newsletters click <a href="<%=@url%><%= unsubscribe_for_newsletter_path(:cid =>@sha1_id) %>" >here</a>
 </body>
 </html>

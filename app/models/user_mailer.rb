@@ -46,11 +46,11 @@ class UserMailer < ActionMailer::Base
   end
 
   # Send Newsletter to Subscribed Users
-  def send_newsletter(to,member_type,from, newsletter_subject, description, newsletter_body)
+  def send_newsletter(to,sha1_id,from, newsletter_subject, description, newsletter_body)
     recipients to
     from from
 		subject newsletter_subject
-		body :description => description, :newsletter_body => newsletter_body, :site => self.site_name,:member_type => member_type,:email => to,:url => self.daurl
+		body :description => description, :newsletter_body => newsletter_body, :site => self.site_name,:sha1_id => sha1_id,:url => self.daurl
     sent_on Time.now
     content_type "text/html"
 

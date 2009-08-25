@@ -185,14 +185,13 @@ class GroupsController < ApplicationController
   # /unsubscribe_for_newsletter?member_type=people&email=abc@abc.com
   #
   def unsubscribe
-    contact_workspace = ContactsWorkspace.find(params[:cid])
-    if contact_workspace.update_attribute(:state, 'unsubcribed')
+    contact_workspace = ContactsWorkspace.find(:first, :conditions => ["sha1_id = '#{params[:cid]}'"])
+    if contact_workspace && contact_workspace.update_attribute(:state, 'unsubscribed')
       flash[:notice] = I18n.t('newsletter.unsubscribe.flash_notice')
-      redirect_to request.path
     else
       flash[:error] = "Unable to unsubscribe. Please try again."
-      redirect_to request.path
     end
+    redirect_to "/"
   end
 
 	protected

@@ -171,14 +171,14 @@ class WorkspacesController < ApplicationController
 		end
 	end
 
-  #To assing contacts to workspace URL: workspaces/1/add_contacts
+  #To assing/remove workspace contacts URL: workspaces/1/add_contacts
   def add_contacts
     @current_object = Workspace.find(params[:id])
     if current_user.has_workspace_permission(@current_object.id, 'workspace', 'contacts_management')
       if request.get? 
-        @assigned_contacts = Person.find_by_sql("SELECT p.id, p.email FROM people p INNER JOIN contacts_workspaces cw ON cw.workspace_id = #{@current_object.id} WHERE ((cw.contactable_type = 'Person') AND (cw.contactable_id = p.id)) ORDER BY p.email ASC")
-        condition = @assigned_contacts.empty? ? "" : "p.id NOT IN (#{@assigned_contacts.map{|p| p.id}.join(',')}) AND "
-        @available_contacts = Person.find_by_sql("SELECT p.id, p.email FROM people p WHERE #{condition}p.user_id = #{current_user.id} ORDER BY p.email ASC")
+        @assigned_contacts = @current_object.people.all(:select =>"people.id, people.email")
+        condition = @assigned_contacts.empty? ? "" : "people.id NOT IN (#{@assigned_contacts.map{|p| p.id}.join(',')}) AND "
+        @available_contacts = Person.find_by_sql("SELECT people.id, people.email FROM people people WHERE #{condition}people.user_id = #{current_user.id} ORDER BY people.email ASC")
       else
         flash[:notice] = I18n.t('workspace.add_contacts.flash_notice')
         @current_object.selected_contacts = params[:selected_Options]

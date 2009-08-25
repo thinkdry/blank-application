@@ -1,3 +1,5 @@
+require 'digest/sha1'
+
 class ContactsWorkspace < ActiveRecord::Base
 
 	# Relation N-1 with the 'groupings' table
@@ -6,6 +8,8 @@ class ContactsWorkspace < ActiveRecord::Base
   belongs_to :workspace#, :dependent => :delete_all
 	# Polymorphic relation with the items tables
   belongs_to :contactable, :polymorphic => true
+
+  before_save :create_sha1_id
 
 #	named_scope :not_being_in_one_group_in_workspace, lambda{ |workspace_id|
 #		{ :joins => "LEFT JOIN groupings ON groupings.contacts_workspace_id = contacts_workspaces.id"+
@@ -27,4 +31,9 @@ class ContactsWorkspace < ActiveRecord::Base
 			}
 	end
 
+  private
+
+  def create_sha1_id
+    self.sha1_id = Digest::SHA1.hexdigest("#{self.id}-#{self.contactable_type}-#{self.contactable_id}")
+  end
 end

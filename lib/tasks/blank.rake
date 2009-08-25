@@ -278,6 +278,14 @@ namespace :blank do
     ActiveRecord::Base.connection.execute("CREATE OR REPLACE VIEW generic_items AS #{subqueries.join(' UNION ALL ')}".tr_s(" \n", ' '))
   end
 
+  desc "To generate sha1_id value in contacts_workspace table"
+  task(:generate_sha1_id => :environment) do
+    puts "------> Generatin sha1_id value"
+    for c_w in ContactsWorkspace.find(:all, :conditions => ["sha1_id <=> NULL OR sha1_id = ''"])
+      c_w.save
+    end
+  end
+  
   namespace :maintaining do
 
 		desc "To Reencode videos"

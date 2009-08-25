@@ -108,7 +108,7 @@ ActionController::Routing::Routes.draw do |map|
 	map.check_feed '/feed_sources/check_feed', :controller => 'feed_sources', :action => 'check_feed'
 
   # Newsletter related routes
-  map.unsubscribe_for_newsletter '/unsubscribe_for_newsletter', :controller => 'newsletters', :action => 'unsubscribe'
+  map.unsubscribe_for_newsletter '/unsubscribe_for_newsletter', :controller => 'groups', :action => 'unsubscribe'
 
   # Displaying items in POP UP for fck editor
   map.display_content_list '/display_content_list/:selected_item', :controller => 'items', :action => 'display_item_in_pop_up'
