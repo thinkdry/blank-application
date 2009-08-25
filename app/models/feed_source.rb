@@ -116,6 +116,22 @@ class FeedSource < ActiveRecord::Base
     end
   end
 
+
+  def self.update_feed_source
+    logger.info "#{Time.now} : Updating Feed Sources ..."
+    FeedSource.all.each do |s|
+			begin
+				s.import_latest_items
+			rescue
+        s.errors.inspect
+				logger.info "  #{Time.now} : Error updating Feed Source #{s.id}"
+			end
+			#logger.info "Removing Expired Feed Items"
+      #s.remove_expired_feed_items
+    end
+    logger.info "#{Time.now} : Updated Feed sources"
+  end
+
 	# To implement
 	#
 	#

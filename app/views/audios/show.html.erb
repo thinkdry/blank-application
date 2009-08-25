@@ -7,7 +7,7 @@
             <% elsif @current_object.state=="encoding"%>
               <%= render :partial => "status", :object => @current_object %>
             <% else %>
-               <%= @current_object.state.capitalize %>
+               Queued for encoding
            <% end %>
           </div>
 	<br /><br /><%= link_to I18n.t('general.button.download'), "/audios/download/#{@current_object.id}" %><br />
