@@ -35,8 +35,8 @@ class NewslettersController < ApplicationController
           QueuedMail.add("UserMailer","send_newsletter", args, 0)
         end
       end
-      MiddleMan.worker(:cronjob_worker).async_newthread
-      redirect_to (current_workspace ? workspace_path(current_workspace.id)+newsletter_path(@newsletter) : newsletter_path(@newsletter))
+      Delayed::Job.enqueue(NewsletterJob.new)
+      redirect_to(current_workspace ? workspace_path(current_workspace.id)+newsletter_path(@newsletter) : newsletter_path(@newsletter))
     end
   end
 
