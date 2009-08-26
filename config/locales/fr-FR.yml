@@ -2,7 +2,7 @@
 fr-FR: 
   user: 
     new: 
-      flash_notice: "Utilisateur cr\xC3\xA9\xC3\xA9."
+      flash_notice: Utilisateur créé
       add_user: Ajouter un utilisateur
       title: Vos informations personnelles
       flash_error: "Il ya eu une erreur durant la cr\xC3\xA9ation de l'utilisateur."
@@ -59,7 +59,7 @@ fr-FR:
       login_button: Se connecter
       password_label: Mot de passe
       remember_me: "M\xC3\xA9moriser"
-      logout_notice: Vous avez \xC3\xA9t\xC3\xA9 d\xC3\xA9connect\xC3\xA9(e).
+      logout_notice: "Vous avez \xC3\xA9t\xC3\xA9 d\xC3\xA9connect\xC3\xA9(e)."
       login_error: Impossible de vous connecter en tant que
     reset_password: 
       flash_notice: "Le mot de passe vient d'\xC3\xAAtre modifi\xC3\xA9."
@@ -280,14 +280,14 @@ fr-FR:
       add_new_group: Ajouter un nouveau groupe
       members: Membres
       go_to_contacts: Voir tous les contacts de ce workspace
-      select_contacts: Sélectionner vos contacts personnels accessible for cet expace de travail
+      select_contacts: Sélectionner vos contacts personnels accessible pour cet espace de travail
     show:
       export_to_csv: Export this group to CSV file
     contacts:
       title: Management des contacts du workspace
       add_people: Ajouter un nouveau contact
     subscribe:
-      unsubscribe_flash_notice:  Votre inscription à la newsletter de cet espace de travail a été supprimée
+      unsubscribe_flash_notice:  Votre inscription à la newsletter de cet espace de travail a été supprimée.
       unsubscribe_flash_error: Impossible de se désinscrire
       subscribe_flash_notice: Inscris à la newsletter de cet espace de travail
       subscribe_flash_error:  Impossible de se désinscrire

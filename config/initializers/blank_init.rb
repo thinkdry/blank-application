@@ -41,9 +41,9 @@ CAPTCHA_IMAGES_NUMBER = 10
 
 
 # Setting the locales files and the default language
-I18n.default_locale = "en-US"
+#I18n.default_locale = "en-US"
 #I18n.locale = 'fr-FR'
-#I18n.default_locale = 'fr-FR'
+I18n.default_locale = 'fr-FR'
 #%w{yml rb}.each do |type|
 #  I18n.load_path += Dir.glob("#{RAILS_ROOT}/app/locales/*.#{type}")
 #end
