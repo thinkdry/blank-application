@@ -52,8 +52,8 @@ class GroupsController < ApplicationController
 
 	def update
 		@current_object = Group.find(params[:id])
-		@current_object.groupable_objects = params[:selected_Options]
-		if @current_object.update_attributes(params[:current_object])
+		if @current_object.update_attributes(params[:group])
+      @current_object.groupable_objects = params[:selected_Options]
 			flash[:notice] = I18n.t('item.edit.flash_notice')
 			redirect_to workspace_group_path(params[:workspace_id], @current_object)
 		else
@@ -197,7 +197,7 @@ class GroupsController < ApplicationController
 	protected
 	
 	def get_contacts_lists
-		selected_contacts = @current_object.groupings.map{ |e| e.contacts_workspace }
+		selected_contacts = @current_object.groupings.map{ |e| e.contacts_workspace }.uniq
 		remaining_contacts = @current_object.workspace.contacts_workspaces.to_a - selected_contacts
 		#raise selected_contacts.inspect
 		@selected_members = selected_contacts.map{ |e| e.to_group_member } || []
