@@ -11,11 +11,8 @@ class GroupsController < ApplicationController
 	before_filter :permission_checking, :except => [:unsubscribe]
 
 	def permission_checking
-		no_permission_redirection unless current_user && @current_user.has_workspace_permission(current_workspace.id, 'workspace', 'contacts_management')
+		no_permission_redirection unless @current_user && current_workspace && current_workspace.send("accepts_contacts_management_for?".to_sym, @current_user)
 	end
-
-	# Filter skipping the 'is_logged?' filter to allow non-logged user to unsubscribe from the newsletter
-	skip_before_filter :is_logged?, :only => [:unsubscribe]
 
 	def index
     filter_type = params[:filter_name] || 'created_at'
@@ -97,74 +94,6 @@ class GroupsController < ApplicationController
     end
   end
 
-	def contacts
-		if params[:contacts_workspaces_ids]
-			if params[:to_do] == 'remove'
-				params[:contacts_workspaces_ids].each do |e|
-					cw=ContactsWorkspace.find(e)
-					if cw.contactable_type == 'WebsiteContact'
-						cw.contactable.destroy
-					end
-					cw.delete
-				end
-			elsif params[:to_do] == 'link' && params[:group_id]
-				params[:contacts_workspaces_ids].each do |e|
-          if Grouping.find(:first, :conditions => {:group_id => params[:group_id].to_i, :contacts_workspace_id => e.to_i}).nil?
-            a=Grouping.new(:group_id => params[:group_id].to_i, :contacts_workspace_id => e.to_i)
-            a.save
-          end
-				end
-			elsif params[:to_do] == 'unsubscribed'
-				params[:contacts_workspaces].each do |e|
-					ContactsWorkspace.update_attributes(:state => 'unsubscribed')
-				end
-			end
-		end
-		params[:order] ||= 'created_at'
-		params[:restriction] ||= 'all'
-		if params[:restriction] == 'non_linked'
-			group_ids = current_workspace.groups.map{ |e| e.id }
-			current_objects = current_workspace.contacts_workspaces.delete_if do |cw|
-				cw.groupings.delete_if{ |e| !group_ids.include?(e.group_id) }.first
-			end
-			@current_objects = current_objects.map{ |e| e.to_group_member(@current_user.id) }.sort{ |a,b| a[params[:order]] <=> b[params[:order]] }
-		else
-			@current_objects = current_workspace.contacts_workspaces.map{ |e| e.to_group_member(@current_user.id) }.sort{ |a,b| a[params[:order]] <=> b[params[:order]] }
-		end
-	end
-
-	def subscribe
-		if params[:remove]
-			a=ContactsWorkspace.find(:first, :conditions => {
-					:workspace_id => params[:workspace_id],
-					:contactable_id => @current_user.id,
-					:contactable_type => @current_user.class.to_s,
-					:state => nil
-				}
-			)
-			if a.destroy
-				flash[:notice] = I18n.t('group.subscribe.unsubscribe_flash_notice')
-				redirect_to workspace_path(params[:workspace_id])
-			else
-				flash[:error] = I18n.t('group.subscribe.unsubscribe_flash_error')
-				redirect_to workspace_path(params[:workspace_id])
-			end
-		else
-			if ContactsWorkspace.create(
-				:workspace_id => params[:workspace_id],
-				:contactable_id => @current_user.id,
-				:contactable_type => @current_user.class.to_s,
-				:state => nil
-			)
-				flash[:notice] = I18n.t('group.subscribe.subscribe_flash_notice')
-				redirect_to workspace_path(params[:workspace_id])
-			else
-				flash[:error] = I18n.t('group.subscribe.subscribe_flash_error')
-				redirect_to workspace_path(params[:workspace_id])
-			end
-		end
-	end
-
   # Export members of the group to .csv file format
   #
   # This function is linked to an url and allows to generate and download the cvs file.
@@ -174,24 +103,6 @@ class GroupsController < ApplicationController
 		send_data(group.export_to_csv,
 				:type => 'text/csv; charset=iso-8859-1; header=present',
 				:disposition => "attachment; filename=#{outfile}")
-  end
-
-	# Method to unsubscribe from a newsletter for given email address
-  #
-	# TODO bl i
-	#
-  # Usage URL:
-  #
-  # /unsubscribe_for_newsletter?member_type=people&email=abc@abc.com
-  #
-  def unsubscribe
-    contact_workspace = ContactsWorkspace.find(:first, :conditions => ["sha1_id = '#{params[:cid]}'"])
-    if contact_workspace && contact_workspace.update_attribute(:state, 'unsubscribed')
-      flash[:notice] = I18n.t('newsletter.unsubscribe.flash_notice')
-    else
-      flash[:error] = "Unable to unsubscribe. Please try again."
-    end
-    redirect_to "/"
   end
 
 	protected

@@ -1,3 +1,4 @@
+<%= link_to image_tag("/images/icons/left.png"), workspace_path(current_workspace.id) %>
 <div id="groups_list_header">
   <h2><%= image_tag('/images/item_icons/group.png')%> <%= I18n.t('group.index.title')  %> </h2>
 </div>
@@ -5,8 +6,7 @@
   <%= render :partial => "group_in_list" %>
 </div>
 
-<%= link_to I18n.t('group.index.add_new_group'), new_workspace_group_path(current_workspace.id) %><br />
 <br />
-<%= link_to "Add contacts", add_contacts_workspace_path(current_workspace.id) if current_workspace.accepts_edit_for?(@current_user) %>
+<%= link_to I18n.t('group.index.add_new_group'), new_workspace_group_path(current_workspace.id) %>
 <br /><br />
-<%= link_to I18n.t('group.index.go_to_contacts'), contacts_workspace_groups_path(current_workspace.id) %>
+<%= link_to I18n.t('group.index.go_to_contacts'), list_workspace_workspace_contacts_path(current_workspace.id) %>

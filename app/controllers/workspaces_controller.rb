@@ -11,6 +11,9 @@ class WorkspacesController < ApplicationController
 		elsif params[:action] == 'edit' || params[:action] == 'update' #|| params[:action] == 'add_new_user'
 			current_object
 			no_permission_redirection unless @current_user && @current_object.send("accepts_edit_for?".to_sym, @current_user)
+		elsif params[:action] == 'add_contacts'
+			current_object
+			no_permission_redirection unless @current_user && @current_object.send("accepts_contacts_management_for?".to_sym, @current_user)
 		else
 			current_object
 			no_permission_redirection unless @current_user && @current_object.send("accepts_#{params[:action]}_for?".to_sym, @current_user)
@@ -170,24 +173,5 @@ class WorkspacesController < ApplicationController
 			redirect_to workspace_path(params[:id])
 		end
 	end
-
-  #To assing/remove workspace contacts URL: workspaces/1/add_contacts
-  def add_contacts
-    @current_object = Workspace.find(params[:id])
-    if current_user.has_workspace_permission(@current_object.id, 'workspace', 'contacts_management')
-      if request.get? 
-        @assigned_contacts = @current_object.people.all(:select =>"people.id, people.email")
-        condition = @assigned_contacts.empty? ? "" : "people.id NOT IN (#{@assigned_contacts.map{|p| p.id}.join(',')}) AND "
-        @available_contacts = Person.find_by_sql("SELECT people.id, people.email FROM people people WHERE #{condition}people.user_id = #{current_user.id} ORDER BY people.email ASC")
-      else
-        flash[:notice] = I18n.t('workspace.add_contacts.flash_notice')
-        @current_object.selected_contacts = params[:selected_Options]
-        redirect_to add_contacts_workspace_path(@current_object.id)
-      end
-    else
-      flash[:error] = I18n.t('general.common_message.permission_denied')
-      redirect_to workspace_path(params[:id])
-    end
-  end
 
 end

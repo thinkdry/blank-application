@@ -192,7 +192,18 @@ class Workspace < ActiveRecord::Base
     users_workspaces.each do |uw| 
       uw.save(false) 
     end 
-  end 
+  end
+
+	# Check User for permission to administer the Workspace
+  #
+  # Usage:
+  #
+  # <tt>workspace.accepts_administrate_for? user</tt>
+  #
+  # will return true if the user has permission
+	def accepts_contacts_management_for? user
+		return accepting_action(user, 'contacts_management', (self.creator_id==user.id), false, true)
+	end
 
   # Check User for permission to view the Workspace
   #

@@ -111,17 +111,6 @@ module ItemsHelper
       })
   end
 	
-	# Item Keywords Fields
-	#
-  #
-  # Usage :
-  # <tt>item_keywords_fields(form, article)</tt>
-  #
-  # will return item keywords fields for the artile
-	def item_keywords_fields(form, item)
-    render :partial => "items/keywords_fields", :locals => { :f => form, :item => item }
-	end
-
 	# Dislay of the given item type in content tabs list
   #
 	# This helper method gets the item list to display,

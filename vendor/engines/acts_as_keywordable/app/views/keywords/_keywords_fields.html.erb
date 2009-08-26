@@ -9,14 +9,14 @@
       </script>
     <%= button_to_function(I18n.t('item.field.add_keyword'), 
 						  "text_insert($('keyword_value').value,
-						  '#{@current_object.class.to_s.underscore}', 
+						  '#{object.class.to_s.underscore}', 
 						  'keywords_list'); 
 						  $('keyword_value').value=''",
 						  :class => 'smallSubmit leftAlign') %>
     </div>
  	<div id="keywords_list">
-    	<% @current_object.keywords.each do |k| %>
-      	<div id="<%= k.name+"_000" %>" class="keyword_label"><%= k.name+' '+link_to_function(image_tag('/images/icons/delete.png', :width => "15"), "this.parentNode.remove()") %><%= hidden_field_tag "#{@current_object.class.to_s.underscore}[keywords_field][]", k.name %></div>
+    	<% object.keywords.each do |k| %>
+      	<div id="<%= k.name+"_000" %>" class="keyword_label"><%= k.name+' '+link_to_function(image_tag('/images/icons/delete.png', :width => "15"), "this.parentNode.remove()") %><%= hidden_field_tag "#{object.class.to_s.underscore}[keywords_field][]", k.name %></div>
     	<% end %>
     </div>
 <% end %>
