@@ -99,4 +99,3 @@ Rails::Initializer.run do |config|
 	#config.logger = Hodel3000CompliantLogger.new(config.log_path)
 	
 end
-require 'whenever'

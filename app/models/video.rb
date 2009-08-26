@@ -57,6 +57,10 @@ class Video < ActiveRecord::Base
     video
   end
 
+  def path_to_encoded_file
+    File.dirname(self.video.url) + "/video.flv"
+  end
+
   # Codec used for the MP3 encoding (general video file)
   #
 	# This method returns the codec and parameters used by FFMPEG

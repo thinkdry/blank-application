@@ -54,6 +54,10 @@ class Audio < ActiveRecord::Base
     audio
   end
 
+  def path_to_encoded_file
+    File.dirname(self.audio.url) + "/audio.mp3"
+  end
+
   # Codec used for the MP3 encoding
   #
 	# This method returns the codec used by FFMPEG for the encoding (inside 'converter worker' task).

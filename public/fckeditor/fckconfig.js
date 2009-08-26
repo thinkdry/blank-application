@@ -51,8 +51,7 @@ FCKConfig.SkinDialogCSS = '' ;	// FCKConfig.SkinPath + "|<minified css>" ;
 FCKConfig.PreloadImages = [ FCKConfig.SkinPath + 'images/toolbar.start.gif', FCKConfig.SkinPath + 'images/toolbar.buttonarrow.gif' ] ;
 
 FCKConfig.PluginsPath = FCKConfig.BasePath + 'plugins/' ;
-FCKConfig.Plugins.Add( 'swfobject', 'en,es') ;
-FCKConfig.swfObjectPath = '/videoplayer/swfobject.js'
+FCKConfig.Plugins.Add( 'flvPlayer','en');
 // FCKConfig.Plugins.Add( 'autogrow' ) ;
 // FCKConfig.Plugins.Add( 'dragresizetable' );
 FCKConfig.AutoGrowMax = 400 ;
@@ -102,7 +101,7 @@ FCKConfig.TemplateReplaceCheckbox = true ;
 FCKConfig.ToolbarLocation = 'In' ;
 
 FCKConfig.ToolbarSets["Default"] = [
-	['Source','FitWindow','Bold','Italic','Underline','Indent','OrderedList','UnorderedList','TextColor','JustifyLeft','JustifyCenter','JustifyRight','JustifyFull','Link','Image','Flash','FontFormat','FontSize']
+	['Source','FitWindow','Bold','Italic','Underline','Indent','OrderedList','UnorderedList','TextColor','JustifyLeft','JustifyCenter','JustifyRight','JustifyFull','Link','Image','Flash','flvPlayer','FontFormat','FontSize']
 ] ;
 
 FCKConfig.ToolbarSets["Basic"] = [
@@ -304,7 +303,7 @@ FCKConfig.ImageUploadDeniedExtensions	= "" ;							// empty for no one
 
 FCKConfig.FlashUpload = true ;
 FCKConfig.FlashUploadURL = '/fckuploads';
-FCKConfig.FlashUploadAllowedExtensions	= ".(swf|flv)$" ;		// empty for all
+FCKConfig.FlashUploadAllowedExtensions	= ".(swf|flv|mp3)$" ;		// empty for all
 FCKConfig.FlashUploadDeniedExtensions	= "" ;					// empty for no one
 
 FCKConfig.SmileyPath	= FCKConfig.BasePath + 'images/smiley/msn/' ;

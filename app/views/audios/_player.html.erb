@@ -5,6 +5,6 @@
   so.addParam('allowfullscreen','true');
   so.addParam('allowscriptaccess','always');
   so.addParam('wmode','opaque');
-  so.addParam('flashvars','&file=<%= File.dirname(object.audio.url) %>/audio.mp3&backcolor=#D86C27');
+  so.addParam('flashvars','&file=<%= object.path_to_encoded_file %>/audio.mp3&backcolor=#D86C27');
   so.write("player_<%=object.class.to_s + "_" + object.id.to_s%>");
 </script>
