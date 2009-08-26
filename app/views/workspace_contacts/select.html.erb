@@ -1,9 +1,9 @@
 <fieldset>
   <legend> <%=  I18n.t('workspace.add_contacts.title')+" "+@current_object.title %> </legend>
-  <%= link_to image_tag("/images/icons/left.png"), workspace_path(@current_object.id) %><br /><br />
+  <%= link_to image_tag("/images/icons/left.png"), list_workspace_workspace_contacts_path(@current_object.id) %><br /><br />
   <% form_for @current_object,
     :builder => BlankFormBuilder,
-    :url => {:controller => "workspaces", :action => "add_contacts"},
+    :url => select_workspace_workspace_contacts_path(current_workspace.id),
     :html => {
     :method => :post,
   } do |f| -%>

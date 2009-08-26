@@ -257,6 +257,7 @@ en-US:
     contacts:
       title: Workspace contacts management
       add_people: Add a new person as contact
+      select_contacts: Select your personnal contacts accessible for that workspace
     subscribe:
       unsubscribe_flash_notice: Your subscription to the newsletter of that workspace has been removed.
       unsubscribe_flash_error: Impossible to unsubscribe

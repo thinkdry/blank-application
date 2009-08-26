@@ -280,15 +280,16 @@ fr-FR:
       add_new_group: Ajouter un nouveau groupe
       members: Membres
       go_to_contacts: Voir tous les contacts de ce workspace
+      select_contacts: Sélectionner vos contacts personnels accessible for cet expace de travail
     show:
       export_to_csv: Export this group to CSV file
     contacts:
       title: Management des contacts du workspace
       add_people: Ajouter un nouveau contact
     subscribe:
-      unsubscribe_flash_notice:  Votre inscription à la newsletter de ce workspace a été supprimée
+      unsubscribe_flash_notice:  Votre inscription à la newsletter de cet espace de travail a été supprimée
       unsubscribe_flash_error: Impossible de se désinscrire
-      subscribe_flash_notice: Inscris à la newsletter de ce workspace
+      subscribe_flash_notice: Inscris à la newsletter de cet espace de travail
       subscribe_flash_error:  Impossible de se désinscrire
   date: 
     order: 
