@@ -2,7 +2,7 @@ class WorkspaceContactsController < ApplicationController
 
 	# Filter skipping the 'is_logged?' filter to allow non-logged user to unsubscribe from the newsletter
 	skip_before_filter :is_logged?, :only => [:unsubscribe]
-	before_filter :permission_checking, :except => [:unsubscribe]
+	before_filter :permission_checking, :except => [:unsubscribe, :subscribe_newsletter]
 
 	def permission_checking
 		no_permission_redirection unless @current_user && current_workspace && current_workspace.send("accepts_contacts_management_for?".to_sym, @current_user)
@@ -58,7 +58,7 @@ class WorkspaceContactsController < ApplicationController
 		end
 	end
 
-	def subscribe_newsletter
+	def subscribe
 		if params[:remove]
 			a=ContactsWorkspace.find(:first, :conditions => {
 					:workspace_id => params[:workspace_id],

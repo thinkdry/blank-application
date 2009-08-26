@@ -125,7 +125,7 @@ ActionController::Routing::Routes.draw do |map|
     items_resources(workspaces)
 		workspaces.resources :groups, :collection => { :validate => :any, :filtering_contacts => :get }, :member => { :export_to_csv => :any, :add_comment => :any }
 		workspaces.resources :people, :collection => { :export_people => :any, :import_people => :any,:ajax_index => :get,:get_empty_csv => :get, :validate => :any ,:filter => :get }
-		workspaces.resources :workspace_contacts, :as => 'contacts', :except => :all, :collection => { :select => [:post, :get], :list => [:post, :get], :subscribe_newsletter => :get, :unsubscribe => :get}
+		workspaces.resources :workspace_contacts, :as => 'contacts', :except => :all, :collection => { :select => [:post, :get], :list => [:post, :get], :subscribe => :get, :unsubscribe => :get}
   end
 	
   # Search related routes
