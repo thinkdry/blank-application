@@ -41,7 +41,8 @@ class Group < ActiveRecord::Base
   has_many :contacts_workspaces, :through => :groupings
   # Validation of the presence of these fields
   validates_presence_of	:title, :description
-	
+  # Validation of fields not in format of
+	validates_not_format_of :title, :description ,  :with => /(#{SCRIPTING_TAGS})/
   # Setting the Grouping objects given as parameters
   # 
   # This method allows to manage directly the objects to link to this group and sent by the form.
@@ -56,8 +57,11 @@ class Group < ActiveRecord::Base
     self.contacts_workspaces.each do |k|
       self.contacts_workspaces.delete(k) unless tmp.delete(k.id.to_s)
     end
+    exists_cw_ids = self.contacts_workspaces.map{|cw| cw.id}
     tmp.each do |cw_id|
-      self.groupings << groupings.build(:group_id => self.id, :contacts_workspace_id => cw_id)
+      if !exists_cw_ids.include?(cw_id.to_i)
+        self.groupings << groupings.build(:group_id => self.id, :contacts_workspace_id => cw_id)
+      end
     end
   end
 
