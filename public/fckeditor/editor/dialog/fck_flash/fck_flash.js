@@ -281,7 +281,7 @@ function CheckUpload()
 
 	if ( sFile.length == 0 )
 	{
-		alert( 'Please select a file to upload' ) ;
+		alert( FCKLang.PleaseSelectFile ) ;
 		return false ;
 	}
 

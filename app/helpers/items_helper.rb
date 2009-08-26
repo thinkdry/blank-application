@@ -102,25 +102,15 @@ module ItemsHelper
       javascript_tag(%{
         var oFCKeditor = new FCKeditor('#{object.class.to_s.underscore}_#{attribute}', '730px', '350px') ;
         oFCKeditor.BasePath = "/fckeditor/" ;
-				oFCKeditor.Config['ImageUploadURL'] = "/fckuploads?item_type=#{object.class}&id=#{object.new_record? ? current_user.login+'_'+current_user.id.to_s : object.id}&type=Image";
- 				oFCKeditor.Config['FlashUploadURL'] = "/fckuploads?item_type=#{object.class}&id=#{object.new_record? ? current_user.login+'_'+current_user.id.to_s : object.id}&type=Video";
+				oFCKeditor.Config['ImageUploadURL'] = "/fckuploads?item_type=#{object.class}&id=#{object.id}&type=Image";
+ 				oFCKeditor.Config['FlashUploadURL'] = "/fckuploads?item_type=#{object.class}&id=#{object.id}&type=Video";
+				oFCKeditor.Config['LinkUploadURL'] = "/fckuploads?item_type=#{object.class}&id=#{object.id}&type=Link";
         oFCKeditor.Config['DefaultLanguage'] = '#{I18n.locale.split('-')[0]}' ;
         oFCKeditor.ReplaceTextarea() ;
         
       })
   end
 	
-	# Item Keywords Fields
-	#
-  #
-  # Usage :
-  # <tt>item_keywords_fields(form, article)</tt>
-  #
-  # will return item keywords fields for the artile
-	def item_keywords_fields(form, item)
-    render :partial => "items/keywords_fields", :locals => { :f => form, :item => item }
-	end
-
 	# Dislay of the given item type in content tabs list
   #
 	# This helper method gets the item list to display,

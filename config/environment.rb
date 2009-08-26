@@ -44,10 +44,6 @@ Rails::Initializer.run do |config|
   # config.gem "bj"
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   # config.gem "aws-s3", :lib => "aws/s3"
-	# For BackgroundRb
-	config.gem 'chronic', :version => '>=0.2.3', :lib => 'chronic'
-	config.gem 'packet', :version => '>=0.1.14', :lib => 'packet'
-	#config.gem 'rfeedparser', :version => '=0.9.951', :lib => 'rfeedparser'
 	config.gem 'fastercsv', :version => '>=1.4.0', :lib => 'fastercsv'
 	config.gem 'rmagick', :version => '>=2.9.1', :lib => 'RMagick'
   config.gem 'javan-whenever', :lib => false, :source => 'http://gems.github.com'

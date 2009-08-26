@@ -40,7 +40,7 @@ require 'country_select'
 class Person < ActiveRecord::Base
 
 	# Relation N-1 with the polymorphic 'contacts_workspaces' table
-  has_many :contacts_workspaces, :as => :contactable, :dependent => :delete_all
+  has_many :contacts_workspaces, :as => :contactable, :dependent => :destroy
 
   has_many :workspaces , :through => :contacts_workspaces
   # Validation of the presence of this attribute

@@ -1,7 +1,0 @@
-<!--
-Status:      500
-Description: return 500 status code
-Expect:      bozo and status == "500"
--->
-<feed version="0.3" xmlns="http://purl.org/atom/ns#">
-</feed>

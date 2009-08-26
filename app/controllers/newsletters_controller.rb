@@ -7,6 +7,15 @@ class NewslettersController < ApplicationController
 
 	# Method defined in the ActsAsItem:ControllerMethods:ClassMethods (see that library fro more information)
   acts_as_item do
+
+    before :show do
+      if current_workspace
+        @groups = current_user.groups.all(:select =>"id, title", :conditions => ["workspace_id = #{current_workspace.id}"])
+      else
+        @groups = @current_object.workspaces.map{|w| w.groups.all(:select =>"id, title")}.flatten!
+      end
+      
+    end
 		# After the creation, redirection to the edition in order to be able to set the body
     response_for :create do |format|
 			format.html { redirect_to edit_item_path(@current_object) }
@@ -30,14 +39,17 @@ class NewslettersController < ApplicationController
     if GroupsNewsletter.new(:group_id => @group.id,:newsletter_id => @newsletter.id,:sent_on=>Time.now).save
       for member in @group.contacts_workspaces
         if member.state != 'unsubscribed'
-          args = [member.to_group_member['email'],member.to_group_member['id'],@newsletter.from_email,
+          args = [member.to_group_member['email'],member.sha1_id,@newsletter.from_email,
 							@newsletter.subject, @newsletter.description, @newsletter.body]
           QueuedMail.add("UserMailer","send_newsletter", args, 0)
         end
       end
-      Delayed::Job.enqueue(NewsletterJob.new)
-      redirect_to(current_workspace ? workspace_path(current_workspace.id)+newsletter_path(@newsletter) : newsletter_path(@newsletter))
-    end
+      flash[:notice] = "Newsletter in queue"
+			Delayed::Job.enqueue(NewsletterJob.new)
+		else
+			flash[:error] = "Newsletter not queued"
+		end
+		redirect_to(current_workspace ? workspace_path(current_workspace.id)+newsletter_path(@newsletter) : newsletter_path(@newsletter))
   end
 
 end

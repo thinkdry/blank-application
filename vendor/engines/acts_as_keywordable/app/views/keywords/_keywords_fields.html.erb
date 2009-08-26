@@ -1,0 +1,22 @@
+<% f.field :keywords, :label => I18n.t('item.field.keyword_label').pluralize + " :" do %>
+    <div id="add_keyword">
+    <%= text_field :keyword, :value, :hint => I18n.t('item.field.keyword_hint') %>
+    <div id="autocomplete_choices" class="autocomplete"></div>
+      <script>
+        new Ajax.Autocompleter("keyword_value", "autocomplete_choices","/home/autocomplete_on?model_name=keyword",{
+          method: 'post', paramName: 'name'
+        });
+      </script>
+    <%= button_to_function(I18n.t('item.field.add_keyword'), 
+						  "text_insert($('keyword_value').value,
+						  '#{object.class.to_s.underscore}', 
+						  'keywords_list'); 
+						  $('keyword_value').value=''",
+						  :class => 'smallSubmit leftAlign') %>
+    </div>
+ 	<div id="keywords_list">
+    	<% object.keywords.each do |k| %>
+      	<div id="<%= k.name+"_000" %>" class="keyword_label"><%= k.name+' '+link_to_function(image_tag('/images/icons/delete.png', :width => "15"), "this.parentNode.remove()") %><%= hidden_field_tag "#{object.class.to_s.underscore}[keywords_field][]", k.name %></div>
+    	<% end %>
+    </div>
+<% end %>

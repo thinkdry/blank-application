@@ -32,7 +32,7 @@
         <%#= link_to image_tag('/images/icons/json.png'), item_path(object)+".json", :class => 'output_format_link' %>
       </div>
       <div class="add_item_type">
-        <p><%= image_tag "/images/icons/add.png", :width => "30"%><a href="<%=  new_workspace_group_path(params[:workspace_id], @current_object.class.to_s)%>"><%= I18n.t('layout.application.add_content')%></a></p>
+        <p><%= image_tag "/images/icons/add.png", :width => "30"%><a href="<%=  new_workspace_group_path(params[:workspace_id])%>"><%= I18n.t('layout.application.add_content')%></a></p>
       </div>
     </div>
   </div>

@@ -76,6 +76,8 @@ class User < ActiveRecord::Base
   has_many :contacts_workspaces, :as => :contactable, :dependent => :delete_all
 	# Relation N-1 with the 'people' table
   has_many :people, :order => 'email ASC'
+
+  has_many :groups 
 	# # Method setting the different attribute to index for the Xapian research
 	acts_as_xapian :texts => [:login, :firstname, :lastname]
 

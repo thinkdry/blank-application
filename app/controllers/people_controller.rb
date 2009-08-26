@@ -225,22 +225,5 @@ class PeopleController < ApplicationController
       :type => 'text/csv; charset=iso-8859-1; header=present',
       :disposition => "attachment; filename=contact.csv"
   end
-
-  # Update Newsletter Column for Subscribe/Unsubscribe
-  #
-  # Usage URL:
-  #
-  # /people/update_newsletter_column
-  def update_newsletter_column
-    @object = params[:type].classify.constantize.find(params[:id])
-    @object.update_attribute(:newsletter, params[:newsletter])
-    render :update do |page|
-      if params[:newsletter] == "true"
-        page.alert("#{@object.email} will receive newsletters from now onwards")
-      else
-        page.alert("#{@object.email} will not receive newsletters from now onwards")
-      end
-    end
-  end
   
 end
