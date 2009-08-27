@@ -686,3 +686,19 @@ en-US:
       title: ThinkDRY Technologies 2008
       contact: Contact
       site_map: Site Map
+  mailer:
+    common:
+      thanks: Thanks for your visit.
+      greetings: Regards.
+      signature: The '{{who}}' crew
+    signup_notification:
+      subject: Account activation
+      account_created: Your account has been created.
+      click_here: Click on the following link to activate your account
+      justification: The activation allows us to control any abusive use of our website.
+    reset_notification:
+      subject: Reset password
+      presentation: "{{who}}, we have been aware that you have forgotten your password on {{where}}."
+      click_here: Click on the following link to reset your password
+    newsletter_template:
+      unsubscribe: To unsubscribe for this newsletter, click <a href='{{link}}' >here</a>

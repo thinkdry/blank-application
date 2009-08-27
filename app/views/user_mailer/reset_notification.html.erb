@@ -1,9 +1,9 @@
-<%= @user_login %>, nous avons reçu une demande suite à un oubli de votre mot de passe sur <%= @site %>.
+<%= I18n.t('mailer.reset_notification.presentation', :who => @login, :where => @site) %>
 
-Cliquez sur le lien suivant pour réinitialiser votre mot de passe :
+<%= I18n.t('mailer.reset_notification.click_here', :who => @login, :where => @site) %> :
   
 <%= @url %>
 
-Cordialement.
+<%= I18n.t('mailer.common.greetings') %>
 
-Toute l'équipe de <%= @site %>
+<%= I18n.t('mailer.common.signature', :who => @site) %>
