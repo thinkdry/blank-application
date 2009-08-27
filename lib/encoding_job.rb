@@ -1,8 +1,14 @@
-class EncodingJob < Struct.new(:args)
+class EncodingJob
+
+  attr_accessor :args
+
+  def initialize(args)
+    self.args = args
+  end
 
   def perform
-    Rails.logger.info "Encoding #{args[:type]} with id #{args[:id]} at #{Time.now}"
-    object=args[:type].classify.constantize.find_by_id(args[:id])
+   Delayed::Worker.logger.info "Encoding #{args[:type]} with id #{args[:id]} at #{Time.now}"
+    object = args[:type].classify.constantize.find_by_id(args[:id])
     success = system(convert_media(args[:type], object, args[:enc]))
     if success && $?.exitstatus == 0
       object.update_attributes(:state=>"encoded")
@@ -16,9 +22,9 @@ class EncodingJob < Struct.new(:args)
           j=j*3
         end
       end
-      Rails.logger.info "Encoded Sucessfully for #{args[:type]} with id #{args[:id]} at #{Time.now}"
+      Delayed::Worker.logger.info "Encoded Sucessfully for #{args[:type]} with id #{args[:id]} at #{Time.now}"
     else
-      Rails.logger.info "Encoding error for #{args[:type]} with id #{args[:id]} at #{Time.now}"
+      Delayed::Worker.logger.info "Encoding error for #{args[:type]} with id #{args[:id]} at #{Time.now}"
       object.update_attributes(:state=>"encoding_error")
     end
 
