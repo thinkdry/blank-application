@@ -43,7 +43,7 @@ class UsersController < ApplicationController
 				@search ||= Search.new
         get_roles
 			elsif is_allowed_free_user_creation?
-				if @current_object.login # captcha just on create
+				if @current_object.id # captcha just on create
 					render :action => 'new', :layout => 'login' unless yacaph_validated?
         end
 			else
