@@ -280,12 +280,12 @@ fr-FR:
       add_new_group: Ajouter un nouveau groupe
       members: Membres
       go_to_contacts: Voir tous les contacts de ce workspace
-      select_contacts: Sélectionner vos contacts personnels accessible pour cet espace de travail
     show:
       export_to_csv: Export this group to CSV file
     contacts:
       title: Management des contacts du workspace
       add_people: Ajouter un nouveau contact
+      select_contacts: Sélectionner vos contacts personnels accessible pour cet espace de travail
     subscribe:
       unsubscribe_flash_notice:  Votre inscription à la newsletter de cet espace de travail a été supprimée.
       unsubscribe_flash_error: Impossible de se désinscrire
@@ -480,9 +480,9 @@ fr-FR:
       send_newsletter: Envoyer la newsletter
       send_newsletter_to_user_list: Envoyez la newsletter à cette liste d'utilisateurs
     unsubscribe: 
-      flash_notice: Vous avez \xC3\xA9t\xC3\xA9 d\xC3\xA9sinscrit de cette newsletter.
+      flash_notice: "Vous avez \xC3\xA9t\xC3\xA9 d\xC3\xA9sinscrit de cette newsletter."
     show:
-      not_already_sent: Cette newsletter n'a pas encore \xC3\xA9t\xC3\xA9 envoy\xC3\xA9e.
+      not_already_sent: "Cette newsletter n'a pas encore \xC3\xA9t\xC3\xA9 envoy\xC3\xA9e."
   item: 
     new: 
       flash_notice: "Cr\xC3\xA9\xC3\xA9 avec succ\xC3\xA8s"
@@ -546,7 +546,7 @@ fr-FR:
       note_label: Note
       unsaved_records_flash_error2: "n'ont pas pu \xC3\xAAtre sauvegard\xC3\xA9s. Soit l'email est d\xC3\xA9j\xC3\xA0 pr\xC3\xA9sent dans la base, soit le format n'est pas valide."
       wrong_file_flash_error: "Veuillez s\xC3\xA9lectionner un fichier au format .csv uniquement."
-      select_csv_file_label: Selectionnez un fichier
+      select_csv_file_label: "S\xC3\xA9lectionnez un fichier"
       csv_parser_error: Il ya eu une erreur pendant l'importation.
       title_order_flash_error: "Veuillez lire la <b>Note</b> et procurer un fichier csv tel que d\xC3\xA9crit."
       get_empty_csv_file: "R\xC3\xA9cup\xC3\xA9rer un fichier CSV vierge pr\xC3\xAAt \xC3\xA0 la saisie."
@@ -578,7 +578,7 @@ fr-FR:
       name: Nom
       imported_from_csv: "Import\xC3\xA9 depuis un CSV"
       title: Contacts
-      delete_confirm: "Etes vous s\xC3\xBBr!"
+      delete_confirm: "Etes vous s\xC3\xBBr !"
       import_people_from_csv: Importer une liste de contact depuis un fichier csv.
       export_people_to_csv: Exporter une liste de contact au format csv.
       subscribed_on: "Souscris \xC3\xA0"
@@ -707,3 +707,19 @@ fr-FR:
       content_help: "Ce menu vous permet d'acc\xC3\xA9der \xC3\xA0 votre contenu"
       add_help: Ce menu vous permet d'ajouter du contenu
       other: Autre
+  mailer:
+    common:
+      thanks: Merci de votre confiance.
+      greetings: Cordialement.
+      signature: Toute l'équipe de {{who}}
+    signup_notification:
+      subject: Ouverture de compte
+      account_created: Votre compte a été créé.
+      click_here: Cliquez sur le lien ci-dessous pour activer votre compte
+      justification: L'activation permet de vérifier l'authenticité des utilisateurs afin d'éviter toute utilisation abusive de notre site.
+    reset_notification:
+      subject: Oubli de mot de passe
+      presentation: "{{who}}, nous avons reçu une demande suite à un oubli de votre mot de passe sur {{where}}."
+      click_here: Cliquez sur le lien suivant pour réinitialiser votre mot de passe
+    newsletter_template:
+      unsubscribe: Pour se désinscrire de cette newsletter, cliquez <a href='{{link}}' >ici</a>

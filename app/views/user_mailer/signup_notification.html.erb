@@ -1,16 +1,16 @@
-Votre compte a été créé.
+<%= I18n.t('mailer.signup_notification.account_created') %>
 
-  Login :         <%= @user_login %>
-  Mot de passe :  <%= @user_password %>
+  <%= I18n.t('user.field.login_label') %>  :  <%= @user_login %>
+  <%= I18n.t('user.field.password_label') %> :  <%= @user_password %>
 
-Cliquez sur le lien ci-dessous pour activer votre compte :
+<%= I18n.t('mailer.signup_notification.click_here') %> :
 
   <%= @url %>
-	
-L'activation permet de vérifier l'authenticité des utilisateurs afin d'éviter toute utilisation abusive de notre site.
 
-Merci de votre confiance.
+<%= I18n.t('mailer.signup_notification.justification') %>
 
-Cordialement.
+<%= I18n.t('mailer.common.thanks') %>
 
-Toute l'équipe de <%= @site %>
+<%= I18n.t('mailer.common.greetings') %>
+
+<%= I18n.t('mailer.common.signature', :who => @site) %>

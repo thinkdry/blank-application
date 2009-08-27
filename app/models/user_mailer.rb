@@ -21,7 +21,7 @@ class UserMailer < ActionMailer::Base
   # Send Notification Mail to User after Sign-Up is Completed
 	def signup_notification(user)
 		setup_email(user)
-		subject self.site_name+" : Ouverture de compte"
+		subject self.site_name+" : "+I18n.t('mailer.signup_notification.subject')
 		body :url => self.daurl+"/activate/#{user.activation_code}",
 			:site => self.site_name,
 			:user_login => user.login,
@@ -31,7 +31,7 @@ class UserMailer < ActionMailer::Base
 	# Send Reset Password Notification Mail to User
   def reset_notification(user)
 		setup_email(user)
-		subject self.site_name+" : Mot de passe oublié"
+		subject self.site_name+" : "+I18n.t('mailer.reset_notification.subject')
 		body :url => self.daurl+"/reset_password/#{user.password_reset_code}",
 			:user_login => user.login,
 			:site => self.site_name

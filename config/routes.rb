@@ -53,7 +53,7 @@ ActionController::Routing::Routes.draw do |map|
 	map.resource :session, :member => { :change_language => :any }
 
   # Routes for People
-	map.resources :people, :collection => {:export_people=>:any, :import_people => :any,:ajax_index => :get,:get_empty_csv => :get, :validate => :any ,:filter => :get }
+	map.resources :people, :collection => {:export_people => :any, :import_people => :any,:ajax_index => :get,:get_empty_csv => :get, :validate => :any ,:filter => :get }
 
   # Routes Related to SuperAdministrator
 	map.general_changing_superadministration 'superadministration/general_changing', :controller => 'superadministration', :action => 'general_changing'
