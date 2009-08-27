@@ -12,9 +12,10 @@ namespace :blank do
 		Rake::Task['blank:pump'].invoke
     p "Setting Other Settings"
     Rake::Task['blank:init'].invoke
-    p "Starting Backgroundrb"
-    system("ruby script/backgroundrb stop")
-    system("ruby script/backgroundrb start")
+    p "Starting Delayed_Job"
+    system("ruby script/delayed_job start")
+    p "Creating Cron Schedules"
+    system("whenever --update-crontab blank -s environment=#{RAILS_ENV}")
     Rake::Task['blank:xapian_rebuild'].invoke
     p "Installed Blank Application Sucessfully."
 	end

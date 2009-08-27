@@ -66,6 +66,12 @@ sudo gem install mysql
 
 sudo gem install mongrel
 
+====Whenever
+
+sudo gem sources -a http://gems.github.com
+
+sudo gem install javan-whenever
+
 ====Rspec
 
  - sudo gem install rspec
