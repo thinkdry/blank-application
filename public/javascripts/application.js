@@ -232,7 +232,7 @@ function do_search(){
     return valid;
 }
   
-function text_insert(name, model_name, place_id) {
+function insert_field(name, model_name, place_id, field_name) {
     if (name != 0 && name.length == (name.replace(/<(\S+).*>(|.*)<\/(\S+).*>|<%(.*)%>|<%=(.*)%>+/g, "")).length) {
         var dadiv = new Element('div', {
             'id': name+'_000',
@@ -242,10 +242,10 @@ function text_insert(name, model_name, place_id) {
             'onclick': 'this.parentNode.remove(); return false;'
         }).insert('<img width="15" src="/images/icons/delete.png" alt="Delete"/>')
         var dahidden = new Element('input', {
-            'id': model_name+'_keywords_',
+            'id': model_name+'_'+field_name+'_',
             'type': 'hidden',
             'value': name,
-            'name': model_name+'[keywords_field][]'
+            'name': model_name+'['+field_name+'][]'
         })
         dadiv.appendChild(dadelete)
         dadiv.appendChild(dahidden)

@@ -622,7 +622,8 @@ en-US:
       x_hours_ago: "{{count}} hours ago"
       one_hour_ago: 1 hour ago
   layout: 
-    popup: 
+    popup:
+      page_title: Pop up for {{what}}
       filter_by_workspace: Filter by workspace
       filter_by_item_type: Filter by type
       display_all_picure: Display all the pictures

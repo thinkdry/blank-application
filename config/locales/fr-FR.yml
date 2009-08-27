@@ -644,7 +644,8 @@ fr-FR:
       show_my_feeds: Montrer mes flux RSS
       feed_item: Flux
   layout: 
-    popup: 
+    popup:
+      page_title: Pop up pour {{what}}
       filter_by_workspace: Filtrer par workspace
       filter_by_item_type: Filtrer par type
       filter_help: "Ce menu vous permet de filter la liste d'item affich\xC3\xA9e ci-dessous."
