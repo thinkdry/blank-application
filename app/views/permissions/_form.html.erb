@@ -1,5 +1,5 @@
 <fieldset style="width:622px;">
-<% remote_form_for(@permission, :builder => BlankFormBuilder) do |f| %>
+<% form_for(@permission, :builder => BlankFormBuilder) do |f| %>
   <%= f.text_field :name, :label => "Name *: " %>
   <label>Select *: </label>
   <div class="formElement">

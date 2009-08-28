@@ -1,0 +1,15 @@
+<%= image_tag('/images/icons/french.png') %>
+<%= "Translations manager" %>
+<br /><br />
+
+  <h3>Select one country to configure the differents fields et text of the website:</h3>
+  <ul>
+  <% LANGUAGES.each do |l| %>
+    <li><%= link_to_remote image_tag("countries/#{l.split('-').first}.jpg"), :update => 'languageConfiguration', :url => language_switching_admin_translations_path(:locale_to_conf => l.to_s), :method => :get %></li>
+  <% end %>
+  </ul>
+  <%= image_tag('/images/icons/add.png')%><%= link_to_remote 'Add a new translation', :update => 'languageConfiguration', :url => language_switching_admin_translations_path(:locale_to_conf => 'translation_addition') %>
+
+  <div id='languageConfiguration'>
+    <%= render :partial => 'translations_tab', :locals => {:file => @file} %>
+  </div>

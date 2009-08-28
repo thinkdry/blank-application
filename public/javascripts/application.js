@@ -292,7 +292,7 @@ function add_new_follower(){
         var hidden_email = new Element('input', {
             'type': 'hidden',
             'value': email,
-            'name': 'conf[sa_exception_followers_email][]'
+            'name': 'configuration[sa_exception_followers_email][]'
         })
         new_email.appendChild(delete_email)
         new_email.appendChild(hidden_email)

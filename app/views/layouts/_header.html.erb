@@ -189,10 +189,11 @@
             <h3>Superadmin</h3>
             <div class="headerTipContent">
               <ul>
-                <li><%= link_to "General settings", superadministration_path(:part => 'general') %></li>
-                <li><%= link_to "Color management", superadministration_path(:part => 'css') %></li>
-                <li><%#= link_to "Translation manager", superadministration_path(:part => 'translations') %></li>
-                <li><%= link_to "Role manager", superadministration_path(:part => 'rights') %></li>
+                <li><%= link_to "General settings", editing_admin_general_settings_path %></li>
+                <li><%= link_to "User interface", editing_admin_user_interfaces_path %></li>
+                <li><%= link_to "Translations", editing_admin_translations_path %></li>
+                <li><%= link_to "Tasks", admin_tasks_path %></li>
+                <li><%= link_to "Roles & permissions", roles_path %></li>
               </ul>
             </div
           </div>

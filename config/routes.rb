@@ -48,7 +48,7 @@ ActionController::Routing::Routes.draw do |map|
   map.forgot_password '/forgot_password', :controller => 'users', :action => 'forgot_password'
   #map.change_password '/change_password', :controller => 'users', :action => 'change_password'
   map.reset_password '/reset_password/:password_reset_code', :controller => 'users', :action => 'reset_password'
-  map.resources :users, :member => { :administration => :any, :locking => :any, :resend_activation_mail_or_activate_manually => :post },
+  map.resources :users, :member => { :locking => :any, :resend_activation_mail_or_activate_manually => :post },
 			:collection => {:autocomplete_on => :any, :validate => :any, :ajax_index => :get }
 	map.resource :session, :member => { :change_language => :any }
 
@@ -56,14 +56,13 @@ ActionController::Routing::Routes.draw do |map|
 	map.resources :people, :collection => {:export_people => :any, :import_people => :any,:ajax_index => :get,:get_empty_csv => :get, :validate => :any ,:filter => :get }
 
   # Routes Related to SuperAdministrator
-	map.general_changing_superadministration 'superadministration/general_changing', :controller => 'superadministration', :action => 'general_changing'
-	map.check_color_superadministration 'superadministration/check_color', :controller => 'superadministration', :action => 'check_color'
-	map.colors_changing_superadministration 'superadministration/colors_changing', :controller => 'superadministration', :action => 'colors_changing'
-	map.language_switching_superadministration 'superadministration/language_switching', :controller => 'superadministration', :action => 'language_switching'
-	map.translations_changing_superadministration 'superadministration/translations_changing', :controller => 'superadministration', :action => 'translations_changing'
-	map.translations_new_superadministration 'superadministration/translations_new', :controller => 'superadministration', :action => 'translations_new'
-  map.cron_task_superadministration 'superadministration/cron_task', :controller => 'superadministration', :action => 'cron_task'
-	map.superadministration '/superadministration/:part', :controller => 'superadministration', :action => 'superadministration'
+	map.namespace :admin do |part|
+		part.connect '', :controller => 'admin/administration', :action => 'show'
+		part.resources :general_settings, :only => [:none], :collection => { :editing => :get, :updating => :put }
+		part.resources :user_interfaces, :only => [:none], :collection => { :editing => :get, :updating => :put, :check_color => :get, :colors_changing => :get }
+		part.resources :tasks, :only => [:index], :collection => { :run_task => :get }
+		part.resources :translations, :only => [:none], :collection => { :editing => :get, :updating => :put, :language_switching => :get, :translation_new => :get }
+	end
 
   # Route for HomePage
 	map.resources :home, :only => [:index], :collection => { :autocomplete_on => :any }
