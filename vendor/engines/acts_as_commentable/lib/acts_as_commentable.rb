@@ -20,8 +20,7 @@ module ActsAsCommentable
       def add_comment
         if logged_in?
           comment = current_object.comments.create(params[:comment].merge(:user => @current_user, :state => DEFAULT_COMMENT_STATE))
-          current_object.comments_number = current_object.comments_number.to_i + 1
-          current_object.save
+          current_object.update_attributes(:comments_number => current_object.comments_number.to_i + 1)
           render :update do |page|
 						if comment.state == 'validated'
 							page.insert_html :bottom, 'comments_list', :partial => "comments/comment_in_list", :object => comment
@@ -33,8 +32,7 @@ module ActsAsCommentable
         else
           if yacaph_validated?
             current_object.comments.create(params[:comment])
-            current_object.comments_number = current_object.comments_number.to_i + 1
-            current_object.save
+            current_object.update_attributes(:comments_number => current_object.comments_number.to_i + 1)
             render :update do |page|
               page.replace_html "ajax_info", :text => I18n.t('comment.add_comment.ajax_message_comment_submited')
               page.replace_html "comment_captcha",  :partial => "items/captcha"

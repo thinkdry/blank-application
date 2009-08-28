@@ -20,7 +20,7 @@ class ContactsWorkspace < ActiveRecord::Base
 	def to_group_member(user_id=nil)
 		return {
 				'id' => self.id,
-				'state' => self.state,
+				'state' => (self.state.nil? or self.state.blank?) ? I18n.t('general.common_word.subscribed') : I18n.t('general.common_word.'+self.state),
 				'contact_id' => self.contactable_id,
 				'contact_type' => self.contactable_type,
 				'email' => begin self.contactable.email rescue self.contactable.from_email end,

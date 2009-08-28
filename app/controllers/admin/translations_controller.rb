@@ -86,7 +86,7 @@ class Admin::TranslationsController < ApplicationController
 
 	private
   def translation_options
-		@translation_sections = [['general', 'layout', 'user', 'workspace', 'item', 'group', 'people', 'comment',  'home', 'website_contact']+ITEMS].flatten.sort
+		@translation_sections = [['general', 'layout', 'user', 'workspace', 'item', 'group', 'people', 'comment',  'home', 'website_contact', 'workspace_contact']+ITEMS].flatten.sort
   end
 
 

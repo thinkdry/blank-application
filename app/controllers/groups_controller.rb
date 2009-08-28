@@ -8,17 +8,24 @@ class GroupsController < ApplicationController
 
 	acts_as_ajax_validation
 
+  # Declaration of the ActAsCommentable plugin
+	acts_as_commentable
+  
 	before_filter :permission_checking, :except => [:unsubscribe]
 
-	def permission_checking
-		no_permission_redirection unless @current_user && current_workspace && current_workspace.send("accepts_contacts_management_for?".to_sym, @current_user)
-	end
+  before_filter :current_object, :only =>[:show, :edit, :update, :destroy]
 
 	def index
     filter_type = params[:filter_name] || 'created_at'
 		filter_way = params[:filter_way] ||= 'desc'
     @paginated_objects = Group.paginate(:conditions => {:workspace_id => current_workspace.id}, :order => "#{filter_type} #{filter_way}", :per_page => get_per_page_value, :page => params[:page])
-    render :partial => 'group_in_list', :layout => false if request.xml_http_request?
+    
+    respond_to do |format|
+			format.html{ render :partial => 'group_in_list', :layout => false if request.xml_http_request?}
+			format.xml { render :xml => Group.find(:all, :conditions => {:workspace_id => current_workspace.id}) }
+			format.json { render :json => Group.find(:all, :conditions => {:workspace_id => current_workspace.id}) }
+			format.atom {@current_objects = Group.find(:all, :conditions => {:workspace_id => current_workspace.id}); render :template => "groups/index.atom.builder", :layout => false }
+		end
 	end
 
 	def new
@@ -28,7 +35,7 @@ class GroupsController < ApplicationController
 	end
 
 	def edit
-		@current_object = Group.find(params[:id])
+#		@current_object = Group.find(params[:id])
 		get_contacts_lists
 	end
 
@@ -48,7 +55,7 @@ class GroupsController < ApplicationController
 	end
 
 	def update
-		@current_object = Group.find(params[:id])
+#		@current_object = Group.find(params[:id])
 		if @current_object.update_attributes(params[:group])
       @current_object.groupable_objects = params[:selected_Options]
 			flash[:notice] = I18n.t('item.edit.flash_notice')
@@ -61,11 +68,11 @@ class GroupsController < ApplicationController
 	end
 
 	def show
-		@current_object = Group.find(params[:id])
+#		@current_object = Group.find(params[:id])
 	end
 
 	def destroy
-		@current_object = Group.find(params[:id])
+#		@current_object = Group.find(params[:id])
 		if @current_object.destroy
 			flash[:notice] = I18n.t('item.destroy.flash_notice')
 			redirect_to workspace_groups_path(current_workspace.id)
@@ -106,7 +113,11 @@ class GroupsController < ApplicationController
   end
 
 	protected
-	
+
+  def permission_checking
+		no_permission_redirection unless @current_user && current_workspace && current_workspace.send("accepts_contacts_management_for?".to_sym, @current_user)
+	end
+
 	def get_contacts_lists
 		selected_contacts = @current_object.groupings.map{ |e| e.contacts_workspace }.uniq
 		remaining_contacts = @current_object.workspace.contacts_workspaces.to_a - selected_contacts
@@ -115,5 +126,8 @@ class GroupsController < ApplicationController
 		#raise @selected_members.inspect+'===='+@remaining_members.inspect
 		@remaining_members = remaining_contacts.map{ |e| e.to_group_member } || []
 	end
-	
+
+  def current_object
+    @current_object = Group.find(params[:id])
+  end
 end

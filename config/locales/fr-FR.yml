@@ -185,6 +185,9 @@ fr-FR:
       last_connected: Dernier connecté
       state: Etat
       select_all: Tout select
+      subscribed: inscrits
+      unsubscribed: désinscrits
+      non_subscribed: non inscrits
     common_message:
       permission_denied: Permission refusée
       error_during_file_transfer: Erreur durant l'envoi du fichier
@@ -479,6 +482,8 @@ fr-FR:
       send_to: Envoyée à
       send_newsletter: Envoyer la newsletter
       send_newsletter_to_user_list: Envoyez la newsletter à cette liste d'utilisateurs
+      queued_newsletter_flash_notice: Newsletter en attente
+      queued_newsletter_flash_error: Newsletter pas en attente
     unsubscribe: 
       flash_notice: "Vous avez \xC3\xA9t\xC3\xA9 d\xC3\xA9sinscrit de cette newsletter."
     show:
@@ -724,3 +729,18 @@ fr-FR:
       click_here: Cliquez sur le lien suivant pour réinitialiser votre mot de passe
     newsletter_template:
       unsubscribe: Pour se désinscrire de cette newsletter, cliquez <a href='{{link}}' >ici</a>
+  workspace_contact:
+    list:
+      order_by_time: Trier par date
+      order_by_email: Trier par email
+      all_contacts: Tous les contacts
+      non_linked_to_a_group: Non liés à un groupe
+      delete_person_alert_confirm: Ceci va effacer la personne. Utilisez enlever si vous voulez juste l'enlever de ce workspace. Etes vous sur ?
+      action: Action
+      remove_these_contacts_from_this_worksapce: Enlever ces contacts de ce workspace
+      link_these_contacts_to_group: Lier ces contacts avec le groupe
+      change_state_to: Changer l'état en
+      do_the_action: Effectuer l'acction
+      removed_contact_flash_notice: Les contacts sélectionnés ont été enlevés avec succès de ce workspace
+      linked_to_group_flash_notice: Les contacts sélectionnés ont été liés avec succès à ce groupe {{name}}
+      changed_state_flash_notice: L'état des contacts sélectionnés a été changé en {{state}}

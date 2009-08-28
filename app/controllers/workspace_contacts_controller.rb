@@ -32,17 +32,21 @@ class WorkspaceContactsController < ApplicationController
 					end
 					cw.delete
 				end
+        flash[:notice] = I18n.t('workspace_contact.list.removed_contact_flash_notice')
 			elsif params[:to_do] == 'link' && params[:group_id]
+        group = Group.find(params[:group_id])
 				params[:contacts_workspaces_ids].each do |e|
           if Grouping.find(:first, :conditions => {:group_id => params[:group_id].to_i, :contacts_workspace_id => e.to_i}).nil?
             a=Grouping.new(:group_id => params[:group_id].to_i, :contacts_workspace_id => e.to_i)
             a.save
           end
 				end
-			elsif params[:to_do] == 'unsubscribe'
+        flash[:notice] = I18n.t('workspace_contact.list.linked_to_group_flash_notice', :name => group.title)
+			elsif params[:to_do] == 'change_state'
 				params[:contacts_workspaces_ids].map{ |e| ContactsWorkspace.find(e) }.each do |e|
-					e.update_attributes(:state => 'unsubscribed')
+					e.update_attributes(:state => params[:state])
 				end
+        flash[:notice] = I18n.t('workspace_contact.list.changed_state_flash_notice', :state => I18n.t('general.common_word.'+params[:state]).capitalize)
 			end
 		end
 		params[:order] ||= 'created_at'
@@ -90,13 +94,13 @@ class WorkspaceContactsController < ApplicationController
 		end
 	end
 
-	# Method to unsubscribe from a newsletter for given email address
+	# Method to unsubscribe from a newsletter for given sha1_id
   #
 	# TODO bl i
 	#
   # Usage URL:
   #
-  # /unsubscribe_for_newsletter?member_type=people&email=abc@abc.com
+  # /unsubscribe_for_newsletter?cid=#{sha1_id of contacts_workspace}
   #
   def unsubscribe
     contact_workspace = ContactsWorkspace.find(:first, :conditions => ["sha1_id = '#{params[:cid]}'"])

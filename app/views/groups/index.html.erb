@@ -2,9 +2,22 @@
 <div id="groups_list_header">
   <h2><%= image_tag('/images/item_icons/group.png')%> <%= I18n.t('group.index.title')  %> </h2>
 </div>
-<div id="object-list">
-  <%= render :partial => "group_in_list" %>
-</div>
+
+<% if @paginated_objects.first %>
+  <div id="object-list">
+    <%= render :partial => "group_in_list" %>
+  </div>
+  <div class="other_output_format">
+    <%= I18n.t('item.show.get_in_another_format')%>:
+    <%= link_to image_tag('/images/icons/xml.png'), "#{workspace_groups_path(current_workspace.id, :format => 'xml')}" %>
+    <%= link_to image_tag('/images/icons/json.png'), "#{workspace_groups_path(current_workspace.id, :format => 'json')}" %>
+    <%= link_to image_tag('/images/icons/atom.png'), "#{workspace_groups_path(current_workspace.id, :format => 'atom')}" %>
+  </div>
+<% else %>
+  <div id="object-list">
+    <br /><br /><%= I18n.t('item.common_word.list_empty') %><br /><br />
+  </div>
+<% end %>
 
 <br />
 <%= link_to I18n.t('group.index.add_new_group'), new_workspace_group_path(current_workspace.id) %>
