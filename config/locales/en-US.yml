@@ -203,6 +203,9 @@ en-US:
       last_connected: Last connected
       state: State
       select_all: Select all
+      subscribed: subscribed
+      unsubscribed: unsubscribed
+      non_subscribed: non subscribed
     common_message:
       permission_denied: Permission denied
       error_during_file_transfer: Error occured during file transfer
@@ -466,6 +469,8 @@ en-US:
       sent_to: Sent to
       send_newsletter: Send Newsletter
       send_newsletter_to_user_list: Send this Newsletter to user list
+      queued_newsletter_flash_notice: Newsletter in queue
+      queued_newsletter_flash_error: Newsletter not queued
     unsubscribe: 
       flash_notice: Unsubscribed successfully.
     show:
@@ -703,3 +708,18 @@ en-US:
       click_here: Click on the following link to reset your password
     newsletter_template:
       unsubscribe: To unsubscribe for this newsletter, click <a href='{{link}}' >here</a>
+  workspace_contact:
+    list:
+      order_by_time: Order by time
+      order_by_email: Order by email
+      all_contacts: All the contacts
+      non_linked_to_a_group: Non-linked to a group
+      delete_person_alert_confirm: This will delete the person. Use remove if you just want to remove it from this workspace. Are you sure?
+      action: Action
+      remove_these_contacts_from_this_worksapce: Remove these contacts from this workspace
+      link_these_contacts_to_group: Link these contacts to the group
+      change_state_to: Change state to
+      do_the_action: Do the action
+      removed_contact_flash_notice: Selected contacts are successfully removed from this workspace
+      linked_to_group_flash_notice: Selected contacts are successfully linked to group {{name}}
+      changed_state_flash_notice: Selected contacts state has been changed to {{state}}
