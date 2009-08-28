@@ -1,0 +1,50 @@
+<%= image_tag('/images/icons/color.png') %>
+<%= "User interface manager" %>
+<br /><br />
+
+<% form_for :configuration, @configuration, :url => updating_admin_user_interfaces_path, :html => {:method => :put, :multipart => true, :class => "fieldsetSimulation"} do |f| -%>
+
+  <label>Logo management :</label>
+  <div class="formElement">
+    <%= f.file_field 'sa_logo_url' %>
+    <%= image_tag(@configuration['sa_logo_url'].to_s) %>
+  </div>
+
+  <label>Favicon Management :</label>
+  <div class="formElement">
+    <%= f.file_field 'sa_favicon_url' %><br/>
+    <%= image_tag(@configuration['sa_favicon_url'].to_s) %>
+  </div>
+
+  <label>Per page default value :</label>
+  <div class="formElement"><%= f.text_field :sa_per_page_default %></div>
+
+  <label>Default layout :</label>
+  <div class="formElement"><%= select_tag 'configuration[sa_layout]', options_for_select(LAYOUTS_AVAILABLE,@configuration['sa_layout']) %></div>
+
+  <label></label>
+
+  <label>Select Template :</label>
+  <div class="formElement">
+  <select name='template[temp]' onchange="new Ajax.Updater('template','/superadministration/check_color?temp='+ this.value, {asynchronous:true, evalScripts:true})">
+  </div>
+  <% @temp.each do |t| %>
+    <option value="<%= t.template %>"> <%= t.template %></option>
+  <% end %>
+  </select>
+  <%= link_to_function "New Template", "if (document.getElementById('newTemp').style.display=='none') {document.getElementById('newTemp').style.display='block';document.getElementById('update').style.display='none';}"%>
+  </div>
+  <br/><br/>
+  
+	  <div id="newTemp" style="display:none;">
+	  	<label>Template Name :</label>
+		<div class="formElement"><input type="text" name="newtemplate"></div>
+		<div class="centerButton"><button type="submit" class="submit_button">Save New Template</button></div>
+	  </div>
+      <%  @elements.each do |e| %>
+        <label><%=e.name.capitalize%>: </label>
+        <div class="formElement"><input type="text" name="template[<%=e.name%>]" value="<%=e.bgcolor%>" style="background-color:<%=e.bgcolor%>" onclick="startColorPicker(this)" onkeyup="maskedHex(this)"></div>
+      <% end %>
+
+  <div class="centerButton"><button type="submit" class="submit_button"><%=I18n.t('general.button.update')%></button></div>
+<% end %>

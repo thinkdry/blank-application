@@ -11,7 +11,7 @@
   <br/>
   <br/>
 
-<% form_for @res, :url => translations_changing_superadministration_path do |f| %>
+<% form_for @res, :url => updating_admin_translations_path do |f| %>
    <input id="language" name="language" type="hidden" value=<%= @language.to_s %>>
    <% @translation_sections.each do |section| %>
      <div id="<%= section %>" style="display:none" class="languageLogicalPart">

@@ -250,22 +250,6 @@ class UsersController < ApplicationController
     render :inline => "<%= error_message_on(@model_instance, params['attribute']) %>"
   end
 
-  # TODO remove it, just direct links in the old layout, to hell ajax my zob
-
-  # Administration of Workspaces for User
-   #
-  # Usage URL
-  #
-  # /users/administration
-  def administration
-    @current_object = current_user
-    @workspaces = if (current_user.has_system_permission('workspace', 'show'))
-      Workspace.find(:all)
-    else
-      Workspace.allowed_user_with_permission(@current_user.id, 'workspace_show')
-    end
-  end
-
   # allow only post pethod to resend activation mail again or activate manually by admin only and parameter id is user's activation_code
   def resend_activation_mail_or_activate_manually
     if @current_user.has_system_role('admin') and @user = User.find_by_activation_code(params[:id])
