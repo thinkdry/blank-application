@@ -191,6 +191,8 @@ fr-FR:
     common_message:
       permission_denied: Permission refusée
       error_during_file_transfer: Erreur durant l'envoi du fichier
+      must_be_set: Doit être renseigné
+      file_size_must_be_between: la taille du fichier doit être comprise entre {{min}} et {{max}} octets.
     item: 
       article: Article
       audio: Audio
@@ -225,7 +227,74 @@ fr-FR:
       comment: commentaire
     copyright:
       copyright_restriction: "Certains \xC3\xA9l\xC3\xA9ments sont prot\xC3\xA9g\xC3\xA9s par le Copyright et ne peuvent \xC3\xAAtre modifi\xC3\xA9s."
-  activerecord: 
+  activerecord:
+    attributes:
+      user:
+        login: Identifiant
+        password: Mot de passe
+        password_confirmation: Confirmer le mot de passe
+        firstname: Prénom
+        lastname: Nom
+        email: Courriel
+        company: Emplacement
+        phone: Telephone
+        mobile: Mobile
+        address: Adresse
+        edito: Edito
+        activity: Activité
+      workspace:
+        title: Titre
+        description: Description
+      article:
+        title: Titre
+        description: Description
+        body: Article
+      image:
+        title: Titre
+        description: Description
+      cms_file:
+        title: Titre
+        description: Description
+      video:
+        title: Titre
+        description: Description
+      audio:
+        title: Titre
+        description: Description
+      feed_source:
+        title: Titre
+        description: Description
+        url: Url
+        copyright: Copyright
+      bookmark:
+        title: Titre
+        description: Description
+        link: Lien
+        copyright: Copyright
+      newsletter:
+        title: Titre
+        description: Description
+        from_email: Depuis l'email
+        body: Corps
+      group:
+        title: Titre
+        description: Description
+      person:
+        email: Email
+        primary_phone: Téléphone fixe
+        mobile_phone: Téléphone portable
+        first_name: Prénom
+        last_name: Nom
+        fax: Fax
+        street: Rue
+        city: Ville
+        postal_code: Code postal
+        company: Companie
+        job_title: Activité
+        web_page: Page web
+        notes: Notes
+      permission:
+        name: Name
     errors: 
       messages: 
         accepted: "{{attribute}} doit \xC3\xAAtre accept\xC3\xA9"
@@ -525,6 +594,7 @@ fr-FR:
       summary: Sommaire
       corrupted_file: Fichier corrompu
       comment: Commentaire(s)
+      select_at_least_one_workspace: Sélectionner au moins un espace de travail
   page: 
     new: 
       title: Ajouter une nouvelle page

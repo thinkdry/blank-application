@@ -221,7 +221,7 @@ module Paperclip
       min     = options[:greater_than] || (options[:in] && options[:in].first) || 0
       max     = options[:less_than]    || (options[:in] && options[:in].last)  || (1.0/0)
       range   = (min..max)
-      message = options[:message] || "file size must be between :min and :max bytes."
+      message = options[:message] || I18n.t('general.common_message.file_size_must_be_between', :min => min, :max => max)
 
       attachment_definitions[name][:validations][:size] = lambda do |attachment, instance|
         if attachment.file? && !range.include?(attachment.size.to_i)
@@ -237,7 +237,7 @@ module Paperclip
 
     # Places ActiveRecord-style validations on the presence of a file.
     def validates_attachment_presence name, options = {}
-      message = options[:message] || "must be set."
+      message = options[:message] || I18n.t('general.common_message.must_be_set')
       attachment_definitions[name][:validations][:presence] = lambda do |attachment, instance|
         message unless attachment.file?
       end

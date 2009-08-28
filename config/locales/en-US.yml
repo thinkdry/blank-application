@@ -108,7 +108,72 @@ en-US:
       copyright_label: Copyright
     show: 
       title: Show Publication
-  activerecord: 
+  activerecord:
+    attributes:
+      user:
+        login: Login
+        password: Password
+        password_confirmation: Password confirmation
+        firstname: First name
+        lastname: Last name
+        email: Email
+        company: Location
+        phone: Phone
+        mobile: Mobile
+        address: Address
+        edito: Edito
+        activity: Activity
+      workspace:
+        title: Title
+        description: Description
+      article:
+        title: Title
+        description: Description
+        body: Body
+      image:
+        title: Title
+        description: Description
+      cms_file:
+        title: Title
+        description: Description
+      video:
+        title: Title
+        description: Description
+      audio:
+        title: Title
+        description: Description
+      feed_source:
+        url: Url
+        copyright: Copyright
+      bookmark:
+        title: Title
+        description: Description
+        link: Link
+        copyright: Copyright
+      newsletter:
+        title: Title
+        description: Description
+        from_email: From email
+        body: Body
+      group:
+        title: Title
+        description: Description
+      person:
+        email: Email
+        primary_phone: Primary phone
+        mobile_phone: Mobile phone
+        first_name: First name
+        last_name: Last name
+        fax: Fax
+        street: Street
+        city: City
+        postal_code: Postal code
+        company: Company
+        job_title: Job title
+        web_page: Web page
+        notes: Notes
+      permission:
+        name: Name
     errors: 
       messages: 
         accepted: "{{attribute}} must be accepted"
@@ -209,6 +274,8 @@ en-US:
     common_message:
       permission_denied: Permission denied
       error_during_file_transfer: Error occured during file transfer
+      must_be_set: must be set
+      file_size_must_be_between: file size must be between {{min}} and {{max}} bytes
     item: 
       article: Article
       audio: Audio
@@ -524,6 +591,7 @@ en-US:
       summary: Summary
       corrupted_file: Corrupted File
       comment: Comment(s)
+      select_at_least_one_workspace: Select at least one workspace
   people: 
     new: 
       title: New Person

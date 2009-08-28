@@ -36,7 +36,7 @@ module ActsAsItem
         # Validation of the presence of these fields
         validates_presence_of	:title, :description, :user
         # Valdation of the fact that the item is associated to one or more workspaces throught items table
-        validates_presence_of :items, :message => "Sélectionner au moins un espace de travail"
+        validates_presence_of :items, :message => I18n.t('item.common_word.select_at_least_one_workspace') #"Sélectionner au moins un espace de travail"
         # Validation of fields not in format of
         validates_not_format_of :title, :description, :with => /(#{SCRIPTING_TAGS})/
 
