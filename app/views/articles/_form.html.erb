@@ -1,7 +1,7 @@
 <% form_for_item @current_object, title do |f| -%>
 
   <% if @current_object.new_record? %>
-     <div class="CommonMessage"><%= I18n.t('page.new.body_after_creation') %></div>
+    <div class="CommonMessage"><%= I18n.t('page.new.body_after_creation') %></div>
   <% else %>
     <%= f.advanced_editor(:body, :label => I18n.t('article.field.article_label')+ ' * :', :hint => I18n.t('article.field.article_hint')) %>
   <% end %>
@@ -9,11 +9,13 @@
   <% f.field :article_files, :label => I18n.t('article.field.assosiated_file_label')+ ' :' do %>
     <div id="files">
       <% @current_object.article_files.each do |af| %>
-        <div id="file<%= af.id.to_s %>">
-          <%= af.articlefile.url.split('/').last.split("?")[0] %>
-          <%= link_to I18n.t('general.button.download'), af.articlefile.url.split("?")[0] %>
-          <%= link_to_remote I18n.t('general.button.delete'), :url => { :controller =>"articles", :action => "remove_file", :id => af.id }, :success => "$('file#{af.id.to_s}').remove()" %>
-        </div>
+        <% if af.id %>
+          <div id="file<%= af.id.to_s %>">
+            <%= af.articlefile.url.split('/').last.split("?")[0] %>
+            <%= link_to I18n.t('general.button.download'), af.articlefile.url.split("?")[0] %>
+            <%= link_to_remote I18n.t('general.button.delete'), :url => { :controller =>"articles", :action => "remove_file", :id => af.id }, :success => "$('file#{af.id.to_s}').remove()" %>
+          </div>
+        <% end %>
       <% end %>
     </div>
     <%= link_to_new_file I18n.t('article.field.add_new_file') %><br />

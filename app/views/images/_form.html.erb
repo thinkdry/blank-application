@@ -1,7 +1,10 @@
 <% form_for_item @current_object, title do |f| -%>
   <% f.field :image, :label => I18n.t('image.field.image_label') + " :" do %>
     <%= File.basename(@current_object.image.url) + '<br />' if @current_object.image_file_name %>
-    <%= file_field 'image', 'image',:value=>(@current_object.image.url ? @current_object.image.url : ""), :onChange=>"LimitAttach(this.form, this.form.image_image.value,'image')" %>
+    <%= file_field 'image', 'image',:value=>(@current_object.image.url ? @current_object.image.url : ""), 
+      :onChange=>"LimitAttach(this.form, this.form.image_image.value, 
+      ['.gif', '.jpg', '.jpeg', '.png', '.bmp'],
+      \"#{I18n.t('item.common_word.invalid_type_alert', :types => ['.gif', '.jpg', '.jpeg', 'png', '.bmp'].join(', '))}\")" %>
   <% end %>
 
 <% end -%>
