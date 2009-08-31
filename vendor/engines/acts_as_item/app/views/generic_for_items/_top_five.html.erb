@@ -1,14 +1,3 @@
-<%
-	if current_workspace
-		most_commented = GenericItem.from_workspace(current_workspace.id).most_commented.to_a
-        best_rated = GenericItem.from_workspace(current_workspace.id).best_rated.to_a
-        feed_items = FeedItem.from_workspace(current_workspace.id).latest
-	else
-        most_commented = GenericItem.consultable_by(current_user.id).most_commented.to_a
-        best_rated = GenericItem.consultable_by(current_user.id).best_rated.to_a
-        feed_items = FeedItem.consultable_by(current_user.id).latest
-	end
- %>
  <ul id="top_five_tabs">  
 	<li class="top_tabs" id="last">
 		<%= image_tag('/images/icons/last.png')%>
@@ -30,19 +19,21 @@
 <div id="top_five_content">
   <div id="one">
     <ul>
-	  	<%= render 	:partial => "workspaces/latest" -%>
+	  	<%= render 	:partial => "generic_for_items/item_in_top_box",
+				:locals =>{:type_of_list => 'rated'},
+  				:collection => GenericItem.from_workspace(@workspace.id).latest  if @workspace-%>
   	</ul>
   </div>
   <div id="two">
     <ul>
-  	<%= render 	:partial => "items/item_in_top_box",
+  	<%= render 	:partial => "generic_for_items/item_in_top_box",
 				:locals =>{:type_of_list => 'rated'},
   				:collection => best_rated -%>
   	</ul>
   </div>
   <div id="four">
     <ul>
-  	<%= render 	:partial => "items/item_in_top_box",
+  	<%= render 	:partial => "generic_for_items/item_in_top_box",
   				:collection => most_commented, 
 				:locals => {:type_of_list => 'comments'} -%>
   	</ul>
@@ -50,7 +41,7 @@
   <div id="three">
     <ul>
     <% if feed_items.latest.to_a.size > 0 -%>
-  	<%= render 	:partial => "items/feed_item_in_top_box",
+  	<%= render 	:partial => "generic_for_items/feed_item_in_top_box",
   				:collection => feed_items.to_a -%>
 	<% else -%>
 		<li><%=I18n.t('workspace.show.no_feed_items')%></li>

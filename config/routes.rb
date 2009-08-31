@@ -98,7 +98,7 @@ ActionController::Routing::Routes.draw do |map|
       parent.resources name.pluralize.to_sym, :member => member_to_set, :collection => {:validate => :any}
     end
     parent.content '/content/:item_type', :controller => 'content', :action => 'index'
-    parent.ajax_content 'content/ajax_content/:item_type', :controller => 'content', :action => 'ajax_index'
+    parent.ajax_content '/ajax_content/:item_type', :controller => 'content', :action => 'ajax_index'
 		parent.content_popup '/content_for_popup/:selected_item', :controller => 'content', :action => 'display_item_in_pop_up'
   end
 

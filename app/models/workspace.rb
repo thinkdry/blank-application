@@ -93,6 +93,7 @@ class Workspace < ActiveRecord::Base
           "LEFT JOIN permissions_roles ON permissions_roles.role_id = users_workspaces.role_id "+
           "LEFT JOIN permissions ON permissions_roles.permission_id = permissions.id",
 				:conditions => "permissions.name = '#{permission_name.to_s}'" ,
+        :select => "DISTINCT workspaces.*",
         :order => "workspaces.title ASC"
       }
 		end
@@ -104,7 +105,10 @@ class Workspace < ActiveRecord::Base
 		raise 'Role name' unless role_name
 		{ :joins => "LEFT JOIN users_workspaces ON users_workspaces.workspace_id = workspaces.id AND users_workspaces.user_id = #{user_id.to_i} "+
         "LEFT JOIN roles ON roles.id = users_workspaces.role_id",
-			:conditions => "roles.name = '#{role_name.to_s}'" }
+			:conditions => "roles.name = '#{role_name.to_s}'" ,
+      :select => "DISTINCT workspaces.*",
+      :order => "workspaces.title ASC"
+    }
 	}
 
   # Method used for the validation of the uniqueness of users linked to the workspace

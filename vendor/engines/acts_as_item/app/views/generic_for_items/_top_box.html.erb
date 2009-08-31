@@ -1,14 +1,3 @@
-<%
-	if current_workspace
-		most_commented = GenericItem.from_workspace(current_workspace.id).most_commented.to_a
-        best_rated = GenericItem.from_workspace(current_workspace.id).best_rated.to_a
-        feed_items = FeedItem.from_workspace(current_workspace.id)
-	else
-        most_commented = GenericItem.consultable_by(current_user.id).most_commented.to_a
-        best_rated = GenericItem.consultable_by(current_user.id).best_rated.to_a
-        feed_items = FeedItem.consultable_by(current_user.id)
-	end
- %>
 <ul id="top_elems" class="subsection_tabs">  
 	<li class="tabs" id="commented">
 		<a href="#one"><%= image_tag('/images/icons/comments_48.png')%></a>
@@ -80,21 +69,21 @@
 <div id="top_content">
   <div id="one">
     <ul class="top_box">
-  	<%= render 	:partial => "items/item_in_top_box",
+  	<%= render 	:partial => "generic_for_items/item_in_top_box",
 				:locals =>{:type_of_list => 'comment'},
   				:collection => most_commented %>
   	</ul>
   </div>
   <div id="two">
     <ul class="top_box">
-  	<%= render 	:partial => "items/item_in_top_box",
+  	<%= render 	:partial => "generic_for_items/item_in_top_box",
 				:locals =>{:type_of_list => 'rated'},
   				:collection => best_rated %>
   	</ul>
   </div>
   <div id="three">
     <ul class="top_box">
-  	<%= render 	:partial => "items/feed_item_in_top_box",
+  	<%= render 	:partial => "generic_for_items/feed_item_in_top_box",
   				:collection => feed_items.latest.to_a %>
   	</ul>
   </div>
