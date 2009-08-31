@@ -1,7 +1,9 @@
 <% form_for_item @current_object, title do |f| -%>		
 	<% f.field :audio, :label => I18n.t('audio.field.audio_label') +' :' do %>
 	  <%= File.basename(@current_object.audio_file_name) + '<br />' if @current_object.audio_file_name %>
-	  <%= file_field 'audio', 'audio', :onChange=>"LimitAttach(this.form, this.form.audio_audio.value,'audio')" %>
+	  <%= file_field 'audio', 'audio', :onChange=>"LimitAttach(this.form, this.form.audio_audio.value, 
+      ['.wav', '.mp3', '.wma', '.mp4'],
+      \"#{I18n.t("item.common_word.invalid_type_alert", :types => ['.wav', '.mp3', '.wma', '.mp4'].join(', '))}\")" %>
 	<% end %>
 <% end %>
 

@@ -595,6 +595,7 @@ fr-FR:
       corrupted_file: Fichier corrompu
       comment: Commentaire(s)
       select_at_least_one_workspace: Sélectionner au moins un espace de travail
+      invalid_type_alert: Merci d'envoyer seulement des fichiers de type autorisé ( {{types}}). Sélectionnez un nouveau fichier à envoyer et essayer de nouveau.
   page: 
     new: 
       title: Ajouter une nouvelle page
@@ -748,6 +749,7 @@ fr-FR:
       no_result: "Pas de r\xC3\xA9sultats avec ces crit\xC3\xA8res de recherche."
       filter_title: Titre
       item_category: Type d'item
+      date_alert: La date de début doit être avant la date de fin
     application: 
       change_language: Changer la langue
       new_workspace: Nouvel espace de travail

@@ -592,6 +592,7 @@ en-US:
       corrupted_file: Corrupted File
       comment: Comment(s)
       select_at_least_one_workspace: Select at least one workspace
+      invalid_type_alert: Please upload file only allowed types( {{types}}). Select a new file to upload and submit again.
   people: 
     new: 
       title: New Person
@@ -723,6 +724,7 @@ en-US:
       no_result: No results found with your criterions.
       filter_title: Title
       item_category: Item types
+      date_alert: From date must be less than To date
     general: 
       other: Other
     application: 

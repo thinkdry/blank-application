@@ -17,39 +17,37 @@ function showhide(id){
 
 
 var file1="";
-function LimitAttach(form, file, type) {
+function LimitAttach(form, file, allowed_types, alert_message) {
     var a = $('submit_button');
-    if(type=="audio"){
-        extArray = new Array(".wav",".mp3",".wma",".mp4");
-    }
-    if(type=="video"){
-        extArray = new Array(".mov", ".mpeg", ".mpg", ".3gp", ".flv", ".avi");
-    }
-    if(type=="image"){
-        extArray = new Array(".gif", ".jpg", ".jpeg", ".png", ".bmp");
-    }
-    if(type=="cmsfile"){
-        extArray = new Array(".txt",".doc",".pdf");
-    }
+    
+//    if(type=="audio"){
+//        extArray = new Array(".wav",".mp3",".wma",".mp4");
+//    }
+//    if(type=="video"){
+//        extArray = new Array(".mov", ".mpeg", ".mpg", ".3gp", ".flv", ".avi");
+//    }
+//    if(type=="image"){
+//        extArray = new Array(".gif", ".jpg", ".jpeg", ".png", ".bmp");
+//    }
+//    if(type=="cmsfile"){
+//        extArray = new Array(".txt",".doc",".pdf");
+//    }
     allowSubmit = false;
     if(file1==file) return;
     if (!file) return;
     while (file.indexOf("\\") != -1)
         file = file.slice(file.indexOf("\\") + 1);
     ext = file.slice(file.lastIndexOf(".")).toLowerCase();
-    for (var i = 0; i < extArray.length; i++)
+    for (var i = 0; i < allowed_types.length; i++)
     {
-        if (extArray[i] == ext) {
+        if (allowed_types[i] == ext) {
             allowSubmit = true;
             a.disabled = '';
             break;
         }
     }
     if (!allowSubmit){
-        alert("Please only upload files that end in types:  "
-            + (extArray.join("  ")) + "\nPlease select a new "
-            + "file to upload and submit again.");
-        file1=file
+        alert(alert_message)
         a.disabled = 'true';
     }
 }
@@ -212,7 +210,7 @@ function remove_param(parent_id){
 }
 
 // to check to date is grater than from or not if to date is present
-function do_search(){
+function do_search(message){
     var valid = true;
     if ($("search[created_after]") && $("search[created_before]")){
         var from = $("search[created_after]").value;
@@ -225,7 +223,7 @@ function do_search(){
             if(from_date < to_date){
                 valid = true;
             }else{
-                alert("From date must be greater than To date");
+                alert(message);
             }
         }
     }
