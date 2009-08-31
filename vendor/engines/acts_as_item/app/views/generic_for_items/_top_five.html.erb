@@ -40,9 +40,9 @@
   </div>
   <div id="three">
     <ul>
-    <% if feed_items.latest.to_a.size > 0 -%>
+    <% if feed_items.to_a.size > 0 -%>
   	<%= render 	:partial => "generic_for_items/feed_item_in_top_box",
-  				:collection => feed_items.to_a -%>
+  				:collection => feed_items -%>
 	<% else -%>
 		<li><%=I18n.t('workspace.show.no_feed_items')%></li>
 	<% end -%>
