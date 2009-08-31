@@ -22,3 +22,14 @@
 #        <%# end %>
 #    <%# end %>
 #<%# end %>
+<% k=1 %>
+<% ['article','audio'].each do |item| %>
+<% (1...50).each do |i| %>
+items_<%=k%>:
+ id: <%=k%>
+ itemable_id: <%=i%>
+ itemable_type: <%=item.capitalize%>
+ workspace_id: <%= Workspace.first.id %>
+ <% k+=1 %>
+<% end %>
+<% end %>
