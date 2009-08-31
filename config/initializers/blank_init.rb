@@ -3,18 +3,6 @@
 # Loading the Configuration module
 include Configuration
 
-# Loading the library Acts_as_item
-#p "Loading ActsAsItem model methods"
-require "acts_as_item/model.rb"
-ActiveRecord::Base.send(:include, ActsAsItem::ModelMethods)
-#p 'done'
-#p "Loading ActsAsItem controller methods"
-require "acts_as_item/controller.rb"
-ActionController::Base.send(:include, ActsAsItem::ControllerMethods)
-#p 'done'
-#require "acts_as_item/helper.rb"
-#ApplicationHelper.send(:include, ActsAsItem::HelperMethods)
-
 #ActiveRecord::Base.send(:include, CustomModelValidations)
 include CustomModelValidations
 

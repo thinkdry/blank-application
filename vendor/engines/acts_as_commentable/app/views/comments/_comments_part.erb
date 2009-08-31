@@ -18,7 +18,7 @@
           <textarea id="reply_box" class="comment_box" rows="4" name="comment[text]" cols="60"></textarea>
           <% if !current_user %>
             <div id="captcha" style="width:30%">
-              <%= render :partial => "/items/captcha" %>
+              <%= render :partial => "/comments/captcha" %>
             </div>
           <% end %>
           <input type="hidden" id ="comment_parent_id" name="comment[parent_id]">
@@ -36,7 +36,7 @@
       <textarea id="comment_box" class="comment_box" rows="8" name="comment[text]" cols="90"></textarea>
       <% if !current_user %>
         <div id="captcha" style="width:30%">
-          <%= render :partial => "/items/captcha" %>
+          <%= render :partial => "/comments/captcha" %>
         </div>
       <% end %>
       <button type="submit" class="submit_button"><%=I18n.t('comment.add_comment.button_publish')%></button>

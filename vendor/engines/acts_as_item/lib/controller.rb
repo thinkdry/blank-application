@@ -126,7 +126,7 @@ module ActsAsItem
 	        end
 
 					response_for :index do |format|
-						format.html { render :template => 'items/index_for_item.html.erb' }
+						format.html { render(:template => (File.exists?(RAILS_ROOT+'/app/views/'+params[:controller]+'/edit.html.erb') ? params[:controller]+'/index.html.erb' : 'items/index.html.erb')) }
 						format.xml { render :xml => @current_objects }
 						format.json { render :json => @current_objects }
 						format.atom { render :template => "items/index.atom.builder", :layout => false }

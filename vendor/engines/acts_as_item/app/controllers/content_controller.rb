@@ -1,4 +1,4 @@
-class ItemsController < ApplicationController
+class ContentController < ApplicationController
 
   # Action rendering the content tabs page for items
   #
@@ -20,7 +20,7 @@ class ItemsController < ApplicationController
 			format.html
 			format.xml { render :xml => get_items_list(params[:item_type], current_workspace) }
 			format.json { render :json => get_items_list(params[:item_type], current_workspace) }
-			format.atom {@current_objects = get_items_list(params[:item_type], current_workspace); render :template => "items/index.atom.builder", :layout => false }
+			format.atom {@current_objects = get_items_list(params[:item_type], current_workspace); render :template => "generic_for_items/index.atom.builder", :layout => false }
 		end
   end
 
@@ -41,7 +41,7 @@ class ItemsController < ApplicationController
     @paginated_objects = get_paginated_items_list(params[:item_type],current_workspace)
     # 
     @i = 0
-		render :partial => "items/items_list", :layout => false, :locals => { :ajax_url => current_workspace ? "/workspaces/#{current_workspace.id}/ajax_content/"+params[:item_type] : "/ajax_content/#{params[:item_type]}" }
+		render :partial => "generic_for_items/items_list", :layout => false, :locals => { :ajax_url => current_workspace ? "/workspaces/#{current_workspace.id}/ajax_content/"+params[:item_type] : "/ajax_content/#{params[:item_type]}" }
   end
 
   # Action displaying items of the specified FCKeditor action ('selected_item' parameters)

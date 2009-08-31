@@ -97,10 +97,9 @@ ActionController::Routing::Routes.draw do |map|
 			member_to_set.merge!({:download => :any}) if ['audio', 'video', 'cms_file', 'image'].include?(name)
       parent.resources name.pluralize.to_sym, :member => member_to_set, :collection => {:validate => :any}
     end
-    # Displaying Items
-    parent.content '/content/:item_type', :controller => 'items', :action => 'index'
-    # Ajax Pagination on Content
-    parent.ajax_content '/ajax_content/:item_type', :controller => 'items', :action => 'ajax_index'
+    parent.content '/content/:item_type', :controller => 'content', :action => 'index'
+    parent.ajax_content 'content/ajax_content/:item_type', :controller => 'content', :action => 'ajax_index'
+		parent.content_popup '/content_for_popup/:selected_item', :controller => 'content', :action => 'display_item_in_pop_up'
   end
 
   # Feed related routes
@@ -109,8 +108,6 @@ ActionController::Routing::Routes.draw do |map|
   # Newsletter related routes
   map.unsubscribe_for_newsletter '/unsubscribe_for_newsletter', :controller => 'workspace_contacts', :action => 'unsubscribe'
 
-  # Displaying items in POP UP for fck editor
-  map.display_content_list '/display_content_list/:selected_item', :controller => 'items', :action => 'display_item_in_pop_up'
 	# FCKUPLOAD route for uploads throught fckeditor
   map.connect '/fckuploads', :controller => 'fck_uploads', :action => 'create'
 

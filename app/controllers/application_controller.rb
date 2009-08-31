@@ -9,8 +9,6 @@ class ApplicationController < ActionController::Base
 	include ExceptionNotifiable
 	# Library used to manage the configuration of the Blank application (and providing 'get_configuration' method)
 	include Configuration
-	# Library used to get special url helpers for items
-	include ActsAsItem::UrlHelpers
 	# Library used to get helpers for Captcha
 	include YacaphHelper
   # Layout selected with the 'get_da_layout' method
