@@ -324,7 +324,7 @@ namespace :blank do
             if e.viewed_number.nil?
               e.viewed_number = 0
             end
-            if e.save
+            if e.save(false)
               puts "Updated record #{e.id}"
             else
               puts "Updating Record with id #{e.id} failed"
