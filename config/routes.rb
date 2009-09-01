@@ -84,7 +84,7 @@ ActionController::Routing::Routes.draw do |map|
   # Items are CMS component types
   # Those items may be scoped to different resources
   def items_resources(parent)
- 		(ITEMS+['item']).each do |name|
+ 		(ITEMS).each do |name|
 			member_to_set = {
 					:rate => :any,
 					:add_comment => :any,
