@@ -46,6 +46,7 @@ class SearchesController < ApplicationController #:nodoc: all
 
   # Print Advance Search Partial
 	def print_advanced
+    @search ||= Search.new
 		render :partial => 'advanced_search', :locals => { :category => params[:search][:category] }
 	end
   
