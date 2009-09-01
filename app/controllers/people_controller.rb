@@ -74,7 +74,7 @@ class PeopleController < ApplicationController
   def export_people
 		params[:restriction] ||= 'people'
 		params[:type] ||= {'newsletter' => '0'}
-		@people = @current_user.get_contacts_list(params[:restriction], 'people', params[:type][:newsletter] == '1')
+		@people = @current_user.get_contacts_list(params[:restriction], 'person', params[:type][:newsletter] == '1')
 		@outfile = "people_" + Time.now.strftime("%m-%d-%Y") + ".csv"
 		csv_data = FasterCSV.generate do |csv|
 			csv << ["First name", "Last name", "Email", "Gender", "Primary phone", "Mobile phone", "Fax", "Street", "City", "Postal code", "Country", "Company", "Web page", "Job title", "Notes","Newsletter","Salutation","Date of birth","Subscribed on","Updated at"]
