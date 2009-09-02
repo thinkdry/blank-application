@@ -2,23 +2,36 @@ class WorkspacesController < ApplicationController
 	
   acts_as_ajax_validation
 
-	before_filter :permission_checking, :only => [:new, :create, :edit, :update, :show, :destroy]
+	acts_as_authorizable({
+					'new' => 'new',
+					'create' => 'new',
+					'edit' => 'edit',
+					'update' => 'edit',
+					'show' => 'show',
+					'rate' => 'rate',
+					'add_comment' => 'comment',
+					'destroy' => 'destroy',
+					'validate' => 'edit',
+					'contacts_management' => 'contact_management',
+					'add_contacts' => 'contacts_management'
+				}, [])
 
-	def permission_checking
-		if params[:action] == 'new' || params[:action] == 'create'
-			build_object
-			no_permission_redirection unless @current_user && @current_object.send("accepts_new_for?".to_sym, @current_user)
-		elsif params[:action] == 'edit' || params[:action] == 'update' #|| params[:action] == 'add_new_user'
-			current_object
-			no_permission_redirection unless @current_user && @current_object.send("accepts_edit_for?".to_sym, @current_user)
-		elsif params[:action] == 'add_contacts'
-			current_object
-			no_permission_redirection unless @current_user && @current_object.send("accepts_contacts_management_for?".to_sym, @current_user)
-		else
-			current_object
-			no_permission_redirection unless @current_user && @current_object.send("accepts_#{params[:action]}_for?".to_sym, @current_user)
-		end
-	end
+
+#	def permission_checking
+#		if params[:action] == 'new' || params[:action] == 'create'
+#			build_object
+#			no_permission_redirection unless @current_user && @current_object.send("accepts_new_for?".to_sym, @current_user)
+#		elsif params[:action] == 'edit' || params[:action] == 'update' #|| params[:action] == 'add_new_user'
+#			current_object
+#			no_permission_redirection unless @current_user && @current_object.send("accepts_edit_for?".to_sym, @current_user)
+#		elsif params[:action] == 'add_contacts'
+#			current_object
+#			no_permission_redirection unless @current_user && @current_object.send("accepts_contacts_management_for?".to_sym, @current_user)
+#		else
+#			current_object
+#			no_permission_redirection unless @current_user && @current_object.send("accepts_#{params[:action]}_for?".to_sym, @current_user)
+#		end
+#	end
 
   make_resourceful do
     actions :show, :create, :new, :edit, :update, :destroy, :index

@@ -29,6 +29,18 @@ module ActsAsItem
         include ActsAsItem::ControllerMethods::InstanceMethods
 				# Declaration of the AjaxValidation plugin
 				acts_as_ajax_validation
+
+				acts_as_authorizable({
+					'new' => 'new',
+					'create' => 'new',
+					'edit' => 'edit',
+					'update' => 'edit',
+					'show' => 'show',
+					'rate' => 'rate',
+					'add_comment' => 'comment',
+					'destroy' => 'destroy',
+					'validate' => 'edit'
+				}, [:redirect_to_content])
 				# Declaration of the ActAsCommentable plugin
 				acts_as_commentable
 				# Declaration of the ActsAsKeywordable plugin
@@ -42,9 +54,9 @@ module ActsAsItem
 				end
 
 				# Filter checking the permission depending of the action and the controller given with request params
-				before_filter :permission_checking, :only => [:new, :create, :edit, :update, :show, :destroy]
+#				before_filter :permission_checking, :only => [:new, :create, :edit, :update, :show, :destroy]
 				# Filter skipped in case of the 'redirect_to_content action'
-				skip_before_filter :is_logged?, :only => [:redirect_to_content]
+#				skip_before_filter :is_logged?, :only => [:redirect_to_content]
 
 				# MakeResourceful definitions
         make_resourceful do
@@ -146,24 +158,6 @@ module ActsAsItem
     end
     
     module InstanceMethods
-			# Function testing the auhorization on an instance of that item type
-      #
-      # This method will check the permission of an user for the item type and the action defined
-			# in the request.
-      #
-			def permission_checking
-				if params[:action] == 'new' || params[:action] == 'create'
-					build_object
-					no_permission_redirection unless @current_user && @current_object.send("accepts_new_for?".to_sym, @current_user)
-				elsif params[:action] == 'edit' || params[:action] == 'update'
-					current_object
-					no_permission_redirection unless @current_user && @current_object.send("accepts_edit_for?".to_sym, @current_user)
-				else
-					current_object
-					no_permission_redirection unless @current_user && @current_object.send("accepts_#{params[:action]}_for?".to_sym, @current_user)
-				end
-			end
-
 			# Function allowing to get directly the content of the item, not details like title or description
 			#
       # This method will return a link to the resource defining by the item.

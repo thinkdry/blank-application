@@ -19,6 +19,7 @@ module ActsAsItem
       #      acts_as_item
       #     end
       def acts_as_item
+				acts_as_authorizable
         # Mixin to add ActsAsRateable methods inside the model
         acts_as_rateable
 				# Mixin to add ActsAsKeywordable methods inside the model
@@ -306,48 +307,48 @@ module ActsAsItem
 				return accepting_action(user, 'tag')
 			end
 
-			private
-			def get_sa_config
-				if File.exist?("#{RAILS_ROOT}/config/customs/sa_config.yml")
-					return YAML.load_file("#{RAILS_ROOT}/config/customs/sa_config.yml")
-				else
-					return YAML.load_file("#{RAILS_ROOT}/config/customs/default_config.yml")
-				end
-			end
+#			private
+#			def get_sa_config
+#				if File.exist?("#{RAILS_ROOT}/config/customs/sa_config.yml")
+#					return YAML.load_file("#{RAILS_ROOT}/config/customs/sa_config.yml")
+#				else
+#					return YAML.load_file("#{RAILS_ROOT}/config/customs/default_config.yml")
+#				end
+#			end
 
-			def accepting_action(user, action, active=true)
-				model_name = self.class.to_s
-				# Special stuff
-				if !get_sa_config['sa_items'].include?(model_name.underscore) || !active
-					return false
-				end
-        # System access
-				if user.has_system_permission(model_name.downcase, action)
-					return true
-				end
-        # Workspace access
-				if action=='new'
-					wsl = user.workspaces
-					# no good, but lazy today
-					cats = get_sa_config['sa_items']
-				else
-					wsl = self.workspaces & user.workspaces
-					#p self.category
-					#cats = self.category.to_s.split(',')
-				end
-        wsl.each do |ws|
-					# First of all, to check if this workspace accpets these items
-					if ws.ws_items.to_s.split(',').include?(model_name.underscore)
-						# Then with workspace full access
-						if user.has_workspace_permission(ws.id, model_name.underscore, action)
-							return true
-						end
-					end # if item available in ws
-				end
-				# go away
-				false
-
-			end
+#			def accepting_action(user, action, active=true)
+#				model_name = self.class.to_s
+#				# Special stuff
+#				if !get_sa_config['sa_items'].include?(model_name.underscore) || !active
+#					return false
+#				end
+#        # System access
+#				if user.has_system_permission(model_name.downcase, action)
+#					return true
+#				end
+#        # Workspace access
+#				if action=='new'
+#					wsl = user.workspaces
+#					# no good, but lazy today
+#					cats = get_sa_config['sa_items']
+#				else
+#					wsl = self.workspaces & user.workspaces
+#					#p self.category
+#					#cats = self.category.to_s.split(',')
+#				end
+#        wsl.each do |ws|
+#					# First of all, to check if this workspace accpets these items
+#					if ws.ws_items.to_s.split(',').include?(model_name.underscore)
+#						# Then with workspace full access
+#						if user.has_workspace_permission(ws.id, model_name.underscore, action)
+#							return true
+#						end
+#					end # if item available in ws
+#				end
+#				# go away
+#				false
+#
+#			end
 			
     end
   end
