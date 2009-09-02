@@ -115,7 +115,7 @@ class GroupsController < ApplicationController
 	protected
 
   def permission_checking
-		no_permission_redirection unless @current_user && current_workspace && current_workspace.send("accepts_contacts_management_for?".to_sym, @current_user)
+		no_permission_redirection unless @current_user && current_workspace && current_workspace.has_permission_for?('contacts_management', @current_user)
 	end
 
 	def get_contacts_lists

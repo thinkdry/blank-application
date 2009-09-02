@@ -56,6 +56,8 @@ class Workspace < ActiveRecord::Base
 	# Method defining the attibute to index for the Xapian research
 	acts_as_xapian :texts => [:title, :description]
 
+	acts_as_authorizable
+
   # Paperclip attachment definition
 	has_attached_file :logo,
     :default_url => "/images/logo.png",
@@ -198,70 +200,6 @@ class Workspace < ActiveRecord::Base
     end 
   end
 
-	# Check User for permission to administer the Workspace
-  #
-  # Usage:
-  #
-  # <tt>workspace.accepts_administrate_for? user</tt>
-  #
-  # will return true if the user has permission
-	def accepts_contacts_management_for? user
-		return accepting_action(user, 'contacts_management', (self.creator_id==user.id), false, true)
-	end
-
-  # Check User for permission to view the Workspace
-  #
-  # Usage :
-  # <tt>workspace.accepts_show_for?(user)</tt>
-  #
-  # will return true if the user has permission
-	def accepts_show_for? user
-		return accepting_action(user, 'show', (self.creator_id==user.id), false, true)
-	end
-
-  # Check User for permission to administer the Workspace
-  #
-  # Usage:
-  #
-  # <tt>workspace.accepts_administrate_for? user</tt>
-  #
-  # will return true if the user has permission
-	def accepts_administrate_for? user
-		return accepting_action(user, 'administrate', (self.creator_id==user.id), false, true)
-	end
-  # Check User for permission to destroy the Workspace
-  #
-  # Usage:
-  #
-  # <tt>workspace.accepts_destroy_for? user</tt>
-  #
-  # will return true if the user has permission
-  def accepts_destroy_for? user
-    return accepting_action(user, 'destroy', (self.creator_id==user.id), false, true)
-  end
-
-  # Check User for permission to edit the Workspace
-  #
-  # Usage:
-  #
-  # <tt>workspace.accepts_edit_for? user</tt>
-  #
-  # will return true if the user has permission
-  def accepts_edit_for? user
-    return accepting_action(user, 'edit', (self.creator_id==user.id), false, true)
-  end
-
-  # Check User for permission to Create New the Workspace
-  #
-  # Usage:
-  #
-  # <tt>workspace.accepts_new_for? user</tt>
-  #
-  # will return true if the user has permission
-  def accepts_new_for? user
-    return accepting_action(user, 'new', false, false, true)
-  end
-
   # will save contacts in contacts_workpsaces table and contact_ids = "Person_1,Person_2"
   def selected_contacts= contact_ids
     tmp = contact_ids.split(',') || []
@@ -274,26 +212,6 @@ class Workspace < ActiveRecord::Base
       end
     end
   end
-
-	private
-	def accepting_action(user, action, spe_cond, sys_cond, ws_cond)
-		# Special access
-		if user.has_system_role('superadmin') || spe_cond
-			return true
-		end
-    # System access
-		if user.has_system_permission(self.class.to_s.downcase, action) || sys_cond
-			return true
-		end
-    # Workspace access
-		# Not for new and index normally ...
-		if self.users.include?(user)
-			if user.has_workspace_permission(self.id, self.class.to_s.downcase, action) && ws_cond
-				return true
-			end
-		end
-	  false
-	end
 
   private
   def downcase_user_attributes(attributes)

@@ -5,7 +5,7 @@ class WorkspaceContactsController < ApplicationController
 	before_filter :permission_checking, :except => [:unsubscribe, :subscribe_newsletter]
 
 	def permission_checking
-		no_permission_redirection unless @current_user && current_workspace && current_workspace.send("accepts_contacts_management_for?".to_sym, @current_user)
+		no_permission_redirection unless @current_user && current_workspace && current_workspace.has_permission_for?('contacts_management', @current_user)
 	end
 
 	#To assing/remove workspace contacts URL: workspaces/1/add_contacts
