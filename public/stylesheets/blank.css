@@ -1076,7 +1076,8 @@ ul.top_box li{
 
 #right_select_box{
 	margin-top:13px;
-	padding-left:35px;
+	padding-left:5px;
+    float: right;
 }
 
 #right_select_box2{
@@ -1091,7 +1092,7 @@ ul.top_box li{
 }
 #left_right_buttons{
 	margin:70px 0 30px 35px;
-	width:30px;
+	width:10px;
 	text-align: center;
 }
 #select_boxes{
@@ -1100,6 +1101,9 @@ ul.top_box li{
 #select_boxes2{
 	margin-top:4px;
     margin-left:60px;
+}
+#send_all_buttons{
+    padding-top: 5px;
 }
 #person_details_row{
   margin-top:20px;

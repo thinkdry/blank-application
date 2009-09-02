@@ -1,5 +1,6 @@
 <fieldset>
   <legend> <%=  I18n.t('workspace.add_contacts.title')+" "+@current_object.title %> </legend>
+  <br />
   <%= link_to image_tag("/images/icons/left.png"), list_workspace_workspace_contacts_path(@current_object.id) %><br /><br />
   <% form_for @current_object,
     :builder => BlankFormBuilder,
@@ -18,7 +19,6 @@
             <%= content_tag(:option, mem.email, :value => mem.class.to_s+'_'+mem.id.to_s) %>
           <% end %>
         </select>
-        <br />
         <div id="send_all_buttons">
           <input type="button" onclick="selectAll($('assignedOptions'),'assignedOptions')" value ="<%= I18n.t('general.common_word.select_all') %>" style="width:180px;"/>
         </div>
@@ -35,9 +35,9 @@
         </script>
       </div>
       <div id="left_right_buttons">
-        <input type="button" class="sendLeftButton" onclick="shiftRight('availableOptions','assignedOptions', true)" class="theatreAssignment"/>
+        <input type="button" class="sendLeftButton" onclick="shiftRight('availableOptions','assignedOptions', true)" />
         <br /><br />
-        <input type="button" class="sendRightButton" onclick="shiftLeft('assignedOptions','availableOptions', false)" class="theatreAssignment"/>
+        <input type="button" class="sendRightButton" onclick="shiftLeft('assignedOptions','availableOptions', false)" />
       </div>
       <div id="right_select_box2">
         <div class="optionAssignmentLabel"> <%= I18n.t('workspace.add_contacts.current_contacts') %></div>
