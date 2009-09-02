@@ -10,23 +10,6 @@ class UsersController < ApplicationController
 				'locking' => 'destroy'
 			}, [:new, :create, :validate, :forgot_password, :reset_password, :activate])
 
-#	skip_before_filter :is_logged?, :only => [:new, :create, :validate, :forgot_password, :reset_password, :activate]
-#
-#	before_filter :permission_checking, :only => [:new, :create, :edit, :update, :show, :destroy]
-#
-#	def permission_checking
-#		if params[:action] == 'new' || params[:action] == 'create'
-#			build_object
-#			no_permission_redirection unless (@current_user.nil? && is_allowed_free_user_creation?) || (@current_user && @current_object.send("accepts_new_for?".to_sym, @current_user))
-#		elsif params[:action] == 'edit' || params[:action] == 'update'
-#			current_object
-#			no_permission_redirection unless @current_user && @current_object.send("accepts_edit_for?".to_sym, @current_user)
-#		else
-#			current_object
-#			no_permission_redirection unless @current_user && @current_object.send("accepts_#{params[:action]}_for?".to_sym, @current_user)
-#		end
-#	end
-
 	#layout 'application', :expect => [:new, :create]
 	layout :give_da_layout
 

@@ -23,7 +23,7 @@
     </div>
     <div class="file_infos_box">
       <div align="right">
-        <% if @current_object.accepts_rate_for?(@current_user) %>
+        <% if @current_object.has_permission_for?('rate', @current_user) %>
           <%= link_to image_tag('icons/rate.png'), '#', :id => :rate_action %>
           <div id="item_rate_modal_content" style="float:left;" align="center">
             <%= item_rate(object) %>
@@ -39,14 +39,14 @@
             });
           </script>
         <% end %>
-        <% if @current_object.accepts_comment_for?(@current_user) %>
+        <% if @current_object.has_permission_for?('comment', @current_user) %>
           <%= link_to image_tag('icons/comments.png'), '#new_comment_form_box' %>
         <% end %>
         <%= link_to image_tag('icons/printer.png'), 'javascript:window.print();' %>
-        <% if @current_object.accepts_edit_for?(@current_user)  %>
+        <% if @current_object.has_permission_for?('edit', @current_user)  %>
           <%= link_to image_tag('icons/pencil.png'), edit_item_path(object)%>
         <% end %>
-        <% if @current_object.accepts_destroy_for?(@current_user) %>
+        <% if @current_object.has_permission_for?('destroy', @current_user) %>
           <%= link_to image_tag('icons/delete.png'), item_path(object), :method => :delete, :confirm =>  I18n.t('item.destroy.delete_conform')%>
         <% end %>
       </div>
@@ -55,7 +55,7 @@
         <%= link_to image_tag('/images/icons/xml.png'), item_path(object)+".xml", :class => 'output_format_link' %>
         <%= link_to image_tag('/images/icons/json.png'), item_path(object)+".json", :class => 'output_format_link' %>
       </div>
-      <% if object.accepts_comment_for?(@current_user) %>
+      <% if object.has_permission_for?('comment', @current_user) %>
       <div class="add_item_type">
         <p><%= image_tag "/images/icons/add.png", :width => "30"%><a href="<%=  new_item_path(object.class.to_s)%>"><%= I18n.t('layout.application.add_content')%></a></p>
       </div>

@@ -28,7 +28,7 @@ class SearchesController < ApplicationController #:nodoc: all
 		@search = Search.new(params[:search])
 		
 		@current_objects = @search.do_search
-		@current_objects = @current_objects.delete_if{ |e| !e.accepts_show_for?(@current_user)}
+		@current_objects = @current_objects.delete_if{ |e| !e.has_permission_for?('show', @current_user)}
     params[:item_type] ||= @current_objects.first.class.to_s.downcase.pluralize
 		@paginated_objects = @current_objects.paginate(:page => params[:page], :per_page => get_per_page_value)
 

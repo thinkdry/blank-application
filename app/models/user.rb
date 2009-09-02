@@ -186,64 +186,6 @@ class User < ActiveRecord::Base
     true
 	end 
 
-  
-
-
-  # Check User for permission to configure
-  #
-  # Usage:
-  #
-  # <tt>user.accepts_configure_for? user</tt>
-  #
-  # will return true if the user has permission
-	def accepts_configure_for? user
-		return accepting_action(user, 'configure', false, false, true)
-	end
-
-  # Check User for permission to View
-  #
-  # Usage:
-  #
-  # <tt>user.accepts_show_for? user</tt>
-  #
-  # will return true if the user has permission
-	def accepts_show_for? user
-		return accepting_action(user, 'show', (self.id==user.id), false, true)
-	end
-
-  # Check User for permission to destroy
-  #
-  # Usage:
-  #
-  # <tt>user.accepts_destroy_for? user</tt>
-  #
-  # will return true if the user has permission
-  def accepts_destroy_for? user
-    return accepting_action(user, 'edit', false, false, true)
-  end
-
-  # Check User for permission to edit
-  #
-  # Usage:
-  #
-  # <tt>user.accepts_edit_for? user</tt>
-  #
-  # will return true if the user has permission
-  def accepts_edit_for? user
-    return accepting_action(user, 'edit', (self.id==user.id), false, true)
-  end
-
-  # Check User for permission to create
-  #
-  # Usage:
-  #
-  # <tt>user.accepts_new_for? user</tt>
-  #
-  # will return true if the user has permission
-  def accepts_new_for? user
-    return accepting_action(user, 'new', false, false, true)
-  end
-
   # User Full Name 'Lastname FirstName'
 	def full_name
 		return self.salutation.to_s + " " + self.lastname.to_s + " " + self.firstname.to_s

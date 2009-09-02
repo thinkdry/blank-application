@@ -13,31 +13,14 @@ class WorkspacesController < ApplicationController
 					'destroy' => 'destroy',
 					'validate' => 'edit',
 					'contacts_management' => 'contact_management',
-					'add_contacts' => 'contacts_management'
+					'add_contacts' => 'contacts_management',
+					'add_new_user' => 'edit'
 				}, [])
-
-
-#	def permission_checking
-#		if params[:action] == 'new' || params[:action] == 'create'
-#			build_object
-#			no_permission_redirection unless @current_user && @current_object.send("accepts_new_for?".to_sym, @current_user)
-#		elsif params[:action] == 'edit' || params[:action] == 'update' #|| params[:action] == 'add_new_user'
-#			current_object
-#			no_permission_redirection unless @current_user && @current_object.send("accepts_edit_for?".to_sym, @current_user)
-#		elsif params[:action] == 'add_contacts'
-#			current_object
-#			no_permission_redirection unless @current_user && @current_object.send("accepts_contacts_management_for?".to_sym, @current_user)
-#		else
-#			current_object
-#			no_permission_redirection unless @current_user && @current_object.send("accepts_#{params[:action]}_for?".to_sym, @current_user)
-#		end
-#	end
 
   make_resourceful do
     actions :show, :create, :new, :edit, :update, :destroy, :index
 
     before :show do
-      #no_permission_redirection unless @current_user && @current_object.accepts_show_for?(@current_user)
       params[:id] ||= params[:workspace_id]
 			# Just for the first load of the show, means without item selected
       params[:item_type] ||= get_allowed_item_types(@current_object).first.to_s.pluralize
@@ -49,17 +32,14 @@ class WorkspacesController < ApplicationController
     end
 
 		before :new do
-			#no_permission_redirection unless @current_user && @current_object.accepts_new_for?(@current_user)
 			@roles = Role.find(:all, :conditions => { :type_role => 'workspace' })
 		end
 
 		before :edit do
-			#no_permission_redirection unless @current_user && @current_object.accepts_edit_for?(@current_user)
 			@roles = Role.find(:all, :conditions => { :type_role => 'workspace' })
 		end
 
     before :create do
-			#no_permission_redirection unless @current_user && @current_object.accepts_new_for?(@current_user)
 			params[:id] ||= params[:workspace_id]
       @current_object.creator = @current_user
     end
@@ -73,7 +53,6 @@ class WorkspacesController < ApplicationController
     end
 
 		before :update do
-      #no_permission_redirection unless @current_user && @current_object.accepts_edit_for?(@current_user)
       # Hack. Permit deletion of all assigned users (with roles).
       #params["workspace"]["existing_user_attributes"] ||= {}
     end
@@ -86,7 +65,6 @@ class WorkspacesController < ApplicationController
     end
 
 		before :destroy do
-			#no_permission_redirection unless @current_user && @current_object.accepts_destroy_for?(@current_user)
 		end
 
 		response_for :destroy do |format|
@@ -124,8 +102,7 @@ class WorkspacesController < ApplicationController
   #
   # /workspaces/add_new_user
   def add_new_user
-		@current_object = Workspace.find(params[:id])
-		no_permission_redirection unless @current_object.accepts_edit_for?(@current_user)
+		@current_object ||= Workspace.find(params[:id])
     @user = User.find(:first, :conditions => { :login => params[:user_login].split(' (').first })
     @uw = UsersWorkspace.new
     @uw.role_id = params[:user_role]
@@ -147,7 +124,6 @@ class WorkspacesController < ApplicationController
   #
 	def unsubscription
 		@current_object = Workspace.find(params[:id])
-		no_permission_redirection unless @current_object.accepts_show_for?(@current_user)
 		if UsersWorkspace.find(:first, :conditions => { :user_id => self.current_user.id, :workspace_id => params[:id] }).destroy
 			flash[:notice] = I18n.t('workspace.unsubscription.flash_notice')
 			redirect_to workspace_path(params[:id])
@@ -165,7 +141,6 @@ class WorkspacesController < ApplicationController
   #
 	def subscription
 		@current_object = Workspace.find(params[:id])
-		no_permission_redirection unless @current_object.accepts_show_for?(@current_user) && (@current_object.state == 'public')
 		if UsersWorkspace.create(:user_id => self.current_user.id, :workspace_id => params[:id], :role_id => Role.find_by_name('reader').id)
 			flash[:notice] = I18n.t('workspace.subscription.flash_notice')
 			redirect_to workspace_path(params[:id])
@@ -177,7 +152,6 @@ class WorkspacesController < ApplicationController
 
 	def question #:nodoc:
 		@current_object = Workspace.find(params[:id])
-		no_permission_redirection unless @current_object.accepts_show_for?(@current_user)
 		if UserMailer.deliver_ws_administrator_request(Workspace.find(params[:id]).creator, @current_user.id, params[:question][:type], params[:question][:msg])
 			flash[:notice] = I18n.t('workspace.question.flash_notice')
 			redirect_to workspace_path(params[:id])

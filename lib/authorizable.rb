@@ -39,11 +39,11 @@ module Authorizable
     module ClassMethods
       def acts_as_authorizable
 				include Authorizable::ModelMethods::InstanceMethods
-				if ITEMS.include?(self.to_s.downcase)
+				if ITEMS.include?(self.to_s.underscore)
 					include Authorizable::ModelMethods::IMItem
-				elsif ['workspace'].include?(self.to_s.downcase)
+				elsif ['workspace'].include?(self.to_s.underscore)
 					include Authorizable::ModelMethods::IMWorkspace
-				elsif self.to_s.downcase == 'user'
+				elsif self.to_s.underscore == 'user'
 					include Authorizable::ModelMethods::IMUser
 				end
 			end
