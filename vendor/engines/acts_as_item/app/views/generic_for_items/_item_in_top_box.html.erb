@@ -17,7 +17,7 @@
 		</div>
 		<div class="tooltip_actions">
 			<%= link_to image_tag('icons/comments.png'), item_path(object) + "#new_comment_form_box" %>
-			<% if object.accepts_edit_for?(@current_user)  %>
+			<% if object.has_permission_for?('edit', @current_user)  %>
 				<%= link_to image_tag('icons/pencil.png'), edit_item_path(object)%>
 		    <% end %>
 		</div>

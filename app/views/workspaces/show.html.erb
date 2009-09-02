@@ -5,13 +5,13 @@
   <div id="area_TITLE_right">
     <h1>
       <%=I18n.t('workspace.show.title')%> <%=  @current_object.title %>
-      <% if @workspace.creator == self.current_user || @current_object.accepts_edit_for?(@current_user) %>
+      <% if @current_object.has_permission_for?('edit', @current_user) %>
         <%= link_to image_tag('/images/icons/pencil.png'), edit_workspace_path(@workspace.id)  %>
       <% end %>
     </h1>
     <%= @current_object.description %>
 
-    <% if @current_object.accepts_contacts_management_for?(@current_user) %>
+    <% if @current_object.has_permission_for?('contacts_management', @current_user) %>
       <br><%= link_to "#{I18n.t('workspace.show.contacts_management')}", workspace_groups_path(@workspace.id) %><br />
     <% end %>
     <br />
@@ -22,7 +22,7 @@
     <% end %>
     <br /><br />
 
-    <% if @workspace.creator == self.current_user || @current_object.accepts_edit_for?(@current_user) %>
+    <% if @current_object.has_permission_for?('edit', @current_user) %>
       <%= I18n.t('workspace.other.administrator_of_workspace') %>, <%= I18n.t('general.common_word.click') %> <%= link_to I18n.t('general.common_word.here'), edit_workspace_path(@workspace.id) %> <%= I18n.t('workspace.other.to_manage_it') %>.
     <% else %>
       <% if false %>

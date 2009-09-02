@@ -3,7 +3,7 @@
     <%= image_tag @current_object.avatar.url(:thumb), :class => "avatar", :align => "left"%>
     <h2>
       <%= @current_object.full_name %>
-      <%= link_to image_tag('icons/pencil.png'), edit_user_path, :class => "pencil" if @current_object.accepts_edit_for?(self.current_user) %>
+      <%= link_to image_tag('icons/pencil.png'), edit_user_path, :class => "pencil" if @current_object.has_permission_for?('edit', @current_user) %>
     </h2>
     <p>
       <label><%=I18n.t('user.field.system_role_id_label')%>  : </label><%= I18n.t('general.role.'+@current_object.system_role.name) %>
