@@ -1,4 +1,6 @@
 class ContentController < ApplicationController
+  
+  unloadable
 
   # Action rendering the content tabs page for items
   #
