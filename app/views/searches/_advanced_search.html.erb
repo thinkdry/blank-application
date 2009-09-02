@@ -1,5 +1,5 @@
     <% if category == 'item' || available_items_list.include?(category) %>
-		<div><%= render :partial => 'items/advanced_search', :locals => { :category => category } %></div>
+		<div><%= render :partial => 'generic_for_items/advanced_search', :locals => { :category => category } %></div>
     <% end %>
 	<div class="dateSelection">
 	      <label><%=I18n.t('general.common_word.from1')%>: </label>

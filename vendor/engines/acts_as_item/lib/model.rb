@@ -226,7 +226,9 @@ module ActsAsItem
             Item.create(:workspace_id => id,:itemable_id => self.id, :itemable_type => self.class.to_s)
           end
         else
-          self.items = workspace_ids.collect { |id| self.items.build(:workspace_id => id) }
+          if !workspace_ids.blank?
+            self.items = workspace_ids.collect { |id| self.items.build(:workspace_id => id) }
+          end
         end
       end
       
@@ -247,7 +249,7 @@ module ActsAsItem
       #
       # <tt>article.accepts_destroy_for? user</tt>
       #
-      # will return true if the user has permission 
+      # will return true if the user has permission
       def accepts_destroy_for? user
         return accepting_action(user, 'destroy')
       end
@@ -269,10 +271,10 @@ module ActsAsItem
       #
       # <tt>article.accepts_new_for? user</tt>
       #
-      # will return true if the user has permission 
+      # will return true if the user has permission
       def accepts_new_for? user
         return accepting_action(user, 'new')
-			end
+      end
 
       # Check User for permission to Add Comment to Item
       #
@@ -281,9 +283,9 @@ module ActsAsItem
       # <tt>article.accepts_comment_for?(user)</tt>
       #
       # will return true if the user has permission
-			def accepts_comment_for?(user)
-				return accepting_action(user, 'comment')
-			end
+      def accepts_comment_for?(user)
+        return accepting_action(user, 'comment')
+      end
 
       # Check User for permission to Add Rating to Item
       #
@@ -292,9 +294,9 @@ module ActsAsItem
       # <tt>article.accepts_rate_for?(user)</tt>
       #
       # will return true if the user has permission
-			def accepts_rate_for?(user)
-				return accepting_action(user, 'rate')
-			end
+      def accepts_rate_for?(user)
+        return accepting_action(user, 'rate')
+      end
 
       # Check User for permission to Add Tag to Item
       #
@@ -303,9 +305,9 @@ module ActsAsItem
       # <tt>article.accepts_tag_for?(user)</tt>
       #
       # will return true if the user has permission
-			def accepts_tag_for?(user)
-				return accepting_action(user, 'tag')
-			end
+      def accepts_tag_for?(user)
+        return accepting_action(user, 'tag')
+      end
 
 #			private
 #			def get_sa_config

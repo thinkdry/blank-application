@@ -9,5 +9,4 @@ def file_path_import(params)
     dst = File.join(RAILS_ROOT, 'public','uploaded_files', params[:model].to_s, params[:id].to_s)
     FileUtils.ln_s(src, dst,:force => true) unless File.exists?(dst)
     params[:file_name]
-
 end

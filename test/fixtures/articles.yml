@@ -17,11 +17,10 @@
 #
 
 <% 1.upto(50) do |i| %>
-    article<%= i %>:
-        id: <%= i %>
-        user_id: <%= User.find_by_login("boss").id%>
-        title: Article<%= i %>
-        description: Article vide
-        body: C'est un bon article sur un peu rien mais aussi ps grand chose.
-        created_at: <%= (Time.parse("2/3,5:#{i}")).to_s :db %>
+article_<%=i%>:
+  user_id: <%= User.find_by_login("boss").id%>
+  title: Article<%= i %>
+  description: Article vide
+  body: C'est un bon article sur un peu rien mais aussi ps grand chose.
+  created_at: <%= (Time.parse("2/3,5:#{i}")).to_s :db %>
 <% end %>

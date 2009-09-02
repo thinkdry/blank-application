@@ -12,7 +12,7 @@ module GenericForItemHelper
 	# 
 	# Usage :
   # <tt>item_rate(@current_object)</tt>
-  def item_rate(object, params = {})
+  def item_rate(object, params=nil)
     params ||= {
       :rerate => false,
   		:onRate => "function(element, info) {

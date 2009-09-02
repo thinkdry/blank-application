@@ -8,13 +8,13 @@ class Admin::TasksController < ApplicationController
 
  def run_task
    if params[:job] == 'xapian'
-     MiddleMan.worker(:cronjob_worker).update_xapian_index
+     system("rake xapian:update_index RAILS_ENV=#{RAILS_ENV}")
    end
    if params[:job] == 'feeds'
-     MiddleMan.worker(:cronjob_worker).update_feed_source
+     system("ruby script/runner -e #{RAILS_ENV} 'FeedSource.update_feed_source'")
    end
    if params[:job] == 'newsletter'
-     MiddleMan.worker(:cronjob_worker).send_newsletter
+     Delayed::Job.enqueue(NewsletterJob.new)
    end
    if params[:job] == 'restart_server'
      system "touch #{RAILS_ROOT}/tmp/restart.txt" # tells passenger to restart the

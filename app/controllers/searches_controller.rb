@@ -37,15 +37,16 @@ class SearchesController < ApplicationController #:nodoc: all
 				format.html {  }
 				format.xml { render :xml => @current_objects }
 				format.json { render :json => @current_objects }
-				format.atom { render :template => "items/index.atom.builder", :layout => false }
+				format.atom { render :template => "generic_for_items/index.atom.builder", :layout => false }
 			end
 		else
-			render :partial => 'items/items_list', :locals => { :ajax_url => searches_path }
+			render :partial => 'generic_for_items/items_list', :locals => { :ajax_url => searches_path }
 		end
   end
 
   # Print Advance Search Partial
 	def print_advanced
+    @search ||= Search.new
 		render :partial => 'advanced_search', :locals => { :category => params[:search][:category] }
 	end
   
