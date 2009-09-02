@@ -45,7 +45,17 @@ describe ContactsWorkspace do
 
   it "should have method to convert person/user to group member" do
     @contacts_workspace.attributes = contacts_workspace_attributes
-    @contacts_workspace.to_group_member.should == {"created_at"=>nil, "contact_id"=>1, "contact_type"=>"User", "id"=>nil, "last_name"=>"skywalker", "first_name"=>"luc", "email"=>"contact@thinkdry.com", "state"=>nil}
+    @contacts_workspace.to_group_member.should == {
+      "created_at"=>nil,
+      "contact_id"=>1,
+      "contact_type"=>"User", 
+      "id"=>nil,
+      "last_name"=>"skywalker", 
+      "first_name"=>"luc", 
+      "email"=>"contact@thinkdry.com",
+      "state"=>'inscrits',
+      "permission" => nil
+      }
   end
 
 

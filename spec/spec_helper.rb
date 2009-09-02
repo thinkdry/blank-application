@@ -72,3 +72,9 @@ module ActiveRecord
       end
     end
   end 
+
+private
+
+def read_fixture(action)
+  IO.readlines("#{RAILS_ROOT}/spec/fixtures/mailers/user_mailer/#{action}")
+end
