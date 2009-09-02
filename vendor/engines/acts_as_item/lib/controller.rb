@@ -197,9 +197,12 @@ module ActsAsItem
       #
       # will create new rating for the item and save it
       def rate
-        current_object.add_rating(Rating.new(:rating => params[:rated].to_i))
-				current_object.rates_average = current_object.rating
-				current_object.save
+        if rating = Rating.find(:first, :conditions =>{:user_id => current_user.id, :rateable_id => current_object.id, :rateable_type => current_object.class.to_s})
+          rating.update_attributes(:rating =>params[:rated].to_i)
+        else
+          current_object.add_rating(Rating.new(:rating => params[:rated].to_i,:user_id => current_user.id))
+        end
+        current_object.update_attributes(:rates_average => Rating.average(:rating, :conditions =>{:rateable_id => current_object.id, :rateable_type => current_object.class.to_s}).to_i)
 				# TODO : refresh the rate box ...
         render :nothing => true
       end

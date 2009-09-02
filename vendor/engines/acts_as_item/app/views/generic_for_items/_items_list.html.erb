@@ -12,13 +12,19 @@
 
   <div class="other_output_format">
     <%= I18n.t('item.show.get_in_another_format')%>:
-    <%= link_to_function image_tag('/images/icons/xml.png'), "params('#{content_path(:item_type => params[:item_type])}','#{current_workspace.nil? ? "format=xml" : "workspace_id=#{current_workspace.id}&format=xml"}')" %>
-    <%= link_to_function image_tag('/images/icons/json.png'), "params('#{content_path(:item_type => params[:item_type])}','#{current_workspace.nil? ? "format=json" : "workspace_id=#{current_workspace.id}&format=json"}')" %>
-    <%= link_to_function image_tag('/images/icons/atom.png'), "params('#{content_path(:item_type => params[:item_type])}','#{current_workspace.nil? ? "format=atom" : "workspace_id=#{current_workspace.id}&format=atom"}')" %>
+    <% if params[:controller] != 'searches' %>
+      <%= link_to_function image_tag('/images/icons/xml.png'), "params('#{content_path(:item_type => params[:item_type])}','#{current_workspace.nil? ? "format=xml" : "workspace_id=#{current_workspace.id}&format=xml"}')" %>
+      <%= link_to_function image_tag('/images/icons/json.png'), "params('#{content_path(:item_type => params[:item_type])}','#{current_workspace.nil? ? "format=json" : "workspace_id=#{current_workspace.id}&format=json"}')" %>
+      <%= link_to_function image_tag('/images/icons/atom.png'), "params('#{content_path(:item_type => params[:item_type])}','#{current_workspace.nil? ? "format=atom" : "workspace_id=#{current_workspace.id}&format=atom"}')" %>
+    <% else %>
+        <%= link_to image_tag('/images/icons/xml.png'), "#{request.url}&format=xml" %>
+      <%= link_to image_tag('/images/icons/json.png'), "#{request.url}&format=json" %>
+      <%= link_to image_tag('/images/icons/atom.png'), "#{request.url}&format=atom" %>
+    <% end %>
   </div>
 
 <% else %>
 
-<br /><br /><%= I18n.t('item.common_word.list_empty') %><br /><br />
+  <br /><br /><%= I18n.t('item.common_word.list_empty') %><br /><br />
 
 <% end %>

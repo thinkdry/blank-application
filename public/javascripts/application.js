@@ -232,21 +232,27 @@ function do_search(message){
   
 function insert_field(name, model_name, place_id, field_name) {
     if (name != 0 && name.length == (name.replace(/<(\S+).*>(|.*)<\/(\S+).*>|<%(.*)%>|<%=(.*)%>+/g, "")).length) {
+//        var dadiv = new Element('div', {
+//            'id': name+'_000',
+//            'class':'keyword_label'
+//        }).insert(name)
+//        var dadelete = new Element('a', {
+//            'onclick': 'Element.remove(this.parentNode);'
+//        }).insert('<img width="15" src="/images/icons/delete.png" alt="Delete"/>')
+//        var dahidden = new Element('input', {
+//            'id': model_name+'_'+field_name+'_',
+//            'type': 'hidden',
+//            'value': name,
+//            'name': model_name+'['+field_name+'][]'
+//        })
         var dadiv = new Element('div', {
             'id': name+'_000',
             'class':'keyword_label'
-        }).insert(name)
-        var dadelete = new Element('a', {
-            'onclick': 'this.parentNode.remove(); return false;'
-        }).insert('<img width="15" src="/images/icons/delete.png" alt="Delete"/>')
-        var dahidden = new Element('input', {
-            'id': model_name+'_'+field_name+'_',
-            'type': 'hidden',
-            'value': name,
-            'name': model_name+'['+field_name+'][]'
         })
-        dadiv.appendChild(dadelete)
-        dadiv.appendChild(dahidden)
+        dadiv.innerHTML = name+"<a onclick='Element.remove(this.parentNode);'> <img width='15' src='/images/icons/delete.png' alt='Delete'/></a>"+
+                          "<input type='hidden' id='"+model_name+"_"+field_name+"' value='"+name+"' name='"+model_name+"["+field_name+"][]'>"
+//        dadiv.appendChild(dadelete)
+//        dadiv.appendChild(dahidden)
         $(place_id).insert(dadiv)
     }
 }
@@ -281,19 +287,24 @@ function check_feed(){
 function add_new_follower(){
     var email = $('new_follower_email').value;
     if(email != 0){
+//        var new_email = new Element('div', {
+//            'id': email
+//        }).insert(email)
+//        var delete_email = new Element('a', {
+//            'onclick': 'Element.remove(this.parentNode); return false;'
+//        }).insert('<img width="15" src="/images/icons/delete.png" alt="Delete"/>')
+//        var hidden_email = new Element('input', {
+//            'type': 'hidden',
+//            'value': email,
+//            'name': 'configuration[sa_exception_followers_email][]'
+//        })
+//        new_email.appendChild(delete_email)
+//        new_email.appendChild(hidden_email)
         var new_email = new Element('div', {
             'id': email
-        }).insert(email)
-        var delete_email = new Element('a', {
-            'onclick': 'this.parentNode.remove(); return false;'
-        }).insert('<img width="15" src="/images/icons/delete.png" alt="Delete"/>')
-        var hidden_email = new Element('input', {
-            'type': 'hidden',
-            'value': email,
-            'name': 'configuration[sa_exception_followers_email][]'
         })
-        new_email.appendChild(delete_email)
-        new_email.appendChild(hidden_email)
+        new_email.innerHTML = email+"<a onclick='Element.remove(this.parentNode)' ><img width='15' src='/images/icons/delete.png' alt='Delete''/></a>"+
+                              "<input type='hidden' name='configuration[sa_exception_followers_email][]' value='"+email+"'>"
         $('followers_email').insert(new_email);
         $('new_follower_email').value = '';
     }
