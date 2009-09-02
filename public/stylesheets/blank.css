@@ -1197,7 +1197,7 @@ ul.top_box li{
 }
 #top_five_content li{
 	list-style-type:none;
-	height:27px;
+	min-height:27px;
 }
 #top_five_tabs{
 	height:40px;
