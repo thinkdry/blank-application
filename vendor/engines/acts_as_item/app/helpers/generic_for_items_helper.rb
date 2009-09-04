@@ -116,9 +116,9 @@ module GenericForItemsHelper
 
   def display_generic_items_tab(partial_name= 'top_box')
     if current_workspace
-        most_commented = GenericItem.from_workspace(current_workspace.id).most_commented.to_a
-        best_rated = GenericItem.from_workspace(current_workspace.id).best_rated.to_a
-        feed_items = FeedItem.from_workspace(current_workspace.id).latest.to_a
+        most_commented = GenericItem.from_workspace(current_workspace.id).consultable_by(current_user.id).most_commented.to_a
+        best_rated = GenericItem.from_workspace(current_workspace.id).consultable_by(current_user.id).best_rated.to_a
+        feed_items = FeedItem.from_workspace(current_workspace.id).consultable_by(current_user.id).latest.to_a
     else
         most_commented = GenericItem.consultable_by(current_user.id).most_commented.to_a
         best_rated = GenericItem.consultable_by(current_user.id).best_rated.to_a

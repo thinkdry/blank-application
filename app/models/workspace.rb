@@ -31,10 +31,10 @@ class Workspace < ActiveRecord::Base
 	# Relation N-1 getting the users linked to that workspace, through the 'users_workspaces' table
 	has_many :users, :through => :users_workspaces
 	# Relation N-1 with the 'items' table
-	has_many :items, :dependent => :delete_all
+	has_many :items_workspaces, :dependent => :delete_all
 	# Relation N-1 getting the different item types, through the 'items' table
 	ITEMS.each do |item|
-		has_many item.pluralize.to_sym, :source => :itemable, :through => :items, :source_type => item.classify.to_s, :class_name => item.classify.to_s
+		has_many item.pluralize.to_sym, :source => :itemable, :through => :items_workspaces, :source_type => item.classify.to_s, :class_name => item.classify.to_s
 	end
 	# Relation N-1 getting the FeedItem objects, through the 'feed_sources' table
 	has_many :feed_items, :through => :feed_sources

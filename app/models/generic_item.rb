@@ -35,12 +35,12 @@ class GenericItem < ActiveRecord::Base
   named_scope :from_workspace, lambda { |ws_id|
 		if ws_id
 			{ :select => 'generic_items.*',
-				:joins => 'LEFT JOIN items ON generic_items.item_type = items.itemable_type AND generic_items.id = items.itemable_id',
-				:conditions => "items.workspace_id = #{ws_id}"
+				:joins => 'LEFT JOIN items_workspaces ON generic_items.item_type = items_workspaces.itemable_type AND generic_items.id = items_workspaces.itemable_id',
+				:conditions => "items_workspaces.workspace_id = #{ws_id}"
 			}
 		else
 			{ :select => 'generic_items.*',
-				:joins => 'LEFT JOIN items ON generic_items.item_type = items.itemable_type AND generic_items.id = items.itemable_id'
+				:joins => 'LEFT JOIN items_workspaces ON generic_items.item_type = items_workspaces.itemable_type AND generic_items.id = items_workspaces.itemable_id'
 			}
 		end
   }
@@ -53,11 +53,11 @@ class GenericItem < ActiveRecord::Base
 		else
 			{ :conditions => %{
         ( SELECT count(*)
-          FROM items, users_workspaces
+          FROM items_workspaces, users_workspaces
           WHERE
-            items.itemable_type = generic_items.item_type AND
-            items.itemable_id = generic_items.id AND
-            users_workspaces.workspace_id = items.workspace_id AND
+            items_workspaces.itemable_type = generic_items.item_type AND
+            items_workspaces.itemable_id = generic_items.id AND
+            users_workspaces.workspace_id = items_workspaces.workspace_id AND
             users_workspaces.user_id = #{user_id} ) > 0 }}
 		end
 	}
