@@ -26,9 +26,9 @@ class CreateGenericItems < ActiveRecord::Migration
           ( SELECT GROUP_CONCAT(workspaces.title)
             FROM items, workspaces
             WHERE
-              #{table_name}.id = items.itemable_id AND
-              items.itemable_type = '#{model_name}' AND
-              workspaces.id = items.workspace_id
+              #{table_name}.id = items_workspaces.itemable_id AND
+              items_workspaces.itemable_type = '#{model_name}' AND
+              workspaces.id = items_workspaces.workspace_id
           ) AS workspace_titles,
           ( SELECT AVG(rating)
             FROM ratings

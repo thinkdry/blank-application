@@ -134,7 +134,7 @@ module GenericForItemHelper
 				if params[item.class.to_s.downcase] && params[item.class.to_s.downcase][:associated_workspaces]
            checked = params[item.class.to_s.downcase][:associated_workspaces].include?(w.id.to_s)
 				else
-           checked = Item.exists?(:workspace_id => w.id, :itemable_id => item.id, :itemable_type => item.class.to_s)
+           checked = ItemsWorkspace.exists?(:workspace_id => w.id, :itemable_id => item.id, :itemable_type => item.class.to_s)
 				end
 				# Creating the checkboxes
 				if ((w.state == 'private') && (w.creator_id == @current_user.id) && (item.new_record? || item.user_id==@current_user.id)) || (list.size==1) || (w == current_workspace)

@@ -84,7 +84,7 @@ module ExceptionNotifiable
 
         else          
           render_500
-
+        end
           deliverer = self.class.exception_data
           data = case deliverer
             when nil then {}
@@ -94,6 +94,6 @@ module ExceptionNotifiable
 
           ExceptionNotifier.deliver_exception_notification(exception, self,
             request, data)
-      end
+      
     end
 end

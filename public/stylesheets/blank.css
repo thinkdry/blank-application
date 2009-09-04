@@ -1095,6 +1095,13 @@ ul.top_box li{
 	width:10px;
 	text-align: center;
 }
+#left_right_buttons2{
+    padding: 40px;
+	width:10px;
+	text-align: center;
+    float:left;
+	overflow:visible;
+}
 #select_boxes{
 	margin-top:4px;
 }
@@ -1476,12 +1483,14 @@ form br{
 	border:0;
 	background:transparent url('/images/icons/left.png') no-repeat;
 	width:30px;
+    cursor: pointer;
 }
 .sendRightButton{
 	border:0;
 	background:transparent url('/images/icons/right.png') no-repeat;
 	width:30px;
 	margin-top:30px;
+    cursor: pointer;
 }
 .checkboxes{
 	width:15px !important;

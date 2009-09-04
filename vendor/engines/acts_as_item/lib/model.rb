@@ -29,9 +29,9 @@ module ActsAsItem
 				# Method setting the different attribute to index for the Xapian research
 				acts_as_xapian :texts => [:title, :description, :keywords_list]
 				# Relation N-1 with the 'items' table (Join table)
-				has_many :items, :as => :itemable, :dependent => :delete_all
+				has_many :items_workspaces, :as => :itemable, :dependent => :delete_all
 				# Relation N-1 getting the Workspace objects through 'item' table
-				has_many :workspaces, :through => :items
+				has_many :workspaces, :through => :items_workspaces
 				# Relation 1-N with 'users' table
         belongs_to :user
         # Validation of the presence of these fields
@@ -51,7 +51,7 @@ module ActsAsItem
 
 				# TODO todo
 				named_scope :in_workspaces,
-					lambda { |workspace_ids| { :select => "DISTINCT *", :joins => "LEFT JOIN items ON (items.itemable_type = '#{self.class_name}' AND items.workspace_id IN ['1'])" } }
+					lambda { |workspace_ids| { :select => "DISTINCT *", :joins => "LEFT JOIN items_workspaces ON (items_workspaces.itemable_type = '#{self.class_name}' AND items_workspaces.workspace_id IN ['1'])" } }
 
 				# Retrieve the results ordered following the paramaters given
 				named_scope :filtering_with,
@@ -219,15 +219,15 @@ module ActsAsItem
       def associated_workspaces= workspace_ids
         tmp = workspace_ids
         if self.id
-          self.items.each do |i|
+          self.items_workspaces.each do |i|
             i.delete unless tmp.delete(i.id.to_s)
           end
           tmp.each do |id|
-            Item.create(:workspace_id => id,:itemable_id => self.id, :itemable_type => self.class.to_s)
+            ItemsWorkspace.create(:workspace_id => id,:itemable_id => self.id, :itemable_type => self.class.to_s)
           end
         else
           if !workspace_ids.blank?
-            self.items = workspace_ids.collect { |id| self.items.build(:workspace_id => id) }
+            self.items_workspaces = workspace_ids.collect { |id| self.items_workspaces.build(:workspace_id => id) }
           end
         end
       end

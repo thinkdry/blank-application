@@ -13,7 +13,7 @@
 
 # This object is used to define the relation between Workspace and item types, so it is a polymorphic relation.
 #
-class Item < ActiveRecord::Base
+class ItemsWorkspace < ActiveRecord::Base
 
 	# Relation 1-N with the 'workspaces' table
   belongs_to :workspace
@@ -42,7 +42,7 @@ class Item < ActiveRecord::Base
 		if User.find(user_id).has_system_role('superadmin')
 			{ }
 		else
-			{ :select => 'DISTINCT items.*',
+			{ :select => 'DISTINCT items_workspaces.*',
 				:joins => #"LEFT JOIN workspaces ON items.workspace_id IN (#{workspace_ids.split(',')}) "+
 						"LEFT JOIN users_workspaces ON users_workspaces.workspace_id IN (#{workspace_ids.split(',')}) AND users_workspaces.user_id = #{user_id.to_i} "+
 						"LEFT JOIN permissions_roles ON permissions_roles.role_id = users_workspaces.role_id "+
