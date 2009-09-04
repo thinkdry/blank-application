@@ -12,7 +12,7 @@ module Authorizable
 				define_method :permission_checking do
 					if hash[params[:action]]
 						obj = params[:controller].classify.constantize
-						@current_object = ['new', 'create'].include?(params[:action]) ? obj.new : obj.find(params[:id])
+						@current_object = ['new', 'create','validate'].include?(params[:action]) ? obj.new : obj.find(params[:id])
 						#no_permission_redirection unless @current_user && @current_object.send("accepts_#{hash[params[:action]]}_for?".to_sym, @current_user)
 						no_permission_redirection unless @current_user && @current_object.has_permission_for?(hash[params[:action]], @current_user)
 					else

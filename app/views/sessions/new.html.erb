@@ -1,10 +1,11 @@
 <div id="headerForm"></div>
 <div id="content_login">
   <div id="logoDiv"><%= image_tag(@configuration['sa_logo_url'].to_s) %></div>
-  <% form_tag session_path do -%>
-    <p style="color:red"><%= content_tag(:div, flash[:error], :class => 'error') if flash[:error] %></p>
-    <p style="color:green"><%= content_tag(:div, flash[:notice], :class => 'notice') if flash[:notice] %></p>
+  <p><%= content_tag(:div, flash[:error], :class => 'error' , :style => "color:red") if flash[:error] %></p>
+  <p><%= content_tag(:div, flash[:notice], :class => 'notice', :style => "color:green") if flash[:notice] %></p>
 
+  <% form_tag session_path do -%>
+    
     <label width="100"><%=I18n.t('user.session.login_label')%></label>
     <%= text_field_tag 'login', @login %>
 
