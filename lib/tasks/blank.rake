@@ -1,5 +1,5 @@
 namespace :blank do
-  
+
   desc "Install Blank Application"
 	task :install => :environment do
     p "Installing required gems"
@@ -201,7 +201,7 @@ namespace :blank do
       @sa_user = User.find_by_login('boss')
       @sa_user.firstname = @suser
       @sa_user.login = @suser
-      @sa_user.password = @spwd 
+      @sa_user.password = @spwd
       @sa_user.password_confirmation = @spwd
       @sa_user.save(false)
       p "Setting Username = #{@suser} & Password = #{@spwd}"
@@ -306,7 +306,7 @@ namespace :blank do
       c_w.save
     end
   end
-  
+
   namespace :maintaining do
 
 		desc "To Reencode videos"
@@ -326,7 +326,7 @@ namespace :blank do
 				MiddleMan.worker(:converter_worker).async_newthread(:arg=>{:type=>"audio", :id => audio.id, :enc=>"mp3"})
 			end
 		end
-	
+
 		desc "To set items default values (comments number, ...)"
 		task :default_values_for_items => :environment do
 			#['article', 'image', 'cms_file', 'video', 'audio', 'publication', 'feed_source', 'bookmark','newsletter','group'].each do |item|
@@ -359,19 +359,5 @@ namespace :blank do
 			end
 		end
   end
-  
-  desc "just a test"
-  task :test => :environment do
-    
-  end
-  
-  
 end
 
-
-#insert into roles(id, name, description, type_role, created_at, updated_at)values(1, 'superadmin', 'SuperAdministration', 'system' CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);",
-#"insert into workspaces(id, creator_id, description, title, state, created_at, updated_at, ws_config_id)values(1, 1, 'Private Workspace for BOSS', 'Private for Boss', 'private', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,1);"
-#    Accept User names from console
-#    sa_user=STDIN.gets.chomp
-#    sa_user="boss" if sa_user.blank?
-#    p "Setting Up #{sa_user} as Superadmin"
