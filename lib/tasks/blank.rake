@@ -48,6 +48,10 @@ namespace :blank do
     Rake::Task['blank:create_users'].invoke
     Rake::Task['blank:create_workspaces'].invoke
     Rake::Task['blank:css'].invoke
+    p "Populate database with test data y/n"
+    if STDIN.gets.chomp == 'y'
+      Rake::Task['db:populate'].invoke
+    end
   end
 
 	desc "From drop to pump"
@@ -172,22 +176,38 @@ namespace :blank do
 
   desc "Load Users"
   task(:create_users => :environment) do
-    p "Setting 'boss' as SuperAdmin"
     @superadmin = Role.find_by_name('superadmin')
     @admin = Role.find_by_name('admin')
     @user = Role.find_by_name('user')
-    @sauser=User.find_by_login("boss")
+    @sauser = User.first
     if @sauser.nil?
-      sql =[ "insert into users(id, login, firstname, lastname, email, address, company, phone, mobile, activity, nationality, edito, avatar_file_name, avatar_content_type, avatar_file_size, avatar_updated_at, crypted_password, salt, activation_code, activated_at, password_reset_code, system_role_id, created_at, updated_at, remember_token, remember_token_expires_at)values(1,'boss', 'Boss', 'Dupond', 'contact@thinkdry.com', '15 rue Leonard', 'ThinkDRY Technologies', '0112345678', '0612345678', 'Developer', 'France', '',null, null, null, null, 'a2c297302eb67e8f981a0f9bfae0e45e4d0e4317', '356a192b7913b04c54574d18c28d46e6395428ab', null, CURRENT_TIMESTAMP, null, #{@superadmin.id}, CURRENT_TIMESTAMP,CURRENT_TIMESTAMP, null, null);"
+      sql =[ "insert into users(id, login, firstname, lastname, email, address, company, phone, mobile, activity, nationality, edito, avatar_file_name, avatar_content_type, avatar_file_size, avatar_updated_at, crypted_password, salt, activation_code, activated_at, password_reset_code, system_role_id, created_at, updated_at, remember_token, remember_token_expires_at)values(1,'boss', 'Boss', 'Dupond', 'contact@thinkdry.com', '15 rue Leonard', 'ThinkDRY Technologies', '0112345678', '0612345678', 'Developer', 'France', '',null, null, null, null, '', '', null, CURRENT_TIMESTAMP, null, #{@superadmin.id}, CURRENT_TIMESTAMP,CURRENT_TIMESTAMP, null, null);"
       ]
       for i in sql
         query=<<-SQL
         #{i}
         SQL
         ActiveRecord::Base.connection.execute(query)
+      p "Enter superadmin username(Press Enter for default username) :- "
+      @suser = STDIN.gets.chomp
+      p  "Enter superadmin password(Press Enter for default password) :- "
+      @spwd = STDIN.gets.chomp
+      if @suser.blank?
+        @suser = 'boss'
+      end
+      if @spwd.blank?
+        @spwd = 'monkey'
+      end
+      @sa_user = User.find_by_login('boss')
+      @sa_user.firstname = @suser
+      @sa_user.login = @suser
+      @sa_user.password = @spwd 
+      @sa_user.password_confirmation = @spwd
+      @sa_user.save(false)
+      p "Setting Username = #{@suser} & Password = #{@spwd}"
       end
     else
-      @sauser.system_role_id=@superadmin.id
+      @sauser.system_role_id = @superadmin.id
       @sauser.save
     end
     p "Setting Up 'quentin' as User"
@@ -218,9 +238,9 @@ namespace :blank do
     end
     p "Done"
     p "Creating Default Workspace"
-    @superadmin=User.find_by_login("boss")
+    @superadmin = User.first
     if Workspace.find_by_creator_id_and_state(@superadmin.id, "private").blank?
-      @ws=Workspace.create(:creator_id => @superadmin.id, :description => "Private Workspace for Boss", :title=> "Private for Boss", :state => "private", :ws_items => @default_conf['sa_items'].to_a, :ws_item_categories => @default_conf['sa_item_categories'].to_a)
+      @ws=Workspace.create(:creator_id => @superadmin.id, :description => "Private Workspace for #{@superadmin.login}", :title=> "Private for #{@superadmin.login}", :state => "private", :ws_items => @default_conf['sa_items'].to_a, :ws_item_categories => @default_conf['sa_item_categories'].to_a)
       UsersWorkspace.create(:workspace_id => @ws.id, :role_id => Role.find_by_name("ws_admin").id, :user_id => @superadmin.id)
     end
 
@@ -338,6 +358,11 @@ namespace :blank do
 				end
 			end
 		end
+  end
+  
+  desc "just a test"
+  task :test => :environment do
+    
   end
   
   
