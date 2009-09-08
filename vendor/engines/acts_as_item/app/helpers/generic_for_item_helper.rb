@@ -97,29 +97,29 @@ module GenericForItemHelper
 	#
   # Usage :
   # f.advanced_editor(:body, 'Article' + ' * :')
-	def advanced_editor_on(object, attribute)
-		ws = current_workspace
-		ws ||= @page.workspaces.delete_if{ |e| e.websites.empty? }.first if @page
-		if ws && ws.websites && (tmp=ws.websites.first.front)
-			css_files = []
+	def advanced_editor_on(object, attribute, width, height)
+                ws = current_workspace
+                ws ||= @page.workspaces.delete_if{ |e| e.websites.empty? }.first if @page
+                if ws && ws.websites && (tmp=ws.websites.first.front)
+                        css_files = []
       Dir["public/front_files/#{tmp.name}/stylesheets/*.css"].collect do |uploaded_css|
         css_files << "#{uploaded_css.split("public")[1]}"
       end
       css_files ='/fckeditor/css/test_fck.css' if css_files.empty?
-		else
+                else
       css_files ='/fckeditor/editor/css/test_fck.css'
     end
     '<script type="text/javascript" src="/fckeditor/fckeditor.js"></script>' +
       javascript_tag(%{
-        var oFCKeditor = new FCKeditor('#{object.class.to_s.underscore}_#{attribute}', '730px', '350px') ;
+        var oFCKeditor = new FCKeditor('#{object.class.to_s.underscore}_#{attribute}', "#{ width }", "#{ height }") ;
+        oFCKeditor.Config['EditorAreaCSS'] = "#{css_files}" ;
         oFCKeditor.BasePath = "/fckeditor/" ;
-				oFCKeditor.Config['ImageUploadURL'] = "/fckuploads?item_type=#{object.class}&id=#{object.id}&type=Image";
- 				oFCKeditor.Config['FlashUploadURL'] = "/fckuploads?item_type=#{object.class}&id=#{object.id}&type=Video";
-				oFCKeditor.Config['LinkUploadURL'] = "/fckuploads?item_type=#{object.class}&id=#{object.id}&type=Link";
+                                oFCKeditor.Config['ImageUploadURL'] = "/fckuploads?item_type=#{object.class}&id=#{object.id}&type=Image";
+                                 oFCKeditor.Config['FlashUploadURL'] = "/fckuploads?item_type=#{object.class}&id=#{object.id}&type=Video";
+                                oFCKeditor.Config['LinkUploadURL'] = "/fckuploads?item_type=#{object.class}&id=#{object.id}&type=Link";
         oFCKeditor.Config['DefaultLanguage'] = '#{I18n.locale.split('-')[0]}' ;
         oFCKeditor.ReplaceTextarea() ;
-        
-      })
+                        })
   end
 
 	# Workspaces checkboxes for item form
