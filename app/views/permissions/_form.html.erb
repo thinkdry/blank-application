@@ -1,7 +1,7 @@
-<fieldset style="width:622px;">
+<fieldset>
 <% form_for(@permission, :builder => BlankFormBuilder) do |f| %>
-  <%= f.text_field :name, :label => "Name *: " %>
-  <label>Select *: </label>
+  <%= f.text_field :name, :label => "Name * : " %>
+  <label>Select * : </label>
   <div class="formElement">
     <% RIGHT_TYPES.each do |permission| %>
       <% !@permission.new_record? ? (@permission.type_permission == permission ? role = true : role = false ) : role = true%>

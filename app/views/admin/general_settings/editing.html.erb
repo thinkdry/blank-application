@@ -66,6 +66,10 @@
       "add_new_follower()",
       :id => "small_submit") %>
   </div>
+  <label>Exception notifier activate? :</label>
+  <div class="formElement">
+    <%= f.check_box :sa_exception_notifier_activated, { :class => "checkboxes" }, 'true', 'false' %>
+  </div>
 
   <div class="centerButton"><button type="submit" class="submit_button"><%=I18n.t('general.button.update')%></button></div>
 <% end %>
