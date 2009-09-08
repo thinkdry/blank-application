@@ -68,7 +68,7 @@ ActionController::Routing::Routes.draw do |map|
 	map.resources :home, :only => [:index], :collection => { :autocomplete_on => :any }
 
   # Routes for Roles and Permissions in BA
-  map.resources :roles
+  map.resources :roles, :collection => {:validate => :any}
   map.resources :permissions, :collection => {:validate => :any}
 
   # Routes for Comments

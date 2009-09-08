@@ -1,22 +1,35 @@
-<%= f.error_messages %>
+<%#= f.error_messages %>
 
-<p>
-  <%= f.label :name %><br />
-  <%= f.text_field :name %>
-</p>
-<p>
-  <b>Role type : </b>
-  <%= @role.type_role %><br />
+<%= f.text_field :name, :label => "Name * : " %>
+<label>Role type * : </label>
+<div class="formElement">
+  <%= @role.type_role %>
+  <div id="errors_for_Role_type_role">
+    <div class="formError"><%= @role.errors['type_role']  %> </div>
+  </div>
   <%= f.hidden_field :type_role, :value => @role.type_role %>
-</p>
-<p>
-  <%= f.label :description %><br />
-  <%= f.text_area :description %>
-</p>
-<p>
-  <b>Permissions selection : </b><br />
+</div>
+
+<%= f.text_area :description, :label => "Description : " %>
+
+<label>Permissions selection : </label>
+<div class="formElement">
+  <% permission_models = ITEMS + ['user', 'workspace'] %>
+  <% permission_model = '' %>
   <% @permissions.each do |p| %>
-    (<%= p.type_permission %>) <%= p.name %> <%= check_box_tag("permissions[#{p.id}]", "1", @role.permissions.include?(p), :class => "checkboxes") %><br />
+    <% p_model =''; p_action = '' %>
+    <% permission_models.each do |m| %>
+    <% if p.name.gsub(/(#{m}_)/,'') != p.name %>
+      <% p_model = m %>
+      <% p_action = p.name.gsub(/(#{m}_)/,'') %>
+    <% end %>
   <% end %>
-</p>
+  <% if permission_model == '' || permission_model != p_model %>
+    <% permission_model = p_model %>
+    <br /><br /><b><%=  p_model.humanize %></b> <br />
+  <% end %>
+  <%= check_box_tag("permissions[#{p.id}]", "1", @role.permissions.include?(p), :class => "checkboxes") %>
+  <%= p_action %>
+  <% end %>
+</div>
 
