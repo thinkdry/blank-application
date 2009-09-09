@@ -101,7 +101,7 @@ module GenericForItemHelper
     ws = current_workspace
 		css_files = []
     ws ||= object.workspaces.delete_if{ |e| e.websites.empty? }.first if (object.class.to_s == "Page")
-    if ws && ws.respond_to?(:websites) && ws.websites && (tmp=ws.websites.first.front)
+    if ws && ws.respond_to?(:websites) && ws.websites.first && (tmp=ws.websites.first.front)
         Dir["public/front_files/#{tmp.name}/stylesheets/*.css"].collect do |uploaded_css|
 					css_files << "#{uploaded_css.split("public")[1]}"
 				end
