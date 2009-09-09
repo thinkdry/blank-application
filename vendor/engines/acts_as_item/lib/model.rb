@@ -117,7 +117,7 @@ module ActsAsItem
 				if user.has_system_permission(self.model_name.underscore, action)
 					return self.all(:order => filter_name+' '+filter_way)
         else
-          return self.find_by_sql("select a.* from #{self.model_name.pluralize.underscore} a,items it,users_workspaces u_s where a.id = it.itemable_id and it.itemable_type = '#{self.model_name}' and it.workspace_id = u_s.workspace_id and u_s.user_id = #{user.id} and u_s.role_id in (select p_s.role_id from permissions_roles p_s where p_s.permission_id in (select p.id from permissions p where p.name = '#{self.model_name.underscore+'_'+action}'))  GROUP BY a.id ORDER BY #{'a.'+filter_name} #{filter_way}")
+          return self.find_by_sql("select a.* from #{self.model_name.pluralize.underscore} a,items_workspaces it,users_workspaces u_s where a.id = it.itemable_id and it.itemable_type = '#{self.model_name}' and it.workspace_id = u_s.workspace_id and u_s.user_id = #{user.id} and u_s.role_id in (select p_s.role_id from permissions_roles p_s where p_s.permission_id in (select p.id from permissions p where p.name = '#{self.model_name.underscore+'_'+action}'))  GROUP BY a.id ORDER BY #{'a.'+filter_name} #{filter_way}")
 				end
 			end
 
@@ -171,7 +171,7 @@ module ActsAsItem
           return self.paginate(:per_page => filter_limit, :page => page ,:order => filter_name+' '+filter_way)
         else
 					# TODO : directly with custom SQL
-          return self.paginate_by_sql("select a.* from #{self.model_name.pluralize.underscore} a,items it,users_workspaces u_s where a.id = it.itemable_id and it.itemable_type = '#{self.model_name}' and it.workspace_id = u_s.workspace_id and u_s.user_id = #{user.id} and u_s.role_id in (select p_s.role_id from permissions_roles p_s where p_s.permission_id in (select p.id from permissions p where p.name = '#{self.model_name.underscore+'_'+action}'))  GROUP BY a.id ORDER BY #{'a.'+filter_name} #{filter_way}",:per_page => filter_limit,:page => page)
+          return self.paginate_by_sql("select a.* from #{self.model_name.pluralize.underscore} a,items_workspaces it,users_workspaces u_s where a.id = it.itemable_id and it.itemable_type = '#{self.model_name}' and it.workspace_id = u_s.workspace_id and u_s.user_id = #{user.id} and u_s.role_id in (select p_s.role_id from permissions_roles p_s where p_s.permission_id in (select p.id from permissions p where p.name = '#{self.model_name.underscore+'_'+action}'))  GROUP BY a.id ORDER BY #{'a.'+filter_name} #{filter_way}",:per_page => filter_limit,:page => page)
 				end
       end
       #
