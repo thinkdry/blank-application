@@ -191,6 +191,7 @@ fr-FR:
     common_message:
       permission_denied: Permission refusée
       error_during_file_transfer: Erreur durant l'envoi du fichier
+      no_website_exist_to_workspace: Il n'y a pas de site Web dans ce workspace
       must_be_set: Doit être renseigné
       file_size_must_be_between: la taille du fichier doit être comprise entre {{min}} et {{max}} octets.
     item: 
@@ -323,6 +324,10 @@ fr-FR:
               content_type: "L'image n'est pas un type de fichier autoris\xC3\xA9"
             login: 
               invalid: "Le champ '{{attribute}}' ne doit contenir que des caractères alpha-numériques."
+        page:
+          attributes:
+            title:
+              taken: "{{attribute}} a déjà été pris dans un des workspaces sélectionnés"
   time: 
     am: am
     formats: 
@@ -801,6 +806,36 @@ fr-FR:
       click_here: Cliquez sur le lien suivant pour réinitialiser votre mot de passe
     newsletter_template:
       unsubscribe: Pour se désinscrire de cette newsletter, cliquez <a href='{{link}}' >ici</a>
+  website_contact:
+    new:
+      title: Nouveau contact de site Web
+      link: Ajout d'un nouveau contact de site Web
+      flash_notice: Contact de site Web créé avec succès
+      flash_error: Il y a eu un problème durant la création du contact de site Web
+    field:
+      first_name_label: Nom
+      first_name_hint: Contact Nom
+      last_name_label: Prénom
+      last_name_hint: Contact prénom
+      from_email_label: Email
+      from_email_hint: Contact email
+      phone_label: Téléhone
+      phone_hint: Contact téléhone
+      email_subject_label: Objet
+      email_body_label: Corps du message
+      receive_newsletter_label: Recevoir la newsletter ? 
+    edit:
+      title: Modifier le contact de site Web
+      flash_notice: Le contact de site Web a été mis à jour avec succès
+      flash_error: Il y a eu un problème lors de la mise à jour du contact de site Web
+    show:
+      title: Détails du contact de site Web
+      website: Site web
+      sent_on: Envoyé le
+    destroy:
+      flash_notice: Contact de site Web effacé avec succès
+      flash_error: La suppresion du contact de site Web a échoué
+      delete_confirm: Ceci va effacer le contact de site Web. Utilisez enlever si vous voulez juste l'enlever de ce workspace. Etes-vous sûr ?
   workspace_contact:
     list:
       order_by_time: Trier par date
