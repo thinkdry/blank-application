@@ -59,7 +59,7 @@ module ApplicationHelper
 		#res += "<option value='all'>"+I18n.t('general.common_word.all').upcase+"</option>"
 		#res += "<option value=''>----------</option>"
 		res += "<option value='item'#{(@search.category == 'item') ? ' selected=selected' : ''}'>"+I18n.t('general.object.item').pluralize.upcase+"</option>"
-		available_items_list.each do |i|
+		item_types_allowed_to(@current_user, 'show', current_workspace).each do |i|
 			res += "<option value='#{i}'#{(@search.category == i) ? ' selected=selected' : ''}'>"+I18n.t('general.item.'+i).pluralize+"</option>"
 		end
 		#res += "<option value=''>----------</option>"

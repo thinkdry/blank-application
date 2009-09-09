@@ -816,3 +816,4 @@ fr-FR:
       removed_contact_flash_notice: Les contacts sélectionnés ont été enlevés avec succès de ce workspace
       linked_to_group_flash_notice: Les contacts sélectionnés ont été liés avec succès à ce groupe {{name}}
       changed_state_flash_notice: L'état des contacts sélectionnés a été changé en {{state}}
+      no_contacts: Pas de contact dans ce workspace

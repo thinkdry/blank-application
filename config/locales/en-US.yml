@@ -793,3 +793,4 @@ en-US:
       removed_contact_flash_notice: Selected contacts are successfully removed from this workspace
       linked_to_group_flash_notice: Selected contacts are successfully linked to group {{name}}
       changed_state_flash_notice: Selected contacts state has been changed to {{state}}
+      no_contacts: No contacts in this workspace
