@@ -98,18 +98,16 @@ module GenericForItemHelper
   # Usage :
   # f.advanced_editor(:body, 'Article' + ' * :')
 	def advanced_editor_on(object, attribute, width, height)
-                ws = current_workspace
-                ws ||= @page.workspaces.delete_if{ |e| e.websites.empty? }.first if @page
-                if ws && ws.websites && (tmp=ws.websites.first.front)
-                        css_files = []
-      Dir["public/front_files/#{tmp.name}/stylesheets/*.css"].collect do |uploaded_css|
-        css_files << "#{uploaded_css.split("public")[1]}"
-      end
-      css_files ='/fckeditor/css/test_fck.css' if css_files.empty?
-                else
-      css_files ='/fckeditor/editor/css/test_fck.css'
-    end
-    '<script type="text/javascript" src="/fckeditor/fckeditor.js"></script>' +
+    ws = current_workspace
+		css_files = []
+    ws ||= object.workspaces.delete_if{ |e| e.websites.empty? }.first if (object.class.to_s == "Page")
+    if ws && ws.respond_to?(:websites) && ws.websites && (tmp=ws.websites.first.front)
+        Dir["public/front_files/#{tmp.name}/stylesheets/*.css"].collect do |uploaded_css|
+					css_files << "#{uploaded_css.split("public")[1]}"
+				end
+			end
+    css_files = '/fckeditor/css/test_fck.css' if css_files.empty?
+    return '<script type="text/javascript" src="/fckeditor/fckeditor.js"></script>' +
       javascript_tag(%{
         var oFCKeditor = new FCKeditor('#{object.class.to_s.underscore}_#{attribute}', "#{ width }", "#{ height }") ;
         oFCKeditor.Config['EditorAreaCSS'] = "#{css_files}" ;
