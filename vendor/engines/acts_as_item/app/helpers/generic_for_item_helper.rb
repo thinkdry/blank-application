@@ -154,7 +154,7 @@ module GenericForItemHelper
 					strg += check_box_tag(check_box_tag_name, w.id, checked, :class => 'checkboxes') + ' ' + w.title + '<br />'
 				end
 			end
-			strg += '</div>'
+			strg += '</div>'+ajax_error_message_on(item, 'items_workspaces')
 		elsif (list.size > 0)
 			list.each do |ws|
 				strg += hidden_field_tag(check_box_tag_name, ws.id.to_s)

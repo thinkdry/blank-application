@@ -1,7 +1,7 @@
 <% if (category == 'item') %>
   <label><%=I18n.t('layout.search.item_category')%>:</label>
   <div class="formElement">
-    <% available_items_list.each do |i| %>
+    <% item_types_allowed_to(@current_user, 'show', current_workspace).each do |i| %>
       <div class="checkbox_list_horizontal">
         <%= check_box_tag "search[models][]", i, @search.models.to_s.split(',').include?(i) ,:class => "checkboxes"%>
         <%= I18n.t('general.item.'+i.to_s) %>

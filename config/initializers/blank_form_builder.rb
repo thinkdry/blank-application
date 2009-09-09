@@ -19,7 +19,7 @@ module ActionView::Base::CompiledTemplates
       }
     end
      
-   def advanced_editor(field, *args)
+		def advanced_editor(field, *args)
       options = args.extract_options!
       options = options.merge(:ajax => false, :template => :template_for_advanced_editor)
       width = options[:width] || '730px'
@@ -29,10 +29,6 @@ module ActionView::Base::CompiledTemplates
       @template.advanced_editor_on(@object, field, width, height)
     end
       
-        text_area(field, options) +
-        @template.advanced_editor_on(@object, field)
-    end
-
     def tags_field(field, *args)
       text_field(field, *args)
     end
