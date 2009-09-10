@@ -202,6 +202,10 @@ en-US:
               content_type: Image is not one of the allowed file types.
             login: 
               invalid: "The '{{attribute}}' field can take only alpha-numeric characters."
+        page:
+          attributes:
+            title:
+              taken: "{{attribute}} has already been taken in one of selected workspace"
     menu: 
       add: Add
       add_help: This menu helps you to add content
@@ -778,6 +782,34 @@ en-US:
       click_here: Click on the following link to reset your password
     newsletter_template:
       unsubscribe: To unsubscribe for this newsletter, click <a href='{{link}}' >here</a>
+  website_contact:
+    new:
+      title: New website contact
+      link: Add new website contact
+      flash_notice: Contact successfully created
+      flash_error: There was problem while creating the website contact
+    field:
+      first_name_label: First name
+      first_name_hint: Contact first name
+      last_name_label: Last name
+      last_name_hint: Contact last name
+      from_email_label: Email
+      from_email_hint: Contact email
+      phone_label: Phone number
+      phone_hint: Contact phone number
+      email_subject_label: Subject
+      email_body_label: Body
+      receive_newsletter_label: Receive newsletters?
+    edit:
+      title: Modifiy website contact
+    show:
+      title: Website contact details
+      website: Website
+      sent_on: Sent on
+    destroy:
+      flash_notice: Website contact sucessfully deleted
+      flash_error: Website contact deletion Failed
+      delete_confirm: This will delete the website contact. Use remove if you just want to remove it from this workspace. Are you sure?
   workspace_contact:
     list:
       order_by_time: Order by time
@@ -793,3 +825,4 @@ en-US:
       removed_contact_flash_notice: Selected contacts are successfully removed from this workspace
       linked_to_group_flash_notice: Selected contacts are successfully linked to group {{name}}
       changed_state_flash_notice: Selected contacts state has been changed to {{state}}
+      no_contacts: No contacts in this workspace

@@ -44,8 +44,10 @@ LANGUAGES.each do |l|
 end
 
 # Variable used by ExceptionNotifier plugin
-APPLICATION_ADMINS = get_sa_config['sa_exception_followers_email']
-APPLICATION_NAME = get_sa_config['sa_application_name']
-ExceptionNotifier.exception_recipients = APPLICATION_ADMINS
-ExceptionNotifier.sender_address = 'admin@thinkdry.com'
-ExceptionNotifier.email_prefix = APPLICATION_NAME
+if get_sa_config['sa_exception_notifier_activated'] == 'true'
+  APPLICATION_ADMINS = get_sa_config['sa_exception_followers_email']
+  APPLICATION_NAME = get_sa_config['sa_application_name']
+  ExceptionNotifier.exception_recipients = APPLICATION_ADMINS
+  ExceptionNotifier.sender_address = 'admin@thinkdry.com'
+  ExceptionNotifier.email_prefix = APPLICATION_NAME
+end

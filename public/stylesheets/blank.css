@@ -1165,7 +1165,7 @@ ul.top_box li{
 .sensor_in_list_alternate{background-color:#eee;}
 .sensor_in_list{background-color:#fff;}
 
-.sensor_in_list:hover, .sensor_in_list_alternate:hover{
+.sensor_in_list:hover, .sensor_in_list_alternate:hover, .contact_details:hover{
 	background-color:#F79646;
 	color:#fff !important;
 }
@@ -1543,3 +1543,16 @@ label .low{
 #keywords_list{clear:both; margin-top:5px;}
 #keywords_list img {margin:0 !important;}
 .keyword_label {width:auto; float:left;margin-left:10px;}
+
+.contact_list{
+    background:#FFFFFF url(/images/top_elems_bg.png) repeat-x scroll 0 0;
+    border-left:1px solid #CCCCCC;
+    border-right:1px solid #CCCCCC;
+    border-top:1px solid #CCCCCC;
+    border-bottom:1px solid #CCCCCC;
+    margin-left: 30px;
+    clear:both;
+}
+.contact_classify{
+    padding:20px 10px;
+}

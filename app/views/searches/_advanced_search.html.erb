@@ -1,4 +1,4 @@
-    <% if category == 'item' || available_items_list.include?(category) %>
+    <% if category == 'item' || item_types_allowed_to(@current_user, 'show', current_workspace).include?(category) %>
 		<div><%= render :partial => 'generic_for_items/advanced_search', :locals => { :category => category } %></div>
     <% end %>
 	<div class="dateSelection">

@@ -56,6 +56,7 @@ class PermissionsController < ApplicationController #:nodoc: all
 				format.xml  { render :xml => @permission, :status => :created, :location => permission_path(@permission) }
 				@permissions= Permission.find(:all)
 			else
+        flash.now[:error] = 'Permission Updation Failed.'
 				format.html { render :action => "new" }
 				format.xml  { render :xml => @permission.errors, :status => :unprocessable_entity }
 			end
@@ -72,7 +73,7 @@ class PermissionsController < ApplicationController #:nodoc: all
 				format.html { redirect_to(permissions_path) }
 				format.xml  { head :ok }
 			else
-				flash.now[:notice] = 'Permission Updation Failed.'
+				flash.now[:error] = 'Permission Updation Failed.'
 				format.html { render :action => "edit" }
 				format.xml  { render :xml => @permission.errors, :status => :unprocessable_entity }
 			end

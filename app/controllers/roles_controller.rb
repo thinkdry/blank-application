@@ -1,5 +1,7 @@
 class RolesController < ApplicationController #:nodoc: all
 
+  acts_as_ajax_validation
+
 	# Filter to just allow 'superadmin' user to access to that resource
 	before_filter :is_superadmin?
 
@@ -30,11 +32,7 @@ class RolesController < ApplicationController #:nodoc: all
   def new
     @role = Role.new
 		@role.type_role = params[:type_role]
-		if params[:type_role]=='system'
-			@permissions = Permission.find(:all)
-		else
-			@permissions = Permission.find(:all, :conditions => { :type_permission => 'workspace' })
-		end
+		get_permissions
         respond_to do |format|
           format.html # new.html.erb
           format.xml  { render :xml => @role }
@@ -44,12 +42,7 @@ class RolesController < ApplicationController #:nodoc: all
   # GET /roles/1/edit
   def edit
     @role = Role.find(params[:id])
-		if @role.type_role=="system"
-			@permissions = Permission.find(:all)
-		else
-			#@permissions = Permission.find(:all)
-			@permissions = Permission.find(:all, :conditions => { :type_permission => 'workspace' })
-		end
+		get_permissions
     respond_to do |format|
           format.html # edit.html.erb
           format.xml  { render :xml => @role }
@@ -71,7 +64,8 @@ class RolesController < ApplicationController #:nodoc: all
               format.html { redirect_to(roles_path) }
               format.xml  { render :xml => @role, :status => :created, :location => role_path(@role) }
     else
-      flash[:error] = 'Role Creation Failed.'
+      flash.now[:error] = 'Role Creation Failed.'
+      get_permissions
               format.html { render :action => "new" }
               format.xml  { render :xml => @role.errors, :status => :unprocessable_entity }
     end
@@ -95,6 +89,8 @@ class RolesController < ApplicationController #:nodoc: all
 								format.html { redirect_to(roles_path) }
 								format.xml  { head :ok }
 			else
+        flash.now[:error] = 'Role update failed.'
+                get_permissions
 								format.html { render :action => "edit" }
 								format.xml  { render :xml => @role.errors, :status => :unprocessable_entity }
 			end
@@ -121,5 +117,13 @@ class RolesController < ApplicationController #:nodoc: all
 
   end
     
-  #    
+  #
+  def get_permissions
+    if @role.type_role=="system"
+			@permissions = Permission.find(:all, :order => 'name ASC')
+		else
+			#@permissions = Permission.find(:all)
+			@permissions = Permission.find(:all, :conditions => { :type_permission => 'workspace' }, :order => 'name ASC')
+		end
+  end
 end
