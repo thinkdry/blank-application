@@ -41,8 +41,12 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 require File.expand_path(File.dirname(__FILE__) + '/items_spec_helper')
+require File.expand_path(File.dirname(__FILE__) + '/authorized_spec_helper')
+require File.expand_path(File.dirname(__FILE__) + '/authorizable_spec_helper')
 
 describe User do
+  include AuthorizedSpecHelper
+  include AuthorizableSpecHelper
   fixtures :roles, :permissions,:permissions_roles, :users, :workspaces, :users_workspaces
 
   def object
@@ -149,7 +153,7 @@ describe User do
     @user.firstname = 'boss32'
     @user.should have(1).error_on(:firstname)
   end
-  
+
   it "should require lastname" do
     @user.attributes = user_attributes.except(:lastname)
     @user.should have(1).errors_on(:lastname)
@@ -276,7 +280,7 @@ describe User do
        @user = users(:mj)
        @user.has_workspace_permission(workspaces(:private_for_luc).id,'articles','new') == true
     end
-    
+
     it "should return full name" do
       @user = users(:peter)
       @user.full_name.strip.should == 'parker peter'
@@ -307,3 +311,4 @@ describe User do
 
 
 end
+
