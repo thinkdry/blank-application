@@ -27,7 +27,7 @@ class WorkspacesController < ApplicationController
       #			@current_objects = get_items_list(params[:item_type], @current_object)
       #			@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
       #<!-- new code
-      @paginated_objects = get_paginated_items_list(params[:item_type], @current_object)
+			@paginated_objects = params[:item_type].classify.constantize.get_da_objects_list(build_hash_from_params(params))
       # -->
     end
 

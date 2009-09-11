@@ -117,51 +117,67 @@ class ApplicationController < ActionController::Base
 		end
 	end
 
-  # List of all Items
-	# This function will return the items list of the given type for the current user,
-	# depending of the workspace. If there is no workspace, it will return
-	# the items list of the given type accessible by the current user.
-	#
-	# Parameters :
-	# - item_type : String defining the item type (downcase, singular)
-	# - workspace : Workspace instance
-	#
-  # Usage :
-  # <tt>get_item_list('article',current_workspace)</tt>
-	def get_items_list(item_type, workspace=nil)
-		if workspace
-			if (@configuration['sa_items'] & workspace.ws_items.split(',')).include?(item_type.singularize)
-				current_objects = item_type.classify.constantize.get_items_list_for_user_with_permission_in_workspace(@current_user, 'show', workspace, params[:filter_name], params[:filter_way])
-			else
-				current_objects = []
-			end
-		else
-			if @configuration['sa_items'].include?(item_type.singularize)
-				current_objects = item_type.classify.constantize.get_items_list_for_user_with_permission(@current_user, 'show', params[:filter_name], params[:filter_way])
-			else
-				current_objects = []
-			end
-		end
-		return current_objects
-	end
+#  # List of all Items
+#	# This function will return the items list of the given type for the current user,
+#	# depending of the workspace. If there is no workspace, it will return
+#	# the items list of the given type accessible by the current user.
+#	#
+#	# Parameters :
+#	# - item_type : String defining the item type (downcase, singular)
+#	# - workspace : Workspace instance
+#	#
+#  # Usage :
+#  # <tt>get_item_list('article',current_workspace)</tt>
+#	def get_items_list(item_type, workspace=nil)
+#		if workspace
+#			if (@configuration['sa_items'] & workspace.ws_items.split(',')).include?(item_type.singularize)
+#				current_objects = item_type.classify.constantize.get_items_list_for_user_with_permission_in_workspace(@current_user, 'show', workspace, params[:filter_name], params[:filter_way])
+#			else
+#				current_objects = []
+#			end
+#		else
+#			if @configuration['sa_items'].include?(item_type.singularize)
+#				current_objects = item_type.classify.constantize.get_items_list_for_user_with_permission(@current_user, 'show', params[:filter_name], params[:filter_way])
+#			else
+#				current_objects = []
+#			end
+#		end
+#		return current_objects
+#	end
+#
+#  # return get_per_page_value num of items
+#  def get_paginated_items_list(item_type, workspace=nil)
+#    params[:filter_limit] ||= get_per_page_value
+#		if workspace
+#			if (@configuration['sa_items'] & workspace.ws_items.split(',')).include?(item_type.singularize)
+#        current_objects = item_type.classify.constantize.get_paginated_items_list_for_user_with_permission_in_workspace(@current_user, 'show', workspace, params[:filter_name], params[:filter_way], params[:filter_limit], params[:page])
+#			else
+#				current_objects = []
+#			end
+#		else
+#			if @configuration['sa_items'].include?(item_type.singularize)
+#        current_objects = item_type.classify.constantize.get_paginated_items_list_for_user_with_permission(@current_user, 'show', params[:filter_name], params[:filter_way], params[:filter_limit],params[:page])
+#			else
+#				current_objects = []
+#			end
+#		end
+#		return current_objects
+#	end
 
-  # return get_per_page_value num of items 
-  def get_paginated_items_list(item_type, workspace=nil)
-    params[:filter_limit] ||= get_per_page_value
-		if workspace
-			if (@configuration['sa_items'] & workspace.ws_items.split(',')).include?(item_type.singularize)
-        current_objects = item_type.classify.constantize.get_paginated_items_list_for_user_with_permission_in_workspace(@current_user, 'show', workspace, params[:filter_name], params[:filter_way], params[:filter_limit], params[:page])
-			else
-				current_objects = []
-			end
-		else
-			if @configuration['sa_items'].include?(item_type.singularize)
-        current_objects = item_type.classify.constantize.get_paginated_items_list_for_user_with_permission(@current_user, 'show', params[:filter_name], params[:filter_way], params[:filter_limit],params[:page])
-			else
-				current_objects = []
-			end
-		end
-		return current_objects
+	def build_hash_from_params(params)
+		params[:by] ||= 'created_at-desc'
+		params[:page] ||= 1
+		return {
+			:user_id => @current_user.id,
+			:permission => 'show',
+			:category => params[:cat],
+			:models => params[:m],
+			:workspace_ids => current_workspace ? [current_workspace.id] : params[:w],
+			:full_text => params[:q],
+			:conditions => params[:cond],
+			:filter => { :field => params[:by].split('-').first, :way => params[:by].split('-').last },
+			:pagination => { :page => params[:page], :per_page => get_per_page_value }
+			}
 	end
 
 	private

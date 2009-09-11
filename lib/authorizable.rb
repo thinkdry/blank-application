@@ -59,6 +59,21 @@ module Authorizable
 						}
 					include Authorizable::ModelMethods::IMItem
 				elsif ['workspace'].include?(self.to_s.underscore)
+					named_scope :matching_user_with_permission_in_workspaces, lambda { |user_id, permission, workspace_ids|
+						# Check if these workspace are matching the really authorized ones, and set 'nil for all' condition
+						workspace_ids ||= Workspace.allowed_user_with_permission(user_id, self.to_s.underscore+'_'+permission).map{ |e| e.id }
+						workspace_ids = workspace_ids & Workspace.allowed_user_with_permission(user_id, self.to_s.underscore+'_'+permission).map{ |e| e.id }
+						# In case of system permission
+						if User.find(user_id).has_system_permission(self.to_s.underscore.pluralize, permission)
+							{ }
+						# So we can retrieve directly as the workspaces are checked, hihihi
+						elsif workspace_ids.first
+							{ }
+						else
+						# In order to return nothing ...
+							{ :conditions => "1=2"}
+						end
+						}
 					# Scope getting the workspaces authorized for an user with a specific permission
 					named_scope :allowed_user_with_permission, lambda { |user_id, permission_name|
 						raise 'User required' unless user_id
@@ -89,6 +104,23 @@ module Authorizable
 					}
 					include Authorizable::ModelMethods::IMWorkspace
 				elsif self.to_s.underscore == 'user'
+					named_scope :matching_user_with_permission_in_workspaces, lambda { |user_id, permission, workspace_ids|
+						# Check if these workspace are matching the really authorized ones, and set 'nil for all' condition
+						workspace_ids ||= Workspace.allowed_user_with_permission(user_id, self.to_s.underscore+'_'+permission).map{ |e| e.id }
+						workspace_ids = workspace_ids & Workspace.allowed_user_with_permission(user_id, self.to_s.underscore+'_'+permission).map{ |e| e.id }
+						# In case of system permission
+						if User.find(user_id).has_system_permission(self.to_s.underscore.pluralize, permission)
+							{  }
+						# So we can retrieve directly as the workspaces are checked, hihihi
+						elsif workspace_ids.first
+							{ :select => "DISTINCT #{self.to_s.underscore.pluralize}.*",
+								:joins => "LEFT JOIN users_workspaces ON #{self.to_s.underscore.pluralize}.id = users_workspaces.user_id",
+								:conditions => "users_workspaces.workspace_id IN (#{workspace_ids.join(',')})" }
+						else
+						# In order to return nothing ...
+							{ :conditions => "1=2"}
+						end
+						}
 					include Authorizable::ModelMethods::IMUser
 				end
 			end

@@ -1,4 +1,4 @@
-<% @workspaces.each do |w| %>
+<% @current_objects.each do |w| %>
     <h4>
 		<%= w.title %>
    		<%= link_to image_tag("/images/icons/play.png", :width => "20"), workspace_path(w.id) %>

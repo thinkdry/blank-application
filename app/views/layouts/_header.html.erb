@@ -122,7 +122,7 @@
               <% form_for @search, :url => searches_path, :builder => BlankFormBuilder, :html => { :method => :get, :name => 'search' } do -%>
                 <label><%=I18n.t('layout.search.search_label')%></label>
                 <div class="formElement">
-                  <%= text_field_tag "search[full_text_field]", (params[:search] ? params[:search][:full_text_field] : I18n.t('layout.search.search_label')), :class => "style_text", :onfocus => '$(this).select()' %>
+                  <%= text_field_tag "q", (params[:q] ? params[:q] : I18n.t('layout.search.search_label')), :class => "style_text", :onfocus => '$(this).select()' %>
                 </div>
                 <label><%= I18n.t 'general.common_word.in'%></label>
                 <div class="formElement">

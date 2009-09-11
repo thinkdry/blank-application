@@ -77,7 +77,9 @@ class User < ActiveRecord::Base
 
   has_many :groups 
 	# Method setting the different attribute to index for the Xapian research
-	acts_as_xapian :texts => [:login, :firstname, :lastname]
+	#acts_as_xapian :texts => [:login, :firstname, :lastname]
+	acts_as_searchable :full_text_fields => [:login, :firstname, :lastname],
+					:conditionnal_attribute => []
 	# Method including the method used for roles and permissions checkings
 	acts_as_authorized
 	acts_as_authorizable

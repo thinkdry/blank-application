@@ -54,7 +54,9 @@ class Workspace < ActiveRecord::Base
             :order => "people.email ASC"
           
 	# Method defining the attibute to index for the Xapian research
-	acts_as_xapian :texts => [:title, :description]
+	#acts_as_xapian :texts => [:title, :description]
+	acts_as_searchable :full_text_fields => [:title, :description],
+					:conditionnal_attribute => []
 
 	acts_as_authorizable
 

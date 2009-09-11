@@ -144,7 +144,7 @@ class UsersController < ApplicationController
   # Ajax Users Index with User
   def ajax_index
     current_objects
-    render :partial => 'user_in_list'
+    render :partial => 'users/users_list'
   end
 
   # Users Index Object for All Users

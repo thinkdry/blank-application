@@ -18,32 +18,18 @@ class ContentController < ApplicationController
     # new code
     #@paginated_objects = get_paginated_items_list(params[:item_type], current_workspace)
 		@paginated_objects = params[:item_type].classify.constantize.get_da_objects_list(build_hash_from_params(params))
-		if request.xhr?
-			@i = 0
-			render :partial => "generic_for_items/items_list", :layout => false, :locals => { :ajax_url => current_workspace ? "/workspaces/#{current_workspace.id}/ajax_content/"+params[:item_type] : "/ajax_content/#{params[:item_type]}" }
-		else
+#		if request.xhr?
+#			@i = 0
+#			render :partial => "generic_for_items/items_list", :layout => false, :locals => { :ajax_url => current_workspace ? "/workspaces/#{current_workspace.id}/ajax_content/"+params[:item_type] : "/ajax_content/#{params[:item_type]}" }
+#		else
 			respond_to do |format|
 				format.html
-				format.xml { render :xml => get_items_list(params[:item_type], current_workspace) }
-				format.json { render :json => get_items_list(params[:item_type], current_workspace) }
-				format.atom {@current_objects = get_items_list(params[:item_type], current_workspace); render :template => "generic_for_items/index.atom.builder", :layout => false }
+				format.xml { render :xml => @paginated_objects }
+				format.json { render :json => @paginated_objects }
+				format.atom { render :template => "generic_for_items/index.atom.builder", :layout => false }
 			end
-		end
+#		end
   end
-
-	def build_hash_from_params(params)
-		params[:by] ||= 'created_at-desc'
-		params[:page] ||= 1
-		return { :user_id => @current_user.id,
-			:permission => 'show',
-			:workspace_ids => current_workspace ? [current_workspace.id] : params[:w],
-			:full_text => params[:q],
-			:conditions => { },
-			:filter => { :field => params[:by].split('-').first, :way => params[:by].split('-').last },
-			:pagination => { :page => params[:page], :per_page => get_per_page_value }
-			}
-	end
-
 
   # Ajax action managing pagination for items tabs
   #
@@ -59,7 +45,7 @@ class ContentController < ApplicationController
 #		@current_objects = get_items_list(params[:item_type], current_workspace)
 #		@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
     # new code
-    @paginated_objects = get_paginated_items_list(params[:item_type],current_workspace)
+    @paginated_objects = params[:item_type].classify.constantize.get_da_objects_list(build_hash_from_params(params))
     # 
     @i = 0
 		render :partial => "generic_for_items/items_list", :layout => false, :locals => { :ajax_url => current_workspace ? "/workspaces/#{current_workspace.id}/ajax_content/"+params[:item_type] : "/ajax_content/#{params[:item_type]}" }

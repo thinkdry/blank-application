@@ -109,8 +109,9 @@ module ActsAsItem
 					# 
 					before :index do
 						# Just to manage the permission of creation (trick avoiding one more loop)
-						params[:item_type] = @current_objects.first.class.to_s.underscore
-						@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
+#						params[:item_type] = @current_objects.first.class.to_s.underscore
+#						@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
+						@paginated_objects = params[:controller].classify.constantize.get_da_objects_list(build_hash_from_params(params))
 					end
 					# Response redirecting to the show page after the create action,
 					# In the case of Article, Page or Newsletter, it is redirecting to the edition page
@@ -138,10 +139,10 @@ module ActsAsItem
 	        end
 
 					response_for :index do |format|
-						format.html { render(:template => (File.exists?(RAILS_ROOT+'/app/views/'+params[:controller]+'/edit.html.erb') ? params[:controller]+'/index.html.erb' : 'items/index.html.erb')) }
+						format.html { render(:template => (File.exists?(RAILS_ROOT+'/app/views/'+params[:controller]+'/edit.html.erb') ? params[:controller]+'/index.html.erb' : 'generic_for_items/index.html.erb')) }
 						format.xml { render :xml => @current_objects }
 						format.json { render :json => @current_objects }
-						format.atom { render :template => "items/index.atom.builder", :layout => false }
+						format.atom { render :template => "generic_for_items/index.atom.builder", :layout => false }
 	        end
 
           response_for :destroy do |format|
