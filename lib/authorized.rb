@@ -106,7 +106,7 @@ module Authorized
 					permission_name = controller+'_'+action
 					return !self.workspace_permissions(workspace_id).delete_if{ |e| e.name != permission_name}.blank? || self.has_system_role('superadmin')
 				end
-      
+
     end
   end
 end
