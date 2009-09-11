@@ -101,7 +101,8 @@ FCKConfig.TemplateReplaceCheckbox = true ;
 FCKConfig.ToolbarLocation = 'In' ;
 
 FCKConfig.ToolbarSets["Default"] = [
-	['Source','FitWindow','Bold','Italic','Underline','Indent','OrderedList','UnorderedList','TextColor','JustifyLeft','JustifyCenter','JustifyRight','JustifyFull','Link','Image','Flash','flvPlayer','FontFormat','FontSize']
+	['Source','FitWindow','Bold','Italic','Underline','Indent','OrderedList','UnorderedList','TextColor','JustifyLeft','JustifyCenter','JustifyRight','JustifyFull','Link','Image','Flash','flvPlayer'],
+    ['FontFormat','FontSize']
 ] ;
 
 FCKConfig.ToolbarSets["Basic"] = [

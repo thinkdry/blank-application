@@ -1,7 +1,7 @@
 <fieldset>
   <legend>Add a key in the translations files</legend>
 
-  <% form_for :res, :url => translations_new_superadministration_path do |f| %>
+  <% form_for :res, :url => translation_new_admin_translations_path do |f| %>
 
     <label>SECTION</label>
 	<div class="formElement"><%= f.select :section, @translation_sections %></div>

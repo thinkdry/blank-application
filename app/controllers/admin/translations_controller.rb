@@ -66,7 +66,7 @@ class Admin::TranslationsController < ApplicationController
   # Usage URL
   #
   # /superadministration/translations_new
-	def translations_new
+	def translation_new
 		if params[:res][:section] && params[:res][:subsection] && params[:res][:key]
 			LANGUAGES.each do |l|
 				@yaml = YAML.load_file("#{RAILS_ROOT}/config/locales/#{l}.yml")
@@ -81,7 +81,8 @@ class Admin::TranslationsController < ApplicationController
 				@new.syswrite(@yaml.to_yaml)
 			end
 		end
-		redirect_to '/superadministration/translations'
+    flash[:notice] = "New translation added sucessfully"
+		redirect_to editing_admin_translations_path
 	end
 
 	private
