@@ -3,11 +3,11 @@
 #
 module ActsAsItem
   module ControllerMethods
-    
+
     def self.included(base)
       base.extend ClassMethods
     end
-    
+
     module ClassMethods
       # Mixin adding initialisation and definition of an item controller
       #
@@ -62,7 +62,7 @@ module ActsAsItem
         make_resourceful do
 					# Declaration of all the CRUD methods : new,create,edit,update,show,index
           actions :all
-					# 
+					#
           belongs_to :workspace
 
 					# Inclusion of the block if a block is found
@@ -106,10 +106,10 @@ module ActsAsItem
 					before :update do
 						params[@current_object.class.to_s.underscore][:keywords_field] ||= []
 					end
-					# 
+					#
 					before :index do
 						# Just to manage the permission of creation (trick avoiding one more loop)
-						params[:item_type] = @current_objects.first.class.to_s.underscore
+						params[:item_type] ||= @current_objects.first.class.to_s.underscore
 						@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
 					end
 					# Response redirecting to the show page after the create action,
@@ -156,7 +156,7 @@ module ActsAsItem
       end
 
     end
-    
+
     module InstanceMethods
 			# Function allowing to get directly the content of the item, not details like title or description
 			#
@@ -182,7 +182,7 @@ module ActsAsItem
 					no_permission_redirection
 				end
 			end
-			
+
       # Rate the Item
       #
       # Usage :
@@ -200,7 +200,8 @@ module ActsAsItem
 				# TODO : refresh the rate box ...
         render :nothing => true
       end
-      
+
     end
   end
 end
+

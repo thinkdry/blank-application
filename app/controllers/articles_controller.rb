@@ -23,7 +23,7 @@ class ArticlesController < ApplicationController
 			format.json { render :json => @current_object }
 		end
 	end
-  
+
   # Remove a file associated with the article
   #
 	# This function is linked to an url allowing to delete the file linked to the article through an AJAX request.
@@ -37,5 +37,6 @@ class ArticlesController < ApplicationController
 			end
 		end
   end
-	
+
 end
+

@@ -74,6 +74,7 @@ namespace :db do
       i.audio_file_name = file_path_import(:model => 'audio', :id => i.id, :file_name => 'audio.mp3')
       i.audio_content_type = 'audio/mpeg'
       i.audio_file_size = 98423
+      i.state = 'encoded'
       i.audio_updated_at =  Time.now
       i.save
     end
@@ -82,6 +83,7 @@ namespace :db do
       i.associated_workspaces = ['1','2']
       i.video_file_name = file_path_import(:model => 'video', :id => i.id, :file_name => 'video.flv')
       i.video_content_type = 'video/mpeg'
+      i.state = 'encoded'
       i.video_file_size = 590296
       i.video_updated_at =  Time.now
       i.save
