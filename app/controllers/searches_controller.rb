@@ -38,12 +38,10 @@ class SearchesController < ApplicationController #:nodoc: all
 #    params[:item_type] ||= @current_objects.first.class.to_s.downcase.pluralize
 #		@paginated_objects = @current_objects.paginate(:page => params[:page], :per_page => get_per_page_value)
 
-		if @search.category == 'user'
-			@templatee = "users/users_list"
-		elsif @search.category == 'workspace'
-			@templatee = "workspaces/workspaces_list"
+		if @search.category == 'item'
+			@templatee = "generic_for_items/index"
 		else
-			@templatee = nil
+			@templatee = "#{@search.category.pluralize}/index"
 		end
 
 		if !request.xhr?
@@ -54,7 +52,7 @@ class SearchesController < ApplicationController #:nodoc: all
 				format.atom { render :template => "generic_for_items/index.atom.builder", :layout => false }
 			end
 		else
-			render :partial => 'generic_for_items/items_list', :locals => { :ajax_url => searches_path }
+			render :partial => @templatee, :layout => false
 		end
   end
 

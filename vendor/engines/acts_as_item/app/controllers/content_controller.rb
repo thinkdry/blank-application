@@ -22,6 +22,7 @@ class ContentController < ApplicationController
 #			@i = 0
 #			render :partial => "generic_for_items/items_list", :layout => false, :locals => { :ajax_url => current_workspace ? "/workspaces/#{current_workspace.id}/ajax_content/"+params[:item_type] : "/ajax_content/#{params[:item_type]}" }
 #		else
+		@no_div = false
 			respond_to do |format|
 				format.html
 				format.xml { render :xml => @paginated_objects }
@@ -48,7 +49,8 @@ class ContentController < ApplicationController
     @paginated_objects = params[:item_type].classify.constantize.get_da_objects_list(build_hash_from_params(params))
     # 
     @i = 0
-		render :partial => "generic_for_items/items_list", :layout => false, :locals => { :ajax_url => current_workspace ? "/workspaces/#{current_workspace.id}/ajax_content/"+params[:item_type] : "/ajax_content/#{params[:item_type]}" }
+		@no_div = true
+		render :partial => "generic_for_items/index", :layout => false
   end
 
   # Action displaying items of the specified FCKeditor action ('selected_item' parameters)

@@ -16,12 +16,11 @@ class GroupsController < ApplicationController
   before_filter :current_object, :only =>[:show, :edit, :update, :destroy]
 
 	def index
-    filter_type = params[:filter_name] || 'created_at'
-		filter_way = params[:filter_way] ||= 'desc'
-    @paginated_objects = Group.paginate(:conditions => {:workspace_id => current_workspace.id}, :order => "#{filter_type} #{filter_way}", :per_page => get_per_page_value, :page => params[:page])
+    filter = params[:by] ||= 'created_at-desc'
+    @paginated_objects = Group.paginate(:conditions => {:workspace_id => current_workspace.id}, :order => "#{filter.split('-').first} #{filter.split('-').last}", :per_page => get_per_page_value, :page => params[:page])
     
     respond_to do |format|
-			format.html{ render :partial => 'group_in_list', :layout => false if request.xml_http_request?}
+			format.html{ render :partial => 'group_in_list', :layout => false && @no_div = true if request.xml_http_request?}
 			format.xml { render :xml => Group.find(:all, :conditions => {:workspace_id => current_workspace.id}) }
 			format.json { render :json => Group.find(:all, :conditions => {:workspace_id => current_workspace.id}) }
 			format.atom {@current_objects = Group.find(:all, :conditions => {:workspace_id => current_workspace.id}); render :template => "groups/index.atom.builder", :layout => false }

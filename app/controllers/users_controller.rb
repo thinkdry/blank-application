@@ -27,7 +27,7 @@ class UsersController < ApplicationController
 	end
 
   make_resourceful do
-    actions :all, :except => [:create]
+    actions :all, :except => [:create, :index]
 
     before :new do
 			if logged_in?
@@ -104,6 +104,21 @@ class UsersController < ApplicationController
 		redirect_to '/users'
 	end
 
+	def index
+		current_objects
+		if !request.xhr?
+			@no_div = false
+			respond_to do |format|
+				format.html {  }
+				format.xml { render :xml => @paginated_objects }
+				format.json { render :json => @paginated_objects }
+			end
+		else
+			@no_div = true
+			render :partial => 'users/index', :layout => false
+		end
+	end
+
   # Create New User /users/new
   def create #:nodoc:
     # System role by default, secure assignement
@@ -141,22 +156,9 @@ class UsersController < ApplicationController
     end
   end
 
-  # Ajax Users Index with User
-  def ajax_index
-    current_objects
-    render :partial => 'users/users_list'
-  end
-
   # Users Index Object for All Users
 	def current_objects #:nodoc:
-    params[:page] ||= 1
-		if @current_user.has_system_role('superadmin')
-      @current_objects = User.paginate(:per_page => get_per_page_value, :page => params[:page])
-		elsif @current_user.has_system_role('admin')
-			@current_objects = User.paginate_by_sql("SELECT users.* FROM users, roles WHERE users.system_role_id=roles.id AND roles.name!='superadmin' AND users.activation_code!='locked'", :per_page => get_per_page_value, :page => params[:page])
-		else
-      @current_objects = User.paginate_by_sql("SELECT users.* FROM users INNER JOIN users_workspaces ON users.id = users_workspaces.user_id WHERE ((users_workspaces.workspace_id IN (SELECT workspaces.id FROM workspaces LEFT JOIN users_workspaces ON users_workspaces.workspace_id = workspaces.id AND users_workspaces.user_id = #{@current_user.id} LEFT JOIN permissions_roles ON permissions_roles.role_id = users_workspaces.role_id LEFT JOIN permissions ON permissions_roles.permission_id = permissions.id WHERE (permissions.name = 'user_show')))) AND users.activated_at IS NOT NULL GROUP BY users.id ORDER BY users.login", :per_page => get_per_page_value, :page => params[:page])
-		end
+		@current_objects ||= @paginated_objects = params[:controller].classify.constantize.get_da_objects_list(build_hash_from_params(params))
 	end
 
   # AutoComplete for Users in TextBox

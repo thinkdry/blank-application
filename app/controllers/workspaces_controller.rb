@@ -18,7 +18,7 @@ class WorkspacesController < ApplicationController
 				}, [])
 
   make_resourceful do
-    actions :show, :create, :new, :edit, :update, :destroy, :index
+    actions :all, :except => [:index]
 
     before :show do
       params[:id] ||= params[:workspace_id]
@@ -79,6 +79,21 @@ class WorkspacesController < ApplicationController
     #    end
 	end
 
+	def index
+		current_objects
+		if !request.xhr?
+			@no_div = false
+			respond_to do |format|
+				format.html { render :partial => 'workspaces/index', :layout => false  }
+				format.xml { render :xml => @paginated_objects }
+				format.json { render :json => @paginated_objects }
+			end
+		else
+			@no_div = true
+			render :partial => 'workspaces/index', :layout => false
+		end
+	end
+
   # Set Worksapce if the Worksapce Parameter Exists
 	def current_object #:nodoc:
     @current_object ||= @workspace =
@@ -93,7 +108,8 @@ class WorkspacesController < ApplicationController
 
   # Return all Workspaces with allowed permissions
 	def current_objects #:nodoc:
-		@current_objects ||= @workspaces = Workspace.allowed_user_with_permission(@current_user.id, 'workspace_show')
+		@current_objects ||= @paginated_objects = params[:controller].classify.constantize.get_da_objects_list(build_hash_from_params(params))
+			#Workspace.allowed_user_with_permission(@current_user.id, 'workspace_show')
 	end
 
   # Assign Users with role to Workspace in UsersWorkspace
