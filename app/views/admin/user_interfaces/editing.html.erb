@@ -1,3 +1,7 @@
+<link rel="stylesheet" type="text/css" href="/colorpicker/css/colorPicker.css" />
+<script type="text/javascript" src="/colorpicker/js/colorPicker.js"></script>
+
+
 <%= image_tag('/images/icons/color.png') %>
 <%= "User interface manager" %>
 <br /><br />
@@ -27,7 +31,6 @@
   <label>Select Template :</label>
   <div class="formElement">
   <select name='template[temp]' onchange="new Ajax.Updater('template','/superadministration/check_color?temp='+ this.value, {asynchronous:true, evalScripts:true})">
-  </div>
   <% @temp.each do |t| %>
     <option value="<%= t.template %>"> <%= t.template %></option>
   <% end %>

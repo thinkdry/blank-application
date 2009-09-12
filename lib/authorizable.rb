@@ -135,7 +135,7 @@ module Authorizable
 		module IMUser
 				def accepting_action(user, action, spe_cond=false, sys_cond=false, ws_cond=true)
 					# Special access
-					if user.has_system_role('superadmin') || (user=self.id && ['show', 'edit'].include?(action)) || spe_cond
+					if user.has_system_role('superadmin') || (self.id && ['show', 'edit'].include?(action)) || spe_cond
 						return true
 					end
 					# System access
@@ -198,7 +198,7 @@ module Authorizable
 					return true
 				end
         # Workspace access
-				if action=='new'
+				if self.id.nil?
 					wsl = user.workspaces
 					# no good, but lazy today
 					cats = get_sa_config['sa_items']

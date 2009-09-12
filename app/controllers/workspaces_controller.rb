@@ -11,7 +11,6 @@ class WorkspacesController < ApplicationController
 					'rate' => 'rate',
 					'add_comment' => 'comment',
 					'destroy' => 'destroy',
-					'validate' => 'edit',
 					'contacts_management' => 'contact_management',
 					'add_contacts' => 'contacts_management',
 					'add_new_user' => 'edit'
