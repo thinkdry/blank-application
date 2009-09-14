@@ -1,6 +1,12 @@
     <% if category == 'item' %>
 		<div><%= render :partial => 'generic_for_items/advanced_search', :locals => { :category => category } %></div>
     <% end %>
+    <% if category != 'user' && category != 'workspace'%>
+      <label>Workspace(s): </label>
+      <div class="formElement">
+        <%= search_in_workspaces(category) %>
+      </div>
+    <% end %>
 	<div class="dateSelection">
 	      <label><%=I18n.t('general.common_word.from1')%>: </label>
 		  <div class="formElement">

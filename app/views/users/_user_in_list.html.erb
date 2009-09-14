@@ -1,13 +1,30 @@
-	<b><%= "#{object.login} (#{object.full_name}) " %></b>
-	<%= link_to image_tag('/images/icons/play.png', :width => "20"), user_path(object.id) %>
-	<% if @current_user.has_system_role('superadmin') %>
-	  <%= link_to image_tag('/images/icons/pencil.png', :width => "20"), edit_user_path(object.id) %>
-	  <% if object.activation_code.to_s.size > 10 %>
-        <%= link_to image_tag('/images/icons/delete.png', :width => "20"), user_path(object.id), :method => :delete, :confirm => I18n.t('general.common_word.confirmation') %><br />
-      <% else %>
-        <%= link_to (object.activation_code=='locked' ? 'Unlock' : 'Lock'), locking_user_path(object.id) %><br />
+<div id="user_<%= object.id.to_s %>" class="item_in_list">
+<% if @i%2 == 0 -%>
+  <div class="sensor_in_list_alternate" onclick="toggleAccordion('itemInformations_<%=@i%>');">
+  <% else -%>
+    <div class="sensor_in_list" onclick="toggleAccordion('itemInformations_<%=@i%>');">
+
+    <% end -%>
+    <div class="left_part_sensor">
+      <a id="items_link" ><%= object.login %> (<%= object.full_name %>) </a>
+    </div>
+    <div class="right_part_sensor"><%= I18n.l object.created_at, :format =>:verb %></div>
+  </div>
+  <div id="itemInformations_<%=@i%>" style="display:none;" name="itemInformations">
+    <div class="lift_items">
+      <%= link_to image_tag('/images/icons/play.png', :width => "20"), user_path(object.id) %>
+      <% if @current_user.has_system_role('superadmin') %>
+        <%= link_to image_tag('/images/icons/pencil.png', :width => "20"), edit_user_path(object.id) %>
+        <% if object.activation_code.to_s.size > 10 %>
+          <%= link_to image_tag('/images/icons/delete.png', :width => "20"), user_path(object.id), :method => :delete, :confirm => I18n.t('general.common_word.confirmation') %><br />
+        <% else %>
+          <%= link_to (object.activation_code=='locked' ? 'Unlock' : 'Lock'), locking_user_path(object.id) %><br />
+        <% end %>
+        <i>- <%= I18n.t('general.common_word.role').capitalize %>: <%= object.system_role.name %></i><br />
+        <i><%=" - #{ I18n.t('general.common_word.last_connected') }: " + (object.last_connected_at ? time_ago_in_words(object.last_connected_at) : 'unknow but created at '+object.created_at.to_s) %></i><br />
+        <i><%=" - #{ I18n.t('general.common_word.state') }: " + object.activation_code.to_s %></i>
       <% end %>
-      <i>- <%= I18n.t('general.common_word.role').capitalize %>: <%= object.system_role.name %></i><br />
-      <i><%=" - #{ I18n.t('general.common_word.last_connected') }: " + (object.last_connected_at ? time_ago_in_words(object.last_connected_at) : 'unknow but created at '+object.created_at.to_s) %></i><br />
-      <i><%=" - #{ I18n.t('general.common_word.state') }: " + object.activation_code.to_s %></i>
-	<% end %>
+    </div>
+  </div>
+  <% @i += 1%>
+</div>

@@ -212,9 +212,9 @@ function remove_param(parent_id){
 // to check to date is grater than from or not if to date is present
 function do_search(message){
     var valid = true;
-    if ($("search[created_after]") && $("search[created_before]")){
-        var from = $("search[created_after]").value;
-        var to = $("search[created_before]").value;
+    if ($("cond[created_at_after]") && $("cond[created_at_before]")){
+        var from = $("cond[created_at_after]").value;
+        var to = $("cond[created_at_before]").value;
         //        var today = new Date().stripTime();
         if(to != 0 ){
             valid = false;

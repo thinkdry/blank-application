@@ -114,7 +114,7 @@
             <p><%= I18n.t('layout.menu.search_help') %></p>
             <p>
               <img src="/images/icons/advanced_search.png"/>
-              <a class="advanced_search" onclick="new Ajax.Updater('advanced_search', '/searches/print_advanced?search[category]='+$('search_category').value);"><%= I18n.t('layout.application.advanced_search') %></a>
+              <a class="advanced_search" onclick="new Ajax.Updater('advanced_search', '/searches/print_advanced?cat='+$('search_category').value);"><%= I18n.t('layout.application.advanced_search') %></a>
             </p>
           </div>
           <div class="fieldsetSimulation" id="searchFieldSet">
