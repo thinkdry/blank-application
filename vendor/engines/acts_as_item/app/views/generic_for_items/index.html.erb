@@ -1,1 +1,8 @@
-<%= display_items_list(@paginated_objects, request.path+'?'+request.url.split('?').last) %>
+<%= display_items_list(
+    :collection => @paginated_objects,
+    :in_list_partial => 'generic_for_items/item_in_list',
+    :ajax_url => request.path+'?'+request.url.split('?').last,
+    :ordering_fields => ['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title'],
+	:output_formats => ['xml', 'json', 'atom'],
+    :no_div => @no_div
+) %>

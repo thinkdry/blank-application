@@ -77,7 +77,9 @@ class User < ActiveRecord::Base
 
   has_many :groups 
 	# Method setting the different attribute to index for the Xapian research
-	acts_as_xapian :texts => [:login, :firstname, :lastname]
+	#acts_as_xapian :texts => [:login, :firstname, :lastname]
+	acts_as_searchable :full_text_fields => [:login, :firstname, :lastname],
+					:conditionnal_attribute => []
 	# Method including the method used for roles and permissions checkings
 	acts_as_authorized
 	acts_as_authorizable
@@ -139,34 +141,6 @@ class User < ActiveRecord::Base
   named_scope :latest,
     :order => 'created_at DESC',
     :limit => 5
-
-  # Contact List for the User with desired output format for newsletter
-	def get_contacts_list(restriction, output_format, newsletter)
-		people = []
-		users = []
-		conditions = {}
-		if newsletter
-			conditions.merge!({:newsletter => true})
-		end
-		if self.has_system_role('superadmin')
-			people = Person.all(:conditions => conditions) if restriction == 'all' || restriction == 'people'
-			users = User.all(:conditions => {:newsletter => true}) if restriction == 'all' || restriction == 'users'
-		else
-			if restriction == 'all' || restriction == 'people'
-				people = self.people.all(:conditions => conditions)
-			end
-			if restriction == 'all' || restriction == 'users'
-				Workspace.allowed_user_with_permission(self.id,'group_edit').each do |ws|
-          users += ws.users.all(:conditions => conditions)#.delete_if{ |e| !e.newsletter }
-				end
-			end
-		end
-		if output_format
-			return (people + users.uniq).map{ |e| e.send("to_#{output_format}".to_sym) }.sort!{ |a,b| a[:email].downcase <=> b[:email].downcase }
-		else
-			return (people + users.uniq).sort!{ |a,b| a[:email].downcase <=> b[:email].downcase }
-		end
-	end
 
   # User as people for newsletter subscription
   def to_person

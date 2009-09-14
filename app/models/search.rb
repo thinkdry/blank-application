@@ -30,26 +30,22 @@ class Search < ActiveRecord::Base
   end
 
 	serialize :conditions, Hash
-	
+	serialize :pagination, Hash
+	serialize :filter, Hash
+	#serialize :workspace_ids, Array
+
 	column :category, :string
-
 	column :models, :string
-
-  # Text plain search
-   
-	column :full_text_field, :text_area
-
-  # Advanced search
-
+	column :user_id, :integer
+	column :permission, :string
+	column :full_text, :text_area
 	column :conditions, :string
+
 	column :created_before, :date
 	column :created_after, :date
 
-	# Filter
-
-	column :filter_name, :string
-	column :filter_way, :string
-	column :filter_limit, :integer
+	column :filter, :string
+	column :pagination, :string
 
   # Validation
   validates_date :created_after, :created_before, :allow_nil => true
@@ -65,17 +61,39 @@ class Search < ActiveRecord::Base
 	end
 
   # Build Conditions for Advance Search, checking paramerters passed
-	def conditions
-		res = []
-		if self[:conditions]
-			self[:conditions].each do |k, v|
-				res << ["#{k} == #{v}"]
-			end
-		end
-		res << ["created_at < '#{self[:created_before].to_date}'"] if self[:created_before]
-		res << ["created_at > '#{self[:created_after].to_date}'"] if self[:created_after]
-		#raise res.join(' AND ').inspect
-		return res.join(' AND ')
+#	def conditions
+#		res = []
+#		if self[:conditions]
+#			self[:conditions].each do |k, v|
+#				res << ["#{k} == #{v}"]
+#			end
+#		end
+#		res << ["created_at < '#{self[:created_before].to_date}'"] if self[:created_before]
+#		res << ["created_at > '#{self[:created_after].to_date}'"] if self[:created_after]
+#		#raise res.join(' AND ').inspect
+#		return res.join(' AND ')
+#	end
+
+	def workspace_ids= p
+		self[:workspace_ids] = p ? p.join(',') : nil
+	end
+
+	def workspace_ids
+		self[:workspace_ids] ? self[:workspace_ids].split(',') : nil
+	end
+	
+	def param
+		return {
+			:user_id => self.user_id,
+			:permission => self.permission,
+			#:category => self.category,
+			#:models => self.models,
+			:workspace_ids => self.workspace_ids,
+			:full_text => self.full_text,
+			:conditions => self.conditions,
+			:filter => self.filter,
+			:pagination => self.pagination
+		}
 	end
 
   # Search on Single, Multiple Models with filters according to Passed Parameters
@@ -84,32 +102,15 @@ class Search < ActiveRecord::Base
 		if self[:models].split(',').size == 1
 			# Research on ONE model
 			model_const = self[:models].split(',').first.classify.constantize
-			if !self[:full_text_field].blank? && (self[:full_text_field] != I18n.t('layout.search.search_label'))
-				results += model_const.full_text_with_xapian(self[:full_text_field]).advanced_on_fields(self.conditions).filtering_with(self[:filter_name], self[:filter_way], self[:filter_limit])
-			else
-				results += model_const.advanced_on_fields(self.conditions).filtering_with(self[:filter_name], self[:filter_way], self[:filter_limit])
-			end
+			results = model_const.get_da_objects_list(self.param)
 		else
 			# Research on VARIOUS models
+			# TODO use MySQL view, but permissions ...
 			self[:models].split(',').each do |model_name|
 				model_const = model_name.classify.constantize
-				if !self[:full_text_field].blank? && (self[:full_text_field] != I18n.t('layout.search.search_label'))
-					results += model_const.full_text_with_xapian(self[:full_text_field]).advanced_on_fields(self.conditions)
-				else
-					results += model_const.advanced_on_fields(self.conditions)
-				end
-				# Filer in Ruby, not top, need to find a MySQL way
-				#raise results.inspect
-				if self[:filter_name] != 'weight'
-					results = results.sort do |x, y|
-						if (self[:filter_way] == 'desc')
-							x.send(self[:filter_name].to_sym) <=> y.send(self[:filter_name].to_sym)
-						else
-							y.send(self[:filter_name].to_sym) <=> x.send(self[:filter_name].to_sym)
-						end
-					end # TODO limit
-				end
+				results += model_const.get_da_objects_list(self.param)
 			end
+			results = results.paginate(:per_page => self[:pagination][:per_page].to_i, :page => self[:pagination][:page].to_i, :order => self[:filter][:field]+' '+self[:filter][:way])
 		end
 		return results
 	end

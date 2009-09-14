@@ -59,6 +59,11 @@
 <% end %>
 
 <div class="area_BOTH">
-  <%= display_tabs_items_list(params[:item_type], @paginated_objects, ajax_items_path(params[:item_type])) %>
+<%= display_tabs_objects_list(
+  :default_tab => params[:item_type],
+  :tabs_list => get_allowed_item_types(current_workspace),
+  :url_base => 'ajax_items_path',
+  :list_partial => 'generic_for_items/index'
+) %>
 </div>
 

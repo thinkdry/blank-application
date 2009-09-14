@@ -54,7 +54,9 @@ class Workspace < ActiveRecord::Base
             :order => "people.email ASC"
           
 	# Method defining the attibute to index for the Xapian research
-	acts_as_xapian :texts => [:title, :description]
+	#acts_as_xapian :texts => [:title, :description]
+	acts_as_searchable :full_text_fields => [:title, :description],
+					:conditionnal_attribute => []
 
 	acts_as_authorizable
 
@@ -83,35 +85,6 @@ class Workspace < ActiveRecord::Base
   named_scope :latest,
     :order => 'created_at DESC',
     :limit => 5
-
-  # Scope getting the workspaces authorized for an user with a specific permission
-	named_scope :allowed_user_with_permission, lambda { |user_id, permission_name|
-		raise 'User required' unless user_id
-		raise 'Permission name' unless permission_name
-		if User.find(user_id).has_system_role('superadmin')
-			{ :order => "workspaces.title ASC" }
-		else
-			{ :joins => "LEFT JOIN users_workspaces ON users_workspaces.workspace_id = workspaces.id AND users_workspaces.user_id = #{user_id.to_i} "+
-          "LEFT JOIN permissions_roles ON permissions_roles.role_id = users_workspaces.role_id "+
-          "LEFT JOIN permissions ON permissions_roles.permission_id = permissions.id",
-				:conditions => "permissions.name = '#{permission_name.to_s}'" ,
-        :select => "DISTINCT workspaces.*",
-        :order => "workspaces.title ASC"
-      }
-		end
-	}
-
-  # Scope getting the workspaces authorized for an user with a specific role
-	named_scope :allowed_user_with_ws_role, lambda { |user_id, role_name|
-		raise 'User required' unless user_id
-		raise 'Role name' unless role_name
-		{ :joins => "LEFT JOIN users_workspaces ON users_workspaces.workspace_id = workspaces.id AND users_workspaces.user_id = #{user_id.to_i} "+
-        "LEFT JOIN roles ON roles.id = users_workspaces.role_id",
-			:conditions => "roles.name = '#{role_name.to_s}'" ,
-      :select => "DISTINCT workspaces.*",
-      :order => "workspaces.title ASC"
-    }
-	}
 
   # Method used for the validation of the uniqueness of users linked to the workspace
 	def uniqueness_of_users #:nodoc:

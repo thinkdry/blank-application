@@ -1,6 +1,3 @@
-<div class="user_item">
-  <% for object in @current_objects %>
-  <br />
 	<b><%= "#{object.login} (#{object.full_name}) " %></b>
 	<%= link_to image_tag('/images/icons/play.png', :width => "20"), user_path(object.id) %>
 	<% if @current_user.has_system_role('superadmin') %>
@@ -14,6 +11,3 @@
       <i><%=" - #{ I18n.t('general.common_word.last_connected') }: " + (object.last_connected_at ? time_ago_in_words(object.last_connected_at) : 'unknow but created at '+object.created_at.to_s) %></i><br />
       <i><%=" - #{ I18n.t('general.common_word.state') }: " + object.activation_code.to_s %></i>
 	<% end %>
-   <% end %>
-</div>
-<%= remote_pagination(@current_objects, ajax_index_users_path,  'users_list') %>
