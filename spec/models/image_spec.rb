@@ -24,24 +24,24 @@ require File.expand_path(File.dirname(__FILE__) + '/items_spec_helper')
 
 describe Image do
   include ItemsSpecHelper
-  
+
   def item
     Image.new
   end
-  
+
   def image_attributes
     item_attributes.merge(:image => url_to_attachment_file('image.png'))
   end
-  
+
   before(:each) do
     @image = item
   end
-  
+
   it "should be valid" do
     @image.attributes = image_attributes
     @image.should be_valid
   end
-  
+
   it "should require image attachment" do
     @image.attributes = image_attributes.except(:image)
     @image.should have(1).error_on(:image)

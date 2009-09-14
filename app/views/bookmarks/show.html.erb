@@ -1,18 +1,19 @@
 <% item_show(:title => I18n.t('bookmark.show.title'),  :object => @current_object ) do %>
-	
+
 		<h2><%=I18n.t('bookmark.field.link_label')%></h2>
 		<%= link_to @current_object.link, @current_object.link %>
-		
+
 		<%#=I18n.t('bookmark.field.author_label').pluralize%>
 		<%#= @current_object.authors %>
-		
-		<h2><%=I18n.t('bookmark.field.published_date_label')%></h2>
-		<%= I18n.l @current_object.date_published, :format => :long %>
-		
+		<% if @current_object.date_published %>
+		  <h2><%=I18n.t('bookmark.field.published_date_label')%></h2>
+		  <%= I18n.l @current_object.date_published, :format => :long %>
+		<% end %>
 		<h2><%=I18n.t('bookmark.field.categories_label')%></h2>
 		<%= @current_object.categories %>
-		
+
 		<h2><%=I18n.t('bookmark.field.copyright_label')%></h2>
 		<%= @current_object.copyright %>
-	
+
 <% end %>
+

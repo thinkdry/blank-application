@@ -1,53 +1,48 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-#describe HomeController do
-#
-#  describe "responding to GET index" do
-#    fixtures :users
-#
-#    before(:each) do
-#      @current_user = users(:luc)
-#      get 'index'
-#    end
-#
-#    it "should assigns latest_items" do
-#      assigns[:latest_users].should_not be_nil
-#    end
+describe HomeController do
 
-#    it "should assigns latest_users" do
-#      assigns[:latest_users].should_not be_nil
-#    end
-#
-##    it "should assigns latest_pubmed" do
-##      assigns[:latest_pubmed].should_not be_nil
-##    end
-#
-#    it "should assigns latest_ws" do
-#      assigns[:latest_ws].should_not be_nil
-#    end
-#
-#    describe "Latest items" do
-#
-#      fixtures :images
-#
-#      it "should not contain items you cannot consult" do
-#        assigns[:latest_items].should_not include(images(:created_by_albert_in_the_future))
-#      end
-#
-#    end
-    
-#    describe "Latest pubmed imports" do
-#      fixtures :feed_sources, :feed_items
-#
-#      it "should not display items from sources user is not the owner" do
-#        accessible_items = feed_sources(:created_by_luc).feed_items
-#        assigns[:latest_pubmed].each do |feed_item|
-#          accessible_items.should include(feed_item)
-#        end
-#      end
-#
-#    end
-    
-# end
-  
-#end
+  controller_name :home
+
+  describe "responding to GET index" do
+
+    #before(:each) do
+    #  @current_user = mock_model(User)
+    #  controller.stub!(:current_user).and_return(@current_user)
+    #  controller.stub!(:set_locale).and_return(true)
+    #  controller.stub!(:get_configuration).and_return(true)
+    #  controller.stub!(:get_da_layout).and_return('application')
+    #end
+
+    #it "should assigns latest users & latest workspaces" do
+    #  @latest_ws = mock_model(Workspace)
+    #  Workspace.stub!(:allowed_user_with_permission).
+    #            with(@current_user.id, 'workspace_show').
+    #            stub!(:all).
+    #            with(:order => "created_at DESC").
+    #            and_return(@latest_ws)
+    #  @latest_users = mock_model(User)
+    #  User.stub!(:latest).and_return(@latest_users)
+    #  get :index
+    #  assigns[:latest_users].should == @latest_users
+    #  assigns[:latest_ws].should == @latest_ws
+    #end
+
+ end
+
+  describe "responding to autocomplete_on" do
+
+    #before(:each) do
+    #  controller.stub!(:current_user).and_return(true)
+    #  controller.stub!(:set_locale).and_return(true)
+    #  controller.stub!(:get_configuration).and_return(true)
+    #end
+
+   #it "should render the text for the users list" do
+   #  post :autocomplete_on, :model_name => 'keyword', :name => 'rai'
+  # response.should have_tag('ul')
+   #end
+
+ end
+end
+

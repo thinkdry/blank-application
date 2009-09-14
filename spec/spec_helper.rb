@@ -5,6 +5,9 @@ require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'spec'
 require 'spec/rails'
 
+# Setting Default locale for testing
+I18n.locale = 'fr-FR'
+
 Spec::Runner.configure do |config|
   # If you're not using ActiveRecord you should remove these
   # lines, delete config/database.yml and disable :active_record
@@ -42,7 +45,7 @@ Spec::Runner.configure do |config|
   # config.mock_with :rr
   #
   # == Notes
-  # 
+  #
   # For more information take a look at Spec::Example::Configuration and Spec::Runner
   def upload_filepath_file(filename)
     upload(url_to_filepath_file(filename))
@@ -54,6 +57,10 @@ Spec::Runner.configure do |config|
 end
 
 MEGABYTE = 1024.0 * 1024.0
+
+def actions
+  %w(new edit create update destroy index show)
+end
 
 def bytes_to_megabytes bytes
   bytes /  MEGABYTE
@@ -71,10 +78,11 @@ module ActiveRecord
         end
       end
     end
-  end 
+  end
 
 private
 
 def read_fixture(action)
   IO.readlines("#{RAILS_ROOT}/spec/fixtures/mailers/user_mailer/#{action}")
 end
+

@@ -20,11 +20,13 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 require File.expand_path(File.dirname(__FILE__) + '/items_spec_helper')
+require File.expand_path(File.dirname(__FILE__) + '/authorizable_spec_helper')
 
 describe Workspace do
+  include AuthorizableSpecHelper
   fixtures :roles, :permissions, :users, :workspaces, :users_workspaces
 
-  def workspace
+  def object
     Workspace.new
   end
 
@@ -39,7 +41,7 @@ describe Workspace do
   end
 
     before(:each) do
-      @workspace = workspace
+      @workspace = object
     end
 
     it "should be valid" do
@@ -66,7 +68,7 @@ describe Workspace do
         :class_name => "UsersWorkspace"
       }
     end
-    
+
     it "has many users through user workspaces" do
       Workspace.reflect_on_association(:users).to_hash.should =={
         :macro => :has_many,
@@ -74,6 +76,7 @@ describe Workspace do
         :class_name => 'User'
       }
     end
+
     it "has many roles through user workspaces" do
       Workspace.reflect_on_association(:roles).to_hash.should == {
         :macro => :has_many,
@@ -81,13 +84,15 @@ describe Workspace do
         :class_name => 'Role'
       }
     end
+
     it "has many items" do
-      Workspace.reflect_on_association(:items).to_hash.should == {
+      Workspace.reflect_on_association(:items_workspaces).to_hash.should == {
         :macro => :has_many,
         :options => {:extend=>[], :dependent=>:delete_all},
-        :class_name => 'Item'
+        :class_name => 'ItemsWorkspace'
       }
     end
+
     it "belongs to creator" do
       Workspace.reflect_on_association(:creator).to_hash.should == {
         :macro => :belongs_to,
@@ -95,13 +100,13 @@ describe Workspace do
         :class_name => 'Creator'
       }
     end
-    
+
   end
 
   describe "should have named scopes" do
 
     before(:each) do
-      @workspace = workspace
+      @workspace = object
     end
 
     it "allowed_user_with_permission" do
@@ -125,38 +130,5 @@ describe Workspace do
     @workspace.attributes = workspace_attributes.merge("ws_items"=>["article", "image", "cms_file"])
     @workspace.ws_items.should == "article,image,cms_file"
   end
-  
-  #  it "should save existing user attributes" do
-  #    @workspace.attributes = workspace_attributes.merge("existing_user_attributes"=>{"1"=>{"role_id"=>"4", "user_id"=>"1"}})
-  #    @workspace.existing_user_attributes.should == users_workspaces(:one)
-  #  end
-
-  #it "should save user workspace"
-
-#  describe "Permissions" do
-#
-#    it "should allow user with role to administer workspace"
-#
-#    it "should not allow user without role to administer workspace"
-#
-#    it "should allow user with role to view workspace"
-#
-#    it "should not allow users without role to view workspace"
-#
-#    it "should allow user with role to create workspace"
-#
-#    it "should not allow users without role to create workspace"
-#
-#    it "should allow user with role to edit workspace"
-#
-#    it "should not allow users without role to edit workspace"
-#
-#    it "should allow user with role to destroy workspace"
-#
-#    it "should not allow users without role to destroy workspace"
-#
-#  end
-
-
 end
 

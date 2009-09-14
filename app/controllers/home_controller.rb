@@ -1,5 +1,5 @@
-class HomeController < ApplicationController 
-  
+class HomeController < ApplicationController
+
   # HomePage of the Blank Application
   #
   # Root page ('/')
@@ -23,8 +23,9 @@ class HomeController < ApplicationController
      else
        {}
      end
-		 @objects=params[:model_name].classify.constantize.find(:all, :conditions => conditions)
-		 render :text => '<ul>'+@objects.map{ |e| '<li>'+e.name+'</li>' }.join(' ')+'</ul>'
+		 @objects = params[:model_name].classify.constantize.find(:all, :conditions => conditions)
+		 render :text => '<ul>'+ @objects.map{ |e| '<li>' + e.name + '</li>' }.join(' ')+'</ul>'
 	end
 
 end
+
