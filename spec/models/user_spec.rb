@@ -242,19 +242,19 @@ describe User do
 
   describe "methods" do
 
-    it "should return contact list" do
-     @user = users(:luc)
-     @user.get_contacts_list('all',nil,false).should == Person.all
-    end
+#    it "should return contact list" do
+#     @user = users(:luc)
+#     @user.get_contacts_list('all',nil,false).should == Person.all
+#    end
 
 #    it "should convert users to people" do
 #      @user = users(:luc)
 #      @user.to_people.class.to_s.should == 'Person'
 #    end
 
-    it "should convert user to group member" do
+#    it "should convert user to group member" do
       # Dont know how to implement..... whats d use??
-    end
+#   end
 
     it "should return system role" do
       @user = users(:luc)
