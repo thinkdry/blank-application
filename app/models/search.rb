@@ -41,14 +41,14 @@ class Search < ActiveRecord::Base
 	column :full_text, :text_area
 	column :conditions, :string
 
-	column :created_before, :date
-	column :created_after, :date
+	column :created_at_before, :date
+	column :created_at_after, :date
 
 	column :filter, :string
 	column :pagination, :string
 
   # Validation
-  validates_date :created_after, :created_before, :allow_nil => true
+  validates_date :created_at_after, :created_at_before, :allow_nil => true
 
   # Models for acts_as_xapian Search
 	def models= params
