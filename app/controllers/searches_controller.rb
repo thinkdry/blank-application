@@ -27,8 +27,7 @@ class SearchesController < ApplicationController #:nodoc: all
 #		params[:filter_name] ||= 'created_at'
 #		params[:filter_way] ||= 'desc'
 #		params[:search].merge!(:filter_name => params[:filter_name], :filter_way => params[:filter_way], :filter_limit => params[:filter_limit])
-		@search = Search.new(set_param)
-
+		@search = Search.new(set_param.merge!({'created_at_before' => params[:cond][:created_at_before],'created_at_after' => params[:cond][:created_at_after]}))
 		#raise @search.param.inspect
 		@paginated_objects = @current_objects = @search.do_search
 		#raise "que pasa"
@@ -58,7 +57,7 @@ class SearchesController < ApplicationController #:nodoc: all
 
   # Print Advance Search Partial
 	def print_advanced
-    @search ||= Search.new
+    @search ||= Search.new(:conditions => {:created_at_before => '', :created_at_after => ''})
 		render :partial => 'advanced_search', :locals => { :category => params[:cat] }
 	end
   

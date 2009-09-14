@@ -47,8 +47,10 @@ module Searchable
 					req = req.searching_text_with_xapian(options[:full_text]) if options[:full_text]
 					# 2. workspaces & permissions
 					req = req.matching_user_with_permission_in_workspaces(options[:user_id], 'show', options[:workspace_ids])
+
 					# 3. condition if there
-					
+          req = req.created_at_gt(options[:conditions][:created_at_after].to_date) if !options[:conditions][:created_at_after].to_s.blank?
+          req = req.created_at_lt(options[:conditions][:created_at_before].to_date) if !options[:conditions][:created_at_before].to_s.blank?
 					#req = req.filtering_on(options[:filter][:field], options[:filter][:way])
 					#req = req.paginating_with(options[:pagination][:per_page].to_i, ((options[:pagination][:page].to_i - 1) * options[:pagination][:per_page].to_i))
 					req = req.paginate(:per_page => options[:pagination][:per_page].to_i, :page => options[:pagination][:page].to_i, :order => options[:filter][:field]+' '+options[:filter][:way])
