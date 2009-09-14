@@ -41,14 +41,14 @@ class Search < ActiveRecord::Base
 	column :full_text, :text_area
 	column :conditions, :string
 
-	column :created_before, :date
-	column :created_after, :date
+	column :created_at_before, :date
+	column :created_at_after, :date
 
 	column :filter, :string
 	column :pagination, :string
 
   # Validation
-  validates_date :created_after, :created_before, :allow_nil => true
+  validates_date :created_at_after, :created_at_before, :allow_nil => true
 
   # Models for acts_as_xapian Search
 	def models= params
@@ -102,17 +102,25 @@ class Search < ActiveRecord::Base
 		if self[:models].split(',').size == 1
 			# Research on ONE model
 			model_const = self[:models].split(',').first.classify.constantize
-			results = model_const.get_da_objects_list(self.param)
+			results = model_const.get_da_objects_list(self.param.merge!({:skip_pag => true}))
 		else
 			# Research on VARIOUS models
 			# TODO use MySQL view, but permissions ...
 			self[:models].split(',').each do |model_name|
 				model_const = model_name.classify.constantize
-				results += model_const.get_da_objects_list(self.param)
+				results += model_const.get_da_objects_list(self.param.merge!({:skip_pag => true}))
 			end
-			results = results.paginate(:per_page => self[:pagination][:per_page].to_i, :page => self[:pagination][:page].to_i, :order => self[:filter][:field]+' '+self[:filter][:way])
+#      raise self[:filter][:field]+' '+self[:filter][:way]
 		end
+    results = results.paginate(:per_page => self[:pagination][:per_page].to_i, :page => self[:pagination][:page].to_i, :order => self[:filter][:field]+' '+self[:filter][:way])
 		return results
 	end
 
+  def advance_search_fields
+    if !self.conditions.nil?
+      self.created_at_before = self.conditions[:created_at_before]
+      self.created_at_after = self.conditions[:created_at_after]
+    end
+    return self
+  end
 end
