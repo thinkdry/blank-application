@@ -42,8 +42,8 @@ module Authorizable
 				if ITEMS.include?(self.to_s.underscore)
 					named_scope :matching_user_with_permission_in_workspaces, lambda { |user_id, permission, workspace_ids|
 						# Check if these workspace are matching the really authorized ones, and set 'nil for all' condition
-						workspace_ids ||= Workspace.allowed_user_with_permission(user_id, self.to_s.underscore+'_'+permission).map{ |e| e.id }
-						workspace_ids = workspace_ids.map{|w_id| w_id.to_i} & Workspace.allowed_user_with_permission(user_id, self.to_s.underscore+'_'+permission).map{ |e| e.id }
+						workspace_ids ||= Workspace.allowed_user_with_permission(user_id, self.to_s.underscore+'_'+permission).all(:select => 'workspaces.id').map{ |e| e.id }
+						workspace_ids = workspace_ids.map{|w_id| w_id.to_i} & Workspace.allowed_user_with_permission(user_id, self.to_s.underscore+'_'+permission).all(:select => 'workspaces.id').map{ |e| e.id }
 						# In case of system permission
 						if User.find(user_id).has_system_permission(self.to_s.underscore.pluralize, permission)
 							{ }
@@ -62,14 +62,17 @@ module Authorizable
 				elsif ['workspace'].include?(self.to_s.underscore)
 					named_scope :matching_user_with_permission_in_workspaces, lambda { |user_id, permission, workspace_ids|
 						# Check if these workspace are matching the really authorized ones, and set 'nil for all' condition
-						workspace_ids ||= Workspace.allowed_user_with_permission(user_id, self.to_s.underscore+'_'+permission).map{ |e| e.id }
-						workspace_ids = workspace_ids & Workspace.allowed_user_with_permission(user_id, self.to_s.underscore+'_'+permission).map{ |e| e.id }
+            workspace_ids ||= Workspace.allowed_user_with_permission(user_id, self.to_s.underscore+'_'+permission).all(:select => 'workspaces.id').map{ |e| e.id }
+						workspace_ids = workspace_ids.map{|w_id| w_id.to_i} & Workspace.allowed_user_with_permission(user_id, self.to_s.underscore+'_'+permission).all(:select => 'workspaces.id').map{ |e| e.id }
+            
 						# In case of system permission
 						if User.find(user_id).has_system_permission(self.to_s.underscore.pluralize, permission)
 							{ }
 						# So we can retrieve directly as the workspaces are checked, hihihi
 						elsif workspace_ids.first
-							{ }
+							{ 
+                :conditions => "id IN (#{workspace_ids.join(',')})"
+              }
 						else
 						# In order to return nothing ...
 							{ :conditions => "1=2"}
@@ -107,8 +110,8 @@ module Authorizable
 				elsif self.to_s.underscore == 'user'
 					named_scope :matching_user_with_permission_in_workspaces, lambda { |user_id, permission, workspace_ids|
 						# Check if these workspace are matching the really authorized ones, and set 'nil for all' condition
-						workspace_ids ||= Workspace.allowed_user_with_permission(user_id, self.to_s.underscore+'_'+permission).map{ |e| e.id }
-						workspace_ids = workspace_ids & Workspace.allowed_user_with_permission(user_id, self.to_s.underscore+'_'+permission).map{ |e| e.id }
+						workspace_ids ||= Workspace.allowed_user_with_permission(user_id, self.to_s.underscore+'_'+permission).all(:select => 'workspaces.id').map{ |e| e.id }
+						workspace_ids = workspace_ids & Workspace.allowed_user_with_permission(user_id, self.to_s.underscore+'_'+permission).all(:select => 'workspaces.id').map{ |e| e.id }
 						# In case of system permission
 						if User.find(user_id).has_system_permission(self.to_s.underscore.pluralize, permission)
 							{  }
