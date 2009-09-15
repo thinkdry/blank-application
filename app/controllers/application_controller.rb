@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'RMagick'
+require 'google_translate'
 
 class ApplicationController < ActionController::Base
 
@@ -17,7 +18,7 @@ class ApplicationController < ActionController::Base
   helper :all
 	# User to define controller methods as helpers methods too (and so be able to use it inside helpers or views)
 	helper_method :available_items_list, :available_languages, :get_sa_config, :right_conf,
-		:is_allowed_free_user_creation?, :get_allowed_item_types, :item_types_allowed_to, :get_per_page_value, 
+		:is_allowed_free_user_creation?, :get_allowed_item_types, :item_types_allowed_to, :get_per_page_value,
 		:admin?, :groups_of_workspaces_of_item, :get_fcke_item_types, :get_items_list
 	# Filter checking authentication with 'is_logged' method
   before_filter :is_logged?
@@ -25,7 +26,7 @@ class ApplicationController < ActionController::Base
 	before_filter :set_locale
 	# Filter setting the application configuration with the 'get_configuration' method
 	before_filter :get_configuration
-	
+
 	# Managing the authentication
   #
   # This function will try to execute the 'logged_in?' method (provided by the AutheticatedSystem library)
@@ -221,3 +222,4 @@ class ApplicationController < ActionController::Base
   end
 
 end
+

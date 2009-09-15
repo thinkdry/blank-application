@@ -1,6 +1,7 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 	include AjaxPagination
+	include GoogleTranslate
 
 	# List f the different keys used for flash messages
   FLASH_NOTICE_KEYS = [:error, :notice, :warning]
@@ -73,5 +74,18 @@ module ApplicationHelper
 		end
   end
 
-  
+  def translate_text(body)
+    if cookies[:tmp_lang].nil?
+      cookies[:tmp_lang] = 'fr'
+    elsif params[:sl]
+      translator = Translator.new("#{cookies[:tmp_lang]}","#{params[:sl]}")
+      cookies[:tmp_lang] = params[:sl]
+      body = translator.translate(body)
+    else
+    end
+    return body
+  end
+
+
 end
+
