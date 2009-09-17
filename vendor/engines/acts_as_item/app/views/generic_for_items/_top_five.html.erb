@@ -21,7 +21,7 @@
     <ul>
 	  	<%= render 	:partial => "generic_for_items/item_in_top_box",
 				:locals =>{:type_of_list => 'rated'},
-  				:collection => GenericItem.from_workspace(@workspace.id).latest  if @workspace-%>
+  				:collection => latest  if @workspace-%>
   	</ul>
   </div>
   <div id="two">

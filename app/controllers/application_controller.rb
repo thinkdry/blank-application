@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
 	# User to define controller methods as helpers methods too (and so be able to use it inside helpers or views)
 	helper_method :available_items_list, :available_languages, :get_sa_config, :right_conf,
 		:is_allowed_free_user_creation?, :get_allowed_item_types, :item_types_allowed_to, :get_per_page_value,
-		:admin?, :groups_of_workspaces_of_item, :get_fcke_item_types, :get_items_list
+		:admin?, :groups_of_workspaces_of_item, :get_fcke_item_types, :get_items_list, :build_hash_from_params
 	# Filter checking authentication with 'is_logged' method
   before_filter :is_logged?
 	# Filter defining the current locale with the 'set_locale' method
@@ -168,6 +168,7 @@ class ApplicationController < ActionController::Base
 	def build_hash_from_params(params)
 		params[:by] ||= 'created_at-desc'
 		params[:page] ||= 1
+    params[:per_page] ||=  get_per_page_value
 		return {
 			:user_id => @current_user.id,
 			:permission => 'show',
@@ -177,7 +178,7 @@ class ApplicationController < ActionController::Base
 			:full_text => params[:q],
 			:conditions => params[:cond],
 			:filter => { :field => params[:by].split('-').first, :way => params[:by].split('-').last },
-			:pagination => { :page => params[:page], :per_page => get_per_page_value }
+			:pagination => { :page => params[:page], :per_page => params[:per_page] }
 			}
 	end
 
