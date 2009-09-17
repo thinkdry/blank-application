@@ -83,7 +83,7 @@ class WorkspacesController < ApplicationController
 		if !request.xhr?
 			@no_div = false
 			respond_to do |format|
-				format.html { render :partial => 'workspaces/index', :layout => false  }
+				format.html {   }
 				format.xml { render :xml => @paginated_objects }
 				format.json { render :json => @paginated_objects }
 			end

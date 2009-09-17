@@ -62,13 +62,15 @@ class ContentController < ApplicationController
   # - '/display_content_list/:selected_item
   def display_item_in_pop_up
     @workspace = (params[:workspace_id] && !params[:workspace_id].blank?) ? Workspace.find(params[:workspace_id]) : nil
+    params[:w] = [@workspace.id] if @workspace
 		@workspaces = current_user.has_system_role('superadmin') ? Workspace.all : current_user.workspaces
 		if params[:selected_item] == 'all'
 			@selected_item_types = get_fcke_item_types
 			@item_types = (item_types_allowed_to(current_user, 'show', @workspace)&@selected_item_types)
 			params[:item_type] ||= @item_types.first
       if params[:item_type]
-        @current_objects = get_items_list(params[:item_type], @workspace)
+#        @current_objects = get_items_list(params[:item_type], @workspace)
+         @current_objects = params[:item_type].classify.constantize.get_da_objects_list(build_hash_from_params(params).merge!({:skip_pag => true}))
       else
         render :text => "No item types available for your profil."
         return
@@ -77,7 +79,8 @@ class ContentController < ApplicationController
 			@selected_item_types = [params[:selected_item].to_s.singularize]
 			params[:item_type] ||= @selected_item_types.first
 			if !params[:item_type].include?('fcke')
-				@current_objects = get_items_list(params[:selected_item], @workspace)
+#				@current_objects = get_items_list(params[:selected_item], @workspace)
+        @current_objects = params[:item_type].classify.constantize.get_da_objects_list(build_hash_from_params(params).merge!({:skip_pag => true}))
 			else
 				@fcke_objects = []
 				if session[:fck_item_type] != 'Page'
