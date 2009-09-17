@@ -21,7 +21,7 @@
       <label><%= I18n.t 'layout.popup.filter_by_item_type' %>:</label>
       <p>
         <% for item in @item_types %>
-          <%= link_to item ,'/content_for_popup/'+params[:selected_item]+'?workspace_id='+params[:workspace_id].to_s+'&item_type='+item %> |
+          <%= link_to item ,'/content_for_popup/'+params[:selected_item]+'?'+"#{!params[:workspace_id].nil? ? 'workspace_id='+params[:workspace_id].to_s+"&" : ''}"+'item_type='+item %> |
         <% end %>
       </p>
     <% else %>

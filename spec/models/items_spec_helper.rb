@@ -62,20 +62,8 @@ module ItemsSpecHelper
             @object = item
           end
 
-          it "Full Text Xapian Search" do
-            @object.class.to_s.classify.constantize.full_text_with_xapian('hello').proxy_options.should == {:conditions => ["#{@object.class.to_s.pluralize.underscore}.id in (?)", []]}
-          end
-
-          it "Advance on Fields" do
-            @object.class.to_s.classify.constantize.advanced_on_fields('').proxy_options.should == {:conditions => ''}
-          end
-
           it "in_workspaces" do
             @object.class.to_s.classify.constantize.in_workspaces('1').proxy_options.should == {:select=>"DISTINCT *", :joins=>"LEFT JOIN items_workspaces ON (items_workspaces.itemable_type = '#{@object.class.to_s}' AND items_workspaces.workspace_id IN ['1'])"}
-          end
-
-          it "filtering_with" do
-            @object.class.to_s.classify.constantize.filtering_with('title','asc',2).proxy_options.should == {:limit=> 2, :order=>"#{@object.class.to_s.pluralize.underscore}.title asc"}
           end
 
         end

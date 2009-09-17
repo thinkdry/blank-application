@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'RMagick'
+require 'google_translate'
 
 class ApplicationController < ActionController::Base
 
@@ -17,15 +18,15 @@ class ApplicationController < ActionController::Base
   helper :all
 	# User to define controller methods as helpers methods too (and so be able to use it inside helpers or views)
 	helper_method :available_items_list, :available_languages, :get_sa_config, :right_conf,
-		:is_allowed_free_user_creation?, :get_allowed_item_types, :item_types_allowed_to, :get_per_page_value, 
-		:admin?, :groups_of_workspaces_of_item, :get_fcke_item_types, :get_items_list, :build_hash_from_params
+		:is_allowed_free_user_creation?, :get_allowed_item_types, :item_types_allowed_to, :get_per_page_value,
+		:admin?, :groups_of_workspaces_of_item, :get_fcke_item_types, :build_hash_from_params
 	# Filter checking authentication with 'is_logged' method
   before_filter :is_logged?
 	# Filter defining the current locale with the 'set_locale' method
 	before_filter :set_locale
 	# Filter setting the application configuration with the 'get_configuration' method
 	before_filter :get_configuration
-	
+
 	# Method managing the authentication
   #
   # This function will try to execute the 'logged_in?' method (provided by the AutheticatedSystem library)
@@ -114,10 +115,14 @@ class ApplicationController < ActionController::Base
 		end
 	end
 
+	# Method building a structure used by 'get_da_objects_list' Searchable library method
+	#
+	# This method is returning an hash with the default value and all the others parameters
+	# needed to make a research.
 	def build_hash_from_params(params)
 		params[:by] ||= 'created_at-desc'
 		params[:page] ||= 1
-    params[:per_page] ||=  get_per_page_value
+    params[:per_page] ||= get_per_page_value
 		return {
 			:user_id => @current_user.id,
 			:permission => 'show',
@@ -172,3 +177,4 @@ class ApplicationController < ActionController::Base
   end
 
 end
+

@@ -1,6 +1,7 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 	include AjaxPagination
+	include GoogleTranslate
 
 	# List f the different keys used for flash messages
   FLASH_NOTICE_KEYS = [:error, :notice, :warning]
@@ -15,7 +16,7 @@ module ApplicationHelper
 		if (available_languages.size > 1)
 			res = "<select name='languages' id='languages' onchange=\"new Ajax.Request('/session/change_language?locale='+this.value, {asynchronous:true, evalScripts:true}); return false;\">"
 			available_languages.each do |l|
-        if I18n.locale==l
+        if I18n.locale == l
           res += "<option value='#{l}' selected=true>"+I18n.t('general.language.'+l)+"</option>"
         else
           res += "<option value='#{l}'>"+I18n.t('general.language.'+l)+"</option>"
@@ -73,5 +74,18 @@ module ApplicationHelper
 		end
   end
 
-  
+  def translate_text(body)
+    if cookies[:tmp_lang].nil?
+      cookies[:tmp_lang] = 'fr'
+    elsif params[:sl]
+      translator = Translator.new("#{cookies[:tmp_lang]}","#{params[:sl]}")
+      cookies[:tmp_lang] = params[:sl]
+      body = translator.translate(body)
+    else
+    end
+    return body
+  end
+
+
 end
+
