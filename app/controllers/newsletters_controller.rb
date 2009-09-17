@@ -9,6 +9,7 @@ class NewslettersController < ApplicationController
   acts_as_item do
 
     before :show do
+			# Set the group available for newsletter sending
       if current_workspace
         @groups = current_user.groups.all(:select =>"id, title", :conditions => ["workspace_id = #{current_workspace.id}"])
       else

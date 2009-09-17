@@ -20,6 +20,8 @@
 # The Search object is waiting for various parameters allowing it to request the database,
 # and the order the results.
 #
+# Still under construction ... sorry for the mess.
+#
 class Search < ActiveRecord::Base
 
 	# Tableless model
@@ -59,20 +61,6 @@ class Search < ActiveRecord::Base
 	def get_value_of_param(param_name)#:nodoc:
 		return self[:conditions][param_name]
 	end
-
-  # Build Conditions for Advance Search, checking paramerters passed
-#	def conditions
-#		res = []
-#		if self[:conditions]
-#			self[:conditions].each do |k, v|
-#				res << ["#{k} == #{v}"]
-#			end
-#		end
-#		res << ["created_at < '#{self[:created_before].to_date}'"] if self[:created_before]
-#		res << ["created_at > '#{self[:created_after].to_date}'"] if self[:created_after]
-#		#raise res.join(' AND ').inspect
-#		return res.join(' AND ')
-#	end
 
 	def workspace_ids= p
 		self[:workspace_ids] = p ? p.join(',') : nil

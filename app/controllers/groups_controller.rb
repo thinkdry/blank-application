@@ -1,7 +1,9 @@
 # This controller is managing the different actions relative to the Group item.
 #
-# It is using a mixin function called 'acts_as_item' from the ActsAsItem::ControllerMethods::ClassMethods,
-# so see the documentation of that module for further informations.
+# It is not using the mixin function called 'acts_as_item' from the ActsAsItem::ControllerMethods::ClassMethods,
+# because the item is linked only to one workspace.
+# By the way, it is not list with the content but in an other section called 'Contacts management'.
+# TODO find a soltuion to manage item linked to just ONE workspace (with workspace_id field)
 #
 
 class GroupsController < ApplicationController

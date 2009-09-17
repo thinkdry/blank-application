@@ -28,6 +28,7 @@ namespace :blank do
 
 	desc "Initializing Blank Engine"
 	task :update => :environment do
+		Rake::Task['gems:install'].invoke
 		Rake::Task['db:migrate'].invoke
 		Rake::Task['blank:xapian_rebuild'].invoke
 	end

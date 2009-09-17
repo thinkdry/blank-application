@@ -1,6 +1,6 @@
 module SearchesHelper
 	
-	# Select Box for Search
+	# Display the select box for search
   #
   # This method will return a select box with the different models available for the Search part.
 	def select_search_models

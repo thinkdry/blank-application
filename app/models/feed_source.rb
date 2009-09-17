@@ -35,9 +35,9 @@ require 'feedzirra'
 
 # This class is defining an item object called 'FeedSource'.
 #
-# You can use it to define a Web feed by different ways :
-# - Checking an existing url on Internet
-# - Defining an url of the Blank application (on items list, search results, ... with filters)
+# You can use it to define a Web feed matching an URL.
+# That's why the new form is quite different than for the others items,
+# here you just have to specify the URL from where you want get the informations.
 #
 # On the show page, a button allows you to print the different feed items link to your feed source.
 #

@@ -2,13 +2,15 @@ class UsersController < ApplicationController
 	
   acts_as_ajax_validation
 
-	acts_as_authorizable({
+	acts_as_authorizable(
+		:actions_permissions_links => {
 				'edit' => 'edit',
 				'update' => 'edit',
 				'show' => 'show',
 				'destroy' => 'destroy',
 				'locking' => 'destroy'
-			}, [:new, :create, :validate, :forgot_password, :reset_password, :activate])
+			},
+		:skip_logging_actions => [:new, :create, :validate, :forgot_password, :reset_password, :activate])
 
 	#layout 'application', :expect => [:new, :create]
 	layout :give_da_layout
@@ -17,12 +19,12 @@ class UsersController < ApplicationController
 	def give_da_layout 
 		if params[:action]== 'new' || params[:action]== 'forgot_password' || params[:action] == 'reset_password'
 			if logged_in?
-				return get_da_layout
+				return get_current_layout
 			else
 				return 'login'
 			end
 		else
-			return get_da_layout
+			return get_current_layout
 		end
 	end
 
@@ -66,7 +68,7 @@ class UsersController < ApplicationController
     #    end
     #
     #		response_for :create_fails do |format|
-    #			format.html { render :action => 'new', :layout => (@current_user ? get_da_layout : 'login') }
+    #			format.html { render :action => 'new', :layout => (@current_user ? get_current_layout : 'login') }
     #		end
 
     after :update do
@@ -151,7 +153,7 @@ class UsersController < ApplicationController
       end
       flash.now[:error] = I18n.t('user.new.flash_error')
       respond_to do |format|
-        format.html { render :action => 'new', :layout => (current_user ? get_da_layout : 'login') }
+        format.html { render :action => 'new', :layout => (current_user ? get_current_layout : 'login') }
       end
     end
   end

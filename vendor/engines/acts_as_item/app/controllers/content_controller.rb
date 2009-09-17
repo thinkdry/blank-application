@@ -9,8 +9,8 @@ class ContentController < ApplicationController
 	# It is so rendering the 'items/index.html.erb' view template.
 	#
 	# Usage URL :
-	# - /content
-	# - /content?item_type=article
+	# - GET /content
+	# - GET /content?item_type=article
   def index
 		params[:item_type] ||= get_allowed_item_types(current_workspace).first.pluralize
 #		@current_objects = get_items_list(params[:item_type], current_workspace)
@@ -38,8 +38,8 @@ class ContentController < ApplicationController
 	# It is linked to an url and managed an AJAX request.
 	#
   # Usage URL:
-  # - /ajax_content
-	# - /ajax_content?item_type=article
+  # - GET /ajax_content
+	# - GET /ajax_content?item_type=article
   #
   def ajax_index
 		params[:item_type] ||= get_allowed_item_types(current_workspace).first.pluralize
@@ -59,7 +59,7 @@ class ContentController < ApplicationController
 	# and with other parameters like the workspace selected, in order to filter the results.
 	#
   # Usage URL :
-  # - '/display_content_list/:selected_item
+  # - GET '/display_content_list/:selected_item
   def display_item_in_pop_up
     @workspace = (params[:workspace_id] && !params[:workspace_id].blank?) ? Workspace.find(params[:workspace_id]) : nil
 		@workspaces = current_user.has_system_role('superadmin') ? Workspace.all : current_user.workspaces

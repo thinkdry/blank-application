@@ -53,8 +53,7 @@ class Workspace < ActiveRecord::Base
             :conditions   => "contacts_workspaces.contactable_type = 'Person'",
             :order => "people.email ASC"
           
-	# Method defining the attibute to index for the Xapian research
-	#acts_as_xapian :texts => [:title, :description]
+	# Mixin method alloing to make easy search on the model
 	acts_as_searchable :full_text_fields => [:title, :description],
 					:conditionnal_attribute => []
 

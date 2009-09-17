@@ -2,13 +2,21 @@ class WorkspaceContactsController < ApplicationController
 
 	# Filter skipping the 'is_logged?' filter to allow non-logged user to unsubscribe from the newsletter
 	skip_before_filter :is_logged?, :only => [:unsubscribe]
+
 	before_filter :permission_checking, :except => [:unsubscribe, :subscribe_newsletter]
 
 	def permission_checking
 		no_permission_redirection unless @current_user && current_workspace && current_workspace.has_permission_for?('contacts_management', @current_user)
 	end
 
-	#To assing/remove workspace contacts URL: workspaces/1/add_contacts
+	# Action to assing/remove workspace contacts from a workspace
+	#
+	# This action manage the GET method to print the form,
+	# and also the POST method to update the values set.
+	#
+	# Usage URL :
+	# GET /workspaces/:id/add_contacts
+	# POST /workspaces/:id/add_contacts
   def select
     @current_object = current_workspace
     if request.get?
@@ -22,6 +30,11 @@ class WorkspaceContactsController < ApplicationController
     end
   end
 
+	# Action managing the contacts list and also others action done on this list
+	#
+	# Usage URL :
+	# - GET /workspaces/:id/contacts/list
+	# - POST /workspaces/:id/contacts/list?to_do=remove
 	def list
 		if params[:contacts_workspaces_ids]
 			if params[:to_do] == 'remove'
@@ -62,6 +75,14 @@ class WorkspaceContactsController < ApplicationController
 		end
 	end
 
+	# Action to subscribe on a workspace for an user of the application
+	#
+	# This action allows also to unsuscribe for an user of the application,
+	# if the params 'remove' is set.
+	#
+	# Usage URL :
+	# - GET /workspaces/:id/contacts/subscribe
+	# - GET /workspaces/:id/contacts/subscribe?remove=true
 	def subscribe
 		if params[:remove]
 			a=ContactsWorkspace.find(:first, :conditions => {
@@ -94,14 +115,12 @@ class WorkspaceContactsController < ApplicationController
 		end
 	end
 
-	# Method to unsubscribe from a newsletter for given sha1_id
-  #
-	# TODO bl i
+	# Action to unsubscribe from workspace for an non-logged user
 	#
-  # Usage URL:
-  #
-  # /unsubscribe_for_newsletter?cid=#{sha1_id of contacts_workspace}
-  #
+	# This action is using a SHA1 key to identify the user.
+	#
+  # Usage URL :
+  # - GET /unsubscribe_for_newsletter?cid=#{sha1_id of contacts_workspace}
   def unsubscribe
     contact_workspace = ContactsWorkspace.find(:first, :conditions => ["sha1_id = '#{params[:cid]}'"])
     if contact_workspace && contact_workspace.update_attribute(:state, 'unsubscribed')

@@ -1,8 +1,11 @@
 class WorkspacesController < ApplicationController
-	
+
+	# Mixin method implementing ajax validation for that controller
   acts_as_ajax_validation
 
-	acts_as_authorizable({
+	# Mixin setting the permission for that controller (see lib/acts_as_authorizable.rb for more)
+	acts_as_authorizable(
+		:actions_permissions_links => {
 					'new' => 'new',
 					'create' => 'new',
 					'edit' => 'edit',
@@ -14,8 +17,10 @@ class WorkspacesController < ApplicationController
 					'contacts_management' => 'contact_management',
 					'add_contacts' => 'contacts_management',
 					'add_new_user' => 'edit'
-				}, [])
+				},
+		:skip_logging_actions => [])
 
+	# Method implementing the CRUD methods for tht controller (see MakeResourceful plugin for more)
   make_resourceful do
     actions :all, :except => [:index]
 
@@ -70,14 +75,20 @@ class WorkspacesController < ApplicationController
 			format.html { redirect_to administration_user_url(@current_user.id) }
 		end
     
-    #		response_for :show do |format|
-    #      format.html { render :action => "show" }
-    #      format.xml { render :xml => @current_object }
-    #      format.json { render :json => @current_object }
-    #      format.atom { render :template => "items/index.atom.builder", :layout => false }
-    #    end
+		response_for :show do |format|
+			format.html { render :action => "show" }
+			format.xml { render :xml => @current_object }
+			format.json { render :json => @current_object }
+			format.atom { render :template => "items/index.atom.builder", :layout => false }
+		end
+		
 	end
 
+	# Action managing the workspaces list (used also with AJAX call, for pagination or ordering)
+	#
+	# Usage URL :
+	# - GET /workspaces
+	# - GET /workspaces?by=title-asc&page=2
 	def index
 		current_objects
 		if !request.xhr?
@@ -93,8 +104,8 @@ class WorkspacesController < ApplicationController
 		end
 	end
 
-  # Set Worksapce if the Worksapce Parameter Exists
-	def current_object #:nodoc:
+  # Method getting the workspace instance depending of the params set
+	def current_object
     @current_object ||= @workspace =
       if params[:id]
       Workspace.find(params[:id])
@@ -105,17 +116,18 @@ class WorkspacesController < ApplicationController
     end
   end
 
-  # Return all Workspaces with allowed permissions
-	def current_objects #:nodoc:
+  # Method getting all the workspaces depending of user permission
+	def current_objects
 		@current_objects ||= @paginated_objects = params[:controller].classify.constantize.get_da_objects_list(build_hash_from_params(params))
 			#Workspace.allowed_user_with_permission(@current_user.id, 'workspace_show')
 	end
 
-  # Assign Users with role to Workspace in UsersWorkspace
+  # Action to insert user field with role to the workspace (used with AJAX call)
   #
-  # Usage URL
-  #
-  # /workspaces/add_new_user
+	# This action is just updating the form, not saving the entry.
+	#
+  # Usage URL :
+  # POST /workspaces/add_new_user
   def add_new_user
 		@current_object ||= Workspace.find(params[:id])
     @user = User.find(:first, :conditions => { :login => params[:user_login].split(' (').first })
@@ -131,12 +143,13 @@ class WorkspacesController < ApplicationController
     end
   end
 
-  # Unsubscribe from Worksapce
+  # Action to leave the worksapce
+	#
+	# This action remove the entry linking the current workspace with the current user,
+	# from UsersWorkspaces table
   #
-  # Usage URL
-  #
-  # /workspaces/unsubscription
-  #
+  # Usage URL :
+  # /workspaces/:id/unsubscription
 	def unsubscription
 		@current_object = Workspace.find(params[:id])
 		if UsersWorkspace.find(:first, :conditions => { :user_id => self.current_user.id, :workspace_id => params[:id] }).destroy
@@ -148,12 +161,10 @@ class WorkspacesController < ApplicationController
 		end
 	end
 
-  # Subscribe to Worksapce
+  # Action to join a workspace
   #
-  # Usage URL
-  #
-  # /workspaces/subscription
-  #
+  # Usage URL :
+  # GET /workspaces/:id/subscription
 	def subscription
 		@current_object = Workspace.find(params[:id])
 		if UsersWorkspace.create(:user_id => self.current_user.id, :workspace_id => params[:id], :role_id => Role.find_by_name('reader').id)
@@ -165,6 +176,10 @@ class WorkspacesController < ApplicationController
 		end
 	end
 
+	# Action to send a request to the workspace administrator
+	#
+	# Usage URL :
+	# - POST /workspaces/:id/question
 	def question #:nodoc:
 		@current_object = Workspace.find(params[:id])
 		if UserMailer.deliver_ws_administrator_request(Workspace.find(params[:id]).creator, @current_user.id, params[:question][:type], params[:question][:msg])

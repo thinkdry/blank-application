@@ -57,6 +57,7 @@ class UserMailer < ActionMailer::Base
   end
 
   protected
+	# Method setting some default value for emails
     def setup_email(user)
       recipients user.email
       from self.contact_email

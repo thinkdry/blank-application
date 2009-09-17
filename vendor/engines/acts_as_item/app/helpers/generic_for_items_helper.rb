@@ -43,6 +43,6 @@ module GenericForItemsHelper
           model_const = item.classify.constantize
           generic_items += model_const.get_da_objects_list(params).to_a
         }
-    return generic_items.sort!{|a, b| b.send(filter.split('-').first) <=> a.send(filter.split('-').first)}[0,5]
+    return generic_items.sort!{|a, b| b.send(filter.split('-').first.to_sym) <=> a.send(filter.split('-').first.to_sym)}[0,5]
   end
 end

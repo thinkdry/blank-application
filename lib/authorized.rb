@@ -1,3 +1,6 @@
+# This module will defined the methods allowing to check easily the roles and permissions
+# link to an object, in our case a User object linked to workspaces (or no).
+#
 module Authorized
   module ModelMethods
     
@@ -6,6 +9,8 @@ module Authorized
     end
     
     module ClassMethods
+			# Mixin method setting the relation N-1 getting workspace Role objects through the 'users_workspaces' table
+			# and including instance methods usefull to get roles and permissions.
 			def acts_as_authorized
 				# Relation N-1 getting workspace Role objects through the 'users_workspaces' table
 				has_many :workspace_roles, :through => :users_workspaces, :source => :role
@@ -16,63 +21,52 @@ module Authorized
     end
     
     module InstanceMethods
-				# User System Role for Permissions
+				# Method returning the system role
 				#
-				# Usage:
-				#
+				# Usage :
 				# <tt>user.system_role</tt>
-				#
-				# will return the role object of the system role
-				#
 				def system_role
 					return Role.find(self.system_role_id)
 				end
 
-				# Check User for System role with passed 'role'
+				# Method returning true if the user has the system role passed in params, false else
 				#
-				# Usage:
+				# Parameters :
+				# - role_name: String defining the role
 				#
+				# Usage :
 				# <tt>user.has_system_role('admin')</tt>
-				#
-				# will return true if the user has role 'admin' or if he is superadmin
-				#
 				def has_system_role(role_name)
 					return (self.system_role.name == role_name) || self.system_role.name == 'superadmin'
 				end
 
-				# Check User for Workspace Role with passed 'workspace' & 'role_type'
+				# Method returning true if the user has the workspace role passed in params, false else
+				#
+				# Parameters :
+				# - workspace_id: Integer for workspace id
+				# - role_name: String defining the role
 				#
 				# Usage:
-				#
 				# <tt>user.has_workspace_role('ws_admin')</tt>
-				#
-				# will return true if the user has role 'ws_admin' for workspace or if he is superadmin
-				#
 				def has_workspace_role(workspace_id, role_name)
 					return UsersWorkspace.exists?(:user_id => self.id, :workspace_id => workspace_id, :role_id => Role.find_by_name(role_name).id) || self.system_role.name == 'superadmin'
 				end
 
-				# Users System Permissions
+				# Method returning the system permissions list
 				#
-				# Usage:
-				#
+				# Usage :
 				# <tt>user.system_permissions</tt>
-				#
-				# will return all the permissions for the user system role
-				#
 				def system_permissions
 					return self.system_role.permissions
 				end
 
-				# Users Workspace Permissions
-				# Users System Permissions
+				# Method returning the workspace permissions list
 				#
-				# Usage:
+				# Parameters :
+				# - workspace_id: Integer defining the workspace id
 				#
-				# <tt>user.workspace_permissions</tt>
-				#
-				# will return all the permissions for the user workspace role for given workspace
-				#
+				# Usage :
+				# <tt>user.workspace_permissions(2)</tt>
 				def workspace_permissions(workspace_id)
 					if UsersWorkspace.exists?(:user_id => self.id, :workspace_id => workspace_id)
 						return UsersWorkspace.find(:first, :conditions => {:user_id => self.id, :workspace_id => workspace_id}).role.permissions
@@ -81,27 +75,28 @@ module Authorized
 					end
 				end
 
-				# User System Role for Controller and Action
+				# Method returning true if user has the system permission, false else
 				#
-				# Usage:
+				# Parameters :
+				# - controller: String defining the controller defining the first part of the permission
+				# - action: String defining the action defining the second part of the permission
 				#
+				# Usage :
 				# <tt>user.has_system_permission('workspaces','new')</tt>
-				#
-				# will return true if the user has system permission to create new workspace
-				#
 				def has_system_permission(controller, action)
 					permission_name = controller+'_'+action
 					return !self.system_permissions.delete_if{ |e| e.name != permission_name}.blank? || self.has_system_role('superadmin')
 				end
 
-				# User Worksapce Role for Given Worksapce, Controller and Action
+				# Method returning true if user has the workspace permission, false else
 				#
-				# Usage:
+				# Parameters :
+				# - workspace_id: Integer for workspace id
+				# - controller: String defining the controller defining the first part of the permission
+				# - action: String defining the action defining the second part of the permission
 				#
+				# Usage :
 				# <tt>user.has_workspace_permission('articles','new')</tt>
-				#
-				# will return true if the user has workspace permission to create new article
-				#
 				def has_workspace_permission(workspace_id, controller, action)
 					permission_name = controller+'_'+action
 					return !self.workspace_permissions(workspace_id).delete_if{ |e| e.name != permission_name}.blank? || self.has_system_role('superadmin')

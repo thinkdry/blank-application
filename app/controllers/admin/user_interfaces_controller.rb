@@ -1,13 +1,22 @@
 class Admin::UserInterfacesController < ApplicationController
 
+	# Filter restricting the access to only superadministrator user
 	before_filter :is_superadmin?
 
+	# Action managing the form presenting the user interface settings of the application
+	#
+	# Usage URL :
+	# - GET  /admin/user_interface/editing
 	def editing
 		@elements = Element.find(:all, :conditions => {:template=>"current"})
     @temp=Element.find( :all, :select => 'DISTINCT template' )
 		@configuration.extend Extentions::HashFeatures
 	end
-	
+
+	# Action updating the YAML config file with the params set in the previous form
+	#
+	# Usage URL :
+	# - PUT /admin/user_interfaces/updating
 	def updating
     if !params[:configuration][:sa_logo_url].blank? && (IMAGE_TYPES.include?(params[:configuration][:sa_logo_url].content_type.chomp))
         #					upload_photo(params[:pictures][:logo],240,55, '/public/config_files/logo.jpg')
@@ -39,10 +48,10 @@ class Admin::UserInterfacesController < ApplicationController
 
 	end
 
+	# Action setting the color checked (used with AJAX call)
 	#
   # Usage URL
-  #
-  # /superadministration/check_color
+  # - GET /user_interfaces/check_color
 	def check_color
 		@elements = Element.find(:all, :conditions => {:template => params[:temp]})
     @temp = Element.find(:all, :select => 'DISTINCT template')

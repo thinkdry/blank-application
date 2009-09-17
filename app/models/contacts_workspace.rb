@@ -1,5 +1,7 @@
 require 'digest/sha1'
 
+# This object is used to manage the contacts of a workspace.
+# It is used to build groups in that workspaces.
 class ContactsWorkspace < ActiveRecord::Base
 
 	# Relation N-1 with the 'groupings' table
@@ -8,15 +10,10 @@ class ContactsWorkspace < ActiveRecord::Base
   belongs_to :workspace#, :dependent => :delete_all
 	# Polymorphic relation with the items tables
   belongs_to :contactable, :polymorphic => true
-
+	# Filter updating the 'sha_id' field used for unsubscribe
   before_save :create_sha1_id
 
-#	named_scope :not_being_in_one_group_in_workspace, lambda{ |workspace_id|
-#		{ :joins => "LEFT JOIN groupings ON groupings.contacts_workspace_id = contacts_workspaces.id"+
-#				"LEFT JOIN groups ON group",
-#			:conditions => {  } }
-#	}
-
+	# Method returning a generic structure cutting specific part due to polymorphism
 	def to_group_member(user_id=nil)
 		return {
 				'id' => self.id,
@@ -32,7 +29,7 @@ class ContactsWorkspace < ActiveRecord::Base
 	end
 
   private
-
+	# Method updating the 'sha1_id' field
   def create_sha1_id
     self.sha1_id = Digest::SHA1.hexdigest("#{self.id}-#{self.contactable_type}-#{self.contactable_id}")
   end

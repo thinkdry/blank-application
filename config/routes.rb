@@ -53,7 +53,7 @@ ActionController::Routing::Routes.draw do |map|
 	map.resource :session, :member => { :change_language => :any }
 
   # Routes for People
-	map.resources :people, :collection => {:export_people => :any, :import_people => :any,:ajax_index => :get,:get_empty_csv => :get, :validate => :any ,:filter => :get }
+	map.resources :people, :collection => {:export_people => :get, :import_people => :any, :get_empty_csv => :get, :validate => :get ,:filter => :get }
 
   # Routes Related to SuperAdministrator
 	map.namespace :admin do |part|
@@ -98,7 +98,7 @@ ActionController::Routing::Routes.draw do |map|
       parent.resources name.pluralize.to_sym, :member => member_to_set, :collection => {:validate => :any}
     end
     parent.content '/content/:item_type', :controller => 'content', :action => 'index'
-    parent.ajax_content '/ajax_content/:item_type', :controller => 'content', :action => 'ajax_index'
+		parent.ajax_content '/ajax_content/:item_type', :controller => 'content', :action => 'ajax_index'
 		parent.content_popup '/content_for_popup/:selected_item', :controller => 'content', :action => 'display_item_in_pop_up'
   end
 
@@ -120,7 +120,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :workspaces, :member => { :add_new_user => :any, :subscription => :any, :unsubscription => :any, :question => :any }, :collection => {:validate => :any} do |workspaces|
     items_resources(workspaces)
 		workspaces.resources :groups, :collection => { :validate => :any, :filtering_contacts => :get }, :member => { :export_to_csv => :any, :add_comment => :any }
-		workspaces.resources :people, :collection => { :export_people => :any, :import_people => :any,:ajax_index => :get,:get_empty_csv => :get, :validate => :any ,:filter => :get }
+		workspaces.resources :people, :collection => { :export_people => :any, :import_people => :any, :get_empty_csv => :get, :validate => :any ,:filter => :get }
 		workspaces.resources :workspace_contacts, :as => 'contacts', :except => :all, :collection => { :select => [:post, :get], :list => [:post, :get], :subscribe => :get}
   end
 	
