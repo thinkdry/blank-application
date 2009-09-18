@@ -25,7 +25,7 @@ module Authorizable
 						obj = params[:controller].classify.constantize
 						@current_object = ['new', 'create','validate'].include?(params[:action]) ? obj.new : obj.find(params[:id])
 						#no_permission_redirection unless @current_user && @current_object.send("accepts_#{hash[params[:action]]}_for?".to_sym, @current_user)
-						no_permission_redirection unless @current_user && @current_object.has_permission_for?(hash[params[:action]], @current_user)
+						no_permission_redirection unless @current_user && @current_object.has_permission_for?(options[:actions_permissions_links][params[:action]], @current_user)
 					else
 						# it is permissive
 					end

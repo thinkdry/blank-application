@@ -14,10 +14,10 @@ class RolesController < ApplicationController
   def index
     @system_roles = Role.find(:all, :conditions => { :type_role => 'system'} )
 		@workspace_roles = Role.find(:all, :conditions => { :type_role => 'workspace'} )
-        respond_to do |format|
-          format.html # index.html.erb
-          format.xml  { render :xml => @roles }
-        end
+		respond_to do |format|
+			format.html # index.html.erb
+			format.xml  { render :xml => @roles }
+		end
   end
 
 #	# Action managing the role show
@@ -43,10 +43,10 @@ class RolesController < ApplicationController
     @role = Role.new
 		@role.type_role = params[:type_role]
 		get_permissions
-        respond_to do |format|
-          format.html # new.html.erb
-          format.xml  { render :xml => @role }
-        end
+		respond_to do |format|
+			format.html # new.html.erb
+			format.xml  { render :xml => @role }
+		end
   end
 
 	# Action managing the edit form

@@ -1,6 +1,5 @@
 require 'rubygems'
 require 'RMagick'
-require 'google_translate'
 
 class ApplicationController < ActionController::Base
 

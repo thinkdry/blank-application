@@ -1,20 +1,6 @@
-<script type='text/javascript'>
-
-function translate_it(lang){
- if (window.location.href.indexOf('?') > 1 ) {
-        window.location.href = window.location.href.split('?')[0] + "?sl=" + lang  ;
-    }else{
-        window.location.href = window.location.href + "?sl=" + lang ;
-    }
-}
-
-</script>
-
 <% item_show( :title => 'Article',  :object => @current_object ) do %>
 
-  <%#= @current_object.body %>
-  <%= select "translate", "lang", ['en','fr','es'],{:include_blank => true, :selected => params[:sl]}, {:onchange => "translate_it(this.value)"}%>
-  <%= translate_text(@current_object.body)%>
+  <%= @current_object.body %>
   <% if @current_object.article_files.size > 0 %>
     <h2><%= image_tag 'icons/attach.png'%><%=I18n.t('article.field.assosiated_file_label')%></h2>
   <div id="attachement">

@@ -1,7 +1,6 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 	include AjaxPagination
-	include GoogleTranslate
 
 	# List f the different keys used for flash messages
   FLASH_NOTICE_KEYS = [:error, :notice, :warning]
