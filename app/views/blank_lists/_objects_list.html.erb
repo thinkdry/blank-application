@@ -12,7 +12,8 @@
   <div class="other_output_format">
     <%= I18n.t('item.show.get_in_another_format')%>:
     <% output_formats.each do |of| %>
-      <%= link_to image_tag("/images/icons/#{of}.png"), "#{request.url}#{request.url.include?('?') ? '&' : '?'}format=#{of}" %>
+      <% format_url = !output_formats_url.nil? ? output_formats_url + "#{output_formats_url.include?('?') ? '&' : '?'}format=#{of}" : "  #{request.url}#{request.url.include?('?') ? '&' : '?'}format=#{of}" %>
+      <%= link_to image_tag("/images/icons/#{of}.png"), "#{format_url}" %>
     <% end %>
   </div>
 

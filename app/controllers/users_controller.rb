@@ -112,8 +112,9 @@ class UsersController < ApplicationController
 			@no_div = false
 			respond_to do |format|
 				format.html {  }
-				format.xml { render :xml => @paginated_objects }
-				format.json { render :json => @paginated_objects }
+				format.xml { render :xml => @current_objects }
+				format.json { render :json => @current_objects }
+        format.atom {render :template => "users/index.atom.builder", :layout => false }
 			end
 		else
 			@no_div = true
@@ -160,7 +161,9 @@ class UsersController < ApplicationController
 
   # Users Index Object for All Users
 	def current_objects #:nodoc:
-		@current_objects ||= @paginated_objects = params[:controller].classify.constantize.get_da_objects_list(build_hash_from_params(params))
+    params_hash = build_hash_from_params(params)
+    params_hash.merge!({:skip_pag => true}) if params[:format] && params[:format] != 'html'
+		@current_objects ||= @paginated_objects = params[:controller].classify.constantize.get_da_objects_list(params_hash)
 	end
 
   # AutoComplete for Users in TextBox

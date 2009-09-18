@@ -96,6 +96,7 @@ module BlankListsHelper
 				:ajax_url => options[:ajax_url],
 				:ordering_fields => options[:ordering_fields],
 				:output_formats => options[:output_formats],
+        :output_formats_url => options[:output_formats_url]
 			}
 		if options[:no_div]
 			return content

@@ -13,7 +13,9 @@ class ContentController < ApplicationController
 	# - GET /content?item_type=article
   def index
 		params[:item_type] ||= get_allowed_item_types(current_workspace).first.pluralize
-		@paginated_objects = params[:item_type].classify.constantize.get_da_objects_list(build_hash_from_params(params))
+    params_hash = build_hash_from_params(params)
+    params_hash.merge!({:skip_pag => true}) if params[:format] && params[:format] != 'html'
+		@paginated_objects = params[:item_type].classify.constantize.get_da_objects_list(params_hash)
 #		if request.xhr?
 #			@i = 0
 #			render :partial => "generic_for_items/items_list", :layout => false, :locals => { :ajax_url => current_workspace ? "/workspaces/#{current_workspace.id}/ajax_content/"+params[:item_type] : "/ajax_content/#{params[:item_type]}" }
