@@ -33,7 +33,7 @@ class SearchesController < ApplicationController #:nodoc: all
 	 			format.html { render :template => "searches/index.html.erb" }
 				format.xml { render :xml => @paginated_objects }
 				format.json { render :json => @paginated_objects }
-				format.atom { render :template => "generic_for_items/index.atom.builder", :layout => false }
+				format.atom { render :template => "#{@templatee}.atom.builder", :layout => false }
 			end
 		else
 			render :partial => @templatee, :layout => false

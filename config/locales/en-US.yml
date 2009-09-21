@@ -729,6 +729,8 @@ en-US:
       filter_title: Title
       item_category: Item types
       date_alert: From date must be less than To date
+      filter_login: Login
+      filter_email: Email
     general: 
       other: Other
     application: 

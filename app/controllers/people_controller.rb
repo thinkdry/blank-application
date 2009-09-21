@@ -13,11 +13,11 @@ class PeopleController < ApplicationController
     actions :show, :new, :edit, :update, :destroy
 
 		response_for :new do |format|
-			format.html { redirect_to new_person_path }
+			format.html {  }
 		end
 
 		response_for :edit do |format|
-			format.html { redirect_to edit_person_path(@person.id) }
+			format.html { }
 		end
 
     after :update do

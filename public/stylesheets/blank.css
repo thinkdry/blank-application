@@ -498,7 +498,6 @@ h4{
 .notice {
 	background:transparent url(/images/icons/accept.png) no-repeat scroll 7px 50%;
 	color:#3AC21F;
-	margin-bottom:50px;
 	padding:20px 10px 20px 50px;
 }
 
@@ -1176,6 +1175,7 @@ ul.top_box li{
 .left_part_sensor{
 	float:left;
 	padding-left:5px;
+    width: 600px;
 }
 .right_part_sensor{
 	float:right;
