@@ -503,7 +503,7 @@ h4{
 
 .error {
 	padding:20px 10px 20px 50px;
-	margin-bottom: 2em;
+	margin-bottom: 5px;
 	color: #ff9999;
 	background: transparent url(/images/icons/error.png) no-repeat scroll 7px 50%;
 }
@@ -534,7 +534,7 @@ img.test{
 
 #middle-middle{
   font-size: 95%;
-  padding:50px 20px 0 20px;
+  padding:10px 20px 0 20px;
   overflow: hidden;
 }
 
