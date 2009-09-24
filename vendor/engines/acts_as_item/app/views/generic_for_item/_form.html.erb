@@ -27,6 +27,8 @@
     <br /><label></label>
     <%= error_message_on :current_object, :items %>
 
+    <%= f.select :state, {'Published' => 'published' }, { :include_blank => true }, :label =>I18n.t('item.field.state_label') + ' :' %>
+
     <button id="submit_button" class="submit_button" type="submit">
       <%= current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update')%>
     </button>

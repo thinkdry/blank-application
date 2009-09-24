@@ -17,7 +17,7 @@ class PeopleController < ApplicationController
 		end
 
 		response_for :edit do |format|
-			format.html { }
+			format.html {  }
 		end
 
     after :update do

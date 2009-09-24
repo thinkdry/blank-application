@@ -4,88 +4,103 @@
 
 ==== Version: 1.02
 
-===General Requirements
+
+===General Requirements For Linux :
 
 - Operating System : Ubuntu 8.04 or higher
-
 - Ruby : 1.8.7
-
 - RubyGems: 1.3.0 or higher
-
 - Rails:  2.3 or higher
-
 - Database: Mysql, SQLite
 
-====Ubuntu Packages Required:
+====Ubuntu Packages Required :
 
-=====ImageMagick gem madatory packages :
+=====ImageMagick :
 
  - sudo apt-get install imagemagick libmagick9-dev
 
-=====Xapian plugin mandatory packages :
+=====Xapian :
 
  - sudo apt-get install libxapian15 libxapian-ruby1.8
 
-=====FeedZirra mandatory packages and installation
+=====FeedZirra :
 
  - sudo apt-get install libxslt-ruby1.8 libxslt1-dev libcurl4-gnutls-dev
- - sudo gem sources -a http://gems.github.com
- - sudo gem install pauldix-feedzirra
 
 =====FFMPEG Video Encoding & liblamemp3 for Audio Encoding
 
 For liblamemp3
-
  - sudo apt-get install lame libmp3lame-dev
 
 For FFMPEG
-
  - mkdir src
-
  - cd src
-
  - svn checkout svn://svn.mplayerhq.hu/ffmpeg/trunk ffmpeg
-
  - cd ffmpeg
-
  - ./configure --enable-libmp3lame
-
  - make
-
  - make install
-
  - run "ffmpeg" to check installation is complete
 
-===Ruby Gems Required 
 
-====Mysql(if you want to use Mysql Database)
+===General Requirements For Windows :
 
-sudo gem install mysql
+- Operating System : Windows XP
+- Ruby : 1.8.7
+- RubyGems: 1.3.0 or higher
+- Rails:  2.3 or higher
+- Database: Mysql, SQLite
 
-====Mongrel(if you want to use Mongrel Server)
+====Windows Librairies Required :
 
-sudo gem install mongrel
+=====ImageMagick :
+
+- Download ImageMagick from http://rubyforge.org/frs/?group_id=12 Windows Version.
+- Unzip the file and install ImageMagick.
+
+=====Xapian :
+
+- Download xapian-x.x.xx-bindings-ruby.zip from http://www.flax.co.uk/xapian_windows.shtml
+- Unzip the downloaded file
+- Copy the _xapian.so file to C:\Ruby\lib\ruby\1.8\i386-mswin32
+- Copy the xapian.rb file to C:\Ruby\lib\ruby\1.8
+- Now you need to download the latest Microsoft Visual C++ 2005 Redistributable Package (x86). You can find it in http://www.microsoft.com/downloads/details.aspx?familyid=32bc1bee-a3f9-4c13-9c99-220b62a191ee&displaylang=en
+- Download the file, install it and restart your machine. You should be good for xapian
+
+=====FeedZirra :
+
+- not available ...
+
+=====FFMPEG Video Encoding :
+
+- coming soon ...
+
+
+===Ruby Gems Required
+
+====Mysql (if you want to use Mysql Database)
+
+- sudo gem install mysql
+
+====Mongrel (if you want to use Mongrel Server)
+
+- sudo gem install mongrel
 
 ====Whenever
 
-sudo gem sources -a http://gems.github.com
-
-sudo gem install javan-whenever
+- sudo gem sources -a http://gems.github.com
+- sudo gem install javan-whenever
 
 ====Rspec
 
- - sudo gem install rspec
- - sudo gem install rspec-rails
-
+- sudo gem install rspec
+- sudo gem install rspec-rails
 
 ===Get Blank
 
 - Git repository on GitHub comming soon
-
 - Send a mail to the thinkdry team at team@thinkdry.com
-
 - Download from Thinkdry website
-
 
 ===Installation & Setup
 
@@ -94,7 +109,6 @@ sudo gem install javan-whenever
 2) Database Initialization
 
    Create a database.yml file in /config/ , an example model can be found in /config/install_files/ 
-
    Note: .yml files require proper indentation to work properly.
 
    Settings can be put depending on your Database for EX: for Mysql
@@ -130,9 +144,7 @@ sudo gem install javan-whenever
 
    ActionMailer::Base.default_charset = "utf-8"
 
-   ActionMailer::Base.raise_delivery_errors = true
-   
-    
+   ActionMailer::Base.raise_delivery_errors = true 
 
 4) Run the installation rake task:
    
@@ -141,12 +153,8 @@ sudo gem install javan-whenever
 5) Start the server with ./script/server -e production
    
    - Open http://localhost:3000/ in your browser
-
    - Use The Default User Created by blank:install called 'boss' and password as 'monkey'
-
    - Use the superadministration panel to customize 'Blank Application'
-
-
 
 ====Thikdry Team
 
