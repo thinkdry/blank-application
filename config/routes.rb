@@ -53,7 +53,7 @@ ActionController::Routing::Routes.draw do |map|
 	map.resource :session, :member => { :change_language => :any }
 
   # Routes for People
-	map.resources :people, :collection => {:export_people => :get, :import_people => :any, :get_empty_csv => :get, :validate => :get ,:filter => :get }
+	map.resources :people, :collection => {:export_people => :get, :import_people => :any, :get_empty_csv => :get, :validate => :post ,:filter => :get }
 
   # Routes Related to SuperAdministrator
 	map.namespace :admin do |part|
@@ -68,8 +68,8 @@ ActionController::Routing::Routes.draw do |map|
 	map.resources :home, :only => [:index], :collection => { :autocomplete_on => :any }
 
   # Routes for Roles and Permissions in BA
-  map.resources :roles, :collection => {:validate => :any}
-  map.resources :permissions, :collection => {:validate => :any}
+  map.resources :roles, :collection => {:validate => :post}
+  map.resources :permissions, :collection => {:validate => :post}
 
   # Routes for Comments
 	map.resources :comments, :only => [:index, :edit, :update, :destroy], :member => { :change_state => :any, :add_reply => :any}
@@ -95,7 +95,7 @@ ActionController::Routing::Routes.draw do |map|
 			member_to_set.merge!({:get_audio_progress => :any}) if name=='audio'
 			member_to_set.merge!({:send_to_a_group => :any}) if name=='newsletter'
 			member_to_set.merge!({:download => :any}) if ['audio', 'video', 'cms_file', 'image'].include?(name)
-      parent.resources name.pluralize.to_sym, :member => member_to_set, :collection => {:validate => :any}
+      parent.resources name.pluralize.to_sym, :member => member_to_set, :collection => {:validate => :post}
     end
     parent.content '/content/:item_type', :controller => 'content', :action => 'index'
 		parent.ajax_content '/ajax_content/:item_type', :controller => 'content', :action => 'ajax_index'
@@ -117,15 +117,15 @@ ActionController::Routing::Routes.draw do |map|
   items_resources(map)
   
   # Items in context of workspaces
-  map.resources :workspaces, :member => { :add_new_user => :any, :subscription => :any, :unsubscription => :any, :question => :any }, :collection => {:validate => :any} do |workspaces|
+  map.resources :workspaces, :member => { :add_new_user => :any, :subscription => :any, :unsubscription => :any, :question => :any }, :collection => {:validate => :post} do |workspaces|
     items_resources(workspaces)
 		workspaces.resources :groups, :collection => { :validate => :any, :filtering_contacts => :get }, :member => { :export_to_csv => :any, :add_comment => :any }
-		workspaces.resources :people, :collection => { :export_people => :any, :import_people => :any, :get_empty_csv => :get, :validate => :any ,:filter => :get }
+		workspaces.resources :people, :collection => { :export_people => :any, :import_people => :any, :get_empty_csv => :get, :validate => :post ,:filter => :get }
 		workspaces.resources :workspace_contacts, :as => 'contacts', :except => :all, :collection => { :select => [:post, :get], :list => [:post, :get], :subscribe => :get}
   end
-	
+
   # Search related routes
-  map.resources :searches, :collection => { :print_advanced => :any }
+  map.resources :searches, :collection => { :print_advanced => :any, :validate => :post }
  
   # Install the default routes as the lowest priority.
 	#map.connect ':controller/:action/:id'
