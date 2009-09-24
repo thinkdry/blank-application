@@ -573,14 +573,14 @@ en-US:
     field: 
       add_keyword: Add a keyword
       keyword_hint: Specified keywords for searching that item
-      tag_hint: Give a tag defining this item
       title_hint: Title of Item
-      tag_label: Tags
       description_label: Description
       title_label: Title
       keyword_label: Keywords
       add_tag: Add a tag
       description_hint: Description of Item
+      state_label: Workflow
+      state_hint: Specify the state of the item
     index: 
       no_item: There is no item of this type.
     show: 
