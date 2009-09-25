@@ -10,8 +10,12 @@
 
 <h2><%= I18n.t('people.index.export_people_to_csv') %> </h2>
 <% form_for :type, :url => {:controller=>"people", :action=>"export_people", :restriction => params[:restriction]} do |f| -%>
-  <%#= f.check_box :creation , :class => "checkboxes" %> Created from back <br />
-  <%#= f.check_box :imported_from_csv, :class => "checkboxes" %> Imported from CSV <br />
-  <%= f.check_box :newsletter , :class => "checkboxes" %> Receiving newsletter <br /><br />
+  <%= f.check_box :all , :class => "checkboxes" %> All <br />
+  <%= f.check_box :creation , :class => "checkboxes" %> Created from back <br />
+  <%= f.check_box :imported_from_csv, :class => "checkboxes" %> Imported from CSV <br />
+  <%= f.check_box :front_contcts, :class => "checkboxes" %> Front contacts <br />
+  <!--
+  <%#= f.check_box :newsletter , :class => "checkboxes" %> Receiving newsletter <br /><br />
+  -->
   <%= submit_tag "Export" %>
 <% end %>
