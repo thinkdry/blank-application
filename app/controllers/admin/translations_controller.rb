@@ -49,7 +49,7 @@ class Admin::TranslationsController < ApplicationController
     else
       flash[:notice] = "Update Failed"
 		end
-		rediect_to editing_admin_translations_path
+		redirect_to editing_admin_translations_path
 	end
 
 	# Action allowing to switch the language (used with AJAX call)
