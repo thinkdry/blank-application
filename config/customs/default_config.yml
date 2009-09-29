@@ -20,4 +20,4 @@ sa_logo_url: /config_files/logo.jpg
 sa_per_page_default: 10
 sa_layout: "app_fat_menu"
 sa_exception_notifier_activated: ""
-sa_contact_email: []
+sa_contact_email: ""
