@@ -498,12 +498,13 @@ h4{
 .notice {
 	background:transparent url(/images/icons/accept.png) no-repeat scroll 7px 50%;
 	color:#3AC21F;
+    margin-bottom:50px;
 	padding:20px 10px 20px 50px;
 }
 
 .error {
 	padding:20px 10px 20px 50px;
-	margin-bottom: 5px;
+    margin-bottom: 2em;
 	color: #ff9999;
 	background: transparent url(/images/icons/error.png) no-repeat scroll 7px 50%;
 }

@@ -48,6 +48,9 @@ class UsersController < ApplicationController
 			get_roles
 		end
 
+    before :show do
+      @comments = @current_object.has_system_role('superadmin') ? Comment.all(:conditions =>["commentable_id != 'NULL'"]) : @current_object.comments
+    end
     #		after :create do
     #			# System role by default, secure assignement
     #			@current_object.system_role_id = Role.find(:first, :conditions => {:name => 'user'}).id

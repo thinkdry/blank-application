@@ -42,7 +42,11 @@ CAPTCHA_IMAGES_NUMBER = 10
 
 
 # Setting the locales files and the default language
-I18n.default_locale = "en-US"
+if !get_sa_config['sa_default_language'].to_s.blank?
+  I18n.default_locale = "#{get_sa_config['sa_default_language']}"
+else
+  I18n.default_locale = "en-US"
+end
 #I18n.locale = 'fr-FR'
 #I18n.default_locale = 'fr-FR'
 #%w{yml rb}.each do |type|

@@ -49,6 +49,10 @@
       <%= f.select :u_layout, LAYOUTS_AVAILABLE, :label => "Layout : " %>
       <%= f.select :u_language, LANGUAGES, :label => "Select language : " %>
       <%= f.select :u_per_page, [10,30,50], :label => "Results per page : " %>
+    <% else %>
+      <%= f.hidden_field(:u_layout, :value=>@configuration['sa_layout'].to_s) %>
+      <%= f.hidden_field(:u_language, :value=>@configuration['sa_default_language'].to_s) %>
+      <%= f.hidden_field(:u_per_page, :value=>@configuration['sa_per_page_default'].to_s) %>
     <% end %>
     <% if is_allowed_free_user_creation? && @current_object.new_record? && !@current_user %>
       <%= yacaph_block %>
