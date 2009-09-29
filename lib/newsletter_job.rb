@@ -1,3 +1,5 @@
+# This class is defining a job for DelayedJob plugin.
+#
 class NewsletterJob
 
   def perform

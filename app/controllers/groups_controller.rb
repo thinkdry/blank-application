@@ -1,7 +1,9 @@
 # This controller is managing the different actions relative to the Group item.
 #
-# It is using a mixin function called 'acts_as_item' from the ActsAsItem::ControllerMethods::ClassMethods,
-# so see the documentation of that module for further informations.
+# It is not using the mixin function called 'acts_as_item' from the ActsAsItem::ControllerMethods::ClassMethods,
+# because the item is linked only to one workspace.
+# By the way, it is not list with the content but in an other section called 'Contacts management'.
+# TODO find a soltuion to manage item linked to just ONE workspace (with workspace_id field)
 #
 
 class GroupsController < ApplicationController
@@ -17,10 +19,12 @@ class GroupsController < ApplicationController
 
 	def index
     filter = params[:by] ||= 'created_at-desc'
-    @paginated_objects = Group.paginate(:conditions => {:workspace_id => current_workspace.id}, :order => "#{filter.split('-').first} #{filter.split('-').last}", :per_page => get_per_page_value, :page => params[:page])
+    if params[:format].nil? || params[:format] == 'html'
+      @paginated_objects = Group.paginate(:conditions => {:workspace_id => current_workspace.id}, :order => "#{filter.split('-').first} #{filter.split('-').last}", :per_page => get_per_page_value, :page => params[:page])
+    end
     
     respond_to do |format|
-			format.html{ render :partial => 'group_in_list', :layout => false && @no_div = true if request.xml_http_request?}
+			format.html{ render :partial => 'index', :layout => false && @no_div = true if request.xml_http_request?}
 			format.xml { render :xml => Group.find(:all, :conditions => {:workspace_id => current_workspace.id}) }
 			format.json { render :json => Group.find(:all, :conditions => {:workspace_id => current_workspace.id}) }
 			format.atom {@current_objects = Group.find(:all, :conditions => {:workspace_id => current_workspace.id}); render :template => "groups/index.atom.builder", :layout => false }

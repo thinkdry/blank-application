@@ -8,13 +8,13 @@ class SessionsController < ApplicationController
 	# To overwrite the layout define inside 'application_controller.rb' with the login layout.
   layout 'login'
 
-	# Session creation
+	# Action managing session creation
 	#
   # This function is creating a new session for given login and password,
 	# or if the uthentication is not proved, it is redirecting on le login page.
 	#
 	# Usage URL :
-	# - /login
+	# - GET /login
   def create
     logout_keeping_session!
     user = User.authenticate(params[:login], params[:password])
@@ -35,17 +35,16 @@ class SessionsController < ApplicationController
       @remember_me = params[:remember_me]
       flash.now[:error] = I18n.t('user.session.flash_error')
       render :action => 'new'
-       
     end
   end
 
-  # Session deletion
+  # Action managing session deletion
 	#
 	# This function is destroying the session of the current user, updating his 'last_connected_at' field,
 	# and redirecting on the root page.
 	#
   # Usage URL :
-  # - /logout
+  # - GET /logout
   def destroy
     User.find(current_user.id).update_attributes(:last_connected_at => Time.now)
     logout_killing_session!
@@ -53,12 +52,12 @@ class SessionsController < ApplicationController
     redirect_back_or_default('/')
   end
 
-  # Update the current language
+  # Action updating the current language
   #
   # This function analyze the paramater 'locale' and set from it the new locale for the current user.
   #
 	# Usage URL :
-  # - /session/change_language
+  # - GET /session/change_language
 	def change_language
     current_user.update_attributes(:u_language => params[:locale])
 		render(:update) { |page| page.call 'location.reload' }

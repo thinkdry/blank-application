@@ -41,6 +41,7 @@ class Bookmark < ActiveRecord::Base
 	acts_as_item
 	# Validation of the presence of the 'link' field
   validates_presence_of :link
+	# Validation of the format of the 'link' field
   validates_format_of   :link, :with => /#{URL}/ix
   # Validation of fields not in format of
   validates_not_format_of   :copyright, :categories, :with => /(#{SCRIPTING_TAGS})/, :allow_blank => true

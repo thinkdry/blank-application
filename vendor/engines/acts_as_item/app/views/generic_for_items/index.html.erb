@@ -1,4 +1,4 @@
-<%= display_items_list(
+<%= display_objects_list(
     :collection => @paginated_objects,
     :in_list_partial => 'generic_for_items/item_in_list',
     :ajax_url => request.path+'?'+request.url.split('?').last,

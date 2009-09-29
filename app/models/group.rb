@@ -17,17 +17,18 @@
 
 require 'fastercsv'
 
-# This class is defining an item object called 'Group'.
+# This class is defining an object called 'Group'. It is close to an item but the difference is that
+# a group can only be in one uniq workspace.
+# 
+# TODO to make a difference between an item in multiple ws and in one ws in order to include Group as an item
 #
 # You can use it to link different email addresses from the current user contacts.
 # Thus, it becomes easy to send newsletters to these contacts, or to share these contacts inside a workpace.
 #
-# See the ActsAsItem:ModelMethods module to have further informations.
-#
 
 class Group < ActiveRecord::Base
 
-	# 
+	# Relation N-1 to workspace
 	belongs_to :workspace
 	# Mixin to add ActsAsCommentable methods inside the model
 	acts_as_commentable
@@ -43,6 +44,7 @@ class Group < ActiveRecord::Base
   validates_presence_of	:title, :description
   # Validation of fields not in format of
 	validates_not_format_of :title, :description ,  :with => /(#{SCRIPTING_TAGS})/
+	
   # Setting the Grouping objects given as parameters
   # 
   # This method allows to manage directly the objects to link to this group and sent by the form.
@@ -65,6 +67,7 @@ class Group < ActiveRecord::Base
     end
   end
 
+	# Method return a CSV file with the group member inside
 	def export_to_csv
     return FasterCSV.generate do |csv|
       csv << ["First name", "Last name", "Email", "Gender", "Primary phone", "Mobile phone", "Fax", "Street", "City",

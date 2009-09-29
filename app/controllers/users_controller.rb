@@ -2,13 +2,15 @@ class UsersController < ApplicationController
 	
   acts_as_ajax_validation
 
-	acts_as_authorizable({
+	acts_as_authorizable(
+		:actions_permissions_links => {
 				'edit' => 'edit',
 				'update' => 'edit',
 				'show' => 'show',
 				'destroy' => 'destroy',
 				'locking' => 'destroy'
-			}, [:new, :create, :validate, :forgot_password, :reset_password, :activate])
+			},
+		:skip_logging_actions => [:new, :create, :validate, :forgot_password, :reset_password, :activate])
 
 	#layout 'application', :expect => [:new, :create]
 	layout :give_da_layout
@@ -17,12 +19,12 @@ class UsersController < ApplicationController
 	def give_da_layout 
 		if params[:action]== 'new' || params[:action]== 'forgot_password' || params[:action] == 'reset_password'
 			if logged_in?
-				return get_da_layout
+				return get_current_layout
 			else
 				return 'login'
 			end
 		else
-			return get_da_layout
+			return get_current_layout
 		end
 	end
 
@@ -66,7 +68,7 @@ class UsersController < ApplicationController
     #    end
     #
     #		response_for :create_fails do |format|
-    #			format.html { render :action => 'new', :layout => (@current_user ? get_da_layout : 'login') }
+    #			format.html { render :action => 'new', :layout => (@current_user ? get_current_layout : 'login') }
     #		end
 
     after :update do
@@ -110,8 +112,9 @@ class UsersController < ApplicationController
 			@no_div = false
 			respond_to do |format|
 				format.html {  }
-				format.xml { render :xml => @paginated_objects }
-				format.json { render :json => @paginated_objects }
+				format.xml { render :xml => @current_objects }
+				format.json { render :json => @current_objects }
+        format.atom {render :template => "users/index.atom.builder", :layout => false }
 			end
 		else
 			@no_div = true
@@ -151,14 +154,16 @@ class UsersController < ApplicationController
       end
       flash.now[:error] = I18n.t('user.new.flash_error')
       respond_to do |format|
-        format.html { render :action => 'new', :layout => (current_user ? get_da_layout : 'login') }
+        format.html { render :action => 'new', :layout => (current_user ? get_current_layout : 'login') }
       end
     end
   end
 
   # Users Index Object for All Users
 	def current_objects #:nodoc:
-		@current_objects ||= @paginated_objects = params[:controller].classify.constantize.get_da_objects_list(build_hash_from_params(params))
+    params_hash = build_hash_from_params(params)
+    params_hash.merge!({:skip_pag => true}) if params[:format] && params[:format] != 'html'
+		@current_objects ||= @paginated_objects = params[:controller].classify.constantize.get_da_objects_list(params_hash)
 	end
 
   # AutoComplete for Users in TextBox

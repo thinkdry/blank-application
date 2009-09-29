@@ -1,20 +1,31 @@
+# This librairy will define methods allowing to control easily the authorization
+# on action (controller part) and on object (model part).
+#
 module Authorizable
+
   module ControllerMethods
-    
+
+		# Mixin concept : The ClassMethods defined after are automatically inside the class/module
+		# where you are including that module.
     def self.included(base)
       base.extend ClassMethods
     end
     
     module ClassMethods
-			def acts_as_authorizable(hash, tab)
-				skip_before_filter :is_logged?, :only => tab
+			# This mixin method will : 
+			# - set the action skipping the logging part
+			# - define the method checking the permission depending of the action
+			# - set this method as a before_filter
+			def acts_as_authorizable(*args)
+				options = args.extract_options!
+				skip_before_filter :is_logged?, :only => options[:skip_logging_actions]
 				before_filter :permission_checking
 				define_method :permission_checking do
-					if hash[params[:action]]
+					if options[:actions_permissions_links][params[:action]]
 						obj = params[:controller].classify.constantize
 						@current_object = ['new', 'create','validate'].include?(params[:action]) ? obj.new : obj.find(params[:id])
 						#no_permission_redirection unless @current_user && @current_object.send("accepts_#{hash[params[:action]]}_for?".to_sym, @current_user)
-						no_permission_redirection unless @current_user && @current_object.has_permission_for?(hash[params[:action]], @current_user)
+						no_permission_redirection unless @current_user && @current_object.has_permission_for?(options[:actions_permissions_links][params[:action]], @current_user)
 					else
 						# it is permissive
 					end
@@ -32,11 +43,15 @@ end
 module Authorizable
   module ModelMethods
 
+		# Mixin concept
     def self.included(base)
       base.extend ClassMethods
     end
 
     module ClassMethods
+			# This mixin method will manage different inclusion regarding the type of the object calling it , so :
+			# - define the scope useful to get objects list depending on permissions and workspaces
+			# - include the specific instance methods allowing to check permission on an object instance
       def acts_as_authorizable
 				include Authorizable::ModelMethods::InstanceMethods
 				if ITEMS.include?(self.to_s.underscore)
@@ -131,6 +146,7 @@ module Authorizable
     end
 
     module InstanceMethods
+			# Generic method called on an instance to check if the permission is matching or no
 			def has_permission_for?(permission, user)
 				return accepting_action(user, permission)
 			end

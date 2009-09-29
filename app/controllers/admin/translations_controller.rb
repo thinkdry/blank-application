@@ -1,14 +1,23 @@
 class Admin::TranslationsController < ApplicationController
 
+	# Filter restricting the access to only superadministrator user
 	before_filter :is_superadmin?
 
+	# Action managing the form presenting the translations of the application
+	#
+	# Usage URL :
+	# - GET  /admin/translations/editing
 	def editing
 		@file = YAML.load_file("#{RAILS_ROOT}/config/locales/#{I18n.default_locale}.yml")
     @res = @file[I18n.default_locale.to_s]
     @language = I18n.default_locale.to_s
 		translation_options
 	end
-	
+
+	# Action updating the YAML locale file with the values set in the previous form
+	#
+	# Usage URL :
+	# - PUT /admin/translations/updating
 	def updating
 		@yaml = YAML.load_file("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml")
    	(['general', 'layout', 'user', 'workspace', 'item']+ITEMS+['superadministration', 'others']).each do |section|
@@ -40,14 +49,13 @@ class Admin::TranslationsController < ApplicationController
     else
       flash[:notice] = "Update Failed"
 		end
-		rediect_to editing_admin_translations_path
+		redirect_to editing_admin_translations_path
 	end
 
-	# Option for Switching Language
+	# Action allowing to switch the language (used with AJAX call)
   #
-  # Usage URL
-  #
-  # /superadministration/language_switching
+  # Usage URL :
+  # - GET /translations/language_switching
 	def language_switching
 		if params[:locale_to_conf] == 'translation_addition'
 			translation_options
@@ -61,12 +69,11 @@ class Admin::TranslationsController < ApplicationController
 		end
   end
 
-  # Save New Translations
+  # Action allowing to save a new translation key for each locale file
   #
-  # Usage URL
-  #
-  # /superadministration/translations_new
-	def translation_new
+  # Usage URL :
+  # - POST /translations/translations_new
+	def translations_new
 		if params[:res][:section] && params[:res][:subsection] && params[:res][:key]
 			LANGUAGES.each do |l|
 				@yaml = YAML.load_file("#{RAILS_ROOT}/config/locales/#{l}.yml")
@@ -81,11 +88,12 @@ class Admin::TranslationsController < ApplicationController
 				@new.syswrite(@yaml.to_yaml)
 			end
 		end
-    flash[:notice] = "New translation added sucessfully"
-		redirect_to editing_admin_translations_path
+		redirect_to '/superadministration/translations'
 	end
 
 	private
+	# Method setting the different categories inside the YAML file
+	# TODO check directly the YAML structure, (and so put in an other file the localization ?)
   def translation_options
 		@translation_sections = [['general', 'layout', 'user', 'workspace', 'item', 'group', 'people', 'comment',  'home', 'website_contact', 'workspace_contact']+ITEMS].flatten.sort
   end

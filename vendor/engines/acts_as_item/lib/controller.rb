@@ -29,18 +29,20 @@ module ActsAsItem
         include ActsAsItem::ControllerMethods::InstanceMethods
 				# Declaration of the AjaxValidation plugin
 				acts_as_ajax_validation
-
-				acts_as_authorizable({
-					'new' => 'new',
-					'create' => 'new',
-					'edit' => 'edit',
-					'update' => 'edit',
-					'show' => 'show',
-					'rate' => 'rate',
-					'add_comment' => 'comment',
-					'destroy' => 'destroy',
-					'validate' => 'edit'
-				}, [:redirect_to_content])
+				# Mixin setting the permission for that controller (see lib/acts_as_authorizable.rb for more)
+				acts_as_authorizable(
+					:actions_permissions_links => {
+						'new' => 'new',
+						'create' => 'new',
+						'edit' => 'edit',
+						'update' => 'edit',
+						'show' => 'show',
+						'rate' => 'rate',
+						'add_comment' => 'comment',
+						'destroy' => 'destroy',
+						'validate' => 'edit'
+						},
+					:skip_logging_actions => [:redirect_to_content])
 				# Declaration of the ActAsCommentable plugin
 				acts_as_commentable
 				# Declaration of the ActsAsKeywordable plugin

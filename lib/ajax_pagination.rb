@@ -1,3 +1,7 @@
+# This module is defining helper methods to manage AJAX pagination.
+#
+# It is requiring the WillPaginate plugin.
+#
 module AjaxPagination
 
   # TODO enhance, test and include in library

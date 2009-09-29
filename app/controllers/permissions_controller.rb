@@ -1,52 +1,69 @@
-class PermissionsController < ApplicationController #:nodoc: all
+class PermissionsController < ApplicationController
 
-	# Filter to just allow 'superadmin' user to access to that resource
+	# Filter restricting the ressource access to only superadministrator user
 	before_filter :is_superadmin?
 
+	# Mixin method implementing ajax validation for that controller
   acts_as_ajax_validation
   
-  # GET /permissions
-  # GET /permissions.xml
+	# Action managing permissions list
+	#
+	# Usage URL :
+	# - GET /permissions
+	# - GET /permissions.xml
   def index
     @permissions = Permission.find(:all)
-        respond_to do |format|
-          format.html
-          format.xml  { render :xml => @permissions }
-        end
+		respond_to do |format|
+			format.html
+			format.xml  { render :xml => @permissions }
+		end
   end
 
-  # GET /permissions/1
-  # GET /permissions/1.xml
-  #  def show
-  #    @permission = Permission.find(params[:id])
-  #    render :partial => "show"
-  #        respond_to do |format|
-  #          format.html # show.html.erb
-  #          format.xml  { render :xml => @permission }
-  #        end
-  #  end
+#	# Action managing the permission show
+#	#
+#	# Usage URL :
+#	# - GET /permissions/1
+#  # - GET /permissions/1.xml
+#	def show
+#		@permission = Permission.find(params[:id])
+#
+#		respond_to do |format|
+#			format.html # show.html.erb
+#			format.xml  { render :xml => @permission }
+#		end
+#	end
 
-  # GET /permissions/new
-  # GET /permissions/new.xml
+
+	# Action managing the new form
+	#
+	# Usage URL :
+	# - GET /permissions/new
+	# - GET /permissions/new.xml
   def new
     @permission = Permission.new
-        respond_to do |format|
-          format.html # new.html.erb
-          format.xml  { render :xml => @permission }
-        end
+		respond_to do |format|
+			format.html # new.html.erb
+			format.xml  { render :xml => @permission }
+		end
   end
 
-  # GET /permissions/1/edit
+	# Action managing the edit form
+	#
+	# Usage URL :
+	# - GET /permissions/1/edit
   def edit
     @permission = Permission.find(params[:id])
 		respond_to do |format|
-          format.html # edit.html.erb
-          format.xml  { render :xml => @permission }
-        end
+			format.html # edit.html.erb
+			format.xml  { render :xml => @permission }
+		end
   end
 
-  # POST /permissions
-  # POST /permissions.xml
+	# Action managing the permission creation
+	#
+	# Usage URL :
+	# - POST /permissions
+	# - POST /permissions.xml
   def create
     @permission = Permission.new(params[:permission])
     respond_to do |format|
@@ -63,8 +80,11 @@ class PermissionsController < ApplicationController #:nodoc: all
     end
   end
 
-  # PUT /permissions/1
-  # PUT /permissions/1.xml
+	# Action managing the permission update
+	#
+	# Usage URL :
+	# - PUT /permissions/1
+	# - PUT /permissions/1.xml
   def update
     @permission = Permission.find(params[:id])
     respond_to do |format|
@@ -80,15 +100,18 @@ class PermissionsController < ApplicationController #:nodoc: all
     end
   end
 
-  # DELETE /permissions/1
-  # DELETE /permissions/1.xml
+	# Action allowing permission deletion
+	#
+	# Usage URL :
+	# - DELETE /permissions/1
+	# - DELETE /permissions/1.xml
   def destroy
     @permission = Permission.find(params[:id])
     @permission.destroy
     @permissions= Permission.find(:all)
-        respond_to do |format|
-          format.html { redirect_to(permissions_url) }
-          format.xml  { head :ok }
-        end
+		respond_to do |format|
+			format.html { redirect_to(permissions_url) }
+			format.xml  { head :ok }
+		end
   end
 end

@@ -755,6 +755,8 @@ fr-FR:
       filter_title: Titre
       item_category: Type d'item
       date_alert: La date de début doit être avant la date de fin
+      filter_login: Identifiant
+      filter_email: Courriel
     application: 
       change_language: Changer la langue
       new_workspace: Nouvel espace de travail

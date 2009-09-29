@@ -6,6 +6,19 @@ include Configuration
 #ActiveRecord::Base.send(:include, CustomModelValidations)
 include CustomModelValidations
 
+# INCLUDING LIBRAIRIES IN DA GOOD PLACE
+# for authorization
+load 'authorized.rb'
+load 'authorizable.rb'
+ActiveRecord::Base.send                   :include, Authorized::ModelMethods
+ActionController::Base.send               :include, Authorizable::ControllerMethods
+ActiveRecord::Base.send                   :include, Authorizable::ModelMethods
+# for research
+load 'searchable.rb'
+ActiveRecord::Base.send                   :include, Searchable::ModelMethods
+#ActionController::Base.send               :include, Authorizable::ControllerMethods
+
+
 # Defining the global variable
 ITEMS = ['article', 'image', 'cms_file', 'video', 'audio', 'feed_source', 'bookmark','newsletter']
 # Variable defining the languages available for the application

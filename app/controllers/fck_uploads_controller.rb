@@ -2,7 +2,7 @@ require 'fileutils'
 
 class FckUploadsController < ApplicationController
 
-  # Upload files with FCKeditor
+  # Action allowing to upload files with FCKeditor
 	#
   # This function is linked to an url accessible from the views.
 	# It is uploading the files selected with FCKeditor inside the good folder.
@@ -10,6 +10,7 @@ class FckUploadsController < ApplicationController
     begin
       #original_filename = params[:NewFile].original_filename
       dest_filename = "#{rand(1000)}_#{params[:NewFile].original_filename}"
+			# For the pages, the files are put inside the workspace folder, to be shared with others pages of the workspace
 			if params[:item_type] != 'Page'
 				dest_folder = "/uploaded_files/#{params[:item_type].downcase}/#{params[:id]}/fck_#{params[:type].downcase.pluralize}"
 			else

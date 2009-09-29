@@ -76,12 +76,12 @@ class User < ActiveRecord::Base
   has_many :people, :order => 'email ASC'
 
   has_many :groups 
-	# Method setting the different attribute to index for the Xapian research
-	#acts_as_xapian :texts => [:login, :firstname, :lastname]
+	# Mixin method use to get this object search (see Searchable:ModelMethods for more)
 	acts_as_searchable :full_text_fields => [:login, :firstname, :lastname],
 					:conditionnal_attribute => []
-	# Method including the method used for roles and permissions checkings
+	# Mixin method including the methods used for roles and permissions checkings (see Authorized::ModelMethods for more)
 	acts_as_authorized
+	# Mixin method alloing to make easy search on the model (see Authorizable::ModelMethods for more)
 	acts_as_authorizable
   # Paperclip attachment definition for user avatar
   has_attached_file :avatar,
@@ -125,6 +125,19 @@ class User < ActiveRecord::Base
   # anything else you want your user to change should be added here.
   attr_accessible :login, :email, :password, :password_confirmation, :firstname, :lastname, :address, :company, :phone, :mobile, :activity, :nationality,:edito, :avatar, :newsletter, :system_role_id, :last_connected_at, :u_layout, :u_language, :u_per_page, :date_of_birth, :gender, :salutation
 
+  # will return all contacts of a user(people + subscribed users of current user's workspaces). If workspace passed return contacts(people and subscribed users) of given workspace
+  def get_contacts_list(workspace=nil)
+    contacts = []
+    if workspace
+      contacts = ContactsWorkspace.all(:all, :conditions =>["contactable_type ='Person' AND workspace_id=#{workspace.id}"],:group =>'contactable_id').map{|cw| cw.contactable}
+      contacts  += ContactsWorkspace.all(:all, :conditions =>["contactable_type ='User' AND workspace_id=#{workspace.id}"],:group =>'contactable_id').map{|cw| cw.contactable.to_person}
+    else
+      contacts = self.people
+      contacts  += ContactsWorkspace.all(:all, :conditions =>["contactable_type ='User' AND workspace_id IN (#{User.first.workspaces.all(:select => 'workspaces.id').map{|u| u.id}.join(',')})"],:group =>'contactable_id').map!{|cw| cw.contactable.to_person}
+    end
+    return contacts
+  end
+
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   #
@@ -136,11 +149,6 @@ class User < ActiveRecord::Base
     u = find_by_login(login) # need to get the salt
     u && u.authenticated?(password) ? u : nil
   end
-
-  # Scope geeting the 5 latest users
-  named_scope :latest,
-    :order => 'created_at DESC',
-    :limit => 5
 
   # User as people for newsletter subscription
   def to_person
@@ -268,7 +276,6 @@ class User < ActiveRecord::Base
     save(false)
   end
 
-
   protected
   # before filter
   def encrypt_password
@@ -285,30 +292,5 @@ class User < ActiveRecord::Base
     self.activation_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
   end
 
-  # Check the User Permission for actions with system and worksapce roles.
-  # True if User is 'SuperAdministrator'
-#  private
-#	def accepting_action(user, action, spe_cond=false, sys_cond=false, ws_cond=true)
-#		# Special access
-#		if user.has_system_role('superadmin') || spe_cond
-#			return true
-#		end
-#		# System access
-#		if user.has_system_permission(self.class.to_s.downcase, action) || sys_cond
-#			return true
-#		end
-#		# Workspace access
-#		# The only permission linked to an user in a workspace is 'show'
-#		if action=='show'
-#			self.workspaces.each do |ws|
-#				if ws.users.include?(user)
-#					if user.has_workspace_permission(ws.id, self.class.to_s.downcase, action) && ws_cond
-#						return true
-#					end
-#				end
-#			end
-#		end
-#		false
-#	end
 end
 

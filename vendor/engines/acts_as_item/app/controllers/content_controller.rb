@@ -9,15 +9,13 @@ class ContentController < ApplicationController
 	# It is so rendering the 'items/index.html.erb' view template.
 	#
 	# Usage URL :
-	# - /content
-	# - /content?item_type=article
+	# - GET /content
+	# - GET /content?item_type=article
   def index
 		params[:item_type] ||= get_allowed_item_types(current_workspace).first.pluralize
-#		@current_objects = get_items_list(params[:item_type], current_workspace)
-#		@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
-    # new code
-    #@paginated_objects = get_paginated_items_list(params[:item_type], current_workspace)
-		@paginated_objects = params[:item_type].classify.constantize.get_da_objects_list(build_hash_from_params(params))
+    params_hash = build_hash_from_params(params)
+    params_hash.merge!({:skip_pag => true}) if params[:format] && params[:format] != 'html'
+		@paginated_objects = params[:item_type].classify.constantize.get_da_objects_list(params_hash)
 #		if request.xhr?
 #			@i = 0
 #			render :partial => "generic_for_items/items_list", :layout => false, :locals => { :ajax_url => current_workspace ? "/workspaces/#{current_workspace.id}/ajax_content/"+params[:item_type] : "/ajax_content/#{params[:item_type]}" }
@@ -38,8 +36,8 @@ class ContentController < ApplicationController
 	# It is linked to an url and managed an AJAX request.
 	#
   # Usage URL:
-  # - /ajax_content
-	# - /ajax_content?item_type=article
+  # - GET /ajax_content
+	# - GET /ajax_content?item_type=article
   #
   def ajax_index
 		params[:item_type] ||= get_allowed_item_types(current_workspace).first.pluralize
@@ -59,7 +57,7 @@ class ContentController < ApplicationController
 	# and with other parameters like the workspace selected, in order to filter the results.
 	#
   # Usage URL :
-  # - '/display_content_list/:selected_item
+  # - GET '/display_content_list/:selected_item
   def display_item_in_pop_up
     @workspace = (params[:workspace_id] && !params[:workspace_id].blank?) ? Workspace.find(params[:workspace_id]) : nil
     params[:w] = [@workspace.id] if @workspace

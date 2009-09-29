@@ -1,18 +1,24 @@
 module BlankListsHelper
 
-	# Dislay of the given item type in content tabs list
+	# Display the content tabs list of an object type given
   #
-	# This helper method gets the item list to display,
+	# This helper method gets the objects list to display,
 	# and generates the HTML code displaying that list,
 	# inside a content tabs list.
   #
   # Parameters :
-  # - item_type: String defining the item type to display
-  # - items_list:
-  # - ajax_url: ajax item path for the item_type
+  # - default_tab: String defining the object type to display bu default
+  # - tabs_list: Array of string defining the different objects to link to the tabs
+  # - url_base: String defining the URL getting the objects list
+	# - list_partial: String defining the partial to use for the object list
 	#
 	# Usage :
-  # display_tabs_items_list('article', paginated_objects, ajax_items_path('article'))
+  # display_tabs_items_list(
+	#		:default_tab => params[:item_type],
+  #		:tabs_list => get_allowed_item_types(current_workspace),
+  #		:url_base => 'ajax_items_path',
+  #		:list_partial => 'generic_for_items/index''article', paginated_objects, ajax_items_path('article')
+	# )
   def display_tabs_objects_list(*args)
 		options2 = args.extract_options!
 		item_types = options2[:tabs_list]
@@ -64,16 +70,25 @@ module BlankListsHelper
 		end
 	end
 
-	# Items List
+	# Display an objects list depending of params and set the filtering and pagination part
   #
-  # Usage:
-  #
-  # <tt>display_items_list(items_list, ajax_url)</tt>
-  #
-  # will return list of items for given item_type with div 'object-list'
-  #
-  # - items_list: list of items to be displayed for the tab
-  # - ajax_url: ajax item path for the item_type
+	# Parameters :
+	# - collection: Objects list
+	# - in_list_partial: String defining the partial representing an object in the list
+	# - ajax_url: String defining the URL for AJAX call
+	# - ordering_fields : Array of strings defining the fields for filtering these objects
+	# - output_formats: Array of strings defining the output formats available
+	# - no_div: Booelan defining if the results are inside a div (direct call) or no (AJAX calls)
+	# 
+  # Usage :
+  # display_items_list(
+	#   :collection => @paginated_objects,
+	#   :in_list_partial => 'generic_for_items/item_in_list',
+	#   :ajax_url => request.path+'?'+request.url.split('?').last,
+	#   :ordering_fields => ['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title'],
+	#		:output_formats => ['xml', 'json', 'atom'],
+	#		:no_div => @no_div
+	# )
 	def display_objects_list(*args)
 		options = args.extract_options!
 	  content = render :partial => 'blank_lists/objects_list', :locals => {
@@ -81,6 +96,7 @@ module BlankListsHelper
 				:ajax_url => options[:ajax_url],
 				:ordering_fields => options[:ordering_fields],
 				:output_formats => options[:output_formats],
+        :output_formats_url => options[:output_formats_url]
 			}
 		if options[:no_div]
 			return content
@@ -89,34 +105,29 @@ module BlankListsHelper
 		end
 	end
 
-	# Items List
+	# Display the dry objects list
   #
-  # Usage:
-  #
-  # <tt>display_items_in_list(items_list)</tt>
-  #
-  # will return list of items for given item_type with div 'object-list'
-  #
-  # - items_list: list of items to be displayed for the tab
+	# Parameters :
+	# - items_list: Array of objects
+	# - partial_used: String defining the partial to use
+	#
+  # Usage :
+  #   display_items_in_list(items_list)
   def display_item_in_list(items_list, partial_used)
 		@i = 0
 	  render :partial => partial_used, :collection => items_list
   end
 
-  # Classify Bar for Ordering, Filtering Items
+  # Display the bar for filtering
+	#
+	# Parameters :
+  # - ordering_fields_list: Array of string defining the fields to order
+  # - ajax_url: String defining the URL for AJAX call on the list
+  # - refreshed_div: String defining the div to refresh with the AJAX call
+  # - partial_used: String deifning the partial used for the classify bar
   #
-  # Usage:
-  #
-  # <tt>display_classify_bar(['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title'], ajax_url, 'object-list')</tt>
-  #
-  # will return classify bar for item list with option to filter on fields
-  #
-  # Parameters:
-  #
-  # - ordering_fields_list: 'created_at', 'comments_number', 'viewed_number', 'rates_average', 'title'
-  # - ajax_url: url to be passed to be called on click of item
-  # - refreshed_dv: objects-list
-  # - partial_used : 'items/classify_bar'
+  # Usage :
+  # display_classify_bar(['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title'], ajax_url, 'object-list')</tt>
 	def display_classify_bar(ordering_fields_list, ajax_url, refreshed_div, partial_used='blank_lists/classify_bar')
 		render :partial => partial_used, :locals => {
       :ordering_fields_list => ordering_fields_list,
@@ -125,7 +136,8 @@ module BlankListsHelper
 		}
 	end
 
-	# Safe Url for Classify Bar
+	# Method cleaning the URL
+	# TODO check it baby
 	def safe_url(url, params)
 		# TODO generic allowing to replace params in url
 		# trick, work just for classify_bar case
@@ -135,11 +147,10 @@ module BlankListsHelper
 #    return url+'/?'+params.join('&')
 	end
 
-  # Render Specific Partial according to Item Type passed
+  # Method to render a specific partial if the file is existing
   #
-  # Usage get_specific_partial('article', preview, article_object)
-  #
-  # will render the partial depending on the item_type
+  # Usage :
+	# get_specific_partial('article', preview, article_object)
   def get_specific_partial(item_type, partial, object)
     if File.exists?(RAILS_ROOT+'/app/views/'+object.class.to_s.downcase.pluralize.underscore+"/_#{partial}.html.erb")
       render :partial => "#{object.class.to_s.downcase.pluralize.underscore}/#{partial}", :object => object

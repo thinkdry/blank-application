@@ -12,13 +12,14 @@ class PeopleController < ApplicationController
   make_resourceful do
     actions :show, :new, :edit, :update, :destroy
 
-#		response_for :new do |format|
-#			format.html { redirect_to (current_workspace ? new_workspace_person_path(current_workspace.id) : new_person_path) }
-#		end
-#
-#		response_for :edit do |format|
-#			format.html { redirect_to (current_workspace ? edit_workspace_person_path(current_workspace.id, @person.id) : edit_person_path(@person.id)) }
-#		end
+		response_for :new do |format|
+			format.html {  }
+		end
+
+		response_for :edit do |format|
+			format.html {  }
+		end
+
     after :update do
       # to save assoceated workspaces of the person
       @current_object.associated_workspaces(params[:associated_workspaces])
@@ -34,7 +35,15 @@ class PeopleController < ApplicationController
 
   end
 
-  # Method to create a New Person
+  # Action managing the person creation
+	#
+	# The make_resourceful plugn is not used because we are making a special test to check the uniqueness of the email,
+	# and if it is false, in case we are in a workspace, it is not creating the entry but linking the existing one
+	# to that workspace.
+	#
+	# Usage URL :
+	# - POST /people
+	# - POST /workspaces/:id/people
   def create #:nodoc:
     @person = Person.new(params[:person])
     @person.user_id = current_user.id
@@ -54,43 +63,51 @@ class PeopleController < ApplicationController
     end
   end
 
-  # Method to Show all People 
+  # Action managing people list
+	#
+	# Usage URL :
+	# - GET /people
   def index #:nodoc:
 		@people = @current_user.people.paginate(:per_page => get_per_page_value, :page => params[:page])
-#    @people = @current_user.people
+		if !request.xhr?
+			respond_to do |format|
+				format.html {  }
+				format.xml { render :xml => @people }
+				#format.json { render :json => @people }
+      end
+		else
+			render :partial => 'people_list', :layout => false
+		end
   end
 
-  # Method to all People for Ajax Pagination
-  def ajax_index #:nodoc:
-    @people = @current_user.people.paginate(:per_page => get_per_page_value, :page => params[:page])
-    render :partial => 'people_list', :layout => false
-  end
-
-  # Method to Export People to .csv file format
+  # Action to export people to .csv file
   #
-  # Usage URL:
-  #
-  # /people/export_people
+  # Usage URL :
+  # - GET /people/export_people
   def export_people
-		params[:restriction] ||= 'people'
-		params[:type] ||= {'newsletter' => '0'}
-		@people = @current_user.get_contacts_list(params[:restriction], 'person', params[:type][:newsletter] == '1')
+    @people = @current_user.get_contacts_list
+    if params[:type][:all] == '0'
+      types = []
+      types << 'CSV importation' if params[:type][:imported_from_csv]=='1'
+      types <<  'Creation' if params[:type][:creation]=='1'
+      types << 'contact_form' if params[:type][:front_contcts]=='1' 
+      @people = @people.delete_if{|p| !types.include?(p.origin)}
+    end
 		@outfile = "people_" + Time.now.strftime("%m-%d-%Y") + ".csv"
 		csv_data = FasterCSV.generate do |csv|
-			csv << ["First name", "Last name", "Email", "Gender", "Primary phone", "Mobile phone", "Fax", "Street", "City", "Postal code", "Country", "Company", "Web page", "Job title", "Notes","Newsletter","Salutation","Date of birth","Subscribed on","Updated at"]
+			csv << ["First name", "Last name", "Email", "Gender", "Primary phone", "Mobile phone", "Fax", "Street", "City", "Postal code", "Country", "Company", "Web page", "Job title", "Notes","Salutation","Date of birth","Subscribed on","Updated at"]
 			@people.each do |person|
-				csv << [person.first_name, person.last_name, person.email, person.gender, person.primary_phone, person.mobile_phone, person.fax, person.street, person.city, person.postal_code, person.country, person.company, person.web_page, person.job_title, person.notes, person.newsletter, person.salutation, person.date_of_birth, person.created_at, person.updated_at]
+				csv << [person.first_name, person.last_name, person.email, person.gender, person.primary_phone, person.mobile_phone, person.fax, person.street, person.city, person.postal_code, person.country, person.company, person.web_page, person.job_title, person.notes, person.salutation, person.date_of_birth, person.created_at, person.updated_at]
 			end
 		end
 		send_data csv_data, :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment; filename=#{@outfile}"
 		#flash[:notice] = "Export complete!"
   end
 
-  # Method to Import People from a .csv file format
+  # Action to import people from a .csv file
   #
-  # Usage URL:
-  #
-  # /people/import_people
+  # Usage URL :
+  # GET /people/import_people
   def import_people
     unless request.get?
       if !params[:people].blank? and !params[:people][:csv].blank? and File.extname(params[:people][:csv].original_filename) == '.csv'
@@ -169,26 +186,26 @@ class PeopleController < ApplicationController
                     params[:associated_workspaces].each do |w_id|
                       if !ContactsWorkspace.exists?(:workspace_id => w_id, :contactable_type => 'Person', :contactable_id => person.id)
 												ContactsWorkspace.create(
-														:workspace_id => w_id,
-														:contactable_id => person.id,
-														:contactable_type => 'Person'
-													)
+                          :workspace_id => w_id,
+                          :contactable_id => person.id,
+                          :contactable_type => 'Person'
+                        )
 											end
                     end
 									else
 										@unsaved_emails << person.email
 									end
 								elsif person.valid?
-										if current_workspace
-											if !ContactsWorkspace.exists?(:workspace_id => current_workspace.id, :contactable_type => 'Person', :contactable_id => person.id)
-												tmp = Person.find(:first, :conditions => { :user_id => @current_user.id, :email => person.email })
-												ContactsWorkspace.create(
-														:workspace_id => current_workspace.id,
-														:contactable_id => tmp.id,
-														:contactable_type => 'Person'
-													)
-											end
-										end
+                  if current_workspace
+                    if !ContactsWorkspace.exists?(:workspace_id => current_workspace.id, :contactable_type => 'Person', :contactable_id => person.id)
+                      tmp = Person.find(:first, :conditions => { :user_id => @current_user.id, :email => person.email })
+                      ContactsWorkspace.create(
+                        :workspace_id => current_workspace.id,
+                        :contactable_id => tmp.id,
+                        :contactable_type => 'Person'
+                      )
+                    end
+                  end
 								else
 									@unsaved_emails << person.email
 								end
@@ -212,11 +229,10 @@ class PeopleController < ApplicationController
     end
   end
 
-  # Generate a Empty .csv File
+  # Action to generate and get an empty .csv file with the good format
   #
   # Usage URL:
-  #
-  # /people/get_empty_csv
+  # GET /people/get_empty_csv
   def get_empty_csv
     csv_data = FasterCSV.generate do |csv|
       csv << ["First name", "Last name", "Email", "Gender", "Primary phone", "Mobile phone", "Fax", "Street", "City", "Postal code", "Country", "Company", "Web page", "Job title", "Notes"]

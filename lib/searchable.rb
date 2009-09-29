@@ -1,3 +1,5 @@
+# This module is defining the methods and scopes allowing to retrieve objects list from a model.
+#
 module Searchable
   module ModelMethods
     
@@ -6,6 +8,11 @@ module Searchable
     end
     
     module ClassMethods
+			# This mixin method is :
+			# - setting the fields to index with Xapian and defining the scope to search on taht index if the arg is given
+			# - defining a scope for filtering
+			# - defining a scope for paginating
+			# - defining the method 'get_da_objects_list'
 			def acts_as_searchable(*args)
 				options = args.extract_options!
 				
@@ -17,7 +24,6 @@ module Searchable
 					}
 				end
 				
-				
 #				# Retrieve the results matching the Hash conditions passed
 #				named_scope :advanced_on_fields,
 #					lambda { |condition| { :conditions => condition.delete_if{ |k, e| !condition_fields_tabs.include?(k.to_s) } }	}
@@ -26,20 +32,27 @@ module Searchable
 #				named_scope :in_workspaces,
 #					lambda { |workspace_ids| { :select => "DISTINCT *", :joins => "LEFT JOIN items_workspaces ON (items_workspaces.itemable_type = '#{self.class_name}' AND items_workspaces.workspace_id IN ['1'])" } }
 
-				# Retrieve the results ordered following the paramaters given
+				# Scope ordering the results with the params
 				named_scope :filtering_on,
 					lambda { |field_name, way|
           if (field_name!='weight')
             { :order => "#{self.class_name.underscore.pluralize}.#{field_name} #{way}" }
           else
-            { :limit => limit, :offset => offset }
+            {  }
           end
         }
 
+				# Scope paginating the results with the params
 				named_scope :paginating_with,
 					lambda { |limit, offset| { :limit => limit, :offset => offset }
 				}
 
+				# Method returning the objects list scoping the params
+				#
+				# This method is using the scope defining above and also the scope defined by SearchLogic
+				# thanks to the params conditions[].
+				# A control is done in order to be sure that just the fields allowed are tested.
+				# TODO the stuff sayed above ...
 				def get_da_objects_list(*args)
 					options = args.extract_options!
 					req = self

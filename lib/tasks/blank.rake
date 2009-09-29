@@ -28,6 +28,7 @@ namespace :blank do
 
 	desc "Initializing Blank Engine"
 	task :update => :environment do
+		Rake::Task['gems:install'].invoke
 		Rake::Task['db:migrate'].invoke
 		Rake::Task['blank:xapian_rebuild'].invoke
 	end
@@ -134,7 +135,7 @@ namespace :blank do
     end
     @role_red.permissions << Permission.find(:all, :conditions =>{:name => 'workspace_show'})
     @role_wri.permissions << Permission.find(:all, :conditions =>{:name => 'workspace_show'})
-    @admin_ws = Permission.create(:name => 'workspace_administration', :type_permission => 'workspace') unless Permission.exists?(:name => 'workspace_administration', :type_permission => 'workspace')
+    @admin_ws = Permission.create(:name => 'workspace_administrate', :type_permission => 'workspace') unless Permission.exists?(:name => 'workspace_administrate', :type_permission => 'workspace')
     if @admin_ws
       @role_ws.permissions << @admin_ws
       @role_mod.permissions << @admin_ws
@@ -190,23 +191,23 @@ namespace :blank do
         #{i}
         SQL
         ActiveRecord::Base.connection.execute(query)
-      p "Enter superadmin username(Press Enter for default username) :- "
-      @suser = STDIN.gets.chomp
-      p  "Enter superadmin password(Press Enter for default password) :- "
-      @spwd = STDIN.gets.chomp
-      if @suser.blank?
-        @suser = 'boss'
-      end
-      if @spwd.blank?
-        @spwd = 'monkey'
-      end
-      @sa_user = User.find_by_login('boss')
-      @sa_user.firstname = @suser
-      @sa_user.login = @suser
-      @sa_user.password = @spwd
-      @sa_user.password_confirmation = @spwd
-      @sa_user.save(false)
-      p "Setting Username = #{@suser} & Password = #{@spwd}"
+        p "Enter superadmin username(Press Enter for default username) :- "
+        @suser = STDIN.gets.chomp
+        p  "Enter superadmin password(Press Enter for default password) :- "
+        @spwd = STDIN.gets.chomp
+        if @suser.blank?
+          @suser = 'boss'
+        end
+        if @spwd.blank?
+          @spwd = 'monkey'
+        end
+        @sa_user = User.find_by_login('boss')
+        @sa_user.firstname = @suser
+        @sa_user.login = @suser
+        @sa_user.password = @spwd
+        @sa_user.password_confirmation = @spwd
+        @sa_user.save(false)
+        p "Setting Username = #{@suser} & Password = #{@spwd}"
       end
     else
       @sauser.system_role_id = @superadmin.id
