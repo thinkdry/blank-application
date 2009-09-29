@@ -10,7 +10,7 @@
 
     <%= f.select :state, ['posted', 'validated', 'rejected'], :label => I18n.t('comment.field.state') %>
 
-    <%= f.submit(@current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update')) %>
+    <%= f.submit(@current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update'), :class=>"submit_button") %>
 
   <% end %>
 

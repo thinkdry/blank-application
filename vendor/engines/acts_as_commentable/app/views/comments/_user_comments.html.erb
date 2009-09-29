@@ -15,7 +15,7 @@
             <%= link_to(I18n.t('comment.state.validate'), "/comments/#{object.id}/change_state?new_state=validated") unless (object.state == 'validated')%>
             <%= link_to(I18n.t('comment.state.reject'), "/comments/#{object.id}/change_state?new_state=rejected") unless (object.state == 'rejected')%>
             <%= link_to(image_tag('icons/pencil.png', :width =>'20px'), edit_comment_path(object.id)) %>
-            <%= link_to(image_tag('icons/delete.png', :width =>'20px'), comment_path(object.id), :method => :delete, :confirm => 'general.common_word.confirm') %>
+            <%= link_to(image_tag('icons/delete.png', :width =>'20px'), comment_path(object.id), :method => :delete, :confirm => I18n.t('general.common_word.confirmation')) %>
           </div>
         <% end %>
         <div class="commentbox">
