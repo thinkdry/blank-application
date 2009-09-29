@@ -34,6 +34,9 @@
     <%= checkboxes_from_list(ITEMS, "sa_items", @configuration, "configuration") %>
   </div>
 
+  <label>Default language :</label>
+  <div class="formElement"><%= select_tag 'configuration[sa_default_language]', options_for_select(LANGUAGES,@configuration['sa_default_language']) %></div>
+
   <label>Available languages :</label>
   <div class="formElement">
     <%= checkboxes_from_list(LANGUAGES, "sa_languages", @configuration, "configuration") %>
