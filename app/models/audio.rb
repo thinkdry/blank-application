@@ -56,7 +56,8 @@ class Audio < ActiveRecord::Base
 
 	# TODO encode with the file name, check with flv upload on FCKe
   def path_to_encoded_file
-    File.dirname(self.audio.url) + "/audio.mp3"
+    file_ext = self.audio_file_name.split('.').last
+    File.dirname(self.audio.url) + "/" + self.audio_file_name.delete(file_ext) + 'mp3'
   end
 
   # Codec used for the MP3 encoding

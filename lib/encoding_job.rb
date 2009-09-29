@@ -9,7 +9,7 @@ class EncodingJob
   end
 
   def perform
-   Delayed::Worker.logger.info "Encoding #{args[:type]} with id #{args[:id]} at #{Time.now}"
+    Delayed::Worker.logger.info "Encoding #{args[:type]} with id #{args[:id]} at #{Time.now}"
     object = args[:type].classify.constantize.find_by_id(args[:id])
     success = system(convert_media(args[:type], object, args[:enc]))
     Delayed::Worker.logger.info success
@@ -36,12 +36,15 @@ class EncodingJob
   # Method to convert the media to desired media (Default MP3 for Audio and FLV for Video)
   def convert_media(type, object, enc)
     Delayed::Worker.logger.info "Converting Media of type #{args[:type]} with id #{args[:id]} at #{Time.now}"
-    media = File.join(File.dirname(object.media_type.path), "#{type}.#{enc}")
-    File.open(media, 'w')
     ext = object.media_type.url.split("?")[0].split('.').last
+    if ext != 'mp3' && ext != 'flv'
+      file_ext = object.send("#{type}_file_name").split('.').last
+      media = File.join(File.dirname(object.media_type.path), "#{object.send("#{type}_file_name").delete(file_ext)}#{enc}")
+      File.open(media, 'w')
+    end
     if ext == enc
       command=<<-end_command
-         cp  #{ object.media_type.path } #{media}
+         true
       end_command
       command.gsub!(/\s+/, " ")
     elsif ext == '3gp'
