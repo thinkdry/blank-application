@@ -125,6 +125,19 @@ class User < ActiveRecord::Base
   # anything else you want your user to change should be added here.
   attr_accessible :login, :email, :password, :password_confirmation, :firstname, :lastname, :address, :company, :phone, :mobile, :activity, :nationality,:edito, :avatar, :newsletter, :system_role_id, :last_connected_at, :u_layout, :u_language, :u_per_page, :date_of_birth, :gender, :salutation
 
+  # will return all contacts of a user(people + subscribed users of current user's workspaces). If workspace passed return contacts(people and subscribed users) of given workspace
+  def get_contacts_list(workspace=nil)
+    contacts = []
+    if workspace
+      contacts = ContactsWorkspace.all(:all, :conditions =>["contactable_type ='Person' AND workspace_id=#{workspace.id}"],:group =>'contactable_id').map{|cw| cw.contactable}
+      contacts  += ContactsWorkspace.all(:all, :conditions =>["contactable_type ='User' AND workspace_id=#{workspace.id}"],:group =>'contactable_id').map{|cw| cw.contactable.to_person}
+    else
+      contacts = self.people
+      contacts  += ContactsWorkspace.all(:all, :conditions =>["contactable_type ='User' AND workspace_id IN (#{User.first.workspaces.all(:select => 'workspaces.id').map{|u| u.id}.join(',')})"],:group =>'contactable_id').map!{|cw| cw.contactable.to_person}
+    end
+    return contacts
+  end
+
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   #
