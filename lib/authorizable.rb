@@ -59,11 +59,8 @@ module Authorizable
 						# Check if these workspace are matching the really authorized ones, and set 'nil for all' condition
 						workspace_ids ||= Workspace.allowed_user_with_permission(user_id, self.to_s.underscore+'_'+permission).all(:select => 'workspaces.id').map{ |e| e.id }
 						workspace_ids = workspace_ids.map{|w_id| w_id.to_i} & Workspace.allowed_user_with_permission(user_id, self.to_s.underscore+'_'+permission).all(:select => 'workspaces.id').map{ |e| e.id }
-						# In case of system permission
-						if User.find(user_id).has_system_permission(self.to_s.underscore.pluralize, permission)
-							{ }
 						# So we can retrieve directly as the workspaces are checked, hihihi
-						elsif workspace_ids.first
+						if workspace_ids.first
               
 							{ :select => "DISTINCT #{self.to_s.underscore.pluralize}.*",
 								:joins => "LEFT JOIN items_workspaces ON #{self.to_s.underscore.pluralize}.id = items_workspaces.itemable_id AND items_workspaces.itemable_type='#{self.to_s}'",
