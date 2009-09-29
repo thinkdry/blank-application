@@ -52,6 +52,7 @@ FCKConfig.PreloadImages = [ FCKConfig.SkinPath + 'images/toolbar.start.gif', FCK
 
 FCKConfig.PluginsPath = FCKConfig.BasePath + 'plugins/' ;
 FCKConfig.Plugins.Add( 'flvPlayer','en');
+FCKConfig.Plugins.Add( 'googlemaps', 'en,es,fr') ;
 // FCKConfig.Plugins.Add( 'autogrow' ) ;
 // FCKConfig.Plugins.Add( 'dragresizetable' );
 FCKConfig.AutoGrowMax = 400 ;
@@ -102,6 +103,11 @@ FCKConfig.ToolbarLocation = 'In' ;
 
 FCKConfig.ToolbarSets["Default"] = [
 	['Source','FitWindow','Bold','Italic','Underline','Indent','OrderedList','UnorderedList','TextColor','JustifyLeft','JustifyCenter','JustifyRight','JustifyFull','Link','Image','Flash','flvPlayer'],
+    ['FontFormat','FontSize']
+] ;
+
+FCKConfig.ToolbarSets["Default_google_map"] = [
+	['Source','FitWindow','Bold','Italic','Underline','Indent','OrderedList','UnorderedList','TextColor','JustifyLeft','JustifyCenter','JustifyRight','JustifyFull','Link','Image','Flash','flvPlayer','googlemaps'],
     ['FontFormat','FontSize']
 ] ;
 
