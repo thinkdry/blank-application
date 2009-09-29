@@ -58,7 +58,8 @@ class Video < ActiveRecord::Base
   end
 
   def path_to_encoded_file
-    File.dirname(self.video.url) + "/video.flv"
+    file_ext = self.video_file_name.split('.').last
+    File.dirname(self.video.url) + "/" + self.video_file_name.delete(file_ext) + "flv"
   end
 
   # Codec used for the MP3 encoding (general video file)
