@@ -1,0 +1,36 @@
+<input id="total_items" type="hidden" value="<%= @paginated_objects.length %>"/>
+<%@i = 0%>
+<% for object in @paginated_objects %>
+  <div id="comment_<%= object.id.to_s %>" class="item_in_list">
+    <div class="<%= @i%2 == 0 ? 'sensor_in_list_alternate' : 'sensor_in_list' %>" onclick="toggleAccordion('itemInformations_<%=@i%>');">
+      <div class="left_part_sensor">
+        <a id="items_link" ><%= truncate(object.text, 50) %>  </a>
+      </div>
+      <div class="right_part_sensor"><%= I18n.l object.created_at, :format =>:verb %></div>
+    </div>
+    <div id="itemInformations_<%=@i%>" style="display:none;" name="itemInformations">
+      <div class="lift_items">
+        <% if @current_user.has_system_role('superadmin') %>
+          <div align="right">
+            <%= link_to(I18n.t('comment.state.validate'), "/comments/#{object.id}/change_state?new_state=validated") unless (object.state == 'validated')%>
+            <%= link_to(I18n.t('comment.state.reject'), "/comments/#{object.id}/change_state?new_state=rejected") unless (object.state == 'rejected')%>
+            <%= link_to(image_tag('icons/pencil.png', :width =>'20px'), edit_comment_path(object.id)) %>
+            <%= link_to(image_tag('icons/delete.png', :width =>'20px'), comment_path(object.id), :method => :delete, :confirm => 'general.common_word.confirm') %>
+          </div>
+        <% end %>
+        <div class="commentbox">
+          <%= object.text %>
+        </div>
+        <div class="commentfooter">
+          <%= link_to_commentable(object) %>
+          <%if object.replies.length > 0%>
+            <h3>Replies :</h3>
+            <div class="clear"></div>
+            <%= render :partial => 'comments/reply', :collection => object.replies %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% @i += 1%>
+<% end %>

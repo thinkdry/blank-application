@@ -1,45 +1,13 @@
-<h1><%= I18n.t('comment.index.title') %></h1>
-<%= ['all', 'posted', 'validated', 'rejected'].map{ |s| link_to(I18n.t('comment.state.'+s), comments_url(:on_state => s))}.join(' | ') %>
+<h1><%= image_tag 'icons/comments.png'%> <%= I18n.t('comment.index.title') %></h1>
+<%#= ['all', 'posted', 'validated', 'rejected'].map{ |s| link_to(I18n.t('comment.state.'+s), comments_url(:on_state => s))}.join(' | ') %>
+<div id="object-list" class="comment_list">
+  <div id="classify_bar">
+    <img width="20" src="/images/icons/filter.png"/>
+    <%= ['all', 'posted', 'validated', 'rejected'].map{ |s| link_to(I18n.t('comment.state.'+s), comments_url(:on_state => s))}.join(' | ') %>
+  </div>
+  <div id="content">
+    <%= render :partial => 'comments/user_comments' %>
+  </div>
+  <%= will_paginate @paginated_objects %>
+</div>
 
-<table width="100%" cellspacing="15">
-  <tr>
-    <th>Comment</th>
-    <th>Date</th>
-    <th>Title</th>
-    <th>User</th>
-    <th>State</th>
-  </tr>
-
-  <% @current_objects.each do |co| %>
-    <tr style="font-size:12px;">
-      <td width="500px"><%= co.text %></td>
-      <td width="200px"><%=h I18n.l(co.created_at, :format => :short1) %></td>
-      <td><%=h co.commentable_type.classify.constantize.find(co.commentable_id).title %></td>
-      <td><%= link_to co.user.login, user_path(co)  %></td>
-      <td><%=h co.state %></td>
-      <td><%= link_to(I18n.t('comment.state.validate'), "/comments/#{co.id}/change_state?new_state=validated") unless (co.state == 'validated')%></td>
-      <td><%= link_to(I18n.t('comment.state.reject'), "/comments/#{co.id}/change_state?new_state=rejected") unless (co.state == 'rejected')%></td>
-      <td><%= link_to('Edit', edit_comment_path(co.id)) %>
-      <td><%= link_to('Delete', comment_path(co.id), :method => :delete, :confirm => 'general.common_word.confirm') %></td>
-    </tr>
-    <% if !co.replies.blank? && co.replies.count > 0 %>
-      <% co.replies.each do |reply|  %>
-      <tr colspan="10">
-      </tr>
-      <tr style="font-size:10px;">
-        <td width="500px">Re:<%= reply.text %></td>
-        <td width="200px"><%=h I18n.l(reply.created_at, :format => :short1) %></td>
-        <td><%=h co.commentable_type.classify.constantize.find(co.commentable_id).title %></td>
-        <td><%= link_to co.user.login, user_path(co)  %></td>
-        <td><%=h reply.state %></td>
-        <td><%= link_to(I18n.t('comment.state.validate'), "/comments/#{reply.id}/change_state?new_state=validated") unless (reply.state == 'validated')%></td>
-        <td><%= link_to(I18n.t('comment.state.reject'), "/comments/#{reply.id}/change_state?new_state=rejected") unless (reply.state == 'rejected')%></td>
-        <td><%= link_to('Edit', edit_comment_path(reply.id)) %>
-        <td><%= link_to('Delete', comment_path(reply.id), :method => :delete, :confirm => 'general.common_word.confim') %></td>
-      </tr>
-      <% end %>
-    <% end %>
-  <% end %>
-</table>
-<br />
-<%= will_paginate @current_objects %>
