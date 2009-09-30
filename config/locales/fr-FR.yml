@@ -188,6 +188,7 @@ fr-FR:
       subscribed: inscrits
       unsubscribed: désinscrits
       non_subscribed: non inscrits
+      rating_list: Liste des Note
     common_message:
       permission_denied: Permission refusée
       error_during_file_transfer: Erreur durant l'envoi du fichier

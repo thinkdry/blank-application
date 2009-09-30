@@ -23,12 +23,16 @@
         </div>
         <div class="commentfooter">
           <%= link_to_commentable(object) %>
+          <% if @current_user.has_system_role('superadmin') %>
+            <%= I18n.t('general.common_word.by').capitalize %> : <%= link_to((object.user['firstname']+' '+object.user['lastname']), user_path(object.user['id'])) %>
+          <% end %>
           <%if object.replies.length > 0%>
             <h3>Replies :</h3>
             <div class="clear"></div>
             <%= render :partial => 'comments/reply', :collection => object.replies %>
           <% end %>
         </div>
+
       </div>
     </div>
   </div>

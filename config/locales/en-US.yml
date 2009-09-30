@@ -275,6 +275,7 @@ en-US:
       subscribed: subscribed
       unsubscribed: unsubscribed
       non_subscribed: non subscribed
+      rating_list: Rating list
     common_message:
       permission_denied: Permission denied
       error_during_file_transfer: Error occured during file transfer

@@ -25,7 +25,7 @@ class CommentsController < ApplicationController
     end
     respond_to do |format|
 			format.html
-			format.xml { render :xml => @current_objects }
+#			format.xml { render :xml => @current_objects }
     end
   end
 
