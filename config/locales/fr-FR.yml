@@ -188,7 +188,6 @@ fr-FR:
       subscribed: inscrits
       unsubscribed: désinscrits
       non_subscribed: non inscrits
-      rating_list: Liste des Note
     common_message:
       permission_denied: Permission refusée
       error_during_file_transfer: Erreur durant l'envoi du fichier
@@ -855,3 +854,7 @@ fr-FR:
       linked_to_group_flash_notice: Les contacts sélectionnés ont été liés avec succès à ce groupe {{name}}
       changed_state_flash_notice: L'état des contacts sélectionnés a été changé en {{state}}
       no_contacts: Pas de contact dans ce workspace
+  rating:
+    index:
+      title: Liste des Note
+      link: Note

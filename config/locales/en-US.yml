@@ -275,7 +275,6 @@ en-US:
       subscribed: subscribed
       unsubscribed: unsubscribed
       non_subscribed: non subscribed
-      rating_list: Rating list
     common_message:
       permission_denied: Permission denied
       error_during_file_transfer: Error occured during file transfer
@@ -829,3 +828,7 @@ en-US:
       linked_to_group_flash_notice: Selected contacts are successfully linked to group {{name}}
       changed_state_flash_notice: Selected contacts state has been changed to {{state}}
       no_contacts: No contacts in this workspace
+  rating:
+    index:
+      title: List of ratings
+      link: Ratings
