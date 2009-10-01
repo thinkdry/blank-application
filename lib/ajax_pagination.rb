@@ -22,6 +22,7 @@ module AjaxPagination
 		#url = request.url.split('?').first
 		url = url.split('?').first
 		paramss = ((tmp=request.url.split('?')).size > 1) ? tmp.last : '' # why use request.url and not url in param
+    paramss = paramss.split('&').delete_if{|p| p.include?('page')}.join('&') # to remove previous page param
 		paramss = (!paramss.blank?) ? paramss.split('&page=').first+'&page=' : 'page='
     url = url+'?'+paramss
     if !collection.nil? and collection.total_pages > 1
