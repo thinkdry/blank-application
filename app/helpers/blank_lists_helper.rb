@@ -143,7 +143,8 @@ module BlankListsHelper
 		# trick, work just for classify_bar case
 		prev_params = (a=request.url.split('?')).size > 1 ? '?'+a.last : ''
 		#raise request.url.split('?').size.inspect
-		return (url+prev_params).split(params.first.split('=').first).first + ((url+prev_params).include?('?') ? '&' : '?') +params.join('&')
+    classify_url = (url+prev_params).split(params.first.split('=').first).first + ((url+prev_params).include?('?') ? '&' : '?') +params.join('&')
+		return classify_url.split('&').delete_if{|p| p==''}.join('&')
 #    return url+'/?'+params.join('&')
 	end
 

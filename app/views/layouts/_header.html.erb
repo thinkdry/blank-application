@@ -78,7 +78,7 @@
           <h3><%= I18n.t('layout.application.workspaces') %></h3>
           <div class="headerTipContent small">
             <ul>
-              <% Workspace.allowed_user_with_permission(@current_user.id, 'workspace_show').each do |w| -%>
+              <% Workspace.allowed_user_with_permission(@current_user, 'workspace_show').each do |w| -%>
                 <li><%= link_to w.title, workspace_path(w)%></li>
               <% end -%>
             </ul>

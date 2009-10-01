@@ -12,18 +12,25 @@
   </div>
   <div id="itemInformations_<%=@i%>" style="display:none;" name="itemInformations">
     <div class="lift_items">
-      <%= link_to image_tag('/images/icons/play.png', :width => "20"), user_path(object.id) %>
-      <% if @current_user.has_system_role('superadmin') %>
-        <%= link_to image_tag('/images/icons/pencil.png', :width => "20"), edit_user_path(object.id) %>
-        <% if object.activation_code.to_s.size > 10 %>
-          <%= link_to image_tag('/images/icons/delete.png', :width => "20"), user_path(object.id), :method => :delete, :confirm => I18n.t('general.common_word.confirmation') %><br />
-        <% else %>
-          <%= link_to (object.activation_code=='locked' ? 'Unlock' : 'Lock'), locking_user_path(object.id) %><br />
+      <div class="file_infos_box_right">
+        <%= link_to image_tag('/images/icons/play.png', :width => "20"), user_path(object.id) %>
+        <% if @current_user.has_system_role('superadmin') %>
+          <%= link_to image_tag('/images/icons/pencil.png', :width => "20"), edit_user_path(object.id) %>
+          <% if object.activation_code.to_s.size > 10 %>
+            <%= link_to image_tag('/images/icons/delete.png', :width => "20"), user_path(object.id), :method => :delete, :confirm => I18n.t('general.common_word.confirmation') %><br />
+          <% else %>
+            <%= link_to (object.activation_code=='locked' ? 'Unlock' : 'Lock'), locking_user_path(object.id) %><br />
+          <% end %>
+        </div><div>
+          <i>- <%= I18n.t('general.common_word.role').capitalize %>: <%= object.system_role.name %></i><br />
+          <i><%=" - #{ I18n.t('general.common_word.last_connected') }: " + (object.last_connected_at ? time_ago_in_words(object.last_connected_at) : 'unknow but created at '+object.created_at.to_s) %></i><br />
+          <i><%=" - #{ I18n.t('general.common_word.state') }: " + object.activation_code.to_s %></i>
         <% end %>
-        <i>- <%= I18n.t('general.common_word.role').capitalize %>: <%= object.system_role.name %></i><br />
-        <i><%=" - #{ I18n.t('general.common_word.last_connected') }: " + (object.last_connected_at ? time_ago_in_words(object.last_connected_at) : 'unknow but created at '+object.created_at.to_s) %></i><br />
-        <i><%=" - #{ I18n.t('general.common_word.state') }: " + object.activation_code.to_s %></i>
-      <% end %>
+      </div>
+      <p><%=  I18n.t('user.field.email_label') %> : <%= object.email %></p>
+      <%= "<p>#{I18n.t('user.field.phone_label')} : #{object.phone}</p>" if !object.phone.to_s.blank? %>
+      <%= "<p>#{I18n.t('user.field.mobile_label')} : #{object.mobile}</p>" if !object.mobile.to_s.blank? %>
+      <%= "<p>#{I18n.t('user.field.address_label')} : #{object.address}</p>" if !object.address.to_s.blank? %>
     </div>
   </div>
   <% @i += 1%>

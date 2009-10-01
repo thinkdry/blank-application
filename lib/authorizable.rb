@@ -55,10 +55,10 @@ module Authorizable
       def acts_as_authorizable
 				include Authorizable::ModelMethods::InstanceMethods
 				if ITEMS.include?(self.to_s.underscore)
-					named_scope :matching_user_with_permission_in_workspaces, lambda { |user_id, permission, workspace_ids|
+					named_scope :matching_user_with_permission_in_workspaces, lambda { |user, permission, workspace_ids|
 						# Check if these workspace are matching the really authorized ones, and set 'nil for all' condition
-						workspace_ids ||= Workspace.allowed_user_with_permission(user_id, self.to_s.underscore+'_'+permission).all(:select => 'workspaces.id').map{ |e| e.id }
-						workspace_ids = workspace_ids.map{|w_id| w_id.to_i} & Workspace.allowed_user_with_permission(user_id, self.to_s.underscore+'_'+permission).all(:select => 'workspaces.id').map{ |e| e.id }
+						workspace_ids ||= Workspace.allowed_user_with_permission(user, self.to_s.underscore+'_'+permission).all(:select => 'workspaces.id').map{ |e| e.id }
+						workspace_ids = workspace_ids.map{|w_id| w_id.to_i} & Workspace.allowed_user_with_permission(user, self.to_s.underscore+'_'+permission).all(:select => 'workspaces.id').map{ |e| e.id }
 						# So we can retrieve directly as the workspaces are checked, hihihi
 						if workspace_ids.first
               
@@ -72,13 +72,13 @@ module Authorizable
 						}
 					include Authorizable::ModelMethods::IMItem
 				elsif ['workspace'].include?(self.to_s.underscore)
-					named_scope :matching_user_with_permission_in_workspaces, lambda { |user_id, permission, workspace_ids|
+					named_scope :matching_user_with_permission_in_workspaces, lambda { |user, permission, workspace_ids|
 						# Check if these workspace are matching the really authorized ones, and set 'nil for all' condition
-            workspace_ids ||= Workspace.allowed_user_with_permission(user_id, self.to_s.underscore+'_'+permission).all(:select => 'workspaces.id').map{ |e| e.id }
-						workspace_ids = workspace_ids.map{|w_id| w_id.to_i} & Workspace.allowed_user_with_permission(user_id, self.to_s.underscore+'_'+permission).all(:select => 'workspaces.id').map{ |e| e.id }
+            workspace_ids ||= Workspace.allowed_user_with_permission(user, self.to_s.underscore+'_'+permission).all(:select => 'workspaces.id').map{ |e| e.id }
+						workspace_ids = workspace_ids.map{|w_id| w_id.to_i} & Workspace.allowed_user_with_permission(user, self.to_s.underscore+'_'+permission).all(:select => 'workspaces.id').map{ |e| e.id }
             
 						# In case of system permission
-						if User.find(user_id).has_system_permission(self.to_s.underscore.pluralize, permission)
+						if user.has_system_permission(self.to_s.underscore.pluralize, permission)
 							{ }
 						# So we can retrieve directly as the workspaces are checked, hihihi
 						elsif workspace_ids.first
@@ -91,13 +91,13 @@ module Authorizable
 						end
 						}
 					# Scope getting the workspaces authorized for an user with a specific permission
-					named_scope :allowed_user_with_permission, lambda { |user_id, permission_name|
-						raise 'User required' unless user_id
+					named_scope :allowed_user_with_permission, lambda { |user, permission_name|
+						raise 'User required' unless user
 						raise 'Permission name' unless permission_name
-						if User.find(user_id).has_system_role('superadmin')
+						if user.has_system_role('superadmin')
 							{ :order => "workspaces.title ASC" }
 						else
-							{ :joins => "LEFT JOIN users_workspaces ON users_workspaces.workspace_id = workspaces.id AND users_workspaces.user_id = #{user_id.to_i} "+
+							{ :joins => "LEFT JOIN users_workspaces ON users_workspaces.workspace_id = workspaces.id AND users_workspaces.user_id = #{user.id.to_i} "+
 									"LEFT JOIN permissions_roles ON permissions_roles.role_id = users_workspaces.role_id "+
 									"LEFT JOIN permissions ON permissions_roles.permission_id = permissions.id",
 								:conditions => "permissions.name = '#{permission_name.to_s}'" ,
@@ -108,10 +108,10 @@ module Authorizable
 					}
 
 					# Scope getting the workspaces authorized for an user with a specific role
-					named_scope :allowed_user_with_ws_role, lambda { |user_id, role_name|
-						raise 'User required' unless user_id
+					named_scope :allowed_user_with_ws_role, lambda { |user, role_name|
+						raise 'User required' unless user
 						raise 'Role name' unless role_name
-						{ :joins => "LEFT JOIN users_workspaces ON users_workspaces.workspace_id = workspaces.id AND users_workspaces.user_id = #{user_id.to_i} "+
+						{ :joins => "LEFT JOIN users_workspaces ON users_workspaces.workspace_id = workspaces.id AND users_workspaces.user_id = #{user.id.to_i} "+
 								"LEFT JOIN roles ON roles.id = users_workspaces.role_id",
 							:conditions => "roles.name = '#{role_name.to_s}'" ,
 							:select => "DISTINCT workspaces.*",
@@ -120,12 +120,12 @@ module Authorizable
 					}
 					include Authorizable::ModelMethods::IMWorkspace
 				elsif self.to_s.underscore == 'user'
-					named_scope :matching_user_with_permission_in_workspaces, lambda { |user_id, permission, workspace_ids|
+					named_scope :matching_user_with_permission_in_workspaces, lambda { |user, permission, workspace_ids|
 						# Check if these workspace are matching the really authorized ones, and set 'nil for all' condition
-						workspace_ids ||= Workspace.allowed_user_with_permission(user_id, self.to_s.underscore+'_'+permission).all(:select => 'workspaces.id').map{ |e| e.id }
-						workspace_ids = workspace_ids & Workspace.allowed_user_with_permission(user_id, self.to_s.underscore+'_'+permission).all(:select => 'workspaces.id').map{ |e| e.id }
+						workspace_ids ||= Workspace.allowed_user_with_permission(user, self.to_s.underscore+'_'+permission).all(:select => 'workspaces.id').map{ |e| e.id }
+						workspace_ids = workspace_ids & Workspace.allowed_user_with_permission(user, self.to_s.underscore+'_'+permission).all(:select => 'workspaces.id').map{ |e| e.id }
 						# In case of system permission
-						if User.find(user_id).has_system_permission(self.to_s.underscore.pluralize, permission)
+						if user.has_system_permission(self.to_s.underscore.pluralize, permission)
 							{  }
 						# So we can retrieve directly as the workspaces are checked, hihihi
 						elsif workspace_ids.first

@@ -52,7 +52,7 @@
             <option selected="selected" value='#'>
               ----------
             </option>
-            <% Workspace.allowed_user_with_permission(@current_user.id, 'workspace_show').each do |w| %>
+            <% Workspace.allowed_user_with_permission(@current_user, 'workspace_show').each do |w| %>
               <%= content_tag(:option, w.title, :value => workspace_path(w)) %>
             <% end %>
             <% if @current_user.has_system_permission('workspace', 'new') %>

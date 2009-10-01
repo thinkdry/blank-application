@@ -14,7 +14,7 @@ module PeopleHelper
 		res=[]
     permission = permission || object_class_name+"_new"
 		# Workspace list allowing user to add new item and accepting items of that type
-		list = (res + Workspace.allowed_user_with_permission(@current_user.id, permission)).uniq
+		list = (res + Workspace.allowed_user_with_permission(@current_user, permission)).uniq
 		#
 		if (list.size > 1 || @current_user.has_system_role('superadmin'))
 			strg += "<label>#{I18n.t('general.object.workspace').camelize+'(s) :'}</label><div class='formElement'>"
