@@ -22,4 +22,4 @@ public/uploads/*
 public/images/captcha
 public/javascripts/all.js
 vendor/gems/**/ext/**/*
-
+vendor/**/.git/**/*
