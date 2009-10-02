@@ -3,8 +3,8 @@ class CommentsController < ApplicationController
 
 	unloadable
 	# Filters managing the rights on the comment actions
-	before_filter :is_superadmin?, :only => ['index', 'edit', 'update', 'destroy']
-  before_filter :is_admin?, :only => ['index', 'edit', 'update', 'destroy']
+	before_filter :is_superadmin?, :only => ['edit', 'update', 'destroy']
+  before_filter :is_admin?, :only => ['edit', 'update', 'destroy']
 
 	# Standart action for list presentation
 	#
@@ -12,14 +12,20 @@ class CommentsController < ApplicationController
   # - GET /comments
   # - GET /comments.xml
   def index
-		if params[:on_state] && (params[:on_state] != 'all')
-			@current_objects = Comment.find(:all, :order => 'created_at DESC', :conditions => { :state => params[:on_state], :parent_id => nil }).paginate(:per_page => get_per_page_value, :page => params[:page])
-		else
-			@current_objects = Comment.find(:all, :conditions => {:parent_id => nil}, :order => 'created_at DESC').paginate(:per_page => get_per_page_value, :page => params[:page])
-		end
+#		if params[:on_state] && (params[:on_state] != 'all')
+#			@current_objects = Comment.find(:all, :order => 'created_at DESC', :conditions => { :state => params[:on_state], :parent_id => nil }).paginate(:per_page => get_per_page_value, :page => params[:page])
+#		else
+#			@current_objects = Comment.find(:all, :conditions => {:parent_id => nil}, :order => 'created_at DESC').paginate(:per_page => get_per_page_value, :page => params[:page])
+#		end
+    conditions = (!params[:on_state].nil? && params[:on_state] != 'all') ? "AND state ='#{params[:on_state]}'" : ''
+    if @current_user.has_system_role('superadmin')
+      @paginated_objects = Comment.find(:all, :conditions => ["parent_id <=> NULL #{conditions}"], :order => 'created_at DESC').paginate(:per_page => get_per_page_value, :page => params[:page])
+    else
+      @paginated_objects = Comment.find(:all, :conditions => ["parent_id <=> NULL AND user_id =#{@current_user.id} #{conditions}"], :order => 'created_at DESC').paginate(:per_page => get_per_page_value, :page => params[:page])
+    end
     respond_to do |format|
 			format.html
-			format.xml { render :xml => @current_objects }
+#			format.xml { render :xml => @current_objects }
     end
   end
 

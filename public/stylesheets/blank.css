@@ -942,7 +942,7 @@ ul.top_box li{
 	color:grey;
 }
 
-#pagination{
+#pagination, .pagination{
 	text-align:center;
 	padding-top:15px;
 	height:30px;
@@ -1517,7 +1517,6 @@ form br{
 
 .commentbox{
  	background-color: #ececec;
- 	width: 450px;
  	padding: 10px;
 }
 
@@ -1555,4 +1554,7 @@ label .low{
 }
 .contact_classify{
     padding:20px 10px;
+}
+.comment_list, .rating_list {
+    border-top:1px solid #CCCCCC;
 }

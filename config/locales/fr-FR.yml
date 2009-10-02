@@ -854,3 +854,7 @@ fr-FR:
       linked_to_group_flash_notice: Les contacts sélectionnés ont été liés avec succès à ce groupe {{name}}
       changed_state_flash_notice: L'état des contacts sélectionnés a été changé en {{state}}
       no_contacts: Pas de contact dans ce workspace
+  rating:
+    index:
+      title: Liste des Note
+      link: Note

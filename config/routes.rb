@@ -72,8 +72,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :permissions, :collection => {:validate => :post}
 
   # Routes for Comments
-	map.resources :comments, :only => [:index, :edit, :update, :destroy], :member => { :change_state => :any, :add_reply => :any}
-
+	map.resources :comments, :only => [:index, :edit, :update, :destroy], :member => { :change_state => :any, :add_reply => :any}, :collection => {:validate => :post}
+  # Routes for ratings
+  map.resources :ratings, :only => [:index]
   # Route for HomePage
   map.root :controller => 'home', :action => 'index'
 

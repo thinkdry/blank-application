@@ -34,6 +34,7 @@ class Search < ActiveRecord::Base
 	serialize :conditions, Hash
 	serialize :pagination, Hash
 	serialize :filter, Hash
+  serialize :user, User
 	#serialize :workspace_ids, Array
 
 	column :category, :string
@@ -49,6 +50,8 @@ class Search < ActiveRecord::Base
 	column :filter, :string
 	column :pagination, :string
 
+  column :user, :string
+  column :skip_res_pag, :boolean, false
   # Validation
   validates_date :created_at_after, :created_at_before, :allow_nil => true
 
@@ -72,7 +75,7 @@ class Search < ActiveRecord::Base
 	
 	def param
 		return {
-			:user_id => self.user_id,
+			:user => self.user,
 			:permission => self.permission,
 			#:category => self.category,
 			#:models => self.models,
@@ -99,8 +102,15 @@ class Search < ActiveRecord::Base
 				results += model_const.get_da_objects_list(self.param.merge!({:skip_pag => true}))
 			end
 #      raise self[:filter][:field]+' '+self[:filter][:way]
+      results.sort!{|a, b|
+        if self[:filter][:way] == 'desc'
+          a.send(self[:filter][:field]) <=> b.send(self[:filter][:field])
+        else
+          b.send(self[:filter][:field]) <=> a.send(self[:filter][:field])
+        end
+      }
 		end
-    results = results.paginate(:per_page => self[:pagination][:per_page].to_i, :page => self[:pagination][:page].to_i, :order => self[:filter][:field]+' '+self[:filter][:way])
+    results = results.paginate(:per_page => self[:pagination][:per_page].to_i, :page => self[:pagination][:page].to_i, :order => self[:filter][:field]+' '+self[:filter][:way]) if !self.skip_res_pag
 		return results
 	end
 

@@ -100,6 +100,8 @@ module GenericForItemHelper
 	def advanced_editor_on(object, attribute, width, height)
     ws = current_workspace
 		css_files = []
+    toolset = 'Default'
+    google_map = false
     ws ||= object.workspaces.delete_if{ |e| e.websites.empty? }.first if (object.class.to_s == "Page")
     if ws && ws.respond_to?(:websites) && ws.websites.first && (tmp=ws.websites.first.front)
         Dir["public/front_files/#{tmp.name}/stylesheets/*.css"].collect do |uploaded_css|
@@ -107,15 +109,17 @@ module GenericForItemHelper
 				end
 			end
 #    css_files = '/fckeditor/css/test_fck.css' if css_files.empty?
+     toolset = 'Default_google_map' if google_map
      css_files = '/stylesheets/fckeditor.css' if css_files.empty?
     return '<script type="text/javascript" src="/fckeditor/fckeditor.js"></script>' +
       javascript_tag(%{
-        var oFCKeditor = new FCKeditor('#{object.class.to_s.underscore}_#{attribute}', "#{ width }", "#{ height }") ;
+        var oFCKeditor = new FCKeditor('#{object.class.to_s.underscore}_#{attribute}', "#{ width }", "#{ height }", "#{toolset}") ;
         oFCKeditor.Config['EditorAreaCSS'] = "#{css_files}" ;
         oFCKeditor.BasePath = "/fckeditor/" ;
-                                oFCKeditor.Config['ImageUploadURL'] = "/fckuploads?item_type=#{object.class}&id=#{object.id}&type=Image";
-                                 oFCKeditor.Config['FlashUploadURL'] = "/fckuploads?item_type=#{object.class}&id=#{object.id}&type=Video";
-                                oFCKeditor.Config['LinkUploadURL'] = "/fckuploads?item_type=#{object.class}&id=#{object.id}&type=Link";
+        oFCKeditor.Config['GoogleMaps_Key'] = '';
+        oFCKeditor.Config['ImageUploadURL'] = "/fckuploads?item_type=#{object.class}&id=#{object.id}&type=Image";
+        oFCKeditor.Config['FlashUploadURL'] = "/fckuploads?item_type=#{object.class}&id=#{object.id}&type=Video";
+        oFCKeditor.Config['LinkUploadURL'] = "/fckuploads?item_type=#{object.class}&id=#{object.id}&type=Link";
         oFCKeditor.Config['DefaultLanguage'] = '#{I18n.locale.split('-')[0]}' ;
         oFCKeditor.ReplaceTextarea() ;
                         })
@@ -134,7 +138,7 @@ module GenericForItemHelper
 		check_box_tag_name = "#{item_class_name}[associated_workspaces][]"
 		res=[]
 		# Workspace list allowing user to add new item and accepting items of that type
-		list = (res + Workspace.allowed_user_with_permission(@current_user.id, item_class_name+"_new")).uniq.delete_if{ |w| !w.ws_items.to_s.split(',').include?(item_class_name) }
+		list = (res + Workspace.allowed_user_with_permission(@current_user, item_class_name+"_new")).uniq.delete_if{ |w| !w.ws_items.to_s.split(',').include?(item_class_name) }
 		#
 		if (list.size > 1 || @current_user.has_system_role('superadmin'))
 			strg += "<label>#{I18n.t('general.object.workspace').camelize+'(s) :'}</label><div class='formElement'>"
@@ -166,3 +170,4 @@ module GenericForItemHelper
 	end
 
 end
+# GoogleKey for http://localhost:3000 'ABQIAAAA2WehS-YCrnkbhNu92rFLjBTJQa0g3IQ9GZqIMmInSLzwtGDKaBRf3GIYsW944CGF2j-ahDwkqGcbjw'

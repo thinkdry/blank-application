@@ -122,7 +122,7 @@ class WorkspacesController < ApplicationController
     params_hash = build_hash_from_params(params)
     params_hash.merge!({:skip_pag => true}) if params[:format] && params[:format] != 'html'
 		@current_objects ||= @paginated_objects = params[:controller].classify.constantize.get_da_objects_list(params_hash)
-			#Workspace.allowed_user_with_permission(@current_user.id, 'workspace_show')
+			#Workspace.allowed_user_with_permission(@current_user, 'workspace_show')
 	end
 
   # Action to insert user field with role to the workspace (used with AJAX call)

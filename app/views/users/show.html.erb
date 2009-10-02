@@ -38,5 +38,10 @@
 
 <%= render :partial => 'workspaces', :object => @current_object %>
 
-<div class="clear"></div>
+<div class="clear" /><br /><br />
+<% if @current_user.id == @current_object.id %>
+  <%= image_tag 'icons/comments.png'%><%= link_to I18n.t('general.object.comment').pluralize.capitalize, comments_path %>
+  <%#= render :partial => 'comments/user_comments', :locals => {:comments => @comments} %>
 
+  <%= image_tag 'icons/rate.png'%><%= link_to I18n.t('rating.index.link').pluralize, ratings_path %>
+<% end %>

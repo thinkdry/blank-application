@@ -65,7 +65,7 @@ class User < ActiveRecord::Base
 #		has_many item.pluralize.to_sym
 #	end
 	# Relation N-1 with the 'rattings' table
-  has_many :rattings
+  has_many :ratings
 	# Relation N-1 with the 'comments' table
   has_many :comments
 	# Relation N-1 getting the FeedItem objects through the 'feed_sources' table

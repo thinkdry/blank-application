@@ -75,7 +75,7 @@ class ApplicationController < ActionController::Base
 		if current_workspace
 			(current_workspace.ws_items.to_s.split(',') & @configuration['sa_items']).delete_if{ |e| !user.has_workspace_permission(current_workspace.id, e, action) }
 		else
-			available_items_list.delete_if{ |e| Workspace.allowed_user_with_permission(user.id, e+'_'+action).size == 0 }
+			available_items_list.delete_if{ |e| Workspace.allowed_user_with_permission(user, e+'_'+action).size == 0 }
 		end
 	end
 
@@ -123,7 +123,7 @@ class ApplicationController < ActionController::Base
 		params[:page] ||= 1
     params[:per_page] ||= get_per_page_value
 		return {
-			:user_id => @current_user.id,
+			:user => @current_user,
 			:permission => 'show',
 			:category => params[:cat],
 			:models => params[:m],
@@ -143,7 +143,7 @@ class ApplicationController < ActionController::Base
 	# after the current user locale preference and finally the default locale set
 	# inside the 'blank_init' initializer.
   def set_locale
-		I18n.locale = params[:locale] || ((current_user && current_user.u_language) ? current_user.u_language : I18n.default_locale)
+		I18n.locale = params[:locale] || ((current_user && !current_user.u_language.to_s.blank?) ? current_user.u_language : I18n.default_locale)
   end
 
 	# Image uploading with RMagick

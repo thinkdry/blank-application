@@ -59,7 +59,7 @@ module Searchable
 					# 1. text if there
 					req = req.searching_text_with_xapian(options[:full_text]) if options[:full_text]
 					# 2. workspaces & permissions
-					req = req.matching_user_with_permission_in_workspaces(options[:user_id], 'show', options[:workspace_ids])
+					req = req.matching_user_with_permission_in_workspaces(options[:user], 'show', options[:workspace_ids])
 					# 3. condition if there
           if !options[:conditions].nil?
             req = req.created_at_gte(options[:conditions][:created_at_after].to_date)  if !options[:conditions][:created_at_after].blank?

@@ -23,7 +23,7 @@ module SearchesHelper
     selected_ws_ids = params[:w] || []
     permission = category == 'item' ? 'workspace_show' : category+'_show'
     ws = ''
-    Workspace.allowed_user_with_permission(@current_user.id, permission).all(:select => 'workspaces.id, workspaces.title').each do |w|
+    Workspace.allowed_user_with_permission(@current_user, permission).all(:select => 'workspaces.id, workspaces.title').each do |w|
        ws +="<input class ='checkboxes' id='w' name='w[]' type='checkbox' value='#{w.id}' #{selected_ws_ids.include?(w.id.to_s) ? 'checked=true' : ''} />#{w.title} "
     end
     return ws

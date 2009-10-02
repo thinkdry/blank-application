@@ -20,6 +20,7 @@ class SearchesController < ApplicationController #:nodoc: all
 		end
 		# Creation of the search object and search do
 		@search = Search.new(set_param).advance_search_fields
+    @search.skip_res_pag = true if !params[:format].nil? && params[:format] != 'html'
 		@paginated_objects = @current_objects = @search.do_search
 		# Definition of the template to use to retrieve information
 		if @search.category == 'user' || @search.category == 'workspace'
@@ -36,6 +37,7 @@ class SearchesController < ApplicationController #:nodoc: all
 				format.atom { render :template => "#{@templatee}.atom.builder", :layout => false }
 			end
 		else
+      @no_div = true
 			render :partial => @templatee, :layout => false
 		end
   end

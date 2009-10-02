@@ -6,13 +6,13 @@
 	<img src="/images/icons/filter.png" width="20"/>
     <% ordering_fields_list.each do |filter| %>
       <%= I18n.t('layout.search.filter_'+filter) %>
-	  <% if (params[:by].split('-') == filter && params[:by].split('-') == 'asc') -%>
+	  <% if (params[:by].split('-').first == filter && params[:by].split('-').last == 'asc') -%>
 	    <%= image_tag('/images/icons/asc_selected.png', :width => '10') %>
 	  <% else -%>
       	<%= link_to_function image_tag('/images/icons/asc.png', :width => '10'),
 			 "new Ajax.Updater('#{refreshed_div}', '#{safe_url(ajax_url, ["by=#{filter}-asc"])}', {method:'get', asynchronous:true, evalScripts:true})" %>
 	  <% end -%>
-	  <% if (params[:by].split('-') == filter && params[:by].split('-') == 'desc') -%>
+	  <% if (params[:by].split('-').first == filter && params[:by].split('-').last == 'desc') -%>
 	  	<%= image_tag('/images/icons/desc_selected.png', :width => '10')%>
 	  <% else -%>
         <%= link_to_function image_tag('/images/icons/desc.png', :width => '10'),

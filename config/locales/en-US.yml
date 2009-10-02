@@ -828,3 +828,7 @@ en-US:
       linked_to_group_flash_notice: Selected contacts are successfully linked to group {{name}}
       changed_state_flash_notice: Selected contacts state has been changed to {{state}}
       no_contacts: No contacts in this workspace
+  rating:
+    index:
+      title: List of ratings
+      link: Ratings

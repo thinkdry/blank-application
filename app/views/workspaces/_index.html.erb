@@ -1,7 +1,7 @@
 <%= display_objects_list(
     #:collection => @paginated_objects,
     :in_list_partial => 'workspaces/workspace_in_list',
-    :ajax_url => workspaces_path,
+    :ajax_url => send("#{params[:controller]}_path"),
     #:ajax_url => request.path+'?'+request.url.split('?').last,
     :ordering_fields => ['created_at', 'title'],
 	:output_formats => ['xml', 'json', 'atom'],
