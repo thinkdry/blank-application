@@ -1,6 +1,8 @@
+<%= display_classify_bar(ordering_fields, ajax_url, 'object-list') %>
+
 <% if @paginated_objects.first %>
   <script type="text/javascript" src="/videoplayer/swfobject.js"></script>
-  <%= display_classify_bar(ordering_fields, ajax_url, 'object-list') %>
+  
   <div id="content">
     <input type="hidden" id="total_items" value="<%= @paginated_objects.length %>">
     <%= display_item_in_list(@paginated_objects, in_list_partial) %>
