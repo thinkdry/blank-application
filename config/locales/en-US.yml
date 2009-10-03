@@ -554,11 +554,14 @@ en-US:
       title: Edit the Page
       no_website_linked: There is no website linked to the choosen workspace, link one in order to edit your page.
       more_than_one_ws_linked: There are more than one workspace linked to this page, it will make conflict with fronts.
-    field: 
+    field:
+      title_label: Title
+      title_hint: Choose properly the title of your page because you will not be able to change it after creation.
       body_label: Body
-      page_title_hint: Enter the title for this page
+      page_title_hint: Enter the HTML title for this page
       page_title_label: Title of the page
       body_hint: Body of this page
+      type_page_label: Type of the page
   item: 
     new: 
       flash_notice: Created Successfully

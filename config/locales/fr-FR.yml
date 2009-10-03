@@ -545,7 +545,7 @@ fr-FR:
       title: Ajouter une newsletter
     edit: 
       title: Editez une newsletter
-    field: 
+    field:
       body_label: Corps
       from_email_hint: Envoyer l'email depuis cette adresse
       subject_label: Sujet
@@ -580,6 +580,8 @@ fr-FR:
       keyword_label: Keywords
       description_hint: Description de l'Objet
       add_tag: "Ajouter une \xC3\xA9tiquette"
+      state_label: Workflow
+      state_hint: Spécifier l'état de votre item
     destroy:
       flash_notice: "Supprim\xC3\xA9 avec succ\xC3\xA8s"
       flash_error: "La suppression a \xC3\xA9chou\xC3\xA9e."
@@ -609,7 +611,9 @@ fr-FR:
       title: Editer la page
       no_website_linked: "L'espace de travail selectionn\xC3\xA9 n'est reli\xC3\xA9 \xC3\xA0 aucun site web. Liez en un pour pouvoir l'\xC3\xA9diter."
       more_than_one_ws_linked: "Il y a plusieurs espaces de travail reli\xC3\xA9s \xC3\xA0 cette page, ce qui peut engendrer des conflits avec le front."
-    field: 
+    field:
+      title_label: Titre
+      title_hint: Choisir attentivement le titre de la page car il ne sera plus éditable par la suite.
       body_label: Corps
       page_title_hint: Saisissez le titre de cette page
       menu_title_label: Label de l'item pour menu
@@ -619,6 +623,7 @@ fr-FR:
       position_hint: Entrez la position de l'item dans le sous menu, par ex 2.2
       position_label: Position dans le menu
       body_hint: Corps de la page
+      type_page_label: Type de la page
   people: 
     new: 
       title: Nouveau contact
