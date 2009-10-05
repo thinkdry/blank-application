@@ -48,10 +48,11 @@ Rails::Initializer.run do |config|
 
 	config.gem 'rmagick', :version => '>=2.9.1', :lib => 'RMagick'
   config.gem 'javan-whenever', :lib => false, :source => 'http://gems.github.com'
-	config.gem 'rspec', :version => '>=1.2.8', :lib => 'spec', :source => 'http://gems.github.com'
-	config.gem 'test-unit', :version => '1.2.3', :lib => 'test/unit'
-	config.gem 'rspec-rails', :version => '>=1.2.7', :lib => 'spec/rails', :source => 'http://gems.github.com'
-	# Gems available as Plugins (inside vendor/plugins_gems folder)
+#	config.gem 'rspec', :version => '>=1.2.8', :lib => 'spec', :source => 'http://gems.github.com'
+#	config.gem 'test-unit', :version => '>=2.0.3', :lib => 'test/unit'
+#	config.gem 'rspec-rails', :version => '>=1.2.7.1', :lib => 'spec/rails', :source => 'http://gems.github.com'
+	config.gem 'pauldix-feedzirra', :lib => 'feedzirra', :version => '>=0.0.18', :source => 'http://gems.github.com'
+	# Gems available as Plugins (actually inside vendor/plugins folder)
 #	config.gem 'Lipsiasoft-exception-notifier', :lib => 'exception_notifier', :source => 'http://gems.github.com'
 #	config.gem 'fastercsv', :version => '>=1.4.0', :lib => 'fastercsv'
 #	config.gem 'paperclip', :source => 'http://gems.github.com'#, :version => '>=2.2.8'
@@ -65,7 +66,6 @@ Rails::Initializer.run do |config|
 	#config.plugin_paths += %W( #{RAILS_ROOT}/blank_modules )
 	#config.plugin_paths += %W( #{RAILS_ROOT}/blank_modules/aep_beast/plugins )
   config.plugin_paths += %W( #{RAILS_ROOT}/vendor/engines )
-	config.plugin_paths += %W( #{RAILS_ROOT}/vendor/plugins_gems )
 
   # Add additional load paths for your own custom dirs
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
