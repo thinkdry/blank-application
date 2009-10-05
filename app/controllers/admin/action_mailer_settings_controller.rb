@@ -16,6 +16,7 @@ class Admin::ActionMailerSettingsController < ApplicationController
       @mailer_config = File.new("#{RAILS_ROOT}/config/customs/action_mailer.yml", "w+")
       @mailer_config.syswrite(@mailer_config_hash.to_yaml)
       @mailer_config = YAML.load_file("#{RAILS_ROOT}/config/customs/action_mailer.yml")
+      @mailer_config.extend Extentions::HashFeatures
     end
     
   end
