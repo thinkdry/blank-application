@@ -1,0 +1,36 @@
+<%= image_tag('/images/icons/action_mailer_setting.png') %>
+<%= "Action Mailer Settings" %>
+<br />
+
+<% form_for @mailer_config, :url => updating_admin_action_mailer_settings_path,
+  :html => {:method => :put, :multipart => true, :class => "fieldsetSimulation"} do |f| -%>
+  <label>Mailer Address:</label>
+  <div class="formElement"><%= f.text_field :sa_mailer_address %></div>
+
+  <label>Mailer Domain Name :</label>
+  <div class="formElement"><%= f.text_field :sa_mailer_domain %></div>
+
+  <label>Mailer Port :</label>
+  <div class="formElement"><%= f.text_field :sa_mailer_port %></div>
+
+  <label>Mailer Username</label>
+  <div class="formElement">
+    <div class="formElement"><%= f.text_field :sa_mailer_user_name %></div>
+  </div>
+
+  <label>Mailer Username</label>
+  <div class="formElement">
+    <div class="formElement"><%= f.password_field :sa_mailer_password %></div>
+  </div>
+
+  <label>Mailer Authentication</label>
+  <div class="formElement">
+    <%= f.select :sa_mailer_authentication, ['none', 'plain', 'login', 'cram_md5'],{},{} %>
+  </div>
+
+
+  <div class="centerButton"><button type="submit" class="submit_button"><%=I18n.t('general.button.update')%></button></div>
+
+
+
+<% end %>
