@@ -22,13 +22,17 @@ class GroupsController < ApplicationController
     if params[:format].nil? || params[:format] == 'html'
       @paginated_objects = Group.paginate(:conditions => {:workspace_id => current_workspace.id}, :order => "#{filter.split('-').first} #{filter.split('-').last}", :per_page => get_per_page_value, :page => params[:page])
     end
-    
-    respond_to do |format|
-			format.html{ render :partial => 'index', :layout => false && @no_div = true if request.xml_http_request?}
-			format.xml { render :xml => Group.find(:all, :conditions => {:workspace_id => current_workspace.id}) }
-			format.json { render :json => Group.find(:all, :conditions => {:workspace_id => current_workspace.id}) }
-			format.atom {@current_objects = Group.find(:all, :conditions => {:workspace_id => current_workspace.id}); render :template => "groups/index.atom.builder", :layout => false }
-		end
+    if !request.xhr?
+      respond_to do |format|
+        format.html{ }
+        format.xml { render :xml => Group.find(:all, :conditions => {:workspace_id => current_workspace.id}) }
+        format.json { render :json => Group.find(:all, :conditions => {:workspace_id => current_workspace.id}) }
+        format.atom {@current_objects = Group.find(:all, :conditions => {:workspace_id => current_workspace.id}); render :template => "groups/index.atom.builder", :layout => false }
+      end
+    else
+      @no_div = true
+      render :partial => 'index', :layout => false
+    end
 	end
 
 	def new
@@ -38,7 +42,7 @@ class GroupsController < ApplicationController
 	end
 
 	def edit
-#		@current_object = Group.find(params[:id])
+    #		@current_object = Group.find(params[:id])
 		get_contacts_lists
 	end
 
@@ -58,7 +62,7 @@ class GroupsController < ApplicationController
 	end
 
 	def update
-#		@current_object = Group.find(params[:id])
+    #		@current_object = Group.find(params[:id])
 		if @current_object.update_attributes(params[:group])
       @current_object.groupable_objects = params[:selected_Options]
 			flash[:notice] = I18n.t('item.edit.flash_notice')
@@ -71,11 +75,16 @@ class GroupsController < ApplicationController
 	end
 
 	def show
-#		@current_object = Group.find(params[:id])
+    #		@current_object = Group.find(params[:id])
+    respond_to do |format|
+			format.html{ }
+			format.xml { render :xml => @current_object}
+			format.json { render :json => @current_object}
+		end
 	end
 
 	def destroy
-#		@current_object = Group.find(params[:id])
+    #		@current_object = Group.find(params[:id])
 		if @current_object.destroy
 			flash[:notice] = I18n.t('item.destroy.flash_notice')
 			redirect_to workspace_groups_path(current_workspace.id)
@@ -111,8 +120,8 @@ class GroupsController < ApplicationController
     group = Group.find(params[:id])
     outfile = "group_people_" + Time.now.strftime("%m-%d-%Y") + ".csv"
 		send_data(group.export_to_csv,
-				:type => 'text/csv; charset=iso-8859-1; header=present',
-				:disposition => "attachment; filename=#{outfile}")
+      :type => 'text/csv; charset=iso-8859-1; header=present',
+      :disposition => "attachment; filename=#{outfile}")
   end
 
 	protected
