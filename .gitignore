@@ -12,7 +12,7 @@ config/deploy.rb
 config/locales/old*.yml
 db/schema.rb
 db/cstore/**
-tmp/**/*
+#tmp/**/*
 db/*.sqlite3
 doc/api
 doc/app
