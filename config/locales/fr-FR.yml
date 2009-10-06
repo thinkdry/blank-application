@@ -669,6 +669,8 @@ fr-FR:
       export_people_to_csv: Exporter une liste de contact au format csv.
       subscribed_on: "Souscris \xC3\xA0"
       created_from_back: "Cr\xC3\xA9\xC3\xA9 depuis le Back"
+      front_contacts: Front contacts
+      export: Exporter
   datetime: 
     distance_in_words: 
       one_minute_ago: 1 minute ago

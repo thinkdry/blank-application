@@ -53,7 +53,7 @@ ActionController::Routing::Routes.draw do |map|
 	map.resource :session, :member => { :change_language => :any }
 
   # Routes for People
-	map.resources :people, :collection => {:export_people => :get, :import_people => :any, :get_empty_csv => :get, :validate => :any ,:filter => :get }
+	map.resources :people, :collection => {:export_people => :any, :import_people => :any, :get_empty_csv => :get, :validate => :any ,:filter => :get }
 
   # Routes Related to SuperAdministrator
 	map.namespace :admin do |part|

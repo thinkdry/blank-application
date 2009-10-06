@@ -44,7 +44,7 @@
               <% end %>
         	</select>
             <div id="send_all_buttons">
-              <input type="button" onclick="selectAll($('assignedOptions'),'assignedOptions')" value ="<%= I18n.t('general.common_word.select_all') %>" style="width:180px;"/>
+              <input type="button" class="smallSubmit" onclick="selectAll($('assignedOptions'),'assignedOptions')" value ="<%= I18n.t('general.common_word.select_all') %>" />
             </div>
             <script type="text/javascript" charset="utf-8">
               function selectAll(chkObj,id){
@@ -73,7 +73,7 @@
                 <% end %>
             </select>
             <div id="send_all_buttons">
-              <input type="button" onclick="selectAll($('availableOptions'),'availableOptions')" value ="<%= I18n.t('general.common_word.select_all') %>" style="width:180px;" />
+              <input type="button" class="smallSubmit" onclick="selectAll($('availableOptions'),'availableOptions')" value ="<%= I18n.t('general.common_word.select_all') %>" />
             </div>
           </div>
        </div>

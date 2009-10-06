@@ -1234,7 +1234,7 @@ ul.top_box li{
 .checkbox_list_horizontal input{
 	margin:0 3px;
 }
-#search_header, #groups_list_header{
+.list_header{
 	padding:10px;
 	border-bottom:1px solid #CCCCCC;
 }
@@ -1501,10 +1501,22 @@ form br{
 #middle-middle ul {
 	margin-left:20px;
 }
+
+#reply_overlay{
+    display: none;
+    background-color:#000000;
+    height:500px;
+    left:0;
+    position:fixed;
+    top:0;
+    width:100%;
+    z-index:3;
+    width: 1265px;
+    height: 941px;
+    opacity: 0.8;
+}
 #reply {
- 	background:transparent url(/images/gray.png) repeat scroll 0 0 !important;
  	display:none;
- 	filter:none !important;
  	height:auto;
  	left:50%;
  	margin:-220px 0 0 -250px;
@@ -1512,7 +1524,7 @@ form br{
  	position:fixed;
  	top:50%;
  	width:500px;
- 	z-index:2;
+    z-index:4;
 }
 
 .commentbox{
