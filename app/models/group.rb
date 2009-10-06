@@ -54,17 +54,16 @@ class Group < ActiveRecord::Base
 	#
 	# Usage :
 	# - @group.groupable_objects= ['User_1', 'Person_23', .... ]
-  def groupable_objects= params 
-    tmp = params.split(',') || []
-    self.contacts_workspaces.each do |k|
-      self.contacts_workspaces.delete(k) unless tmp.delete(k.id.to_s)
-    end
-    exists_cw_ids = self.contacts_workspaces.map{|cw| cw.id}
-    tmp.each do |cw_id|
-      if !exists_cw_ids.include?(cw_id.to_i)
-        self.groupings << groupings.build(:group_id => self.id, :contacts_workspace_id => cw_id)
+  def groupable_objects= params
+    selected_c_w = ContactsWorkspace.find(params.split(',').map{|i| i.to_i}, :select => 'id')
+    self.contacts_workspaces.all(:select => 'id').each do |c_w|
+      if selected_c_w.include?(c_w)
+        selected_c_w.delete(c_w)
+      else 
+        self.contacts_workspaces.delete(c_w)
       end
     end
+    self.contacts_workspaces << selected_c_w
   end
 
 	# Method return a CSV file with the group member inside
