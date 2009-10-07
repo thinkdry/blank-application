@@ -4,7 +4,7 @@
   <div id="rating_<%= object.id.to_s %>" class="item_in_list">
     <div class="<%= @i%2 == 0 ? 'sensor_in_list_alternate' : 'sensor_in_list' %>" onclick="toggleAccordion('itemInformations_<%=@i%>');">
       <div class="left_part_sensor">
-        <a id="items_link" ><%= truncate(object.rateable.title, 50) %>  </a>
+        <a id="items_link" ><%= truncate(object.rateable.title, :length => 50) %>  </a>
       </div>
       <div class="right_part_sensor"><%= I18n.l object.created_at, :format =>:verb %></div>
     </div>
