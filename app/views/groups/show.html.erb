@@ -41,7 +41,7 @@
 <div id="group_members">
     <h2><%= I18n.t('group.index.members')  %> </h2>
         <ul>
-        <% for member in @current_object.contacts_workspaces.map{ |e| e.to_group_member }.sort!{ |a,b| a['email'] <=> b['email'] } %>
+        <% for member in @current_object.contacts_workspaces.map{ |e| e.to_group_member(@current_user.id) }.sort!{ |a,b| a['email'] <=> b['email'] } %>
           <li> <%= member['email'] %> (<%= member['first_name'].to_s+' '+member['last_name'].to_s %>) </li>
         <% end %>
         </ul>

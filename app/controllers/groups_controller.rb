@@ -102,9 +102,9 @@ class GroupsController < ApplicationController
   def filtering_contacts
     group = Group.find(params[:group_id]) if !params[:group_id].blank?
     options = ""
-		#raise current_workspace.contacts_workspaces.map{ |e| e.to_group_member }.delete_if{ |e| e['email'].first != params[:start_with] && params[:start_with] != "all"}.inspect
-    current_workspace.contacts_workspaces.map{ |e| e.to_group_member }.delete_if{ |e| e['email'].first != params[:start_with] && params[:start_with] != "all"}.each do |mem|
-      if group.nil? || !group.contacts_workspaces.map{ |e| e.to_group_member}.include?(mem)
+		#raise current_workspace.contacts_workspaces.map{ |e| e.to_group_member(@current_user.id) }.delete_if{ |e| e['email'].first != params[:start_with] && params[:start_with] != "all"}.inspect
+    current_workspace.contacts_workspaces.map{ |e| e.to_group_member(@current_user.id) }.delete_if{ |e| e['email'].first != params[:start_with] && params[:start_with] != "all"}.each do |mem|
+      if group.nil? || !group.contacts_workspaces.map{ |e| e.to_group_member(@current_user.id) }.include?(mem)
         options = options+ "<option value = '#{mem['id'].to_s}'>#{mem['email']}</option>"
       end
     end
@@ -134,9 +134,9 @@ class GroupsController < ApplicationController
 		selected_contacts = @current_object.groupings.map{ |e| e.contacts_workspace }.uniq
 		remaining_contacts = @current_object.workspace.contacts_workspaces.to_a - selected_contacts
 		#raise selected_contacts.inspect
-		@selected_members = selected_contacts.map{ |e| e.to_group_member } || []
+		@selected_members = selected_contacts.map{ |e| e.to_group_member(@current_user.id) } || []
 		#raise @selected_members.inspect+'===='+@remaining_members.inspect
-		@remaining_members = remaining_contacts.map{ |e| e.to_group_member } || []
+		@remaining_members = remaining_contacts.map{ |e| e.to_group_member(@current_user.id) } || []
 	end
 
   def current_object
