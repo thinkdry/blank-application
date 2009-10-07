@@ -1570,3 +1570,11 @@ label .low{
 .comment_list, .rating_list {
     border-top:1px solid #CCCCCC;
 }
+#ajax_spinner {
+    display:none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    text-align:center;
+}

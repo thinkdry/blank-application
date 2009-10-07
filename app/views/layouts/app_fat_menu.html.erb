@@ -20,6 +20,13 @@
 
     <script type='text/javascript' src='/prototip2.0.4/js/prototip.js'></script>
     <%= calendar_date_select_includes %>
+    <script>
+      Ajax.Responders.register({
+        onCreate: function(){ $('ajax_spinner').style.display = 'block' },
+        onComplete: function(){ $('ajax_spinner').style.display = 'none' }
+        });
+    </script>
+
   </head>
 
   <body>
@@ -38,5 +45,6 @@
         <%= render :partial => "layouts/footer"%>
       </div>
     </div>
+    <div id="ajax_spinner"><img src="/images/ajax-spinner.gif"></div>
   </body>
 </html>
