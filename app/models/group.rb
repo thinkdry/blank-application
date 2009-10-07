@@ -32,6 +32,8 @@ class Group < ActiveRecord::Base
 	belongs_to :workspace
 	# Mixin to add ActsAsCommentable methods inside the model
 	acts_as_commentable
+  # Relation M-1 to users table
+  belongs_to :user
 	# Relation N-N to 'newsletters' table
   has_and_belongs_to_many :newsletters
 	# Relation 1-N 

@@ -21,6 +21,11 @@ class Admin::GeneralSettingsController < ApplicationController
     #File.rename("#{RAILS_ROOT}/config/customs/sa_config.yml", "#{RAILS_ROOT}/config/customs/old_sa_config.yml")
     @new=File.new("#{RAILS_ROOT}/config/customs/sa_config.yml", "w+")
     @new.syswrite(res.to_yaml)
+    if params[:apply_to_all_workspaces] == 'true'
+      Workspace.all.each do |w|
+        w.update_attributes(:ws_items => @configuration['sa_items'])
+      end
+    end
 		flash[:notice] = "General settings updated"
     redirect_to editing_admin_general_settings_path
 	end

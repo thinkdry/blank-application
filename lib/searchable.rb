@@ -67,7 +67,11 @@ module Searchable
           end
 					#req = req.filtering_on(options[:filter][:field], options[:filter][:way])
 					#req = req.paginating_with(options[:pagination][:per_page].to_i, ((options[:pagination][:page].to_i - 1) * options[:pagination][:per_page].to_i))
-					req = req.paginate(:per_page => options[:pagination][:per_page].to_i, :page => options[:pagination][:page].to_i, :order => options[:filter][:field]+' '+options[:filter][:way]) if !options[:skip_pag]
+          req = if !options[:skip_pag]
+            req.paginate(:per_page => options[:pagination][:per_page].to_i, :page => options[:pagination][:page].to_i, :order => options[:filter][:field]+' '+options[:filter][:way])
+          else
+            req.all(:order => options[:filter][:field]+' '+options[:filter][:way]) 
+          end
           return req
 				end
 

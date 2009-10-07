@@ -1,7 +1,8 @@
 <div class="file_infos">
   <div class="file_infos_box">
-    <p><%#= link_to_user object.user %></p>
+    <p><%= link_to_user object.user %></p>
     <p><%= I18n.l object.created_at, :format =>:long %></p>
+    <p><%= object.comments_number %> <%= object.comments_number > 1 ? I18n.t("item.common_word.comment").pluralize : I18n.t("item.common_word.comment")%></p>
   </div>
   <div class="file_infos_box">
   </div>
@@ -14,6 +15,9 @@
         <%= link_to image_tag('icons/delete.png'), item_path(object), :method => :delete, :confirm =>  I18n.t('item.destroy.delete_conform')%>
     </div>
     <div class="output_format">
+      <%=I18n.t('item.common_word.output_formate') %>:
+      <%= link_to image_tag("/images/icons/xml.png"), item_path(object)+".xml", :class => 'output_format_link' %>
+      <%= link_to image_tag("/images/icons/json.png"), item_path(object)+".json", :class => 'output_format_link' %>
     </div>
   </div>
 </div>

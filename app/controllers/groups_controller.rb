@@ -27,7 +27,7 @@ class GroupsController < ApplicationController
         format.html{ }
         format.xml { render :xml => Group.find(:all, :conditions => {:workspace_id => current_workspace.id}) }
         format.json { render :json => Group.find(:all, :conditions => {:workspace_id => current_workspace.id}) }
-        format.atom {@current_objects = Group.find(:all, :conditions => {:workspace_id => current_workspace.id}); render :template => "groups/index.atom.builder", :layout => false }
+        format.atom {@current_objects = Group.find(:all, :conditions => {:workspace_id => current_workspace.id}, :order => 'created_at DESC'); render :template => "groups/index.atom.builder", :layout => false }
       end
     else
       @no_div = true

@@ -33,6 +33,10 @@
   <div class="formElement">
     <%= checkboxes_from_list(ITEMS, "sa_items", @configuration, "configuration") %>
   </div>
+ <label></label>
+  <div class="formElement">
+    <%= check_box_tag 'apply_to_all_workspaces', 'true', false, { :class => "checkboxes" } %> Apply this item list available for each workspace
+  </div>
 
   <label>Default language :</label>
   <div class="formElement"><%= select_tag 'configuration[sa_default_language]', options_for_select(LANGUAGES,@configuration['sa_default_language']) %></div>

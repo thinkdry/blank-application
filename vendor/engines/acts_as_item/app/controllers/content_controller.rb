@@ -14,7 +14,7 @@ class ContentController < ApplicationController
   def index
 		params[:item_type] ||= get_allowed_item_types(current_workspace).first.pluralize
     params_hash = build_hash_from_params(params)
-    params_hash.merge!({:skip_pag => true}) if params[:format] && params[:format] != 'html'
+    params_hash.merge!({:skip_pag => true, :by => 'created_at-asc'}) if params[:format] && params[:format] != 'html'
 		@paginated_objects = params[:item_type].classify.constantize.get_da_objects_list(params_hash)
 #		if request.xhr?
 #			@i = 0

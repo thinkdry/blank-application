@@ -44,7 +44,8 @@
       <% end %>
     </div>
     <div class="output_format">
-      <%=I18n.t('item.common_word.output_formate') %>: <%= link_to 'XML', item_path(object)+".xml", :class => 'output_format_link' %>,	<%= link_to 'JSON', item_path(object)+".json", :class => 'output_format_link' %>
+      <%=I18n.t('item.common_word.output_formate') %>: <%= link_to image_tag("/images/icons/xml.png"), item_path(object)+".xml", :class => 'output_format_link' %>
+      <%= link_to image_tag("/images/icons/json.png"), item_path(object)+".json", :class => 'output_format_link' %>
     </div>
   </div>
 </div>
