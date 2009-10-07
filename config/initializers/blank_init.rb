@@ -68,3 +68,16 @@ if get_sa_config['sa_exception_notifier_activated'] == 'true'
   ExceptionNotifier.sender_address = 'admin@thinkdry.com'
   ExceptionNotifier.email_prefix = APPLICATION_NAME
 end
+
+# Load action_mailer settings if they are already set
+if File.exist?("#{RAILS_ROOT}/config/customs/action_mailer.yml")
+  @mailer_config = YAML.load_file("#{RAILS_ROOT}/config/customs/action_mailer.yml")
+  ActionMailer::Base.smtp_settings = {
+    :address => @mailer_config['sa_mailer_address'],
+    :domain => @mailer_config['sa_mailer_domain'],
+    :port => @mailer_config['sa_mailer_port'],
+    :user_name => @mailer_config['sa_mailer_user_name'],
+    :password => @mailer_config['sa_mailer_password'],
+    :authentication => @mailer_config['sa_mailer_authentication'].to_sym
+  }
+end

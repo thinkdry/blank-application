@@ -644,6 +644,9 @@ en-US:
       export_people_to_csv: Export people to csv
       subscribed_on: Subscribed on
       created_from_back: Created from back
+      imported_from_csv: Imported from CSV
+      front_contacts: Front contacts
+      export: Export
   video: 
     new: 
       title: Add a New Video

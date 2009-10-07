@@ -38,7 +38,7 @@ module AjaxValidation
       end
       
       def field(field, *args, &block)
-        @template.concat(labelize(field, *args) { @template.capture(&block) }, block.binding)
+        @template.concat(labelize(field, *args) { @template.capture(&block) })
       end
       
       private

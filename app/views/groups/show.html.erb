@@ -1,4 +1,3 @@
-<link href="/stylesheets/comments.css" media="screen" rel="stylesheet" type="text/css" />
 <div id="content_show">
   <h1>
     <%= link_to image_tag("/images/icons/left.png"), workspace_groups_path(@current_object.workspace_id) %>
@@ -27,9 +26,9 @@
         <%= link_to image_tag('icons/delete.png'), workspace_group_path(params[:workspace_id], @current_object), :method => :delete, :confirm =>  I18n.t('item.destroy.delete_conform')%>
       </div>
       <div class="output_format">
-        <%#=I18n.t('item.common_word.output_formate') %>:
-        <%#= link_to image_tag('/images/icons/xml.png'), item_path(object)+".xml", :class => 'output_format_link' %>
-        <%#= link_to image_tag('/images/icons/json.png'), item_path(object)+".json", :class => 'output_format_link' %>
+        <%=I18n.t('item.common_word.output_formate') %>:
+        <%= link_to image_tag('/images/icons/xml.png'), request.url+".xml", :class => 'output_format_link' %>
+        <%= link_to image_tag('/images/icons/json.png'), request.url+".json", :class => 'output_format_link' %>
       </div>
       <div class="add_item_type">
         <p><%= image_tag "/images/icons/add.png", :width => "30"%><a href="<%=  new_workspace_group_path(params[:workspace_id])%>"><%= I18n.t('layout.application.add_content')%></a></p>
@@ -49,7 +48,7 @@
 </div>
 
   <form action="<%= export_to_csv_workspace_group_path(@current_object.workspace_id, @current_object.id) %>">
-    <button id="submit_button" class="submit_button" type="submit"><%= I18n.t('group.show.export_to_csv') %></button>
+    <button id="submit_button" class="smallSubmit" type="submit"><%= I18n.t('group.show.export_to_csv') %></button>
   </form>
 
   <%= print_comments_part(@current_object, true) %>

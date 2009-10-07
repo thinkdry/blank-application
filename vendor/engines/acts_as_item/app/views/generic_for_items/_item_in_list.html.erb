@@ -6,7 +6,7 @@
 
     <% end -%>
     <div class="left_part_sensor">
-      <a id="items_link" ><%= truncate(object.title, 50)%></a>
+      <a id="items_link" ><%= truncate(object.title, :length => 50)%></a>
     </div>
     <div class="right_part_sensor"><%= I18n.l object.created_at, :format =>:verb %></div>
   </div>

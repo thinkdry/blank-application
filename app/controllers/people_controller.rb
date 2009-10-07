@@ -68,15 +68,16 @@ class PeopleController < ApplicationController
 	# Usage URL :
 	# - GET /people
   def index #:nodoc:
-		@people = @current_user.people.paginate(:per_page => get_per_page_value, :page => params[:page])
+		@paginated_objects = @current_user.people.paginate(:per_page => get_per_page_value, :page => params[:page])
 		if !request.xhr?
 			respond_to do |format|
 				format.html {  }
-				format.xml { render :xml => @people }
+				format.xml { render :xml => @paginated_objects }
 				#format.json { render :json => @people }
       end
 		else
-			render :partial => 'people_list', :layout => false
+      @no_div = true
+			render :partial => 'index', :layout => false
 		end
   end
 
@@ -178,7 +179,7 @@ class PeopleController < ApplicationController
                 i+=1
               end
               if !details['email'].nil?
-                person = Person.new(details.merge({:newsletter => true}))
+                person = Person.new(details)
                 person.user_id = current_user.id
                 person.origin = "CSV importation"
                 if person.validate_uniqueness_of_email

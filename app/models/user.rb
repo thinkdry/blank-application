@@ -123,7 +123,7 @@ class User < ActiveRecord::Base
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :password, :password_confirmation, :firstname, :lastname, :address, :company, :phone, :mobile, :activity, :nationality,:edito, :avatar, :newsletter, :system_role_id, :last_connected_at, :u_layout, :u_language, :u_per_page, :date_of_birth, :gender, :salutation
+  attr_accessible :login, :email, :password, :password_confirmation, :firstname, :lastname, :address, :company, :phone, :mobile, :activity, :nationality,:edito, :avatar, :system_role_id, :last_connected_at, :u_layout, :u_language, :u_per_page, :date_of_birth, :gender, :salutation
 
   # will return all contacts of a user(people + subscribed users of current user's workspaces). If workspace passed return contacts(people and subscribed users) of given workspace
   def get_contacts_list(workspace=nil)
@@ -155,7 +155,7 @@ class User < ActiveRecord::Base
     return Person.new(:first_name => self.firstname, :last_name => self.lastname,:email => self.email,
       :primary_phone => self.phone, :mobile_phone => self.mobile,:city => self.address,
       :country => self.nationality,:company => self.company,:job_title => self.activity,
-      :newsletter => self.newsletter,:created_at => self.created_at,:updated_at => self.updated_at,:model_name => "User")
+      :created_at => self.created_at,:updated_at => self.updated_at,:model_name => "User")
   end
 
   # Display Name of User(login)

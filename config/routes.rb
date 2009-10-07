@@ -49,11 +49,11 @@ ActionController::Routing::Routes.draw do |map|
   #map.change_password '/change_password', :controller => 'users', :action => 'change_password'
   map.reset_password '/reset_password/:password_reset_code', :controller => 'users', :action => 'reset_password'
   map.resources :users, :member => { :locking => :any, :resend_activation_mail_or_activate_manually => :post },
-			:collection => {:autocomplete_on => :any, :validate => :any }
+    :collection => {:autocomplete_on => :any, :validate => :any }
 	map.resource :session, :member => { :change_language => :any }
 
   # Routes for People
-	map.resources :people, :collection => {:export_people => :get, :import_people => :any, :get_empty_csv => :get, :validate => :any ,:filter => :get }
+	map.resources :people, :collection => {:export_people => :any, :import_people => :any, :get_empty_csv => :get, :validate => :any ,:filter => :get }
 
   # Routes Related to SuperAdministrator
 	map.namespace :admin do |part|
@@ -62,6 +62,7 @@ ActionController::Routing::Routes.draw do |map|
 		part.resources :user_interfaces, :only => [:none], :collection => { :editing => :get, :updating => :put, :check_color => :get, :colors_changing => :get }
 		part.resources :tasks, :only => [:index], :collection => { :run_task => :get }
 		part.resources :translations, :only => [:none], :collection => { :editing => :get, :updating => :put, :language_switching => :get, :translation_new => :any }
+    part.resources :action_mailer_settings, :only => [:none], :collection => { :editing => :get, :updating => :put }
 	end
 
   # Route for HomePage
@@ -87,9 +88,9 @@ ActionController::Routing::Routes.draw do |map|
   def items_resources(parent)
  		(ITEMS).each do |name|
 			member_to_set = {
-					:rate => :any,
-					:add_comment => :any,
-					:redirect_to_content => :any
+        :rate => :any,
+        :add_comment => :any,
+        :redirect_to_content => :any
 			}
 			member_to_set.merge!({:remove_file => :any}) if name=='article'
 			member_to_set.merge!({:get_video_progress => :any}) if name=='video'

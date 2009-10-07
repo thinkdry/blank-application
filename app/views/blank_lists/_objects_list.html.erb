@@ -2,7 +2,7 @@
 
 <% if @paginated_objects.first %>
   <script type="text/javascript" src="/videoplayer/swfobject.js"></script>
-  
+
   <div id="content">
     <input type="hidden" id="total_items" value="<%= @paginated_objects.length %>">
     <%= display_item_in_list(@paginated_objects, in_list_partial) %>
@@ -10,7 +10,7 @@
 
   <%#= will_paginate @paginated_objects %>
   <%= remote_pagination(@paginated_objects, ajax_url,  'object-list') %>
-
+  <% if output_formats %>
   <div class="other_output_format">
     <%= I18n.t('item.show.get_in_another_format')%>:
     <% output_formats.each do |of| %>
@@ -18,9 +18,11 @@
       <%= link_to image_tag("/images/icons/#{of}.png"), "#{format_url}" %>
     <% end %>
   </div>
+  <% end %>
 
 <% else %>
-
-  <br /><br /><%= I18n.t('item.common_word.list_empty') %><br /><br />
+  <div class="item_in_list">
+    <%= I18n.t('item.common_word.list_empty') %>
+  </div>
 
 <% end %>

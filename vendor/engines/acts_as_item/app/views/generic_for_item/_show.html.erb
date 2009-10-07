@@ -1,4 +1,3 @@
-<link href="/stylesheets/comments.css" media="screen" rel="stylesheet" type="text/css" />
 <div id="content_show">
   <h1>
     <%= link_to image_tag("/images/icons/left.png"), (current_workspace ? workspace_path(current_workspace.id)+'?item_type=' : '/content/')+object.class.to_s.underscore.pluralize %>

@@ -71,19 +71,18 @@ module GenericForItemHelper
   # <tt>form_for_item article_object, title do |f| </tt>
   # <tt>end</tt>
   def form_for_item(object, title = '', &block)
-		concat(render(:partial => "generic_for_item/form", :locals => { :block => block, :title => title }), block.binding)
+		concat(render(:partial => "generic_for_item/form", :locals => { :block => block, :title => title }))
   end
 
 	 
 
 	# Define the common information of the show of an item
 	def item_show(parameters, &block)
-    concat\
+    concat(
       render( :partial => "generic_for_item/show",
       :locals => {  :object => parameters[:object],
         :title => parameters[:title],
-        :block => block                 } ),
-      block.binding
+        :block => block }))
   end
   
 	# FCKEditor field initialisation

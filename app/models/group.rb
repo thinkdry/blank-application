@@ -54,29 +54,28 @@ class Group < ActiveRecord::Base
 	#
 	# Usage :
 	# - @group.groupable_objects= ['User_1', 'Person_23', .... ]
-  def groupable_objects= params 
-    tmp = params.split(',') || []
-    self.contacts_workspaces.each do |k|
-      self.contacts_workspaces.delete(k) unless tmp.delete(k.id.to_s)
-    end
-    exists_cw_ids = self.contacts_workspaces.map{|cw| cw.id}
-    tmp.each do |cw_id|
-      if !exists_cw_ids.include?(cw_id.to_i)
-        self.groupings << groupings.build(:group_id => self.id, :contacts_workspace_id => cw_id)
+  def groupable_objects= params
+    selected_c_w = ContactsWorkspace.find(params.split(',').map{|i| i.to_i}, :select => 'id')
+    self.contacts_workspaces.all(:select => 'id').each do |c_w|
+      if selected_c_w.include?(c_w)
+        selected_c_w.delete(c_w)
+      else 
+        self.contacts_workspaces.delete(c_w)
       end
     end
+    self.contacts_workspaces << selected_c_w
   end
 
 	# Method return a CSV file with the group member inside
 	def export_to_csv
     return FasterCSV.generate do |csv|
       csv << ["First name", "Last name", "Email", "Gender", "Primary phone", "Mobile phone", "Fax", "Street", "City",
-				"Postal code", "Country", "Company", "Web page", "Job title", "Notes","Newsletter","Salutation",
+				"Postal code", "Country", "Company", "Web page", "Job title", "Notes","Salutation",
 				"Date of birth","Subscribed on","Updated at"]
       self.members.each do |member|
 				csv << [member.first_name, member.last_name, member.email, member.gender, member.primary_phone,
 						member.mobile_phone, member.fax, member.street, member.city, member.postal_code, member.country,
-            member.company, member.web_page, member.job_title, member.notes, member.newsletter, member.salutation,
+            member.company, member.web_page, member.job_title, member.notes, member.salutation,
             member.date_of_birth, member.created_at, member.updated_at]
 				end
 			end
