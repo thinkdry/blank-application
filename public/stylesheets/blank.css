@@ -1317,7 +1317,9 @@ fieldset input, fieldset textarea, .fieldsetSimulation input, .fieldsetSimulatio
 	padding:3px;
 	width:722px;
 }
-
+fieldset input.file, .fieldsetSimulation input.file{
+    height:32px;
+}
 fieldset select{
 	height:25px;
 	font-size:14px;
@@ -1543,10 +1545,6 @@ form br{
 
 label .low{
 	margin-top: 11px;
-}
-
-#workspace_logo{
-	height:25px;
 }
 
 #start_with { width:80px !important;}

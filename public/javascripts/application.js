@@ -298,3 +298,11 @@ function add_new_follower(){
         $('new_follower_email').value = '';
     }
 }
+// To show replay form for comments
+function add_reply(parent){
+    if($('reply')){
+      $('reply_overlay').style.display = 'block';
+      $('reply').style.display = 'block';
+      $('comment_parent_id').value = parent;
+    }
+  }

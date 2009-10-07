@@ -7,7 +7,7 @@
 		</div>
 	
 	    <label for="dump_file"><%= I18n.t('people.import_people.select_csv_file_label') %> :</label>
-		<div class="formElement"><%= f.file_field :csv %></div>
+		<div class="formElement"><%= f.file_field :csv, :class => 'file' %></div>
        <%= associated_workspaces_checkboxes(f, nil, 'workspace_edit') %>
 	    <button id="submit_button" class="submit_button" type="submit"><%= I18n.t('general.button.submit')%></button>
 	<% end %>

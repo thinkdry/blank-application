@@ -1,6 +1,6 @@
 <div class="file">
 
-  <%= file_field_tag "article[new_file_attributes][]" %>
+  <%= file_field_tag "article[new_file_attributes][]",:class => 'file' %>
 
   <%= link_to_function I18n.t('general.button.delete'), "Element.remove(this.parentNode);" %>
 

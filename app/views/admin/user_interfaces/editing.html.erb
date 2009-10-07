@@ -10,13 +10,13 @@
 
   <label>Logo management :</label>
   <div class="formElement">
-    <%= f.file_field 'sa_logo_url' %>
+    <%= f.file_field 'sa_logo_url', :class => 'file' %>
     <%= image_tag(@configuration['sa_logo_url'].to_s) %>
   </div>
 
   <label>Favicon Management :</label>
   <div class="formElement">
-    <%= f.file_field 'sa_favicon_url' %><br/>
+    <%= f.file_field 'sa_favicon_url', :class => 'file' %><br/>
     <%= image_tag(@configuration['sa_favicon_url'].to_s) %>
   </div>
 

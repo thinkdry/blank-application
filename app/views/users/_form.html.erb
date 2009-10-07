@@ -42,7 +42,7 @@
     <%= f.text_area :activity, :size => "40x6", :label => I18n.t('user.field.activity_label')+" : " %>
     <%= f.text_area :edito, :size => "40x6", :label => I18n.t('user.field.edito_label')+" : " %>
     <% f.field :avatar, :label => I18n.t('user.field.photo_label')+" : " do %>
-      <%= file_field 'user', 'avatar' %>
+      <%= file_field 'user', 'avatar', :class => 'file' %>
     <% end %>
     <% if !@current_object.new_record? && @current_object.has_permission_for?('configure', @current_user) %>
       <%= f.select :u_layout, LAYOUTS_AVAILABLE, :label => "Layout : " %>
