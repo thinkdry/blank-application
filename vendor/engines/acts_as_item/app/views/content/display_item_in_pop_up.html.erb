@@ -4,19 +4,20 @@
     <img src="/images/icons/filter_128.png"/>
   </div>
   <div class="popup_column">
-    <p><%= I18n.t 'layout.popup.filter_help' %></p>
-    <br/>
-    <label><%= I18n.t 'layout.popup.filter_by_workspace' %>:</label>
-    <p>
-      <% for ws in @workspaces %>
-        <% if i=(get_allowed_item_types(ws) & @selected_item_types).first %>
-          <%= link_to ws.title , '/content_for_popup/'+params[:selected_item]+'?workspace_id='+ws.id.to_s+'&item_type='+i %> |
+    <% if params[:selected_item] != 'fcke_flash' %>
+      <p><%= I18n.t 'layout.popup.filter_help' %></p>
+      <br/>
+      <label><%= I18n.t 'layout.popup.filter_by_workspace' %>:</label>
+      <p>
+        <% for ws in @workspaces %>
+          <% if i=(get_allowed_item_types(ws) & @selected_item_types).first %>
+            <%= link_to ws.title , '/content_for_popup/'+params[:selected_item]+'?workspace_id='+ws.id.to_s+'&item_type='+i %> |
+          <% end %>
         <% end %>
-      <% end %>
-      <%= link_to 'All','/content_for_popup/'+params[:selected_item]+'?item_type='+(get_allowed_item_types(nil) & @selected_item_types).first.pluralize %>
-      <%= ' | '+link_to('FCKE images', '/content_for_popup/'+params[:selected_item]+'?item_type=fcke_images') if params[:selected_item] == 'images' %>
-    </p>
-
+        <%= link_to 'All','/content_for_popup/'+params[:selected_item]+'?item_type='+(get_allowed_item_types(nil) & @selected_item_types).first.pluralize %>
+        <%= ' | '+link_to('FCKE images', '/content_for_popup/'+params[:selected_item]+'?item_type=fcke_images') if params[:selected_item] == 'images' || params[:selected_item] == 'videos' %>
+      </p>
+    <% end %>
     <% if params[:selected_item] == 'all' %>
       <label><%= I18n.t 'layout.popup.filter_by_item_type' %>:</label>
       <p>
@@ -37,7 +38,7 @@
 <div class="popup_item_list">
 <% i=0 %>
 
-<% if !params[:item_type].include?('fcke') %>
+<% if params[:item_type] && !params[:item_type].include?('fcke') %>
   <% @current_objects.each do |object| %>
     <% if i%2 == 0 -%>
       <div class="list_alternate">
