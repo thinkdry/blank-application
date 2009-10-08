@@ -20,12 +20,14 @@
 
     <script type='text/javascript' src='/prototip2.0.4/js/prototip.js'></script>
     <%= calendar_date_select_includes %>
+    <% if params[:action] != 'new' and params[:action] != 'edit' %>
     <script>
       Ajax.Responders.register({
         onCreate: function(){ $('ajax_spinner').style.display = 'block' },
         onComplete: function(){ $('ajax_spinner').style.display = 'none' }
         });
     </script>
+    <% end %>
 
   </head>
 
