@@ -15,7 +15,7 @@
           <% end %>
         <% end %>
         <%= link_to 'All','/content_for_popup/'+params[:selected_item]+'?item_type='+(get_allowed_item_types(nil) & @selected_item_types).first.pluralize %>
-        <%= ' | '+link_to('FCKE images', '/content_for_popup/'+params[:selected_item]+'?item_type=fcke_images') if params[:selected_item] == 'images' || params[:selected_item] == 'videos' %>
+        <%= ' | '+link_to("FCKE #{I18n.t('general.item.'+params[:selected_item].singularize).pluralize}", "/content_for_popup/"+params[:selected_item]+"?item_type=fcke_#{params[:selected_item]}") if params[:selected_item] == 'images' || params[:selected_item] == 'videos' %>
       </p>
     <% end %>
     <% if params[:selected_item] == 'all' %>
@@ -36,15 +36,10 @@
 <% end %>
 
 <div class="popup_item_list">
-<% i=0 %>
-
-<% if params[:item_type] && !params[:item_type].include?('fcke') %>
-  <% @current_objects.each do |object| %>
-    <% if i%2 == 0 -%>
-      <div class="list_alternate">
-      <% else -%>
-        <div class="list">
-        <% end -%>
+  <% i=0 %>
+  <% if params[:item_type] && !params[:item_type].include?('fcke') %>
+    <% @current_objects.each do |object| %>
+      <div class=<%= i%2 == 0 ? "list_alternate" : "list" %>>
         <%= image_tag(object.image.url(:thumb).split("?")[0], :border=>0, :width => "50") if params[:selected_item]=="images" %>
         <% if params[:item_type] == 'video' || params[:item_type] == 'audio' %>
           <%= link_to_function object.title,"javascript:SelectFile('#{root_url.split('/').join('/')}#{object.path_to_encoded_file}')"  %>
@@ -58,17 +53,11 @@
     <% end %>
   <% else %>
     <% @fcke_objects.each do |object| %>
-      <% if i%2 == 0 -%>
-        <div class="list_alternate">
-        <% else %>
-          <div class="list">
-          <% end -%>
-          <%= image_tag(object[:url], :border=>0, :width => "50" ) if params[:selected_item]=="images" %>
-          <%= link_to_function object[:name], "javascript:SelectFile('#{object[:url]}')" %>
-        </div>
-        <% i= i+1%>
-      <% end %>
+      <div class=<%= i%2 == 0 ? "list_alternate" : "list" %>>
+        <%= image_tag(object[:url], :border=>0, :width => "50" ) if params[:selected_item]=="images" %>
+        <%= link_to_function object[:name], "javascript:SelectFile('#{object[:url]}')" %>
+      </div>
+      <% i= i+1%>
     <% end %>
-
-  </div>
+  <% end %>
 </div>
