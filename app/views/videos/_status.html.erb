@@ -3,12 +3,12 @@
   var item_id = '<%= object.id %>';
   get_progress();
   function get_progress(){
-    new Ajax.Request("/get_video_progress?check=true&id="+item_id, {method: 'get', asynchronous:true, evalScripts:true,
+    new Ajax.Request("/videos/"+item_id+"/get_video_progress?check=true", {method: 'get', asynchronous:true, evalScripts:true,
       onSuccess: function(transport){
         if(transport.responseText == 'encoded'){
-          new Ajax.Updater("progress","/get_video_progress?check=false&id="+item_id, {method: 'get', asynchronous:true, evalScripts:true});
+          new Ajax.Updater("progress","/videos/"+item_id+"/get_video_progress?check=false", {method: 'get', asynchronous:true, evalScripts:true});
         }else{
-          setTimeout("get_progress()", 10000);
+          setTimeout("get_progress()", 5000);
         }
       }});
   }

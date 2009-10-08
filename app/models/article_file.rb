@@ -23,11 +23,12 @@ class ArticleFile < ActiveRecord::Base
 	# Declaration of the field to index inside ActsAsXapian index
   acts_as_xapian :texts => [:articlefile_file_name]
   # Paperclip attachment definition
-  has_attached_file :articlefile
-  # Validation of the presence of a attached file
-  validates_attachment_presence :articlefile,
+  has_attached_file :articlefile,
     :url =>    "/uploaded_files/articlefile/:id/:style/:basename.:extension",
     :path => ":rails_root/public/uploaded_files/articlefile/:id/:style/:basename.:extension"
+  # Validation of the presence of a attached file
+  validates_attachment_presence :articlefile
+    
   # Validation of the size of the attached file
   validates_attachment_size(:articlefile, :less_than => 100.megabytes)
 

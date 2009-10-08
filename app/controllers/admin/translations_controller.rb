@@ -95,7 +95,7 @@ class Admin::TranslationsController < ApplicationController
 	# Method setting the different categories inside the YAML file
 	# TODO check directly the YAML structure, (and so put in an other file the localization ?)
   def translation_options
-		@translation_sections = [['general', 'layout', 'user', 'workspace', 'item', 'group', 'people', 'comment',  'home', 'website_contact', 'workspace_contact', 'rating']+ITEMS].flatten.sort
+		@translation_sections = [['general', 'layout', 'user', 'workspace', 'item', 'group', 'people', 'comment',  'home', 'website_contact', 'workspace_contact', 'rating', 'mailer']+ITEMS].flatten.sort
   end
 
 

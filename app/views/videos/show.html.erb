@@ -3,10 +3,8 @@
       <div id ="progress">
         <% if @current_object.state=="encoded" %>
           <%= render :partial => "player", :object => @current_object %>
-        <% elsif @current_object.state=="encoding"%>
-          <%= render :partial => "status", :object => @current_object %>
         <% else %>
-           Queued for encoding
+           <%= render :partial => "status", :object => @current_object %>
        <% end %>
       </div>
       <br /><br />
