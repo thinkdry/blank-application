@@ -40,9 +40,9 @@ module Configuration
 
   # Get Available Languages
   #
-  # will return a array of string of available languages
+  # will return a array of string of available languages if not empty array
 	def available_languages
-		return @configuration['sa_languages']
+    return (@configuration['sa_languages'].nil? || @configuration['sa_languages'].empty?) ? [] : @configuration['sa_languages']
 	end
 
   # Load the SuperAdmin Configuration
@@ -56,6 +56,11 @@ module Configuration
 
 	def get_configuration
 		@configuration ||= get_sa_config
+	end
+
+  #will return a array of string of available layouts if not empty array
+  def available_layouts
+		return (@configuration['sa_layouts'].nil? || @configuration['sa_layouts'].empty?) ? [] : @configuration['sa_llayouts']
 	end
 
   # Set PerPage Values for Pagination(default 10)

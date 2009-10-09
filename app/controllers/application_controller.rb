@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
 	# It will also generate a @search variable if not defined (used inside the search bar).
 	def get_current_layout
 		@search ||= Search.new
-    return current_user.u_layout || @configuration['sa_layout'] || 'application'
+    return current_user.u_layout || @configuration['sa_default_layout'] || 'application'
 	end
 
   # Method returning the allowed item types
