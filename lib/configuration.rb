@@ -60,7 +60,7 @@ module Configuration
 
   #will return a array of string of available layouts if not empty array
   def available_layouts
-		return (@configuration['sa_layouts'].nil? || @configuration['sa_layouts'].empty?) ? [] : @configuration['sa_llayouts']
+		return (@configuration['sa_layouts'].nil? || @configuration['sa_layouts'].empty?) ? [] : @configuration['sa_layouts']
 	end
 
   # Set PerPage Values for Pagination(default 10)
