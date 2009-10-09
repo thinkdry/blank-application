@@ -112,7 +112,9 @@ class User < ActiveRecord::Base
   validates_format_of       :email,    :with => RE_EMAIL_OK
   validates_format_of       :firstname, :lastname, :company, :with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL})+\Z/, :allow_blank => true
 #  validates_format_of       :address, :with => /\A(#{ALPHA_AND_EXTENDED}|#{SPECIAL}|#{NUM})+\Z/, :allow_blank => true
-  validates_format_of       :phone,  :mobile, :with => /\A(#{NUM}){10}\Z/, :allow_blank => true
+#  validates_format_of       :phone,  :mobile, :with => /\A(#{NUM}){10}\Z/, :allow_blank => true
+  validates_length_of       :phone,  :mobile, :in => 7..20, :allow_blank => true
+  validates_format_of       :phone,  :mobile, :with => PHONE, :allow_blank => true
   # Validation of fields not in format of
   validates_not_format_of   :address, :edito, :activity, :with => /(#{SCRIPTING_TAGS})/, :allow_blank => true
 

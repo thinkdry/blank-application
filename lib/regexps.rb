@@ -14,5 +14,6 @@ RE_DOMAIN_HEAD  = '(?:[A-Z0-9\-]+\.)+'
 RE_DOMAIN_TLD   = '(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)'
 RE_EMAIL_OK     = /\A#{RE_EMAIL_NAME}@#{RE_DOMAIN_HEAD}#{RE_DOMAIN_TLD}\z/i
 SCRIPTING_TAGS = '<(\S+).*>(|.*)<\/(\S+).*>|<%(.*)%>|<%=(.*)%>'
+PHONE = /\A(\d|\+|-|\(|\)|\s)+\Z/
 
 
