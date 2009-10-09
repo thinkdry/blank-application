@@ -122,7 +122,8 @@
               <% form_for @search, :url => searches_path, :builder => BlankFormBuilder, :html => { :method => :get, :name => 'search' } do -%>
                 <label><%=I18n.t('layout.search.search_label')%></label>
                 <div class="formElement">
-                  <%= text_field_tag "q", (params[:q] ? params[:q] : I18n.t('layout.search.search_label')), :class => "style_text", :onfocus => '$(this).select()' %>
+                  <% @search_hint = I18n.t('layout.search.search_label') %>
+                  <%= text_field_tag "q", (params[:q] ? params[:q] : @search_hint), :id =>"header_search_input", :class => "style_text", :onfocus => "search_hint('#{@search_hint}', 'header_search_input', '#{params[:q].to_s}')", :onblur => "search_hint('#{@search_hint}', 'header_search_input', '#{params[:q].to_s}')" %>
                 </div>
                 <label><%= I18n.t 'general.common_word.in'%></label>
                 <div class="formElement">
@@ -134,7 +135,7 @@
                   <% end %>
                 </div>
                 <div class="clear"></div>
-                <button type="submit" class="submit_button" onclick=" return do_search('<%= I18n.t('layout.search.date_alert') %>');">Search</button>
+                <button type="submit" class="submit_button" onclick="return do_search('<%= I18n.t('layout.search.date_alert') %>');">Search</button>
 
               <% end -%>
             <% end %>
