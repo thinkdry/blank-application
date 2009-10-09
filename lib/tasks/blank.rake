@@ -309,6 +309,29 @@ namespace :blank do
       c_w.save
     end
   end
+  desc "To create default sa_config.yml"
+  task(:create_sa_config => :environment) do
+    puts "------> creating sa config"
+    default_config = YAML.load_file("#{RAILS_ROOT}/config/customs/default_config.yml")
+    if File.exist?("#{RAILS_ROOT}/config/customs/sa_config.yml")
+      sa_config = YAML.load_file("#{RAILS_ROOT}/config/customs/sa_config.yml")
+      non_exists = default_config.map{|k, v| k } - sa_config.map{|k, v| k }
+      non_exists.each do |key|
+        sa_config.merge!(key => default_config[key])
+      end
+      un_used = sa_config.map{|k, v| k } - default_config.map{|k, v| k }
+      un_used.each do |key|
+        sa_config.delete(key)
+      end
+      new_sa_config = File.new("#{RAILS_ROOT}/config/customs/sa_config.yml", "w+")
+      new_sa_config.syswrite(sa_config.to_yaml)
+    else
+      new_sa_config = File.new("#{RAILS_ROOT}/config/customs/sa_config.yml", "w+")
+      new_sa_config.syswrite(default_config.to_yaml)
+    end
+    puts "------> created sa config"
+  end
+
 
   namespace :maintaining do
 
