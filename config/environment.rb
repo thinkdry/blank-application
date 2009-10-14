@@ -51,7 +51,7 @@ Rails::Initializer.run do |config|
 #	config.gem 'rspec', :version => '>=1.2.8', :lib => 'spec', :source => 'http://gems.github.com'
 #	config.gem 'test-unit', :version => '>=2.0.3', :lib => 'test/unit'
 #	config.gem 'rspec-rails', :version => '>=1.2.7.1', :lib => 'spec/rails', :source => 'http://gems.github.com'
-	config.gem 'pauldix-feedzirra', :lib => 'feedzirra', :version => '>=0.0.18', :source => 'http://gems.github.com'
+	config.gem 'pauldix-feedzirra', :lib => 'feedzirra', :version => '>=0.0.16', :source => 'http://gems.github.com'
 	# Gems available as Plugins (actually inside vendor/plugins folder)
 #	config.gem 'Lipsiasoft-exception-notifier', :lib => 'exception_notifier', :source => 'http://gems.github.com'
 #	config.gem 'fastercsv', :version => '>=1.4.0', :lib => 'fastercsv'

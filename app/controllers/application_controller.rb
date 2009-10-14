@@ -11,6 +11,10 @@ class ApplicationController < ActionController::Base
 	include Configuration
 	# Library used to get helpers for Captcha
 	include YacaphHelper
+  # Protect from cross-site requests
+  #protect_from_forgery
+  # Filter the password fields to protect password & password confirmation
+  filter_parameter_logging :password, :password_confirmation
   # Layout selected with the 'get_current_layout' method
 	layout :get_current_layout
 	# Used to 'include' and 'require' all the helper modules corresponding to the argument (here all the files present)
