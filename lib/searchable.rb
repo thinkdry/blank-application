@@ -59,7 +59,7 @@ module Searchable
 					# 2. workspaces & permissions
 					req = req.matching_user_with_permission_in_workspaces(options[:user], 'show', options[:workspace_ids])
 					# 3. condition if there
-          if !options[:conditions].nil?
+          if options[:conditions]
             req = req.created_at_gte(options[:conditions][:created_at_after].to_date)  if !options[:conditions][:created_at_after].blank?
             req = req.created_at_lte(options[:conditions][:created_at_before].to_date) if !options[:conditions][:created_at_before].blank?
             if options[:conditions][:fetch]
@@ -72,6 +72,8 @@ module Searchable
 					#req = req.paginating_with(options[:pagination][:per_page].to_i, ((options[:pagination][:page].to_i - 1) * options[:pagination][:per_page].to_i))
 					if (options[:opti] == 'skip_pag_but_filter')
 						req = req.all(:order => options[:filter][:field]+' '+options[:filter][:way])
+					elsif (options[:opti] == 'skip_pag_but_limit')
+						req = req.all(:limit => options[:pagination][:per_page])
 					elsif (options[:opti] == 'skip_pag_but_filter_and_limit')
 						req = req.all(:order => options[:filter][:field]+' '+options[:filter][:way], :limit => options[:pagination][:per_page])
 					elsif (options[:opti] == 'skip_full_pag')

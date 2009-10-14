@@ -132,7 +132,8 @@ class ApplicationController < ActionController::Base
 			:full_text => (options[:q] && !options[:q].blank? && options[:q] != I18n.t('layout.search.search_label')) ? options[:q] : nil,
 			:conditions => options[:cond],
 			:filter => { :field => options[:by] ? options[:by].split('-').first : 'created_at', :way => options[:by] ? options[:by].split('-').last : 'desc' },
-			:pagination => { :page => options[:page] || 1, :per_page => options[:per_page] || get_per_page_value }
+			:pagination => { :page => options[:page] || 1, :per_page => options[:per_page] || get_per_page_value },
+			:opti => options[:opti]
 			}
 	end
 
@@ -141,7 +142,8 @@ class ApplicationController < ActionController::Base
 					:cat => cat,
 					:by => filter,
 					:per_page => limit,
-					:page => '1'
+					:page => '1',
+					:opti => 'skip_pag_but_filter_and_limit'
 					)
 				)
 		return s.do_search

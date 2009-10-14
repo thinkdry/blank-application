@@ -169,4 +169,3 @@ module GenericForItemHelper
 	end
 
 end
-# GoogleKey for http://localhost:3000 'ABQIAAAA2WehS-YCrnkbhNu92rFLjBTJQa0g3IQ9GZqIMmInSLzwtGDKaBRf3GIYsW944CGF2j-ahDwkqGcbjw'

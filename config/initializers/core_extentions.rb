@@ -17,7 +17,7 @@ end
 Array.class_eval do
 	def sort_with_filter(filter_field, filter_way)
 		return self.sort!{|a, b|
-        if filter_way == 'desc'
+        if filter_way == 'asc'
           a.send(filter_field) <=> b.send(filter_field)
         else
           b.send(filter_field) <=> a.send(filter_field)

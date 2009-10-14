@@ -98,11 +98,12 @@ class Search < ActiveRecord::Base
 		else
 			# Research on VARIOUS models
 			# TODO use MySQL view, but permissions ...
-			self[:opti] = 'skip_pag_but_filter'
+			self[:opti] ||= 'skip_full_pag'
 			self[:models].split(',').each do |model_name|
 				model_const = model_name.classify.constantize
 				results += model_const.get_da_objects_list(self.param)
 			end
+			p "======================= #{self[:category]} ======== "+results.size.inspect
 			# Sorting all the element in memory ... very costly actually
       results = results.sort_with_filter(self[:filter][:field], self[:filter][:way])
 			# Paginating these sorted element
