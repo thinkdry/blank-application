@@ -148,7 +148,7 @@ module ActsAsItem
 	        end
 
           response_for :destroy do |format|
-            format.html { redirect_to(content_path(params[:controller])) }
+            format.html { redirect_to(current_workspace ? workspace_path(:id => current_workspace.id, :item_type => params[:controller]) : content_path(params[:controller])) }
           end
         end
 

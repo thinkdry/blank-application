@@ -14,9 +14,9 @@
 <div id="footerBody">
   <div class="footerCol">
     <h3>Last Content</h3>
-    <%# Item.allowed_user_with_permission_in_workspaces.each do |l| %>
-    <p><%#= link_to l.title, item_path(l) %></p>
-    <%# end %>
+    <% get_objects_list_with_search('item', 'created_at-desc', 5).each do |l| %>
+      <p><%= link_to l.title, item_path(l) %></p>
+    <% end %>
   </div>
   <div class="footerCol">
     <h3>configuration</h3>
@@ -30,7 +30,7 @@
   </div>
   <div class="footerCol last">
     <h3>last workspaces</h3>
-    <% Workspace.allowed_user_with_permission(@current_user, 'workspace_show').all(:order => 'created_at DESC', :limit => 5).each do |w|%>
+    <% get_objects_list_with_search('workspace', 'created_at-desc', 5).each do |w|%>
       <p><%= link_to w.title, workspace_path(w) %></p>
     <% end %>
   </div>

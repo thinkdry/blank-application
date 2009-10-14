@@ -28,10 +28,14 @@ class WorkspacesController < ApplicationController
       params[:id] ||= params[:workspace_id]
 			# Just for the first load of the show, means without item selected
       params[:item_type] ||= get_allowed_item_types(@current_object).first.to_s.pluralize
-      #			@current_objects = get_items_list(params[:item_type], @current_object)
-      #			@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
-      #<!-- new code
-			@paginated_objects = params[:item_type].classify.constantize.get_da_objects_list(build_hash_from_params(params))
+			params[:by] ||= 'created_at-desc'
+			params[:w] = [current_workspace.id]
+			p "================"+ params[:item_type].inspect
+			if !params[:item_type].blank?
+				@paginated_objects = params[:item_type].classify.constantize.get_da_objects_list(setting_searching_params(:from_params => params))
+			else
+				# no item selected
+			end
       # -->
     end
 
@@ -119,7 +123,7 @@ class WorkspacesController < ApplicationController
 
   # Method getting all the workspaces depending of user permission
 	def current_objects
-    params_hash = build_hash_from_params(params)
+    params_hash = setting_searching_params(:from_params => params)
     params_hash.merge!({:skip_pag => true}) if params[:format] && params[:format] != 'html'
 		@current_objects ||= @paginated_objects = params[:controller].classify.constantize.get_da_objects_list(params_hash)
 			#Workspace.allowed_user_with_permission(@current_user, 'workspace_show')

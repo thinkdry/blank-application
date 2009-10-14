@@ -13,7 +13,8 @@ class ContentController < ApplicationController
 	# - GET /content?item_type=article
   def index
 		params[:item_type] ||= get_allowed_item_types(current_workspace).first.pluralize
-    params_hash = build_hash_from_params(params)
+		params[:by] ||= 'created_at-desc'
+    params_hash = setting_searching_params(:from_params => params)
     params_hash.merge!({:skip_pag => true, :by => 'created_at-asc'}) if params[:format] && params[:format] != 'html'
 		@paginated_objects = params[:item_type].classify.constantize.get_da_objects_list(params_hash)
 #		if request.xhr?
@@ -41,10 +42,11 @@ class ContentController < ApplicationController
   #
   def ajax_index
 		params[:item_type] ||= get_allowed_item_types(current_workspace).first.pluralize
+		params[:by] ||= 'created_at-desc'
 #		@current_objects = get_items_list(params[:item_type], current_workspace)
 #		@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
     # new code
-    @paginated_objects = params[:item_type].classify.constantize.get_da_objects_list(build_hash_from_params(params))
+    @paginated_objects = params[:item_type].classify.constantize.get_da_objects_list(setting_searching_params(:from_params => params))
     # 
     @i = 0
 		@no_div = true

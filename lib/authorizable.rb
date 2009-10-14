@@ -61,7 +61,6 @@ module Authorizable
 						workspace_ids = workspace_ids.map{|w_id| w_id.to_i} & Workspace.allowed_user_with_permission(user, self.to_s.underscore+'_'+permission).all(:select => 'workspaces.id').map{ |e| e.id }
 						# So we can retrieve directly as the workspaces are checked, hihihi
 						if workspace_ids.first
-              
 							{ :select => "DISTINCT #{self.to_s.underscore.pluralize}.*",
 								:joins => "LEFT JOIN items_workspaces ON #{self.to_s.underscore.pluralize}.id = items_workspaces.itemable_id AND items_workspaces.itemable_type='#{self.to_s}'",
 								:conditions => "items_workspaces.workspace_id IN (#{workspace_ids.join(',')})" }
@@ -119,7 +118,7 @@ module Authorizable
 						}
 					}
 					include Authorizable::ModelMethods::IMWorkspace
-				elsif self.to_s.underscore == 'user'
+				elsif ['user'].include?(self.to_s.underscore)
 					named_scope :matching_user_with_permission_in_workspaces, lambda { |user, permission, workspace_ids|
 						# Check if these workspace are matching the really authorized ones, and set 'nil for all' condition
 						workspace_ids ||= Workspace.allowed_user_with_permission(user, self.to_s.underscore+'_'+permission).all(:select => 'workspaces.id').map{ |e| e.id }

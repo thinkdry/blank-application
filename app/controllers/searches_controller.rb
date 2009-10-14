@@ -9,18 +9,10 @@ class SearchesController < ApplicationController #:nodoc: all
 	# - GET /searches
 	# - GET /searches.xml
   def index
-		set_param = build_hash_from_params(params)
-		# Initialisation : default params
-		if !params[:m]
-			if (params[:cat] == 'item')
-				set_param[:models] = available_items_list
-			else
-				set_param[:models] = [params[:cat]]
-			end
-		end
 		# Creation of the search object and search do
-		@search = Search.new(set_param).advance_search_fields
-    @search.skip_res_pag = true if !params[:format].nil? && params[:format] != 'html'
+		@search = Search.new(setting_searching_params(:from_params => params))#.advance_search_fields
+    # TODO manage the params to get the good output with f?*%ù£$$ù AJAX
+		#@search.skip_res_pag = true if !params[:format].nil? && params[:format] != 'html'
 		@paginated_objects = @current_objects = @search.do_search
 		# Definition of the template to use to retrieve information
 		if @search.category == 'user' || @search.category == 'workspace'

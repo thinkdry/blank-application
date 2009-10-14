@@ -151,7 +151,7 @@ module GenericForItemHelper
 				end
 				# Creating the checkboxes
 				if ((w.state == 'private') && (w.creator_id == @current_user.id) && (item.new_record? || item.user_id==@current_user.id)) || (list.size==1) || (w == current_workspace)
-					strg += check_box_tag(check_box_tag_name, w.id, true, :disabled => false, :class => 'checkboxes') + ' ' + w.title + hidden_field_tag(check_box_tag_name, w.id.to_s) + '<br />'
+					strg += check_box_tag(check_box_tag_name, w.id, true, :disabled => false, :class => 'checkboxes') + ' ' + w.title + '<br />'#hidden_field_tag(check_box_tag_name, w.id.to_s) + '<br />'
 				else
 					strg += check_box_tag(check_box_tag_name, w.id, checked, :class => 'checkboxes') + ' ' + w.title + '<br />'
 				end

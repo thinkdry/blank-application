@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
 	# User to define controller methods as helpers methods too (and so be able to use it inside helpers or views)
 	helper_method :available_items_list, :available_languages, :get_sa_config, :right_conf,
 		:is_allowed_free_user_creation?, :get_allowed_item_types, :item_types_allowed_to, :get_per_page_value,
-		:admin?, :groups_of_workspaces_of_item, :get_fcke_item_types, :build_hash_from_params
+		:admin?, :groups_of_workspaces_of_item, :get_fcke_item_types, :setting_searching_params, :get_objects_list_with_search
 	# Filter checking authentication with 'is_logged' method
   before_filter :is_logged?
 	# Filter defining the current locale with the 'set_locale' method
@@ -118,21 +118,33 @@ class ApplicationController < ActionController::Base
 	#
 	# This method is returning an hash with the default value and all the others parameters
 	# needed to make a research.
-	def build_hash_from_params(params)
-		params[:by] ||= 'created_at-desc'
-		params[:page] ||= 1
-    params[:per_page] ||= get_per_page_value
+	def setting_searching_params(*args)
+		options = args.extract_options!
+		if options[:from_params]
+			options = options[:from_params]#.merge({ :cat => nil, :models => nil })
+		end
 		return {
 			:user => @current_user,
 			:permission => 'show',
-			:category => params[:cat],
-			:models => params[:m],
-			:workspace_ids => current_workspace ? [current_workspace.id] : params[:w],
-			:full_text => params[:q],
-			:conditions => params[:cond],
-			:filter => { :field => params[:by].split('-').first, :way => params[:by].split('-').last },
-			:pagination => { :page => params[:page], :per_page => params[:per_page] }
+			:category => options[:cat],
+			:models => options[:m] || (options[:cat] ? ((options[:cat] == 'item') ? @configuration['sa_items'] : [options[:cat]]) : nil),
+			:workspace_ids => options[:w],
+			:full_text => (options[:q] && !options[:q].blank? && options[:q] != I18n.t('layout.search.search_label')) ? options[:q] : nil,
+			:conditions => options[:cond],
+			:filter => { :field => options[:by] ? options[:by].split('-').first : 'created_at', :way => options[:by] ? options[:by].split('-').last : 'desc' },
+			:pagination => { :page => options[:page] || 1, :per_page => options[:per_page] || get_per_page_value }
 			}
+	end
+
+	def get_objects_list_with_search(cat, filter, limit)
+		s = Search.new(setting_searching_params(
+					:cat => cat,
+					:by => filter,
+					:per_page => limit,
+					:page => '1'
+					)
+				)
+		return s.do_search
 	end
 
 	private

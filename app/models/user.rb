@@ -59,11 +59,6 @@ class User < ActiveRecord::Base
   has_many :users_workspaces, :dependent => :delete_all
 	# Relation N-1 getting Workspace objects through the 'users_workspaces' table
   has_many :workspaces, :through => :users_workspaces
-	# Relation N-1 with the different item type objects tables
-#	# TODO removed this relation, access to items is done through workspaces
-#	ITEMS.each do |item|
-#		has_many item.pluralize.to_sym
-#	end
 	# Relation N-1 with the 'rattings' table
   has_many :ratings
 	# Relation N-1 with the 'comments' table
