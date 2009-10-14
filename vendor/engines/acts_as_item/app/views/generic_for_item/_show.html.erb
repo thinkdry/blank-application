@@ -1,3 +1,4 @@
+<%h content_for :title, "#{object.class.to_s}: "+object.title %>
 <div id="content_show">
   <h1>
     <%= link_to image_tag("/images/icons/left.png"), (current_workspace ? workspace_path(current_workspace.id)+'?item_type=' : '/content/')+object.class.to_s.underscore.pluralize %>
