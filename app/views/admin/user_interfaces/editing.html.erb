@@ -24,9 +24,7 @@
   <div class="formElement"><%= f.text_field :sa_per_page_default %></div>
 
   <label>Default layout :</label>
-  <div class="formElement"><%= select_tag 'configuration[sa_layout]', options_for_select(LAYOUTS_AVAILABLE,@configuration['sa_layout']) %></div>
-
-  <label></label>
+  <div class="formElement"><%= select_tag 'configuration[sa_default_layout]', options_for_select(LAYOUTS_AVAILABLE.map{|la| [I18n.t('general.layout.'+la), la]},@configuration['sa_default_layout']) %></div>
 
   <label>Select Template :</label>
   <div class="formElement">

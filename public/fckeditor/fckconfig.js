@@ -293,10 +293,16 @@ FCKConfig.ImageBrowserWindowWidth  = FCKConfig.ScreenWidth * 0.5 ;	// 70% ;
 FCKConfig.ImageBrowserWindowHeight = FCKConfig.ScreenHeight * 0.5 ;	// 70% ;
 
 FCKConfig.FlashBrowser = true ;
-FCKConfig.FlashBrowserURL = '/content_for_popup/videos'
+FCKConfig.FlashBrowserURL = '/content_for_popup/fcke_flash'
 //FCKConfig.FlashBrowserURL = FCKConfig.BasePath + 'filemanager/browser/default/browser.html?Type=Flash&Connector=' + encodeURIComponent( FCKConfig.BasePath + 'filemanager/connectors/' + _FileBrowserLanguage + '/connector.' + _FileBrowserExtension ) ;
 FCKConfig.FlashBrowserWindowWidth  = FCKConfig.ScreenWidth * 0.7 ;	//70% ;
 FCKConfig.FlashBrowserWindowHeight = FCKConfig.ScreenHeight * 0.7 ;	//70% ;
+
+FCKConfig.FlvBrowser = true ;
+FCKConfig.FlvBrowserURL = '/content_for_popup/videos'
+//FCKConfig.FlashBrowserURL = FCKConfig.BasePath + 'filemanager/browser/default/browser.html?Type=Flash&Connector=' + encodeURIComponent( FCKConfig.BasePath + 'filemanager/connectors/' + _FileBrowserLanguage + '/connector.' + _FileBrowserExtension ) ;
+FCKConfig.FlvBrowserWindowWidth  = FCKConfig.ScreenWidth * 0.7 ;	//70% ;
+FCKConfig.FlvBrowserWindowHeight = FCKConfig.ScreenHeight * 0.7 ;	//70% ;
 
 FCKConfig.LinkUpload = true ;
 FCKConfig.LinkUploadURL = '/fckuploads';
@@ -310,8 +316,13 @@ FCKConfig.ImageUploadDeniedExtensions	= "" ;							// empty for no one
 
 FCKConfig.FlashUpload = true ;
 FCKConfig.FlashUploadURL = '/fckuploads';
-FCKConfig.FlashUploadAllowedExtensions	= ".(swf|flv|mp3)$" ;		// empty for all
+FCKConfig.FlashUploadAllowedExtensions	= ".(swf)$" ;		// empty for all
 FCKConfig.FlashUploadDeniedExtensions	= "" ;					// empty for no one
+
+FCKConfig.FlvUpload = true ;
+FCKConfig.FlvUploadURL = '/fckuploads';
+FCKConfig.FlvUploadAllowedExtensions	= ".(swf|flv|mp3)$" ;		// empty for all
+FCKConfig.FlvUploadDeniedExtensions	= "" ;					// empty for no one
 
 FCKConfig.SmileyPath	= FCKConfig.BasePath + 'images/smiley/msn/' ;
 FCKConfig.SmileyImages	= ['regular_smile.gif','sad_smile.gif','wink_smile.gif','teeth_smile.gif','confused_smile.gif','tounge_smile.gif','embaressed_smile.gif','omg_smile.gif','whatchutalkingabout_smile.gif','angry_smile.gif','angel_smile.gif','shades_smile.gif','devil_smile.gif','cry_smile.gif','lightbulb.gif','thumbs_down.gif','thumbs_up.gif','heart.gif','broken_heart.gif','kiss.gif','envelope.gif'] ;

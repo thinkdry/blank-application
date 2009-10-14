@@ -306,3 +306,13 @@ function add_reply(parent){
       $('comment_parent_id').value = parent;
     }
   }
+
+// to show or hide search hint in header and footer
+function search_hint(txt, id, query){
+    var hint = document.getElementById(id).value;
+    if(hint==txt && txt != query){
+        document.getElementById(id).value='';
+    }else if(hint == ''){
+        document.getElementById(id).value=txt;
+    }
+}

@@ -18,7 +18,7 @@ class VideosController < ApplicationController
   #
   # This function is linked to an url and called by an AJAX request.
   def get_video_progress
-    @current_object = Video.find(:id => params[:id].to_i)
+    @current_object = Video.find(params[:id].to_i)
     if params[:check] && params[:check] == 'true'
       render :text => @current_object.state
     else

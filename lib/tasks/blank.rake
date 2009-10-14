@@ -309,6 +309,45 @@ namespace :blank do
       c_w.save
     end
   end
+  desc "To create default sa_config.yml"
+  task(:create_sa_config => :environment) do
+    puts "------> creating sa config"
+    default_config = YAML.load_file("#{RAILS_ROOT}/config/customs/default_config.yml")
+    if File.exist?("#{RAILS_ROOT}/config/customs/sa_config.yml")
+      sa_config = YAML.load_file("#{RAILS_ROOT}/config/customs/sa_config.yml")
+      non_exists = default_config.map{|k, v| k } - sa_config.map{|k, v| k }
+      non_exists.each do |key|
+        sa_config.merge!(key => default_config[key])
+      end
+      un_used = sa_config.map{|k, v| k } - default_config.map{|k, v| k }
+      un_used.each do |key|
+        sa_config.delete(key)
+      end
+      new_sa_config = File.new("#{RAILS_ROOT}/config/customs/sa_config.yml", "w+")
+      new_sa_config.syswrite(sa_config.to_yaml)
+    else
+      new_sa_config = File.new("#{RAILS_ROOT}/config/customs/sa_config.yml", "w+")
+      new_sa_config.syswrite(default_config.to_yaml)
+    end
+    puts "------> created sa config"
+  end
+
+  desc "To delete dupicate records from join tables"
+		task(:delete_duplicates_in_join_tables => :environment) do
+#      model_name = "ItemsWorkspace"
+#      fields_to_check = ['itemable_type', 'itemable_id', 'workspace_id']
+      model_fields = {'ItemsWorkspace' => ['itemable_type', 'itemable_id', 'workspace_id']} #, 'UsersWorkspace' => ['user_id', 'workspace_id']}
+      model_fields.each do |model_name, fields_to_check|
+       model_name.classify.constantize.all.each do |item_w|
+          cond = {}
+          fields_to_check.each{|f| cond.merge!({f.to_sym => item_w.send(f.to_sym)})}
+          tmp = model_name.classify.constantize.find(:all, :conditions => cond)
+          if tmp.length > 1
+            tmp.delete_if{|i| i.id == item_w.id}.each{|it| it.delete}
+          end
+        end
+      end
+		end
 
   namespace :maintaining do
 

@@ -3,10 +3,10 @@
     <% unless @hide_full_text_search %>
       <% form_for :search, @search, :url => searches_path, :html => { :method => :get, :name => 'footer_search' } do -%>
         <p><%= I18n.t('layout.search.search_label')%></p>
-        <%= text_field_tag "q", (params[:search] ? params[:search][:full_text_field] : I18n.t('layout.search.search_label')), :class => "style_text", :onfocus => '$(this).select()' %>
+        <%= text_field_tag "q", (params[:q] ? params[:q] : @search_hint), :id =>"footer_search_input", :class => "style_text", :onfocus => "search_hint('#{@search_hint}', 'footer_search_input', '#{params[:q].to_s}')", :onblur => "search_hint('#{@search_hint}', 'footer_search_input', '#{params[:q].to_s}')" %>
         <p><%= I18n.t 'general.common_word.in'%></p>
         <%= select_search_models %>
-        <%= link_to(image_tag("search_button.gif"), "javascript:void(1);", :onclick => "document.footer_search.submit();", :class => "search_button") %>
+        <%= link_to(image_tag("search_button.gif"), "javascript:void(1);", :id =>"footer_search_input", :onclick => "document.footer_search.submit();", :class => "search_button") %>
       <% end -%>
     <% end %>
   </div>

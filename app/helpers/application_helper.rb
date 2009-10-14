@@ -42,9 +42,10 @@ module ApplicationHelper
   # <tt>checkboxes_from_list(ITEMS, sa_items, @conf, "conf") </tt>
 	def checkboxes_from_list(var, param, conf, object)
 		res = []
+    key = ([param.split('_').last.singularize] & ['item', 'language', 'layout', 'type', 'category']).first
 		var.each do |l|
       content = '<div class="checkbox_list_horizontal">'
-      content += check_box_tag(object+'['+param+']'+"[]", "#{l}", ((ref=conf[param]) ? ref.include?(l) : false), :class => "checkboxes")+' '+I18n.t('general.item.'+l)
+      content += check_box_tag(object+'['+param+']'+"[]", "#{l}", ((ref=conf[param]) ? ref.include?(l) : false), :class => "checkboxes")+' '+I18n.t('general.'+key+'.'+l)
       content += "</div>"
 			res << content
     end

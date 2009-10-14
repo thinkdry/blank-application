@@ -13,7 +13,6 @@ class ContentController < ApplicationController
 	# - GET /content?item_type=article
   def index
 		params[:item_type] ||= get_allowed_item_types(current_workspace).first.pluralize
-		params[:by] ||= 'created_at-desc'
     params_hash = setting_searching_params(:from_params => params)
     params_hash.merge!({:skip_pag => true, :by => 'created_at-asc'}) if params[:format] && params[:format] != 'html'
 		@paginated_objects = params[:item_type].classify.constantize.get_da_objects_list(params_hash)
@@ -42,7 +41,6 @@ class ContentController < ApplicationController
   #
   def ajax_index
 		params[:item_type] ||= get_allowed_item_types(current_workspace).first.pluralize
-		params[:by] ||= 'created_at-desc'
 #		@current_objects = get_items_list(params[:item_type], current_workspace)
 #		@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
     # new code
@@ -70,28 +68,36 @@ class ContentController < ApplicationController
 			params[:item_type] ||= @item_types.first
       if params[:item_type]
 #        @current_objects = get_items_list(params[:item_type], @workspace)
-         @current_objects = params[:item_type].classify.constantize.get_da_objects_list(build_hash_from_params(params).merge!({:skip_pag => true}))
+         @current_objects = params[:item_type].classify.constantize.get_da_objects_list(build_hash_from_params(params).merge!({:skip_pag => true, :conditions =>{:fetch => {'state_equals' => 'published'}}}))
       else
         render :text => "No item types available for your profil."
         return
       end
-		elsif (params[:selected_item] == 'images' || params[:selected_item] == 'videos')
+		elsif (params[:selected_item] == 'images' || params[:selected_item] == 'videos' || params[:selected_item] == 'fcke_flash')
 			@selected_item_types = [params[:selected_item].to_s.singularize]
 			params[:item_type] ||= @selected_item_types.first
 			if !params[:item_type].include?('fcke')
 #				@current_objects = get_items_list(params[:selected_item], @workspace)
         @current_objects = params[:item_type].classify.constantize.get_da_objects_list(build_hash_from_params(params).merge!({:skip_pag => true}))
 			else
+        if params[:selected_item] == 'fcke_flash'
+          fck_item = "videos"
+          types = 'swf'
+          params[:item_type] = 'fcke_videos'
+        else
+          fck_item = params[:selected_item]
+          types = '*'
+        end
 				@fcke_objects = []
 				if session[:fck_item_type] != 'Page'
-					Dir["public/uploaded_files/#{session[:fck_item_type].singularize.downcase}/#{session[:fck_item_id]}/fck_#{params[:selected_item]}/*.*"].collect do |uploaded_image|
-						@fcke_objects << { :name => uploaded_image.split('/')[5], :url => root_url+uploaded_image.split('public/')[1] }
+					Dir["public/uploaded_files/#{session[:fck_item_type].singularize.downcase}/#{session[:fck_item_id]}/fck_#{fck_item}/*.#{types}"].collect do |uploaded_file|
+						@fcke_objects << { :name => uploaded_file.split('/')[5], :url => root_url+uploaded_file.split('public/')[1] }
 					end
 				else
 					object = session[:fck_item_type].classify.constantize.find(session[:fck_item_id])
 					workspace = object.workspaces.delete_if{ |e| e.state == 'private' }.first
-					Dir["public/uploaded_files/workspace/#{workspace.id}/fck_#{params[:selected_item]}/*.*"].collect do |uploaded_image|
-						@fcke_objects << { :name => uploaded_image.split('/')[5], :url => root_url+uploaded_image.split('public/')[1] }
+					Dir["public/uploaded_files/workspace/#{workspace.id}/fck_#{fck_item}/*.#{types}"].collect do |uploaded_file|
+						@fcke_objects << { :name => uploaded_file.split('/')[5], :url => root_url+uploaded_file.split('public/')[1] }
 					end
 				end
 			end

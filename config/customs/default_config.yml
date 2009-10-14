@@ -20,7 +20,11 @@ sa_application_url: http://blank.thinkdry.com
 sa_favicon_url: /config_files/favicon.ico
 sa_logo_url: /config_files/logo.jpg
 sa_per_page_default: 10
-sa_layout: "app_fat_menu"
+sa_default_layout: "app_fat_menu"
 sa_exception_notifier_activated: "false"
-sa_exception_followers_email: []
 sa_contact_email: ""
+
+sa_layouts: []
+sa_exception_followers_email: []
+sa_default_language: "en-US"
+

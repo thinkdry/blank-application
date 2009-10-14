@@ -4,10 +4,8 @@
         <div id ="progress">
             <% if @current_object.state=="encoded" %>
               <%= render :partial => "player", :object => @current_object %>
-            <% elsif @current_object.state=="encoding"%>
-              <%= render :partial => "status", :object => @current_object %>
             <% else %>
-               Queued for encoding
+               <%= render :partial => "status", :object => @current_object %>
            <% end %>
           </div>
 	<br /><br /><%= image_tag("icons/download.png")%> <%= link_to I18n.t('general.button.download'), download_audio_path(@current_object.id) %><br />

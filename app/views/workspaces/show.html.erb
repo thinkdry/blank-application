@@ -1,3 +1,5 @@
+<%h content_for :title, "#{current_workspace.class.to_s}: "+current_workspace.title %>
+
 <div id="area_TITLE">
   <div id="area_TITLE_left">
     <%= link_to image_tag(current_workspace.logo.url(:medium), :width => "80"), workspace_path(current_workspace) %>

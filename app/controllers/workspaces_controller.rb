@@ -28,15 +28,10 @@ class WorkspacesController < ApplicationController
       params[:id] ||= params[:workspace_id]
 			# Just for the first load of the show, means without item selected
       params[:item_type] ||= get_allowed_item_types(@current_object).first.to_s.pluralize
-			params[:by] ||= 'created_at-desc'
 			params[:w] = [current_workspace.id]
-			p "================"+ params[:item_type].inspect
 			if !params[:item_type].blank?
 				@paginated_objects = params[:item_type].classify.constantize.get_da_objects_list(setting_searching_params(:from_params => params))
-			else
-				# no item selected
 			end
-      # -->
     end
 
 		before :new do
@@ -76,7 +71,7 @@ class WorkspacesController < ApplicationController
 		end
 
 		response_for :destroy do |format|
-			format.html { redirect_to administration_user_url(@current_user.id) }
+			format.html { redirect_to workspaces_path }
 		end
     
 		response_for :show do |format|

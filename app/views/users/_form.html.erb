@@ -45,11 +45,11 @@
       <%= file_field 'user', 'avatar', :class => 'file' %>
     <% end %>
     <% if !@current_object.new_record? && @current_object.has_permission_for?('configure', @current_user) %>
-      <%= f.select :u_layout, LAYOUTS_AVAILABLE, :label => "Layout : " %>
-      <%= f.select :u_language, LANGUAGES, :label => "Select language : " %>
-      <%= f.select :u_per_page, [10,30,50], :label => "Results per page : " %>
+      <%= f.select :u_layout, available_layouts.map{|la| [I18n.t('general.layout.'+la.to_s), la.to_s]}, :label => I18n.t('user.field.layout_label')+" : " %>
+      <%= f.select :u_language, available_languages.map{|l| [I18n.t('general.language.'+l), l]}, :label => I18n.t('user.field.select_language_label')+" : " %>
+      <%= f.select :u_per_page, [10,30,50], :label => I18n.t('user.field.results_per_page_label')+" : " %>
     <% else %>
-      <%= f.hidden_field(:u_layout, :value=>@configuration['sa_layout'].to_s) %>
+      <%= f.hidden_field(:u_layout, :value=>@configuration['sa_default_layout'].to_s) %>
       <%= f.hidden_field(:u_language, :value=>@configuration['sa_default_language'].to_s) %>
       <%= f.hidden_field(:u_per_page, :value=>@configuration['sa_per_page_default'].to_s) %>
     <% end %>

@@ -47,6 +47,9 @@ en-US:
       location_label: Location
       date_of_birth_label: Date of birth
       gender_label: Gender
+      layout_label: Layout
+      select_language_label: Select language
+      results_per_page_label: Results per page
     session: 
       login_hint: Enter Login Details
       password_hint: Your password
@@ -284,18 +287,14 @@ en-US:
       article: Article
       audio: Audio
       bookmark: Bookmark
-      public: Public
       advert: Advert
       publication: Publication
-      closed: Closed
-      archived: Archived
       feed_source: RSS Feed
       cms_file: CMS File
       newsletter: Newsletter
       page: Page
       video: Video
       image: Image
-      authorized: Authorized
       group: Group
       programme: Programme
     link: 
@@ -312,6 +311,14 @@ en-US:
       add_help: This menu helps you to add content
     copyright:
       copyright_restriction: Some fields can't be modified as this element is Copyright protected.
+    layout:
+      application: Application
+      app_fat_menu: App fat menu
+    type:
+      public: Public
+      closed: Closed
+      archived: Archived
+      authorized: Authorized
   group: 
     new: 
       title: New Group

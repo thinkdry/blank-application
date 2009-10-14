@@ -62,6 +62,11 @@ module Searchable
           if !options[:conditions].nil?
             req = req.created_at_gte(options[:conditions][:created_at_after].to_date)  if !options[:conditions][:created_at_after].blank?
             req = req.created_at_lte(options[:conditions][:created_at_before].to_date) if !options[:conditions][:created_at_before].blank?
+            if options[:conditions][:fetch]
+              options[:conditions][:fetch].each{|fetch_cond, value|
+                req = req.send(fetch_cond,value)
+              }
+            end
           end
 					#req = req.filtering_on(options[:filter][:field], options[:filter][:way])
 					#req = req.paginating_with(options[:pagination][:per_page].to_i, ((options[:pagination][:page].to_i - 1) * options[:pagination][:per_page].to_i))

@@ -1,73 +1,69 @@
-<h1><%= I18n.t('general.txt.select_a_file') %></h1>
-<div class="popup_header">
-  <div class="popup_column_pic">
-    <img src="/images/icons/filter_128.png"/>
-  </div>
-  <div class="popup_column">
-    <p><%= I18n.t 'layout.popup.filter_help' %></p>
-    <br/>
-    <label><%= I18n.t 'layout.popup.filter_by_workspace' %>:</label>
-    <p>
-      <% for ws in @workspaces %>
-        <% if i=(get_allowed_item_types(ws) & @selected_item_types).first %>
-          <%= link_to ws.title , '/content_for_popup/'+params[:selected_item]+'?workspace_id='+ws.id.to_s+'&item_type='+i %> |
-        <% end %>
+<% if !(get_allowed_item_types(nil) & @selected_item_types).empty? or params[:selected_item] == 'fcke_flash' %>
+  <h1><%= I18n.t('general.txt.select_a_file') %></h1>
+  <div class="popup_header">
+    <div class="popup_column_pic">
+      <img src="/images/icons/filter_128.png"/>
+    </div>
+    <div class="popup_column">
+      <% if params[:selected_item] != 'fcke_flash' %>
+        <p><%= I18n.t 'layout.popup.filter_help' %></p>
+        <br/>
+        <label><%= I18n.t 'layout.popup.filter_by_workspace' %>:</label>
+        <p>
+          <% for ws in @workspaces %>
+            <% if i=(get_allowed_item_types(ws) & @selected_item_types).first %>
+              <%= link_to ws.title , '/content_for_popup/'+params[:selected_item]+'?workspace_id='+ws.id.to_s+'&item_type='+i %> |
+            <% end %>
+          <% end %>
+          <%= link_to 'All','/content_for_popup/'+params[:selected_item]+'?item_type='+(get_allowed_item_types(nil) & @selected_item_types).first.pluralize %>
+          <%= ' | '+link_to("FCKE #{I18n.t('general.item.'+params[:selected_item].singularize).pluralize}", "/content_for_popup/"+params[:selected_item]+"?item_type=fcke_#{params[:selected_item]}") if params[:selected_item] == 'images' || params[:selected_item] == 'videos' %>
+        </p>
       <% end %>
-      <%= link_to 'All','/content_for_popup/'+params[:selected_item]+'?item_type='+(get_allowed_item_types(nil) & @selected_item_types).first.pluralize %>
-      <%= ' | '+link_to('FCKE images', '/content_for_popup/'+params[:selected_item]+'?item_type=fcke_images') if params[:selected_item] == 'images' %>
-    </p>
-
-    <% if params[:selected_item] == 'all' %>
-      <label><%= I18n.t 'layout.popup.filter_by_item_type' %>:</label>
-      <p>
-        <% for item in @item_types %>
-          <%= link_to item ,'/content_for_popup/'+params[:selected_item]+'?'+"#{!params[:workspace_id].nil? ? 'workspace_id='+params[:workspace_id].to_s+"&" : ''}"+'item_type='+item %> |
-        <% end %>
-      </p>
-    <% else %>
-      <%#= link_to(I18n.t('layout.popup.display_all_picure'), '/content_for_popup/images') %>
-    <% end %>
+      <% if params[:selected_item] == 'all' %>
+        <label><%= I18n.t 'layout.popup.filter_by_item_type' %>:</label>
+        <p>
+          <% for item in @item_types %>
+            <%= link_to item ,'/content_for_popup/'+params[:selected_item]+'?'+"#{!params[:workspace_id].nil? ? 'workspace_id='+params[:workspace_id].to_s+"&" : ''}"+'item_type='+item %> |
+          <% end %>
+        </p>
+      <% else %>
+        <%#= link_to(I18n.t('layout.popup.display_all_picure'), '/content_for_popup/images') %>
+      <% end %>
+    </div>
   </div>
-</div>
 
-<% if params[:item_type] %>
-  <h3><%= I18n.t('general.item.'+params[:item_type].split('fcke_').last.singularize).capitalize.pluralize %> <%= params[:item_type] == 'all' ? I18n.t('general.common_word.of') +' '+@workspace.title : '' %> </h3>
-<% end %>
+  <% if params[:item_type] %>
+    <h3><%= I18n.t('general.item.'+params[:item_type].split('fcke_').last.singularize).capitalize.pluralize %> <%= params[:item_type] == 'all' ? I18n.t('general.common_word.of') +' '+@workspace.title : '' %> </h3>
+  <% end %>
 
-<div class="popup_item_list">
-<% i=0 %>
-
-<% if !params[:item_type].include?('fcke') %>
-  <% @current_objects.each do |object| %>
-    <% if i%2 == 0 -%>
-      <div class="list_alternate">
-      <% else -%>
-        <div class="list">
-        <% end -%>
-        <%= image_tag(object.image.url(:thumb).split("?")[0], :border=>0, :width => "50") if params[:selected_item]=="images" %>
-        <% if params[:item_type] == 'video' || params[:item_type] == 'audio' %>
-          <%= link_to_function object.title,"javascript:SelectFile('#{root_url.split('/').join('/')}#{object.path_to_encoded_file}')"  %>
-        <% elsif params[:item_type] == 'image' %>
-          <%= link_to_function object.title,"javascript:SelectFile('#{root_url.split('/').join('/')}#{object.image.url.split('?')[0]}')"  %>
-        <% else %>
-          <%= link_to_function object.title,"javascript:SelectFile('#{root_url}#{object.class.to_s.underscore.pluralize}/#{object.id}/redirect_to_content')"  %>
-        <% end %>
-      </div>
-      <% i= i+1%>
-    <% end %>
-  <% else %>
-    <% @fcke_objects.each do |object| %>
-      <% if i%2 == 0 -%>
-        <div class="list_alternate">
-        <% else %>
-          <div class="list">
-          <% end -%>
+  <div class="popup_item_list">
+    <% i=0 %>
+    <% if params[:item_type] && !params[:item_type].include?('fcke') %>
+      <% @current_objects.each do |object| %>
+        <div class=<%= i%2 == 0 ? "list_alternate" : "list" %>>
+          <%= image_tag(object.image.url(:thumb).split("?")[0], :border=>0, :width => "50") if params[:selected_item]=="images" %>
+          <% if params[:item_type] == 'video' || params[:item_type] == 'audio' %>
+            <%= link_to_function object.title,"javascript:SelectFile('#{root_url.split('/').join('/')}#{object.path_to_encoded_file}')"  %>
+          <% elsif params[:item_type] == 'image' %>
+            <%= link_to_function object.title,"javascript:SelectFile('#{root_url.split('/').join('/')}#{object.image.url.split('?')[0]}')"  %>
+          <% else %>
+            <%= link_to_function object.title,"javascript:SelectFile('#{root_url}#{object.class.to_s.underscore.pluralize}/#{object.id}/redirect_to_content')"  %>
+          <% end %>
+        </div>
+        <% i= i+1%>
+      <% end %>
+    <% else %>
+      <% @fcke_objects.each do |object| %>
+        <div class=<%= i%2 == 0 ? "list_alternate" : "list" %>>
           <%= image_tag(object[:url], :border=>0, :width => "50" ) if params[:selected_item]=="images" %>
           <%= link_to_function object[:name], "javascript:SelectFile('#{object[:url]}')" %>
         </div>
         <% i= i+1%>
       <% end %>
     <% end %>
-
   </div>
-</div>
+<% else %>
+  <div class="error">
+    <%= I18n.t('general.common_message.permission_denied') %>
+  </div>
+<% end %>

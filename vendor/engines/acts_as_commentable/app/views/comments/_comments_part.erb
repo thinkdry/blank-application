@@ -9,7 +9,7 @@
 </div>
 
 <% if permission || @current_object.has_permission_for?('comment', @current_user) %>
-  <div id="reply_overlay"></div>
+  <div id="reply_overlay" style="filter:alpha(opacity=80);" onclick="$('reply_overlay').style.display='none';$('reply').style.display='none';"></div>
   <div id ="reply">
     <fieldset id="new_reply_form_box" style="margin-top:10px">
       <div id="'reply_content">

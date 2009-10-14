@@ -47,6 +47,9 @@ fr-FR:
       nationality_label: "Nationalit\xC3\xA9"
       location_label: Emplacement
       date_of_birth_label: Date de naissance
+      layout_label: Layout
+      select_language_label: Select language
+      results_per_page_label: Results per page
     session: 
       login_hint: Entez vos identifiants
       password_hint: Votre mot de passe
@@ -137,8 +140,8 @@ fr-FR:
       send: "envoy\xC3\xA9"
       update: "Mettre \xC3\xA0 jour"
     language: 
-      en-US: English(US)
-      fr-FR: French(FR)
+      en-US: Anglais (US)
+      fr-FR: "Fran\xC3\xA7ais"
       es-ES: Spanish(ESP)
     role: 
       user: Utilisateur
@@ -199,18 +202,12 @@ fr-FR:
       audio: Audio
       bookmark: Marque-page
       advert: Spot publicitaire
-      public: Public
-      closed: "Ferm\xC3\xA9"
       publication: Publication
-      en-US: Anglais (US)
       feed_source: Flux RSS
-      fr-FR: "Fran\xC3\xA7ais"
-      archived: "Archiv\xC3\xA9"
       cms_file: Fichier CMS
       newsletter: Newsletter
       page: Page
       group: Groupe
-      authorized: "Autoris\xC3\xA9"
       video: Video
       image: Image
       programme: Emission
@@ -228,6 +225,14 @@ fr-FR:
       comment: commentaire
     copyright:
       copyright_restriction: "Certains \xC3\xA9l\xC3\xA9ments sont prot\xC3\xA9g\xC3\xA9s par le Copyright et ne peuvent \xC3\xAAtre modifi\xC3\xA9s."
+    layout:
+      application: Application
+      app_fat_menu: App fat menu
+    type:
+      public: Public
+      closed: "Ferm\xC3\xA9"
+      archived: "Archiv\xC3\xA9"
+      authorized: "Autoris\xC3\xA9"
   activerecord:
     attributes:
       user:

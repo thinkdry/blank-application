@@ -27,11 +27,11 @@ function window_onload()
     LoadSelection() ;
 
     // Show/Hide the "Browse Server" button.
-    GetE('tdBrowse').style.display = oEditor.FCKConfig.FlashBrowser ? '' : 'none' ;
+    GetE('tdBrowse').style.display = oEditor.FCKConfig.FlvBrowser ? '' : 'none' ;
 
     // Set the actual uploader URL.
-    if ( FCKConfig.FlashUpload )
-        GetE('frmUpload').action = FCKConfig.FlashUploadURL ;
+    if ( FCKConfig.FlvUpload )
+        GetE('frmUpload').action = FCKConfig.FlvUploadURL ;
 
     // Activate the "OK" button.
     window.parent.SetOkButton( true ) ;
@@ -238,9 +238,9 @@ function BrowseServer()
 {
     OpenServerBrowser(
         'flv',
-        oEditor.FCKConfig.FlashBrowserURL,
-        oEditor.FCKConfig.FlashBrowserWindowWidth,
-        oEditor.FCKConfig.FlashBrowserWindowHeight ) ;
+        oEditor.FCKConfig.FlvBrowserURL,
+        oEditor.FCKConfig.FlvBrowserWindowWidth,
+        oEditor.FCKConfig.FlvBrowserWindowHeight ) ;
 }
 
 
@@ -629,8 +629,8 @@ function OnUploadCompleted( errorNumber, fileUrl, fileName, customMsg )
     GetE('frmUpload').reset() ;
 }
 
-var oUploadAllowedExtRegex	= new RegExp( FCKConfig.FlashUploadAllowedExtensions, 'i' ) ;
-var oUploadDeniedExtRegex	= new RegExp( FCKConfig.FlashUploadDeniedExtensions, 'i' ) ;
+var oUploadAllowedExtRegex	= new RegExp( FCKConfig.FlvUploadAllowedExtensions, 'i' ) ;
+var oUploadDeniedExtRegex	= new RegExp( FCKConfig.FlvUploadDeniedExtensions, 'i' ) ;
 
 
 function CheckUpload()
@@ -643,8 +643,8 @@ function CheckUpload()
         return false ;
     }
 
-    if ( ( FCKConfig.FlashUploadAllowedExtensions.length > 0 && !oUploadAllowedExtRegex.test( sFile ) ) ||
-        ( FCKConfig.FlashUploadDeniedExtensions.length > 0 && oUploadDeniedExtRegex.test( sFile ) ) )
+    if ( ( FCKConfig.FlvUploadAllowedExtensions.length > 0 && !oUploadAllowedExtRegex.test( sFile ) ) ||
+        ( FCKConfig.FlvUploadDeniedExtensions.length > 0 && oUploadDeniedExtRegex.test( sFile ) ) )
         {
         OnUploadCompleted( 202 ) ;
         return false ;
