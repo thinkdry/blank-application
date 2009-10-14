@@ -332,6 +332,22 @@ namespace :blank do
     puts "------> created sa config"
   end
 
+  desc "To delete dupicate records from join tables"
+		task(:delete_duplicates_in_join_tables => :environment) do
+#      model_name = "ItemsWorkspace"
+#      fields_to_check = ['itemable_type', 'itemable_id', 'workspace_id']
+      model_fields = {'ItemsWorkspace' => ['itemable_type', 'itemable_id', 'workspace_id']} #, 'UsersWorkspace' => ['user_id', 'workspace_id']}
+      model_fields.each do |model_name, fields_to_check|
+       model_name.classify.constantize.all.each do |item_w|
+          cond = {}
+          fields_to_check.each{|f| cond.merge!({f.to_sym => item_w.send(f.to_sym)})}
+          tmp = model_name.classify.constantize.find(:all, :conditions => cond)
+          if tmp.length > 1
+            tmp.delete_if{|i| i.id == item_w.id}.each{|it| it.delete}
+          end
+        end
+      end
+		end
 
   namespace :maintaining do
 

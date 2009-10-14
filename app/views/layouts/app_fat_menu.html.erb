@@ -12,8 +12,12 @@
 
     <title>
       <%= I18n.t 'layout.application.title' %> -
+      <% if @content_for_title %>
+        <%= h yield(:title) %>
+      <% else %>
       <%= params[:action].capitalize if params[:action] != 'index' %>
       <%= params[:controller].capitalize %>
+      <% end %>
     </title>
     <%#= javascript_include_tag :all, :cache => true %>
     <%= javascript_include_tag 'prototype', 'effects', 'controls', 'ajax_validation', 'application', 'livepipe', 'tabs', 'scriptaculous', 'starbox', :cache => "all" %>
