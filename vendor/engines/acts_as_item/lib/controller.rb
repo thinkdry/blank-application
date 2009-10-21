@@ -113,7 +113,7 @@ module ActsAsItem
 						# Just to manage the permission of creation (trick avoiding one more loop)
 #						params[:item_type] = @current_objects.first.class.to_s.underscore
 #						@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
-						@paginated_objects = params[:controller].classify.constantize.get_da_objects_list(build_hash_from_params(params))
+						@paginated_objects = params[:controller].classify.constantize.get_da_objects_list(setting_searching_params(:from_params => params))
 					end
 					# Response redirecting to the show page after the create action,
 					# In the case of Article, Page or Newsletter, it is redirecting to the edition page
