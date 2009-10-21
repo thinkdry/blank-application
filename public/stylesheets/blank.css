@@ -1576,3 +1576,7 @@ label .low{
     margin-top: -50px;
     text-align:center;
 }
+.global_error{
+    color:red;
+    font-size:15px;
+}

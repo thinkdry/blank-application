@@ -1,7 +1,9 @@
 ---
 sa_items: []
 
-sa_languages: []
+sa_languages:
+- en-US
+sa_default_language: en-US
 
 sa_feed_items_importation_types: []
 
@@ -19,7 +21,7 @@ sa_favicon_url: /config_files/favicon.ico
 sa_logo_url: /config_files/logo.jpg
 sa_per_page_default: 10
 sa_default_layout: "app_fat_menu"
-sa_exception_notifier_activated: ""
+sa_exception_notifier_activated: "false"
 sa_contact_email: ""
 
 sa_layouts: []

@@ -283,6 +283,8 @@ en-US:
       error_during_file_transfer: Error occured during file transfer
       must_be_set: must be set
       file_size_must_be_between: file size must be between {{min}} and {{max}} bytes
+      404_error_header: The page you were looking for doesn't exist.
+      404_error_message: You may have mistyped the address or the page may have moved.
     item: 
       article: Article
       audio: Audio

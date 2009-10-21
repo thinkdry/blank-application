@@ -7,6 +7,7 @@
       <img src="/images/icons/filter.png" width="20"/>
       <% ordering_fields_list.each do |filter| %>
         <%= I18n.t('layout.search.filter_'+filter) %>
+        <% params[:by] ||= 'created_at-desc' %>
         <% if (params[:by].split('-').first == filter && params[:by].split('-').last == 'asc') -%>
           <%= image_tag('/images/icons/asc_selected.png', :width => '10') %>
         <% else -%>

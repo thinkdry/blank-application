@@ -197,6 +197,8 @@ fr-FR:
       no_website_exist_to_workspace: Il n'y a pas de site Web dans ce workspace
       must_be_set: Doit être renseigné
       file_size_must_be_between: la taille du fichier doit être comprise entre {{min}} et {{max}} octets.
+      404_error_header: La page que vous cherchiez n'existe pas.
+      404_error_message: Vous avez peut être mal écris l'adresse ou la page a été depuis supprimée.
     item: 
       article: Article
       audio: Audio

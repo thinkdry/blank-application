@@ -20,11 +20,10 @@ class Grouping < ActiveRecord::Base
 	# Polymorphic relation definition
   belongs_to :contacts_workspace
 
-  # Method getting the instance of the object defined by the Grouping object
-	# TODO to use self.groupable should work
-  def member
-		m = self.contacts_workspace
-    return m.contactable_type.classify.constantize.find(m.contactable_id)
-  end
+#  # Method getting the instance of the object defined by the Grouping object
+#  def member
+#		m = self.contacts_workspace
+#    return m.contactable_type.classify.constantize.find(m.contactable_id)
+#  end
 
 end

@@ -109,7 +109,7 @@ module ActsAsItem
       # <tt>article.assoicated_workspaces = [workspace1.id, workspace2.id]</tt>
       # will assign workspaces to the item
       def associated_workspaces= workspace_ids
-        tmp = workspace_ids
+        tmp = workspace_ids.uniq
         if self.id
           self.items_workspaces.each do |i|
             i.delete unless tmp.delete(i.id.to_s)
@@ -118,7 +118,7 @@ module ActsAsItem
             ItemsWorkspace.create(:workspace_id => id, :itemable_id => self.id, :itemable_type => self.class.to_s)
           end
         else
-          if !workspace_ids.blank?
+          if !tmp.blank?
             self.items_workspaces = workspace_ids.collect { |id| self.items_workspaces.build(:workspace_id => id) }
           end
         end

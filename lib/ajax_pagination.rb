@@ -4,8 +4,6 @@
 #
 module AjaxPagination
 
-  # TODO enhance, test and include in library
-
   # Ajax Pagination for objects list
   #
 	# This helper method will manage all the pagination in the view,

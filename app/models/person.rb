@@ -60,7 +60,7 @@ class Person < ActiveRecord::Base
   # Check with previously existing email for uniqueness
 	#
 	# This method checks if the email address is uniq for the user who has created the object.
-	# TODO Put it has AJAX validation
+	# TODO Set a correct validator for that
   #
   # Usage :
   # <tt>person.validate_uniqueness_of_email</tt>

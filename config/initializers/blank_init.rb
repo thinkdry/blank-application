@@ -78,6 +78,10 @@ if File.exist?("#{RAILS_ROOT}/config/customs/action_mailer.yml")
     :port => @mailer_config['sa_mailer_port'],
     :user_name => @mailer_config['sa_mailer_user_name'],
     :password => @mailer_config['sa_mailer_password'],
-    :authentication => @mailer_config['sa_mailer_authentication'].to_sym
+    :authentication => (@mailer_config['sa_mailer_authentication'] && !@mailer_config['sa_mailer_authentication'].blank?) ? @mailer_config['sa_mailer_authentication'].to_sym : nil
   }
 end
+ActionMailer::Base.delivery_method = :smtp
+ActionMailer::Base.perform_deliveries = true
+ActionMailer::Base.default_charset = "utf-8"
+ActionMailer::Base.raise_delivery_errors = true

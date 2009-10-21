@@ -51,7 +51,7 @@ class Search < ActiveRecord::Base
 	column :pagination, :string
 
   column :user, :string
-  column :skip_res_pag, :boolean, false
+  column :opti, :string
   # Validation
   validates_date :created_at_after, :created_at_before, :allow_nil => true
 
@@ -83,7 +83,8 @@ class Search < ActiveRecord::Base
 			:full_text => self.full_text,
 			:conditions => self.conditions,
 			:filter => self.filter,
-			:pagination => self.pagination
+			:pagination => self.pagination,
+			:opti => self.opti
 		}
 	end
 
@@ -93,32 +94,29 @@ class Search < ActiveRecord::Base
 		if self[:models].split(',').size == 1
 			# Research on ONE model
 			model_const = self[:models].split(',').first.classify.constantize
-			results = model_const.get_da_objects_list(self.param.merge!({:skip_pag => true}))
+			results = model_const.get_da_objects_list(self.param)#.merge!({:skip_pag => true}))
 		else
 			# Research on VARIOUS models
 			# TODO use MySQL view, but permissions ...
+			self[:opti] ||= 'skip_full_pag'
 			self[:models].split(',').each do |model_name|
 				model_const = model_name.classify.constantize
-				results += model_const.get_da_objects_list(self.param.merge!({:skip_pag => true}))
+				results += model_const.get_da_objects_list(self.param)
 			end
-#      raise self[:filter][:field]+' '+self[:filter][:way]
-      results.sort!{|a, b|
-        if self[:filter][:way] == 'desc'
-          a.send(self[:filter][:field]) <=> b.send(self[:filter][:field])
-        else
-          b.send(self[:filter][:field]) <=> a.send(self[:filter][:field])
-        end
-      }
+			p "======================= #{self[:category]} ======== "+results.size.inspect
+			# Sorting all the element in memory ... very costly actually
+      results = results.sort_with_filter(self[:filter][:field], self[:filter][:way])
+			# Paginating these sorted element
+			results = results.paginate(:per_page => self[:pagination][:per_page].to_i, :page => self[:pagination][:page].to_i)
 		end
-    results = results.paginate(:per_page => self[:pagination][:per_page].to_i, :page => self[:pagination][:page].to_i, :order => self[:filter][:field]+' '+self[:filter][:way]) if !self.skip_res_pag
 		return results
 	end
 
-  def advance_search_fields
-    if !self.conditions.nil?
-      self.created_at_before = self.conditions[:created_at_before]
-      self.created_at_after = self.conditions[:created_at_after]
-    end
-    return self
-  end
+#  def advance_search_fields
+#    if !self.conditions.nil?
+#      self.created_at_before = self.conditions[:created_at_before]
+#      self.created_at_after = self.conditions[:created_at_after]
+#    end
+#    return self
+#  end
 end

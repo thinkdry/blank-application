@@ -137,9 +137,8 @@ module BlankListsHelper
 	end
 
 	# Method cleaning the URL
-	# TODO check it baby
 	def safe_url(url, params)
-		# TODO generic allowing to replace params in url
+		# TODO find a way to manage with AJAX params
 		# trick, work just for classify_bar case
 		prev_params = (a=request.url.split('?')).size > 1 ? '?'+a.last : ''
 		#raise request.url.split('?').size.inspect
@@ -159,5 +158,22 @@ module BlankListsHelper
       render :nothing => true
     end
   end
+
+	def topbox(*arg)
+		options = arg.extract_options!
+		res = {}
+		i=0
+		options[:tabs].each do |k, v|
+			res[0] = get_objects_list(k.to_s, v.split('-').first, v.split('-').last, options[:limit])
+			i += 1
+		end
+		return render :partial => "generic_for_items/"+options[:partial_name], :locals => res
+	end
+
+	def toplist(*arg)
+		options = arg.extract_options!
+
+	end
+
 
 end
