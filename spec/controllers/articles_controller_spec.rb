@@ -4,19 +4,12 @@ describe ArticlesController do
   controller_name :articles
 
   before(:each) do
-    @current_user = mock_model(User, :login => 'boss')
+    @current_user = mock_model(User, :login => 'boss', :u_per_page => 10, :u_layout => 'app_fat_menu')
     controller.stub!(:current_user).and_return(@current_user)
     controller.stub!(:set_locale).and_return(true)
     controller.stub!(:get_configuration).and_return(true)
     controller.stub!(:get_da_layout).and_return('application')
     controller.stub!(:permission_checking).and_return(true)
-  end
-
-  describe "before filters" do
-    it "should include filter for permission_checking" do
-      ArticlesController.before_filters.should include(:permission_checking)
-    end
-
   end
 
   describe 'GET new' do
@@ -225,18 +218,19 @@ describe ArticlesController do
   describe "GET index" do
 
     before do
-      @current_objects = mock_model(Article)
-      Article.stub!(:find).with(:all).and_return([@current_objects])
+      @paginated_objects = mock_model(Article)
+      Article.stub!(:find).with(:all).and_return([@paginated_objects])
+      @params = {}
     end
 
     def do_get
-      get :index , :item_type => 'articles'
+      Article.should_receive(:get_da_objects_list).and_return(@paginated_objects)
+      get :index
     end
 
     it "assigns all articles" do
-      Article.should_receive(:all).and_return([@current_objects])
-      get :index
-      assigns(:current_objects).should == [@current_objects]
+      do_get
+      assigns(:paginated_objects).should eql(@paginated_objects)
     end
 
   end

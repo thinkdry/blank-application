@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe UsersWorkspace do
-
+  fixtures :users_workspaces
   def users_workspace
     UsersWorkspace.new
   end
@@ -32,8 +32,9 @@ describe UsersWorkspace do
 
   it "should validate uniqueness of user for given workspace" do
     @users_workspace.attributes = users_workspace_attributes
-    @users_workspace.user_id = 1
-    @users_workspace.should have(1).error_on(:user_id)
+    @new_users_workspace = UsersWorkspace.new
+    @new_users_workspace.attributes = {:user_id => 1, :role_id => 4, :workspace_id => 1}
+    @new_users_workspace.should have(1).error_on(:user_id)
   end
 
   it "should belong to user" do
@@ -62,3 +63,4 @@ describe UsersWorkspace do
 
 
 end
+

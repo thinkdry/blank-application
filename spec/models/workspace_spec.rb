@@ -110,13 +110,13 @@ describe Workspace do
     end
 
     it "allowed_user_with_permission" do
-      Workspace.allowed_user_with_permission(users(:luc).id, 'article_show').proxy_options.should == {:order=>"workspaces.title ASC"}
-      Workspace.allowed_user_with_permission(users(:albert).id, 'article_show').proxy_options.should == {:select => "DISTINCT workspaces.*", :joins=>"LEFT JOIN users_workspaces ON users_workspaces.workspace_id = workspaces.id AND users_workspaces.user_id = #{users(:albert).id} LEFT JOIN permissions_roles ON permissions_roles.role_id = users_workspaces.role_id LEFT JOIN permissions ON permissions_roles.permission_id = permissions.id", :conditions=>"permissions.name = 'article_show'",:order=>"workspaces.title ASC"}
+      Workspace.allowed_user_with_permission(users(:luc), 'article_show').proxy_options.should == {:order=>"workspaces.title ASC"}
+      Workspace.allowed_user_with_permission(users(:albert), 'article_show').proxy_options.should == {:select => "DISTINCT workspaces.*", :joins=>"LEFT JOIN users_workspaces ON users_workspaces.workspace_id = workspaces.id AND users_workspaces.user_id = #{users(:albert).id} LEFT JOIN permissions_roles ON permissions_roles.role_id = users_workspaces.role_id LEFT JOIN permissions ON permissions_roles.permission_id = permissions.id", :conditions=>"permissions.name = 'article_show'",:order=>"workspaces.title ASC"}
     end
 
     it "allowed_user_with_ws_role" do
-      Workspace.allowed_user_with_ws_role(users(:mj).id, 'ws_admin').proxy_options.should == {:select => "DISTINCT workspaces.*", :joins=>"LEFT JOIN users_workspaces ON users_workspaces.workspace_id = workspaces.id AND users_workspaces.user_id = #{users(:mj).id} LEFT JOIN roles ON roles.id = users_workspaces.role_id", :conditions=>"roles.name = 'ws_admin'", :order => 'workspaces.title ASC'}
-      Workspace.allowed_user_with_ws_role(users(:luc).id, 'superadmin').proxy_options.should == {:select => "DISTINCT workspaces.*", :joins=>"LEFT JOIN users_workspaces ON users_workspaces.workspace_id = workspaces.id AND users_workspaces.user_id = #{users(:luc).id} LEFT JOIN roles ON roles.id = users_workspaces.role_id", :conditions=>"roles.name = 'superadmin'", :order => 'workspaces.title ASC'}
+      Workspace.allowed_user_with_ws_role(users(:mj), 'ws_admin').proxy_options.should == {:select => "DISTINCT workspaces.*", :joins=>"LEFT JOIN users_workspaces ON users_workspaces.workspace_id = workspaces.id AND users_workspaces.user_id = #{users(:mj).id} LEFT JOIN roles ON roles.id = users_workspaces.role_id", :conditions=>"roles.name = 'ws_admin'", :order => 'workspaces.title ASC'}
+      Workspace.allowed_user_with_ws_role(users(:luc), 'superadmin').proxy_options.should == {:select => "DISTINCT workspaces.*", :joins=>"LEFT JOIN users_workspaces ON users_workspaces.workspace_id = workspaces.id AND users_workspaces.user_id = #{users(:luc).id} LEFT JOIN roles ON roles.id = users_workspaces.role_id", :conditions=>"roles.name = 'superadmin'", :order => 'workspaces.title ASC'}
     end
 
   end
