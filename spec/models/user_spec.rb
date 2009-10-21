@@ -63,8 +63,8 @@ describe User do
       :password_confirmation => 'monkey',
       :email => 'boss@thinkdry.com',
       :address => 'Leonard',
-      :phone => 1111111111,
-      :mobile => 1111111111,
+      :phone => '1111111111',
+      :mobile => '1111111111',
       :company => 'thinkdry',
       :nationality => 'France',
       :system_role_id => 1
@@ -128,7 +128,7 @@ describe User do
 
   it "should require email" do
     @user.attributes = user_attributes.except(:email)
-    @user.should have(4).errors_on(:email)
+    @user.should have(3).errors_on(:email)
   end
 
   it "should require unique email" do
@@ -215,10 +215,10 @@ describe User do
 #    end
 
     it "has many ratings" do
-      User.reflect_on_association(:rattings).to_hash.should == {
+      User.reflect_on_association(:ratings).to_hash.should == {
         :macro => :has_many,
         :options => {:extend=>[]},
-        :class_name => "Ratting"
+        :class_name => "Rating"
       }
     end
 
