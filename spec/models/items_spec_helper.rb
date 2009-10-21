@@ -14,8 +14,6 @@ module ItemsSpecHelper
           @object = item
         end
 
-
-
         it "should belong to workspace'(s)" do
           @object.class.to_s.classify.constantize.reflect_on_association(:workspaces).to_hash.should == workspace_item_associations
         end
@@ -56,17 +54,6 @@ module ItemsSpecHelper
           @object.should have(1).error_on(:description)
         end
 
-        describe "should have named scopes" do
-
-          before(:each) do
-            @object = item
-          end
-
-          it "in_workspaces" do
-            @object.class.to_s.classify.constantize.in_workspaces('1').proxy_options.should == {:select=>"DISTINCT *", :joins=>"LEFT JOIN items_workspaces ON (items_workspaces.itemable_type = '#{@object.class.to_s}' AND items_workspaces.workspace_id IN ['1'])"}
-          end
-
-        end
       end
     end
   end
