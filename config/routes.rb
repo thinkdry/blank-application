@@ -129,7 +129,7 @@ ActionController::Routing::Routes.draw do |map|
   # Search related routes
   map.resources :searches, :collection => { :print_advanced => :any, :validate => :post }
 
-  map.connect '/error_page' , :controller => 'home', :action => 'error'
+  map.error '/error/:status' , :controller => 'home', :action => 'error'
   # Install the default routes as the lowest priority.
 	#map.connect ':controller/:action/:id'
   #map.connect ':controller/:action/:id.:format'
