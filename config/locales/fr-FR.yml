@@ -190,7 +190,7 @@ fr-FR:
       select_all: Tout select
       subscribed: inscrits
       unsubscribed: désinscrits
-      non_subscribed: non inscrits
+      not_subscribed: not inscrits
     common_message:
       permission_denied: Permission refusée
       error_during_file_transfer: Erreur durant l'envoi du fichier
@@ -199,6 +199,8 @@ fr-FR:
       file_size_must_be_between: la taille du fichier doit être comprise entre {{min}} et {{max}} octets.
       404_error_header: La page que vous cherchiez n'existe pas.
       404_error_message: Vous avez peut être mal écris l'adresse ou la page a été depuis supprimée.
+      500_error_header: Nous sommes désolés, mais quelque chose s'est mal passé.
+      500_error_message: Nous avons été informé du problème, et nous allons nous en occuper dans les plus bref délais.
     item: 
       article: Article
       audio: Audio

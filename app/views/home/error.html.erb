@@ -1,5 +1,10 @@
 <div id="area_PROFIL">
-  <div class="global_error"><%=  I18n.t('general.common_message.404_error_header') %></div>
-  <p><%=  I18n.t('general.common_message.404_error_message') %></p>
+  <% if params[:status] == '404' %>
+    <div class="global_error"><%=  I18n.t('general.common_message.404_error_header') %></div>
+    <p><%=  I18n.t('general.common_message.404_error_message') %></p>
+  <% else %>
+    <div class="global_error"><%=  I18n.t('general.common_message.500_error_header') %></div>
+    <p><%=  I18n.t('general.common_message.500_error_message') %></p>
+  <% end %>
 </div>
 

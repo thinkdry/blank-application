@@ -277,7 +277,7 @@ en-US:
       select_all: Select all
       subscribed: subscribed
       unsubscribed: unsubscribed
-      non_subscribed: non subscribed
+      not_subscribed: not subscribed
     common_message:
       permission_denied: Permission denied
       error_during_file_transfer: Error occured during file transfer
@@ -285,6 +285,8 @@ en-US:
       file_size_must_be_between: file size must be between {{min}} and {{max}} bytes
       404_error_header: The page you were looking for doesn't exist.
       404_error_message: You may have mistyped the address or the page may have moved.
+      500_error_header: We're sorry, but something went wrong.
+      500_error_message: We've been notified about this issue and we'll take a look at it shortly.
     item: 
       article: Article
       audio: Audio

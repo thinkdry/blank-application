@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
 	# Mixin used to specify the controller you want to manage with ExceptionNotification (all the controllers here)
 	include ExceptionNotifiable
 	# Library used to manage the configuration of the Blank application (and providing 'get_configuration' method)
+  local_addresses.clear
+  consider_local "64.72.18.143", "14.17.21.25"
 	include Configuration
 	# Library used to get helpers for Captcha
 	include YacaphHelper
