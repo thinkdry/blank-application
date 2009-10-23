@@ -333,21 +333,21 @@ namespace :blank do
   end
 
   desc "To delete dupicate records from join tables"
-		task(:delete_duplicates_in_join_tables => :environment) do
-#      model_name = "ItemsWorkspace"
-#      fields_to_check = ['itemable_type', 'itemable_id', 'workspace_id']
-      model_fields = {'ItemsWorkspace' => ['itemable_type', 'itemable_id', 'workspace_id']} #, 'UsersWorkspace' => ['user_id', 'workspace_id']}
-      model_fields.each do |model_name, fields_to_check|
-       model_name.classify.constantize.all.each do |item_w|
-          cond = {}
-          fields_to_check.each{|f| cond.merge!({f.to_sym => item_w.send(f.to_sym)})}
-          tmp = model_name.classify.constantize.find(:all, :conditions => cond)
-          if tmp.length > 1
-            tmp.delete_if{|i| i.id == item_w.id}.each{|it| it.delete}
-          end
+  task(:delete_duplicates_in_join_tables => :environment) do
+    #      model_name = "ItemsWorkspace"
+    #      fields_to_check = ['itemable_type', 'itemable_id', 'workspace_id']
+    model_fields = {'ItemsWorkspace' => ['itemable_type', 'itemable_id', 'workspace_id']} #, 'UsersWorkspace' => ['user_id', 'workspace_id']}
+    model_fields.each do |model_name, fields_to_check|
+      model_name.classify.constantize.all.each do |item_w|
+        cond = {}
+        fields_to_check.each{|f| cond.merge!({f.to_sym => item_w.send(f.to_sym)})}
+        tmp = model_name.classify.constantize.find(:all, :conditions => cond)
+        if tmp.length > 1
+          tmp.delete_if{|i| i.id == item_w.id}.each{|it| it.delete}
         end
       end
-		end
+    end
+  end
 
   namespace :maintaining do
 
@@ -356,7 +356,7 @@ namespace :blank do
 			@videos = Video.find(:all, :conditions =>["state = 'uploaded' OR state = 'encoding_error' OR state = 'error'"])
 			for video in @videos
 				puts "---->Reencoding started for video #{video.id}"
-				MiddleMan.worker(:converter_worker).async_newthread(:arg=>{:type=>"video", :id => video.id, :enc=>"flv"})
+        Delayed::Job.enqueue(EncodingJob.new({:type=>"video", :id => video.id, :enc=>"flv"}))
 			end
 		end
 
@@ -365,41 +365,50 @@ namespace :blank do
 			@audios = Audio.find(:all, :conditions =>["state = 'uploaded' OR state = 'encoding_error' OR state = 'error'"])
 			for audio in @audios
 				puts "---->Reencoding started for audio #{audio.id}"
-				MiddleMan.worker(:converter_worker).async_newthread(:arg=>{:type=>"audio", :id => audio.id, :enc=>"mp3"})
-			end
-		end
+        Delayed::Job.enqueue(EncodingJob.new({:type=>"audio", :id => audio.id, :enc=>"flv"}))
+      end
 
-		desc "To set items default values (comments number, ...)"
-		task :default_values_for_items => :environment do
-			#['article', 'image', 'cms_file', 'video', 'audio', 'publication', 'feed_source', 'bookmark','newsletter','group'].each do |item|
-			ITEMS.each do |item|
-        puts "Updating for #{item}"
-				(item.classify.constantize).all.each do |e|
-          puts "Updating #{item} with id = #{e.id}"
-          if !e.workspaces.blank?
-            if e.comments_number.nil?
-              e.comments_number = 0
-            end
-            if e.rates_average.nil?
-              e.rates_average = 0
-            end
-            if e.viewed_number.nil?
-              e.viewed_number = 0
-            end
-            if e.save(false)
-              puts "Updated record #{e.id}"
+      desc "To set items default values (comments number, ...)"
+      task :default_values_for_items => :environment do
+        #['article', 'image', 'cms_file', 'video', 'audio', 'publication', 'feed_source', 'bookmark','newsletter','group'].each do |item|
+        ITEMS.each do |item|
+          puts "Updating for #{item}"
+          (item.classify.constantize).all.each do |e|
+            puts "Updating #{item} with id = #{e.id}"
+            if !e.workspaces.blank?
+              if e.comments_number.nil?
+                e.comments_number = 0
+              end
+              if e.rates_average.nil?
+                e.rates_average = 0
+              end
+              if e.viewed_number.nil?
+                e.viewed_number = 0
+              end
+              if e.save(false)
+                puts "Updated record #{e.id}"
+              else
+                puts "Updating Record with id #{e.id} failed"
+                puts e.errors.inspect
+              end
             else
-              puts "Updating Record with id #{e.id} failed"
-              puts e.errors.inspect
+              puts "Destroying record #{e.id} of type #{item}"
+              e.destroy
+              puts "Destroyed"
             end
-          else
-            puts "Destroying record #{e.id} of type #{item}"
-            e.destroy
-            puts "Destroyed"
           end
-				end
-			end
-		end
+        end
+      end
+    end
   end
-end
+
+  namespace :tmp do
+    namespace :assets do
+      desc "Clears javascripts/cache and stylesheets/cache"
+      task :clear => :environment do
+        FileUtils.rm(Dir['public/javascripts/cache/[^.]*'])
+        FileUtils.rm(Dir['public/stylesheets/cache/[^.]*'])
+      end
+    end
+  end
 

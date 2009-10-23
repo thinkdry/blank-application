@@ -103,7 +103,6 @@ class Search < ActiveRecord::Base
 				model_const = model_name.classify.constantize
 				results += model_const.get_da_objects_list(self.param)
 			end
-			p "======================= #{self[:category]} ======== "+results.size.inspect
 			# Sorting all the element in memory ... very costly actually
       results = results.sort_with_filter(self[:filter][:field], self[:filter][:way])
 			# Paginating these sorted element

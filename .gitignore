@@ -22,5 +22,7 @@ public/uploaded_files/**/*
 public/uploads/*
 public/images/captcha
 public/javascripts/all.js
+public/javascripts/cache/
+public/stylesheets/cache/
 vendor/gems/**/ext/**/*
 vendor/**/.git/**/*

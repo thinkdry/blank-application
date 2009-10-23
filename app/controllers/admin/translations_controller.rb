@@ -21,8 +21,6 @@ class Admin::TranslationsController < ApplicationController
 	def updating
 		@yaml = YAML.load_file("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml")
    	(['general', 'layout', 'user', 'workspace', 'item']+ITEMS+['superadministration', 'others']).each do |section|
-			p "============================= "+section
-			p "============================= "+(!params[section].nil? && !@yaml[params[:language]][section].nil?).inspect
 			if !params[section].nil? && !@yaml[params[:language]][section].nil?
 				params[section].each do |subsection, list|
 					if @yaml[params[:language]][section][subsection]

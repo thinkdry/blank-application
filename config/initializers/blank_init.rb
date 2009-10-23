@@ -35,11 +35,10 @@ DEFAULT_COMMENT_STATE = 'validated'
 LAYOUTS_AVAILABLE = ['application', 'app_fat_menu']
 # # Variable defining the filtering attributes available for the application
 SEARCH_FILTERS = ['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title']
-# 
+#
 IMAGE_TYPES = ["image/jpeg", "image/pjpeg", "image/gif", "image/png", "image/x-png", "image/ico"]
 # Set the default Captcha images number
 CAPTCHA_IMAGES_NUMBER = 10
-
 
 # Setting the locales files and the default language
 if !get_sa_config['sa_default_language'].to_s.blank?
@@ -85,3 +84,4 @@ ActionMailer::Base.delivery_method = :smtp
 ActionMailer::Base.perform_deliveries = true
 ActionMailer::Base.default_charset = "utf-8"
 ActionMailer::Base.raise_delivery_errors = true
+
