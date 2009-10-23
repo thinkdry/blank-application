@@ -39,7 +39,7 @@ class NewslettersController < ApplicationController
     @newsletter = Newsletter.find(params[:newsletter_id])
     if GroupsNewsletter.new(:group_id => @group.id,:newsletter_id => @newsletter.id,:sent_on=>Time.now).save
       for member in @group.contacts_workspaces
-        if member.state != 'unsubscribed'
+        if member.state == 'subscribed' or member.state.to_s.blank?
           args = [member.to_group_member['email'],member.sha1_id,@newsletter.from_email,
 							@newsletter.subject, @newsletter.description, @newsletter.body]
           QueuedMail.add("UserMailer","send_newsletter", args, 0)

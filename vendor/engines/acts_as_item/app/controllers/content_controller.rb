@@ -66,7 +66,7 @@ class ContentController < ApplicationController
 			params[:item_type] ||= @item_types.first
       if params[:item_type]
 #        @current_objects = get_items_list(params[:item_type], @workspace)
-         @current_objects = params[:item_type].classify.constantize.get_da_objects_list(build_hash_from_params(params).merge!({:skip_pag => true, :conditions =>{:fetch => {'state_equals' => 'published'}}}))
+         @current_objects = params[:item_type].classify.constantize.get_da_objects_list(setting_searching_params(:from_params => params).merge!({:skip_pag => true, :conditions =>{:fetch => {'state_equals' => 'published'}}}))
       else
         render :text => "No item types available for your profil."
         return
@@ -76,7 +76,7 @@ class ContentController < ApplicationController
 			params[:item_type] ||= @selected_item_types.first
 			if !params[:item_type].include?('fcke')
 #				@current_objects = get_items_list(params[:selected_item], @workspace)
-        @current_objects = params[:item_type].classify.constantize.get_da_objects_list(build_hash_from_params(params).merge!({:skip_pag => true}))
+        @current_objects = params[:item_type].classify.constantize.get_da_objects_list(setting_searching_params(:from_params => params).merge!({:skip_pag => true}))
 			else
         if params[:selected_item] == 'fcke_flash'
           fck_item = "videos"
