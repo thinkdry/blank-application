@@ -161,8 +161,8 @@ class ApplicationController < ActionController::Base
 	# after the current user locale preference and finally the default locale set
 	# inside the 'blank_init' initializer.
   def set_locale
-		I18n.locale = params[:locale] || ((current_user && !current_user.u_language.to_s.blank?) ? current_user.u_language : I18n.default_locale)
-  end
+		session[:locale] ||= params[:locale] || ((current_user && !current_user.u_language.to_s.blank?) ? current_user.u_language : I18n.default_locale) || nil
+		I18n.locale = session[:locale]
 
 	# Image uploading with RMagick
 	#

@@ -59,9 +59,14 @@ class SessionsController < ApplicationController
 	# Usage URL :
   # - GET /session/change_language
 	def change_language
-    current_user.update_attributes(:u_language => params[:locale])
-		render(:update) { |page| page.call 'location.reload' }
-		#redirect_back_or_default('/')
+		if params[:hl]
+			session[:hl] = params[:hl]
+		end
+		if params[:via_google_trans] && params[:hl]
+			redirect_to "http://translate.google.com/translate?u=#{request.url.split('?').first}&sl=fr&tl=#{params[:hl]}"
+		else
+			render(:update) { |page| page.call 'location.reload' }
+		end
   end
 
 end
