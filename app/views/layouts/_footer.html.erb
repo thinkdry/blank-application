@@ -21,7 +21,7 @@
   <div class="footerCol">
     <h3>configuration</h3>
     <% if (available_languages.size > 1) -%>
-      <p><%= I18n.t('layout.application.change_language')%>&nbsp;<%= select_languages %></p>
+      <p><%= I18n.t('layout.application.change_language')%>&nbsp;<%= select_language(:languages => available_languages, :params_name => 'locale', :type => 'select_box') %></p>
     <%end-%>
     <p><img src="/images/item_icons/feed_item.png" width="20"/>rss subscription</p>
     <p><a href="mailtp:contact@thinkdry.com">contact</a></p>

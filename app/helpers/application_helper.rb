@@ -11,19 +11,25 @@ module ApplicationHelper
 	# configuration. After a selection of a language, an Ajax request is made calling the 'change_language' method
 	# defined in the Session controller
 	# If there is just one language available, it is returning an empty string.
-	def select_languages
-		if (available_languages.size > 1)
-			res = "<select name='languages' id='languages' onchange=\"new Ajax.Request('/session/change_language?locale='+this.value, {asynchronous:true, evalScripts:true}); return false;\">"
-			available_languages.each do |l|
-        if I18n.locale == l
-          res += "<option value='#{l}' selected=true>"+I18n.t('general.language.'+l)+"</option>"
-        else
-          res += "<option value='#{l}'>"+I18n.t('general.language.'+l)+"</option>"
-        end
+	def select_language(*args)
+		options = args.extract_options!
+		res = ""
+		if options[:languages].size > 1
+			if options[:type] == 'select_box'
+				res += "<select name='languages' id='languages' onchange=\"document.location.href = this.value\">"
+				options[:languages].each do |l|
+					if session[options[:params_name].to_sym] == l
+						res += "<option value='#{request.path+'?'+options[:params_name]+'='+l}' selected=true>"+I18n.t('general.language.'+l)+"</option>"
+					else
+						res += "<option value='#{request.path+'?'+options[:params_name]+'='+l}'>"+I18n.t('general.language.'+l)+"</option>"
+					end
+				end
+				res += "</select>"
+			elsif options[:type] == 'flags_list'
+				options[:languages].each do |l|
+					res += "<a href='#{request.path+'?'+options[:params_name]+'='+l}'><img width='30' src='/images/languages/#{l}.png' alt='lang'/></a>&nbsp;&nbsp;"
+				end
 			end
-			res += "</select>"
-		else
-			res = ""
 		end
 		return res
 	end

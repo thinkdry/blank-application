@@ -50,7 +50,7 @@ ActionController::Routing::Routes.draw do |map|
   map.reset_password '/reset_password/:password_reset_code', :controller => 'users', :action => 'reset_password'
   map.resources :users, :member => { :locking => :any, :resend_activation_mail_or_activate_manually => :post },
     :collection => {:autocomplete_on => :any, :validate => :any }
-	map.resource :session, :member => { :change_language => :any }
+	map.resource :session
 
   # Routes for People
 	map.resources :people, :collection => {:export_people => :any, :import_people => :any, :get_empty_csv => :get, :validate => :any ,:filter => :get }

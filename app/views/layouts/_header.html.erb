@@ -171,7 +171,7 @@
           <p><%= I18n.t('layout.menu.configure_help') %></p>
           <br/><br/>
           <%  if (available_languages.size > 1) -%>
-            <p><%= I18n.t('layout.application.change_language')%><%= select_languages %></p>
+            <p><%= I18n.t('layout.application.change_language')%><%= select_language(:languages => available_languages, :params_name => 'locale', :type => 'flags_list') %></p>
           <%end-%>
         </div>
         <div class="headerTipCol">
