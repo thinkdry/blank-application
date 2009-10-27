@@ -1,5 +1,5 @@
 <fieldset>
-  
+
   <legend><img src="/images/item_icons/<%= @current_object.class.to_s %>_add.png"/><%= title %></legend>
   <% form_for @current_object,
     :builder => BlankFormBuilder,
@@ -22,8 +22,11 @@
     <%= f.text_field :description, :label => I18n.t('item.field.description_label') + ' * :', :hint => I18n.t('item.field.description_hint') %>
 
     <%= capture(f, &block) %>
-
-    <%= item_workspaces_checkboxes(f, @current_object) %>
+    <% if @current_object.new_record?  %>
+      <%= item_workspace_select(f, @current_object) %>
+    <% else %>
+      <%= item_workspaces_checkboxes(f, @current_object) %>
+    <% end %>
     <br /><label></label>
     <%= error_message_on :current_object, :items %>
 
@@ -34,5 +37,5 @@
     </button>
 
   <% end -%>
-  
+
 </fieldset>
