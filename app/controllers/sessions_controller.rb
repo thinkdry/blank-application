@@ -52,21 +52,4 @@ class SessionsController < ApplicationController
     redirect_back_or_default('/')
   end
 
-  # Action updating the current language
-  #
-  # This function analyze the paramater 'locale' and set from it the new locale for the current user.
-  #
-	# Usage URL :
-  # - GET /session/change_language
-	def change_language
-		if params[:hl]
-			session[:hl] = params[:hl]
-		end
-		if params[:via_google_trans] && params[:hl]
-			redirect_to "http://translate.google.com/translate?u=#{request.url.split('?').first}&sl=fr&tl=#{params[:hl]}"
-		else
-			render(:update) { |page| page.call 'location.reload' }
-		end
-  end
-
 end
