@@ -18,16 +18,28 @@ module ApplicationHelper
 			if options[:type] == 'select_box'
 				res += "<select name='languages' id='languages' onchange=\"document.location.href = this.value\">"
 				options[:languages].each do |l|
-					if session[options[:params_name].to_sym] == l
-						res += "<option value='#{request.path+'?'+options[:params_name]+'='+l}' selected=true>"+I18n.t('general.language.'+l)+"</option>"
+					if options[:params_name] == 'direct_service_trans'
+						url = "http://translate.google.fr/translate?"+
+							"u=#{request.url}&tl=#{options[:origin_language] || 'fr'}&sl=#{l.split('-').first}"
 					else
-						res += "<option value='#{request.path+'?'+options[:params_name]+'='+l}'>"+I18n.t('general.language.'+l)+"</option>"
+						url = request.path+'?'+options[:params_name]+'='+l
+					end
+					if session[options[:params_name].to_sym] == l
+						res += "<option value='#{url}' selected=true>"+I18n.t('general.language.'+l)+"</option>"
+					else
+						res += "<option value='#{url}'>"+I18n.t('general.language.'+l)+"</option>"
 					end
 				end
 				res += "</select>"
 			elsif options[:type] == 'flags_list'
 				options[:languages].each do |l|
-					res += "<a href='#{request.path+'?'+options[:params_name]+'='+l}'><img width='30' src='/images/languages/#{l}.png' alt='lang'/></a>&nbsp;&nbsp;"
+					if options[:params_name] == 'direct_service_trans'
+						url = "http://translate.google.fr/translate?"+
+							"u=#{request.url}&tl=fr&sl=#{l.split('-').first}"
+					else
+						url = request.path+'?'+options[:params_name]+'='+l
+					end
+					res += "<a href='#{url}'><img width='#{options[:width] || 30}' src='/images/languages/#{l}.png' alt='lang'/></a>&nbsp;&nbsp;"
 				end
 			end
 		end
