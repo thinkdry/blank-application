@@ -1,7 +1,0 @@
-<%= display_objects_list(
-    :in_list_partial => 'groups/group_in_list',
-    :ajax_url => workspace_groups_path(current_workspace),
-    :ordering_fields => ['created_at', 'title'],
-	:output_formats => ['xml', 'json', 'atom'],
-    :no_div => @no_div
-) %>

@@ -8,91 +8,19 @@
 
 class GroupsController < ApplicationController
 
-	acts_as_ajax_validation
+	# Method defined in the ActsAsItem:ControllerMethods:ClassMethods (see that library fro more information)
+  acts_as_item do
+		#Filter calling the encoder method of ConverterWorker with parameters
+    before :new, :edit, :create, :update do
+			get_contacts_lists
+    end
 
-  # Declaration of the ActAsCommentable plugin
-	acts_as_commentable
+		before :create, :update do
+			@current_object.groupable_objects = params[:selected_Options]
+		end
+  end
   
-	before_filter :permission_checking, :except => [:unsubscribe]
-
-  before_filter :current_object, :only =>[:show, :edit, :update, :destroy]
-
-	def index
-    filter = params[:by] ||= 'created_at-desc'
-    if params[:format].nil? || params[:format] == 'html'
-      @paginated_objects = Group.paginate(:conditions => {:workspace_id => current_workspace.id}, :order => "#{filter.split('-').first} #{filter.split('-').last}", :per_page => get_per_page_value, :page => params[:page])
-    end
-    if !request.xhr?
-      respond_to do |format|
-        format.html{ }
-        format.xml { render :xml => Group.find(:all, :conditions => {:workspace_id => current_workspace.id}) }
-        format.json { render :json => Group.find(:all, :conditions => {:workspace_id => current_workspace.id}) }
-        format.atom {@current_objects = Group.find(:all, :conditions => {:workspace_id => current_workspace.id}, :order => 'created_at DESC'); render :template => "groups/index.atom.builder", :layout => false }
-      end
-    else
-      @no_div = true
-      render :partial => 'index', :layout => false
-    end
-	end
-
-	def new
-		@current_object = Group.new
-		@current_object.workspace_id = params[:workspace_id]
-		get_contacts_lists
-	end
-
-	def edit
-    #		@current_object = Group.find(params[:id])
-		get_contacts_lists
-	end
-
-	def create
-		@current_object = Group.new(params[:group])
-		@current_object.user_id = @current_user.id
-		@current_object.workspace_id = params[:workspace_id]
-		@current_object.groupable_objects = params[:selected_Options]
-		if @current_object.save
-			flash[:notice] = I18n.t('item.new.flash_notice')
-			redirect_to workspace_group_path(params[:workspace_id], @current_object)
-		else
-			get_contacts_lists
-			flash[:error] = I18n.t('item.new.flash_error')
-			render :action => :new
-		end
-	end
-
-	def update
-    #		@current_object = Group.find(params[:id])
-		if @current_object.update_attributes(params[:group])
-      @current_object.groupable_objects = params[:selected_Options]
-			flash[:notice] = I18n.t('item.edit.flash_notice')
-			redirect_to workspace_group_path(params[:workspace_id], @current_object)
-		else
-			get_contacts_lists
-			flash[:error] = I18n.t('item.edit.flash_error')
-			render :action => :edit
-		end
-	end
-
-	def show
-    #		@current_object = Group.find(params[:id])
-    respond_to do |format|
-			format.html{ }
-			format.xml { render :xml => @current_object}
-			format.json { render :json => @current_object}
-		end
-	end
-
-	def destroy
-    #		@current_object = Group.find(params[:id])
-		if @current_object.destroy
-			flash[:notice] = I18n.t('item.destroy.flash_notice')
-			redirect_to workspace_groups_path(current_workspace.id)
-		else
-			flash[:error] = I18n.t('item.destroy.flash_error')
-			redirect_to workspace_group_path(current_workspace.id, @current_object.id)
-		end
-	end
+	#skip_before_filter :is_logged?, :only => [:unsubscribe]
 
 	# Method to replace HTML for Assigned Options with Filter
   #
@@ -132,14 +60,11 @@ class GroupsController < ApplicationController
 
 	def get_contacts_lists
 		selected_contacts = @current_object.groupings.map{ |e| e.contacts_workspace }.uniq
-		remaining_contacts = @current_object.workspace.contacts_workspaces.to_a - selected_contacts
+		remaining_contacts = current_workspace ? (current_workspace.contacts_workspaces.to_a - selected_contacts) : []
 		#raise selected_contacts.inspect
 		@selected_members = selected_contacts.map{ |e| e.to_group_member(@current_user.id) } || []
 		#raise @selected_members.inspect+'===='+@remaining_members.inspect
 		@remaining_members = remaining_contacts.map{ |e| e.to_group_member(@current_user.id) } || []
 	end
 
-  def current_object
-    @current_object = Group.find(params[:id])
-  end
 end

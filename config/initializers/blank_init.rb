@@ -20,7 +20,7 @@ ActiveRecord::Base.send                   :include, Searchable::ModelMethods
 
 
 # Defining the global variable
-ITEMS = ['article', 'image', 'cms_file', 'video', 'audio', 'feed_source', 'bookmark','newsletter']
+ITEMS = ['article', 'image', 'cms_file', 'video', 'audio', 'feed_source', 'bookmark','newsletter', 'group']
 # Variable defining the languages available for the application
 LANGUAGES = ['en-US', 'fr-FR']
 # Variable defining the workspace types available for the application

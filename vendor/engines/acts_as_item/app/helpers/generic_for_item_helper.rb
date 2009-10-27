@@ -170,13 +170,17 @@ module GenericForItemHelper
 
 	def item_workspace_select(form, item)
     str = ""
-  	str += "<label>#{I18n.t('general.object.workspace').camelize+'(s) :'}</label><div class='formElement'>"
-    item_class_name = item.class.to_s.underscore
-    select_tag_name = "#{item_class_name}[associated_workspaces][]"
-    workspaces = Workspace.allowed_user_with_permission(@current_user, item_class_name+"_new").uniq.delete_if{ |w| !w.ws_items.to_s.split(',').include?(item_class_name) }
-    str += select_tag select_tag_name, options_for_select([[nil]] + workspaces.map{|w| [w.title, w.id]})
-    str += '</div>'+ajax_error_message_on(item, 'items_workspaces')
-    str
+		item_class_name = item.class.to_s.underscore
+		select_tag_name = "#{item_class_name}[associated_workspaces][]"
+		if current_workspace
+			str += hidden_field_tag(select_tag_name, current_workspace.id.to_s)
+		else
+			str += "<label>#{I18n.t('general.object.workspace').camelize+'(s) :'}</label><div class='formElement'>"
+			workspaces = Workspace.allowed_user_with_permission(@current_user, item_class_name+"_new").uniq.delete_if{ |w| !w.ws_items.to_s.split(',').include?(item_class_name) }
+			str += select_tag select_tag_name, options_for_select(workspaces.map{|w| [w.title, w.id]})
+			str += '</div>'+ajax_error_message_on(item, 'items_workspaces')
+		end
+		return str
   end
 
 end

@@ -28,24 +28,20 @@ require 'fastercsv'
 
 class Group < ActiveRecord::Base
 
+	# Method defined in the ActsAsItem:ModelMethods:ClassMethods (see that library fro more information)
+  acts_as_item
+
 	# Relation N-1 to workspace
-	belongs_to :workspace
-	# Mixin to add ActsAsCommentable methods inside the model
-	acts_as_commentable
-  # Relation M-1 to users table
-  belongs_to :user
+	#	belongs_to :workspace
+
 	# Relation N-N to 'newsletters' table
-  has_and_belongs_to_many :newsletters
-	# Relation 1-N 
+  has_and_belongs_to_many :newsletters#, :dependent => :delete_all
+	# Relation 1-N
   has_many :groups_newsletters, :dependent => :delete_all
 	# Relation N-1 to the 'groupings' table, defining the object composing the group
-  has_many :groupings, :dependent => :delete_all
+  has_many :groupings, :dependent => :destroy
 	# Relation N-1 to the 'groupings' table and scoping the User objects
   has_many :contacts_workspaces, :through => :groupings
-  # Validation of the presence of these fields
-  validates_presence_of	:title, :description
-  # Validation of fields not in format of
-	validates_not_format_of :title, :description ,  :with => /(#{SCRIPTING_TAGS})/
 	
   # Setting the Grouping objects given as parameters
   # 

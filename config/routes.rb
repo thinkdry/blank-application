@@ -96,8 +96,13 @@ ActionController::Routing::Routes.draw do |map|
 			member_to_set.merge!({:get_video_progress => :any}) if name=='video'
 			member_to_set.merge!({:get_audio_progress => :any}) if name=='audio'
 			member_to_set.merge!({:send_to_a_group => :any}) if name=='newsletter'
+			member_to_set.merge!({:export_to_csv => :any}) if name=='group'
 			member_to_set.merge!({:download => :any}) if ['audio', 'video', 'cms_file', 'image'].include?(name)
-      parent.resources name.pluralize.to_sym, :member => member_to_set, :collection => {:validate => :post}
+			collection_to_set = {
+				:validate => :post
+			}
+			collection_to_set.merge!({:filtering_contacts => :get}) if name=='group'
+      parent.resources name.pluralize.to_sym, :member => member_to_set, :collection => collection_to_set
     end
     parent.content '/content/:item_type', :controller => 'content', :action => 'index'
 		parent.ajax_content '/ajax_content/:item_type', :controller => 'content', :action => 'ajax_index'
@@ -121,7 +126,6 @@ ActionController::Routing::Routes.draw do |map|
   # Items in context of workspaces
   map.resources :workspaces, :member => { :add_new_user => :any, :subscription => :any, :unsubscription => :any, :question => :any }, :collection => {:validate => :post} do |workspaces|
     items_resources(workspaces)
-		workspaces.resources :groups, :collection => { :validate => :any, :filtering_contacts => :get }, :member => { :export_to_csv => :any, :add_comment => :any }
 		workspaces.resources :people, :collection => { :export_people => :any, :import_people => :any, :get_empty_csv => :get, :validate => :post ,:filter => :get }
 		workspaces.resources :workspace_contacts, :as => 'contacts', :except => :all, :collection => { :select => [:post, :get], :list => [:post, :get], :subscribe => :get}
   end

@@ -1,22 +1,4 @@
-<fieldset>
-  <legend><img src="/images/item_icons/<%= @current_object.class.to_s %>_add.png"/><%= title %></legend>
-  <% form_for @current_object,
-    :builder => BlankFormBuilder,
-    :url => (@current_object.new_record? ? workspace_groups_path(current_workspace.id) : workspace_group_path(current_workspace.id, @current_object)),
-    :html => {
-    :method => (@current_object.new_record? ? :post : :put),
-    :multipart => true
-  } do |f| -%>
-
-    <% is_copyright = (@current_object.state == 'copyright') ? true : false %>
-    <% if is_copyright %>
-      <%= f.hidden_field :state, :value => 'copyright' %>
-      <%=I18n.t('general.copyright.copyright_restriction')%><br />
-    <% end %>
-
-    <%= f.text_field :title, :label => I18n.t('item.field.title_label') + " * :", :hint => I18n.t('item.field.title_hint'), :readonly => is_copyright %>
-
-    <%= f.text_field :description, :label => I18n.t('item.field.description_label') + ' * :', :hint => I18n.t('item.field.description_hint') %>
+<% form_for_item @current_object, title do |f| -%>
 
     <% f.field :people, :label => I18n.t('group.field.people_label')+' :' do %>
       <input type="hidden" name="group_id" id="group_id" value="<%=@current_object.id%>">
@@ -78,10 +60,5 @@
           </div>
        </div>
      <% end %>
-    <button id="submit_button" class="submit_button" type="submit">
-      <%= @current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update')%>
-    </button>
 
-  <% end -%>
-
-</fieldset>
+<% end -%>

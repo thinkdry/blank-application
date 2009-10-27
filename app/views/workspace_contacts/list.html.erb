@@ -1,6 +1,5 @@
-
 <h2>
-  <%= link_to image_tag("/images/icons/left.png"), workspace_groups_path(current_workspace.id) %>
+  <%= link_to image_tag("/images/icons/left.png"), workspace_path(current_workspace.id) %>
   <%= I18n.t('group.contacts.title') %>
 </h2>
 <% form_for :contacts_workspaces, :url => list_workspace_workspace_contacts_path(current_workspace.id), :html => { :method => :post } do |f| %>
@@ -55,7 +54,6 @@
   <br /><br />
   <%= submit_tag I18n.t('workspace_contact.list.do_the_action'), :class=>"submit_button" %>
 <% end %>
-<br /><br />
 <br /><br />
 <%= link_to I18n.t('group.contacts.select_contacts'), select_workspace_workspace_contacts_path(current_workspace.id) %>
 <br /><br />
