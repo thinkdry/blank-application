@@ -3,13 +3,13 @@ module GenericForItemHelper
   # Rating an item
 	#
 	# This helper method will return the Javascript elements allowing to rate an item.
-  # 
+  #
   # Parameters :
   # - object: Item instance
   # - rerate: Boolean value (true or false)
   # - onRate: Ajax Request to Store Rating with parameters
   # - locked: true or false to lock or unlock rating on item
-	# 
+	#
 	# Usage :
   # <tt>item_rate(@current_object)</tt>
   def item_rate(object, params=nil)
@@ -74,17 +74,17 @@ module GenericForItemHelper
 		concat(render(:partial => "generic_for_item/form", :locals => { :block => block, :title => title }))
   end
 
-	 
+
 
 	# Define the common information of the show of an item
 	def item_show(parameters, &block)
     concat(
       render( :partial => "generic_for_item/show",
-      :locals => {  :object => parameters[:object],
-        :title => parameters[:title],
-        :block => block }))
+        :locals => {  :object => parameters[:object],
+          :title => parameters[:title],
+          :block => block }))
   end
-  
+
 	# FCKEditor field initialisation
   #
 	# This helper method will define the different Javascript settings needed by FCKeditor text area field
@@ -103,13 +103,13 @@ module GenericForItemHelper
     google_map = false
     ws ||= object.workspaces.delete_if{ |e| e.websites.empty? }.first if (object.class.to_s == "Page")
     if ws && ws.respond_to?(:websites) && ws.websites.first && (tmp=ws.websites.first.front)
-        Dir["public/front_files/#{tmp.name}/stylesheets/*.css"].collect do |uploaded_css|
-					css_files << "#{uploaded_css.split("public")[1]}"
-				end
-			end
-#    css_files = '/fckeditor/css/test_fck.css' if css_files.empty?
-     toolset = 'Default_google_map' if google_map
-     css_files = '/stylesheets/fckeditor.css' if css_files.empty?
+      Dir["public/front_files/#{tmp.name}/stylesheets/*.css"].collect do |uploaded_css|
+        css_files << "#{uploaded_css.split("public")[1]}"
+      end
+    end
+    #css_files = '/fckeditor/css/test_fck.css' if css_files.empty?
+    toolset = 'Default_google_map' if google_map
+    css_files = '/stylesheets/fckeditor.css' if css_files.empty?
     return '<script type="text/javascript" src="/fckeditor/fckeditor.js"></script>' +
       javascript_tag(%{
         var oFCKeditor = new FCKeditor('#{object.class.to_s.underscore}_#{attribute}', "#{ width }", "#{ height }", "#{toolset}") ;
@@ -121,7 +121,7 @@ module GenericForItemHelper
         oFCKeditor.Config['LinkUploadURL'] = "/fckuploads?item_type=#{object.class}&id=#{object.id}&type=Link";
         oFCKeditor.Config['DefaultLanguage'] = '#{I18n.locale.split('-')[0]}' ;
         oFCKeditor.ReplaceTextarea() ;
-                        })
+      })
   end
 
 	# Workspaces checkboxes for item form
@@ -145,9 +145,9 @@ module GenericForItemHelper
 			list.collect do |w|
 				# Setting the checked status form that workspace
 				if params[item.class.to_s.downcase] && params[item.class.to_s.downcase][:associated_workspaces]
-           checked = params[item.class.to_s.downcase][:associated_workspaces].include?(w.id.to_s)
+          checked = params[item.class.to_s.downcase][:associated_workspaces].include?(w.id.to_s)
 				else
-           checked = ItemsWorkspace.exists?(:workspace_id => w.id, :itemable_id => item.id, :itemable_type => item.class.to_s)
+          checked = ItemsWorkspace.exists?(:workspace_id => w.id, :itemable_id => item.id, :itemable_type => item.class.to_s)
 				end
 				# Creating the checkboxes
 				if ((w.state == 'private') && (w.creator_id == @current_user.id) && (item.new_record?)) || (list.size==1) || (w == current_workspace)
@@ -168,4 +168,16 @@ module GenericForItemHelper
 		return strg
 	end
 
+	def item_workspace_select(form, item)
+    str = ""
+  	str += "<label>#{I18n.t('general.object.workspace').camelize+'(s) :'}</label><div class='formElement'>"
+    item_class_name = item.class.to_s.underscore
+    select_tag_name = "#{item_class_name}[associated_workspaces][]"
+    workspaces = Workspace.allowed_user_with_permission(@current_user, item_class_name+"_new").uniq.delete_if{ |w| !w.ws_items.to_s.split(',').include?(item_class_name) }
+    str += select_tag select_tag_name, options_for_select([[nil]] + workspaces.map{|w| [w.title, w.id]})
+    str += '</div>'+ajax_error_message_on(item, 'items_workspaces')
+    str
+  end
+
 end
+
