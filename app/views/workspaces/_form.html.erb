@@ -6,7 +6,7 @@
     <%= file_field 'workspace', 'logo', :class => 'file' %>
   <% end %>
   <%= f.advanced_editor :description, :label => I18n.t('workspace.field.description_label') +' : ' %>
-  <% if (list=@workspace.ws_available_types.split(',')).size > 1 %>
+  <% if (list=@workspace.ws_available_types.to_s.split(',')).size > 1 %>
     <%= f.select :state, list.map{ |e| [I18n.t('workspace.type.'+e), e] }, :label => I18n.t('workspace.field.state_label')+' :' %>
   <% end %>
   <% if @current_object.new_record? || check=@current_object.has_permission_for?('administrate', @current_user) %>
