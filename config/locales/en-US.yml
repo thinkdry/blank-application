@@ -456,30 +456,21 @@ en-US:
       flash_error: "Votre demande n'a pu \xC3\xAAtre envoy\xC3\xA9e."
     show: 
       no_feed_items: "There is no feed item "
-      unsubscription: Unsubscription
       title: Workspace
       your_subscription: Your Subscription
-      subscription_as_reader: Subscription as Reader
+      other_actions: Other actions
+      join_workspace: subscribe as reader
+      leave_workspace: leave the workspace
       last_five_item: Last Five Items
       public_workspace: Public Workspace
-      subscribe_to_newsletter: Subscribe to the newsletter
-      unsubscribe_to_newsletter: Unsubscribe to the newsletter
-      contacts_management: Contacts management
+      subscribe_to_newsletter: subscribe to the newsletter
+      unsubscribe_to_newsletter: unsubscribe from the newsletter
+      manage_contacts: manage workspace contacts
+      request_to_workspace_administrator: Request to the workspace administrator
+      request_to_workspace_administrator_txt1: "You can send an email to the workspace administrator filling this form below."
     subscription: 
       flash_notice: "Vous \xC3\xAAtes inscrit sur cet espace de travail."
       flash_error: "Vous n'avez pas \xC3\xA9t\xC3\xA9 inscrit sur cet espace de travail."
-    other: 
-      to_manage_it: to manage it
-      request_to_workspace_administrator_option1: Inscription
-      request_to_workspace_administrator_option2: Autre
-      workspace: Workspace
-      public_workspace_txt1: Cet espace de travail est public, vous pouvez donc y souscrire en tant que lecteur en cliquant sur le lien ci-dessous
-      public_workspace_txt2: "Pour obtenir un r\xC3\xB4le plus avanc\xC3\xA9 sur cet espace de travail, veillez adresser une demande \xC3\xA0 l'administrateur (voir ci-dessous)"
-      subscription_txt1: "Vous \xC3\xAAtes d\xC3\xA9j\xC3\xA0 inscrit sur cet espace de travail en temps que"
-      subscription_txt2: "Vous pouvez vous d\xC3\xA9sinscrire en cliquant sur le bouton ci-dessous"
-      request_to_workspace_administrator: Request to the workspace administrator
-      administrator_of_workspace: You are the administrator of this workspace
-      request_to_workspace_administrator_txt1: "Si vous voulez envoyez un demande particuli\xC3\xA8re \xC3\xA0 l'administrateur de cet espace de travail, remplissez l'encadr\xC3\xA9 ci-dessus afin de g\xC3\xA9n\xC3\xA9rer un email pour l'administrateur"
     add_contacts:
       title: Assign contacts to
       current_contacts: Assigned contacts
@@ -761,7 +752,7 @@ en-US:
       superadministration: Superadministration
       my_account: My account
       workspaces_selection: Select Workspace
-      subscribers: Subscribers
+      personal_contacts: Personal contacts
       add_content: Add Content
       advanced_search: Advanced Search
       content: Content

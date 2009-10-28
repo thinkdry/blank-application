@@ -470,30 +470,21 @@ fr-FR:
       flash_error: "Votre demande n'a pu \xC3\xAAtre envoy\xC3\xA9e."
     show: 
       no_feed_items: Il n'y a pas de feeds de type item
-      unsubscription: "Se d\xC3\xA9sinscrire"
       title: Espace de travail
       your_subscription: votre inscription
-      subscription_as_reader: S'inscrire comme lecteur
+      other_actions: Autres actions
+      join_workspace: rejoindre comme lecteur
+      leave_workspace: quitter le workspace
       last_five_item: 5 derniers Objets
       public_workspace: Espace de travail publique
-      subscribe_to_newsletter: S'inscrire à la newsletter
-      unsubscribe_to_newsletter: Se désinscrire de la newsletter
-      contacts_management: Contacts management
+      subscribe_to_newsletter: s'inscrire à la newsletter
+      unsubscribe_to_newsletter: se désinscrire de la newsletter
+      manage_contacts: gèrer les contacts du workspace
+      request_to_workspace_administrator: Request to the workspace administrator
+      request_to_workspace_administrator_txt1: "Si vous voulez envoyer une demande particuli\xC3\xA8re \xC3\xA0 l'administrateur de cet espace de travail, remplissez l'encadr\xC3\xA9 ci-dessus afin de g\xC3\xA9n\xC3\xA9rer un email pour l'administrateur"
     subscription: 
       flash_notice: "Vous \xC3\xAAtes inscrit sur cet espace de travail."
       flash_error: "Vous n'avez pas \xC3\xA9t\xC3\xA9 inscrit sur cet espace de travail."
-    other: 
-      to_manage_it: "Le G\xC3\xA9rer"
-      request_to_workspace_administrator_option1: Inscription
-      request_to_workspace_administrator_option2: Autre
-      workspace: Espace de travail
-      public_workspace_txt1: Cet espace de travail est public, vous pouvez donc y souscrire en tant que lecteur en cliquant sur le lien ci-dessous
-      public_workspace_txt2: "Pour obtenir un r\xC3\xB4le plus avanc\xC3\xA9 sur cet espace de travail, veillez adresser une demande \xC3\xA0 l'administrateur (voir ci-dessous)"
-      subscription_txt1: "Vous \xC3\xAAtes d\xC3\xA9j\xC3\xA0 inscrit sur cet espace de travail en temps que"
-      subscription_txt2: "Vous pouvez vous d\xC3\xA9sinscrire en cliquant sur le bouton ci-dessous"
-      request_to_workspace_administrator: Request to the workspace administrator
-      administrator_of_workspace: "Vous \xC3\xAAtes l'administrateur de cet espace de travail."
-      request_to_workspace_administrator_txt1: "Si vous voulez envoyer une demande particuli\xC3\xA8re \xC3\xA0 l'administrateur de cet espace de travail, remplissez l'encadr\xC3\xA9 ci-dessus afin de g\xC3\xA9n\xC3\xA9rer un email pour l'administrateur"
     add_contacts:
       title: Assign contacts to
       current_contacts: Assigned contacts
@@ -782,7 +773,7 @@ fr-FR:
       title: Blank Engine
       logout: "Se d\xC3\xA9connecter"
       superadministration: SuperAdministration
-      subscribers: "Abonn\xC3\xA9s"
+      personal_contacts: Contacts personnels
       my_account: Mon compte
       workspaces_selection: Choisir un espace de travail
       add_content: Ajouter du contenu

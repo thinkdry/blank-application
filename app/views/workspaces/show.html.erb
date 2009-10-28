@@ -6,35 +6,36 @@
   </div>
   <div id="area_TITLE_right">
     <h1>
-      <%=I18n.t('workspace.show.title')%> <%=  @current_object.title %>
+      <%#=I18n.t('workspace.show.title')%> <%=  @current_object.title %>
       <% if @current_object.has_permission_for?('edit', @current_user) %>
         <%= link_to image_tag('/images/icons/pencil.png'), edit_workspace_path(@workspace.id)  %>
       <% end %>
     </h1>
-    
-    <%= @current_object.description %>
 
+    <%= @current_object.description %><br />
+
+    <%= I18n.t('workspace.show.other_actions')+' : ' %>
     <% if @current_object.has_permission_for?('contacts_management', @current_user) %>
-      <%= link_to("manage contacts", list_workspace_workspace_contacts_path(current_workspace.id))+' | ' %>
+      <%= link_to(I18n.t('workspace.show.manage_contacts'), list_workspace_workspace_contacts_path(current_workspace.id))+' | ' %>
     <% end %>
     <% if ContactsWorkspace.exists?(:workspace_id => @current_object.id, :contactable_type => 'User', :contactable_id => @current_user.id) %>
-      <%= link_to("unsubscribe newsletter", subscribe_workspace_workspace_contacts_path(@workspace.id)+'?remove=yes')+' | ' %>
+      <%= link_to(I18n.t('workspace.show.unsubscribe_to_newsletter'), subscribe_workspace_workspace_contacts_path(@workspace.id)+'?remove=yes')+' | ' %>
     <% else %>
-      <%= link_to("subscribe newsletter", subscribe_workspace_workspace_contacts_path(@workspace.id))+' | ' %>
+      <%= link_to(I18n.t('workspace.show.subscribe_to_newsletter'), subscribe_workspace_workspace_contacts_path(@workspace.id))+' | ' %>
     <% end %>
     <% if UsersWorkspace.exists?(:user_id => @current_user.id, :workspace_id => current_workspace.id) %>
-      <%= link_to("leave this workspace", unsubscription_workspace_path(@workspace.id))+' | ' %>
+      <%= link_to(I18n.t('workspace.show.leave_workspace'), unsubscription_workspace_path(@workspace.id))+' | ' %>
     <% end %>
     <% if @current_object.state == 'Public' %>
-      <%= link_to("join the workspace as reader", subscription_workspace_path(@workspace.id)) %>
+      <%= link_to(I18n.t('workspace.show.join_workspace'), subscription_workspace_path(@workspace.id)) %>
     <% end %>
     
-    <br />
     <% if @current_object.state == 'Public' || @current_object.state == 'mi_public' %>
-        <h2><%= I18n.t('workspace.other.request_to_workspace_administrator')%> </h2>
-        <%= I18n.t('workspace.other.request_to_workspace_administrator_txt1')%>.<br />
+      <br />
+        <h2><%= I18n.t('workspace.show.request_to_workspace_administrator')%> </h2>
+        <%= I18n.t('workspace.show.request_to_workspace_administrator_txt1')%>.<br />
         <% form_for :question, :url => question_workspace_path(@workspace.id) do |f| %>
-          <%= f.select :type, [I18n.t('workspace.other.request_to_workspace_administrator_option1'), I18n.t('workspace.other.request_to_workspace_administrator_option2')] %><br />
+          <%= f.select :type, [I18n.t('workspace.show.request_to_workspace_administrator_option1'), I18n.t('workspace.show.request_to_workspace_administrator_option2')] %><br />
           <%= f.text_area :msg, :size => '50x5' %><br />
           <%= f.submit I18n.t('general.button.send_request') %><br />
         <% end %>

@@ -69,7 +69,7 @@
             <ul>
               <li><%= link_to I18n.t('layout.application.home'), root_path %></li>
               <li><%= link_to I18n.t('layout.application.content'), content_path('articles') %></li>
-              <li><%= link_to I18n.t('layout.application.subscribers'), people_path %></li>
+              <li><%= link_to I18n.t('layout.application.personal_contacts'), people_path %></li>
               <li><%= link_to I18n.t('layout.application.users'), users_path %></li>
             </ul>
           </div>
@@ -170,8 +170,11 @@
           <img src="/images/icons/settings_128.png"/>
           <p><%= I18n.t('layout.menu.configure_help') %></p>
           <br/><br/>
-          <%  if (available_languages.size > 1) -%>
-            <p><%= I18n.t('layout.application.change_language')%><%= select_language(:languages => available_languages, :params_name => 'locale', :type => 'flags_list') %></p>
+          <% if (available_languages.size > 1) -%>
+            <p>
+              <%= I18n.t('layout.application.change_language')%>&nbsp;&nbsp;
+              <%= select_language(:languages => available_languages, :params_name => 'locale', :type => 'flags_list') %>
+            </p>
           <%end-%>
         </div>
         <div class="headerTipCol">
