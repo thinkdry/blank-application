@@ -326,6 +326,7 @@ en-US:
   group: 
     new: 
       title: New Group
+      no_workspace_no_contacts: As the workspace is not already determinated, no contacts are available. Edit the workspace after creation to get it right.
     edit: 
       title: Edit Group
     field: 

@@ -54,10 +54,6 @@ class GroupsController < ApplicationController
 
 	protected
 
-  def permission_checking
-		no_permission_redirection unless @current_user && current_workspace && current_workspace.has_permission_for?('contacts_management', @current_user)
-	end
-
 	def get_contacts_lists
 		selected_contacts = @current_object.groupings.map{ |e| e.contacts_workspace }.uniq
 		remaining_contacts = current_workspace ? (current_workspace.contacts_workspaces.to_a - selected_contacts) : []

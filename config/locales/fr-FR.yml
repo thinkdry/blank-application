@@ -355,6 +355,7 @@ fr-FR:
   group: 
     new: 
       title: Nouveau groupe
+      no_workspace_no_contacts: Comme aucun workspace n'est encore sélectionné, vous ne pouvez pas lié de contacts à ce workspace. Editez-le après sa création afin de pouvoir effectuer cette action.
     edit: 
       title: Editer le groupe
     field: 
