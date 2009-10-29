@@ -41,10 +41,10 @@
     <% if params[:item_type] && !params[:item_type].include?('fcke') %>
       <% @current_objects.each do |object| %>
         <div class=<%= i%2 == 0 ? "list_alternate" : "list" %>>
-          <%= image_tag(object.image.url(:thumb).split("?")[0], :border=>0, :width => "50") if params[:selected_item]=="images" %>
-          <% if params[:item_type] == 'video' || params[:item_type] == 'audio' %>
+          <%= image_tag(object.image.url(:thumb).split("?")[0], :border=>0, :width => "50") if (params[:selected_item]=="images" || params[:item_type]=='images') %>
+          <% if params[:item_type] == 'videos' || params[:item_type] == 'audios' %>
             <%= link_to_function object.title,"javascript:SelectFile('#{root_url.split('/').join('/')}#{object.path_to_encoded_file}')"  %>
-          <% elsif params[:item_type] == 'image' %>
+          <% elsif params[:item_type] == 'images' %>
             <%= link_to_function object.title,"javascript:SelectFile('#{root_url.split('/').join('/')}#{object.image.url.split('?')[0]}')"  %>
           <% else %>
             <%= link_to_function object.title,"javascript:SelectFile('#{root_url}#{object.class.to_s.underscore.pluralize}/#{object.id}/redirect_to_content')"  %>

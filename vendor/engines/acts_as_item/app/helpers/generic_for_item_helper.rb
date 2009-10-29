@@ -109,7 +109,7 @@ module GenericForItemHelper
     end
     #css_files = '/fckeditor/css/test_fck.css' if css_files.empty?
     toolset = 'Default_google_map' if google_map
-    css_files = '/stylesheets/fckeditor.css' if css_files.empty?
+    css_files << '/stylesheets/fckeditor.css' if css_files.empty?
     return '<script type="text/javascript" src="/fckeditor/fckeditor.js"></script>' +
       javascript_tag(%{
         var oFCKeditor = new FCKeditor('#{object.class.to_s.underscore}_#{attribute}', "#{ width }", "#{ height }", "#{toolset}") ;

@@ -24,7 +24,7 @@ class ContactsWorkspace < ActiveRecord::Base
 				'first_name' => begin self.contactable.first_name rescue self.contactable.firstname end,
 				'last_name' => begin self.contactable.last_name rescue self.contactable.lastname end,
 				'created_at' => self.created_at,
-				'permission' => false || (user_id && self.contactable_type=='Person' && self.contactable.user_id==user_id)
+				'permission' => user_id && ((self.contactable_type=='Person' && self.contactable.user_id==user_id) || User.find(user_id).has_system_role('superadmin'))
 			}
 	end
 

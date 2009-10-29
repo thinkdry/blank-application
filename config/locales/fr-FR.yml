@@ -567,6 +567,7 @@ fr-FR:
     new: 
       flash_notice: "Cr\xC3\xA9\xC3\xA9 avec succ\xC3\xA8s"
       flash_error: "La cr\xC3\xA9ation a \xC3\xA9chou\xC3\xA9e."
+      state_info: N'oubliez pas que pour accéder à l'item via FCKEditor, vous devez mettre son 'Workflow' à publié.
     edit: 
       flash_notice: "Mise a jour effectu\xC3\xA9e"
       flash_error: "La mise a jour a \xC3\xA9chou\xC3\xA9e."
