@@ -72,7 +72,7 @@ class ContentController < ApplicationController
       end
 		elsif (params[:selected_item] == 'images' || params[:selected_item] == 'videos' || params[:selected_item] == 'fcke_flash')
 			@selected_item_types = [params[:selected_item].to_s.singularize]
-			params[:item_type] ||= @selected_item_types.first
+			params[:item_type] ||= @selected_item_types.first.pluralize
 			if !params[:item_type].include?('fcke')
         @current_objects = params[:item_type].classify.constantize.get_da_objects_list(setting_searching_params(:from_params => params).merge!({:skip_pag => true}))#, :conditions =>{:fetch => {'state_equals' => 'published'}}}))
 			else
