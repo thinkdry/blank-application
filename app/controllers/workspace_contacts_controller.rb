@@ -63,16 +63,20 @@ class WorkspaceContactsController < ApplicationController
 			end
 		end
 		params[:order] ||= 'created_at'
+    params[:way] ||= "DESC"
 		params[:restriction] ||= 'all'
 		if params[:restriction] == 'non_linked'
 			group_ids = current_workspace.groups.map{ |e| e.id }
 			current_objects = current_workspace.contacts_workspaces.delete_if do |cw|
 				cw.groupings.delete_if{ |e| !group_ids.include?(e.group_id) }.first
 			end
-			@current_objects = current_objects.map{ |e| e.to_group_member(@current_user.id) }.sort{ |a,b| a[params[:order]] <=> b[params[:order]] }
+			@current_objects = current_objects.map{ |e| e.to_group_member(@current_user.id) }
 		else
-			@current_objects = current_workspace.contacts_workspaces.map{ |e| e.to_group_member(@current_user.id) }.sort{ |a,b| a[params[:order]] <=> b[params[:order]] }
+			@current_objects = current_workspace.contacts_workspaces.map{ |e| e.to_group_member(@current_user.id) }
 		end
+    if @current_objects
+      @current_objects = @current_objects.sort{ |a,b| (params[:way] == "DESC" ? b[params[:order]] <=> a[params[:order]] : a[params[:order]] <=> b[params[:order]]) }
+    end
 	end
 
 	# Action to subscribe on a workspace for an user of the application
