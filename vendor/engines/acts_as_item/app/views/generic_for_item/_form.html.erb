@@ -31,8 +31,9 @@
     <br /><label></label>
     <%= error_message_on :current_object, :items %>
 
-    <%= f.select :state, {'Unpublished' => 'unpublished','Published' => 'published' }, { }, :label =>I18n.t('item.field.state_label') + ' :' %>
-
+    <%#= f.select :state, {'Unpublished' => 'unpublished','Published' => 'published' }, { }, :label =>I18n.t('item.field.state_label') + ' :' %>
+    <%#= "<div class='CommonMessage'>"+I18n.t('item.new.state_info')+"</div>" %>
+    
     <button id="submit_button" class="submit_button" type="submit">
       <%= current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update')%>
     </button>

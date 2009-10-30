@@ -104,6 +104,10 @@ module ApplicationHelper
     return body
   end
 
+	def disable_field_condition(object)
+		return !object.new_record?
+	end
+
 
 end
 

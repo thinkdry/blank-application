@@ -25,8 +25,7 @@
     <% end %>
     <% if UsersWorkspace.exists?(:user_id => @current_user.id, :workspace_id => current_workspace.id) %>
       <%= link_to(I18n.t('workspace.show.leave_workspace'), unsubscription_workspace_path(@workspace.id))+' | ' %>
-    <% end %>
-    <% if @current_object.state == 'Public' %>
+    <% elsif @current_object.state == 'Public' %>
       <%= link_to(I18n.t('workspace.show.join_workspace'), subscription_workspace_path(@workspace.id)) %>
     <% end %>
     

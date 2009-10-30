@@ -569,6 +569,7 @@ en-US:
     new: 
       flash_notice: Created Successfully
       flash_error: Creation Failed
+      state_info: Don't forget that if you want to access ths item through FCKEditor, you need to set the 'Workflow' as 'published'.
     edit: 
       flash_notice: Updated Successfully
       flash_error: Updation Failed

@@ -3,7 +3,8 @@
 	  <%= File.basename(@current_object.audio_file_name) + '<br />' if @current_object.audio_file_name %>
 	  <%= file_field 'audio', 'audio', :class => 'file', :onChange=>"LimitAttach(this.form, this.form.audio_audio.value,
       ['.wav', '.mp3', '.wma', '.mp4'],
-      \"#{I18n.t("item.common_word.invalid_type_alert", :types => ['.wav', '.mp3', '.wma', '.mp4'].join(', '))}\")" %>
+      \"#{I18n.t("item.common_word.invalid_type_alert", :types => ['.wav', '.mp3', '.wma', '.mp4'].join(', '))}\")",
+        :disabled => disable_field_condition(@current_object) %>
 	<% end %>
 <% end %>
 

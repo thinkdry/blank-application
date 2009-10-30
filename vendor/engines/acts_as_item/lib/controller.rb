@@ -169,8 +169,9 @@ module ActsAsItem
       # /images/123/redirect_to_content
 			def redirect_to_content
 				# Critical for performance but important for security
-				# TODO what if this item is not in fcke but not linked to a website ... (we should make restriction)
-				if get_fcke_item_types.include?(params[:controller].singularize) #&& current_object.workspaces.delete_if{ |e| !e.websites.first }.size > 0
+				# TODO something ...
+				if get_fcke_item_typeas.include?(params[:controller].singularize)# && (current_object.state == 'published')
+					##&& current_object.workspaces.delete_if{ |e| !e.websites.first }.size > 0
 					current_object = params[:controller].classify.constantize.find(params[:id])
 					if params[:controller] == 'pages'
 						redirect_to root_url+current_object.title_sanitized
