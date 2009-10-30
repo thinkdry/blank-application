@@ -17,6 +17,7 @@
   <label>Favicon Management :</label>
   <div class="formElement">
     <%= f.file_field 'sa_favicon_url', :class => 'file' %><br/>
+    Upload image with .ico extension. <br />
     <%= image_tag(@configuration['sa_favicon_url'].to_s) %>
   </div>
 

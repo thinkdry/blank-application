@@ -24,7 +24,7 @@ class QueuedMail < ActiveRecord::Base
   # Usage :
   # QueuedMail.send_email
   def self.send_email
-    find(:all, :order=> "priority desc, id desc", :limit=>20).each do |mail|
+    find(:all, :order=> "priority desc, id desc", :limit=>NEWSLETTERS_PER_HOUR).each do |mail|
       mailer_class = mail.mailer.constantize
       mailer_method = ("deliver_" + mail.mailer_method).to_sym
       mailer_class.send(mailer_method, *mail.args)

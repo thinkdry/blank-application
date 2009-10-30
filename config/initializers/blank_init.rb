@@ -39,7 +39,8 @@ SEARCH_FILTERS = ['created_at', 'comments_number', 'viewed_number', 'rates_avera
 IMAGE_TYPES = ["image/jpeg", "image/pjpeg", "image/gif", "image/png", "image/x-png", "image/ico"]
 # Set the default Captcha images number
 CAPTCHA_IMAGES_NUMBER = 10
-
+# Variable to define number of newsletters to send per hour
+NEWSLETTERS_PER_HOUR = 20
 # Setting the locales files and the default language
 if !get_sa_config['sa_default_language'].to_s.blank?
   I18n.default_locale = "#{get_sa_config['sa_default_language']}"
