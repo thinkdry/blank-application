@@ -170,7 +170,7 @@ module ActsAsItem
 			def redirect_to_content
 				# Critical for performance but important for security
 				# TODO something ...
-				if get_fcke_item_typeas.include?(params[:controller].singularize)# && (current_object.state == 'published')
+				if get_fcke_item_types.include?(params[:controller].singularize)# && (current_object.state == 'published')
 					##&& current_object.workspaces.delete_if{ |e| !e.websites.first }.size > 0
 					current_object = params[:controller].classify.constantize.find(params[:id])
 					if params[:controller] == 'pages'
