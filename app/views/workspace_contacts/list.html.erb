@@ -8,7 +8,7 @@
       <td colspan="2" class="contact_classify">
         <img src="/images/icons/filter.png" width="20"/>
         <%= params[:order] == 'created_at' ? I18n.t('workspace_contact.list.order_by_time') : link_to(I18n.t('workspace_contact.list.order_by_time'), list_workspace_workspace_contacts_path(current_workspace.id)+'?order=created_at') %> |
-        <%= params[:order] == 'email' ? I18n.t('workspace_contact.list.order_by_email') : link_to(I18n.t('workspace_contact.list.order_by_email'), list_workspace_workspace_contacts_path(current_workspace.id)+'?order=email') %> &&
+        <%= params[:order] == 'email' ? I18n.t('workspace_contact.list.order_by_email') : link_to(I18n.t('workspace_contact.list.order_by_email'), list_workspace_workspace_contacts_path(current_workspace.id)+'?order=email&way=ASC') %> &&
         <%= params[:restriction] == 'all' ? I18n.t('workspace_contact.list.all_contacts') : link_to(I18n.t('workspace_contact.list.all_contacts'), list_workspace_workspace_contacts_path(current_workspace.id)+'?restriction=all') %> |
         <%= params[:restriction] == 'non_linked' ? I18n.t('workspace_contact.list.non_linked_to_a_group') : link_to(I18n.t('workspace_contact.list.non_linked_to_a_group'), list_workspace_workspace_contacts_path(current_workspace.id)+'?restriction=non_linked') %>
       </td>
