@@ -92,18 +92,6 @@ module ApplicationHelper
 		end
   end
 
-  def translate_text(body)
-    if cookies[:tmp_lang].nil?
-      cookies[:tmp_lang] = 'fr'
-    elsif params[:sl]
-      translator = Translator.new("#{cookies[:tmp_lang]}","#{params[:sl]}")
-      cookies[:tmp_lang] = params[:sl]
-      body = translator.translate(body)
-    else
-    end
-    return body
-  end
-
 	def disable_field_condition(object)
 		return !object.new_record?
 	end
