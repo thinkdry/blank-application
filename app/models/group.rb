@@ -53,7 +53,7 @@ class Group < ActiveRecord::Base
 	# Usage :
 	# - @group.groupable_objects= ['User_1', 'Person_23', .... ]
   def groupable_objects= params
-    selected_c_w = ContactsWorkspace.find(params.split(',').map{|i| i.to_i}, :select => 'id')
+    selected_c_w = params.nil? ? [] : ContactsWorkspace.find(params.split(',').map{|i| i.to_i}, :select => 'id')
     self.contacts_workspaces.all(:select => 'id').each do |c_w|
       if selected_c_w.include?(c_w)
         selected_c_w.delete(c_w)

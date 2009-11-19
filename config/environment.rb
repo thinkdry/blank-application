@@ -58,7 +58,8 @@ Rails::Initializer.run do |config|
 #	config.gem 'paperclip', :source => 'http://gems.github.com'#, :version => '>=2.2.8'
 #	config.gem'searchlogic', :version => '>=2.0.0', :source => 'http://gems.github.com'
 #	config.gem 'mislav-will_paginate', :version => '~> 2.3.11', :lib => 'will_paginate', :source => 'http://gems.github.com'
-
+	config.gem 'faker', :lib => 'faker', :version => '>=0.3.1'
+	config.gem 'populator', :lib => 'populator', :version => '>=0.2.5'
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.
   # :all can be used as a placeholder for all plugins not explicitly named
