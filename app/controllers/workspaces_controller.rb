@@ -67,9 +67,6 @@ class WorkspacesController < ApplicationController
       flash.now[:error] =I18n.t('workspace.edit.flash_error')
     end
 
-		before :destroy do
-		end
-
 		response_for :destroy do |format|
 			format.html { redirect_to workspaces_path }
 		end
