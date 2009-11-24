@@ -55,8 +55,9 @@ class GroupsController < ApplicationController
 	protected
 
 	def get_contacts_lists
+		@ws = current_workspace || @current_object.workspace_id || @current_object.workspaces.first
 		selected_contacts = @current_object.groupings.map{ |e| e.contacts_workspace }.uniq
-		remaining_contacts = current_workspace ? (current_workspace.contacts_workspaces.to_a - selected_contacts) : []
+		remaining_contacts = @ws ? (@ws.contacts_workspaces.to_a - selected_contacts) : []
 		#raise selected_contacts.inspect
 		@selected_members = selected_contacts.map{ |e| e.to_group_member(@current_user.id) } || []
 		#raise @selected_members.inspect+'===='+@remaining_members.inspect

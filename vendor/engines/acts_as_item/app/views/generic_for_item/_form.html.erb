@@ -23,7 +23,7 @@
 
     <%= capture(f, &block) %>
     
-    <% if ['Group', 'Page'].include?(@current_object.class.to_s) && @current_object.new_record?  %>
+    <% if ['Group', 'Page'].include?(@current_object.class.to_s) %>
       <%= item_workspace_select(f, @current_object) %>
     <% else %>
       <%= item_workspaces_checkboxes(f, @current_object) %>

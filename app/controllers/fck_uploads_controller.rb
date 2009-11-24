@@ -15,7 +15,7 @@ class FckUploadsController < ApplicationController
 				dest_folder = "/uploaded_files/#{params[:item_type].downcase}/#{params[:id]}/fck_#{params[:type].downcase.pluralize}"
 			else
 				object = params[:item_type].classify.constantize.find(params[:id])
-				workspace = object.workspaces.delete_if{ |e| e.state == 'private' }.first
+				workspace = current_workspace || object.workspaces.first
 				if workspace
 					dest_folder = "/uploaded_files/workspace/#{workspace.id}/fck_#{params[:type].downcase.pluralize}"
 				else

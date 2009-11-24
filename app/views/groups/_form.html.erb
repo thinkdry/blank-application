@@ -1,6 +1,6 @@
 <% form_for_item @current_object, title do |f| -%>
 
-    <% if current_workspace || @current_object.workspace_id %>
+    <% if @ws %>
 
       <% f.field :people, :label => I18n.t('group.field.people_label')+' :' do %>
         <input type="hidden" name="group_id" id="group_id" value="<%=@current_object.id%>">
@@ -18,7 +18,7 @@
                 </select>
                 <script type='text/javascript'>
                   function show_people(){
-                    new Ajax.Request('/workspaces/<%= current_workspace.id %>/groups/filtering_contacts/?start_with='+$('start_with').value+'&group_id='+$('group_id').value, {method: "get" ,asynchronous:true, evalScripts:true})
+                    new Ajax.Request('/workspaces/<%= @ws.id %>/groups/filtering_contacts/?start_with='+$('start_with').value+'&group_id='+$('group_id').value, {method: "get" ,asynchronous:true, evalScripts:true})
                   }
                 </script>
               </div>
