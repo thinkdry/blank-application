@@ -60,7 +60,7 @@ class ApplicationController < ActionController::Base
   # - workspace : Workspace instance (default: nil)
 	def get_allowed_item_types(workspace=nil)
 		if workspace
-			return (workspace.ws_items.to_s.split(',') & @configuration['sa_items'] & @current_user.workspace_permissions(workspace))
+			return (workspace.ws_items.to_s.split(',') & @configuration['sa_items'])
 		else
 			return @configuration['sa_items'] 
 		end
