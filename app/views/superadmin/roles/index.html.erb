@@ -1,0 +1,46 @@
+<h1>System Roles List :</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+  </tr>
+
+  <% for role in @system_roles %>
+    <tr>
+      <td><%=h role.name %></td>
+      <td><%=h role.description %></td>
+      <td><%= link_to 'Edit', edit_superadmin_role_path(role.id) %></td>
+      <td><%= link_to 'Delete', superadmin_role_path(role.id), :confirm => 'Are you sure ?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<br /><br />
+
+<h1>Workspace Roles List :</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+  </tr>
+
+  <% for role in @workspace_roles %>
+    <tr>
+      <td><%=h role.name %></td>
+      <td><%=h role.description %></td>
+      <td><%= link_to 'Edit', edit_superadmin_role_path(role.id) %></td>
+      <td><%= link_to 'Delete', superadmin_role_path(role.id), :confirm => 'Are you sure ?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<br />
+<hr />
+<br /><br />
+<%= link_to "New System Role", new_superadmin_role_path+'?type_role=system' %>
+<br /><br />
+<%= link_to "New Workspace Role", new_superadmin_role_path+'?type_role=workspace' %>
+<br /><br />
+<%= link_to "Permissions list", superadmin_permissions_path %>

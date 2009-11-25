@@ -2,7 +2,7 @@ module WorkspacesHelper
 
   # Create Link to Workspace
   def link_to_workspace(workspace)
-    link_to(workspace.title, workspace_url(workspace))
+    link_to(workspace.title, admin_workspace_url(workspace))
   end
 
   # Create Link to all worksapces
@@ -29,7 +29,7 @@ module WorkspacesHelper
       p << "lastElement = $('newuser').childElements().last()"
       p << "textfield = lastElement.down('.text_field')"
       p << "autocomplete = lastElement.down('.autocomplete')"
-      p << "new Ajax.Autocompleter(textfield, autocomplete, #{url_for(:controller => :users, :action => :index).inspect}, { method: 'get', paramName: 'login' })"
+      p << "new Ajax.Autocompleter(textfield, autocomplete, #{url_for(:controller => 'admin/users', :action => :index).inspect}, { method: 'get', paramName: 'login' })"
     end
   end   
 end

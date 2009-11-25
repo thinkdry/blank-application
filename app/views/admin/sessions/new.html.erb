@@ -1,0 +1,37 @@
+<div id="headerForm"></div>
+<div id="content_login">
+  <div id="logoDiv"><%= image_tag(@configuration['sa_logo_url'].to_s) %></div>
+  <p><%= content_tag(:div, flash[:error], :class => 'error' , :style => "color:red") if flash[:error] %></p>
+  <p><%= content_tag(:div, flash[:notice], :class => 'notice', :style => "color:green") if flash[:notice] %></p>
+
+  <% form_tag admin_session_path do -%>
+    
+    <label width="100"><%=I18n.t('user.session.login_label')%></label>
+    <%= text_field_tag 'login', @login %>
+
+
+    <label width="100"><%=I18n.t('user.session.password_label')%></label>
+    <%= password_field_tag 'password' %>
+
+
+    <div id="sub_but"><button type="submit" class="submit_button"><%=I18n.t('user.session.login_button')%></button></div>
+    <div id="actionlogin">
+      <div id="bottomLogin">
+        <p>
+          <%= image_tag '/images/login_icons/question.png'%>
+          <%=I18n.t('user.session.remember_me')%>:
+          <%= check_box_tag 'remember_me', '1', @remember_me, :class => "checkboxes" %><br />
+          <%= image_tag '/images/login_icons/life_saver.png'%>
+          <%= link_to I18n.t('user.forgot_password.title'), '/forgot_password' %><br />
+          <% if is_allowed_free_user_creation? %>
+            <%= image_tag '/images/login_icons/register-account.gif'%>
+            <%= link_to I18n.t('user.session.inscription'), new_user_path %>
+          <% end %>
+        </p>
+      </div><br />
+    </div>
+  <% end %>
+</div>
+<div id="footerLogin">
+  <p><%=  I18n.t 'layout.footer.title' %></p>
+</div>

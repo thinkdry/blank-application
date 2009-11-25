@@ -1,0 +1,9 @@
+<%= display_objects_list(
+  #:collection => @paginated_objects,
+  :in_list_partial => 'admin/users/user_in_list',
+  :ajax_url => admin_users_path,
+  #:ajax_url => request.path+'?'+request.url.split('?').last,
+  :ordering_fields => ['created_at', 'login', 'email'],
+  :output_formats => ['xml', 'json', 'atom'],
+  :no_div => @no_div
+) %>

@@ -25,10 +25,10 @@
           <div class="headerTipContent">
             <ul>
               <% if @current_user.has_system_permission('workspace', 'new') -%>
-                <li><%= link_to I18n.t('layout.application.new_workspace'), new_workspace_path%></li>
+                <li><%= link_to I18n.t('layout.application.new_workspace'), new_admin_workspace_path%></li>
               <% end -%>
               <% if @current_user.has_system_permission('user', 'new') -%>
-                <li><%= link_to I18n.t('user.new.add_user'), new_user_path %></li>
+                <li><%= link_to I18n.t('user.new.add_user'), new_admin_user_path %></li>
               <% end -%>
             </ul>
           </div>
@@ -67,10 +67,10 @@
           <h3><%= I18n.t('layout.general.other') %></h3>
           <div class="headerTipContent">
             <ul>
-              <li><%= link_to I18n.t('layout.application.home'), root_path %></li>
-              <li><%= link_to I18n.t('layout.application.content'), content_path('articles') %></li>
-              <li><%= link_to I18n.t('layout.application.personal_contacts'), people_path %></li>
-              <li><%= link_to I18n.t('layout.application.users'), users_path %></li>
+              <li><%= link_to I18n.t('layout.application.home'), admin_root_path %></li>
+              <li><%= link_to I18n.t('layout.application.content'), admin_content_path('articles') %></li>
+              <li><%= link_to I18n.t('layout.application.personal_contacts'), admin_people_path %></li>
+              <li><%= link_to I18n.t('layout.application.users'), admin_users_path %></li>
             </ul>
           </div>
         </div>
@@ -79,7 +79,7 @@
           <div class="headerTipContent small">
             <ul>
               <% Workspace.allowed_user_with_permission(@current_user, 'workspace_show').each do |w| -%>
-                <li><%= link_to w.title, workspace_path(w)%></li>
+                <li><%= link_to w.title, admin_workspace_path(w)%></li>
               <% end -%>
             </ul>
           </div>
@@ -114,12 +114,12 @@
             <p><%= I18n.t('layout.menu.search_help') %></p>
             <p>
               <img src="/images/icons/advanced_search.png"/>
-              <a class="advanced_search" onclick="new Ajax.Updater('advanced_search', '/searches/print_advanced?cat='+$('search_category').value);"><%= I18n.t('layout.application.advanced_search') %></a>
+              <a class="advanced_search" onclick="new Ajax.Updater('advanced_search', 'admin/searches/print_advanced?cat='+$('search_category').value);"><%= I18n.t('layout.application.advanced_search') %></a>
             </p>
           </div>
           <div class="fieldsetSimulation" id="searchFieldSet">
             <% unless @hide_full_text_search %>
-              <% form_for @search, :url => searches_path, :builder => BlankFormBuilder, :html => { :method => :get, :name => 'search' } do -%>
+              <% form_for @search, :url => admin_searches_path, :builder => BlankFormBuilder, :html => { :method => :get, :name => 'search' } do -%>
                 <label><%=I18n.t('layout.search.search_label')%></label>
                 <div class="formElement">
                   <% @search_hint = I18n.t('layout.search.search_label') %>
@@ -131,7 +131,7 @@
                 </div>
                 <div id="advanced_search" class="fieldsetSimulation">
                   <% if @search.category %>
-                    <%= render :partial => 'searches/advanced_search', :locals => { :category => @search.category } %>
+                    <%= render :partial => 'admin/searches/advanced_search', :locals => { :category => @search.category } %>
                   <% end %>
                 </div>
                 <div class="clear"></div>
@@ -181,11 +181,11 @@
           <h3>Administration</h3>
           <div class="headerTipContent">
             <ul>
-              <li><%= link_to I18n.t('layout.application.my_account'), user_path(current_user) %></li>
-              <li><%= link_to I18n.t('user.administration.workspace_management'), workspaces_path %></li>
+              <li><%= link_to I18n.t('layout.application.my_account'), admin_user_path(current_user) %></li>
+              <li><%= link_to I18n.t('user.administration.workspace_management'), admin_workspaces_path %></li>
             </ul>
             <br/><br/>
-            <p><img src="/images/icons/exit.png" width="20px" style="margin-right:5px"/><%= link_to I18n.t('layout.application.logout'), '/logout', :class => 'bigLink' %></p>
+            <p><img src="/images/icons/exit.png" width="20px" style="margin-right:5px"/><%= link_to I18n.t('layout.application.logout'), admin_logout_path, :class => 'bigLink' %></p>
           </div>
         </div>
         <% if current_user.has_system_role('superadmin') -%>
@@ -193,12 +193,12 @@
             <h3>Superadmin</h3>
             <div class="headerTipContent">
               <ul>
-                <li><%= link_to "General settings", editing_admin_general_settings_path %></li>
-                <li><%= link_to "User interface", editing_admin_user_interfaces_path %></li>
-                <li><%= link_to "Translations", editing_admin_translations_path %></li>
-                <li><%= link_to "Tasks", admin_tasks_path %></li>
-                <li><%= link_to "Roles & permissions", roles_path %></li>
-                <li><%= link_to "Action Mailer settings", editing_admin_action_mailer_settings_path %></li>
+                <li><%= link_to "General settings", editing_superadmin_general_settings_path %></li>
+                <li><%= link_to "User interface", editing_superadmin_user_interfaces_path %></li>
+                <li><%= link_to "Translations", editing_superadmin_translations_path %></li>
+                <li><%= link_to "Tasks", superadmin_tasks_path %></li>
+                <li><%= link_to "Roles & permissions", superadmin_roles_path %></li>
+                <li><%= link_to "Action Mailer settings", editing_superadmin_action_mailer_settings_path %></li>
               </ul>
             </div
           </div>

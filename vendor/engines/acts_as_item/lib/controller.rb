@@ -113,7 +113,7 @@ module ActsAsItem
 						# Just to manage the permission of creation (trick avoiding one more loop)
 #						params[:item_type] = @current_objects.first.class.to_s.underscore
 #						@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
-						@paginated_objects = params[:controller].classify.constantize.get_da_objects_list(setting_searching_params(:from_params => params))
+						@paginated_objects = params[:controller].split('/')[1].classify.constantize.get_da_objects_list(setting_searching_params(:from_params => params))
 					end
 					# Response redirecting to the show page after the create action,
 					# In the case of Article, Page or Newsletter, it is redirecting to the edition page
@@ -148,13 +148,13 @@ module ActsAsItem
 	        end
 
           response_for :destroy do |format|
-            format.html { redirect_to(current_workspace ? workspace_path(:id => current_workspace.id, :item_type => params[:controller]) : content_path(params[:controller])) }
+            format.html { redirect_to(current_workspace ? admin_workspace_path(:id => current_workspace.id, :item_type => params[:controller].split("/")[1]) : admin_content_path(params[:controller].split("/")[1])) }
           end
         end
 
         # Items Lists depending on Controller
 				def current_objects
-					@current_objects = get_items_list(params[:controller])
+					@current_objects = get_items_list(params[:controller].split('/')[1])
 				end
 
       end
@@ -171,11 +171,12 @@ module ActsAsItem
 			def redirect_to_content
 				# Critical for performance but important for security
 				# TODO something ...
+        params[:controller] = params[:controller].split('/')[1]
 				if get_fcke_item_types.include?(params[:controller].singularize)# && (current_object.state == 'published')
 					##&& current_object.workspaces.delete_if{ |e| !e.websites.first }.size > 0
 					current_object = params[:controller].classify.constantize.find(params[:id])
 					if params[:controller] == 'pages'
-						redirect_to root_url+current_object.title_sanitized
+						redirect_to admin_root_url + current_object.title_sanitized
 					elsif params[:controller] == 'bookmarks'
 						redirect_to current_object.link
 					elsif params[:controller] == 'cms_files'

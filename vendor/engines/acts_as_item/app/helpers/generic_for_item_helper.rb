@@ -116,10 +116,10 @@ module GenericForItemHelper
         oFCKeditor.Config['EditorAreaCSS'] = "#{css_files}" ;
         oFCKeditor.BasePath = "/fckeditor/" ;
         oFCKeditor.Config['GoogleMaps_Key'] = '';
-        oFCKeditor.Config['ImageUploadURL'] = "/fckuploads?item_type=#{object.class}&id=#{object.id}&type=Image";
-        oFCKeditor.Config['FlashUploadURL'] = "/fckuploads?item_type=#{object.class}&id=#{object.id}&type=Video";
-        oFCKeditor.Config['LinkUploadURL'] = "/fckuploads?item_type=#{object.class}&id=#{object.id}&type=Link";
-        oFCKeditor.Config['FlvUploadURL'] = "/fckuploads?item_type=#{object.class}&id=#{object.id}&type=Video";
+        oFCKeditor.Config['ImageUploadURL'] = "/admin/fckuploads?item_type=#{object.class}&id=#{object.id}&type=Image";
+        oFCKeditor.Config['FlashUploadURL'] = "/admin/fckuploads?item_type=#{object.class}&id=#{object.id}&type=Video";
+        oFCKeditor.Config['LinkUploadURL'] = "/admin/fckuploads?item_type=#{object.class}&id=#{object.id}&type=Link";
+        oFCKeditor.Config['FlvUploadURL'] = "/admin/fckuploads?item_type=#{object.class}&id=#{object.id}&type=Video";
         oFCKeditor.Config['DefaultLanguage'] = '#{I18n.locale.split('-')[0]}' ;
         oFCKeditor.ReplaceTextarea() ;
       })

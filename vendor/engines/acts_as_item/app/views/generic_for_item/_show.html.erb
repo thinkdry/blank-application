@@ -1,7 +1,7 @@
 <%h content_for :title, "#{object.class.to_s}: "+object.title %>
 <div id="content_show">
   <h1>
-    <%= link_to image_tag("/images/icons/left.png"), (current_workspace ? workspace_path(current_workspace.id)+'?item_type=' : '/content/')+object.class.to_s.underscore.pluralize %>
+    <%= link_to image_tag("/images/icons/left.png"), (current_workspace ? admin_workspace_path(current_workspace.id) + '?item_type=' : 'admin/content/') + object.class.to_s.underscore.pluralize %>
     <%= image_tag object.icon %>
     <%= object.title %>
   </h1>
@@ -14,7 +14,7 @@
       <p>
         <%= I18n.t("item.show.associated_workspace") %><br/>
         <% for ws in object.workspaces -%>
-          <%= link_to ws.title, workspace_path(ws) %><br/>
+          <%= link_to ws.title, admin_workspace_path(ws) %><br/>
         <% end -%>
       </p>
     </div>

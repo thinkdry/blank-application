@@ -44,7 +44,7 @@ module UsersHelper
   #
   def link_to_user(user, options={})
     raise "Invalid user" unless user
-    link_to(user.firstname.capitalize + ' ' + user.lastname.capitalize, user_path(user))
+    link_to(user.firstname.capitalize + ' ' + user.lastname.capitalize, admin_user_path(user))
   end
 
   #
@@ -66,7 +66,7 @@ module UsersHelper
     if tag = options.delete(:tag)
       content_tag tag, h(content_text), options
     else
-      link_to h(content_text), login_path, options
+      link_to h(content_text), admin_login_path, options
     end
   end
 

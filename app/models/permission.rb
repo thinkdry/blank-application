@@ -22,5 +22,12 @@ class Permission < ActiveRecord::Base
   validates_presence_of :name, :type_permission
 	# Validation of the uniqueness of this attribute
   validates_uniqueness_of :name
-  
+
+  named_scope :type_of, lambda {|type_permission|
+    {
+      :conditions => {:type_permission => type_permission},
+      :order => "name ASC"
+    }
+  }
+
 end

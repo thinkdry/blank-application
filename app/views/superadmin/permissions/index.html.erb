@@ -1,0 +1,23 @@
+<h1>Listing Permissions</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Type</th>
+  </tr>
+<% for permission in @permissions %>
+  <tr>
+      <td><%=h permission.name %></td>
+      <td><%=h permission.description %></td>
+      <td><%=h permission.type_permission %>
+      <td><%#= link_to 'Show', permission_path(permission) %></td>
+      <td><%= link_to 'Edit', edit_superadmin_permission_path(permission.id) %></td>
+      <td><%= link_to 'Delete', superadmin_permission_path(permission.id), :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to "New Permission", new_superadmin_permission_path %>

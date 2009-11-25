@@ -1,0 +1,16 @@
+<fieldset>
+<% form_for(['superadmin', @permission], :builder => BlankFormBuilder) do |f| %>
+  <%= f.text_field :name, :label => "Name * : " %>
+  <label>Select * : </label>
+  <div class="formElement">
+    <% RIGHT_TYPES.each do |permission| %>
+      <% !@permission.new_record? ? (@permission.type_permission == permission ? role = true : role = false ) : role = true%>
+      <%= permission %>
+      <%=radio_button_tag("permission[type_permission]", permission, role) %>
+    <% end %>
+  </div>
+  <%= f.text_area :description, :label => "Description : " %>
+  <% button_text = @permission.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update') %>
+  <%= f.submit button_text, :class=>"submit_button" %>
+<% end %>
+</fieldset>

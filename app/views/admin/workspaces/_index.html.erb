@@ -1,0 +1,9 @@
+<%= display_objects_list(
+  #:collection => @paginated_objects,
+  :in_list_partial => 'admin/workspaces/workspace_in_list',
+  :ajax_url => send("admin_#{params[:controller].split('/')[1]}_path"),
+  #:ajax_url => request.path+'?'+request.url.split('?').last,
+  :ordering_fields => ['created_at', 'title'],
+  :output_formats => ['xml', 'json', 'atom'],
+  :no_div => @no_div
+) %>

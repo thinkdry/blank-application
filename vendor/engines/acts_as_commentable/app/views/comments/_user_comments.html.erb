@@ -12,10 +12,10 @@
       <div class="lift_items">
         <% if @current_user.has_system_role('superadmin') %>
           <div align="right">
-            <%= link_to(I18n.t('comment.state.validate'), "/comments/#{object.id}/change_state?new_state=validated") unless (object.state == 'validated')%>
-            <%= link_to(I18n.t('comment.state.reject'), "/comments/#{object.id}/change_state?new_state=rejected") unless (object.state == 'rejected')%>
-            <%= link_to(image_tag('icons/pencil.png', :width =>'20px'), edit_comment_path(object.id)) %>
-            <%= link_to(image_tag('icons/delete.png', :width =>'20px'), comment_path(object.id), :method => :delete, :confirm => I18n.t('general.common_word.confirmation')) %>
+            <%= link_to(I18n.t('comment.state.validate'), "/admin/comments/#{object.id}/change_state?new_state=validated") unless (object.state == 'validated')%>
+            <%= link_to(I18n.t('comment.state.reject'), "/admin/comments/#{object.id}/change_state?new_state=rejected") unless (object.state == 'rejected')%>
+            <%= link_to(image_tag('icons/pencil.png', :width =>'20px'), edit_admin_comment_path(object.id)) %>
+            <%= link_to(image_tag('icons/delete.png', :width =>'20px'), admin_comment_path(object.id), :method => :delete, :confirm => I18n.t('general.common_word.confirmation')) %>
           </div>
         <% end %>
         <div class="commentbox">
@@ -24,7 +24,7 @@
         <div class="commentfooter">
           <%= link_to_commentable(object) %>
           <% if @current_user.has_system_role('superadmin') %>
-            <%= I18n.t('general.common_word.by').capitalize %> : <%= link_to((object.user['firstname']+' '+object.user['lastname']), user_path(object.user['id'])) %>
+            <%= I18n.t('general.common_word.by').capitalize %> : <%= link_to((object.user['firstname']+' '+object.user['lastname']), admin_user_path(object.user['id'])) %>
           <% end %>
           <%if object.replies.length > 0%>
             <h3>Replies :</h3>

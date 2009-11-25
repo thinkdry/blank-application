@@ -1,0 +1,10 @@
+<fieldset>
+  <legend><img src="/images/icons/add.png" />New Role</legend>
+<% form_for @role, :url => superadmin_roles_path, :builder => BlankFormBuilder , :method => :post do |f| %>
+
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <p>
+    <%= f.submit "Create" , :class => "submit_button" %>
+  </p>
+<% end %>
+</fieldset>

@@ -1,9 +1,0 @@
-<div class="list_header">
-<h1>
-  <%= I18n.t('layout.application.workspaces') %>
-  <% if current_user.has_system_permission('workspace', 'new') %>
-    <%= link_to image_tag("/images/icons/add.png"), new_workspace_path %>
-  <% end %>
-</h1>
-</div>
-<%= render :partial => 'workspaces/index' %>

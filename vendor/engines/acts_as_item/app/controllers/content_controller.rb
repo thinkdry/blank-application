@@ -1,4 +1,4 @@
-class ContentController < ApplicationController
+class ContentController < Admin::ApplicationController
   
   unloadable
 
@@ -87,13 +87,13 @@ class ContentController < ApplicationController
 				@fcke_objects = []
 				if session[:fck_item_type] != 'Page'
 					Dir["public/uploaded_files/#{session[:fck_item_type].singularize.downcase}/#{session[:fck_item_id]}/fck_#{fck_item}/*.#{types}"].collect do |uploaded_file|
-						@fcke_objects << { :name => uploaded_file.split('/')[5], :url => root_url+uploaded_file.split('public/')[1] }
+						@fcke_objects << { :name => uploaded_file.split('/')[5], :url => admin_root_url+uploaded_file.split('public/')[1] }
 					end
 				else
 					object = session[:fck_item_type].classify.constantize.find(session[:fck_item_id])
 					workspace = object.workspaces.delete_if{ |e| e.state == 'private' }.first
 					Dir["public/uploaded_files/workspace/#{workspace.id}/fck_#{fck_item}/*.#{types}"].collect do |uploaded_file|
-						@fcke_objects << { :name => uploaded_file.split('/')[5], :url => root_url+uploaded_file.split('public/')[1] }
+						@fcke_objects << { :name => uploaded_file.split('/')[5], :url => admin_root_url + uploaded_file.split('public/')[1] }
 					end
 				end
 			end

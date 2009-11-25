@@ -91,7 +91,7 @@ module BlankListsHelper
 	# )
 	def display_objects_list(*args)
 		options = args.extract_options!
-	  content = render :partial => 'blank_lists/objects_list', :locals => {
+	  content = render :partial => 'admin/blank_lists/objects_list', :locals => {
 				:in_list_partial => options[:in_list_partial],
 				:ajax_url => options[:ajax_url],
 				:ordering_fields => options[:ordering_fields],
@@ -128,7 +128,7 @@ module BlankListsHelper
   #
   # Usage :
   # display_classify_bar(['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title'], ajax_url, 'object-list')</tt>
-	def display_classify_bar(ordering_fields_list, ajax_url, refreshed_div, partial_used='blank_lists/classify_bar')
+	def display_classify_bar(ordering_fields_list, ajax_url, refreshed_div, partial_used='admin/blank_lists/classify_bar')
 		render :partial => partial_used, :locals => {
       :ordering_fields_list => ordering_fields_list,
       :ajax_url => ajax_url,

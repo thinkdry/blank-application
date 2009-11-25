@@ -1,0 +1,16 @@
+<fieldset>
+  <legend><%= I18n.t('people.import_people.label') %></legend>
+
+  <% form_for :people, :url=> (current_workspace ? import_people_admin_workspace_people_path(:workspace_id => current_workspace.id) : import_people_admin_people_path) , :html => { :multipart => true } do |f| -%>
+    <div class="CommonMessageFull">
+      <%= I18n.t('people.import_people.note_description') %>
+    </div>
+
+    <label for="dump_file"><%= I18n.t('people.import_people.select_csv_file_label') %> :</label>
+    <div class="formElement"><%= f.file_field :csv, :class => 'file' %></div>
+    <%= associated_workspaces_checkboxes(f, nil, 'workspace_edit') %>
+    <button id="submit_button" class="submit_button" type="submit"><%= I18n.t('general.button.submit')%></button>
+  <% end %>
+
+  <p><%= link_to I18n.t('people.import_people.get_empty_csv_file'),:controller=>'people',:action=>'get_empty_csv' %></p>
+</fieldset>

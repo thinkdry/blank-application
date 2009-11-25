@@ -1,0 +1,15 @@
+<h1> <%= link_to "Delete Role", superadmin_role_path(@role.id), :method => :delete, :confirm => 'Really ?', :style => "float: right;font-size: 50%;" if @role.name != 'superadmin'%></h1>
+<br />
+<fieldset>
+  <legend><img src="/images/icons/pencil.png" /> Editing Role </legend>
+<% form_for @role, :url => superadmin_role_path(@role.id), :builder => BlankFormBuilder, :method => :put do |f| %>
+
+  <%= hidden_field_tag :id, @role.id %>
+
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <p>
+    <%= f.submit "Update", :class => "submit_button" %>
+  </p>
+<% end %>
+</fieldset>
+
