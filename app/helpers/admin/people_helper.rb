@@ -1,4 +1,4 @@
-module PeopleHelper
+module Admin::PeopleHelper
 
 	# Workspaces checkboxes
   #

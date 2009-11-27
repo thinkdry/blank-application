@@ -1,4 +1,4 @@
-module ArticlesHelper
+module Admin::ArticlesHelper
 
 	# Helper method returning a file field for file association (in Javascript)
   def new_file(object)

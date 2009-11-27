@@ -1,4 +1,4 @@
-module BlankListsHelper
+module Admin::BlankListsHelper
 
 	# Display the content tabs list of an object type given
   #

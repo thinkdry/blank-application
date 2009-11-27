@@ -1,4 +1,4 @@
-module SearchesHelper
+module Admin::SearchesHelper
 	
 	# Display the select box for search
   #

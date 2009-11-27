@@ -114,9 +114,9 @@ class Admin::ApplicationController < ActionController::Base
 	def no_permission_redirection(message=nil)
 		flash[:error] = message || I18n.t('general.common_message.permission_denied')
 		if current_workspace && current_workspace.has_permission_for?('show', current_user)
-			redirect_to workspace_url(current_workspace.id)
+			redirect_to admin_workspace_url(current_workspace.id)
 		else
-			redirect_to '/'
+			redirect_to admin_root_url
 		end
 	end
 

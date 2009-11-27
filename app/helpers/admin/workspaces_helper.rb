@@ -1,4 +1,4 @@
-module WorkspacesHelper
+module Admin::WorkspacesHelper
 
   # Create Link to Workspace
   def link_to_workspace(workspace)
