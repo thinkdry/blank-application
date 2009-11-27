@@ -51,7 +51,7 @@ class WorkspacesController < ApplicationController
 			flash[:notice] =I18n.t('workspace.new.flash_notice')
 		end
     after :create_fails do
-			@roles = Role.find(:all, :conditions => { :type_role => 'system' })
+			@roles = Role.find(:all, :conditions => { :type_role => 'workspace' })
       flash.now[:error] =I18n.t('workspace.new.flash_error')
     end
 
@@ -63,7 +63,7 @@ class WorkspacesController < ApplicationController
       flash[:notice] =I18n.t('workspace.edit.flash_notice')
 		end
     after :update_fails do
-			@roles = Role.find(:all, :conditions => { :type_role => 'system' })
+			@roles = Role.find(:all, :conditions => { :type_role => 'workspace' })
       flash.now[:error] =I18n.t('workspace.edit.flash_error')
     end
 

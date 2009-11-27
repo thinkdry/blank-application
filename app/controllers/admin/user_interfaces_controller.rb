@@ -19,12 +19,13 @@ class Admin::UserInterfacesController < ApplicationController
 	# - PUT /admin/user_interfaces/updating
 	def updating
     if !params[:configuration][:sa_logo_url].blank? && (IMAGE_TYPES.include?(params[:configuration][:sa_logo_url].content_type.chomp))
-        #					upload_photo(params[:pictures][:logo],240,55, '/public/config_files/logo.jpg')
-      File.open(RAILS_ROOT+'/public/config_files/logo.jpg', "wb") { |f| f.write(params[:configuration][:sa_logo_url].read) }
+      upload_photo(params[:configuration][:sa_logo_url], 255, 40, '/public/config_files/logo.jpg')
     end
-    if !params[:configuration][:sa_favicon_url].blank? && (IMAGE_TYPES.include?(params[:configuration][:sa_logo_url].content_type.chomp))
+    if !params[:configuration][:sa_favicon_url].blank? && (IMAGE_TYPES.include?(params[:configuration][:sa_favicon_url].content_type.chomp))
       upload_photo(params[:configuration][:sa_favicon_url],16,16, '/public/config_files/favicon.ico')
     end
+    params[:configuration][:sa_favicon_url] = "/config_files/favicon.ico"
+    params[:configuration][:sa_logo_url] = "/config_files/logo.jpg"
 		res = @configuration.merge!(params[:configuration])
 	  @new=File.new("#{RAILS_ROOT}/config/customs/sa_config.yml", "w+")
 		@new.syswrite(res.to_yaml)
