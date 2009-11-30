@@ -45,8 +45,7 @@ class PeopleController < ApplicationController
 	# - POST /people
 	# - POST /workspaces/:id/people
   def create #:nodoc:
-    @person = Person.new(params[:person])
-    @person.user_id = current_user.id
+    @person = current_user.people.build(params[:person])
     if @person.validate_uniqueness_of_email
 			if @person.save
         # to save assoceated workspaces of the person
@@ -77,7 +76,7 @@ class PeopleController < ApplicationController
       end
 		else
       @no_div = true
-			render :partial => 'index', :layout => false
+			render :partial => 'index', :locals => {:no_div => @no_div}, :layout => false
 		end
   end
 
@@ -220,7 +219,6 @@ class PeopleController < ApplicationController
 					flash.now[:error] = "#{empty_emails} contacts n'ont pas été sauvegardés car l'email était vide." if empty_emails > 0
           params[:associated_workspaces] = []
         rescue Exception => e
-          logger.error ">>>>>>>>>>>>>>>>>>>"
           logger.error " Problem while parsing csv file "+ e
           flash.now[:error] = I18n.t('people.import_people.csv_parser_error')
         end

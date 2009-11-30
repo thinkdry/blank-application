@@ -21,9 +21,7 @@ class CreateWorkspacesTable < ActiveRecord::Migration
       t.integer :user_id
       t.timestamps
     end
-    add_index :users_workspaces, :workspace_id
-    add_index :users_workspaces, :user_id
-    add_index :users_workspaces, :role_id
+    
 
     create_table :items_workspaces do |t|
       t.integer :workspace_id
@@ -31,9 +29,7 @@ class CreateWorkspacesTable < ActiveRecord::Migration
       t.string  :itemable_type
       t.timestamps
     end
-    add_index :items_workspaces, :workspace_id
-    add_index :items_workspaces, :itemable_id
-    add_index :items_workspaces, :itemable_type
+   
 
     create_table :contacts_workspaces do |t|
       t.integer :workspace_id
@@ -43,13 +39,21 @@ class CreateWorkspacesTable < ActiveRecord::Migration
       t.string  :sha1_id,          :limit => 40
       t.timestamps
     end
+    
+    add_index :workspaces, :creator_id
+    add_index :users_workspaces, :workspace_id
+    add_index :users_workspaces, :user_id
+    add_index :users_workspaces, :role_id
+    add_index :items_workspaces, :workspace_id
+    add_index :items_workspaces, :itemable_id
+    add_index :items_workspaces, :itemable_type
     add_index :contacts_workspaces, :workspace_id
     add_index :contacts_workspaces, :contactable_id
     add_index :contacts_workspaces, :contactable_type
   end
 
   def self.down
-    drop_table :worksspaces
+    drop_table :workspaces
     drop_table :users_workspaces
     drop_table :items_workspaces
     drop_table :contacts_workspaces

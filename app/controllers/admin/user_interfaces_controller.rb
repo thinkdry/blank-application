@@ -8,8 +8,8 @@ class Admin::UserInterfacesController < ApplicationController
 	# Usage URL :
 	# - GET  /admin/user_interface/editing
 	def editing
-		@elements = Element.find(:all, :conditions => {:template=>"current"})
-    @temp=Element.find( :all, :select => 'DISTINCT template' )
+		@elements = Element.current
+    @temp = Element.templates
 		@configuration.extend Extentions::HashFeatures
 	end
 
@@ -54,8 +54,8 @@ class Admin::UserInterfacesController < ApplicationController
   # Usage URL
   # - GET /user_interfaces/check_color
 	def check_color
-		@elements = Element.find(:all, :conditions => {:template => params[:temp]})
-    @temp = Element.find(:all, :select => 'DISTINCT template')
+		@elements = Element.template_elements(params[:temp])
+    @temp = Element.templates
 		render :partial => 'color_checked'
 	end
 

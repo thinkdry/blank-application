@@ -35,11 +35,11 @@ class WorkspacesController < ApplicationController
     end
 
 		before :new do
-			@roles = Role.find(:all, :conditions => { :type_role => 'workspace' })
+			@roles = Role.of_type('workspace')
 		end
 
 		before :edit do
-			@roles = Role.find(:all, :conditions => { :type_role => 'workspace' })
+			@roles = Role.of_type('workspace')
 		end
 
     before :create do
@@ -51,7 +51,7 @@ class WorkspacesController < ApplicationController
 			flash[:notice] =I18n.t('workspace.new.flash_notice')
 		end
     after :create_fails do
-			@roles = Role.find(:all, :conditions => { :type_role => 'workspace' })
+			@roles = Role.of_type('workspace')
       flash.now[:error] =I18n.t('workspace.new.flash_error')
     end
 
@@ -63,7 +63,7 @@ class WorkspacesController < ApplicationController
       flash[:notice] =I18n.t('workspace.edit.flash_notice')
 		end
     after :update_fails do
-			@roles = Role.find(:all, :conditions => { :type_role => 'workspace' })
+			@roles = Role.of_type('workspace')
       flash.now[:error] =I18n.t('workspace.edit.flash_error')
     end
 
@@ -130,9 +130,7 @@ class WorkspacesController < ApplicationController
   def add_new_user
 		@current_object ||= Workspace.find(params[:id])
     @user = User.find(:first, :conditions => { :login => params[:user_login].split(' (').first })
-    @uw = UsersWorkspace.new
-    @uw.role_id = params[:user_role]
-    @uw.user = @user
+    @uw = UsersWorkspace.new(:role_id => params[:user_role].to_i, :user_id => @user.id)
     render :update do |page|
       if @user
         page.insert_html :bottom, 'users', :partial => 'user',  :object => @uw

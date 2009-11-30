@@ -4,7 +4,7 @@
   <% form_for :res, :url => translation_new_admin_translations_path do |f| %>
 
     <label>SECTION</label>
-	<div class="formElement"><%= f.select :section, @translation_sections %></div>
+	<div class="formElement"><%= f.select :section, translation_sections %></div>
 	<label>SUBSECTION</label>
 	<div class="formElement"><%= f.text_field :subsection %></div>
 	<label>KEY</label>

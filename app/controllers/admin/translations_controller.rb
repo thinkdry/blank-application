@@ -41,7 +41,7 @@ class Admin::TranslationsController < ApplicationController
 		end
 		#raise @yaml['en-US']['general'].inspect
     File.rename("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml", "#{RAILS_ROOT}/config/locales/old_#{params[:language]}.yml")
-    @new=File.new("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml", "w+")
+    @new = File.new("#{RAILS_ROOT}/config/locales/#{params[:language]}.yml", "w+")
     if @new.syswrite(@yaml.to_yaml)
       flash[:notice] = "Updated Sucessfully"
     else
@@ -55,15 +55,14 @@ class Admin::TranslationsController < ApplicationController
   # Usage URL :
   # - GET /translations/language_switching
 	def language_switching
+    translation_options
 		if params[:locale_to_conf] == 'translation_addition'
-			translation_options
-			render :partial => 'translation_addition'
+			render :partial => 'translation_addition', :locals => { :translation_sections => @translation_sections }
 		else
 			yaml = YAML.load_file("#{RAILS_ROOT}/config/locales/#{params[:locale_to_conf]}.yml")
 			@res = yaml[params[:locale_to_conf].to_s]
 			@language = params[:locale_to_conf].to_s
-		  translation_options
-			render :partial => 'translations_tab'
+			render :partial => 'translations_tab', :locals => {:res => @res, :translation_sections => @translation_sections }
 		end
   end
 
@@ -86,7 +85,7 @@ class Admin::TranslationsController < ApplicationController
 				@new.syswrite(@yaml.to_yaml)
 			end
 		end
-		redirect_to '/superadministration/translations'
+		redirect_to redirect_to editing_admin_translations_path
 	end
 
 	private

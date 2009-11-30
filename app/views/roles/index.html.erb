@@ -37,10 +37,10 @@
 </table>
 
 <br />
-##########################
+<hr />
 <br /><br />
-<%= link_to "New System Role", new_role_path+'?type_role=system' %>
+<%= link_to "New System Role", new_role_path(:type_role => 'system') %>
 <br /><br />
-<%= link_to "New Workspace Role", new_role_path+'?type_role=workspace' %>
+<%= link_to "New Workspace Role", new_role_path(:type_role => 'workspace') %>
 <br /><br />
 <%= link_to "Permissions list", permissions_path %>

@@ -3,6 +3,8 @@ class PermissionsController < ApplicationController
 	# Filter restricting the ressource access to only superadministrator user
 	before_filter :is_superadmin?
 
+  before_filter :get_permission, :only => [:edit, :update, :destroy]
+
 	# Mixin method implementing ajax validation for that controller
   acts_as_ajax_validation
   
@@ -52,7 +54,6 @@ class PermissionsController < ApplicationController
 	# Usage URL :
 	# - GET /permissions/1/edit
   def edit
-    @permission = Permission.find(params[:id])
 		respond_to do |format|
 			format.html # edit.html.erb
 			format.xml  { render :xml => @permission }
@@ -86,7 +87,6 @@ class PermissionsController < ApplicationController
 	# - PUT /permissions/1
 	# - PUT /permissions/1.xml
   def update
-    @permission = Permission.find(params[:id])
     respond_to do |format|
 			if @permission.update_attributes(params[:permission])
 				flash.now[:notice] = 'Permission was successfully updated.'
@@ -106,7 +106,6 @@ class PermissionsController < ApplicationController
 	# - DELETE /permissions/1
 	# - DELETE /permissions/1.xml
   def destroy
-    @permission = Permission.find(params[:id])
     @permission.destroy
     @permissions= Permission.find(:all)
 		respond_to do |format|
@@ -114,4 +113,11 @@ class PermissionsController < ApplicationController
 			format.xml  { head :ok }
 		end
   end
+
+  private
+
+  def get_permission
+    @permission = Permission.find(params[:id])
+  end
+
 end

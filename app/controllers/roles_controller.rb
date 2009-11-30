@@ -3,6 +3,8 @@ class RolesController < ApplicationController
   # Filter restricting the ressource access to only superadministrator user
 	before_filter :is_superadmin?
 
+  before_filter :get_role, :only => [:edit, :update, :destroy]
+
 	# Mixin method implementing ajax validation for that controller
   acts_as_ajax_validation
 
@@ -12,27 +14,27 @@ class RolesController < ApplicationController
   # - GET /roles
   # - GET /roles.xml
   def index
-    @system_roles = Role.find(:all, :conditions => { :type_role => 'system'} )
-		@workspace_roles = Role.find(:all, :conditions => { :type_role => 'workspace'} )
+    @system_roles = Role.of_type('system')
+		@workspace_roles = Role.of_type('workspace')
 		respond_to do |format|
 			format.html # index.html.erb
 			format.xml  { render :xml => @roles }
 		end
   end
 
-#	# Action managing the role show
-#	#
-#	# Usage URL :
-#	# - GET /roles/1
-#  # - GET /roles/1.xml
-#	def show
-#		@role = Role.find(params[:id])
-#
-#		respond_to do |format|
-#			format.html # show.html.erb
-#			format.xml  { render :xml => @role }
-#		end
-#	end
+  #	# Action managing the role show
+  #	#
+  #	# Usage URL :
+  #	# - GET /roles/1
+  #  # - GET /roles/1.xml
+  #	def show
+  #		@role = Role.find(params[:id])
+  #
+  #		respond_to do |format|
+  #			format.html # show.html.erb
+  #			format.xml  { render :xml => @role }
+  #		end
+  #	end
 
 	# Action managing the new form
 	#
@@ -54,7 +56,6 @@ class RolesController < ApplicationController
 	# Usage URL :
 	# - GET /roles/1/edit
   def edit
-    @role = Role.find(params[:id])
 		get_permissions
     respond_to do |format|
 			format.html # edit.html.erb
@@ -71,11 +72,7 @@ class RolesController < ApplicationController
     @role = Role.new(params[:role])
     respond_to do |format|
 			if @role.save
-				if params[:permissions]
-					params[:permissions].each do |k, v|
-						@role.permissions << Permission.find(k.to_i)
-					end
-				end
+        @role.set_permissions(params[:permissions]) if params[:permissions]
 				flash[:notice] = 'Role was successfully created.'
 				format.html { redirect_to(roles_path) }
 				format.xml  { render :xml => @role, :status => :created, :location => role_path(@role) }
@@ -94,16 +91,9 @@ class RolesController < ApplicationController
 	# - PUT /roles/1
 	# - PUT /roles/1.xml
   def update
-    @role = Role.find(params[:id])
     respond_to do |format|
 			if @role.update_attributes(params[:role])
-				@role.permissions.delete_all
-				if params[:permissions]
-					params[:permissions].each do |k, v|
-						@role.permissions << Permission.find(k.to_i)
-					end
-				end
-				@role.save
+        @role.set_permissions(params[:permissions]) if params[:permissions]
 				flash[:notice] = 'Role was successfully updated.'
 				format.html { redirect_to(roles_path) }
 				format.xml  { head :ok }
@@ -122,7 +112,6 @@ class RolesController < ApplicationController
 	# - DELETE /roles/1
 	# - DELETE /roles/1.xml
   def destroy
-    @role = Role.find(params[:id])
     if @role.name == 'superadmin'
       flash[:error] = "SuperAdministrator Cannot Be Deleted!"
       respond_to do |format|
@@ -139,12 +128,12 @@ class RolesController < ApplicationController
   end
 
 	private
+
+  def get_role
+    @role = Role.find(params[:id])
+  end
   # Method allowing to get the permissions lists regarding the role type (workspace or system)
   def get_permissions
-    if @role.type_role=="system"
-			@permissions = Permission.find(:all, :order => 'name ASC')
-		else
-			@permissions = Permission.find(:all, :conditions => { :type_permission => 'workspace' }, :order => 'name ASC')
-		end
+    @permissions = Permission.type_of(@role.type_role)
   end
 end

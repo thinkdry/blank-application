@@ -56,10 +56,10 @@ LOCALES_DIRECTORY = "#{RAILS_ROOT}/config/locales"
 #LOCALES_AVAILABLE = Dir["#{LOCALES_DIRECTORY}/*.{rb,yml}"].collect do |locale_file|
 #  File.basename(File.basename(locale_file, ".rb"), ".yml")
 #end.uniq.sort
-LANGUAGES.each do |l|
-	I18n.load_path << "#{LOCALES_DIRECTORY}/#{l}.yml"
-end
-
+#LANGUAGES.each do |l|
+#	I18n.load_path << "#{LOCALES_DIRECTORY}/#{l}.yml"
+#end
+I18n.load_path += Dir[File.join(RAILS_ROOT, 'config', 'locales', '*.yml')]
 # Variable used by ExceptionNotifier plugin
 if get_sa_config['sa_exception_notifier_activated'] == 'true'
   APPLICATION_ADMINS = get_sa_config['sa_exception_followers_email']

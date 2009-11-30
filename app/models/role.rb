@@ -33,4 +33,13 @@ class Role < ActiveRecord::Base
 	# Validation of the uniqueness of this field
 	validates_uniqueness_of :name
 
+  named_scope :of_type,lambda {|role_type|
+    {:conditions => {:type_role => role_type}}
+  }
+
+  def set_permissions(permissions)
+    self.permissions.delete_all
+    permissions.each { |k, v| self.permissions << Permission.find(k.to_i) }
+  end
+
 end
