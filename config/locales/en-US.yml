@@ -6,7 +6,7 @@ en-US:
     edit: 
       title: Edit Article
     field: 
-      article_label: Body123
+      article_label: Body
       add_new_file: Add a New File
       article_hint: Body of this article
       assosiated_file_label: Associated File
