@@ -1,0 +1,63 @@
+<h2>
+  <%= link_to image_tag("/images/icons/left.png"), admin_workspace_path(current_workspace.id) %>
+  <%= I18n.t('group.contacts.title') %>
+</h2>
+<% form_for :contacts_workspaces, :url => list_admin_workspace_workspace_contacts_path(current_workspace.id), :html => { :method => :post } do |f| %>
+  <table width="90%" cellpadding="5" cellspacing="0" class="contact_list">
+    <tr>
+      <td colspan="2" class="contact_classify">
+        <img src="/images/icons/filter.png" width="20"/>
+        <%= params[:order] == 'created_at' ? I18n.t('workspace_contact.list.order_by_time') : link_to(I18n.t('workspace_contact.list.order_by_time'), list_admin_workspace_workspace_contacts_path(current_workspace.id)+'?order=created_at') %> |
+        <%= params[:order] == 'email' ? I18n.t('workspace_contact.list.order_by_email') : link_to(I18n.t('workspace_contact.list.order_by_email'), list_admin_workspace_workspace_contacts_path(current_workspace.id)+'?order=email&way=ASC') %> &&
+        <%= params[:restriction] == 'all' ? I18n.t('workspace_contact.list.all_contacts') : link_to(I18n.t('workspace_contact.list.all_contacts'), list_admin_workspace_workspace_contacts_path(current_workspace.id)+'?restriction=all') %> |
+        <%= params[:restriction] == 'non_linked' ? I18n.t('workspace_contact.list.non_linked_to_a_group') : link_to(I18n.t('workspace_contact.list.non_linked_to_a_group'), list_admin_workspace_workspace_contacts_path(current_workspace.id)+'?restriction=non_linked') %>
+      </td>
+    </tr>
+    <% if !@current_objects.empty? %>
+      <% @i = 0%>
+      <% @current_objects.each do |member| %>
+        <% if @i%2 == 0 -%>
+          <tr class="contact_details">
+        <% else -%>
+          <tr bgcolor="#EEEEEE" class="contact_details">
+          <% end %>
+          <% @i += 1%>
+          <td>
+            <%= "#{member['email']} (#{member['first_name']} #{member['last_name']}) -- #{member['contact_type']} -- (#{member['state']})" %>
+          </td>
+          <td>
+            <%= check_box_tag 'contacts_workspaces_ids[]', member['id'] %>
+            <% if member['permission'] %>
+              <% if member['contact_type']=='Person' %>
+                <%= link_to image_tag('/images/icons/play.png', :width => "20"), admin_workspace_person_path(current_workspace.id, member['contact_id']) %>
+                <%= link_to image_tag('/images/icons/pencil.png', :width => "20"), edit_admin_workspace_person_path(current_workspace.id, member['contact_id']) %>
+                <%= link_to image_tag('/images/icons/delete.png', :width => "20"), admin_workspace_person_path(current_workspace.id, member['contact_id']), :method => :delete, :confirm => I18n.t('workspace_contact.list.delete_person_alert_confirm') %><br />
+              <% end %>
+              <% if member['contact_type']=='WebsiteContact' %>
+                <%= link_to image_tag('/images/icons/play.png', :width => "20"), workspace_website_contact_path(current_workspace.id, member['contact_id']) %>
+                <%= link_to image_tag('/images/icons/pencil.png', :width => "20"), edit_workspace_website_contact_path(current_workspace.id, member['contact_id']) %>
+                <%= link_to image_tag('/images/icons/delete.png', :width => "20"), workspace_website_contact_path(current_workspace.id, member['contact_id']), :method => :delete, :confirm => 'Be careful, this will remove definitively the person, use remove if you just want to remove it from that workspace, so are you sure ?' %><br />
+              <% end %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr><td> <%= I18n.t('workspace_contact.list.no_contacts') %>  </td></tr>
+    <% end %>
+  </table>
+  <br /><br />
+  <u><%= I18n.t('workspace_contact.list.action') %> :</u><br />
+  <%= radio_button_tag 'to_do', 'remove' %> <%= I18n.t('workspace_contact.list.remove_these_contacts_from_this_worksapce') %>  <br />
+  <%= radio_button_tag 'to_do', 'link' %> <%= I18n.t('workspace_contact.list.link_these_contacts_to_group') %> : <%= select_tag 'group_id', options_for_select(current_workspace.groups.all(:order => 'title ASC').map{ |e| [e.title, e.id] }) %> <br />
+  <%= radio_button_tag 'to_do', 'change_state' %> <%= I18n.t('workspace_contact.list.change_state_to') %> : <%= select_tag 'state', options_for_select({I18n.t('general.common_word.subscribed').capitalize => 'subscribed', I18n.t('general.common_word.unsubscribed').capitalize => 'unsubscribed'}, 'subscribed' ) %> <br />
+  <br /><br />
+  <%= submit_tag I18n.t('workspace_contact.list.do_the_action'), :class=>"submit_button" %>
+<% end %>
+<br /><br />
+<%= link_to I18n.t('group.contacts.select_contacts'), select_admin_workspace_workspace_contacts_path(current_workspace.id) %>
+<br /><br />
+<%= link_to I18n.t('group.contacts.add_people'), new_admin_workspace_person_path(current_workspace.id) %>
+<br /><br />
+<%= link_to I18n.t('people.index.import_people_from_csv'), import_people_admin_workspace_people_path %>
+

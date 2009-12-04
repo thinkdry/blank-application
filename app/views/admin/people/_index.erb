@@ -1,0 +1,7 @@
+<%= display_objects_list(
+    #:collection => @paginated_objects,
+    :in_list_partial => 'admin/people/people_list',
+    :ajax_url => admin_people_path,
+    #:ajax_url => request.path+'?'+request.url.split('?').last,
+    :no_div => no_div
+) %>

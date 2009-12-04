@@ -1,7 +1,7 @@
 <div id="footerSearch">
   <div id="search_middle">
     <% unless @hide_full_text_search %>
-      <% form_for :search, @search, :url => searches_path, :html => { :method => :get, :name => 'footer_search' } do -%>
+      <% form_for :search, @search, :url => admin_searches_path, :html => { :method => :get, :name => 'footer_search' } do -%>
         <p><%= I18n.t('layout.search.search_label')%></p>
         <%= text_field_tag "q", (params[:q] ? params[:q] : @search_hint), :id =>"footer_search_input", :class => "style_text", :onfocus => "search_hint('#{@search_hint}', 'footer_search_input', '#{params[:q].to_s}')", :onblur => "search_hint('#{@search_hint}', 'footer_search_input', '#{params[:q].to_s}')" %>
         <p><%= I18n.t 'general.common_word.in'%></p>
@@ -25,13 +25,13 @@
     <%end-%>
     <p><img src="/images/item_icons/feed_item.png" width="20"/>rss subscription</p>
     <p><a href="mailtp:contact@thinkdry.com">contact</a></p>
-    <p><%= link_to I18n.t('layout.application.my_account'), user_path(current_user) %></p>
-    <p><%= link_to I18n.t('layout.application.logout'), '/logout' %></p>
+    <p><%= link_to I18n.t('layout.application.my_account'), admin_user_path(current_user) %></p>
+    <p><%= link_to I18n.t('layout.application.logout'), admin_logout_path %></p>
   </div>
   <div class="footerCol last">
     <h3>last workspaces</h3>
     <% get_objects_list_with_search('workspace', 'created_at-desc', 5).each do |w|%>
-      <p><%= link_to w.title, workspace_path(w) %></p>
+      <p><%= link_to w.title, admin_workspace_path(w) %></p>
     <% end %>
   </div>
 </div>

@@ -32,6 +32,11 @@ class Role < ActiveRecord::Base
 	validates_presence_of :name, :type_role
 	# Validation of the uniqueness of this field
 	validates_uniqueness_of :name
+  
+  named_scope :of_type,lambda {|role_type|
+    {:conditions => {:type_role => role_type}}
+  }
+
 
   named_scope :of_type,lambda {|role_type|
     {:conditions => {:type_role => role_type}}

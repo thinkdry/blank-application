@@ -281,46 +281,46 @@ var _QuickUploadExtension = _QuickUploadLanguage == 'perl' ? 'cgi' : _QuickUploa
 FCKConfig.LinkBrowser = true ;
 //FCKConfig.LinkBrowserURL = FCKConfig.BasePath + 'filemanager/browser/default/browser.html?Connector=' + encodeURIComponent( FCKConfig.BasePath + 'filemanager/connectors/' + _FileBrowserLanguage + '/connector.' + _FileBrowserExtension ) ;
 //FCKConfig.LinkBrowserURL = FCKConfig.BasePath + 'filemanager/browser/default/browser.html?Connector=' + encodeURIComponent( FCKConfig.BasePath + 'filemanager/connectors/' + _FileBrowserLanguage + '/connector.' + _FileBrowserExtension ) ;
-FCKConfig.LinkBrowserURL = '/content_for_popup/all'
+FCKConfig.LinkBrowserURL = '/admin/content_for_popup/all'
 FCKConfig.LinkBrowserWindowWidth	= FCKConfig.ScreenWidth * 0.6 ;		// 70%
 FCKConfig.LinkBrowserWindowHeight	= FCKConfig.ScreenHeight * 0.6 ;	// 70%
 
 FCKConfig.ImageBrowser = true ;
 //FCKConfig.ImageBrowserURL = FCKConfig.BasePath + 'filemanager/browser/default/browser.html?Type=Image&Connector=' + encodeURIComponent( FCKConfig.BasePath + 'filemanager/connectors/' + _FileBrowserLanguage + '/connector.' + _FileBrowserExtension ) ;
 //FCKConfig.ImageBrowserURL = FCKConfig.BasePath + 'filemanager/browser/default/browser.html?Type=Image&Connector=' + encodeURIComponent( FCKConfig.BasePath + 'filemanager/connectors/' + _FileBrowserLanguage + '/connector.' + _FileBrowserExtension ) ;
-FCKConfig.ImageBrowserURL = '/content_for_popup/images';
+FCKConfig.ImageBrowserURL = '/admin/content_for_popup/images';
 FCKConfig.ImageBrowserWindowWidth  = FCKConfig.ScreenWidth * 0.5 ;	// 70% ;
 FCKConfig.ImageBrowserWindowHeight = FCKConfig.ScreenHeight * 0.5 ;	// 70% ;
 
 FCKConfig.FlashBrowser = true ;
-FCKConfig.FlashBrowserURL = '/content_for_popup/fcke_flash'
+FCKConfig.FlashBrowserURL = '/admin/content_for_popup/fcke_flash'
 //FCKConfig.FlashBrowserURL = FCKConfig.BasePath + 'filemanager/browser/default/browser.html?Type=Flash&Connector=' + encodeURIComponent( FCKConfig.BasePath + 'filemanager/connectors/' + _FileBrowserLanguage + '/connector.' + _FileBrowserExtension ) ;
 FCKConfig.FlashBrowserWindowWidth  = FCKConfig.ScreenWidth * 0.7 ;	//70% ;
 FCKConfig.FlashBrowserWindowHeight = FCKConfig.ScreenHeight * 0.7 ;	//70% ;
 
 FCKConfig.FlvBrowser = true ;
-FCKConfig.FlvBrowserURL = '/content_for_popup/videos'
+FCKConfig.FlvBrowserURL = '/admin/content_for_popup/videos'
 //FCKConfig.FlashBrowserURL = FCKConfig.BasePath + 'filemanager/browser/default/browser.html?Type=Flash&Connector=' + encodeURIComponent( FCKConfig.BasePath + 'filemanager/connectors/' + _FileBrowserLanguage + '/connector.' + _FileBrowserExtension ) ;
 FCKConfig.FlvBrowserWindowWidth  = FCKConfig.ScreenWidth * 0.7 ;	//70% ;
 FCKConfig.FlvBrowserWindowHeight = FCKConfig.ScreenHeight * 0.7 ;	//70% ;
 
 FCKConfig.LinkUpload = true ;
-FCKConfig.LinkUploadURL = '/fckuploads';
+FCKConfig.LinkUploadURL = '/admin/fckuploads';
 FCKConfig.LinkUploadAllowedExtensions	= ".(7z|aiff|asf|avi|bmp|csv|doc|fla|flv|gif|gz|gzip|jpeg|jpg|mid|mov|mp3|mp4|mpc|mpeg|mpg|ods|odt|pdf|png|ppt|pxd|qt|ram|rar|rm|rmi|rmvb|rtf|sdc|sitd|swf|sxc|sxw|tar|tgz|tif|tiff|txt|vsd|wav|wma|wmv|xls|xml|zip)$" ;			// empty for all
 FCKConfig.LinkUploadDeniedExtensions	= "" ;	// empty for no one
 
 FCKConfig.ImageUpload = true ;
-FCKConfig.ImageUploadURL = '/fckuploads';
+FCKConfig.ImageUploadURL = '/admin/fckuploads';
 FCKConfig.ImageUploadAllowedExtensions	= ".(jpg|gif|jpeg|png|bmp)$" ;		// empty for all
 FCKConfig.ImageUploadDeniedExtensions	= "" ;							// empty for no one
 
 FCKConfig.FlashUpload = true ;
-FCKConfig.FlashUploadURL = '/fckuploads';
+FCKConfig.FlashUploadURL = '/admin/fckuploads';
 FCKConfig.FlashUploadAllowedExtensions	= ".(swf)$" ;		// empty for all
 FCKConfig.FlashUploadDeniedExtensions	= "" ;					// empty for no one
 
 FCKConfig.FlvUpload = true ;
-FCKConfig.FlvUploadURL = '/fckuploads';
+FCKConfig.FlvUploadURL = '/admin/fckuploads';
 FCKConfig.FlvUploadAllowedExtensions	= ".(swf|flv|mp3)$" ;		// empty for all
 FCKConfig.FlvUploadDeniedExtensions	= "" ;					// empty for no one
 

@@ -13,10 +13,10 @@
     <title>
       <%= I18n.t 'layout.application.title' %> -
       <% if @content_for_title %>
-        <%= h yield(:title) %>
+        <%=h yield(:title) %>
       <% else %>
         <%= params[:action].capitalize if params[:action] != 'index' %>
-        <%= params[:controller].capitalize %>
+        <%= params[:controller].split('/')[1].capitalize %>
       <% end %>
     </title>
     <%= javascript_include_tag 'prototype', 'effects', 'controls', 'ajax_validation', 'application', 'livepipe', 'tabs', 'scriptaculous', 'starbox', :cache => "cache/appfatmenu_all" %>

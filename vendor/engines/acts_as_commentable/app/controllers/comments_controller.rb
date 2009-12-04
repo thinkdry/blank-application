@@ -1,5 +1,5 @@
 # This controller manages the actions relation to the Comment object.
-class CommentsController < ApplicationController
+class CommentsController < Admin::ApplicationController
 
 	unloadable
 	# Filters managing the rights on the comment actions

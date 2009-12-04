@@ -29,5 +29,4 @@ class Permission < ActiveRecord::Base
       :order => "name ASC"
     }
   }
-  
 end

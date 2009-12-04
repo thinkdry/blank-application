@@ -1,9 +1,0 @@
-<%= image_tag('/images/icons/cron.jpg') %>
-<%= "Tasks manager" %>
-<br /><br />
-
-<%= button_to_remote "Update Xapian Indexes", :url => run_task_admin_tasks_path(:job => 'xapian'), :method => :get %><br /><br />
-<%= button_to_remote "Update Feed Sources", :url => run_task_admin_tasks_path(:job => 'feeds'), :method => :get %><br /><br />
-<%= button_to_remote "Send Pending Newsletters", :url => run_task_admin_tasks_path(:job => 'newsletter'), :method => :get %><br /><br />
-<%= button_to_remote "Restart passenger", :url => run_task_admin_tasks_path(:job => 'restart_server'), :method => :get %><br />
-

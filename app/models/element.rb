@@ -16,8 +16,6 @@
 # It is actually not maintained but we let it for future usage.
 class Element < ActiveRecord::Base
 
-  #  named_scope :templates
-#  {:select => 'DISTINCT template}
 
   named_scope :current,
     {:conditions => {:template => 'current'}}

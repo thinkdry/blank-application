@@ -22,7 +22,7 @@ module Authorizable
 				before_filter :permission_checking
 				define_method :permission_checking do
 					if options[:actions_permissions_links][params[:action]]
-						obj = params[:controller].classify.constantize
+						obj = params[:controller].split('/')[1].classify.constantize
 						@current_object = ['new', 'create','validate'].include?(params[:action]) ? obj.new : obj.find(params[:id])
 						#no_permission_redirection unless @current_user && @current_object.send("accepts_#{hash[params[:action]]}_for?".to_sym, @current_user)
 						no_permission_redirection unless @current_user && @current_object.has_permission_for?(options[:actions_permissions_links][params[:action]], @current_user)

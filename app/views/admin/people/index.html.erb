@@ -1,0 +1,20 @@
+<h1><%= I18n.t('people.index.title') %></h1>
+<div class="list_header">
+  <%= image_tag ("/images/icons/add.png", :width => "30")%><%= link_to I18n.t('people.index.add_new_person'), new_admin_person_path %>
+  &nbsp;&nbsp;&nbsp;<%= image_tag ("/images/icons/spreadsheet.png", :width => "20")%><%= link_to I18n.t('people.index.import_people_from_csv'), import_people_admin_people_path %>
+</div>
+
+<%= render :partial => 'index', :locals => {:no_div => @no_div} %>
+
+
+<h2><%= I18n.t('people.index.export_people_to_csv') %> </h2>
+<% form_for :type, :url => {:controller=>"people", :action=>"export_people", :restriction => params[:restriction]} do |f| -%>
+  <%= f.check_box :all , :class => "checkboxes" %> <%= I18n.t('general.common_word.all') %> <br />
+  <%= f.check_box :creation , :class => "checkboxes" %> <%= I18n.t('people.index.created_from_back') %> <br />
+  <%= f.check_box :imported_from_csv, :class => "checkboxes" %> <%= I18n.t('people.index.imported_from_csv') %> <br />
+  <%= f.check_box :front_contcts, :class => "checkboxes" %> <%= I18n.t('people.index.front_contacts') %> <br />
+  <!--
+  <%#= f.check_box :newsletter , :class => "checkboxes" %> Receiving newsletter <br /><br />
+      -->
+      <%= submit_tag I18n.t('people.index.export') ,:class =>'smallSubmit'%>
+    <% end %>

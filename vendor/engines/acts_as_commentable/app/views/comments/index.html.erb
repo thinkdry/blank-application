@@ -3,7 +3,7 @@
 <div id="object-list" class="comment_list">
   <div id="classify_bar">
     <img width="20" src="/images/icons/filter.png"/>
-    <%= ['all', 'posted', 'validated', 'rejected'].map{ |s| link_to(I18n.t('comment.state.'+s), comments_url(:on_state => s))}.join(' | ') %>
+    <%= ['all', 'posted', 'validated', 'rejected'].map{ |s| link_to(I18n.t('comment.state.'+s), admin_comments_path(:on_state => s))}.join(' | ') %>
   </div>
   <div id="content">
     <%= render :partial => 'comments/user_comments' %>

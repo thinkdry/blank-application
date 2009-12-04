@@ -52,9 +52,9 @@ module ActsAsItem
 
       helper_name = String.new
       helper_name += prefix + '_' if prefix
+      helper_name += "admin_"
       helper_name += 'workspace_' if current_workspace
       helper_name += object.class.to_s.underscore + '_path'
-
       args = [object, params]
       args.insert(0, current_workspace) if current_workspace
 
@@ -73,7 +73,7 @@ module ActsAsItem
     #
     # - model: Article,Image,Audio,Video.... (may be any Item type)
     def new_item_path(model)
-      helper_name = 'new_'
+      helper_name = 'new_admin_'
       helper_name += 'workspace_' if current_workspace
       helper_name += model.to_s.underscore + '_path'
       args = current_workspace ? [current_workspace] : []
@@ -92,7 +92,7 @@ module ActsAsItem
     #
     # - model: Article,Image,Audio,Video.... (may be any Item type)
 		def edit_item_path(model)
-      helper_name = 'edit_'
+      helper_name = 'edit_admin_'
       helper_name += 'workspace_' if current_workspace
       helper_name += model.to_s.underscore + '_path'
       args = current_workspace ? [current_workspace] : []
@@ -113,9 +113,9 @@ module ActsAsItem
     def items_path(model)
       model = model.table_name unless model.is_a?(String)  
       if current_workspace
-				workspace_url(current_workspace.id)+"/#{model.underscore.pluralize}"
+				admin_workspace_url(current_workspace.id)+"/#{model.underscore.pluralize}"
       else
-        root_url+"#{model.underscore.pluralize}"
+        admin_root_url+"/#{model.underscore.pluralize}"
       end
     end
 
@@ -133,9 +133,9 @@ module ActsAsItem
     # - model: Article,Image,Audio,Video.... (may be any Item type)
 		def content_path(model)
 			if current_workspace
-				workspace_url(current_workspace.id)+"?item_type=#{model.underscore.pluralize}"
+				admin_workspace_url(current_workspace.id)+"?item_type=#{model.underscore.pluralize}"
       else
-        content_url(:item_type => model.underscore.pluralize)
+        admin_content_url(:item_type => model.underscore.pluralize)
       end
 		end
 
@@ -155,9 +155,9 @@ module ActsAsItem
      def ajax_items_path(model)
       model = model.table_name unless model.is_a?(String)
       if current_workspace
-        workspace_ajax_content_url(:workspace_id => current_workspace.id, :item_type => model)
+        admin_workspace_ajax_content_url(:workspace_id => current_workspace.id, :item_type => model)
       else
-        ajax_content_url(:item_type => model)
+        admin_ajax_content_url(:item_type => model)
       end
     end
 
