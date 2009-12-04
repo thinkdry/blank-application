@@ -37,113 +37,22 @@ a.add_item{
 
 #container { background:#fff;}
 
-#header {
-	padding-left:10px;
-	padding-top:23px;
-	background:#fff url('/images/backHeader.jpg') no-repeat;
-	padding-left:10px;
-	padding-top:23px;
-}
 
-#header ul{
-	list-style:none;
-}
-
-.headerTipContent ul{
-	padding-left:15px;
-}
-#header li{
-	float:left;
-	font-size:180%;
-	padding-right:10px;
-	padding-top:12px;
-	text-align:right;
-	width:180px;
-}
-#header li img{
-	float:right;
-	margin-left:12px;
-	margin-top:10px;
-}
-#header li a{color:#fff;}
 
 .exit{margin-top:0 !important;}
-
-.headerTip{
-	text-align:left;
-	overflow:auto;
-	padding:10px;
-	border-top:4px solid;
-}
 
 .deconnect{
 	font-size: 110%;
 	font-weight: bold;
 }
-.headerTipOne{border-color:#f89f36;}
-.headerTipTwo{border-color:#f49029;}
-.headerTipTree{	border-color:#ef7c18;}
-.headerTipFour{	border-color:#eb6e0d;}
-
-.headerTip li{
-	font-size:100%;
-	margin-left:5px;
-	margin-top:5px;
-}
-.headerTip li img{
-	margin-right:3px;
-}
-.headerTip .headerTipCol{
-	float:left;
-	padding-left:5px;
-	width:165px;
-	/* overflow:auto; */
-}
-#searchFieldSet{
-	width:520px;
-	float:left;
-}
-#searchFieldSet label{
-	width:140px;
-}	
-#searchFieldSet .formElement{
-	width:358px !important;
-}
-
-#searchFieldSet input {
-	width:350px;
-}
-
 #searchOK{
 	width:200px;
 	margin:10px auto;
 }
-.smallCol{
-	width:130px !important;
-	margin-right:20px;
-}
-
-.smallCol p{
-	font-size:80%;
-}
-
-.headerTipContent{
-	padding-right:20px;
-	/* overflow:auto; */
-}
-.headerTipContent ul{
-	border-left:1px solid #EEE;
-	list-style:none;
-}
 .small{
 	font-size:10px;
 }
-.textWithImage{
-	border-right:1px dotted;
-	padding-right:10px;
-	float:right;
-	/*padding-top:4px;*/
-}
+
 
 .leftDisp{
 	background:transparent url('/images/backMenuLeft.png') repeat-y;
@@ -152,20 +61,14 @@ a.add_item{
 	float:left;
 }
 
-#topMenu{
-	background:transparent url('/images/topMenu.png') no-repeat;
-	color:#FFFFFF;
-	height:51px;
-	padding-left:27px;
-	margin-bottom:0;
-	margin-top:0;
-}
-#page_container #container h1 {
-	color: #F79646; 
-	font-size: 175%;
-	padding-bottom:7px;
-	clear:both;
+
+h1 {
+	color:#F79646;
+	font-size:35px;
+	height:48px;
 	margin:0;
+	padding-bottom:20px;
+	border-bottom:1px solid #CCCCCC;
 }
 
 #area_TITLE a{
@@ -535,7 +438,7 @@ img.test{
 
 #middle-middle{
   font-size: 95%;
-  padding:10px 20px 0 20px;
+  padding:50px 20px 0;
   overflow: hidden;
 }
 
@@ -1228,8 +1131,7 @@ ul.top_box li{
 }
 .checkbox_list_horizontal{
 	float:left;
-	font-size:14px;
-	margin-top:10px;
+	margin-right:15px;
 }
 .checkbox_list_horizontal input{
 	margin:0 3px;
@@ -1278,15 +1180,12 @@ fieldset p{
   clear:both;
 }
 
-fieldset label, .fieldsetSimulation label{
+fieldset label, .fieldsetSimulation label, label{
+	display:block;
+	font-size:16px;
+	margin-right:10px;
 	padding-top:19px;
-	text-align:right;
 	vertical-align:top;
-	width:180px;
-	font-weight:bold;
-    margin-right: 10px;
-	float:left;
-	clear:both;
 }
 
 fieldset legend{
@@ -1332,9 +1231,7 @@ fieldset textarea{
 }
 
 .formElement{
-	float:left;
 	width:730px;
-	margin-top:10px;
 }
 
 .spacer{clear:both; height:1px;}
@@ -1497,7 +1394,8 @@ form br{
 .checkboxes{
 	width:15px !important;
 	border:none !important;
-	margin-top:10px;
+	height:auto !important;
+	margin:0 !important;
 }
 
 #middle-middle ul {
@@ -1579,4 +1477,35 @@ label .low{
 .global_error{
     color:red;
     font-size:15px;
+}
+
+.leftFormColumn{
+	width:128px;
+	margin-right:50px;
+	margin-top:50px;
+	padding:0;
+	float:left;
+}
+.rightFormColumn{
+	width:782px;
+	margin:0;
+	padding:0;
+	float:left;
+}
+.configLine{
+	margin:10px 0;
+}
+
+.table label{
+	width:240px !important;
+	font-size:15px !important;
+	float:left !important;
+	clear:both !important;
+	margin-top:10px !important;
+	overflow:auto !important;
+}
+.table div{
+	float:left;
+	margin-top:10px;
+	overflow:auto;
 }
