@@ -18,8 +18,8 @@ module AjaxValidation
         #{message}
       </div>" +
 			"<script type='text/javascript'>
-				Event.observe('#{field_id}', 'focus', function() { $('#{hint_message_id}').show() })
-        Event.observe('#{field_id}', 'blur',  function() { $('#{hint_message_id}').hide() })
+        $('##{field_id}').focus(function(){ $('##{hint_message_id}').css('display','inline') })
+        $('##{field_id}').blur(function(){ $('##{hint_message_id}').css('display','none') })
       </script>"
     end
   end  

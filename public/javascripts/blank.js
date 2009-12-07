@@ -23,6 +23,7 @@ $(document).ready(function () {
 			new Ajax.Request($(this.attributes))
 		});
 	});
+
 });
 
 //display the good tiem in a item list, google way of displaying.
