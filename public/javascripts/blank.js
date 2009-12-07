@@ -1,30 +1,40 @@
 $(document).ready(function () {	
-	wasVisible = new Boolean(false);
+    wasVisible = new Boolean(false);
 	
-	$('a.menuDropButton').click(function(){
-		wasVisible = false;
+    $('a.menuDropButton').click(function(){
+        wasVisible = false;
 		
-		if ($(this).next('div.subMenu').is(":visible")){
-			wasVisible = true;
-		}
+        if ($(this).next('div.subMenu').is(":visible")){
+            wasVisible = true;
+        }
 		
-		$('.subMenu:visible').each(function(){		
-			$(this).css("display","none")
-		});
+        $('.subMenu:visible').each(function(){
+            $(this).css("display","none")
+        });
 		
-		if (wasVisible == false) {
-			$(this).next('div.subMenu').css("display", "block");
-			$(this).next('div.subMenu').corner("bottom");
-		}
-	});
+        if (wasVisible == false) {
+            $(this).next('div.subMenu').css("display", "block");
+            $(this).next('div.subMenu').corner("bottom");
+        }
+    });
 	
-	$('input.rating').each(function(){
-		$this.rating(function(){
-			new Ajax.Request($(this.attributes))
-		});
-	});
+    $('input.rating').each(function(){
+        $this.rating(function(){
+            new Ajax.Request($(this.attributes))
+        });
+    });
 
 });
+
+function classify_bar(div,url) {
+    $.ajax({
+        type: 'GET',
+        url: url,
+        success: function(html){
+            $(div).html(html);
+        }
+    });
+}
 
 //display the good tiem in a item list, google way of displaying.
 function toggleAccordion(idClicked){

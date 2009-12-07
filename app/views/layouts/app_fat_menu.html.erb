@@ -4,7 +4,7 @@
     <link rel="shortcut icon" href="<%= @configuration['sa_favicon_url'] %>"/>
     <meta http-equiv="X-UA-Compatible" content="IE=7" />
     <%= stylesheet_link_tag "blank"  %>
-	  <%= stylesheet_link_tag "blank_JQ"  %>
+    <%= stylesheet_link_tag "blank_JQ"  %>
     <%= stylesheet_link_tag "starbox" %>
     <!--[if IE]>
       <link rel="stylesheet" type="text/css" href="/stylesheets/ie.css" />
@@ -19,20 +19,25 @@
         <%= params[:controller].capitalize %>
       <% end %>
     </title>
-  <script type="text/javascript" src="/javascripts/ajax_validation.js"></script>  
-  <script type="text/javascript" src="/javascripts/jquery.js"></script>
-	<script type="text/javascript" src="/javascripts/jquery.corner.js"></script>
-	<script type="text/javascript" src="/javascripts/jquery-fx.js"></script>
-	<script type="text/javascript" src="/javascripts/jrails.js"></script>
-	<script type="text/javascript" src="/javascripts/blank.js"></script>
+    <script type="text/javascript" src="/javascripts/ajax_validation.js"></script>
+    <script type="text/javascript" src="/javascripts/jquery.js"></script>
+    <script type="text/javascript" src="/javascripts/jquery.corner.js"></script>
+    <script type="text/javascript" src="/javascripts/jquery-fx.js"></script>
+    <script type="text/javascript" src="/javascripts/jrails.js"></script>
+    <script type="text/javascript" src="/javascripts/blank.js"></script>
 
     <% if params[:action] != 'new' and params[:action] != 'edit' %>
-    <script>
-      Ajax.Responders.register({
-        onCreate: function(){ $('ajax_spinner').style.display = 'block' },
-        onComplete: function(){ $('ajax_spinner').style.display = 'none' }
+      <script type="text/javascript">
+        $(function(){
+          $("#ajax_spinner").hide();
+          $("#ajax_spinner").ajaxStart(function(){
+            $(this).show();
+          });
+          $("#ajax_spinner").ajaxStop(function(){
+            $(this).hide();
+          });
         });
-    </script>
+      </script>
     <% end %>
 
   </head>
@@ -53,7 +58,9 @@
         <%= render :partial => "layouts/footer"%>
       </div>
     </div>
-    <div id="ajax_spinner"><img src="/images/ajax-spinner.gif"></div>
+    <div id="ajax_spinner">
+      <img src="/images/ajax-spinner.gif" alt="loading" />
+    </div>
   </body>
 </html>
 

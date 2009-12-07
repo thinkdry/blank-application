@@ -1,25 +1,27 @@
 <div id="classify_bar">
-	<% if !params[:item_type].nil? && (current_workspace ? @current_user.has_workspace_permission(current_workspace.id, params[:item_type].singularize, 'new') : @current_user.has_system_permission(params[:item_type].singularize, 'new')) %>
-    	<%= image_tag "/images/icons/add.png", :width => "30"%>
-        <%= link_to I18n.t('layout.application.add_content'), new_item_path(params[:item_type].downcase.singularize)%>
-	<% end %>
-    <% if @paginated_objects.first && ordering_fields_list %>
-      <img src="/images/icons/filter.png" width="20"/>
-      <% ordering_fields_list.each do |filter| %>
-        <%= I18n.t('layout.search.filter_'+filter) %>
-        <% params[:by] ||= 'created_at-desc' %>
-        <% if (params[:by].split('-').first == filter && params[:by].split('-').last == 'asc') -%>
-          <%= image_tag('/images/icons/asc_selected.png', :width => '10') %>
-        <% else -%>
-          <%= link_to_function image_tag('/images/icons/asc.png', :width => '10'),
-               "new Ajax.Updater('#{refreshed_div}', '#{safe_url(ajax_url, ["by=#{filter}-asc"])}', {method:'get', asynchronous:true, evalScripts:true})" %>
-        <% end -%>
-        <% if (params[:by].split('-').first == filter && params[:by].split('-').last == 'desc') -%>
-          <%= image_tag('/images/icons/desc_selected.png', :width => '10')%>
-        <% else -%>
-          <%= link_to_function image_tag('/images/icons/desc.png', :width => '10'),
-                "new Ajax.Updater('#{refreshed_div}', '#{safe_url(ajax_url, ["by=#{filter}-desc"])}', {method:'get', asynchronous:true, evalScripts:true})" %>
-        <% end -%>
-      <% end %>
+  <% if !params[:item_type].nil? && (current_workspace ? @current_user.has_workspace_permission(current_workspace.id, params[:item_type].singularize, 'new') : @current_user.has_system_permission(params[:item_type].singularize, 'new')) %>
+    <%= image_tag "/images/icons/add.png", :width => "30"%>
+    <%= link_to I18n.t('layout.application.add_content'), new_item_path(params[:item_type].downcase.singularize)%>
+  <% end %>
+  <% if @paginated_objects.first && ordering_fields_list %>
+    <img src="/images/icons/filter.png" width="20" alt="filter"/>
+    <% ordering_fields_list.each do |filter| %>
+      <%= I18n.t('layout.search.filter_'+filter) %>
+      <% params[:by] ||= 'created_at-desc' %>
+      <% if (params[:by].split('-').first == filter && params[:by].split('-').last == 'asc') -%>
+        <%= image_tag('/images/icons/asc_selected.png', :width => '10') %>
+      <% else -%>
+        <%  url = safe_url(ajax_url, ["by=#{filter}-asc"]) %>
+        <%= link_to_function image_tag('/images/icons/asc.png', :width => '10'),
+          :onclick => "classify_bar('##{refreshed_div}','#{url}')" %>
+      <% end -%>
+      <% if (params[:by].split('-').first == filter && params[:by].split('-').last == 'desc') -%>
+        <%= image_tag('/images/icons/desc_selected.png', :width => '10')%>
+      <% else -%>
+        <% url = safe_url(ajax_url, ["by=#{filter}-desc"]) %>
+        <%= link_to_function image_tag('/images/icons/desc.png', :width => '10'),
+          :onclick => "classify_bar('##{refreshed_div}','#{url}')" %>
+      <% end -%>
     <% end %>
+  <% end %>
 </div>
