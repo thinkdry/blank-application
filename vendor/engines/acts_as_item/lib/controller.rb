@@ -70,6 +70,10 @@ module ActsAsItem
 					# Inclusion of the block if a block is found
           self.instance_eval &block if block_given?
 
+          before :new, :edit do
+            @keywords = Keyword.all.collect{|k| k.name}.to_json
+          end
+          
 					# Filter setting the Flash message linked to that action
           after :create do
             flash[:notice] = @current_object.class.label+' '+I18n.t('item.new.flash_notice')

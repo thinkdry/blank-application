@@ -1,15 +1,10 @@
 <% f.field :keywords, :label => I18n.t('item.field.keyword_label').pluralize + " :" do %>
   <div id="add_keyword">
-    <%= text_field :keyword, :value, :hint => I18n.t('item.field.keyword_hint') %>
-    <div id="autocomplete_choices" class="autocomplete"></div>
-    <script type="text/javascript">
-      new Ajax.Autocompleter("keyword_value", "autocomplete_choices","/admin/home/autocomplete_on?model_name=keyword",{
-        method: 'post', paramName: 'name'
-      });
-    </script>
+    <%= @keywords %>
+    <%= text_field :keyword, :value, :hint => I18n.t('item.field.keyword_hint'), :onclick => "autocomplete_on(#{@keywords})"%>
     <%= button_to_function(I18n.t('item.field.add_keyword'),
-      "insert_field($('keyword_value').value, '#{object.class.to_s.underscore}', 'keywords_list', 'keywords_field');
-    $('keyword_value').value=''",
+      "insert_keyword($('#keyword_value').val(), '#{object.class.to_s.underscore}', '#keywords_list', 'keywords_field');
+    $('#keyword_value').val()=''",
       :class => 'smallSubmit leftAlign') %>
   </div>
   <div id="keywords_list">
