@@ -84,8 +84,8 @@ function toggleAccordion(idClicked){
 }
 
 function add_new_user(url){
-//    alert('hello');
-//    alert(url);
+    //    alert('hello');
+    //    alert(url);
     var user_login = $('#user_login').val();
     var role_id = $('#user_role').val();
     //alert($("#workspace_user_" + user_login)[0]);
@@ -102,53 +102,105 @@ function add_new_user(url){
         }else{
             alert("Existing");
         }
-      $('#user_login').val('');
+        $('#user_login').val('');
     }
 
+}
+
+function show_people(workspace_id){
+    var start_with = $('#start_with').val();
+    var group_id = $('#group_id').val();
+    var url = "/admin/workspaces/"+workspace_id+"/groups/filtering_contacts/";
+    $.ajax({
+        type: 'GET',
+        url: url,
+        data: "start_with="+start_with+"&group_id="+group_id,
+        dataType: "script"
+    });
+}
+
+function selectAll(chkObj,id){
+    var multi=document.getElementById(id);
+    if(chkObj)
+        for(i=0;i<multi.options.length;i++)
+            multi.options[i].selected=true;
+    else
+        for(i=0;i<multi.options.length;i++)
+            multi.options[i].selected=false;
 }
 
 function selectItemTab(idSelected){
 		
-// get the tabs links on witch we should change the class
-var tabsElements = document.getElementById('tabs').getElementsByTagName('li');
+    // get the tabs links on witch we should change the class
+    var tabsElements = document.getElementById('tabs').getElementsByTagName('li');
 		
-for (var i = 0 ; i < tabsElements.length ; ++i){
-    if (tabsElements[i].id == idSelected){
-        tabsElements[i].className = 'selected';
+    for (var i = 0 ; i < tabsElements.length ; ++i){
+        if (tabsElements[i].id == idSelected){
+            tabsElements[i].className = 'selected';
+        }
+        else{
+            tabsElements[i].className = '';
+        }
     }
-    else{
-        tabsElements[i].className = '';
-    }
-}
 }
 
-function insert_field(name, model_name, place_id, field_name) {
-alert(name);
-var key_words = name.split(',')
-for(var i=0; i < key_words.length; i++){
-    var name = key_words[i].replace(/(^\s+|\s+$)/g, "")
-    if(name != 0 && name.length == (name.replace(/<(\S+).*>(|.*)<\/(\S+).*>|<%(.*)%>|<%=(.*)%>+/g, "")).length){
-        var dadiv = "<div id='"+name+"_000' class='keyword_label'></div>"
-        $(dadiv).innerHTML = name+"<a onclick='$('#dadiv').remove(this.parentNode);'> <img width='15' src='/images/icons/delete.png' alt='Delete'/></a>"+
-            "<input type='hidden' id='"+model_name+"_"+field_name+"' value='"+name+"' name='"+model_name+"["+field_name+"][]'>"
-        $(place_id).html(dadiv)
+function insert_keyword(model_name, place, field_name){
+    var name = $('#keyword_value').val();
+    var key_words = name.split(',')
+    for(var i=0; i < key_words.length; i++){
+        var name = key_words[i].replace(/(^\s+|\s+$)/g, "");
+        if(name != 0 && name.length == (name.replace(/<(\S+).*>(|.*)<\/(\S+).*>|<%(.*)%>|<%=(.*)%>+/g, "")).length){
+            var hidden_field = "<input type='hidden' id='"+model_name+"_"+field_name+"' value='"+name+"' name='"+model_name+"["+field_name+"][]'>";
+            $(place).append("<div id='"+name+"_000' class='keyword_label'>"+hidden_field+name+"<a href='#' onclick='$(\"#" + name + "_000\").remove(); return false;'> <img width='15' src='/images/icons/delete.png' alt='Delete'/></a></div>")
+        }
+     $('#keyword_value').val('');
     }
 }
-}
 
-function insert_keyword(name, model_name, place, field_name){
-var key_words = name.split(',')
-for(var i=0; i < key_words.length; i++){
-    var name = key_words[i].replace(/(^\s+|\s+$)/g, "");
-    if(name != 0 && name.length == (name.replace(/<(\S+).*>(|.*)<\/(\S+).*>|<%(.*)%>|<%=(.*)%>+/g, "")).length){
-        var hidden_field = "<input type='hidden' id='"+model_name+"_"+field_name+"' value='"+name+"' name='"+model_name+"["+field_name+"][]'>";
-        var new_div = document.createElement('div');
-        new_div.id = name+"_000";
-        var remove_keyword = "<a onclick='$('#new_div').remove(this.parentNode);'> <img width='15' src='/images/icons/delete.png' alt='Delete'/></a>";
-        var str = name + remove_keyword + hidden_field;
+// to move option value from one select box to another select box
 
+function shiftRight(removeOptions,addOptions,saveFlag)
+{
+    var availableOptions = document.getElementById(removeOptions);
+    var assignedOptions = document.getElementById(addOptions);
+    var selcted_Options = new Array();
+    for(i=availableOptions.options.length-1;i>=0;i--)
+    {
+        if(availableOptions.options[i].selected){
+            var optn = document.createElement("OPTION");
+            optn.text = availableOptions.options[i].text;
+            optn.value = availableOptions.options[i].value;
+            assignedOptions.options.add(optn);
+            availableOptions.remove(i);
+        }else{
+            selcted_Options.push(availableOptions.options[i].value);
+        }
     }
-    $(place).append(str);
+
+    document.getElementById('selected_Options').value = selcted_Options
 }
+function shiftLeft(removeOptions,addOptions,saveFlag)
+{
+    var availableOptions = document.getElementById(removeOptions);
+    var assignedOptions = document.getElementById(addOptions);
+    var selcted_Options = new Array();
+    for (i=0;i<assignedOptions.options.length; i++){
+        selcted_Options.push(assignedOptions.options[i].value);
+    }
+    for (i=0; i<availableOptions.options.length; i++){
+        if (selcted_Options.indexOf(availableOptions.options[i].value) <0 && availableOptions.options[i].selected) {
+            selcted_Options.push(availableOptions.options[i].value);
+            var optn = document.createElement("OPTION");
+            optn.text = availableOptions.options[i].text;
+            optn.value = availableOptions.options[i].value;
+            assignedOptions.options.add(optn);
+        }
+    }
+    for(i=availableOptions.options.length-1;i>=0;i--)
+    {
+        if(availableOptions.options[i].selected)
+            availableOptions.remove(i);
+    }
+    document.getElementById('selected_Options').value = selcted_Options;
 }
 
