@@ -39,31 +39,7 @@ module Admin::BlankListsHelper
 				options[:class] = 'selected' if (item_type == item_page)
 				options[:id] = item_model.underscore
 
-        tip_option = {}
-        tip_option[:id] = "tip_" + item_model.underscore
-        tip_option[:style] = "display:none;"
-        tip_option[:class] = "tipTitle"
-
-        li_content += link_to_remote(image_tag(item_model.classify.constantize.icon_48),:method=>:get, :update => "object-list", :url => url, :before => "selectItemTab('" + item_model.underscore + "')")
-        li_content += content_tag(:div, item_model.classify.constantize.label , tip_option)
-        li_content += "<script type='text/javascript'>
-                      //<![CDATA[
-                        new Tip('" + item_model.underscore + "',  $('tip_" + item_model.underscore + "'),
-                            { effect: 'appear',
-                              duration: 1,
-                              delay:0,
-                              hook: { target: 'topMiddle', tip: 'bottomMiddle' },
-                              hideOn: { element: 'tip', event: 'mouseout' },
-                              stem: 'bottomMiddle',
-                              hideOthers: 'true',
-                              hideAfter: 1,
-                              width: 'auto',
-                              border: 1,
-                              offset: { x: 0, y: 3 },
-                              radius: 0
-                            });
-                      //]]>
-                    </script>"
+        li_content += link_to_remote(item_model.classify.constantize,:method=>:get, :update => "object-list", :url => url, :before => "selectItemTab('" + item_model.underscore + "')")
 				content += content_tag(:li,	li_content,	options)
 			end
 			return content_tag(:ul, content, :id => :tabs) + render(:partial => options2[:list_partial], :layout => false)

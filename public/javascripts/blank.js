@@ -151,3 +151,4 @@ for(var i=0; i < key_words.length; i++){
     $(place).append(str);
 }
 }
+
