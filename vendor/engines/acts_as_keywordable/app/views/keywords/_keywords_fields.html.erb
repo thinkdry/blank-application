@@ -1,7 +1,6 @@
 <% f.field :keywords, :label => I18n.t('item.field.keyword_label').pluralize + " :" do %>
   <div id="add_keyword">
-    <%= @keywords %>
-    <%= text_field :keyword, :value, :hint => I18n.t('item.field.keyword_hint'), :onclick => "autocomplete_on(#{@keywords})"%>
+    <%= text_field :keyword, :value, :hint => I18n.t('item.field.keyword_hint'), :onclick => "autocomplete_on(#{@keywords},'#keyword_value')"%>
     <%= button_to_function(I18n.t('item.field.add_keyword'),
       "insert_keyword($('#keyword_value').val(), '#{object.class.to_s.underscore}', '#keywords_list', 'keywords_field');
     $('#keyword_value').val()=''",

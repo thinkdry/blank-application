@@ -39,42 +39,21 @@
       <%# form_for :user,  :builder => BlankFormBuilder do |f| %>
       <label><%= I18n.t('workspace.add_user.name')+' :' %> </label>
       <div class="formElement">
-        <input id="user_login" type="text" size="30" name="user[login]" ajax="false" autocomplete="off"/>
+         <%= text_field :user, :login, :onclick => "autocomplete_on(#{@users},'#user_login')" %>
       </div>
-      <%#= f.text_field :login, :ajax => false, :label =>  %>
-      <div id="autocomplete_choices" class="autocomplete"></div>
-      <script type="text/javascript">
-        new Ajax.Autocompleter("user_login", "autocomplete_choices","/admin/users/autocomplete_on",{
-          method: 'post', paramName: 'login'
-        });
-      </script>
       <label>Role :</label>
       <div class="formElement">
         <select id="user_role" name="user[role]">
           <% for role in @roles %>
-            <option value="<%= role.id %>"><%= I18n.t('general.role.'+role.name) %></option>
+            <option value="<%= role.id %>"><%= I18n.t('general.role.' + role.name) %></option>
           <% end %>
         </select>
         <div id="errors_for_User_role"> </div>
       </div>
       <%#= f.select :role, @roles.collect { |r| [I18n.t('general.role.'+r.name), r.id]}, :label => 'Role :' %>
-      <div class="smallSubmitContainer"><%= button_to_function I18n.t('general.button.add'), %{
-        if($('user_login').value != 0){
-        if($('workspace_user_'+$('user_login').value.split(' (')[0]) == null){
-        new Ajax.Request("#{add_new_user_admin_workspace_path(params[:id])}", {
-        parameters: {
-        user_login: $('user_login').value,
-        user_role: $('user_role').value
-        },
-        method: 'get',
-        asynchronous:true,
-        evalScripts:true,
-        onSuccess:function(request){ $('user_login').value = '';}
-        })
-        }else{ alert('#{I18n.t("workspace.add_user.user_exist_alert")}');}}}, :class => "smallSubmit"%>
-
+      <div class="smallSubmitContainer">
+        <%= button_to_function I18n.t('general.button.add'), :onclick => "add_new_user('#{add_new_user_admin_workspace_path(params[:id])}');", :class => "smallSubmit" %>
       </div>
-      <%# end %>
     <% else %>
       <div id="users">
         <label></label>
@@ -91,7 +70,6 @@
   <% else %>
     <div class="CommonMessageFull"><%=I18n.t 'workspace.new.add_user_text'%></div>
   <% end %>
-
   <% text_button = (current_object.new_record? ?  I18n.t('general.button.create_a_new_workspace') : I18n.t('general.button.save') )%>
   <button type="submit" class="submit_button"><%= text_button %></button>
 <% end -%>

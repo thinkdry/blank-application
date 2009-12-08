@@ -40,6 +40,8 @@ class Admin::WorkspacesController < Admin::ApplicationController
 
 		before :edit do
 			@roles = Role.of_type('workspace')
+			@users = []
+			@users = User.all.collect!{|u| {:login => u.login, :name => "#{u.full_name_without_salutation}", :email => u.email} }.to_json
 		end
 
     before :create do
@@ -129,8 +131,8 @@ class Admin::WorkspacesController < Admin::ApplicationController
   # POST /workspaces/add_new_user
   def add_new_user
 		@current_object ||= Workspace.find(params[:id])
-    @user = User.find(:first, :conditions => { :login => params[:user_login].split(' (').first })
-    @uw = UsersWorkspace.new(:role_id => params[:user_role].to_i, :user_id => @user.id)
+    @user = User.find_by_login(params[:user_login])
+    @uw = UsersWorkspace.new(:role_id => params[:role_id].to_i, :user_id => @user.id)
     render :update do |page|
       if @user
         page.insert_html :bottom, 'users', :partial => 'user',  :object => @uw

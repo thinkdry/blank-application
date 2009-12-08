@@ -169,6 +169,10 @@ class User < ActiveRecord::Base
 	def full_name
 		return self.salutation.to_s + " " + self.lastname.to_s + " " + self.firstname.to_s
   end
+  
+  def full_name_without_salutation
+    return self.lastname.to_s.capitalize + " " + self.firstname.to_s.capitalize
+  end
 
   # Create Private worksapce for User on creation called 'Private space of user_login'
 	def create_private_workspace

@@ -1,16 +1,16 @@
 
-  <% new_or_existing = user.new_record? ? 'new' : 'existing' %>
-  <% prefix = "workspace[#{new_or_existing}_user_attributes][]" %>
-  <% fields_for prefix, user do |user_form| -%>
-    <div id="workspace_user_<%= object.user.login %>">
-    <%#= error_message_on user, :user, "L'utilisateur ", '<br />' %>
+<% new_or_existing = user.new_record? ? 'new' : 'existing' %>
+<% prefix = "workspace[#{new_or_existing}_user_attributes][]" %>
+<% fields_for prefix, user do |user_form| -%>
+  <div id="workspace_user_<%= object.user.login %>">
+  <%#= error_message_on user, :user, "L'utilisateur ", '<br />' %>
     <%= label_tag :role_id, object.user.login + ' :'  %>
     <div class="formElement">
-    	<%= user_form.select :role_id, 
-							 Role.find(:all, 
-								       :conditions => { :type_role => 'workspace'}).collect { |r| [I18n.t('general.role.'+r.name), r.id] } %>
-		<%= user_form.hidden_field :user_id, :value => object.user.id %>
-		&nbsp;&nbsp;<%= link_to_function I18n.t('general.button.delete'), "$('workspace_user_#{ object.user.login }').remove()" %>
-	</div>
+      <%= user_form.select :role_id,
+        Role.find(:all,
+        :conditions => { :type_role => 'workspace'}).collect { |r| [I18n.t('general.role.'+r.name), r.id] } %>
+      <%= user_form.hidden_field :user_id, :value => object.user.id %>
+      &nbsp;&nbsp;<%= link_to_function I18n.t('general.button.delete'), "$('#workspace_user_#{object.user.login}').remove()" %>
     </div>
-  <% end %>
+  </div>
+<% end %>
