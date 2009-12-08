@@ -12,10 +12,10 @@
         <p>
           <% for ws in @workspaces %>
             <% if i=(get_allowed_item_types(ws) & @selected_item_types).first %>
-              <%= link_to ws.title , '/content_for_popup/'+params[:selected_item]+'?workspace_id='+ws.id.to_s+'&item_type='+i %> |
+              <%= link_to ws.title , '/admin/content_for_popup/'+params[:selected_item]+'?workspace_id='+ws.id.to_s+'&item_type='+i %> |
             <% end %>
           <% end %>
-          <%= link_to 'All','/content_for_popup/'+params[:selected_item]+'?item_type='+(get_allowed_item_types(nil) & @selected_item_types).first.pluralize %>
+          <%= link_to 'All','/admin/content_for_popup/'+params[:selected_item]+'?item_type='+(get_allowed_item_types(nil) & @selected_item_types).first.pluralize %>
           <%= ' | '+link_to("FCKE #{I18n.t('general.item.'+params[:selected_item].singularize).pluralize}", "/content_for_popup/"+params[:selected_item]+"?item_type=fcke_#{params[:selected_item]}") if params[:selected_item] == 'images' || params[:selected_item] == 'videos' %>
         </p>
       <% end %>
@@ -23,7 +23,7 @@
         <label><%= I18n.t 'layout.popup.filter_by_item_type' %>:</label>
         <p>
           <% for item in @item_types %>
-            <%= link_to item ,'/content_for_popup/'+params[:selected_item]+'?'+"#{!params[:workspace_id].nil? ? 'workspace_id='+params[:workspace_id].to_s+"&" : ''}"+'item_type='+item %> |
+            <%= link_to item ,'/admin/content_for_popup/'+params[:selected_item]+'?'+"#{!params[:workspace_id].nil? ? 'workspace_id='+params[:workspace_id].to_s+"&" : ''}"+'item_type='+item %> |
           <% end %>
         </p>
       <% else %>

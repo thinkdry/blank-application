@@ -12,7 +12,7 @@ module KeywordsHelper
 	end
 
 	def keywords_links_list_for(object)
-		return ((l=object.keywords_list).size > 0) ? l.split(',').map{ |e| link_to(e, searches_path('q' => e,'cat'=>'item'))}.join(', ') : I18n.t('general.common_word.none')
+    return ((l=object.keywords_list).size > 0) ? l.split(',').map{ |e| link_to(e, admin_searches_path('q' => e,'cat'=>'item'))}.join(', ') : I18n.t('general.common_word.none')
 	end
 
 end

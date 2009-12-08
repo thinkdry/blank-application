@@ -1,10 +1,10 @@
 <%= display_objects_list(
     #:collection => @paginated_objects,
     :in_list_partial => 'generic_for_items/item_in_list',
-    :ajax_url => params[:controller] == 'admin/searches' ? request.path : current_workspace ? "admin/workspaces/#{current_workspace.id}/ajax_content/" + params[:item_type] : "admin/ajax_content/#{params[:item_type]}",
+    :ajax_url => params[:controller] == 'admin/searches' ? request.path : current_workspace ? "/admin/workspaces/#{current_workspace.id}/ajax_content/" + params[:item_type] : "/admin/ajax_content/#{params[:item_type]}",
     #:ajax_url => request.path+'?'+request.url.split('?').last,
     :ordering_fields => ['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title'],
 	:output_formats => ['xml', 'json', 'atom'],
-    :output_formats_url => params[:controller] == 'admin/searches' ? request.path + '?' + request.url.split('?').last : current_workspace ? "admin/workspaces/#{current_workspace.id}/content/" + params[:item_type] : "admin/content/#{params[:item_type]}",
+    :output_formats_url => params[:controller] == 'admin/searches' ? request.path + '?' + request.url.split('?').last : current_workspace ? "/admin/workspaces/#{current_workspace.id}/content/" + params[:item_type] : "/admin/content/#{params[:item_type]}",
     :no_div => @no_div
 ) %>
