@@ -315,7 +315,7 @@ a.filter{
 	font-size: 80%;
 }
 
-#ddown{
+.ddown{
 	background:#FFFFFF none repeat scroll 0 0;
 	border:1px solid #CCCCCC;
 	border-width:1px 2px 2px 1px;
@@ -326,12 +326,17 @@ a.filter{
 	z-index:0;
 	margin-left:0 !important;
 }
-#ddown li{
+.ddown li{
 	list-style:none;
 	list-style-image:none;
 	margin-left:10px;
 	padding-left:10px;
 }
 
-#ddown li.currentUp{list-style-image:url('/images/ddownUpArrow.gif');}
-#ddown li.currentDown{list-style-image:url('/images/ddownDownArrow.gif');}
+.filterDrop{
+	float:left;
+	padding-right:20px;
+}
+
+.ddown li.currentUp{list-style-image:url('/images/ddownUpArrow.gif');}
+.ddown li.currentDown{list-style-image:url('/images/ddownDownArrow.gif');}

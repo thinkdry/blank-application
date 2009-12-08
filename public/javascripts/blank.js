@@ -1,5 +1,6 @@
 $(document).ready(function () {	
-    wasVisible = new Boolean(false);
+	
+	wasVisible = new Boolean(false);
 	
     $('a.menuDropButton').click(function(){
         wasVisible = false;
@@ -24,7 +25,20 @@ $(document).ready(function () {
         });
     });
 
-    
+
+	$('.munuElement').hover(
+		function () {
+		 	$(this).stop().animate({ paddingRight: "25px" }, 200);
+		},
+		function () {
+			$(this).stop().animate({ paddingRight: "15px" });
+		}
+	);
+	
+	$('.filter').click(function(){
+		$(this).next('ul.ddown').slideToggle('fast');
+	});
+
 });
 
 function autocomplete_on(array, div){

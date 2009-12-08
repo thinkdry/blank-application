@@ -39,7 +39,7 @@ module Admin::BlankListsHelper
 				options[:class] = 'selected' if (item_type == item_page)
 				options[:id] = item_model.underscore
 
-        li_content += link_to_remote(item_model.classify.constantize,:method=>:get, :update => "object-list", :url => url, :before => "selectItemTab('" + item_model.underscore + "')")
+        li_content += link_to_remote(item_model.classify.constantize, :html => { :class => 'munuElement'}, :method=>:get, :update => "object-list", :url => url, :before => "selectItemTab('" + item_model.underscore + "')")
 				content += content_tag(:li,	li_content,	options)
 			end
 			return content_tag(:ul, content, :id => :tabs) + render(:partial => options2[:list_partial], :layout => false)

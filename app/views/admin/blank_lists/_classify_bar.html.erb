@@ -1,29 +1,40 @@
 <div id="classify_bar">
-  <% if !params[:item_type].nil? && (current_workspace ? @current_user.has_workspace_permission(current_workspace.id, params[:item_type].singularize, 'new') : @current_user.has_system_permission(params[:item_type].singularize, 'new')) %>
-		<a href="<%= new_item_path(params[:item_type].downcase.singularize)%>"><%= I18n.t('layout.application.add_content')%><span><img src='/images/ddownDownArrow.gif'></span></a>
-  <% end %>
-
+	<div class="filterDrop">
+		<a class="filter"><%= I18n.t('layout.application.add_content')%><span><img src='/images/ddownDownArrow.gif'></span></a>
+		<ul class="ddown" style='display:none;'>
+		<% ITEMS.each do |item|	-%>
+			<li>
+				<a href="<%= new_item_path(item.downcase.singularize)%>">
+					<%= item.capitalize%>
+				</a>
+			</li>
+		<% end -%>
+		</ul>
+	</div>
 
   	<% if @paginated_objects.first && ordering_fields_list -%>
-		<a class="filter" onclick="javascript:dropdown();">Filter<span><img src='/images/ddownDownArrow.gif'></span></a>
-		<ul id="ddown" style="display:none;">
+	<div class="filterDrop">
+		<a class="filter">Filter<span><img src='/images/ddownDownArrow.gif'></span></a>
+		<ul class="ddown" style='display:none;'>
 			<% params[:by] ||= 'created_at-desc' %>
 			<% ordering_fields_list.each do |filter| -%>
 				<% if params[:by].split('-').first == filter -%>
 					<% if (params[:by].split('-').last == 'asc') -%>
-						<li class="currentUp"><%= link_to_function I18n.t('layout.search.filter_'+filter),
-			               "new Ajax.Updater('#{refreshed_div}', '#{safe_url(ajax_url, ["by=#{filter}-desc"])}', {method:'get', asynchronous:true, evalScripts:true})" %>
+						<% url = safe_url(ajax_url, ["by=#{filter}-desc"]) %>
+						<li class="currentUp"><%= link_to_function I18n.t('layout.search.filter_'+filter), :onclick => "classify_bar('##{refreshed_div}','#{url}')"
+			                %>
 					<%else -%>
-						<li class="currentDown"><%= link_to_function I18n.t('layout.search.filter_'+filter),
-		               "new Ajax.Updater('#{refreshed_div}', '#{safe_url(ajax_url, ["by=#{filter}-asc"])}', {method:'get', asynchronous:true, evalScripts:true})" %>					
+						<%  url = safe_url(ajax_url, ["by=#{filter}-asc"]) %>
+						<li class="currentDown"><%= link_to_function I18n.t('layout.search.filter_'+filter), :onclick => "classify_bar('##{refreshed_div}','#{url}')" %>					
 					<% end -%>
 
 				<% else -%>
-					<li><%= link_to_function I18n.t('layout.search.filter_'+filter),
-		               "new Ajax.Updater('#{refreshed_div}', '#{safe_url(ajax_url, ["by=#{filter}-desc"])}', {method:'get', asynchronous:true, evalScripts:true})" %>
+					<% url = safe_url(ajax_url, ["by=#{filter}-desc"]) %>
+					<li><%= link_to_function I18n.t('layout.search.filter_'+filter), :onclick => "classify_bar('##{refreshed_div}','#{url}')" %>
 				<%end -%>
 				</li>
 			<% end -%>
 		</ul>
+	</div>
 	<% end -%>
 </div>
