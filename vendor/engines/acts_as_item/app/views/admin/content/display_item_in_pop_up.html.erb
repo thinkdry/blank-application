@@ -16,7 +16,7 @@
             <% end %>
           <% end %>
           <%= link_to 'All','/admin/content_for_popup/'+params[:selected_item]+'?item_type='+(get_allowed_item_types(nil) & @selected_item_types).first.pluralize %>
-          <%= ' | '+link_to("FCKE #{I18n.t('general.item.'+params[:selected_item].singularize).pluralize}", "/content_for_popup/"+params[:selected_item]+"?item_type=fcke_#{params[:selected_item]}") if params[:selected_item] == 'images' || params[:selected_item] == 'videos' %>
+          <%= ' | '+link_to("FCKE #{I18n.t('general.item.'+params[:selected_item].singularize).pluralize}", "/admin/content_for_popup/"+params[:selected_item]+"?item_type=fcke_#{params[:selected_item]}") if params[:selected_item] == 'images' || params[:selected_item] == 'videos' %>
         </p>
       <% end %>
       <% if params[:selected_item] == 'all' %>
