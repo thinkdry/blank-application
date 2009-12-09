@@ -18,16 +18,17 @@ module GenericForItemHelper
     rating = item.rating.to_i
     str = ""
     if rated || disabled
+      str = "<form id='submit_rating' method='post'>"
       (1..5).each do |i|
         str += "<input type='radio' class='star' name='rated' value='#{i}' disabled='disabled' #{(i == rating) ? "checked='checked'" : ''}/>"
       end
     else
+      str = "<form id='submit_rating' action='#{rate_item_path(@current_object)}' method='post'>"
       (1..5).each do |i|
-        str = "<form id='submit_rating' action='#{rate_item_path(@current_object)}' method='post'>"
         str += "<input type='radio' class='auto-submit-star' name='rated' value='#{i}' #{(i == rating) ? "checked='checked'" : ''} />"
-        str += "</form>"
       end
     end
+    str += "</form>"
     str
   end
 
@@ -43,22 +44,22 @@ module GenericForItemHelper
   def item_rate_locked(item)
     item_rate(item, true)
   end
-#
-#  def item_rate(object, params=nil)
-#    params ||= {
-#      :rerate => false,
-#  		:onRate => "function(element, info) {
-#  			new Ajax.Request('#{rate_item_path(object)}', {
-#  				parameters: info
-#  			})}"
-#    }
-#    params_to_js_hash = '{' + params.collect { |k, v| "#{k}: #{v}" }.join(', ') + '}'
-#    div_id = "rating_#{object.class.to_s.underscore}_#{object.id}_#{rand(1000)}"
-#    content_tag(:div, nil, { :id => div_id, :class => :rating }) +
-#      javascript_tag(%{
-#			new Starbox("#{div_id}", #{object.rates_average}, #{params_to_js_hash});
-#      })
-#  end
+  #
+  #  def item_rate(object, params=nil)
+  #    params ||= {
+  #      :rerate => false,
+  #  		:onRate => "function(element, info) {
+  #  			new Ajax.Request('#{rate_item_path(object)}', {
+  #  				parameters: info
+  #  			})}"
+  #    }
+  #    params_to_js_hash = '{' + params.collect { |k, v| "#{k}: #{v}" }.join(', ') + '}'
+  #    div_id = "rating_#{object.class.to_s.underscore}_#{object.id}_#{rand(1000)}"
+  #    content_tag(:div, nil, { :id => div_id, :class => :rating }) +
+  #      javascript_tag(%{
+  #			new Starbox("#{div_id}", #{object.rates_average}, #{params_to_js_hash});
+  #      })
+  #  end
 
   
 
