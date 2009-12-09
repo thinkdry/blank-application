@@ -1,15 +1,18 @@
-<div class="listHeader"><h3>Liste d'item</h3></div>
-
-<%= display_classify_bar(ordering_fields, ajax_url, 'object-list') %>
-
+<div class="listHeader">
+	<h3><%= @paginated_objects.count%> items</h3>
+	<%= display_classify_bar(ordering_fields, ajax_url, 'objectList') %>
+</div>
 <div class="contentList">
+	<div class="elementPerPages">
+		Element per pages : <a href="">10</a> | <a href="">25</a> | <a href="">50</a>
+	</div>
 	<% if @paginated_objects.first %>
 	  <script type="text/javascript" src="/videoplayer/swfobject.js"></script>
 
 	  <input type="hidden" id="total_items" value="<%= @paginated_objects.length %>">
 	  <%= display_item_in_list(@paginated_objects, in_list_partial) %>
 
-	  <%= remote_pagination(@paginated_objects, ajax_url,  'object-list') %>
+	  <%= remote_pagination(@paginated_objects, ajax_url,  'objectList') %>
 
 	<% else %>
 

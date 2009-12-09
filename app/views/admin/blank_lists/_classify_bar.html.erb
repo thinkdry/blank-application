@@ -1,6 +1,6 @@
 <div id="classify_bar">
 	<div class="filterDrop">
-		<a class="filter"><%= I18n.t('layout.application.add_content')%><span><img src='/images/ddownDownArrow.gif'></span></a>
+		<a class="filter"><%= I18n.t('layout.application.add_content')%></a>
 		<ul class="ddown" style='display:none;'>
 		<% ITEMS.each do |item|	-%>
 			<li>
@@ -14,7 +14,7 @@
 
   	<% if @paginated_objects.first && ordering_fields_list -%>
 	<div class="filterDrop">
-		<a class="filter">Filter<span><img src='/images/ddownDownArrow.gif'></span></a>
+		<a class="filter">Filter</a>
 		<ul class="ddown" style='display:none;'>
 			<% params[:by] ||= 'created_at-desc' %>
 			<% ordering_fields_list.each do |filter| -%>

@@ -1,11 +1,13 @@
 <div id="ajax_info" style="color:green"></div>
-<div id="comments_list">
-    <% if object.comments.length > 0 %>
-        <h2><%= image_tag 'icons/comments.png'%><%=I18n.t('general.object.comment').pluralize.camelize %></h2>
-        <div class="comment_bloc">
-            <%= render :partial => "comments/comment_in_list", :collection => object.comments %>
-        </div>
-    <% end %>
+<div id="commentsList">
+	<% if object.comments.length > 0 %>
+	<div class="commentsHeader">
+		<%= object.comments.length %> <%=I18n.t('general.object.comment').pluralize.camelize %>
+	</div>
+	<div class="commentsBody">
+		<%= render :partial => "comments/comment_in_list", :collection => object.comments %>
+	</div>
+	<% end-%>
 </div>
 
 <% if permission || @current_object.has_permission_for?('comment', @current_user) %>

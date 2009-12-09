@@ -269,24 +269,26 @@ ul#tabs li.selected{
 }	
 	
 /*		ITEM_LIST	*/
-
-#object-list{
+#objectList{
   	float:left;
 	width:774px;
 }
 
 .listHeader{
 	background:#FBFBFB url('/images/topList.gif') no-repeat;
-	padding:0 10px 10px;
+	padding:0 20px 10px;	
 	height:32px;
 	overflow:hidden;
 }
 
+.listHeader h3{
+	float:left;
+}
+
 #classify_bar{
 	height:25px;
-	padding:12px 20px 5px;
-	border-left:1px solid #ccc;
-	border-right:1px solid #ccc;
+	padding:15px 0 5px;
+	float:right;
 }
 #classify_bar a{
 	font-size:100%;
@@ -301,16 +303,77 @@ ul#tabs li.selected{
 	height:100%;
 	clear:both;
 }
-
 .contentList{
 	border:1px solid #ccc;
 	border-top:none;
-	padding:25px 20px;
+	padding:0 20px 25px 20px;
+	clear:both;
+	min-height:100%;
 }
-
+.elementPerPages{
+	font-size:80%;
+	padding-bottom:25px;
+}
+.itemInList{
+	overflow:hidden;
+	clear:both;
+	margin-bottom:5px;
+	border-top:1px solid #D5D5D5;
+	padding-top:2px;
+}
+.itemInListDate{
+	text-transform:uppercase;
+	font-size:90%;
+	color:#999;
+	float:left;
+	width:65px;
+	padding-top:3px;
+}
+.itemInListBody{
+	float:left;
+	margin-left:20px;
+	width:623px;
+	overflow:hidden;
+}
+.itemInListTitle{
+	font-size:120%;
+	color:#F79646;
+	width:623px;
+	margin-bottom:5px;
+}
+.itemInListActions{
+	float:left;
+	font-size:80%;
+}
+.itemInListActions a{
+	padding:0 2px;
+}
+.itemInListActions a:hover, .blockBody a:hover{
+	background-color:#F79646;
+	color:#fff;
+	text-decoration:none;
+}
+.itemInListTags{
+	float:right;
+	font-size:80%;
+}
+.itemInListMore{
+	float:right;
+	width:10px;
+	margin-left:10px;
+	background-color:#F79646;
+	padding:2px;
+	margin-top:-3px;
+}
+.itemInListMore a{
+	color:#fff;
+}
+.itemInListMore a:hover;{
+	text-decoration:none;
+}
 /*		CLASSIFY BAR	*/
 a.filter{
-	background:transparent url(/images/ddownArrow.gif) no-repeat scroll 40px 7px;
+	background:transparent url(/images/ddownDownArrow.gif) no-repeat scroll right 5px;
 	padding:0 16px 0 2px;
 	font-size: 80%;
 }
@@ -322,8 +385,6 @@ a.filter{
 	padding:10px;
 	padding-left:20px;
 	position:absolute;
-	width:210px;
-	z-index:0;
 	margin-left:0 !important;
 }
 .ddown li{
@@ -335,8 +396,79 @@ a.filter{
 
 .filterDrop{
 	float:left;
-	padding-right:20px;
+	padding-left:20px;
 }
 
 .ddown li.currentUp{list-style-image:url('/images/ddownUpArrow.gif');}
 .ddown li.currentDown{list-style-image:url('/images/ddownDownArrow.gif');}
+
+/*		ITEM SHOW	*/
+		
+.itemShowLeft{
+	float:left;
+	margin-right:50px;
+	width:700px;
+}
+.itemShowRight{
+	float:right;
+	width:200px;
+}
+.itemShowRightBlock{
+	margin-bottom:25px;
+	overflow:hidden;
+}
+.blockHeader{
+	background:#fff url('/images/headerBlock.gif') no-repeat;
+	width:180px;
+	height:18px;
+	padding:10px 10px 5px 10px;
+	color:#666;
+}
+.blockBody{
+	width:178px;
+	background:#fff;
+	border:1px solid #ccc;
+	padding:10px;
+	font-size:80%;
+	overflow:hidden;
+}
+.blockBody a{
+	display:block;
+	margin:2px 0;
+}
+.itemShowLeftDate{
+	float:left;
+	width:100px;
+	border-bottom:1px solid #ccc;
+	margin-top:12px;
+	padding-bottom:3px;
+}
+.itemShowLeftBody{
+	float:left;
+	width:600px;
+}
+.itemDescription{
+	font-size:80%;
+	margin:10px 0;
+}
+
+
+/*		COMMENTS		*/
+#commentsList{
+	margin-top:50px;
+	overflow:hidden;
+}
+.commentsBody{
+	border:1px solid #ccc;
+	padding:25px 10px 0;
+}
+.commentsHeader{
+	background:#fff url('/images/commentHeader.gif') no-repeat;
+	font-size:120%;
+	padding:6px 10px;
+	color:#666;
+}
+#new_comment_form_box textarea{
+	width:100%;
+	font-size:90%;
+}

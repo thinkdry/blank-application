@@ -19,11 +19,17 @@ $(document).ready(function () {
         }
     });
 	
-    $('input.rating').each(function(){
-        $this.rating(function(){
-            new Ajax.Request($(this.attributes))
-        });
-    });
+
+	$('#pretty').tooltip({ 
+	    track: true, 
+	    delay: 0, 
+	    showURL: false, 
+	    showBody: " - ", 
+	    extraClass: "pretty", 
+	    fixPNG: true, 
+	    opacity: 0.95, 
+	    left: -120 
+	});
 
 
 	$('.munuElement').hover(

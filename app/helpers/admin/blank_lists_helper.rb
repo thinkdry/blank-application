@@ -39,7 +39,7 @@ module Admin::BlankListsHelper
 				options[:class] = 'selected' if (item_type == item_page)
 				options[:id] = item_model.underscore
 
-        li_content += link_to_remote(item_model.classify.constantize, :html => { :class => 'munuElement'}, :method=>:get, :update => "object-list", :url => url, :before => "selectItemTab('" + item_model.underscore + "')")
+        li_content += link_to_remote(item_model.classify.constantize, :html => { :class => 'munuElement'}, :method=>:get, :update => "objectList", :url => url, :before => "selectItemTab('" + item_model.underscore + "')")
 				content += content_tag(:li,	li_content,	options)
 			end
 			return content_tag(:ul, content, :id => :tabs) + render(:partial => options2[:list_partial], :layout => false)
@@ -77,7 +77,7 @@ module Admin::BlankListsHelper
 		if options[:no_div]
 			return content
 		else
-			return content_tag(:div, content, :id => "object-list")
+			return content_tag(:div, content, :id => "objectList")
 		end
 	end
 
@@ -103,7 +103,7 @@ module Admin::BlankListsHelper
   # - partial_used: String deifning the partial used for the classify bar
   #
   # Usage :
-  # display_classify_bar(['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title'], ajax_url, 'object-list')</tt>
+  # display_classify_bar(['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title'], ajax_url, '  ')</tt>
 	def display_classify_bar(ordering_fields_list, ajax_url, refreshed_div, partial_used='admin/blank_lists/classify_bar')
 		render :partial => partial_used, :locals => {
       :ordering_fields_list => ordering_fields_list,

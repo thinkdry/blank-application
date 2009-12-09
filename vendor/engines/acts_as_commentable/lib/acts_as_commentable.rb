@@ -23,7 +23,7 @@ module ActsAsCommentable
           current_object.update_attributes(:comments_number => current_object.comments_number.to_i + 1)
           render :update do |page|
 						if comment.state == 'validated'
-							page.insert_html :bottom, 'comments_list', :partial => "comments/comment_in_list", :object => comment
+							page.insert_html :bottom, 'commentsList', :partial => "comments/comment_in_list", :object => comment
 							page.replace_html "ajax_info", :text => I18n.t('comment.add_comment.ajax_message_comment_published')
 						else
 							page.replace_html "ajax_info", :text => I18n.t('comment.add_comment.ajax_message_comment_submited')

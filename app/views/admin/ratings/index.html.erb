@@ -1,6 +1,6 @@
 <h1><%= image_tag 'icons/rate.png'%> <%= I18n.t('rating.index.title') %></h1>
 <%#= ['all', 'posted', 'validated', 'rejected'].map{ |s| link_to(I18n.t('comment.state.'+s), comments_url(:on_state => s))}.join(' | ') %>
-<div id="object-list" class="rating_list">
+<div id="objectList" class="rating_list">
   <div id="classify_bar">
     <img width="20" src="/images/icons/filter.png"/>
     <%= link_to I18n.t('general.common_word.all').capitalize, '/admin/ratings/?item_type=All' %> |

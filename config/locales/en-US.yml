@@ -315,9 +315,9 @@ en-US:
   time: 
     am: am
     formats: 
-      verb: "%B %d %Y"
+      verb: "%d %b %y"
       default: "%a %b %d %H:%M:%S %Z %Y"
-      short1: "%d %B %Y"
+      short1: "%d/%b/%Y"
       time: "%H:%M"
       short: time"%d %b %H:%M"
       only_second: "%S"
