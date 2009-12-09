@@ -1,18 +1,14 @@
 <div class="commentbox">
-  <%= object.text %>
+  	<div class="commentText"><%= object.text %></div>
+	<div class="commentNumber"><%= comment_in_list_counter + 1 %></div>
 </div>
 <div class="commentfooter">
-  	<%= link_to_user User.find(object.user_id) %>&nbsp; <%=I18n.t('general.common_word.on1')%> <%= I18n.l object.created_at, :format => :verb %>&nbsp;-
-	<b><%= link_to_function 'Reply', :onclick => "add_reply('#{object.id}')" %></b>
+  	<%= link_to_user User.find(object.user_id) %> - <%= I18n.l object.created_at, :format => :verb %> -
+	<%= link_to_function 'Reply', :onclick => "add_reply('#{object.id}')", :class => "commentfooterReply" %>
 </div>
 <% if object.replies.size > 0 %>
-<div id="reply_for_comment_<%= object.id %>">
-  
-    <div class="clear"></div>
-    <h3>Replies :</h3>
+<div id="reply_for_comment_<%= object.id %>" class="commentReply">
     <%= render :partial => 'comments/reply', :collection => object.replies %>
-  
-</div><br /><br /><br />
-<div class="clear" ></div>
+</div>
 <% end %>
 

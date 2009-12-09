@@ -179,7 +179,7 @@ function insert_keyword(model_name, place, field_name){
         var name = key_words[i].replace(/(^\s+|\s+$)/g, "");
         if(name != 0 && name.length == (name.replace(/<(\S+).*>(|.*)<\/(\S+).*>|<%(.*)%>|<%=(.*)%>+/g, "")).length){
             var hidden_field = "<input type='hidden' id='"+model_name+"_"+field_name+"' value='"+name+"' name='"+model_name+"["+field_name+"][]'>";
-            $(place).append("<div id='"+name+"_000' class='keyword_label'>"+hidden_field+name+"<a href='#' onclick='$(\"#" + name + "_000\").remove(); return false;'> <img width='15' src='/images/icons/delete.png' alt='Delete'/></a></div>")
+            $(place).append("<div id='"+name+"_000' class='keyword_label'>"+hidden_field+name+"<a href='#' onclick='$(\"#" + name + "_000\").remove(); return false;'>X</a></div>")
         }
         $('#keyword_value').val('');
     }

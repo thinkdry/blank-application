@@ -132,7 +132,7 @@ module GenericForItemHelper
     css_files << '/stylesheets/fckeditor.css' if css_files.empty?
     return '<script type="text/javascript" src="/fckeditor/fckeditor.js"></script>' +
       javascript_tag(%{
-        var oFCKeditor = new FCKeditor('#{object.class.to_s.underscore}_#{attribute}', "#{ width }", "#{ height }", "#{toolset}") ;
+        var oFCKeditor = new FCKeditor('#{object.class.to_s.underscore}_#{attribute}', "600px", "#{ height }", "#{toolset}") ;
         oFCKeditor.Config['EditorAreaCSS'] = "#{css_files}" ;
         oFCKeditor.BasePath = "/fckeditor/" ;
         oFCKeditor.Config['GoogleMaps_Key'] = '';
@@ -161,7 +161,6 @@ module GenericForItemHelper
 		list = (res + Workspace.allowed_user_with_permission(@current_user, item_class_name+"_new")).uniq.delete_if{ |w| !w.ws_items.to_s.split(',').include?(item_class_name) }
 		#
 		if (list.size > 1 || @current_user.has_system_role('superadmin'))
-			strg += "<label>#{I18n.t('general.object.workspace').camelize+'(s) :'}</label><div class='formElement'>"
 			#form.field(:workspaces, :label => I18n.t('general.object.workspace').camelize+'(s) :', :ajax => false)
 			list.collect do |w|
 				# Setting the checked status form that workspace
@@ -172,12 +171,12 @@ module GenericForItemHelper
 				end
 				# Creating the checkboxes
 				if ((w.state == 'private') && (w.creator_id == @current_user.id) && (item.new_record?)) || (list.size==1) || (w == current_workspace)
-					strg += check_box_tag(check_box_tag_name, w.id, true, :disabled => false, :class => 'checkboxes') + ' ' + w.title + '<br />'#hidden_field_tag(check_box_tag_name, w.id.to_s) + '<br />'
+					strg += check_box_tag(check_box_tag_name, w.id, true, :disabled => false, :class => 'checkboxes') + ' ' + w.title + '<br />'
 				else
 					strg += check_box_tag(check_box_tag_name, w.id, checked, :class => 'checkboxes') + ' ' + w.title + '<br />'
 				end
 			end
-			strg += '</div>'+ajax_error_message_on(item, 'items_workspaces')
+			strg += ajax_error_message_on(item, 'items_workspaces')
 		elsif (list.size > 0)
 			list.each do |ws|
 				strg += hidden_field_tag(check_box_tag_name, ws.id.to_s)

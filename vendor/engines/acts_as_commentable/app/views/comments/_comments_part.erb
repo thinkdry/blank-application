@@ -1,50 +1,25 @@
 <div id="ajax_info" style="color:green"></div>
 <div id="commentsList">
-	<% if object.comments.length > 0 %>
+	
 	<div class="commentsHeader">
 		<%= object.comments.length %> <%=I18n.t('general.object.comment').pluralize.camelize %>
 	</div>
 	<div class="commentsBody">
-		<%= render :partial => "comments/comment_in_list", :collection => object.comments %>
-	</div>
-	<% end-%>
+		<% if object.comments.length > 0 %>
+			<%= render :partial => "comments/comment_in_list", :collection => object.comments %>
+		<% end-%>
+		
+		<div id="newCommentForm">
+			<div class="newCommentTitle">New Comment</div> 
+	        <% remote_form_for :comments, :url => add_comment_item_path(@current_object),  :html => {:class => "newComment"} do |f|  %>
+	            <textarea id="comment_box" class="comment_box" rows="8" name="comment[text]"></textarea>
+	            <% if !current_user %>
+	                <div id="captcha" style="width:30%">
+	                    <%= render :partial => "/comments/captcha" %>
+	                </div>
+	            <% end %>
+	            <button type="submit" class="submit_button"><%=I18n.t('comment.add_comment.button_publish')%></button>
+	        <% end %>
+	    </div>
+	</div>  
 </div>
-
-<% if permission || @current_object.has_permission_for?('comment', @current_user) %>
-    <div id="reply_overlay" style="filter:alpha(opacity=80);" onclick="$('#reply_overlay').css('display','none');$('#reply').css('display','none');"></div>
-    <div id ="reply">
-        <fieldset id="new_reply_form_box" style="margin-top:10px"><legend></legend>
-            <div id="reply_content">
-                <%=link_to_function image_tag('/images/x_grey.png'), :onclick => "$('#reply_overlay').css('display','none');$('#reply').css('display','none')", :style => "float:right;padding-top:10px;" %>
-                <p><%= I18n.t('general.common_word.your').camelize+ ' Reply'%> : </p>
-                <% remote_form_for :comment, :url => add_reply_admin_comment_path(@current_object), :class => 'new_comment' do |f|  %>
-                    <textarea id="reply_box" class="comment_box" rows="4" name="comment[text]" cols="60"></textarea>
-                    <% if !current_user %>
-                        <div id="captcha" style="width:30%">
-                            <%= render :partial => "/comments/captcha" %>
-                        </div>
-                    <% end %>
-                    <input type="hidden" id ="comment_parent_id" name="comment[parent_id]">
-                    <button type="submit" class="submit_button">Reply</button>
-                <% end %>
-            </div>
-
-        </fieldset>
-    </div>
-<% end %>
-<% if permission || @current_object.has_permission_for?('comment', @current_user) %>
-    <fieldset id="new_comment_form_box">
-        <legend></legend>
-        <p><%= I18n.t('general.common_word.your').camelize+' '+I18n.t('general.object.comment')%> :</p>
-        <% remote_form_for :comments, :url => add_comment_item_path(@current_object), :class => 'new_comment' do |f|  %>
-            <textarea id="comment_box" class="comment_box" rows="8" name="comment[text]" cols="90"></textarea>
-            <% if !current_user %>
-                <div id="captcha" style="width:30%">
-                    <%= render :partial => "/comments/captcha" %>
-                </div>
-            <% end %>
-            <button type="submit" class="submit_button"><%=I18n.t('comment.add_comment.button_publish')%></button>
-
-        <% end %>
-    </fieldset>
-<% end %>

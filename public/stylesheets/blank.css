@@ -190,12 +190,6 @@ a.add_item{
 	margin-right: 0.5em;
 }
 
-.formError {
-	display: inline;
-	color: red;
-	margin-left: 10px;
-}
-
 div.autocomplete {
   position:absolute;
   width:250px;
@@ -1034,10 +1028,6 @@ fieldset textarea{
 	font-family:"Lucida Grande", "Bitstream Vera Sans", Helvetica, Verdana, Arial, sans-serif;
 }
 
-.formElement{
-	width:730px;
-}
-
 .spacer{clear:both; height:1px;}
 
 fieldset{
@@ -1075,32 +1065,6 @@ fieldset{
   float: left;
   margin-top: 13px;
   margin-left: 10px;
-}
-
-.submit_button {
-	background:transparent url(/images/button.png) no-repeat scroll 0 20px;
-	border:medium none;
-	clear:both;
-	color:#FFFFFF;
-	display:block;
-	font-weight:bold;
-	height:auto;
-	margin:0 auto;
-	overflow:visible;
-	padding:30px;
-	width:250px;
-	font-size:90%;
-}
-
-.smallSubmit, .fieldsetSimulation #small_submit{
-	background:transparent url('/images/smallButton.png') no-repeat;
-	border:none;
-	color:#fff;
-	text-align:center;
-	width:200px;
-	height:32px;
-	font-size:80%;
-	margin-top:15px;
 }
 
 .smallSubmitContainer{
@@ -1231,20 +1195,6 @@ form br{
     z-index:4;
 }
 
-.commentbox{
- 	background-color: #ececec;
- 	padding: 10px;
-}
-
-.commentfooter{
- 	background: url(/images/arrow.gif) 20px -5px no-repeat; /*20px 0 equals horizontal and vertical position of arrow. Adjust as desired (ie: 20px -5px).*/
- 	padding-left: 58px;
- 	padding-top: 1px;
- 	margin-bottom: 2em;
- 	font-size: 90%;
- 	color: #4A4A4A;
-}
-
 label .low{
 	margin-top: 11px;
 }
@@ -1270,14 +1220,7 @@ label .low{
 .comment_list, .rating_list {
     border-top:1px solid #CCCCCC;
 }
-#ajax_spinner {
-    display:none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    margin-top: -50px;
-    text-align:center;
-}
+
 .global_error{
     color:red;
     font-size:15px;
