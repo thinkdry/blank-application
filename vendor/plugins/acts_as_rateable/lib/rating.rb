@@ -12,4 +12,9 @@ class Rating < ActiveRecord::Base
       :order => "created_at DESC"
     )
   end
+
+  def self.already_rated?(user,item)
+    self.exists?(:rateable_type => item.class.to_s, :rateable_id => item.id, :user_id => user.id)
+  end
+
 end

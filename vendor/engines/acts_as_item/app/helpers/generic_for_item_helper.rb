@@ -1,5 +1,6 @@
 module GenericForItemHelper
 
+
   # Rating an item
 	#
 	# This helper method will return the Javascript elements allowing to rate an item.
@@ -12,20 +13,21 @@ module GenericForItemHelper
 	#
 	# Usage :
   # <tt>item_rate(@current_object)</tt>
-  def item_rate(object, params=nil)
-    params ||= {
-      :rerate => false,
-  		:onRate => "function(element, info) {
-  			new Ajax.Request('#{rate_item_path(object)}', {
-  				parameters: info
-  			})}"
-    }
-    params_to_js_hash = '{' + params.collect { |k, v| "#{k}: #{v}" }.join(', ') + '}'
-    div_id = "rating_#{object.class.to_s.underscore}_#{object.id}_#{rand(1000)}"
-    content_tag(:div, nil, { :id => div_id, :class => :rating }) +
-      javascript_tag(%{
-			new Starbox("#{div_id}", #{object.rates_average}, #{params_to_js_hash});
-      })
+  def item_rate(item, disabled=nil)
+    rated  = Rating.already_rated?(current_user, item)
+    rating = item.rating.to_i
+    str = ""
+    str = "<form id='submit_rating' action='#{rate_item_path(@current_object)}' method='post'>"
+    if rated || disabled
+      (1..5).each do |i|
+        str += "<input type='radio' class='star' name='rated' value='#{i}' disabled='disabled' #{(i == rating) ? "checked='checked'" : ''}/>"
+      end
+    else
+      (1..5).each do |i|
+        str += "<input type='radio' class='auto-submit-star' name='rated' value='#{i}' #{(i == rating) ? "checked='checked'" : ''} />"
+      end
+    end
+    str += "</form>"
   end
 
   # Rating Item Locked
@@ -37,9 +39,27 @@ module GenericForItemHelper
 	#
   # Usage :
   # <tt>item_rate_locked(article_object)</tt>
-  def item_rate_locked(object)
-    item_rate(object, :locked => true)
+  def item_rate_locked(item)
+    item_rate(item, true)
   end
+#
+#  def item_rate(object, params=nil)
+#    params ||= {
+#      :rerate => false,
+#  		:onRate => "function(element, info) {
+#  			new Ajax.Request('#{rate_item_path(object)}', {
+#  				parameters: info
+#  			})}"
+#    }
+#    params_to_js_hash = '{' + params.collect { |k, v| "#{k}: #{v}" }.join(', ') + '}'
+#    div_id = "rating_#{object.class.to_s.underscore}_#{object.id}_#{rand(1000)}"
+#    content_tag(:div, nil, { :id => div_id, :class => :rating }) +
+#      javascript_tag(%{
+#			new Starbox("#{div_id}", #{object.rates_average}, #{params_to_js_hash});
+#      })
+#  end
+
+  
 
 	# Override of ActsAsItem helper method
 	#

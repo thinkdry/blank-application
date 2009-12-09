@@ -41,7 +41,7 @@ module ActsAsItem
 						'add_comment' => 'comment',
 						'destroy' => 'destroy',
 						'validate' => 'edit'
-						},
+          },
 					:skip_logging_actions => [:redirect_to_content])
 				# Declaration of the ActAsCommentable plugin
 				acts_as_commentable
@@ -56,9 +56,9 @@ module ActsAsItem
 				end
 
 				# Filter checking the permission depending of the action and the controller given with request params
-#				before_filter :permission_checking, :only => [:new, :create, :edit, :update, :show, :destroy]
+        #				before_filter :permission_checking, :only => [:new, :create, :edit, :update, :show, :destroy]
 				# Filter skipped in case of the 'redirect_to_content action'
-#				skip_before_filter :is_logged?, :only => [:redirect_to_content]
+        #				skip_before_filter :is_logged?, :only => [:redirect_to_content]
 
 				# MakeResourceful definitions
         make_resourceful do
@@ -115,8 +115,8 @@ module ActsAsItem
 					#
 					before :index do
 						# Just to manage the permission of creation (trick avoiding one more loop)
-#						params[:item_type] = @current_objects.first.class.to_s.underscore
-#						@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
+            #						params[:item_type] = @current_objects.first.class.to_s.underscore
+            #						@paginated_objects = @current_objects.paginate(:per_page => get_per_page_value, :page => params[:page])
 						@paginated_objects = params[:controller].split('/')[1].classify.constantize.get_da_objects_list(setting_searching_params(:from_params => params))
 					end
 					# Response redirecting to the show page after the create action,
@@ -201,14 +201,15 @@ module ActsAsItem
       #
       # will create new rating for the item and save it
       def rate
-        if rating = Rating.find(:first, :conditions =>{:user_id => current_user.id, :rateable_id => current_object.id, :rateable_type => current_object.class.to_s})
-          rating.update_attributes(:rating =>params[:rated].to_i)
+        if Rating.find(:first, :conditions =>{:user_id => current_user.id, :rateable_id => current_object.id, :rateable_type => current_object.class.to_s})
+          message = "Already Rated"
         else
           current_object.add_rating(Rating.new(:rating => params[:rated].to_i,:user_id => current_user.id))
+          current_object.update_attributes(:rates_average => Rating.average(:rating, :conditions =>{:rateable_id => current_object.id, :rateable_type => current_object.class.to_s}).to_i)
+          message = "Rated Successfully"
         end
-        current_object.update_attributes(:rates_average => Rating.average(:rating, :conditions =>{:rateable_id => current_object.id, :rateable_type => current_object.class.to_s}).to_i)
 				# TODO : refresh the rate box ...
-        render :nothing => true
+        render :text => message
       end
 
     end

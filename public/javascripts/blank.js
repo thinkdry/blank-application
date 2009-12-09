@@ -1,6 +1,6 @@
 $(document).ready(function () {	
 	
-	wasVisible = new Boolean(false);
+    wasVisible = new Boolean(false);
 	
     $('a.menuDropButton').click(function(){
         wasVisible = false;
@@ -20,30 +20,38 @@ $(document).ready(function () {
     });
 	
 
-	$('#pretty').tooltip({ 
-	    track: true, 
-	    delay: 0, 
-	    showURL: false, 
-	    showBody: " - ", 
-	    extraClass: "pretty", 
-	    fixPNG: true, 
-	    opacity: 0.95, 
-	    left: -120 
-	});
-
-
-	$('.munuElement').hover(
-		function () {
-		 	$(this).stop().animate({ paddingRight: "25px" }, 200);
-		},
-		function () {
-			$(this).stop().animate({ paddingRight: "15px" });
-		}
-	);
+    $('.munuElement').hover(
+        function () {
+            $(this).stop().animate({
+                paddingRight: "25px"
+            }, 200);
+        },
+        function () {
+            $(this).stop().animate({
+                paddingRight: "15px"
+            });
+        }
+        );
 	
-	$('.filter').click(function(){
-		$(this).next('ul.ddown').slideToggle('fast');
-	});
+    $('.filter').click(function(){
+        $(this).next('ul.ddown').slideToggle('fast');
+    });
+    
+    $('.auto-submit-star').rating({
+        callback: function(value, link){
+            var url = $("#submit_rating").attr("action");
+            $.ajax({
+                type: "POST",
+                url :url,
+                data: "rated="+value,
+                success: function(){
+                    $('input').rating('readOnly',true)
+                    alert("Your Rate Has Been Saved");
+                }
+
+            });
+        }
+    });
 
 });
 
@@ -173,17 +181,17 @@ function insert_keyword(model_name, place, field_name){
             var hidden_field = "<input type='hidden' id='"+model_name+"_"+field_name+"' value='"+name+"' name='"+model_name+"["+field_name+"][]'>";
             $(place).append("<div id='"+name+"_000' class='keyword_label'>"+hidden_field+name+"<a href='#' onclick='$(\"#" + name + "_000\").remove(); return false;'> <img width='15' src='/images/icons/delete.png' alt='Delete'/></a></div>")
         }
-     $('#keyword_value').val('');
+        $('#keyword_value').val('');
     }
 }
 
 function add_reply(parent){
     if($('#reply')){
-      $('#reply_overlay').css('display', 'block');
-      $('#reply').css('display','block');
-      $('#comment_parent_id').val(parent);
+        $('#reply_overlay').css('display', 'block');
+        $('#reply').css('display','block');
+        $('#comment_parent_id').val(parent);
     }
-  }
+}
 
 
 // to move option value from one select box to another select box
