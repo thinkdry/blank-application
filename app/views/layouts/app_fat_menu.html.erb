@@ -53,8 +53,9 @@
             </div>
             <div id="container">
 
-                <%= content_tag(:div, flash[:notice], :class => 'notice') if flash[:notice] %>
-                <%= content_tag(:div, flash[:error], :class => 'error') if flash[:error] %>
+                <%= content_tag(:div, flash[:notice], :class => 'notice', :id => 'notice', :style => "#{'display:none' unless flash[:notice]}") %>
+                <%= content_tag(:div, flash[:error], :class => 'error', :id => 'error', :style => "#{'display:none' unless flash[:error]}") %>
+                <%= content_tag(:div, flash[:warning], :class => 'warning', :id => 'warning', :style => "#{'display:none' unless flash[:warning]}") %>
                 <%= yield %>
 
             </div>

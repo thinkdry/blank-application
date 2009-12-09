@@ -24,9 +24,11 @@ module ActsAsCommentable
           render :update do |page|
 						if comment.state == 'validated'
 							page.insert_html :bottom, 'commentsList', :partial => "comments/comment_in_list", :object => comment
-							page.replace_html "ajax_info", :text => I18n.t('comment.add_comment.ajax_message_comment_published')
+              page.show 'notice'
+							page.replace_html "notice", :text => I18n.t('comment.add_comment.ajax_message_comment_published')
 						else
-							page.replace_html "ajax_info", :text => I18n.t('comment.add_comment.ajax_message_comment_submited')
+              page.show 'notice'
+							page.replace_html "notice", :text => I18n.t('comment.add_comment.ajax_message_comment_submited')
 						end
           end
         else
@@ -34,12 +36,14 @@ module ActsAsCommentable
             current_object.comments.create(params[:comment])
             current_object.update_attributes(:comments_number => current_object.comments_number.to_i + 1)
             render :update do |page|
-              page.replace_html "ajax_info", :text => I18n.t('comment.add_comment.ajax_message_comment_submited')
+              page.show 'notice'
+              page.replace_html "notice", :text => I18n.t('comment.add_comment.ajax_message_comment_submited')
               page.replace_html "comment_captcha",  :partial => "items/captcha"
             end
           else
             render :update do |page|
-              page.replace_html "ajax_info", :text => I18n.t('general.common_word.ajax_message_captcha_invalid')
+              page.show 'error'
+              page.replace_html "error", :text => I18n.t('general.common_word.ajax_message_captcha_invalid')
               page.replace_html "comment_captcha",  :partial => "items/captcha"
             end
           end

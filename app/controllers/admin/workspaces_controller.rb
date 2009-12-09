@@ -50,7 +50,7 @@ class Admin::WorkspacesController < Admin::ApplicationController
     end
 		after :create do
 			UsersWorkspace.create(:user_id => @current_user.id, :workspace_id => @current_object.id, :role_id => Role.find_by_name('ws_admin').id)
-			flash[:notice] =I18n.t('workspace.new.flash_notice')
+			flash[:warning] =I18n.t('workspace.new.flash_notice')
 		end
     after :create_fails do
 			@roles = Role.of_type('workspace')

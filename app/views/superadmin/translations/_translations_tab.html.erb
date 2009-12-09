@@ -1,43 +1,43 @@
 <fieldset>
-  <legend><%= @language %></legend>
+    <legend><%= @language %></legend>
 
-  <label>Select a Section: </label>
-  <div class="formElement">
-    <%= select_tag "element", options_for_select(%w(select) + translation_sections, "select"),
-      :onchange=>"var nodes='#{translation_sections.to_json}'.evalJSON(); nodes.each(function(node) {$(node).hide();}); if (this.value=='select') return; else $(this.value).show();"
-  %>
-  </div>
-  <br/>
-  <br/>
-  <br/>
+    <label>Select a Section: </label>
+    <div class="formElement">
+        <% json_sections  = translation_sections.to_json%>
+        <%= select_tag "element", options_for_select(%w(select) + translation_sections, "select"),
+          :onchange=> "translation_selection(#{json_sections})"
+    %>
+    </div>
+    <br/>
+    <br/>
+    <br/>
+    <% form_for @res, :url => updating_superadmin_translations_path do |f| %>
+        <input id="language" name="language" type="hidden" value=<%= @language.to_s %>>
+        <% @translation_sections.each do |section| %>
+            <div id="<%= section %>" style="display:none" class="languageLogicalPart">
+                <% if @res[section] %>
+                    <% @res[section].each do |subsection| %>
+                        <% if (subsection.size < 3) %>
+                            <h4><%= subsection.first.capitalize %></h4>
+                            <div class="listOfTranslations">
+                                <% if subsection.second %>
+                                    <% subsection.second.each do |key, value| %>
+                                        <label><%= key %></label>
+                                        <div class="formElement"><%= text_field "#{section}[#{subsection.first}]", key, :value => value %></div>
+                                    <% end %>
+                                <% else %>
+                                    there is no field for this site part
+                                <% end %>
+                            <% else %>
+                                There is no sub-section for this part.
+                            <% end %>
+                        </div>
+                    <% end %>
+                <% end %>
+            </div>
+        <% end %>
 
-<% form_for @res, :url => updating_superadmin_translations_path do |f| %>
-   <input id="language" name="language" type="hidden" value=<%= @language.to_s %>>
-   <% @translation_sections.each do |section| %>
-     <div id="<%= section %>" style="display:none" class="languageLogicalPart">
-         <% if @res[section] %>
-	         <% @res[section].each do |subsection| %>
-	             <% if (subsection.size < 3) %>
-	             <h4><%= subsection.first.capitalize %></h4>
-				 <div class="listOfTranslations">
-	             <% if subsection.second %>
-	             	<% subsection.second.each do |key, value| %>
-	                	<label><%= key %></label>
-						<div class="formElement"><%= text_field "#{section}[#{subsection.first}]", key, :value => value %></div>
-	    	        <% end %>
-	            <% else %>
-					there is no field for this site part
-	            <% end %>
-	            <% else %>
-					There is no sub-section for this part.
-	            <% end %>
-				</div>
-	         <% end %>
-         <% end %>
-     </div>
-   <% end %>
-	
-	<button type="submit" class="submit_button"><%= I18n.t('general.button.update')%></button>
-<% end %>
+        <button type="submit" class="submit_button"><%= I18n.t('general.button.update')%></button>
+    <% end %>
 
 </fieldset>

@@ -131,11 +131,11 @@ class CommentsController < Admin::ApplicationController
       render :update do |page|
         if @current_object.state == 'validated'
           page.insert_html :bottom, "reply_for_comment_#{@current_object.parent_id}", :partial => "comments/reply", :object => @current_object
-          page.replace_html "ajax_info", :text => I18n.t('comment.add_comment.ajax_message_comment_published')
+          page.replace_html "notice", :text => I18n.t('comment.add_comment.ajax_message_comment_published')
           page.hide 'reply'
           page.hide 'reply_overlay'
         else
-          page.replace_html "ajax_info", :text => I18n.t('comment.add_comment.ajax_message_comment_submited')
+          page.replace_html "error", :text => I18n.t('comment.add_comment.ajax_message_comment_submited')
           page.hide 'reply'
           page.hide 'reply_overlay'
         end
@@ -146,12 +146,12 @@ class CommentsController < Admin::ApplicationController
         current_object.comments_number = current_object.comments_number.to_i + 1
         current_object.save
         render :update do |page|
-          page.replace_html "ajax_info", :text => I18n.t('comment.add_comment.ajax_message_comment_submited')
+          page.replace_html "notice", :text => I18n.t('comment.add_comment.ajax_message_comment_submited')
           page.replace_html "comment_captcha",  :partial => "items/captcha"
         end
       else
         render :update do |page|
-          page.replace_html "ajax_info", :text => I18n.t('general.common_word.ajax_message_captcha_invalid')
+          page.replace_html "error", :text => I18n.t('general.common_word.ajax_message_captcha_invalid')
           page.replace_html "comment_captcha",  :partial => "items/captcha"
         end
       end

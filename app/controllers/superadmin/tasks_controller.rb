@@ -30,7 +30,8 @@ class Superadmin::TasksController < Admin::ApplicationController
 			message = "Server restarted successfully"
 		end
 		render :update do |page|
-			page.call 'alert', message.nil? ? "#{params[:job]} Updated Sucessfully " : message
+      page.show 'notice'
+			page.replace_html 'notice', message.nil? ? "#{params[:job].capitalize} Updated Sucessfully " : message
 		end
   end
 
