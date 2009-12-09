@@ -12,11 +12,11 @@ class CommentsController < Admin::ApplicationController
   # - GET /comments
   # - GET /comments.xml
   def index
-#		if params[:on_state] && (params[:on_state] != 'all')
-#			@current_objects = Comment.find(:all, :order => 'created_at DESC', :conditions => { :state => params[:on_state], :parent_id => nil }).paginate(:per_page => get_per_page_value, :page => params[:page])
-#		else
-#			@current_objects = Comment.find(:all, :conditions => {:parent_id => nil}, :order => 'created_at DESC').paginate(:per_page => get_per_page_value, :page => params[:page])
-#		end
+    #		if params[:on_state] && (params[:on_state] != 'all')
+    #			@current_objects = Comment.find(:all, :order => 'created_at DESC', :conditions => { :state => params[:on_state], :parent_id => nil }).paginate(:per_page => get_per_page_value, :page => params[:page])
+    #		else
+    #			@current_objects = Comment.find(:all, :conditions => {:parent_id => nil}, :order => 'created_at DESC').paginate(:per_page => get_per_page_value, :page => params[:page])
+    #		end
     conditions = (!params[:on_state].nil? && params[:on_state] != 'all') ? "AND state ='#{params[:on_state]}'" : ''
     if @current_user.has_system_role('superadmin')
       @paginated_objects = Comment.find(:all, :conditions => ["parent_id <=> NULL #{conditions}"], :order => 'created_at DESC').paginate(:per_page => get_per_page_value, :page => params[:page])
@@ -25,7 +25,7 @@ class CommentsController < Admin::ApplicationController
     end
     respond_to do |format|
 			format.html
-#			format.xml { render :xml => @current_objects }
+      #			format.xml { render :xml => @current_objects }
     end
   end
 
@@ -132,8 +132,12 @@ class CommentsController < Admin::ApplicationController
         if @current_object.state == 'validated'
           page.insert_html :bottom, "reply_for_comment_#{@current_object.parent_id}", :partial => "comments/reply", :object => @current_object
           page.replace_html "ajax_info", :text => I18n.t('comment.add_comment.ajax_message_comment_published')
+          page.hide 'reply'
+          page.hide 'reply_overlay'
         else
           page.replace_html "ajax_info", :text => I18n.t('comment.add_comment.ajax_message_comment_submited')
+          page.hide 'reply'
+          page.hide 'reply_overlay'
         end
       end
     else

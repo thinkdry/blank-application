@@ -171,8 +171,16 @@ function insert_keyword(model_name, place, field_name){
     }
 }
 
-// to move option value from one select box to another select box
+function add_reply(parent){
+    if($('#reply')){
+      $('#reply_overlay').css('display', 'block');
+      $('#reply').css('display','block');
+      $('#comment_parent_id').val(parent);
+    }
+  }
 
+
+// to move option value from one select box to another select box
 function shiftRight(removeOptions,addOptions,saveFlag)
 {
     var availableOptions = document.getElementById(removeOptions);
