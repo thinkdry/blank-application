@@ -17,17 +17,18 @@ module GenericForItemHelper
     rated  = Rating.already_rated?(current_user, item)
     rating = item.rating.to_i
     str = ""
-    str = "<form id='submit_rating' action='#{rate_item_path(@current_object)}' method='post'>"
     if rated || disabled
       (1..5).each do |i|
         str += "<input type='radio' class='star' name='rated' value='#{i}' disabled='disabled' #{(i == rating) ? "checked='checked'" : ''}/>"
       end
     else
       (1..5).each do |i|
+        str = "<form id='submit_rating' action='#{rate_item_path(@current_object)}' method='post'>"
         str += "<input type='radio' class='auto-submit-star' name='rated' value='#{i}' #{(i == rating) ? "checked='checked'" : ''} />"
+        str += "</form>"
       end
     end
-    str += "</form>"
+    str
   end
 
   # Rating Item Locked
