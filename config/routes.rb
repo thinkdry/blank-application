@@ -42,8 +42,10 @@ ActionController::Routing::Routes.draw do |map|
   # Blank Specific Routes
   # Routes Related to SuperAdministrator
 	map.namespace :superadmin do |sa|
-		sa.resources :general_settings, :only => [:index], :collection => { :updating => :put }
-		sa.resources :user_interfaces, :only => [:index], :collection => { :updating => :put, :check_color => :get, :colors_changing => :get }
+		sa.connect '', :controller => 'superadmin/administration', :action => 'show'
+		sa.resources :general_settings, :only => [:index], :collection => { :editing => :get, :updating => :put }
+		sa.resources :audits, :only => [:index]
+		sa.resources :user_interfaces, :only => [:index], :collection => { :editing => :get, :updating => :put, :check_color => :get, :colors_changing => :get }
 		sa.resources :tasks, :only => [:index], :collection => { :run_task => :get }
 		sa.resources :translations, :only => [:index], :collection => { :updating => :put, :context_switching => :get, :translation_new => :any }
     sa.resources :mailer_settings, :only => [:index], :collection => { :updating => :put }
