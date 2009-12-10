@@ -44,6 +44,7 @@ ActionController::Routing::Routes.draw do |map|
 	map.namespace :superadmin do |sa|
 		sa.connect '', :controller => 'superadmin/administration', :action => 'show'
 		sa.resources :general_settings, :only => [:none], :collection => { :editing => :get, :updating => :put }
+		sa.resources :audits, :only => [:index]
 		sa.resources :user_interfaces, :only => [:none], :collection => { :editing => :get, :updating => :put, :check_color => :get, :colors_changing => :get }
 		sa.resources :tasks, :only => [:index], :collection => { :run_task => :get }
 		sa.resources :translations, :only => [:none], :collection => { :editing => :get, :updating => :put, :language_switching => :get, :translation_new => :any }

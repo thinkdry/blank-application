@@ -6,7 +6,7 @@
 #ENV['RAILS_ENV'] ||= 'test'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.3.4' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.5' unless defined? RAILS_GEM_VERSION
 
 # Specifies gem version of Rails to use when vendor/rails is not present
 # Bootstrap the Rails environment, frameworks, and default configuration
@@ -46,8 +46,10 @@ Rails::Initializer.run do |config|
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   # config.gem "aws-s3", :lib => "aws/s3"
 
+        config.gem 'builder', :version => '>=2.1.2', :lib => 'builder'
+#        config.gem 'nakogiri', :version => '>=1.4.0', :lib => 'nakogiri'	
 	config.gem 'rmagick', :version => '>=2.9.1', :lib => 'RMagick'
-  config.gem 'javan-whenever', :lib => false, :source => 'http://gems.github.com'
+	config.gem 'javan-whenever', :lib => false, :source => 'http://gems.github.com'
 #	config.gem 'rspec', :version => '>=1.2.8', :lib => 'spec', :source => 'http://gems.github.com'
 #	config.gem 'test-unit', :version => '>=2.0.3', :lib => 'test/unit'
 #	config.gem 'rspec-rails', :version => '>=1.2.7.1', :lib => 'spec/rails', :source => 'http://gems.github.com'
@@ -58,15 +60,15 @@ Rails::Initializer.run do |config|
 #	config.gem 'paperclip', :source => 'http://gems.github.com'#, :version => '>=2.2.8'
 #	config.gem'searchlogic', :version => '>=2.0.0', :source => 'http://gems.github.com'
 #	config.gem 'mislav-will_paginate', :version => '~> 2.3.11', :lib => 'will_paginate', :source => 'http://gems.github.com'
-#	config.gem 'faker', :lib => 'faker', :version => '>=0.3.1'
-#	config.gem 'populator', :lib => 'populator', :version => '>=0.2.5'
+	config.gem 'faker', :lib => 'faker', :version => '>=0.3.1'
+	config.gem 'populator', :lib => 'populator', :version => '>=0.2.5'
   # Only load the plugins named here, in the order given. By default, all plugins
   # in vendor/plugins are loaded in alphabetical order.
   # :all can be used as a placeholder for all plugins not explicitly named
   # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
 	#config.plugin_paths += %W( #{RAILS_ROOT}/blank_modules )
 	#config.plugin_paths += %W( #{RAILS_ROOT}/blank_modules/aep_beast/plugins )
-  config.plugin_paths += %W( #{RAILS_ROOT}/vendor/engines )
+	config.plugin_paths += %W( #{RAILS_ROOT}/vendor/engines )
 
   # Add additional load paths for your own custom dirs
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
