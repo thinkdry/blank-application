@@ -8,5 +8,5 @@
                <%= render :partial => "status", :object => @current_object %>
            <% end %>
           </div>
-	<br /><br /><%= image_tag("icons/download.png")%> <%= link_to I18n.t('general.button.download'), download_audio_path(@current_object.id) %><br />
+	<br /><br /><%= image_tag("icons/download.png")%> <%= link_to I18n.t('general.button.download'), download_admin_audio_path(@current_object.id) %><br />
 <% end %>

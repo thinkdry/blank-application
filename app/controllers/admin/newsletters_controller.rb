@@ -50,7 +50,7 @@ class Admin::NewslettersController < Admin::ApplicationController
 		else
 			flash[:error] = I18n.t('newsletter.send_newsletter.queued_newsletter_flash_error')
 		end
-		redirect_to(current_workspace ? workspace_path(current_workspace.id)+newsletter_path(@newsletter) : newsletter_path(@newsletter))
+		redirect_to(current_workspace ? workspace_path(current_workspace.id) + admin_newsletter_path(@newsletter) : admin_newsletter_path(@newsletter))
   end
 
 end

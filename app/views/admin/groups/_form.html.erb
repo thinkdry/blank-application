@@ -18,7 +18,7 @@
                 </select>
                 <script type='text/javascript'>
                   function show_people(){
-                    new Ajax.Request('/workspaces/<%= @ws.id %>/groups/filtering_contacts/?start_with='+$('start_with').value+'&group_id='+$('group_id').value, {method: "get" ,asynchronous:true, evalScripts:true})
+                    new Ajax.Request('/admin/workspaces/<%= @ws.id %>/groups/filtering_contacts/?start_with='+$('start_with').value+'&group_id='+$('group_id').value, {method: "get" ,asynchronous:true, evalScripts:true})
                   }
                 </script>
               </div>

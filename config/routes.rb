@@ -59,7 +59,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.login '/login', :controller => 'sessions', :action => 'new'
     admin.signup '/signup', :controller => 'users', :action => 'new'
     admin.activate '/activate/:activation_code', :controller => 'users', :action => 'activate'
-    admin.forgot_password '/forgot_password', :controller => 'admin/users', :action => 'forgot_password'
+    admin.forgot_password '/forgot_password', :controller => 'users', :action => 'forgot_password'
     admin.reset_password '/reset_password/:password_reset_code', :controller => 'users', :action => 'reset_password'
     admin.resources :users, :member => { :locking => :any, :resend_activation_mail_or_activate_manually => :post },
       :collection => {:autocomplete_on => :any, :validate => :any }

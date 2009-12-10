@@ -173,7 +173,7 @@ class User < ActiveRecord::Base
   # Create Private worksapce for User on creation called 'Private space of user_login'
 	def create_private_workspace
 		# Creation of the private workspace for the user
-		ws = Workspace.create(:title => "Private space of #{self.login}",
+		ws = Workspace.create(:title => "Private for #{self.login}",
       :description => "Worksapce containing all the content created by #{self.full_name}",
       :creator_id => self.id,
       :ws_items => get_configuration['sa_items'],

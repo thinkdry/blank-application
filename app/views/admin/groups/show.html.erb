@@ -9,7 +9,7 @@
           </ul>
   </div>
 
-  <form action="<%= export_to_csv_workspace_group_path(@current_object.workspaces.first.id, @current_object.id) %>">
+  <form action="<%= export_to_csv_admin_workspace_group_path(@current_object.workspaces.first.id, @current_object.id) %>">
     <button id="submit_button" class="smallSubmit" type="submit"><%= I18n.t('group.show.export_to_csv') %></button>
   </form>
 

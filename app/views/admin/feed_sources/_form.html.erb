@@ -1,10 +1,10 @@
 <% if current_object.new_record? %>
   <fieldset>
     <legend><img src="/images/item_icons/<%= current_object.class.to_s %>_add.png"/><%= title  %></legend>
-    <% form_for current_object, :builder => BlankFormBuilder, :html => {:method => :post} do |f| %>
+    <% form_for ['admin',current_object], :builder => BlankFormBuilder, :html => {:method => :post} do |f| %>
       <%= f.text_field :url, :label => I18n.t('feed_source.field.url_label')+" : " ,:hint => I18n.t('feed_source.field.url_hint') %>
       <div id="loading" style="display:none;float:right">
-        <img src="/images/loading.gif">
+        <img src="/images/loading.gif" alt="loading">
       </div>
       <%= button_to_function(I18n.t("feed_source.what_to_do.new_rss_feed_check"), :onclick =>"check_feed()" ,:class => 'smallSubmit leftAlign') %>
       <%= item_workspaces_checkboxes(f, current_object) %>

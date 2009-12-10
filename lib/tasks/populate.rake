@@ -7,7 +7,7 @@ namespace :db do
     require 'populator'
 
     # Set the count a records to load
-    count = ENV['COUNT'] ? ENV['COUNT'].to_i : 10
+    count = ENV['COUNT'] ? ENV['COUNT'].to_i : 20
     ITEMS.each{|i| i.classify.constantize.delete_all}
     ITEMS.each do |item|
       item = item.classify.constantize
@@ -50,6 +50,7 @@ namespace :db do
     Workspace.populate count do |ws|
       ws.title = Populator.words(1..3).titleize
       ws.description = Populator.sentences(1..3).titleize
+      ws.ws_items = ITEMS.join(',')
       ids = []
       User.find(:all,:select => :id).each{|u| ids.push(u.id) }
       ws.creator_id = ids.rand

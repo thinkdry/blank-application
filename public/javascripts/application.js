@@ -249,7 +249,7 @@ function insert_field(name, model_name, place_id, field_name) {
 function check_feed(){
     var url= $('feed_source_url').value;
     if(url != 0){
-        new Ajax.Request("/feed_sources/check_feed?url="+url,{
+        new Ajax.Request("/admin/feed_sources/check_feed?url="+url,{
             onLoading: function(){
                 $('loading').style.display = 'block';
             },

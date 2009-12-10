@@ -1,2 +1,2 @@
-<%= render :partial => "form", :locals => {:title =>  I18n.t(params[:controller].singularize+'.edit.title'), :current_object => @current_object} %>
+<%= render :partial => "form", :locals => {:title =>  I18n.t(@current_object.class.to_s.downcase.underscore+'.edit.title'), :current_object => @current_object} %>
 
