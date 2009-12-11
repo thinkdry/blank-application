@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe ArticlesController do
-  controller_name :articles
+describe Admin::ArticlesController do
+  controller_name 'admin/articles'
 
   before(:each) do
     @current_user = mock_model(User, :login => 'boss', :u_per_page => 10, :u_layout => 'app_fat_menu')
@@ -54,7 +54,7 @@ describe ArticlesController do
       it "should redirect to edit page after successfull creation of record" do
         do_post
         assigns(:current_object).should eql(@current_object)
-        response.should redirect_to edit_article_url(@current_object)
+        response.should redirect_to edit_admin_article_url(@current_object)
       end
 
     end
@@ -128,7 +128,7 @@ describe ArticlesController do
       it "should redirect to show after successfull updation of record" do
         do_put
         assigns(:current_object).should eql(@current_object)
-        response.should redirect_to article_url(@current_object)
+        response.should redirect_to admin_article_url(@current_object)
       end
 
       it "should make session values of fck editor to nil" do
@@ -186,7 +186,7 @@ describe ArticlesController do
 
     it "redirects to the employees list" do
       do_delete
-      response.should redirect_to(content_path(:item_type => 'articles'))
+      response.should redirect_to(admin_content_path(:item_type => 'articles'))
     end
   end
 

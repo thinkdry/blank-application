@@ -82,7 +82,7 @@ describe Group do
     it "has many groupings" do
       Group.reflect_on_association(:groupings).to_hash.should == {
         :class_name => "Grouping",
-        :options => {:dependent => :delete_all, :extend => []},
+        :options => {:dependent => :destroy, :extend => []},
         :macro => :has_many
       }
     end
@@ -91,7 +91,7 @@ describe Group do
       Group.reflect_on_association(:workspace).to_hash.should == {
         :class_name=>"Workspace",
         :options=>{},
-        :macro=>:belongs_to,
+        :macro=>:belongs_to
       }
     end
 

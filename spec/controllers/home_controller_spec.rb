@@ -1,8 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe HomeController do
+describe Admin::HomeController do
 
-  controller_name :home
+  controller_name 'admin/home'
 
   describe "responding to GET index" do
 

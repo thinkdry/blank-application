@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe UsersController do
+describe Admin::UsersController do
 
 #  describe "responding to GET show" do
 #    # @is_admin = @current_object.system_role == "Admin"
