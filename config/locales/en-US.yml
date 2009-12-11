@@ -1,48 +1,9 @@
 --- 
 en-US: 
-  article: 
-    new: 
-      title: Add a New Article
-    edit: 
-      title: Edit Article
-    field: 
-      article_label: Body
-      add_new_file: Add a New File
-      article_hint: Body of this article
-      assosiated_file_label: Associated File
-  audio: 
-    new: 
-      title: Add a New audio
-    edit: 
-      title: Edit audio
-    field: 
-      audio_label: Audio
-  group: 
-    new: 
-      title: New Group
-      no_workspace_no_contacts: As the workspace is not already determinated, no contacts are available. Edit the workspace after creation to get it right.
-    edit: 
-      title: Edit Group
-    field: 
-      assigned_people_label: Assigned People
-      people_label: People
-      available_people_label: Available People
+  rating: 
     index: 
-      title: Groups list
-      go_to_contacts: See all the contacts of that workspace
-      add_new_group: Add a new group
-      members: Members
-    show: 
-      export_to_csv: Export this group to CSV file
-    contacts: 
-      title: Workspace contacts management
-      select_contacts: Select your personnal contacts accessible for that workspace
-      add_people: Add a new person as contact
-    subscribe: 
-      unsubscribe_flash_notice: Your subscription to the newsletter of that workspace has been removed.
-      unsubscribe_flash_error: Impossible to unsubscribe
-      subscribe_flash_notice: Subscribed to the newsletter of that workspace
-      subscribe_flash_error: Impossible to subscribe
+      title: List of ratings
+      link: Ratings
   comment: 
     edit: 
       title: Comment edition
@@ -53,10 +14,6 @@ en-US:
       state: State
     index: 
       title: Comments list
-    add_comment: 
-      ajax_message_comment_submited: Your comment has been submited to the Administrator, you will receive an email for its publication.
-      button_publish: Publish my comment
-      ajax_message_comment_published: Your comment has been added successfully.
     state: 
       posted: Posted
       all: All
@@ -64,97 +21,248 @@ en-US:
       validated: Validated
       reject: Reject
       rejected: Rejected
-  rating: 
+    add_comment: 
+      ajax_message_comment_submited: Your comment has been submited to the Administrator, you will receive an email for its publication.
+      button_publish: Publish my comment
+      ajax_message_comment_published: Your comment has been added successfully.
+  group: 
+    new: 
+      no_workspace_no_contacts: As the workspace is not already determinated, no contacts are available. Edit the workspace after creation to get it right.
+      title: New Group
+    edit: 
+      title: Edit Group
+    field: 
+      assigned_people_label: Assigned People
+      available_people_label: Available People
+      people_label: People
+    show: 
+      export_to_csv: Export this group to CSV file
     index: 
-      title: List of ratings
-      link: Ratings
+      go_to_contacts: See all the contacts of that workspace
+      title: Groups list
+      add_new_group: Add a new group
+      members: Members
+    subscribe: 
+      unsubscribe_flash_notice: Your subscription to the newsletter of that workspace has been removed.
+      unsubscribe_flash_error: Impossible to unsubscribe
+      subscribe_flash_error: Impossible to subscribe
+      subscribe_flash_notice: Subscribed to the newsletter of that workspace
+    contacts: 
+      select_contacts: Select your personnal contacts accessible for that workspace
+      title: Workspace contacts management
+      add_people: Add a new person as contact
+  audio: 
+    new: 
+      title: Add a New audio
+    edit: 
+      title: Edit audio
+    field: 
+      audio_label: Audio
+  article: 
+    new: 
+      title: Add a New Article
+    edit: 
+      title: Edit Article
+    field: 
+      article_label: Body
+      article_hint: Body of this article
+      add_new_file: Add a New File
+      assosiated_file_label: Associated File
+  layout: 
+    popup: 
+      filter_by_workspace: Filter by workspace
+      page_title: Pop up for {{what}}
+      display_all_picure: Display all the pictures
+      filter_by_item_type: Filter by type
+      filter_help: This menu helps you to filter the list of item displayed above.
+    application: 
+      no_add_content: You need to create a workspace or to have rights inside one before to add content.
+      new_workspace: New Workspace
+      all_elements: All Elements
+      welcome_message: Welcome
+      logout: Logout
+      administration: Administration
+      title: Blank Engine
+      superadministration: Superadministration
+      workspaces_selection: Select Workspace
+      my_account: My account
+      add_content: Add Content
+      content: Content
+      advanced_search: Advanced Search
+      users: Users
+      home: Home
+      personal_contacts: Personal contacts
+      change_language: Change language
+      workspaces: Workspaces
+    footer: 
+      faq: FAQ
+      title: ThinkDRY Technologies 2008
+      contact: Contact
+      site_map: Site Map
+    menu: 
+      add_help: This menu helps you to add content
+      add: Add
+      configure_help: This menu helps you to change BA settings
+      display: Display
+      configure: Configure
+      search_help: Can't find what you searching for? Use advanced search
+      other: Other
+      content_help: This menu let you access to all your content
+      content: Content
+      search: Search
+    general: 
+      other: Other
+    search: 
+      displaying: Displaying
+      result: Result
+      filter_asc: Ascending order
+      date_alert: From date must be less than To date
+      author_label: Author
+      filter_rates_average: Rate
+      filter_login: Login
+      search_period_label: Search period
+      filter_created_at: Creation date
+      filter_comments_number: Number of comments
+      filter_email: Email
+      type_label: Type
+      title_label: Title
+      no_result: No results found with your criterions.
+      advance_search: Advanced Search
+      you_have_searched_for: You Searched
+      your_search_result: Your Search Result
+      information_on_searched_item: Information on Searched Items
+      filter_desc: Descending order
+      search_label: Search
+      filter_viewed_number: Number of view
+      item_category: Item types
+      filter_title: Title
+      order_by: Order by
+  workspace: 
+    unsubscription: 
+      flash_error: "Vous n'avez pas \xC3\xA9t\xC3\xA9 d\xC3\xA9sinscrit de cet espace de travail."
+      flash_notice: "Vous \xC3\xAAtes d\xC3\xA9sinscrit de cet espace de travail."
+    new: 
+      title: Create a New Workspace
+      add_user_text: In order to add users to this workspace, you have first to save it to check the integrity of that workspace.
+      flash_error: Workspace Creation Failed
+      flash_notice: Workspace Created Successfully
+    edit: 
+      title: Modifiy Workspace
+      workspace_configuration: Workspace Configuration
+      manage_users_and_rights: Manage Users and Rights
+      available_ws_types: Available workspace types
+      associated_user: Associated Users
+      flash_error: Workspace Update Failed
+      available_item_categories: Available item categories
+      flash_notice: Workspace Updated Successfully
+      available_items: Available Items
+    add_user: 
+      name: Name
+      user_exist_alert: This user is already selected
+      title: Add a New User
+      role: Role
+    type: 
+      public: Public
+      closed: Closed
+      archived: Archived
+      authorized: Authorized
+    field: 
+      logo_label: Logo
+      description_label: Description
+      title_label: Title
+      state_label: Select Type of Workspace
+    subscription: 
+      flash_error: "Vous n'avez pas \xC3\xA9t\xC3\xA9 inscrit sur cet espace de travail."
+      flash_notice: "Vous \xC3\xAAtes inscrit sur cet espace de travail."
+    show: 
+      public_workspace: Public Workspace
+      your_subscription: Your Subscription
+      no_feed_items: "There is no feed item "
+      subscribe_to_newsletter: subscribe to the newsletter
+      title: Workspace
+      manage_contacts: manage workspace contacts
+      leave_workspace: leave the workspace
+      join_workspace: subscribe as reader
+      last_five_item: Last Five Items
+      other_actions: Other actions
+      request_to_workspace_administrator: Request to the workspace administrator
+      unsubscribe_to_newsletter: unsubscribe from the newsletter
+      request_to_workspace_administrator_txt1: You can send an email to the workspace administrator filling this form below.
+    add_contacts: 
+      available_contacts: Available contactas
+      title: Assign contacts to
+      current_contacts: Assigned contacts
+      flash_notice: Contacts are saved successfully
+    question: 
+      flash_error: "Votre demande n'a pu \xC3\xAAtre envoy\xC3\xA9e."
+      flash_notice: "Votre demande a bien \xC3\xA9t\xC3\xA9 envoy\xC3\xA9e."
   activerecord: 
     attributes: 
-      article: 
+      group: 
         title: Title
-        body: Body
         description: Description
       audio: 
         title: Title
         description: Description
-      group: 
-        title: Title
-        description: Description
-      workspace: 
+      article: 
+        body: Body
         title: Title
         description: Description
       person: 
-        city: City
         company: Company
+        city: City
         job_title: Job title
-        postal_code: Postal code
         notes: Notes
+        postal_code: Postal code
         street: Street
         web_page: Web page
-        last_name: Last name
         fax: Fax
-        email: Email
-        primary_phone: Primary phone
-        mobile_phone: Mobile phone
+        last_name: Last name
         first_name: First name
+        mobile_phone: Mobile phone
+        primary_phone: Primary phone
+        email: Email
+      workspace: 
+        title: Title
+        description: Description
       bookmark: 
         title: Title
         copyright: Copyright
-        description: Description
         link: Link
+        description: Description
+      permission: 
+        name: Name
       feed_source: 
         url: Url
         copyright: Copyright
-      permission: 
-        name: Name
-      cms_file: 
+      newsletter: 
+        body: Body
         title: Title
         description: Description
+        from_email: From email
       video: 
         title: Title
         description: Description
-      newsletter: 
+      cms_file: 
         title: Title
-        body: Body
         description: Description
-        from_email: From email
-      user: 
-        company: Location
-        address: Address
-        password_confirmation: Password confirmation
-        activity: Activity
-        lastname: Last name
-        edito: Edito
-        mobile: Mobile
-        firstname: First name
-        phone: Phone
-        login: Login
-        password: Password
-        email: Email
       image: 
         title: Title
         description: Description
+      user: 
+        address: Address
+        company: Location
+        password_confirmation: Password confirmation
+        activity: Activity
+        edito: Edito
+        lastname: Last name
+        mobile: Mobile
+        phone: Phone
+        firstname: First name
+        password: Password
+        login: Login
+        email: Email
     errors: 
-      messages: 
-        greater_than_or_equal_to: "{{attribute}} must be greater than or equal to {{count}}"
-        confirmation: "{{attribute}} doesn't match confirmation"
-        less_than_or_equal_to: "{{attribute}} must be less than or equal to {{count}}"
-        blank: "{{attribute}} can't be blank"
-        exclusion: "{{attribute}} is reserved"
-        invalid: "{{attribute}} is invalid"
-        odd: "{{attribute}} must be odd"
-        empty: "{{attribute}} can't be empty"
-        too_short: "{{attribute}} is too short (minimum is {{count}} characters)"
-        wrong_length: "{{attribute}} is the wrong length (should be {{count}} characters)"
-        even: "{{attribute}} must be even"
-        less_than: "{{attribute}} must be less than {{count}}"
-        greater_than: "{{attribute}} must be greater than {{count}}"
-        equal_to: "{{attribute}} must be equal to {{count}}"
-        accepted: "{{attribute}} must be accepted"
-        taken: "{{attribute}} has already been taken"
-        too_long: "{{attribute}} is too long (maximum is {{count}} characters)"
-        not_a_number: "{{attribute}} is not a number"
-        inclusion: "{{attribute}} is not included in the list"
       models: 
         page: 
           attributes: 
@@ -166,137 +274,29 @@ en-US:
               content_type: Image is not one of the allowed file types.
             login: 
               invalid: The '{{attribute}}' field can take only alpha-numeric characters.
+      messages: 
+        greater_than_or_equal_to: "{{attribute}} must be greater than or equal to {{count}}"
+        less_than_or_equal_to: "{{attribute}} must be less than or equal to {{count}}"
+        confirmation: "{{attribute}} doesn't match confirmation"
+        blank: "{{attribute}} can't be blank"
+        invalid: "{{attribute}} is invalid"
+        exclusion: "{{attribute}} is reserved"
+        odd: "{{attribute}} must be odd"
+        even: "{{attribute}} must be even"
+        wrong_length: "{{attribute}} is the wrong length (should be {{count}} characters)"
+        too_short: "{{attribute}} is too short (minimum is {{count}} characters)"
+        empty: "{{attribute}} can't be empty"
+        less_than: "{{attribute}} must be less than {{count}}"
+        equal_to: "{{attribute}} must be equal to {{count}}"
+        greater_than: "{{attribute}} must be greater than {{count}}"
+        too_long: "{{attribute}} is too long (maximum is {{count}} characters)"
+        taken: "{{attribute}} has already been taken"
+        accepted: "{{attribute}} must be accepted"
+        inclusion: "{{attribute}} is not included in the list"
+        not_a_number: "{{attribute}} is not a number"
     menu: 
       add_help: This menu helps you to add content
       add: Add
-  workspace: 
-    new: 
-      title: Create a New Workspace
-      add_user_text: In order to add users to this workspace, you have first to save it to check the integrity of that workspace.
-      flash_error: Workspace Creation Failed
-      flash_notice: Workspace Created Successfully
-    unsubscription: 
-      flash_error: "Vous n'avez pas \xC3\xA9t\xC3\xA9 d\xC3\xA9sinscrit de cet espace de travail."
-      flash_notice: "Vous \xC3\xAAtes d\xC3\xA9sinscrit de cet espace de travail."
-    edit: 
-      title: Modifiy Workspace
-      available_ws_types: Available workspace types
-      manage_users_and_rights: Manage Users and Rights
-      workspace_configuration: Workspace Configuration
-      associated_user: Associated Users
-      available_item_categories: Available item categories
-      flash_error: Workspace Update Failed
-      flash_notice: Workspace Updated Successfully
-      available_items: Available Items
-    add_user: 
-      name: Name
-      title: Add a New User
-      user_exist_alert: This user is already selected
-      role: Role
-    field: 
-      logo_label: Logo
-      title_label: Title
-      description_label: Description
-      state_label: Select Type of Workspace
-    type: 
-      public: Public
-      closed: Closed
-      archived: Archived
-      authorized: Authorized
-    show: 
-      no_feed_items: "There is no feed item "
-      your_subscription: Your Subscription
-      public_workspace: Public Workspace
-      subscribe_to_newsletter: subscribe to the newsletter
-      title: Workspace
-      join_workspace: subscribe as reader
-      leave_workspace: leave the workspace
-      manage_contacts: manage workspace contacts
-      other_actions: Other actions
-      last_five_item: Last Five Items
-      unsubscribe_to_newsletter: unsubscribe from the newsletter
-      request_to_workspace_administrator: Request to the workspace administrator
-      request_to_workspace_administrator_txt1: You can send an email to the workspace administrator filling this form below.
-    subscription: 
-      flash_error: "Vous n'avez pas \xC3\xA9t\xC3\xA9 inscrit sur cet espace de travail."
-      flash_notice: "Vous \xC3\xAAtes inscrit sur cet espace de travail."
-    question: 
-      flash_error: "Votre demande n'a pu \xC3\xAAtre envoy\xC3\xA9e."
-      flash_notice: "Votre demande a bien \xC3\xA9t\xC3\xA9 envoy\xC3\xA9e."
-    add_contacts: 
-      available_contacts: Available contactas
-      title: Assign contacts to
-      current_contacts: Assigned contacts
-      flash_notice: Contacts are saved successfully
-  layout: 
-    popup: 
-      filter_by_workspace: Filter by workspace
-      page_title: Pop up for {{what}}
-      filter_by_item_type: Filter by type
-      display_all_picure: Display all the pictures
-      filter_help: This menu helps you to filter the list of item displayed above.
-    application: 
-      new_workspace: New Workspace
-      no_add_content: You need to create a workspace or to have rights inside one before to add content.
-      administration: Administration
-      logout: Logout
-      welcome_message: Welcome
-      all_elements: All Elements
-      title: Blank Engine
-      superadministration: Superadministration
-      my_account: My account
-      workspaces_selection: Select Workspace
-      add_content: Add Content
-      advanced_search: Advanced Search
-      content: Content
-      users: Users
-      change_language: Change language
-      personal_contacts: Personal contacts
-      home: Home
-      workspaces: Workspaces
-    footer: 
-      faq: FAQ
-      title: ThinkDRY Technologies 2008
-      contact: Contact
-      site_map: Site Map
-    menu: 
-      add_help: This menu helps you to add content
-      add: Add
-      configure_help: This menu helps you to change BA settings
-      search_help: Can't find what you searching for? Use advanced search
-      configure: Configure
-      display: Display
-      content: Content
-      content_help: This menu let you access to all your content
-      other: Other
-      search: Search
-    search: 
-      result: Result
-      displaying: Displaying
-      filter_asc: Ascending order
-      author_label: Author
-      date_alert: From date must be less than To date
-      filter_rates_average: Rate
-      filter_comments_number: Number of comments
-      filter_created_at: Creation date
-      search_period_label: Search period
-      filter_login: Login
-      filter_email: Email
-      title_label: Title
-      type_label: Type
-      advance_search: Advanced Search
-      no_result: No results found with your criterions.
-      filter_desc: Descending order
-      information_on_searched_item: Information on Searched Items
-      your_search_result: Your Search Result
-      you_have_searched_for: You Searched
-      filter_viewed_number: Number of view
-      search_label: Search
-      order_by: Order by
-      filter_title: Title
-      item_category: Item types
-    general: 
-      other: Other
   bookmark: 
     new: 
       title: New Bookmark
@@ -312,37 +312,51 @@ en-US:
       copyright_label: Copyright
     show: 
       title: Show Publication
+  workspace_contact: 
+    list: 
+      changed_state_flash_notice: Selected contacts state has been changed to {{state}}
+      change_state_to: Change state to
+      remove_these_contacts_from_this_worksapce: Remove these contacts from this workspace
+      delete_person_alert_confirm: This will delete the person. Use remove if you just want to remove it from this workspace. Are you sure?
+      do_the_action: Do the action
+      action: Action
+      order_by_time: Order by time
+      linked_to_group_flash_notice: Selected contacts are successfully linked to group {{name}}
+      removed_contact_flash_notice: Selected contacts are successfully removed from this workspace
+      order_by_email: Order by email
+      no_contacts: No contacts in this workspace
+      link_these_contacts_to_group: Link these contacts to the group
+      all_contacts: All the contacts
+      non_linked_to_a_group: Non-linked to a group
   time: 
     am: am
     formats: 
       verb: "%d %b %y"
-      default: "%a %b %d %H:%M:%S %Z %Y"
       short1: "%d/%b/%Y"
+      default: "%a %b %d %H:%M:%S %Z %Y"
       time: "%H:%M"
       short: time"%d %b %H:%M"
-      only_second: "%S"
       datetime: 
         formats: 
           default: "%Y-%m-%dT%H:%M:%S%Z"
-      long: "%B %d, %Y %H:%M"
+      only_second: "%S"
       long1: "%d %B %Y at %H:%M:%S"
+      long: "%B %d, %Y %H:%M"
     pm: pm
-  workspace_contact: 
-    list: 
-      delete_person_alert_confirm: This will delete the person. Use remove if you just want to remove it from this workspace. Are you sure?
-      remove_these_contacts_from_this_worksapce: Remove these contacts from this workspace
-      change_state_to: Change state to
-      changed_state_flash_notice: Selected contacts state has been changed to {{state}}
-      order_by_time: Order by time
-      action: Action
-      do_the_action: Do the action
-      linked_to_group_flash_notice: Selected contacts are successfully linked to group {{name}}
-      order_by_email: Order by email
-      removed_contact_flash_notice: Selected contacts are successfully removed from this workspace
-      all_contacts: All the contacts
-      link_these_contacts_to_group: Link these contacts to the group
-      no_contacts: No contacts in this workspace
-      non_linked_to_a_group: Non-linked to a group
+  publication: 
+    new: 
+      title: Add a New Publication
+      automatic_date_field: The Fields Publication Date and Last Update are Managed Directly by the System.
+    edit: 
+      title: Edit publication
+    field: 
+      published_date_label: Published date
+      author_label: Author
+      link_label: Link
+      categories_label: Categories
+      ssosiated_file_label: Associated file
+      last_updated_label: Last updated
+      copyright_label: Copyright
   date: 
     month_names: 
     - 
@@ -358,10 +372,6 @@ en-US:
     - October
     - November
     - December
-    order: 
-    - :year
-    - :month
-    - :day
     abbr_day_names: 
     - Sun
     - Mon
@@ -370,6 +380,10 @@ en-US:
     - Thu
     - Fri
     - Sat
+    order: 
+    - :year
+    - :month
+    - :day
     formats: 
       only_day: "%e"
       default: "%Y-%m-%d"
@@ -397,81 +411,6 @@ en-US:
     - Oct
     - Nov
     - Dec
-  publication: 
-    new: 
-      title: Add a New Publication
-      automatic_date_field: The Fields Publication Date and Last Update are Managed Directly by the System.
-    edit: 
-      title: Edit publication
-    field: 
-      published_date_label: Published date
-      author_label: Author
-      link_label: Link
-      categories_label: Categories
-      last_updated_label: Last updated
-      ssosiated_file_label: Associated file
-      copyright_label: Copyright
-  feed_source: 
-    new: 
-      flash_notice_invalid: Invalid Feed
-      title: New RSS Feed
-      valid_feed: Feed url validation is done
-      flash_notice_valid: The RSS feed has given these Details, Validate them to Subscribe to this Feed.
-      automatic_date_field: Automatic Date Field
-    what_to_do: 
-      new_rss_feed_option_one: 1. Add an Existing Feed
-      new_rss_feed_option_two: 2. Activate Predefined Feed
-      new_rss_feed_create: Create
-      new_rss_feed_check: Check this Feed
-      new_rss_feed_option_three: 3. Create Personnal Feed
-    edit: 
-      title: Edit RSS feed
-    field: 
-      author_label: Author
-      url_hint: Enter url and check for validation
-      url_label: URL
-      last_updated_label: Last updated
-      copyright_label: Copyright
-    show: 
-      title: Show Feed
-      add_bookmark: Import to Bookmarks
-      add_publication: Import to Publications
-      print_item: Print Items
-    chek_feed: 
-      flash_notice_already_subscribed: Already Subscribed.
-      flash_notice_blank: Give a Value for this Feed.
-  page: 
-    new: 
-      title: Add a New Page
-      body_after_creation: The body of the page will be accessible after the creation.
-    edit: 
-      title: Edit the Page
-      no_website_linked: There is no website linked to the choosen workspace, link one in order to edit your page.
-      more_than_one_ws_linked: There are more than one workspace linked to this page, it will make conflict with fronts.
-    field: 
-      body_label: Body
-      type_page_label: Type of the page
-      page_title_hint: Enter the HTML title for this page
-      title_hint: Choose properly the title of your page because you will not be able to change it after creation.
-      title_label: Title
-      page_title_label: Title of the page
-      body_hint: Body of this page
-  mailer: 
-    common: 
-      thanks: Thanks for your visit.
-      signature: The '{{who}}' crew
-      greetings: Regards.
-    newsletter_template: 
-      unsubscribe: To unsubscribe for this newsletter, click <a href='{{link}}' >here</a>
-    signup_notification: 
-      click_here: Click on the following link to activate your account
-      account_created: Your account has been created.
-      subject: Account activation
-      justification: The activation allows us to control any abusive use of our website.
-    reset_notification: 
-      click_here: Click on the following link to reset your password
-      subject: Reset password
-      presentation: "{{who}}, we have been aware that you have forgotten your password on {{where}}."
   website_contact: 
     new: 
       title: New website contact
@@ -491,32 +430,93 @@ en-US:
       email_body_label: Body
       phone_label: Phone number
       first_name_label: First name
-      last_name_label: Last name
       last_name_hint: Contact last name
-      from_email_label: Email
-      email_subject_label: Subject
+      last_name_label: Last name
       receive_newsletter_label: Receive newsletters?
+      email_subject_label: Subject
+      from_email_label: Email
     show: 
       title: Website contact details
       website: Website
       sent_on: Sent on
-  cms_file: 
+  mailer: 
+    common: 
+      thanks: Thanks for your visit.
+      signature: The '{{who}}' crew
+      greetings: Regards.
+    newsletter_template: 
+      unsubscribe: To unsubscribe for this newsletter, click <a href='{{link}}' >here</a>
+    reset_notification: 
+      click_here: Click on the following link to reset your password
+      subject: Reset password
+      presentation: "{{who}}, we have been aware that you have forgotten your password on {{where}}."
+    signup_notification: 
+      click_here: Click on the following link to activate your account
+      account_created: Your account has been created.
+      subject: Account activation
+      justification: The activation allows us to control any abusive use of our website.
+  page: 
     new: 
-      title: Add a New file
+      title: Add a New Page
+      body_after_creation: The body of the page will be accessible after the creation.
     edit: 
-      title: Edit file
+      title: Edit the Page
+      no_website_linked: There is no website linked to the choosen workspace, link one in order to edit your page.
+      more_than_one_ws_linked: There are more than one workspace linked to this page, it will make conflict with fronts.
     field: 
-      file_label: File
+      body_label: Body
+      type_page_label: Type of the page
+      page_title_hint: Enter the HTML title for this page
+      title_hint: Choose properly the title of your page because you will not be able to change it after creation.
+      title_label: Title
+      page_title_label: Title of the page
+      body_hint: Body of this page
+  feed_source: 
+    what_to_do: 
+      new_rss_feed_option_one: 1. Add an Existing Feed
+      new_rss_feed_option_two: 2. Activate Predefined Feed
+      new_rss_feed_check: Check this Feed
+      new_rss_feed_create: Create
+      new_rss_feed_option_three: 3. Create Personnal Feed
+    new: 
+      flash_notice_invalid: Invalid Feed
+      title: New RSS Feed
+      valid_feed: Feed url validation is done
+      flash_notice_valid: The RSS feed has given these Details, Validate them to Subscribe to this Feed.
+      automatic_date_field: Automatic Date Field
+    edit: 
+      title: Edit RSS feed
+    field: 
+      author_label: Author
+      url_hint: Enter url and check for validation
+      url_label: URL
+      last_updated_label: Last updated
+      copyright_label: Copyright
+    show: 
+      add_bookmark: Import to Bookmarks
+      title: Show Feed
+      add_publication: Import to Publications
+      print_item: Print Items
+    chek_feed: 
+      flash_notice_already_subscribed: Already Subscribed.
+      flash_notice_blank: Give a Value for this Feed.
+  video: 
+    new: 
+      title: Add a New Video
+    edit: 
+      title: Edit video
+    field: 
+      video_label: Video
   newsletter: 
     new: 
       title: Add Newsletter
     edit: 
       title: Edit Newsletter
     send_newsletter: 
-      send_newsletter: Send Newsletter
       queued_newsletter_flash_notice: Newsletter in queue
-      sent_to: Sent to
+      send_newsletter: Send Newsletter
       queued_newsletter_flash_error: Newsletter not queued
+      sent_to: Sent to
       send_newsletter_to_user_list: Send this Newsletter to user list
     field: 
       from_email_hint: From email address
@@ -529,48 +529,48 @@ en-US:
       not_already_sent: This newsletter has not been send to any group yet.
     unsubscribe: 
       flash_notice: Unsubscribed successfully.
-  video: 
+  cms_file: 
     new: 
-      title: Add a New Video
+      title: Add a New file
     edit: 
-      title: Edit video
+      title: Edit file
     field: 
-      video_label: Video
+      file_label: File
   people: 
     new: 
       title: New Person
     import_people: 
-      label: Import contacts from csv file
       note_label: Note
+      label: Import contacts from csv file
       select_csv_file_label: Select a CSV File
       csv_parser_error: There was an error while parsing your CSV file
       note_description: Please upload csv file and first row of csv file showld be titles(must be [First name, Last name, Email, Gender, Primary phone, Mobile phone, Fax, Street, City, Postal code, Country, Company, Web page, Job title, Notes] only and email should be mandatory, even if you are not providing any of these values) and subsequent rows are values.
-      get_empty_csv_file: Get empty csv file
       title_order_flash_error: Please read <b>Note</b> and provide proper csv, first row is titles and order should be as shown in Note.
-      saved_records_flash_notice: Saved records successfully
+      get_empty_csv_file: Get empty csv file
       unsaved_records_flash_error1: Failed to save records which has
+      saved_records_flash_notice: Saved records successfully
       unsaved_records_flash_error2: email ids. Because of invalid email formate or those are already exist.
       wrong_file_flash_error: Please select .csv file only.
     field: 
-      fax_label: Fax
-      country_label: Country
       job_title_label: Job title
-      postal_code_label: Postal code
-      newsletter_lable: Receive newsletters?
+      country_label: Country
+      fax_label: Fax
       salutation_label: Salutation
-      gender_label: Gender
-      city_label: City
-      notes_label: Notes
+      newsletter_lable: Receive newsletters?
+      postal_code_label: Postal code
       street_label: Street
-      first_name_label: First name
-      web_page_label: Web page
+      notes_label: Notes
+      city_label: City
+      gender_label: Gender
       mobile_phone_label: Mobile phone
-      company_label: Company
+      web_page_label: Web page
+      first_name_label: First name
       origin_label: Origin
-      date_of_birth_label: Date of birth
+      company_label: Company
       last_name_label: Last name
-      email_label: E-mail
+      date_of_birth_label: Date of birth
       primary_phone_label: Primary phone
+      email_label: E-mail
     index: 
       name: Name
       imported_from_csv: Imported from CSV
@@ -578,90 +578,34 @@ en-US:
       delete_confirm: Are you sure!
       subscribed_on: Subscribed on
       import_people_from_csv: Import people from csv
-      add_new_person: Add a new person
-      export_people_to_csv: Export people to csv
-      created_from_back: Created from back
-      front_contacts: Front contacts
       export: Export
-  user: 
-    new: 
-      add_user: Add a New User
-      title: Your Private Information
-      flash_error: There was Problem While Creating the User.
-      flash_notice: User Successfully Created.
-    forgot_password: 
-      password_label: Enter your Password and a Reactivation Link will be sent to you by Mail.
-      title: Password Reset Request
-      flash_error: There is no User with this Mail address.
-      flash_notice: A link that allows you to change your password has been send by Mail.
-      back_to_login: Back to Login
-    administration: 
-      list_title: Users list
-      title: Administration
-      user_management: User management
-      workspace_management: Workspace management
-      administrator: Administrator
-    edit: 
-      flash_error: Updation Failed.
-      flash_notice: Updated Successfully.
-    session: 
-      password_forgotten: Password Forgotten
-      password_label: Password
-      login_error: Impossible to be connected with
-      remember_me: Remember me
-      password_hint: Your password
-      no_workspace_linked: No workpace linked. Contact the administrator.
-      inscription: Create an account
-      logout_notice: You have been disconnected.
-      flash_error: Invalid Login or Password.
-      login_hint: Enter Login Details
-      flash_notice: Logged in Successfully.
-      login_label: Login
-      login_button: Login
-    reset_password: 
-      title: Reset Password
-      flash_error_link: Invalid Link.
-      confirm_new_password: Confirm New Password
-      new_password: New Password
-      validate_this_password: Validate Password
-      flash_error: Password not Changed.
-      flash_notice: Password has been Successfully Changed.
-    locking: 
-      unlock_flash_notice: User unlocked
-      lock_flash_notice: User locked
-      flash_error: Error
-    field: 
-      photo_label: Photo
-      system_role_id_label: System role
-      password_label: Password
-      location_label: Location
-      password_hint: Leave Empty to Keep Old Password
-      phone_hint: Personal Telephone Number
-      confirm_password_hint: Leave Empty to Keep Old Password
-      mobile_label: Mobile
-      confirm_password_label: Confirm Password
-      gender_label: Gender
-      results_per_page_label: Results per page
-      newsletter_label: Receive the newsletter?
-      phone_label: Phone
-      first_name_label: First name
-      location_hint: Where are you?
-      mobile_hint: Personal mobile Number
-      activity_label: Activity
-      address_hint: Enter your Full Address
-      select_language_label: Select language
-      edito_label: Edito
-      nationality_label: Nationality
-      login_hint: Enter Login Details
-      last_name_label: Last name
-      address_label: Address
-      date_of_birth_label: Date of birth
-      layout_label: Layout
-      login_label: Login
-      email_label: Email
-    show: 
-      update_user: Update Private Information
-      title: Private Information
+      front_contacts: Front contacts
+      created_from_back: Created from back
+      export_people_to_csv: Export people to csv
+      add_new_person: Add a new person
+  datetime: 
+    distance_in_words: 
+      less_than_a_minute: less than a minute ago
+      one_minute_ago: 1 minute ago
+      x_days_ago: "{{count}} days ago"
+      x_minutes_ago: "{{count}} minutes ago"
+      one_day_ago: 1 day ago
+      default: "%d %B %Y at %H:%M:%S"
+      one_hour_ago: 1 hour ago
+      x_hours_ago: "{{count}} hours ago"
+  home: 
+    index: 
+      top_five_item: Top Five Items
+      latest_feed: Latest Feeds
+      best_rated: Best Rated
+      title: My Workspaces
+      most_commented: Most Commented
+      latest_user: Latest Users
+      show_my_feeds: Show my RSS feeds
+      my_personnal_information: My Personnal Information
+      feed_item: Feed Items
+      latest_activity: Latest Activities
+      latest_workspace: Latest Workspaces
   image: 
     new: 
       title: Add a New image
@@ -669,140 +613,85 @@ en-US:
       title: Edit Image
     field: 
       image_label: Image
-  home: 
-    index: 
-      top_five_item: Top Five Items
-      title: My Workspaces
-      best_rated: Best Rated
-      latest_feed: Latest Feeds
-      most_commented: Most Commented
-      latest_user: Latest Users
-      my_personnal_information: My Personnal Information
-      show_my_feeds: Show my RSS feeds
-      latest_workspace: Latest Workspaces
-      latest_activity: Latest Activities
-      feed_item: Feed Items
-  datetime: 
-    distance_in_words: 
-      x_days_ago: "{{count}} days ago"
-      one_minute_ago: 1 minute ago
-      less_than_a_minute: less than a minute ago
-      one_day_ago: 1 day ago
-      x_minutes_ago: "{{count}} minutes ago"
-      default: "%d %B %Y at %H:%M:%S"
-      x_hours_ago: "{{count}} hours ago"
-      one_hour_ago: 1 hour ago
-  general: 
-    button: 
-      download: Download
-      add: Add
-      delete: Delete
-      send_request: Send Request
-      submit: Submit
-      cancel: Cancel
-      create_a_new_workspace: Create a New Workspace
-      save: Save
-      create: Create
-      send: Send
-      update: Update
-      search: Search
-    common_message: 
-      404_error_header: The page you were looking for doesn't exist.
-      404_error_message: You may have mistyped the address or the page may have moved.
-      permission_denied: Permission denied
-      file_size_must_be_between: file size must be between {{min}} and {{max}} bytes
-      500_error_header: We're sorry, but something went wrong.
-      must_be_set: must be set
-      error_during_file_transfer: Error occured during file transfer
-      500_error_message: We've been notified about this issue and we'll take a look at it shortly.
-    layout: 
-      app_fat_menu: App fat menu
-      application: Application
-    language: 
-      en-US: English(US)
-      fr-FR: French(FRA)
-      es-ES: Spanish(ESP)
-    role: 
-      writer: Writer
-      reader: Reader
-      site_manager: Site manager
-      superadmin: Superadministrator
-      ws_admin: Workspace administrator
-      admin: System administrator
-      moderator: Moderator
-      user: User
-    txt: 
-      feed_item_importation_type: Feed Items Imporation Types
-      select_from_file: Select from file system
-      select_a_file: Select a Link
-    type: 
-      public: Public
-      closed: Closed
-      archived: Archived
-      authorized: Authorized
-    copyright: 
-      copyright_restriction: Some fields can't be modified as this element is Copyright protected.
-    link: 
-      edit: Edit
-      delete: Delete
-      display: Display
-    object: 
-      comment: comment
-      workspace: workspace
-      user: user
-      item: item
-    menu: 
-      add_help: This menu helps you to add content
-      add: Add
-    common_word: 
-      from1: From
-      to1: To
-      all: All
-      and: and
-      by: by
-      of: of
-      confirmation: Are you sure ?
-      unsubscribed: unsubscribed
-      none: none
-      Male: Male
-      captcha_field: Enter the value on the image
-      found: found
-      role: role
-      last_connected: Last connected
-      in: in
-      no1: "no"
-      here: here
-      Mr: Mr.
-      Female: Female
-      Ms: Ms.
-      Miss: Miss.
-      on1: "on"
-      click: click
-      your: your
-      next: Next
-      select_all: Select all
-      subscribed: subscribed
-      ajax_message_captcha_invalid: The verification code is incorrect.
-      prev: Previous
-      yes1: "yes"
-      with: with
-      select_country: Select country
-      state: State
-      not_subscribed: not subscribed
-    item: 
-      article: Article
-      audio: Audio
-      advert: Advert
-      group: Group
-      bookmark: Bookmark
-      publication: Publication
-      feed_source: RSS Feed
-      page: Page
-      cms_file: CMS File
-      newsletter: Newsletter
-      video: Video
-      image: Image
-      programme: Programme
+  user: 
+    new: 
+      title: Your Private Information
+      add_user: Add a New User
+      flash_error: There was Problem While Creating the User.
+      flash_notice: User Successfully Created.
+    edit: 
+      flash_error: Updation Failed.
+      flash_notice: Updated Successfully.
+    administration: 
+      list_title: Users list
+      title: Administration
+      user_management: User management
+      workspace_management: Workspace management
+      administrator: Administrator
+    forgot_password: 
+      password_label: Enter your Password and a Reactivation Link will be sent to you by Mail.
+      title: Password Reset Request
+      flash_error: There is no User with this Mail address.
+      back_to_login: Back to Login
+      flash_notice: A link that allows you to change your password has been send by Mail.
+    reset_password: 
+      flash_error_link: Invalid Link.
+      title: Reset Password
+      confirm_new_password: Confirm New Password
+      validate_this_password: Validate Password
+      new_password: New Password
+      flash_error: Password not Changed.
+      flash_notice: Password has been Successfully Changed.
+    session: 
+      login_error: Impossible to be connected with
+      password_label: Password
+      password_forgotten: Password Forgotten
+      remember_me: Remember me
+      password_hint: Your password
+      no_workspace_linked: No workpace linked. Contact the administrator.
+      logout_notice: You have been disconnected.
+      inscription: Create an account
+      flash_error: Invalid Login or Password.
+      flash_notice: Logged in Successfully.
+      login_hint: Enter Login Details
+      login_button: Login
+      login_label: Login
+    locking: 
+      unlock_flash_notice: User unlocked
+      flash_error: Error
+      lock_flash_notice: User locked
+    field: 
+      password_label: Password
+      system_role_id_label: System role
+      photo_label: Photo
+      location_label: Location
+      phone_hint: Personal Telephone Number
+      password_hint: Leave Empty to Keep Old Password
+      mobile_label: Mobile
+      confirm_password_hint: Leave Empty to Keep Old Password
+      results_per_page_label: Results per page
+      gender_label: Gender
+      confirm_password_label: Confirm Password
+      phone_label: Phone
+      newsletter_label: Receive the newsletter?
+      activity_label: Activity
+      mobile_hint: Personal mobile Number
+      location_hint: Where are you?
+      first_name_label: First name
+      select_language_label: Select language
+      address_hint: Enter your Full Address
+      nationality_label: Nationality
+      edito_label: Edito
+      layout_label: Layout
+      date_of_birth_label: Date of birth
+      address_label: Address
+      last_name_label: Last name
+      login_hint: Enter Login Details
+      email_label: Email
+      login_label: Login
+    show: 
+      update_user: Update Private Information
+      title: Private Information
   item: 
     new: 
       flash_error: Creation Failed
@@ -820,25 +709,136 @@ en-US:
       description_hint: Description of Item
       add_keyword: Add a keyword
       title_hint: Title of Item
-      description_label: Description
       title_label: Title
-      keyword_label: Keywords
+      description_label: Description
       state_label: Workflow
-      add_tag: Add a tag
+      keyword_label: Keywords
       state_hint: Specify the state of the item
-    index: 
-      no_item: There is no item of this type.
+      add_tag: Add a tag
     show: 
       get_in_another_format: Other format
       associated_workspace: "Associated workspace:"
+    index: 
+      no_item: There is no item of this type.
     common_word: 
       comment: Comment(s)
       invalid_type_alert: Please upload file only allowed types( {{types}}). Select a new file to upload and submit again.
       list_empty: That list is empty.
-      no_item_types: No item types are available.
-      tag: Tag
       rate: Rate
-      output_formate: Output Format
+      tag: Tag
+      no_item_types: No item types are available.
       select_at_least_one_workspace: Select at least one workspace
-      summary: Summary
+      output_formate: Output Format
       corrupted_file: Corrupted File
+      summary: Summary
+  general: 
+    button: 
+      add: Add
+      download: Download
+      cancel: Cancel
+      submit: Submit
+      send_request: Send Request
+      delete: Delete
+      create_a_new_workspace: Create a New Workspace
+      save: Save
+      send: Send
+      create: Create
+      update: Update
+      search: Search
+    layout: 
+      app_fat_menu: App fat menu
+      application: Application
+    common_message: 
+      404_error_message: You may have mistyped the address or the page may have moved.
+      404_error_header: The page you were looking for doesn't exist.
+      permission_denied: Permission denied
+      file_size_must_be_between: file size must be between {{min}} and {{max}} bytes
+      500_error_header: We're sorry, but something went wrong.
+      must_be_set: must be set
+      error_during_file_transfer: Error occured during file transfer
+      500_error_message: We've been notified about this issue and we'll take a look at it shortly.
+    role: 
+      site_manager: Site manager
+      reader: Reader
+      writer: Writer
+      superadmin: Superadministrator
+      ws_admin: Workspace administrator
+      admin: System administrator
+      moderator: Moderator
+      user: User
+    language: 
+      es-ES: Spanish(ESP)
+      fr-FR: French(FRA)
+      en-US: English(US)
+    txt: 
+      feed_item_importation_type: Feed Items Imporation Types
+      select_from_file: Select from file system
+      select_a_file: Select a Link
+    type: 
+      public: Public
+      closed: Closed
+      archived: Archived
+      authorized: Authorized
+    copyright: 
+      copyright_restriction: Some fields can't be modified as this element is Copyright protected.
+    link: 
+      edit: Edit
+      delete: Delete
+      display: Display
+    menu: 
+      add_help: This menu helps you to add content
+      add: Add
+    object: 
+      comment: comment
+      workspace: workspace
+      user: user
+      item: item
+    item: 
+      group: Group
+      advert: Advert
+      audio: Audio
+      article: Article
+      bookmark: Bookmark
+      publication: Publication
+      page: Page
+      feed_source: RSS Feed
+      video: Video
+      newsletter: Newsletter
+      cms_file: CMS File
+      image: Image
+      programme: Programme
+    common_word: 
+      to1: To
+      from1: From
+      unsubscribed: unsubscribed
+      confirmation: Are you sure ?
+      of: of
+      by: by
+      and: and
+      all: All
+      Male: Male
+      none: none
+      captcha_field: Enter the value on the image
+      last_connected: Last connected
+      role: role
+      found: found
+      Female: Female
+      Mr: Mr.
+      here: here
+      no1: "no"
+      in: in
+      Miss: Miss.
+      Ms: Ms.
+      on1: "on"
+      subscribed: subscribed
+      select_all: Select all
+      next: Next
+      your: your
+      click: click
+      ajax_message_captcha_invalid: The verification code is incorrect.
+      not_subscribed: not subscribed
+      state: State
+      select_country: Select country
+      with: with
+      yes1: "yes"
+      prev: Previous

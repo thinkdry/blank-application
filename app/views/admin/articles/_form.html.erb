@@ -6,18 +6,20 @@
     <%= f.advanced_editor(:body, :label => I18n.t('article.field.article_label')+ ' * :', :hint => I18n.t('article.field.article_hint')) %>
   	<% end %>
 
-  	<% f.field :article_files, :label => I18n.t('article.field.assosiated_file_label')+ ' :' do %>
-		<div class="inputSimulation"><%= link_to_new_file I18n.t('article.field.add_new_file') %></div>
-    	<div id="files">
+	<div id="attachement" class="blockElement">
+		<div class="blockElementHeader">
+			<%=I18n.t('article.field.assosiated_file_label')%> : <%= link_to_new_file I18n.t('article.field.add_new_file') %>
+		</div>
+    	<div id="files" class="blockElementBody">
       	<% @current_object.article_files.each do |af| %>
         	<% if af.id %>
           	<div id="file<%= af.id.to_s %>">
-            	<%= af.articlefile.url.split('/').last.split("?")[0] %>
-            	<%= link_to I18n.t('general.button.download'), af.articlefile.url.split("?")[0] %>
+            	<%= af.articlefile.url.split('/').last.split("?")[0] %> 
+            	<%= link_to I18n.t('general.button.download'), af.articlefile.url.split("?")[0] %> | 
             	<%= link_to_remote I18n.t('general.button.delete'), :url => { :controller =>"articles", :action => "remove_file", :id => af.id }, :success => "Element.remove($('file#{af.id.to_s}'))" %>
           	</div>
         	<% end -%>
-      	<% end -%>
+		<% end -%>
 		</div>
-  	<% end -%>
+	</div>
 <% end -%>

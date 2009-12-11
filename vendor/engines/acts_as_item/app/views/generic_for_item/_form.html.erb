@@ -8,8 +8,7 @@
 
 	<div class="itemShowLeft">
 		<div class="itemShowLeftDate">
-			<%# I18n.t(Date.today, :format =>:verb) %>
-			23 NOV 09
+			<%= I18n.l Time.now, :format =>:verb %>
 		</div>
 		<div class="itemShowLeftBody">
 			<h1><%= title %></h1>

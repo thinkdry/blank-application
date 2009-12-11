@@ -28,21 +28,29 @@ module Admin::BlankListsHelper
 		if item_type.blank?
 			return I18n.t('item.common_word.no_item_types')
 		else
+		  #let's loop on all available item_types. each item_type will be a tab
 			item_types.map{ |item| item.camelize }.each do |item_model|
 
-        # each li got a different content
         li_content = String.new
-
+        #generate th
 				url = self.send(options2[:url_base].to_sym, item_model.classify.constantize)
 				item_page = item_model.underscore.pluralize
 				options = {}
+				#get the selected item for different display
 				options[:class] = 'selected' if (item_type == item_page)
 				options[:id] = item_model.underscore
-
-        li_content += link_to_remote(item_model.classify.constantize, :html => { :class => 'munuElement'}, :method=>:get, :update => "objectList", :url => url, :before => "selectItemTab('" + item_model.underscore + "')")
+        #adding link to the good item tab
+        li_content += link_to_remote( item_model.classify.constantize, 
+                                      :html => { :class => 'munuElement'}, 
+                                      :method=>:get, 
+                                      :url => url, 
+                                      :before => "selectItemTab('" + item_model.underscore + "')")
+                                      
+        #creating the li element with link inside and corrects class and id
 				content += content_tag(:li,	li_content,	options)
 			end
-			return content_tag(:ul, content, :id => :tabs) + render(:partial => options2[:list_partial], :layout => false)
+			#return a complete ul li structure.
+			return content_tag(:ul, content, :id => :tabs)
 		end
 	end
 
@@ -65,21 +73,21 @@ module Admin::BlankListsHelper
 	#		:output_formats => ['xml', 'json', 'atom'],
 	#		:no_div => @no_div
 	# )
-	def display_objects_list(*args)
-		options = args.extract_options!
-	  content = render :partial => 'admin/blank_lists/objects_list', :locals => {
-				:in_list_partial => options[:in_list_partial],
-				:ajax_url => options[:ajax_url],
-				:ordering_fields => options[:ordering_fields],
-				:output_formats => options[:output_formats],
-        :output_formats_url => options[:output_formats_url]
-			}
-		if options[:no_div]
-			return content
-		else
-			return content_tag(:div, content, :id => "objectList")
-		end
-	end
+  def display_objects_list(*args)
+    options = args.extract_options!
+    content = render :partial => 'admin/blank_lists/objects_list', :locals => {
+        :in_list_partial => options[:in_list_partial],
+        :ajax_url => options[:ajax_url],
+        :ordering_fields => options[:ordering_fields],
+        :output_formats => options[:output_formats],
+          :output_formats_url => options[:output_formats_url]
+      }
+    if options[:no_div]
+      return content
+    else
+      return content_tag(:div, content, :id => "objectList")
+    end
+  end
 
 	# Display the dry objects list
   #
@@ -90,8 +98,8 @@ module Admin::BlankListsHelper
   # Usage :
   #   display_items_in_list(items_list)
   def display_item_in_list(items_list, partial_used)
-		@i = 0
-	  render :partial => partial_used, :collection => items_list
+    @i = 0
+   render :partial => partial_used, :collection => items_list
   end
 
   # Display the bar for filtering
@@ -103,13 +111,12 @@ module Admin::BlankListsHelper
   # - partial_used: String deifning the partial used for the classify bar
   #
   # Usage :
-  # display_classify_bar(['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title'], ajax_url, '  ')</tt>
-	def display_classify_bar(ordering_fields_list, ajax_url, refreshed_div, partial_used='admin/blank_lists/classify_bar')
-		render :partial => partial_used, :locals => {
-      :ordering_fields_list => ordering_fields_list,
-      :ajax_url => ajax_url,
-      :refreshed_div => refreshed_div
-		}
+  #display_classify_bar(['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title'], ajax_url, '  ')</tt>
+  def display_classify_bar(ordering_fields_list, ajax_url, partial_used='admin/blank_lists/classify_bar')
+      render :partial => partial_used, :locals => {
+       :ordering_fields_list => ordering_fields_list,
+       :ajax_url => ajax_url
+      }
 	end
 
 	# Method cleaning the URL

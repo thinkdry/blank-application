@@ -14,13 +14,17 @@ h1 {
 	border-bottom:1px solid #CCCCCC;
 }
 
-h3{
+h2 {
+	clear:both;
+}
+
+h3 {
 	font-size:130%;
 	color:#2B2D2C;
 	margin:10px 0 0;
 }
 
-h4{
+h4 {
   	font-size: 120%;
 	font-weight:lighter;
   	margin: 0;
@@ -91,18 +95,18 @@ body {
 	display:none;
 	background:transparent;
 	position:absolute;
-	margin:38px 0 0 10px;
+	margin:33px 0 0 0;
 	text-align:left;
-	width:500px;
+	width:980px;
 }
 .subMenuContent{
 	font-size:12px;
 	overflow:auto;
 }
-#addSubMenu{background:#f89f36;}
-#modifySubMenu{background:#f49029;}
-#searchSubMenu{background:#ef7c18;margin-left:-120px;}
-#configureSubMenu{background:#eb6e0d;margin-left:-200px;}
+#addSubMenu{background:#f89f36;margin-left:-27px}
+#modifySubMenu{background:#f49029;margin-left:-217px;}
+#searchSubMenu{background:#ef7c18;margin-left:-407px;}
+#configureSubMenu{background:#eb6e0d;margin-left:-597px;}
 
 .subMenuContent .subMenuCol, .subMenuContent .subMenuLogo{
 	float:left;
@@ -118,7 +122,7 @@ body {
 
 .subMenuCol ul{
 	list-style:none;
-	overflow:auto;
+	overflow:hidden;
 }
 
 .subMenuCol ul li{
@@ -150,15 +154,13 @@ body {
 #topMenu li{
 	float:left;
 	font-size:180%;
-	margin-right:10px;
-	margin-top:12px;
+	margin:10px 10px 0 0;
 	text-align:right;
 	width:180px;
 }
 #topMenu li img{
 	float:right;
-	margin-left:12px;
-	margin-top:10px;
+	margin:10px 0 0 12px;
 }
 #topMenu li a{color:#fff;}
 
@@ -279,26 +281,46 @@ form input{
 }
 
 .submit_button {
-	background:transparent url(/images/button.png) no-repeat scroll 0 20px;
-	border:medium none;
+	background:#fff url(/images/button.png) no-repeat scroll 0 20px;
+	border:none;
 	clear:both;
 	color:#FFFFFF;
 	display:block;
-	font-weight:bold;
 	height:auto;
 	margin:0 auto;
 	overflow:visible;
 	padding:30px;
 	width:250px;
 	font-size:90%;
+	margin-top:25px;
 }
 
 .ajax_hint_message{	margin-left:3px; }
-#add_keyword{overflow:hidden;}
-#add_keyword input{float:none;width:178px;}
-#add_keyword a{	display:block;}
+#add_keyword{ 
+	background:#FFFFFF url(/images/backKeyword.gif) no-repeat scroll 0 0;
+	overflow:hidden;
+	width:178px;
+}
+#add_keyword input{
+	border:medium none;
+	font-size:120% !important;
+	height:21px;
+	margin:5px 4px 5px 8px;
+	overflow:hidden;
+	padding:0;
+	width:145px;
+}
+#add_keyword a{	
+	display:block;
+	float:left;
+	margin-top:9px;
+}
+#add_keyword a:hover{
+	background-color:none;
+}	
 .formError {color: red;	margin-left: 3px;}
 .inputSimulation{margin-top:15px;}
+.smallInput{width:200px;}
 
 .CommonMessage{
 	clear:both;
@@ -306,6 +328,13 @@ form input{
 	padding:20px 0 18px 40px;
 	width:460px;
 	background: transparent url(/images/icons/info.png) no-repeat scroll 0px 50%;
+}
+
+.checkboxes{
+	width:15px !important;
+	border:none !important;
+	height:auto !important;
+	margin:0 !important;
 }
 
 .smallSubmit, .fieldsetSimulation #small_submit{
@@ -324,23 +353,29 @@ form input{
 .keyword_label, .keyword_label a{
 	background:#E5E5E5;
 	padding:2px 0 2px 2px;
+	margin:5px 10px 0 0;
 	color:#fff;
 	display:inline !important;;
 }
 
 .keyword_label a{
 	border-left:1px solid #fff;
-	margin:0;
 	padding:0 2px;
 }
 
+#keywords_list{margin-top:5px; overflow:hidden;}
 
+/*		ATTACHEMENTS	*/
+#attachement ul{list-style-type:none;}
+#attachement ul li, #files div {margin:5px 0;}
 
 /*		TABS		*/
 ul#tabs {
   	float:left;
 	width:206px;
 	margin-top:90px;
+	background:#fff;
+	overflow:auto;
 }
 ul#tabs li {
 	height:33px;
@@ -367,31 +402,25 @@ ul#tabs li.selected{
 #objectList{
   	float:left;
 	width:774px;
+	background:#fff;
+	overflow:auto;
 }
 
 .listHeader{
 	background:#FBFBFB url('/images/topList.gif') no-repeat;
-	padding:0 20px 10px;	
-	height:32px;
+	padding:0 20px 0;	
+	height:33px;
 	overflow:hidden;
 }
 
-.listHeader h3{
-	float:left;
-}
+.listHeader h3{	float:left;}
 
 #classify_bar{
-	height:25px;
-	padding:15px 0 5px;
+	padding:14px 0 0;
 	float:right;
 }
-#classify_bar a{
-	font-size:100%;
-}
-
-#classify_bar a span{
-	padding-left:5px;
-}
+#classify_bar a{font-size:100%;}
+#classify_bar a span{padding-left:5px;}
 
 .item_in_list{
 	overflow:visible;
@@ -400,10 +429,9 @@ ul#tabs li.selected{
 }
 .contentList{
 	border:1px solid #ccc;
-	border-top:none;
 	padding:0 20px 25px 20px;
 	clear:both;
-	min-height:100%;
+	min-height:400px;
 }
 .elementPerPages{
 	font-size:80%;
@@ -440,9 +468,7 @@ ul#tabs li.selected{
 	float:left;
 	font-size:80%;
 }
-.itemInListActions a{
-	padding:0 2px;
-}
+
 .itemInListActions a:hover, .blockBody a:hover{
 	background-color:#F79646;
 	color:#fff;
@@ -460,16 +486,38 @@ ul#tabs li.selected{
 	padding:2px;
 	margin-top:-3px;
 }
-.itemInListMore a{
+.itemInListMore a{color:#fff;}
+.itemInListMore a:hover;{text-decoration:none;}
+.itemInListActions a{padding:0 2px}
+.itemInListTitle a{color:#F79646;}
+
+#pagination, .pagination{
+	text-align:center;
+	padding-top:15px;
+}
+.paginationSelected{
+	background:#fff url('/images/paginationActive.gif') no-repeat;
+	padding:2px 6px;
 	color:#fff;
+	font-weight:normal;
 }
-.itemInListMore a:hover;{
-	text-decoration:none;
+.paginationUnselected{
+	background:#fff url('/images/paginationUnactive.gif') no-repeat;
+	padding:2px 6px;
+	font-weight:normal;
 }
+.paginationBorderUnactive{
+	color:#6fd364;
+}
+.paginationBorderActive{
+	color:#28c322;
+}
+
+
 /*		CLASSIFY BAR	*/
 a.filter{
-	background:transparent url(/images/ddownDownArrow.gif) no-repeat scroll right 5px;
-	padding:0 16px 0 2px;
+	background:transparent url(/images/ddownDownArrow.gif) no-repeat scroll right 3px;
+	padding:0 12px 0 2px;
 	font-size: 80%;
 }
 
@@ -482,12 +530,7 @@ a.filter{
 	position:absolute;
 	margin-left:0 !important;
 }
-.ddown li{
-	list-style:none;
-	list-style-image:none;
-	margin-left:10px;
-	padding-left:10px;
-}
+.ddown li{list-style:none;}
 
 .filterDrop{
 	float:left;
@@ -546,22 +589,29 @@ a.filter{
 	font-size:80%;
 	margin:10px 0;
 }
-
-
-/*		COMMENTS		*/
-#commentsList{
-	margin-top:50px;
-	overflow:hidden;
-}
-.commentsBody{
-	border:1px solid #ccc;
-	padding:25px 10px 0;
-}
-.commentsHeader{
+/*		BLOCS			*/
+		
+.blockElementHeader{
 	background:#fff url('/images/commentHeader.gif') no-repeat;
 	font-size:120%;
 	padding:6px 10px;
 	color:#666;
+}
+
+.blockElement{
+	margin-top:50px;
+	overflow:hidden;
+}
+
+.blockElementBody{
+	padding:10px;
+	border:1px solid #ccc;
+}
+
+/*		COMMENTS		*/
+.commentsBody{
+	border:1px solid #ccc;
+	padding:25px 10px 0;
 }
 
 #newCommentForm {
@@ -611,4 +661,13 @@ a.filter{
 	border:1px solid #863cc5;
 	width:556px;
 	padding:25px 10px;
+}
+
+/* 		WORKSPACE	*/
+.userName{
+	padding:0;
+	margin:0 10px 5px 0;
+}
+.userList{
+	padding-bottom:25px;
 }

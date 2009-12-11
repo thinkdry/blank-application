@@ -1,76 +1,119 @@
 <% form_for ['admin',@workspace], :builder => BlankFormBuilder ,:html => { :multipart => true } do |f| -%>
-  <%= File.basename(@workspace.logo_file_name) + '<br />' if @workspace.logo_file_name %>
-  <%= f.text_field :title, :label => I18n.t('workspace.field.title_label')+" * : " %>
-  <% f.field :logo, :label => I18n.t('workspace.field.logo_label') + " :" do %>
-    <%= file_field 'workspace', 'logo', :class => 'file' %>
-  <% end %>
-  <%= f.advanced_editor :description, :label => I18n.t('workspace.field.description_label') +' : ' %>
-  <% if (list=@workspace.ws_available_types.to_s.split(',')).size > 1 %>
-    <%= f.select :state, list.map{ |e| [I18n.t('workspace.type.'+e), e] }, :label => I18n.t('workspace.field.state_label')+' :' %>
-  <% end %>
-  <% if @current_object.new_record? || check=@current_object.has_permission_for?('administrate', @current_user) %>
-    <h2><%= I18n.t('workspace.edit.workspace_configuration') %></h2>
-    <% if @configuration["sa_items"].size > 0 %>
-      <label><%= I18n.t('workspace.edit.available_items') %> :</label>
-      <div class="formElement"><%= checkboxes_from_list(@configuration["sa_items"], "ws_items", @current_object, 'workspace') %></div>
-    <% end %>
-    <% if @configuration["sa_item_categories"].size > 0 %>
-      <label><%= I18n.t('workspace.edit.available_item_categories')+" : " %></label>
-      <div class="formElement"><%= checkboxes_from_list(@configuration["sa_item_categories"], "ws_item_categories", @current_object, 'workspace') %></div>
 
-    <% end %>
-    <% if @workspace.state != 'private' %>
-      <% if @configuration["sa_ws_types"].size > 0 %>
-        <label><%= I18n.t('workspace.edit.available_ws_types')+" : " %></label>
-        <div class="formElement"><%= checkboxes_from_list(@configuration["sa_ws_types"], "ws_available_types", @current_object, 'workspace') %></div>
-      <% end %>
-    <% end %>
-  <% end %>
-  <br/>
-  <h2><%=I18n.t 'workspace.edit.associated_user'%></h2>
-  <% if !@current_object.new_record? %>
-    <% if check %>
-      <div id="users">
-        <% @current_object.users_workspaces.each do |object| %>
-          <%= render :partial => 'user', :object => object %>
-        <% end %>
-      </div>
-      <h2><%= I18n.t('workspace.add_user.title') %></h2>
-      <%# form_for :user,  :builder => BlankFormBuilder do |f| %>
-      <label><%= I18n.t('workspace.add_user.name')+' :' %> </label>
-      <div class="formElement">
-         <%= text_field :user, :login, :onclick => "autocomplete_on(#{@users},'#user_login')" %>
-      </div>
-      <label>Role :</label>
-      <div class="formElement">
-        <select id="user_role" name="user[role]">
-          <% for role in @roles %>
-            <option value="<%= role.id %>"><%= I18n.t('general.role.' + role.name) %></option>
-          <% end %>
-        </select>
-        <div id="errors_for_User_role"> </div>
-      </div>
-      <%#= f.select :role, @roles.collect { |r| [I18n.t('general.role.'+r.name), r.id]}, :label => 'Role :' %>
-      <div class="smallSubmitContainer">
-        <%= button_to_function I18n.t('general.button.add'), :onclick => "add_new_user('#{add_new_user_admin_workspace_path(params[:id])}');", :class => "smallSubmit" %>
-      </div>
-    <% else %>
-      <div id="users">
-        <label></label>
-        <div class="formElement">
-          <% @current_object.roles.uniq.each do |r| %>
-            <%= I18n.t('general.role.'+r.name)%> :
-            <% @current_object.users_by_role(r.name).each do |u| %>
-              <%= link_to u.full_name+', ', user_path(u.id) %>
-            <% end %><br />
-          <% end %>
-        </div>
-      </div>
-    <% end %>
-  <% else %>
-    <div class="CommonMessageFull"><%=I18n.t 'workspace.new.add_user_text'%></div>
-  <% end %>
-  <% text_button = (current_object.new_record? ?  I18n.t('general.button.create_a_new_workspace') : I18n.t('general.button.save') )%>
-  <button type="submit" class="submit_button"><%= text_button %></button>
-<% end -%>
+<div class="itemShowLeft">
+	<div class="itemShowLeftDate">
+		<%= I18n.l Time.now, :format =>:verb %>
+		<%#= File.basename(@workspace.logo_file_name) if @workspace.logo_file_name %>
+	</div>
+	<div class="itemShowLeftBody">
+		<h1><%= title %></h1>
+	
+		<%= f.text_field :title, :label => I18n.t('workspace.field.title_label')+" * : " %>
 
+		<% f.field :logo, :label => I18n.t('workspace.field.logo_label') + " :" do %>
+		    <%= file_field 'workspace', 'logo', :class => 'file' %>
+		<% end %>
+		
+		<%= f.advanced_editor :description, :label => I18n.t('workspace.field.description_label') +' : ' %>	
+		
+		
+		<div class="blockElement">
+			<div class="blockElementHeader">
+				<%=I18n.t 'workspace.edit.associated_user'%>
+			</div>
+			<div class="blockElementBody">
+				<% if !@current_object.new_record? %>
+				    <% if  @current_object.has_permission_for?('administrate', @current_user)%>
+				      	<div id="users">
+				        <% @current_object.users_workspaces.each do |object| %>
+				          	<%= render :partial => 'user', :object => object %>
+				        <% end %>
+				      	</div>
+				
+				      	<h2><%= I18n.t('workspace.add_user.title') %></h2>
+						<table>
+							<tr>
+								<td><%= I18n.t('workspace.add_user.name')+' :' %></td>
+								<td>Role :</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>
+									<%= text_field :user, :login, 
+												   :onclick => "autocomplete_on(#{@users},'#user_login')",
+												   :class => "smallInput"	 %>
+								</td>
+								<td>
+									<select id="user_role" name="user[role]">
+						          	<% for role in @roles %>
+						            	<option value="<%= role.id %>">
+											<%= I18n.t('general.role.' + role.name) %>
+										</option>
+						          	<% end %>
+						        	</select>
+									<div id="errors_for_User_role"> </div>
+								</td>
+								<td><%= link_to_function I18n.t('general.button.add'), :onclick => "add_new_user('#{add_new_user_admin_workspace_path(params[:id])}');" %></td>
+							</tr>
+						</table>
+				    <% else %>
+				      	<div id="users">				        
+					          <% @current_object.roles.uniq.each do |r| %>
+					            	<%= I18n.t('general.role.'+r.name)%> :
+					            	<% @current_object.users_by_role(r.name).each do |u| %>
+					              		<%= link_to u.full_name+', ', user_path(u.id) %>
+					            	<% end %><br />
+					          <% end %>
+				      	</div>
+				    <% end %>
+				 <% else %>
+				   	<div class="CommonMessage"><%=I18n.t 'workspace.new.add_user_text'%></div>
+				 <% end %>
+			</div>
+		</div>
+		  <% text_button = (current_object.new_record? ?  I18n.t('general.button.create_a_new_workspace') : I18n.t('general.button.save') )%>
+		  <button type="submit" class="submit_button"><%= text_button %></button>
+		
+	</div>
+</div>
+
+<% if @current_object.new_record? || @current_object.has_permission_for?('administrate', @current_user) %>
+	<%# Items configuration %>
+	<% if @configuration["sa_items"].size > 0 %>
+	<div class="itemShowRightBlock">
+		<div class="blockHeader">
+			<%= I18n.t('workspace.edit.available_items') %>
+		</div>
+		<div class="blockBody">
+	    	<%= checkboxes_from_list(@configuration["sa_items"], "ws_items", @current_object, 'workspace') %>
+		</div>
+	</div>
+	<% end %>
+	
+	<%# Catégories configuration %>
+	<% if @configuration["sa_item_categories"].size > 0 %>
+	<div class="itemShowRightBlock">
+		<div class="blockHeader">
+			<%= I18n.t('workspace.edit.available_item_categories')%>
+		</div>
+		<div class="blockBody">
+			<%= checkboxes_from_list(@configuration["sa_item_categories"], "ws_item_categories", @current_object, 'workspace') %>
+		</div>
+	</div>
+	<% end-%>
+	
+	<%# State configuration %>
+	<% if @workspace.state != 'private' && @configuration["sa_ws_types"].size > 0%>
+	<div class="itemShowRightBlock">
+		<div class="blockHeader">
+			<%= I18n.t('workspace.edit.available_ws_types')%>
+		</div>
+		<div class="blockBody">
+			<%= checkboxes_from_list(@configuration["sa_ws_types"], "ws_available_types", @current_object, 'workspace') %>
+		</div>
+	</div>
+	<% end %>
+<% end %>
+
+
+<% end %>

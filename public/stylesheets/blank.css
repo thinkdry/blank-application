@@ -656,14 +656,6 @@ ul.top_box li{
 	color:grey;
 }
 
-#pagination, .pagination{
-	text-align:center;
-	padding-top:15px;
-	height:30px;
-	border-left: 1px solid #ccc;
-    border-right: 1px solid #ccc;
-}
-
 .other_output_format{
 	float:right;
 	color:#9C9C9C;
@@ -749,17 +741,7 @@ ul.top_box li{
 .item_list_rate{
 	float:right;
 }
-#attachement, #comment_list{
-	overflow:auto;
-	padding-top:20px;
-}
-#attachement ul{
-	list-style-type:none;
-}
-#attachement h2, #comment_list h2{
-	border-bottom:1px solid #F2F2F2;
-	padding-bottom:7px;
-}
+
 #progress{
 	margin-top:20px;
 }
@@ -775,9 +757,6 @@ ul.top_box li{
 	overflow:auto;
 }
 
-#files{
-	margin-top:9px;
-}
 
 #left_select_box, #left_right_buttons, #right_select_box, #right_select_box2{
 	float:left;
@@ -1159,12 +1138,7 @@ form br{
 	margin-top:30px;
     cursor: pointer;
 }
-.checkboxes{
-	width:15px !important;
-	border:none !important;
-	height:auto !important;
-	margin:0 !important;
-}
+
 
 #middle-middle ul {
 	margin-left:20px;
@@ -1201,7 +1175,7 @@ label .low{
 
 #start_with { width:80px !important;}
 #assignedOptions, #availableOptions { height:140px; }
-#keywords_list{clear:both; margin-top:5px;}
+
 #keywords_list img {margin:0 !important;}
 .keyword_label {width:auto; float:left;margin-left:10px;}
 

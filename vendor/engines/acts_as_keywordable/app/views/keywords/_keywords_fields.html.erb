@@ -1,7 +1,9 @@
 	<div id="add_keyword">
     	<%= text_field :keyword, :value, :hint => I18n.t('item.field.keyword_hint'), :onclick => "autocomplete_on(#{@keywords},'#keyword_value')"%>
-    	<%= link_to_function( "ajouter le motclef",
-      "insert_keyword('#{object.class.to_s.underscore}', '#keywords_list', 'keywords_field');") %>
+    	<%= link_to_function( image_tag('/images/keywordAdd.gif'),
+   							  "insert_keyword('#{object.class.to_s.underscore}', 
+											  '#keywords_list', 
+											  'keywords_field');") %>
   	</div>
 	
   	<div id="keywords_list">
@@ -15,4 +17,3 @@
     	<% end -%>
 	<% end -%>
 	</div>
-	

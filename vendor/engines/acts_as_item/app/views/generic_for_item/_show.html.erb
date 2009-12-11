@@ -40,10 +40,8 @@
     <div class="itemShowRightBlock">
         <div class="blockHeader">User</div>
         <div class="blockBody">
-            <p><%= link_to_user object.user %></p>
-
-            <p><%= object.comments_number %> <%= object.comments_number > 1 ? I18n.t("item.common_word.comment").pluralize : I18n.t("item.common_word.comment")%></p>
-            <p><%= item_rate_locked(object) %></p>
+            <%= link_to_user object.user %>
+            <%= item_rate_locked(object) %>I18n.t('item.field.keyword_label').pluralize
         </div>
     </div>
     <div class="itemShowRightBlock">

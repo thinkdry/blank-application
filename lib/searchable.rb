@@ -53,23 +53,27 @@ module Searchable
 				# A control is done in order to be sure that just the fields allowed are tested.
 				def get_da_objects_list(*args)
 					options = args.extract_options!
+					#req is of type of the object in use. Article, Image....
 					req = self
 					# 1. text if there
 					req = req.searching_text_with_xapian(options[:full_text]) if options[:full_text]
 					# 2. workspaces & permissions
 					req = req.matching_user_with_permission_in_workspaces(options[:user], 'show', options[:workspace_ids])
+					
+					# NOW REQ IS AN ARRAY
+					
 					# 3. condition if there
           if options[:conditions]
             req = req.created_at_gte(options[:conditions][:created_at_after].to_date)  if !options[:conditions][:created_at_after].blank?
             req = req.created_at_lte(options[:conditions][:created_at_before].to_date) if !options[:conditions][:created_at_before].blank?
             if options[:conditions][:fetch]
               options[:conditions][:fetch].each{|fetch_cond, value|
+                #dynamic accessor
                 req = req.send(fetch_cond,value)
               }
             end
           end
-					#req = req.filtering_on(options[:filter][:field], options[:filter][:way])
-					#req = req.paginating_with(options[:pagination][:per_page].to_i, ((options[:pagination][:page].to_i - 1) * options[:pagination][:per_page].to_i))
+          
 					if (options[:opti] == 'skip_pag_but_filter')
 						req = req.all(:order => options[:filter][:field]+' '+options[:filter][:way])
 					elsif (options[:opti] == 'skip_pag_but_limit')
@@ -81,6 +85,7 @@ module Searchable
 					else
 						req = req.paginate(:per_page => options[:pagination][:per_page].to_i, :page => options[:pagination][:page].to_i, :order => options[:filter][:field]+' '+options[:filter][:way])
           end
+          
           return req
 				end
 

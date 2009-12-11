@@ -1,7 +1,1 @@
-<%= display_tabs_objects_list(
-  :default_tab => params[:item_type],
-  :tabs_list => get_allowed_item_types(current_workspace),
-  :url_base => 'ajax_items_path',
-  :list_partial => 'generic_for_items/index'
-) %>
-
+<%= render  :partial => 'admin/blank_lists/display_item_list' %>

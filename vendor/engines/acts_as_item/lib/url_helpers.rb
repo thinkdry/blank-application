@@ -152,7 +152,7 @@ module ActsAsItem
     # Parameters:
     #
     # - model: Article,Image,Audio,Video.... (may be any Item type)
-     def ajax_items_path(model)
+    def ajax_items_path(model)
       model = model.table_name unless model.is_a?(String)
       if current_workspace
         admin_workspace_ajax_content_url(:workspace_id => current_workspace.id, :item_type => model)

@@ -1,5 +1,1 @@
-<fieldset>
-	<legend><img src="/images/icons/add.png" />New workspace</legend>
-
-	<%= render :partial => "form" %>
-</fieldset>
+<%= render :partial => "form", :locals => {:title =>  I18n.t('workspace.new.title')} %>

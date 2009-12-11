@@ -17,38 +17,58 @@ module AjaxPagination
   # Usage in a view :
   # - <tt>remote_pagination(@paginated_objects, ajax_url,  'object-list')</tt>
   def remote_pagination(collection, url, refreshed_div)
-		#url = request.url.split('?').first
 		url = url.split('?').first
 		paramss = ((tmp=request.url.split('?')).size > 1) ? tmp.last : '' # why use request.url and not url in param
     paramss = paramss.split('&').delete_if{|p| p.include?('page')}.join('&') # to remove previous page param
 		paramss = (!paramss.blank?) ? paramss.split('&page=').first+'&page=' : 'page='
     url = url+'?'+paramss
     if !collection.nil? and collection.total_pages > 1
-    content = String.new
-#		item_type =  params[:item_type].nil? ? get_default_item_type(current_workspace) : params[:item_type]
-#    url = current_workspace ? ajax_items_path(item_type) +"&page=" : ajax_items_path(item_type) +"?page="
-    current_page = params[:page] ? params[:page].to_i : 1
-    if current_page == 1
-      content = "&laquo; #{I18n.t('general.common_word.prev')} "
-    else
-     content = content + link_to_remote("&laquo; #{I18n.t('general.common_word.prev')} ", :update => refreshed_div,:method=>:get, :url =>url+"#{current_page - 1}")
-    end
-    prev = nil
-    visible_page_numbers(current_page,collection.total_pages).each do |page_no|
-        content = content+((prev and page_no > prev + 1) ? "&hellip;" : " ")
-        prev = page_no
-        if current_page == page_no
-          content = content+content_tag(:b,page_no.to_s)
-        else
-          content = content+ link_to_remote(page_no.to_s, :update => refreshed_div,:method=>:get, :url =>url+"#{page_no}")
-        end
-    end
-    if current_page == collection.total_pages
-      content = content +"  #{I18n.t('general.common_word.next')} &raquo;"
-    else
-      content = content + link_to_remote("  #{I18n.t('general.common_word.next')} &raquo;", :update => refreshed_div,:method=>:get, :url =>url+"#{(current_page+1)}")
-    end
-    return content_tag(:div, content_tag(:div, content, :align=>"center"), :id => "pagination")
+      content = String.new
+    
+      current_page = params[:page] ? params[:page].to_i : 1
+      
+      #display previews page Link
+      if current_page == 1
+        content = "<span class=\"paginationBorderUnactive\">#{I18n.t('general.common_word.prev')}</span> "
+      else
+        content = content + link_to_remote("#{I18n.t("general.common_word.prev")} ", 
+                                           :method => :get, 
+                                           :url => url+"#{current_page - 1}",
+                                           :html => {:class => 'paginationBorderActive'})
+      end
+      
+      #display pages links
+      prev = nil
+      visible_page_numbers(current_page,collection.total_pages).each do |page_no|
+          content = content+((prev and page_no > prev + 1) ? "&hellip;" : " ")
+          prev = page_no
+          #Current Page
+          if current_page == page_no
+            content = content + link_to_remote( page_no.to_s, 
+                                                :method => :get, 
+                                                :url => url+"#{page_no}", 
+                                                :html => {:class => 'paginationSelected'})
+          #Another page, not current
+          else
+            content = content + link_to_remote(page_no.to_s, 
+                                               :method => :get, 
+                                               :url =>url+"#{page_no}", 
+                                               :html => {:class => 'paginationUnselected'})
+          end
+      end
+      
+      #display next page Link
+      if current_page == collection.total_pages
+        content = content + " <span class=\"paginationBorderUnactive\">#{I18n.t('general.common_word.next')}</span>"
+      else
+        content = content + link_to_remote( " #{I18n.t("general.common_word.next")}",
+                                            :method => :get,
+                                            :url => url+"#{(current_page+1)}",
+                                            :html => {:class => "paginationBorderActive"})
+      end
+      
+      #return total pagination in pagination id div.
+      return content_tag(:div, content, :id => "pagination")
     end
   end
 

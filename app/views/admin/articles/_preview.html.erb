@@ -4,7 +4,7 @@
   
   <% if object.article_files.size > 0 %>
     <h2><%= image_tag 'icons/attach.png'%><%=I18n.t('article.field.assosiated_file_label')%></h2>
-  <div id="attachement">
+  <div id="attachement" class="blockElement">
     <ul>
       <% object.article_files.each do |af| %>
         <li>

@@ -1,24 +1,24 @@
 <div class="listHeader">
-	<h3><%= @paginated_objects.count%> items</h3>
-	<%= display_classify_bar(ordering_fields, ajax_url, 'objectList') %>
+	<h3 id="item_count"><%= @total_objects_count%> items</h3>
+	<%= display_classify_bar(ordering_fields, ajax_url) %>
 </div>
 <div class="contentList">
 	<div class="elementPerPages">
 		Element per pages : <a href="">10</a> | <a href="">25</a> | <a href="">50</a>
 	</div>
-	<% if @paginated_objects.first %>
-	  <script type="text/javascript" src="/videoplayer/swfobject.js"></script>
+	<div id="pure_item_list">
+		<% if @paginated_objects.first %>
+	
+	  	<input type="hidden" id="total_items" value="<%= @paginated_objects.length %>">
+		<%# call the in_list_partial, default is item_in_list%>
+	  	<%= display_item_in_list(@paginated_objects, in_list_partial) %>
 
-	  <input type="hidden" id="total_items" value="<%= @paginated_objects.length %>">
-	  <%= display_item_in_list(@paginated_objects, in_list_partial) %>
+	  	<%= remote_pagination(@paginated_objects, ajax_url,  'objectList') %>
 
-	  <%= remote_pagination(@paginated_objects, ajax_url,  'objectList') %>
-
-	<% else %>
-
-	  <div class="item_in_list">
-	    <%= I18n.t('item.common_word.list_empty') %>
-	  </div>
-
-	<% end %>
+		<% else %>
+	  	<div class="item_in_list">
+	    	<%= I18n.t('item.common_word.list_empty') %>
+	  	</div>
+		<% end %>
+	</div>
 </div>

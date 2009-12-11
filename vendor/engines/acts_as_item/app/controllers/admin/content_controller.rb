@@ -1,7 +1,7 @@
 class Admin::ContentController < Admin::ApplicationController
   
   unloadable
-
+  
   # Action rendering the content tabs page for items
   #
 	# This action is retrieving the items list of the type given by the 'item_type' parameters (HTTP parameters).
@@ -16,13 +16,21 @@ class Admin::ContentController < Admin::ApplicationController
     params[:w] ||= current_workspace ? [current_workspace.id] : nil
 		params_hash = setting_searching_params(:from_params => params)
     params_hash.merge!({:skip_pag => true, :by => 'created_at-asc'}) if params[:format] && params[:format] != 'html'
+      
 		@paginated_objects = params[:item_type].classify.constantize.get_da_objects_list(params_hash)
+		# get the number of items.
+		@total_objects_count = params[:item_type].classify.constantize.matching_user_with_permission_in_workspaces(@current_user, 'show', params[:w]).uniq.count
+		
+		@ordering_filters = ['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title']
+		#generate the correct address for ITEM PAGINATION
+		@ajax_url = params[:controller] == 'admin/searches' ? request.path : params[:w] ? "/admin/workspaces/1/ajax_content/" + params[:item_type] : "/admin/ajax_content/#{params[:item_type]}"		
+    
+		
 #		if request.xhr?
 #			@i = 0
 #			render :partial => "generic_for_items/items_list", :layout => false, :locals => { :ajax_url => current_workspace ? "/workspaces/#{current_workspace.id}/ajax_content/"+params[:item_type] : "/ajax_content/#{params[:item_type]}" }
 #		else
-		@no_div = false
-			respond_to do |format|
+		  respond_to do |format|
 				format.html
 				format.xml { render :xml => @paginated_objects }
 				format.json { render :json => @paginated_objects }
@@ -41,12 +49,22 @@ class Admin::ContentController < Admin::ApplicationController
 	# - GET /ajax_content?item_type=article
   #
   def ajax_index
+    
 		params[:item_type] ||= get_allowed_item_types(current_workspace).first.pluralize
+		p request.inspect
 		params[:w] ||= current_workspace ? [current_workspace.id] : nil
     @paginated_objects = params[:item_type].classify.constantize.get_da_objects_list(setting_searching_params(:from_params => params))
-    @i = 0
+    @total_objects_count = params[:item_type].classify.constantize.matching_user_with_permission_in_workspaces(@current_user, 'show', params[:w]).uniq.count
 		@no_div = true
-		render :partial => "generic_for_items/index", :layout => false
+		#render :partial => "generic_for_items/index", :layout => false
+		#render :partial => "admin/blank_lists/pure_item_list", :layout => false
+		
+		@ajax_url = params[:controller] == 'admin/searches' ? request.path : params[:w] ? "/admin/workspaces/1/ajax_content/" + params[:item_type] : "/admin/ajax_content/#{params[:item_type]}"		
+		@ordering_filters = ['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title']
+		
+		respond_to do |format|
+		  format.js {render :layout => false}
+		end
   end
 
   # Action displaying items of the specified FCKeditor action ('selected_item' parameters)

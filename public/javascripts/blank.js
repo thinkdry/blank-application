@@ -1,3 +1,7 @@
+jQuery.ajaxSetup({ 
+  'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
+})
+
 $(document).ready(function () {	
 	
     wasVisible = new Boolean(false);
@@ -34,7 +38,8 @@ $(document).ready(function () {
         );
 	
     $('.filter').click(function(){
-        $(this).next('ul.ddown').slideToggle('fast');
+		var self = $(this);
+        self.next('ul.ddown').slideToggle('fast');
     });
     
     $('.auto-submit-star').rating({
@@ -82,13 +87,14 @@ function autocomplete_on(array, div){
 }
 
 
-function classify_bar(div,url) {
+function classify_bar(url) {
     $.ajax({
         type: 'GET',
         url: url,
-        success: function(html){
-            $(div).html(html);
-        }
+		dataType: "script",
+		success:function(html){
+			
+		}
     });
 }
 
