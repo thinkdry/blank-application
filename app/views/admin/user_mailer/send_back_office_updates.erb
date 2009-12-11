@@ -20,21 +20,15 @@
 
   <p>
     L'objet <%= I18n.t('general.item.' + @audit.auditable_type.downcase ).downcase %>
-    a été <%= I18n.t('general.actions.done.' +@audit.audit_action.capitalize).downcase %>
+    a été <%= I18n.t('general.actions.done.' +@audit.action.capitalize).downcase %>
     par l'utilisateur <%= User.find(@audit.user_id).full_name %> 
 	le <%= I18n.l @audit.created_at, :format => :long1 %>
   </p>
   <%= "<p>Titre : <b>#{@object.title}</b></p>" if @object.title %>
   <%= "<p>Description : <b>#{@object.description}</b></p>" if @object.description %>
    
-  <% if @audit.auditable_type == 'Article' && @object.publish_at %>
-    <p>
-	  L'article doit paraître dès le <%= I18n.l @object.publish_at, :format => :long1 %>
-	</p>
-  <% end %>
   <p>
     Vous pouvez vous y rendre par le lien suivant :  
-	<%= link_to "Voir #{I18n.t('general.item.' + @audit.auditable_type.downcase ).downcase}", @url + item_path(@object)%>
   </p>
 
 </body>

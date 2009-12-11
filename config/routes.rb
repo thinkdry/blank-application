@@ -63,8 +63,12 @@ ActionController::Routing::Routes.draw do |map|
     admin.forgot_password '/forgot_password', :controller => 'users', :action => 'forgot_password'
     admin.reset_password '/reset_password/:password_reset_code', :controller => 'users', :action => 'reset_password'
     admin.resources :users, :member => { :locking => :any, :resend_activation_mail_or_activate_manually => :post },
-      :collection => {:autocomplete_on => :any, :validate => :any }
+      :collection => {:autocomplete_on => :any, :validate => :any } do |user|
+		user.notification '/notifications', :controller => 'users', :action => 'notifications'
+		user.create_notification '/create_notifications', :controller => 'users', :action => 'create_notifications'
+    end
     admin.resource :session
+
 
     # Routes for People
     admin.resources :people, :collection => {:export_people => :any, :import_people => :any, :get_empty_csv => :get, :validate => :any ,:filter => :get }

@@ -100,7 +100,7 @@ Rails::Initializer.run do |config|
   # config.active_record.observers = :cacher, :garbage_collector
 
   # RESTful authentification observer
-  config.active_record.observers = :user_observer
+  config.active_record.observers = :user_observer, :audit_observer
 
 	# Need the production_log_analyze gem
 	# Use for example : pl_analyze log/production.log -e recipient@example.com
