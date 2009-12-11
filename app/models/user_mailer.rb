@@ -56,6 +56,24 @@ class UserMailer < ActionMailer::Base
 
   end
 
+  # Send Newsletter to Subscribed Users
+  def send_back_office_updates(to,member_type,from, newsletter_subject,audit_id ,user_id)
+    audit = Audit.find(audit_id)
+    object = audit.auditable_type.classify.constantize.find(audit.auditable_id) rescue nil
+    recipients to
+    from from
+		subject newsletter_subject
+		body :audit =>audit, 
+		     :object => object ,
+		     :user =>User.find(user_id),
+		     :site => self.site_name,
+		     :member_type => member_type,
+		     :email => to,
+		     :url => self.daurl
+    sent_on Time.now
+    content_type "text/html"
+  end
+
   protected
 	# Method setting some default value for emails
     def setup_email(user)
