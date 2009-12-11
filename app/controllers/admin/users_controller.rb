@@ -103,7 +103,7 @@ class Admin::UsersController < Admin::ApplicationController
 				flash[:error] = I18n.t('user.locking.flash_error')
 			end
 		end
-		redirect_to '/users'
+		redirect_to admin_users_path
 	end
 
 	def index
@@ -118,7 +118,7 @@ class Admin::UsersController < Admin::ApplicationController
 			end
 		else
 			@no_div = true
-			render :partial => 'users/index', :layout => false
+			render :partial => 'admin/users/index', :layout => false
 		end
 	end
 
@@ -193,7 +193,7 @@ class Admin::UsersController < Admin::ApplicationController
       current_user.activate
       flash[:notice] = "Subscription complete !"
     end
-    redirect_back_or_default('/')
+    redirect_back_or_default(admin_root_url)
   end
 
   # Function allowing to gain his password by email in case of forgot
@@ -225,7 +225,7 @@ class Admin::UsersController < Admin::ApplicationController
           self.current_user = @user
           @user.delete_reset_code
           flash[:notice] = "#{@user.login},"+I18n.t('user.reset_password.flash_notice')
-          redirect_to "/login"
+          redirect_to admin_login_path
         else
           flash.now[:error] = I18n.t('user.reset_password.flash_error')
           render :action => :reset_password
@@ -233,7 +233,7 @@ class Admin::UsersController < Admin::ApplicationController
       end
     else
       flash[:error] = I18n.t('user.reset_password.flash_error_link')
-      redirect_to "/login"
+      redirect_to admin_login_path
     end
   end
 
@@ -256,7 +256,7 @@ class Admin::UsersController < Admin::ApplicationController
       redirect_to users_path
     else
       flash[:error] = I18n.t('general.common_message.permission_denied')
-      redirect_to '/'
+      redirect_to admin_login_path
     end
   end
 

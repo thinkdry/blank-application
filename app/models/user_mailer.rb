@@ -22,7 +22,7 @@ class UserMailer < ActionMailer::Base
 	def signup_notification(user)
 		setup_email(user)
 		subject self.site_name+" : "+I18n.t('mailer.signup_notification.subject')
-		body :url => self.daurl+"/activate/#{user.activation_code}",
+		body :url => self.daurl+"/admin/activate/#{user.activation_code}",
 			:site => self.site_name,
 			:user_login => user.login,
 			:user_password => user.password
@@ -32,7 +32,7 @@ class UserMailer < ActionMailer::Base
   def reset_notification(user)
 		setup_email(user)
 		subject self.site_name+" : "+I18n.t('mailer.reset_notification.subject')
-		body :url => self.daurl+"/reset_password/#{user.password_reset_code}",
+		body :url => self.daurl+"/admin/reset_password/#{user.password_reset_code}",
 			:user_login => user.login,
 			:site => self.site_name
   end
