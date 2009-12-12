@@ -3,9 +3,9 @@
   	<%= @current_object.body %>
   	<% if @current_object.article_files.size > 0 %>
   	<div id="attachement" class="blockElement">
-		<div class="blockElementHeader">
+		<div class="blockCornerLeft"></div><div class="blockElementHeader sixH">
 			<%=I18n.t('article.field.assosiated_file_label')%>
-		</div>
+		</div><div class="blockCornerRight"></div>
     	<ul class="blockElementBody">
       	<% @current_object.article_files.each do |af| %>
         	<li>

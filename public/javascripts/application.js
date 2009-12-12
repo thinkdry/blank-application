@@ -163,24 +163,24 @@ function selectItemTab(idSelected){
 	
 	
 //display the good tiem in a item list, google way of displaying.
-function toggleAccordion(idClicked){
-    var items_length = document.getElementById("total_items").value;
-    for (var i=0 ; i < items_length ; ++i){
-        var item_element = document.getElementById("itemInformations_"+i);
-        if ("itemInformations_"+i != idClicked){
-            item_element.style.display = 'none';
-            item_element.parentNode.className = 'item_in_list';
-        }else{
-            if(item_element.style.display == 'none'){
-                item_element.style.display = '';
-                item_element.parentNode.className = 'selected_item_in_list';
-            }else{
-                item_element.style.display = 'none';
-                item_element.parentNode.className = 'item_in_list';
-            }
-        }
-    }
-}
+// function toggleAccordion(idClicked){
+//     var items_length = document.getElementById("total_items").value;
+//     for (var i=0 ; i < items_length ; ++i){
+//         var item_element = document.getElementById("itemInformations_"+i);
+//         if ("itemInformations_"+i != idClicked){
+//             item_element.style.display = 'none';
+//             item_element.parentNode.className = 'item_in_list';
+//         }else{
+//             if(item_element.style.display == 'none'){
+//                 item_element.style.display = '';
+//                 item_element.parentNode.className = 'selected_item_in_list';
+//             }else{
+//                 item_element.style.display = 'none';
+//                 item_element.parentNode.className = 'item_in_list';
+//             }
+//         }
+//     }
+// }
 
 // To add a params from the current url and reload the page
 function params(item_url, parent_id){

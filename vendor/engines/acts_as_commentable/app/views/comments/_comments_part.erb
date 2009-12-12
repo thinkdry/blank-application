@@ -1,17 +1,20 @@
 <div id="ajax_info" style="color:green"></div>
 
-<div id="commentsList" class="blockElement">
-
-	<div class="blockElementHeader">
+<div class="blockElement">
+	<div class="blockCornerLeft"></div>
+	<div class="blockElementHeader sixH">
 		<%= object.comments.length %> <%=I18n.t('general.object.comment').pluralize.camelize %>
-	</div>
-	<div class="commentsBody">
+	</div><div class="blockCornerRight"></div>
+	<div class="blockElementBody">
+		<div id="comments_list">
 		<% if object.comments.length > 0 %>
-			<%= render :partial => "comments/comment_in_list", :collection => object.comments %>
+			<%= render :partial => "comments/comment_in_list", :collection => object.comments, :locals => {:comment_number_for_ajax => nil }%>
 		<% end-%>
+		</div>
 		
+		<% if permission || @current_object.has_permission_for?('comment', @current_user) %>
 		<div id="newCommentForm">
-			<div class="newCommentTitle">New Comment</div> 
+			<h2>New Comment</h2> 
 	        <% remote_form_for :comments, :url => add_comment_item_path(@current_object),  :html => {:class => "newComment"} do |f|  %>
 	            <textarea id="comment_box" class="comment_box" rows="8" name="comment[text]"></textarea>
 	            <% if !current_user %>
@@ -22,5 +25,6 @@
 	            <button type="submit" class="submit_button"><%=I18n.t('comment.add_comment.button_publish')%></button>
 	        <% end %>
 	    </div>
-	</div>  
+		<% end-%>
+	</div> 
 </div>

@@ -73,21 +73,21 @@ module Admin::BlankListsHelper
 	#		:output_formats => ['xml', 'json', 'atom'],
 	#		:no_div => @no_div
 	# )
-  def display_objects_list(*args)
-    options = args.extract_options!
-    content = render :partial => 'admin/blank_lists/objects_list', :locals => {
-        :in_list_partial => options[:in_list_partial],
-        :ajax_url => options[:ajax_url],
-        :ordering_fields => options[:ordering_fields],
-        :output_formats => options[:output_formats],
-          :output_formats_url => options[:output_formats_url]
-      }
-    if options[:no_div]
-      return content
-    else
-      return content_tag(:div, content, :id => "objectList")
-    end
-  end
+  # def display_objects_list(*args)
+  #     options = args.extract_options!
+  #     content = render :partial => 'admin/blank_lists/objects_list', :locals => {
+  #         :in_list_partial => options[:in_list_partial],
+  #         :ajax_url => options[:ajax_url],
+  #         :ordering_fields => options[:ordering_fields],
+  #         :output_formats => options[:output_formats],
+  #           :output_formats_url => options[:output_formats_url]
+  #       }
+  #     if options[:no_div]
+  #       return content
+  #     else
+  #       return content_tag(:div, content, :id => "objectList")
+  #     end
+  #   end
 
 	# Display the dry objects list
   #
@@ -97,10 +97,10 @@ module Admin::BlankListsHelper
 	#
   # Usage :
   #   display_items_in_list(items_list)
-  def display_item_in_list(items_list, partial_used)
-    @i = 0
-   render :partial => partial_used, :collection => items_list
-  end
+  # def display_item_in_list(items_list, partial_used)
+  #     @i = 0
+  #    render :partial => partial_used, :collection => items_list
+  #   end
 
   # Display the bar for filtering
 	#
@@ -112,12 +112,12 @@ module Admin::BlankListsHelper
   #
   # Usage :
   #display_classify_bar(['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title'], ajax_url, '  ')</tt>
-  def display_classify_bar(ordering_fields_list, ajax_url, partial_used='admin/blank_lists/classify_bar')
-      render :partial => partial_used, :locals => {
-       :ordering_fields_list => ordering_fields_list,
-       :ajax_url => ajax_url
-      }
-	end
+  # def display_classify_bar(ordering_fields_list, ajax_url, partial_used='admin/blank_lists/classify_bar')
+  #      render :partial => partial_used, :locals => {
+  #       :ordering_fields_list => ordering_fields_list,
+  #       :ajax_url => ajax_url
+  #      }
+  #   end
 
 	# Method cleaning the URL
 	def safe_url(url, params)

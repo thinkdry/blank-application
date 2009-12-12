@@ -42,11 +42,6 @@ a.add_item{
 	color: #9C9C9C;
 }
 
-#page_container #container h2 {
-	font-size: 125%;
-	color:#F79646;
-}
-
 #logo {
 	margin-left:20px;
 	padding-top:10px;
@@ -295,13 +290,6 @@ a img {
 
 .workspaces_header{
 	width:300px !important;
-}
-
-.notice {
-	background:transparent url(/images/icons/accept.png) no-repeat scroll 7px 50%;
-	color:#3AC21F;
-    margin-bottom:50px;
-	padding:20px 10px 20px 50px;
 }
 
 .error {

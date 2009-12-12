@@ -7,29 +7,27 @@
         <h1><%= object.title %></h1>
         <%= keywords_links_list_for(@current_object) %>
 
-        <div class="itemDescription"><%= object.description %></div>
+        <div class="description"><%= object.description %></div>
 
         <%= capture(&block) %>
 
         <%= print_comments_part(object) %>
     </div>
 </div>
-<div class="itemShowRight">
+
     <div class="itemShowRightBlock">
-        <div class="blockHeader">
-			What can I do?
-        </div>
-        <div class="blockBody">
+        <div class="blockCornerLeft"></div><div class="blockElementHeader twoH">What can I do?</div><div class="blockCornerRight"></div>
+        <div class="blockElementBody">
             <%= link_to "Go back to Workspace", (current_workspace ? admin_workspace_path(current_workspace.id) + '?item_type=' : 'admin/content/') + object.class.to_s.underscore.pluralize %>
 
             <% if object.has_permission_for?('add', @current_user) %>
                 <a href="<%=new_item_path(object.class.to_s)%>"><%= I18n.t('layout.application.add_content')%></a>
             <% end %>
             <% if @current_object.has_permission_for?('edit', @current_user)  %>
-                <%= link_to "Edit", edit_item_path(object)%>
+                <%= link_to I18n.t('general.link.edit'), edit_item_path(object)%>
             <% end %>
             <% if @current_object.has_permission_for?('destroy', @current_user) %>
-                <%= link_to "delete", item_path(object), :method => :delete, :confirm =>  I18n.t('item.destroy.delete_conform')%>
+                <%= link_to I18n.t('general.link.delete'), item_path(object), :method => :delete, :confirm =>  I18n.t('item.destroy.delete_conform')%>
             <% end %>
             <%= link_to "print", 'javascript:window.print();' %>
             <% if @current_object.has_permission_for?('rate', @current_user) %>
@@ -38,18 +36,17 @@
         </div>
     </div>
     <div class="itemShowRightBlock">
-        <div class="blockHeader">User</div>
-        <div class="blockBody">
+		<div class="blockCornerLeft"></div><div class="blockElementHeader twoH">User</div><div class="blockCornerRight"></div>
+        <div class="blockElementBody">
             <%= link_to_user object.user %>
-            <%= item_rate_locked(object) %>I18n.t('item.field.keyword_label').pluralize
+            <%= item_rate_locked(object) %>
         </div>
     </div>
     <div class="itemShowRightBlock">
-        <div class="blockHeader"><%= I18n.t("item.show.associated_workspace") %></div>
-        <div class="blockBody">
+        <div class="blockCornerLeft"></div><div class="blockElementHeader twoH"><%= I18n.t("item.show.associated_workspace") %></div><div class="blockCornerRight"></div>
+        <div class="blockElementBody">
             <% for ws in object.workspaces -%>
                 <%= link_to ws.title, admin_workspace_path(ws) %>
             <% end -%>
         </div>
     </div>
-</div>

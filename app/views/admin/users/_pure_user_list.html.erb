@@ -1,0 +1,26 @@
+<% @paginated_objects.each do |object| %>
+<div class="peopleInList">
+	<div class="itemInListDate">
+		<%= I18n.l object.created_at, :format =>:verb %>
+	</div>
+	<div class="itemInListBody">
+		<div class="itemInListTitle">
+			<%= link_to object.login + ' (' + object.full_name + ')', admin_user_path(object) %>
+		</div>
+		<div class="itemInListActions">
+			<%= link_to I18n.t('general.link.edit'), edit_admin_user_path(object)%> |
+			
+			<% if object.activation_code.to_s.size > 10 %>
+	            <%= link_to I18n.t('general.link.delete'), 
+							admin_user_path(object.id), 
+							:method => :delete, 
+							:confirm => I18n.t('general.common_word.confirmation') %>
+	        <% else %>
+	            <%= link_to (object.activation_code=='locked' ? 'Unlock' : 'Lock'), locking_admin_user_path(object.id) %>
+	        <% end %>
+		</div>
+	</div>
+</div>
+<% end %>
+
+<%= remote_pagination(@paginated_objects, admin_users_path) %>

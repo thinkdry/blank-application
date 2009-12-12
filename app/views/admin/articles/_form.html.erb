@@ -7,9 +7,11 @@
   	<% end %>
 
 	<div id="attachement" class="blockElement">
-		<div class="blockElementHeader">
+		<div class="blockCornerLeft"></div>
+		<div class="blockElementHeader sixH">
 			<%=I18n.t('article.field.assosiated_file_label')%> : <%= link_to_new_file I18n.t('article.field.add_new_file') %>
 		</div>
+		<div class="blockCornerRight"></div>
     	<div id="files" class="blockElementBody">
       	<% @current_object.article_files.each do |af| %>
         	<% if af.id %>

@@ -16,7 +16,7 @@ module AjaxPagination
 	#
   # Usage in a view :
   # - <tt>remote_pagination(@paginated_objects, ajax_url,  'object-list')</tt>
-  def remote_pagination(collection, url, refreshed_div)
+  def remote_pagination(collection, url)
 		url = url.split('?').first
 		paramss = ((tmp=request.url.split('?')).size > 1) ? tmp.last : '' # why use request.url and not url in param
     paramss = paramss.split('&').delete_if{|p| p.include?('page')}.join('&') # to remove previous page param
@@ -31,10 +31,10 @@ module AjaxPagination
       if current_page == 1
         content = "<span class=\"paginationBorderUnactive\">#{I18n.t('general.common_word.prev')}</span> "
       else
-        content = content + link_to_remote("#{I18n.t("general.common_word.prev")} ", 
+        content = content + link_to_remote("#{I18n.t("general.common_word.prev")}", 
                                            :method => :get, 
                                            :url => url+"#{current_page - 1}",
-                                           :html => {:class => 'paginationBorderActive'})
+                                           :html => {:class => 'paginationBorderActive'}) + ' '
       end
       
       #display pages links
@@ -61,10 +61,10 @@ module AjaxPagination
       if current_page == collection.total_pages
         content = content + " <span class=\"paginationBorderUnactive\">#{I18n.t('general.common_word.next')}</span>"
       else
-        content = content + link_to_remote( " #{I18n.t("general.common_word.next")}",
-                                            :method => :get,
-                                            :url => url+"#{(current_page+1)}",
-                                            :html => {:class => "paginationBorderActive"})
+        content = content + ' '  + link_to_remote("#{I18n.t("general.common_word.next")}",
+                                                  :method => :get,
+                                                  :url => url+"#{(current_page+1)}",
+                                                  :html => {:class => "paginationBorderActive"})
       end
       
       #return total pagination in pagination id div.

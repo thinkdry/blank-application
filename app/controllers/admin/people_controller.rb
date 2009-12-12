@@ -68,16 +68,14 @@ class Admin::PeopleController < Admin::ApplicationController
 	# - GET /people
   def index #:nodoc:
 		@paginated_objects = @current_user.people.paginate(:per_page => get_per_page_value, :page => params[:page])
-		if !request.xhr?
-			respond_to do |format|
-				format.html {  }
-				format.xml { render :xml => @paginated_objects }
-				#format.json { render :json => @people }
-      end
-		else
-      @no_div = true
-			render :partial => 'index', :locals => {:no_div => @no_div}, :layout => false
-		end
+		@total_people = @current_user.people.length
+		
+		respond_to do |format|
+			format.html
+			format.xml { render :xml => @paginated_objects }
+			format.js {render :layout => false}
+			#format.json { render :json => @people }
+    end
   end
 
   # Action to export people to .csv file

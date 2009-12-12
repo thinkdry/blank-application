@@ -1,0 +1,30 @@
+<input type="hidden" id="total_items" value="<%= @paginated_objects.length %>">
+<%#= display_item_in_list(@paginated_objects, in_list_partial) %>
+
+<% @paginated_objects.each do |object| %>
+<div class="itemInList">
+	<div class="itemInListDate">
+		<%= I18n.l object.created_at, :format =>:verb %>
+	</div>
+	<div class="itemInListBody">
+		<div class="itemInListTitle">
+			<%= link_to object.title, item_path(object) %>
+		</div>
+		<div class="itemInListActions">
+			<% if object.has_permission_for?('edit', @current_user)  -%>
+				<%= link_to I18n.t('general.link.edit'), edit_item_path(object)%> |
+			<% end -%>
+			<% if object.has_permission_for?('destroy', @current_user) %>
+				<%= link_to I18n.t('general.link.delete'), item_path(object), :method => :delete, :confirm =>  I18n.t('item.destroy.delete_conform')%>
+			<% end -%>
+		</div>
+		<div class="itemInListTags"><%= keywords_links_list_for(object) %></div>
+	</div>
+	<!-- div class="itemInListMore">
+		<%# garder le + pour faire un tool tip avec des infos complémentaires%>
+		<%#= link_to '+', item_path(object) %>
+	</div-->
+</div>
+<% end %>
+
+<%= remote_pagination(@paginated_objects, @ajax_url) %>

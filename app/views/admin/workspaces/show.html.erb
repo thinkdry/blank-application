@@ -1,61 +1,52 @@
 <%h content_for :title, "#{current_workspace.class.to_s}: "+current_workspace.title %>
 
-<div id="area_TITLE">
-  <div id="area_TITLE_left">
-    <%= link_to image_tag(current_workspace.logo.url(:medium), :width => "80"), admin_workspace_path(current_workspace) %>
-  </div>
-  <div id="area_TITLE_right">
-    <h1>
-      <%#=I18n.t('workspace.show.title')%> <%=  @current_object.title %>
-      <% if @current_object.has_permission_for?('edit', @current_user) %>
-        <%= link_to image_tag('/images/icons/pencil.png'), edit_admin_workspace_path(@workspace.id)  %>
-      <% end %>
-    </h1>
+<div class="workspaceHeader">
+	<div class="workspaceLogo">
+	    <%= link_to image_tag(current_workspace.logo.url(:medium), :width => "150"), admin_workspace_path(current_workspace) %>
+	</div>
+	<div class="workspaceInfos">
+		
+	    <h2><%=  @current_object.title %></h2>
+		<div class="workspaceActions">
+			<% if @current_object.has_permission_for?('edit', @current_user) %>
+		        <%= link_to I18n.t('general.link.edit'), edit_admin_workspace_path(@workspace.id)  %>&nbsp;|
+		    <% end %>
+			<% if @current_object.has_permission_for?('contacts_management', @current_user) %>
+		      <%= link_to ( I18n.t('workspace.show.manage_contacts'),
+		 					list_admin_workspace_workspace_contacts_path(current_workspace.id))%>&nbsp;|
+		    <% end %>
+			<% if ContactsWorkspace.exists?(:workspace_id => @current_object.id, 
+											:contactable_type => 'User', 
+											:contactable_id => @current_user.id) %>
+		      	<%= link_to (I18n.t('workspace.show.unsubscribe_to_newsletter'),
+							 subscribe_admin_workspace_workspace_contacts_path(@workspace.id)+'?remove=yes')%>&nbsp;|
+		    <% else %>
+		      	<%= link_to(I18n.t('workspace.show.subscribe_to_newsletter'), 
+							subscribe_admin_workspace_workspace_contacts_path(@workspace.id))%>&nbsp;|
+		    <% end %>
+			<% if UsersWorkspace.exists?(:user_id => @current_user.id, :workspace_id => current_workspace.id) %>
+		      	<%= link_to(I18n.t('workspace.show.leave_workspace'), 
+							unsubscription_admin_workspace_path(@workspace.id)) %>&nbsp;|
+		    <% elsif @current_object.state == 'Public' %>
+		      	<%= link_to(I18n.t('workspace.show.join_workspace'), 
+							subscription_admin_workspace_path(@workspace.id)) %>&nbsp;|
+		    <% end %>
+		</div>
+    	
+		<div class="description"><%= @current_object.description %></div>
 
-    <%= @current_object.description %><br />
-
-    <%= I18n.t('workspace.show.other_actions')+' : ' %>
-    <% if @current_object.has_permission_for?('contacts_management', @current_user) %>
-      <%= link_to(I18n.t('workspace.show.manage_contacts'), list_admin_workspace_workspace_contacts_path(current_workspace.id))+' | ' %>
-    <% end %>
-    <% if ContactsWorkspace.exists?(:workspace_id => @current_object.id, :contactable_type => 'User', :contactable_id => @current_user.id) %>
-      <%= link_to(I18n.t('workspace.show.unsubscribe_to_newsletter'), subscribe_admin_workspace_workspace_contacts_path(@workspace.id)+'?remove=yes')+' | ' %>
-    <% else %>
-      <%= link_to(I18n.t('workspace.show.subscribe_to_newsletter'), subscribe_admin_workspace_workspace_contacts_path(@workspace.id))+' | ' %>
-    <% end %>
-    <% if UsersWorkspace.exists?(:user_id => @current_user.id, :workspace_id => current_workspace.id) %>
-      <%= link_to(I18n.t('workspace.show.leave_workspace'), unsubscription_admin_workspace_path(@workspace.id))+' | ' %>
-    <% elsif @current_object.state == 'Public' %>
-      <%= link_to(I18n.t('workspace.show.join_workspace'), subscription_admin_workspace_path(@workspace.id)) %>
-    <% end %>
-    
-    <% if @current_object.state == 'Public' || @current_object.state == 'mi_public' %>
-      <br />
-        <h2><%= I18n.t('workspace.show.request_to_workspace_administrator')%> </h2>
-        <%= I18n.t('workspace.show.request_to_workspace_administrator_txt1')%>.<br />
-        <% form_for :question, :url => question_admin_workspace_path(@workspace.id) do |f| %>
-          <%= f.select :type, [I18n.t('workspace.show.request_to_workspace_administrator_option1'), I18n.t('workspace.show.request_to_workspace_administrator_option2')] %><br />
-          <%= f.text_area :msg, :size => '50x5' %><br />
-          <%= f.submit I18n.t('general.button.send_request') %><br />
-        <% end %>
-    <% end %>
-  </div>
+	    <% if @current_object.state == 'Public' || @current_object.state == 'mi_public' %>
+	      <br />
+	        <h2><%= I18n.t('workspace.show.request_to_workspace_administrator')%> </h2>
+	        <%= I18n.t('workspace.show.request_to_workspace_administrator_txt1')%>.<br />
+	        <% form_for :question, :url => question_admin_workspace_path(@workspace.id) do |f| %>
+	          <%= f.select :type, [I18n.t('workspace.show.request_to_workspace_administrator_option1'), I18n.t('workspace.show.request_to_workspace_administrator_option2')] %><br />
+	          <%= f.text_area :msg, :size => '50x5' %><br />
+	          <%= f.submit I18n.t('general.button.send_request') %><br />
+	        <% end %>
+	    <% end %>
+	  </div>
 </div>
 
-<% if !params[:item_type].blank? %>
-  <div class="area_top_five">
-    <%#= display_generic_items_tab('top_five') %>
-  </div>
-<% end %>
 
-<div class="area_BOTH">
-	<%= render  :partial => 'admin/blank_lists/display_item_list' %>
-	
-<%#= display_tabs_objects_list(
-  :default_tab => params[:item_type],
-  :tabs_list => get_allowed_item_types(current_workspace),
-  :url_base => 'ajax_items_path',
-  :list_partial => 'generic_for_items/index'
-) %>
-</div>
-
+<%= render  :partial => 'admin/blank_lists/display_item_list' %>

@@ -46,7 +46,7 @@ class Person < ActiveRecord::Base
   # Validation of the presence of this attribute
   validates_presence_of :email
 	# Validationof the size of this attribute
-  validates_length_of :email, :within => 10..40
+  validates_length_of :email, :within => 6..40
 	# Validation of the format of this attribute
   validates_format_of :email, :with => RE_EMAIL_OK
 #  validates_format_of       :primary_phone,  :mobile_phone, :with => /\A(#{NUM}){10}\Z/, :allow_blank => true

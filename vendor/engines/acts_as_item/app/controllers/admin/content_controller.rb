@@ -25,18 +25,12 @@ class Admin::ContentController < Admin::ApplicationController
 		#generate the correct address for ITEM PAGINATION
 		@ajax_url = params[:controller] == 'admin/searches' ? request.path : params[:w] ? "/admin/workspaces/1/ajax_content/" + params[:item_type] : "/admin/ajax_content/#{params[:item_type]}"		
     
-		
-#		if request.xhr?
-#			@i = 0
-#			render :partial => "generic_for_items/items_list", :layout => false, :locals => { :ajax_url => current_workspace ? "/workspaces/#{current_workspace.id}/ajax_content/"+params[:item_type] : "/ajax_content/#{params[:item_type]}" }
-#		else
-		  respond_to do |format|
-				format.html
-				format.xml { render :xml => @paginated_objects }
-				format.json { render :json => @paginated_objects }
-				format.atom { render :template => "generic_for_items/index.atom.builder", :layout => false }
-			end
-#		end
+		respond_to do |format|
+			format.html
+			format.xml { render :xml => @paginated_objects }
+			format.json { render :json => @paginated_objects }
+			format.atom { render :template => "generic_for_items/index.atom.builder", :layout => false }
+		end
   end
 
   # Ajax action managing pagination for items tabs
@@ -55,10 +49,7 @@ class Admin::ContentController < Admin::ApplicationController
 		params[:w] ||= current_workspace ? [current_workspace.id] : nil
     @paginated_objects = params[:item_type].classify.constantize.get_da_objects_list(setting_searching_params(:from_params => params))
     @total_objects_count = params[:item_type].classify.constantize.matching_user_with_permission_in_workspaces(@current_user, 'show', params[:w]).uniq.count
-		@no_div = true
-		#render :partial => "generic_for_items/index", :layout => false
-		#render :partial => "admin/blank_lists/pure_item_list", :layout => false
-		
+
 		@ajax_url = params[:controller] == 'admin/searches' ? request.path : params[:w] ? "/admin/workspaces/1/ajax_content/" + params[:item_type] : "/admin/ajax_content/#{params[:item_type]}"		
 		@ordering_filters = ['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title']
 		

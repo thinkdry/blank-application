@@ -1,0 +1,49 @@
+<div class="objectList">
+	<div class="blockCornerLeft">&nbsp;</div><div class="blockElementHeader sevTenH">
+		<span id="item_count"><%= pluralize(@total_people, I18n.t('people.index.title')) %></span>
+	</div><div class="blockCornerRight">&nbsp;</div>
+	<div class="contentList">
+		<div class="elementPerPages">
+			Element per pages : <a href="">10</a> | <a href="">25</a> | <a href="">50</a>
+		</div>
+		<div id="pure_people_list">
+			<% if @paginated_objects.first -%>
+		
+			<%= render :partial => 'pure_people_list'%>
+
+			<% else -%>
+
+		    	<%= I18n.t('item.common_word.list_empty') %>
+
+			<% end -%>
+		</div>
+	</div>
+</div>
+
+<div class="itemShowRightBlock">
+    <div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
+		Actions
+	</div><div class="blockCornerRight"></div>	
+    <div class="blockElementBody">
+        <%= link_to I18n.t('people.index.add_new_person'), new_admin_person_path %>
+		<%= link_to I18n.t('people.index.import_people_from_csv'), import_people_admin_people_path %>
+    </div>
+</div>
+
+<div class="itemShowRightBlock">
+    <div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
+		<%= I18n.t('people.index.export_people_to_csv') %>
+	</div><div class="blockCornerRight"></div>		
+    <div class="blockElementBody">
+        <% form_for :type, :url => {:controller=>"people", :action=>"export_people", :restriction => params[:restriction]} do |f| -%>
+		  	<%= f.check_box :all , :class => "checkboxes" %> <%= I18n.t('general.common_word.all') %> <br />
+		  	<%= f.check_box :creation , :class => "checkboxes" %> <%= I18n.t('people.index.created_from_back') %> <br />
+		  	<%= f.check_box :imported_from_csv, :class => "checkboxes" %> <%= I18n.t('people.index.imported_from_csv') %> <br />
+		  	<%= f.check_box :front_contcts, :class => "checkboxes" %> <%= I18n.t('people.index.front_contacts') %> <br />
+		  	<!--
+		  	<%#= f.check_box :newsletter , :class => "checkboxes" %> Receiving newsletter <br /><br />
+		     -->
+		    <%= submit_tag I18n.t('people.index.export') ,:class =>'smallSubmit'%>
+		<% end %>
+    </div>
+</div>

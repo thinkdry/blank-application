@@ -1,9 +1,30 @@
-<%= display_objects_list(
-  #:collection => @paginated_objects,
-  :in_list_partial => 'admin/users/user_in_list',
-  :ajax_url => admin_users_path,
-  #:ajax_url => request.path+'?'+request.url.split('?').last,
-  :ordering_fields => ['created_at', 'login', 'email'],
-  :output_formats => ['xml', 'json', 'atom'],
-  :no_div => @no_div
-) %>
+<div class="objectList">
+	<div class="blockCornerLeft"></div><div class="blockElementHeader sevTenH">
+		<span id="item_count"><%=I18n.t('user.administration.list_title')%></span>
+	</div><div class="blockCornerRight"></div>
+	<div class="contentList">
+		<div class="elementPerPages">
+			Element per pages : <a href="">10</a> | <a href="">25</a> | <a href="">50</a>
+		</div>
+		<div id="pure_user_list">
+			<% if @paginated_objects.first -%>
+
+			<%= render :partial => 'pure_user_list'%>
+
+			<% else -%>
+
+		    	<%= I18n.t('item.common_word.list_empty') %>
+
+			<% end -%>
+		</div>
+	</div>
+</div>
+
+<div class="itemShowRightBlock">
+    <div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
+		Actions
+	</div><div class="blockCornerRight"></div>	
+    <div class="blockElementBody">
+        <%= link_to I18n.t('user.new.add_user'), new_admin_user_path %>
+    </div>
+</div>

@@ -13,7 +13,7 @@
 		<%# call the in_list_partial, default is item_in_list%>
 	  	<%= display_item_in_list(@paginated_objects, in_list_partial) %>
 
-	  	<%= remote_pagination(@paginated_objects, ajax_url,  'objectList') %>
+	  	<%= remote_pagination(@paginated_objects, ajax_url) %>
 
 		<% else %>
 	  	<div class="item_in_list">

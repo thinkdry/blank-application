@@ -18,9 +18,11 @@
 		
 		
 		<div class="blockElement">
-			<div class="blockElementHeader">
+			<div class="blockCornerLeft"></div>
+			<div class="blockElementHeader sixH">
 				<%=I18n.t 'workspace.edit.associated_user'%>
 			</div>
+			<div class="blockCornerRight"></div>
 			<div class="blockElementBody">
 				<% if !@current_object.new_record? %>
 				    <% if  @current_object.has_permission_for?('administrate', @current_user)%>
@@ -81,10 +83,10 @@
 	<%# Items configuration %>
 	<% if @configuration["sa_items"].size > 0 %>
 	<div class="itemShowRightBlock">
-		<div class="blockHeader">
+		<div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
 			<%= I18n.t('workspace.edit.available_items') %>
-		</div>
-		<div class="blockBody">
+		</div><div class="blockCornerRight"></div>
+		<div class="blockElementBody">
 	    	<%= checkboxes_from_list(@configuration["sa_items"], "ws_items", @current_object, 'workspace') %>
 		</div>
 	</div>
@@ -93,10 +95,10 @@
 	<%# Catégories configuration %>
 	<% if @configuration["sa_item_categories"].size > 0 %>
 	<div class="itemShowRightBlock">
-		<div class="blockHeader">
+		<div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
 			<%= I18n.t('workspace.edit.available_item_categories')%>
-		</div>
-		<div class="blockBody">
+		</div><div class="blockCornerRight"></div>
+		<div class="blockElementBody">
 			<%= checkboxes_from_list(@configuration["sa_item_categories"], "ws_item_categories", @current_object, 'workspace') %>
 		</div>
 	</div>
@@ -105,10 +107,10 @@
 	<%# State configuration %>
 	<% if @workspace.state != 'private' && @configuration["sa_ws_types"].size > 0%>
 	<div class="itemShowRightBlock">
-		<div class="blockHeader">
+		<div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
 			<%= I18n.t('workspace.edit.available_ws_types')%>
-		</div>
-		<div class="blockBody">
+		</div><div class="blockCornerRight"></div>
+		<div class="blockElementBody">
 			<%= checkboxes_from_list(@configuration["sa_ws_types"], "ws_available_types", @current_object, 'workspace') %>
 		</div>
 	</div>

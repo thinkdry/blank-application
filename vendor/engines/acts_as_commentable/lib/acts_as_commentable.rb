@@ -21,9 +21,14 @@ module ActsAsCommentable
         if logged_in?
           comment = current_object.comments.create(params[:comment].merge(:user => @current_user, :state => DEFAULT_COMMENT_STATE))
           current_object.update_attributes(:comments_number => current_object.comments_number.to_i + 1)
+          
           render :update do |page|
 						if comment.state == 'validated'
-							page.insert_html :bottom, 'commentsList', :partial => "comments/comment_in_list", :object => comment
+							page.insert_html  :bottom, 
+							                  'comments_list', 
+							                  :partial => "comments/comment_in_list",
+							                  :locals => {:object => comment, :comment_number_for_ajax => current_object.comments_number}
+							                  
               page.show 'notice'
 							page.replace_html "notice", :text => I18n.t('comment.add_comment.ajax_message_comment_published')
 						else
@@ -32,6 +37,7 @@ module ActsAsCommentable
 						end
           end
         else
+          #not loggeud => captcha validation.
           if yacaph_validated?
             current_object.comments.create(params[:comment])
             current_object.update_attributes(:comments_number => current_object.comments_number.to_i + 1)

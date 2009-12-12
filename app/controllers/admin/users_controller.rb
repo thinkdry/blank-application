@@ -108,17 +108,12 @@ class Admin::UsersController < Admin::ApplicationController
 
 	def index
 		current_objects
-		if !request.xhr?
-			@no_div = false
-			respond_to do |format|
-				format.html {  }
-				format.xml { render :xml => @current_objects }
-				format.json { render :json => @current_objects }
-        format.atom {render :template => "users/index.atom.builder", :layout => false }
-			end
-		else
-			@no_div = true
-			render :partial => 'admin/users/index', :layout => false
+	  respond_to do |format|
+			format.html {  }
+			format.js { render :layout => false }
+			format.xml { render :xml => @current_objects }
+			format.json { render :json => @current_objects }
+      format.atom { render :template => "users/index.atom.builder", :layout => false }
 		end
 	end
 
@@ -193,7 +188,11 @@ class Admin::UsersController < Admin::ApplicationController
       current_user.activate
       flash[:notice] = "Subscription complete !"
     end
+<<<<<<< HEAD
     redirect_back_or_default(admin_root_url)
+=======
+    redirect_back_or_default('/admin')
+>>>>>>> half list, comments
   end
 
   # Function allowing to gain his password by email in case of forgot
