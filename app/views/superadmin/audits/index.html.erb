@@ -1,0 +1,30 @@
+<table width="100%">
+  <thead>
+    <tr>
+      <th width="150">Date</th>
+      <th width="120">Item</th>
+      <th width="150">Action</th>
+      <th width="170">Value</th>
+      <th width="120">User</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @audits.each do |a| %>
+    <tr>
+      <td><%= a.created_at %></td>
+      <td><%= "#{a.auditable_type} : #{a.auditable_id}" %></td>
+      <% if a.action == 'update' && a.attributes["changes"].length == 1 %>
+       <td><%= "#{a.action} #{a.attributes["changes"].keys.first}" %></td>
+      <% else %>
+      <td><%= a.action %></td>
+      <% end %>
+      <% if a.action == 'update' && a.attributes["changes"].length == 1 %>
+      <td>  <%= h(truncate(a.attributes['changes'].values.first.last.to_s, :lenght => 25)) %> </td>
+      <% else %>
+      <td></td>
+      <% end %>
+      <td><%= User.find(a.user_id).full_name if a.user_id %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

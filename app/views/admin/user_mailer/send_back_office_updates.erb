@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+  <table width = '730'>
+    <tr>
+      <td align = 'center'>
+	    BlankApplication
+	  </td>
+	</tr>
+  </table>
+  <br/>
+  <br/>
+
+  <p>Bonjour <%= @user.full_name %>,</p>
+
+  <p>
+    L'objet <%= I18n.t('general.item.' + @audit.auditable_type.downcase ).downcase %>
+    a été <%= I18n.t('general.actions.done.' +@audit.action.capitalize).downcase %>
+    par l'utilisateur <%= User.find(@audit.user_id).full_name %> 
+	le <%= I18n.l @audit.created_at, :format => :long1 %>
+  </p>
+  <%= "<p>Titre : <b>#{@object.title}</b></p>" if @object.title %>
+  <%= "<p>Description : <b>#{@object.description}</b></p>" if @object.description %>
+   
+  <p>
+    Vous pouvez vous y rendre par le lien suivant :  
+  </p>
+
+</body>
+</html>
