@@ -35,7 +35,7 @@ BlankApplication is currently live:
 - www.theatre-lacriee.com
 - www.culturepub.fr
 - www.netic-agency.fr
-and is comming on www.tarifmedia.com, reflex-culture.thinkdry.com.
+and is comming on www.tarifmedia.com, http://reflex-culture.thinkdry.com.
 
 We have a heavy bag of ideas and are still open to get more. Believe us something is happening here.
 
@@ -72,44 +72,44 @@ Tickets, main git repo and team is working on http://forge.thinkdry.com
 
 3) Run the installation rake task:
    
-   - rake blank:install RAILS_ENV=production
+   rake blank:install RAILS_ENV=production
 
 4) Start the server with ./script/server -e production
    
-   - Open http://localhost:3000/ in your browser
-   - Use The Default User Created by blank:install called 'boss' and password as 'monkey'
-   - Use the superadministration panel to customize 'Blank Application'
+   Open http://localhost:3000/ in your browser
+   Use The Default User Created by blank:install called 'boss' and password as 'monkey'
+   Use the superadministration panel to customize 'Blank Application'
 
 ===Advanced INSTALLATION requierement
 If you start from a new virtual machine or if you are a Newbee, here are some additional things to do.
 
 ====MySQL lib
 
-sudo apt-get install libmysqlclient15-dev
+    sudo apt-get install libmysqlclient15-dev
 
 ====LibXML (for PaulDix-FeedZirra)
 
-sudo apt-get install libxslt-dev libxml2-dev
+    sudo apt-get install libxslt-dev libxml2-dev
 
 ====LibCurl (for PaulDix-FeedZirra)
 
-sudo apt-get install libcurl3-dev
+    sudo apt-get install libcurl3-dev
 
 ====OpenSSL
 
-sudo apt-get install libopenssl-ruby 
+    sudo apt-get install libopenssl-ruby 
 
 ====ImageMagick :
 
-sudo apt-get install imagemagick libmagick9-dev
+    sudo apt-get install imagemagick libmagick9-dev
 
 ====For acts_as_xapian plugins
 
-sudo apt-get install libxapian15 libxapian-ruby1.8
+    sudo apt-get install libxapian15 libxapian-ruby1.8
 
 ====For RFeedReader gem
 
-sudo apt-get install libxml-ruby1.8 libxml-parser-ruby1.8
+    sudo apt-get install libxml-ruby1.8 libxml-parser-ruby1.8
 
 ====FFMPEG installation
 
@@ -117,55 +117,56 @@ This module is needed to encode the video with x264 codec and audio files with L
 
 =====X264
 
-git clone git://git.videolan.org/x264.git
-cd /path/to/x264-dir
-sudo ./configure --enable-shared --disable-asm
-sudo make && make install
-sudo ldconfig
+		git clone git://git.videolan.org/x264.git
+		cd /path/to/x264-dir
+		sudo ./configure --enable-shared --disable-asm
+		sudo make && make install
+		sudo ldconfig
 
 =====LameMP3
 
-wget http://sourceforge.net/projects/lame/files/lame/3.97/lame-3.97.tar.gz/download
-tar zxf lame*
-cd lame*
-sudo ./configure && make && make install
+		wget http://sourceforge.net/projects/lame/files/lame/3.97/lame-3.97.tar.gz/download
+		tar zxf lame*
+		cd lame*
+		sudo ./configure && make && make install
 
 =====FFMPEG
 
-mkdir src
-cd src
-svn checkout svn://svn.mplayerhq.hu/ffmpeg/trunk ffmpeg
-cd ffmpeg
-sudo ./configure --enable-libx264 --enable-gpl --enable-libmp3lame --enable-shared
-sudo make
-sudo make install
-ffmpeg (to check installation)
+		mkdir src
+		cd src
+		svn checkout svn://svn.mplayerhq.hu/ffmpeg/trunk ffmpeg
+		cd ffmpeg
+		sudo ./configure --enable-libx264 --enable-gpl --enable-libmp3lame --enable-shared
+		sudo make
+		sudo make install
+		ffmpeg (to check installation)
 
 Tips: if ffmpeg is not working after install do:
-nano /etc/ld.so.conf.d/custom-libs.conf
-Add the line : /usr/local/lib
-And run: sudo ldconfig
+		nano /etc/ld.so.conf.d/custom-libs.conf
+		Add the line : /usr/local/lib
+		And run: sudo ldconfig
 
 ====Tips for Window$ guys:
 
 =====ImageMagick :
 
-- Download ImageMagick from http://rubyforge.org/frs/?group_id=12 Windows Version.
-- Unzip the file and install ImageMagick.
+		Download ImageMagick from http://rubyforge.org/frs/?group_id=12 Windows Version.
+		Unzip the file and install ImageMagick.
 
 =====Xapian :
 
-- Download xapian-x.x.xx-bindings-ruby.zip from http://www.flax.co.uk/xapian_windows.shtml
-- Unzip the downloaded file
-- Copy the _xapian.so file to C:\Ruby\lib\ruby\1.8\i386-mswin32
-- Copy the xapian.rb file to C:\Ruby\lib\ruby\1.8
-- Now you need to download the latest Microsoft Visual C++ 2005 Redistributable Package (x86). You can find it in http://www.microsoft.com/downloads/details.aspx?familyid=32bc1bee-a3f9-4c13-9c99-220b62a191ee&displaylang=en
-- Download the file, install it and restart your machine. You should be good for xapian
+		Download xapian-x.x.xx-bindings-ruby.zip from http://www.flax.co.uk/xapian_windows.shtml
+		Unzip the downloaded file
+		Copy the _xapian.so file to C:\Ruby\lib\ruby\1.8\i386-mswin32
+		Copy the xapian.rb file to C:\Ruby\lib\ruby\1.8
+		Now you need to download the latest Microsoft Visual C++ 2005 Redistributable Package (x86). You can find it in http://www.microsoft.com/downloads/details.aspx?familyid=32bc1bee-a3f9-4c13-9c99-220b62a191ee&displaylang=en
+		Download the file, install it and restart your machine. You should be good for xapian
 
 
 ====Thikdry Team
 
-====For troubleshooting and feedback mail team@thinkdry.com
+
+===For troubleshooting and feedback mail team@thinkdry.com
 
    
 
