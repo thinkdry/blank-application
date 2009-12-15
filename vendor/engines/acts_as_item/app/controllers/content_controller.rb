@@ -17,6 +17,7 @@ class ContentController < Admin::ApplicationController
 		params_hash = setting_searching_params(:from_params => params)
     params_hash.merge!({:skip_pag => true, :by => 'created_at-asc'}) if params[:format] && params[:format] != 'html'
 		@paginated_objects = params[:item_type].classify.constantize.get_da_objects_list(params_hash)
+
 #		if request.xhr?
 #			@i = 0
 #			render :partial => "generic_for_items/items_list", :layout => false, :locals => { :ajax_url => current_workspace ? "/workspaces/#{current_workspace.id}/ajax_content/"+params[:item_type] : "/ajax_content/#{params[:item_type]}" }

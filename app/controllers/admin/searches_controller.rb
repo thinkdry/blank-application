@@ -10,7 +10,25 @@ class Admin::SearchesController < Admin::ApplicationController #:nodoc: all
 	# - GET /searches.xml
   def index
 		# Creation of the search object and search do
+
 		@search = Search.new(setting_searching_params(:from_params => params))#.advance_search_fields
+		
+
+#@test = ActsAsXapian::Search.new([Article],'obama', :limit => 10)
+@test = @search.do_search
+#articles = search.results.collect{|x| x[:model]}
+#@test2 = ActsAsXapian::Similar.new([Article], articles, :limit => 10)
+
+#Xapian::QueryParser qp;
+#qp.add_prefix("Title", "S");
+#Xapian::Query query = qp.parse_query([Article],'sarkozy', :limit => 10);
+#@articles2 = search.results.collect{|x| x[:model]}
+
+
+
+#result = @search.collect{|x| x[:model]} 
+#@test=ActsAsXapian::Similar.new([Article],result,:limit=>10)
+
     # TODO manage the params to get the good output with f?*%ù£$$ù AJAX
 		#@search.skip_res_pag = true if !params[:format].nil? && params[:format] != 'html'
 		@paginated_objects = @current_objects = @search.do_search
@@ -18,7 +36,7 @@ class Admin::SearchesController < Admin::ApplicationController #:nodoc: all
 		if @search.category == 'user' || @search.category == 'workspace'
 			@templatee = "#{@search.category.pluralize}/index"
 		else
-      @templatee = "generic_for_items/index"
+     	@templatee = "generic_for_items/index"
 		end
 		# Management of the response depending of the request type
 		if !request.xhr?
