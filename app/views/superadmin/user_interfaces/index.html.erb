@@ -1,0 +1,43 @@
+<%= superadmin_tabs_generator() %>
+
+<div class="objectList">
+	<div class="blockCornerLeft"></div><div class="blockElementHeader sevH">
+		<span id="item_count">User interface manager</span>
+	</div><div class="blockCornerRight"></div>
+
+	<div class="contentList superadmin">
+		<% form_for :configuration, 
+					@configuration, 
+					:url => updating_superadmin_user_interfaces_path, 
+					:html => {:method => :put, :multipart => true} do |f| -%>
+
+  			<label>Logo management :</label>
+  			<div class="formElement">
+    			<%= f.file_field 'sa_logo_url', :class => 'file' %>
+    			<%= image_tag(@configuration['sa_logo_url'].to_s) %>
+  			</div>
+
+  			<label>Favicon Management :</label>
+  			<div class="formElement">
+    			<%= f.file_field 'sa_favicon_url', :class => 'file' %><br/>
+    			Upload image with .ico extension. 
+    			<%= image_tag(@configuration['sa_favicon_url'].to_s) %>
+  			</div>
+
+  			<label>Per page default value :</label>
+  			<div class="formElement"><%= f.text_field :sa_per_page_default %></div>
+
+  			<label>Default layout :</label>
+  			<div class="formElement">
+				<%= select_tag 'configuration[sa_default_layout]', 	
+								options_for_select(LAYOUTS_AVAILABLE.map{|la| 
+									[I18n.t('general.layout.'+la), la]},
+									@configuration['sa_default_layout']) %>
+			</div>
+
+  			<div class="centerButton">
+				<button type="submit" class="submit_button"><%=I18n.t('general.button.update')%></button>
+			</div>
+		<% end -%>
+	</div>
+</div>

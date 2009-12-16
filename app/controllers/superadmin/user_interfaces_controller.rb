@@ -7,7 +7,7 @@ class Superadmin::UserInterfacesController < Admin::ApplicationController
 	#
 	# Usage URL :
 	# - GET  /admin/user_interface/editing
-	def editing
+	def index
 		@elements = Element.current
     @temp = Element.templates
 		@configuration.extend Extentions::HashFeatures
@@ -45,7 +45,7 @@ class Superadmin::UserInterfacesController < Admin::ApplicationController
     #      flash[:notice]="Changes not Saved"
     #    end
 
-		redirect_to editing_superadmin_user_interfaces_path
+		redirect_to superadmin_user_interfaces_path
 
 	end
 

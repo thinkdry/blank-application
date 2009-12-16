@@ -134,7 +134,7 @@ module GenericForItemHelper
     css_files << '/stylesheets/fckeditor.css' if css_files.empty?
     return '<script type="text/javascript" src="/fckeditor/fckeditor.js"></script>' +
       javascript_tag(%{
-        var oFCKeditor = new FCKeditor('#{object.class.to_s.underscore}_#{attribute}', "600px", "#{ height }", "#{toolset}") ;
+        var oFCKeditor = new FCKeditor('#{object.class.to_s.underscore}_#{attribute}', "620px", "#{ height }", "#{toolset}") ;
         oFCKeditor.Config['EditorAreaCSS'] = "#{css_files}" ;
         oFCKeditor.BasePath = "/fckeditor/" ;
         oFCKeditor.Config['GoogleMaps_Key'] = '';

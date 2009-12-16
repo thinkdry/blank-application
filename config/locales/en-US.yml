@@ -708,7 +708,7 @@ en-US:
       keyword_hint: Specified keywords for searching that item
       description_hint: Description of Item
       add_keyword: Add a keyword
-      title_hint: Title of Item
+      title_hint: The title is a <b>required</b> attribute of an item. It can be filled with alphanumeric values with spaces.
       title_label: Title
       description_label: Description
       state_label: Workflow

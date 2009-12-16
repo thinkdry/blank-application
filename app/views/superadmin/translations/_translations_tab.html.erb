@@ -1,5 +1,4 @@
-<fieldset>
-    <legend><%= @language %></legend>
+	<h2><%= @language %></h2>
 
     <label>Select a Section: </label>
     <div class="formElement">
@@ -8,9 +7,7 @@
           :onchange=> "translation_selection(#{json_sections})"
     %>
     </div>
-    <br/>
-    <br/>
-    <br/>
+    
     <% form_for @res, :url => updating_superadmin_translations_path do |f| %>
         <input id="language" name="language" type="hidden" value=<%= @language.to_s %>>
         <% @translation_sections.each do |section| %>
@@ -39,5 +36,3 @@
 
         <button type="submit" class="submit_button"><%= I18n.t('general.button.update')%></button>
     <% end %>
-
-</fieldset>

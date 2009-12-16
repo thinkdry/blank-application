@@ -7,7 +7,7 @@ class Superadmin::GeneralSettingsController < Admin::ApplicationController
 	#
 	# Usage URL :
 	# - GET  /admin/general_settings/editing
-	def editing
+	def index
 		@configuration.extend Extentions::HashFeatures
 	end
 
@@ -27,7 +27,7 @@ class Superadmin::GeneralSettingsController < Admin::ApplicationController
       end
     end
 		flash[:notice] = "General settings updated"
-    redirect_to editing_superadmin_general_settings_path
+    redirect_to superadmin_general_settings_path
 	end
 
 

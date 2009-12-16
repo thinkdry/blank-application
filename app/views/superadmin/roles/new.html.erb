@@ -1,10 +1,19 @@
-<fieldset>
-  <legend><img src="/images/icons/add.png" />New Role</legend>
-<% form_for @role, :url => superadmin_roles_path, :builder => BlankFormBuilder , :method => :post do |f| %>
+<%= superadmin_tabs_generator() %>
 
-  <%= render :partial => 'form', :locals => {:f => f} %>
-  <p>
-    <%= f.submit "Create" , :class => "submit_button" %>
-  </p>
-<% end %>
-</fieldset>
+<div class="objectList">
+	<div class="blockCornerLeft"></div><div class="blockElementHeader sevH">
+		<span id="item_count">New Roles</span>
+	</div><div class="blockCornerRight"></div>
+	
+	<div class="contentList superadmin">
+		<% form_for @role, 
+					:url => superadmin_roles_path, 
+					:builder => BlankFormBuilder , 
+					:method => :post do |f| %>
+
+ 			<%= render :partial => 'form', :locals => {:f => f} %>
+  
+    		<%= f.submit "Create" , :class => "submit_button" %>	
+		<% end %>	
+	</div>
+</div>

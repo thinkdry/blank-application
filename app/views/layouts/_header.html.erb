@@ -1,141 +1,134 @@
-<ul id="topMenu">
-	<li>
-		<a href="#" class="menuDropButton"><img src="/images/icons/white_down.png"/></a>
-		<div id="addSubMenu" class="subMenu">
-			<div class="subMenuContent">
-				<div class="subMenuLogo">
-		      		<img src="/images/icons/add_128.png"/>
-		      		<p><%= I18n.t('layout.menu.add_help') %></p>
-		    	</div>
+<div id="menuAndSearch">
+	<ul id="topMenu">
+		<li>
+			<a href="#" class="menuDropButton"><img src="/images/icons/white_down.png"/></a>
+			<div id="addSubMenu" class="subMenu">
+				<div class="subMenuContent">
+					<div class="subMenuLogo">
+			      		<img src="/images/icons/add_128.png"/>
+			      		<p><%= I18n.t('layout.menu.add_help') %></p>
+			    	</div>
 
-		    	<div class="subMenuCol">
-		          	<h3><%= I18n.t('layout.application.add_content') %></h3>
-		          	<ul>
-		          		<% item_types_allowed_to(@current_user, 'new', current_workspace).each do |type| -%>
-		            	<li>
-		                	<%= link_to I18n.t('general.item.' + type), new_item_path(type.camelize)%>
-		                </li>
-		              <% end -%>
-		            </ul>
-		    	</div>
+			    	<div class="subMenuCol">
+			          	<h3><%= I18n.t('layout.application.add_content') %></h3>
+			          	<ul>
+			          		<% item_types_allowed_to(@current_user, 'new', current_workspace).each do |type| -%>
+			            	<li>
+			                	<%= link_to I18n.t('general.item.' + type), new_item_path(type.camelize)%>
+			                </li>
+			              <% end -%>
+			            </ul>
+			    	</div>
 
-		    	<div class="subMenuCol">
-					<h3><%= I18n.t('layout.general.other') %></h3>
-		          	<ul>
-		            	<% if @current_user.has_system_permission('workspace', 'new') -%>
-		                	<li><%= link_to I18n.t('layout.application.new_workspace'), new_admin_workspace_path %></li>
-		              	<% end -%>
-		              	<% if @current_user.has_system_permission('user', 'new') -%>
-		                	<li><%= link_to I18n.t('user.new.add_user'), new_admin_user_path %></li>
-		              	<% end -%>
-		            </ul>
+			    	<div class="subMenuCol">
+						<h3><%= I18n.t('layout.general.other') %></h3>
+			          	<ul>
+			            	<% if @current_user.has_system_permission('workspace', 'new') -%>
+			                	<li><%= link_to I18n.t('layout.application.new_workspace'), new_admin_workspace_path %></li>
+			              	<% end -%>
+			              	<% if @current_user.has_system_permission('user', 'new') -%>
+			                	<li><%= link_to I18n.t('user.new.add_user'), new_admin_user_path %></li>
+			              	<% end -%>
+			            </ul>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="menuLabel"><%= I18n.t('layout.menu.add') %></div>
-	</li>
-	<li>
-		<a href="#" class="menuDropButton"><img src="/images/icons/white_down.png"/></a>		
-		<div id="modifySubMenu" class="subMenu">
-			<div class="subMenuContent">
-				<div class="subMenuLogo">
-		      		<img src="/images/icons/documents_128.png"/>
-			        <p><%= I18n.t('layout.menu.content_help') %></p>
-		    	</div>
+			<div class="menuLabel"><%= I18n.t('layout.menu.add') %></div>
+		</li>
+		<li>
+			<a href="#" class="menuDropButton"><img src="/images/icons/white_down.png"/></a>		
+			<div id="modifySubMenu" class="subMenu">
+				<div class="subMenuContent">
+					<div class="subMenuLogo">
+			      		<img src="/images/icons/documents_128.png"/>
+				        <p><%= I18n.t('layout.menu.content_help') %></p>
+			    	</div>
 
-		    	<div class="subMenuCol">
-					<h3><%= I18n.t('layout.general.other') %></h3>
-			        <ul>
-			            <li><%= link_to I18n.t('layout.application.home'), admin_root_path %></li>
-			            <li><%= link_to I18n.t('layout.application.content'), admin_content_path('articles') %></li>
-			            <li><%= link_to I18n.t('layout.application.personal_contacts'), admin_people_path %></li>
-			            <li><%= link_to I18n.t('layout.application.users'), admin_users_path %></li>
-			        </ul>
-		    	</div>
+			    	<div class="subMenuCol">
+						<h3><%= I18n.t('layout.general.other') %></h3>
+				        <ul>
+				            <li><%= link_to I18n.t('layout.application.home'), admin_root_path %></li>
+				            <li><%= link_to I18n.t('layout.application.content'), admin_content_path('articles') %></li>
+				            <li><%= link_to I18n.t('layout.application.personal_contacts'), admin_people_path %></li>
+				            <li><%= link_to I18n.t('layout.application.users'), admin_users_path %></li>
+				        </ul>
+			    	</div>
 
-		    	<div class="subMenuCol">
-					<h3><%= I18n.t('layout.application.workspaces') %></h3>
-			        <ul>
-			            <% Workspace.allowed_user_with_permission(@current_user, 'workspace_show').each do |w| -%>
-			            <li><%= link_to w.title, admin_workspace_path(w) %></li>
-			            <% end -%>
-			        </ul>
+			    	<div class="subMenuCol">
+						<h3><%= I18n.t('layout.application.workspaces') %></h3>
+				        <ul>
+				            <% Workspace.allowed_user_with_permission(@current_user, 'workspace_show').each do |w| -%>
+				            <li><%= link_to w.title, admin_workspace_path(w) %></li>
+				            <% end -%>
+				        </ul>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="menuLabel"><%= I18n.t('layout.menu.display') %></div>
-	</li>
-	<li>
-		<a href="#" class="menuDropButton"><img src="/images/icons/white_down.png"/></a>
-		<div id="searchSubMenu" class="subMenu">
-			<div class="subMenuContent">
-				<div class="subMenuLogo">
-					<img src="/images/icons/search_128.png"/>
-		            <p><%= I18n.t('layout.menu.search_help') %></p>	
-	    	</div>
-	
-				<div class="fieldsetSimulation" id="searchFieldSet">
-		            <% unless @hide_full_text_search %>
-		              <% form_for @search, :url => admin_searches_path, :builder => BlankFormBuilder, :html => { :method => :get, :name => 'search' } do -%>
-						<label>&nbsp;</label>
-		                <div class="formElement">
-		                  <% @search_hint = I18n.t('layout.search.search_label') %>
-		                  <%= text_field_tag "q", (params[:q] ? params[:q] : @search_hint), :id =>"header_search_input", :class => "style_text", :onfocus => "search_hint('#{@search_hint}', 'header_search_input', '#{params[:q].to_s}')", :onblur => "search_hint('#{@search_hint}', 'header_search_input', '#{params[:q].to_s}')" %>
-		                </div>
-		               
-		                <div id="advanced_search" class="fieldsetSimulation">
-		                  <% if @search.category %>
-		                    <%= render :partial => 'admin/searches/advanced_search', :locals => { :category => @search.category } %>
-		                  <% end %>
-		                </div>
-		                <div class="clear"></div>
-		                <button type="submit" class="submit_button" onclick="return do_search('<%= I18n.t('layout.search.date_alert') %>');">Search</button>
-		              <% end -%>
-		            <% end %>
-				</div>
-	        </div>
-		</div>
-		<div class="menuLabel"><%= I18n.t('layout.menu.search') %></div>
-	</li>
-	<li>
-		<a href="#" class="menuDropButton"><img src="/images/icons/white_down.png"/></a>
-		<div id="configureSubMenu" class="subMenu">
-			<div class="subMenuContent">
-				<div class="subMenuLogo">
-		      		<img src="/images/icons/settings_128.png"/>
-			          <p><%= I18n.t('layout.menu.configure_help') %></p>
-			          <br/><br/>
-			          <% if (available_languages.size > 1) -%>
-			            <p>
-			              <%= I18n.t('layout.application.change_language')%>&nbsp;&nbsp;
-			              <%= select_language(:languages => available_languages, :params_name => 'locale', :type => 'flags_list') %>
-			            </p>
-			          <%end-%>
-		    	</div>
+			<div class="menuLabel"><%= I18n.t('layout.menu.display') %></div>
+		</li>
+		<li>
+			<a href="#" class="menuDropButton"><img src="/images/icons/white_down.png"/></a>
+			<div id="configureSubMenu" class="subMenu">
+				<div class="subMenuContent">
+					<div class="subMenuLogo">
+			      		<img src="/images/icons/settings_128.png"/>
+				          <p><%= I18n.t('layout.menu.configure_help') %></p>
+				          <% if (available_languages.size > 1) -%>
+				            <p><%= I18n.t('layout.application.change_language')%>&nbsp;&nbsp;</p>
+				            <p><%= select_language(  :languages => available_languages, 
+													:params_name => 'locale') %>
+				            </p>
+				          <%end-%>
+			    	</div>
 
-		    	<div class="subMenuCol">
-					<h3>Administration</h3>
-			        <ul>
-			              <li><%= link_to I18n.t('layout.application.my_account'), admin_user_path(current_user) %></li>
-			              <li><%= link_to I18n.t('user.administration.workspace_management'), admin_workspaces_path %></li>
-			        </ul>
-			        <br/><br/>
-			        <p><img src="/images/icons/exit.png" width="20px" style="margin-right:5px"/><%= link_to I18n.t('layout.application.logout'), '/logout', :class => 'bigLink' %></p>
-		    	</div>
+			    	<div class="subMenuCol">
+						<h3>Administration</h3>
+				        <ul>
+				              <li><%= link_to I18n.t('layout.application.my_account'), admin_user_path(current_user) %></li>
+				              <li><%= link_to I18n.t('user.administration.workspace_management'), admin_workspaces_path %></li>
+				        </ul>
+				        <br/><br/>
+				        <p><img src="/images/icons/exit.png" width="20px" style="margin-right:5px"/><%= link_to I18n.t('layout.application.logout'), '/logout', :class => 'bigLink' %></p>
+			    	</div>
 
-		    	<div class="subMenuCol">
-					<h3>Superadmin</h3>
-		            <ul>
-		                <li><%= link_to "General settings", editing_superadmin_general_settings_path %></li>
-		                <li><%= link_to "User interface", editing_superadmin_user_interfaces_path %></li>
-		                <li><%= link_to "Translations", editing_superadmin_translations_path %></li>
-		                <li><%= link_to "Tasks", superadmin_tasks_path %></li>
-		                <li><%= link_to "Roles & permissions", superadmin_roles_path %></li>
-		                <li><%= link_to "Action Mailer settings", editing_superadmin_action_mailer_settings_path %></li>
-		            </ul>
+			    	<div class="subMenuCol">
+						<h3>Superadmin</h3>
+			            <ul>
+			                <li><%= link_to "General settings", superadmin_general_settings_path %></li>
+			                <li><%= link_to "User interface", superadmin_user_interfaces_path %></li>
+			                <li><%= link_to "Translations", superadmin_translations_path %></li>
+			                <li><%= link_to "Tasks", superadmin_tasks_path %></li>
+			                <li><%= link_to "Roles & permissions", superadmin_roles_path %></li>
+			                <li><%= link_to "Action Mailer settings", superadmin_mailer_settings_path %></li>
+			            </ul>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="menuLabel"><%= I18n.t('layout.menu.configure') %></div>
-	</li>
-</ul>
+			<div class="menuLabel"><%= I18n.t('layout.menu.configure') %></div>
+		</li>
+	</ul>
+	<div id="powerfullSearch">
+		<% form_for @search, 
+					:url => admin_searches_path, 
+					:builder => BlankFormBuilder, 
+					:html => { :method => :get, :name => 'search' } do -%>
+					
+			<div class="fieldContainer">
+				<%= text_field_tag  "q", 
+									(params[:q] ? params[:q] : @search_hint), 
+									:id =>"commandSearch" %>
+			</div>
+			<div class="launchButton">
+				<button type="submit" class="headerSearchButton" onclick="return do_search('<%= I18n.t('layout.search.date_alert') %>');"></button>
+			</div>
+		<% end -%>
+	</div>
+</div>
+
+
+
+
+
+
+
+

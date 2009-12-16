@@ -1,6 +1,6 @@
-	<div id="add_keyword">
+	<div id="addKeyword">
     	<%= text_field :keyword, :value, :hint => I18n.t('item.field.keyword_hint'), :onclick => "autocomplete_on(#{@keywords},'#keyword_value')"%>
-    	<%= link_to_function( image_tag('/images/keywordAdd.gif'),
+    	<%= link_to_function( "&nbsp;",
    							  "insert_keyword('#{object.class.to_s.underscore}', 
 											  '#keywords_list', 
 											  'keywords_field');") %>

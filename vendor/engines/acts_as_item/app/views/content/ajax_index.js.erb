@@ -1,0 +1,3 @@
+$('#classify_bar').html("<%= escape_javascript(render :partial => 'admin/blank_lists/classify_bar') %>");
+$('#item_count').html("<%= pluralize(@total_objects_count, ' item')%>");
+$('#pure_item_list').html("<%= escape_javascript(render :partial => 'admin/blank_lists/pure_item_list') %>");

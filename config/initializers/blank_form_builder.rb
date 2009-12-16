@@ -13,8 +13,8 @@ module ActionView::Base::CompiledTemplates
      
     def template_for_advanced_editor(object)
       %{
-          <label>#{object.label}</label>
-          <div class="formElement">#{@template.ajax_error_message_on(@object, object.method)}</div>
+          <label class="advanced">#{object.label}</label>
+          <div class="errorForAdvancedEditor">#{@template.ajax_error_message_on(@object, object.method)}</div>
           <div class="advancedEditor">#{object}</div>
       }
     end
@@ -22,7 +22,7 @@ module ActionView::Base::CompiledTemplates
 		def advanced_editor(field, *args)
       options = args.extract_options!
       options = options.merge(:ajax => false, :template => :template_for_advanced_editor)
-      width = options[:width] || '730px'
+      width = options[:width] || '630px'
       height = options[:height] || '350px'
 
       text_area(field, options) +

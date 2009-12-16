@@ -1,46 +1,66 @@
-<h1>System Roles List :</h1>
+<%= superadmin_tabs_generator() %>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Description</th>
-  </tr>
+<div class="objectList">
+	<div class="blockCornerLeft"></div><div class="blockElementHeader sevH">
+		<span id="item_count">Roles</span>
+	</div><div class="blockCornerRight"></div>
 
-  <% for role in @system_roles %>
-    <tr>
-      <td><%=h role.name %></td>
-      <td><%=h role.description %></td>
-      <td><%= link_to 'Edit', edit_superadmin_role_path(role.id) %></td>
-      <td><%= link_to 'Delete', superadmin_role_path(role.id), :confirm => 'Are you sure ?', :method => :delete %></td>
-    </tr>
-  <% end %>
-</table>
+	<div class="contentList superadmin">
+		<%= link_to "New System Role", new_superadmin_role_path+'?type_role=system' %>
+		|
+		<%= link_to "New Workspace Role", new_superadmin_role_path+'?type_role=workspace' %>
+		|
+		<%= link_to "Permissions list", superadmin_permissions_path %>
+		<div class="permissionsList">
+			<h2>System Roles List</h2>
+			<table cellspacing="10">
+	  			<tr>
+	    			<th>Name</th>
+	    			<th>Description</th>
+					<th>Actions</th>
+	  			</tr>
 
-<br /><br />
+	  			<% for role in @system_roles -%>
+	    		<tr>
+	      			<td><%=h role.name %></td>
+	      			<td><%=h role.description %></td>
+	      			<td>
+						<%= link_to 'Edit', edit_superadmin_role_path(role.id) %>
+						|
+						<%= link_to 'Delete', 
+									superadmin_role_path(role.id), 
+									:confirm => 'Are you sure ?', 
+									:method => :delete %>		
+					</td>
+	    		</tr>
+	  			<% end -%>
+			</table>	
+		</div>
+		<div class="permissionsList">
+			<h2>Workspace Roles List :</h2>
 
-<h1>Workspace Roles List :</h1>
+			<table cellspacing="10">
+	  			<tr>
+	    			<th>Name</th>
+	    			<th>Description</th>
+					<th>Actions</th>
+	  			</tr>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Description</th>
-  </tr>
-
-  <% for role in @workspace_roles %>
-    <tr>
-      <td><%=h role.name %></td>
-      <td><%=h role.description %></td>
-      <td><%= link_to 'Edit', edit_superadmin_role_path(role.id) %></td>
-      <td><%= link_to 'Delete', superadmin_role_path(role.id), :confirm => 'Are you sure ?', :method => :delete %></td>
-    </tr>
-  <% end %>
-</table>
-
-<br />
-<hr />
-<br /><br />
-<%= link_to "New System Role", new_superadmin_role_path+'?type_role=system' %>
-<br /><br />
-<%= link_to "New Workspace Role", new_superadmin_role_path+'?type_role=workspace' %>
-<br /><br />
-<%= link_to "Permissions list", superadmin_permissions_path %>
+	  			<% for role in @workspace_roles -%>
+	    		<tr>
+	      			<td><%=h role.name %></td>
+	      			<td><%=h role.description %></td>
+	      			<td>
+						<%= link_to 'Edit', edit_superadmin_role_path(role.id) %>
+						|
+	      				<%= link_to 'Delete', 
+									superadmin_role_path(role.id), 
+									:confirm => 'Are you sure ?', 
+									:method => 	:delete %>
+					</td>
+	    		</tr>
+	  			<% end -%>
+			</table>
+		</div>
+	</div>
+</div>

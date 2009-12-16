@@ -16,3 +16,17 @@ form{
 	width:80px;
 	text-align: center;
 }
+
+#addSubMenu{background:#f89f36;margin-left:-121px}
+#modifySubMenu{background:#f49029;margin-left:-275px;}
+#searchSubMenu{background:#ef7c18;margin-left:-407px;}
+#configureSubMenu{background:#eb6e0d;margin-left:-629px;}
+
+.formElement { overflow:auto;}
+
+#page_container {	background:#ffF;}
+
+.sixH{width:600px;}
+.twoH{width:179px;}
+.sevH{width:744px;}
+.sevTenH{width:710px;}

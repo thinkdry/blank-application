@@ -292,13 +292,6 @@ a img {
 	width:300px !important;
 }
 
-.error {
-	padding:20px 10px 20px 50px;
-    margin-bottom: 2em;
-	color: #ff9999;
-	background: transparent url(/images/icons/error.png) no-repeat scroll 7px 50%;
-}
-
 .CommonMessage, .CommonMessageFull{
 	clear:both;
 	margin:5px 0 5px 190px;
@@ -1004,9 +997,6 @@ fieldset{
 	margin:0;
 	color:#666;
 }
-#languageConfiguration .formElement {
-	width:715px;
-}
 
 #languageConfiguration input {
 	width:705px;
@@ -1050,9 +1040,7 @@ fieldset{
 	border:0;	
 }
 
-.ajax_hint_message{
-	margin-left:10px;
-}
+
 .formElement img {
 	margin:10px 0;
 }
@@ -1090,9 +1078,7 @@ form br{
 	margin:0 !important;
 }
 
-.advancedEditor{
-	margin:0 auto;
-}
+
 
 #send_newsletter{
 	float:left;

@@ -15,7 +15,6 @@ module Admin::ApplicationHelper
 		options = args.extract_options!
 		res = ""
 		if options[:languages].size > 1
-			if options[:type] == 'select_box'
 				res += "<select name='languages' id='languages' onchange=\"document.location.href = this.value\">"
 				options[:languages].each do |l|
 					if options[:params_name] == 'direct_service_trans'
@@ -31,17 +30,6 @@ module Admin::ApplicationHelper
 					end
 				end
 				res += "</select>"
-			elsif options[:type] == 'flags_list'
-				options[:languages].each do |l|
-					if options[:params_name] == 'direct_service_trans'
-						url = "http://translate.google.fr/translate?"+
-							"u=#{request.url}&tl=fr&sl=#{l.split('-').first}"
-					else
-						url = request.path+'?'+options[:params_name]+'='+l
-					end
-					res += "<a href='#{url}'><img width='#{options[:width] || 30}' src='/images/languages/#{l}.png' alt='lang'/></a>&nbsp;&nbsp;"
-				end
-			end
 		end
 		return res
 	end
@@ -55,14 +43,19 @@ module Admin::ApplicationHelper
 	# - param: String that will define the parameter that will send the checked values
 	# - conf: Hash giving the actual value for the list
 	# - object: String that will define also the parameter that will send the checked value (like that : object[param][] )
+	# - horizontal : Boolean that define if the checkbox list if vertical or horizontal. Works with checkboxListHorizontal css classe
   #
   # Usage:
   # <tt>checkboxes_from_list(ITEMS, sa_items, @conf, "conf") </tt>
-	def checkboxes_from_list(var, param, conf, object)
+	def checkboxes_from_list(var, param, conf, object, horizontal=false)
 		res = []
     key = ([param.split('_').last.singularize] & ['item', 'language', 'layout', 'type', 'category']).first
 		var.each do |l|
-      content = '<div>'
+		  if horizontal
+		    content = '<div class="checkboxListHorizontal">'
+		  else
+        content = '<div>'
+      end
       content += check_box_tag(object+'['+param+']'+"[]", "#{l}", ((ref=conf[param]) ? ref.include?(l) : false), :class => "checkboxes")+' '+I18n.t('general.'+key+'.'+l)
       content += "</div>"
 			res << content

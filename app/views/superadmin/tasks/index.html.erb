@@ -1,9 +1,26 @@
-<%= image_tag('/images/icons/cron.jpg') %>
-<%= "Tasks manager" %>
-<br /><br />
+<%= superadmin_tabs_generator() %>
 
-<%= button_to_remote "Update Xapian Indexes", :url => run_task_superadmin_tasks_path(:job => 'xapian'), :method => :get %><br /><br />
-<%= button_to_remote "Update Feed Sources", :url => run_task_superadmin_tasks_path(:job => 'feeds'), :method => :get %><br /><br />
-<%= button_to_remote "Send Pending Newsletters", :url => run_task_superadmin_tasks_path(:job => 'newsletter'), :method => :get %><br /><br />
-<%= button_to_remote "Restart passenger", :url => run_task_superadmin_tasks_path(:job => 'restart_server'), :method => :get %><br />
+<div class="objectList">
+	<div class="blockCornerLeft"></div><div class="blockElementHeader sevH">
+		<span id="item_count">Tasks manager</span>
+	</div><div class="blockCornerRight"></div>
 
+	<div class="contentList superadmin">
+
+		<%= button_to_remote "Update Xapian Indexes", 
+							 {:url => run_task_superadmin_tasks_path(:job => 'xapian'), :method => :get},  
+							 :class => "smallSubmit alone" %>
+							
+		<%= button_to_remote "Update Feed Sources", 
+							 {:url => run_task_superadmin_tasks_path(:job => 'feeds'), :method => :get},
+							 :class => "smallSubmit alone" %>
+							
+		<%= button_to_remote "Send Pending Newsletters", 
+							 {:url => run_task_superadmin_tasks_path(:job => 'newsletter'), :method => :get}, 
+							 :class => "smallSubmit alone" %>
+							
+		<%= button_to_remote "Restart passenger", 
+							 {:url => run_task_superadmin_tasks_path(:job => 'restart_server'), :method => :get},
+							 :class => "smallSubmit alone" %>
+	</div>
+</div>

@@ -1,26 +1,38 @@
 module AjaxValidation
 
   module Helpers
-    def ajax_validation(object, attribute)
-      "ajax_validation('#{object.class.to_s}', '#{attribute.to_s}', this.value, '#{url_for(:action => :validate, :id => object.id)}')"
+    def get_validation_url(object)
+      "#{url_for(:action => :validate, :id => object.id)}"
     end
-  
+    
+    # Used for generating errors on advanced FCK edior. In this case, the error is given to the user 
+    # after a form submission. 
     def ajax_error_message_on(object, attribute)
       "<div id=\"errors_for_#{object.class.to_s}_#{attribute.to_s}\">
-        #{error_message_on(object, attribute) if object.errors.on(attribute)}
+      #{error_message_on(object, attribute) if object.errors.on(attribute)}
       </div>"
 		end
     
+    #generate the hint div for form validation.
     def ajax_hint_message_on(object, attribute, message)
+      #generating Id of type : hint_for_ItemClass_Attribute, hint_for_Article_title
       hint_message_id = 'hint_for_' + object.class.to_s + '_' + attribute.to_s
       field_id = object.class.to_s.underscore +  "_" + attribute.to_s.downcase
-      "<div id=\"#{hint_message_id}\" class=\"ajax_hint_message\" style=\"display:none\">
-        #{message}
-      </div>" +
-			"<script type='text/javascript'>
-        $('##{field_id}').focus(function(){ $('##{hint_message_id}').css('display','inline') })
-        $('##{field_id}').blur(function(){ $('##{hint_message_id}').css('display','none') })
-      </script>"
+      
+      hint_content = String.new
+      
+      hint_content = "<div id=\"#{hint_message_id}\" class=\"ajax_hint_message\" style=\"display:none\">
+         <div class=\"hintSelector\"></div><div class=\"hintMessage\"><p>#{message}</p>"
+      # if there are some errors on the fields, they are added on page construction
+      # this happen when user click on submit without all the field validated. Input are red, and on focus
+      # the system display hint message and error message in red.
+      if object.errors.on(attribute)  
+        hint_content += "<div class=\"formError\">#{error_message_on(object, attribute) }</div>"
+      end
+      
+      hint_content += "</div></div>"
+      
+      return hint_content
     end
   end  
   
@@ -42,19 +54,32 @@ module AjaxValidation
       end
       
       private
+        
       def labelize(field, *args)
+        
         object = @object || @object_name.to_s.classify.constantize.new
-
+        
+        # extracting option, giving the good specific option for Jquery ajax validation with unobtrusive 
+        # Javascript. ClassName, validate and url are for this purpose. Ajax indicate if the field will 
+        # have or not a validation throught ajax.
         options = args.extract_options!        
         options[:ajax] = true if options[:ajax].nil?
-        options[:onblur] = @template.ajax_validation(object, field) if options[:ajax]
-        #options[:onchange] = "$('errors_for_#{object.class.to_s}_#{field.to_s}').hide()"
+        options[:className] = object.class.to_s
+        options[:validate] = field.to_s
+        options[:url] = @template.get_validation_url(object)
+        
+        # If there is an error on the field, so we display the input with a special class to différenciate it
+        # from other input fileds.
+        if object.errors.on(field)
+          options[:class] = "inputError"
+        end
+        
         label = options.delete(:label) || field.to_s.capitalize
-
+        
         proc = Proc.new do
           obj = yield(field, *(args << options))
-          obj += @template.ajax_error_message_on(object, field) if options[:ajax]
-					obj += @template.ajax_hint_message_on(object, field, options[:hint]) if !options[:hint].blank?
+          # creation of the hint field.
+					obj += @template.ajax_hint_message_on(object, field, options[:hint]) if options[:hint]
           obj.instance_exec do
             @label = label.to_s
             @object = object

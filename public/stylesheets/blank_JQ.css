@@ -12,6 +12,7 @@ h1 {
 	font-size:190%;
 	margin:0 0 25px;
 	border-bottom:1px solid #CCCCCC;
+	height:31px;
 }
 
 h2 {
@@ -48,10 +49,54 @@ h4 {
 	background:#D5FFCE url(/images/icons/accept.png) no-repeat scroll 7px 50%;
 	border:1px solid #9ADF8F;
 	color:#556652;
-	padding:20px 10px 20px 50px;
-	margin-bottom:50px;
 }
 
+.error {
+	color: #556652;
+	background: #FFCECE url(/images/icons/delete.png) no-repeat scroll 7px 50%;
+	border:1px solid #DF8F8F;
+}
+
+.error, .notice{
+	padding:20px 10px 20px 50px; 
+	margin-bottom:50px;
+	-moz-border-radius-bottomleft:6px;
+	-moz-border-radius-bottomright:6px;
+	-moz-border-radius-topleft:6px;
+	-moz-border-radius-topright:6px;
+}
+
+.ajax_hint_message{	
+	opacity:0.8;
+	filter : alpha(opacity=80);	
+	margin-top:-10px;
+	position:absolute;
+}
+.hintSelector{
+	background:transparent url('/images/hintBack.gif') no-repeat scroll 0 10px;
+	width:10px;
+	height:36px;
+	float:left;
+}
+.hintMessage{
+	padding:10px;
+	color:#FFFFFF;
+	float:left;
+	background-color:#000;
+	width:200px;
+	-moz-border-radius-bottomleft:6px;
+	-moz-border-radius-bottomright:6px;
+	-moz-border-radius-topleft:6px;
+	-moz-border-radius-topright:6px;
+}
+.ajax_hint_message p{
+	margin-top:0;
+}
+
+.inputError{
+	border:1px solid red;
+}
+.formError {color:red;}
 
 /* Structure */
 
@@ -69,7 +114,7 @@ body {
 	width: 1000px;
 	margin: 0 auto;
 	text-align:left;
-	overflow:auto;
+	overflow:hidden;
 }
 
 #header {
@@ -84,7 +129,8 @@ body {
 #container { 
 	background:#fff;
 	padding:50px 10px 0;
-	overflow:hidden;
+	overflow:auto;
+	clear:both;
 }
 
 #footer{
@@ -110,6 +156,7 @@ body {
 	margin:33px 0 0 0;
 	text-align:left;
 	width:980px;
+	z-index:960;
 }
 .subMenuContent{
 	font-size:12px;
@@ -117,8 +164,8 @@ body {
 }
 #addSubMenu{background:#f89f36;margin-left:-27px}
 #modifySubMenu{background:#f49029;margin-left:-217px;}
-#searchSubMenu{background:#ef7c18;margin-left:-407px;}
-#configureSubMenu{background:#eb6e0d;margin-left:-597px;}
+#configureSubMenu{background:#ef7c18;margin-left:-407px;}
+/*#configureSubMenu{background:#eb6e0d;margin-left:-597px;}*/
 
 .subMenuContent .subMenuCol, .subMenuContent .subMenuLogo{
 	float:left;
@@ -146,22 +193,21 @@ body {
 	float:none !important;
 	text-align:left !important;
 }
-#searchFieldSet .formElement, #searchFieldSet input{
-	width:200px !important;
-}
-#searchFieldSet{
-	width:300px;
-	float:left;
-}
-
-#topMenu{
+#menuAndSearch{
 	background:transparent url('/images/topMenu.png') no-repeat;
+	overflow:hidden;
+}
+#topMenu{	
 	color:#FFFFFF;
 	height:50px;
 	padding-left:27px;
 	margin-bottom:0;
 	margin-top:0;
 	list-style:none;
+	float:left;
+}
+#powerfullSearch{
+	float:right;margin-right:20px;margin-top:10px;
 }
 #topMenu li{
 	float:left;
@@ -176,13 +222,34 @@ body {
 }
 #topMenu li a{color:#fff;}
 
-#searchFieldSet label{
-	width:140px;
-}	
 .menuLabel{
 	border-right:1px dotted;
 	padding-right:10px;
 	float:right;
+}
+
+#commandSearch{
+	background:transparent url('/images/headerSearchFld.gif') no-repeat scroll 0 0;
+	border:none;
+	font-size:80%;
+	padding:8px 0 8px 5px;
+	width:282px;
+}
+.fieldSearchContainer{
+	float:left;
+}
+.headerSearchButton{
+	float:left;
+	width:26px;height:30px;
+	background:#000 url('/images/headerSearchBtn.gif');
+	border:none;
+}
+.commandSearch{
+	width:200px !important;
+}
+
+.launchButton,.fieldContainer{
+	float:left;
 }
 
 /* 		FOOTER  	*/
@@ -271,18 +338,21 @@ label{
 	float:left;
 	font-size:100%;
 	margin-right:10px;
-	padding-top:15px;
+	padding-top:30px;
 	text-align:right;
 	width:130px;
 }
 
+.advanced{
+	padding-top:50px !important;
+}
+
 form input{
 	border:none;
-	border-bottom:1px solid #c2c2c2;
+	border:1px solid #c2c2c2;
 	color:#333333;
 	font-size:100%;
-	margin-top:12px;
-	padding:3px;
+	padding:5px 3px 3px;
 	width:450px;
 }
 
@@ -290,6 +360,7 @@ form input{
 	float:left;
 	overflow:hidden;
 	display:block;
+	margin-top:25px;
 }
 
 .submit_button {
@@ -307,46 +378,55 @@ form input{
 	margin-top:25px;
 }
 
-.ajax_hint_message{	margin-left:3px; }
-#add_keyword{ 
-	background:#FFFFFF url(/images/backKeyword.gif) no-repeat scroll 0 0;
+.continueUpdate{ float:left;}
+.continue{float:right;clear:none;}
+
+.advancedEditor{
+	margin:0 auto;
+	overflow:hidden;
+	clear:both;
+}
+.errorForAdvancedEditor{
+	float:left;
+	padding-top:50px;
+}
+
+#addKeyword{ 
 	overflow:hidden;
 	width:178px;
 }
-#add_keyword input{
+#addKeyword input{
+	background:#fff url('/images/fieldWithInner.gif') no-repeat scroll 0 0;
 	border:medium none;
-	font-size:120% !important;
-	height:21px;
-	margin:5px 4px 5px 8px;
+	height:17px; width:142px;
 	overflow:hidden;
-	padding:0;
-	width:145px;
+	padding:8px 2px 5px 8px;
 }
-#add_keyword a{	
-	display:block;
-	float:left;
-	margin-top:9px;
+#addKeyword a{	
+	display:block;float:left;
+	width:26px;height:30px;margin:0;
+	background:#fff url('/images/submitHalfRoundBtn.gif');
 }
-#add_keyword a:hover{
+#addKeyword a:hover{
 	background-color:none;
 }	
-.formError {color: red;	margin-left: 3px;}
+
 .inputSimulation{margin-top:15px;}
 .smallInput{width:200px;}
 
 .CommonMessage{
+	background:transparent url(/images/icons/info.png) no-repeat scroll 0 79%;
 	clear:both;
-	margin:0px 0 0px 100px;
-	padding:20px 0 18px 40px;
+	margin:0 0 0 92px;
+	padding:50px 0 18px 50px;
 	width:460px;
-	background: transparent url(/images/icons/info.png) no-repeat scroll 0px 50%;
 }
 
 .checkboxes{
 	width:15px !important;
 	border:none !important;
 	height:auto !important;
-	margin:0 !important;
+	margin:4px 0 0 !important;
 }
 
 .smallSubmit, .fieldsetSimulation #small_submit{
@@ -357,8 +437,17 @@ form input{
 	width:170px;
 	height:30px;
 	font-size:100%;
-	margin-top:15px;
+	margin-left:25px;
 }
+
+.alone{ display:block; margin-top:25px;}
+
+.centerButton{clear:both;overflow:hidden;}
+
+.superadmin .formElement{width:500px;}
+.superadmin ul{margin-left:50px;}
+.superadmin label{width:220px;}
+.checkboxListHorizontal{ float:left; margin-right:15px;}
 
 /*		KEYWORDS	*/
 		
@@ -367,7 +456,7 @@ form input{
 	padding:2px 0 2px 2px;
 	margin:5px 10px 0 0;
 	color:#fff;
-	display:inline !important;;
+	display:inline !important;
 }
 
 .keyword_label a{
@@ -375,7 +464,7 @@ form input{
 	padding:0 2px;
 }
 
-#keywords_list{margin-top:5px; overflow:hidden;}
+#keywords_list{margin-top:5px; overflow:hidden; width:178px;}
 
 /*		ATTACHEMENTS	*/
 #attachement ul{list-style-type:none;}
@@ -387,7 +476,7 @@ ul#tabs {
 	width:206px;
 	margin-top:90px;
 	background:#fff;
-	overflow:auto;
+	overflow:hidden;
 }
 ul#tabs li {
 	height:33px;
@@ -472,7 +561,7 @@ ul#tabs li.selected{
 	text-transform:uppercase;
 }
 
-.itemInListActions a:hover, .blockBody a:hover, .workspaceActions a:hover{
+.itemInListActions a:hover, .blockBody a:hover, .workspaceActions a:hover, .superadmin a:hover{
 	background-color:#F79646;
 	color:#fff;
 	text-decoration:none;
@@ -503,16 +592,17 @@ ul#tabs li.selected{
 	text-align:center;
 	padding-top:15px;
 }
+
+.paginationSelected, .paginationUnselected{
+	padding:2px 7px;
+	font-weight:normal;
+}
 .paginationSelected{
 	background:#fff url('/images/paginationActive.gif') no-repeat;
-	padding:2px 6px;
 	color:#fff;
-	font-weight:normal;
 }
 .paginationUnselected{
 	background:#fff url('/images/paginationUnactive.gif') no-repeat;
-	padding:2px 6px;
-	font-weight:normal;
 }
 .paginationBorderUnactive{
 	color:#6fd364;
@@ -574,6 +664,7 @@ a.filter{
 	border-bottom:1px solid #ccc;
 	margin-top:12px;
 	padding-bottom:3px;
+	height:16px;
 }
 .itemShowLeftBody{
 	float:left;
@@ -613,6 +704,8 @@ a.filter{
 	border:1px solid #ccc;
 	clear:both;
 	overflow:hidden;
+	-moz-border-radius-bottomleft:6px;
+	-moz-border-radius-bottomright:6px;
 }
 
 /*		COMMENTS		*/
@@ -664,8 +757,8 @@ a.filter{
 	padding:0;
 	margin:0 10px 5px 0;
 }
-.userList{
-	padding-bottom:25px;
+#users{
+	padding:25px 0;
 }
 .workspaceLogo{
 	float:left;
@@ -691,3 +784,53 @@ a.filter{
 }
 .peopleInList{width:688px;}
 .peopleInList .itemInListBody{width:602px;}
+
+/*		SuperAdmin		*/
+#website_url_name_value, #new_follower_email {
+	width:200px;
+	float:left;
+}
+.permissionsList{margin-top : 25px;}
+.roleDescription{height:70px; width:450px;}
+
+/*		List Autocomplete		*/
+		
+.ac_results {
+	padding: 0px;
+	border:1px solid #CCCCCC;
+	background-color: white;
+	overflow: hidden;
+	z-index: 99999;
+}
+
+.ac_results ul {
+	width: 100%;
+	list-style-position: outside;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.ac_results li {
+	margin: 0px;
+	padding: 2px 5px;
+	cursor: default;
+	display: block;
+	font: menu;
+	font-size: 12px;
+	line-height: 16px;
+	overflow: hidden;
+}
+
+.ac_loading {
+	background: white url('/images/ajax-loader.gif') right center no-repeat;
+}
+
+.ac_odd {
+	background-color: #eee;
+}
+
+.ac_over {
+	background-color: #F79646;
+	color: white;
+}

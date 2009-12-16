@@ -7,7 +7,7 @@ class Superadmin::TranslationsController < Admin::ApplicationController
 	#
 	# Usage URL :
 	# - GET  /admin/translations/editing
-	def editing
+	def index
 		@file = YAML.load_file("#{RAILS_ROOT}/config/locales/#{I18n.default_locale}.yml")
     @res = @file[I18n.default_locale.to_s]
     @language = I18n.default_locale.to_s

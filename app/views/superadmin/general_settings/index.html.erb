@@ -1,0 +1,98 @@
+
+<%= superadmin_tabs_generator() %>
+
+
+<div class="objectList">
+	<div class="blockCornerLeft"></div><div class="blockElementHeader sevH">
+		<span id="item_count">General Settings</span>
+	</div><div class="blockCornerRight"></div>
+
+	<div class="contentList superadmin">
+		<% form_for :configuration, 
+					@configuration, 
+					:url => updating_superadmin_general_settings_path,
+					:html => {:method => :put, :multipart => true, :class => ""} do |f| -%>
+
+			<label>Application name:</label>
+		  	<div class="formElement"><%= f.text_field :sa_application_name %></div>
+
+		  	<label>Application URL:</label>
+		  	<div class="formElement"><%= f.text_field :sa_application_url %></div>
+
+		  	<label>Contact email:</label>
+		  	<div class="formElement"><%= f.text_field :sa_contact_email %></div>
+
+		  	<label>Allowed free user creation:</label>
+		  	<div class="formElement">
+		    	<%= f.check_box :sa_allowed_free_user_creation, { :class => "checkboxes" }, 'true', 'false' %>
+		  	</div>
+
+		  	<label>Automatic private worskpace:</label>
+		  	<div class="formElement">
+		    	<%= f.check_box :sa_automatic_private_workspace, { :class => "checkboxes" }, 'true', 'false' %>
+		  	</div>
+
+		  	<label>Mandatory user activation:</label>
+		  	<div class="formElement">
+		    	<%= f.check_box :sa_mandatory_user_activation, { :class => "checkboxes" }, 'true', 'false' %>
+		  	</div>
+
+		  	<label>Available items:</label>
+		  	<div class="formElement">
+		    	<%= checkboxes_from_list(ITEMS, "sa_items", @configuration, "configuration", true) %>
+		  	</div>
+		 
+			<label></label>
+		  	<div class="formElement">
+		    	<%= check_box_tag 'apply_to_all_workspaces', 'true', false, { :class => "checkboxes" } %> 
+				Apply this item list available for each workspace
+		  	</div>
+
+		  	<label>Default language:</label>
+		  	<div class="formElement">
+				<%= select_tag  'configuration[sa_default_language]', 
+								options_for_select(LANGUAGES.map{|l| [I18n.t('general.language.'+l),l]},
+								@configuration['sa_default_language']) %>
+			</div>
+
+		  	<label>Available languages:</label>
+		  	<div class="formElement">
+		    	<%= checkboxes_from_list(LANGUAGES, "sa_languages", @configuration, "configuration", true) %>
+		  	</div>	
+
+		  	<label>Workspaces types:</label>
+		  	<div class="formElement">
+		    	<%= checkboxes_from_list(WS_TYPES, "sa_ws_types", @configuration, "configuration", true) %>
+		  	</div>
+
+		  	<label>Exception followers:</label>
+		  	<div class="formElement">
+		    	<input type="text" id="new_follower_email" name="new_follower_email" value=""/>
+		    	<%= button_to_function( "Add new follower",
+		      					   		"add_new_follower()",
+		      					   		:class => "smallSubmit") %>
+		
+				<div id="followers_email" >
+		      		<% if @configuration['sa_exception_followers_email'] -%>
+		        		<% @configuration['sa_exception_followers_email'].each do |email| -%>
+		          			<div id="<%= email %>">
+		            			<%= email %> |
+		            			<a onclick="this.parentNode.remove(); return false;">DELETE</a>
+		            			<input type="hidden" value="<%= email %>" name="configuration[sa_exception_followers_email][]"/>
+		          			</div>
+
+		        		<% end %>
+		      		<% end %>
+		    	</div>
+		  	</div>
+		  	<label>Exception notifier activated :</label>
+		  	<div class="formElement">
+		    	<%= f.check_box :sa_exception_notifier_activated, { :class => "checkboxes" }, 'true', 'false' %>
+		  	</div>
+
+		  	<div class="centerButton">
+				<button type="submit" class="submit_button"><%=I18n.t('general.button.update')%></button>
+			</div>
+		<% end %>
+	</div>
+</div>
