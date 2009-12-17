@@ -115,7 +115,7 @@ namespace :blank do
       @role_mod.permissions << p if p.name!="workspace_destroy"
     end
     ITEMS.each do |item|
-      ['new', 'edit', 'index', 'show', 'destroy'].each do |action|
+      ['new', 'edit', 'index', 'show', 'destroy','comment','rate'].each do |action|
         Permission.find(:all, :conditions =>{:name => item+'_'+action}).each do |p|
           if action=='new'  || action=='edit'
             @role_ws.permissions << p
