@@ -5,9 +5,9 @@
       <h4><%= I18n.t('general.common_word.role') + ' \'' + I18n.t('general.role.'+r.name) + '\''%></h4>
       <%#= links_to_workspace_collection(Workspace.allowed_for_user_with_(@current_user, )) || '- ' +I18n.t('general.common_word.none')+' -' %>
       <ul>
-        <% Workspace.allowed_user_with_ws_role(object.id, r.name).each do |ws| -%>
+        <% Workspace.allowed_user_with_ws_role(object, r.name).each do |ws| -%>
           <li>
-            <%= link_to ws.title, workspace_path(ws.id) %>
+            <%= link_to ws.title, admin_workspace_path(ws.id) %>
           </li>
         <% end -%>
       </ul>
