@@ -1,19 +1,19 @@
-	<div id="addKeyword">
-    	<%= text_field :keyword, :value, :hint => I18n.t('item.field.keyword_hint'), :onclick => "autocomplete_on(#{@keywords},'#keyword_value')"%>
-    	<%= link_to_function( "&nbsp;",
-   							  "insert_keyword('#{object.class.to_s.underscore}', 
-											  '#keywords_list', 
-											  'keywords_field');") %>
-  	</div>
-	
-  	<div id="keywords_list">
-	<% if object.keywords.count > 0%>
-    	<% object.keywords.each do |keyword| %>
-      	<div id="<%= keyword.name+"_000" %>" class="keyword_label">
-			<%= keyword.name %>
-			<%= link_to_function "X", "$('##{keyword.name}_000').remove()" %>
-			<%= hidden_field_tag "#{object.class.to_s.underscore}[keywords_field][]", keyword.name %>
-		</div>
-    	<% end -%>
-	<% end -%>
-	</div>
+<div id="addKeyword">
+    <%= text_field :keyword, :value, :hint => I18n.t('item.field.keyword_hint'), :onclick => "autocomplete_on(#{@keywords},'#keyword_value')"%>
+    <%= link_to_function( "&nbsp;",
+        "insert_keyword('#{object.class.to_s.underscore}',
+    '#keywords_list',
+    'keywords_field');") %>
+</div>
+
+<div id="keywords_list">
+    <% if object.keywords.size > 0%>
+        <% object.keywords.each do |keyword| %>
+            <div id="<%= keyword.name+"_000" %>" class="keyword_label">
+                <%= keyword.name %>
+                <%= link_to_function "X", "$('##{keyword.name}_000').remove()" %>
+                <%= hidden_field_tag "#{object.class.to_s.underscore}[keywords_field][]", keyword.name %>
+            </div>
+        <% end -%>
+    <% end -%>
+</div>
