@@ -1,4 +1,4 @@
-class ContentController < Admin::ApplicationController
+class Admin::ContentController < Admin::ApplicationController
   
   unloadable
 
