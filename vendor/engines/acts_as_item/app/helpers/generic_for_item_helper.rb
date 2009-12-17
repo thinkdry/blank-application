@@ -124,27 +124,40 @@ module GenericForItemHelper
     toolset = 'Default'
     google_map = false
     ws ||= object.workspaces.delete_if{ |e| e.websites.empty? }.first if (object.class.to_s == "Page")
+    
+    #IF THE WS IS A WEBSITE
     if ws && ws.respond_to?(:websites) && ws.websites.first && (tmp=ws.websites.first.front)
       Dir["public/front_files/#{tmp.name}/stylesheets/*.css"].collect do |uploaded_css|
         css_files << "#{uploaded_css.split("public")[1]}"
       end
     end
-    #css_files = '/fckeditor/css/test_fck.css' if css_files.empty?
+    
     toolset = 'Default_google_map' if google_map
     css_files << '/stylesheets/fckeditor.css' if css_files.empty?
-    return '<script type="text/javascript" src="/fckeditor/fckeditor.js"></script>' +
-      javascript_tag(%{
-        var oFCKeditor = new FCKeditor('#{object.class.to_s.underscore}_#{attribute}', "620px", "#{ height }", "#{toolset}") ;
-        oFCKeditor.Config['EditorAreaCSS'] = "#{css_files}" ;
-        oFCKeditor.BasePath = "/fckeditor/" ;
-        oFCKeditor.Config['GoogleMaps_Key'] = '';
-        oFCKeditor.Config['ImageUploadURL'] = "/admin/fckuploads?item_type=#{object.class}&id=#{object.id}&type=Image";
-        oFCKeditor.Config['FlashUploadURL'] = "/admin/fckuploads?item_type=#{object.class}&id=#{object.id}&type=Video";
-        oFCKeditor.Config['LinkUploadURL'] = "/admin/fckuploads?item_type=#{object.class}&id=#{object.id}&type=Link";
-        oFCKeditor.Config['FlvUploadURL'] = "/admin/fckuploads?item_type=#{object.class}&id=#{object.id}&type=Video";
-        oFCKeditor.Config['DefaultLanguage'] = '#{I18n.locale.split('-')[0]}' ;
-        oFCKeditor.ReplaceTextarea() ;
-      })
+    # return '<script type="text/javascript" src="/fckeditor/fckeditor.js"></script>' +
+    #       javascript_tag(%{
+    #         var oFCKeditor = new FCKeditor('#{object.class.to_s.underscore}_#{attribute}', "620px", "#{ height }", "#{toolset}") ;
+    #         oFCKeditor.Config['EditorAreaCSS'] = "#{css_files}" ;
+    #         oFCKeditor.BasePath = "/fckeditor/" ;
+    #         oFCKeditor.Config['GoogleMaps_Key'] = '';
+    #         oFCKeditor.Config['ImageUploadURL'] = "/admin/fckuploads?item_type=#{object.class}&id=#{object.id}&type=Image";
+    #         oFCKeditor.Config['FlashUploadURL'] = "/admin/fckuploads?item_type=#{object.class}&id=#{object.id}&type=Video";
+    #         oFCKeditor.Config['LinkUploadURL'] = "/admin/fckuploads?item_type=#{object.class}&id=#{object.id}&type=Link";
+    #         oFCKeditor.Config['FlvUploadURL'] = "/admin/fckuploads?item_type=#{object.class}&id=#{object.id}&type=Video";
+    #         oFCKeditor.Config['DefaultLanguage'] = '#{I18n.locale.split('-')[0]}' ;
+    #         oFCKeditor.ReplaceTextarea() ;
+    #       })
+    
+   
+    input_id = String.new
+    input_id = object.class.to_s.underscore + '_' + attribute.to_s
+
+    field =  '<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>'
+    field += '<textarea name="'+ input_id +'" id="' + input_id + '" class="novisible"></textarea>'
+    field += '<script type="text/javascript">CKEDITOR.replace(\''+ input_id +'\');</script>'
+
+    return field
+  
   end
 
 	# Workspaces checkboxes for item form

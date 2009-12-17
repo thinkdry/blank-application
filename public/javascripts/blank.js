@@ -106,10 +106,8 @@ $(document).ready(function () {
 	});
 	
 	$('#container').find('#notice').animate({opacity: 1}, 3000, function(){$(this).fadeOut('fast')});
+	
 });
-
-
-
 
 function autocomplete_on(array, div){
 

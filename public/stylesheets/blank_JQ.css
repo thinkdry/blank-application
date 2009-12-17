@@ -8,11 +8,12 @@ a:hover {color: #333;text-decoration: underline;}
 img {border:none;}
 
 h1 {
-	color:#F79646;
-	font-size:190%;
-	margin:0 0 25px;
 	border-bottom:1px solid #CCCCCC;
-	height:31px;
+	color:#F79646;
+	font-size:230%;
+	font-weight:normal;
+	height:40px;
+	margin:0 0 25px;
 }
 
 h2 {
@@ -106,8 +107,8 @@ body {
 	padding: 0px;
 	font-size: 10pt;
 	color: #9C9C9C;
-	background-color: #2B2D2C;
 	text-align: center;
+	background: #2B2D2C url('/images/backback.png');
 }
 
 #page_container {
@@ -134,15 +135,19 @@ body {
 }
 
 #footer{
+	background:#FFFFFF url(/images/backfooter.jpg) no-repeat scroll center bottom;
 	color:#2B2D2C;
-	margin-bottom:10px;
-	padding:50px 10px 0;
-	background:#fff url('/images/backfooter.jpg') no-repeat bottom;
-	overflow:hidden;
 	font-size:80%;
+	overflow:hidden;
+	padding:50px 10px 10px;
 }
 
-
+#disclaimer{
+	background-color: #2B2D2C;
+	color:#fff;
+	font-size:70%;
+	text-align:center;
+}
 /* Navigation */
 
 #header h3{
@@ -318,18 +323,6 @@ a.search_button{
 	border-right:none;
 }
 
-#footer p{
-	margin:5px 0 0;
-}
-
-#footerP{
-	text-align:center;
-	font-size:70%;
-	color:#fff;
-	margin-top:10px;
-}
-
-
 /* 		FORMS		*/
 
 label{
@@ -429,7 +422,7 @@ form input{
 	margin:4px 0 0 !important;
 }
 
-.smallSubmit, .fieldsetSimulation #small_submit{
+.smallSubmit{
 	background:transparent url('/images/smallSubmit.gif') no-repeat;
 	border:none;
 	color:#fff;
@@ -437,7 +430,6 @@ form input{
 	width:170px;
 	height:30px;
 	font-size:100%;
-	margin-left:25px;
 }
 
 .alone{ display:block; margin-top:25px;}
@@ -540,7 +532,7 @@ ul#tabs li.selected{
 	font-size:90%;
 	color:#999;
 	float:left;
-	width:65px;
+	width:75px;
 	padding-top:3px;
 }
 .itemInListBody{
@@ -660,11 +652,11 @@ a.filter{
 
 .itemShowLeftDate{
 	float:left;
-	width:110px;
 	border-bottom:1px solid #ccc;
-	margin-top:12px;
-	padding-bottom:3px;
-	height:16px;
+	margin-top:18px;
+	padding-bottom:6px;
+	padding-left:5px;
+	width:105px;
 }
 .itemShowLeftBody{
 	float:left;
@@ -706,7 +698,10 @@ a.filter{
 	overflow:hidden;
 	-moz-border-radius-bottomleft:6px;
 	-moz-border-radius-bottomright:6px;
+	
 }
+
+.rightBlocks{	padding-top:70px;overflow:hidden; }
 
 /*		COMMENTS		*/
 #comments_list{	padding:25px 10px 0;}
@@ -716,7 +711,7 @@ a.filter{
 #newCommentForm textarea{
 	font-family:"Lucida Grande", "Bitstream Vera Sans", Helvetica, Verdana, Arial, sans-serif;
 	font-size:90%;
-	width:576px;
+	width:596px
 }
 .commentReply{
 	margin-left:40px;
@@ -822,15 +817,10 @@ a.filter{
 	overflow: hidden;
 }
 
-.ac_loading {
-	background: white url('/images/ajax-loader.gif') right center no-repeat;
-}
+.ac_loading {background: white url('/images/ajax-loader.gif') right center no-repeat;}
+.ac_odd {background-color: #eee;}
+.ac_over {background-color: #F79646;color: white;}
 
-.ac_odd {
-	background-color: #eee;
-}
-
-.ac_over {
-	background-color: #F79646;
-	color: white;
+.novisible{
+	display:none;
 }

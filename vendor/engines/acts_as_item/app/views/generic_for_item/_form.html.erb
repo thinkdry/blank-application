@@ -42,26 +42,28 @@
 			<%end-%>
 		</div>
 	</div>
-	<div class="itemShowRightBlock">
-		<div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
-			<%= I18n.t('item.field.keyword_label').pluralize %>
-		</div><div class="blockCornerRight"></div>
-		<div class="blockElementBody">
-			<%= item_keywords_fields(f, @current_object) %>
-		</div>
-    </div>
+	<div class="rightBlocks">
+		<div class="itemShowRightBlock">
+			<div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
+				<%= I18n.t('item.field.keyword_label').pluralize %>
+			</div><div class="blockCornerRight"></div>
+			<div class="blockElementBody">
+				<%= item_keywords_fields(f, @current_object) %>
+			</div>
+	    </div>
 	
-	<div class="itemShowRightBlock">
-		<div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
-			<%= I18n.t("item.show.associated_workspace") %>
-		</div><div class="blockCornerRight"></div>
-		<div class="blockElementBody">
-			<% if ['Group', 'Page'].include?(@current_object.class.to_s) %>
-		      <%= item_workspace_select(f, @current_object) %>
-		    <% else %>
-		      <%= item_workspaces_checkboxes(f, @current_object) %>
-		    <% end %>
-		    <%= error_message_on :current_object, :items %>
-		</div>
-    </div>
+		<div class="itemShowRightBlock">
+			<div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
+				<%= I18n.t("item.show.associated_workspace") %>
+			</div><div class="blockCornerRight"></div>
+			<div class="blockElementBody">
+				<% if ['Group', 'Page'].include?(@current_object.class.to_s) %>
+			      <%= item_workspace_select(f, @current_object) %>
+			    <% else %>
+			      <%= item_workspaces_checkboxes(f, @current_object) %>
+			    <% end %>
+			    <%= error_message_on :current_object, :items %>
+			</div>
+	    </div>
+	</div>
 <% end -%>

@@ -20,30 +20,30 @@
 	</div>
 </div>
 
-<div class="itemShowRightBlock">
-    <div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
-		Actions
-	</div><div class="blockCornerRight"></div>	
-    <div class="blockElementBody">
-        <%= link_to I18n.t('people.index.add_new_person'), new_admin_person_path %>
-		<%= link_to I18n.t('people.index.import_people_from_csv'), import_people_admin_people_path %>
-    </div>
-</div>
+	<div class="itemShowRightBlock">
+	    <div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
+			Actions
+		</div><div class="blockCornerRight"></div>	
+	    <div class="blockElementBody">
+	        <%= link_to I18n.t('people.index.add_new_person'), new_admin_person_path %>
+			<%= link_to I18n.t('people.index.import_people_from_csv'), import_people_admin_people_path %>
+	    </div>
+	</div>
 
-<div class="itemShowRightBlock">
-    <div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
-		<%= I18n.t('people.index.export_people_to_csv') %>
-	</div><div class="blockCornerRight"></div>		
-    <div class="blockElementBody">
-        <% form_for :type, :url => {:controller=>"people", :action=>"export_people", :restriction => params[:restriction]} do |f| -%>
-		  	<%= f.check_box :all , :class => "checkboxes" %> <%= I18n.t('general.common_word.all') %> <br />
-		  	<%= f.check_box :creation , :class => "checkboxes" %> <%= I18n.t('people.index.created_from_back') %> <br />
-		  	<%= f.check_box :imported_from_csv, :class => "checkboxes" %> <%= I18n.t('people.index.imported_from_csv') %> <br />
-		  	<%= f.check_box :front_contcts, :class => "checkboxes" %> <%= I18n.t('people.index.front_contacts') %> <br />
-		  	<!--
-		  	<%#= f.check_box :newsletter , :class => "checkboxes" %> Receiving newsletter <br /><br />
-		     -->
-		    <%= submit_tag I18n.t('people.index.export') ,:class =>'smallSubmit'%>
-		<% end %>
-    </div>
-</div>
+	<div class="itemShowRightBlock">
+	    <div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
+			<%= I18n.t('people.index.export_people_to_csv') %>
+		</div><div class="blockCornerRight"></div>		
+	    <div class="blockElementBody">
+	        <% form_for :type, :url => {:controller=>"people", :action=>"export_people", :restriction => params[:restriction]} do |f| -%>
+			  	<%= f.check_box :all , :class => "checkboxes" %> <%= I18n.t('general.common_word.all') %> <br />
+			  	<%= f.check_box :creation , :class => "checkboxes" %> <%= I18n.t('people.index.created_from_back') %> <br />
+			  	<%= f.check_box :imported_from_csv, :class => "checkboxes" %> <%= I18n.t('people.index.imported_from_csv') %> <br />
+			  	<%= f.check_box :front_contcts, :class => "checkboxes" %> <%= I18n.t('people.index.front_contacts') %> <br />
+			  	<!--
+			  	<%#= f.check_box :newsletter , :class => "checkboxes" %> Receiving newsletter <br /><br />
+			     -->
+			    <%= submit_tag I18n.t('people.index.export') ,:class =>'smallSubmit'%>
+			<% end %>
+	    </div>
+	</div>

@@ -66,9 +66,15 @@ class Admin::ContentController < Admin::ApplicationController
   # Usage URL :
   # - GET '/display_content_list/:selected_item
   def display_item_in_pop_up
+    
+    #get the workspace if there is one. otherwhise it's nil
     @workspace = (params[:workspace_id] && !params[:workspace_id].blank?) ? Workspace.find(params[:workspace_id]) : nil
     params[:w] = [@workspace.id] if @workspace
+		
+		#get the list of workspaces.
 		@workspaces = current_user.has_system_role('superadmin') ? Workspace.all : current_user.workspaces
+		
+		#if we wants all the items.
 		if params[:selected_item] == 'all'
 			@selected_item_types = get_fcke_item_types
 			@item_types = (item_types_allowed_to(current_user, 'show', @workspace)&@selected_item_types).map{ |e| e.pluralize }
@@ -79,9 +85,12 @@ class Admin::ContentController < Admin::ApplicationController
         render :text => "No item types available for your profil."
         return
       end
+    #if we wants just pictures / or videos / or fck flash.
 		elsif (params[:selected_item] == 'images' || params[:selected_item] == 'videos' || params[:selected_item] == 'fcke_flash')
+		  
 			@selected_item_types = [params[:selected_item].to_s.singularize]
 			params[:item_type] ||= @selected_item_types.first.pluralize
+			
 			if !params[:item_type].include?('fcke')
         @current_objects = params[:item_type].classify.constantize.get_da_objects_list(setting_searching_params(:from_params => params).merge!({:skip_pag => true}))#, :conditions =>{:fetch => {'state_equals' => 'published'}}}))
 			else
