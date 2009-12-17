@@ -21,6 +21,8 @@ class Admin::VideosController < Admin::ApplicationController
     @current_object = Video.find(params[:id].to_i)
     if params[:check] && params[:check] == 'true'
       render :text => @current_object.state
+    elsif params[:status]
+      render :text => @current_object.state
     else
       render :partial => "player", :object => @current_object
     end

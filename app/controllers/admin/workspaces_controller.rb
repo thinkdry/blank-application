@@ -68,7 +68,7 @@ class Admin::WorkspacesController < Admin::ApplicationController
     end
 
 		response_for :destroy do |format|
-			format.html { redirect_to workspaces_path }
+			format.html { redirect_to admin_workspaces_path }
 		end
     
 		response_for :show do |format|
@@ -97,7 +97,7 @@ class Admin::WorkspacesController < Admin::ApplicationController
 			end
 		else
 			@no_div = true
-			render :partial => 'workspaces/index', :layout => false
+			render :partial => 'index', :layout => false
 		end
 	end
 
@@ -166,7 +166,7 @@ class Admin::WorkspacesController < Admin::ApplicationController
 		@current_object = Workspace.find(params[:id])
 		if UsersWorkspace.create(:user_id => self.current_user.id, :workspace_id => params[:id], :role_id => Role.find_by_name('reader').id)
 			flash[:notice] = I18n.t('workspace.subscription.flash_notice')
-			redirect_to workspace_path(params[:id])
+			redirect_to admin_workspace_path(params[:id])
 		else
 			flash[:error] = I18n.t('workspace.subscription.flash_error')
 			redirect_to admin_workspace_path(params[:id])

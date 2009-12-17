@@ -22,6 +22,8 @@ class Admin::AudiosController < Admin::ApplicationController
     @current_object=Audio.find(params[:id])
     if params[:check] && params[:check] == 'true'
       render :text => @current_object.state
+    elsif params[:status]
+      render :text => @current_object.state
     else
       render :partial=>"player", :object => @current_object
     end

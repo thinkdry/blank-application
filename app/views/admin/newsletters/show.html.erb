@@ -3,7 +3,7 @@
   <%= @current_object.body %>
 
   <fieldset id="send_newsletter_form">
-  	<form id="send_newsletter" class="new_comment" method="post" action="<%= current_workspace ? workspace_path(current_workspace.id)+send_to_a_admin_group_newsletter_path(@current_object) : send_to_a_group_admin_newsletter_path(@current_object) %>">
+  	<form id="send_newsletter" class="new_comment" method="post" action="<%= current_workspace ? admin_workspace_path(current_workspace.id) + send_to_a_group_admin_newsletter_path(@current_object) : send_to_a_group_admin_newsletter_path(@current_object) %>">
       <label><%= I18n.t('newsletter.send_newsletter.send_newsletter_to_user_list') %></label>
       <input type="hidden" name="newsletter_id" value="<%= @current_object.id %>">
 	  <div class="formElement">

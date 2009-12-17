@@ -17,7 +17,7 @@ class Admin::UsersController < Admin::ApplicationController
 
   # Check Current User Status and Give the Layout
 	def give_da_layout 
-		if params[:action]== 'new' || params[:action]== 'forgot_password' || params[:action] == 'reset_password'
+		if params[:action] == 'new' || params[:action] == 'forgot_password' || params[:action] == 'reset_password'
 			if logged_in?
 				return get_current_layout
 			else
@@ -205,10 +205,10 @@ class Admin::UsersController < Admin::ApplicationController
     return unless request.post?
     if @user = User.find_by_email(params[:user][:email])
       @user.create_reset_code
-      flash.now[:notice_forgot] = I18n.t('user.forgot_password.flash_notice')
-      render :action => "forgot_password"
+      flash[:notice] = I18n.t('user.forgot_password.flash_notice')
+      redirect_to admin_login_path
     else
-      flash.now[:error_forgot] = I18n.t('user.forgot_password.flash_error')
+      flash[:error] = I18n.t('user.forgot_password.flash_error')
       render :action => "forgot_password"
     end
   end
