@@ -188,11 +188,7 @@ class Admin::UsersController < Admin::ApplicationController
       current_user.activate
       flash[:notice] = "Subscription complete !"
     end
-<<<<<<< HEAD
     redirect_back_or_default(admin_root_url)
-=======
-    redirect_back_or_default('/admin')
->>>>>>> half list, comments
   end
 
   # Function allowing to gain his password by email in case of forgot
