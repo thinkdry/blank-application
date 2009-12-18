@@ -48,18 +48,18 @@ Rails::Initializer.run do |config|
 
 	config.gem 'rmagick', :version => '>=2.9.1', :lib => 'RMagick'
   config.gem 'javan-whenever', :lib => false, :source => 'http://gems.github.com'
-#	config.gem 'rspec', :version => '>=1.2.8', :lib => 'spec', :source => 'http://gems.github.com'
-#	config.gem 'test-unit', :version => '>=2.0.3', :lib => 'test/unit'
-#	config.gem 'rspec-rails', :version => '>=1.2.7.1', :lib => 'spec/rails', :source => 'http://gems.github.com'
+  #	config.gem 'rspec', :version => '>=1.2.8', :lib => 'spec', :source => 'http://gems.github.com'
+  #	config.gem 'test-unit', :version => '>=2.0.3', :lib => 'test/unit'
+  #	config.gem 'rspec-rails', :version => '>=1.2.7.1', :lib => 'spec/rails', :source => 'http://gems.github.com'
 	config.gem 'pauldix-feedzirra', :lib => 'feedzirra', :version => '>=0.0.16', :source => 'http://gems.github.com'
 	# Gems available as Plugins (actually inside vendor/plugins folder)
-#	config.gem 'Lipsiasoft-exception-notifier', :lib => 'exception_notifier', :source => 'http://gems.github.com'
-#	config.gem 'fastercsv', :version => '>=1.4.0', :lib => 'fastercsv'
-#	config.gem 'paperclip', :source => 'http://gems.github.com'#, :version => '>=2.2.8'
-#	config.gem'searchlogic', :version => '>=2.0.0', :source => 'http://gems.github.com'
-#	config.gem 'mislav-will_paginate', :version => '~> 2.3.11', :lib => 'will_paginate', :source => 'http://gems.github.com'
-#	config.gem 'faker', :lib => 'faker', :version => '>=0.3.1'
-#	config.gem 'populator', :lib => 'populator', :version => '>=0.2.5'
+  #	config.gem 'Lipsiasoft-exception-notifier', :lib => 'exception_notifier', :source => 'http://gems.github.com'
+  #	config.gem 'fastercsv', :version => '>=1.4.0', :lib => 'fastercsv'
+  #	config.gem 'paperclip', :source => 'http://gems.github.com'#, :version => '>=2.2.8'
+  #	config.gem'searchlogic', :version => '>=2.0.0', :source => 'http://gems.github.com'
+  #	config.gem 'mislav-will_paginate', :version => '~> 2.3.11', :lib => 'will_paginate', :source => 'http://gems.github.com'
+  #	config.gem 'faker', :lib => 'faker', :version => '>=0.3.1'
+  #	config.gem 'populator', :lib => 'populator', :version => '>=0.2.5'
   # Only load the plugins named here, in the order given. By default, all plugins
   # in vendor/plugins are loaded in alphabetical order.
   # :all can be used as a placeholder for all plugins not explicitly named
@@ -105,11 +105,11 @@ Rails::Initializer.run do |config|
 	# special logs files for pl_analyze
 	#require 'hodel_3000_compliant_logger'
 	#config.logger = Hodel3000CompliantLogger.new(config.log_path)
-	
-	#trick to remove the <div class='fieldWithErrors'> that embeding automatically the 
-	#input field that not pass validation. It gives pain after with JQuery to retreive the input and 
-	#detect on focus to display hint
-	ActionView::Base.field_error_proc = Proc.new { |html_tag, instance|  "#{html_tag}" }
+	config.action_view.field_error_proc = proc {|html, instance| html }
   
-
 end
+
+#trick to remove the <div class='fieldWithErrors'> that embeding automatically the
+#input field that not pass validation. It gives pain after with JQuery to retreive the input and
+#detect on focus to display hint
+#ActionView::Base.field_error_proc = Proc.new { |html_tag, instance|  "#{html_tag}" }

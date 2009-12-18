@@ -31,7 +31,7 @@ class Admin::WorkspacesController < Admin::ApplicationController
 			params[:w] = [current_workspace.id]
 			if !params[:item_type].blank?
 				@paginated_objects = params[:item_type].classify.constantize.get_da_objects_list(setting_searching_params(:from_params => params))
-				@total_objects_count = params[:item_type].classify.constantize.matching_user_with_permission_in_workspaces(@current_user, 'show', params[:w]).uniq.count
+				@total_objects_count = params[:item_type].classify.constantize.matching_user_with_permission_in_workspaces(@current_user, 'show', params[:w]).uniq.size
 				@ordering_filters = ['created_at','comments_number', 'viewed_number', 'rates_average', 'title']
 				#generate the correct address for ITEM IN WORKSPACe PAGINATION
     		@ajax_url = "/admin/workspaces/#{current_workspace.id}/ajax_content/" + params[:item_type]
