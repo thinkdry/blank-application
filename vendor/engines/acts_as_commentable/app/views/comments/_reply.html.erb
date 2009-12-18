@@ -1,6 +1,8 @@
-	<div class="commentbox">
-		<%= object.text %>
-	</div>
-	<div class="commentfooter">
-    	<%= link_to_user User.find(object.user_id) %> - <%= I18n.l object.created_at, :format => :verb %>
-	</div>
+<% @i += 1 %>
+<div class="commentbox">
+  	<%= object.text %>
+	<div class="commentNumber"><%= @i %></div>
+</div>
+<div class="commentfooter">
+  	<%= link_to_user User.find(object.user_id) %> - <%= I18n.l object.created_at, :format => :verb %>
+</div>

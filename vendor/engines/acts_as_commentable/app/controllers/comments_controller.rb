@@ -12,11 +12,6 @@ class CommentsController < Admin::ApplicationController
   # - GET /comments
   # - GET /comments.xml
   def index
-    #		if params[:on_state] && (params[:on_state] != 'all')
-    #			@current_objects = Comment.find(:all, :order => 'created_at DESC', :conditions => { :state => params[:on_state], :parent_id => nil }).paginate(:per_page => get_per_page_value, :page => params[:page])
-    #		else
-    #			@current_objects = Comment.find(:all, :conditions => {:parent_id => nil}, :order => 'created_at DESC').paginate(:per_page => get_per_page_value, :page => params[:page])
-    #		end
     conditions = (!params[:on_state].nil? && params[:on_state] != 'all') ? "AND state ='#{params[:on_state]}'" : ''
     if @current_user.has_system_role('superadmin')
       @paginated_objects = Comment.find(:all, :conditions => ["parent_id <=> NULL #{conditions}"], :order => 'created_at DESC').paginate(:per_page => get_per_page_value, :page => params[:page])
@@ -122,40 +117,50 @@ class CommentsController < Admin::ApplicationController
 		@current_object.save
 		redirect_to comments_url
 	end
-
-	# Action allowing to reply on a posted comment, with Captcha or not
+	
+	# Action allowing to reply on a posted comment. Comment can be not validated.
   def add_reply
-    if logged_in?
-      @current_object = Comment.create(params[:comment].merge(:user => @current_user, :state => DEFAULT_COMMENT_STATE))
-      @current_object.save
-      render :update do |page|
-        if @current_object.state == 'validated'
-          page.insert_html :bottom, "reply_for_comment_#{@current_object.parent_id}", :partial => "comments/reply", :object => @current_object
-          page.replace_html "notice", :text => I18n.t('comment.add_comment.ajax_message_comment_published')
-          page.hide 'reply'
-          page.hide 'reply_overlay'
-        else
-          page.replace_html "error", :text => I18n.t('comment.add_comment.ajax_message_comment_submited')
-          page.hide 'reply'
-          page.hide 'reply_overlay'
-        end
-      end
+    
+    @parent_item = params[:item_type].classify.constantize.find(params[:id])
+    
+    @reply = Comment.create(params[:comment].merge(:user => @current_user, 
+                                                   :state => DEFAULT_COMMENT_STATE, 
+                                                   :commentable_id => @parent_item.id,
+                                                   :commentable_type => @parent_item.class.to_s))
+      
+    @reply.save
+
+    if @reply.state == 'validated'
+      @error = ""
+      #@reply_jquery_id_div = "#reply_for_comment_#{@reply.parent_id}"
+      @notice = I18n.t('comment.add_comment.ajax_message_comment_published')
+    #else we just send an error message explaining that comment is not validated.
     else
-      if yacaph_validated?
-        current_object.comments.create(params[:comment])
-        current_object.comments_number = current_object.comments_number.to_i + 1
-        current_object.save
-        render :update do |page|
-          page.replace_html "notice", :text => I18n.t('comment.add_comment.ajax_message_comment_submited')
-          page.replace_html "comment_captcha",  :partial => "items/captcha"
-        end
-      else
-        render :update do |page|
-          page.replace_html "error", :text => I18n.t('general.common_word.ajax_message_captcha_invalid')
-          page.replace_html "comment_captcha",  :partial => "items/captcha"
-        end
-      end
+      @error = I18n.t('comment.add_comment.ajax_message_comment_submited')
     end
-  end
+
+    respond_to do |format|
+	    format.js {render :layout => false}
+	  end
+	end
+
+    #if logged_in?
+    #else
+    #       if yacaph_validated?
+    #         current_object.comments.create(params[:comment])
+    #         current_object.comments_number = current_object.comments_number.to_i + 1
+    #         current_object.save
+    #         render :update do |page|
+    #           page.replace_html "notice", :text => I18n.t('comment.add_comment.ajax_message_comment_submited')
+    #           page.replace_html "comment_captcha",  :partial => "items/captcha"
+    #         end
+    #       else
+    #         render :update do |page|
+    #           page.replace_html "error", :text => I18n.t('general.common_word.ajax_message_captcha_invalid')
+    #           page.replace_html "comment_captcha",  :partial => "items/captcha"
+    #         end
+    #       end
+    #     end
+  #end
 	
 end

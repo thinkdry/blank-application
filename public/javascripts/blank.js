@@ -44,8 +44,8 @@ $(document).ready(function () {
 		var self = $(this);
         self.next('ul.ddown').slideToggle('fast');
     });
-    
-
+	
+	$(".commentfooterReply").colorbox({width:"660px", inline:true, href:"#commentReply"});
 
 	//RATING SYSTEM
     $('.auto-submit-star').rating({

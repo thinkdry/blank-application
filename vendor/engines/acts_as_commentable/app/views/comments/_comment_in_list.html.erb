@@ -1,18 +1,14 @@
 <div class="commentbox">
-  	<div class="commentText"><%= object.text %></div>
-	<% if comment_number_for_ajax == nil -%>
-	<div class="commentNumber"><%= comment_in_list_counter + 1 %></div>
-	<% else -%>
-	<div class="commentNumber"><%= comment_number_for_ajax %></div
-	<% end-%>
+  	<%= object.text %>
+	<div class="commentNumber"><%= @i.nil? ? comment_number_for_ajax : @i %></div>
 </div>
 <div class="commentfooter">
   	<%= link_to_user User.find(object.user_id) %> - <%= I18n.l object.created_at, :format => :verb %>
-	<%#= link_to_function 'Reply', :onclick => "add_reply('#{object.id}')", :class => "commentfooterReply" %>
+	<%= link_to_function 'Reply', :onclick => "add_reply('#{object.id}')", :class => "commentfooterReply" %>
 </div>
 <% if object.replies.size > 0 %>
 <div id="reply_for_comment_<%= object.id %>" class="commentReply">
     <%= render :partial => 'comments/reply', :collection => object.replies %>
 </div>
 <% end %>
-
+<% @i += 1 if !@i.nil?%>

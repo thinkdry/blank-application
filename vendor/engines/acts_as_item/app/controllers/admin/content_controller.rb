@@ -45,7 +45,6 @@ class Admin::ContentController < Admin::ApplicationController
   def ajax_index
     
 		params[:item_type] ||= get_allowed_item_types(current_workspace).first.pluralize
-		p request.inspect
 		params[:w] ||= current_workspace ? [current_workspace.id] : nil
     @paginated_objects = params[:item_type].classify.constantize.get_da_objects_list(setting_searching_params(:from_params => params))
     @total_objects_count = params[:item_type].classify.constantize.matching_user_with_permission_in_workspaces(@current_user, 'show', params[:w]).uniq.count

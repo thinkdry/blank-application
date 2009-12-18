@@ -1,0 +1,3 @@
+$("#comments_list").append("<%= escape_javascript(render :partial => 'comments/comment_in_list', :locals => {:object => @comment, :comment_number_for_ajax => total_number_of_reply(@current_object)}) %>");
+$(".commentfooterReply").colorbox({width:"660px", inline:true, href:"#commentReply"});
+$("#comment_box").val("");
