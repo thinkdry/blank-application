@@ -1,0 +1,4 @@
+<h1><img src="/images/icons/add_48.png" alt="add"/><%= t('container.actions.new') + " " +  t("container.#{current_object.class.to_s.downcase}").singularize %></h1>
+<fieldset>
+	<%= render :partial => "form", :locals => {:title =>  t('container.actions.new') + " " +  t("container.#{current_object.class.to_s.downcase}").singularize} %>
+</fieldset>

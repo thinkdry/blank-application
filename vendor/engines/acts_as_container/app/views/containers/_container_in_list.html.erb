@@ -1,0 +1,24 @@
+<div id="container_<%= object.id.to_s %>" class="item_in_list">
+  <% if @i%2 == 0 -%>
+    <div class="sensor_in_list_alternate" >
+    <% else -%>
+      <div class="sensor_in_list">
+      <% end -%>
+      <div class="left_part_sensor" onclick="toggleAccordion('itemInformations_<%=@i%>');">
+        <a id="items_link" name="<%= object.title.urlize %>" href="#<%= object.title.urlize %>"><%= object.title %></a>
+      </div>
+      <div class="right_part_sensor">
+      	  <%= link_to image_tag("/images/icons/play.png", :width => "20"), container_path(object) %>
+          <%= link_to image_tag("/images/icons/pencil.png", :width => "20"), edit_container_path(object) %>
+      </div>
+    </div>
+    <div id="itemInformations_<%=@i%>" style="display:none;">
+      <div class="lift_items">
+        <div class="file_infos_box_right">
+          <%= link_to image_tag("/images/icons/delete.png", :width => "20"), container_path(object), :method => :delete, :confirm =>  I18n.t('item.destroy.delete_conform')%>
+        </div>
+        <%= object.description %>
+      </div>
+    </div>
+    <% @i += 1%>
+  </div>

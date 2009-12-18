@@ -1,0 +1,22 @@
+<% form_for @current_object,
+  :builder => BlankFormBuilder,
+  :url => (@current_object.new_record? ? containers_path(@current_object.class.to_s) : container_path(@current_object)),
+  :html => {
+  :method => (@current_object.new_record? ? :post : :put),
+  :multipart => true
+} do |f| -%>
+  <%= File.basename(@current_object.logo_file_name) + '<br />' if @current_object.logo_file_name %>
+  <%= f.text_field :title, :label => I18n.t('workspace.field.title_label')+" * : " %>
+  <%= item_keywords_fields(f, @current_object) %>
+  <% f.field :logo, :label => I18n.t('workspace.field.logo_label') + " :", :hint => "Displayed on Homepage" do %>
+    <%= file_field "#{@current_object.label_name}", 'logo', :class => 'file' %>
+  <% end %>
+  <% f.field :image, :label => I18n.t('workspace.field.logo_label') + " :" do %>
+    <%= file_field "#{@current_object.label_name}", 'image', :class => 'file' %>
+  <% end %>
+  <%= f.advanced_editor :description, :label => I18n.t('workspace.field.description_label') +' : ' %>
+  <%= capture(f, &block) %>
+  <% text_button = (current_object.new_record? ?  t('container.actions.create') + " " +  t("container.#{current_object.class.to_s.downcase}").singularize : t('container.actions.update') + " " + t("container.#{current_object.class.to_s.downcase}").singularize )%>
+  <button type="submit" class="submit_button"><%= text_button %></button>
+<% end -%>
+

@@ -1,0 +1,24 @@
+<%h content_for :title, t("container.#{object.class.to_s.downcase}") + " - "+ object.title %>
+<div id="area_TITLE">
+  <div id="area_TITLE_left">
+    <%= link_to image_tag(object.logo.url(:medium), :width => "80"), edit_container_path(object) %>
+  </div>
+  <div id="area_TITLE_right">
+    <h1>
+      <%=  object.title %>
+      <%= link_to image_tag('/images/icons/pencil.png'), edit_container_path(object)  %>
+    </h1>
+    <p>
+      <%= object.description %>
+    <p>
+    <p><%= t('container.fields.keyword') %><%= object.keywords_list %></p>
+  </div>
+</div>
+<div class="area_BOTH">
+  <%= display_tabs_objects_list(
+    :default_tab => params[:item_type],
+    :tabs_list => get_allowed_item_types(current_container),
+    :url_base => 'ajax_items_path',
+    :list_partial => 'generic_for_items/index'
+  ) %>
+</div>

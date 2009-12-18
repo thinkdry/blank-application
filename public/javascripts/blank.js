@@ -1,13 +1,15 @@
 //this line is for recognison of ajax method. cf rails cast 136!
 jQuery.ajaxSetup({ 
-  'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
+    'beforeSend': function(xhr) {
+        xhr.setRequestHeader("Accept", "text/javascript")
+        }
 })
 
 $(document).ready(function () {	
 	
     wasVisible = new Boolean(false);
 	
-	//General menu, script for uniqueness of visible element.
+    //General menu, script for uniqueness of visible element.
     $('a.menuDropButton').click(function(){
         wasVisible = false;
 		
@@ -25,7 +27,7 @@ $(document).ready(function () {
         }
     });
 	
-	//Effect on tabs on mouse over.
+    //Effect on tabs on mouse over.
     $('.munuElement').hover(
         function () {
             $(this).stop().animate({
@@ -39,15 +41,15 @@ $(document).ready(function () {
         }
         );
 	
-	//Filter drop down in item list.
+    //Filter drop down in item list.
     $('.filter').live("click", function(){
-		var self = $(this);
+        var self = $(this);
         self.next('ul.ddown').slideToggle('fast');
     });
     
 
 
-	//RATING SYSTEM
+    //RATING SYSTEM
     $('.auto-submit-star').rating({
         callback: function(value, link){
             var url = $("#submit_rating").attr("action");
@@ -65,47 +67,51 @@ $(document).ready(function () {
         }
     });
 
-	//HINT FOR FORMS && AJAX VALIDATION
-	$(".formElement input").focus( function() {	
-		$(this).nextAll('.ajax_hint_message').css('display','inline');
-	});
-	$(".formElement input").blur( function(){
-		//hide the hint message
-		$(this).nextAll('.ajax_hint_message').css('display','none');
-		//ajax validation called with attribute embeded in the input file
-		var model = $(this).attr("classname");
-		var attribute = $(this).attr("validate");
-		var value = $(this).val();
-		var inputConcerned = $(this);
-		//lauch ajax validation on server for the current field
-		$.ajax({
-	        type: "POST",
-	        url: $(this).attr("url"),
-	        data: "model="+model+"&attribute="+attribute+"&value="+value,
-	        success: function(html){
-				element = "#hint_for_" + model + "_" + attribute;
-				//if there is an error
-				if (html != ""){
-					//remove the previous error message
-					$(element).find('.formError').remove();
-					//add the new error message
-					$(element).find('.hintMessage').append(html);
-					//put red border on relative input
-					//&(element).parents().find("input").css('border', '1px solid red');
-					$(inputConcerned).css('border', '1px solid red');
-				}
-				else{
-					//remove the form error
-					$(element).find('.formError').remove();
-					//remove the red border
-					//&(element).parents().find("input").css('border', '1px solid #CCC');
-					$(inputConcerned).css('border', '1px solid #ccc');
-				}
-	        }
-	    });
-	});
+    //HINT FOR FORMS && AJAX VALIDATION
+    $(".formElement input").focus( function() {
+        $(this).nextAll('.ajax_hint_message').css('display','inline');
+    });
+    $(".formElement input").blur( function(){
+        //hide the hint message
+        $(this).nextAll('.ajax_hint_message').css('display','none');
+        //ajax validation called with attribute embeded in the input file
+        var model = $(this).attr("classname");
+        var attribute = $(this).attr("validate");
+        var value = $(this).val();
+        var inputConcerned = $(this);
+        //lauch ajax validation on server for the current field
+        $.ajax({
+            type: "POST",
+            url: $(this).attr("url"),
+            data: "model="+model+"&attribute="+attribute+"&value="+value,
+            success: function(html){
+                element = "#hint_for_" + model + "_" + attribute;
+                //if there is an error
+                if (html != ""){
+                    //remove the previous error message
+                    $(element).find('.formError').remove();
+                    //add the new error message
+                    $(element).find('.hintMessage').append(html);
+                    //put red border on relative input
+                    //&(element).parents().find("input").css('border', '1px solid red');
+                    $(inputConcerned).css('border', '1px solid red');
+                }
+                else{
+                    //remove the form error
+                    $(element).find('.formError').remove();
+                    //remove the red border
+                    //&(element).parents().find("input").css('border', '1px solid #CCC');
+                    $(inputConcerned).css('border', '1px solid #ccc');
+                }
+            }
+        });
+    });
 	
-	$('#container').find('#notice').animate({opacity: 1}, 3000, function(){$(this).fadeOut('fast')});
+    $('#container').find('#notice').animate({
+        opacity: 1
+    }, 3000, function(){
+        $(this).fadeOut('fast')
+        });
 	
 });
 
@@ -139,10 +145,10 @@ function classify_bar(url) {
     $.ajax({
         type: 'GET',
         url: url,
-		dataType: "script",
-		success:function(html){
+        dataType: "script",
+        success:function(html){
 			
-		}
+        }
     });
 }
 
@@ -336,21 +342,21 @@ function shiftLeft(removeOptions,addOptions,saveFlag)
 }
 
 function add_new_follower(){
-	//getting the mail value
+    //getting the mail value
     var email = $('#new_follower_email').val();
-	//cleaning for jQuery to understand the div ID.
-	var emailDivId = email.replace("@", "_");
-	var emailDivId = emailDivId.replace(".", "_");
+    //cleaning for jQuery to understand the div ID.
+    var emailDivId = email.replace("@", "_");
+    var emailDivId = emailDivId.replace(".", "_");
 	
     if(email != 0){
-		//creating a new div with ID, for deletion possible.
+        //creating a new div with ID, for deletion possible.
         var new_email = "<div id='" + emailDivId + "'>";
-		new_email += email + " | <a onclick=\"$('#" + emailDivId + "').remove()\">DELETE</a>";
+        new_email += email + " | <a onclick=\"$('#" + emailDivId + "').remove()\">DELETE</a>";
         new_email += "<input type='hidden' name='configuration[sa_exception_followers_email][]' value='"+email+"'></div>";
 
-		//adding the mail to the follower list.
+        //adding the mail to the follower list.
         $('#followers_email').append(new_email);
-		//reseting form.
+        //reseting form.
         $('#new_follower_email').value = '';
     }
 }
