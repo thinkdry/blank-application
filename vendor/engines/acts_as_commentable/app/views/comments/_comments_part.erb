@@ -18,7 +18,9 @@
 			<h1>New Comment</h1> 
 	        <% remote_form_for :comments, :url => add_comment_item_path(object),  :html => {:class => "newComment"} do |f|  %>
 	            <textarea id="comment_box" class="comment_box" rows="8" name="comment[text]"></textarea>
-	            <button type="submit" class="submit_button"><%=I18n.t('comment.add_comment.button_publish')%></button>
+	            <button type="submit" class="submitButton"><span>
+					<%=I18n.t('comment.add_comment.button_publish')%>
+				</span></button>
 	        <% end %>
 	    </div>
 	
@@ -31,7 +33,7 @@
 									
 		          	<textarea id="reply_box" class="comment_box" rows="8" name="comment[text]"></textarea>
 		          	<input type="hidden" id="comment_parent_id" name="comment[parent_id]">
-		          	<button type="submit" class="submit_button">Reply</button>
+		          	<button type="submit" class="submit_button"><span>Reply</span></button>
 	        	<% end-%>
 	      	</div>
 		</div>

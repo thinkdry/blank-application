@@ -11,6 +11,7 @@
   </div>
   <%= f.text_area :description, :label => "Description : " %>
   <% button_text = @permission.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update') %>
-  <%= f.submit button_text, :class=>"submit_button" %>
+
+	<button type="submit" class="submitButton"><span><%= button_text%></span></button>
 <% end %>
 </fieldset>

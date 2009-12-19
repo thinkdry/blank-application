@@ -52,7 +52,9 @@
   <%= radio_button_tag 'to_do', 'link' %> <%= I18n.t('workspace_contact.list.link_these_contacts_to_group') %> : <%= select_tag 'group_id', options_for_select(current_workspace.groups.all(:order => 'title ASC').map{ |e| [e.title, e.id] }) %> <br />
   <%= radio_button_tag 'to_do', 'change_state' %> <%= I18n.t('workspace_contact.list.change_state_to') %> : <%= select_tag 'state', options_for_select({I18n.t('general.common_word.subscribed').capitalize => 'subscribed', I18n.t('general.common_word.unsubscribed').capitalize => 'unsubscribed'}, 'subscribed' ) %> <br />
   <br /><br />
-  <%= submit_tag I18n.t('workspace_contact.list.do_the_action'), :class=>"submit_button" %>
+	<button id="submit_button" class="submitButton">
+		<span><%= I18n.t('workspace_contact.list.do_the_action')%></span>
+	</button>
 <% end %>
 <br /><br />
 <%= link_to I18n.t('group.contacts.select_contacts'), select_admin_workspace_workspace_contacts_path(current_workspace.id) %>

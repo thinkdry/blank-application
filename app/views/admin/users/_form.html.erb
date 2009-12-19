@@ -62,7 +62,9 @@
       <% end %>
     <% end %>
     <% button_text = current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update') %>
-    <button type="submit" class="submit_button" ><%= button_text%></button>
+    <button type="submit" class="submitButton" >
+		<span><%= button_text%></span>
+	</button>
   <% end %>
 
 </fieldset>

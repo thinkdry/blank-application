@@ -9,7 +9,9 @@
       <%= button_to_function(I18n.t("feed_source.what_to_do.new_rss_feed_check"), :onclick =>"check_feed()" ,:class => 'smallSubmit leftAlign') %>
       <%= item_workspaces_checkboxes(f, current_object) %>
       <%= error_message_on :current_object, :items %>
-      <%= submit_tag I18n.t('general.button.create'), :class => "submit_button", :disabled => true, :id => "submit_button" %>
+	  <buttton class="submitButton" id="submit_button" disabled="disabled">
+	  	<span><%= I18n.t('general.button.create')%></span>
+	  </buttton>
     <% end %>
   </fieldset>
 <% else %>

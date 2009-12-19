@@ -1,4 +1,4 @@
-	<h2>Add a key in the translations files</h2>
+	<h1>Add a key in the translations files</h1>
 
   	<% form_for :res, :url => translation_new_superadmin_translations_path do |f| -%>
 
@@ -12,7 +12,6 @@
       		<label>Translations for <%= l %> : </label>
 	  		<div class="formElement"><%= text_field_tag "translations[#{l}]" %></div>
     	<% end %>  
-    	<div class="centerButton">
-			<button type="submit" class="submit_button"><%=I18n.t('general.button.add')%></button>
-		</div>
+    	
+		<button type="submit" class="submitButton"><span><%=I18n.t('general.button.add')%></span></button>
   	<% end -%>

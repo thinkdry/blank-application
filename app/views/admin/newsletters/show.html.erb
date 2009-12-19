@@ -14,7 +14,9 @@
 	        <% end %>
 	      </select>
 	  </div>
-      <button type="submit" class="submit_button" onclick="if($('group_id').value == 0){return false;}" > <%= I18n.t('newsletter.send_newsletter.send_newsletter') %></button>
+      <button type="submit" class="submitButton" onclick="if($('group_id').value == 0){return false;}" >
+		<span><%= I18n.t('newsletter.send_newsletter.send_newsletter') %></span>
+	  </button>
     </form>
 	<div id="sent_to">
 	<% if @current_object.groups_newsletters.size > 0 -%>

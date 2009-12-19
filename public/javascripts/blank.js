@@ -44,6 +44,11 @@ $(document).ready(function () {
 		var self = $(this);
         self.next('ul.ddown').slideToggle('fast');
     });
+
+	//sumbit form. USed for using sliding door buttons with a
+	// $('.submitButton').live("click", function(){
+	// 	$(this).parents().filter("form").trigger("submit");
+	// });
 	
 	$(".commentfooterReply").colorbox({width:"660px", inline:true, href:"#commentReply"});
 

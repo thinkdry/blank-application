@@ -1,10 +1,10 @@
 <fieldset>
   <legend> <%=  I18n.t('workspace.add_contacts.title')+" "+@current_object.title %> </legend>
   <br />
-  <%= link_to image_tag("/images/icons/left.png"), list_workspace_workspace_contacts_path(@current_object.id) %><br /><br />
+  <%= link_to image_tag("/images/icons/left.png"), list_admin_workspace_workspace_contacts_path(@current_object.id) %><br /><br />
   <% form_for @current_object,
     :builder => BlankFormBuilder,
-    :url => select_workspace_workspace_contacts_path(current_workspace.id),
+    :url => select_admin_workspace_workspace_contacts_path(current_workspace.id),
     :html => {
     :method => :post,
   } do |f| -%>
@@ -51,8 +51,8 @@
         </div>
       </div>
     </div>
-    <button id="submit_button" class="submit_button" type="submit">
-        <%= I18n.t('general.button.save') %>
+    <button id="submit_button" class="submitButton" type="submit">
+        <span><%= I18n.t('general.button.save') %></span>
     </button>
   <% end -%>
 

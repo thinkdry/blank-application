@@ -7,6 +7,8 @@ a:hover {color: #333;text-decoration: underline;}
 
 img {border:none;}
 
+th{color:#F79646;text-align:left;}
+
 h1 {
 	border-bottom:1px solid #CCCCCC;
 	color:#F79646;
@@ -19,7 +21,8 @@ h1 {
 h2 {
 	clear:both;
 	color:#F79646;
-	font-size:190%;
+	font-size:230%;
+	font-weight:normal;
 	margin:0 0 10px;
 }
 
@@ -369,8 +372,29 @@ form input{
 	margin-top:25px;
 }
 
-.continueUpdate{ float:left;}
-.continue{float:right;clear:none;}
+.submitButton{
+	background:#fff url(/images/rightSubmitButton.gif) no-repeat scroll right;
+	clear:both;
+	border:0;
+	color:#fff;
+	font-weight:bold;
+	margin:50px 25px 25px -2px;
+	font-size:90%;
+	padding:0 10px 0 0;
+	float:left;
+	cursor:pointer;
+	overflow: visible;
+}
+.submitButton span{
+	background:#fff url(/images/leftSubmitButton.gif) no-repeat scroll 0 0;
+	margin:0;
+	padding:10px 10px 8px 20px;
+	position: relative;
+	float:left;
+	white-space:nowrap;
+}
+
+.continue{float:left;clear:none;}
 
 .advancedEditor{
 	margin:0 auto;
@@ -511,6 +535,7 @@ ul#tabs li.selected{
 	padding:0 20px 25px 20px;
 	clear:both;
 	min-height:400px;
+	overflow:hidden;
 }
 .elementPerPages{
 	font-size:80%;

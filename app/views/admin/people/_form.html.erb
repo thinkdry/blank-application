@@ -37,7 +37,7 @@
     <%= associated_workspaces_checkboxes(f, @current_object, 'workspace_edit') %>
     <%= f.hidden_field :origin,:value=>"Creation"  %>
     <% button_text = @person.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update') %>
-    <button type="submit" class="submit_button"><%= button_text%></button>
+    <button type="submit" class="submitButton"><span><%= button_text%></span></button>
   <% end %>
 
 </fieldset>

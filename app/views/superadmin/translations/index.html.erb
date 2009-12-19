@@ -6,7 +6,10 @@
 	</div><div class="blockCornerRight"></div>
 
 	<div class="contentList superadmin">
-
+		<%= link_to_remote  'Add a new translation', 
+							:update => 'languageConfiguration', 
+							:url => language_switching_superadmin_translations_path(:locale_to_conf => 'translation_addition'), 
+							:method => :get %>
   		<h3>Select one country to configure the differents fields and text:</h3>
   		<ul>
   		<% LANGUAGES.each do |l| -%>
@@ -18,11 +21,7 @@
 			</li>
   		<% end -%>
   		</ul>
-  		<%= image_tag('/images/icons/add.png')%>
-		<%= link_to_remote  'Add a new translation', 
-							:update => 'languageConfiguration', 
-							:url => language_switching_superadmin_translations_path(:locale_to_conf => 'translation_addition'), 
-							:method => :get %>
+		
 
   		<div id='languageConfiguration'>
     	<%= render  :partial => 'translations_tab', 
