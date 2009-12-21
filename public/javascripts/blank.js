@@ -44,12 +44,8 @@ $(document).ready(function () {
 		var self = $(this);
         self.next('ul.ddown').slideToggle('fast');
     });
-
-	//sumbit form. USed for using sliding door buttons with a
-	// $('.submitButton').live("click", function(){
-	// 	$(this).parents().filter("form").trigger("submit");
-	// });
 	
+	//Modal Box for footer reply
 	$(".commentfooterReply").colorbox({width:"660px", inline:true, href:"#commentReply"});
 
 	//RATING SYSTEM
@@ -74,45 +70,58 @@ $(document).ready(function () {
 	$(".formElement input").focus( function() {	
 		$(this).nextAll('.ajax_hint_message').css('display','inline');
 	});
+	$(".formElement textarea").focus( function() {	
+		$(this).nextAll('.ajax_hint_message').css('display','inline');
+	});
 	$(".formElement input").blur( function(){
-		//hide the hint message
-		$(this).nextAll('.ajax_hint_message').css('display','none');
-		//ajax validation called with attribute embeded in the input file
-		var model = $(this).attr("classname");
-		var attribute = $(this).attr("validate");
-		var value = $(this).val();
-		var inputConcerned = $(this);
-		//lauch ajax validation on server for the current field
-		$.ajax({
-	        type: "POST",
-	        url: $(this).attr("url"),
-	        data: "model="+model+"&attribute="+attribute+"&value="+value,
-	        success: function(html){
-				element = "#hint_for_" + model + "_" + attribute;
-				//if there is an error
-				if (html != ""){
-					//remove the previous error message
-					$(element).find('.formError').remove();
-					//add the new error message
-					$(element).find('.hintMessage').append(html);
-					//put red border on relative input
-					//&(element).parents().find("input").css('border', '1px solid red');
-					$(inputConcerned).css('border', '1px solid red');
-				}
-				else{
-					//remove the form error
-					$(element).find('.formError').remove();
-					//remove the red border
-					//&(element).parents().find("input").css('border', '1px solid #CCC');
-					$(inputConcerned).css('border', '1px solid #ccc');
-				}
-	        }
-	    });
+		$(this).displayHintForField();
+	});
+	
+	$(".formElement textarea").blur( function(){
+		$(this).displayHintForField();
 	});
 	
 	$('#container').find('#notice').animate({opacity: 1}, 3000, function(){$(this).fadeOut('fast')});
 	
 });
+
+
+jQuery.fn.displayHintForField = function(){
+	//hide the hint message
+	$(this).nextAll('.ajax_hint_message').css('display','none');
+	//ajax validation called with attribute embeded in the input file
+	var model = $(this).attr("classname");
+	var attribute = $(this).attr("validate");
+	var value = $(this).val();
+	var inputConcerned = $(this);
+	//lauch ajax validation on server for the current field
+	$.ajax({
+        type: "POST",
+        url: $(this).attr("url"),
+        data: "model="+model+"&attribute="+attribute+"&value="+value,
+        success: function(html){
+			element = "#hint_for_" + model + "_" + attribute;
+			//if there is an error
+			if (html != ""){
+				//remove the previous error message
+				$(element).find('.formError').remove();
+				//add the new error message
+				$(element).find('.hintMessage').append(html);
+				//put red border on relative input
+				//&(element).parents().find("input").css('border', '1px solid red');
+				$(inputConcerned).css('border', '1px solid red');
+			}
+			else{
+				//remove the form error
+				$(element).find('.formError').remove();
+				//remove the red border
+				//&(element).parents().find("input").css('border', '1px solid #CCC');
+				$(inputConcerned).css('border', '1px solid #ccc');
+			}
+        }
+    });
+	
+}
 
 function autocomplete_on(array, div){
 

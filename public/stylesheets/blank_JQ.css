@@ -1,5 +1,15 @@
 /* Reset */
 
+body {
+	font-family:"Lucida Grande", "Bitstream Vera Sans", Helvetica, Verdana, Arial, sans-serif;
+	margin: 0px;
+	padding: 0px;
+	font-size: 10pt;
+	color: #9C9C9C;
+	background: #2B2D2C url('/images/backback.png');
+}
+
+
 ul {margin:0; padding:0;}
 a {text-decoration: none;color:#666;cursor:pointer;}
 
@@ -103,15 +113,6 @@ h4 {
 .formError {color:red;}
 
 /* Structure */
-
-body {
-	font-family:"Lucida Grande", "Bitstream Vera Sans", Helvetica, Verdana, Arial, sans-serif;
-	margin: 0px;
-	padding: 0px;
-	font-size: 10pt;
-	color: #9C9C9C;
-	background: #2B2D2C url('/images/backback.png');
-}
 
 #page_container {
 	width: 1000px;
@@ -357,21 +358,12 @@ form input{
 	margin-top:25px;
 }
 
-.submit_button {
-	background:#fff url(/images/button.png) no-repeat scroll 0 20px;
-	border:none;
-	clear:both;
-	color:#FFFFFF;
-	display:block;
-	height:auto;
-	margin:0 auto;
-	overflow:visible;
-	padding:30px;
-	width:250px;
+.formElement textarea{
+	width:450px;
+	height:100px;
+	font-family:"Lucida Grande", "Bitstream Vera Sans", Helvetica, Verdana, Arial, sans-serif;
 	font-size:90%;
-	margin-top:25px;
 }
-
 .submitButton{
 	background:#fff url(/images/rightSubmitButton.gif) no-repeat scroll right;
 	clear:both;
@@ -541,14 +533,13 @@ ul#tabs li.selected{
 	font-size:80%;
 	padding-bottom:25px;
 }
-.itemInList, .peopleInList{
+.itemInList{
 	overflow:hidden;
 	clear:both;
-	margin-bottom:5px;
+	margin-bottom:10px;
 	border-top:1px solid #D5D5D5;
 	padding-top:2px;
 }
-.itemInList{width:732px;}
 
 .itemInListDate{
 	text-transform:uppercase;
@@ -561,18 +552,16 @@ ul#tabs li.selected{
 .itemInListBody{
 	float:left;
 	margin-left:20px;
-	width:623px;
 	overflow:hidden;
 }
 .itemInListTitle{
 	font-size:120%;
 	color:#F79646;
 	padding-left:2px;
-	width:621px;
 	margin-bottom:5px;
 }
 .itemInListActions, .workspaceActions a{
-	font-size:80%;
+	font-size:75%;
 	text-transform:uppercase;
 }
 
@@ -704,6 +693,8 @@ a.filter{
 	height:21px;
 }
 
+.itemShowRightBlock .blockElementHeader{ padding-top:10px;height:17px;}
+
 .sixH{width:600px;}
 .twoH{width:180px;}
 .sevH{width:754px;}
@@ -796,12 +787,14 @@ a.filter{
 	padding-bottom:5px;
 }
 
-/*		Other Lists		*/
-.peopleListHeader{
-	background:#fff url(/images/topUserList.gif) no-repeat;
+/*		USERS			*/
+.wsList{
+	list-style:none;
+	padding-left:10px;
 }
-.peopleInList{width:688px;}
-.peopleInList .itemInListBody{width:602px;}
+.avatar{
+	margin:10px 20px;
+}
 
 /*		SuperAdmin		*/
 #website_url_name_value, #new_follower_email {

@@ -1,70 +1,142 @@
-<fieldset>
-  <legend><%= image_tag(@current_object.avatar.url(:thumb), :class => "avatar")%><%=I18n.t('user.new.title')%></legend>
+<% form_for ['admin',@current_object],:builder => BlankFormBuilder, :html => {:multipart=> true } do |f| -%>
 
-  <% form_for ['admin',@current_object],:builder => BlankFormBuilder, :html => {:multipart=> true } do |f| -%>
-    <%= f.text_field :login, :label => I18n.t('user.field.login_label')+" * : ", :hint => I18n.t('user.field.login_hint') %>
-    <%= f.text_field :email, :label => I18n.t('user.field.email_label')+" * : " %>
-    <% if @current_object.new_record? %>
-      <%= f.password_field :password, :label => I18n.t('user.field.password_label')+" * : " %>
-      <%= f.password_field :password_confirmation, :label => I18n.t('user.field.confirm_password_label')+" * : " %>
-    <% else %>
-      <%= f.password_field :password, :label => I18n.t('user.field.password_label'), :hint => I18n.t('user.field.password_hint') %>
-      <%= f.password_field :password_confirmation, :label => I18n.t('user.field.confirm_password_label'), :hint => I18n.t('user.field.confirm_password_hint') %>
-    <% end %>
-    <% if !@current_object.new_record? || (@current_user && @current_user.has_system_role("superadmin")) %>
-      <%= f.select :system_role_id, @roles.reverse.map{ |e| [I18n.t('general.role.'+e.name), e.id] }, :label => I18n.t('user.field.system_role_id_label')+" * : " %>
-    <% elsif !@current_object.new_record? || (@current_user && @current_user.has_system_role("admin")) %>
-      <%= f.select :system_role_id, [[I18n.t('general.role.user'), Role.find(:first, :conditions => { :name => 'user' }).id]], :label => I18n.t('user.field.system_role_id_label')+" * : " %>
-    <% end %>
-    <label><%= I18n.t('people.field.salutation_label') %> : </label>
-    <div class="formElement">
-      <% %w(Mr Ms Miss).each do |s|  %>
-        <input id="user_salutation_<%= s.downcase %>" type="radio" <%= "checked=true" if @current_object.salutation == s %> value="<%= s %>" name="user[salutation]" class = "checkboxes" /><%= I18n.t("general.common_word.#{s}") %>
-      <% end %>
-      <div id="errors_for_User_salutation"> </div>
-    </div>
-    <%= f.text_field :firstname, :label => I18n.t('user.field.first_name_label')+" * : " %>
-    <%= f.text_field :lastname, :label => I18n.t('user.field.last_name_label')+" * : " %>
-    <label>Gender</label>
-    <div class="formElement">
-      <% %w(Male Female).each do |s|  %>
-        <input id="user_gender_<%= s.downcase %>" type="radio" <%= "checked=true" if @current_object.gender == s %> value="<%= s %>" name="user[gender]" class = "checkboxes" /><%= I18n.t("general.common_word.#{s}") %>
-      <% end %>
-      <div id="errors_for_User_gender"> </div>
-    </div>
-    <%#= f.select :gender, ["","#{I18n.t('general.common_word.Male')}", "#{I18n.t('general.common_word.Female')}"], :label => I18n.t('user.field.gender_label')+" : "  %>
-    <%= f.date_select :date_of_birth, :label => I18n.t('user.field.date_of_birth_label')+" : " , :start_year => (Time.now.year - 100), :end_year => (Time.now.year - 7) , :order => [:month , :day, :year ], :include_blank => true%>
-    <%= f.country_select :nationality, {I18n.t('general.common_word.select_country')=>''}, { :label => I18n.t('user.field.nationality_label')+" : " } %>
-    <%= f.text_area :address, :size => "40x6", :label => I18n.t('user.field.address_label')+" : ", :hint => I18n.t('user.field.address_hint')%>
-    <%= f.text_field :phone, :label => I18n.t('user.field.phone_label')+" : ", :hint => I18n.t('user.field.phone_hint') %>
-    <%= f.text_field :mobile, :label => I18n.t('user.field.mobile_label')+" : ", :hint => I18n.t('user.field.mobile_hint') %>
-    <%= f.text_field :company, :label => I18n.t('user.field.location_label')+" : ", :hint => I18n.t('user.field.location_hint') %>
-    <%= f.text_area :activity, :size => "40x6", :label => I18n.t('user.field.activity_label')+" : " %>
-    <%= f.text_area :edito, :size => "40x6", :label => I18n.t('user.field.edito_label')+" : " %>
-    <% f.field :avatar, :label => I18n.t('user.field.photo_label')+" : " do %>
-      <%= file_field 'user', 'avatar', :class => 'file' %>
-    <% end %>
-    <% if !@current_object.new_record? && @current_object.has_permission_for?('configure', @current_user) %>
-      <%= f.select :u_layout, available_layouts.map{|la| [I18n.t('general.layout.'+la.to_s), la.to_s]}, :label => I18n.t('user.field.layout_label')+" : ", :selected => (@current_object.u_layout.nil? || @current_object.u_layout.blank? ? 'app_fat_menu' : @current_object.u_layout ) %>
-      <%= f.select :u_language, available_languages.map{|l| [I18n.t('general.language.'+l), l]}, :label => I18n.t('user.field.select_language_label')+" : " %>
-      <%= f.select :u_per_page, [10,30,50], :label => I18n.t('user.field.results_per_page_label')+" : " %>
-    <% else %>
-      <%= f.hidden_field(:u_layout, :value=>@configuration['sa_default_layout'].to_s) %>
-      <%= f.hidden_field(:u_language, :value=>@configuration['sa_default_language'].to_s) %>
-      <%= f.hidden_field(:u_per_page, :value=>@configuration['sa_per_page_default'].to_s) %>
-    <% end %>
-    <% if is_allowed_free_user_creation? && @current_object.new_record? && !@current_user %>
-      <%= yacaph_block %>
-      <% if @captcha_valid == false %>
-        <div id="errors_for_captcha">
-          <div class="formError"><%= I18n.t("general.common_word.ajax_message_captcha_invalid") %></div>
-        </div>
-      <% end %>
-    <% end %>
-    <% button_text = current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update') %>
-    <button type="submit" class="submitButton" >
-		<span><%= button_text%></span>
-	</button>
-  <% end %>
+	<div class="itemShowLeft">
+		<div class="itemShowLeftDate">
+			<%= I18n.l Time.now, :format =>:verb %>
+		</div>
+		<div class="itemShowLeftBody">
+			<h1><%=I18n.t('user.new.title')%></h1>
+			
+			<label><%= I18n.t('people.field.salutation_label') %> : </label>
+		    <div class="formElement">
+		      <% %w(Mr Ms Miss).each do |s|  %>
+		        <input id="user_salutation_<%= s.downcase %>" type="radio" 
+				<%= "checked=true" if @current_object.salutation == s %> value="<%= s %>" 
+				name="user[salutation]" class = "checkboxes" /><%= I18n.t("general.common_word.#{s}") %>
+		      <% end %>
+		    </div>
+			
+			<%= f.text_field    :login, 
+								:label => I18n.t('user.field.login_label')+" * : ", 
+								:hint => I18n.t('user.field.login_hint') %>
+								
+		    <%= f.text_field    :email, 
+								:label => I18n.t('user.field.email_label')+" * : ",
+								:hint => "TODO hint" %>
 
-</fieldset>
+		    <%= f.password_field 	:password, 
+									:label => I18n.t('user.field.password_label')+" * : ", 
+									:hint => I18n.t('user.field.password_hint') %>
+										
+		    <%= f.password_field 	:password_confirmation, 
+									:label => I18n.t('user.field.confirm_password_label')+" * : ", 
+									:hint => I18n.t('user.field.confirm_password_hint') %>
+			
+			<%= f.text_field :firstname, :label => I18n.t('user.field.first_name_label')+" * : ", :hint => "TODO hint" %>
+		    <%= f.text_field :lastname, :label => I18n.t('user.field.last_name_label')+" * : ", :hint => "TODO hint" %>
+									
+			<%= f.text_area :address, 
+							:size => "40x6", 
+							:label => I18n.t('user.field.address_label')+" : ", 
+							:hint => I18n.t('user.field.address_hint')%>
+					
+			<%= f.text_field 	:phone, 
+								:label => I18n.t('user.field.phone_label')+" : ", 
+								:hint => I18n.t('user.field.phone_hint') %>
+								
+			<%= f.text_field 	:mobile, 
+								:label => I18n.t('user.field.mobile_label')+" : ", 
+								:hint => I18n.t('user.field.mobile_hint') %>
+							
+			<%= f.text_area :edito, 
+							:label => I18n.t('user.field.edito_label')+" : ",
+							:hint => "TODO hint" %>
+			
+			<% f.field  :avatar, 
+						:label => I18n.t('user.field.photo_label')+" : " do %>
+					<%= file_field 'user', 'avatar', :class => 'file' %>
+			<% end %>
+			
+			<% if !@current_object.new_record? && @current_object.has_permission_for?('configure', @current_user) -%>
+		      	<%= f.select 	:u_layout, 
+								available_layouts.map{|la| [I18n.t('general.layout.'+la.to_s), la.to_s]}, 
+								:label => I18n.t('user.field.layout_label')+" : ", 
+								:selected => (@current_object.u_layout.nil? || @current_object.u_layout.blank? ? 'app_fat_menu' : @current_object.u_layout ) %>
+								
+		      	<%= f.select 	:u_language, 
+								available_languages.map{|l| [I18n.t('general.language.'+l), l]}, 
+								:label => I18n.t('user.field.select_language_label')+" : " %>
+								
+		      	<%= f.select 	:u_per_page, 
+								[10,30,50], 
+								:label => I18n.t('user.field.results_per_page_label')+" : " %>
+		    <% else -%>
+		      	<%= f.hidden_field(:u_layout, :value=>@configuration['sa_default_layout'].to_s) %>
+		      	<%= f.hidden_field(:u_language, :value=>@configuration['sa_default_language'].to_s) %>
+		      	<%= f.hidden_field(:u_per_page, :value=>@configuration['sa_per_page_default'].to_s) %>
+		    <% end -%>
+			
+			<% if is_allowed_free_user_creation? && @current_object.new_record? && !@current_user %>
+		      <%= yacaph_block %>
+		      <% if @captcha_valid == false %>
+		        <div id="errors_for_captcha">
+		          <div class="formError"><%= I18n.t("general.common_word.ajax_message_captcha_invalid") %></div>
+		        </div>
+		      <% end %>
+		    <% end %>
+		    <% button_text = current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update') %>
+		    <button type="submit" class="submitButton" >
+				<span><%= button_text%></span>
+			</button>
+		</div>
+	</div>
+	<div class="rightBlocks">
+		<div class="itemShowRightBlock">
+			<div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
+				<%=I18n.t('user.field.system_role_id_label')%> <!-- TODO HINT -->
+			</div><div class="blockCornerRight"></div>
+			<div class="blockElementBody">
+				<% if !@current_object.new_record? || (@current_user && @current_user.has_system_role("superadmin")) %>
+			      	<%= f.select 	:system_role_id, 
+									@roles.reverse.map{ |e| [I18n.t('general.role.'+e.name), e.id] },
+									:label => " " %>
+
+			    <% elsif !@current_object.new_record? || (@current_user && @current_user.has_system_role("admin")) %>
+			      	<%= f.select 	:system_role_id, 
+									[[I18n.t('general.role.user'), 
+									Role.find(:first, :conditions => { :name => 'user' }).id]], 
+									:label => " " %>
+			    <% end %>
+			</div>
+	    </div>
+	</div>
+	<% if !@current_object.new_record? && @current_object.has_permission_for?('configure', @current_user) -%>
+	<div class="rightBlocks">
+		<div class="itemShowRightBlock">
+			<div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
+				User interface <!-- TODO HINT -->
+			</div><div class="blockCornerRight"></div>
+			<div class="blockElementBody">
+				<% if !@current_object.new_record? && @current_object.has_permission_for?('configure', @current_user) -%>
+			      	<%= f.select 	:u_layout, 
+									available_layouts.map{|la| [I18n.t('general.layout.'+la.to_s), la.to_s]}, 
+									:label => I18n.t('user.field.layout_label')+" : ", 
+									:selected => (@current_object.u_layout.nil? || @current_object.u_layout.blank? ? 'app_fat_menu' : @current_object.u_layout ) %>
+
+			      	<%= f.select 	:u_language, 
+									available_languages.map{|l| [I18n.t('general.language.'+l), l]}, 
+									:label => I18n.t('user.field.select_language_label')+" : " %>
+
+			      	<%= f.select 	:u_per_page, 
+									[10,30,50], 
+									:label => I18n.t('user.field.results_per_page_label')+" : " %>
+				<%end%>
+			</div>
+	    </div>
+	</div>
+	<% else -%>  
+      	<%= f.hidden_field(:u_layout, :value=>@configuration['sa_default_layout'].to_s) %>
+      	<%= f.hidden_field(:u_language, :value=>@configuration['sa_default_language'].to_s) %>
+      	<%= f.hidden_field(:u_per_page, :value=>@configuration['sa_per_page_default'].to_s) %>
+    <% end -%>
+<% end -%>

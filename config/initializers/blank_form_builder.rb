@@ -5,10 +5,15 @@
 module ActionView::Base::CompiledTemplates
   class BlankFormBuilder < LabelFormBuilder
     def default_template(object)
-      %{
-        <label>#{object.label}</label>
-        <div class="formElement">#{object}</div>
-      }
+      template = String.new
+      
+      if object.label != " "
+        template += "<label>#{object.label}</label>"
+      end
+      
+      template += "<div class=\"formElement\">#{object}</div>"
+
+      return template
     end
      
     def template_for_advanced_editor(object)
