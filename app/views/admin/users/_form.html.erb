@@ -57,25 +57,6 @@
 					<%= file_field 'user', 'avatar', :class => 'file' %>
 			<% end %>
 			
-			<% if !@current_object.new_record? && @current_object.has_permission_for?('configure', @current_user) -%>
-		      	<%= f.select 	:u_layout, 
-								available_layouts.map{|la| [I18n.t('general.layout.'+la.to_s), la.to_s]}, 
-								:label => I18n.t('user.field.layout_label')+" : ", 
-								:selected => (@current_object.u_layout.nil? || @current_object.u_layout.blank? ? 'app_fat_menu' : @current_object.u_layout ) %>
-								
-		      	<%= f.select 	:u_language, 
-								available_languages.map{|l| [I18n.t('general.language.'+l), l]}, 
-								:label => I18n.t('user.field.select_language_label')+" : " %>
-								
-		      	<%= f.select 	:u_per_page, 
-								[10,30,50], 
-								:label => I18n.t('user.field.results_per_page_label')+" : " %>
-		    <% else -%>
-		      	<%= f.hidden_field(:u_layout, :value=>@configuration['sa_default_layout'].to_s) %>
-		      	<%= f.hidden_field(:u_language, :value=>@configuration['sa_default_language'].to_s) %>
-		      	<%= f.hidden_field(:u_per_page, :value=>@configuration['sa_per_page_default'].to_s) %>
-		    <% end -%>
-			
 			<% if is_allowed_free_user_creation? && @current_object.new_record? && !@current_user %>
 		      <%= yacaph_block %>
 		      <% if @captcha_valid == false %>
@@ -109,27 +90,32 @@
 			    <% end %>
 			</div>
 	    </div>
-	</div>
+
 	<% if !@current_object.new_record? && @current_object.has_permission_for?('configure', @current_user) -%>
-	<div class="rightBlocks">
+
 		<div class="itemShowRightBlock">
 			<div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
-				User interface <!-- TODO HINT -->
+				User interface settings<!-- TODO HINT -->
 			</div><div class="blockCornerRight"></div>
 			<div class="blockElementBody">
 				<% if !@current_object.new_record? && @current_object.has_permission_for?('configure', @current_user) -%>
-			      	<%= f.select 	:u_layout, 
-									available_layouts.map{|la| [I18n.t('general.layout.'+la.to_s), la.to_s]}, 
-									:label => I18n.t('user.field.layout_label')+" : ", 
-									:selected => (@current_object.u_layout.nil? || @current_object.u_layout.blank? ? 'app_fat_menu' : @current_object.u_layout ) %>
-
-			      	<%= f.select 	:u_language, 
-									available_languages.map{|l| [I18n.t('general.language.'+l), l]}, 
-									:label => I18n.t('user.field.select_language_label')+" : " %>
-
-			      	<%= f.select 	:u_per_page, 
-									[10,30,50], 
-									:label => I18n.t('user.field.results_per_page_label')+" : " %>
+					<p>
+						language : 
+						<select id="user_u_language" name="user[u_language]">
+						<% available_languages.each do |l| %>
+							<option value="<%= l%>"><%= I18n.t('general.language.'+l)%></option>
+						<%end-%>
+						</select>
+					</p>
+					
+					<p>
+						<%= I18n.t('user.field.results_per_page_label')+" : "%>
+						<select>
+							<option value="10">10</option>
+							<option value="20">20</option>
+							<option value="30">30</option>
+						</select>
+					</p>
 				<%end%>
 			</div>
 	    </div>
