@@ -112,8 +112,9 @@ ActionController::Routing::Routes.draw do |map|
     # Newsletter related routes
     admin.unsubscribe_for_newsletter 'admin/unsubscribe_for_newsletter', :controller => 'workspace_contacts', :action => 'unsubscribe'
 
-    # FCKUPLOAD route for uploads throught fckeditor
-    admin.connect '/fckuploads', :controller => 'fck_uploads', :action => 'create'
+    # FCKTools route for utilities methods for FCK editor
+    admin.connect '/ck_uploads', :controller => 'ck_tools', :action => 'upload_from_ck'
+    admin.connect '/ck_config', :controller => 'ck_tools', :action => 'config_file'
 
     # Items created outside any workspace are private or fully public.
     # Items may be acceded by a list that gives all items the user can consult.

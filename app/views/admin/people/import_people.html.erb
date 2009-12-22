@@ -1,18 +1,34 @@
-<fieldset>
-  <legend><%= I18n.t('people.import_people.label') %></legend>
+<% form_for :people, 
+			:url=> (current_workspace ? 
+					import_people_admin_workspace_people_path(:workspace_id => current_workspace.id) :
+					import_people_admin_people_path) , :html => { :multipart => true } do |f| -%>
+<div class="itemShowLeft">
+	<div class="itemShowLeftDate">
+		<%= I18n.l Time.now, :format =>:verb %>
+	</div>
+	<div class="itemShowLeftBody">
+		<h1><%= I18n.t('people.import_people.label') %></h1>
+		<p><%= link_to I18n.t('people.import_people.get_empty_csv_file'),:controller=>'people',:action=>'get_empty_csv' %></p>
 
-  <% form_for :people, :url=> (current_workspace ? import_people_admin_workspace_people_path(:workspace_id => current_workspace.id) : import_people_admin_people_path) , :html => { :multipart => true } do |f| -%>
-    <div class="CommonMessageFull">
-      <%= I18n.t('people.import_people.note_description') %>
+    	<div class="CommonMessageFull"><%= I18n.t('people.import_people.note_description') %></div>
+
+    	<label for="dump_file"><%= I18n.t('people.import_people.select_csv_file_label') %> :</label>
+    	<div class="formElement"><%= f.file_field :csv, :class => 'file' %></div>
+    
+    	<button id="submit_button" class="submitButton" type="submit">
+			<span><%= I18n.t('general.button.submit')%></span>
+		</button>
+	</div>
+</div>
+
+<div class="rightBlocks">
+	<div class="itemShowRightBlock">
+		<div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
+			<%= I18n.t("item.show.associated_workspace") %><!-- TODO HINT -->
+		</div><div class="blockCornerRight"></div>
+		<div class="blockElementBody">
+			<%= associated_workspaces_checkboxes(f, nil, 'workspace_edit') %>
+		</div>
     </div>
-
-    <label for="dump_file"><%= I18n.t('people.import_people.select_csv_file_label') %> :</label>
-    <div class="formElement"><%= f.file_field :csv, :class => 'file' %></div>
-    <%= associated_workspaces_checkboxes(f, nil, 'workspace_edit') %>
-    <button id="submit_button" class="submitButton" type="submit">
-		<span><%= I18n.t('general.button.submit')%></span>
-	</button>
-  <% end %>
-
-  <p><%= link_to I18n.t('people.import_people.get_empty_csv_file'),:controller=>'people',:action=>'get_empty_csv' %></p>
-</fieldset>
+</div>	
+<% end %>

@@ -254,6 +254,7 @@ class Admin::UsersController < Admin::ApplicationController
       redirect_to admin_login_path
     end
   end
+  
 
   private
   def get_roles

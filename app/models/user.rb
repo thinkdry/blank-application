@@ -276,6 +276,14 @@ class User < ActiveRecord::Base
     self.password_reset_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
     save(false)
   end
+  
+  def get_private_workspace
+    Workspace.find(:all, :conditions => "state = 'private'").each do |ws|
+      if ws.state == 'private' && ws.creator_id == self.id
+        return ws
+      end
+    end
+  end
 
   protected
   # before filter

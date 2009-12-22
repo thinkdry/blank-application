@@ -748,18 +748,14 @@ ul.top_box li{
         width:310px;
 }
 
-#right_select_box{
-	margin-top:13px;
-	padding-left:5px;
-    float: right;
-}
+
 
 #right_select_box2{
 	padding-left:35px;
 }
 
 #left_select_box select, #right_select_box select, #right_select_box2 select{
-	width:310px;
+	
 }
 .optionAssignmentLabel{
 	margin-bottom:3px;

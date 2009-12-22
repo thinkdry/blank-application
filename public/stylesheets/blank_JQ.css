@@ -455,8 +455,26 @@ form input{
 .superadmin label{width:220px;}
 .checkboxListHorizontal{ float:left; margin-right:15px;}
 
-/*		KEYWORDS	*/
-		
+#keyword_value, #website_url_name_value, #new_follower_email {
+	width:500px;
+	float:left;
+}
+
+#left_select_box, #left_right_buttons, #right_select_box{
+	float:left;
+	overflow:visible;
+}
+#assignedOptions, #availableOptions {height:140px;width:270px; }
+#left_select_box, #right_select_box {width:270px;}	
+#right_select_box{padding-left:5px;  float: right;}
+#left_right_buttons{margin:50px 10px 30px 20px;	width:30px;	text-align: center;}
+.sendLeftButton, .sendRightButton{border:0; width:30px; cursor: pointer;}
+.sendLeftButton{background:transparent url('/images/icons/left.png') no-repeat;}
+.sendRightButton{background:transparent url('/images/icons/right.png') no-repeat;margin-top:30px;}
+.optionAssignmentLabel{height:20px;margin-bottom:3px;}
+.sendAll{margin-top:5px;}
+
+/*		KEYWORDS	*/	
 .keyword_label, .keyword_label a{
 	background:#E5E5E5;
 	padding:2px 0 2px 2px;

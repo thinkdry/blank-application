@@ -28,7 +28,7 @@
 		
 			<%= capture(f, &block) %>
 			
-			<% if !@current_object.new_record? -%>
+
 			<button id="submit_button" class="submitButton" type="submit">
 		    	<span>
 					<%= current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update')%>
@@ -37,13 +37,6 @@
 			<button id="submit_button" class="submitButton continue" name="continue" type="submit">
 		    	<span>create and continue</span>
 		    </button>
-			<% else-%>
-			<button id="submit_button" class="submitButton" type="submit">
-		    	<span>
-					<%= current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update')%>
-				</span>
-		    </button>
-			<%end-%>
 		</div>
 	</div>
 	<div class="rightBlocks">

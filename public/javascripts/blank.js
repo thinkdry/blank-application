@@ -120,7 +120,10 @@ jQuery.fn.displayHintForField = function(){
 			}
         }
     });
-	
+}
+
+function saveFCKContentDraf(){
+	alert('sve');
 }
 
 function autocomplete_on(array, div){

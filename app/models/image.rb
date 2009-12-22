@@ -32,13 +32,14 @@ class Image < ActiveRecord::Base
   acts_as_item
   # Paperclip attachment definition
   has_attached_file :image,
-    :url =>    "/uploaded_files/image/:id/:style/:basename.:extension",
-    :path => ":rails_root/public/uploaded_files/image/:id/:style/:basename.:extension",
-    :styles => { :medium => "300x300>", :thumb => "48x48>" }
+                    :url =>    "/uploaded_files/image/:id/:style/:basename.:extension",
+                    :path => ":rails_root/public/uploaded_files/image/:id/:style/:basename.:extension",
+                    :styles => { :medium => "300x300>", :thumb => "48x48>" }
   # Validation of the presence of an attached file
   validates_attachment_presence :image
 	# Validation of the type of the attached file
-  validates_attachment_content_type :image, :content_type => ['image/jpeg','image/jpg', 'image/png', 'image/gif','image/bmp', 'image/x-png', 'image/pjpeg']
+  validates_attachment_content_type :image,
+                                    :content_type => ['image/jpeg','image/jpg', 'image/png', 'image/gif','image/bmp', 'image/x-png', 'image/pjpeg']
 	# Validation of the size of the attached file
   validates_attachment_size(:image, :less_than => 25.megabytes)
 

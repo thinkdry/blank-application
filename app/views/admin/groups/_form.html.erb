@@ -1,14 +1,14 @@
+<% @ws = @current_user.get_private_workspace if !@ws %>
 <% form_for_item @current_object, title do |f| -%>
 
-  <% if @ws %>
-      <% f.field :people, :label => I18n.t('group.field.people_label')+' :' do %>
+      <% f.field :people, :label => " " do %>
         <input type="hidden" name="group_id" id="group_id" value="<%=@current_object.id%>">
           <div id="select_boxes">
            <input type="hidden" name="selected_Options" id="selected_Options" value="<%= @selected_members.map{ |e| e['id'] }.join(',') %>">
             <div id="left_select_box">
               <div class="optionAssignmentLabel">
                  <%= I18n.t('group.field.available_people_label') %>
-                <select id="start_with" name="start_with" style="width: 60px;" onchange="show_people();" >
+                <select id="start_with" name="start_with" onchange="show_people();" >
                   <option value="all"><%= I18n.t('general.common_word.all') %></option>
                   <% ('a'..'z').each do |alpha| %>
                     <option value="<%=alpha%>"><%= alpha.capitalize%></option>
@@ -26,9 +26,7 @@
                   <%= content_tag(:option, mem['email'], :value => mem['id'].to_s) %>
                 <% end %>
               </select>
-              <div id="send_all_buttons">
-                <input type="button" class="smallSubmit" onclick="selectAll($('assignedOptions'),'assignedOptions')" value ="<%= I18n.t('general.common_word.select_all') %>" />
-              </div>
+                <input type="button" class="smallSubmit sendAll" onclick="selectAll($('assignedOptions'),'assignedOptions')" value ="<%= I18n.t('general.common_word.select_all') %>" />
               <script type="text/javascript" charset="utf-8">
                 function selectAll(chkObj,id){
                   var multi=document.getElementById(id);
@@ -44,7 +42,6 @@
             <div id="left_right_buttons">
 
           <input type="button" class="sendLeftButton" onclick="shiftRight('availableOptions','assignedOptions', true)"/>
-          <br /><br />
           <input type="button" class="sendRightButton" onclick="shiftLeft('assignedOptions','availableOptions', false)"/>
 
         </div>
@@ -55,19 +52,10 @@
               <%= content_tag(:option, mem['email'], :value => mem['id'].to_s) %>
             <% end %>
           </select>
-          <div id="send_all_buttons">
-            <input type="button" class="smallSubmit" onclick="selectAll($('availableOptions'),'availableOptions')" value ="<%= I18n.t('general.common_word.select_all') %>" />
-          </div>
+            <input type="button" class="smallSubmit sendAll" onclick="selectAll($('availableOptions'),'availableOptions')" value ="<%= I18n.t('general.common_word.select_all') %>" />
         </div>
       </div>
     <% end %>
-
-  <% else %>
-    <div class="CommonMessage">
-      <%= I18n.t('group.new.no_workspace_no_contacts') %>
-    </div>
-
-  <% end %>
 
 
 <% end -%>

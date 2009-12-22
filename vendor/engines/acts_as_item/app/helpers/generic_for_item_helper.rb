@@ -151,10 +151,12 @@ module GenericForItemHelper
    
     input_id = String.new
     input_id = object.class.to_s.underscore + '_' + attribute.to_s
+    
+    current_workspace = @current_user.get_private_workspace if current_workspace.nil?
 
     field =  '<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>'
     field += '<textarea name="'+ input_id +'" id="' + input_id + '" class="novisible"></textarea>'
-    field += '<script type="text/javascript">CKEDITOR.replace(\''+ input_id +'\');</script>'
+    field += '<script type="text/javascript">CKEDITOR.replace(\''+ input_id +'\', {customConfig : \'/admin/ck_config?ws='+current_workspace.id.to_s+'\'});</script>'
 
     return field
   
@@ -211,10 +213,9 @@ module GenericForItemHelper
 			if current_workspace
 				str += hidden_field_tag(select_tag_name, current_workspace.id.to_s)
 			else
-				str += "<label>#{I18n.t('general.object.workspace').camelize+'(s) :'}</label><div class='formElement'>"
 				workspaces = Workspace.allowed_user_with_permission(@current_user, item_class_name+"_new").uniq.delete_if{ |w| !w.ws_items.to_s.split(',').include?(item_class_name) }
 				str += select_tag select_tag_name, options_for_select(workspaces.map{|w| [w.title, w.id]})
-				str += '</div>'+ajax_error_message_on(item, 'items_workspaces')
+				str += ajax_error_message_on(item, 'items_workspaces')
 			end
 		end
 		return str

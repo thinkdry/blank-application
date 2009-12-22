@@ -124,29 +124,16 @@ module ActsAsItem
 					# in order to fill the 'body' field.
 					response_for :create do |format|
 					  
-						format.html { 
-						  # if ['Article', 'Page', 'Newsletter'].include?(@current_object.class.to_s) || 
-						  #                   ((@current_object.class.to_s == 'Group') && 
-						  #                   current_workspace.nil?)
-						  #                 
-						  #                 redirect_to(edit_item_path(@current_object))
-						  #                 
-						  #               else
-						  #                 
-						  #                 if params[:continue].nil?
-						  #                   redirect_to(item_path(@current_object))
-						  #                 else
-						  #                   redirect_to(new_item_path(@current_object))
-						  #                 end
-						  #               end
+				    # format.html { 
+				    #           ['Article', 'Page', 'Newsletter'].include?(@current_object.class.to_s) || 
+				    #                                                   ((@current_object.class.to_s == 'Group') && 
+				    #                                                   current_workspace.nil?) ? redirect_to(edit_item_path(@current_object)) : 
+				    #                                                                             redirect_to(item_path(@current_object))
+				    #           }
 						  
-						  ['Article', 'Page', 'Newsletter'].include?(@current_object.class.to_s) || 
-						                                          ((@current_object.class.to_s == 'Group') && 
-						                                          current_workspace.nil?) ? redirect_to(edit_item_path(@current_object)) : 
-						                                                                    redirect_to(item_path(@current_object))
-						  }
+						format.html { params[:continue] ? redirect_to(new_item_path(@current_object.class.to_s)) : redirect_to(item_path(@current_object)) }
 					end
-					# Response redirecting to the show page after the edition
+					# Response redirecting to the show or new page after the edition 
 					response_for :update do |format|
 						format.html { params[:continue] ? redirect_to(new_item_path(@current_object.class.to_s)) : redirect_to(item_path(@current_object)) }
 					end

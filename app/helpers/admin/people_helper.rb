@@ -17,7 +17,6 @@ module Admin::PeopleHelper
 		list = (res + Workspace.allowed_user_with_permission(@current_user, permission)).uniq
 		#
 		if (list.size > 1 || @current_user.has_system_role('superadmin'))
-			strg += "<label>#{I18n.t('general.object.workspace').camelize+'(s) :'}</label><div class='formElement'>"
 			#form.field(:workspaces, :label => I18n.t('general.object.workspace').camelize+'(s) :', :ajax => false)
 			list.collect do |w|
 				# Setting the checked status form that workspace
@@ -33,7 +32,6 @@ module Admin::PeopleHelper
 					strg += check_box_tag(check_box_tag_name, w.id, checked, :class => 'checkboxes') + ' ' + w.title + '<br />'
 				end
 			end
-			strg += '</div>'
 		elsif (list.size > 0)
 			list.each do |ws|
 				strg += hidden_field_tag(check_box_tag_name, ws.id.to_s)
