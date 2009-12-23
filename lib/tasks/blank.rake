@@ -243,15 +243,15 @@ namespace :blank do
     p "Creating Default Workspace"
     @superadmin = User.first
     if Workspace.find_by_creator_id_and_state(@superadmin.id, "private").blank?
-      @ws=Workspace.create(:creator_id => @superadmin.id, :description => "Private Workspace for #{@superadmin.login}", :title=> "Private for #{@superadmin.login}", :state => "private", :ws_items => @default_conf['sa_items'].to_a, :ws_item_categories => @default_conf['sa_item_categories'].to_a)
-      UsersWorkspace.create(:workspace_id => @ws.id, :role_id => Role.find_by_name("ws_admin").id, :user_id => @superadmin.id)
+      @ws=Workspace.create(:creator_id => @superadmin.id, :description => "Archive for #{@superadmin.login}", :title=> "Archive for #{@superadmin.login}", :state => "private", :available_items => @default_conf['sa_items'].to_a)
+      @ws.users_containers.create(:role_id => Role.find_by_name("ws_admin").id, :user_id => @superadmin.id)
     end
 
 
     @user=User.find_by_login("quentin")
     if Workspace.find_by_creator_id_and_state(@user.id, "private").blank?
-      @ws=Workspace.create(:creator_id => @user.id, :description => "Private Workspace for Quentin", :title=> "Private for Quentin", :state => "private", :ws_items => @default_conf['sa_items'].to_a, :ws_item_categories => @default_conf['sa_item_categories'].to_a)
-      UsersWorkspace.create(:workspace_id => @ws.id, :role_id => Role.find_by_name("ws_admin").id, :user_id => @user.id )
+      @ws=Workspace.create(:creator_id => @user.id, :description => "Archive for Quentin", :title=> "Archive for Quentin", :state => "private", :available_items => @default_conf['sa_items'].to_a)
+      @ws.users_containers.create(:role_id => Role.find_by_name("ws_admin").id, :user_id => @user.id )
     end
 
     p "Done"

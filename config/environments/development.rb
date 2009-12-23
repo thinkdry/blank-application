@@ -18,7 +18,7 @@ config.action_mailer.raise_delivery_errors = true
 
 # Defining constants
 # Containers Available to current setup
-CONTAINERS = ['workspace']
+CONTAINERS = ['workspace','website','folder']
 # Items available to the current setup
 ITEMS = ['article', 'image', 'cms_file', 'video', 'audio', 'feed_source', 'bookmark','newsletter', 'group']
 # Variable defining the languages available for the application

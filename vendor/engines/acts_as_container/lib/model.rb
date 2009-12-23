@@ -12,11 +12,11 @@ module ActsAsContainer
         # Relationships
         
         # Relation N-1 with the 'users_workspaces' table
-        has_many "users_#{self.name.underscore.pluralize}".to_sym, :dependent => :delete_all
+        has_many :users_containers, :as => :containerable, :dependent => :delete_all
         # Relation N-1 getting the roles linked to that workspace, through the 'users_workspaces' table
-        has_many :roles, :through => "users_#{self.name.underscore.pluralize}".to_sym
+        has_many :roles, :through => :users_containers
         # Relation N-1 getting the users linked to that workspace, through the 'users_workspaces' table
-        has_many :users, :through => "users_#{self.name.underscore.pluralize}".to_sym
+        has_many :users, :through => :users_containers
         # Relation N-1 with the 'items' table
         has_many "items_#{self.name.underscore.pluralize}".to_sym, :dependent => :delete_all
         # Relation N-1 getting the different item types, through the 'items' table
@@ -33,7 +33,7 @@ module ActsAsContainer
         # Validation of the prsence of these fields
         validates_presence_of :title, :description
         # Validate Association with users containers
-        validates_associated "users_#{self.name.underscore.pluralize}".to_sym
+        validates_associated :users_containers
 
         # Validation of the uniqueness of users associated to that workspace
         validate :uniqueness_of_users
@@ -56,7 +56,7 @@ module ActsAsContainer
         # Callback Methods
 
         # After Updation Save the associated Users in UserWorkspaces
-        after_update  "save_users_#{self.name.to_s.underscore.pluralize}".to_sym
+        after_update  :save_users_container
 
         include ActsAsContainer::ModelMethods::InstanceMethods
       end
@@ -66,7 +66,7 @@ module ActsAsContainer
 
       # Method used for the validation of the uniqueness of users linked to the workspace
       def uniqueness_of_users #:nodoc:
-        new_users = self.send("users_#{self.class.to_s.downcase.pluralize}").collect { |e| e.user }
+        new_users = self.users_containers.collect { |e| e.user }
         new_users.size.times do
           self.errors.add_to_base('Same user added twice') and return if new_users.include?(new_users.pop)
         end
@@ -142,9 +142,10 @@ module ActsAsContainer
           attributes ? uc.attributes = attributes : eval("users_#{self.class.to_s.underscore.pluralize}").delete(uc)
         end
       end
+      
       # Save the workspace assocaitions for Users in UsersWorkspace
-      define_method "save_users_#{self.class.to_s.underscore.pluralize}".to_sym do
-        eval("users_#{self.name.underscore.pluralize}").each do |uw|
+      def save_users_container
+        eval("users_#{self.class.to_s.underscore.pluralize}").each do |uw|
           uw.save(false)
         end
       end

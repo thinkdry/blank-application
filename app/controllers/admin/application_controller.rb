@@ -60,7 +60,7 @@ class Admin::ApplicationController < ActionController::Base
   # - workspace : Workspace instance (default: nil)
 	def get_allowed_item_types(workspace=nil)
 		if workspace
-			return (workspace.ws_items.to_s.split(',') & @configuration['sa_items'])
+			return (workspace.available_items.to_s.split(',') & @configuration['sa_items'])
 		else
 			return @configuration['sa_items'] 
 		end
@@ -77,11 +77,11 @@ class Admin::ApplicationController < ActionController::Base
   # - user : User instance
   # - action : 'show', 'new', 'edit', 'destroy'
   # - current_workspace : Workspace instance (default: nil)
-	def item_types_allowed_to(user, action, current_workspace = nil)
-		if current_workspace
-			(current_workspace.ws_items.to_s.split(',') & @configuration['sa_items']).delete_if{ |e| !user.has_workspace_permission(current_workspace.id, e, action) }
+	def item_types_allowed_to(user, action, current_container = nil)
+		if current_container
+			(current_container.available_items.to_s.split(',') & @configuration['sa_items']).delete_if{ |e| !user.has_container_permission(current_workspace.id, e, action, current_container.class.to_s) }
 		else
-			available_items_list.delete_if{ |e| Workspace.allowed_user_with_permission(user, e+'_'+action).size == 0 }
+			available_items_list.delete_if{ |e| Workspace.allowed_user_with_permission(user, e+'_'+action,'workspace').size == 0 }
 		end
 	end
 

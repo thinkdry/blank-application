@@ -1,4 +1,1 @@
-<h1><img src="/images/icons/pencil_48.png" alt="edit" /><%= t('container.actions.edit') + " " +  t("container.#{current_object.class.to_s.downcase}").singularize %></h1>
-<fieldset>
-	<%= render :partial => "form", :locals => {:title => t('container.actions.edit') + " " +  t("container.#{current_object.class.to_s.downcase}").singularize} %>
-</fieldset>
+<%= render :partial => "form", :locals => {:title =>  I18n.t('workspace.edit.title')} %>

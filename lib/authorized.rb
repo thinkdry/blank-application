@@ -13,7 +13,7 @@ module Authorized
 			# and including instance methods usefull to get roles and permissions.
 			def acts_as_authorized
 				# Relation N-1 getting workspace Role objects through the 'users_workspaces' table
-				has_many :workspace_roles, :through => :users_workspaces, :source => :role
+				has_many :container_roles, :through => :users_containers, :source => :role
 
 				include Authorized::ModelMethods::InstanceMethods
       end
@@ -48,8 +48,8 @@ module Authorized
 				#
 				# Usage:
 				# <tt>user.has_workspace_role('ws_admin')</tt>
-				def has_workspace_role(workspace_id, role_name)
-					return UsersWorkspace.exists?(:user_id => self.id, :workspace_id => workspace_id, :role_id => Role.find_by_name(role_name).id) || self.system_role.name == 'superadmin'
+				def has_container_role(container_id,container, role_name)
+					return UsersContainer.exists?(:user_id => self.id, :containerable_id => container_id,:containerbale_type => container.capitalize, :role_id => Role.find_by_name(role_name).id) || self.system_role.name == 'superadmin'
 				end
 
 				# Method returning the system permissions list
@@ -67,9 +67,9 @@ module Authorized
 				#
 				# Usage :
 				# <tt>user.workspace_permissions(2)</tt>
-				def workspace_permissions(workspace_id)
-					if UsersWorkspace.exists?(:user_id => self.id, :workspace_id => workspace_id)
-						return UsersWorkspace.find(:first, :conditions => {:user_id => self.id, :workspace_id => workspace_id}).role.permissions
+				def container_permissions(container_id, container)
+					if UsersContainer.exists?(:user_id => self.id, :containerable_id => container_id, :containerable_type => container)
+						return UsersContainer.find(:first, :conditions => {:user_id => self.id, :containerable_id => container_id, :containerable_type => container}).role.permissions
 					else
 						return []
 					end
@@ -96,10 +96,10 @@ module Authorized
 				# - action: String defining the action defining the second part of the permission
 				#
 				# Usage :
-				# <tt>user.has_workspace_permission('articles','new')</tt>
-				def has_workspace_permission(workspace_id, controller, action)
+				# <tt>user.has_workspace_permission('workspace_id','articles','new')</tt>
+				def has_container_permission(container_id, controller, action, container)
 					permission_name = controller+'_'+action
-					return !self.workspace_permissions(workspace_id).delete_if{ |e| e.name != permission_name}.blank? || self.has_system_role('superadmin')
+					return !self.container_permissions(container_id,container).delete_if{ |e| e.name != permission_name}.blank? || self.has_system_role('superadmin')
 				end
 
     end

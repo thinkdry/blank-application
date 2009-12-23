@@ -120,11 +120,14 @@ ActionController::Routing::Routes.draw do |map|
     # => (his items, the public items, and items in workspaces he has permissions)
     items_resources(admin)
 
-    # Items in context of workspaces
-    admin.resources :workspaces, :member => { :add_new_user => :any, :subscription => :any, :unsubscription => :any, :question => :any }, :collection => {:validate => :post} do |workspaces|
-      items_resources(workspaces)
-      workspaces.resources :people, :collection => { :export_people => :any, :import_people => :any, :get_empty_csv => :get, :validate => :post ,:filter => :get }
-      workspaces.resources :workspace_contacts, :as => 'contacts', :except => :all, :collection => { :select => [:post, :get], :list => [:post, :get], :subscribe => :get}
+    CONTAINERS.each do |container|
+      admin.resources "#{container.pluralize}".to_sym, :member => { :add_new_user => :any, :subscription => :any, :unsubscription => :any, :question => :any }, :collection => {:validate => :post} do |con|
+        items_resources(con)
+        if container == 'workspace'
+          con.resources :people, :collection => { :export_people => :any, :import_people => :any, :get_empty_csv => :get, :validate => :post ,:filter => :get }
+          con.resources :workspace_contacts, :as => 'contacts', :except => :all, :collection => { :select => [:post, :get], :list => [:post, :get], :subscribe => :get}
+        end
+      end
     end
 
     # Search related routes

@@ -167,22 +167,25 @@ module GenericForItemHelper
   # <tt>item_status_fields(form, article)</tt>
   #
   # will return all the checkboxes linked to workspaces for that item, with the different options set (disabled, checked or hidden)
-	def item_workspaces_checkboxes(form, item)
+	def item_containers_checkboxes(form, item, container)
 		strg = ""
 		item_class_name = item.class.to_s.underscore
-		check_box_tag_name = "#{item_class_name}[associated_workspaces][]"
+		check_box_tag_name = "#{item_class_name}[associated_#{container.pluralize}][]"
 		res=[]
 		# Workspace list allowing user to add new item and accepting items of that type
-		list = (res + Workspace.allowed_user_with_permission(@current_user, item_class_name+"_new")).uniq.delete_if{ |w| !w.ws_items.to_s.split(',').include?(item_class_name) }
-		#
+    if container == 'worksapce'
+		  list = (res + Workspace.allowed_user_with_permission(@current_user, item_class_name+"_new")).uniq.delete_if{ |w| !w.available_items.to_s.split(',').include?(item_class_name) }
+    else
+      list = container.classify.constantize.all
+    end
 		if (list.size > 1 || @current_user.has_system_role('superadmin'))
 			#form.field(:workspaces, :label => I18n.t('general.object.workspace').camelize+'(s) :', :ajax => false)
 			list.collect do |w|
 				# Setting the checked status form that workspace
-				if params[item.class.to_s.downcase] && params[item.class.to_s.downcase][:associated_workspaces]
-          checked = params[item.class.to_s.downcase][:associated_workspaces].include?(w.id.to_s)
+				if params[item.class.to_s.downcase] && params[item.class.to_s.downcase]["associated_#{container.pluralize}".to_sym]
+          checked = params[item.class.to_s.downcase]["associated_#{container.pluralize}".to_sym].include?(w.id.to_s)
 				else
-          checked = ItemsWorkspace.exists?(:workspace_id => w.id, :itemable_id => item.id, :itemable_type => item.class.to_s)
+          checked = "items_#{container}".classify.constantize.exists?("#{container}_id" => w.id, :itemable_id => item.id, :itemable_type => item.class.to_s)
 				end
 				# Creating the checkboxes
 				if ((w.state == 'private') && (w.creator_id == @current_user.id) && (item.new_record?)) || (list.size==1) || (w == current_workspace)
@@ -191,7 +194,7 @@ module GenericForItemHelper
 					strg += check_box_tag(check_box_tag_name, w.id, checked, :class => 'checkboxes') + ' ' + w.title + '<br />'
 				end
 			end
-			strg += ajax_error_message_on(item, 'items_workspaces')
+			strg += ajax_error_message_on(item, "items_#{container.pluralize}")
 		elsif (list.size > 0)
 			list.each do |ws|
 				strg += hidden_field_tag(check_box_tag_name, ws.id.to_s)
@@ -203,7 +206,7 @@ module GenericForItemHelper
 		return strg
 	end
 
-	def item_workspace_select(form, item)
+	def item_containers_select(form, item)
 		str = ""
 		if item.new_record?
 			item_class_name = item.class.to_s.underscore
@@ -212,7 +215,7 @@ module GenericForItemHelper
 				str += hidden_field_tag(select_tag_name, current_workspace.id.to_s)
 			else
 				str += "<label>#{I18n.t('general.object.workspace').camelize+'(s) :'}</label><div class='formElement'>"
-				workspaces = Workspace.allowed_user_with_permission(@current_user, item_class_name+"_new").uniq.delete_if{ |w| !w.ws_items.to_s.split(',').include?(item_class_name) }
+				workspaces = Workspace.allowed_user_with_permission(@current_user, item_class_name+"_new").uniq.delete_if{ |w| !w.available_items.to_s.split(',').include?(item_class_name) }
 				str += select_tag select_tag_name, options_for_select(workspaces.map{|w| [w.title, w.id]})
 				str += '</div>'+ajax_error_message_on(item, 'items_workspaces')
 			end

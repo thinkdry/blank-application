@@ -58,7 +58,7 @@ module Searchable
 					# 1. text if there
 					req = req.searching_text_with_xapian(options[:full_text]) if options[:full_text]
 					# 2. workspaces & permissions
-					req = req.matching_user_with_permission_in_workspaces(options[:user], 'show', options[:workspace_ids])
+					req = req.matching_user_with_permission_in_containers(options[:user], 'show', options[:workspace_ids], 'workspace')
 					
 					# NOW REQ IS AN ARRAY
 					

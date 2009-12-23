@@ -23,11 +23,13 @@ class Role < ActiveRecord::Base
 	# Relation N-N with the 'permissions' table
   has_and_belongs_to_many :permissions
   # Relation N-1 with the table 'users_workspaces', setting the Role for an User inside a Workspace
-  has_many :users_workspaces, :dependent => :delete_all
+  has_many :users_containers, :dependent => :delete_all
 	# Relation N-1 retrieving the users from the 'users_worlspaces' table
-	has_many :users, :through => :users_workspaces
+	has_many :users, :through => :users_containers
 	# Relation N-1 retrieving the workspaces from the 'users_worlspaces' table
-	has_many :workspaces, :through => :users_workspaces
+  CONTAINERS.each do |container|
+    has_many container.pluralize.to_sym, :through => :users_containers
+  end
 	# Validation of the rpesence of these fields
 	validates_presence_of :name, :type_role
 	# Validation of the uniqueness of this field

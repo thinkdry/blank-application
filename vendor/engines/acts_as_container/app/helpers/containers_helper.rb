@@ -1,14 +1,14 @@
 module ContainersHelper
 
   # Create Link to Workspace
-  def link_to_workspace(workspace)
-    link_to(workspace.title, workspace_url(workspace))
+  def link_to_container(container)
+    link_to(container.title, container_path(container))
   end
 
   # Create Link to all worksapces
-  def links_to_workspace_collection(workspaces)
-    return nil if workspaces.empty?
-    workspaces.collect { |ws| link_to_workspace(ws) }.join(', ')
+  def links_to_container_collection(containers)
+    return nil if containers.empty?
+    containers.collect { |c| link_to_workspace(c) }.join(', ')
   end
 
 	# Helper method returning a field for user association (in Javascript)

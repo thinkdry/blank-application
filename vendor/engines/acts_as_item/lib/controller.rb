@@ -141,10 +141,10 @@ module ActsAsItem
 						  #               end
 						  
 						  ['Article', 'Page', 'Newsletter'].include?(@current_object.class.to_s) || 
-						                                          ((@current_object.class.to_s == 'Group') && 
-						                                          current_workspace.nil?) ? redirect_to(edit_item_path(@current_object)) : 
-						                                                                    redirect_to(item_path(@current_object))
-						  }
+                ((@current_object.class.to_s == 'Group') &&
+                  current_workspace.nil?) ? redirect_to(edit_item_path(@current_object)) :
+                redirect_to(item_path(@current_object))
+            }
 					end
 					# Response redirecting to the show page after the edition
 					response_for :update do |format|

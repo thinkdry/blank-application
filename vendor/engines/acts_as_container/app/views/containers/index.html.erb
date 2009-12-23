@@ -1,11 +1,9 @@
 <div class="list_header">
-	<div class="homePartLogo">
-		<img src="/images/icons/<%= params[:controller].split('/')[1].capitalize.singularize.downcase%>.gif">
-	</div>
-	<div class="homePartList">
-		<h1 class="<%= params[:controller].split('/')[1].capitalize.singularize.downcase%>"><%= params[:controller].capitalize.singularize %></h1>
-	    <p><%= image_tag("/images/icons/add.png")%>Ajouter un <%= link_to t("container.#{params[:controller].split('/')[1].capitalize.singularize.downcase}") ,new_container_path(params[:controller].split('/')[1].singularize) %></p>
-	</div>
+<h1>
+  <%= I18n.t('layout.application.workspaces') %>
+  <% if current_user.has_system_permission('workspace', 'new') %>
+    <%= link_to image_tag("/images/icons/add.png"), new_container_path(@current_objects.first.class.to_s) %>
+  <% end %>
+</h1>
 </div>
-
-<%= render :partial => 'containers/index' %>
+<%= render :partial => 'containers/index', :collection => @current_objects %>

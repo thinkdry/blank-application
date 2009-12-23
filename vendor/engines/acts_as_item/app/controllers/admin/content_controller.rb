@@ -19,7 +19,7 @@ class Admin::ContentController < Admin::ApplicationController
       
 		@paginated_objects = params[:item_type].classify.constantize.get_da_objects_list(params_hash)
 		# get the number of items.
-		@total_objects_count = params[:item_type].classify.constantize.matching_user_with_permission_in_workspaces(@current_user, 'show', params[:w]).uniq.size
+		@total_objects_count = params[:item_type].classify.constantize.matching_user_with_permission_in_containers(@current_user, 'show', params[:w]).uniq.size
 		
 		@ordering_filters = ['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title']
 		#generate the correct address for ITEM PAGINATION
@@ -48,7 +48,7 @@ class Admin::ContentController < Admin::ApplicationController
 		p request.inspect
 		params[:w] ||= current_workspace ? [current_workspace.id] : nil
     @paginated_objects = params[:item_type].classify.constantize.get_da_objects_list(setting_searching_params(:from_params => params))
-    @total_objects_count = params[:item_type].classify.constantize.matching_user_with_permission_in_workspaces(@current_user, 'show', params[:w]).uniq.size
+    @total_objects_count = params[:item_type].classify.constantize.matching_user_with_permission_in_containers(@current_user, 'show', params[:w]).uniq.size
 
 		@ajax_url = params[:controller] == 'admin/searches' ? request.path : params[:w] ? "/admin/workspaces/1/ajax_content/" + params[:item_type] : "/admin/ajax_content/#{params[:item_type]}"		
 		@ordering_filters = ['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title']

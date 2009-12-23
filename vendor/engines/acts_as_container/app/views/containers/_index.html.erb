@@ -1,9 +1,14 @@
-<%= display_objects_list(
-    #:collection => @paginated_objects,
-    :in_list_partial => 'containers/container_in_list',
-    :ajax_url => send("admin_#{params[:controller].split('/')[1]}_path"),
-    #:ajax_url => request.path+'?'+request.url.split('?').last,
-    :ordering_fields => ['created_at', 'title'],
-	:output_formats => ['xml', 'json', 'atom'],
-    :no_div => @no_div
+<%#= display_objects_list(
+  #:collection => @paginated_objects,
+  :in_list_partial => "admin/#{params[:controller].split('/')[1]}/container_in_list",
+  :ajax_url => send("admin_#{params[:controller].split('/')[1]}_path"),
+  #:ajax_url => request.path+'?'+request.url.split('?').last,
+  :ordering_fields => ['created_at', 'title'],
+  :output_formats => ['xml', 'json', 'atom'],
+  :no_div => @no_div
 ) %>
+
+Title:
+<%= object.title %><br />
+Description:
+<p><%= object.description  %></p><br />

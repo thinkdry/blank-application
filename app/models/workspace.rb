@@ -68,12 +68,4 @@ class Workspace < ActiveRecord::Base
     end
   end
 
-  def self.label_name
-    "workspace"
-  end
-
-  def label_name
-    "workspace"
-  end
-
 end
