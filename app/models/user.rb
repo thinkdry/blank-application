@@ -279,7 +279,7 @@ class User < ActiveRecord::Base
   
   def get_private_workspace
     Workspace.find(:all, :conditions => "state = 'private'").each do |ws|
-      if ws.state == 'private' && ws.creator_id == self.id
+      if ws.creator_id == self.id
         return ws
       end
     end

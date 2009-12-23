@@ -88,18 +88,18 @@ class FeedSource < ActiveRecord::Base
   # feedsource.import_latest_items
   def import_latest_items
     feed = Feedzirra::Feed.fetch_and_parse(self.url)
-    feed.entries.each do |item|
+    feed.entries.each do |entry|
       # Be sure that the item hasnt been imported before
-      if self.feed_items.count(:conditions => { :guid => item.id, :feed_source_id => self.id }) <= 0
+      if self.feed_items.count(:conditions => { :guid => entry.id, :feed_source_id => self.id }) <= 0
         FeedItem.create({
             :feed_source_id => self.id,
-            :guid						=> item.id,
-            :title					=> item.title,
-            :description		=> item.summary,
-            :authors				=> item.author,
-            :date_published => item.published,
-            :categories			=> item.categories.join(','),
-            :link           => item.url})
+            :guid						=> entry.id,
+            :title					=> entry.title,
+            :description		=> entry.summary,
+            :authors				=> entry.author,
+            :date_published => entry.published,
+            :categories			=> entry.categories.join(','),
+            :link           => entry.url})
       end
     end
   end

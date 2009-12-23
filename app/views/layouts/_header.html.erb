@@ -29,6 +29,9 @@
 			              	<% if @current_user.has_system_permission('user', 'new') -%>
 			                	<li><%= link_to I18n.t('user.new.add_user'), new_admin_user_path %></li>
 			              	<% end -%>
+							<% if @current_user.has_system_permission('workspace', 'edit') -%>
+								<li><%= link_to I18n.t('people.index.add_new_person'), new_admin_person_path %></li>
+							<% end -%>
 			            </ul>
 					</div>
 				</div>

@@ -50,14 +50,14 @@ class Admin::PeopleController < Admin::ApplicationController
 			if @person.save
         # to save assoceated workspaces of the person
         @person.associated_workspaces(params[:associated_workspaces])
-				flash[:notice] = 'Person saved in your contact, and also to the current workspace contacts.'
+				flash[:notice] = 'Person saved in your contact, and also to the current workspace contacts.' #TODO TRANSLATE
 				redirect_to(current_workspace ? admin_workspace_person_path(current_workspace.id, @person.id) : admin_person_path(@person.id))
 			else
-				flash[:error] = 'Person non saved'
+				flash[:error] = 'Person non saved' #TODO TRANSLATE
 				render :action=>'new'
 			end
 		else
-			flash[:error] = 'You have already a contact with that email, but so it has been added to that workspace.'
+			flash[:error] = 'You have already a contact with that email, but so it has been added to that workspace.' #TODO TRANSLATE
 			render :action=>'new'
     end
   end

@@ -77,9 +77,6 @@ ActionController::Routing::Routes.draw do |map|
     # Route for HomePage
     admin.root :controller => 'home', :action => 'index'
 
-    # Route for generating Dynamic CSS
-    admin.connect '/stylesheets/:action.:format', :controller => 'stylesheets'
-
     # Items are CMS component types
     # Those items may be scoped to different resources
     def items_resources(parent)
@@ -105,9 +102,6 @@ ActionController::Routing::Routes.draw do |map|
       parent.ajax_content '/ajax_content/:item_type', :controller => 'content', :action => 'ajax_index'
       parent.content_popup '/content_for_popup/:selected_item', :controller => 'content', :action => 'display_item_in_pop_up'
     end
-
-    # Feed related routes
-    admin.check_feed '/feed_sources/check_feed', :controller => 'feed_sources', :action => 'check_feed'
 
     # Newsletter related routes
     admin.unsubscribe_for_newsletter 'admin/unsubscribe_for_newsletter', :controller => 'workspace_contacts', :action => 'unsubscribe'

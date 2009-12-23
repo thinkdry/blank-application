@@ -171,36 +171,7 @@ function translation_selection(array){
         else
             $("#"+array[i]).css('display','block');
     }
-}
-
-
-function check_feed(){
-    var url= $('feed_source_url').value;
-    if(url != 0){
-        new Ajax.Request("/feed_sources/check_feed?url="+url,{
-            onLoading: function(){
-                $('loading').style.display = 'block';
-            },
-            onSuccess: function(transport){
-                var text = transport.responseText;
-                if(text.split('-')[0] == 'exists'){
-                    window.location.href = window.location.href.split('feed_sources')[0] + 'feed_sources/'+text.split('-')[1];
-                }else if(text.split('-')[0] == 'new'){
-                    $('loading').style.display = 'none';
-                    alert(text.split('-')[1])
-                    $('submit_button').disabled = '';
-                //window.location.href = window.location.href.split('feed_sources')[0] + 'feed_sources/new?url='+url;
-                }else{
-                    alert(text);
-                    $('loading').style.display = 'none';
-                }
-                $('loading').style.display = 'none';
-            },
-            method: 'get'
-        });
-    }
-}
-    
+}    
 
 
 //display the good tiem in a item list, google way of displaying.

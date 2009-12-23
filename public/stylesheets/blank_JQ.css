@@ -822,8 +822,12 @@ a.filter{
 .permissionsList{margin-top : 25px;}
 .roleDescription{height:70px; width:450px;}
 
+.feedDescription{width:520px;font-size:80%;margin:10px 0;}
+.feed{width:520px;}
+
+
+
 /*		List Autocomplete		*/
-		
 .ac_results {
 	padding: 0px;
 	border:1px solid #CCCCCC;

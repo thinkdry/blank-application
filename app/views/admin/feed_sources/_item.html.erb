@@ -1,10 +1,15 @@
-<div class="pubmed_item">
-  <h3><%= link_to item.title, item.link, :popup=>['new_window'] %></h3>
-  <h5><%= I18n.l(item.date_published :format => :long) %></h5>
-  <div class="description"><%= item.description %></div>
-  <div class="links">
-    <%= image_tag("item_icons/Bookmark_add.png") %>
-    <%= link_to I18n.t('feed_source.show.add_bookmark'), new_admin_bookmark_path(:feed_item_id => item.id) %>
-    <%# Specify the weight & width :popup=>['new_window','height=800,width=1024'] %>
-  </div>
+<div class="itemInList">
+	<div class="itemInListDate">
+		<%= I18n.l item.date_published, :format => :verb %>
+	</div>
+	<div class="itemInListBody">
+		<div class="itemInListTitle feed">
+			<%= link_to item.title, item.link, :popup=>['new_window'] %>
+		</div>
+		<div class="itemInListActions">
+			<%= link_to I18n.t('feed_source.show.add_bookmark'), new_admin_bookmark_path(:feed_item_id => item.id) %>
+		</div>
+		<div class="feedDescription"><%= item.description %></div>
+		<div class="itemInListTags"><%= object.categories %></div>
+	</div>
 </div>

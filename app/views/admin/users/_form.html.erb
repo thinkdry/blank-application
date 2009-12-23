@@ -119,10 +119,10 @@
 				<%end%>
 			</div>
 	    </div>
-	</div>
 	<% else -%>  
       	<%= f.hidden_field(:u_layout, :value=>@configuration['sa_default_layout'].to_s) %>
       	<%= f.hidden_field(:u_language, :value=>@configuration['sa_default_language'].to_s) %>
       	<%= f.hidden_field(:u_per_page, :value=>@configuration['sa_per_page_default'].to_s) %>
     <% end -%>
+	</div>
 <% end -%>
