@@ -68,9 +68,9 @@
 		  	<label>Exception followers:</label>
 		  	<div class="formElement">
 		    	<input type="text" id="new_follower_email" name="new_follower_email" value=""/>
-		    	<%= button_to_function( "Add new follower",
+		    	<%= link_to_function( 	" ",
 		      					   		"add_new_follower()",
-		      					   		:class => "smallSubmit") %>
+		      					   		:class => "addExceptionFollower") %>
 		
 				<div id="followers_email" >
 		      		<% if @configuration['sa_exception_followers_email'] -%>

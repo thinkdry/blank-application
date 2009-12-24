@@ -43,7 +43,10 @@
 			  	<!--
 			  	<%#= f.check_box :newsletter , :class => "checkboxes" %> Receiving newsletter <br /><br />
 			     -->
-			    <%= submit_tag I18n.t('people.index.export') ,:class =>'smallSubmit'%>
+
+				<button type="submit" class="smallSubmit">
+					<span><%= I18n.t('people.index.export')%></span>
+				</button>
 			<% end %>
 	    </div>
 	</div>

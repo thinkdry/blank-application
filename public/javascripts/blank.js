@@ -46,7 +46,12 @@ $(document).ready(function () {
     });
 	
 	//Modal Box for footer reply
-	$(".commentfooterReply").colorbox({width:"660px", inline:true, href:"#commentReply"});
+	
+	
+	$(".commentfooterReply").live('click',function(){
+		$('#commentReply #comment_parent_id').val($(this).attr("id"));
+		$(".commentfooterReply").colorbox({width:"660px", inline:true, href:"#commentReply"});
+	});
 
 	//RATING SYSTEM
     $('.auto-submit-star').rating({
@@ -82,6 +87,19 @@ $(document).ready(function () {
 	});
 	
 	$('#container').find('#notice').animate({opacity: 1}, 3000, function(){$(this).fadeOut('fast')});
+	
+	$('#error_closing').live('click', function(){
+		$('#error').fadeOut('fast');
+	});
+	
+	$(".deleteLink").live('click', function(){
+		var modalId = $(this).attr('modal_id')
+		$.fn.colorbox({width:"300px", inline:true, href:modalId});
+	});
+	
+	$(".deleteClose").click(function(){
+		$.fn.colorbox.close();
+	});
 	
 });
 
@@ -267,15 +285,6 @@ function insert_keyword(model_name, place, field_name){
         $('#keyword_value').val('');
     }
 }
-
-function add_reply(parent){
-    if($('#reply')){
-        $('#reply_overlay').css('display', 'block');
-        $('#reply').css('display','block');
-        $('#comment_parent_id').val(parent);
-    }
-}
-
 
 // to move option value from one select box to another select box
 function shiftRight(removeOptions,addOptions,saveFlag)

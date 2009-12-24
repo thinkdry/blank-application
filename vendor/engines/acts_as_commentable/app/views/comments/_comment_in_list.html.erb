@@ -4,7 +4,7 @@
 </div>
 <div class="commentfooter">
   	<%= link_to_user User.find(object.user_id) %> - <%= I18n.l object.created_at, :format => :verb %>
-	<%= link_to_function 'Reply', :onclick => "add_reply('#{object.id}')", :class => "commentfooterReply" %>
+	<%= link_to_function 'Reply', :class => "commentfooterReply", :id => object.id.to_s %>
 </div>
 <% if object.replies.size > 0 %>
 <div id="reply_for_comment_<%= object.id %>" class="commentReply">

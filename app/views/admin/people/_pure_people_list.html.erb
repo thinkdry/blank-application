@@ -9,10 +9,18 @@
 		</div>
 		<div class="itemInListActions">
 			<%= link_to I18n.t('general.link.edit'), edit_admin_person_path(object)%> |
-			<%= link_to I18n.t('general.link.delete'), 
-						admin_person_path(object), 
-						:method => :delete, 
-						:confirm =>  I18n.t('item.destroy.delete_conform')%>
+			<%= link_to I18n.t('general.link.delete'), "javascript:;",
+						:class => "deleteLink", 
+						:modal_id => "#modalDelete_#{object.id.to_s}"
+			 %>
+						
+			<div style="display:none">
+				<div id="modalDelete_<%=object.id.to_s%>" class="modalDelete">
+					<p><%= I18n.t('item.destroy.delete_conform')%></p>
+					<%= link_to I18n.t('general.common_word.yes1'), admin_person_path(object), :method => :delete%> | 
+					<%= link_to I18n.t('general.common_word.no1'), "javascript:;", :class => "deleteClose" %>
+				</div>
+			</div>
 		</div>		
 	</div>
 </div>

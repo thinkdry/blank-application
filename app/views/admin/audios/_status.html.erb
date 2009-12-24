@@ -15,10 +15,7 @@
             }});
     }
 </script>
-<%#= periodically_call_remote             :update=> 'progress',
-:condition=>"cancel==true",
-:url => {:action=> 'get_progress', :id=>object.id},
-:frequency => 10%>
+
 <div id="states">
     <% if object.state == 'uploaded' %>
         <%= object.state.capitalize%>

@@ -25,12 +25,21 @@
 	      			<td><%=h role.name %></td>
 	      			<td><%=h role.description %></td>
 	      			<td>
-						<%= link_to 'Edit', edit_superadmin_role_path(role.id) %>
+						<%= link_to 'EDIT', edit_superadmin_role_path(role.id) %>
 						|
-						<%= link_to 'Delete', 
-									superadmin_role_path(role.id), 
-									:confirm => 'Are you sure ?', 
-									:method => :delete %>		
+						<%= link_to 'DELETE', "javascript:;",
+									:class => "deleteLink", 
+									:modal_id => "#modalDelete_#{role.id.to_s}"
+						%>
+
+						<div style="display:none">
+							<div id="modalDelete_<%=role.id.to_s%>" class="modalDelete">
+								<p><%= I18n.t('item.destroy.delete_conform')%></p>
+								<%= link_to I18n.t('general.common_word.yes1'), 
+											superadmin_role_path(role.id), :method => :delete%> | 
+								<%= link_to I18n.t('general.common_word.no1'), "javascript:;", :class => "deleteClose" %>
+							</div>
+						</div>
 					</td>
 	    		</tr>
 	  			<% end -%>
@@ -51,12 +60,21 @@
 	      			<td><%=h role.name %></td>
 	      			<td><%=h role.description %></td>
 	      			<td>
-						<%= link_to 'Edit', edit_superadmin_role_path(role.id) %>
+						<%= link_to 'EDIT', edit_superadmin_role_path(role.id) %>
 						|
-	      				<%= link_to 'Delete', 
-									superadmin_role_path(role.id), 
-									:confirm => 'Are you sure ?', 
-									:method => 	:delete %>
+						<%= link_to 'DELETE', "javascript:;",
+									:class => "deleteLink", 
+									:modal_id => "#modalDelete_#{role.id.to_s}"
+						%>
+
+						<div style="display:none">
+							<div id="modalDelete_<%=role.id.to_s%>" class="modalDelete">
+								<p><%= I18n.t('item.destroy.delete_conform')%></p>
+								<%= link_to I18n.t('general.common_word.yes1'), 
+											superadmin_role_path(role.id), :method => :delete%> | 
+								<%= link_to I18n.t('general.common_word.no1'), "javascript:;", :class => "deleteClose" %>
+							</div>
+						</div>
 					</td>
 	    		</tr>
 	  			<% end -%>

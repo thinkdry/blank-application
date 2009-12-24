@@ -26,6 +26,7 @@ h1 {
 	font-weight:normal;
 	height:40px;
 	margin:0 0 25px;
+	border-bottom:1px solid #CCCCCC;
 }
 
 h2 {
@@ -69,6 +70,10 @@ h4 {
 	color: #556652;
 	background: #FFCECE url(/images/icons/delete.png) no-repeat scroll 7px 50%;
 	border:1px solid #DF8F8F;
+}
+
+#error a{
+	float:right;margin-top:-15px;
 }
 
 .error, .notice{
@@ -386,6 +391,26 @@ form input{
 	white-space:nowrap;
 }
 
+.smallSubmit{
+	background:transparent url('/images/rightSmallSubmitButton.gif') no-repeat right;
+	border:none;
+	color:#fff;
+	padding-right:5px;font-size:80%;margin-top:5px;
+	text-align:center;cursor:pointer;
+	float:left;clear:both;overflow: visible;
+}
+
+.smallSubmit span{
+	background:transparent url('/images/leftSmallSubmitButton.gif') no-repeat 0 0;
+	position: relative;float:left;
+	white-space:nowrap;
+	margin:0;padding:7px 10px 5px 20px;
+}
+
+.itemShowRightBlock .smallSubmit{
+	font-size:100% !important;
+}
+
 .continue{float:left;clear:none;}
 
 .advancedEditor{
@@ -398,18 +423,21 @@ form input{
 	padding-top:50px;
 }
 
+#followers_email{
+	clear:both;
+}
 #addKeyword{ 
 	overflow:hidden;
 	width:178px;
 }
-#addKeyword input{
+#addKeyword input, #new_follower_email{
 	background:#fff url('/images/fieldWithInner.gif') no-repeat scroll 0 0;
 	border:medium none;
 	height:17px; width:142px;
 	overflow:hidden;
 	padding:8px 2px 5px 8px;
 }
-#addKeyword a{	
+#addKeyword a, .addExceptionFollower{	
 	display:block;float:left;
 	width:26px;height:30px;margin:0;
 	background:#fff url('/images/submitHalfRoundBtn.gif');
@@ -436,15 +464,7 @@ form input{
 	margin:4px 0 0 !important;
 }
 
-.smallSubmit{
-	background:transparent url('/images/smallSubmit.gif') no-repeat;
-	border:none;
-	color:#fff;
-	text-align:center;
-	width:170px;
-	height:30px;
-	font-size:100%;
-}
+
 
 .alone{ display:block; margin-top:25px;}
 

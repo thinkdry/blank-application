@@ -1,6 +1,5 @@
 <% form_for_item @current_object, title do |f| -%>
 
-
     <%= f.advanced_editor(	:body, 
 							:label => I18n.t('article.field.article_label')+ ' * :', 
 							:hint => I18n.t('article.field.article_hint')) %>
@@ -17,7 +16,22 @@
           	<div id="file<%= af.id.to_s %>">
             	<%= af.articlefile.url.split('/').last.split("?")[0] %> 
             	<%= link_to I18n.t('general.button.download'), af.articlefile.url.split("?")[0] %> | 
-            	<%= link_to_remote I18n.t('general.button.delete'), :url => { :controller =>"articles", :action => "remove_file", :id => af.id }, :success => "Element.remove($('file#{af.id.to_s}'))" %>
+            	<%= link_to I18n.t('general.button.delete'), 
+							"javascript:;", 
+							:class => "deleteLink",
+							:modal_id => "#modalDelete_#{af.id.to_s}"  %>
+
+				<div style="display:none">
+					<div id="modalDelete_<%=af.id%>" class="modalDelete">
+						<p><%= I18n.t('item.destroy.delete_conform')%></p>
+						<%= link_to_remote  I18n.t('general.common_word.yes1'),
+											:url => { 	:controller =>"articles", 
+													  	:action => "remove_file", 
+														:id => af.id }, 
+											:success => "$('#file#{af.id.to_s}').remove();$.fn.colorbox.close();"%> | 
+						<%= link_to I18n.t('general.common_word.no1'), "javascript:;", :class => "deleteClose" %>
+					</div>
+				</div>	
           	</div>
         	<% end -%>
 		<% end -%>

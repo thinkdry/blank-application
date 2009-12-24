@@ -1,7 +1,5 @@
-<fieldset>
-  <legend> <%=  I18n.t('workspace.add_contacts.title')+" "+@current_object.title %> </legend>
-  <br />
-  <%= link_to image_tag("/images/icons/left.png"), list_admin_workspace_workspace_contacts_path(@current_object.id) %><br /><br />
+<h1><%=  I18n.t('workspace.add_contacts.title')+" "+@current_object.title %></h1>
+  <%= link_to "go back to workspace", list_admin_workspace_workspace_contacts_path(@current_object.id) %><br /><br />
   <% form_for @current_object,
     :builder => BlankFormBuilder,
     :url => select_admin_workspace_workspace_contacts_path(current_workspace.id),
@@ -19,9 +17,9 @@
             <%= content_tag(:option, mem.email, :value => mem.class.to_s+'_'+mem.id.to_s) %>
           <% end %>
         </select>
-        <div id="send_all_buttons">
-          <input type="button" class="smallSubmit" onclick="selectAll($('assignedOptions'),'assignedOptions')" value ="<%= I18n.t('general.common_word.select_all') %>" />
-        </div>
+        <button type="button" class="smallSubmit" onclick="selectAll($('assignedOptions'),'assignedOptions')"/>
+			<span><%= I18n.t('general.common_word.select_all') %></span>
+		</button>
         <script type="text/javascript" charset="utf-8">
           function selectAll(chkObj,id){
             var multi=document.getElementById(id);
@@ -46,14 +44,13 @@
             <%= content_tag(:option, mem.email, :value => mem.class.to_s+'_'+mem.id.to_s) %>
           <% end %>
         </select>
-        <div id="send_all_buttons">
-          <input type="button" class="smallSubmit" onclick="selectAll($('availableOptions'),'availableOptions')" value ="<%= I18n.t('general.common_word.select_all') %>" />
-        </div>
+        <button type="button" class="smallSubmit" onclick="selectAll($('availableOptions'),'availableOptions')"/>
+			<span><%= I18n.t('general.common_word.select_all') %></span>
+		</button>
+        
       </div>
     </div>
     <button id="submit_button" class="submitButton" type="submit">
         <span><%= I18n.t('general.button.save') %></span>
     </button>
   <% end -%>
-
-</fieldset>

@@ -1,50 +1,8 @@
-<div id="area_PROFIL">
-  <h2>
     <%= link_to image_tag("/images/icons/left.png"), (current_workspace ? list_admin_workspace_workspace_contacts_path(current_workspace.id) : admin_people_path) %>
     <%= I18n.t('general.common_word.'+@current_object.salutation)  if !@current_object.salutation.to_s.blank? || !@current_object.salutation.nil?   %>
     <%= @current_object.first_name %> <%= @current_object.last_name %>
     <%= link_to image_tag('icons/pencil.png'), edit_admin_person_path, :class => "pencil"  %>
-  </h2>
-  <p>
-    <label><%= I18n.t('people.field.email_label') %>  : </label><%= @current_object.email %>
-  </p>
-  <p>
-    <label> <%= I18n.t('people.field.gender_label') %>  : </label><%= I18n.t('general.common_word.'+@current_object.gender )  if !@current_object.gender.to_s.blank?%>
-  </p>
-  <p>
-    <label> <%= I18n.t('people.field.date_of_birth_label') %>  : </label><%= I18n.l @current_object.date_of_birth, :format => :short1 if !@current_object.date_of_birth.to_s.blank? %>
-  </p>
-  <p>
-    <label><%= I18n.t('people.field.primary_phone_label') %>  : </label><%= @current_object.primary_phone %>
-  </p>
-  <p>
-    <label><%= I18n.t('people.field.mobile_phone_label') %>  : </label><%= @current_object.mobile_phone %>
-  </p>
-  <p>
-    <label><%= I18n.t('people.field.fax_label') %>  : </label><%= @current_object.fax %>
-  </p>
-  <p>
-    <label><%= I18n.t('people.field.street_label') %>  : </label><%= @current_object.street %>
-  </p>
-  <p>
-    <label><%= I18n.t('people.field.city_label') %>  : </label><%= @current_object.city %>
-  </p>
-  <p>
-    <label><%= I18n.t('people.field.postal_code_label') %>  : </label><%= @current_object.postal_code %>
-  </p>
-  <p>
-    <label><%= I18n.t('people.field.country_label') %>  : </label><%= @current_object.country %>
-  </p>
-  <p>
-    <label><%= I18n.t('people.field.company_label') %>  : </label><%= @current_object.company %>
-  </p>
-  <p>
-    <label><%= I18n.t('people.field.job_title_label') %>  : </label><%= @current_object.job_title %>
-  </p>
-  <p>
-    <label><%= I18n.t('people.field.web_page_label') %>  : </label><%= @current_object.web_page %>
-  </p>
-  <p>
-    <label><%= I18n.t('people.field.notes_label') %>  : </label><%= @current_object.notes %>
-  </p>
-</div>
+
+  	<p><%= I18n.t('people.field.email_label') %>  : <%= @current_object.email %></p>
+  	<p><%= I18n.t('people.field.primary_phone_label') %>  : <%= @current_object.primary_phone %></p>
+  	<p><%= I18n.t('people.field.notes_label') %>  : <%= @current_object.notes %></p>

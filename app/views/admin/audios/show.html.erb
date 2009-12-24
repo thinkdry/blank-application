@@ -1,12 +1,15 @@
 <script type="text/javascript" src="/videoplayer/swfobject.js"></script>
 <% item_show( :title => I18n.t('audio.field.audio_label'),  :object => @current_object ) do %>
-	<h2><%=I18n.t('audio.field.audio_label')%></h2>
         <div id ="progress">
-            <% if @current_object.state=="encoded" %>
-              <%= render :partial => "player", :object => @current_object %>
-            <% else %>
-               <%= render :partial => "status", :object => @current_object %>
-           <% end %>
+			<% if @current_object.state.nil? %>
+				status unknown
+			<% else %>
+            	<% if @current_object.state=="encoded" %>
+              		<%= render :partial => "player", :object => @current_object %>
+            	<% else %>
+               		<%= render :partial => "status", :object => @current_object %>
+           		<% end %>
+			<% end  %>
           </div>
-	<br /><br /><%= image_tag("icons/download.png")%> <%= link_to I18n.t('general.button.download'), download_admin_audio_path(@current_object.id) %><br />
+		<%= link_to I18n.t('general.button.download'), download_admin_audio_path(@current_object.id) %><br />
 <% end %>

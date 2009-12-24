@@ -8,10 +8,20 @@
 		</div>
 		<div class="itemInListActions">
 			<% if object.has_permission_for?('edit', @current_user)  -%>
-				<%= link_to "EDIT", edit_item_path(object)%> |
+				<%= link_to I18n.t('general.link.edit'), edit_item_path(object)%> |
 			<% end -%>
 			<% if object.has_permission_for?('destroy', @current_user) %>
-				<%= link_to "DELETE", item_path(object), :method => :delete, :confirm =>  I18n.t('item.destroy.delete_conform')%>
+				<%= link_to I18n.t('general.link.delete') + "pute", "javascript:;",
+							:class => "deleteLink", 
+							:modal_id => "#modalDelete_#{object.id.to_s}"
+				 %>
+				<div style="display:none">
+					<div id="modalDelete_<%=object.id.to_s%>" class="modalDelete">
+						<p><%= I18n.t('item.destroy.delete_conform')%></p>
+						<%= link_to I18n.t('general.common_word.yes1'), item_path(object), :method => :delete%> | 
+						<%= link_to I18n.t('general.common_word.no1'), "javascript:;", :class => "deleteClose" %>
+					</div>
+				</div>
 			<% end -%>
 		</div>
 		<div class="itemInListTags"><%= keywords_links_list_for(object) %></div>

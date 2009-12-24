@@ -2,35 +2,32 @@
 
   <%= @current_object.body %>
 
-  <fieldset id="send_newsletter_form">
-  	<form id="send_newsletter" class="new_comment" method="post" action="<%= current_workspace ? admin_workspace_path(current_workspace.id) + send_to_a_group_admin_newsletter_path(@current_object) : send_to_a_group_admin_newsletter_path(@current_object) %>">
-      <label><%= I18n.t('newsletter.send_newsletter.send_newsletter_to_user_list') %></label>
+  <form id="" method="post" action="<%= current_workspace ? admin_workspace_path(current_workspace.id) + send_to_a_group_admin_newsletter_path(@current_object) : send_to_a_group_admin_newsletter_path(@current_object) %>">
+      <h1><%= I18n.t('newsletter.send_newsletter.send_newsletter_to_user_list') %></h1>
       <input type="hidden" name="newsletter_id" value="<%= @current_object.id %>">
-	  <div class="formElement">
+	  
 	      <select name="group_id" id="group_id">
 	        <option value="0">--------------</option>
 	        <%for group in @groups %>
 	          <option value="<%=group.id%>"> <%=group.title%> </option>
 	        <% end %>
 	      </select>
-	  </div>
+	  <div class="clear"></div>
       <button type="submit" class="submitButton" onclick="if($('group_id').value == 0){return false;}" >
 		<span><%= I18n.t('newsletter.send_newsletter.send_newsletter') %></span>
 	  </button>
     </form>
-	<div id="sent_to">
+<div class="clear"></div>
+	<h1><%= I18n.t('newsletter.send_newsletter.sent_to') %></h1>
+
 	<% if @current_object.groups_newsletters.size > 0 -%>
-	  
-	    <h2><%= I18n.t('newsletter.send_newsletter.sent_to') %></h2>
 	    <% for g_n in @current_object.groups_newsletters %>
           <% if g_n.group %>
             <%= link_to g_n.group.title, admin_workspace_group_path(g_n.group.workspaces.first.id, g_n.group_id) %> <%= I18n.t('general.common_word.on1') %> <%= I18n.l g_n.sent_on, :format => :long %> <br />
           <% end %>
 	    <% end %>
-	  
 	<% else -%>
 		<%= I18n.t('newsletter.show.not_already_sent') %>
     <% end-%>
-	</div>
-  </fieldset>
+	<div class="clear"></div>
 <% end %>

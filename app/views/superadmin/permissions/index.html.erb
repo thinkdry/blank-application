@@ -23,11 +23,20 @@
 			      	<td>
 						<%= link_to 'EDIT', 
 									edit_superadmin_permission_path(permission.id) %>
-					    | 
-						<%= link_to 'DELETE', 
-									superadmin_permission_path(permission.id), 
-									:confirm => 'Are you sure?', 
-									:method => :delete %>
+					    | 									
+						<%= link_to 'DELETE', "javascript:;",
+									:class => "deleteLink", 
+									:modal_id => "#modalDelete_#{permission.id.to_s}"
+						%>
+
+						<div style="display:none">
+							<div id="modalDelete_<%=permission.id.to_s%>" class="modalDelete">
+								<p><%= I18n.t('item.destroy.delete_conform')%></p>
+								<%= link_to I18n.t('general.common_word.yes1'), 
+											superadmin_permission_path(permission.id), :method => :delete%> | 
+								<%= link_to I18n.t('general.common_word.no1'), "javascript:;", :class => "deleteClose" %>
+							</div>
+						</div>
 					</td>
 			  	</tr>
 			<% end %>

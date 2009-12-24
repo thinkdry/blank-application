@@ -9,12 +9,8 @@
   <%= f.text_field  :categories, 
 					:label => I18n.t('bookmark.field.categories_label')+ " : ", 
 					:readonly => is_copyright %>
-
-  <%= f.text_field  :copyright, 
-					:label => I18n.t('bookmark.field.copyright_label') + " : ", 
-					:readonly => is_copyright %>
 					
   <% if is_copyright %>
-    <%= f.datetime_select :date_published, :label => I18n.t('bookmark.field.published_date_label') + " :", :readonly => is_copyright %>
+    <%= f.datetime_select :date_published, :label => I18n.t('bookmark.field.published_date_label') + " :", :type => "hidden" %>
   <% end %>
 <% end %>

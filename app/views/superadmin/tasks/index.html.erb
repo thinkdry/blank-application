@@ -7,20 +7,24 @@
 
 	<div class="contentList superadmin">
 
-		<%= button_to_remote "Update Xapian Indexes", 
-							 {:url => run_task_superadmin_tasks_path(:job => 'xapian'), :method => :get},  
-							 :class => "smallSubmit alone" %>
-							
-		<%= button_to_remote "Update Feed Sources", 
-							 {:url => run_task_superadmin_tasks_path(:job => 'feeds'), :method => :get},
-							 :class => "smallSubmit alone" %>
-							
-		<%= button_to_remote "Send Pending Newsletters", 
-							 {:url => run_task_superadmin_tasks_path(:job => 'newsletter'), :method => :get}, 
-							 :class => "smallSubmit alone" %>
-							
-		<%= button_to_remote "Restart passenger", 
-							 {:url => run_task_superadmin_tasks_path(:job => 'restart_server'), :method => :get},
-							 :class => "smallSubmit alone" %>
+		<button class="smallSubmit alone" 
+				onclick="jQuery.ajax({dataType:'script', type:'get', url:'<%=run_task_superadmin_tasks_path(:job => 'xapian')%>'});">
+			<span>Update Xapian Indexes</span>
+		</button>
+		
+		<button class="smallSubmit alone" 
+				onclick="jQuery.ajax({dataType:'script', type:'get', url:'<%=run_task_superadmin_tasks_path(:job => 'feeds')%>'});">
+			<span>Update Feed Sources</span>
+		</button>
+		
+		<button class="smallSubmit alone" 
+				onclick="jQuery.ajax({dataType:'script', type:'get', url:'<%=run_task_superadmin_tasks_path(:job => 'newsletter')%>'});">
+			<span>Send Pending Newsletters</span>
+		</button>
+		
+		<button class="smallSubmit alone" 
+				onclick="jQuery.ajax({dataType:'script', type:'get', url:'<%=run_task_superadmin_tasks_path(:job => 'restart_server')%>'});">
+			<span>Restart passenger</span>
+		</button>
 	</div>
 </div>

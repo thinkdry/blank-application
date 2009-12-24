@@ -26,7 +26,10 @@
                   <%= content_tag(:option, mem['email'], :value => mem['id'].to_s) %>
                 <% end %>
               </select>
-                <input type="button" class="smallSubmit sendAll" onclick="selectAll($('assignedOptions'),'assignedOptions')" value ="<%= I18n.t('general.common_word.select_all') %>" />
+                <button class="smallSubmit sendAll" 
+						onclick="selectAll($('assignedOptions'),'assignedOptions')" >
+						<span><%= I18n.t('general.common_word.select_all') %></span>
+				</button>
               <script type="text/javascript" charset="utf-8">
                 function selectAll(chkObj,id){
                   var multi=document.getElementById(id);
@@ -52,7 +55,11 @@
               <%= content_tag(:option, mem['email'], :value => mem['id'].to_s) %>
             <% end %>
           </select>
-            <input type="button" class="smallSubmit sendAll" onclick="selectAll($('availableOptions'),'availableOptions')" value ="<%= I18n.t('general.common_word.select_all') %>" />
+            <button type="button" 
+					class="smallSubmit sendAll" 
+					onclick="selectAll($('availableOptions'),'availableOptions')">
+				<span><%= I18n.t('general.common_word.select_all') %></span>
+			</button>
         </div>
       </div>
     <% end %>
