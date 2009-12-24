@@ -2,27 +2,29 @@
 
 <div class="workspaceHeader">
     <div class="workspaceLogo">
-        <%#= link_to image_tag(current_container.logo.url(:medium), :width => "150"), admin_workspace_path(current_container) %>
+<%#= link_to image_tag(current_container.logo.url(:medium), :width => "150"), admin_workspace_path(current_container) %>
     </div>
     <div class="workspaceInfos">
 
         <h2><%=  @current_object.title %></h2>
         <div class="workspaceActions">
             <% if @current_object.has_permission_for?('edit', @current_user) %>
-                <%= link_to I18n.t('general.link.edit'), edit_admin_workspace_path(current_container.id)  %>&nbsp;|
+                <%= link_to I18n.t('general.link.edit'), edit_container_path(current_container)  %>&nbsp;|
             <% end %>
-            <% if @current_object.has_permission_for?('contacts_management', @current_user) %>
-                <%= link_to ( I18n.t('workspace.show.manage_contacts'),
-                    list_admin_workspace_workspace_contacts_path(current_container.id))%>&nbsp;|
-            <% end %>
-            <% if ContactsWorkspace.exists?(:workspace_id => @current_object.id,
-                    :contactable_type => 'User',
-                    :contactable_id => @current_user.id) %>
-                <%= link_to (I18n.t('workspace.show.unsubscribe_to_newsletter'),
-                    subscribe_admin_workspace_workspace_contacts_path(@workspace.id)+'?remove=yes')%>&nbsp;|
-            <% else %>
-                <%= link_to(I18n.t('workspace.show.subscribe_to_newsletter'),
-                    subscribe_admin_workspace_workspace_contacts_path(current_container.id))%>&nbsp;|
+            <% if current_container.class.to_s == 'Workspace' %>
+                <% if @current_object.has_permission_for?('contacts_management', @current_user) %>
+                    <%= link_to ( I18n.t('workspace.show.manage_contacts'),
+                        list_admin_workspace_workspace_contacts_path(current_container.id))%>&nbsp;|
+                <% end %>
+                <% if ContactsWorkspace.exists?(:workspace_id => @current_object.id,
+                        :contactable_type => 'User',
+                        :contactable_id => @current_user.id) %>
+                    <%= link_to (I18n.t('workspace.show.unsubscribe_to_newsletter'),
+                        subscribe_admin_workspace_workspace_contacts_path(@workspace.id)+'?remove=yes')%>&nbsp;|
+                <% else %>
+                    <%= link_to(I18n.t('workspace.show.subscribe_to_newsletter'),
+                        subscribe_admin_workspace_workspace_contacts_path(current_container.id))%>&nbsp;|
+                <% end %>
             <% end %>
             <% if UsersContainer.exists?(:user_id => @current_user.id, :containerable_id => current_container.id, :containerable_type => current_container.class.to_s) %>
                 <%= link_to(I18n.t('workspace.show.leave_workspace'),
@@ -49,4 +51,4 @@
 </div>
 
 
-<%= render  :partial => 'admin/blank_lists/display_item_list' %>
+<%= render  :partial => 'admin/blank_lists/display_item_list', :locals => {:ajax_url => @ajax_url } %>

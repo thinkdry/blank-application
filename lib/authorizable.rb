@@ -80,7 +80,7 @@ module Authorizable
 						if user.has_system_permission(self.to_s.underscore.pluralize, permission)
 							{ }
               # So we can retrieve directly as the workspaces are checked, hihihi
-						elsif workspace_ids.first
+						elsif container_ids.first
 							{ 
                 :conditions => "id IN (#{container_ids.join(',')})"
               }
@@ -94,9 +94,9 @@ module Authorizable
 						raise 'User required' unless user
 						raise 'Permission name' unless permission_name
 						if user.has_system_role('superadmin')
-							{ :order => "workspaces.title ASC" }
+							{ :order => "#{container.pluralize}.title ASC" }
 						else
-							{ :joins => "LEFT JOIN users_containers ON users_containers.containerable_id = workspaces.id AND users_containers.containerable_type = '#{container.capitalize}' AND users_containers.user_id = #{user.id.to_i} "+
+							{ :joins => "LEFT JOIN users_containers ON users_containers.containerable_id = #{container.pluralize}.id AND users_containers.containerable_type = '#{container.capitalize}' AND users_containers.user_id = #{user.id.to_i} "+
 									"LEFT JOIN permissions_roles ON permissions_roles.role_id = users_containers.role_id "+
 									"LEFT JOIN permissions ON permissions_roles.permission_id = permissions.id",
 								:conditions => "permissions.name = '#{permission_name.to_s}'" ,
@@ -225,9 +225,9 @@ module Authorizable
 				end
         wsl.each do |ws|
 					# First of all, to check if this workspace accpets these items
-					if ws.ws_items.to_s.split(',').include?(model_name.underscore)
+					if ws.available_items.to_s.split(',').include?(model_name.underscore)
 						# Then with workspace full access
-						if user.has_workspace_permission(ws.id, model_name.underscore, action)
+						if user.has_container_permission(ws.id, model_name.underscore, action, 'workspace')
 							return true
 						end
 					end # if item available in ws

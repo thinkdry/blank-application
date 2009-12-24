@@ -213,13 +213,8 @@ function toggleAccordion(idClicked){
 }
 
 function add_new_user(url){
-    //    alert('hello');
-    //    alert(url);
     var user_login = $('#user_login').val();
     var role_id = $('#user_role').val();
-    //alert($("#workspace_user_" + user_login)[0]);
-    //alert(role_id);
-    //alert(user_login);
     if(user_login != 0){
         if($("#workspace_user_" + user_login)[0] == null){
             $.ajax({

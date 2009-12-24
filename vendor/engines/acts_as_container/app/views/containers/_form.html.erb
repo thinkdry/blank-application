@@ -58,7 +58,7 @@
                                         </select>
                                         <div id="errors_for_User_role"> </div>
                                     </td>
-                                    <td><%= link_to_function I18n.t('general.button.add'), :onclick => "add_new_user('#{add_new_user_admin_workspace_path(params[:id])}');" %></td>
+                                    <td><%= link_to_function I18n.t('general.button.add'), :onclick => "add_new_user('#{add_new_user_container_path(@current_object.class.to_s.underscore, params[:id])}');" %></td>
                                 </tr>
                             </table>
                         <% else -%>
@@ -90,7 +90,7 @@
                         <%= I18n.t('workspace.edit.available_items') %>
                     </div><div class="blockCornerRight"></div>
                     <div class="blockElementBody">
-                        <%= checkboxes_from_list(@configuration["sa_items"], "available_items", @current_object, 'workspace') %>
+                        <%= checkboxes_from_list(@configuration["sa_items"], "available_items", @current_object, @current_object.class.to_s.underscore) %>
                     </div>
                 </div>
             <% end %>

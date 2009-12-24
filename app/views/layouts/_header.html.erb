@@ -12,7 +12,7 @@
                     <div class="subMenuCol">
                         <h3><%= I18n.t('layout.application.add_content') %></h3>
                         <ul>
-                            <% item_types_allowed_to(@current_user, 'new', current_workspace).each do |type| -%>
+                            <% item_types_allowed_to(@current_user, 'new', current_container).each do |type| -%>
                                 <li>
                                     <%= link_to I18n.t('general.item.' + type), new_item_path(type.camelize)%>
                                 </li>
@@ -23,9 +23,11 @@
                     <div class="subMenuCol">
                         <h3><%= I18n.t('layout.general.other') %></h3>
                         <ul>
-                            <% if @current_user.has_system_permission('workspace', 'new') -%>
-                                <li><%= link_to I18n.t('layout.application.new_workspace'), new_admin_workspace_path %></li>
-                            <% end -%>
+                            <% CONTAINERS.each do |container| %>
+                                <% if @current_user.has_system_permission(container, 'new') -%>
+                                    <li><%= link_to I18n.t("layout.application.new_#{container}"), new_container_path(container) %></li>
+                                <% end -%>
+                            <% end %>
                             <% if @current_user.has_system_permission('user', 'new') -%>
                                 <li><%= link_to I18n.t('user.new.add_user'), new_admin_user_path %></li>
                             <% end -%>
@@ -59,15 +61,16 @@
                             </li>
                         </ul>
                     </div>
-
-                    <div class="subMenuCol">
-                        <h3><%= I18n.t('layout.application.workspaces') %></h3>
-                        <ul>
-                            <% Workspace.allowed_user_with_permission(@current_user, 'workspace_show','worksapce').each do |w| -%>
-                                <li><%= link_to w.title, admin_workspace_path(w) %></li>
-                            <% end -%>
-                        </ul>
-                    </div>
+                    <% CONTAINERS.each do |container| %>
+                        <div class="subMenuCol">
+                            <h3><%= I18n.t("layout.application.#{container.pluralize}") %></h3>
+                            <ul>
+                                <% container.classify.constantize.allowed_user_with_permission(@current_user, 'workspace_show', container).each do |w| -%>
+                                    <li><%= link_to w.title, container_path(w) %></li>
+                                <% end -%>
+                            </ul>
+                        </div>
+                    <% end %>
                 </div>
             </div>
             <div class="menuLabel"><%= I18n.t('layout.menu.display') %></div>
@@ -94,7 +97,7 @@
                             <li><%= link_to I18n.t('user.administration.workspace_management'), admin_workspaces_path %></li>
                         </ul>
                         <br/><br/>
-                        <p><img src="/images/icons/exit.png" width="20px" style="margin-right:5px"/><%= link_to I18n.t('layout.application.logout'), '/logout', :class => 'bigLink' %></p>
+                        <p><img src="/images/icons/exit.png" width="20px" style="margin-right:5px"/><%= link_to I18n.t('layout.application.logout'), admin_logout_path, :class => 'bigLink' %></p>
                     </div>
 
                     <div class="subMenuCol">

@@ -49,15 +49,13 @@ module ActsAsItem
     # - model: Article,Image,Audio,Video.... (may be any Item type)
     def item_path object, params = {}
       prefix = params.delete :prefix
-
       helper_name = String.new
       helper_name += prefix + '_' if prefix
       helper_name += "admin_"
-      helper_name += 'workspace_' if current_workspace
+      helper_name += "#{current_container.class.to_s.underscore}_" if current_container
       helper_name += object.class.to_s.underscore + '_path'
       args = [object, params]
-      args.insert(0, current_workspace) if current_workspace
-
+      args.insert(0, current_container) if current_container
       send helper_name, *args
     end
 
@@ -74,9 +72,9 @@ module ActsAsItem
     # - model: Article,Image,Audio,Video.... (may be any Item type)
     def new_item_path(model)
       helper_name = 'new_admin_'
-      helper_name += 'workspace_' if current_workspace
+      helper_name += "#{current_container.class.to_s.underscore}_" if current_container
       helper_name += model.to_s.underscore + '_path'
-      args = current_workspace ? [current_workspace] : []
+      args = current_container ? [current_container] : []
       send(helper_name, *args)
     end
 
@@ -93,9 +91,9 @@ module ActsAsItem
     # - model: Article,Image,Audio,Video.... (may be any Item type)
 		def edit_item_path(model)
       helper_name = 'edit_admin_'
-      helper_name += 'workspace_' if current_workspace
+      helper_name += "#{current_container.class.to_s.underscore}_" if current_container
       helper_name += model.to_s.underscore + '_path'
-      args = current_workspace ? [current_workspace] : []
+      args = current_container ? [current_container] : []
       send(helper_name, *args)
     end
 
@@ -112,8 +110,8 @@ module ActsAsItem
     # - model: Article,Image,Audio,Video.... (may be any Item type)
     def items_path(model)
       model = model.table_name unless model.is_a?(String)  
-      if current_workspace
-				admin_workspace_url(current_workspace.id)+"/#{model.underscore.pluralize}"
+      if current_container
+				container_path(current_container)+"/#{model.underscore.pluralize}"
       else
         admin_root_url+"/#{model.underscore.pluralize}"
       end
@@ -132,8 +130,8 @@ module ActsAsItem
     #
     # - model: Article,Image,Audio,Video.... (may be any Item type)
 		def content_path(model)
-			if current_workspace
-				admin_workspace_url(current_workspace.id)+"?item_type=#{model.underscore.pluralize}"
+			if current_container
+				container_path(current_container)+"?item_type=#{model.underscore.pluralize}"
       else
         admin_content_url(:item_type => model.underscore.pluralize)
       end
@@ -154,8 +152,8 @@ module ActsAsItem
     # - model: Article,Image,Audio,Video.... (may be any Item type)
     def ajax_items_path(model)
       model = model.table_name unless model.is_a?(String)
-      if current_workspace
-        admin_workspace_ajax_content_url(:workspace_id => current_workspace.id, :item_type => model)
+      if current_container
+        send("admin_#{current_container.class.to_s.underscore}_ajax_content_url", "#{current_container.class.to_s.underscore}_id".to_sym => current_container.id,:item_type => model)
       else
         admin_ajax_content_url(:item_type => model)
       end
@@ -164,13 +162,13 @@ module ActsAsItem
     private
     def self.define_prefixed_item_paths(base)
       # OPTIMIZE: Import prefix list from a conf file
-       ['edit', 'rate', 'add_tag', 'remove_tag', 'add_comment'].each do |prefix|
-         base.send(:define_method, "#{prefix}_item_path") do |*args|
-           object, params = args[0], args[1] || {}
-           params[:prefix] = prefix
-           item_path(object, params)
-         end
-       end
+      ['edit', 'rate', 'add_tag', 'remove_tag', 'add_comment'].each do |prefix|
+        base.send(:define_method, "#{prefix}_item_path") do |*args|
+          object, params = args[0], args[1] || {}
+          params[:prefix] = prefix
+          item_path(object, params)
+        end
+      end
     end
   end
 end

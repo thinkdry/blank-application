@@ -7,7 +7,9 @@ module ActsAsContainer
     	  :containers_path,
     	  :new_container_path,
     	  :edit_container_path,
-        :new_container_item_path
+        :new_container_item_path,
+        :ajax_container_path,
+        :add_new_user_container_path
     end
 
     def current_container
@@ -118,7 +120,14 @@ module ActsAsContainer
     # - model: Article,Image,Audio,Video.... (may be any Item type)
     def ajax_container_path(model)
       model = model.table_name unless model.is_a?(String)
-      admin_ajax_content_url(:ws_type => model)
+      admin_ajax_content_url(:container => model)
+    end
+
+    def add_new_user_container_path(container, id)
+      helper = String.new
+      helper += "add_new_user_admin_#{container}_path"
+      args = [id]
+      send(helper, *args)
     end
 
   end

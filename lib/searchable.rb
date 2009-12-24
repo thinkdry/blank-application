@@ -58,7 +58,7 @@ module Searchable
 					# 1. text if there
 					req = req.searching_text_with_xapian(options[:full_text]) if options[:full_text]
 					# 2. workspaces & permissions
-					req = req.matching_user_with_permission_in_containers(options[:user], 'show', options[:workspace_ids], 'workspace')
+					req = req.matching_user_with_permission_in_containers(options[:user], 'show', options[:container_ids], options[:container_type])
 					
 					# NOW REQ IS AN ARRAY
 					
@@ -85,7 +85,6 @@ module Searchable
 					else
 						req = req.paginate(:per_page => options[:pagination][:per_page].to_i, :page => options[:pagination][:page].to_i, :order => options[:filter][:field]+' '+options[:filter][:way])
           end
-          
           return req
 				end
 

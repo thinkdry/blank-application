@@ -130,23 +130,23 @@ module ActsAsContainer
       def new_user_attributes= user_attributes
         #downcase_user_attributes(user_attributes)
         user_attributes.each do |attributes|
-          eval("users_#{self.class.to_s.underscore.pluralize}").build(attributes)
+          users_containers.build(attributes)
         end
       end
 
       # Check if the User is Associated with worksapce or not
       def existing_user_attributes= user_attributes
         #downcase_user_attributes(user_attributes)
-        eval("users_#{self.class.to_s.underscore.pluralize}").reject(&:new_record?).each do |uc|
+        users_containers.reject(&:new_record?).each do |uc|
           attributes = user_attributes[uc.id.to_s]
-          attributes ? uc.attributes = attributes : eval("users_#{self.class.to_s.underscore.pluralize}").delete(uc)
+          attributes ? uc.attributes = attributes : users_containers.delete(uc)
         end
       end
       
       # Save the workspace assocaitions for Users in UsersWorkspace
       def save_users_container
-        eval("users_#{self.class.to_s.underscore.pluralize}").each do |uw|
-          uw.save(false)
+        users_containers.each do |uc|
+          uc.save(false)
         end
       end
 

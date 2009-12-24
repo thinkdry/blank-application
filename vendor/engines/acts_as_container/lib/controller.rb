@@ -29,10 +29,11 @@ module ActsAsContainer
             params[:id] ||= params["#{@current_object.class.to_s.downcase}_id".to_sym]
             # Just for the first load of the show, means without item selected
             params[:item_type] ||= get_allowed_item_types(@current_object).first.to_s.pluralize
-            params[:container_id] = [current_container.id]
+            params[:container] = [current_container.id]
+            params[:container_type] = current_container.class.to_s.underscore
             if !params[:item_type].blank?
               @paginated_objects = params[:item_type].classify.constantize.get_da_objects_list(setting_searching_params(:from_params => params))
-              @total_objects_count = params[:item_type].classify.constantize.matching_user_with_permission_in_containers(@current_user, 'show', params[:w], @current_object.class.to_s.underscore).uniq.size
+              @total_objects_count = params[:item_type].classify.constantize.matching_user_with_permission_in_containers(@current_user, 'show', params[:container], params[:container_type]).uniq.size
               @ordering_filters = ['created_at','comments_number', 'viewed_number', 'rates_average', 'title']
               #generate the correct address for ITEM IN WORKSPACe PAGINATION
               @ajax_url = "/admin/#{current_container.class.to_s.underscore.pluralize}/#{current_container.id}/ajax_content/" + params[:item_type]
@@ -147,12 +148,15 @@ module ActsAsContainer
       # Usage URL :
       # POST /workspaces/add_new_user
       def add_new_user
-        @current_object ||= Workspace.find(params[:id])
+        controller = params[:controller].split('/')[1]
+        @current_object ||= controller.classify.constantize.find(params[:id])
         @user = User.find_by_login(params[:user_login])
-        @uw = UsersWorkspace.new(:role_id => params[:role_id].to_i, :user_id => @user.id)
+        p ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>....."
+        @uw = @current_object.users_containers.new(:role_id => params[:role_id].to_i, :user_id => @user.id)
+        p @uw
         render :update do |page|
           if @user
-            page.insert_html :bottom, 'users', :partial => 'user',  :object => @uw
+            page.insert_html :bottom, 'users', :partial => 'containers/user',  :object => @uw
           else
             page.call "alert","No user exist with #{params[:user_login]}"
           end

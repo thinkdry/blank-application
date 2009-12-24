@@ -77,9 +77,9 @@ class Admin::ApplicationController < ActionController::Base
   # - user : User instance
   # - action : 'show', 'new', 'edit', 'destroy'
   # - current_workspace : Workspace instance (default: nil)
-	def item_types_allowed_to(user, action, current_container = nil)
+	def item_types_allowed_to(user, action, current_container=nil)
 		if current_container
-			(current_container.available_items.to_s.split(',') & @configuration['sa_items']).delete_if{ |e| !user.has_container_permission(current_workspace.id, e, action, current_container.class.to_s) }
+			(current_container.available_items.to_s.split(',') & @configuration['sa_items']).delete_if{ |e| !user.has_container_permission(current_container.id, e, action, current_container.class.to_s) }
 		else
 			available_items_list.delete_if{ |e| Workspace.allowed_user_with_permission(user, e+'_'+action,'workspace').size == 0 }
 		end
@@ -113,8 +113,8 @@ class Admin::ApplicationController < ActionController::Base
 	# - message : String defining the message to send, default: nil
 	def no_permission_redirection(message=nil)
 		flash[:error] = message || I18n.t('general.common_message.permission_denied')
-		if current_workspace && current_workspace.has_permission_for?('show', current_user)
-			redirect_to admin_workspace_url(current_workspace.id)
+		if current_container && current_container.has_permission_for?('show', current_user)
+			redirect_to container_path(current_container)
 		else
 			redirect_to admin_root_url
 		end
@@ -134,7 +134,8 @@ class Admin::ApplicationController < ActionController::Base
 			:permission => 'show',
 			:category => options[:cat],
 			:models => options[:m] || (options[:cat] ? ((options[:cat] == 'item') ? @configuration['sa_items'] : [options[:cat]]) : nil),
-			:workspace_ids => options[:w],
+			:container_ids => options[:container],
+			:container_type => options[:container_type],
 			:full_text => (options[:q] && !options[:q].blank? && options[:q] != I18n.t('layout.search.search_label')) ? options[:q] : nil,
 			:conditions => options[:cond],
 			:filter => { :field => options[:by] ? options[:by].split('-').first : 'created_at', :way => options[:by] ? options[:by].split('-').last : 'desc' },

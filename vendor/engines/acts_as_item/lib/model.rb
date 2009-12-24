@@ -34,13 +34,13 @@ module ActsAsItem
           has_many "items_#{container.pluralize}", :as => :itemable, :dependent => :delete_all
           # Relation N-1 getting the Workspace objects through 'item' table
           has_many "#{container.pluralize}", :through => "items_#{container.pluralize}"
-          # Valdation of the fact that the item is associated to one or more workspaces throught items table
-          validates_presence_of "items_#{container.pluralize}", :message => I18n.t('item.common_word.select_at_least_one_workspace') #"Sélectionner au moins un espace de travail"
         end
 				# Relation 1-N with 'users' table
         belongs_to :user
         # Validation of the presence of these fields
         validates_presence_of	:title, :description, :user
+        # Valdation of the fact that the item is associated to one or more workspaces throught items table
+        validates_presence_of :items_workspaces, :message => I18n.t('item.common_word.select_at_least_one_workspace') #"Sélectionner au moins un espace de travail"
         
         # Validation of fields not in format of
         validates_not_format_of :title, :description, :with => /(#{SCRIPTING_TAGS})/

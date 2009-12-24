@@ -27,6 +27,8 @@
 <div class="filterDrop">
     <a class="filter"><%= I18n.t('layout.application.add_content')%></a>
     <ul class="ddown" style='display:none;'>
+        <% p ">>>>>>>>>>>>>>>>>>>>>>>..."  %>
+        <% p current_container  %>
         <% item_types_allowed_to(@current_user, 'new', current_container).each do |item| -%>
             <li>
                 <a href="<%= new_item_path(item.downcase.singularize)%>">

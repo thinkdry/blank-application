@@ -29,8 +29,8 @@ class ItemsFolder < ActiveRecord::Base
     else
       { :select => 'DISTINCT items_folders.*',
         :joins => #"LEFT JOIN workspaces ON items.workspace_id IN (#{workspace_ids.split(',')}) "+
-        "LEFT JOIN users_containers ON users_folders.folder_id IN (#{folder_ids.split(',')}) AND users_workspaces.user_id = #{user_id.to_i} "+
-          "LEFT JOIN permissions_roles ON permissions_roles.role_id = users_workspaces.role_id "+
+        "LEFT JOIN users_containers ON users_containers.containerable_id IN (#{folder_ids.split(',')}) AND users_containers.containerable_type = 'Folder' AND users_containers.user_id = #{user_id.to_i} "+
+          "LEFT JOIN permissions_roles ON permissions_roles.role_id = users_containers.role_id "+
           "LEFT JOIN permissions ON permissions_roles.permission_id = permissions.id",
         :conditions => "permissions.name LIKE '%#{permission_name.to_s}'" }
     end

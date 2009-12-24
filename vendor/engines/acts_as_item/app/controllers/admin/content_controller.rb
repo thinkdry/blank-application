@@ -12,25 +12,28 @@ class Admin::ContentController < Admin::ApplicationController
 	# - GET /content
 	# - GET /content?item_type=article
   def index
-		params[:item_type] ||= get_allowed_item_types(current_workspace).first.pluralize
-    params[:w] ||= current_workspace ? [current_workspace.id] : nil
-		params_hash = setting_searching_params(:from_params => params)
+    params[:item_type] ||= get_allowed_item_types(current_container).first.pluralize
+    if current_container
+      params[:container] = [current_container.id]
+      params[:container_type] = current_container.class.to_s.underscore
+    else
+      params[:container] = nil
+      params[:container_type] = 'workspace'
+    end    
+    params_hash = setting_searching_params(:from_params => params)
     params_hash.merge!({:skip_pag => true, :by => 'created_at-asc'}) if params[:format] && params[:format] != 'html'
-      
-		@paginated_objects = params[:item_type].classify.constantize.get_da_objects_list(params_hash)
-		# get the number of items.
-		@total_objects_count = params[:item_type].classify.constantize.matching_user_with_permission_in_containers(@current_user, 'show', params[:w]).uniq.size
-		
-		@ordering_filters = ['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title']
-		#generate the correct address for ITEM PAGINATION
-		@ajax_url = params[:controller] == 'admin/searches' ? request.path : params[:w] ? "/admin/workspaces/1/ajax_content/" + params[:item_type] : "/admin/ajax_content/#{params[:item_type]}"		
-    
-		respond_to do |format|
-			format.html
-			format.xml { render :xml => @paginated_objects }
-			format.json { render :json => @paginated_objects }
-			format.atom { render :template => "generic_for_items/index.atom.builder", :layout => false }
-		end
+    @paginated_objects = params[:item_type].classify.constantize.get_da_objects_list(params_hash)
+    # get the number of items.
+    @total_objects_count = params[:item_type].classify.constantize.matching_user_with_permission_in_containers(@current_user, 'show', params[:container], params[:container_type]).uniq.size
+    @ordering_filters = ['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title']
+    #generate the correct address for ITEM PAGINATION
+    @ajax_url = params[:controller] == 'admin/searches' ? request.path : current_container ? "/admin/#{current_container.class.to_s.underscore.pluralize}/#{current_container.id}/ajax_content/" + params[:item_type] : "/admin/ajax_content/#{params[:item_type]}"
+	  respond_to do |format|
+		  format.html
+		  format.xml { render :xml => @paginated_objects }
+		  format.json { render :json => @paginated_objects }
+		  format.atom { render :template => "generic_for_items/index.atom.builder", :layout => false }
+	  end
   end
 
   # Ajax action managing pagination for items tabs
@@ -43,14 +46,18 @@ class Admin::ContentController < Admin::ApplicationController
 	# - GET /ajax_content?item_type=article
   #
   def ajax_index
-    
 		params[:item_type] ||= get_allowed_item_types(current_workspace).first.pluralize
-		p request.inspect
-		params[:w] ||= current_workspace ? [current_workspace.id] : nil
+		if current_container
+      params[:container] = [current_container.id]
+      params[:container_type] = current_container.class.to_s.underscore
+    else
+      params[:container] = nil
+      params[:container_type] = 'workspace'
+    end 
     @paginated_objects = params[:item_type].classify.constantize.get_da_objects_list(setting_searching_params(:from_params => params))
-    @total_objects_count = params[:item_type].classify.constantize.matching_user_with_permission_in_containers(@current_user, 'show', params[:w]).uniq.size
+    @total_objects_count = params[:item_type].classify.constantize.matching_user_with_permission_in_containers(@current_user, 'show', params[:container], params[:container_type]).uniq.size
 
-		@ajax_url = params[:controller] == 'admin/searches' ? request.path : params[:w] ? "/admin/workspaces/1/ajax_content/" + params[:item_type] : "/admin/ajax_content/#{params[:item_type]}"		
+		@ajax_url = params[:controller] == 'admin/searches' ? request.path : current_container ? "/admin/#{current_container.class.to_s.underscore.pluralize}/#{current_container.id}/ajax_content/" + params[:item_type] : "/admin/ajax_content/#{params[:item_type]}"
 		@ordering_filters = ['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title']
 		
 		respond_to do |format|
@@ -66,7 +73,6 @@ class Admin::ContentController < Admin::ApplicationController
   # Usage URL :
   # - GET '/display_content_list/:selected_item
   def display_item_in_pop_up
-    
     #get the workspace if there is one. otherwhise it's nil
     @workspace = (params[:workspace_id] && !params[:workspace_id].blank?) ? Workspace.find(params[:workspace_id]) : nil
     params[:w] = [@workspace.id] if @workspace
@@ -80,12 +86,12 @@ class Admin::ContentController < Admin::ApplicationController
 			@item_types = (item_types_allowed_to(current_user, 'show', @workspace)&@selected_item_types).map{ |e| e.pluralize }
 			params[:item_type] ||= @item_types.first
       if params[:item_type]
-         @current_objects = params[:item_type].classify.constantize.get_da_objects_list(setting_searching_params(:from_params => params).merge!({:skip_pag => true}))#, :conditions =>{:fetch => {'state_equals' => 'published'}}}))
+        @current_objects = params[:item_type].classify.constantize.get_da_objects_list(setting_searching_params(:from_params => params).merge!({:skip_pag => true}))#, :conditions =>{:fetch => {'state_equals' => 'published'}}}))
       else
         render :text => "No item types available for your profil."
         return
       end
-    #if we wants just pictures / or videos / or fck flash.
+      #if we wants just pictures / or videos / or fck flash.
 		elsif (params[:selected_item] == 'images' || params[:selected_item] == 'videos' || params[:selected_item] == 'fcke_flash')
 		  
 			@selected_item_types = [params[:selected_item].to_s.singularize]
@@ -116,10 +122,10 @@ class Admin::ContentController < Admin::ApplicationController
 				end
 			end
 		else
-				###
+      ###
 		end
 		#if @current_objects.first
-			render :layout => 'pop_up', :object => @current_objects
+    render :layout => 'pop_up', :object => @current_objects
 		#else
 		#	render :update do |page|
 		#		page.replace_html('abc', :text => 'No results for these criterions.')
