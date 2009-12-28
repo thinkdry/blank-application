@@ -24,7 +24,7 @@ class Admin::ApplicationController < ActionController::Base
 	# User to define controller methods as helpers methods too (and so be able to use it inside helpers or views)
 	helper_method :available_items_list, :available_languages, :get_sa_config, :right_conf,
 		:is_allowed_free_user_creation?, :get_allowed_item_types, :item_types_allowed_to, :get_per_page_value,
-		:admin?, :groups_of_workspaces_of_item, :get_fcke_item_types, :setting_searching_params, :get_objects_list_with_search
+		:admin?, :groups_of_workspaces_of_item, :get_fcke_item_types, :setting_searching_params, :get_objects_list_with_search, :current_container_type
 	# Filter checking authentication with 'is_logged' method
   before_filter :is_logged?
 	# Filter defining the current locale with the 'set_locale' method
@@ -113,7 +113,7 @@ class Admin::ApplicationController < ActionController::Base
 	# - message : String defining the message to send, default: nil
 	def no_permission_redirection(message=nil)
 		flash[:error] = message || I18n.t('general.common_message.permission_denied')
-		if current_container && current_container.has_permission_for?('show', current_user)
+		if current_container && current_container.has_permission_for?('show', current_user, current_container_type)
 			redirect_to container_path(current_container)
 		else
 			redirect_to admin_root_url
@@ -167,6 +167,14 @@ class Admin::ApplicationController < ActionController::Base
 		session[:locale] = params[:locale] if params[:locale]
 		session[:locale] ||= ((current_user && !current_user.u_language.to_s.blank?) ? current_user.u_language : I18n.default_locale) || nil
 		I18n.locale = session[:locale]
+	end
+	
+	def current_container_type
+	  if current_container
+	    current_container.class.to_s.underscore
+	  else
+	    'workspace' 
+	  end
 	end
 
 	# Image uploading with RMagick

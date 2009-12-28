@@ -18,19 +18,19 @@
     <div class="itemShowRightBlock">
         <div class="blockCornerLeft"></div><div class="blockElementHeader twoH">What can I do?</div><div class="blockCornerRight"></div>
         <div class="blockElementBody">
-            <%= link_to "Go back to Workspace", (current_workspace ? admin_workspace_path(current_workspace.id) + '?item_type=' : 'admin/content/') + object.class.to_s.underscore.pluralize %>
+            <%= link_to "Go back to Workspace", (current_container ? container_path(current_container) + '?item_type=' : 'admin/content/') + object.class.to_s.underscore.pluralize %>
 
-            <% if object.has_permission_for?('add', @current_user) %>
+            <% if object.has_permission_for?('add', @current_user, current_container_type) %>
                 <a href="<%=new_item_path(object.class.to_s)%>"><%= I18n.t('layout.application.add_content')%></a>
             <% end %>
-            <% if @current_object.has_permission_for?('edit', @current_user)  %>
+            <% if @current_object.has_permission_for?('edit', @current_user, current_container_type)  %>
                 <%= link_to I18n.t('general.link.edit'), edit_item_path(object)%>
             <% end %>
-            <% if @current_object.has_permission_for?('destroy', @current_user) %>
+            <% if @current_object.has_permission_for?('destroy', @current_user, current_container_type) %>
                 <%= link_to I18n.t('general.link.delete'), item_path(object), :method => :delete, :confirm =>  I18n.t('item.destroy.delete_conform')%>
             <% end %>
             <%= link_to "print", 'javascript:window.print();' %>
-            <% if @current_object.has_permission_for?('rate', @current_user) %>
+            <% if @current_object.has_permission_for?('rate', @current_user, current_container_type) %>
                 <%= link_to "rate", '#', :id => :rate_action %><%# = item_rate(@current_object) %>
             <% end %>
         </div>

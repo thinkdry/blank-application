@@ -185,7 +185,7 @@ class User < ActiveRecord::Base
       :available_items => get_configuration['sa_items'],
       :state => 'private')
 		# To assign the 'ws_admin' role to the user in his privte workspace
-		ws.users_containers.create(:user_id => self.id, :role_id => Role.find_by_name('ws_admin').id)
+		ws.users_containers.create(:user_id => self.id, :role_id => Role.find_by_name('co_admin').id)
 	end
 
 	# Activate the user in the database.
@@ -275,6 +275,10 @@ class User < ActiveRecord::Base
     @reset = true
     self.password_reset_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
     save(false)
+  end
+  
+  def private_workspace
+    self.workspaces.find(:first, :conditions => {:state => 'private'})
   end
 
   protected

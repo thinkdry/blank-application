@@ -1,8 +1,8 @@
 <div class="list_header">
 <h1>
   <%= I18n.t('layout.application.workspaces') %>
-  <% if current_user.has_system_permission('workspace', 'new') %>
-    <%= link_to image_tag("/images/icons/add.png"), new_container_path(@current_objects.first.class.to_s) %>
+  <% if current_user.has_system_permission(current_container_type, 'new') %>
+    <%= link_to image_tag("/images/icons/add.png"), new_container_path(params[:controller].split('/')[1].singularize) %>
   <% end %>
 </h1>
 </div>

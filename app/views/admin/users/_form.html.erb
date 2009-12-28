@@ -44,7 +44,7 @@
     <% f.field :avatar, :label => I18n.t('user.field.photo_label')+" : " do %>
       <%= file_field 'user', 'avatar', :class => 'file' %>
     <% end %>
-    <% if !@current_object.new_record? && @current_object.has_permission_for?('configure', @current_user) %>
+    <% if !@current_object.new_record? && @current_object.has_permission_for?('configure', @current_user, 'workspace') %>
       <%= f.select :u_layout, available_layouts.map{|la| [I18n.t('general.layout.'+la.to_s), la.to_s]}, :label => I18n.t('user.field.layout_label')+" : ", :selected => (@current_object.u_layout.nil? || @current_object.u_layout.blank? ? 'app_fat_menu' : @current_object.u_layout ) %>
       <%= f.select :u_language, available_languages.map{|l| [I18n.t('general.language.'+l), l]}, :label => I18n.t('user.field.select_language_label')+" : " %>
       <%= f.select :u_per_page, [10,30,50], :label => I18n.t('user.field.results_per_page_label')+" : " %>

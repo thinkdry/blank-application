@@ -142,7 +142,7 @@ module ActsAsItem
 						  
 						  ['Article', 'Page', 'Newsletter'].include?(@current_object.class.to_s) || 
                 ((@current_object.class.to_s == 'Group') &&
-                  current_workspace.nil?) ? redirect_to(edit_item_path(@current_object)) :
+                  current_container.nil?) ? redirect_to(edit_item_path(@current_object)) :
                 redirect_to(item_path(@current_object))
             }
 					end
@@ -173,7 +173,7 @@ module ActsAsItem
 	        end
 
           response_for :destroy do |format|
-            format.html { redirect_to(current_workspace ? admin_workspace_path(:id => current_workspace.id, :item_type => params[:controller].split("/")[1]) : admin_content_path(params[:controller].split("/")[1])) }
+            format.html { redirect_to(current_container ? container_path(current_container, :item_type => params[:controller].split("/")[1]) : admin_content_path(params[:controller].split("/")[1])) }
           end
         end
 

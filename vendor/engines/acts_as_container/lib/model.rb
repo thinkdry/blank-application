@@ -85,7 +85,7 @@ module ActsAsContainer
         role = self.roles.find_by_name(role_name)
         res = []
         if role
-          uc = "users_#{self.name}".classify.constantize.find(:all, :conditions => { :role_id => role.id, "#{self.class.to_s.underscore}_id".to_sym => self.id })
+          uc = UsersContainer.find(:all, :conditions => { :role_id => role.id, :containerable_id => self.id, :containerable_type => self.class.to_s })
           uc.each do |e|
             res << e.user
           end

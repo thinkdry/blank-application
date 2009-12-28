@@ -78,6 +78,8 @@ en-US:
     application: 
       no_add_content: You need to create a workspace or to have rights inside one before to add content.
       new_workspace: New Workspace
+      new_website: New Website
+      new_folder: New Folder
       all_elements: All Elements
       welcome_message: Welcome
       logout: Logout
@@ -94,6 +96,8 @@ en-US:
       personal_contacts: Personal contacts
       change_language: Change language
       workspaces: Workspaces
+      websites: Websites
+      folders: Folders
     footer: 
       faq: FAQ
       title: ThinkDRY Technologies 2008
@@ -598,7 +602,7 @@ en-US:
       top_five_item: Top Five Items
       latest_feed: Latest Feeds
       best_rated: Best Rated
-      title: My Workspaces
+      title: My Containers
       most_commented: Most Commented
       latest_user: Latest Users
       show_my_feeds: Show my RSS feeds
@@ -762,7 +766,7 @@ en-US:
       reader: Reader
       writer: Writer
       superadmin: Superadministrator
-      ws_admin: Workspace administrator
+      co_admin: Container administrator
       admin: System administrator
       moderator: Moderator
       user: User
@@ -791,6 +795,8 @@ en-US:
     object: 
       comment: comment
       workspace: workspace
+      website: website
+      folder: folder
       user: user
       item: item
     item: 

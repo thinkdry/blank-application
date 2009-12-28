@@ -14,7 +14,6 @@ module Authorized
 			def acts_as_authorized
 				# Relation N-1 getting workspace Role objects through the 'users_workspaces' table
 				has_many :container_roles, :through => :users_containers, :source => :role
-
 				include Authorized::ModelMethods::InstanceMethods
       end
 
@@ -48,7 +47,7 @@ module Authorized
 				#
 				# Usage:
 				# <tt>user.has_workspace_role('ws_admin')</tt>
-				def has_container_role(container_id,container, role_name)
+				def has_container_role(container_id, container, role_name)
 					return UsersContainer.exists?(:user_id => self.id, :containerable_id => container_id,:containerbale_type => container.capitalize, :role_id => Role.find_by_name(role_name).id) || self.system_role.name == 'superadmin'
 				end
 

@@ -34,8 +34,6 @@ module Admin::BlankListsHelper
         li_content = String.new
         #generate th
 				url = self.send(options2[:url_base].to_sym, item_model.classify.constantize)
-				p ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-				p url
 				item_page = item_model.underscore.pluralize
 				options = {}
 				#get the selected item for different display

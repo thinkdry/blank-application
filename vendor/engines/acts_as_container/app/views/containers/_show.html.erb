@@ -8,18 +8,18 @@
 
         <h2><%=  @current_object.title %></h2>
         <div class="workspaceActions">
-            <% if @current_object.has_permission_for?('edit', @current_user) %>
+            <% if @current_object.has_permission_for?('edit', @current_user, current_container_type) %>
                 <%= link_to I18n.t('general.link.edit'), edit_container_path(current_container)  %>&nbsp;|
             <% end %>
             <% if current_container.class.to_s == 'Workspace' %>
-                <% if @current_object.has_permission_for?('contacts_management', @current_user) %>
-                    <%= link_to ( I18n.t('workspace.show.manage_contacts'),
-                        list_admin_workspace_workspace_contacts_path(current_container.id))%>&nbsp;|
+                <% if @current_object.has_permission_for?('contacts_management', @current_user, current_container_type) %>
+                    <%= link_to(I18n.t('workspace.show.manage_contacts'),
+                        list_admin_workspace_workspace_contacts_path(current_container.id))%> &nbsp;|
                 <% end %>
                 <% if ContactsWorkspace.exists?(:workspace_id => @current_object.id,
                         :contactable_type => 'User',
                         :contactable_id => @current_user.id) %>
-                    <%= link_to (I18n.t('workspace.show.unsubscribe_to_newsletter'),
+                    <%= link_to(I18n.t('workspace.show.unsubscribe_to_newsletter'),
                         subscribe_admin_workspace_workspace_contacts_path(@workspace.id)+'?remove=yes')%>&nbsp;|
                 <% else %>
                     <%= link_to(I18n.t('workspace.show.subscribe_to_newsletter'),

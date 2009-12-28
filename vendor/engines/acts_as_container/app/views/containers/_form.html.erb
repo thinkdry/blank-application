@@ -29,7 +29,7 @@
                 <div class="blockCornerRight"></div>
                 <div class="blockElementBody">
                     <% if !@current_object.new_record? -%>
-                        <% if  true-%>
+                        <% if  @current_object.has_permission_for?('administrate', @current_user, current_container_type)-%>
                             <div id="users">
                                 <% @current_object.users_containers.each do |object| %>
                                     <%= render :partial => 'containers/user', :object => object %>
@@ -64,9 +64,9 @@
                         <% else -%>
                             <div id="users">
                                 <% @current_object.roles.uniq.each do |r| %>
-                                    <p><%= I18n.t('general.role.'+r.name)%> :
+                                    <p><%= I18n.t('general.role.' + r.name)%> :
                                         <% @current_object.users_by_role(r.name).each do |u| %>
-                                            <%= link_to u.full_name+', ', admin_user_path(u.id) %>
+                                            <%= link_to u.full_name + ',', admin_user_path(u.id) %>
                                         <% end %></p>
                                     <% end %>
                             </div>

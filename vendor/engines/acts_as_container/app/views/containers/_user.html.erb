@@ -7,7 +7,7 @@
             <td>
                 <div id="<% @current_object.class.to_s.underscore %>_user_<%= object.user.login %>">
                     <%= user_form.select :role_id,
-                      Role.of_type('workspace').collect { |r|
+                      Role.of_type('container').collect { |r|
                         [I18n.t('general.role.'+r.name), r.id] } %>
                     <%= user_form.hidden_field :user_id, :value => object.user.id %>
                     <%= link_to_function I18n.t('general.button.delete'),

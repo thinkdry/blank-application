@@ -12,7 +12,7 @@
 		<% end-%>
 		</div>
 		
-		<% if permission || @current_object.has_permission_for?('comment', @current_user) %>
+		<% if permission || @current_object.has_permission_for?('comment', @current_user, current_container_type) %>
 		<div id="newCommentForm">
 			<h2>New Comment</h2> 
 	        <% remote_form_for :comments, :url => add_comment_item_path(@current_object),  :html => {:class => "newComment"} do |f|  %>

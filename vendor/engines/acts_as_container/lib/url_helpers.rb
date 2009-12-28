@@ -23,7 +23,7 @@ module ActsAsContainer
           break
         end
       end
-      container ? container : nil
+      container ? container : @current_user.private_workspace
     end
 
 

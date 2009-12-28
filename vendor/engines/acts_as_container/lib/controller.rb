@@ -29,6 +29,7 @@ module ActsAsContainer
             params[:id] ||= params["#{@current_object.class.to_s.downcase}_id".to_sym]
             # Just for the first load of the show, means without item selected
             params[:item_type] ||= get_allowed_item_types(@current_object).first.to_s.pluralize
+            p params[:item_type]
             params[:container] = [current_container.id]
             params[:container_type] = current_container.class.to_s.underscore
             if !params[:item_type].blank?
@@ -41,11 +42,11 @@ module ActsAsContainer
           end
 
           before :new do
-            @roles = Role.of_type('workspace')
+            @roles = Role.of_type('container')
           end
 
           before :edit do
-            @roles = Role.of_type('workspace')
+            @roles = Role.of_type('container')
             @users = []
             @users = User.all.collect!{|u| {:login => u.login, :name => "#{u.full_name_without_salutation}", :email => u.email} }.to_json
           end
@@ -56,12 +57,12 @@ module ActsAsContainer
           end
           
           after :create do
-            UsersContainer.create(:user_id => @current_user.id, :containerable_id => @current_object.id, :containerable_type => @current_object.class.to_s, :role_id => Role.find_by_name('ws_admin').id)
+            UsersContainer.create(:user_id => @current_user.id, :containerable_id => @current_object.id, :containerable_type => @current_object.class.to_s, :role_id => Role.find_by_name('co_admin').id)
             flash[:warning] =I18n.t('workspace.new.flash_notice')
           end
           
           after :create_fails do
-            @roles = Role.of_type('workspace')
+            @roles = Role.of_type('container')
             flash.now[:error] =I18n.t('workspace.new.flash_error')
           end
 
@@ -75,7 +76,7 @@ module ActsAsContainer
           end
           
           after :update_fails do
-            @roles = Role.of_type('workspace')
+            @roles = Role.of_type('container')
             flash.now[:error] =I18n.t('workspace.edit.flash_error')
           end
 
@@ -119,6 +120,7 @@ module ActsAsContainer
       end
       
       def current_objects
+        params[:container_type] = params[:controller].split('/')[1].singularize
         params_hash = setting_searching_params(:from_params => params)
         params_hash.merge!({:skip_pag => true}) if params[:format] && params[:format] != 'html'
         @current_objects ||= @paginated_objects = params[:controller].split('/')[1].classify.constantize.get_da_objects_list(params_hash)
@@ -151,9 +153,7 @@ module ActsAsContainer
         controller = params[:controller].split('/')[1]
         @current_object ||= controller.classify.constantize.find(params[:id])
         @user = User.find_by_login(params[:user_login])
-        p ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>....."
         @uw = @current_object.users_containers.new(:role_id => params[:role_id].to_i, :user_id => @user.id)
-        p @uw
         render :update do |page|
           if @user
             page.insert_html :bottom, 'users', :partial => 'containers/user',  :object => @uw

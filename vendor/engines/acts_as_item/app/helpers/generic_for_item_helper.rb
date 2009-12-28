@@ -173,7 +173,7 @@ module GenericForItemHelper
 		check_box_tag_name = "#{item_class_name}[associated_#{container.pluralize}][]"
 		res=[]
 		# Workspace list allowing user to add new item and accepting items of that type
-		  list = (res + container.classify.constantize.allowed_user_with_permission(@current_user, item_class_name+"_new")).uniq.delete_if{ |w| !w.available_items.to_s.split(',').include?(item_class_name) }
+		  list = (res + container.classify.constantize.allowed_user_with_permission(@current_user, item_class_name+"_new", container)).uniq.delete_if{ |w| !w.available_items.to_s.split(',').include?(item_class_name) }
 		if (list.size > 1 || @current_user.has_system_role('superadmin'))
 			#form.field(:workspaces, :label => I18n.t('general.object.workspace').camelize+'(s) :', :ajax => false)
 			list.collect do |w|
@@ -181,11 +181,12 @@ module GenericForItemHelper
 				if params[item.class.to_s.downcase] && params[item.class.to_s.downcase]["associated_#{container.pluralize}".to_sym]
           checked = params[item.class.to_s.downcase]["associated_#{container.pluralize}".to_sym].include?(w.id.to_s)
 				else
-          checked = "items_#{container}".classify.constantize.exists?("#{container}_id" => w.id, :itemable_id => item.id, :itemable_type => item.class.to_s)
+          checked = "items_#{container}".classify.constantize.exists?("#{container}_id".to_sym => w.id, :itemable_id => item.id, :itemable_type => item.class.to_s)
 				end
 				# Creating the checkboxes
-				if ((w.state == 'private') && (w.creator_id == @current_user.id) && (item.new_record?)) || (list.size==1) || (w == current_container)
-					strg += check_box_tag(check_box_tag_name, w.id, true, :disabled => false, :class => 'checkboxes') + ' ' + w.title + '<br />'
+				if ((w.state == 'private') && (w.creator_id == @current_user.id) && (item.new_record?)) || (w == current_container) || (w == @current_user.private_workspace) 
+					strg += check_box_tag(check_box_tag_name, w.id, true, :disabled => true, :class => 'checkboxes') + ' ' + w.title + '<br />'
+					strg += hidden_field_tag(check_box_tag_name, w.id.to_s)
 				else
 					strg += check_box_tag(check_box_tag_name, w.id, checked, :class => 'checkboxes') + ' ' + w.title + '<br />'
 				end
@@ -196,7 +197,7 @@ module GenericForItemHelper
 				strg += hidden_field_tag(check_box_tag_name, ws.id.to_s)
 			end
 		end
-		(item.workspaces - list).each do |ws|
+		(item.send(container.pluralize) - list).each do |ws|
 			strg += hidden_field_tag(check_box_tag_name, ws.id.to_s)
 		end
 		return strg
