@@ -9,7 +9,7 @@ module GenericForItemsHelper
 		latest = get_objects_list_with_search('item', 'created_at-desc', 5)
     most_commented = get_objects_list_with_search('item', 'comments_number-desc', 5)
     best_rated = get_objects_list_with_search('item', 'rates_average-desc', 5)
-    if current_workspace
+    if current_container
       feed_items = FeedItem.from_workspace(current_workspace.id).consultable_by(current_user.id).latest.to_a
     else
       feed_items = FeedItem.consultable_by(current_user.id).latest.to_a

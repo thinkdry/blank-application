@@ -133,7 +133,7 @@ class Admin::ApplicationController < ActionController::Base
 			:user => @current_user,
 			:permission => 'show',
 			:category => options[:cat],
-			:models => options[:m] || (options[:cat] ? ((options[:cat] == 'item') ? @configuration['sa_items'] : [options[:cat]]) : nil),
+			:models => options[:m] || (options[:cat] ? ((options[:cat] == 'item') ? @configuration['sa_items'] : [options[:cat]]) : @configuration['sa_items']),
 			:container_ids => options[:container],
 			:container_type => options[:container_type],
 			:full_text => (options[:q] && !options[:q].blank? && options[:q] != I18n.t('layout.search.search_label')) ? options[:q] : nil,

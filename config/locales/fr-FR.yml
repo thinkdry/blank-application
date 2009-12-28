@@ -593,7 +593,9 @@ fr-FR:
     show: 
       get_in_another_format: Autre format
       no_item: Il n'y a pas d'item de ce type.
-      associated_workspace: "Espaces de travail associ\xC3\xA9s :"
+      associated_workspace: "Espaces de travail associ\xC3\xA9s"
+      associated_website: "Associated websites"
+      associated_folder: "Associated folder"
     common_word: 
       rate: Note
       tag: Etiquette

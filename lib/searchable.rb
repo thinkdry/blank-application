@@ -20,7 +20,9 @@ module Searchable
 					acts_as_xapian :texts => options[:full_text_fields]
 					# Retrieve the results matching with Xapian indewes and ordered by weight
 					named_scope :searching_text_with_xapian,
-						lambda { |text| { :conditions => ["#{self.class_name.underscore.pluralize}.id in (?)", ActsAsXapian::Search.new([self.class_name.classify.constantize], text, :limit => 100000).results.sort{ |x, y| x[:weight] <=> y[:weight]}.collect{|x| x[:model].id}] }
+						lambda { |text| {
+						  :conditions => ["#{self.class_name.underscore.pluralize}.id in (?)",
+						  ActsAsXapian::Search.new([self.class_name.classify.constantize], text, :limit => 100000).results.sort{ |x, y| x[:weight] <=> y[:weight]}.collect{|x| x[:model].id if x[:model]}] }
 					}
 				end
 				

@@ -119,14 +119,14 @@ module GenericForItemHelper
   # Usage :
   # f.advanced_editor(:body, 'Article' + ' * :')
 	def advanced_editor_on(object, attribute, width, height)
-    ws = current_workspace
+    cn = current_container
 		css_files = []
     toolset = 'Default'
     google_map = false
-    ws ||= object.workspaces.delete_if{ |e| e.websites.empty? }.first if (object.class.to_s == "Page")
+    cn ||= object.send(current_container_type.pluralize).delete_if{ |e| e.websites.empty? }.first if (object.class.to_s == "Page")
     
     #IF THE WS IS A WEBSITE
-    if ws && ws.respond_to?(:websites) && ws.websites.first && (tmp=ws.websites.first.front)
+    if cn && cn.respond_to?(:websites) && cn.websites.first && (tmp=ws.websites.first.front)
       Dir["public/front_files/#{tmp.name}/stylesheets/*.css"].collect do |uploaded_css|
         css_files << "#{uploaded_css.split("public")[1]}"
       end
@@ -203,18 +203,18 @@ module GenericForItemHelper
 		return strg
 	end
 
-	def item_containers_select(form, item)
+	def item_containers_select(form, item, container)
 		str = ""
 		if item.new_record?
 			item_class_name = item.class.to_s.underscore
 			select_tag_name = "#{item_class_name}[associated_workspaces][]"
-			if current_workspace
-				str += hidden_field_tag(select_tag_name, current_workspace.id.to_s)
+			if current_container
+				str += hidden_field_tag(select_tag_name, current_container.id.to_s)
 			else
 				str += "<label>#{I18n.t('general.object.workspace').camelize+'(s) :'}</label><div class='formElement'>"
-				workspaces = Workspace.allowed_user_with_permission(@current_user, item_class_name+"_new").uniq.delete_if{ |w| !w.available_items.to_s.split(',').include?(item_class_name) }
-				str += select_tag select_tag_name, options_for_select(workspaces.map{|w| [w.title, w.id]})
-				str += '</div>'+ajax_error_message_on(item, 'items_workspaces')
+				containers = container.classify.constantize.allowed_user_with_permission(@current_user, item_class_name+"_new", container).uniq.delete_if{ |w| !w.available_items.to_s.split(',').include?(item_class_name) }
+				str += select_tag select_tag_name, options_for_select(containers.map{|w| [w.title, w.id]})
+				str += '</div>'+ajax_error_message_on(item, "items_#{container.pluralize}")
 			end
 		end
 		return str

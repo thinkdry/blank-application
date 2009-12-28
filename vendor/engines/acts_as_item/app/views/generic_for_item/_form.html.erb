@@ -51,11 +51,10 @@
                 <%= item_keywords_fields(f, @current_object) %>
             </div>
         </div>
-
-        <div class="itemShowRightBlock">
-            <% CONTAINERS.each do |container| %>
+        <% CONTAINERS.each do |container| %>
+          <div class="itemShowRightBlock">
                 <div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
-                    <%= I18n.t("item.show.associated_workspace") %>
+                    <%= I18n.t("item.show.associated_#{container}") %>
                 </div><div class="blockCornerRight"></div>
                 <div class="blockElementBody">
                     <% if ['Group', 'Page'].include?(@current_object.class.to_s) %>
@@ -65,7 +64,7 @@
                     <% end %>
                     <%= error_message_on :current_object, :items %>
                 </div>
-            <% end %>
-        </div>
+          </div>
+        <% end %>
     </div>
 <% end -%>

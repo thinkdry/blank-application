@@ -58,12 +58,12 @@ module ActsAsContainer
           
           after :create do
             UsersContainer.create(:user_id => @current_user.id, :containerable_id => @current_object.id, :containerable_type => @current_object.class.to_s, :role_id => Role.find_by_name('co_admin').id)
-            flash[:warning] =I18n.t('workspace.new.flash_notice')
+            flash[:notice] =I18n.t("#{@current_object.label_name}.new.flash_notice")
           end
           
           after :create_fails do
             @roles = Role.of_type('container')
-            flash.now[:error] =I18n.t('workspace.new.flash_error')
+            flash.now[:error] =I18n.t("#{@current_object.label_name}.new.flash_error")
           end
 
           before :update do
@@ -72,12 +72,12 @@ module ActsAsContainer
           end
           
           after :update do
-            flash[:notice] =I18n.t('workspace.edit.flash_notice')
+            flash[:notice] =I18n.t("#{@current_object.label_name}.edit.flash_notice")
           end
           
           after :update_fails do
             @roles = Role.of_type('container')
-            flash.now[:error] =I18n.t('workspace.edit.flash_error')
+            flash.now[:error] =I18n.t("#{@current_object.label_name}.edit.flash_error")
           end
 
           response_for :destroy do |format|
@@ -173,10 +173,10 @@ module ActsAsContainer
       def unsubscription
         @current_object = Workspace.find(params[:id])
         if UsersWorkspace.find(:first, :conditions => { :user_id => self.current_user.id, :workspace_id => params[:id] }).destroy
-          flash[:notice] = I18n.t('workspace.unsubscription.flash_notice')
+          flash[:notice] = I18n.t("#{@current_object.label_name}.unsubscription.flash_notice")
           redirect_to admin_workspace_path(params[:id])
         else
-          flash[:error] = I18n.t('workspace.unsubscription.flash_error')
+          flash[:error] = I18n.t("#{@current_object.label_name}.unsubscription.flash_error")
           redirect_to admin_workspace_path(params[:id])
         end
       end
@@ -188,10 +188,10 @@ module ActsAsContainer
       def subscription
         @current_object = Workspace.find(params[:id])
         if UsersWorkspace.create(:user_id => self.current_user.id, :workspace_id => params[:id], :role_id => Role.find_by_name('reader').id)
-          flash[:notice] = I18n.t('workspace.subscription.flash_notice')
+          flash[:notice] = I18n.t("#{@current_object.label_name}.subscription.flash_notice")
           redirect_to admin_workspace_path(params[:id])
         else
-          flash[:error] = I18n.t('workspace.subscription.flash_error')
+          flash[:error] = I18n.t("#{@current_object.label_name}.subscription.flash_error")
           redirect_to admin_workspace_path(params[:id])
         end
       end
@@ -203,10 +203,10 @@ module ActsAsContainer
       def question #:nodoc:
         @current_object = Workspace.find(params[:id])
         if UserMailer.deliver_ws_administrator_request(Workspace.find(params[:id]).creator, @current_user.id, params[:question][:type], params[:question][:msg])
-          flash[:notice] = I18n.t('workspace.question.flash_notice')
+          flash[:notice] = I18n.t("#{@current_object.label_name}.question.flash_notice")
           redirect_to admin_workspace_path(params[:id])
         else
-          flash[:error] = I18n.t('workspace.question.flash_error')
+          flash[:error] = I18n.t("#{@current_object.label_name}.question.flash_error")
           redirect_to admin_workspace_path(params[:id])
         end
       end

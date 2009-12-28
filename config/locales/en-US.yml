@@ -721,7 +721,9 @@ en-US:
       add_tag: Add a tag
     show: 
       get_in_another_format: Other format
-      associated_workspace: "Associated workspace:"
+      associated_workspace: "Associated workspaces"
+      associated_website: "Associated websites"
+      associated_folder: "Associated folders"
     index: 
       no_item: There is no item of this type.
     common_word: 

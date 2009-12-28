@@ -18,15 +18,28 @@ module ActsAsContainer
         # Relation N-1 getting the users linked to that workspace, through the 'users_workspaces' table
         has_many :users, :through => :users_containers
         # Relation N-1 with the 'items' table
-        has_many "items_#{self.name.underscore.pluralize}".to_sym, :dependent => :delete_all
+        has_many "items_#{self.class_name.underscore.pluralize}".to_sym, :dependent => :delete_all
         # Relation N-1 getting the different item types, through the 'items' table
         ITEMS.each do |item|
-          has_many item.pluralize.to_sym, :source => :itemable, :through => "items_#{self.name.underscore.pluralize}".to_sym, :source_type => item.classify.to_s, :class_name => item.classify.to_s
+          has_many item.pluralize.to_sym, :source => :itemable, :through => "items_#{self.class_name.underscore.pluralize}".to_sym, :source_type => item.classify.to_s, :class_name => item.classify.to_s
         end
         # Relation N-1 getting the FeedItem objects, through the 'feed_sources' table
         has_many :feed_items, :through => :feed_sources
         # Relation 1-N to the 'users' table
         belongs_to :creator, :class_name => 'User'
+        
+        #---------------------------------------------------------
+        # Paperclip
+        # Paperclip attachment definition
+	        has_attached_file :logo,
+            :default_url => "/images/missing.png",
+            :url =>  "/uploaded_files/:class/:id/:style/:basename.:extension",
+            :path => ":rails_root/public/uploaded_files/:class/:id/:style/:basename.:extension",
+		        :styles => { :medium => "450x100>", :thumb => "48x48>" }
+          # Validation of the type of a attached file
+          validates_attachment_content_type :logo, :content_type => ['image/jpeg','image/jpg', 'image/png', 'image/gif','image/bmp' ]
+	        # Validation of the size of a attached file
+          validates_attachment_size :logo, :less_than => 2.megabytes
 
         #---------------------------------------------------------
         # Validations
@@ -148,6 +161,10 @@ module ActsAsContainer
         users_containers.each do |uc|
           uc.save(false)
         end
+      end
+      
+      def label_name
+        self.class.to_s.underscore
       end
 
       private

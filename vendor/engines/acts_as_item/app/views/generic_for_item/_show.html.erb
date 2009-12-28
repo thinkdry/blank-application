@@ -43,12 +43,14 @@
             <%= item_rate_locked(object) %>
         </div>
     </div>
-    <div class="itemShowRightBlock">
-        <div class="blockCornerLeft"></div><div class="blockElementHeader twoH"><%= I18n.t("item.show.associated_workspace") %></div><div class="blockCornerRight"></div>
-        <div class="blockElementBody">
-            <% for ws in object.workspaces -%>
-                <%= link_to ws.title, admin_workspace_path(ws) %>
-            <% end -%>
-        </div>
-    </div>
+    <% CONTAINERS.each do |container| %>
+      <div class="itemShowRightBlock">
+            <div class="blockCornerLeft"></div><div class="blockElementHeader twoH"><%= I18n.t("item.show.associated_#{container}") %></div><div class="blockCornerRight"></div>
+            <div class="blockElementBody">
+                <% for cn in object.send(container.pluralize) -%>
+                    <%= link_to cn.title, container_path(cn) %>
+                <% end -%>
+            </div>
+      </div>
+    <% end -%>
 </div>

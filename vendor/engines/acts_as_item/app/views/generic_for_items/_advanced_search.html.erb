@@ -1,7 +1,7 @@
 <% if (category == 'item') %>
   <label><%=I18n.t('layout.search.item_category')%>:</label>
   <div class="formElement">
-    <% item_types_allowed_to(@current_user, 'show', current_workspace).each do |i| %>
+    <% item_types_allowed_to(@current_user, 'show', current_container).each do |i| %>
       <div class="checkbox_list_horizontal">
         <%= check_box_tag "m[]", i, @search.models.to_s.split(',').include?(i) ,:class => "checkboxes"%>
         <%= I18n.t('general.item.'+i.to_s) %>
@@ -10,7 +10,7 @@
   </div>
 <% end %>
 
-<% if item_types_allowed_to(@current_user, 'show', current_workspace).include?(category) %>
+<% if item_types_allowed_to(@current_user, 'show', current_container).include?(category) %>
   <% if File.exists?(RAILS_ROOT+"/app/views/#{category.pluralize}/_advanced_search.html.erb") %>
     <%= render :partial => category.pluralize+'/advanced_search' %>
   <% end %>

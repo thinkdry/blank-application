@@ -43,18 +43,6 @@ class Workspace < ActiveRecord::Base
     :conditionnal_attribute => []
 
 
-  # Paperclip attachment definition
-	has_attached_file :logo,
-    :default_url => "/images/logo.png",
-    :url =>  "/uploaded_files/workspace/:id/:style/:basename.:extension",
-    :path => ":rails_root/public/uploaded_files/workspace/:id/:style/:basename.:extension",
-		:styles => { :medium => "450x100>", :thumb => "48x48>" }
-  # Validation of the type of a attached file
-  validates_attachment_content_type :logo, :content_type => ['image/jpeg','image/jpg', 'image/png', 'image/gif','image/bmp' ]
-	# Validation of the size of a attached file
-  validates_attachment_size :logo, :less_than => 2.megabytes
-
-
   # will save contacts in contacts_workpsaces table and contact_ids = "Person_1,Person_2"
   def selected_contacts= contact_ids
     tmp = contact_ids.split(',') || []

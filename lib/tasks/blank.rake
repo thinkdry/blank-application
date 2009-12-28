@@ -36,8 +36,7 @@ namespace :blank do
 	desc "Building Xapian indexes"
 	task :xapian_rebuild => :environment do
 		p "Building Xapian indexes"
-		system("rake xapian:rebuild_index models='#{ITEMS.map{ |e| e.camelize }.join(' ')} User Workspace' RAILS_ENV=#{RAILS_ENV}")
-		#Rake::Task['xapian:rebuild_index'].invoke("models=\"#{ITEMS.map{ |e| e.camelize }.join(' ')} User Workspace\"")
+		system("rake xapian:rebuild_index models='#{ITEMS.map{ |e| e.camelize }.join(' ')} User #{CONTAINERS.map{ |e| e.camelize }}' RAILS_ENV=#{RAILS_ENV}")
 		p "Done"
 	end
 
@@ -88,10 +87,10 @@ namespace :blank do
     Role.create(:name =>'superadmin', :description => 'SuperAdministration', :type_role =>'system')
     Role.create(:name =>'admin', :description => 'Administration', :type_role =>'system')
     Role.create(:name =>'user', :description => 'User', :type_role =>'system')
-    Role.create(:name =>'co_admin', :description => 'Workspace Administrator', :type_role =>'container')
-    Role.create(:name =>'moderator', :description => 'Moderator of Workspace', :type_role =>'container')
-    Role.create(:name =>'writer', :description => 'Writer on Workspace', :type_role =>'container')
-    Role.create(:name =>'reader', :description => 'Reader on Workspace', :type_role =>'container')
+    Role.create(:name =>'co_admin', :description => 'Container Administrator', :type_role =>'container')
+    Role.create(:name =>'moderator', :description => 'Container Moderator', :type_role =>'container')
+    Role.create(:name =>'writer', :description => 'Container Writer', :type_role =>'container')
+    Role.create(:name =>'reader', :description => 'Container Reader', :type_role =>'container')
     p "Done"
     p "Assigning Permissions to Roles ..."
 
@@ -113,9 +112,9 @@ namespace :blank do
       # Permissions for USER ROLES
       @role_user.permissions << Permission.find_by_name("#{container}_new")
       # Permissions for CONTAINERS ROLES
-      Permission.find(:all, :conditions => 'name LIKE "#{container}%" AND type_permission="container"').each do |p|
+      Permission.find(:all, :conditions => "name LIKE '#{container}%' AND type_permission='container'").each do |p|
         @role_ws.permissions << p
-        @role_mod.permissions << p if p.name!="#{container}_destroy"
+        @role_mod.permissions << p if p.name != "#{container}_destroy"
       end
       @role_red.permissions << Permission.find(:all, :conditions =>{:name => "#{container}_show"})
       @role_wri.permissions << Permission.find(:all, :conditions =>{:name => "#{container}_show"})
@@ -156,9 +155,9 @@ namespace :blank do
       ['new','edit', 'show', 'destroy'].each do |action|
         if controller=="users"
           if action == "show" || action == "index"
-            Permission.create(:name=>controller.singularize + '_' + action,  :type_permission =>'container')
+            Permission.create(:name => controller.singularize + '_' + action,  :type_permission =>'container')
           else
-            Permission.create(:name=>controller.singularize + '_' + action,  :type_permission =>'system')
+            Permission.create(:name => controller.singularize + '_' + action,  :type_permission =>'system')
           end
         elsif CONTAINERS.include?(controller)
           if action == "new" || action == "index"

@@ -280,6 +280,12 @@ class User < ActiveRecord::Base
   def private_workspace
     self.workspaces.find(:first, :conditions => {:state => 'private'})
   end
+  
+  def containers  
+    result = []
+    CONTAINERS.each{|c| result += self.send(c.pluralize)}
+    return result
+  end
 
   protected
   # before filter

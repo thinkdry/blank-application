@@ -46,10 +46,10 @@ class Admin::ContentController < Admin::ApplicationController
 	# - GET /ajax_content?item_type=article
   #
   def ajax_index
-		params[:item_type] ||= get_allowed_item_types(current_workspace).first.pluralize
+		params[:item_type] ||= get_allowed_item_types(current_container).first.pluralize
 		if current_container
       params[:container] = [current_container.id]
-      params[:container_type] = current_container.class.to_s.underscore
+      params[:container_type] = current_container.label_name
     else
       params[:container] = nil
       params[:container_type] = 'workspace'
