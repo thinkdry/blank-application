@@ -89,6 +89,7 @@
                         <%= I18n.t('workspace.edit.available_items') %>
                     </div><div class="blockCornerRight"></div>
                     <div class="blockElementBody">
+                        <%= error_message_on @current_object, :available_items %>
                         <%= checkboxes_from_list(@configuration["sa_items"], "available_items", @current_object, @current_object.class.to_s.underscore) %>
                     </div>
                 </div>

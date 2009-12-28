@@ -44,6 +44,7 @@ module ActsAsContainer
         # Validations
         # Validation of the prsence of these fields
         validates_presence_of :title, :description
+        validates_presence_of :available_items, :message => 'Select at least 1 item type'
         # Validate Association with users containers
         validates_associated :users_containers
 

@@ -62,7 +62,7 @@
                     <% else %>
                         <%= item_containers_checkboxes(f, @current_object, container) %>
                     <% end %>
-                    <%= error_message_on :current_object, :items %>
+                    <%#= error_message_on :current_object, "items_#{container.pluralize}".to_sym %>
                 </div>
           </div>
         <% end %>
