@@ -8,7 +8,7 @@
 	<div class="contentList superadmin">
 		<%= link_to_remote  'Add a new translation', 
 							:update => 'languageConfiguration', 
-							:url => language_switching_superadmin_translations_path(:locale_to_conf => 'translation_addition'), 
+							:url => context_switching_superadmin_translations_path(:locale_to_conf => 'translation_addition'), 
 							:method => :get %>
   		<h3>Select one country to configure the differents fields and text:</h3>
   		<ul>
@@ -16,7 +16,7 @@
     		<li>
 				<%= link_to_remote  l.split('-').first, 
 								   	:update => 'languageConfiguration', 
-									:url => language_switching_superadmin_translations_path(:locale_to_conf => l.to_s),
+									:url => context_switching_superadmin_translations_path(:locale_to_conf => l.to_s),
 								 	:method => :get %>
 			</li>
   		<% end -%>

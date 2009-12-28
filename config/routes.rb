@@ -45,7 +45,7 @@ ActionController::Routing::Routes.draw do |map|
 		sa.resources :general_settings, :only => [:index], :collection => { :updating => :put }
 		sa.resources :user_interfaces, :only => [:index], :collection => { :updating => :put, :check_color => :get, :colors_changing => :get }
 		sa.resources :tasks, :only => [:index], :collection => { :run_task => :get }
-		sa.resources :translations, :only => [:index], :collection => { :updating => :put, :language_switching => :get, :translation_new => :any }
+		sa.resources :translations, :only => [:index], :collection => { :updating => :put, :context_switching => :get, :translation_new => :any }
     sa.resources :mailer_settings, :only => [:index], :collection => { :updating => :put }
     # Routes for Roles and Permissions in BA
     sa.resources :roles, :collection => {:validate => :post}
