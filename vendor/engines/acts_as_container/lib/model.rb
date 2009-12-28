@@ -29,7 +29,6 @@ module ActsAsContainer
         belongs_to :creator, :class_name => 'User'
         
         #---------------------------------------------------------
-        # Paperclip
         # Paperclip attachment definition
 	        has_attached_file :logo,
             :default_url => "/images/missing.png",
