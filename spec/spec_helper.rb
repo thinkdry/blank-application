@@ -6,7 +6,7 @@ require 'spec'
 require 'spec/rails'
 
 # Setting Default locale for testing
-I18n.locale = 'fr-FR'
+I18n.locale = 'en-US'
 
 Spec::Runner.configure do |config|
   # If you're not using ActiveRecord you should remove these

@@ -23,25 +23,22 @@
 
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require File.expand_path(File.dirname(__FILE__) + '/items_spec_helper')
 
 describe Group do
+  include ItemsSpecHelper
   fixtures :people
   
-  def group
+  def item
     Group.new
   end
-
-
+  
   def group_attributes
-    {
-      :title => 'mygroup',
-      :description => 'my friends group',
-      :user_id => 1,
-    }
+    item_attributes
   end
-
+  
   before(:each) do
-    @group = group
+    @group = item
   end
 
   it "should be valid" do
@@ -87,13 +84,13 @@ describe Group do
       }
     end
 
-    it "has should belong to a workspace" do
-      Group.reflect_on_association(:workspace).to_hash.should == {
-        :class_name=>"Workspace",
-        :options=>{},
-        :macro=>:belongs_to
-      }
-    end
+#    it "has should belong to a workspace" do
+#      Group.reflect_on_association(:workspace).to_hash.should == {
+#        :class_name=>"Workspace",
+#        :options=>{},
+#        :macro=>:belongs_to
+#      }
+#    end
 
   end
 
