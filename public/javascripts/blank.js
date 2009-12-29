@@ -227,17 +227,6 @@ function classify_bar(url) {
     });
 }
 
-function translation_selection(array){
-    for(i=0;i < array.length; i++){
-        $("#"+array[i]).css('display','none');
-        if(array[i] == 'select')
-            return;
-        else
-            $("#"+array[i]).css('display','block');
-    }
-}    
-
-
 //display the good tiem in a item list, google way of displaying.
 function toggleAccordion(idClicked){
     var items_length = document.getElementById("total_items").value;

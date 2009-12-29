@@ -356,7 +356,7 @@ form input{
 	width:450px;
 }
 
-.formElement{
+.formElement .formElementTranslation{
 	float:left;
 	overflow:hidden;
 	display:block;
@@ -472,7 +472,7 @@ form input{
 
 .superadmin .formElement{width:500px;}
 .superadmin ul{margin-left:50px;}
-.superadmin label{width:220px;}
+.superadmin label{width:150px;}
 .checkboxListHorizontal{ float:left; margin-right:15px;}
 
 #keyword_value, #website_url_name_value, #new_follower_email {
