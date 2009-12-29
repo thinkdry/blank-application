@@ -18,7 +18,8 @@ load 'searchable.rb'
 ActiveRecord::Base.send                   :include, Searchable::ModelMethods
 #ActionController::Base.send               :include, Authorizable::ControllerMethods
 
-
+# Defining the project name
+PROJECT_NAME = 'blank'
 # Defining the global variable
 ITEMS = ['article', 'image', 'cms_file', 'video', 'audio', 'feed_source', 'bookmark','newsletter', 'group']
 # Variable defining the languages available for the application

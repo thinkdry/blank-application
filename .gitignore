@@ -26,3 +26,4 @@ public/javascripts/cache/
 public/stylesheets/cache/
 vendor/gems/**/ext/**/*
 vendor/**/.git/**/*
+.gitmodules
