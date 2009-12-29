@@ -48,18 +48,7 @@ if !get_sa_config['sa_default_language'].to_s.blank?
 else
   I18n.default_locale = "en-US"
 end
-#I18n.locale = 'fr-FR'
-#I18n.default_locale = 'fr-FR'
-#%w{yml rb}.each do |type|
-#  I18n.load_path += Dir.glob("#{RAILS_ROOT}/app/locales/*.#{type}")
-#end
 LOCALES_DIRECTORY = "#{RAILS_ROOT}/config/locales"
-#LOCALES_AVAILABLE = Dir["#{LOCALES_DIRECTORY}/*.{rb,yml}"].collect do |locale_file|
-#  File.basename(File.basename(locale_file, ".rb"), ".yml")
-#end.uniq.sort
-#LANGUAGES.each do |l|
-#	I18n.load_path << "#{LOCALES_DIRECTORY}/#{l}.yml"
-#end
 I18n.load_path += Dir[File.join(RAILS_ROOT, 'config', 'locales', '*.yml')]
 # Variable used by ExceptionNotifier plugin
 if get_sa_config['sa_exception_notifier_activated'] == 'true'

@@ -1,0 +1,3 @@
+[submodule "vendor/engines/blankapplication-translator"]
+	path = vendor/engines/blankapplication-translator
+	url = git@forge.thinkdry.com:/home/git/blankapplication-translator.git
