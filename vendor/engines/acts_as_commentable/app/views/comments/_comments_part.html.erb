@@ -7,13 +7,13 @@
 	</div><div class="blockCornerRight"></div>
 	<div class="blockElementBody">
 		<div id="comments_list">
-		<% @i = 1%>
-		<% if object.comments.length > 0 %>
-			<%= render :partial => "comments/comment_in_list", :collection => object.comments, :locals => { }%>
-		<% end-%>
+		  <% @i = 1%>
+		  <% if object.comments.length > 0 %>
+			  <%= render :partial => "comments/comment_in_list", :collection => object.comments, :locals => { }%>
+		  <% end-%>
 		</div>		
 		
-		<% if permission || @current_object.has_permission_for?('comment', @current_user, current_container_type) %>
+		<% if permission || object.has_permission_for?('comment', @current_user, current_container_type) %>
 		<div id="newCommentForm">
 			<h1>New Comment</h1> 
 	        <% remote_form_for :comments, :url => add_comment_item_path(object),  :html => {:class => "newComment"} do |f|  %>
