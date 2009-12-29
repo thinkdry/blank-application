@@ -24,7 +24,7 @@
     <div class="itemShowRightBlock">
 		<div class="blockCornerLeft"></div><div class="blockElementHeader twoH">Actions</div><div class="blockCornerRight"></div>
         <div class="blockElementBody">
-			<% if @current_object.has_permission_for?('edit', @current_user) -%>	
+			<% if @current_object.has_permission_for?('edit', @current_user, 'workspace') -%>	
 				<%= link_to "EDIT", edit_admin_user_path %>
 			<% end-%>		
 			<%= link_to I18n.t('general.object.comment').pluralize.capitalize, admin_comments_path %>

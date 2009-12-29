@@ -120,16 +120,13 @@ class CommentsController < Admin::ApplicationController
 	
 	# Action allowing to reply on a posted comment. Comment can be not validated.
   def add_reply
-    
     @parent_item = params[:item_type].classify.constantize.find(params[:id])
-    
     @reply = Comment.create(params[:comment].merge(:user => @current_user, 
                                                    :state => DEFAULT_COMMENT_STATE, 
                                                    :commentable_id => @parent_item.id,
                                                    :commentable_type => @parent_item.class.to_s))
       
     @reply.save
-
     if @reply.state == 'validated'
       @error = ""
       #@reply_jquery_id_div = "#reply_for_comment_#{@reply.parent_id}"
