@@ -18,30 +18,28 @@
     <div class="itemShowRightBlock">
         <div class="blockCornerLeft"></div><div class="blockElementHeader twoH">What can I do?</div><div class="blockCornerRight"></div>
         <div class="blockElementBody">
-            <%= link_to "Go back to Workspace", (current_workspace ? admin_workspace_path(current_workspace.id) + '?item_type=' : 'admin/content/') + object.class.to_s.underscore.pluralize %>
-			<!-- TODO TRANSLATE -->
-
-            <% if object.has_permission_for?('add', @current_user) %>
-				<%= link_to I18n.t('general.button.add') + " " + object.class.to_s.downcase, new_item_path(object.class.to_s)%>
+            <%= link_to "Go back to Workspace", (current_container ? container_path(current_container) + '?item_type=' : 'admin/content/') + object.class.to_s.underscore.pluralize %>
+            <% if object.has_permission_for?('add', @current_user, current_container_type) %>
+                <a href="<%=new_item_path(object.class.to_s)%>"><%= I18n.t('layout.application.add_content')%></a>
             <% end %>
-            <% if @current_object.has_permission_for?('edit', @current_user)  %>
+            <% if @current_object.has_permission_for?('edit', @current_user, current_container_type)  %>
                 <%= link_to I18n.t('general.link.edit'), edit_item_path(object)%>
             <% end %>
-            <% if @current_object.has_permission_for?('destroy', @current_user) %>
-				<%= link_to I18n.t('general.link.delete'), "javascript:;",
-							:class => "deleteLink", 
-							:modal_id => "#modalDelete_#{object.id.to_s}"
-				 %>
-				<div style="display:none">
-					<div id="modalDelete_<%=object.id.to_s%>" class="modalDelete">
-						<p><%= I18n.t('item.destroy.delete_conform')%></p>
-						<%= link_to I18n.t('general.common_word.yes1'), item_path(object), :method => :delete%> | 
-						<%= link_to I18n.t('general.common_word.no1'), "javascript:;", :class => "deleteClose" %>
-					</div>
-				</div>
+            <% if @current_object.has_permission_for?('destroy', @current_user, current_container_type) %>
+				        <%= link_to I18n.t('general.link.delete'), "javascript:;",
+							      :class => "deleteLink", 
+							      :modal_id => "#modalDelete_#{object.id.to_s}"
+				        %>
+				        <div style="display:none">
+					        <div id="modalDelete_<%=object.id.to_s%>" class="modalDelete">
+						        <p><%= I18n.t('item.destroy.delete_conform')%></p>
+						        <%= link_to I18n.t('general.common_word.yes1'), item_path(object), :method => :delete%> | 
+						        <%= link_to I18n.t('general.common_word.no1'), "javascript:;", :class => "deleteClose" %>
+					        </div>
+				        </div>
             <% end %>
             <%= link_to "print", 'javascript:window.print();' %>
-            <% if @current_object.has_permission_for?('rate', @current_user) %>
+            <% if @current_object.has_permission_for?('rate', @current_user, current_container_type) %>
                 <%= link_to "rate", '#', :id => :rate_action %><%# = item_rate(@current_object) %>
             <% end %>
         </div>
@@ -54,12 +52,14 @@
             <%= item_rate_locked(object) %>
         </div>
     </div>
-    <div class="itemShowRightBlock">
-        <div class="blockCornerLeft"></div><div class="blockElementHeader twoH"><%= I18n.t("item.show.associated_workspace") %></div><div class="blockCornerRight"></div>
-        <div class="blockElementBody">
-            <% for ws in object.workspaces -%>
-                <%= link_to ws.title, admin_workspace_path(ws) %>
-            <% end -%>
-        </div>
-    </div>
+    <% CONTAINERS.each do |container| %>
+      <div class="itemShowRightBlock">
+            <div class="blockCornerLeft"></div><div class="blockElementHeader twoH"><%= I18n.t("item.show.associated_#{container}") %></div><div class="blockCornerRight"></div>
+            <div class="blockElementBody">
+                <% for cn in object.send(container.pluralize) -%>
+                    <%= link_to cn.title, container_path(cn) %>
+                <% end -%>
+            </div>
+      </div>
+    <% end -%>
 </div>

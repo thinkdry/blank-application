@@ -24,7 +24,7 @@ class Admin::ApplicationController < ActionController::Base
 	# User to define controller methods as helpers methods too (and so be able to use it inside helpers or views)
 	helper_method :available_items_list, :available_languages, :get_sa_config, :right_conf,
 		:is_allowed_free_user_creation?, :get_allowed_item_types, :item_types_allowed_to, :get_per_page_value,
-		:admin?, :groups_of_workspaces_of_item, :get_fcke_item_types, :setting_searching_params, :get_objects_list_with_search
+		:admin?, :groups_of_workspaces_of_item, :get_fcke_item_types, :setting_searching_params, :get_objects_list_with_search, :current_container_type
 	# Filter checking authentication with 'is_logged' method
   before_filter :is_logged?
 	# Filter defining the current locale with the 'set_locale' method
@@ -60,7 +60,7 @@ class Admin::ApplicationController < ActionController::Base
   # - workspace : Workspace instance (default: nil)
 	def get_allowed_item_types(workspace=nil)
 		if workspace
-			return (workspace.ws_items.to_s.split(',') & @configuration['sa_items'])
+			return (workspace.available_items.to_s.split(',') & @configuration['sa_items'])
 		else
 			return @configuration['sa_items'] 
 		end
@@ -77,11 +77,11 @@ class Admin::ApplicationController < ActionController::Base
   # - user : User instance
   # - action : 'show', 'new', 'edit', 'destroy'
   # - current_workspace : Workspace instance (default: nil)
-	def item_types_allowed_to(user, action, current_workspace = nil)
-		if current_workspace
-			(current_workspace.ws_items.to_s.split(',') & @configuration['sa_items']).delete_if{ |e| !user.has_workspace_permission(current_workspace.id, e, action) }
+	def item_types_allowed_to(user, action, current_container=nil)
+		if current_container
+			(current_container.available_items.to_s.split(',') & @configuration['sa_items']).delete_if{ |e| !user.has_container_permission(current_container.id, e, action, current_container.class.to_s) }
 		else
-			available_items_list.delete_if{ |e| Workspace.allowed_user_with_permission(user, e+'_'+action).size == 0 }
+			available_items_list.delete_if{ |e| Workspace.allowed_user_with_permission(user, e+'_'+action,'workspace').size == 0 }
 		end
 	end
 
@@ -113,8 +113,8 @@ class Admin::ApplicationController < ActionController::Base
 	# - message : String defining the message to send, default: nil
 	def no_permission_redirection(message=nil)
 		flash[:error] = message || I18n.t('general.common_message.permission_denied')
-		if current_workspace && current_workspace.has_permission_for?('show', current_user)
-			redirect_to admin_workspace_url(current_workspace.id)
+		if current_container && current_container.has_permission_for?('show', current_user, current_container_type)
+			redirect_to container_path(current_container)
 		else
 			redirect_to admin_root_url
 		end
@@ -133,8 +133,9 @@ class Admin::ApplicationController < ActionController::Base
 			:user => @current_user,
 			:permission => 'show',
 			:category => options[:cat],
-			:models => options[:m] || (options[:cat] ? ((options[:cat] == 'item') ? @configuration['sa_items'] : [options[:cat]]) : nil),
-			:workspace_ids => options[:w],
+			:models => options[:m] || (options[:cat] ? ((options[:cat] == 'item') ? @configuration['sa_items'] : [options[:cat]]) : @configuration['sa_items']),
+			:container_ids => options[:container],
+			:container_type => options[:container_type],
 			:full_text => (options[:q] && !options[:q].blank? && options[:q] != I18n.t('layout.search.search_label')) ? options[:q] : nil,
 			:conditions => options[:cond],
 			:filter => { :field => options[:by] ? options[:by].split('-').first : 'created_at', :way => options[:by] ? options[:by].split('-').last : 'desc' },
@@ -166,6 +167,14 @@ class Admin::ApplicationController < ActionController::Base
 		session[:locale] = params[:locale] if params[:locale]
 		session[:locale] ||= ((current_user && !current_user.u_language.to_s.blank?) ? current_user.u_language : I18n.default_locale) || nil
 		I18n.locale = session[:locale]
+	end
+	
+	def current_container_type
+	  if current_container
+	    current_container.class.to_s.underscore
+	  else
+	    'workspace' 
+	  end
 	end
 
 	# Image uploading with RMagick

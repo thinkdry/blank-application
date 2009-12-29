@@ -1,38 +1,37 @@
+<% if @paginated_objects.first &&  @ordering_filters -%>
+    <div class="filterDrop">
+        <a class="filter">Filter</a>
+        <ul class="ddown" style='display:none;'>
+            <% params[:by] ||= 'created_at-desc' %>
+            <%  @ordering_filters.each do |filter| -%>
+                <% if params[:by].split('-').first == filter -%>
+                    <% if (params[:by].split('-').last == 'asc') -%>
+                        <% url = safe_url(@ajax_url, ["by=#{filter}-desc"]) %>
+                        <li class="currentUp">
+                            <%= link_to_function I18n.t('layout.search.filter_'+filter), :onclick => "classify_bar('#{url}')"%>
+                        <%else -%>
+                            <%  url = safe_url(@ajax_url, ["by=#{filter}-asc"]) %>
+                        <li class="currentDown"><%= link_to_function I18n.t('layout.search.filter_'+filter), :onclick => "classify_bar('#{url}')" %>
+                        <% end -%>
+                    <% else -%>
+                        <% url = safe_url(@ajax_url, ["by=#{filter}-desc"]) %>
+                    <li><%= link_to_function I18n.t('layout.search.filter_'+filter), :onclick => "classify_bar('#{url}')" %>
+                    <%end -%>
+                </li>
+            <% end -%>
+        </ul>
+    </div>
+<% end -%>
 
-	<% if @paginated_objects.first &&  @ordering_filters -%>
-	<div class="filterDrop">
-		<a class="filter">Filter</a>
-		<ul class="ddown" style='display:none;'>
-			<% params[:by] ||= 'created_at-desc' %>
-			<%  @ordering_filters.each do |filter| -%>
-				<% if params[:by].split('-').first == filter -%>
-					<% if (params[:by].split('-').last == 'asc') -%>
-						<% url = safe_url(@ajax_url, ["by=#{filter}-desc"]) %>
-						<li class="currentUp">
-							<%= link_to_function I18n.t('layout.search.filter_'+filter), :onclick => "classify_bar('#{url}')"%>
-					<%else -%>
-						<%  url = safe_url(@ajax_url, ["by=#{filter}-asc"]) %>
-						<li class="currentDown"><%= link_to_function I18n.t('layout.search.filter_'+filter), :onclick => "classify_bar('#{url}')" %>					
-					<% end -%>
-				<% else -%>
-					<% url = safe_url(@ajax_url, ["by=#{filter}-desc"]) %>
-					<li><%= link_to_function I18n.t('layout.search.filter_'+filter), :onclick => "classify_bar('#{url}')" %>
-				<%end -%>
-				</li>
-			<% end -%>
-		</ul>
-	</div>
-	<% end -%>
-	
-	<div class="filterDrop">
-		<a class="filter"><%= I18n.t('layout.application.add_content')%></a>
-		<ul class="ddown" style='display:none;'>	
-		<% item_types_allowed_to(@current_user, 'new', current_workspace).each do |item| -%>	
-			<li>
-				<a href="<%= new_item_path(item.downcase.singularize)%>">
-					<%= item.capitalize%>
-				</a>
-			</li>
-		<% end -%>
-		</ul>
-	</div>
+<div class="filterDrop">
+    <a class="filter"><%= I18n.t('layout.application.add_content')%></a>
+    <ul class="ddown" style='display:none;'>
+        <% item_types_allowed_to(@current_user, 'new', current_container).each do |item| -%>
+            <li>
+                <a href="<%= new_item_path(item.downcase.singularize)%>">
+                    <%= item.capitalize%>
+                </a>
+            </li>
+        <% end -%>
+    </ul>
+</div>

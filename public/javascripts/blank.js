@@ -1,13 +1,15 @@
 //this line is for recognison of ajax method. cf rails cast 136!
 jQuery.ajaxSetup({ 
-  'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
+    'beforeSend': function(xhr) {
+        xhr.setRequestHeader("Accept", "text/javascript")
+        }
 })
 
 $(document).ready(function () {	
 	
     wasVisible = new Boolean(false);
 	
-	//General menu, script for uniqueness of visible element.
+    //General menu, script for uniqueness of visible element.
     $('a.menuDropButton').click(function(){
         wasVisible = false;
 		
@@ -25,7 +27,7 @@ $(document).ready(function () {
         }
     });
 	
-	//Effect on tabs on mouse over.
+    //Effect on tabs on mouse over.
     $('.munuElement').hover(
         function () {
             $(this).stop().animate({
@@ -39,9 +41,9 @@ $(document).ready(function () {
         }
         );
 	
-	//Filter drop down in item list.
+    //Filter drop down in item list.
     $('.filter').live("click", function(){
-		var self = $(this);
+        var self = $(this);
         self.next('ul.ddown').slideToggle('fast');
     });
 	
@@ -53,7 +55,7 @@ $(document).ready(function () {
 		$(".commentfooterReply").colorbox({width:"660px", inline:true, href:"#commentReply"});
 	});
 
-	//RATING SYSTEM
+    //RATING SYSTEM
     $('.auto-submit-star').rating({
         callback: function(value, link){
             var url = $("#submit_rating").attr("action");
@@ -86,7 +88,11 @@ $(document).ready(function () {
 		$(this).displayHintForField();
 	});
 	
-	$('#container').find('#notice').animate({opacity: 1}, 3000, function(){$(this).fadeOut('fast')});
+  $('#container').find('#notice').animate({
+        opacity: 1
+  }, 3000, function(){
+     $(this).fadeOut('fast')
+     });
 	
 	$('#error_closing').live('click', function(){
 		$('#error').fadeOut('fast');
@@ -174,10 +180,10 @@ function classify_bar(url) {
     $.ajax({
         type: 'GET',
         url: url,
-		dataType: "script",
-		success:function(html){
+        dataType: "script",
+        success:function(html){
 			
-		}
+        }
     });
 }
 
@@ -213,13 +219,8 @@ function toggleAccordion(idClicked){
 }
 
 function add_new_user(url){
-    //    alert('hello');
-    //    alert(url);
     var user_login = $('#user_login').val();
     var role_id = $('#user_role').val();
-    //alert($("#workspace_user_" + user_login)[0]);
-    //alert(role_id);
-    //alert(user_login);
     if(user_login != 0){
         if($("#workspace_user_" + user_login)[0] == null){
             $.ajax({
@@ -333,21 +334,21 @@ function shiftLeft(removeOptions,addOptions,saveFlag)
 }
 
 function add_new_follower(){
-	//getting the mail value
+    //getting the mail value
     var email = $('#new_follower_email').val();
-	//cleaning for jQuery to understand the div ID.
-	var emailDivId = email.replace("@", "_");
-	var emailDivId = emailDivId.replace(".", "_");
+    //cleaning for jQuery to understand the div ID.
+    var emailDivId = email.replace("@", "_");
+    var emailDivId = emailDivId.replace(".", "_");
 	
     if(email != 0){
-		//creating a new div with ID, for deletion possible.
+        //creating a new div with ID, for deletion possible.
         var new_email = "<div id='" + emailDivId + "'>";
-		new_email += email + " | <a onclick=\"$('#" + emailDivId + "').remove()\">DELETE</a>";
+        new_email += email + " | <a onclick=\"$('#" + emailDivId + "').remove()\">DELETE</a>";
         new_email += "<input type='hidden' name='configuration[sa_exception_followers_email][]' value='"+email+"'></div>";
 
-		//adding the mail to the follower list.
+        //adding the mail to the follower list.
         $('#followers_email').append(new_email);
-		//reseting form.
+        //reseting form.
         $('#new_follower_email').value = '';
     }
 }

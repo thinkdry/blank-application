@@ -56,9 +56,11 @@ class User < ActiveRecord::Base
 	# Library provinding access to the Blank application configuration
 	include Configuration
 	# Relation N-1 with the 'users_workspaces' table
-  has_many :users_workspaces, :dependent => :delete_all
+  has_many :users_containers, :dependent => :delete_all
 	# Relation N-1 getting Workspace objects through the 'users_workspaces' table
-  has_many :workspaces, :through => :users_workspaces
+  CONTAINERS.each do |container|
+    has_many container.pluralize.to_sym, :source => :containerable, :through => :users_containers, :source_type => container.classify.to_s, :class_name => container.classify.to_s
+  end
 	# Relation N-1 with the 'rattings' table
   has_many :ratings
 	# Relation N-1 with the 'comments' table
@@ -177,15 +179,13 @@ class User < ActiveRecord::Base
   # Create Private worksapce for User on creation called 'Private space of user_login'
 	def create_private_workspace
 		# Creation of the private workspace for the user
-		ws = Workspace.create(:title => "Private for #{self.login}",
+		ws = Workspace.create(:title => "Archive for #{self.login}",
       :description => "Worksapce containing all the content created by #{self.full_name}",
       :creator_id => self.id,
-      :ws_items => get_configuration['sa_items'],
+      :available_items => get_configuration['sa_items'],
       :state => 'private')
 		# To assign the 'ws_admin' role to the user in his privte workspace
-		UsersWorkspace.create(:user_id => self.id,
-      :workspace_id => ws.id,
-      :role_id => Role.find_by_name('ws_admin').id)
+		ws.users_containers.create(:user_id => self.id, :role_id => Role.find_by_name('co_admin').id)
 	end
 
 	# Activate the user in the database.
@@ -283,6 +283,16 @@ class User < ActiveRecord::Base
         return ws
       end
     end
+  end
+    
+  def private_workspace
+    self.workspaces.find(:first, :conditions => {:state => 'private'})
+  end
+  
+  def containers  
+    result = []
+    CONTAINERS.each{|c| result += self.send(c.pluralize)}
+    return result
   end
 
   protected

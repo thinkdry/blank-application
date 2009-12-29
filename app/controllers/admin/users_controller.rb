@@ -156,6 +156,7 @@ class Admin::UsersController < Admin::ApplicationController
 
   # Users Index Object for All Users
 	def current_objects #:nodoc:
+	  params[:container_type] = 'workspace'
     params_hash = setting_searching_params(:from_params => params)
     params_hash.merge!({:skip_pag => true}) if params[:format] && params[:format] != 'html'
 		@current_objects ||= @paginated_objects = User.get_da_objects_list(params_hash)

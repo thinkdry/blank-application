@@ -1,5 +1,4 @@
 <% form_for ['admin',@current_object],:builder => BlankFormBuilder, :html => {:multipart=> true } do |f| -%>
-
 	<div class="itemShowLeft">
 		<div class="itemShowLeftDate">
 			<%= I18n.l Time.now, :format =>:verb %>

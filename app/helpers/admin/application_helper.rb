@@ -33,7 +33,7 @@ module Admin::ApplicationHelper
 		end
 		return res
 	end
-
+	
   # Checkboxes from list
   #
 	# This method is used to generate checkboxes from a list of strings.

@@ -1,4 +1,4 @@
-<%h content_for :title, "#{@current_object.class.to_s}: "+current_object.full_name %>
+<%h content_for :title, "#{@current_object.class.to_s}: " + current_object.full_name %>
 <div class="itemShowLeft">
     <div class="itemShowLeftDate">
         <%= I18n.l current_object.created_at, :format =>:verb %>
@@ -36,7 +36,7 @@
         	Role - <%= I18n.t('general.role.'+@current_object.system_role.name) %>
         </div><div class="blockCornerRight"></div>
         <div class="blockElementBody">
-           	<%= render :partial => 'workspaces', :object => @current_object %>
+           	<%= render :partial => 'containers', :object => @current_object %>
         </div>
     </div>
 </div>

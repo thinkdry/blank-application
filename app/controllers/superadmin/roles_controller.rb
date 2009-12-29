@@ -14,8 +14,8 @@ class Superadmin::RolesController < Admin::ApplicationController
   # - GET /roles
   # - GET /roles.xml
   def index
-    @system_roles = Role.of_type('system')
-		@workspace_roles = Role.of_type('workspace')
+    @system_roles = Role.of_type('system').delete_if{|a| a.name == 'superadmin'}
+		@workspace_roles = Role.of_type('container')
 		respond_to do |format|
 			format.html # index.html.erb
 			format.xml  { render :xml => @roles }

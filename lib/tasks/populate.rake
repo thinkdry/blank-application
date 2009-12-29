@@ -50,7 +50,7 @@ namespace :db do
     Workspace.populate count do |ws|
       ws.title = Populator.words(1..3).titleize
       ws.description = Populator.sentences(1..3).titleize
-      ws.ws_items = ITEMS.join(',')
+      ws.available_items = ITEMS.join(',')
       ids = []
       User.find(:all,:select => :id).each{|u| ids.push(u.id) }
       ws.creator_id = ids.rand

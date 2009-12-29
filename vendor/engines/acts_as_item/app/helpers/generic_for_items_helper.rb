@@ -15,7 +15,7 @@ module GenericForItemsHelper
       feed_items = FeedItem.consultable_by(current_user.id).latest.to_a
     end
 		locals = {:most_commented => most_commented, :best_rated => best_rated, :feed_items => feed_items, :latest => latest}
-    return render :partial => "generic_for_items/"+partial_name, :locals => locals
+    return render :partial => "generic_for_items/" + partial_name, :locals => locals
   end
 
 end
