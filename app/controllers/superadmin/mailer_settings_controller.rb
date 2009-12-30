@@ -37,7 +37,7 @@ class Superadmin::MailerSettingsController < Admin::ApplicationController
       :authentication => @mailer_config['sa_mailer_authentication'].to_sym
     }
 		flash[:notice] = "Action Mailer Settings Updated"
-    redirect_to editing_superadmin_action_mailer_settings_path
+    redirect_to superadmin_mailer_settings_path
   end
 
 
