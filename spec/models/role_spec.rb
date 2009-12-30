@@ -25,14 +25,14 @@ describe Role do
   end
 
   it "should require name, type_role" do
-    @role.attributes = role_attributes.except(:name,:type_role)
+    @role.attributes = role_attributes.except(:name, :type_role)
     @role.should have(1).error_on(:name)
     @role.should have(1).error_on(:type_role)
   end
 
   it "should have a unique name" do
     @role.attributes = role_attributes
-    @role.name = 'ws_admin'
+    @role.name = 'co_admin'
     @role.should have(1).error_on(:name)
   end
 
@@ -44,26 +44,28 @@ describe Role do
     }
   end
 
-  it "has many users workspaces" do
-    Role.reflect_on_association(:users_workspaces).to_hash.should == {
-      :class_name => "UsersWorkspace",
+  it "has many users containers" do
+    Role.reflect_on_association(:users_containers).to_hash.should == {
+      :class_name => "UsersContainer",
       :options => {:dependent=>:delete_all, :extend=>[]},
       :macro => :has_many
     }
   end
 
-  it "has many workspaces through users workspaces" do
-    Role.reflect_on_association(:workspaces).to_hash.should == {
-      :class_name => "Workspace",
-      :options => {:through => :users_workspaces, :extend=>[]},
-      :macro => :has_many
-    }
+  it "has many containers through users containers" do
+    CONTAINERS.each do |container|
+      Role.reflect_on_association(container.pluralize.to_sym).to_hash.should == {
+        :class_name => container.capitalize,
+        :options => {:through => :users_containers, :extend=>[]},
+        :macro => :has_many
+      }
+    end
   end
 
-  it "should have many users through users workspaces" do
+  it "should have many users through users containers" do
     Role.reflect_on_association(:users).to_hash.should == {
       :class_name => "User",
-      :options => {:through => :users_workspaces, :extend=>[]},
+      :options => {:through => :users_containers, :extend=>[]},
       :macro => :has_many
     }
   end

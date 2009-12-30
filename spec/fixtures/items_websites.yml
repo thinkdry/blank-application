@@ -1,0 +1,39 @@
+one:
+  website_id: 1
+  itemable_id: 1
+  itemable_type: Article
+  
+two:
+  website_id: 2
+  itemable_id: 1
+  itemable_type: Article
+  
+three:
+  website_id: 3
+  itemable_id: 1
+  itemable_type: Article
+  
+four:
+  website_id: 1
+  itemable_id: 2
+  itemable_type: Article
+
+five:
+  website_id: 2
+  itemable_id: 2
+  itemable_type: Article
+
+six:
+  website_id: 3
+  itemable_id: 2
+  itemable_type: Article
+
+seven:
+  website_id: 1
+  itemable_id: 3
+  itemable_type: Article
+
+eight:
+  website_id: 3
+  itemable_id: 4
+  itemable_type: Article

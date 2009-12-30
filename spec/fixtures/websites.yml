@@ -1,0 +1,22 @@
+google:
+   id: 1
+   creator_id: 1
+   title: Google
+   description: Google Data
+   available_types: article,image,cms_file,video,audio,feed_source,bookmark,newsletter,group
+
+yahoo:
+   id: 2
+   creator_id: 2
+   title: Yahoo
+   description: Yahoo Data
+   available_types: article,image,cms_file,video,audio,feed_source,bookmark,newsletter,group
+
+msn:
+   id: 3
+   creator_id: 3
+   title: MSN
+   description: Microsoft Network Data
+   available_types: article,image,cms_file,video,audio,feed_source,bookmark,newsletter,group
+
+

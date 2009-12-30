@@ -20,60 +20,128 @@
 #<Permission name: "article_comment", type_permission: "workspace">,
 #<Permission name: "article_rate", type_permission: "workspace">,
 #<Permission name: "article_tag", type_permission: "workspace">]
-
 article_new:
     id: 1
     name: article_new
-    type_permission: workspace
+    type_permission: container
 
 
 article_edit:
     id: 2
     name: article_edit
-    type_permission: workspace
+    type_permission: container
 
 article_show:
     id: 3
     name: article_show
-    type_permission: workspace
+    type_permission: container
 
 article_destroy:
     id: 4
     name: article_destroy
-    type_permission: workspace
+    type_permission: container
 
 article_comment:
     id: 5
     name: article_comment
-    type_permission: workspace
+    type_permission: container
 
 workspace_new:
     id: 6
     name: workspace_new
-    type_permission: workspace
+    type_permission: system
 
 workspace_edit:
     id: 7
     name: workspace_edit
-    type_permission: workspace
+    type_permission: container
 
 workspace_show:
     id: 8
     name: workspace_show
-    type_permission: workspace
+    type_permission: container
 
 workspace_destroy:
     id: 9
     name: workspace_destroy
-    type_permission: workspace
+    type_permission: container
 
 workspace_administrate:
     id: 10
     name: workspace_administrate
-    type_permission: workspace
+    type_permission: container
 
+website_new:
+    id: 11
+    name: website_new
+    type_permission: system
 
+website_edit:
+    id: 12
+    name: website_edit
+    type_permission: container
 
+website_show:
+    id: 13
+    name: website_show
+    type_permission: container
 
+website_destroy:
+    id: 14
+    name: website_destroy
+    type_permission: container
 
+website_administrate:
+    id: 15
+    name: website_administrate
+    type_permission: container
+    
+folder_new:
+    id: 16
+    name: folder_new
+    type_permission: system
 
+folder_edit:
+    id: 17
+    name: folder_edit
+    type_permission: container
+
+folder_show:
+    id: 18
+    name: folder_show
+    type_permission: container
+
+folder_destroy:
+    id: 19
+    name: folder_destroy
+    type_permission: container
+
+folder_administrate:
+    id: 20
+    name: folder_administrate
+    type_permission: container
+
+user_show:
+    id: 21
+    name: user_show
+    type_permission: container
+
+user_new:
+    id: 22
+    name: user_new
+    type_permission: system
+    
+user_edit:
+    id: 23
+    name: user_edit
+    type_permission: system
+    
+user_destroy:
+    id: 24
+    name: user_destroy
+    type_permission: system
+    
+user_configure:
+    id: 25
+    name: user_configure
+    type_permission: system

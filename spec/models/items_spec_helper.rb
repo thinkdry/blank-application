@@ -12,31 +12,35 @@ module ItemsSpecHelper
 
         before(:each) do
           @object = item
+          @object_name = item.class.to_s.underscore
+          @object_instance = @object_name.classify.constantize
         end
-
-        it "should belong to workspace'(s)" do
-          @object.class.to_s.classify.constantize.reflect_on_association(:workspaces).to_hash.should == workspace_item_associations
+        
+        CONTAINERS.each do |container|
+          it "should belong to #{container}'(s)" do
+            @object_instance.reflect_on_association(container.pluralize.to_sym).to_hash.should == container_item_associations(container)
+          end
+          
+          it "should belong to items #{container}" do
+            @object_instance.reflect_on_association("items_#{container.pluralize}".to_sym).to_hash.should == items_container_associations(container)
+          end
         end
 
         it "should belong to user" do
-          @object.class.to_s.classify.constantize.reflect_on_association(:user).to_hash.should == user_item_associations
+          @object_instance.reflect_on_association(:user).to_hash.should == user_item_associations
         end
-
-        it "should belong to items" do
-          @object.class.to_s.classify.constantize.reflect_on_association(:items_workspaces).to_hash.should == items_associations
-        end
-
+        
         it "can be rated" do
-          @object.class.to_s.classify.constantize.reflect_on_association(:ratings).to_hash.should == rating_associations
+          @object_instance.reflect_on_association(:ratings).to_hash.should == rating_associations
         end
 
         it "can be commented" do
-          @object.class.to_s.classify.constantize.reflect_on_association(:comments).to_hash.should == comment_associations
+          @object_instance.reflect_on_association(:comments).to_hash.should == comment_associations
         end
 
         it "can have keywords through keywordings" do
-          @object.class.to_s.classify.constantize.reflect_on_association(:keywordings).to_hash.should == keywording_associations
-          @object.class.to_s.classify.constantize.reflect_on_association(:keywords).to_hash.should == keyword_associations
+          @object_instance.reflect_on_association(:keywordings).to_hash.should == keywording_associations
+          @object_instance.reflect_on_association(:keywords).to_hash.should == keyword_associations
         end
 
         it "should require user" do
@@ -58,11 +62,11 @@ module ItemsSpecHelper
     end
   end
 
-  def workspace_item_associations
+  def container_item_associations(container)
     {
       :macro => :has_many,
-      :options => {:through=>:items_workspaces, :extend=>[]},
-      :class_name => "Workspace"
+      :options => {:through=> "items_#{container.pluralize}".to_sym, :extend=>[]},
+      :class_name => container.capitalize
     }
   end
 
@@ -74,11 +78,11 @@ module ItemsSpecHelper
     }
   end
 
-  def items_associations
+  def items_container_associations(container)
     {
       :macro => :has_many,
       :options => {:dependent=>:delete_all, :as=>:itemable, :extend=>[]},
-      :class_name => "ItemsWorkspace"
+      :class_name => "Items#{container.capitalize}"
     }
   end
 

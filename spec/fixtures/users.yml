@@ -78,7 +78,7 @@ leo:
     login: leo
     firstname: leo
     lastname: nard
-    system_role_id: 3
+    system_role_id: 2
     u_layout: 'app_fat_menu'
     u_per_page: 10
     u_language: 'en-US'
@@ -89,7 +89,7 @@ mj:
     login: mj
     firstname: mary
     lastname: jane
-    system_role_id: 4
+    system_role_id: 3
     u_layout: 'app_fat_menu'
     u_per_page: 10
     u_language: 'en-US'
@@ -100,7 +100,7 @@ peter:
     login: peter
     firstname: peter
     lastname: parker
-    system_role_id: 5
+    system_role_id: 3
     u_layout: 'app_fat_menu'
     u_per_page: 10
     u_language: 'en-US'
@@ -111,7 +111,7 @@ jack:
     login: jack
     firstname: jack
     lastname: sparrow
-    system_role_id: 6
+    system_role_id: 3
     u_layout: 'app_fat_menu'
     u_per_page: 10
     u_language: 'en-US'
@@ -122,7 +122,7 @@ cyrus:
     login: cyrus
     firstname: cyrus
     lastname: black
-    system_role_id: 7
+    system_role_id: 3
     u_layout: 'app_fat_menu'
     u_per_page: 10
     u_language: 'en-US'

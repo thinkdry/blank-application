@@ -37,24 +37,24 @@ user:
     name: user
     type_role: system
 
-ws_admin:
+co_admin:
     id: 4
-    name: ws_admin
-    type_role: workspace
+    name: co_admin
+    type_role: container
 
 moderator:
     id: 5
     name: moderator
-    type_role: workspace
+    type_role: container
 
 reader:
     id: 6
     name: reader
-    type_role: workspace
+    type_role: container
 
 writer:
     id: 7
     name: writer
-    type_role: workspace
+    type_role: container
 
 

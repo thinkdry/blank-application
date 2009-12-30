@@ -11,7 +11,7 @@ module ActsAsContainer
         #---------------------------------------------------------
         # Relationships
         
-        # Relation N-1 with the 'users_workspaces' table
+        # Relation N-1 with the 'users_containers' table
         has_many :users_containers, :as => :containerable, :dependent => :delete_all
         # Relation N-1 getting the roles linked to that workspace, through the 'users_workspaces' table
         has_many :roles, :through => :users_containers

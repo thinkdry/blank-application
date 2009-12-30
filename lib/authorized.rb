@@ -48,7 +48,7 @@ module Authorized
 				# Usage:
 				# <tt>user.has_workspace_role('ws_admin')</tt>
 				def has_container_role(container_id, container, role_name)
-					return UsersContainer.exists?(:user_id => self.id, :containerable_id => container_id,:containerbale_type => container.capitalize, :role_id => Role.find_by_name(role_name).id) || self.system_role.name == 'superadmin'
+					return UsersContainer.exists?(:user_id => self.id, :containerable_id => container_id, :containerable_type => container.capitalize, :role_id => Role.find_by_name(role_name).id) || self.system_role.name == 'superadmin'
 				end
 
 				# Method returning the system permissions list

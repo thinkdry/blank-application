@@ -28,7 +28,7 @@ class Workspace < ActiveRecord::Base
 
   has_many :contacts_workspaces,:dependent => :destroy
 
-  has_many :groups, :dependent => :delete_all
+  #has_many :groups, :dependent => :delete_all
 
   has_many  :people,
     :through      => :contacts_workspaces,

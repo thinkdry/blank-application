@@ -1,0 +1,39 @@
+one:
+  workspace_id: 1
+  itemable_id: 1
+  itemable_type: Article
+  
+two:
+  workspace_id: 8
+  itemable_id: 1
+  itemable_type: Article
+  
+three:
+  workspace_id: 9
+  itemable_id: 1
+  itemable_type: Article
+  
+four:
+  workspace_id: 2
+  itemable_id: 2
+  itemable_type: Article
+
+five:
+  workspace_id: 8
+  itemable_id: 2
+  itemable_type: Article
+
+six:
+  workspace_id: 9
+  itemable_id: 2
+  itemable_type: Article
+
+seven:
+  workspace_id: 4
+  itemable_id: 3
+  itemable_type: Article
+
+eight:
+  workspace_id: 4
+  itemable_id: 4
+  itemable_type: Article

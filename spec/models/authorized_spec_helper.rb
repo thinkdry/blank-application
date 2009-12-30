@@ -1,7 +1,7 @@
 module AuthorizedSpecHelper
   def self.included(base)
     base.module_eval do
-      fixtures :users, :workspaces, :roles
+      fixtures :users, :workspaces, :roles, :users_containers
 
       describe "Authorized" do
 
@@ -9,11 +9,11 @@ module AuthorizedSpecHelper
           @object = object
         end
 
-        it "should include workspace role'(s)" do
-          @object.class.to_s.classify.constantize.reflect_on_association(:workspace_roles).to_hash.should == {
+        it "should include container role'(s)" do
+          @object.class.to_s.classify.constantize.reflect_on_association(:container_roles).to_hash.should == {
             :macro => :has_many,
-            :options => { :through => :users_workspaces, :source => :role, :extend => [] },
-            :class_name => 'WorkspaceRole'
+            :options => { :through => :users_containers, :source => :role, :extend => [] },
+            :class_name => 'ContainerRole'
           }
         end
 
@@ -25,8 +25,8 @@ module AuthorizedSpecHelper
           users(:albert).has_system_role('admin').should eql true
         end
 
-        it "should check if the user has the workspace rol to access" do
-          users(:albert).has_workspace_role(2,'admin').should eql true
+        it "should check if the user has the container role to access" do
+          users(:albert).has_container_role(2, 'workspace', 'co_admin').should eql true
         end
 
         it "should return the permissions for the users system role" do
@@ -34,7 +34,7 @@ module AuthorizedSpecHelper
         end
 
         it "should return the permissions for workspace" do
-          users(:albert).workspace_permissions(2).should == UsersWorkspace.find(:first, :conditions => {:user_id => 2, :workspace_id => 2}).role.permissions
+          users(:albert).container_permissions(2,'workspace').should == UsersContainer.find(:first, :conditions => {:user_id => 2, :containerable_id => 2, :containerable_type => 'Workspace'}).role.permissions
         end
 
         it "should return the permission for user given the controller & action" do
@@ -42,7 +42,7 @@ module AuthorizedSpecHelper
         end
 
         it "should return the permission for the workspace given the workspace, controller & action" do
-          users(:albert).has_workspace_permission(2,'article','new').should eql true
+          users(:albert).has_container_permission(2,'article','new','workspace').should eql true
         end
       end
     end

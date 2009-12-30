@@ -1,6 +1,28 @@
 one:
   id: 1
-  title: test article
-  description: test article description
-  body: article body
+  title: test article 1
+  description: test article description 1
+  body: article body 1
   user_id: 1
+  
+two:
+  id: 2
+  title: test article 2
+  description: test article description 2
+  body: article body 2
+  user_id: 3
+  
+three:
+  id: 3
+  title: test article 3
+  description: test article description 3
+  body: article body 3
+  user_id: 7
+  
+four:
+  id: 4
+  title: test article 4
+  description: test article description 4
+  body: article body 4
+  user_id: 1
+

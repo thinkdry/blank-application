@@ -47,7 +47,7 @@ require File.expand_path(File.dirname(__FILE__) + '/authorizable_spec_helper')
 describe User do
   include AuthorizedSpecHelper
   include AuthorizableSpecHelper
-  fixtures :roles, :permissions,:permissions_roles, :users, :workspaces, :users_workspaces
+  fixtures :roles, :permissions,:permissions_roles, :users, :workspaces, :users_containers, :items_workspaces
 
   def object
     User.new
@@ -180,27 +180,33 @@ describe User do
 
   describe "associations" do
 
-    it "has many users workspaces" do
-      User.reflect_on_association(:users_workspaces).to_hash.should == {
+    it "has many users containers" do
+      User.reflect_on_association(:users_containers).to_hash.should == {
         :macro => :has_many,
         :options => {:dependent=>:delete_all, :extend=>[]},
-        :class_name => "UsersWorkspace"
+        :class_name => "UsersContainer"
       }
     end
 
-    it "has many workspaces" do
-      User.reflect_on_association(:workspaces).to_hash.should == {
-        :macro => :has_many,
-        :options => {:through => :users_workspaces, :extend=>[]},
-        :class_name => "Workspace"
-      }
+    it "has many containers" do
+      CONTAINERS.each do |container|
+        User.reflect_on_association(container.pluralize.to_sym).to_hash.should == {
+          :macro => :has_many,
+          :options => {:source => :containerable,
+                       :source_type => container.classify,
+                       :class_name=> container.classify,
+                       :through=> :users_containers,
+                       :extend=>[] },
+          :class_name => container.classify
+        }
+      end
     end
 
-    it "has many workspace roles" do
-      User.reflect_on_association(:workspace_roles).to_hash.should == {
+    it "has many container roles" do
+      User.reflect_on_association(:container_roles).to_hash.should == {
         :macro => :has_many,
-        :options => {:through => :users_workspaces, :source => :role, :extend=>[]},
-        :class_name => "WorkspaceRole"
+        :options => {:through => :users_containers, :source => :role, :extend=>[]},
+        :class_name => "ContainerRole"
       }
     end
 
@@ -266,9 +272,9 @@ describe User do
       @user.has_system_role('admin').should == true
     end
 
-    it "should check workspace role" do
+    it "should check container role" do
       @user = users(:albert)
-      @user.has_workspace_role(workspaces(:private_for_albert).id,'ws_admin').should == true
+      @user.has_container_role(workspaces(:private_for_albert).id,'workspace','co_admin').should == true
     end
 
     it "should check system permission"  do
@@ -278,7 +284,7 @@ describe User do
 
     it "should check workspace permission" do
        @user = users(:mj)
-       @user.has_workspace_permission(workspaces(:private_for_luc).id,'articles','new') == true
+       @user.has_container_permission(workspaces(:private_for_luc).id,'articles','new', 'workspace') == true
     end
 
     it "should return full name" do
@@ -286,7 +292,7 @@ describe User do
       @user.full_name.strip.should == 'parker peter'
     end
 
-  end
+ end
 
 #  describe "Permissions" do
 #

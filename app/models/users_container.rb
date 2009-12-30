@@ -11,5 +11,4 @@ class UsersContainer < ActiveRecord::Base
   # Validation of the uniqueness of this field
 	validates_uniqueness_of :user_id, :scope => [:containerable_id, :containerable_type]
 
-
 end

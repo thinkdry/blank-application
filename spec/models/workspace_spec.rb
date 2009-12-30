@@ -19,116 +19,32 @@
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
-require File.expand_path(File.dirname(__FILE__) + '/items_spec_helper')
+require File.expand_path(File.dirname(__FILE__) + '/containers_spec_helper')
 require File.expand_path(File.dirname(__FILE__) + '/authorizable_spec_helper')
 
 describe Workspace do
+  fixtures :workspaces, :items_workspaces
   include AuthorizableSpecHelper
-  fixtures :roles, :permissions, :users, :workspaces, :users_workspaces
-
-  def object
+  include ContainersSpecHelper
+  
+  def container
     Workspace.new
   end
-
-
+  
   def workspace_attributes
-    {
-      :title => 'Workspace Title',
-      :description => 'Workspace Description',
-      :state => 'private',
-      :creator_id => users(:luc).id
-    }
+    container_attributes
+  end
+  
+  before(:each) do
+    @workspace = container
   end
 
-    before(:each) do
-      @workspace = object
-    end
-
-    it "should be valid" do
-      @workspace.attributes = workspace_attributes
-      @workspace.should be_valid
-    end
-
-    it "should require title" do
-      @workspace.attributes = workspace_attributes.except(:title)
-      @workspace.should have(1).error_on(:title)
-    end
-
-    it "should require description" do
-      @workspace.attributes = workspace_attributes.except(:description)
-      @workspace.should have(1).error_on(:description)
-    end
-
-  describe "associations" do
-
-    it "has many users workspaces" do
-      Workspace.reflect_on_association(:users_workspaces).to_hash.should == {
-        :macro => :has_many,
-        :options => {:dependent=>:delete_all, :extend=>[]},
-        :class_name => "UsersWorkspace"
-      }
-    end
-
-    it "has many users through user workspaces" do
-      Workspace.reflect_on_association(:users).to_hash.should =={
-        :macro => :has_many,
-        :options => {:through => :users_workspaces, :extend=>[]},
-        :class_name => 'User'
-      }
-    end
-
-    it "has many roles through user workspaces" do
-      Workspace.reflect_on_association(:roles).to_hash.should == {
-        :macro => :has_many,
-        :options => {:through => :users_workspaces, :extend => []},
-        :class_name => 'Role'
-      }
-    end
-
-    it "has many items" do
-      Workspace.reflect_on_association(:items_workspaces).to_hash.should == {
-        :macro => :has_many,
-        :options => {:extend=>[], :dependent=>:delete_all},
-        :class_name => 'ItemsWorkspace'
-      }
-    end
-
-    it "belongs to creator" do
-      Workspace.reflect_on_association(:creator).to_hash.should == {
-        :macro => :belongs_to,
-        :options => {:class_name => 'User'},
-        :class_name => 'Creator'
-      }
-    end
-
+  #item_specs(@article)
+  
+  it "should be valid" do
+    @workspace.attributes = workspace_attributes
+    @workspace.should be_valid
   end
-
-  describe "should have named scopes" do
-
-    before(:each) do
-      @workspace = object
-    end
-
-    it "allowed_user_with_permission" do
-      Workspace.allowed_user_with_permission(users(:luc), 'article_show').proxy_options.should == {:order=>"workspaces.title ASC"}
-      Workspace.allowed_user_with_permission(users(:albert), 'article_show').proxy_options.should == {:select => "DISTINCT workspaces.*", :joins=>"LEFT JOIN users_workspaces ON users_workspaces.workspace_id = workspaces.id AND users_workspaces.user_id = #{users(:albert).id} LEFT JOIN permissions_roles ON permissions_roles.role_id = users_workspaces.role_id LEFT JOIN permissions ON permissions_roles.permission_id = permissions.id", :conditions=>"permissions.name = 'article_show'",:order=>"workspaces.title ASC"}
-    end
-
-    it "allowed_user_with_ws_role" do
-      Workspace.allowed_user_with_ws_role(users(:mj), 'ws_admin').proxy_options.should == {:select => "DISTINCT workspaces.*", :joins=>"LEFT JOIN users_workspaces ON users_workspaces.workspace_id = workspaces.id AND users_workspaces.user_id = #{users(:mj).id} LEFT JOIN roles ON roles.id = users_workspaces.role_id", :conditions=>"roles.name = 'ws_admin'", :order => 'workspaces.title ASC'}
-      Workspace.allowed_user_with_ws_role(users(:luc), 'superadmin').proxy_options.should == {:select => "DISTINCT workspaces.*", :joins=>"LEFT JOIN users_workspaces ON users_workspaces.workspace_id = workspaces.id AND users_workspaces.user_id = #{users(:luc).id} LEFT JOIN roles ON roles.id = users_workspaces.role_id", :conditions=>"roles.name = 'superadmin'", :order => 'workspaces.title ASC'}
-    end
-
-  end
-
-  it "should return users of workspace with given role" do
-    @workspace = workspaces(:private_for_luc)
-    @workspace.users_by_role('ws_admin').last.should == User.find(1)
-  end
-
-  it "should save workspace items" do
-    @workspace.attributes = workspace_attributes.merge("available_items"=>["article", "image", "cms_file"])
-    @workspace.available_items.should == "article,image,cms_file"
-  end
+  
 end
 

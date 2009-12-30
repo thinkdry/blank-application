@@ -1,0 +1,146 @@
+# == Schema Information
+# Schema version: 20181126085723
+#
+# Table name: users_workspaces
+#
+#  id           :integer(4)      not null, primary key
+#  workspace_id :integer(4)
+#  role_id      :integer(4)
+#  user_id      :integer(4)
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+
+ws_luc:
+  containerable_id: 1
+  containerable_type: 'Workspace'
+  role_id: 4
+  user_id: 1
+
+ws_albert:
+  containerable_id: 2
+  containerable_type: 'Workspace'
+  role_id: 4
+  user_id: 2
+
+ws_leo:
+  containerable_id: 3
+  containerable_type: 'Workspace'
+  role_id: 4
+  user_id: 3
+
+ws_mj:
+  containerable_id: 4
+  containerable_type: 'Workspace'
+  role_id: 4
+  user_id: 4
+
+ws_peter:
+  containerable_id: 5
+  containerable_type: 'Workspace'
+  role_id: 4
+  user_id: 5
+
+ws_jack:
+  containerable_id: 6
+  containerable_type: 'Workspace'
+  role_id: 4
+  user_id: 6
+
+ws_cyrus:
+  containerable_id: 7
+  containerable_type: 'Workspace'
+  role_id: 4
+  user_id: 7
+
+
+ws_one:
+  containerable_id: 8
+  containerable_type: 'Workspace'
+  role_id: 4
+  user_id: 1
+  
+ws_two:
+  containerable_id: 8
+  containerable_type: 'Workspace'
+  role_id: 4
+  user_id: 1
+
+ws_three:
+  containerable_id: 8
+  containerable_type: 'Workspace'
+  role_id: 5
+  user_id: 2
+
+ws_four:
+  containerable_id: 8
+  containerable_type: 'Workspace'
+  role_id: 6
+  user_id: 3
+
+ws_five:
+  containerable_id: 8
+  containerable_type: 'Workspace'
+  role_id: 7
+  user_id: 4
+
+wb_one:
+  containerable_id: 1
+  containerable_type: 'Website'
+  role_id: 4
+  user_id: 5
+
+wb_two:
+  containerable_id: 1
+  containerable_type: 'Website'
+  role_id: 5
+  user_id: 5
+
+wb_three:
+  containerable_id: 1
+  containerable_type: 'Website'
+  role_id: 6
+  user_id: 5
+
+wb_four:
+  containerable_id: 1
+  containerable_type: 'Website'
+  role_id: 5
+  user_id: 7
+
+wb_five:
+  containerable_id: 1
+  containerable_type: 'Website'
+  role_id: 4
+  user_id: 7
+  
+fo_one:
+  containerable_id: 1
+  containerable_type: 'Folder'
+  role_id: 4
+  user_id: 3
+
+fo_two:
+  containerable_id: 1
+  containerable_type: 'Folder'
+  role_id: 4
+  user_id: 2
+
+fo_three:
+  containerable_id: 1
+  containerable_type: 'Folder'
+  role_id: 5
+  user_id: 1
+
+fo_four:
+  containerable_id: 1
+  containerable_type: 'Folder'
+  role_id: 6
+  user_id: 6
+
+fo_five:
+  containerable_id: 1
+  containerable_type: 'Folder'
+  role_id: 7
+  user_id: 7
+

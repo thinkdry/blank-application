@@ -1,6 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Permission do
+  fixtures :permissions
 
   def permission
     Permission.new
@@ -8,7 +9,7 @@ describe Permission do
 
   def permission_attributes
     {
-      :name => 'system_admin',
+      :name => 'webworld_show',
       :description => 'System Administrator',
       :type_permission => 'system'
     }

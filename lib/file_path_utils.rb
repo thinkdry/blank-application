@@ -1,6 +1,6 @@
 require 'fileutils'
 
-# Set the default file_path for Blank Application
+# Load Attachments to Fixtures
 def file_path_import(params)
     raise unless params[:model]
     raise unless params[:id]
