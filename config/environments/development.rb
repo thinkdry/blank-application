@@ -17,6 +17,8 @@ config.action_controller.perform_caching             = false
 config.action_mailer.raise_delivery_errors = true
 
 # Defining constants
+# Defining the project name
+PROJECT_NAME = 'blank'
 # Containers Available to current setup
 CONTAINERS = ['workspace','website','folder']
 # Items available to the current setup
@@ -26,7 +28,7 @@ LANGUAGES = ['en-US', 'fr-FR']
 # Variable defining the workspace types available for the application
 WS_TYPES = ['closed', 'public', 'authorized', 'archived']
 # Variable defining the right types for the application
-RIGHT_TYPES = ['system', 'workspace']
+RIGHT_TYPES = ['system', 'container']
 # Variable defining the different state for the comments for the application
 COMMENT_STATE = ['posted', 'validated', 'rejected']
 # Variable defining the default comment status for the application
