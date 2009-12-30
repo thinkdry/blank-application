@@ -29,6 +29,7 @@
 			<% end-%>		
 			<%= link_to I18n.t('general.object.comment').pluralize.capitalize, admin_comments_path %>
     		<%= link_to I18n.t('rating.index.link').pluralize, admin_ratings_path %>
+				<%= link_to I18n.t('general.notification.link'), admin_user_notification_path(@current_user) %>
         </div>
     </div>
     <div class="itemShowRightBlock">
