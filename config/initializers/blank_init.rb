@@ -77,3 +77,4 @@ ActionMailer::Base.default_charset = "utf-8"
 ActionMailer::Base.raise_delivery_errors = true
 ActionMailer::Base.template_root = "#{RAILS_ROOT}/app/views/admin"
 
+TRANSLATION_SITE = 'http://admin:secret@translator.thinkdry.com'
