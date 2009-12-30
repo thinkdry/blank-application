@@ -31,7 +31,8 @@ class Article < ActiveRecord::Base
   has_many :article_files, :dependent => :delete_all
 	# Overwriting of the ActsAsXapian specification define in ActsAsItem,
 	# in order to include the 'body' field inside the Xapian index
-	acts_as_xapian :texts => [:title, :description, :keywords_list, :body]
+	acts_as_xapian :texts => [:title, :description, :keywords_list, :body],:terms => [[:title,'S',"title"],[:body,'B',"body"]]
+
   # Validation of the presence of the 'body' field (for the update only)
   validates_presence_of :body, :on => :update
 

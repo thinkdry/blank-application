@@ -46,6 +46,8 @@ Rails::Initializer.run do |config|
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   # config.gem "aws-s3", :lib => "aws/s3"
 
+        config.gem 'builder', :version => '>=2.1.2', :lib => 'builder'
+#        config.gem 'nakogiri', :version => '>=1.4.0', :lib => 'nakogiri'	
 	config.gem 'rmagick', :version => '>=2.9.1', :lib => 'RMagick'
   config.gem 'javan-whenever', :lib => false, :source => 'http://gems.github.com'
   #	config.gem 'rspec', :version => '>=1.2.8', :lib => 'spec', :source => 'http://gems.github.com'
@@ -66,7 +68,7 @@ Rails::Initializer.run do |config|
   # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
 	#config.plugin_paths += %W( #{RAILS_ROOT}/blank_modules )
 	#config.plugin_paths += %W( #{RAILS_ROOT}/blank_modules/aep_beast/plugins )
-  config.plugin_paths += %W( #{RAILS_ROOT}/vendor/engines )
+	config.plugin_paths += %W( #{RAILS_ROOT}/vendor/engines )
 
   # Add additional load paths for your own custom dirs
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
@@ -98,7 +100,7 @@ Rails::Initializer.run do |config|
   # config.active_record.observers = :cacher, :garbage_collector
 
   # RESTful authentification observer
-  config.active_record.observers = :user_observer
+  config.active_record.observers = :user_observer, :audit_observer
 
 	# Need the production_log_analyze gem
 	# Use for example : pl_analyze log/production.log -e recipient@example.com

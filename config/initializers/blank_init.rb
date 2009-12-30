@@ -18,25 +18,37 @@ load 'searchable.rb'
 ActiveRecord::Base.send                   :include, Searchable::ModelMethods
 #ActionController::Base.send               :include, Authorizable::ControllerMethods
 
-
+# Defining the project name
+PROJECT_NAME = 'blank'
+# Defining the global variable
+ITEMS = ['article', 'image', 'cms_file', 'video', 'audio', 'feed_source', 'bookmark','newsletter', 'group']
+# Variable defining the languages available for the application
+LANGUAGES = ['en-US', 'fr-FR']
+# Variable defining the workspace types available for the application
+WS_TYPES = ['closed', 'public', 'authorized', 'archived']
+# Variable defining the right types for the application
+RIGHT_TYPES = ['system', 'workspace']
+# Variable defining the different state for the comments for the application
+COMMENT_STATE = ['posted', 'validated', 'rejected']
+# Variable defining the default comment status for the application
+DEFAULT_COMMENT_STATE = 'validated'
+# Variable defining the available layout for the application
+LAYOUTS_AVAILABLE = ['application', 'app_fat_menu']
+# # Variable defining the filtering attributes available for the application
+SEARCH_FILTERS = ['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title']
+#
+IMAGE_TYPES = ["image/jpeg", "image/pjpeg", "image/gif", "image/png", "image/x-png", "image/ico"]
+# Set the default Captcha images number
+CAPTCHA_IMAGES_NUMBER = 10
+# Variable to define number of newsletters to send per hour
+NEWSLETTERS_PER_HOUR = 20
 # Setting the locales files and the default language
 if !get_sa_config['sa_default_language'].to_s.blank?
   I18n.default_locale = "#{get_sa_config['sa_default_language']}"
 else
   I18n.default_locale = "en-US"
 end
-#I18n.locale = 'fr-FR'
-#I18n.default_locale = 'fr-FR'
-#%w{yml rb}.each do |type|
-#  I18n.load_path += Dir.glob("#{RAILS_ROOT}/app/locales/*.#{type}")
-#end
 LOCALES_DIRECTORY = "#{RAILS_ROOT}/config/locales"
-#LOCALES_AVAILABLE = Dir["#{LOCALES_DIRECTORY}/*.{rb,yml}"].collect do |locale_file|
-#  File.basename(File.basename(locale_file, ".rb"), ".yml")
-#end.uniq.sort
-#LANGUAGES.each do |l|
-#	I18n.load_path << "#{LOCALES_DIRECTORY}/#{l}.yml"
-#end
 I18n.load_path += Dir[File.join(RAILS_ROOT, 'config', 'locales', '*.yml')]
 # Variable used by ExceptionNotifier plugin
 if get_sa_config['sa_exception_notifier_activated'] == 'true'
@@ -65,3 +77,4 @@ ActionMailer::Base.default_charset = "utf-8"
 ActionMailer::Base.raise_delivery_errors = true
 ActionMailer::Base.template_root = "#{RAILS_ROOT}/app/views/admin"
 
+TRANSLATION_SITE = 'http://admin:secret@translator.thinkdry.com'

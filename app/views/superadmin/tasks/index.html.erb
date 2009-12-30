@@ -21,6 +21,12 @@
 				onclick="jQuery.ajax({dataType:'script', type:'get', url:'<%=run_task_superadmin_tasks_path(:job => 'newsletter')%>'});">
 			<span>Send Pending Newsletters</span>
 		</button>
+
+		<button class="smallSubmit alone" 
+				onclick="jQuery.ajax({dataType:'script', type:'get', url:'<%=run_task_superadmin_tasks_path(:job => 'translations')%>'});">
+			<span>Retrieve translation files</span>
+		</button>
+		
 		
 		<button class="smallSubmit alone" 
 				onclick="jQuery.ajax({dataType:'script', type:'get', url:'<%=run_task_superadmin_tasks_path(:job => 'restart_server')%>'});">

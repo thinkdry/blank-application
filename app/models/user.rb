@@ -71,6 +71,9 @@ class User < ActiveRecord::Base
   has_many :contacts_workspaces, :as => :contactable, :dependent => :delete_all
 	# Relation N-1 with the 'people' table
   has_many :people, :order => 'email ASC'
+	# Relation with notifications
+  has_many :notification_subscriptions, :dependent => :destroy
+  has_many :notification_filters, :through => :notification_subscriptions
 
   has_many :groups 
 	# Mixin method use to get this object search (see Searchable:ModelMethods for more)
@@ -187,6 +190,20 @@ class User < ActiveRecord::Base
 		# To assign the 'ws_admin' role to the user in his privte workspace
 		ws.users_containers.create(:user_id => self.id, :role_id => Role.find_by_name('co_admin').id)
 	end
+
+  def self.subscribers_of(model_id,action_id)
+    
+        self.find_by_sql("
+        select * 
+        from users U
+        where id in (select NS.user_id
+                     from notification_subscriptions NS JOIN notification_filters NF ON NS.notification_filter_id = NF.id
+                     where NF.id = #{model_id}) 
+          AND id in (select NS2.user_id
+                     from notification_subscriptions NS2 JOIN notification_filters NF2 ON NS2.notification_filter_id = NF2.id
+                     where NF2.id = #{action_id}) ")
+                     
+  end
 
 	# Activate the user in the database.
   def activate
