@@ -18,12 +18,9 @@ module ActsAsCommentable
     module InstanceMethods
 			# Action to add a comment to the object
       def add_comment
-        
         @comment = current_object.comments.create(params[:comment].merge(:user => @current_user, :state => DEFAULT_COMMENT_STATE))
         current_object.update_attributes(:comments_number => current_object.comments_number.to_i + 1)
-        
         @current_object = current_object
-        
         respond_to do |format|
     	    format.js {render :template => "comments/add_comment.js.erb", :layout => false}
     	  end
@@ -48,7 +45,6 @@ module ActsAsCommentable
         #           end
         #         end
 			end
-			
     end
   end
 

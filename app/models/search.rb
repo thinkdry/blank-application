@@ -65,12 +65,20 @@ class Search < ActiveRecord::Base
 		return self[:conditions][param_name]
 	end
 
-	def workspace_ids= p
-		self[:workspace_ids] = p ? p.join(',') : nil
+	def container_ids= p
+		self[:container_ids] = p ? p.join(',') : nil
 	end
 
-	def workspace_ids
-		self[:workspace_ids] ? self[:workspace_ids].split(',') : nil
+	def container_ids
+		self[:container_ids] ? self[:container_ids].split(',') : nil
+	end
+	
+	def container_type= p
+	  self[:container_type] = p ? p : 'workspace'
+	end
+	
+	def container_type
+	  self[:container_type] ? self[:container_type] : 'workspace'
 	end
 	
 	def param
@@ -79,7 +87,8 @@ class Search < ActiveRecord::Base
 			:permission => self.permission,
 			#:category => self.category,
 			#:models => self.models,
-			:workspace_ids => self.workspace_ids,
+			:container_ids => self.container_ids,
+			:container_type => self.container_type,
 			:full_text => self.full_text,
 			:conditions => self.conditions,
 			:filter => self.filter,

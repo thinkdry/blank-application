@@ -22,7 +22,7 @@ class Admin::ArticlesController < Admin::ApplicationController
 	# This function is linked to an url allowing to delete the file linked to the article through an AJAX request.
 	def remove_file
 	  object = ArticleFile.find(params[:id])
-		if object.article.has_permission_for?('edit', @current_user)
+		if object.article.has_permission_for?('edit', @current_user, current_container_type)
 			if ArticleFile.find(params[:id]).destroy
 				render :nothing => true
 			else

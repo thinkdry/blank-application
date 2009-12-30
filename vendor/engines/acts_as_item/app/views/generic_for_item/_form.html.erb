@@ -1,66 +1,69 @@
 <% form_for current_object,
-    		:builder => BlankFormBuilder,
-    		:url => (current_object.new_record? ? items_path(current_object.class.to_s) : item_path(current_object)),
-    		:html => {:method => (current_object.new_record? ? :post : :put),
-    		:multipart => true } do |f| -%>
+  :builder => BlankFormBuilder,
+  :url => (current_object.new_record? ? items_path(current_object.class.to_s) : item_path(current_object)),
+  :html => {:method => (current_object.new_record? ? :post : :put),
+    :multipart => true } do |f| -%>
+    <div class="itemShowLeft">
+        <div class="itemShowLeftDate">
+            <%= I18n.l Time.now, :format =>:verb %>
+        </div>
+        <div class="itemShowLeftBody">
+            <h1><%= title %></h1>
 
-	<div class="itemShowLeft">
-		<div class="itemShowLeftDate">
-			<%= I18n.l Time.now, :format =>:verb %>
-		</div>
-		<div class="itemShowLeftBody">
-			<h1><%= title %></h1>
-		
-			<% is_copyright = (current_object.state == 'copyright') ? true : false %>
-		    <% if is_copyright %>
-		      	<%= f.hidden_field :state, :value => 'copyright' %>
-		      	<%=I18n.t('general.copyright.copyright_restriction')%>
-		    <% end %>
-	
-			<%= f.text_field    :title, 
-								:label => I18n.t('item.field.title_label') + " * :", 
-								:hint => I18n.t('item.field.title_hint'), 
-								:readonly => is_copyright %>
-		
-			<%= f.text_field    :description, 
-								:label => I18n.t('item.field.description_label') + ' * :', 
-								:hint => I18n.t('item.field.description_hint') %>
-		
-			<%= capture(f, &block) %>
-			
+            <% is_copyright = (current_object.state == 'copyright') ? true : false %>
+            <% if is_copyright %>
+                <%= f.hidden_field :state, :value => 'copyright' %>
+                <%=I18n.t('general.copyright.copyright_restriction')%>
+            <% end %>
 
-			<button id="submit_button" class="submitButton" type="submit">
-		    	<span>
-					<%= current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update')%>
-				</span>
-		    </button>
-			<button id="submit_button" class="submitButton continue" name="continue" type="submit">
-		    	<span>create and continue</span>
-		    </button>
-		</div>
-	</div>
-	<div class="rightBlocks">
-		<div class="itemShowRightBlock">
-			<div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
-				<%= I18n.t('item.field.keyword_label').pluralize %>
-			</div><div class="blockCornerRight"></div>
-			<div class="blockElementBody">
-				<%= item_keywords_fields(f, @current_object) %>
-			</div>
-	    </div>
-	
-		<div class="itemShowRightBlock">
-			<div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
-				<%= I18n.t("item.show.associated_workspace") %>
-			</div><div class="blockCornerRight"></div>
-			<div class="blockElementBody">
-				<% if ['Group', 'Page'].include?(@current_object.class.to_s) %>
-			      <%= item_workspace_select(f, @current_object) %>
-			    <% else %>
-			      <%= item_workspaces_checkboxes(f, @current_object) %>
-			    <% end %>
-			    <%= error_message_on :current_object, :items %>
-			</div>
-	    </div>
-	</div>
+            <%= f.text_field    :title,
+              :label => I18n.t('item.field.title_label') + " * :",
+              :hint => I18n.t('item.field.title_hint'),
+              :readonly => is_copyright %>
+
+            <%= f.text_field    :description,
+              :label => I18n.t('item.field.description_label') + ' * :',
+              :hint => I18n.t('item.field.description_hint') %>
+
+            <%= capture(f, &block) %>
+
+            <% if !@current_object.new_record? -%>
+                <button id="submit_button" class="submit_button continueUpdate" type="submit">
+                    <%= current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update')%>
+                </button>
+                <button id="submit_button" class="submit_button continue" type="submit" name="continue">
+                    creer et continuer
+                </button>
+            <% else-%>
+                <button id="submit_button" class="submit_button" type="submit">
+                    <%= current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update')%>
+                </button>
+            <%end-%>
+        </div>
+    </div>
+    <div class="rightBlocks">
+        <div class="itemShowRightBlock">
+            <div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
+                <%= I18n.t('item.field.keyword_label').pluralize %>
+            </div><div class="blockCornerRight"></div>
+            <div class="blockElementBody">
+                <%= item_keywords_fields(f, @current_object) %>
+            </div>
+        </div>
+        <% CONTAINERS.each do |container| %>
+          <div class="itemShowRightBlock">
+                <div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
+                    <%= I18n.t("item.show.associated_#{container}") %>
+                </div><div class="blockCornerRight"></div>
+                <div class="blockElementBody">
+                    <% if ['Group', 'Page'].include?(@current_object.class.to_s) %>
+                        <%= item_containers_select(f, @current_object, container) %>
+                    <% else %>
+                        <%= item_containers_checkboxes(f, @current_object, container) %>
+                    <% end %>
+                    <%#= error_message_on :current_object, "items_#{container.pluralize}".to_sym %>
+                </div>
+          </div>
+        <% end %>
+    </div>
 <% end -%>

@@ -160,7 +160,7 @@ module ActsAsItem
 	        end
 
           response_for :destroy do |format|
-            format.html { redirect_to(current_workspace ? admin_workspace_path(:id => current_workspace.id, :item_type => params[:controller].split("/")[1]) : admin_content_path(params[:controller].split("/")[1])) }
+            format.html { redirect_to(current_container ? container_path(current_container, :item_type => params[:controller].split("/")[1]) : admin_content_path(params[:controller].split("/")[1])) }
           end
         end
 

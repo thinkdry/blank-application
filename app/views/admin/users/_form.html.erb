@@ -1,5 +1,4 @@
 <% form_for ['admin',@current_object],:builder => BlankFormBuilder, :html => {:multipart=> true } do |f| -%>
-
 	<div class="itemShowLeft">
 		<div class="itemShowLeftDate">
 			<%= I18n.l Time.now, :format =>:verb %>
@@ -91,14 +90,14 @@
 			</div>
 	    </div>
 
-	<% if !@current_object.new_record? && @current_object.has_permission_for?('configure', @current_user) -%>
+	<% if !@current_object.new_record? && @current_object.has_permission_for?('configure', @current_user, 'workspace') -%>
 
 		<div class="itemShowRightBlock">
 			<div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
 				User interface settings<!-- TODO HINT -->
 			</div><div class="blockCornerRight"></div>
 			<div class="blockElementBody">
-				<% if !@current_object.new_record? && @current_object.has_permission_for?('configure', @current_user) -%>
+				<% if !@current_object.new_record? && @current_object.has_permission_for?('configure', @current_user, 'workspace') -%>
 					<p>
 						language : 
 						<select id="user_u_language" name="user[u_language]">

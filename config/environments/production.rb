@@ -29,3 +29,29 @@ config.action_view.cache_template_loading            = true
 
 # Enable threaded mode
 # config.threadsafe!
+
+# Defining constants
+# Containers Available to current setup
+CONTAINERS = ['workspace','website','folder']
+# Items available to the current setup
+ITEMS = ['article', 'image', 'cms_file', 'video', 'audio', 'feed_source', 'bookmark','newsletter', 'group']
+# Variable defining the languages available for the application
+LANGUAGES = ['en-US', 'fr-FR']
+# Variable defining the workspace types available for the application
+WS_TYPES = ['closed', 'public', 'authorized', 'archived']
+# Variable defining the right types for the application
+RIGHT_TYPES = ['system', 'workspace']
+# Variable defining the different state for the comments for the application
+COMMENT_STATE = ['posted', 'validated', 'rejected']
+# Variable defining the default comment status for the application
+DEFAULT_COMMENT_STATE = 'validated'
+# Variable defining the available layout for the application
+LAYOUTS_AVAILABLE = ['application', 'app_fat_menu']
+# # Variable defining the filtering attributes available for the application
+SEARCH_FILTERS = ['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title']
+#
+IMAGE_TYPES = ["image/jpeg", "image/pjpeg", "image/gif", "image/png", "image/x-png", "image/ico"]
+# Set the default Captcha images number
+CAPTCHA_IMAGES_NUMBER = 10
+# Variable to define number of newsletters to send per hour
+NEWSLETTERS_PER_HOUR = 20

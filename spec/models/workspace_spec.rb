@@ -127,8 +127,8 @@ describe Workspace do
   end
 
   it "should save workspace items" do
-    @workspace.attributes = workspace_attributes.merge("ws_items"=>["article", "image", "cms_file"])
-    @workspace.ws_items.should == "article,image,cms_file"
+    @workspace.attributes = workspace_attributes.merge("available_items"=>["article", "image", "cms_file"])
+    @workspace.available_items.should == "article,image,cms_file"
   end
 end
 

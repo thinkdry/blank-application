@@ -8,7 +8,7 @@ module Admin::SearchesHelper
 		#res += "<option value='all'>"+I18n.t('general.common_word.all').upcase+"</option>"
 		#res += "<option value=''>----------</option>"
 		res += "<option value='item'#{(@search.category == 'item') ? ' selected=selected' : ''}'>"+I18n.t('general.object.item').pluralize.upcase+"</option>"
-		item_types_allowed_to(@current_user, 'show', current_workspace).each do |i|
+		item_types_allowed_to(@current_user, 'show', current_container).each do |i|
 			res += "<option value='#{i}'#{(@search.category == i) ? ' selected=selected' : ''}>"+I18n.t('general.item.'+i).pluralize+"</option>"
 		end
 		res += "<option value=''>----------</option>"
@@ -19,8 +19,8 @@ module Admin::SearchesHelper
 		return res
 	end
 
-  def search_in_workspaces(category)
-    selected_ws_ids = params[:w] || []
+  def search_in_containers(category)
+    selected_ws_ids = params[:containers] || []
     permission = category == 'item' ? 'workspace_show' : category+'_show'
     ws = ''
     Workspace.allowed_user_with_permission(@current_user, permission).all(:select => 'workspaces.id, workspaces.title').each do |w|

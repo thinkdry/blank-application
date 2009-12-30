@@ -6,27 +6,18 @@ class CreateWorkspacesTable < ActiveRecord::Migration
       t.string  :title,              :limit => 255, :null => false
       t.text    :description,                       :null => false
       t.string  :state,              :limit => 15
-      t.string  :ws_items,           :limit => 255
-      t.string  :ws_item_categories, :limit => 255
-      t.string  :logo_file_name,     :limit => 100
-      t.string  :logo_content_type,  :limit => 50
+      t.string  :available_items,   :limit => 255
+      t.string  :logo_file_name,    :limit => 100
+      t.string  :logo_content_type, :limit => 50
       t.integer :logo_file_size
-      t.string  :ws_available_types, :limit => 255
+      t.string  :available_types,   :limit => 255
       t.timestamps
     end
-
-    create_table :users_workspaces do |t|
-      t.integer :workspace_id
-      t.integer :role_id
-      t.integer :user_id
-      t.timestamps
-    end
-    
 
     create_table :items_workspaces do |t|
-      t.integer :workspace_id
-      t.integer :itemable_id
-      t.string  :itemable_type
+      t.integer :workspace_id, :null => false
+      t.integer :itemable_id, :null => false
+      t.string  :itemable_type, :null => false
       t.timestamps
     end
    
@@ -41,9 +32,6 @@ class CreateWorkspacesTable < ActiveRecord::Migration
     end
     
     add_index :workspaces, :creator_id
-    add_index :users_workspaces, :workspace_id
-    add_index :users_workspaces, :user_id
-    add_index :users_workspaces, :role_id
     add_index :items_workspaces, :workspace_id
     add_index :items_workspaces, :itemable_id
     add_index :items_workspaces, :itemable_type
@@ -54,7 +42,6 @@ class CreateWorkspacesTable < ActiveRecord::Migration
 
   def self.down
     drop_table :workspaces
-    drop_table :users_workspaces
     drop_table :items_workspaces
     drop_table :contacts_workspaces
   end

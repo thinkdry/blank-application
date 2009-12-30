@@ -23,7 +23,7 @@ class Superadmin::GeneralSettingsController < Admin::ApplicationController
     @new.syswrite(res.to_yaml)
     if params[:apply_to_all_workspaces] == 'true'
       Workspace.all.each do |w|
-        w.update_attributes(:ws_items => @configuration['sa_items'])
+        w.update_attributes(:available_items => @configuration['sa_items'])
       end
     end
 		flash[:notice] = "General settings updated"

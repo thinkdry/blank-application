@@ -12,7 +12,7 @@
 
 	<label>Permissions selection:</label>
 	<div class="formElement">
-  		<% permission_models = ITEMS + ['user', 'workspace'] %>
+  		<% permission_models = ITEMS + ['user'] + CONTAINERS %>
   		<% permission_model = '' %>
   		<% @permissions.each do |p| %>
     		<% p_model = ''; p_action = '' %>

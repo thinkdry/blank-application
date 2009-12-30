@@ -20,14 +20,16 @@
 </div>
 
 <div class="rightBlocks">
-	<div class="itemShowRightBlock">
-		<div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
-			<%= I18n.t("item.show.associated_workspace") %>
-		</div><div class="blockCornerRight"></div>
-		<div class="blockElementBody">
-			<%= item_workspaces_checkboxes(f, current_object) %>
-		</div>
-    </div>
+  <% CONTAINERS.each do |container| %>
+	  <div class="itemShowRightBlock">
+		  <div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
+			  <%= I18n.t("item.show.associated_#{container}") %>
+		  </div><div class="blockCornerRight"></div>
+		  <div class="blockElementBody">
+			  <%= item_containers_checkboxes(f, current_object, container) %>
+		  </div>
+      </div>
+  <% end %>
 </div>
 <% end %>
 

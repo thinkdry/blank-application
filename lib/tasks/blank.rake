@@ -36,8 +36,7 @@ namespace :blank do
 	desc "Building Xapian indexes"
 	task :xapian_rebuild => :environment do
 		p "Building Xapian indexes"
-		system("rake xapian:rebuild_index models='#{ITEMS.map{ |e| e.camelize }.join(' ')} User Workspace' RAILS_ENV=#{RAILS_ENV}")
-		#Rake::Task['xapian:rebuild_index'].invoke("models=\"#{ITEMS.map{ |e| e.camelize }.join(' ')} User Workspace\"")
+		system("rake xapian:rebuild_index models='#{ITEMS.map{ |e| e.camelize }.join(' ')} User #{CONTAINERS.map{ |e| e.camelize }}' RAILS_ENV=#{RAILS_ENV}")
 		p "Done"
 	end
 
@@ -85,38 +84,50 @@ namespace :blank do
   desc "Loading Roles"
   task(:create_roles => :environment) do
     p "Loading Roles ..."
-    Role.create(:name =>'superadmin', :description=> 'SuperAdministration', :type_role =>'system')
-    Role.create(:name =>'admin', :description=> 'Administration', :type_role =>'system')
-    Role.create(:name =>'user', :description=> 'User', :type_role =>'system')
-    Role.create(:name =>'ws_admin', :description=> 'Workspace Administrator', :type_role =>'workspace')
-    Role.create(:name =>'moderator', :description=> 'Moderator of Workspace', :type_role =>'workspace')
-    Role.create(:name =>'writer', :description=> 'Writer on Workspace', :type_role =>'workspace')
-    Role.create(:name =>'reader', :description=> 'Reader on Workspace', :type_role =>'workspace')
+    Role.create(:name =>'superadmin', :description => 'SuperAdministration', :type_role =>'system')
+    Role.create(:name =>'admin', :description => 'Administration', :type_role =>'system')
+    Role.create(:name =>'user', :description => 'User', :type_role =>'system')
+    Role.create(:name =>'co_admin', :description => 'Container Administrator', :type_role =>'container')
+    Role.create(:name =>'moderator', :description => 'Container Moderator', :type_role =>'container')
+    Role.create(:name =>'writer', :description => 'Container Writer', :type_role =>'container')
+    Role.create(:name =>'reader', :description => 'Container Reader', :type_role =>'container')
     p "Done"
     p "Assigning Permissions to Roles ..."
 
     @role_admin=Role.find_by_name("admin")
     @role_user=Role.find_by_name("user")
-    @role_ws=Role.find_by_name("ws_admin")
+    @role_ws=Role.find_by_name("co_admin")
     @role_mod=Role.find_by_name("moderator")
     @role_red=Role.find_by_name("reader")
     @role_wri=Role.find_by_name("writer")
     # Permissions for SUPERADMIN
     # don't care, checked directly with the role
+    
     # Permissions for ADMIN
     Permission.find(:all).each do |p|
       @role_admin.permissions << p
     end
-    # Permissions for USER ROLES
-    @role_user.permissions << Permission.find_by_name("workspace_new")
-    # Permissions for WORKSPACE ROLES
-    Permission.find(:all, :conditions => 'name LIKE "workspace%" AND type_permission="workspace"').each do |p|
-      @role_ws.permissions << p
-      @role_mod.permissions << p if p.name!="workspace_destroy"
+    
+    CONTAINERS.each do |container|
+      # Permissions for USER ROLES
+      @role_user.permissions << Permission.find_by_name("#{container}_new")
+      # Permissions for CONTAINERS ROLES
+      Permission.find(:all, :conditions => "name LIKE '#{container}%' AND type_permission='container'").each do |p|
+        @role_ws.permissions << p
+        @role_mod.permissions << p if p.name != "#{container}_destroy"
+      end
+      @role_red.permissions << Permission.find(:all, :conditions =>{:name => "#{container}_show"})
+      @role_wri.permissions << Permission.find(:all, :conditions =>{:name => "#{container}_show"})
+      @admin_ws = Permission.create(:name => "#{container}_administrate", :type_permission => 'container') unless Permission.exists?(:name => "#{container}_administrate", :type_permission => 'container')
+      if @admin_ws
+        @role_ws.permissions << @admin_ws
+        @role_mod.permissions << @admin_ws
+      end
     end
     ITEMS.each do |item|
       ['new', 'edit', 'index', 'show', 'destroy','comment','rate'].each do |action|
-        Permission.find(:all, :conditions =>{:name => item+'_'+action}).each do |p|
+        Permission.find(:all, :conditions =>{:name => item + '_' + action}).each do |p|
+            @role_user.permissions << p
           if action=='new'  || action=='edit'
             @role_ws.permissions << p
             @role_mod.permissions << p
@@ -133,13 +144,6 @@ namespace :blank do
         end
       end
     end
-    @role_red.permissions << Permission.find(:all, :conditions =>{:name => 'workspace_show'})
-    @role_wri.permissions << Permission.find(:all, :conditions =>{:name => 'workspace_show'})
-    @admin_ws = Permission.create(:name => 'workspace_administrate', :type_permission => 'workspace') unless Permission.exists?(:name => 'workspace_administrate', :type_permission => 'workspace')
-    if @admin_ws
-      @role_ws.permissions << @admin_ws
-      @role_mod.permissions << @admin_ws
-    end
     p "Done"
   end
 
@@ -147,33 +151,32 @@ namespace :blank do
   task(:create_permissions => :environment) do
     p "Loading Permissions ..."
 		Permission.delete_all
-    (['users', 'workspaces']+ITEMS).each do |controller|
+    (['users'] + ITEMS + CONTAINERS).each do |controller|
       ['new','edit', 'show', 'destroy'].each do |action|
         if controller=="users"
-          if action=="show" || action=="index"
-            Permission.create(:name=>controller.singularize+'_'+action,  :type_permission =>'workspace')
+          if action == "show" || action == "index"
+            Permission.create(:name => controller.singularize + '_' + action,  :type_permission =>'container')
           else
-            Permission.create(:name=>controller.singularize+'_'+action,  :type_permission =>'system')
+            Permission.create(:name => controller.singularize + '_' + action,  :type_permission =>'system')
           end
-        elsif controller=="workspaces"
-          if action=="new" || action=="index"
-            Permission.create(:name=>controller.singularize+'_'+action,  :type_permission =>'system') unless Permission.exists?(:name=>controller.singularize+'_'+action,  :type_permission =>'system')
+        elsif CONTAINERS.include?(controller)
+          if action == "new" || action == "index"
+            Permission.create(:name => controller.singularize + '_' + action,  :type_permission =>'system') unless Permission.exists?(:name => controller.singularize + '_' + action,  :type_permission =>'system')
           else
-            Permission.create(:name=>controller.singularize+'_'+action,  :type_permission =>'workspace') unless Permission.exists?(:name=>controller.singularize+'_'+action,  :type_permission =>'workspace')
+            Permission.create(:name => controller.singularize + '_' + action,  :type_permission =>'container') unless Permission.exists?(:name=>controller.singularize + '_' + action,  :type_permission =>'container')
           end
         else
-          Permission.create(:name=>controller.singularize+'_'+action,  :type_permission =>'workspace') unless Permission.exists?(:name=>controller.singularize+'_'+action,  :type_permission =>'workspace')
+          Permission.create(:name => controller.singularize + '_' + action,  :type_permission =>'container') unless Permission.exists?(:name=>controller.singularize + '_' + action,  :type_permission =>'container')
         end
       end
     end
     ITEMS.each do |controller|
       ['comment', 'rate', 'tag'].each do |action|
-        Permission.create(:name => controller.singularize+'_'+action, :type_permission => 'workspace') unless Permission.exists?(:name => controller.singularize+'_'+action, :type_permission => 'workspace')
+        Permission.create(:name => controller.singularize + '_' + action, :type_permission => 'container') unless Permission.exists?(:name => controller.singularize + '_' + action, :type_permission => 'container')
       end
     end
 		Permission.create(:name => 'user_configure', :type_permission => 'system')
-		Permission.create(:name => 'workspace_administrate', :type_permission => 'workspace')
-		Permission.create(:name => 'workspace_contacts_management', :type_permission => 'workspace')
+		Permission.create(:name => 'workspace_contacts_management', :type_permission => 'container')
     p "Done"
   end
 
@@ -213,10 +216,11 @@ namespace :blank do
       @sauser.system_role_id = @superadmin.id
       @sauser.save
     end
-    p "Setting Up 'quentin' as User"
-    @auser=User.find_by_login('quentin')
-    if @auser.nil?
-      sql =[ "insert into users(id, login, firstname, lastname, email, address, company, phone, mobile, activity, nationality, edito, avatar_file_name, avatar_content_type, avatar_file_size, avatar_updated_at, crypted_password, salt, activation_code, activated_at, password_reset_code, system_role_id, created_at, updated_at, remember_token, remember_token_expires_at)values(2,'quentin', 'Quentin', 'Dupond', 'contact@thinkdry.com', '15 rue Leonard', 'ThinkDRY Technologies', '0112345678', '0612345678', 'Developer', 'France', '',null, null, null, null, 'a2c297302eb67e8f981a0f9bfae0e45e4d0e4317', '356a192b7913b04c54574d18c28d46e6395428ab', null, CURRENT_TIMESTAMP, null, #{@user.id}, CURRENT_TIMESTAMP,CURRENT_TIMESTAMP, null, null);"
+    
+    p "Setting Up 'devil' as Admin"
+    @aduser = User.find_by_login('devil')
+    if @aduser.nil?
+      sql =[ "insert into users(id, login, firstname, lastname, email, address, company, phone, mobile, activity, nationality, edito, avatar_file_name, avatar_content_type, avatar_file_size, avatar_updated_at, crypted_password, salt, activation_code, activated_at, password_reset_code, system_role_id, created_at, updated_at, remember_token, remember_token_expires_at)values(2,'devil', 'Devil', 'Doom', 'devil_doom@gmail.com', '15 rue Leonard', 'Club Devil', '0112345678', '0612345678', 'Dancer', 'Germany', '',null, null, null, null, 'a2c297302eb67e8f981a0f9bfae0e45e4d0e4317', '356a192b7913b04c54574d18c28d46e6395428ab', null, CURRENT_TIMESTAMP, null, #{@admin.id}, CURRENT_TIMESTAMP,CURRENT_TIMESTAMP, null, null);"
       ]
       for i in sql
         query=<<-SQL
@@ -225,7 +229,24 @@ namespace :blank do
         ActiveRecord::Base.connection.execute(query)
       end
     else
-      @auser.system_role_id=@user.id
+      @aduser.system_role_id = @admin.id
+      @aduser.save
+    end
+    p "Done"
+    
+    p "Setting Up 'quentin' as User"
+    @auser = User.find_by_login('quentin')
+    if @auser.nil?
+      sql =[ "insert into users(id, login, firstname, lastname, email, address, company, phone, mobile, activity, nationality, edito, avatar_file_name, avatar_content_type, avatar_file_size, avatar_updated_at, crypted_password, salt, activation_code, activated_at, password_reset_code, system_role_id, created_at, updated_at, remember_token, remember_token_expires_at)values(3,'quentin', 'Quentin', 'Dupond', 'contact@thinkdry.com', '15 rue Leonard', 'ThinkDRY Technologies', '0112345678', '0612345678', 'Developer', 'France', '',null, null, null, null, 'a2c297302eb67e8f981a0f9bfae0e45e4d0e4317', '356a192b7913b04c54574d18c28d46e6395428ab', null, CURRENT_TIMESTAMP, null, #{@user.id}, CURRENT_TIMESTAMP,CURRENT_TIMESTAMP, null, null);"
+      ]
+      for i in sql
+        query=<<-SQL
+        #{i}
+        SQL
+        ActiveRecord::Base.connection.execute(query)
+      end
+    else
+      @auser.system_role_id = @user.id
       @auser.save
     end
     p "Done"
@@ -235,23 +256,29 @@ namespace :blank do
   task(:create_workspaces => :environment) do
     p "Loading Default Configuration for Workspace"
     if File.exist?("#{RAILS_ROOT}/config/customs/sa_config.yml")
-      @default_conf= YAML.load_file("#{RAILS_ROOT}/config/customs/sa_config.yml")
+      @default_conf = YAML.load_file("#{RAILS_ROOT}/config/customs/sa_config.yml")
     else
-      @default_conf= YAML.load_file("#{RAILS_ROOT}/config/customs/default_config.yml")
+      @default_conf = YAML.load_file("#{RAILS_ROOT}/config/customs/default_config.yml")
     end
     p "Done"
     p "Creating Default Workspace"
     @superadmin = User.first
     if Workspace.find_by_creator_id_and_state(@superadmin.id, "private").blank?
-      @ws=Workspace.create(:creator_id => @superadmin.id, :description => "Private Workspace for #{@superadmin.login}", :title=> "Private for #{@superadmin.login}", :state => "private", :ws_items => @default_conf['sa_items'].to_a, :ws_item_categories => @default_conf['sa_item_categories'].to_a)
-      UsersWorkspace.create(:workspace_id => @ws.id, :role_id => Role.find_by_name("ws_admin").id, :user_id => @superadmin.id)
+      @ws = Workspace.create(:creator_id => @superadmin.id, :description => "Archive for #{@superadmin.login}", :title=> "Archive for #{@superadmin.login}", :state => "private", :available_items => @default_conf['sa_items'].to_a)
+      @ws.users_containers.create(:role_id => Role.find_by_name("co_admin").id, :user_id => @superadmin.id)
+    end
+    
+    @aduser = User.find_by_login("devil")
+    if Workspace.find_by_creator_id_and_state(@aduser.id, "private").blank?
+      @ws = Workspace.create(:creator_id => @aduser.id, :description => "Archive for Devil", :title=> "Archive for Devil", :state => "private", :available_items => @default_conf['sa_items'].to_a)
+      @ws.users_containers.create(:role_id => Role.find_by_name("co_admin").id, :user_id => @aduser.id )
     end
 
 
-    @user=User.find_by_login("quentin")
+    @user = User.find_by_login("quentin")
     if Workspace.find_by_creator_id_and_state(@user.id, "private").blank?
-      @ws=Workspace.create(:creator_id => @user.id, :description => "Private Workspace for Quentin", :title=> "Private for Quentin", :state => "private", :ws_items => @default_conf['sa_items'].to_a, :ws_item_categories => @default_conf['sa_item_categories'].to_a)
-      UsersWorkspace.create(:workspace_id => @ws.id, :role_id => Role.find_by_name("ws_admin").id, :user_id => @user.id )
+      @ws = Workspace.create(:creator_id => @user.id, :description => "Archive for Quentin", :title=> "Archive for Quentin", :state => "private", :available_items => @default_conf['sa_items'].to_a)
+      @ws.users_containers.create(:role_id => Role.find_by_name("co_admin").id, :user_id => @user.id )
     end
 
     p "Done"

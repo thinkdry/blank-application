@@ -1,31 +1,31 @@
 <%= display_tabs_objects_list(  :default_tab => params[:item_type],
-  								:tabs_list => get_allowed_item_types(current_workspace),
-  								:url_base => 'ajax_items_path') %>
+    :tabs_list => get_allowed_item_types(current_container),
+    :url_base => 'ajax_items_path') %>
 
 <div class="objectList">
-	<div class="blockCornerLeft"></div><div class="blockElementHeader sevH">
-		<span id="item_count"><%= @total_objects_count%> items</span>
-		<div id="classify_bar">
-			<%= render :partial => 'admin/blank_lists/classify_bar' %>
-		</div>
-	</div><div class="blockCornerRight"></div>
+    <div class="blockCornerLeft"></div><div class="blockElementHeader sevH">
+        <span id="item_count"><%= @total_objects_count%> items</span>
+        <div id="classify_bar">
+            <%= render :partial => 'admin/blank_lists/classify_bar' %>
+        </div>
+    </div><div class="blockCornerRight"></div>
 
-	<div class="contentList">
-		<div class="elementPerPages">
+    <div class="contentList">
+        <div class="elementPerPages">
 			Element per pages : <a href="">10</a> | <a href="">25</a> | <a href="">50</a>
-		</div>
-		<div id="pure_item_list">
-			<% if @paginated_objects.first %>
+        </div>
+        <div id="pure_item_list">
+            <% if @paginated_objects.first %>
 
-		  	<input type="hidden" id="total_items" value="<%= @paginated_objects.length %>">
-		
-			<%= render :partial => '/admin/blank_lists/pure_item_list'%>
+                <input type="hidden" id="total_items" value="<%= @paginated_objects.length %>">
 
-			<% else %>
+                <%= render :partial => '/admin/blank_lists/pure_item_list'%>
 
-		    	<%= I18n.t('item.common_word.list_empty') %>
+            <% else %>
 
-			<% end %>
-		</div>
-	</div>
+                <%= I18n.t('item.common_word.list_empty') %>
+
+            <% end %>
+        </div>
+    </div>
 </div>

@@ -38,6 +38,7 @@ class Admin::SearchesController < Admin::ApplicationController #:nodoc: all
 		else
      	@templatee = "generic_for_items/index"
 		end
+		@ajax_url = request.path
 		# Management of the response depending of the request type
 		if !request.xhr?
 			respond_to do |format|

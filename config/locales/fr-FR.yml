@@ -145,7 +145,7 @@ fr-FR:
       es-ES: Spanish(ESP)
     role: 
       user: Utilisateur
-      ws_admin: Administrateur d'espace de travail
+      co_admin: Administrateur d'espace de travail
       writer: "R\xC3\xA9dacteur"
       superadmin: Superadministrateur
       reader: Lecteur
@@ -593,7 +593,9 @@ fr-FR:
     show: 
       get_in_another_format: Autre format
       no_item: Il n'y a pas d'item de ce type.
-      associated_workspace: "Espaces de travail associ\xC3\xA9s :"
+      associated_workspace: "Espaces de travail associ\xC3\xA9s"
+      associated_website: "Associated websites"
+      associated_folder: "Associated folder"
     common_word: 
       rate: Note
       tag: Etiquette
@@ -722,7 +724,7 @@ fr-FR:
     index: 
       top_five_item: Top 5 Objets
       latest_workspace: derniers espaces de travail
-      title: Mon espace de travail
+      title: Mon Containers
       best_rated: "Le mieux not\xC3\xA9"
       you_have_access_to_workspace: "Vous avez acc\xC3\xA8s aux espaces de travail"
       latest_user: Derniers utilisateurs

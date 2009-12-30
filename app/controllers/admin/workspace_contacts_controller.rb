@@ -6,7 +6,7 @@ class Admin::WorkspaceContactsController < Admin::ApplicationController
 	before_filter :permission_checking, :except => [:unsubscribe, :subscribe_newsletter]
 
 	def permission_checking
-		no_permission_redirection unless @current_user && current_workspace && current_workspace.has_permission_for?('contacts_management', @current_user)
+		no_permission_redirection unless @current_user && current_workspace && current_workspace.has_permission_for?('contacts_management', @current_user, current_container_type)
 	end
 
 	# Action to assing/remove workspace contacts from a workspace
@@ -89,7 +89,7 @@ class Admin::WorkspaceContactsController < Admin::ApplicationController
 	# - GET /workspaces/:id/contacts/subscribe?remove=true
 	def subscribe
 		if params[:remove]
-			a=ContactsWorkspace.find(:first, :conditions => {
+			a = ContactsWorkspace.find(:first, :conditions => {
 					:workspace_id => params[:workspace_id],
 					:contactable_id => @current_user.id,
 					:contactable_type => @current_user.class.to_s,
@@ -98,7 +98,7 @@ class Admin::WorkspaceContactsController < Admin::ApplicationController
 			)
 			if a.destroy
 				flash[:notice] = I18n.t('group.subscribe.unsubscribe_flash_notice')
-				redirect_to workspace_path(params[:workspace_id])
+				redirect_to admin_workspace_path(params[:workspace_id])
 			else
 				flash[:error] = I18n.t('group.subscribe.unsubscribe_flash_error')
 				redirect_to admin_workspace_path(params[:workspace_id])
