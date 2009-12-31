@@ -6,8 +6,7 @@ describe Admin::ArticlesController do
   before(:each) do
     @current_user = mock_model(User, :login => 'boss', :u_per_page => 10, :u_layout => 'app_fat_menu')
     controller.stub!(:current_user).and_return(@current_user)
-    controller.stub!(:set_locale).and_return(true)
-    controller.stub!(:get_configuration).and_return(true)
+    controller.stub!(:set_locale).and_return('en-US')
     controller.stub!(:get_da_layout).and_return('application')
     controller.stub!(:permission_checking).and_return(true)
     controller.stub!(:current_container).and_return('workspace')

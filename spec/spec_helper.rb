@@ -67,18 +67,30 @@ def bytes_to_megabytes bytes
 end
 
 module ActiveRecord
-    module Reflection
-      class AssociationReflection
-        def to_hash
-          {
-            :macro => @macro,
-            :options => @options,
-            :class_name => @class_name || @name.to_s.singularize.camelize
-          }
-        end
+  module Reflection
+    class AssociationReflection
+      def to_hash
+        {
+          :macro => @macro,
+          :options => @options,
+          :class_name => @class_name || @name.to_s.singularize.camelize
+        }
       end
     end
   end
+end
+
+def get_sa_config
+	if File.exist?("#{RAILS_ROOT}/config/customs/sa_config.yml")
+		return YAML.load_file("#{RAILS_ROOT}/config/customs/sa_config.yml")
+	else
+		return YAML.load_file("#{RAILS_ROOT}/config/customs/default_config.yml")
+	end
+end
+
+#def get_configuration
+#  @configuration ||= get_sa_config
+#end
 
 private
 

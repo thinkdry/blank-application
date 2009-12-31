@@ -62,9 +62,12 @@ class Admin::ApplicationController < ActionController::Base
   #
   # Parameters :
   # - workspace : Workspace instance (default: nil)
-	def get_allowed_item_types(workspace=nil)
-		if workspace
-			return (workspace.available_items.to_s.split(',') & @configuration['sa_items'])
+	def get_allowed_item_types(container=nil)
+		if container
+		  p container
+		  p container.available_items
+		  p @configuration
+			return (container.available_items.to_s.split(',') & @configuration['sa_items'])
 		else
 			return @configuration['sa_items'] 
 		end

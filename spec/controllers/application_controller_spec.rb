@@ -17,6 +17,21 @@ describe Admin::ApplicationController do
     end
 
   end
+  
+#TODO Learn to write application controller specs, how to get @configuration?  
+#  describe 'method' do
+#  
+#    before(:each) do
+#      @configuration ||= get_sa_config
+#      controller.stub!(:get_configuration).and_return(@configuration)
+#    end
+#  
+#    it 'should return items types depending on container' do
+#      get_configuration
+#      p controller.get_allowed_item_types(mock_model(Workspace, :available_items => "article,image"))
+#    end
+#    
+#  end
 
 end
 
