@@ -1,4 +1,3 @@
-<input id="total_items" type="hidden" value="<%= @paginated_objects.length %>"/>
 <%@i = 0%>
 <% for object in @paginated_objects %>
   <div id="comment_<%= object.id.to_s %>" class="item_in_list">

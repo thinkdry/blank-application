@@ -3,12 +3,19 @@
     <head>
         <link rel="shortcut icon" href="<%= @configuration['sa_favicon_url'] %>"/>
         <meta http-equiv="X-UA-Compatible" content="IE=7" />
-        <%= stylesheet_link_tag "blank"  %>
         <%= stylesheet_link_tag "blank_JQ"  %>
         <%= stylesheet_link_tag "jquery.rating" %>
-        <!--[if IE]>
-          <link rel="stylesheet" type="text/css" href="/stylesheets/ie.css" />
-        <![endif]-->
+		<!--[if IE 7]>
+			<link rel="stylesheet" type="text/css" href="/stylesheets/ie.css" />
+		<![endif]-->
+
+        <!--[if IE 6]>
+          	<link rel="stylesheet" type="text/css" href="/stylesheets/ie6.css" />
+		  	<script src="/javascripts/DD_belatedPNG.js"></script>
+		  	<script>
+		   		DD_belatedPNG.fix('img');
+			</script>
+		<![endif]-->
         <title>
             <%= I18n.t 'layout.application.title' %> -
             <% if @content_for_title %>
@@ -19,14 +26,16 @@
             <% end %>
         </title>
         <script type="text/javascript" src="/javascripts/jquery.js"></script>
-        <script type="text/javascript" src="/javascripts/jquery.corner.js"></script>
         <script type="text/javascript" src="/javascripts/jquery-ui.js"></script>
+		<script type="text/javascript" src="/javascripts/jquery-ui.min.js"></script>
         <script type="text/javascript" src="/javascripts/jquery.autocomplete.js"></script>
         <script type="text/javascript" src="/javascripts/jquery.form.js"></script>
         <script type="text/javascript" src="/javascripts/jquery.rating.js"></script>
         <script type="text/javascript" src="/javascripts/jrails.js"></script>
-        <script type="text/javascript" src="/javascripts/blank.js"></script>
 		<script type="text/javascript" src="/javascripts/jquery.colorbox.js"></script>
+		<script type="text/javascript" src="/javascripts/blank.js"></script>
+		<script type="text/javascript" src="/ckeditor/ckeditor_source.js"></script>
+		<!-- script type="text/javascript" src="/javascripts/firebug-lite.js"></script-->
 
         <% if params[:action] != 'new' and params[:action] != 'edit' %>
             <script type="text/javascript">
@@ -45,6 +54,11 @@
     </head>
 
     <body>
+		<div id="ajax_spinner">
+            <img src="/images/ajax-spinner.gif" alt="loading" />
+        </div>
+        
+	
         <div id="page_container">
             <div id="header">
                 <%= render :partial => "layouts/header"%>
@@ -61,16 +75,9 @@
                 <%= yield %>
 
             </div>
-            <div id="footer">
-                <%= render :partial => "layouts/footer"%>
-            </div>
-			<div id="disclaimer">
-				©thinkDRY 2007 - 2009 Trademarks belong to their respective owners. All rights reserved.
-			</div>
         </div>
-        <div id="ajax_spinner">
-            <img src="/images/ajax-spinner.gif" alt="loading" />
+		<div id="footer">
+            <%= render :partial => "layouts/footer"%>
         </div>
     </body>
 </html>
-

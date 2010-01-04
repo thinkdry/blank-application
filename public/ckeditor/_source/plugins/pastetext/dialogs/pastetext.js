@@ -22,10 +22,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				onOk : function()
 				{
 					// Get the textarea value.
-					var text = this.getContentElement( 'general', 'content' ).getInputElement().getValue();
+					var text = this.getContentElement( 'general', 'content' ).getInputElement().getValue(),
+						editor = this.getParentEditor();
 
-					// Inserts the text.
-					this.getParentEditor().insertText( text );
+					setTimeout( function()
+					{
+						editor.fire( 'paste', { 'text' : text } );
+					}, 0 );
 				},
 
 				contents :

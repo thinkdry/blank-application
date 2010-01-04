@@ -13,7 +13,7 @@ module KeywordsHelper
 
 	def keywords_links_list_for(object)
 		return  ((l=object.keywords_list).size > 0) ? 
-		        l.split(',').map{|e| link_to(e, admin_searches_path('q' => e,'cat'=>'item'))}.join(', ') :
+		        l.split(',').map{|e| link_to(e.strip, admin_searches_path('q' => e,'cat'=>'item'), :class => "tag")} :
 		        ""
 	end
 

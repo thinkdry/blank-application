@@ -44,11 +44,12 @@ CKEDITOR.htmlParser.comment.prototype =
 
 		if ( filter )
 		{
-			if ( !( comment = filter.onComment( comment ) ) )
+			if ( !( comment = filter.onComment( comment, this ) ) )
 				return;
 
 			if ( typeof comment != 'string' )
 			{
+				comment.parent = this.parent;
 				comment.writeHtml( writer, filter );
 				return;
 			}

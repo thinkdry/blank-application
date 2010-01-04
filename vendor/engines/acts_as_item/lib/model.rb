@@ -48,26 +48,6 @@ module ActsAsItem
 
       end
       
-      # Generally icons are used to enchance visual simplicity to the User.
-      #
-      # Icon is used to associate every item type with image thumbnail of size 32x32px in default back office view.
-      #
-      # Usage :
-      # <tt>Article.icon</tt>
-      # will return "/item_icons/article.png
-      def icon
-        'item_icons/' + self.to_s.underscore + '.png'
-      end
-
-      # Icon_48 is other image to associate every item type with image thumbnail of size 48x48px in default back office view.
-      #
-      # Usage :
-      # <tt>Article.icon_48</tt>
-      # will return "/item_icons/article_48.png
-      def icon_48
-        'item_icons/' + self.to_s.underscore + '_48.png'
-      end
-
       # Label is used to return the name of the item type.
       #
       # Usage :

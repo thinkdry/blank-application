@@ -15,28 +15,24 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 		exec : function( editor )
 		{
-			//var $form = editor.element.$.form;
-			
-			alert("command lauched");
-			
-			saveFCKContentDraf();
-				
-			// if ( $form )
-			// {
-			// 	try
-			// 	{
-			// 		//$form.submit();
-			// 		saveFCKContentDraf();
-			// 	}
-			// 	catch( e )
-			// 	{
-			// 		// If there's a button named "submit" then the form.submit
-			// 		// function is masked and can't be called in IE/FF, so we
-			// 		// call the click() method of that button.
-			// 		if ( $form.submit.click )
-			// 			$form.submit.click();
-			// 	}
-			// }
+			ajaxSaveOfFCKContent();
+			// var $form = editor.element.$.form;
+			// 
+			// 			if ( $form )
+			// 			{
+			// 				try
+			// 				{
+			// 					$form.submit();
+			// 				}
+			// 				catch( e )
+			// 				{
+			// 					// If there's a button named "submit" then the form.submit
+			// 					// function is masked and can't be called in IE/FF, so we
+			// 					// call the click() method of that button.
+			// 					if ( $form.submit.click )
+			// 						$form.submit.click();
+			// 				}
+			// 			}
 		}
 	};
 

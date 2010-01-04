@@ -16,22 +16,35 @@ module ActionView::Base::CompiledTemplates
       return template
     end
      
-    def template_for_advanced_editor(object)
-      %{
-          <label class="advanced">#{object.label}</label>
-          <div class="errorForAdvancedEditor">#{@template.ajax_error_message_on(@object, object.method)}</div>
-          <div class="advancedEditor">#{object}</div>
-      }
+    def template_for_advanced_editor(object)   
+      code_for_fck = ''
+      code_for_fck += '<div class="errorForAdvancedEditor">' + @template.ajax_error_message_on(@object, object.method) + '</div>'
+      if @object.class.to_s != "Workspace" #TODO CONTAINER
+        code_for_fck += '<input type="hidden" value="/admin/ajax_item_save/' + @object.class.to_s.underscore.pluralize + '/" id="ajax_save_url"/>'
+      else
+        code_for_fck += '<input type="hidden" value="/admin/ajax_workspace_save/' + @object.class.to_s.underscore.pluralize + '/" id="ajax_save_url"/>'
+      end
+      code_for_fck += '<input type="hidden" value="' + @object.id.to_s + '" id="item_id"/>'
+      code_for_fck += '<div class="ckUploader">Upload/insert : '
+      code_for_fck += '<a href="javascript:" id="fck_insert_image">Picture</a> | '
+      code_for_fck += '<a href="javascript:" id="fck_insert_video">Video</a> | '
+      code_for_fck += '<a href="javascript:" id="fck_insert_audio">Audio</a> | '
+      code_for_fck += '<a href="javascript:" id="fck_insert_link">Link</a></div>'
+      code_for_fck += '<div class="advancedEditor">' + object + '</div>'    
+        
+      %{#{code_for_fck}}
     end
      
 		def advanced_editor(field, *args)
+		  
       options = args.extract_options!
-      options = options.merge(:ajax => false, :template => :template_for_advanced_editor)
-      width = options[:width] || '630px'
-      height = options[:height] || '350px'
+      options = options.merge(:ajax => false, :template => :template_for_advanced_editor, :id => 'ckInstance')
+
+      p options
+      p field
 
       text_area(field, options) +
-      @template.advanced_editor_on(@object, field, width, height)
+      @template.advanced_editor_on(@object, field)
     end
       
     def tags_field(field, *args)

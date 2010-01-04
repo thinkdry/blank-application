@@ -13,7 +13,7 @@ class Admin::ContentController < Admin::ApplicationController
 	# - GET /content?item_type=article
   def index
 		params[:item_type] ||= get_allowed_item_types(current_workspace).first.pluralize
-    params[:w] ||= current_workspace ? [current_workspace.id] : nil
+    params[:w] ||= current_workspace ? [current_workspace.id] : [@current_user.get_private_workspace.id]
 		params_hash = setting_searching_params(:from_params => params)
     params_hash.merge!({:skip_pag => true, :by => 'created_at-asc'}) if params[:format] && params[:format] != 'html'
       
@@ -45,11 +45,11 @@ class Admin::ContentController < Admin::ApplicationController
   def ajax_index
     
 		params[:item_type] ||= get_allowed_item_types(current_workspace).first.pluralize
-		params[:w] ||= current_workspace ? [current_workspace.id] : nil
+		params[:w] ||= current_workspace ? [current_workspace.id] : [@current_user.get_private_workspace.id]
     @paginated_objects = params[:item_type].classify.constantize.get_da_objects_list(setting_searching_params(:from_params => params))
     @total_objects_count = params[:item_type].classify.constantize.matching_user_with_permission_in_workspaces(@current_user, 'show', params[:w]).uniq.size
 
-		@ajax_url = params[:controller] == 'admin/searches' ? request.path : params[:w] ? "/admin/workspaces/1/ajax_content/" + params[:item_type] : "/admin/ajax_content/#{params[:item_type]}"		
+		@ajax_url = params[:controller] == 'admin/searches' ? request.path : params[:w] ? "/admin/workspaces/#{params[:w]}/ajax_content/" + params[:item_type] : "/admin/ajax_content/#{params[:item_type]}"		
 		@ordering_filters = ['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title']
 		
 		respond_to do |format|
@@ -57,72 +57,72 @@ class Admin::ContentController < Admin::ApplicationController
 		end
   end
 
-  # Action displaying items of the specified FCKeditor action ('selected_item' parameters)
-  #
-	# This function will generate the list of the specified item type ('item_type' parameters),
-	# and with other parameters like the workspace selected, in order to filter the results.
-	#
-  # Usage URL :
-  # - GET '/display_content_list/:selected_item
-  def display_item_in_pop_up
-    
-    #get the workspace if there is one. otherwhise it's nil
-    @workspace = (params[:workspace_id] && !params[:workspace_id].blank?) ? Workspace.find(params[:workspace_id]) : nil
-    params[:w] = [@workspace.id] if @workspace
-		
-		#get the list of workspaces.
-		@workspaces = current_user.has_system_role('superadmin') ? Workspace.all : current_user.workspaces
-		
-		#if we wants all the items.
-		if params[:selected_item] == 'all'
-			@selected_item_types = get_fcke_item_types
-			@item_types = (item_types_allowed_to(current_user, 'show', @workspace)&@selected_item_types).map{ |e| e.pluralize }
-			params[:item_type] ||= @item_types.first
-      if params[:item_type]
-         @current_objects = params[:item_type].classify.constantize.get_da_objects_list(setting_searching_params(:from_params => params).merge!({:skip_pag => true}))#, :conditions =>{:fetch => {'state_equals' => 'published'}}}))
-      else
-        render :text => "No item types available for your profil."
-        return
-      end
-    #if we wants just pictures / or videos / or fck flash.
-		elsif (params[:selected_item] == 'images' || params[:selected_item] == 'videos' || params[:selected_item] == 'fcke_flash')
-		  
-			@selected_item_types = [params[:selected_item].to_s.singularize]
-			params[:item_type] ||= @selected_item_types.first.pluralize
-			
-			if !params[:item_type].include?('fcke')
-        @current_objects = params[:item_type].classify.constantize.get_da_objects_list(setting_searching_params(:from_params => params).merge!({:skip_pag => true}))#, :conditions =>{:fetch => {'state_equals' => 'published'}}}))
-			else
-        if params[:selected_item] == 'fcke_flash'
-          fck_item = "videos"
-          types = 'swf'
-          params[:item_type] = 'fcke_videos'
-        else
-          fck_item = params[:selected_item]
-          types = '*'
-        end
-				@fcke_objects = []
-				if session[:fck_item_type] != 'Page'
-					Dir["public/uploaded_files/#{session[:fck_item_type].singularize.downcase}/#{session[:fck_item_id]}/fck_#{fck_item}/*.#{types}"].collect do |uploaded_file|
-						@fcke_objects << { :name => uploaded_file.split('/')[5], :url => admin_root_url+uploaded_file.split('public/')[1] }
-					end
-				else
-					object = session[:fck_item_type].classify.constantize.find(session[:fck_item_id])
-					workspace = object.workspaces.delete_if{ |e| e.state == 'private' }.first
-					Dir["public/uploaded_files/workspace/#{workspace.id}/fck_#{fck_item}/*.#{types}"].collect do |uploaded_file|
-						@fcke_objects << { :name => uploaded_file.split('/')[5], :url => admin_root_url + uploaded_file.split('public/')[1] }
-					end
-				end
-			end
-		else
-				###
-		end
-		#if @current_objects.first
-			render :layout => 'pop_up', :object => @current_objects
-		#else
-		#	render :update do |page|
-		#		page.replace_html('abc', :text => 'No results for these criterions.')
-		#	end
-		#end
-  end
+  # # Action displaying items of the specified FCKeditor action ('selected_item' parameters)
+  #  #
+  #   # This function will generate the list of the specified item type ('item_type' parameters),
+  #   # and with other parameters like the workspace selected, in order to filter the results.
+  #   #
+  #  # Usage URL :
+  #  # - GET '/display_content_list/:selected_item
+  #  def display_item_in_pop_up
+  #    
+  #    #get the workspace if there is one. otherwhise it's nil
+  #    @workspace = (params[:workspace_id] && !params[:workspace_id].blank?) ? Workspace.find(params[:workspace_id]) : nil
+  #    params[:w] = [@workspace.id] if @workspace
+  #     
+  #     #get the list of workspaces.
+  #     @workspaces = current_user.has_system_role('superadmin') ? Workspace.all : current_user.workspaces
+  #     
+  #     #if we wants all the items.
+  #     if params[:selected_item] == 'all'
+  #       @selected_item_types = get_fcke_item_types
+  #       @item_types = (item_types_allowed_to(current_user, 'show', @workspace)&@selected_item_types).map{ |e| e.pluralize }
+  #       params[:item_type] ||= @item_types.first
+  #      if params[:item_type]
+  #         @current_objects = params[:item_type].classify.constantize.get_da_objects_list(setting_searching_params(:from_params => params).merge!({:skip_pag => true}))#, :conditions =>{:fetch => {'state_equals' => 'published'}}}))
+  #      else
+  #        render :text => "No item types available for your profil."
+  #        return
+  #      end
+  #    #if we wants just pictures / or videos / or fck flash.
+  #     elsif (params[:selected_item] == 'images' || params[:selected_item] == 'videos' || params[:selected_item] == 'fcke_flash')
+  #       
+  #       @selected_item_types = [params[:selected_item].to_s.singularize]
+  #       params[:item_type] ||= @selected_item_types.first.pluralize
+  #       
+  #       if !params[:item_type].include?('fcke')
+  #        @current_objects = params[:item_type].classify.constantize.get_da_objects_list(setting_searching_params(:from_params => params).merge!({:skip_pag => true}))#, :conditions =>{:fetch => {'state_equals' => 'published'}}}))
+  #       else
+  #        if params[:selected_item] == 'fcke_flash'
+  #          fck_item = "videos"
+  #          types = 'swf'
+  #          params[:item_type] = 'fcke_videos'
+  #        else
+  #          fck_item = params[:selected_item]
+  #          types = '*'
+  #        end
+  #         @fcke_objects = []
+  #         if session[:fck_item_type] != 'Page'
+  #           Dir["public/uploaded_files/#{session[:fck_item_type].singularize.downcase}/#{session[:fck_item_id]}/fck_#{fck_item}/*.#{types}"].collect do |uploaded_file|
+  #             @fcke_objects << { :name => uploaded_file.split('/')[5], :url => admin_root_url+uploaded_file.split('public/')[1] }
+  #           end
+  #         else
+  #           object = session[:fck_item_type].classify.constantize.find(session[:fck_item_id])
+  #           workspace = object.workspaces.delete_if{ |e| e.state == 'private' }.first
+  #           Dir["public/uploaded_files/workspace/#{workspace.id}/fck_#{fck_item}/*.#{types}"].collect do |uploaded_file|
+  #             @fcke_objects << { :name => uploaded_file.split('/')[5], :url => admin_root_url + uploaded_file.split('public/')[1] }
+  #           end
+  #         end
+  #       end
+  #     else
+  #         ###
+  #     end
+  #     #if @current_objects.first
+  #       render :layout => 'pop_up', :object => @current_objects
+  #     #else
+  #     # render :update do |page|
+  #     #   page.replace_html('abc', :text => 'No results for these criterions.')
+  #     # end
+  #     #end
+  #end
 end

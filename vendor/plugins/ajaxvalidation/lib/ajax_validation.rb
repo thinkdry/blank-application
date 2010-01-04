@@ -64,7 +64,7 @@ module AjaxValidation
         # have or not a validation throught ajax.
         options = args.extract_options!        
         options[:ajax] = true if options[:ajax].nil?
-        options[:className] = object.class.to_s
+        options[:itemclass] = object.class.to_s
         options[:validate] = field.to_s
         options[:url] = @template.get_validation_url(object)
         

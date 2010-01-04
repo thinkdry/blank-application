@@ -18,7 +18,7 @@
     <div class="itemShowRightBlock">
         <div class="blockCornerLeft"></div><div class="blockElementHeader twoH">What can I do?</div><div class="blockCornerRight"></div>
         <div class="blockElementBody">
-            <%= link_to "Go back to Workspace", (current_workspace ? admin_workspace_path(current_workspace.id) + '?item_type=' : 'admin/content/') + object.class.to_s.underscore.pluralize %>
+            <%= link_to "Go back to Workspace", (current_workspace ? admin_workspace_path(current_workspace.id) + '?item_type=' : '/admin/content/') + object.class.to_s.underscore.pluralize %>
 			<!-- TODO TRANSLATE -->
 
             <% if object.has_permission_for?('add', @current_user) %>
@@ -40,9 +40,8 @@
 					</div>
 				</div>
             <% end %>
-            <%= link_to "print", 'javascript:window.print();' %>
             <% if @current_object.has_permission_for?('rate', @current_user) %>
-                <%= link_to "rate", '#', :id => :rate_action %><%# = item_rate(@current_object) %>
+                <%= item_rate(@current_object) %>
             <% end %>
         </div>
     </div>
@@ -51,7 +50,6 @@
 		<div class="blockCornerLeft"></div><div class="blockElementHeader twoH">User</div><div class="blockCornerRight"></div>
         <div class="blockElementBody">
             <%= link_to_user object.user %>
-            <%= item_rate_locked(object) %>
         </div>
     </div>
     <div class="itemShowRightBlock">

@@ -118,10 +118,10 @@ module GenericForItemHelper
 	#
   # Usage :
   # f.advanced_editor(:body, 'Article' + ' * :')
-	def advanced_editor_on(object, attribute, width, height)
+	def advanced_editor_on(object, attribute)
+	  
     ws = current_workspace
 		css_files = []
-    toolset = 'Default'
     google_map = false
     ws ||= object.workspaces.delete_if{ |e| e.websites.empty? }.first if (object.class.to_s == "Page")
     
@@ -132,31 +132,17 @@ module GenericForItemHelper
       end
     end
     
-    toolset = 'Default_google_map' if google_map
     css_files << '/stylesheets/fckeditor.css' if css_files.empty?
-    # return '<script type="text/javascript" src="/fckeditor/fckeditor.js"></script>' +
-    #       javascript_tag(%{
-    #         var oFCKeditor = new FCKeditor('#{object.class.to_s.underscore}_#{attribute}', "620px", "#{ height }", "#{toolset}") ;
-    #         oFCKeditor.Config['EditorAreaCSS'] = "#{css_files}" ;
-    #         oFCKeditor.BasePath = "/fckeditor/" ;
-    #         oFCKeditor.Config['GoogleMaps_Key'] = '';
-    #         oFCKeditor.Config['ImageUploadURL'] = "/admin/fckuploads?item_type=#{object.class}&id=#{object.id}&type=Image";
-    #         oFCKeditor.Config['FlashUploadURL'] = "/admin/fckuploads?item_type=#{object.class}&id=#{object.id}&type=Video";
-    #         oFCKeditor.Config['LinkUploadURL'] = "/admin/fckuploads?item_type=#{object.class}&id=#{object.id}&type=Link";
-    #         oFCKeditor.Config['FlvUploadURL'] = "/admin/fckuploads?item_type=#{object.class}&id=#{object.id}&type=Video";
-    #         oFCKeditor.Config['DefaultLanguage'] = '#{I18n.locale.split('-')[0]}' ;
-    #         oFCKeditor.ReplaceTextarea() ;
-    #       })
-    
    
     input_id = String.new
     input_id = object.class.to_s.underscore + '_' + attribute.to_s
     
     current_workspace = @current_user.get_private_workspace if current_workspace.nil?
-
-    field =  '<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>'
-    field += '<textarea name="'+ input_id +'" id="' + input_id + '" class="novisible"></textarea>'
-    field += '<script type="text/javascript">CKEDITOR.replace(\''+ input_id +'\', {customConfig : \'/admin/ck_config?ws='+current_workspace.id.to_s+'\'});</script>'
+    field =  ''
+    
+    object.new_record? ? new_item = "&new=true" : new_item = ""
+    
+    field += '<script type="text/javascript">CKEDITOR.replace(\'ckInstance\', {customConfig : \'/admin/ck_config?ws='+ current_workspace.id.to_s + new_item + '\'});</script>'
 
     return field
   

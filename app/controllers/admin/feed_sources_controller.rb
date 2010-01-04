@@ -55,6 +55,7 @@ class Admin::FeedSourcesController < Admin::ApplicationController
     
     before :show do
       #      permit "consultation of current_object"
+      @current_object.import_latest_items
       @feed_items = @current_object.feed_items.paginate(:page => params[:page], :per_page => get_per_page_value)
     end
   end

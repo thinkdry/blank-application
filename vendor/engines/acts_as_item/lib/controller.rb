@@ -210,6 +210,7 @@ module ActsAsItem
       # will create new rating for the item and save it
       def rate
         if Rating.find(:first, :conditions =>{:user_id => current_user.id, :rateable_id => current_object.id, :rateable_type => current_object.class.to_s})
+          #TODO TRANSLATE AND DISPLAY CORRECT MESSAGE IN blank.js
           message = "Already Rated"
         else
           current_object.add_rating(Rating.new(:rating => params[:rated].to_i,:user_id => current_user.id))

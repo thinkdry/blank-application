@@ -942,6 +942,14 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			return this;
 		},
 
+		getCommonAncestor : function()
+		{
+			var ranges = this.getRanges(),
+				startNode = ranges[ 0 ].startContainer,
+				endNode = ranges[ ranges.length - 1 ].endContainer;
+			return startNode.getCommonAncestor( endNode );
+		},
+
 		// Moving scroll bar to the current selection's start position.
 		scrollIntoView : function()
 		{

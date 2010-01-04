@@ -2,7 +2,8 @@
 
     <%= f.advanced_editor(	:body, 
 							:label => I18n.t('article.field.article_label')+ ' * :', 
-							:hint => I18n.t('article.field.article_hint')) %>
+							:hint => I18n.t('article.field.article_hint')) %>				
+							
 
 	<div id="attachement" class="blockElement">
 		<div class="blockCornerLeft"></div>
@@ -38,3 +39,5 @@
 		</div>
 	</div>
 <% end -%>
+
+<%= render :partial => "/admin/ck_specifics/ck_links"%>
