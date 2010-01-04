@@ -69,6 +69,52 @@ $(document).ready(function () {
     });
 
 
+	//Translations dropdown section load
+    $('#translation_dropdown').live("change", function(){
+				$('#article').css('display', 'none');
+				$('#audio').css('display', 'none');
+				$('#bookmark').css('display', 'none');
+				$('#cms_file').css('display', 'none');
+				$('#comment').css('display', 'none');
+				$('#datetime').css('display', 'none');
+				$('#feed_source').css('display', 'none');
+				$('#general').css('display', 'none');
+				$('#group').css('display', 'none');
+				$('#home').css('display', 'none');
+				$('#image').css('display', 'none');
+				$('#item').css('display', 'none');
+				$('#layout').css('display', 'none');
+				$('#mailer').css('display', 'none');
+				$('#newsletter').css('display', 'none');
+				$('#page').css('display', 'none');
+				$('#people').css('display', 'none');
+				$('#publication').css('display', 'none');
+				$('#rating').css('display', 'none');
+				$('#user').css('display', 'none');
+				$('#video').css('display', 'none');
+				$('#website_contact').css('display', 'none');
+				$('#workspace').css('display', 'none');
+				$('#workspace_contact').css('display', 'none');
+				var value= '#' + $('#translation_dropdown').val()
+				$(value).css('display','block');
+    });
+
+	// Translation ajax update
+	$('.translation_field').live("dblclick", function(){
+		section=$(this).attr("id").split('_');
+		donnee = "id=" + section[1] + "&section=" + $('#translation_dropdown').val() + "&subsection=" + $('#translation_' + section[1] + "_subsection").val() + "&key=" + $('#translation_' + section[1] + "_key").val() + "&value=" + $('#translation_' + section[1] + "_value").val();
+		url= "/superadmin/translations/updating";       
+          	$.ajax({
+            	type: "PUT",
+              	url :url,
+              	data: donnee,
+              	success: function(){
+                  	$('#notice').html("Your update has been registered");
+                  	$('#notice').css('display', 'block').fade(10000);
+              	} 
+			});   
+	  });
+
 	//HINT FOR FORMS && AJAX VALIDATION
 	$(".formElement input").focus( function() {	
 		$(this).nextAll('.ajax_hint_message').css('display','inline');
@@ -302,17 +348,6 @@ function classify_bar(url) {
 		}
     });
 }
-
-function translation_selection(array){
-    for(i=0;i < array.length; i++){
-        $("#"+array[i]).css('display','none');
-        if(array[i] == 'select')
-            return;
-        else
-            $("#"+array[i]).css('display','block');
-    }
-}    
-
 
 //display the good tiem in a item list, google way of displaying.
 function toggleAccordion(idClicked){

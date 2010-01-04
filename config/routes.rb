@@ -42,10 +42,12 @@ ActionController::Routing::Routes.draw do |map|
   # Blank Specific Routes
   # Routes Related to SuperAdministrator
 	map.namespace :superadmin do |sa|
-		sa.resources :general_settings, :only => [:index], :collection => { :updating => :put }
-		sa.resources :user_interfaces, :only => [:index], :collection => { :updating => :put, :check_color => :get, :colors_changing => :get }
+		sa.connect '', :controller => 'superadmin/administration', :action => 'show'
+		sa.resources :general_settings, :only => [:index], :collection => { :editing => :get, :updating => :put }
+		sa.resources :audits, :only => [:index]
+		sa.resources :user_interfaces, :only => [:index], :collection => { :editing => :get, :updating => :put, :check_color => :get, :colors_changing => :get }
 		sa.resources :tasks, :only => [:index], :collection => { :run_task => :get }
-		sa.resources :translations, :only => [:index], :collection => { :updating => :put, :language_switching => :get, :translation_new => :any }
+		sa.resources :translations, :only => [:index], :collection => { :updating => :put, :context_switching => :get, :translation_new => :any }
     sa.resources :mailer_settings, :only => [:index], :collection => { :updating => :put }
     # Routes for Roles and Permissions in BA
     sa.resources :roles, :collection => {:validate => :post}
@@ -61,8 +63,12 @@ ActionController::Routing::Routes.draw do |map|
     admin.forgot_password '/forgot_password', :controller => 'users', :action => 'forgot_password'
     admin.reset_password '/reset_password/:password_reset_code', :controller => 'users', :action => 'reset_password'
     admin.resources :users, :member => { :locking => :any, :resend_activation_mail_or_activate_manually => :post },
-      :collection => {:autocomplete_on => :any, :validate => :any }
+      :collection => {:autocomplete_on => :any, :validate => :any } do |user|
+		user.notification '/notifications', :controller => 'users', :action => 'notifications'
+		user.create_notification '/create_notifications', :controller => 'users', :action => 'create_notifications'
+    end
     admin.resource :session
+
 
     # Routes for People
     admin.resources :people, :collection => {:export_people => :any, :import_people => :any, :get_empty_csv => :get, :validate => :any ,:filter => :get }

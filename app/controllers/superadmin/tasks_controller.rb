@@ -25,8 +25,17 @@ class Superadmin::TasksController < Admin::ApplicationController
 		if params[:job] == 'newsletter'
 			Delayed::Job.enqueue(NewsletterJob.new)
 		end
+		if params[:job] == 'translations'
+			LANGUAGES.each do |l|
+				command_backup =  "mv config/locales/" + l + ".yml tmp/backup/" + Time.now.strftime("%Y%m%d") + "_" + l + ".yml"
+				command_get =  "wget " + TRANSLATION_SITE + "/translations/" + PROJECT_NAME + "/" + l + ".yaml -O config/locales/" + l + ".yml"
+				system(command_backup)
+				system(command_get)
+			end
+			message = "Translation files Retrieved"
+		end
 		if params[:job] == 'restart_server'
-			system "touch #{RAILS_ROOT}/tmp/restart.txt" # tells passenger to restart the
+			system "touch #{RAILS_ROOT}/tmp/restart.txt" # tells passenger to restart the server
 			message = "Server restarted successfully"
 		end
 		render :update do |page|

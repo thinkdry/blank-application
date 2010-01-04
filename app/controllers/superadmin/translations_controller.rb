@@ -47,14 +47,14 @@ class Superadmin::TranslationsController < Admin::ApplicationController
     else
       flash[:notice] = "Update Failed"
 		end
-		redirect_to editing_superadmin_translations_path
+		redirect_to superadmin_translations_path
 	end
 
 	# Action allowing to switch the language (used with AJAX call)
   #
   # Usage URL :
   # - GET /translations/language_switching
-	def language_switching
+	def context_switching
     translation_options
 		if params[:locale_to_conf] == 'translation_addition'
 			render :partial => 'translation_addition', :locals => { :translation_sections => @translation_sections }

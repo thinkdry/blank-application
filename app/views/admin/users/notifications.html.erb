@@ -1,0 +1,29 @@
+<% form_for :notification_filter , :url => admin_user_create_notification_path(@user.id) do |f| %>
+  <table width = "100%">
+	<tr>
+		<td valign = 'top'>
+			<h2><%=I18n.t('general.notifications.list_models')%></h2>
+			<div>
+			  <% @models.each do |m| %>
+			    <%= check_box_tag("notification_filters[#{m.id}]", "1", @filters.include?(m), :class => "checkboxes") %>
+			    &nbsp; 
+			    <%= I18n.t('general.item.' +m.name) %>
+			    <br/>
+			  <% end %>	
+		  </div>
+		</td>
+		<td valign = 'top'>
+		  <h2><%=I18n.t('general.notifications.list_actions')%></h2>
+		  <div>
+			  <% @actions.each do |m| %>
+			    <%= check_box_tag("notification_filters[#{m.id}]", "1", @filters.include?(m), :class => "checkboxes") %>
+			    &nbsp; 
+			    <%= I18n.t('general.notifications.' +m.name) %>
+			    <br/>
+			  <% end %>
+		  </div>
+		</td>
+	</tr>
+  </table>
+  <button type="submit" class="submit_button">Mettre à jour</button>
+<% end -%>

@@ -21,8 +21,8 @@ module EmailSpecHelper
 
         it "should have length greater than 6" do
           @object.attributes = eval("#{@object.class.to_s}_attributes".downcase)
-          @object.email = 'abc@d.com'
-          @object.should have(1).error_on(:email)
+          @object.email = 'c@d.c'
+          @object.should have(2).error_on(:email)
         end
         
         it "should have length less than 40" do

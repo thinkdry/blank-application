@@ -256,6 +256,74 @@ class Admin::UsersController < Admin::ApplicationController
   end
   
 
+  #
+  # Select a list of objects and actions for user to be notified when updates are done on theses objects 
+  #
+  def notifications 
+    
+    allowed_items =  get_allowed_item_types(nil)
+    @actions = NotificationFilter.actions
+    #select just allowed objects in configuration 
+    @models =  NotificationFilter.models.delete_if{ |m| !allowed_items.include?(m.name) }    
+    @user = User.find(params[:user_id])
+    @filters  = @user.notification_filters || {}
+     
+  end
+  
+  #
+  # save selected objects and actions 
+  #
+  def create_notifications 
+    
+     user = User.find(params[:user_id])
+     filters  = user.notification_filters.delete_all 
+    
+     if params[:notification_filters]
+		   params[:notification_filters].each do |k, v|
+			  user.notification_filters << NotificationFilter.find(k.to_i)
+			 end
+		 end
+				 
+		 flash[:notice] = 'Les modifications ont été éffectuées avec succès'
+		 redirect_to admin_user_notification_path(user.id)
+		 
+  end
+
+
+  #
+  # Select a list of objects and actions for user to be notified when updates are done on theses objects 
+  #
+  def notifications 
+    
+    allowed_items =  get_allowed_item_types(nil)
+    @actions = NotificationFilter.actions
+    #select just allowed objects in configuration 
+    @models =  NotificationFilter.models.delete_if{ |m| !allowed_items.include?(m.name) }    
+    @user = User.find(params[:user_id])
+    @filters  = @user.notification_filters || {}
+     
+  end
+  
+  #
+  # save selected objects and actions 
+  #
+  def create_notifications 
+    
+     user = User.find(params[:user_id])
+     filters  = user.notification_filters.delete_all 
+    
+     if params[:notification_filters]
+		   params[:notification_filters].each do |k, v|
+			  user.notification_filters << NotificationFilter.find(k.to_i)
+			 end
+		 end
+				 
+		 flash[:notice] = 'Les modifications ont été éffectuées avec succès'
+		 redirect_to admin_user_notification_path(user.id)
+		 
+  end
+
+
   private
   def get_roles
     if (@current_user.has_system_role('superadmin') || @current_user.has_system_role('admin'))

@@ -51,10 +51,10 @@ describe Admin::ArticlesController do
         do_post
       end
 
-      it "should redirect to edit page after successfull creation of record" do
+      it "should redirect to show page after successfull creation of record" do
         do_post
         assigns(:current_object).should eql(@current_object)
-        response.should redirect_to edit_admin_article_url(@current_object)
+        response.should redirect_to admin_article_url(@current_object)
       end
 
     end

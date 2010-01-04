@@ -10,6 +10,7 @@ config/customs/sa_config.yml
 config/customs/action_mailer.yml
 config/deploy.rb
 config/locales/old*.yml
+config/locales/
 db/schema.rb
 db/cstore/**
 tmp/**/*
@@ -26,3 +27,7 @@ public/javascripts/cache/
 public/stylesheets/cache/
 vendor/gems/**/ext/**/*
 vendor/**/.git/**/*
+.gitmodules
+app/controllers/superadmin/translations_controller.rb
+app/views/superadmin/translations/
+vendor/plugins/ba-extension_translator/
