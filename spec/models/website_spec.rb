@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/authorizable_spec_helper')
 
 describe Website do
   fixtures :websites, :items_websites
-  include AuthorizableSpecHelper
+  #include AuthorizableSpecHelper
   include ContainersSpecHelper
 
   def container

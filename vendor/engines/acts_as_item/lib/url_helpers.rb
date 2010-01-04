@@ -24,7 +24,7 @@ module ActsAsItem
       get_ws = Proc.new do
         params['workspace_id'] ? 
           Workspace.find(params['workspace_id'].to_i) :
-          nil
+          current_user.private_workspace
       end
       
       if @workspace

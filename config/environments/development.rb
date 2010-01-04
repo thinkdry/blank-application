@@ -18,27 +18,27 @@ config.action_mailer.raise_delivery_errors = true
 
 # Defining constants
 # Defining the project name
-PROJECT_NAME = 'blank'
+PROJECT_NAME = 'blank'.freeze
 # Containers Available to current setup
-CONTAINERS = ['workspace','website','folder']
+CONTAINERS = ['workspace','website','folder'].freeze
 # Items available to the current setup
-ITEMS = ['article', 'image', 'cms_file', 'video', 'audio', 'feed_source', 'bookmark','newsletter', 'group']
+ITEMS = ['article', 'image', 'cms_file', 'video', 'audio', 'feed_source', 'bookmark','newsletter', 'group'].freeze
 # Variable defining the languages available for the application
-LANGUAGES = ['en-US', 'fr-FR']
+LANGUAGES = ['en-US', 'fr-FR'].freeze
 # Variable defining the workspace types available for the application
-WS_TYPES = ['closed', 'public', 'authorized', 'archived']
+WS_TYPES = ['closed', 'public', 'authorized', 'archived'].freeze
 # Variable defining the right types for the application
-RIGHT_TYPES = ['system', 'container']
+RIGHT_TYPES = ['system', 'container'].freeze
 # Variable defining the different state for the comments for the application
-COMMENT_STATE = ['posted', 'validated', 'rejected']
+COMMENT_STATE = ['posted', 'validated', 'rejected'].freeze
 # Variable defining the default comment status for the application
 DEFAULT_COMMENT_STATE = 'validated'
 # Variable defining the available layout for the application
-LAYOUTS_AVAILABLE = ['application', 'app_fat_menu']
-# # Variable defining the filtering attributes available for the application
-SEARCH_FILTERS = ['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title']
-#
-IMAGE_TYPES = ["image/jpeg", "image/pjpeg", "image/gif", "image/png", "image/x-png", "image/ico"]
+LAYOUTS_AVAILABLE = ['application', 'app_fat_menu'].freeze
+# Variable defining the filtering attributes available for the application
+SEARCH_FILTERS = ['created_at', 'comments_number', 'viewed_number', 'rates_average', 'title'].freeze
+# Variables defining the image types allowed
+IMAGE_TYPES = ["image/jpeg", "image/pjpeg", "image/gif", "image/png", "image/x-png", "image/ico"].freeze
 # Set the default Captcha images number
 CAPTCHA_IMAGES_NUMBER = 10
 # Variable to define number of newsletters to send per hour

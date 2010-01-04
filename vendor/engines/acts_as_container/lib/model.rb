@@ -73,6 +73,20 @@ module ActsAsContainer
 
         include ActsAsContainer::ModelMethods::InstanceMethods
       end
+      
+      def icon
+        'container_icons/' + self.to_s.underscore + '.png'
+      end
+
+      def icon_48
+        'container_icons/' + self.to_s.underscore + '_48.png'
+      end
+
+			def label
+				I18n.t("general.container.#{self.model_name.underscore}")
+			end
+
+      
     end # End of Class Methods
 
     module InstanceMethods
@@ -161,6 +175,10 @@ module ActsAsContainer
         users_containers.each do |uc|
           uc.save(false)
         end
+      end
+      
+      def icon
+        self.class.icon
       end
       
       def label_name

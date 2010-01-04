@@ -24,7 +24,7 @@ require File.expand_path(File.dirname(__FILE__) + '/authorizable_spec_helper')
 
 describe Workspace do
   fixtures :workspaces, :items_workspaces
-  include AuthorizableSpecHelper
+  #include AuthorizableSpecHelper
   include ContainersSpecHelper
   
   def container

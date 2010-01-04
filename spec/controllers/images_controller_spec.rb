@@ -1,12 +1,13 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 require File.expand_path(File.dirname(__FILE__) + '/../controllers/items_controller_spec_helper')
-
-describe Admin::ArticlesController do
-  controller_name 'admin/articles'
+#require "#{RAILS_ROOT}/vendor/engines/acts_as_container/lib/url_helpers"
+#require "#{RAILS_ROOT}/vendor/engines/acts_as_item/lib/url_helpers"
+describe Admin::ImagesController do
+  controller_name 'admin/images'
   include ItemsControllerSpecHelper
   
   def object 
-    Article
+    Image
   end
   
   def valid_params
@@ -14,7 +15,7 @@ describe Admin::ArticlesController do
        "associated_workspaces"=>["1"],
        "title"=>"hello",
        "description"=>"world",
-       "body"=>"good job on rspec",
+       "image" => url_to_attachment_file('image.png'),
        "keywords_field"=>[]
     }
   end
@@ -22,8 +23,9 @@ describe Admin::ArticlesController do
   def invalid_params
     {
        "associated_workspaces"=>["1"],
+       "image" => url_to_attachment_file('empty_file.txt'),
        "description"=>"world",
-       "body"=>"good job on rspec",
+       "title"=>"hello",
        "keywords_field"=>[]
     }
   end

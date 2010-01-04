@@ -15,7 +15,6 @@ Spec::Runner.configure do |config|
   config.use_transactional_fixtures = true
   config.use_instantiated_fixtures  = false
   config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
-
   # == Fixtures
   #
   # You can declare fixtures for each example_group like this:
@@ -62,6 +61,10 @@ def actions
   %w(new edit create update destroy index show)
 end
 
+def crud
+  %w{create read update delete}
+end
+
 def bytes_to_megabytes bytes
   bytes /  MEGABYTE
 end
@@ -88,9 +91,9 @@ def get_sa_config
 	end
 end
 
-#def get_configuration
-#  @configuration ||= get_sa_config
-#end
+def get_configuration
+  @configuration ||= get_sa_config
+end
 
 private
 
