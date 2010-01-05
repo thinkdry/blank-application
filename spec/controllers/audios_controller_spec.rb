@@ -1,11 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
-require File.expand_path(File.dirname(__FILE__) + '/../controllers/items_controller_spec_helper')
-describe Admin::ImagesController do
-  controller_name 'admin/images'
-  include ItemsControllerSpecHelper
-  
+#require File.expand_path(File.dirname(__FILE__) + '/../controllers/items_controller_spec_helper')
+describe Admin::AudiosController do
+  #include ItemsControllerSpecHelper
+  controller_name 'admin/audios'
   def object 
-    Image
+    Audio
   end
   
   def valid_params
@@ -13,7 +12,7 @@ describe Admin::ImagesController do
        "associated_workspaces"=>["1"],
        "title"=>"hello",
        "description"=>"world",
-       "image" => url_to_attachment_file('image.png'),
+       "audio" => url_to_attachment_file('audio.mp3'),
        "keywords_field"=>[]
     }
   end
@@ -21,7 +20,7 @@ describe Admin::ImagesController do
   def invalid_params
     {
        "associated_workspaces"=>["1"],
-       "image" => url_to_attachment_file('empty_file.txt'),
+       "audio" => url_to_attachment_file('empty_file.txt'),
        "description"=>"world",
        "title"=>"hello",
        "keywords_field"=>[]
@@ -29,4 +28,3 @@ describe Admin::ImagesController do
   end
   
 end
-

@@ -19,7 +19,7 @@ class Admin::AudiosController < Admin::ApplicationController
   #
   # This function is linked to an url and called by an AJAX request.
   def get_audio_progress
-    @current_object=Audio.find(params[:id])
+    @current_object = Audio.find(params[:id])
     if params[:check] && params[:check] == 'true'
       render :text => @current_object.state
     elsif params[:status]

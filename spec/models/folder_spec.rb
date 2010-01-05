@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/authorizable_spec_helper')
 
 describe Folder do
   fixtures :folders, :items_folders
-  #include AuthorizableSpecHelper
+  include AuthorizableSpecHelper
   include ContainersSpecHelper
 
   def container

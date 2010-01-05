@@ -45,8 +45,8 @@ require File.expand_path(File.dirname(__FILE__) + '/authorized_spec_helper')
 require File.expand_path(File.dirname(__FILE__) + '/authorizable_spec_helper')
 
 describe User do
-  #include AuthorizedSpecHelper
-  #include AuthorizableSpecHelper
+  include AuthorizedSpecHelper
+  include AuthorizableSpecHelper
   fixtures :roles, :permissions,:permissions_roles, :users, :workspaces, :users_containers, :items_workspaces
 
   def object
