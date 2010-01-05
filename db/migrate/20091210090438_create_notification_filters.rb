@@ -9,8 +9,8 @@ class CreateNotificationFilters < ActiveRecord::Migration
 			NotificationFilter.create(:name => item, :group => 'model')
 		end
 		NotificationFilter.create(:name => 'destroy', :group => 'action')
-		NotificationFilter.create(:name => 'create', :group => '')
-		NotificationFilter.create(:name => 'update', :group => '')
+		NotificationFilter.create(:name => 'create', :group => 'action')
+		NotificationFilter.create(:name => 'update', :group => 'action')
   end
 
   def self.down
