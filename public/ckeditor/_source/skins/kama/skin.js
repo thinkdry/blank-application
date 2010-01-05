@@ -147,7 +147,7 @@ CKEDITOR.skins.add( 'kama', (function()
 				{
 					var cssContent,
 						uiStyle = getStylesheet( CKEDITOR.document ),
-						cssId = '#cke_' + CKEDITOR.tools.escapeCssSelector( editor.name );
+						cssId = '.cke_editor_' + CKEDITOR.tools.escapeCssSelector( editor.name );
 
 					var cssSelectors =
 						[
@@ -203,7 +203,7 @@ CKEDITOR.skins.add( 'kama', (function()
 	};
 })() );
 
-if ( CKEDITOR.dialog )
+CKEDITOR.on( 'dialogPluginReady', function()
 {
 	CKEDITOR.dialog.on( 'resize', function( evt )
 		{
@@ -245,8 +245,8 @@ if ( CKEDITOR.dialog )
 					el.setStyle( 'height', ( body.$.offsetHeight - 31 - 14 ) + 'px' );
 				},
 				100 );
-		});
-}
+		} );
+} );
 
 /**
  * The base user interface color to be used by the editor. Not all skins are

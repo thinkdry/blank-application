@@ -107,6 +107,7 @@ ActionController::Routing::Routes.draw do |map|
       parent.content '/content/:item_type', :controller => 'content', :action => 'index'
       parent.ajax_content '/ajax_content/:item_type', :controller => 'content', :action => 'ajax_index'
       parent.content_popup '/content_for_popup/:selected_item', :controller => 'content', :action => 'display_item_in_pop_up'
+      #TODO delete pop_up, no more used.
     end
 
     # Newsletter related routes
@@ -115,6 +116,8 @@ ActionController::Routing::Routes.draw do |map|
     # FCKTools route for utilities methods for FCK editor
     admin.connect '/ck_uploads', :controller => 'ck_tools', :action => 'upload_from_ck'
     admin.connect '/ck_config', :controller => 'ck_tools', :action => 'config_file'
+    admin.connect '/ajax_item_save/:item_type/:id', :controller => 'ck_tools', :action => "ajax_item_save" 
+    admin.connect '/ajax_workspace_save/workspaces/:id', :controller => 'ck_tools', :action => "ajax_workspace_save"
 
     # Items created outside any workspace are private or fully public.
     # Items may be acceded by a list that gives all items the user can consult.

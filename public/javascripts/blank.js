@@ -23,7 +23,6 @@ $(document).ready(function () {
 		
         if (wasVisible == false) {
             $(this).next('div.subMenu').css("display", "block");
-            $(this).next('div.subMenu').corner("bottom");
         }
     });
 	
@@ -48,11 +47,9 @@ $(document).ready(function () {
     });
 	
 	//Modal Box for footer reply
-	
-	
 	$(".commentfooterReply").live('click',function(){
 		$('#commentReply #comment_parent_id').val($(this).attr("id"));
-		$(".commentfooterReply").colorbox({width:"660px", inline:true, href:"#commentReply"});
+		$.fn.colorbox({width:"660px", inline:true, href:"#commentReply"});
 	});
 
     //RATING SYSTEM
@@ -66,12 +63,13 @@ $(document).ready(function () {
                 success: function(){
                     $('input').rating('readOnly',true)
                     $('#notice').html("Your Rating Has Been Registered");
-                    $('#notice').css('display', 'inline').fade(10000);
+                    $('#notice').css('display', 'block');
+					$('#notice').animate({opacity: 1}, 3000, function(){$(this).fadeOut('fast')});
                 }
-
             });
         }
     });
+
 
 	//Translations dropdown section load
     $('#translation_dropdown').live("change", function(){
@@ -104,20 +102,20 @@ $(document).ready(function () {
     });
 
 	// Translation ajax update
-		$('.translation_field').live("dblclick", function(){
-				section=$(this).attr("id").split('_')
-				donnee = "id=" + section[1] + "&section=" + $('#translation_dropdown').val() + "&subsection=" + $('#translation_' + section[1] + "_subsection").val() + "&key=" + $('#translation_' + section[1] + "_key").val() + "&value=" + $('#translation_' + section[1] + "_value").val()
-				url= "/superadmin/translations/updating";       
-            $.ajax({
-                type: "PUT",
-                url :url,
-                data: donnee,
-                success: function(){
-                    $('#notice').html("Your update has been registered");
-                    $('#notice').css('display', 'block').fade(10000);
-                } 
-						});   
-  	  });
+	$('.translation_field').live("dblclick", function(){
+		section=$(this).attr("id").split('_');
+	 	datas = "id=" + section[1] + "&section=" + $('#translation_dropdown').val() + "&subsection=" + $('#translation_' + section[1] + "_subsection").val() + "&key=" + $('#translation_' + section[1] + "_key").val() + "&value=" + $('#translation_' + section[1] + "_value").val();
+		url= "/superadmin/translations/updating";       
+          	$.ajax({
+            	type: "PUT",
+              	url :url,
+              	data: datas,
+              	success: function(){
+                  	$('#notice').html("Your update has been registered");
+                  	$('#notice').css('display', 'block').fade(10000);
+              	} 
+			});   
+	  });
 
 	//HINT FOR FORMS && AJAX VALIDATION
 	$(".formElement input").focus( function() {	
@@ -152,15 +150,136 @@ $(document).ready(function () {
 	$(".deleteClose").click(function(){
 		$.fn.colorbox.close();
 	});
+
+	$('#fck_insert_image').colorbox({width:"600px", inline:true, href:"#insert_images"});
+	$('#fck_insert_link').colorbox({width:"600px", inline:true, href:"#insert_link"});
+	$('#fck_insert_video').colorbox({width:"600px", inline:true, href:"#insert_video"});
+	$('#fck_insert_audio').colorbox({width:"600px", inline:true, href:"#insert_audio"});
 	
+	$('#images_tabs').tabs();
+	$('#insert_link').tabs();
+	
+	$('#insert_image a').live('click', function(){
+		stringToInsert = '<img src="' + $(this).attr("picSrc") +'" ';
+		if ($('#image_align').val() != ""){
+			stringToInsert += 'align="' + $('#image_align').val() +'" ';
+		}
+		if ($('#image_width').val() != "" && !isNaN($('#image_width').val())){
+			stringToInsert += 'width="' + $('#image_width').val() + 'px" '; 
+		}
+		stringToInsert +=  + '"/>'
+		
+		$('#image_align').val("");
+		$('#image_width').val("");
+		
+		CKEDITOR.instances.ckInstance.insertHtml(stringToInsert);
+		
+		$.fn.colorbox.close();
+	});
+	
+	
+	$('.item_list a').live('click', function(){
+		stringToInsert = '';
+		
+		if (CKEDITOR.instances.ckInstance.getSelection().getNative() != ""){
+			stringToInsert += '<a href="' + $(this).attr('itmUrl') + '">';
+			stringToInsert += CKEDITOR.instances.ckInstance.getSelection().getNative();
+			stringToInsert += '</a>';
+		}
+		
+		CKEDITOR.instances.ckInstance.insertHtml(stringToInsert);
+		
+		$.fn.colorbox.close();
+	});
+	
+	
+	$('#insert_video a').live('click', function(){
+		
+		stringToInsert = '<embed ';
+		if ($('#player_width').val() != "") {
+			stringToInsert += 'width="' + ('#player_width').val() +'" '; 
+		}else{
+			stringToInsert += 'width="370" '; 
+		}
+		if ($('#player_height').val() != "") {
+			stringToInsert += 'height="' + ('#player_height').val() +'" '; 
+		}else{
+			stringToInsert += 'height="257" '; 
+		}
+		
+		stringToInsert +='flashvars="&image=' + $(this).attr('itmUrl') + '/2.png&file=' + $(this).attr('itmUrl') +'/video.flv"';
+		stringToInsert += 'allowfullscreen="true" allowscriptaccess="always" quality="high" src="/players/videoplayer.swf" type="application/x-shockwave-flash"/>';
+				
+		CKEDITOR.instances.ckInstance.insertHtml(stringToInsert);
+		
+		$.fn.colorbox.close();
+	});
+
+	$('#insert_audio a').live('click', function(){
+		stringToInsert = '<embed allowfullscreen="true" allowscriptaccess="always" quality="high"';
+		stringToInsert += ' flashvars="&playerID=1&soundFile=' + $(this).attr('itmUrl');
+		stringToInsert += '" src="/players/audioplayer.swf" type="application/x-shockwave-flash"/>';
+		CKEDITOR.instances.ckInstance.insertHtml(stringToInsert);
+		
+		$.fn.colorbox.close();
+	});
+	
+	$('.audit_changes_tip').tipsy();
+
+	// ************************************************************
+	// When keyword field got focus, submit is disable, user can add
+	// Keyword by pressing enter.
+	// When, keyword field loose focus, submit can be clicked
+	// ************************************************************
+	
+	// $('form').submit(function(){
+	// 	alert($('#submit_state').attr("disable"));
+	// });
+	// 
+	// $('#keyword_value').focus(function(){
+	// 	$('#submit_state').attr("disabled", "true");
+	// 	alert($('#submit_state').attr("disable"));
+	// });
+	// 
+	// $('#keyword_value').blur(function(){
+	// 	$('#submit_state').removeAttr("disabled");
+	// });
+	// 
+	// $('#keyword_value').keyup(function(e) {
+	//     if(e.keyCode == 13) {
+	//         insert_keyword($(this).next('a').attr('itemclass'),"#keywords_list", "keywords_field");
+	//     }
+	// })
 });
+
+function ajaxSaveOfFCKContent(){
+	
+	var url = $('#ajax_save_url').val();
+	var itemId = $('#item_id').val();
+	var body = CKEDITOR.instances.ckInstance.getData();
+	
+	//if item has been saved before (get an id... in wich you can save!!)
+	if (itemId != ""){
+		$.ajax({
+	        type: "PUT",
+	        url: url + itemId,
+			data: 'content=' + body,
+	        success: function(html){
+				alert ('save ok');
+	        }
+	    });
+	}
+	else {
+		alert('save first');
+	}
+}
 
 
 jQuery.fn.displayHintForField = function(){
 	//hide the hint message
 	$(this).nextAll('.ajax_hint_message').css('display','none');
 	//ajax validation called with attribute embeded in the input file
-	var model = $(this).attr("classname");
+	var model = $(this).attr("itemclass");
 	var attribute = $(this).attr("validate");
 	var value = $(this).val();
 	var inputConcerned = $(this);
@@ -178,22 +297,26 @@ jQuery.fn.displayHintForField = function(){
 				//add the new error message
 				$(element).find('.hintMessage').append(html);
 				//put red border on relative input
-				//&(element).parents().find("input").css('border', '1px solid red');
 				$(inputConcerned).css('border', '1px solid red');
 			}
 			else{
 				//remove the form error
 				$(element).find('.formError').remove();
 				//remove the red border
-				//&(element).parents().find("input").css('border', '1px solid #CCC');
 				$(inputConcerned).css('border', '1px solid #ccc');
 			}
         }
     });
 }
 
+function imageUploadComplete(stringToInsert){
+	CKEDITOR.instances.article_body.insertHtml(stringToInsert);
+	$.fn.colorbox.close();
+	$('#image_file').val("");
+}
+
 function saveFCKContentDraf(){
-	alert('sve');
+	alert('save');
 }
 
 function autocomplete_on(array, div){
@@ -319,6 +442,7 @@ function insert_keyword(model_name, place, field_name){
             $(place).append("<div id='"+name+"_000' class='keyword_label'>"+hidden_field+name+"<a href='#' onclick='$(\"#" + name + "_000\").remove(); return false;'>X</a></div>")
         }
         $('#keyword_value').val('');
+		$('#keyword_value').focus();
     }
 }
 

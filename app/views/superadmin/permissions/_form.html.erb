@@ -1,17 +1,25 @@
-<fieldset>
-<% form_for(['superadmin', @permission], :builder => BlankFormBuilder) do |f| %>
-  <%= f.text_field :name, :label => "Name * : " %>
-  <label>Select * : </label>
-  <div class="formElement">
-    <% RIGHT_TYPES.each do |permission| %>
-      <% !@permission.new_record? ? (@permission.type_permission == permission ? role = true : role = false ) : role = true%>
-      <%= permission %>
-      <%=radio_button_tag("permission[type_permission]", permission, role) %>
-    <% end %>
-  </div>
-  <%= f.text_area :description, :label => "Description : " %>
-  <% button_text = @permission.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update') %>
+<%= superadmin_tabs_generator() %>
 
-	<button type="submit" class="submitButton"><span><%= button_text%></span></button>
-<% end %>
-</fieldset>
+<div class="objectList">
+	<div class="blockCornerLeft"></div><div class="blockElementHeader sevH">
+		<span id="item_count"><%= title%></span>
+	</div><div class="blockCornerRight"></div>
+	
+	<div class="contentList superadmin">
+		<% form_for(['superadmin', @permission], :builder => BlankFormBuilder) do |f| %>
+			<%= f.text_field :name, :label => "Name * : " %>
+		  	<label>Select * : </label>
+		  	<div class="formElement">
+		    	<% RIGHT_TYPES.each do |permission| %>
+		      	<% !@permission.new_record? ? (@permission.type_permission == permission ? role = true : role = false ) : role = true%>
+		      		<%= permission %>
+		      	<%=radio_button_tag("permission[type_permission]", permission, role, :class => "checkboxes") %>
+		    	<% end %>
+		  	</div>
+		  	<%= f.text_area :description, :label => "Description : " %>
+  	
+			<% button_text = @permission.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update') %>
+			<button type="submit" class="submitButton"><span><%= button_text%></span></button>
+		<% end %>
+	</div>
+</div>

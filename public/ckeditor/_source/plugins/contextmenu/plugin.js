@@ -83,17 +83,15 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 			var selection = this.editor.getSelection(),
 				element = selection && selection.getStartElement();
 
-			// Lock the selection in IE, so it can be restored when closing the
-			// menu.
-			if ( CKEDITOR.env.ie )
-				selection.lock();
-
 			menu.onHide = CKEDITOR.tools.bind( function()
 				{
 					menu.onHide = null;
 
 					if ( CKEDITOR.env.ie )
-						editor.getSelection().unlock();
+					{
+						var selection = editor.getSelection();
+						selection && selection.unlock();
+					}
 
 					this.onHide && this.onHide();
 				},
@@ -188,6 +186,14 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 						// which make this property unreliable. (#4826)
 					     ( CKEDITOR.env.webkit ? holdCtrlKey : domEvent.$.ctrlKey || domEvent.$.metaKey ) )
 						return;
+
+					// Selection will be unavailable after context menu shows up
+					// in IE, lock it now.
+					if ( CKEDITOR.env.ie )
+					{
+						var selection = this.editor.getSelection();
+						selection && selection.lock();
+					}
 
 					// Cancel the browser context menu.
 					domEvent.preventDefault();

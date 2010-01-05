@@ -19,7 +19,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		 * @example
 		 */
 		this.value = value;
-
 	};
 
 	CKEDITOR.htmlParser.cdata.prototype =

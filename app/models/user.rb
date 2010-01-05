@@ -311,6 +311,12 @@ class User < ActiveRecord::Base
     CONTAINERS.each{|c| result += self.send(c.pluralize)}
     return result
   end
+  
+  def get_items_of_type(item_type="articles")
+    result = []
+    self.workspaces.each{ |w| result << w.send(item_type) }
+    return result.flatten.uniq
+  end
 
   protected
   # before filter

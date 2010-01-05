@@ -117,6 +117,7 @@ CKEDITOR.htmlParser.basicWriter = CKEDITOR.tools.createClass(
 		reset : function()
 		{
 			this._.output = [];
+			this._.indent = false;
 		},
 
 		/**

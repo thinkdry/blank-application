@@ -1,15 +1,1 @@
-<div class="area_LEFT">
-  <%= display_generic_items_tab('top_box') %>
-  <%#= topbox(
-    :limit => 5,
-    :tabs => {
-      :items => ['comments_number-desc', 'most_commented', 'comment'],
-      #:items => ['created_at-desc']
-    }
-  ) %>
-</div>
-<div class="area_LEFT">
-	<%= render :partial => 'admin/users/containers', :object => @current_user %>
-</div>
-<div class="clear"></div>
 <%= render :partial => "latest" %>

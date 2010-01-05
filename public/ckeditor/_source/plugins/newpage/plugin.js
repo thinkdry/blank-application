@@ -21,11 +21,16 @@ CKEDITOR.plugins.add( 'newpage',
 					var command = this;
 					editor.setData( editor.config.newpage_html, function()
 					{
-						editor.fire( 'afterCommandExec',
+						// Save the undo snapshot after all document changes are affected. (#4889)
+						setTimeout( function ()
 						{
-							name: command.name,
-							command: command
-						} );
+							editor.fire( 'afterCommandExec',
+							{
+								name: command.name,
+								command: command
+							} );
+
+						}, 200 );
 					} );
 					editor.focus();
 				},

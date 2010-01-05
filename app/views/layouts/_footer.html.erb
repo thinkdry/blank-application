@@ -1,37 +1,43 @@
-<div id="footerSearch">
-  <div id="search_middle">
-    <% unless @hide_full_text_search %>
-      <% form_for :search, @search, :url => admin_searches_path, :html => { :method => :get, :name => 'footer_search' } do -%>
-        <p><%= I18n.t('layout.search.search_label')%></p>
-        <%= text_field_tag "q", (params[:q] ? params[:q] : @search_hint), :id =>"footer_search_input", :class => "style_text", :onfocus => "search_hint('#{@search_hint}', 'footer_search_input', '#{params[:q].to_s}')", :onblur => "search_hint('#{@search_hint}', 'footer_search_input', '#{params[:q].to_s}')" %>
-        <p><%= I18n.t 'general.common_word.in'%></p>
-        <%= select_search_models %>
-        <%= link_to(image_tag("search_button.gif"), "javascript:void(1);", :id =>"footer_search_input", :onclick => "document.footer_search.submit();", :class => "search_button") %>
-      <% end -%>
-    <% end %>
-  </div>
-</div>
 <div id="footerBody">
-  <div class="footerCol">
-    <h3>Last Content</h3>
-    <% get_objects_list_with_search('item', 'created_at-desc', 5).each do |l| %>
-      <p><%= link_to l.title, item_path(l) %></p>
-    <% end %>
-  </div>
-  <div class="footerCol">
-    <h3>configuration</h3>
-    <% if (available_languages.size > 1) -%>
-      <p><%= I18n.t('layout.application.change_language')%>&nbsp;<%= select_language(:languages => available_languages, :params_name => 'locale', :type => 'select_box') %></p>
-    <%end-%>
-    <p><img src="/images/item_icons/feed_item.png" width="20"/>rss subscription</p>
-    <p><a href="mailtp:contact@thinkdry.com">contact</a></p>
-    <p><%= link_to I18n.t('layout.application.my_account'), admin_user_path(current_user) %></p>
-    <p><%= link_to I18n.t('layout.application.logout'), admin_logout_path %></p>
-  </div>
-  <div class="footerCol last">
-    <h3>last workspaces</h3>
-    <% get_objects_list_with_search('workspace', 'created_at-desc', 5).each do |w|%>
-      <p><%= link_to w.title, admin_workspace_path(w) %></p>
-    <% end %>
-  </div>
+  	<div class="footerCol">
+    	<h3>Last Content</h3>
+    	<% get_objects_list_with_search('item', 'created_at-desc', 5).each do |l| %>
+      	<p><%= link_to l.title, item_path(l) %></p>
+    	<% end %>
+  	</div>
+	<div class="footerCol">
+    	<h3>last workspaces</h3>
+    	<% get_objects_list_with_search('workspace', 'created_at-desc', 5).each do |w|%>
+      		<p><%= link_to w.title, admin_workspace_path(w) %></p>
+    		<% end %>
+  	</div>
+  	<div class="footerCol last">
+		<h3><%= I18n.t('layout.search.search_label')%></h3>
+		<% unless @hide_full_text_search %>
+	      	<% form_for :search, @search, :url => admin_searches_path, :html => { :method => :get, :name => 'footer_search' } do -%>
+	        	<%= text_field_tag  "q", 
+									(params[:q] ? params[:q] : @search_hint), 
+									:id =>"searchInputFooter", 
+									:class => "style_text"%>
+				<%= link_to(" ", 
+							"javascript:void(1);", 
+							:id =>"footer_search_input", 
+							:onclick => "document.footer_search.submit();", 
+							:class => "launchSearchFooter") %>
+	      	<% end -%>
+	    <% end %>
+	
+    	<h3>configuration</h3>
+    	<% if (available_languages.size > 1) -%><p>
+			<%= I18n.t('layout.application.change_language')%>&nbsp;
+			<%= select_language(:languages => available_languages, :params_name => 'locale', :type => 'select_box') %>
+		</p><%end-%>
+    	<p>
+			<%= link_to_current_user :content_method => :login %> - 
+			<%= link_to I18n.t('layout.application.logout'), admin_logout_path %>
+		</p>
+  	</div>
+</div>
+<div id="disclaimer">
+	©thinkDRY 2007 - 2009 Trademarks belong to their respective owners. All rights reserved.
 </div>

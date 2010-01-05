@@ -12,14 +12,13 @@
 	          <option value="<%=group.id%>"> <%=group.title%> </option>
 	        <% end %>
 	      </select>
-	  <div class="clear"></div>
       <button type="submit" class="submitButton" onclick="if($('group_id').value == 0){return false;}" >
 		<span><%= I18n.t('newsletter.send_newsletter.send_newsletter') %></span>
 	  </button>
     </form>
-<div class="clear"></div>
-	<h1><%= I18n.t('newsletter.send_newsletter.sent_to') %></h1>
 
+
+	<h1><%= I18n.t('newsletter.send_newsletter.sent_to') %></h1>
 	<% if @current_object.groups_newsletters.size > 0 -%>
 	    <% for g_n in @current_object.groups_newsletters %>
           <% if g_n.group %>
@@ -29,5 +28,4 @@
 	<% else -%>
 		<%= I18n.t('newsletter.show.not_already_sent') %>
     <% end-%>
-	<div class="clear"></div>
 <% end %>

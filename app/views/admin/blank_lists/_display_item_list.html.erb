@@ -12,20 +12,14 @@
 
     <div class="contentList">
         <div class="elementPerPages">
-			Element per pages : <a href="">10</a> | <a href="">25</a> | <a href="">50</a>
-        </div>
-        <div id="pure_item_list">
-            <% if @paginated_objects.first %>
-
-                <input type="hidden" id="total_items" value="<%= @paginated_objects.length %>">
-
-                <%= render :partial => '/admin/blank_lists/pure_item_list'%>
-
-            <% else %>
-
-                <%= I18n.t('item.common_word.list_empty') %>
-
-            <% end %>
-        </div>
-    </div>
+			      Element per pages : <a href="">10</a> | <a href="">25</a> | <a href="">50</a>
+		    </div>
+		<div id="pure_item_list">
+			<% if @paginated_objects.first %>
+				<%= render :partial => '/admin/blank_lists/pure_item_list'%>
+			<% else %>
+		    	<%= I18n.t('item.common_word.list_empty') %>
+			<% end %>
+		</div>
+	</div>
 </div>

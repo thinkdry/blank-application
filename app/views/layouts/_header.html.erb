@@ -53,7 +53,6 @@
                             <li><%= link_to I18n.t('layout.application.content'), admin_content_path('articles') %></li>
                             <li><%= link_to I18n.t('layout.application.personal_contacts'), admin_people_path %></li>
                             <li><%= link_to I18n.t('layout.application.users'), admin_users_path %></li>
-                            <li></li>
                             <li>
                                 <a href="/admin/searches/advanced_search">
                                     <%= I18n.t('layout.application.advanced_search') %>
@@ -90,49 +89,49 @@
                         <%end-%>
                     </div>
 
-                    <div class="subMenuCol">
-                        <h3>Administration</h3>
-                        <ul>
-                            <li><%= link_to I18n.t('layout.application.my_account'), admin_user_path(current_user) %></li>
-                            <li><%= link_to I18n.t('user.administration.workspace_management'), admin_workspaces_path %></li>
-                        </ul>
-                        <br/><br/>
-                        <p><img src="/images/icons/exit.png" width="20px" style="margin-right:5px"/><%= link_to I18n.t('layout.application.logout'), admin_logout_path, :class => 'bigLink' %></p>
-                    </div>
-                    <% if current_user.has_system_role('superadmin') %>
-                        <div class="subMenuCol">
-                            <h3>Superadmin</h3>
-                            <ul>
-                                <li><%= link_to "General settings", superadmin_general_settings_path %></li>
-                                <li><%= link_to "User interface", superadmin_user_interfaces_path %></li>
-                                <li><%= link_to "Translations", superadmin_translations_path %></li>
-                                <li><%= link_to "Tasks", superadmin_tasks_path %></li>
-                                <li><%= link_to "Roles & permissions", superadmin_roles_path %></li>
-                                <li><%= link_to "Action Mailer settings", superadmin_mailer_settings_path %></li>
-                            </ul>
-                        </div>
-                    <% end %>
-                </div>
-            </div>
-            <div class="menuLabel"><%= I18n.t('layout.menu.configure') %></div>
-        </li>
-    </ul>
-    <div id="powerfullSearch">
-        <% form_for @search,
-          :url => admin_searches_path,
-          :builder => BlankFormBuilder,
-          :html => { :method => :get, :name => 'search' } do -%>
+			    	<div class="subMenuCol">
+						<h3>Administration</h3>
+				        <ul>
+				              <li><%= link_to I18n.t('layout.application.my_account'), admin_user_path(current_user) %></li>
+				              <li><%= link_to I18n.t('user.administration.workspace_management'), admin_workspaces_path %></li>
+				        </ul>
+				        <br/><br/>
+				        <p><img src="/images/icons/exit.png" width="20px" style="margin-right:5px"/><%= link_to I18n.t('layout.application.logout'), '/logout', :class => 'bigLink' %></p>
+			    	</div>
 
-            <div class="fieldContainer">
-                <%= text_field_tag  "q",
-                  (params[:q] ? params[:q] : @search_hint),
-                  :id =>"commandSearch" %>
-            </div>
-            <div class="launchButton">
-                <button type="submit" class="headerSearchButton" onclick="return do_search('<%= I18n.t('layout.search.date_alert') %>');"></button>
-            </div>
-        <% end -%>
-    </div>
+			    	<div class="subMenuCol">
+						<h3>Superadmin</h3>
+			            <ul>
+							<li><%= link_to "Audits", superadmin_audits_path %></li>
+			                <li><%= link_to "General settings", superadmin_general_settings_path %></li>
+			                <li><%= link_to "User interface", superadmin_user_interfaces_path %></li>
+			                <li><%= link_to "Translations", superadmin_translations_path %></li>
+			                <li><%= link_to "Tasks", superadmin_tasks_path %></li>
+			                <li><%= link_to "Roles & permissions", superadmin_roles_path %></li>
+			                <li><%= link_to "Action Mailer settings", superadmin_mailer_settings_path %></li>
+			            </ul>
+					</div>
+				</div>
+			</div>
+			<div class="menuLabel"><%= I18n.t('layout.menu.configure') %></div>
+		</li>
+	</ul>
+	<div id="powerfullSearch">
+		<% form_for @search, 
+					:url => admin_searches_path, 
+					:builder => BlankFormBuilder, 
+					:html => { :method => :get, :name => 'search' } do -%>
+					
+			<div class="fieldContainer">
+				<%= text_field_tag  "q", 
+									(params[:q] ? params[:q] : @search_hint), 
+									:id =>"commandSearch" %>
+			</div>
+			<div class="launchButton">
+				<button type="submit" class="headerSearchButton" onclick="return do_search('<%= I18n.t('layout.search.date_alert') %>');"></button>
+			</div>
+		<% end -%>
+	</div>
 </div>
 
 

@@ -2,4 +2,3 @@ $('#comment_list').html("<%= escape_javascript(print_comments_part(@parent_item)
 $('#notice').html("<%= @notice%>");
 $.fn.colorbox.close();
 $('#reply_box').val("");
-$(".commentfooterReply").colorbox({width:"660px", inline:true, href:"#commentReply"});

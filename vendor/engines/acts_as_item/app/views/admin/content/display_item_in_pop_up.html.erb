@@ -1,9 +1,7 @@
 <% if !(get_allowed_item_types(nil) & @selected_item_types).empty? or params[:selected_item] == 'fcke_flash' %>
   	<h1><%= I18n.t('general.txt.select_a_file') %></h1>
   	<div class="popup_header">
-    	<div class="popup_column_pic">
-      		<img src="/images/icons/filter_128.png"/>
-    	</div>
+
     	<div class="popup_column">
       	<% if params[:selected_item] != 'fcke_flash' %>
         	<p><%= I18n.t 'layout.popup.filter_help' %></p>
@@ -47,16 +45,12 @@
           <% if params[:item_type] == 'videos' || params[:item_type] == 'audios' %>
             	<%= link_to_function 	object.title,
 									 	"window.opener.CKEDITOR.tools.callFunction(1,  
-									 	'#{root_url}#{object.class.to_s.underscore.pluralize}/#{object.id}/redirect_to_content');
-									 	window.close()"%>
-									 <%# "javascript:SelectFile('#{root_url.split('/').join('/')}#{object.path_to_encoded_file}')" %>
+									 	'#{root_url}#{object.class.to_s.underscore.pluralize}/#{object.id}/redirect_to_content')"%>
           <% elsif params[:item_type] == 'images' %>
             	<%= link_to_function 	object.title,
-									 	"window.opener.CKEDITOR.tools.callFunction( 1,
-									  	'#{root_url.split('/').join('/')}#{object.image.url.split('?')[0]}');
-										window.close()"%>
-				 					 <%# "javascript:SelectFile(')"  %>
-          <% else %>
+									 	"window.opener.CKEDITOR.tools.callFunction(1,
+									  	'#{root_url.split('/').join('/')}#{object.image.url.split('?')[0]}');window.close();"%>
+          <% else %>	
             	<%= link_to_function object.title,
 					"javascript:SelectFile(')"  %>
           <% end %>

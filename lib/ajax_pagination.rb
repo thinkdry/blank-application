@@ -17,6 +17,10 @@ module AjaxPagination
   # Usage in a view :
   # - <tt>remote_pagination(@paginated_objects, ajax_url,  'object-list')</tt>
   def remote_pagination(collection, url)
+    p "ffffffffffffffffffffffffffffffffff"
+    p "ajac pagination"
+    p params[:page]
+    p params[:by]
 		url = url.split('?').first
 		paramss = ((tmp=request.url.split('?')).size > 1) ? tmp.last : '' # why use request.url and not url in param
     paramss = paramss.split('&').delete_if{|p| p.include?('page')}.join('&') # to remove previous page param

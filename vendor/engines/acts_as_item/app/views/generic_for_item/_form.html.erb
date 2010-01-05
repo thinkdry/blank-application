@@ -3,19 +3,32 @@
   :url => (current_object.new_record? ? items_path(current_object.class.to_s) : item_path(current_object)),
   :html => {:method => (current_object.new_record? ? :post : :put),
     :multipart => true } do |f| -%>
-    <div class="itemShowLeft">
-        <div class="itemShowLeftDate">
-            <%= I18n.l Time.now, :format =>:verb %>
-        </div>
-        <div class="itemShowLeftBody">
-            <h1><%= title %></h1>
-
-            <% is_copyright = (current_object.state == 'copyright') ? true : false %>
-            <% if is_copyright %>
-                <%= f.hidden_field :state, :value => 'copyright' %>
-                <%=I18n.t('general.copyright.copyright_restriction')%>
-            <% end %>
-
+	<div class="itemShowLeft">
+		<div class="itemShowLeftDate">
+			<%=  current_object.new_record? ? 
+				 I18n.l(Time.now, :format => :verb) : 
+				 I18n.l(current_object.created_at, :format => :verb) %>
+		</div>
+		<div class="itemShowLeftBody">
+			<h1><%= title %></h1>
+		
+			<% is_copyright = (current_object.state == 'copyright') ? true : false %>
+		    <% if is_copyright %>
+		      	<%= f.hidden_field :state, :value => 'copyright' %>
+		      	<%=I18n.t('general.copyright.copyright_restriction')%>
+		    <% end %>
+	
+			<%= f.text_field    :title, 
+								:label => I18n.t('item.field.title_label') + " * :", 
+								:hint => I18n.t('item.field.title_hint'), 
+								:readonly => is_copyright %>
+		
+			<%= f.text_field    :description, 
+								:label => I18n.t('item.field.description_label') + ' * :', 
+								:hint => I18n.t('item.field.description_hint') %>
+		
+			<%= capture(f, &block) %>
+			
             <%= f.text_field    :title,
               :label => I18n.t('item.field.title_label') + " * :",
               :hint => I18n.t('item.field.title_hint'),
