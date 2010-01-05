@@ -59,11 +59,11 @@
                     <%= I18n.t("item.show.associated_#{container}") %>
                 </div><div class="blockCornerRight"></div>
                 <div class="blockElementBody">
-                    <% if ['Group', 'Page'].include?(@current_object.class.to_s) %>
-                        <%= item_containers_select(f, @current_object, container) %>
-                    <% else %>
+                    <%# if ['Group', 'Page'].include?(@current_object.class.to_s) %>
+                        <%#= item_containers_select(f, @current_object, container) %>
+                    <%# else %>
                         <%= item_containers_checkboxes(f, @current_object, container) %>
-                    <% end %>
+                    <%# end %>
                     <%#= error_message_on :current_object, "items_#{container.pluralize}".to_sym %>
                 </div>
           </div>

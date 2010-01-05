@@ -70,7 +70,7 @@ class String
   # * :regexp => The regexp matching characters that will be converting to an empty string (defaults to /[^-_A-Za-z0-9]/)
   def urlize(options = {})
     options[:downcase] ||= true
-    options[:convert_spaces] ||= false
+    options[:convert_spaces] ||= true
     options[:regexp] ||= /[^-_A-Za-z0-9]/
 
     str = self.strip.removeaccents

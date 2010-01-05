@@ -15,6 +15,12 @@ class Admin::WebsitesController < Admin::ApplicationController
     },
 		:skip_logging_actions => [])
 
-  acts_as_container
+  acts_as_container do
+    
+    before :edit do
+      @pages = current_user.private_workspace.pages
+    end
+    
+  end
   
 end
