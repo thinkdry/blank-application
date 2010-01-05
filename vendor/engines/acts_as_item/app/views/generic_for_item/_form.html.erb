@@ -30,7 +30,7 @@
 			<%= capture(f, &block) %>
 			
             <% unless @current_object.new_record? -%>
-                <button class="submit_button continueUpdate" type="submit">
+                <button class="submitButton continueUpdate" type="submit">
                     <span><%= current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update')%></span>
                 </button>
                 <button class="submitButton continue" type="submit" name="continue">
