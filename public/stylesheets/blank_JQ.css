@@ -130,15 +130,14 @@ h4 {
 .fckLinkContent form {overflow:hidden;}
 
 #images_tabs select{float:left;margin-top:5px;}
-#insert_image, #upload_image{clear:both;border:1px solid #63e233; padding:10px;}
-.fckLinkContent {height:500px;overflow:auto;}
+.fckLinkContent {height:500px;overflow:auto;clear:both;padding:10px;}
 .fckLinkContent p{ margin-bottom:0; margin-top:5px;}
 
-#insert_link li{display:inline;margin-right:10px;size:120%;}
-#insert_link .ui-tabs-selected a{color:#F79646;}
-#insert_link {padding:10px;}
+.fckLinkContent li{display:inline;margin-right:10px;size:120%;}
+.fckLinkContent .ui-tabs-selected a{color:#F79646;}
+.fckLinkContent {padding:10px;}
 
-#images_tabs ul li{
+/*#images_tabs ul li{
 	background:#fff url(/images/tabRightPart.gif) no-repeat right;
 	padding-right:10px;
 	display:block;
@@ -160,7 +159,7 @@ h4 {
 #images_tabs .ui-tabs-selected a{
 	background:#fff url(/images/tabSelectedLeftPart.gif) no-repeat left !important;
 }
-
+*/
 /* Structure */
 
 #page_container {
@@ -368,7 +367,7 @@ form input{
 	width:450px;
 }
 
-.formElement{
+.formElement, .form_element_translation{
 	float:left; overflow:hidden !important;
 	padding-top:25px;
 	display:block;
@@ -504,6 +503,9 @@ form input{
 .sendRightButton{background:transparent url('/images/icons/right.png') no-repeat;margin-top:30px;}
 .optionAssignmentLabel{height:20px;margin-bottom:3px;}
 .sendAll{margin-top:5px;}
+
+#languageConfiguration {margin-top:25px;}
+.auditsChanges{font-size:70%;}
 
 /*		KEYWORDS	*/	
 .keyword_label{
@@ -872,8 +874,6 @@ a.filter{
 .feedDescription{width:520px;font-size:80%;margin:10px 0;}
 .feed{width:520px;}
 
-
-
 /*		List Autocomplete		*/
 .ac_results {
 	padding: 0px;
@@ -927,25 +927,24 @@ a.filter{
     order/nesting of the generated HTML, so that the structure easier to understand.
 */
 #cboxOverlay{background:#fff;}
-
 #colorBox{}
-    #cboxTopLeft{width:25px; height:25px; background:url(/images/colorbox/border1.png) 0 0 no-repeat;}
-    #cboxTopCenter{height:25px; background:url(/images/colorbox/border1.png) 0 -50px repeat-x;}
-    #cboxTopRight{width:25px; height:25px; background:url(/images/colorbox/border1.png) -25px 0 no-repeat;}
-    #cboxBottomLeft{width:25px; height:25px; background:url(/images/colorbox/border1.png) 0 -25px no-repeat;}
-    #cboxBottomCenter{height:25px; background:url(/images/colorbox/border1.png) 0 -75px repeat-x;}
-    #cboxBottomRight{width:25px; height:25px; background:url(/images/colorbox/border1.png) -25px -25px no-repeat;}
-    #cboxMiddleLeft{width:25px; background:url(/images/colorbox/border2.png) 0 0 repeat-y;}
-    #cboxMiddleRight{width:25px; background:url(/images/colorbox/border2.png) -25px 0 repeat-y;}
-    #cboxContent{background:#fff;}
-        #cboxLoadedContent{margin-bottom:20px;}
-        #cboxTitle{position:absolute; bottom:0px; left:0; text-align:center; width:100%; color:#999;}
-        #cboxCurrent{position:absolute; bottom:0px; left:100px; color:#999;}
-        #cboxSlideshow{position:absolute; bottom:0px; right:42px; color:#444;}
-        #cboxPrevious{position:absolute; bottom:0px; left:0; color:#444;}
-        #cboxNext{position:absolute; bottom:0px; left:63px; color:#444;}
-        #cboxLoadingOverlay{background:url(/images/colorbox/loading.gif) 5px 5px no-repeat #fff;}
-        #cboxClose{position:absolute; bottom:0; right:0; display:block; color:#444;}
+#cboxTopLeft{width:25px; height:25px; background:url(/images/colorbox/border1.png) 0 0 no-repeat;}
+#cboxTopCenter{height:25px; background:url(/images/colorbox/border1.png) 0 -50px repeat-x;}
+#cboxTopRight{width:25px; height:25px; background:url(/images/colorbox/border1.png) -25px 0 no-repeat;}
+#cboxBottomLeft{width:25px; height:25px; background:url(/images/colorbox/border1.png) 0 -25px no-repeat;}
+#cboxBottomCenter{height:25px; background:url(/images/colorbox/border1.png) 0 -75px repeat-x;}
+#cboxBottomRight{width:25px; height:25px; background:url(/images/colorbox/border1.png) -25px -25px no-repeat;}
+#cboxMiddleLeft{width:25px; background:url(/images/colorbox/border2.png) 0 0 repeat-y;}
+#cboxMiddleRight{width:25px; background:url(/images/colorbox/border2.png) -25px 0 repeat-y;}
+#cboxContent{background:#fff;}
+#cboxLoadedContent{margin-bottom:20px;}
+#cboxTitle{position:absolute; bottom:0px; left:0; text-align:center; width:100%; color:#999;}
+#cboxCurrent{position:absolute; bottom:0px; left:100px; color:#999;}
+#cboxSlideshow{position:absolute; bottom:0px; right:42px; color:#444;}
+#cboxPrevious{position:absolute; bottom:0px; left:0; color:#444;}
+#cboxNext{position:absolute; bottom:0px; left:63px; color:#444;}
+#cboxLoadingOverlay{background:url(/images/colorbox/loading.gif) 5px 5px no-repeat #fff;}
+#cboxClose{position:absolute; bottom:0; right:0; display:block; color:#444;}
 
 /*
     The following fixes png-transparency for IE6.  
@@ -965,3 +964,13 @@ a.filter{
 .cboxIE #cboxBottomRight{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=/images/colorbox/internet_explorer/borderBottomRight.png, sizingMethod='scale');}
 .cboxIE #cboxMiddleLeft{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=/images/colorbox/internet_explorer/borderMiddleLeft.png, sizingMethod='scale');}
 .cboxIE #cboxMiddleRight{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=/images/colorbox/internet_explorer/borderMiddleRight.png, sizingMethod='scale');}
+
+
+
+.tipsy { padding: 5px; font-size: 10px; opacity: 0.8; filter: alpha(opacity=80); background-repeat: no-repeat;  background-image: url(../images/tipsy.gif); }
+.tipsy-inner { padding: 5px 8px 4px 8px; background-color: black; color: white; max-width: 400px; }
+.tipsy-inner { -moz-border-radius:3px; -webkit-border-radius:3px; }
+.tipsy-north { background-position: top center; }
+.tipsy-south { background-position: bottom center; }
+.tipsy-east { background-position: right center; }
+.tipsy-west { background-position: left center; }

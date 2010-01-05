@@ -6,7 +6,9 @@
 
 	<div class="itemShowLeft">
 		<div class="itemShowLeftDate">
-			<%= I18n.l Time.now, :format =>:verb %>
+			<%=  current_object.new_record? ? 
+				 I18n.l(Time.now, :format => :verb) : 
+				 I18n.l(current_object.created_at, :format => :verb) %>
 		</div>
 		<div class="itemShowLeftBody">
 			<h1><%= title %></h1>

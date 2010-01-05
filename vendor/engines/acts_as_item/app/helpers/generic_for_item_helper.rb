@@ -141,7 +141,7 @@ module GenericForItemHelper
     field =  ''
     
     object.new_record? ? new_item = "&new=true" : new_item = ""
-    
+    field += '<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>'
     field += '<script type="text/javascript">CKEDITOR.replace(\'ckInstance\', {customConfig : \'/admin/ck_config?ws='+ current_workspace.id.to_s + new_item + '\'});</script>'
 
     return field

@@ -102,12 +102,12 @@ $(document).ready(function () {
 	// Translation ajax update
 	$('.translation_field').live("dblclick", function(){
 		section=$(this).attr("id").split('_');
-		donnee = "id=" + section[1] + "&section=" + $('#translation_dropdown').val() + "&subsection=" + $('#translation_' + section[1] + "_subsection").val() + "&key=" + $('#translation_' + section[1] + "_key").val() + "&value=" + $('#translation_' + section[1] + "_value").val();
+	 	datas = "id=" + section[1] + "&section=" + $('#translation_dropdown').val() + "&subsection=" + $('#translation_' + section[1] + "_subsection").val() + "&key=" + $('#translation_' + section[1] + "_key").val() + "&value=" + $('#translation_' + section[1] + "_value").val();
 		url= "/superadmin/translations/updating";       
           	$.ajax({
             	type: "PUT",
               	url :url,
-              	data: donnee,
+              	data: datas,
               	success: function(){
                   	$('#notice').html("Your update has been registered");
                   	$('#notice').css('display', 'block').fade(10000);
@@ -218,7 +218,8 @@ $(document).ready(function () {
 		$.fn.colorbox.close();
 	});
 	
-	
+	$('.audit_changes_tip').tipsy();
+
 	// ************************************************************
 	// When keyword field got focus, submit is disable, user can add
 	// Keyword by pressing enter.

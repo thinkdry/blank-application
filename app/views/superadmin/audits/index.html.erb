@@ -1,30 +1,57 @@
-<table width="100%">
-  <thead>
-    <tr>
-      <th width="150">Date</th>
-      <th width="120">Item</th>
-      <th width="150">Action</th>
-      <th width="170">Value</th>
-      <th width="120">User</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @audits.each do |a| %>
-    <tr>
-      <td><%= a.created_at %></td>
-      <td><%= "#{a.auditable_type} : #{a.auditable_id}" %></td>
-      <% if a.action == 'update' && a.attributes["changes"].length == 1 %>
-       <td><%= "#{a.action} #{a.attributes["changes"].keys.first}" %></td>
-      <% else %>
-      <td><%= a.action %></td>
-      <% end %>
-      <% if a.action == 'update' && a.attributes["changes"].length == 1 %>
-      <td>  <%= h(truncate(a.attributes['changes'].values.first.last.to_s, :lenght => 25)) %> </td>
-      <% else %>
-      <td></td>
-      <% end %>
-      <td><%= User.find(a.user_id).full_name if a.user_id %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= superadmin_tabs_generator() %>
+
+<div class="objectList">
+	<div class="blockCornerLeft"></div><div class="blockElementHeader sevH">
+		<span id="item_count">Audits</span>
+	</div><div class="blockCornerRight"></div>
+
+	<div class="contentList superadmin">
+
+		<table>
+		  	<thead>
+		    	<tr>
+		      		<th width="80">Date</th>
+		      		<th width="100">Item</th>
+		      		<th width="100">Action</th>
+		      		<th width="300">Value</th>
+		      		<th width="120">User</th>
+		    	</tr>
+		  	</thead>
+		  	<tbody>
+		    <% @audits.each do |a| %>
+		    	<tr>
+		      		<td><%= I18n.l a.created_at, :format =>:verb %></td>
+		      		<td>
+						<%= link_to "#{a.auditable_type} : #{a.auditable_id}",
+		 							"/admin/#{a.auditable_type.underscore.pluralize}/#{a.auditable_id}" %>
+					</td>
+					<td>
+		      			<% if a.action == 'update' && a.attributes["changes"].length == 1 %>
+		       				<%= "#{a.action} #{a.attributes["changes"].keys.first}" %>
+		      			<% else %>
+		      				<%= a.action %>
+		      			<% end %>
+					</td>
+					<td>
+		      			<% if a.action == 'update' && a.attributes["changes"].length == 1 %>
+						<span class="auditsChanges">
+							<a  href="javascript:;" 
+								class="audit_changes_tip" 
+								original-title="<%= h(a.attributes['changes'].values.first.last.to_s)%>">
+								<%= h(truncate(a.attributes['changes'].values.first.last.to_s, :width => 40)) %>
+							</a>
+						</span>
+		      			<% end %>
+					</td>
+		      		<td>
+						<% if a.user_id %>
+							<% usr = User.find(a.user_id)%>
+							<%= link_to usr.full_name, admin_user_path(usr) %>
+						<% end-%>
+					</td>
+		    	</tr>
+		   	<% end %>
+		  	</tbody>
+		</table>
+	</div>
+</div>
