@@ -22,13 +22,15 @@ class AuditObserver < ActiveRecord::Observer
   observe Audit
 
    def after_create(audit)   
-      model_id = NotificationFilter.models.find_by_name(audit.auditable_type.downcase).id
-      action_id = NotificationFilter.actions.find_by_name(audit.action).id
+      if RAILS_ENV == 'production'
+        model_id = NotificationFilter.models.find_by_name(audit.auditable_type.downcase).id
+        action_id = NotificationFilter.actions.find_by_name(audit.action).id
 
-      subscribers = User.subscribers_of(model_id,action_id)      
-      for subscriber in subscribers
-        args = [subscriber.email,subscriber.class.to_s.downcase,'vincent@thinkdry.com','Evolution du back office', audit.id,subscriber.id]
-        QueuedMail.add("UserMailer","send_back_office_updates", args, 1)
+        subscribers = User.subscribers_of(model_id,action_id)      
+        for subscriber in subscribers
+          args = [subscriber.email,subscriber.class.to_s.downcase,'vincent@thinkdry.com','Evolution du back office', audit.id,subscriber.id]
+          QueuedMail.add("UserMailer","send_back_office_updates", args, 1)
+        end
       end
    end
 end

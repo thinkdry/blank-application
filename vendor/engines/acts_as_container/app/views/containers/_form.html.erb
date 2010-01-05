@@ -76,11 +76,11 @@
                 </div>
             </div>
             <% text_button = (current_object.new_record? ?  I18n.t('general.button.create_a_new_workspace') : I18n.t('general.button.save') )%>
-            <button type="submit" class="submit_button"><%= text_button %></button>
+            <button type="submit" class="submitButton"><span><%= text_button %></span></button>
         </div>
     </div>
 
-    <% if @current_object.new_record? || true %>
+    <% if @current_object.new_record? || @current_object.has_permission_for?('administrate', @current_user) %>
         <div class="rightBlocks">
         <%# Items configuration %>
             <% if @configuration["sa_items"].size > 0 %>
@@ -108,7 +108,7 @@
             <% end-%>
 
         <%# State configuration %>
-            <% if current_object.state != 'private' && @configuration["sa_ws_types"].size > 0%>
+            <% if @current_object.state != 'private' && @configuration["sa_ws_types"].size > 0%>
                 <div class="itemShowRightBlock">
                     <div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
                         <%= I18n.t('workspace.edit.available_ws_types')%>
@@ -121,5 +121,6 @@
         </div>
     <% end %>
 
-
 <% end %>
+
+<%= render :partial => "/admin/ck_specifics/ck_links"%>

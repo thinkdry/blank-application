@@ -29,27 +29,17 @@
 		
 			<%= capture(f, &block) %>
 			
-            <%= f.text_field    :title,
-              :label => I18n.t('item.field.title_label') + " * :",
-              :hint => I18n.t('item.field.title_hint'),
-              :readonly => is_copyright %>
-
-            <%= f.text_field    :description,
-              :label => I18n.t('item.field.description_label') + ' * :',
-              :hint => I18n.t('item.field.description_hint') %>
-
-            <%= capture(f, &block) %>
-
             <% unless @current_object.new_record? -%>
-                <button id="submit_button" class="submit_button continueUpdate" type="submit">
-                    <%= current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update')%>
+                <button class="submit_button continueUpdate" type="submit">
+                    <span><%= current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update')%></span>
                 </button>
-                <button id="submit_button" class="submit_button continue" type="submit" name="continue">
-                    creer et continuer
+                <button class="submitButton continue" type="submit" name="continue">
+                    <!--TODO translate -->
+                   <span>creer et continuer</span>
                 </button>
             <% else-%>
-                <button id="submit_button" class="submit_button" type="submit">
-                    <%= current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update')%>
+                <button class="submitButton" type="submit">
+                    <span><%= current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update')%></span>
                 </button>
             <%end-%>
         </div>

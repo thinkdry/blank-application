@@ -36,13 +36,8 @@ module ActionView::Base::CompiledTemplates
     end
      
 		def advanced_editor(field, *args)
-		  
       options = args.extract_options!
       options = options.merge(:ajax => false, :template => :template_for_advanced_editor, :id => 'ckInstance')
-
-      p options
-      p field
-
       text_area(field, options) +
       @template.advanced_editor_on(@object, field)
     end

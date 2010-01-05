@@ -39,7 +39,7 @@
 					        </div>
 				        </div>
             <% end %>
-            <% if @current_object.has_permission_for?('rate', @current_user) %>
+            <% if @current_object.has_permission_for?('rate', @current_user, current_container_type) %>
                 <%= item_rate(@current_object) %>
             <% end %>
         </div>
