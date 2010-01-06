@@ -52,13 +52,15 @@
         </div>
     </div>
     <% CONTAINERS.each do |container| %>
-      <div class="itemShowRightBlock">
+		<% if container.classify.constantize.count > 0 %>
+      	<div class="itemShowRightBlock">
             <div class="blockCornerLeft"></div><div class="blockElementHeader twoH"><%= I18n.t("item.show.associated_#{container}") %></div><div class="blockCornerRight"></div>
             <div class="blockElementBody">
                 <% for cn in object.send(container.pluralize) -%>
                     <%= link_to cn.title, container_path(cn) %>
                 <% end -%>
             </div>
-      </div>
+      	</div>
+		<% end-%>
     <% end -%>
 </div>

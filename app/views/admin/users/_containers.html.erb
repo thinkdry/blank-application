@@ -4,6 +4,7 @@
     <% ws_roles.each do |r| %>
       <h4><%= I18n.t('general.common_word.role') + ' \'' + I18n.t('general.role.'+r.name) + '\''%></h4>
       <% CONTAINERS.each do |container| %>
+		
       <ul>
         <% container.classify.constantize.allowed_user_with_container_role(object, r.name, container).each do |ws| -%>
           <li>

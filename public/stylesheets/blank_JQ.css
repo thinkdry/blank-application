@@ -446,6 +446,8 @@ form input{
 	margin:4px 0 0 !important;
 }
 
+.checkboxes .private{display:none;}
+
 
 
 .alone{ display:block; margin-top:25px;}

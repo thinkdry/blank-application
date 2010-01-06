@@ -138,12 +138,14 @@ module GenericForItemHelper
     input_id = String.new
     input_id = object.class.to_s.underscore + '_' + attribute.to_s
     #TODO Remove current workspaces
-    current_workspace = @current_user.private_workspace if current_workspace.nil?
-    field =  ''
     
+    #current_workspace = @current_user.private_workspace if current_workspace.nil?
+    
+    field =  ''
     object.new_record? ? new_item = "&new=true" : new_item = ""
     field += '<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>'
-    field += '<script type="text/javascript">CKEDITOR.replace(\'ckInstance\', {customConfig : \'/admin/ck_config?ws='+ current_workspace.id.to_s + new_item + '\'});</script>'
+    #field += '<script type="text/javascript">CKEDITOR.replace(\'ckInstance\', {customConfig : \'/admin/ck_config?ws='+ current_container.id.to_s + new_item + '\'});</script>'
+    field += '<script type="text/javascript">CKEDITOR.replace(\'ckInstance\', {customConfig : \'/admin/ck_config?' + new_item + '\'});</script>'
 
     return field
   
@@ -174,7 +176,7 @@ module GenericForItemHelper
 				end
 				# Creating the checkboxes
 				if ((w.state == 'private') && (w.creator_id == @current_user.id) && (item.new_record?)) || (w == current_container) || (w == @current_user.private_workspace) 
-					strg += check_box_tag(check_box_tag_name, w.id, true, :disabled => true, :class => 'checkboxes') + ' ' + w.title + '<br />'
+					#strg += check_box_tag(check_box_tag_name, w.id, true, :disabled => true, :class => 'checkboxes') + ' ' + w.title + '<br />'
 					strg += hidden_field_tag(check_box_tag_name, w.id.to_s)
 				else
 					strg += check_box_tag(check_box_tag_name, w.id, checked, :class => 'checkboxes') + ' ' + w.title + '<br />'
