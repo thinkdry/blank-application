@@ -1,0 +1,17 @@
+	<h1>Add a key in the translations files</h1>
+
+  	<% form_for :res, :url => translation_new_superadmin_translations_path do |f| -%>
+
+    	<label>SECTION</label>
+		<div class="formElement"><%= f.select :section, translation_sections %></div>
+		<label>SUBSECTION</label>
+		<div class="formElement"><%= f.text_field :subsection %></div>
+		<label>KEY</label>
+    	<div class="formElement"><%= f.text_field :key %></div>
+    	<% LANGUAGES.each do |l| %>
+      		<label>Translations for <%= l %> : </label>
+	  		<div class="formElement"><%= text_field_tag "translations[#{l}]" %></div>
+    	<% end %>  
+    	
+		<button type="submit" class="submitButton"><span><%=I18n.t('general.button.add')%></span></button>
+  	<% end -%>
