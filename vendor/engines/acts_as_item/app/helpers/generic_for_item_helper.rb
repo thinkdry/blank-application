@@ -162,7 +162,7 @@ module GenericForItemHelper
 		check_box_tag_name = "#{item_class_name}[associated_#{container.pluralize}][]"
 		res=[]
 		# Workspace list allowing user to add new item and accepting items of that type
-		  list = (res + container.classify.constantize.allowed_user_with_permission(@current_user, item_class_name+"_new", container)).uniq.delete_if{ |w| !w.available_items.to_s.split(',').include?(item_class_name) }
+		list = (res + container.classify.constantize.allowed_user_with_permission(@current_user, item_class_name+"_new", container)).uniq.delete_if{ |w| !w.available_items.to_s.split(',').include?(item_class_name) }
 		if (list.size > 1 || @current_user.has_system_role('superadmin'))
 			#form.field(:workspaces, :label => I18n.t('general.object.workspace').camelize+'(s) :', :ajax => false)
 			list.collect do |w|

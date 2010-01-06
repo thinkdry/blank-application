@@ -1,0 +1,32 @@
+<div id="insert_videos">
+	<div id="videos_tabs" class="fckLinkContent">
+		<h1>Videos</h1>
+		<ul>
+			<li><a href="#insert_video">Insert</a></li>		
+			<li><a href="#upload_video">Upload</a></li>
+		</ul>
+		<div id="insert_video">
+			<p>Click on the tilte of a video to join it to editor's content. You must add a new video items if you want to add a new Video. You can specify Widht and height of the player</p>
+			<p><label>Width : </label><input id="player_width"/></p>
+			<p><label>Height : </label><input id="player_height"/></p>
+			<div>
+			<% @current_user.get_items_of_type('videos').each do |video| %>	
+				<p><%= image_tag File.dirname(video.video.url) + "/2.png", :width => "48"%><%= link_to video.title, 
+							   "javascript:;", 
+							   :itmUrl => File.dirname(video.video.url)%></p>
+			<%end%>
+			</div>
+		</div>
+		<div id="upload_video">
+			<p>Select a file to upload to the server. This file will be inserted as an Image item in the web site</p>
+			<form 	target="video_fck_upload" 
+					action="/admin/ck_uploads?type=video" 
+					method="post" 
+					enctype="multipart/form-data">
+				<%= file_field_tag "upload", :id => "video_file" %>
+		        <button type="submit" class="submitButton"><span>upload</span></button>
+			</form>
+			<iframe id="video_fck_upload" name="video_fck_upload" style="display:none"></iframe>
+		</div>
+	</div>
+</div>

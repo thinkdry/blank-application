@@ -26,10 +26,10 @@ module ActionView::Base::CompiledTemplates
       end
       code_for_fck += '<input type="hidden" value="' + @object.id.to_s + '" id="item_id"/>'
       code_for_fck += '<div class="ckUploader">Upload/insert : '
-      code_for_fck += '<a href="javascript:" id="fck_insert_image">Picture</a> | '
-      code_for_fck += '<a href="javascript:" id="fck_insert_video">Video</a> | '
-      code_for_fck += '<a href="javascript:" id="fck_insert_audio">Audio</a> | '
-      code_for_fck += '<a href="javascript:" id="fck_insert_link">Link</a></div>'
+      code_for_fck += '<a href="/admin/ck_display/tabs/pictures" id="fck_insert_image">Picture</a> | '
+      code_for_fck += '<a href="/admin/ck_display/tabs/videos" id="fck_insert_video">Video</a> | '
+      code_for_fck += '<a href="/admin/ck_display/tabs/audios" id="fck_insert_audio">Audio</a> | '
+      code_for_fck += '<a href="/admin/ck_display/tabs/links" id="fck_insert_link">Link</a></div>'
       code_for_fck += '<div class="advancedEditor">' + object + '</div>'    
         
       %{#{code_for_fck}}

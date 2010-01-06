@@ -2,15 +2,10 @@
   :builder => BlankFormBuilder,
   :url => (current_object.new_record? ? items_path(current_object.class.to_s) : item_path(current_object)),
   :html => {:method => (current_object.new_record? ? :post : :put),
-    :multipart => true } do |f| -%>
+  :multipart => true } do |f| -%>
 	<div class="itemShowLeft">
-		<div class="itemShowLeftDate">
-			<%=  current_object.new_record? ? 
-				 I18n.l(Time.now, :format => :verb) : 
-				 I18n.l(current_object.created_at, :format => :verb) %>
-		</div>
 		<div class="itemShowLeftBody">
-			<h1><%= title %></h1>
+			<h2><%= title %></h2>
 		
 			<% is_copyright = (current_object.state == 'copyright') ? true : false %>
 		    <% if is_copyright %>
@@ -28,23 +23,23 @@
 								:hint => I18n.t('item.field.description_hint') %>
 		
 			<%= capture(f, &block) %>
-			
-            <% unless @current_object.new_record? -%>
-                <button class="submitButton continueUpdate" type="submit">
-                    <span><%= current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update')%></span>
-                </button>
-                <button class="submitButton continue" type="submit" name="continue">
-                    <!--TODO translate -->
-                   <span>creer et continuer</span>
-                </button>
-            <% else-%>
-                <button class="submitButton" type="submit">
-                    <span><%= current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update')%></span>
-                </button>
-            <%end-%>
+
+            <button class="submitButton continueUpdate" type="submit">
+                <span><%= current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update')%></span>
+            </button>
+            <button class="submitButton continue" type="submit" name="continue">
+                <!--TODO translate -->
+               <span>creer et continuer</span>
+            </button>
         </div>
     </div>
+
     <div class="rightBlocks">
+		<div class="itemShowDate">
+			<%=  current_object.new_record? ? 
+				 I18n.l(Time.now, :format => :verb) : 
+				 I18n.l(current_object.created_at, :format => :verb) %>
+		</div>
         <div class="itemShowRightBlock">
             <div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
                 <%= I18n.t('item.field.keyword_label').pluralize %>

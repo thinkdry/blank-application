@@ -1,6 +1,6 @@
 <%= superadmin_tabs_generator() %>
 
-<div class="objectList">
+<div class="objectListWithTab">
 	<div class="blockCornerLeft"></div><div class="blockElementHeader sevH">
 		<span id="item_count">Audits</span>
 	</div><div class="blockCornerRight"></div>
@@ -11,13 +11,13 @@
 		  	<thead>
 		    	<tr>
 		      		<th width="80">Date</th>
-		      		<th width="100">Item</th>
-		      		<th width="100">Action</th>
-		      		<th width="300">Value</th>
-		      		<th width="120">User</th>
+		      		<th width="80">Item</th>
+		      		<th width="160">Action</th>
+		      		<th width="220">Value</th>
+		      		<th width="100">User</th>
 		    	</tr>
 		  	</thead>
-		  	<tbody>
+		  	<tbody style="font-size:80%">
 		    <% @audits.each do |a| %>
 		    	<tr>
 		      		<td><%= I18n.l a.created_at, :format =>:verb %></td>

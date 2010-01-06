@@ -1,11 +1,8 @@
 <% form_for ['admin',@current_object], :builder => BlankFormBuilder ,:html => { :multipart => true } do |f| -%>
 
     <div class="itemShowLeft">
-        <div class="itemShowLeftDate">
-            <%= I18n.l Time.now, :format =>:verb %>
-        </div>
         <div class="itemShowLeftBody">
-            <h1><%= title %></h1>
+            <h2><%= title %></h2>
 
             <%= f.text_field 	:title,
               :label => I18n.t('workspace.field.title_label')+" * : ",
@@ -80,8 +77,17 @@
         </div>
     </div>
 
-    <% if @current_object.new_record? || @current_object.has_permission_for?('administrate', @current_user) %>
+    <% if 	@current_object.new_record? || 
+			@current_object.has_permission_for?('administrate', @current_user, current_container_type) %>
+			
         <div class="rightBlocks">
+			 <div class="itemShowLeftDate">
+		     	<div class="itemShowDate">
+					<%=  current_object.new_record? ? 
+						 I18n.l(Time.now, :format => :verb) : 
+						 I18n.l(current_object.created_at, :format => :verb) %>
+				</div>
+		     </div>
         <%# Items configuration %>
             <% if @configuration["sa_items"].size > 0 %>
                 <div class="itemShowRightBlock">
@@ -122,5 +128,3 @@
     <% end %>
 
 <% end %>
-
-<%= render :partial => "/admin/ck_specifics/ck_links"%>

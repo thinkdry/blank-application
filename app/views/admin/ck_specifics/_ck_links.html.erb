@@ -1,66 +1,5 @@
-<div style="display:none">
-	<div id="insert_images">
-		<div id="images_tabs" class="fckLinkContent">
-			<ul>
-				<li><a href="#insert_image">Insert</a></li>		
-				<li><a href="#upload_image">Upload</a></li>
-			</ul>
-			<div id="insert_image">
-				<!-- TODO check with get_da_object -->
-				<!-- TODO translate -->	
-				<p>You can select the width of the pic you will add, and it's align with the text</p>
-				<p><label>Width : </label><input id="image_width"/></p>
-				<p><label>Align : </label>
-					<select id="image_align">
-						<option value="">None</option>
-						<option value="left">Left</option>
-						<option value="right">Right</option>
-						<option value="center">Center</option>
-					</select>
-				</p>
-				<div><% @current_user.get_items_of_type('images').each do |img| %>			
-					<%= link_to image_tag(img.image.url(:thumb)), 
-								"javascript:;", 
-								:picSrc => img.image.url%>
-				<%end%></div>
-			</div>
-			
-			<div id="upload_image">
-				<p>Select a file to upload to the server. This file will be inserted as an Image item in the web site</p>
-				<form target="image_fck_upload" action="/admin/ck_uploads?type=image"  method="post" enctype="multipart/form-data">
-					<%= file_field_tag "upload", :id => "image_file" %>
-			        <button type="submit" class="submitButton"><span>
-						upload
-					</span></button>
-				</form>
-				<iframe id="image_fck_upload" name="image_fck_upload" style="display:none"></iframe>
-			</div>
-		</div>
-	</div>
-	
-	<div id="insert_audio" class="fckLinkContent">
-		<div><% @current_user.get_items_of_type('audios').each do |audio| %>	
-			
-			<p><%= link_to audio.title, 
-						"javascript:;", 
-						:itmUrl => item_path(audio)%></p>
-		<%end%></div>	
-	</div>
-	
-	<div id="insert_video" class="fckLinkContent">
-		<p>Click on the tilte of a video to join it to editor's content. You must add a new video items if you want to add a new Video. You can specify Widht and height of the player</p>
-		<p><label>Width : </label><input id="player_width"/></p>
-		<p><label>Height : </label><input id="player_height"/></p>
-		<div>
-		<% @current_user.get_items_of_type('videos').each do |video| %>	
-			<p><%= image_tag File.dirname(video.video.url) + "/2.png", :width => "48"%><%= link_to video.title, 
-						   "javascript:;", 
-						   :itmUrl => File.dirname(video.video.url)%></p>
-		<%end%>
-		</div>
-	</div>
-	
 	<div id="insert_link" class="fckLinkContent">
+		<h1>Links</h1>
 		<ul >
 			<% item_types_allowed_to(@current_user, 'show', current_workspace).each do |type| -%>
 				<% if type != 'video' && type != 'audio' && type != 'image'%>
@@ -83,4 +22,3 @@
 			<% end -%>
 		<% end -%>
 	</div>
-</div>

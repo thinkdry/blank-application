@@ -4,11 +4,8 @@
     		:html => {:method => (@person.new_record? ? :post : :put), :multipart=> true} do |f| -%>
 
 <div class="itemShowLeft">
-	<div class="itemShowLeftDate">
-		<%= I18n.l Time.now, :format =>:verb %>
-	</div>
 	<div class="itemShowLeftBody">
-		<h1><%= I18n.t('people.new.title') %></h1>
+		<h2><%= I18n.t('people.new.title') %></h2>
 		
 		<%= f.text_field :email, :label => I18n.t('people.field.email_label') +" * : " %>
 		<%= f.text_field :first_name, :label => I18n.t('people.field.first_name_label') +" : " %>
@@ -22,6 +19,9 @@
 </div>
 
 <div class="rightBlocks">
+	<div class="itemShowDate">
+		<%= I18n.l Time.now, :format =>:verb %>
+	</div>
 	<div class="itemShowRightBlock">
 		<div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
 			<%= I18n.t("item.show.associated_workspace") %><!-- TODO HINT -->

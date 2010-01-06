@@ -1,10 +1,7 @@
 <%h content_for :title, "#{object.class.to_s}: "+object.title %>
 <div class="itemShowLeft">
-    <div class="itemShowLeftDate">
-        <%= I18n.l object.created_at, :format =>:verb %>
-    </div>
     <div class="itemShowLeftBody">
-        <h1><%= object.title %></h1>
+        <h2><%= object.title %></h2>
         <%= keywords_links_list_for(@current_object) %>
 
         <div class="description"><%= object.description %></div>
@@ -15,6 +12,9 @@
     </div>
 </div>
 <div class="rightBlocks">
+	<div class="itemShowDate">
+        <%= I18n.l object.created_at, :format =>:verb %>
+    </div>
     <div class="itemShowRightBlock">
         <div class="blockCornerLeft"></div><div class="blockElementHeader twoH">What can I do?</div><div class="blockCornerRight"></div>
         <div class="blockElementBody">

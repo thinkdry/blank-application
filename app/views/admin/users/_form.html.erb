@@ -1,10 +1,7 @@
 <% form_for ['admin',@current_object],:builder => BlankFormBuilder, :html => {:multipart=> true } do |f| -%>
 	<div class="itemShowLeft">
-		<div class="itemShowLeftDate">
-			<%= I18n.l Time.now, :format =>:verb %>
-		</div>
 		<div class="itemShowLeftBody">
-			<h1><%=I18n.t('user.new.title')%></h1>
+			<h2><%=I18n.t('user.new.title')%></h2>
 			
 			<label><%= I18n.t('people.field.salutation_label') %> : </label>
 		    <div class="formElement">
@@ -71,6 +68,9 @@
 		</div>
 	</div>
 	<div class="rightBlocks">
+		<div class="itemShowDate">
+			<%= I18n.l Time.now, :format =>:verb %>
+		</div>
 		<div class="itemShowRightBlock">
 			<div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
 				<%=I18n.t('user.field.system_role_id_label')%> <!-- TODO HINT -->

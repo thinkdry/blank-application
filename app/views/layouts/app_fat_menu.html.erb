@@ -5,16 +5,13 @@
         <meta http-equiv="X-UA-Compatible" content="IE=7" />
         <%= stylesheet_link_tag "blank_JQ"  %>
         <%= stylesheet_link_tag "jquery.rating" %>
+
+		<!--[if lt IE 7]>
+	       	<link rel="stylesheet" type="text/css" href="/stylesheets/ie6.css" />
+		<![endif]-->
+			
 		<!--[if IE 7]>
 			<link rel="stylesheet" type="text/css" href="/stylesheets/ie.css" />
-		<![endif]-->
-
-        <!--[if IE 6]>
-          	<link rel="stylesheet" type="text/css" href="/stylesheets/ie6.css" />
-		  	<script src="/javascripts/DD_belatedPNG.js"></script>
-		  	<script>
-		   		DD_belatedPNG.fix('img');
-			</script>
 		<![endif]-->
         <title>
             <%= I18n.t 'layout.application.title' %> -

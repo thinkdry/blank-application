@@ -18,16 +18,21 @@
 
 .sixH{width:600px;}
 .twoH{width:179px;}
-.sevH{width:744px;}
+.sevH{width:689px;}
 .sevTenH{width:710px;}
 
 .itemShowRightBlock .blockElementBody{width:177px;}
-.itemShowRightBlock{margin-left:40px;}
-#pure_people_list, #pure_user_list{width:688px!important;overflow:visible;}
-#pure_item_list{width:732px;}
+.itemShowRightBlock{margin-right:30px;}
+#pure_people_list, #pure_user_list{width:578px!important;overflow:visible;}
+#pure_item_list{width:657px;}
+.itemInListBody{width:562px !important;}
+.objectList{padding-left:0;margin-left:30px;width:709px;}
+.objectListWithTab{width:709px;}
+.small{width:auto;}
 .paginationSelected, .paginationUnselected{padding:3px 7px 7px 7px;margin-bottom:2px;}
 ul#tabs li a{height:23px;}
-.superadmin{width:722px;}
+/*#tabs{margin:90px 0 0 10px !important;}*/
+.superadmin{width:667px;}
 .formElement{width:480px;}
 #menuAndSearch{height:50px;}
 #footer{padding-top:0px;}

@@ -145,19 +145,15 @@ $(document).ready(function () {
 	$(".deleteLink").live('click', function(){
 		var modalId = $(this).attr('modal_id')
 		$.fn.colorbox({width:"300px", inline:true, href:modalId});
-	});
-	
+	});	
 	$(".deleteClose").click(function(){
 		$.fn.colorbox.close();
 	});
 
-	$('#fck_insert_image').colorbox({width:"600px", inline:true, href:"#insert_images"});
-	$('#fck_insert_link').colorbox({width:"600px", inline:true, href:"#insert_link"});
-	$('#fck_insert_video').colorbox({width:"600px", inline:true, href:"#insert_video"});
-	$('#fck_insert_audio').colorbox({width:"600px", inline:true, href:"#insert_audio"});
-	
-	$('#images_tabs').tabs();
-	$('#insert_link').tabs();
+	$('#fck_insert_image').colorbox({width:"600px", onComplete:function(){$('#images_tabs').tabs();}});
+	$('#fck_insert_link').colorbox({width:"600px", onComplete:function(){$('#insert_link').tabs();}});
+	$('#fck_insert_video').colorbox({width:"600px", onComplete:function(){$('#videos_tabs').tabs();}});
+	$('#fck_insert_audio').colorbox({width:"600px", onComplete:function(){$('#audios_tabs').tabs();}});
 	
 	$('#insert_image a').live('click', function(){
 		stringToInsert = '<img src="' + $(this).attr("picSrc") +'" ';
@@ -309,14 +305,12 @@ jQuery.fn.displayHintForField = function(){
     });
 }
 
-function imageUploadComplete(stringToInsert){
-	CKEDITOR.instances.article_body.insertHtml(stringToInsert);
+function itemUploadComplete(stringToInsert){
+	CKEDITOR.instances.ckInstance.insertHtml(stringToInsert);
 	$.fn.colorbox.close();
 	$('#image_file').val("");
-}
-
-function saveFCKContentDraf(){
-	alert('save');
+	$('#video_file').val("");
+	$('#audio_file').val("");
 }
 
 function autocomplete_on(array, div){
