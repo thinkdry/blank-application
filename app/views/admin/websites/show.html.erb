@@ -1,3 +1,8 @@
 <% container_show( :title => "#{@current_object.class.to_s}",  :object => @current_object ) do %>
-
+  State : <%= @current_object.website_state %><br />
+  Webmaster Contact : <%= @current_object.contact_email %><br />
+  Logo : <%= image_tag @current_object.favicon.url(:medium) if @current_object.favicon_file_name %><br />
+  Body Size : <%= @current_object.body_size %><br />
+  Layout : <%= @current_object.layout_file_name %><br />
+  Sitemap : <%= @current_object.sitemap_file_name %><br />
 <% end %>

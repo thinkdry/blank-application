@@ -446,6 +446,22 @@ function insert_keyword(model_name, place, field_name){
     }
 }
 
+function insert_field(model_name, place, field_name){
+    var name = $('#website_url_name_value').val();
+    var field_values = name.split(',');
+    for(var i=0; i < field_values.length; i++){
+        var name = field_values[i].replace(/(^\s+|\s+$)/g, "");
+        if(name != 0 && name.length == (name.replace(/<(\S+).*>(|.*)<\/(\S+).*>|<%(.*)%>|<%=(.*)%>+/g, "")).length){
+            var hidden_field = "<input type='hidden' id='"+model_name+"_"+field_name+"' value='"+name+"' name='"+model_name+"["+field_name+"][]'>";
+            $(place).append("<div id='"+name+"_000' class='keyword_label'>"+hidden_field+name+"<a href='#' onclick='$(\"#" + name + "_000\").remove(); return false;'>X</a></div>")
+        }
+        $('#website_url_name_value').val('');
+		$('#website_url_name_value').focus();
+    }
+}
+
+
+
 // to move option value from one select box to another select box
 function shiftRight(removeOptions,addOptions,saveFlag)
 {

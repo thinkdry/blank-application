@@ -1,0 +1,5 @@
+<div id="galleryPictures">
+<% @pictures.each do |pic| %>
+  <a href="<%=pic.image.url%>" rel="lightbox[]" title="<%=pic.title %>"><img src="<%=pic.image.url(:medium)%>" width="100" border="0"></a>
+<% end %>
+</div>

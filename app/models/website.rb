@@ -6,8 +6,8 @@ class Website < ActiveRecord::Base
   
   # Favicon of the website
   has_attached_file :favicon,
-                    :url =>  "/front_files/#{self.name}/favicon/:basename.:extension",
-                    :path => ":rails_root/public/front_files/#{self.name}/favicon/:basename.:extension",
+                    :url =>  "/website_files/#{self.name}/favicon/:basename.:extension",
+                    :path => ":rails_root/public/website_files/#{self.name}/favicon/:basename.:extension",
                     :styles => { :default => "16x16>", :medium => "32x32>" }
   # Validation of the size of the attached file
   validates_attachment_size(:favicon, :less_than => 2.megabytes)
@@ -34,38 +34,68 @@ class Website < ActiveRecord::Base
 	# Validation of the size of the attached file
   validates_attachment_size(:sitemap, :less_than => 2.megabytes)
   
+  def update_website_resource(params)
+    unless params[:css].blank?
+      if File.extname(params[:css].original_filename) == '.css'
+        File.open(get_file_path(self.title,"stylesheets",params[:css]), "wb") {
+          |f| f.write(params[:css].read)
+        }
+      elsif File.extname(params[:css].original_filename) == '.zip'
+        self.store_assets(params[:css], 'stylesheets')
+      end
+    end
+    unless params[:js].blank?
+      if File.extname(params[:js].original_filename) == '.js'
+        File.open(get_file_path(self.title,"javascripts",params[:js]), "wb") {
+          |f| f.write(params[:js].read)
+        }
+      elsif File.extname(params[:js].original_filename) == '.zip'
+        self.store_assets(params[:js], 'javascripts')
+      end
+    end
+    unless params[:images].blank?
+      if File.extname(params[:images].original_filename) == '.zip'
+        self.store_assets(params[:images], 'images')
+      else
+        File.open(get_file_path(self.title,"images",params[:images]), "wb") {
+          |f| f.write(params[:images].read)
+        }
+      end
+    end
+  end
+  
   def store_assets(zip_file, dest_file)
     @upload_file_name = zip_file.original_filename
-    FileUtils.makedirs("#{RAILS_ROOT}/public/front_files/#{self.name}/tmp")
-    File.open("#{RAILS_ROOT}/public/front_files/#{self.name}/tmp/#{@upload_file_name}", "wb") do |f|
+    FileUtils.makedirs("#{RAILS_ROOT}/public/website_files/#{self.title}/tmp")
+    File.open("#{RAILS_ROOT}/public/website_files/#{self.title}/tmp/#{@upload_file_name}", "wb") do |f|
       f.write(zip_file.read)
     end
-    zf = Zip::ZipFile.open("#{RAILS_ROOT}/public/front_files/#{self.name}/tmp/#{@upload_file_name}")
+    zf = Zip::ZipFile.open("#{RAILS_ROOT}/public/website_files/#{self.title}/tmp/#{@upload_file_name}")
     zf.each do |entry|
       if entry.name.split('/').last.include?('.')
-        fpath = File.join("#{RAILS_ROOT}/public/front_files/#{self.name}/#{dest_file}/#{entry.name.split('/').last}")
+        fpath = File.join("#{RAILS_ROOT}/public/website_files/#{self.title}/#{dest_file}/#{entry.name.split('/').last}")
         if(File.exists?(fpath))
           File.delete(fpath)
         end
         zf.extract(entry, fpath)
       end
     end
-    FileUtils.rm_rf("#{RAILS_ROOT}/public/front_files/#{self.name}/tmp")
+    FileUtils.rm_rf("#{RAILS_ROOT}/public/website_files/#{self.name}/tmp")
   end
 
 	def include_all_stylesheet_files
 		res = ""
-		Dir["public/front_files/#{self.name}/stylesheets/*"].collect do |uploaded_layout|
-			res += "<link href='/front_files/#{self.name }/stylesheets/#{uploaded_layout.split('/')[4]}' rel='stylesheet' type='text/css' />"
+		Dir["public/website_files/#{self.title}/stylesheets/*"].collect do |uploaded_layout|
+			res += "<link href='/website_files/#{self.title}/stylesheets/#{uploaded_layout.split('/')[4]}' rel='stylesheet' type='text/css' />"
 		end
 		return res
 	end
 
 	def include_all_javascript_files
 		res = ""
-		res += "<script type='text/javascript' src='/front_files/javascripts/front_application.js'></script>"
-		Dir["public/front_files/#{self.name}/javascripts/*"].collect do |uploaded_layout|
-			res += "<script src='/front_files/#{self.name }/javascripts/#{uploaded_layout.split('/')[4]}' type='text/javascript'></script>"
+		res += "<script type='text/javascript' src='/website_files/javascripts/front_application.js'></script>"
+		Dir["public/front_files/#{self.title}/javascripts/*"].collect do |uploaded_layout|
+			res += "<script src='/website_files/#{self.title}/javascripts/#{uploaded_layout.split('/')[4]}' type='text/javascript'></script>"
 		end
 	end
 
@@ -75,8 +105,21 @@ class Website < ActiveRecord::Base
       return "<link rel='shortcut icon' href='#{self.favicon.url}'/>"
     end
   end
-
   
-  
+  def website_url_names= params
+		tmp = params.uniq
+		self.website_urls.each do |k|
+			WebsiteUrl.destroy(k.id) unless tmp.delete(k.name)
+		end
+		tmp.each do |website_url_name|
+			self.website_urls.build(:name => website_url_name)
+		end
+	end
+	
+	private
 
+  def get_file_path(front_name,content_type,file)
+    return File.join("#{RAILS_ROOT}/public/website_files/#{front_name}/#{content_type}/", file.original_filename)
+  end
+  
 end

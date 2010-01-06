@@ -1,6 +1,6 @@
 /* CSS Document */
 
-body{padding:0; margin:0; background:url(/front_files/ecosun/images/main-bg.gif) 0 0 repeat-x  #FCFAE6; font:14px/20px Arial, Helvetica, sans-serif; color:#3D3C2C; font-weight:normal;}
+body{padding:0; margin:0; background:url(/website_files/ecosun/images/main-bg.gif) 0 0 repeat-x  #FCFAE6; font:14px/20px Arial, Helvetica, sans-serif; color:#3D3C2C; font-weight:normal;}
 
 div, p, h1, h2, h3, ul, img{padding:0px; margin:0px;}
 
@@ -42,11 +42,11 @@ ul{list-style-type:none;}
 
 #topPan ul li{float:left; width:135px; display:block; text-align: center; }
 
-#topPan ul li a{width:135px; height:35px; display:block; font:14px/14px  Arial, Helvetica, sans-serif; color:#2E4E00; background:url(/front_files/ecosun/images/menu-bg.gif) 0 0 repeat-x #F4F1DD; text-decoration:none; margin:0; padding:61px 0 0 0; }
+#topPan ul li a{width:135px; height:35px; display:block; font:14px/14px  Arial, Helvetica, sans-serif; color:#2E4E00; background:url(/website_files/ecosun/images/menu-bg.gif) 0 0 repeat-x #F4F1DD; text-decoration:none; margin:0; padding:61px 0 0 0; }
 
-#topPan ul li a:hover{ width:135px; display:block; background:url(/front_files/ecosun/images/menu-devider2.gif) 100% 0 no-repeat #FCFAE6; color:#2E4E00; text-decoration:none;}
+#topPan ul li a:hover{ width:135px; display:block; background:url(/website_files/ecosun/images/menu-devider2.gif) 100% 0 no-repeat #FCFAE6; color:#2E4E00; text-decoration:none;}
 
-#topPan ul li span{width:135px; height:35px; display:block; background:url(/front_files/ecosun/images/menu-devider1.gif) 100% 0 no-repeat #FCFAE6; color:#2E4E00; text-decoration:none; padding:61px 0 0 0; line-height:14px;}
+#topPan ul li span{width:135px; height:35px; display:block; background:url(/website_files/ecosun/images/menu-devider1.gif) 100% 0 no-repeat #FCFAE6; color:#2E4E00; text-decoration:none; padding:61px 0 0 0; line-height:14px;}
 
 /* /TOP PANEL */
 
@@ -68,23 +68,23 @@ ul{list-style-type:none;}
 
 #headerPanleft{ width:237px; height:214px; float:left; margin-top:15px;}
 
-#headerPan #ourblog{ float:left; width:237px; height:53px; position:relative; margin:0 auto; background:url(/front_files/ecosun/images/icon2-nor.gif) 0 0 no-repeat; }
+#headerPan #ourblog{ float:left; width:237px; height:53px; position:relative; margin:0 auto; background:url(/website_files/ecosun/images/icon2-nor.gif) 0 0 no-repeat; }
 
 #headerPan #ourblog a{text-decoration:none; display: block; font:16px/14px Arial, Helvetica, sans-serif ; color:#53c5e0; text-align:center; padding-top:18px; padding-left:13px; height:35px;}
 
-#headerPan #ourblog a:hover{text-decoration:none; background:url(/front_files/ecosun/images/icon2-hover.gif) no-repeat 0 0; }
+#headerPan #ourblog a:hover{text-decoration:none; background:url(/website_files/ecosun/images/icon2-hover.gif) no-repeat 0 0; }
 
-#headerPan #possib{ float:left; width:237px; height:53px; position:relative; margin:25px 0 0 0; background:url(/front_files/ecosun/images/icon3-nor.gif) 0 0 no-repeat;}
+#headerPan #possib{ float:left; width:237px; height:53px; position:relative; margin:25px 0 0 0; background:url(/website_files/ecosun/images/icon3-nor.gif) 0 0 no-repeat;}
 
 #headerPan #possib a{text-decoration:none; display:block; font:16px/14px Arial, Helvetica, sans-serif ; color:#53c5e0; text-align:center; padding-top:18px; height:35px; }
 
-#headerPan #possib a:hover{text-decoration:none; background:url(/front_files/ecosun/images/icon3-hover.gif) no-repeat 0 0; }
+#headerPan #possib a:hover{text-decoration:none; background:url(/website_files/ecosun/images/icon3-hover.gif) no-repeat 0 0; }
 
-#headerPan #solution{ float:left; width:237px; height:53px; position:relative; margin:25px 0 0 0; background:url(/front_files/ecosun/images/icon1-nor.gif) 0 0 no-repeat; }
+#headerPan #solution{ float:left; width:237px; height:53px; position:relative; margin:25px 0 0 0; background:url(/website_files/ecosun/images/icon1-nor.gif) 0 0 no-repeat; }
 
 #headerPan #solution a{text-decoration:none; display:block; font:16px/14px Arial, Helvetica, sans-serif ; color:#53c5e0; text-align:left; padding-top:18px; padding-left:80px; height:35px;}
 
-#headerPan #solution a:hover{text-decoration:none; background:url(/front_files/ecosun/images/icon1-hover.gif) no-repeat 0 0;}
+#headerPan #solution a:hover{text-decoration:none; background:url(/website_files/ecosun/images/icon1-hover.gif) no-repeat 0 0;}
 
 /* BODY PANEL */
 
@@ -104,7 +104,7 @@ ul{list-style-type:none;}
 	padding-top:10px;
 	padding-bottom:10px;
 	margin-bottom:40px;
-    background:url(/front_files/ecosun/images/back.gif) #FCFAE6 no-repeat  right top ;
+    background:url(/website_files/ecosun/images/back.gif) #FCFAE6 no-repeat  right top ;
 }
 
 .body_class p{
@@ -126,13 +126,13 @@ ul{list-style-type:none;}
 	float:left;
 }
 
-#leftmemberPan{width:237px; height:46px; background: url(/front_files/ecosun/images/acc.jpg); color:#000; padding-top:150px; float:left;}
+#leftmemberPan{width:237px; height:46px; background: url(/website_files/ecosun/images/acc.jpg); color:#000; padding-top:150px; float:left;}
 
 #leftmemberPan a{width:100%; text-align:center; height:20px;text-decoration:none; display:block; font:18px Arial, Helvetica, sans-serif bold xx-large ; color: #FFFFFF; padding:0 0 0 0px;}
 
 #leftmemberPan a:hover{text-decoration: underline; color: #e78033;}
 
-#leftmemberPan h2{height:48px; background:url(/front_files/ecosun/images/symbol4.gif) 0 0 no-repeat #fff; display:block; position:relative; padding:0 0 0 57px; margin:12px 0 20px 13px; font:16px/48px  Georgia,"Times New Roman", Times, serif; color:#5EA000; text-transform:uppercase;}
+#leftmemberPan h2{height:48px; background:url(/website_files/ecosun/images/symbol4.gif) 0 0 no-repeat #fff; display:block; position:relative; padding:0 0 0 57px; margin:12px 0 20px 13px; font:16px/48px  Georgia,"Times New Roman", Times, serif; color:#5EA000; text-transform:uppercase;}
 
 #leftmemberPan h2 span{background:#fff; color:#3D3C2C;}
 
@@ -150,35 +150,35 @@ ul{list-style-type:none;}
 
 #leftPan ul{ display:block; float:right; width:150px; height:150px; padding-right:30px; padding-top:5px;}
 
-#partners{ width:80px; height:60px;background: url(/front_files/ecosun/images/arrowpartners1.gif) no-repeat; padding-bottom:10px; float:left; margin-left:32px;} 
+#partners{ width:80px; height:60px;background: url(/website_files/ecosun/images/arrowpartners1.gif) no-repeat; padding-bottom:10px; float:left; margin-left:32px;} 
 
 #partners a{text-decoration:none; display:block; width:80px; height:60px;}
 
-#partners a:hover{text-decoration:none; background: url(/front_files/ecosun/images/arrowpartnershover1.gif) no-repeat 0 0;} 
+#partners a:hover{text-decoration:none; background: url(/website_files/ecosun/images/arrowpartnershover1.gif) no-repeat 0 0;} 
 
-#partners1{ width:80px; height:60px;background: url(/front_files/ecosun/images/globosol.gif) no-repeat; padding-bottom:10px;float:left; margin-left:10px;} 
+#partners1{ width:80px; height:60px;background: url(/website_files/ecosun/images/globosol.gif) no-repeat; padding-bottom:10px;float:left; margin-left:10px;} 
 
 #partners1 a{text-decoration:none; display:block; width:80px; height:60px;}
 
-#partners1 a:hover{text-decoration:none; background: url(/front_files/ecosun/images/globosolhover.gif) no-repeat 0 0;}
+#partners1 a:hover{text-decoration:none; background: url(/website_files/ecosun/images/globosolhover.gif) no-repeat 0 0;}
 
-#partners2{ width:80px; height:60px;background: url(/front_files/ecosun/images/arrowpartners2.gif) no-repeat;  float:left; margin-left:28px;} 
+#partners2{ width:80px; height:60px;background: url(/website_files/ecosun/images/arrowpartners2.gif) no-repeat;  float:left; margin-left:28px;} 
 
 #partners2 a{text-decoration:none; display:block; width:80px; height:60px;}
 
-#partners2 a:hover{text-decoration:none; background: url(/front_files/ecosun/images/arrowpartnershover2.gif) no-repeat 0 0;}
+#partners2 a:hover{text-decoration:none; background: url(/website_files/ecosun/images/arrowpartnershover2.gif) no-repeat 0 0;}
 
-#partners3{ width:80px; height:60px;background: url(/front_files/ecosun/images/arrowpartners3.gif) no-repeat;float:left; margin-left:15px;} 
+#partners3{ width:80px; height:60px;background: url(/website_files/ecosun/images/arrowpartners3.gif) no-repeat;float:left; margin-left:15px;} 
 
 #partners3 a{text-decoration:none; display:block; width:80px; height:60px;}
 
-#partners3 a:hover{text-decoration:none; background: url(/front_files/ecosun/images/arrowpartnershover3.gif) no-repeat 0 0;} 
+#partners3 a:hover{text-decoration:none; background: url(/website_files/ecosun/images/arrowpartnershover3.gif) no-repeat 0 0;} 
 
-#partners4{ width:80px; height:60px;background: url(/front_files/ecosun/images/capeco.gif) no-repeat; padding-bottom:10px;float:left; margin-left:28px;} 
+#partners4{ width:80px; height:60px;background: url(/website_files/ecosun/images/capeco.gif) no-repeat; padding-bottom:10px;float:left; margin-left:28px;} 
 
 #partners4 a{text-decoration:none; display:block; width:80px; height:60px;}
 
-#partners4 a:hover{text-decoration:none; background: url(/front_files/ecosun/images/capecohover.gif) no-repeat 0 0;} 
+#partners4 a:hover{text-decoration:none; background: url(/website_files/ecosun/images/capecohover.gif) no-repeat 0 0;} 
 
 #leftPango{width:220px; height:25px; float:left; border-top:1px solid #fff; background:#B0AD93; display:block; padding:0; margin:0; font-size:12px; color:#FFFFFA; line-height:23px; font-weight:bold;}
 
@@ -186,9 +186,9 @@ ul{list-style-type:none;}
 
 #leftPango p.textposition a:hover{text-decoration:underline; background:none;}
 
-#leftPan form input.gobutton{float:right; background:url(/front_files/ecosun/images/arrow4.gif) no-repeat 30px 0 #63614F; border:none; width:45px; height:21px; display:block; margin:2px 0 0 0; padding:0 0 0 5px; text-decoration:none; color:#fff; font:14px/21px "Trebuchet MS",Arial, Helvetica, sans-serif; text-transform:uppercase; text-align:left;}
+#leftPan form input.gobutton{float:right; background:url(/website_files/ecosun/images/arrow4.gif) no-repeat 30px 0 #63614F; border:none; width:45px; height:21px; display:block; margin:2px 0 0 0; padding:0 0 0 5px; text-decoration:none; color:#fff; font:14px/21px "Trebuchet MS",Arial, Helvetica, sans-serif; text-transform:uppercase; text-align:left;}
 
-#leftPango a:hover{background:url(/front_files/ecosun/images/arrow4.gif) no-repeat 30px 1px #333229; text-decoration:none; color:#fff;}
+#leftPango a:hover{background:url(/website_files/ecosun/images/arrow4.gif) no-repeat 30px 1px #333229; text-decoration:none; color:#fff;}
 
 /*/Left Panel */
 
@@ -209,7 +209,7 @@ ul{list-style-type:none;}
 
 #rightbodyPan{
 	background:#FCFAE6;
-	background-image:url(/front_files/ecosun/images/back.gif);
+	background-image:url(/website_files/ecosun/images/back.gif);
 	background-repeat:no-repeat;
 	background-position:right top;
 	color:#3D3C2C;
@@ -251,15 +251,15 @@ font-size:90%;
 
 #rightbodymore p.textposition{float:left; padding:0 0 0 20px; margin:0;}
 
-#rightbodymore a{float:right; background:url(/front_files/ecosun/images/arrow4.gif) no-repeat 58px 1px #63614F; width:66px; display:block; position:relative; margin:1px 0 0 0; padding:0 0 0 10px; height:23px; text-decoration:none; color:#fff; font:14px/23px "Trebuchet MS",Arial, Helvetica, sans-serif; text-transform:uppercase;}
+#rightbodymore a{float:right; background:url(/website_files/ecosun/images/arrow4.gif) no-repeat 58px 1px #63614F; width:66px; display:block; position:relative; margin:1px 0 0 0; padding:0 0 0 10px; height:23px; text-decoration:none; color:#fff; font:14px/23px "Trebuchet MS",Arial, Helvetica, sans-serif; text-transform:uppercase;}
 
-#rightbodymore a:hover{background:url(/front_files/ecosun/images/arrow4.gif) no-repeat 58px 1px #333229; text-decoration:none; color:#fff;}
+#rightbodymore a:hover{background:url(/website_files/ecosun/images/arrow4.gif) no-repeat 58px 1px #333229; text-decoration:none; color:#fff;}
 
 #rightbodyPan h3{width:268px; height:31px; display:block; position: relative; background:#FCFAE6; padding:24px 0 0 0; font:28px/28px Geneva, Arial, Helvetica, sans-serif; color:#e78433; margin:27px 0 20px 50px ;}
 
 #rightbodyPan ul{width:328px; height:92px; position:relative; top:5px; left:80px; margin:0 0 30px 0;}
 
-#rightbodyPan li{width:340px; background:url(/front_files/ecosun/images/arrow2.gif) 0 7px no-repeat; font:14px/24px Arial, Helvetica, sans-serif; padding:0 0 0 20px;}
+#rightbodyPan li{width:340px; background:url(/website_files/ecosun/images/arrow2.gif) 0 7px no-repeat; font:14px/24px Arial, Helvetica, sans-serif; padding:0 0 0 20px;}
 
 #rightbodyPan li a{width:235px; height:60px; background:#FCFAE6; color:#CC0000; text-decoration:underline; line-height:24px;}
 
@@ -271,9 +271,9 @@ font-size:90%;
 
 #rightbodymorenext p.textposition{float:left; padding:0 0 0 20px; margin:0;}
 
-#rightbodymorenext a{float:right; background:url(/front_files/ecosun/images/arrow4.gif) no-repeat 58px 1px #63614F; width:66px; display:block; position:relative; margin:1px 0 0 0; padding:0 0 0 10px; height:23px; text-decoration:none; color:#fff; font:14px/23px "Trebuchet MS",Arial, Helvetica, sans-serif; text-transform:uppercase;}
+#rightbodymorenext a{float:right; background:url(/website_files/ecosun/images/arrow4.gif) no-repeat 58px 1px #63614F; width:66px; display:block; position:relative; margin:1px 0 0 0; padding:0 0 0 10px; height:23px; text-decoration:none; color:#fff; font:14px/23px "Trebuchet MS",Arial, Helvetica, sans-serif; text-transform:uppercase;}
 
-#rightbodymorenext a:hover{background:url(/front_files/ecosun/images/arrow4.gif) no-repeat 58px 1px #333229; text-decoration:none; color:#fff;}
+#rightbodymorenext a:hover{background:url(/website_files/ecosun/images/arrow4.gif) no-repeat 58px 1px #333229; text-decoration:none; color:#fff;}
 
 
 
@@ -283,7 +283,7 @@ font-size:90%;
 
 /* FOOTER PANEL */
 
-#footerPan{clear:both; background:url(/front_files/ecosun/images/main-bg1.gif) 0 0 repeat-x; color: #FFFFFF; margin-top:20px;}
+#footerPan{clear:both; background:url(/website_files/ecosun/images/main-bg1.gif) 0 0 repeat-x; color: #FFFFFF; margin-top:20px;}
 
 #footerPan table{
 	width:950px;

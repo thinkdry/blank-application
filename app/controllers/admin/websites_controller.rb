@@ -13,7 +13,7 @@ class Admin::WebsitesController < Admin::ApplicationController
       'destroy' => 'destroy',
       'add_new_user' => 'edit'
     },
-		:skip_logging_actions => [])
+		:skip_logging_actions => [:get_website, :load_site, :form_management, :load_news])
 
   acts_as_container do
     
@@ -21,6 +21,11 @@ class Admin::WebsitesController < Admin::ApplicationController
       @pages = current_user.private_workspace.pages
     end
     
+    after :update do
+      if params[:website_files]
+        @current_object.update_website_resource(params[:website_files])
+      end
+    end
+    
   end
-  
 end
