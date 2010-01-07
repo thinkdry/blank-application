@@ -263,7 +263,7 @@ function ajaxSaveOfFCKContent(){
 		$.ajax({
 	        type: "PUT",
 	        url: url + itemId,
-			data: 'content=' + body,
+			data: 'content=' + escape(body),
 	        success: function(html){
 				alert ('save ok');
 	        }

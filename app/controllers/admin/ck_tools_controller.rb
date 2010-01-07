@@ -80,7 +80,7 @@ class Admin::CkToolsController < Admin::ApplicationController
   	config_file += "config.resize_maxWidth = 608;"
   	config_file += "config.resize_minWidth = 608;"
   	config_file += "config.toolbarCanCollapse = false;"   
-
+    #config_file += "config.contentsCss = '/stylesheets/try.css';"
   	config_file += "config.toolbar_BlankToolbar = ["
   	params[:new] == "true" ? config_file += "[" : config_file += "['Save',"
   	config_file += "'Source','Undo','Redo','-','Bold','Italic','Underline','NumberedList','BulletedList','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','Find','Replace'],"

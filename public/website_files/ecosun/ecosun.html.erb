@@ -1,4 +1,4 @@
-<% path = "/front_files/#{@website.front.name}" %>
+<% path = "/website_files/#{@current_website.title}" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -17,13 +17,18 @@
 
 <meta name="submission" content="Stéphane"/>
 <link rel="stylesheet" href="<%=path%>/stylesheets/ecosun.css" type="text/css" media="screen" title="no title" charset="utf-8"/>
-<link rel="stylesheet" href="/front_files/stylesheets/lightbox.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/stylesheets/colorbox.css" type="text/css" />
 
-<script src="/javascripts/prototype.js" type="text/javascript"></script>
-<script src="/javascripts/scriptaculous.js?load=effects,builder" type="text/javascript"></script>
+<!--
+<link rel="stylesheet" href="/front_files/stylesheets/lightbox.css" type="text/css" media="screen" />
+-->
+<script src="/javascripts/jquery.js" type="text/javascript"></script>
+<script src="/javascripts/jquery.colorbox-min.js" type="text/javascript"></script>
+<script type="text/javascript" src="/javascripts/websites.js"></script>
+<!--
 <script src="<%= path %>/stylesheets/menu_generator.css"
 <script src="/front_files/javascripts/lightbox.js" type="text/javascript"></script>
-
+-->
 </head>
 <body>
 <div id="topPan">

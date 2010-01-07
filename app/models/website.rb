@@ -85,18 +85,18 @@ class Website < ActiveRecord::Base
 
 	def include_all_stylesheet_files
 		res = ""
-		Dir["public/website_files/#{self.title}/stylesheets/*"].collect do |uploaded_layout|
-			res += "<link href='/website_files/#{self.title}/stylesheets/#{uploaded_layout.split('/')[4]}' rel='stylesheet' type='text/css' />"
+		Dir["public/website_files/#{self.title}/stylesheets/*.css"].collect do |uploaded_css|
+			res += "<link href='/website_files/#{self.title}/stylesheets/#{uploaded_css.split('/')[4]}' rel='stylesheet' type='text/css' />"
 		end
 		return res
 	end
 
 	def include_all_javascript_files
 		res = ""
-		res += "<script type='text/javascript' src='/website_files/javascripts/front_application.js'></script>"
-		Dir["public/front_files/#{self.title}/javascripts/*"].collect do |uploaded_layout|
-			res += "<script src='/website_files/#{self.title}/javascripts/#{uploaded_layout.split('/')[4]}' type='text/javascript'></script>"
+		Dir["public/front_files/#{self.title}/javascripts/*"].collect do |uploaded_js|
+			res += "<script src='/website_files/#{self.title}/javascripts/#{uploaded_js.split('/')[4]}' type='text/javascript'></script>"
 		end
+		return res
 	end
 
 	# to display favicon image in site. Usage: need to call inside of <head> tag in layout

@@ -1,62 +1,66 @@
 <%= content_tag(:div, flash[:notice], :class => 'notice') if flash[:notice] %>
 <%= content_tag(:div, flash[:error], :class => 'error') if flash[:error] %>
 <% if current_user && @page.has_permission_for?('edit', current_user, 'website') %>
-  <%= link_to_function image_tag('icons/pencil.png', :style => "border: 0px;"), "page_body(); show_or_hide_body_edit('block','none'); " %>
-  <%# onclick="Effect.SwitchOff('show');Effect.Appear('edit', { queue: 'end' });%>
-  <%= link_to 'Back', '/' %>
-  <div id="body_edit" style="display:none;overflow:auto;padding-bottom: 20px;">
-    <% form_for :page, :url => '', :builder => BlankFormBuilder  do |f| -%>
-        <%#= f.advanced_editor :body, {:label => "", :width => "#{@website.body_size.split('x')[0]}px",:height => "#{@website.body_size.split('x')[1]}px"} %>
-        <div class="advancedEditor"><textarea ajax="false" cols="40" id="page_body" name="page[body]" rows="20"><%= @page.body %></textarea></div>
-
-      <button type="submit" class="submit_button"><%= I18n.t('general.button.update') %></button>
-      <button type="button" class="submit_button" onclick="show_or_hide_body_edit('none','block')"><%= I18n.t('general.button.cancel') %></button>
-    <% end %>
-  </div>
+    <%= link_to_function 'EDIT', "page_body(); show_or_hide_body_edit('block','none'); " %>
+    <div id="body_edit" style="display:none;overflow:auto;padding-bottom: 20px;">
+        <% form_for @page, :url => websites_url, :html => {:method => :put}, :builder => BlankFormBuilder  do |f| -%>
+            <div class="advancedEditor">
+                <textarea ajax="false" cols="40" id="ckInstance" name="page[body]" rows="20"><%= @page.body %></textarea>
+            </div>
+            <%= hidden_field_tag :page_id, @page.id, :id => 'item_id' %>
+            <%= hidden_field_tag :url, '/websites/', :id => 'ajax_save_url' %>
+            <%= link_to_function I18n.t('general.button.cancel'),"show_or_hide_body_edit('none','block')"  %>
+        <% end %>
+    </div>
 <% end %>
-
+<!-- Show the main page body -->
 <div id="page_body_show" style="display:block;">
-  <%#= translate_text(@page.body) %>
-  <%= @page.body %>
-  <br /><br />
+<%#= translate_text(@page.body) %>
+    <%= @page.body %>
 </div>
+<!-- Render Specific partial -->
 <%= render :partial => @partial_to_render %>
+
+<!-- Online Edit -->
 <% if  current_user && @page.has_permission_for?('edit', current_user, 'website') %>
-<%
-if !@current_website.body_size.to_s.blank?
-  width, height = @current_website.body_size.split('x')[0], @current_website.body_size.split('x')[1]
-else
-  width, height = '730', '350'
-end
-css_files = []
-  Dir["public/website_files/#{@current_website.title}/stylesheets/*.css"].collect do |uploaded_css|
-    css_files << "#{uploaded_css.split("public")[1]}"
-  end
-#    css_files = '/fckeditor/css/test_fck.css' if css_files.empty?
-css_files = '/stylesheets/fckeditor.css' if css_files.empty?
+    <% if !@current_website.body_size.to_s.blank?
+        width, height = @current_website.body_size.split('x')[0], @current_website.body_size.split('x')[1]
+    else
+        width, height = '730', '350'
+    end
+    css_files = []
+    Dir["public/website_files/#{@current_website.title}/stylesheets/*.css"].collect do |uploaded_css|
+        css_files << "#{uploaded_css.split("public")[1]}"
+    end
+    #    css_files = '/fckeditor/css/test_fck.css' if css_files.empty?
+    css_files = '/stylesheets/fckeditor.css' if css_files.empty?
+
 %>
-<script type="text/javascript" src="/fckeditor/fckeditor.js"></script>
-
-<br /><br />
-
-<script>
-  function show_or_hide_body_edit(edit_body,show_body){
-    document.getElementById('body_edit').style.display = edit_body;
-    document.getElementById('page_body_show').style.display = show_body;
-  }
+<!-- CKeditor settings -->
+<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+<script type='text/javascript'>
   function page_body(){
-    //<![CDATA[
-    var oFCKeditor = new FCKeditor('page_body', "<%=width%>px", "<%=height%>px") ;
-    oFCKeditor.Config['EditorAreaCSS'] = "<%=css_files%>" ;
-    oFCKeditor.BasePath = "/fckeditor/" ;
-    oFCKeditor.Config['ImageUploadURL'] = "/fckuploads?item_type=Page&id=<%= @page.id %>&type=Image";
-    oFCKeditor.Config['FlashUploadURL'] = "/fckuploads?item_type=Page&id=<%= @page.id %>&type=Video";
-    oFCKeditor.Config['LinkUploadURL'] = "/fckuploads?item_type=Page&id=<%= @page.id %>&type=Link";
-    oFCKeditor.Config['DefaultLanguage'] = '<%= I18n.locale.split('-')[0] %>' ;
-    oFCKeditor.ReplaceTextarea() ;
+    // Destroy any instance of ckeditor called ckinstance
+    var editor = CKEDITOR.instances['ckInstance'];
+    if (editor)
+        editor.destroy();
+    CKEDITOR.replace('ckInstance' , {customConfig : get_config(CKEDITOR.config)});
+  }
 
-    //]]>
-
+  function get_config(config) {
+      config.language = 'en';
+      config.uiColor = '#e6e6e6';
+      config.toolbar = 'BlankToolbar';
+      config.height = '<%= height %>';
+      config.width = '<%= width %>';
+      config.resize_maxWidth = 608;
+      config.resize_minWidth = 608;
+      config.toolbarCanCollapse = false;
+      config.contentsCss = '<%=css_files%>';
+      config.toolbar_BlankToolbar = [['Save','Source','Undo','Redo','-','Bold','Italic','Underline','NumberedList','BulletedList','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','Find','Replace'],['Anchor','Link','Unlink','Table','SpecialChar','Styles','FontSize','TextColor','BGColor', '-','Maximize']];
+      config.filebrowserWindowWidth = '640';
+      config.filebrowserWindowHeight = '480';
   }
 </script>
+
 <% end %>

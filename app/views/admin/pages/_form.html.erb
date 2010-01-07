@@ -1,9 +1,9 @@
 <% form_for_item @current_object, title do |f| -%>
-  <%= f.text_field :page_title, :label => 'Page Title', :hint => 'Will appear on the top of the browser' %>
-  <%= f.text_field :menu_title, :label => 'Menu Title', :hint => 'Will appear on the Menu' %>
+  <%= f.text_field :page_title, :label => 'Page Title : ', :hint => 'Will appear on the top of the browser' %>
+  <%= f.text_field :menu_title, :label => 'Menu Title : ', :hint => 'Will appear on the Menu' %>
   <%= f.select :page_type,
-               {'Simple page' => 'page_simple', 'Contact form' => 'contact_page', 'Gallery' => 'gallery_page', 'Guestbook form' => 'guestbook_page'},
-               {  },
+               {'Basic' => 'basic', 'Contact' => 'contact', 'Gallery' => 'gallery', 'Guestbook' => 'guestbook'},
+               { :selected => 'basic' },
                :label =>I18n.t('page.field.type_page_label') + ' :' %>
   <%= f.advanced_editor(	:body, 
 							  :label => I18n.t('article.field.article_label')+ ' * :',

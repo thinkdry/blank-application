@@ -3,35 +3,34 @@ class WebsitesController < ApplicationController
   #layout 'websites/application'
 
   def index
-    p ">>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<"
-    p params
-    p ">>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<"
     if params[:title_sanitized].nil? && logged_in? && params[:site_url].nil?
 				redirect_to admin_root_url
-		elsif get_website && Page.exists?(:id => @current_website.home_page_id) && @current_website.website_state == 'published'
+		elsif get_website && Page.exists?(:id => @current_website.home_page_id, :published => true) && @current_website.website_state == 'published'
 		  # Selected Language
 			if params[:sl]
 				session[:sl] = params[:sl]
 			else
 				session[:sl] ||= 'fr'
 			end
-        if !params[:title_sanitized].blank? && @current_website.pages.exists?(:title_sanitized => params[:title_sanitized])
-          @page = @current_website.pages.find(:first, :conditions => {:title_sanitized => params[:title_sanitized]})
+        if !params[:title_sanitized].blank? && @current_website.pages.exists?(:title_sanitized => params[:title_sanitized], :published => true)
+          @page = @current_website.pages.find(:first, :conditions => {:title_sanitized => params[:title_sanitized], :published => true})
 					session[:fck_item_id] = @page.id
           session[:fck_item_type] = @page.class.to_s
 					# Specific for gallery page
-					if @page.page_type.split('_').first == 'gallery'
-						@pictures = @current_website.images
+					if @page.page_type == 'gallery'
+						@pictures = @current_website.images.published
 						@partial_to_render = 'websites/gallery'
 					# Specific for contact page
-					elsif @page.page_type.split('_').first == 'contact'
+					# TODO What to do? waiting for Contact Management
+					elsif @page.page_type == 'contact'
 						@person = session[:person] || Person.new
 						@email_values = session[:email] || {}
 						session[:person] = nil
 						session[:email] = nil
 						@partial_to_render = 'websites/contact'
 					# Specific for guestbook
-					elsif  @page.page_type.split('_').first == 'guestbook'
+					# TODO What to do? waiting for Contact Management
+					elsif  @page.page_type == 'guestbook'
 						@person = session[:person] || Person.new
 						@email_values = session[:email] || {}
 						session[:person] = nil
@@ -44,13 +43,13 @@ class WebsitesController < ApplicationController
           
         # Manage other type of Pages
         elsif (params[:title_sanitized] == "sitemap")
-          if @current_website.sitemap
+          if @current_website.sitemap_file_name
             render :xml => File.open(@current_website.sitemap.path){ |f| f.read}, :layout => false
           else
             render :xml => '', :layout => false
           end
          # Specific for intro page
-        elsif @current_website.intro_page_id || (params[:title_sanitized] == "intro")
+        elsif  (@current_website.intro_page_id && Page.exists?(@current_website.intro_page_id, :published => true))
           @page = Page.find(@current_website.intro_page_id)
           #session[:intro_page_viewed] ||= true
 					session[:fck_item_id] = @page.id
@@ -102,6 +101,13 @@ class WebsitesController < ApplicationController
 		end
 #    redirect_to '/'+Page.find(website.home_page_id).title_sanitized
     redirect_to '/'+params[:title_sanitized]
+  end
+  
+  def update
+    @page = Page.find(params[:id])
+    # TODO check if it is saving!
+    @page.update_attribute(:body, params[:content])
+    render :nothing => true
   end
   
   
