@@ -1,12 +1,34 @@
-<h1><%= I18n.t('comment.index.title') %></h1>
-<div id="objectList" class="comment_list">
-  <div id="classify_bar">
-    <img width="20" src="/images/icons/filter.png"/>
-    <%= ['all', 'posted', 'validated', 'rejected'].map{ |s| link_to(I18n.t('comment.state.'+s), admin_comments_path(:on_state => s))}.join(' | ') %>
-  </div>
-  <div id="content">
-    <%= render :partial => 'comments/user_comments' %>
-  </div>
-  <%= will_paginate @paginated_objects %>
-</div>
+<div class="objectList small">
+	<div class="blockCornerLeft"></div><div class="blockElementHeader sixH">
+		<span id="item_count">Users Comments</span>
+	</div><div class="blockCornerRight"></div>
+	<div class="contentList">
+		<div class="elementPerPages">
+			Element per pages : <a href="">10</a> | <a href="">25</a> | <a href="">50</a>
+		</div>
+		<div id="pure_user_list">
+			<% if @paginated_objects.first -%>
 
+				<%= render :partial => 'comments/user_comments' %>
+
+			<% else -%>
+
+		    	<%= I18n.t('item.common_word.list_empty') %>
+
+			<% end -%>
+			
+			<%= will_paginate @paginated_objects %>
+		</div>
+	</div>
+</div>
+<div class="rightBlocks">
+	<div class="itemShowRightBlock">
+	    <div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
+			Filters
+		</div><div class="blockCornerRight"></div>	
+	    <div class="blockElementBody">
+	        <%= ['all', 'posted', 'validated', 'rejected'].map{ 
+					|s| link_to(I18n.t('comment.state.'+s), admin_comments_path(:on_state => s))} %>
+	    </div>
+	</div>
+</div>

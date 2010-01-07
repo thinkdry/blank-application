@@ -158,6 +158,7 @@ module ActsAsItem
       end
     end
 
+
     private
     def self.define_prefixed_item_paths(base)
       # OPTIMIZE: Import prefix list from a conf file

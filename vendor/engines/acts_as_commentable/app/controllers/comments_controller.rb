@@ -119,26 +119,46 @@ class CommentsController < Admin::ApplicationController
 	end
 	
 	# Action allowing to reply on a posted comment. Comment can be not validated.
+	# Params :
+	# ID : the ID of the item commented
+	# item_type : the type of the item commented
   def add_reply
+    
+    #find the parent item with ID.
+    
+    p'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF'
+    p params
+    
     @parent_item = params[:item_type].classify.constantize.find(params[:id])
+    
     @reply = Comment.create(params[:comment].merge(:user => @current_user, 
                                                    :state => DEFAULT_COMMENT_STATE, 
-                                                   :commentable_id => @parent_item.id,
-                                                   :commentable_type => @parent_item.class.to_s))
+                                                   :commentable_id => params[:id],
+                                                   :commentable_type => params[:item_type].classify))
       
     @reply.save
+    
     if @reply.state == 'validated'
       @error = ""
-      #@reply_jquery_id_div = "#reply_for_comment_#{@reply.parent_id}"
       @notice = I18n.t('comment.add_comment.ajax_message_comment_published')
     #else we just send an error message explaining that comment is not validated.
     else
       @error = I18n.t('comment.add_comment.ajax_message_comment_submited')
     end
-
-    respond_to do |format|
-	    format.js {render :layout => false}
-	  end
+    
+    p @reply.id
+    
+    # respond_to do |format|
+    #       if params[:callback]
+    #         format.html {redirect_to :action => "comments"}
+    #       else  
+    #         format.js {render :layout => false}
+    #       end
+    #     end
+    
+     respond_to do |format|
+  	    format.js {render :layout => false}
+  	  end
 	end
 
     #if logged_in?

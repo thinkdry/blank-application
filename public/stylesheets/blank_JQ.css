@@ -588,7 +588,7 @@ ul#tabs li.selected{
 	padding-left:2px;
 	margin-bottom:5px;
 }
-.itemInListActions, .workspaceActions a{
+.itemInListActions, .workspaceActions a, .objectActions{
 	font-size:70%;
 	text-transform:uppercase;
 	margin-top:5px;
@@ -797,6 +797,11 @@ a.filter{
 	padding:5px 10px;
 	font-size:120%;
 }
+
+.object{overflow:hidden;margin-top:10px;padding-top:5px;}
+.objectDate{ float:left; width:80px;}
+.objectBody{ overflow:hidden; float:left; width:498px;}
+.commentfooter a {text-transform:uppercase;}
 
 /* 		WORKSPACE	*/
 .userName{
