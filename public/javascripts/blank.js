@@ -132,11 +132,10 @@ $(document).ready(function () {
 		$(this).displayHintForField();
 	});
 	
-  $('#container').find('#notice').animate({
-        opacity: 1
-  }, 3000, function(){
-     $(this).fadeOut('fast')
-     });
+  	// $('#container').find('#notice').animate({
+  	//         opacity: 1}, 3000, function(){
+  	//      		$(this).fadeOut('fast')
+  	// 	});
 	
 	$('#error_closing').live('click', function(){
 		$('#error').fadeOut('fast');
@@ -221,6 +220,38 @@ $(document).ready(function () {
 	});
 	
 	$('.audit_changes_tip').tipsy();
+	
+	$('#filter').keyup(function(){
+		var filter = $(this).val();
+		var count = 0;
+		
+		$(".filtered:first li").each(function () {
+			if ($(this).text().search(new RegExp(filter, "i")) < 0) {
+		 		$(this).addClass("hidden");
+			}else {
+				$(this).removeClass("hidden");
+		 		count++;
+		 	}
+		});		
+		$('#number_of_item').html(count);
+	});
+	
+	$('#comments_filter').keyup(function(){
+		var filter = $(this).val();
+		
+		$(".filtered:first li").each(function () {
+			if ($(this).text().search(new RegExp(filter, "i")) < 0) {
+		 		$(this).addClass("hidden");
+			}else {
+				$(this).removeClass("hidden");
+		 	}
+			if ($(this).next('li').text().search(new RegExp(filter, "i")) < 0) {
+				$(this).next('li').addClass("hidden");
+			}else{
+				$(this).next('li').removeClass("hidden");
+			}
+		});
+	});
 
 	// ************************************************************
 	// When keyword field got focus, submit is disable, user can add

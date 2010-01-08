@@ -4,22 +4,21 @@
 
 <div class="objectListWithTab">
     <div class="blockCornerLeft"></div><div class="blockElementHeader sevH">
-        <span id="item_count"><%= @total_objects_count%> items</span>
+		<div class="filter">Filter : <input id="filter" /></div>
+        <div id="itemsNumber">showing&nbsp;<span id="number_of_item"><%= @total_objects_count%></span>&nbsp;of <%= @total_objects_count%> items</div>
         <div id="classify_bar">
             <%= render :partial => 'admin/blank_lists/classify_bar' %>
+
         </div>
     </div><div class="blockCornerRight"></div>
 
-    <div class="contentList">
-        <div class="elementPerPages">
-			      Element per pages : <a href="">10</a> | <a href="">25</a> | <a href="">50</a>
-		    </div>
-		<div id="pure_item_list">
+    <div class="contentList filtered" >
+		<ul id="pure_item_list">
 			<% if @paginated_objects.first %>
 				<%= render :partial => '/admin/blank_lists/pure_item_list'%>
 			<% else %>
 		    	<%= I18n.t('item.common_word.list_empty') %>
 			<% end %>
-		</div>
+		</ul>
 	</div>
 </div>

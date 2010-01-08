@@ -1,14 +1,32 @@
-<h1><%= image_tag 'icons/rate.png'%> <%= I18n.t('rating.index.title') %></h1>
-<%#= ['all', 'posted', 'validated', 'rejected'].map{ |s| link_to(I18n.t('comment.state.'+s), comments_url(:on_state => s))}.join(' | ') %>
-<div id="objectList" class="rating_list">
-  <div id="classify_bar">
-    <img width="20" src="/images/icons/filter.png"/>
-    <%= link_to I18n.t('general.common_word.all').capitalize, '/admin/ratings/?item_type=All' %> |
-    <%= item_types_allowed_to(@current_user, 'show', current_workspace).map{ |s| link_to(I18n.t('general.item.' + s.underscore.downcase), '/admin/ratings/?item_type=' + s)}.join(' | ') %>
-  </div>
-  <div id="content">
-    <%= render :partial => 'user_ratings' %>
-  </div>
-  <%= will_paginate @paginated_objects %>
+<div class="objectList small">
+	<div class="blockCornerLeft">&nbsp;</div><div class="blockElementHeader sixH">
+		<div id="itemsNumber"><%= @objects.length%> objects rated</div>
+	</div><div class="blockCornerRight">&nbsp;</div>
+	<div class="contentList filtered">
+		<ul id="pure_people_list">
+			<% if @objects.first -%>
+
+				<%= render :partial => 'user_ratings' %>
+
+			<% else -%>
+
+		    	<%= I18n.t('item.common_word.list_empty') %>
+
+			<% end -%>
+		</ul>
+	</div>
+</div>
+<div class="rightBlocks">
+	<div class="itemShowRightBlock">
+	    <div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
+			Filter
+		</div><div class="blockCornerRight"></div>	
+	    <div class="blockElementBody">
+	        <%= link_to I18n.t('general.common_word.all').capitalize, '/admin/ratings/?item_type=All' %>
+		    <%= item_types_allowed_to(@current_user, 'show', current_workspace).map{ |s| link_to(I18n.t('general.item.' + s.underscore.downcase), '/admin/ratings/?item_type=' + s)} %>
+			Filter : 
+			<input id="filter"/>
+	    </div>
+	</div>
 </div>
 

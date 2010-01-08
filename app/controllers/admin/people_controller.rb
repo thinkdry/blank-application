@@ -45,13 +45,18 @@ class Admin::PeopleController < Admin::ApplicationController
 	# - POST /people
 	# - POST /workspaces/:id/people
   def create #:nodoc:
+    #TOTO TRANSLATE
     @person = current_user.people.build(params[:person])
     if @person.validate_uniqueness_of_email
 			if @person.save
         # to save assoceated workspaces of the person
         @person.associated_workspaces(params[:associated_workspaces])
 				flash[:notice] = 'Person saved in your contact, and also to the current workspace contacts.' #TODO TRANSLATE
-				redirect_to(current_workspace ? admin_workspace_person_path(current_workspace.id, @person.id) : admin_person_path(@person.id))
+				if params[:continue]
+				  redirect_to new_admin_person_path
+				else
+				  redirect_to(current_workspace ? admin_workspace_person_path(current_workspace.id, @person.id) : admin_person_path(@person.id))
+				end
 			else
 				flash[:error] = 'Person non saved' #TODO TRANSLATE
 				render :action=>'new'
@@ -67,12 +72,13 @@ class Admin::PeopleController < Admin::ApplicationController
 	# Usage URL :
 	# - GET /people
   def index #:nodoc:
-		@paginated_objects = @current_user.people.paginate(:per_page => get_per_page_value, :page => params[:page])
+		#@paginated_objects = @current_user.people.paginate(:per_page => get_per_page_value, :page => params[:page])
+		@persons = @current_user.people
 		@total_people = @current_user.people.length
 		
 		respond_to do |format|
 			format.html
-			format.xml { render :xml => @paginated_objects }
+			format.xml { render :xml => @persons }
 			format.js {render :layout => false}
 			#format.json { render :json => @people }
     end

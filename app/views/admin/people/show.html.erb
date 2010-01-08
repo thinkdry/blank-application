@@ -1,8 +1,22 @@
-    <%= link_to image_tag("/images/icons/left.png"), (current_workspace ? list_admin_workspace_workspace_contacts_path(current_workspace.id) : admin_people_path) %>
-    <%= I18n.t('general.common_word.'+@current_object.salutation)  if !@current_object.salutation.to_s.blank? || !@current_object.salutation.nil?   %>
-    <%= @current_object.first_name %> <%= @current_object.last_name %>
-    <%= link_to image_tag('icons/pencil.png'), edit_admin_person_path, :class => "pencil"  %>
-
-  	<p><%= I18n.t('people.field.email_label') %>  : <%= @current_object.email %></p>
-  	<p><%= I18n.t('people.field.primary_phone_label') %>  : <%= @current_object.primary_phone %></p>
-  	<p><%= I18n.t('people.field.notes_label') %>  : <%= @current_object.notes %></p>
+	<div class="objectList">
+		<div class="blockCornerLeft">&nbsp;</div><div class="blockElementHeader sixH">
+			<%= I18n.t('general.common_word.'+@current_object.salutation)  if !@current_object.salutation.to_s.blank? || !@current_object.salutation.nil?   %>
+		    <%= @current_object.first_name %> <%= @current_object.last_name %>
+		</div><div class="blockCornerRight">&nbsp;</div>
+		<div class="contentList">
+		  	<p><%= I18n.t('people.field.email_label') %>  : <%= @current_object.email %></p>
+		  	<p><%= I18n.t('people.field.primary_phone_label') %>  : <%= @current_object.primary_phone %></p>
+		  	<p><%= I18n.t('people.field.notes_label') %>  : <%= @current_object.notes %></p>
+		</div>
+	</div>
+	<div class="rightBlocks">
+		<div class="itemShowRightBlock">
+		    <div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
+				Actions
+			</div><div class="blockCornerRight"></div>	
+		    <div class="blockElementBody">
+		        <%= link_to "All contacts", (admin_people_path) %>			    
+			    <%= link_to "Edit", edit_admin_person_path, :class => "pencil"  %>
+		    </div>
+		</div>
+	</div>

@@ -159,7 +159,7 @@ class Admin::UsersController < Admin::ApplicationController
 	  params[:container_type] = 'workspace'
     params_hash = setting_searching_params(:from_params => params)
     params_hash.merge!({:skip_pag => true}) if params[:format] && params[:format] != 'html'
-		@current_objects ||= @paginated_objects = User.get_da_objects_list(params_hash)
+		@current_objects ||= @objects = User.get_da_objects_list(params_hash)
 	end
 
   # AutoComplete for Users in TextBox

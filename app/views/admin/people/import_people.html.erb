@@ -3,11 +3,8 @@
 					import_people_admin_workspace_people_path(:workspace_id => current_workspace.id) :
 					import_people_admin_people_path) , :html => { :multipart => true } do |f| -%>
 <div class="itemShowLeft">
-	<div class="itemShowLeftDate">
-		<%= I18n.l Time.now, :format =>:verb %>
-	</div>
 	<div class="itemShowLeftBody">
-		<h1><%= I18n.t('people.import_people.label') %></h1>
+		<h2><%= I18n.t('people.import_people.label') %></h2>
 		<p><%= link_to I18n.t('people.import_people.get_empty_csv_file'),:controller=>'people',:action=>'get_empty_csv' %></p>
 
     	<div class="CommonMessageFull"><%= I18n.t('people.import_people.note_description') %></div>
@@ -22,6 +19,9 @@
 </div>
 
 <div class="rightBlocks">
+	<div class="itemShowDate">
+		<%= I18n.l Time.now, :format =>:verb %>
+	</div>
 	<div class="itemShowRightBlock">
 		<div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
 			<%= I18n.t("item.show.associated_workspace") %><!-- TODO HINT -->

@@ -1,6 +1,6 @@
-<% for object in @paginated_objects %>
-	<div class="object">
-		<div class="objectDate"><%= I18n.l object.created_at, :format =>:verb %></div>
+<% for object in @objects %>
+	<li class="object">
+		<div class="objectDate forComments"><%= I18n.l object.created_at, :format =>:verb %></div>
 		<div class="objectBody">
 			<div class="commentbox">
 			  	<%= object.text %>
@@ -16,16 +16,24 @@
 								"/admin/comments/#{object.id}/change_state?new_state=rejected") unless (object.state == 'rejected')%> 
 						 |
 			        <%= link_to "edit", edit_admin_comment_path(object.id) %> |
-			        <%= link_to "delete", 
-								admin_comment_path(object.id), 
-								:method => :delete, 
-								:confirm => I18n.t('general.common_word.confirmation')%>
+					<%= link_to I18n.t('general.link.delete'), "javascript:;",
+								:class => "deleteLink", 
+								:modal_id => "#modalDelete_#{object.id.to_s}"%>
+
+					<div style="display:none">
+						<div id="modalDelete_<%=object.id.to_s%>" class="modalDelete">
+							<p><%= I18n.t('item.destroy.delete_conform')%></p>
+							<%= link_to I18n.t('general.common_word.yes1'), admin_comment_path(object), :method => :delete%> | 
+							<%= link_to I18n.t('general.common_word.no1'), "javascript:;", :class => "deleteClose" %>
+						</div>
+					</div>			
 					<!-- TODO translate			 -->	
 				<% end %>
 			</div>
 			<% if object.replies.size > 0 %>
-			<div id="reply_for_comment_<%= object.id %>" class="commentReply">
+			<ul id="reply_for_comment_<%= object.id %>" class="commentReply">
 				<% object.replies.each do |reply| %>
+					<li>
 					<div class="commentbox">
 					  	<%= reply.text %>
 					</div>
@@ -40,16 +48,26 @@
 										"/admin/comments/#{object.id}/change_state?new_state=rejected") unless (object.state == 'rejected')%> 
 								 |
 					        <%= link_to "edit", edit_admin_comment_path(object.id) %> |
-					        <%= link_to "delete", 
-										admin_comment_path(object.id), 
-										:method => :delete, 
-										:confirm => I18n.t('general.common_word.confirmation')%>
+					        <%= link_to I18n.t('general.link.delete'), "javascript:;",
+										:class => "deleteLink", 
+										:modal_id => "#modalDelete_#{reply.id.to_s}"%>
+
+							<div style="display:none">
+								<div id="modalDelete_<%=reply.id.to_s%>" class="modalDelete">
+									<p><%= I18n.t('item.destroy.delete_conform')%></p>
+									<%= link_to I18n.t('general.common_word.yes1'), 
+												admin_comment_path(reply), 
+												:method => :delete%> | 
+									<%= link_to I18n.t('general.common_word.no1'), "javascript:;", :class => "deleteClose" %>
+								</div>
+							</div>
 							<!-- TODO translate			 -->	
 						<% end %>
 					</div>
+					</li>
 				<% end %>
-			</div>
+			</ul>
 			<% end %>
 		</div>
-	</div>
+	</li>
 <% end%>

@@ -2,21 +2,18 @@
 	<div class="blockCornerLeft"></div><div class="blockElementHeader sixH">
 		<span id="item_count"><%=I18n.t('user.administration.list_title')%></span>
 	</div><div class="blockCornerRight"></div>
-	<div class="contentList">
-		<div class="elementPerPages">
-			Element per pages : <a href="">10</a> | <a href="">25</a> | <a href="">50</a>
-		</div>
-		<div id="pure_user_list">
-			<% if @paginated_objects.first -%>
+	<div class="contentList filtered">
+		<ul id="pure_user_list">
+			<% if @objects.first -%>
 
-			<%= render :partial => 'pure_user_list'%>
+				<%= render :partial => 'pure_user_list'%>
 
 			<% else -%>
 
 		    	<%= I18n.t('item.common_word.list_empty') %>
 
 			<% end -%>
-		</div>
+		</ul>
 	</div>
 </div>
 <div class="rightBlocks">
@@ -26,6 +23,8 @@
 		</div><div class="blockCornerRight"></div>	
 	    <div class="blockElementBody">
 	        <%= link_to I18n.t('user.new.add_user'), new_admin_user_path %>
+			Filter :
+			<input id="filter"/>
 	    </div>
 	</div>
 </div>

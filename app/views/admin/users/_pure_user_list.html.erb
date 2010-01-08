@@ -1,5 +1,5 @@
-<% @paginated_objects.each do |object| %>
-<div class="itemInList">
+<% @objects.each do |object| %>
+<li class="itemInList">
 	<div class="itemInListDate">
 		<%= I18n.l object.created_at, :format =>:verb %>
 	</div>
@@ -15,7 +15,6 @@
 							:class => "deleteLink", 
 							:modal_id => "#modalDelete_#{object.id.to_s}"
 				%>
-
 				<div style="display:none">
 					<div id="modalDelete_<%=object.id.to_s%>" class="modalDelete">
 						<p>I18n.t('general.common_word.confirmation')</p>
@@ -28,7 +27,5 @@
 	        <% end %>
 		</div>
 	</div>
-</div>
+</li>
 <% end %>
-
-<%= remote_pagination(@paginated_objects, admin_users_path) %>

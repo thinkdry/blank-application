@@ -4,6 +4,7 @@
         <link rel="shortcut icon" href="<%= @configuration['sa_favicon_url'] %>"/>
         <meta http-equiv="X-UA-Compatible" content="IE=7" />
         <%= stylesheet_link_tag "blank_JQ"  %>
+
         <%= stylesheet_link_tag "jquery.rating" %>
 
 		<!--[if lt IE 7]>
@@ -54,6 +55,15 @@
             <img src="/images/ajax-spinner.gif" alt="loading" />
         </div>
         
+		<div id="messsagesContainers">
+			<%= content_tag(:div, flash[:notice], :class => 'notice', :id => 'notice', :style => "#{'display:none' unless flash[:notice]}") %>
+			<% if flash[:error] %><div id="error" class="error">
+			<% else %><div id="error" class="error" style="display:none"><%end%>
+				 <%= flash[:error]%>
+			<a href="#" id="error_closing">X</a>
+			</div>
+            <%= content_tag(:div, flash[:warning], :class => 'warning', :id => 'warning', :style => "#{'display:none' unless flash[:warning]}") %>
+		</div>
 	
         <div id="page_container">
             <div id="header">
@@ -61,13 +71,6 @@
             </div>
             <div id="container">
 
-                <%= content_tag(:div, flash[:notice], :class => 'notice', :id => 'notice', :style => "#{'display:none' unless flash[:notice]}") %>
-				<% if flash[:error] %><div id="error" class="error">
-				<% else %><div id="error" class="error" style="display:none"><%end%>
-					 <%= flash[:error]%>
-					 <a href="#" id="error_closing">X</a>
-				</div>
-                <%= content_tag(:div, flash[:warning], :class => 'warning', :id => 'warning', :style => "#{'display:none' unless flash[:warning]}") %>
                 <%= yield %>
 
             </div>

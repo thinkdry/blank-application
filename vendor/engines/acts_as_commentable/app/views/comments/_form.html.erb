@@ -1,15 +1,35 @@
-  <h1><%= @current_object.new_record? ? I18n.t('comment.new.title') : I18n.t('comment.edit.title') %></h1>
-  <% form_for ['admin', @current_object], :builder => BlankFormBuilder do |f| %>
+<% form_for ['admin', @current_object], :builder => BlankFormBuilder do |f| %>
+<div class="itemShowLeft">
+	<div class="itemShowLeftBody">
+		<h2><%= I18n.t('comment.edit.title') %></h2>
 
-    <%= @current_object.commentable_type+' : '+@current_object.commentable.title %>
-    <%= f.text_area :text, :label => I18n.t('comment.field.text') %>
-    <%#= f.text_field :email, :label => I18n.t('comment.field.text') %>
-    <%#= f.text_field :nickname, :label => I18n.t('comment.field.text') %>
+		<label class="noInput">Related <%= @current_object.commentable_type%></label>
 
-    <%= f.select :state, ['posted', 'validated', 'rejected'], :label => I18n.t('comment.field.state') %>
+		<formElement>
+			<a href="/admin/#{@current_object.commentable_type.underscore.pluralise}/#{@current_object.commentable_id}">
+				<%= @current_object.commentable.title%>
+			</a>
+		</formElement>
 
-	<button type="submit" class="submitButton"><span>
-		<%= @current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update')%>
-	</span></button>
+	    <%= f.text_area :text, :label => I18n.t('comment.field.text') %>
 
-  <% end %>
+	    <button type="submit" class="submitButton"><span>
+			<%= @current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update')%>
+		</span></button>
+	</div>
+</div>
+
+<div class="rightBlocks">
+	<div class="itemShowDate">
+		<%= I18n.l Time.now, :format =>:verb %>
+	</div>
+	<div class="itemShowRightBlock">
+		<div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
+			<%= I18n.t('comment.field.state') %>
+		</div><div class="blockCornerRight"></div>
+		<div class="blockElementBody noLabel">
+			 <%= f.select :state, ['posted', 'validated', 'rejected'], :label => " " %>
+		</div>
+    </div>
+</div>
+<% end %>

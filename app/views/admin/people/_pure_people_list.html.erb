@@ -1,5 +1,5 @@
-<% @paginated_objects.each do |object| -%>
-<div class="itemInList">
+<% @persons.each do |object| -%>
+<li class="itemInList">
 	<div class="itemInListDate">
 		<%= I18n.l object.created_at, :format =>:verb %>
 	</div>
@@ -23,7 +23,5 @@
 			</div>
 		</div>		
 	</div>
-</div>
+</li>
 <% end -%>
-
-<%= remote_pagination(@paginated_objects, admin_people_path) %>

@@ -23,14 +23,16 @@
                     <%=I18n.t 'workspace.edit.associated_user'%>
                 </div>
                 <div class="blockCornerRight"></div>
-                <div class="blockElementBody">
+                <div class="blockElementBody space">
                     <% if !@current_object.new_record? -%>
                         <% if  @current_object.has_permission_for?('administrate', @current_user, current_container_type)-%>
+							
                             <div id="users">
                                 <% @current_object.users_containers.each do |object| %>
                                     <%= render :partial => 'containers/user', :object => object %>
                                 <% end %>
                             </div>
+							
                             <h2><%= I18n.t('workspace.add_user.title') %></h2>
                             <table>
                                 <tr>

@@ -1,5 +1,5 @@
 <% @paginated_objects.each do |object| %>
-<div class="itemInList">
+<li class="itemInList">
 	<div class="itemInListDate">
 		<%= I18n.l object.created_at, :format =>:verb %>
 	</div>
@@ -32,7 +32,7 @@
 		<%# garder le + pour faire un tool tip avec des infos complémentaires%>
 		<%#= link_to '+', item_path(object) %>
 	</div-->
-</div>
+</li>
 <% end %>
 
-<%= remote_pagination(@paginated_objects, @ajax_url) %>
+<%#= remote_pagination(@paginated_objects, @ajax_url) %>

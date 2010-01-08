@@ -1,56 +1,73 @@
-<h1><%=  I18n.t('workspace.add_contacts.title')+" "+@current_object.title %></h1>
-  <%= link_to "go back to workspace", list_admin_workspace_workspace_contacts_path(@current_object.id) %><br /><br />
-  <% form_for @current_object,
-    :builder => BlankFormBuilder,
-    :url => select_admin_workspace_workspace_contacts_path(current_workspace.id),
-    :html => {
-    :method => :post,
-  } do |f| -%>
-    <div id="select_boxes2">
-      <input type="hidden" name="selected_Options" id="selected_Options" value="<%= @assigned_contacts.map{ |e| e.class.to_s+'_'+e.id.to_s }.join(',') %>">
-      <div id="left_select_box">
-        <div class="optionAssignmentLabel">
-          <%= I18n.t('workspace.add_contacts.available_contacts') %>
-        </div>
-        <select name="assignedPeople" id="assignedOptions" size="5" multiple class="theatreSelection" >
-          <% for mem in @available_contacts %>
-            <%= content_tag(:option, mem.email, :value => mem.class.to_s+'_'+mem.id.to_s) %>
-          <% end %>
-        </select>
-        <button type="button" class="smallSubmit" onclick="selectAll($('assignedOptions'),'assignedOptions')"/>
-			<span><%= I18n.t('general.common_word.select_all') %></span>
-		</button>
-        <script type="text/javascript" charset="utf-8">
-          function selectAll(chkObj,id){
-            var multi=document.getElementById(id);
-            if(chkObj)
-              for(i=0;i<multi.options.length;i++)
-                multi.options[i].selected=true;
-            else
-              for(i=0;i<multi.options.length;i++)
-                multi.options[i].selected=false;
-          }
-        </script>
-      </div>
-      <div id="left_right_buttons2" >
-        <input type="button" class="sendLeftButton" onclick="shiftRight('availableOptions','assignedOptions', true)" />
-        <br /><br />
-        <input type="button" class="sendRightButton" onclick="shiftLeft('assignedOptions','availableOptions', false)" />
-      </div>
-      <div id="right_select_box2">
-        <div class="optionAssignmentLabel"> <%= I18n.t('workspace.add_contacts.current_contacts') %></div>
-        <select name="availableOptions" id="availableOptions" size="5" multiple >
-          <% for mem in @assigned_contacts %>
-            <%= content_tag(:option, mem.email, :value => mem.class.to_s+'_'+mem.id.to_s) %>
-          <% end %>
-        </select>
-        <button type="button" class="smallSubmit" onclick="selectAll($('availableOptions'),'availableOptions')"/>
-			<span><%= I18n.t('general.common_word.select_all') %></span>
-		</button>
-        
-      </div>
+<% form_for @current_object,
+    		:builder => BlankFormBuilder,
+    		:url => select_admin_workspace_workspace_contacts_path(current_workspace.id),
+    		:html => {:method => :post, } do |f| -%>
+
+<div class="itemShowLeft">
+	<div class="itemShowLeftBody">
+		<h2><%=  I18n.t('workspace.add_contacts.title')+" "+@current_object.title %></h2>
+		<div id="select_boxes2">
+	      <input type="hidden" name="selected_Options" id="selected_Options" value="<%= @assigned_contacts.map{ |e| e.class.to_s+'_'+e.id.to_s }.join(',') %>">
+	      <div id="left_select_box">
+	        <div class="optionAssignmentLabel">
+	          <%= I18n.t('workspace.add_contacts.available_contacts') %>
+	        </div>
+	        <select name="assignedPeople" id="assignedOptions" size="5" multiple class="theatreSelection" >
+	          <% for mem in @available_contacts %>
+	            <%= content_tag(:option, mem.email, :value => mem.class.to_s+'_'+mem.id.to_s) %>
+	          <% end %>
+	        </select>
+	        <button type="button" class="smallSubmit" onclick="selectAll($('assignedOptions'),'assignedOptions')"/>
+				<span><%= I18n.t('general.common_word.select_all') %></span>
+			</button>
+	        <script type="text/javascript" charset="utf-8">
+	          function selectAll(chkObj,id){
+	            var multi=document.getElementById(id);
+	            if(chkObj)
+	              for(i=0;i<multi.options.length;i++)
+	                multi.options[i].selected=true;
+	            else
+	              for(i=0;i<multi.options.length;i++)
+	                multi.options[i].selected=false;
+	          }
+	        </script>
+	      </div>
+	      <div id="left_right_buttons" >
+	        <input type="button" class="sendLeftButton" onclick="shiftRight('availableOptions','assignedOptions', true)" />
+	        <br /><br />
+	        <input type="button" class="sendRightButton" onclick="shiftLeft('assignedOptions','availableOptions', false)" />
+	      </div>
+	      <div id="right_select_box">
+	        <div class="optionAssignmentLabel"> <%= I18n.t('workspace.add_contacts.current_contacts') %></div>
+	        <select name="availableOptions" id="availableOptions" size="5" multiple >
+	          <% for mem in @assigned_contacts %>
+	            <%= content_tag(:option, mem.email, :value => mem.class.to_s+'_'+mem.id.to_s) %>
+	          <% end %>
+	        </select>
+	        <button type="button" class="smallSubmit" onclick="selectAll($('availableOptions'),'availableOptions')"/>
+				<span><%= I18n.t('general.common_word.select_all') %></span>
+			</button>
+
+	      </div>
+	    </div>
+	    <button id="submit_button" class="submitButton" type="submit">
+	        <span><%= I18n.t('general.button.save') %></span>
+	    </button>
+		
+	</div>
+</div>
+
+<div class="rightBlocks">
+	<div class="itemShowDate">
+		<%= I18n.l Time.now, :format =>:verb %>
+	</div>
+	<div class="itemShowRightBlock">
+		<div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
+			Actions   <!-- TODO translate -->
+		</div><div class="blockCornerRight"></div>
+		<div class="blockElementBody">
+			<%= link_to "go back to workspace", list_admin_workspace_workspace_contacts_path(@current_object.id) %>
+		</div>
     </div>
-    <button id="submit_button" class="submitButton" type="submit">
-        <span><%= I18n.t('general.button.save') %></span>
-    </button>
-  <% end -%>
+</div>
+<% end %>

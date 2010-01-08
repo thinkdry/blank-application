@@ -14,9 +14,11 @@ class CommentsController < Admin::ApplicationController
   def index
     conditions = (!params[:on_state].nil? && params[:on_state] != 'all') ? "AND state ='#{params[:on_state]}'" : ''
     if @current_user.has_system_role('superadmin')
-      @paginated_objects = Comment.find(:all, :conditions => ["parent_id <=> NULL #{conditions}"], :order => 'created_at DESC').paginate(:per_page => get_per_page_value, :page => params[:page])
+      #@paginated_objects = Comment.find(:all, :conditions => ["parent_id <=> NULL #{conditions}"], :order => 'created_at DESC').paginate(:per_page => get_per_page_value, :page => params[:page])
+      @objects = Comment.find(:all, :conditions => ["parent_id <=> NULL #{conditions}"], :order => 'created_at DESC')
     else
-      @paginated_objects = Comment.find(:all, :conditions => ["parent_id <=> NULL AND user_id =#{@current_user.id} #{conditions}"], :order => 'created_at DESC').paginate(:per_page => get_per_page_value, :page => params[:page])
+      #@paginated_objects = Comment.find(:all, :conditions => ["parent_id <=> NULL AND user_id =#{@current_user.id} #{conditions}"], :order => 'created_at DESC').paginate(:per_page => get_per_page_value, :page => params[:page])
+      @objects = Comment.find(:all, :conditions => ["parent_id <=> NULL AND user_id =#{@current_user.id} #{conditions}"], :order => 'created_at DESC')
     end
     respond_to do |format|
 			format.html
@@ -78,7 +80,7 @@ class CommentsController < Admin::ApplicationController
     respond_to do |format|
 			if @current_object.update_attributes(params[:comment])
 				flash[:notice] = 'Comment was successfully updated.'
-				format.html { redirect_to(comments_path) }
+				format.html { redirect_to(admin_comments_path) }
 				format.xml  { head :ok }
 			else
 				flash[:error] = 'Comment update failed.'
@@ -94,17 +96,18 @@ class CommentsController < Admin::ApplicationController
   # - DELETE /comments/1
   # - DELETE /comments/1.xml
   def destroy
+    #TODO translate
     @current_object = Comment.find(params[:id])
 		respond_to do |format|
 			if @current_object.destroy
 				@current_objects = Comment.find(:all)
 				flash[:notice] = 'Comment was successfully deleted.'
-				format.html { redirect_to(comments_url) }
+				format.html { redirect_to(admin_comments_url) }
 				format.xml  { head :ok }
 			else
 				@current_objects = Comment.find(:all)
 				flash[:error] = 'Comment deletion error.'
-				format.html { redirect_to(comments_url) }
+				format.html { redirect_to(admin_comments_url) }
 				format.xml  { head :ok }
 			end
 		end
@@ -115,7 +118,7 @@ class CommentsController < Admin::ApplicationController
 		@current_object = Comment.find(params[:id])
 		@current_object.state = params[:new_state]
 		@current_object.save
-		redirect_to comments_url
+		redirect_to admin_comments_url
 	end
 	
 	# Action allowing to reply on a posted comment. Comment can be not validated.
@@ -126,16 +129,12 @@ class CommentsController < Admin::ApplicationController
     
     #find the parent item with ID.
     
-    p'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF'
-    p params
-    
     @parent_item = params[:item_type].classify.constantize.find(params[:id])
     
     @reply = Comment.create(params[:comment].merge(:user => @current_user, 
                                                    :state => DEFAULT_COMMENT_STATE, 
                                                    :commentable_id => params[:id],
-                                                   :commentable_type => params[:item_type].classify))
-      
+                                                   :commentable_type => params[:item_type].classify))      
     @reply.save
     
     if @reply.state == 'validated'
@@ -146,19 +145,9 @@ class CommentsController < Admin::ApplicationController
       @error = I18n.t('comment.add_comment.ajax_message_comment_submited')
     end
     
-    p @reply.id
-    
-    # respond_to do |format|
-    #       if params[:callback]
-    #         format.html {redirect_to :action => "comments"}
-    #       else  
-    #         format.js {render :layout => false}
-    #       end
-    #     end
-    
-     respond_to do |format|
-  	    format.js {render :layout => false}
-  	  end
+    respond_to do |format|
+  	  format.js {render :layout => false}
+  	end
 	end
 
     #if logged_in?

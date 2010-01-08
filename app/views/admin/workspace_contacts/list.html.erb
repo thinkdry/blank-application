@@ -1,14 +1,13 @@
-<% form_for :contacts_workspaces, :url => list_admin_workspace_workspace_contacts_path(current_workspace.id), :html => { :method => :post } do |f| %>
+<% form_for :contacts_workspaces, 
+			:url => list_admin_workspace_workspace_contacts_path(current_workspace.id), 
+			:html => { :method => :post } do |f| %>
 
 <div class="itemShowLeft">
-	<div class="itemShowLeftDate">
-		<%= I18n.l Time.now, :format =>:verb %>
-	</div>
 	<div class="itemShowLeftBody">
-		<h1><%= I18n.t('group.contacts.title') %></h1>
+		<h2><%= I18n.t('group.contacts.title') %></h2>
 		  <table width="100%" cellpadding="5" cellspacing="0" style="margin-bottom:50px;">
 		    <tr>
-		      <td colspan="2" class="contact_classify">
+		      <td colspan="2" class="contactClassify">
 		        <img src="/images/icons/filter.png" width="20"/>
 		        <%= params[:order] 	== 'created_at' ? 
 								   	I18n.t('workspace_contact.list.order_by_time') :
@@ -98,7 +97,7 @@
 		  </table>
 		
 	
-		<h1>Collectives <%= I18n.t('workspace_contact.list.action').pluralize %></h1>
+		<h2>Collectives <%= I18n.t('workspace_contact.list.action').pluralize %></h2>
 		
 		<table style="font-size:90%">
 			<tr>
@@ -129,6 +128,9 @@
 	</div>
 </div>
 <div class="rightBlocks">
+	<div class="itemShowDate">
+		<%= I18n.l Time.now, :format =>:verb %>
+	</div>
 	<div class="itemShowRightBlock">
 		<div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
 			<%= I18n.t('workspace_contact.list.action').pluralize %>

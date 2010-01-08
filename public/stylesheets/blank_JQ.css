@@ -61,28 +61,29 @@ h4 {
 }
 
 .notice{
-	background:#D5FFCE url(/images/icons/accept.png) no-repeat scroll 7px 50%;
-	border:1px solid #9ADF8F;
-	color:#556652;
+	background:#000 url(/images/icons/accept.png) no-repeat scroll 40px 50%;
 }
 
 .error {
-	color: #556652;
-	background: #FFCECE url(/images/icons/delete.png) no-repeat scroll 7px 50%;
-	border:1px solid #DF8F8F;
+	background: #000 url(/images/icons/delete.png) no-repeat scroll 40px 50%;
 }
 
 #error a{
-	float:right;margin-top:-15px;
+	float:right;margin-top:-15px;color:#FFF;
+}
+
+#messsagesContainers{
+	position:fixed;left:0;top:0px;
+	opacity:0.8;
+	filter : alpha(opacity=80);
+	width:100%;
+	background: transparent ;
 }
 
 .error, .notice{
-	padding:20px 10px 20px 50px; 
-	margin-bottom:50px;
-	-moz-border-radius-bottomleft:6px;
-	-moz-border-radius-bottomright:6px;
-	-moz-border-radius-topleft:6px;
-	-moz-border-radius-topright:6px;
+	color: #FFF;
+	padding:20px 10px 20px 80px;
+	border-bottom:1px solid #FFF;
 }
 
 .ajax_hint_message{	
@@ -468,10 +469,10 @@ form input{
 	float:left;
 	overflow:visible;
 }
-#assignedOptions, #availableOptions {height:140px;width:270px; }
+#assignedOptions, #availableOptions {height:200px;width:270px; }
 #left_select_box, #right_select_box {width:270px;}	
 #right_select_box{padding-left:5px;  float: right;}
-#left_right_buttons{margin:50px 10px 30px 20px;	width:30px;	text-align: center;}
+#left_right_buttons{margin:50px 10px 30px 30px;	width:30px;	text-align: center;}
 .sendLeftButton, .sendRightButton{border:0; width:30px; cursor: pointer;}
 .sendLeftButton{background:transparent url('/images/icons/left.png') no-repeat;}
 .sendRightButton{background:transparent url('/images/icons/right.png') no-repeat;margin-top:30px;}
@@ -536,6 +537,7 @@ ul#tabs li.selected{
 /*		ITEM_LIST	*/
 .objectList{float:left;margin:0 0 0 30px;}
 .objectListWithTab{float:left;margin:0 30px 0 0;}
+.filter{float:left;margin-right:10px;}
 
 #classify_bar{
 	padding:4px 0 0;
@@ -550,7 +552,7 @@ ul#tabs li.selected{
 }
 .contentList{
 	border:1px solid #ccc;
-	padding:0 20px 25px 20px;
+	padding:25px 20px;
 	clear:both;
 	min-height:500px;
 	overflow:hidden;
@@ -588,7 +590,7 @@ ul#tabs li.selected{
 	padding-left:2px;
 	margin-bottom:5px;
 }
-.itemInListActions, .workspaceActions a, .objectActions{
+.itemInListActions, .workspaceActions, .objectActions{
 	font-size:70%;
 	text-transform:uppercase;
 	margin-top:5px;
@@ -706,7 +708,7 @@ a.filter{
 
 .description{
 	font-size:80%;
-	padding-top:25px;
+	padding:25px 0;
 }
 
 /*		BLOCS			*/
@@ -722,8 +724,6 @@ a.filter{
 	color:#666;
 	height:21px;
 }
-
-.blockElementHeader span{float:left;}
 
 .itemShowRightBlock .blockElementHeader{ padding:10px 0 2px;}
 
@@ -803,6 +803,8 @@ a.filter{
 .objectBody{ overflow:hidden; float:left; width:498px;}
 .commentfooter a {text-transform:uppercase;}
 
+.hidden{display:none;}
+
 /* 		WORKSPACE	*/
 .userName{
 	padding:0;
@@ -817,7 +819,7 @@ a.filter{
 	margin:10px 0 0 35px;
 }
 .workspaceInfos{
-	float:left;width:709px;
+	float:left;padding:0 10px;width:689px;
 }
 .workspaceHeader{
 	margin-bottom:50px;
@@ -828,15 +830,31 @@ a.filter{
 	overflow:hidden;
 	padding-bottom:5px;
 }
+.space{padding:25px 10px;}
+.itemShowLeftBody table{margin-top:25px;}
+.contactClassify{font-size:80%;}
+#left_right_buttons2{
+    padding: 40px;
+	width:10px;
+	text-align: center;
+    float:left;
+	overflow:visible;
+}
 
 /*		USERS			*/
-.wsList{
-	list-style:none;
-	padding-left:10px;
-}
-.avatar{
-	margin:10px 20px;
-}
+.wsList{list-style:none;padding-left:10px;}
+.avatar{margin:20px;}
+#itemsNumber{font-size:80% !important;padding-top:3px;float:left; width:200px;}
+.workspaceWithRole{ list-style:none; padding-left:25px;padding-top:10px;}
+.roleList{margin-top:50px;}
+.userDetails{padding-top:25px;}
+.userDetails p{overflow:hidden;}
+
+/*		Comments		*/
+		
+.object ul {list-style:none;}
+.forComments{padding-top:10px;}
+.noInput, .noLabel .formElement{padding-top:0 !important;}
 
 /*		SuperAdmin		*/
 #website_url_name_value, #new_follower_email {

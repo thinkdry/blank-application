@@ -14,7 +14,8 @@
 		<%= f.text_area :notes, :size => "40x6", :label => I18n.t('people.field.notes_label') +" : "%>
 		<%= f.hidden_field :origin,:value=>"Creation"  %>
 		<% button_text = @person.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update') %>
-	    <button type="submit" class="submitButton"><span><%= button_text%></span></button>
+	    <button type="submit" class="submitButton continueUpdate"><span><%= button_text%></span></button>
+		<button type="submit" class="submitButton continue" name="continue"><span>Create and continu</span></button>
 	</div>
 </div>
 

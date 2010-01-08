@@ -1,27 +1,13 @@
-<%@i = 0%>
-<% for object in @paginated_objects %>
-  <div id="rating_<%= object.id.to_s %>" class="item_in_list">
-    <div class="<%= @i%2 == 0 ? 'sensor_in_list_alternate' : 'sensor_in_list' %>" onclick="toggleAccordion('itemInformations_<%=@i%>');">
-      <div class="left_part_sensor">
-        <a id="items_link" ><%= truncate(object.rateable.title, :length => 50) %>  </a>
-      </div>
-      <div class="right_part_sensor"><%= I18n.l object.created_at, :format =>:verb %></div>
-    </div>
-    <div id="itemInformations_<%=@i%>" style="display:none;" name="itemInformations">
-      <div class="lift_items">
-        <%= I18n.t('general.item.' + object.rateable_type.underscore.downcase) %> : <%= link_to object.rateable.title, item_path(object.rateable) %>
-        <%=
-          div_id = "rating_#{object.rateable_type.underscore}_#{object.rateable.id}_#{rand(1000)}"
-          content_tag(:div, nil, { :id => div_id, :class => :rating }) +
-          javascript_tag(%{
-			new Starbox("#{div_id}", #{object.rating},{locked: true});
-          })
-        %>
-        <% if @current_user.has_system_role('superadmin') %>
-          <%= I18n.t('general.common_word.by').capitalize %> : <%= link_to((object.user['firstname']+' '+object.user['lastname']), user_path(object.user['id'])) %>
-        <% end %>
-      </div>
-    </div>
-  </div>
-  <% @i += 1%>
-<% end %>
+<% for object in @objects %>
+<li class="itemInList">
+	<div class="itemInListDate"><%= I18n.l object.created_at, :format =>:verb %></div>
+	<div class="itemInListBody">
+		<div class="itemInListTitle">
+			<%= link_to object.rateable.title, item_path(object.rateable) %>
+		</div>
+		<div class="itemInListActions">
+			<%= I18n.t('general.common_word.by').capitalize %> : <%= link_to((object.user['firstname']+' '+object.user['lastname']), admin_user_path(object.user['id'])) %>
+		</div>		
+	</div>
+</li>
+<% end -%>
