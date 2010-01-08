@@ -1,0 +1,7 @@
+<% item_show( :title => 'Page',  :object => @current_object ) do %>
+    Refrence Url: <b>http://www.example.com/<%= @current_object.title_sanitized  %></b><br />
+    Page Title: <%= @current_object.page_title %><br />
+    Page Style: <%= @current_object.page_type %><br />
+    Menu Title: <%= @current_object.menu_title %><br />
+  	<%= @current_object.body %>
+<% end -%>

@@ -1,0 +1,30 @@
+<label>Css</label>
+<div class="formElement">
+    <% css_files = [] %>
+    <% Dir["public/website_files/#{website.title}/stylesheets/*"].collect do |uploaded_css| %>
+        <% css_files << "<span>" + "#{link_to uploaded_css.split('/')[4].to_s, "/website_files/#{website.title}/stylesheets/#{uploaded_css.split('/')[4].to_s}"}"+"<a onclick='delete_asset(this,\""+uploaded_css+"\" );'><img width='15' src='/images/icons/delete.png' alt='Delete'/></a></span>" %>
+    <% end %>
+    <%= css_files.join(' ') %>
+    <%= file_field 'website_files', 'css' %>
+</div>
+<label>Javascript</label>
+<div class="formElement">       
+    <% js_files = [] %>
+    <% Dir["public/website_files/#{website.title}/javascripts/*"].collect do |uploaded_js| %>
+        <% js_files << "<span>"+"#{link_to uploaded_js.split('/')[4].to_s, "/website_files/#{website.title}/javascripts/#{uploaded_js.split('/')[4].to_s}"}" +"<a onclick='delete_asset(this,\""+uploaded_js+"\" );'><img width='15' src='/images/icons/delete.png' alt='Delete'/></a> </span>" %>
+    <% end %>
+    <%= js_files.join(' ') %>
+    <%= file_field 'website_files', 'js' %>
+</div>
+
+<label>Images</label>
+<div class="formElement">
+    <% img_files = [] %>
+    <% Dir["public/website_files/#{website.title}/images/*"].collect do |uploaded_img| %>
+        <% img_files << "<span>"+"#{link_to uploaded_img.split('/')[4].to_s , "/website_files/#{website.title}/images/#{uploaded_img.split('/')[4].to_s}"}"+"<a onclick='delete_asset(this,\""+uploaded_img+"\" );'><img width='15' src='/images/icons/delete.png' alt='Delete'/></a> </span>" %>
+    <% end %>
+    <%= img_files.join(' ') %>
+    <div id="js_inputs">
+        <%= file_field 'website_files', 'images' %>
+    </div><br />
+</div>

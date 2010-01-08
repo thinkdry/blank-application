@@ -5,34 +5,39 @@
   :multipart => true } do |f| -%>
 	<div class="itemShowLeft">
 		<div class="itemShowLeftBody">
-			<h2><%= title %></h2>
+			  <h2><%= title %></h2>
 		
-			<% is_copyright = (current_object.state == 'copyright') ? true : false %>
-		    <% if is_copyright %>
-		      	<%= f.hidden_field :state, :value => 'copyright' %>
-		      	<%=I18n.t('general.copyright.copyright_restriction')%>
-		    <% end %>
+			  <% is_copyright = (current_object.state == 'copyright') ? true : false %>
+		      <% if is_copyright %>
+		        	<%= f.hidden_field :state, :value => 'copyright' %>
+		        	<%=I18n.t('general.copyright.copyright_restriction')%>
+		      <% end %>
 	
-			<%= f.text_field    :title, 
-								:label => I18n.t('item.field.title_label') + " * :", 
-								:hint => I18n.t('item.field.title_hint'), 
-								:readonly => is_copyright %>
+			  <%= f.text_field    :title, 
+								  :label => I18n.t('item.field.title_label') + " * :", 
+								  :hint => I18n.t('item.field.title_hint'), 
+								  :readonly => is_copyright %>
 		
-			<%= f.text_field    :description, 
-								:label => I18n.t('item.field.description_label') + ' * :', 
-								:hint => I18n.t('item.field.description_hint') %>
+			  <%= f.text_field    :description, 
+								  :label => I18n.t('item.field.description_label') + ' * :', 
+								  :hint => I18n.t('item.field.description_hint') %>
 		
-			<%= capture(f, &block) %>
-
-            <button class="submitButton continueUpdate" type="submit">
-                <span><%= current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update')%></span>
-            </button>
-            <button class="submitButton continue" type="submit" name="continue">
-                <!--TODO translate -->
-               <span>creer et continuer</span>
-            </button>
-        </div>
+			  <% if current_container_type == 'website' -%>
+			    <%= f.select :published, {'Yes' => true, 'No' => false},
+			                         {:include_blank => true },
+			                         {:label => 'Published? : ', :hint => 'Required for the resource to be published to the website'} %>
+			  <% end -%>
+			
+        <%= capture(f, &block) %>
+        <button class="submitButton continueUpdate" type="submit">
+            <span><%= current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update')%></span>
+        </button>
+        <button class="submitButton continue" type="submit" name="continue">
+            <!--TODO translate -->
+           <span>creer et continuer</span>
+        </button>
     </div>
+  </div>
 
     <div class="rightBlocks">
 		<div class="itemShowDate">
@@ -55,11 +60,11 @@
                     <%= I18n.t("item.show.associated_#{container}") %>
                 </div><div class="blockCornerRight"></div>
                 <div class="blockElementBody">
-                    <% if ['Group', 'Page'].include?(@current_object.class.to_s) %>
-                        <%= item_containers_select(f, @current_object, container) %>
-                    <% else %>
+                    <%# if ['Group', 'Page'].include?(@current_object.class.to_s) %>
+                        <%#= item_containers_select(f, @current_object, container) %>
+                    <%# else %>
                         <%= item_containers_checkboxes(f, @current_object, container) %>
-                    <% end %>
+                    <%# end %>
                     <%#= error_message_on :current_object, "items_#{container.pluralize}".to_sym %>
                 </div>
           	</div>

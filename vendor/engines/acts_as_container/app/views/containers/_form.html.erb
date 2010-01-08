@@ -11,11 +11,11 @@
             <% f.field :logo, :label => I18n.t("#{@current_object.label_name}.field.logo_label") + " :" do %>
                 <%= file_field "#{@current_object.label_name}", 'logo', :class => 'file' %>
             <% end %>
-
-            <%= f.advanced_editor :description, :label => I18n.t('workspace.field.description_label') +' : ' %>
-
+            
             <% #Accept Container Specific Fields %>
             <%= capture(f, &block) %>
+
+            <%= f.advanced_editor :description, :label => I18n.t('workspace.field.description_label') +' : ' %>
 
             <div class="blockElement">
                 <div class="blockCornerLeft"></div>
@@ -79,9 +79,7 @@
         </div>
     </div>
 
-    <% if 	@current_object.new_record? || 
-			@current_object.has_permission_for?('administrate', @current_user, current_container_type) %>
-			
+    <% if @current_object.new_record? || @current_object.has_permission_for?('administrate', @current_user, current_container_type) %>
         <div class="rightBlocks">
 			 <div class="itemShowLeftDate">
 		     	<div class="itemShowDate">

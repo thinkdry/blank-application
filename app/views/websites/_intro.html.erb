@@ -1,0 +1,21 @@
+<% path = "/website_files/#{@current_website.title}" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+  <% if @page != nil%>
+    <title><%= @page.page_title %></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Description" name="Description" content="<%= @page.description%>" />
+    <meta http-equiv="Keywords" name="Keywords" content="<%= @page.keywords_list%>" />
+  <% else %>
+    <meta name='description' content=''/>
+    <meta name='keywords' content=''/>
+    <title></title>
+  <%end%>
+  <%= @current_website.include_all_stylesheet_files %>
+  <%= @current_website.include_all_javascript_files %>
+  <body class="intro">
+    <%= @page.body %>
+  </body>
+
+</html>

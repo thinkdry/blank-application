@@ -44,10 +44,14 @@ module ActsAsItem
         
         # Validation of fields not in format of
         validates_not_format_of :title, :description, :with => /(#{SCRIPTING_TAGS})/
+        
+        named_scope :published,
+         :conditions => {:published => true}
+ 
 
 				# Inclusion of the instance methods inside the mixin
         include ActsAsItem::ModelMethods::InstanceMethods
-
+        
       end
       
       # Label is used to return the name of the item type.

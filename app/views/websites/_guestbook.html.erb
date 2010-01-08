@@ -1,0 +1,39 @@
+<div>
+<% form_for @person, :url => form_management_website_path(@website.id), :html => { :onsubmit => 'return validate_contact();'} do |f| %>
+  <% if !@person.errors.empty? %>
+
+    <% attributes = {'first_name' => 'Nom','last_name' => 'Prénom', 'email' => 'Email', 'primary_phone' => 'Téléphone'} %>
+    <ul style="height:auto;" >
+      <% @person.errors.each do |attr,msg| %>
+        <li class="error"><%= msg.sub(attr.capitalize.sub(/_/,' '), attributes[attr]) %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <input type="hidden" id="website_id" name="website_id" value="<%= @website.id %>" />
+  <input type="hidden" name="title_sanitized" value="<%= params[:title_sanitized] %>" />
+  <label>Nom * : </label><%= f.text_field :first_name %><br />
+  <label>Prénom * : </label><%= f.text_field :last_name %><br />
+  <label>Email * : </label><%= f.text_field :email %><br />
+  <%= hidden_field :email,:subject , :value => '' %>
+  <label>Message : </label><%= text_area :email, :message, :rows => 4, :value => !@email_values.empty? ? @email_values['body'] : '' %><br />
+  <%= f.hidden_field :origin, :value=> "guestbook_form" %>
+  <%= yacaph_block %>
+  <label> </label><%= check_box_tag 'state', '', false %> Recevoir la newsletter ? <br />
+  <%= f.submit "Poster ce message", :class => "submit" %>
+
+<% end %>
+</div>
+<br /><br />
+<div id="guestbook" style="padding-bottom: 20px;">
+  <div id="title">Livre d'or</div>
+  <% @guestbook_messages.each do |m| %>
+    <div id="guestbook_element">
+      <div id="message">
+        <%= m.data[:message] %>
+      </div>
+      <div id="details">
+        <%= "Le #{I18n.l(m.created_at, :format =>:verb)} #{I18n.t('general.common_word.by')} #{m.person.full_name}" %>
+      </div>
+    </div>
+  <% end %>
+</div>

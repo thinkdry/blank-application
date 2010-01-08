@@ -83,7 +83,23 @@ class Admin::CkToolsController < Admin::ApplicationController
   	render :text => message
   end
   
-  protected
+  #TODO translate & DOC
+  def config_file 
+    config_file = String.new
+    config_file += "CKEDITOR.editorConfig = function( config ) { "
+    config_file += "config.language = '#{I18n.locale.split('-')[0]}';"
+  	config_file += "config.uiColor = '#e6e6e6';"
+  	config_file += "config.toolbar = 'BlankToolbar';"
+    config_file += "config.height = '400';"
+  	config_file += "config.width = '620';"
+  	config_file += "config.resize_maxWidth = 608;"
+  	config_file += "config.resize_minWidth = 608;"
+  	config_file += "config.toolbarCanCollapse = false;"   
+    #config_file += "config.contentsCss = '/stylesheets/try.css';"
+  	config_file += "config.toolbar_BlankToolbar = ["
+  	params[:new] == "true" ? config_file += "[" : config_file += "['Save',"
+  	config_file += "'Source','Undo','Redo','-','Bold','Italic','Underline','NumberedList','BulletedList','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','Find','Replace'],"
+  	config_file += "['Anchor','Link','Unlink','Table','SpecialChar','Styles','FontSize','TextColor','BGColor', '-','Maximize']];"
 
   def upload_image(prms)
     #Create a new image

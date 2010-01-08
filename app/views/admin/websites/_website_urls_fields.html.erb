@@ -1,0 +1,17 @@
+<% f.field :website_url_names, :label => "Site url(s) :" do %>
+    <div id="add_website_url_name">
+      <%= text_field :website_url_name, :value, :hint => "Give a url for the website." %>
+      <%= button_to_function('Add this url',
+						   :onclick => "insert_field('#{website.class.to_s.underscore}', 'website_url_names_list', 'website_url_names'); return false;") %>
+    </div>
+	  <div id="website_url_names_list" class="addedInformation">
+	      <% website.website_urls.each do |k| %>
+	        <div id="<%= k.name+"_000" %>">
+	          <%= k.name+' '+link_to_function(image_tag('/images/icons/delete.png', :width => "15"), "this.parentNode.remove()") %>
+	          <%= hidden_field_tag "#{@website.class.to_s.underscore}[website_url_names][]", k.name %>
+	        </div>
+	      <% end %>
+	  </div>
+<%= error_message_on :website, :website_urls %>
+<% end %>
+

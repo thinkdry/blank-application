@@ -1,0 +1,7 @@
+<div id="galleryPictures">
+<% @pictures.each do |pic| %>
+  <a href="<%=pic.image.url%>" rel="gallery" title="<%=pic.title %>">
+    <img src="<%=pic.image.url(:thumb)%>" border="0" />
+  </a>
+<% end %>
+</div>
