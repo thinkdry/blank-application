@@ -20,7 +20,7 @@
 		<div id="upload_video">
 			<p>Select a file to upload to the server. This file will be inserted as an Image item in the web site</p>
 			<form 	target="video_fck_upload" 
-					action="/admin/ck_uploads?type=video" 
+					action="/admin/ck_uploads/video" 
 					method="post" 
 					enctype="multipart/form-data">
 				<%= file_field_tag "upload", :id => "video_file" %>

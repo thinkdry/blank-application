@@ -28,7 +28,7 @@
 		<div id="upload_image">
 			<p>Select a file to upload to the server. This file will be inserted as an Image item in the web site</p>
 			<form 	target="image_fck_upload" 
-					action="/admin/ck_uploads?type=image" 
+					action="/admin/ck_uploads/image" 
 					method="post" 
 					enctype="multipart/form-data">
 				<%= file_field_tag "upload", :id => "image_file" %>

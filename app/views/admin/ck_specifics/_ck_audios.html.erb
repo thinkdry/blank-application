@@ -15,7 +15,7 @@
 			<div id="upload_audio">
 				<p>Select a file to upload to the server. This file will be inserted as an Audio item in the applicaton</p>
 				<form 	target="audio_fck_upload" 
-						action="/admin/ck_uploads?type=audio"  
+						action="/admin/ck_uploads/audio"  
 						method="post" 
 						enctype="multipart/form-data">
 					<%= file_field_tag "upload", :id => "audio_file" %>

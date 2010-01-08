@@ -132,10 +132,10 @@ $(document).ready(function () {
 		$(this).displayHintForField();
 	});
 	
-  	// $('#container').find('#notice').animate({
-  	//         opacity: 1}, 3000, function(){
-  	//      		$(this).fadeOut('fast')
-  	// 	});
+  	$('#messsagesContainers').animate({
+  	         opacity: 1}, 3000, function(){
+  	      		$(this).fadeOut('fast')
+  		});
 	
 	$('#error_closing').live('click', function(){
 		$('#error').fadeOut('fast');
