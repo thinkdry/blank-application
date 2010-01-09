@@ -1,17 +1,16 @@
 <% f.field :website_url_names, :label => "Site url(s) :" do %>
-    <div id="add_website_url_name">
-      <%= text_field :website_url_name, :value, :hint => "Give a url for the website." %>
-      <%= button_to_function('Add this url',
-						   :onclick => "insert_field('#{website.class.to_s.underscore}', 'website_url_names_list', 'website_url_names'); return false;") %>
+	<div id="addWebSiteUrl">
+		<!-- TODO : mettre un message expliquant qu'il ne faut pas utiliser le http:// -->
+      	<%= text_field :website_url_name, :value, :hint => "Give a url for the website.", :noHint => "yes" %>
+		<a href="javascript:;" id="add_website_url">&nbsp;</a>
     </div>
-	  <div id="website_url_names_list" class="addedInformation">
-	      <% website.website_urls.each do |k| %>
-	        <div id="<%= k.name+"_000" %>">
-	          <%= k.name+' '+link_to_function(image_tag('/images/icons/delete.png', :width => "15"), "this.parentNode.remove()") %>
-	          <%= hidden_field_tag "#{@website.class.to_s.underscore}[website_url_names][]", k.name %>
+	<div id="website_url_names_list" class="addedInformation">
+		<% website.website_urls.each do |k| %>
+	        <div id="<%= k.name.gsub('.', '_') %>" class="keyword_label">
+	          	<%= '<span>' + k.name + '</span> ' + link_to_function('X', "$('#" + k.name.gsub('.', '_') + "').remove()") %>
+	          	<%= hidden_field_tag "#{@website.class.to_s.underscore}[website_url_names][]", k.name %>
 	        </div>
-	      <% end %>
-	  </div>
-<%= error_message_on :website, :website_urls %>
+	     <% end %>
+	</div>
+	<%= error_message_on :website, :website_urls %>
 <% end %>
-

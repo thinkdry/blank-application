@@ -32,6 +32,7 @@ class CommentsController < Admin::ApplicationController
 	# - GET /comments/new
   def new
     @current_object = Comment.new
+    flash[:notice] = 'Comment was successfully created.'
 		respond_to do |format|
 			format.html
 			format.xml  { render :xml => @current_object }
@@ -138,8 +139,8 @@ class CommentsController < Admin::ApplicationController
     @reply.save
     
     if @reply.state == 'validated'
-      @error = ""
-      @notice = I18n.t('comment.add_comment.ajax_message_comment_published')
+      flash[:error] = ""
+      flash[:notice] = I18n.t('comment.add_comment.ajax_message_comment_published')
     #else we just send an error message explaining that comment is not validated.
     else
       @error = I18n.t('comment.add_comment.ajax_message_comment_submited')
