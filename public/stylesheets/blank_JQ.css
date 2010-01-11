@@ -432,6 +432,7 @@ form input{
 }	
 
 .addedInformation{clear:both;overflow:hidden;margin-top:10px;}
+#website_url_names_list{width:429px;}
 .fileList{width:429px;}
 .fileList .keyword_label span a{border:none!important;}
 #addWebSiteUrl{overflow:hidden;width:450px;}
@@ -496,6 +497,7 @@ form input{
 	padding:2px 0;
 	overflow:hidden;
 	float:left;
+	display:block;
 }
 .keyword_label span{color:#666; padding:0 5px 0 10px;float:left;display:block;}
 
@@ -763,7 +765,7 @@ a.filter{
 	padding:25px 10px !important;
 }
 
-.rightBlocks{overflow:hidden;}
+.rightBlocks{overflow:hidden;float:right;}
 
 /*		COMMENTS		*/
 		

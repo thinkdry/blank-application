@@ -1,6 +1,7 @@
 <% form_for_container @current_object, title do |f| -%>
     <%= f.text_field :description, :label => I18n.t('workspace.field.description_label') +' : ' %>
-  <% unless @current_object.new_record? %>
+  <% unless @current_object.new_record? -%>
+	<% if @current_object.has_permission_for?('administrate', @current_user, current_container_type)%>
 	<div id="website_tabs">
 		<ul>
 			<li><a href="#general" class="website_tab_link">General</a></li>
@@ -62,6 +63,7 @@
 		</div>
 	</div>
 	</div></div>
+	<% end %>
   <% end %>
 <% end -%>
   

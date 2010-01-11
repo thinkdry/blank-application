@@ -11,9 +11,9 @@ class Admin::CkToolsController < Admin::ApplicationController
   	config_file += "config.uiColor = '#e6e6e6';"
   	config_file += "config.toolbar = 'BlankToolbar';"
     config_file += "config.height = '400';"
-  	config_file += "config.width = '620';"
-  	config_file += "config.resize_maxWidth = 608;"
-  	config_file += "config.resize_minWidth = 608;"
+  	config_file += "config.width = '632';"
+  	config_file += "config.resize_maxWidth = 620;"
+  	config_file += "config.resize_minWidth = 620;"
   	config_file += "config.toolbarCanCollapse = false;"   
 
   	config_file += "config.toolbar_BlankToolbar = ["

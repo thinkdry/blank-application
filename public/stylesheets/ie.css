@@ -34,6 +34,7 @@ ul#tabs li a{height:23px;}
 /*#tabs{margin:90px 0 0 10px !important;}*/
 .superadmin{width:667px;}
 .formElement{width:480px;}
+.blockElementBody .formElement{width:437px;}
 #menuAndSearch{height:50px;}
 #footer{padding-top:0px;}
 #header{margin:0;}
@@ -41,3 +42,4 @@ ul#tabs li a{height:23px;}
 .ddown{top:16px};
 .blockElementBody{margin:0 !important;}
 .submitButton{margin-left:0 !important;}
+.itemShowLeft{margin-left:10px!important;}
