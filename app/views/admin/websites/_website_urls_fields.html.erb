@@ -6,11 +6,12 @@
     </div>
 	<div id="website_url_names_list" class="addedInformation">
 		<% website.website_urls.each do |k| %>
-	        <div id="<%= k.name.gsub('.', '_') %>" class="keyword_label">
-	          	<%= '<span>' + k.name + '</span> ' + link_to_function('X', "$('#" + k.name.gsub('.', '_') + "').remove()") %>
-	          	<%= hidden_field_tag "[website][website_url_names][]", k.name %>
-	        </div>
-	  <% end %>
+		<% escaped_name =  k.name.gsub(/[.|:| \/]/, '_')%>
+    <div id="<%= escaped_name %>" class="keyword_label">
+    	<%= '<span>' + k.name + '</span> ' + link_to_function('X', "$('#" + escaped_name + "').remove()") %>
+       	<%= hidden_field_tag "#{@website.class.to_s.underscore}[website_url_names][]", k.name %>
+    </div>
+	<% end %>
 	</div>
 	<%= error_message_on :website, :website_urls %>
 <% end %>

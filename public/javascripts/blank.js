@@ -458,6 +458,8 @@ function insert_keyword(model_name, place, field_name){
 jQuery.fn.insert_field = function(model_name, place, field_name){
     var name = $('#website_url_name_value').val();
 	var escapedName = name.replace(/\./g, "_");
+	escapedName = escapedName.replace(/:/g, "_");
+	escapedName = escapedName.replace(/\//g, "_");
     var field_values = name.split(',');
     for(var i=0; i < field_values.length; i++){
         var name = field_values[i].replace(/(^\s+|\s+$)/g, "");
