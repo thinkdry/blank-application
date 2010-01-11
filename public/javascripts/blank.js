@@ -495,6 +495,22 @@ function shiftRight(removeOptions,addOptions,saveFlag)
 
     document.getElementById('selected_Options').value = selcted_Options
 }
+
+function selectItemTab(idSelected){
+		
+    // get the tabs links on witch we should change the class
+    var tabsElements = document.getElementById('tabs').getElementsByTagName('li');
+		
+    for (var i = 0 ; i < tabsElements.length ; ++i){
+        if (tabsElements[i].id == idSelected){
+            tabsElements[i].className = 'selected';
+        }
+        else{
+            tabsElements[i].className = '';
+        }
+    }
+}
+
 function shiftLeft(removeOptions,addOptions,saveFlag)
 {
     var availableOptions = document.getElementById(removeOptions);
