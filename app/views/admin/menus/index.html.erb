@@ -1,29 +1,38 @@
-<style>
- #menu_generator {
-  font-size:150%;
-  line-height:200%;
- }
+<div class="itemShowLeft">
+	<div class="itemShowLeftBody">
+		<h2>Menu Generator</h2>
+		<p>
+		  Menu Generator is used to create dynamic menus for the websites. <br />
+		  Click on the Main Menu to start <br />
+		</p>
+		<div id='menu_form'></div>
+	  	<div class="blockElement">
+		    <div class="blockCornerLeft"></div>
+		    <div class="blockElementHeader sixH">
+		        Site Tree View
+		    </div><div class="blockCornerRight"></div>
+			<div class="blockElementBody space" id="menu_generator">
+				<%= render :partial => 'menu', :locals => {:menus => @menus} %>
+			</div>
+		</div>
+		<a type="submit" class="submitButton" href="<%=admin_website_path(@website.id)%>"><span>Save</span></a>
+	</div>
+</div>
 
- #menu_generator a {
-   font-size:50%
- }
- 
- #menu_generator ul{
-  margin-left:25px;
- }
-</style>
-<%= image_tag("/images/icons/left.png")%>&nbsp;<%= link_to "Back to Website", admin_website_path(@website)%>
-<h1>Menu Generator</h1>
-<p>
-  Menu Generator is used to create dynamic menus for the websites. <br />
-  Click on the Main Menu to start <br />
-</p><br />
-<div id="message" style="color:green"></div>
-<div id='menu_form'></div>
-<br />
-<br />
-<%= link_to_remote "Add Main Menu", :url => new_admin_website_menu_path(@website.id), :method => :get %>
-<div id='menu_generator'>
-  <%= render :partial => 'menu', :locals => {:menus => @menus} %>
-</div><br />
-<%= button_to_function 'Done', :onclick => "window.location.href ='#{admin_website_path(@website.id)}'" %>
+<div class="rightBlocks">
+	<div class="itemShowDate">
+		<%= I18n.l Time.now, :format =>:verb %>
+	</div>
+	<div class="itemShowRightBlock">
+		<div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
+			<%= I18n.t("item.show.associated_workspace") %><!-- TODO HINT -->
+		</div><div class="blockCornerRight"></div>
+		<div class="blockElementBody">
+			<%= link_to "Back to Website", admin_website_path(@website)%>
+			<%= link_to "Add level one item", 
+						new_admin_website_menu_path(@website.id), 
+						:id => "add_level_one_menu" %>
+		</div>
+    </div>
+</div>
+

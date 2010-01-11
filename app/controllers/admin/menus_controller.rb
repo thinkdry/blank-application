@@ -13,10 +13,8 @@ class Admin::MenusController < Admin::ApplicationController
     @pages = @website.pages.published
     @menu = Menu.new
     @menu.parent_id = params[:parent_id]
-    render :update do |page|
-      page.replace_html 'message', :text => ''
-      page.replace_html 'menu_form', :partial => 'form', :locals => {:menu => @menu,:pages => @pages}
-    end
+    
+    render :partial => 'form', :locals => {:menu => @menu,:pages => @pages}
   end
 
   def create
@@ -26,11 +24,13 @@ class Admin::MenusController < Admin::ApplicationController
       @menu.parent_id = params[:parent_id]
     end
     if @menu.save
-      render :update do |page|
-        @menus = @website.menus
-        page.replace_html 'message', :text => 'Menu Item Created Sucessfully'
-        page.replace_html 'menu_form', :text => ''
-        page.replace_html 'menu_generator', :partial => 'menu', :locals => { :menus => @menus }
+      
+      @menus = @website.menus
+      
+      flash[:notice] = 'Menu Item Created Sucessfully'
+      
+      respond_to do |format|
+        format.js {render :partial => '/admin/menus/update.js', :layout => false}
       end
     end
   end
@@ -39,21 +39,20 @@ class Admin::MenusController < Admin::ApplicationController
     @website = Website.find(params[:website_id])
     @menu = Menu.find(params[:id])
 		@pages = @website.pages.published
-    render :update do |page|
-      page.replace_html 'message', :text => ''
-      page.replace_html 'menu_form', :partial => 'form', :locals => {:menu => @menu }
-    end
+		
+		render :partial => 'form', :locals => {:menu => @menu }
   end
 
   def update
     @website = Website.find(params[:website_id])
     @menu = Menu.find(params[:id])
     if @menu.update_attributes(params[:menu])
-      render :update do |page|
-        @menus = @website.menus
-        page.replace_html 'message', :text => 'Menu Item Updated Sucessfully'
-        page.replace_html 'menu_form', :text => ''
-        page.replace_html 'menu_generator', :partial => 'menu', :locals => {:menus => @menus}
+      @menus = @website.menus
+      
+      flash[:notice] = 'Menu Item Updated Sucessfully'
+      
+      respond_to do |format|
+        format.js {render :partial => '/admin/menus/update.js', :layout => false}
       end
     end
   end
@@ -62,13 +61,14 @@ class Admin::MenusController < Admin::ApplicationController
     @website = Website.find(params[:website_id])
     @menu = Menu.find(params[:id])
     if @menu.destroy
-      render :update do |page|
-        @menus = @website.menus
-        page.replace_html 'message', :text => 'Menu Item Deleted'
-        page.replace_html 'menu_generator', :partial => 'menu', :locals => {:menus => @menus}
+       
+      flash[:notice] = 'Menu Item Updated Sucessfully'
+        
+      @menus = @website.menus
+        
+      respond_to do |format|
+        format.js {render :partial => '/admin/menus/update.js', :layout => false}
       end
     end
   end
-
-  
 end

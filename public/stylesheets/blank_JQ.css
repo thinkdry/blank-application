@@ -868,6 +868,16 @@ a.filter{
 #website_tabs .ui-tabs-selected a {color:#F79646;}
 .blockElementBody label {width:120px !important;}
 
+.addingMenuSection{padding:25px;0}
+.addingMenuSection input{width:300px;}
+.addingMenuSection .formElement{width:312px;}
+
+/*		Websites		*/
+		
+#menu_generator p{font-size:170%;margin:10px 0 0 ;}
+#menu_generator {font-size:80%;} 
+#menu_generator ul{margin-left:25px;list-style:none;}
+
 /*		USERS			*/
 .wsList{list-style:none;padding-left:10px;}
 .avatar{margin:20px;}

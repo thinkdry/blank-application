@@ -1,17 +1,34 @@
- <% if menus %>
- <ul id='menus' class="menu">
-    <% for menu in menus.roots -%>
-       <% content_tag_for :li, menu do %>
-         <%= h(menu.name) %>
-         <%= link_to_remote "<b>Add Child</b> ", :url => new_admin_website_menu_path(@website.id, :parent_id => menu.id ), :method => :get %> |
-         <%= link_to_remote "<b> Edit</b>", :url => edit_admin_website_menu_path(@website.id, menu.id ), :method => :get %> |
-         <%= link_to_remote "<b> Remove </b>", :url => admin_website_menu_path(@website.id, menu.id), :method => :delete %>
-       <% end %>
-       <% if menu.children -%>
-        <%= render :partial => 'child', :locals => {:menu => menu} %>
-       <% end %>
-    <% end -%>
-</ul>
-<%#= sortable_element("menus" %>
-<% end %>
+<% if menus %>
+ 	<ul id='menus' class="menu">
+    	<% for menu in menus.roots -%>
+       		<% content_tag_for :li, menu do %>
+         		<p><%= h(menu.name) %></p>
+         		<%= link_to "Add Child", 
+							new_admin_website_menu_path(@website.id, :parent_id => menu.id ), 
+							:class => "add_sub_menu" %> |
+         		<%= link_to "Edit", 
+							edit_admin_website_menu_path(@website.id, menu.id ), 
+							:class => "add_sub_menu" %> |
+         	
+				<%= link_to I18n.t('general.link.delete'), 
+							"javascript:;", 
+							:class => "deleteLink",
+							:modal_id => "#modalDelete_#{menu.id.to_s}"%>	
 
+				<div style="display:none">
+					<div id="modalDelete_<%=menu.id.to_s%>" class="modalDelete">
+						<p><%= I18n.t('item.destroy.delete_conform')%></p>
+						<%= link_to_remote I18n.t('general.common_word.yes1'), 
+									:url => admin_website_menu_path(@website.id, menu.id), 
+									:method => :delete%> | 
+						<%= link_to I18n.t('general.common_word.no1'), "javascript:;", :class => "deleteClose" %>
+					</div>
+				</div>
+       		<% end %>
+       		<% if menu.children -%>
+        		<%= render :partial => 'child', :locals => {:menu => menu} %>
+       		<% end %>
+    	<% end -%>
+	</ul>
+<%#= sortable_element("menus") %>
+<% end %>

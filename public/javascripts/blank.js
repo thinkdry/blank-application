@@ -134,7 +134,7 @@ $(document).ready(function () {
 	});
 	
   	$('#notice').animate({
-  		opacity: 1}, 3000, function(){
+  		opacity: 1}, 1500, function(){
   	    	$(this).fadeOut('fast')
   	});
 	
@@ -258,8 +258,12 @@ $(document).ready(function () {
 	
 	$('#add_website_url').click(function(){
 		$(this).insert_field('website', '#website_url_names_list', 'website_url_names');
-	})
+	});
 
+	$('#add_level_one_menu').colorbox({width:"650px"});
+	$('.add_sub_menu').colorbox({width:"650px"});
+	
+	
 	// ************************************************************
 	// When keyword field got focus, submit is disable, user can add
 	// Keyword by pressing enter.
