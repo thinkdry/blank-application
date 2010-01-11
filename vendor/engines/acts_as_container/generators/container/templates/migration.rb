@@ -3,7 +3,7 @@ class <%= migration_name %> < ActiveRecord::Migration
     create_table :<%= table_name %>, :force => true do |t|
 			t.integer :creator_id,                        :null => false
       t.string  :title,              :limit => 255, :null => false
-      t.text    :description,                       :null => false
+      t.string  :description,                        :null => false
       t.string  :state,              :limit => 15
       t.string  :available_items,    :limit => 255
       t.string  :logo_file_name,     :limit => 255
