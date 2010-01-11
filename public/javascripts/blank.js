@@ -70,40 +70,10 @@ $(document).ready(function () {
     });
 
 
-	//Translations dropdown section load
-    $('#translation_dropdown').live("change", function(){
-				$('#article').css('display', 'none');
-				$('#audio').css('display', 'none');
-				$('#bookmark').css('display', 'none');
-				$('#cms_file').css('display', 'none');
-				$('#comment').css('display', 'none');
-				$('#datetime').css('display', 'none');
-				$('#feed_source').css('display', 'none');
-				$('#general').css('display', 'none');
-				$('#group').css('display', 'none');
-				$('#home').css('display', 'none');
-				$('#image').css('display', 'none');
-				$('#item').css('display', 'none');
-				$('#layout').css('display', 'none');
-				$('#mailer').css('display', 'none');
-				$('#newsletter').css('display', 'none');
-				$('#page').css('display', 'none');
-				$('#people').css('display', 'none');
-				$('#publication').css('display', 'none');
-				$('#rating').css('display', 'none');
-				$('#user').css('display', 'none');
-				$('#video').css('display', 'none');
-				$('#website_contact').css('display', 'none');
-				$('#workspace').css('display', 'none');
-				$('#workspace_contact').css('display', 'none');
-				var value= '#' + $('#translation_dropdown').val()
-				$(value).css('display','block');
-    });
-
 	// Translation ajax update
 	$('.translation_field').live("dblclick", function(){
 		section=$(this).attr("id").split('_');
-	 	datas = "id=" + section[1] + "&section=" + $('#translation_dropdown').val() + "&subsection=" + $('#translation_' + section[1] + "_subsection").val() + "&key=" + $('#translation_' + section[1] + "_key").val() + "&value=" + $('#translation_' + section[1] + "_value").val();
+	 	datas = "id=" + section[1] + "&section=" + $('#translation_' + section[1] + "_section").val() + "&subsection=" + $('#translation_' + section[1] + "_subsection").val() + "&key=" + $('#translation_' + section[1] + "_key").val() + "&value=" + $('#translation_' + section[1] + "_value").val();
 		url= "/superadmin/translations/updating";       
           	$.ajax({
             	type: "PUT",

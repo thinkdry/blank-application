@@ -1,4 +1,4 @@
-<% f.field :website_url_names, :label => "Site url(s) :" do %>
+<% f.field :website_url_names, :label => "Site url(s) :http://" do %>
 	<div id="addWebSiteUrl">
 		<!-- TODO : mettre un message expliquant qu'il ne faut pas utiliser le http://  et raduire-->
       	<%= text_field :website_url_name, :value, :hint => "Give a url for the website.", :noHint => "yes" %>
@@ -6,16 +6,12 @@
     </div>
 	<div id="website_url_names_list" class="addedInformation">
 		<% website.website_urls.each do |k| %>
-		<% escaped_name =  k.name.gsub('.', '_')%>
-		<% escaped_name =  escaped_name.gsub('/', '_')%>
-		<% escaped_name =  escaped_name.gsub(':', '_')%>
-		
-		
-	    <div id="<%= escaped_name %>" class="keyword_label">
-	    	<%= '<span>' + k.name + '</span> ' + link_to_function('X', "$('#" + escaped_name + "').remove()") %>
-	       	<%= hidden_field_tag "#{@website.class.to_s.underscore}[website_url_names][]", k.name %>
-	    </div>
-	    <% end %>
+		<% escaped_name =  k.name.gsub(/[.|:| \/]/, '_')%>
+    <div id="<%= escaped_name %>" class="keyword_label">
+    	<%= '<span>' + k.name + '</span> ' + link_to_function('X', "$('#" + escaped_name + "').remove()") %>
+       	<%= hidden_field_tag "#{@website.class.to_s.underscore}[website_url_names][]", k.name %>
+    </div>
+	<% end %>
 	</div>
 	<%= error_message_on :website, :website_urls %>
 <% end %>
