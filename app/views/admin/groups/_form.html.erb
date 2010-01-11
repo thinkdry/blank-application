@@ -1,6 +1,4 @@
-<% @ws = @current_user.get_private_workspace if !@ws %>
 <% form_for_item @current_object, title do |f| -%>
-
       <% f.field :people, :label => " " do %>
         <input type="hidden" name="group_id" id="group_id" value="<%=@current_object.id%>">
           <div id="select_boxes">
@@ -8,39 +6,24 @@
             <div id="left_select_box">
               <div class="optionAssignmentLabel">
                  <%= I18n.t('group.field.available_people_label') %>
-                <select id="start_with" name="start_with" onchange="show_people();" >
+                <select id="start_with" name="start_with" onchange="show_people('<%=@workspace.id%>');" >
                   <option value="all"><%= I18n.t('general.common_word.all') %></option>
                   <% ('a'..'z').each do |alpha| %>
                     <option value="<%=alpha%>"><%= alpha.capitalize%></option>
                   <% end %>
                   <option value="0-9">0-9</option>
                 </select>
-                <script type='text/javascript'>
-                  function show_people(){
-                    new Ajax.Request('/admin/workspaces/<%= @ws.id %>/groups/filtering_contacts/?start_with='+$('start_with').value+'&group_id='+$('group_id').value, {method: "get" ,asynchronous:true, evalScripts:true})
-                  }
-                </script>
               </div>
               <select name="assignedPeople" id="assignedOptions" size="5" multiple class="theatreSelection" >
                 <% for mem in @remaining_members %>
                   <%= content_tag(:option, mem['email'], :value => mem['id'].to_s) %>
                 <% end %>
               </select>
-                <button class="smallSubmit sendAll" 
-						onclick="selectAll($('assignedOptions'),'assignedOptions')" >
-						<span><%= I18n.t('general.common_word.select_all') %></span>
-				</button>
-              <script type="text/javascript" charset="utf-8">
-                function selectAll(chkObj,id){
-                  var multi=document.getElementById(id);
-                  if(chkObj)
-                    for(i=0;i<multi.options.length;i++)
-                      multi.options[i].selected=true;
-                  else
-                    for(i=0;i<multi.options.length;i++)
-                      multi.options[i].selected=false;
-                }
-              </script>
+              <!--
+              <input type='button' class="smallSubmit sendAll" onclick="selectAll($('#assignedOptions'),'assignedOptions')" />
+              <span><%= I18n.t('general.common_word.select_all') %></span>
+              -->
+              <input type='button' onclick="selectAll($('#assignedOptions'),'assignedOptions')" value="<%= I18n.t('general.common_word.select_all') %>" style="width:100px" >
             </div>
             <div id="left_right_buttons">
 
@@ -55,11 +38,11 @@
               <%= content_tag(:option, mem['email'], :value => mem['id'].to_s) %>
             <% end %>
           </select>
-            <button type="button" 
-					class="smallSubmit sendAll" 
-					onclick="selectAll($('availableOptions'),'availableOptions')">
-				<span><%= I18n.t('general.common_word.select_all') %></span>
-			</button>
+          <!--
+            <input type="button" class="smallSubmit sendAll" onclick="selectAll($('#availableOptions'),'availableOptions')" />
+				      <span><%= I18n.t('general.common_word.select_all') %></span>
+				  -->
+				    <input type="button" onclick="selectAll($('#availableOptions'),'availableOptions')" value="<%= I18n.t('general.common_word.select_all') %>" style="width:100px"/>
         </div>
       </div>
     <% end %>

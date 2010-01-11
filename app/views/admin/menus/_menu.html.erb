@@ -1,0 +1,17 @@
+ <% if menus %>
+ <ul id='menus' class="menu">
+    <% for menu in menus.roots -%>
+       <% content_tag_for :li, menu do %>
+         <%= h(menu.name) %>
+         <%= link_to_remote "<b>Add Child</b> ", :url => new_admin_website_menu_path(@website.id, :parent_id => menu.id ), :method => :get %> |
+         <%= link_to_remote "<b> Edit</b>", :url => edit_admin_website_menu_path(@website.id, menu.id ), :method => :get %> |
+         <%= link_to_remote "<b> Remove </b>", :url => admin_website_menu_path(@website.id, menu.id), :method => :delete %>
+       <% end %>
+       <% if menu.children -%>
+        <%= render :partial => 'child', :locals => {:menu => menu} %>
+       <% end %>
+    <% end -%>
+</ul>
+<%#= sortable_element("menus" %>
+<% end %>
+

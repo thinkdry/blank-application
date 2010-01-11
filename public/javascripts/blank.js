@@ -420,10 +420,10 @@ function add_new_user(url){
 
 }
 
-function show_people(workspace_id){
+function show_people(container_id){
     var start_with = $('#start_with').val();
     var group_id = $('#group_id').val();
-    var url = "/admin/workspaces/"+workspace_id+"/groups/filtering_contacts/";
+    var url = "/admin/workspaces/"+container_id+"/groups/filtering_contacts/";
     $.ajax({
         type: 'GET',
         url: url,

@@ -1,3 +1,9 @@
+<% content_for :container_actions do %>
+  <% if @current_object.has_permission_for?('edit', @current_user, current_container_type) %>
+    <%= link_to I18n.t('general.link.edit'), edit_container_path(current_container)  %>&nbsp;|
+  <% end %>
+  <%= link_to 'Menu Manager', admin_website_menus_path(current_container)  %>
+<% end %>
 <% container_show( :title => "#{@current_object.class.to_s}",  :object => @current_object ) do %>
   State : <%= @current_object.website_state %><br />
   Webmaster Contact : <%= @current_object.contact_email %><br />
