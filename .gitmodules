@@ -1,0 +1,3 @@
+[submodule "vendor/plugins/ba-extension_translator"]
+	path = vendor/plugins/ba-extension_translator
+	url = git@forge.thinkdry.com:/home/git/ba-extension_translator

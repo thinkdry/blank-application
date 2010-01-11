@@ -1,14 +1,33 @@
 <% if menu.children %>
-  <ul id="submenu_<%=menu.id%>">
-    <% for child in menu.children -%>
-      <li><%=h(child.name) %>&nbsp;
-        <%= link_to_remote "<b> Add Child </b>", :url => new_admin_website_menu_path(@website.id, :parent_id => child.id ), :method => :get %> |
-        <%= link_to_remote "<b> Edit </b>", :url => edit_admin_website_menu_path(@website.id, child.id ), :method => :get %> |
-        <%= link_to_remote "<b> Remove </b>", :url => admin_website_menu_path(@website.id, child.id ), :method => :delete %>
-      </li>
-      <%= render :partial => 'child', :locals => {:menu => child} %>
-    <% end -%>
-  </ul>
-  <%#= sortable_element("submenu_#{menu.id}") %>
+  	<ul id="submenu_<%=menu.id%>">
+    	<% for child in menu.children -%>
+      		<li>
+				<p><%=h(child.name) %></p>
+        		<%= link_to "Add Child", 
+							new_admin_website_menu_path(@website.id, :parent_id => child.id ), 
+							:class => "add_sub_menu" %> |
+        		
+				<%= link_to "Edit", 
+							edit_admin_website_menu_path(@website.id, child.id ), 
+							:class => "add_sub_menu" %> |
+        		
+				<%= link_to I18n.t('general.link.delete'), 
+							"javascript:;", 
+							:class => "deleteLink",
+							:modal_id => "#modalDelete_#{child.id.to_s}"%>	
+
+				<div style="display:none">
+					<div id="modalDelete_<%=child.id.to_s%>" class="modalDelete">
+						<p><%= I18n.t('item.destroy.delete_conform')%></p>
+						<%= link_to_remote I18n.t('general.common_word.yes1'), 
+									:url => admin_website_menu_path(@website.id, child.id ), 
+									:method => :delete%> | 
+						<%= link_to I18n.t('general.common_word.no1'), "javascript:;", :class => "deleteClose" %>
+					</div>
+				</div>
+      		</li>
+      		<%= render :partial => 'child', :locals => {:menu => child} %>
+    	<% end -%>
+	</ul>
 <% end %>
 

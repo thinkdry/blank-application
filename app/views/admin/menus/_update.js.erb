@@ -1,0 +1,5 @@
+$('#menu_generator').html("<%= escape_javascript(render :partial => 'menu', :locals => { :menus => @menus })%>");
+$('#notice').showMessage('<%=flash[:notice]%>', 2000);
+$.fn.colorbox.close();
+$('#add_level_one_menu').colorbox({width:"650px"});
+$('.add_sub_menu').colorbox({width:"650px"});
