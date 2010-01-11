@@ -26,6 +26,8 @@ class Workspace < ActiveRecord::Base
 
 	acts_as_container
 
+  validates_presence_of :body
+
   has_many :contacts_workspaces,:dependent => :destroy
 
   #has_many :groups, :dependent => :delete_all
