@@ -124,7 +124,7 @@ $(document).ready(function () {
 		$(this).nextAll('.ajax_hint_message').css('display','inline');
 	});
 	$(".formElement input").blur( function(){
-		if ($(this).attr("noHint") == ""){
+		if ($(this).attr("noHint") == null){
 			$(this).displayHintForField();
 		}
 	});
