@@ -1,4 +1,4 @@
 $('#comment_list').html("<%= escape_javascript(print_comments_part(@parent_item))%>");
-$('#notice').html("<%= @notice%>");
+$('#notice').showMessage('<%=flash[:notice]%>', 2000);
 $.fn.colorbox.close();
 $('#reply_box').val("");

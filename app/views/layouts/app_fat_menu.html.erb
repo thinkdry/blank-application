@@ -55,15 +55,13 @@
             <img src="/images/ajax-spinner.gif" alt="loading" />
         </div>
         
-		<div id="messsagesContainers">
 			<%= content_tag(:div, flash[:notice], :class => 'notice', :id => 'notice', :style => "#{'display:none' unless flash[:notice]}") %>
 			<% if flash[:error] %><div id="error" class="error">
 			<% else %><div id="error" class="error" style="display:none"><%end%>
 				 <%= flash[:error]%>
-			<a href="#" id="error_closing">X</a>
+			<a href="#" id="error_closing">Close</a>
 			</div>
             <%= content_tag(:div, flash[:warning], :class => 'warning', :id => 'warning', :style => "#{'display:none' unless flash[:warning]}") %>
-		</div>
 	
         <div id="page_container">
             <div id="header">

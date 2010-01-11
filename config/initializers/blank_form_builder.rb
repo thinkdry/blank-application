@@ -24,6 +24,7 @@ module ActionView::Base::CompiledTemplates
       else
         code_for_fck += '<input type="hidden" value="/admin/ajax_workspace_save/' + @object.class.to_s.underscore.pluralize + '/" id="ajax_save_url"/>'
       end
+      
       code_for_fck += '<input type="hidden" value="' + @object.id.to_s + '" id="item_id"/>'
       code_for_fck += '<div class="ckUploader">Upload/insert : '
       code_for_fck += '<a href="/admin/ck_display/tabs/pictures" id="fck_insert_image">Picture</a> | '

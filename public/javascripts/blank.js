@@ -61,10 +61,9 @@ $(document).ready(function () {
                 url :url,
                 data: "rated="+value,
                 success: function(){
-                    $('input').rating('readOnly',true)
-                    $('#notice').html("Your Rating Has Been Registered");
-                    $('#notice').css('display', 'block');
-					$('#notice').animate({opacity: 1}, 3000, function(){$(this).fadeOut('fast')});
+                    $('input').rating('readOnly',true);
+					//TODO translate
+					$('#notice').showMessage("Your Rating Has Been Registered", 1500);
                 }
             });
         }
@@ -111,8 +110,8 @@ $(document).ready(function () {
               	url :url,
               	data: datas,
               	success: function(){
-                  	$('#notice').html("Your update has been registered");
-                  	$('#notice').css('display', 'block').fade(10000);
+					//TODO translate
+					$('#notice').showMessage("Your update has been registered", 2000)
               	} 
 			});   
 	  });
@@ -125,17 +124,19 @@ $(document).ready(function () {
 		$(this).nextAll('.ajax_hint_message').css('display','inline');
 	});
 	$(".formElement input").blur( function(){
-		$(this).displayHintForField();
+		if ($(this).attr("noHint") == null){
+			$(this).displayHintForField();
+		}
 	});
 	
 	$(".formElement textarea").blur( function(){
 		$(this).displayHintForField();
 	});
 	
-  	$('#messsagesContainers').animate({
-  	         opacity: 1}, 3000, function(){
-  	      		$(this).fadeOut('fast')
-  		});
+  	$('#notice').animate({
+  		opacity: 1}, 3000, function(){
+  	    	$(this).fadeOut('fast')
+  	});
 	
 	$('#error_closing').live('click', function(){
 		$('#error').fadeOut('fast');
@@ -252,6 +253,12 @@ $(document).ready(function () {
 			}
 		});
 	});
+	
+	$('#website_tabs').tabs();
+	
+	$('#add_website_url').click(function(){
+		$(this).insert_field('website', '#website_url_names_list', 'website_url_names');
+	})
 
 	// ************************************************************
 	// When keyword field got focus, submit is disable, user can add
@@ -292,15 +299,21 @@ function ajaxSaveOfFCKContent(){
 	        url: url + itemId,
 			data: 'content=' + escape(body),
 	        success: function(html){
-				alert ('save ok');
+				$('#notice').showMessage(html, 1500);
 	        }
 	    });
 	}
 	else {
-		alert('save first');
+		//TODO translate
+		$('#notice').showMessage("Save the whole article first", 1500);
 	}
 }
 
+jQuery.fn.showMessage = function(message, delay){
+	$('#notice').html(message);
+	$('#notice').css('display', 'block');
+	$('#notice').animate({opacity: 1}, delay, function(){$(this).fadeOut('fast')});
+}
 
 jQuery.fn.displayHintForField = function(){
 	//hide the hint message
@@ -381,25 +394,6 @@ function classify_bar(url) {
     });
 }
 
-//display the good tiem in a item list, google way of displaying.
-function toggleAccordion(idClicked){
-    var items_length = document.getElementById("total_items").value;
-    for (var i=0 ; i < items_length ; ++i){
-        var item_element = document.getElementById("itemInformations_"+i);
-        if ("itemInformations_"+i != idClicked){
-            item_element.style.display = 'none';
-            item_element.parentNode.className = 'item_in_list';
-        }else{
-            if(item_element.style.display == 'none'){
-                item_element.style.display = '';
-                item_element.parentNode.className = 'selected_item_in_list';
-            }else{
-                item_element.style.display = 'none';
-                item_element.parentNode.className = 'item_in_list';
-            }
-        }
-    }
-}
 
 function add_new_user(url){
     var user_login = $('#user_login').val();
@@ -410,10 +404,14 @@ function add_new_user(url){
                 type: 'GET',
                 url: url,
                 data: "user_login="+user_login+"&role_id=" + role_id,
-                dataType: "script"
+                dataType: "script",
+				success:function(html){
+					$('#notice').showMessage("User Not existing", 1500);
+				}
             });
         }else{
-            alert("Existing");
+			//TODO translate
+            $('#warning').showMessage("User is already existing", 1500);
         }
         $('#user_login').val('');
     }
@@ -442,20 +440,6 @@ function selectAll(chkObj,id){
             multi.options[i].selected=false;
 }
 
-function selectItemTab(idSelected){
-		
-    // get the tabs links on witch we should change the class
-    var tabsElements = document.getElementById('tabs').getElementsByTagName('li');
-		
-    for (var i = 0 ; i < tabsElements.length ; ++i){
-        if (tabsElements[i].id == idSelected){
-            tabsElements[i].className = 'selected';
-        }
-        else{
-            tabsElements[i].className = '';
-        }
-    }
-}
 
 function insert_keyword(model_name, place, field_name){
     var name = $('#keyword_value').val();
@@ -464,28 +448,31 @@ function insert_keyword(model_name, place, field_name){
         var name = key_words[i].replace(/(^\s+|\s+$)/g, "");
         if(name != 0 && name.length == (name.replace(/<(\S+).*>(|.*)<\/(\S+).*>|<%(.*)%>|<%=(.*)%>+/g, "")).length){
             var hidden_field = "<input type='hidden' id='"+model_name+"_"+field_name+"' value='"+name+"' name='"+model_name+"["+field_name+"][]'>";
-            $(place).append("<div id='"+name+"_000' class='keyword_label'>"+hidden_field+name+"<a href='#' onclick='$(\"#" + name + "_000\").remove(); return false;'>X</a></div>")
+            $(place).append("<div id='"+name+"' class='keyword_label'><span>"+hidden_field+name+"</span><a href='#' onclick='$(\"#" + name + "\").remove(); return false;'>X</a></div>")
         }
         $('#keyword_value').val('');
 		$('#keyword_value').focus();
     }
 }
 
-function insert_field(model_name, place, field_name){
+jQuery.fn.insert_field = function(model_name, place, field_name){
     var name = $('#website_url_name_value').val();
+	var escapedName = name.replace(/\./g, "_");
     var field_values = name.split(',');
     for(var i=0; i < field_values.length; i++){
         var name = field_values[i].replace(/(^\s+|\s+$)/g, "");
         if(name != 0 && name.length == (name.replace(/<(\S+).*>(|.*)<\/(\S+).*>|<%(.*)%>|<%=(.*)%>+/g, "")).length){
-            var hidden_field = "<input type='hidden' id='"+model_name+"_"+field_name+"' value='"+name+"' name='"+model_name+"["+field_name+"][]'>";
-            $(place).append("<div id='"+name+"_000' class='keyword_label'>"+hidden_field+name+"<a href='#' onclick='$(\"#" + name + "_000\").remove(); return false;'>X</a></div>")
+            var hidden_field = '<input type="hidden" id="'+model_name+'_'+field_name+'" value="'+name+'" name="'+model_name+'['+field_name+'][]"/>';
+
+			var siteUrlField = '<div id="' + escapedName + '" class="keyword_label"><span>' + hidden_field + name + '</span>';
+			siteUrlField += '<a href="javascript:;" onclick="$(\'#' + escapedName + '\').remove();">X</a></div>';
+			
+            $(place).append(siteUrlField);
         }
         $('#website_url_name_value').val('');
 		$('#website_url_name_value').focus();
     }
 }
-
-
 
 // to move option value from one select box to another select box
 function shiftRight(removeOptions,addOptions,saveFlag)

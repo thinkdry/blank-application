@@ -1,8 +1,7 @@
 <%h content_for :title, "#{current_container.class.to_s}: " + current_container.title %>
 <div class="workspaceHeader">
     <div class="workspaceLogo">
-<%#= link_to image_tag(current_container.logo.url(:medium), :width => "150"), admin_workspace_path(current_container) %>
-		<%= image_tag @current_object.logo.url, :width => "150"%>
+		<%= image_tag @current_object.logo.url(:medium)%>
     </div>
 
     <div class="workspaceInfos">
@@ -15,7 +14,6 @@
             <%=yield(:container_actions) %>
         </div>
         <div class="description"><%= @current_object.description %></div>
-        <div class="logo"><%= link_to (image_tag @current_object.logo.url(:medium)), @current_object.logo.url %></div>
         <%= capture(&block) %>
         <% if @current_object.state == 'Public' || @current_object.state == 'mi_public' %>
             <br />

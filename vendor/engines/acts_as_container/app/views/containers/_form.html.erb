@@ -3,19 +3,19 @@
     <div class="itemShowLeft">
         <div class="itemShowLeftBody">
             <h2><%= title %></h2>
+			<div class="formContainer">
+	            <%= f.text_field 	:title,
+	              :label => I18n.t('workspace.field.title_label')+" * : ",
+	              :hint => I18n.t('item.field.title_hint') %>
 
-            <%= f.text_field 	:title,
-              :label => I18n.t('workspace.field.title_label')+" * : ",
-              :hint => I18n.t('item.field.title_hint') %>
-
-            <% f.field :logo, :label => I18n.t("#{@current_object.label_name}.field.logo_label") + " :" do %>
-                <%= file_field "#{@current_object.label_name}", 'logo', :class => 'file' %>
-            <% end %>
+	            <% f.field :logo, :label => I18n.t("#{@current_object.label_name}.field.logo_label") + " :" do %>
+	                <%= file_field "#{@current_object.label_name}", 'logo', :class => 'file' %>
+	            <% end %>
             
-            <% #Accept Container Specific Fields %>
-            <%= capture(f, &block) %>
-
-            <%= f.advanced_editor :description, :label => I18n.t('workspace.field.description_label') +' : ' %>
+	            <% #Accept Container Specific Fields %>
+	            <%= capture(f, &block) %>
+			</div>
+			
 
             <div class="blockElement">
                 <div class="blockCornerLeft"></div>

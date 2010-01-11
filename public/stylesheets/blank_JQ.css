@@ -68,16 +68,18 @@ h4 {
 	background: #000 url(/images/icons/delete.png) no-repeat scroll 40px 50%;
 }
 
-#error a{
-	float:right;margin-top:-15px;color:#FFF;
+.warning {
+	background: #000 url(/images/icons/warning.png) no-repeat scroll 40px 50%;
 }
 
-#messsagesContainers{
+
+#error_closing{
+	position:fixed; top:10px; right:10px;color:#FFF;
+}
+
+.notice, .error{
 	position:fixed;left:0;top:0px;
-	opacity:0.8;
-	filter : alpha(opacity=80);
 	width:100%;
-	background: transparent ;
 }
 
 .error, .notice{
@@ -413,14 +415,14 @@ form input{
 	overflow:hidden;
 	width:178px;
 }
-#addKeyword input, #new_follower_email, #searchInputFooter{
+#addKeyword input, #new_follower_email, #searchInputFooter, #addWebSiteUrl input{
 	background:#fff url('/images/fieldWithInner.gif') no-repeat scroll 0 0;
 	border:medium none;
 	height:17px; width:142px;
 	overflow:hidden;
 	padding:8px 2px 5px 8px;
 }
-#addKeyword a, .addExceptionFollower, .launchSearchFooter{	
+#addKeyword a, .addExceptionFollower, .launchSearchFooter, #addWebSiteUrl a{	
 	display:block;float:left;
 	width:26px;height:30px;margin:0;
 	background:#fff url('/images/submitHalfRoundBtn.gif');
@@ -428,6 +430,12 @@ form input{
 #addKeyword a:hover{
 	background-color:none;
 }	
+
+.addedInformation{clear:both;overflow:hidden;margin-top:10px;}
+#website_url_names_list{width:429px;}
+.fileList{width:429px;}
+.fileList .keyword_label span a{border:none!important;}
+#addWebSiteUrl{overflow:hidden;width:450px;}
 
 .inputSimulation{margin-top:15px;}
 .smallInput{width:200px;}
@@ -448,8 +456,6 @@ form input{
 }
 
 .checkboxes .private{display:none;}
-
-
 
 .alone{ display:block; margin-top:25px;}
 
@@ -481,6 +487,8 @@ form input{
 
 #languageConfiguration {margin-top:25px;}
 
+.formWithOverflow{overflow:hidden;}
+
 /*		KEYWORDS	*/	
 .keyword_label{
 	background:#E5E5E5;
@@ -489,6 +497,7 @@ form input{
 	padding:2px 0;
 	overflow:hidden;
 	float:left;
+	display:block;
 }
 .keyword_label span{color:#666; padding:0 5px 0 10px;float:left;display:block;}
 
@@ -711,6 +720,10 @@ a.filter{
 	padding:25px 0;
 }
 
+#group_members ul{
+	margin-left:25px;
+}
+
 /*		BLOCS			*/
 		
 .blockCornerLeft{float:left;background:#fff url('/images/topCornerLeft.gif') no-repeat; width:10px;height:33px;}
@@ -737,6 +750,7 @@ a.filter{
 .blockElement{
 	margin-top:50px;
 	overflow:hidden;
+	clear:both;
 }
 
 .blockElementBody{
@@ -751,7 +765,7 @@ a.filter{
 	padding:25px 10px !important;
 }
 
-.rightBlocks{overflow:hidden;}
+.rightBlocks{overflow:hidden;float:right;}
 
 /*		COMMENTS		*/
 		
@@ -840,6 +854,19 @@ a.filter{
     float:left;
 	overflow:visible;
 }
+.formContainer{overflow:hidden;}
+
+#website_tabs ul{
+	clear:both;
+	list-style:none;
+	padding-top:50px;
+	padding-left:10px;
+	font-size:120%;
+}
+#website_tabs ul li {display:inline;}
+#website_tabs .blockElement{margin-top:0px;}
+#website_tabs .ui-tabs-selected a {color:#F79646;}
+.blockElementBody label {width:120px !important;}
 
 /*		USERS			*/
 .wsList{list-style:none;padding-left:10px;}

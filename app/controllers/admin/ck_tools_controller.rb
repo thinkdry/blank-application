@@ -11,9 +11,9 @@ class Admin::CkToolsController < Admin::ApplicationController
   	config_file += "config.uiColor = '#e6e6e6';"
   	config_file += "config.toolbar = 'BlankToolbar';"
     config_file += "config.height = '400';"
-  	config_file += "config.width = '620';"
-  	config_file += "config.resize_maxWidth = 608;"
-  	config_file += "config.resize_minWidth = 608;"
+  	config_file += "config.width = '632';"
+  	config_file += "config.resize_maxWidth = 620;"
+  	config_file += "config.resize_minWidth = 620;"
   	config_file += "config.toolbarCanCollapse = false;"   
 
   	config_file += "config.toolbar_BlankToolbar = ["
@@ -58,11 +58,11 @@ class Admin::CkToolsController < Admin::ApplicationController
           when "audio"
             message = upload_audio(uploaded_item)
           else
-            message = "no type available"
+            render :text => '<script type="text/javascript">$(\'#notice\').showMessage("no type available", 1500);</script>'
         end
       
       else
-        message = 'error while saving'
+        render :text => '<script type="text/javascript">$(\'#notice\').showMessage("error while saving", 1500);</script>'
       end
       
       render :text => message
@@ -70,7 +70,7 @@ class Admin::CkToolsController < Admin::ApplicationController
     rescue Exception => e
       logger.error(e.to_s + "\n" + e.backtrace.collect { |trace|' ' + trace + "\n" }.to_s)
       #TODO -> display error in notice on top (or error in fck erorrs) 
-      render :text => "<script type='text/javascript'>window.parent.itemUploadComplete('error during transfert');</script>", :layout => false
+      render :text => '<script type="text/javascript">$(\'#notice\').showMessage("error during transfert", 1500);</script>', :layout => false
     end
   end
   
@@ -82,12 +82,12 @@ class Admin::CkToolsController < Admin::ApplicationController
     #TODO translate & DOC
     @current_object = params[:item_type].classify.constantize.find(params[:id])
 		if @current_object.update_attribute("body", params[:content])
-		  message = "ok"
+		  message = "Saved"
 		else
-		  message = "unable to save"
+		  message = "Unable to save"
 		end
 		
-		render :text => message
+		render :text => message, :layout => false
   end
   
   def ajax_workspace_save
@@ -100,7 +100,7 @@ class Admin::CkToolsController < Admin::ApplicationController
   	  message = "unable to save"
   	end
 
-  	render :text => message
+  	render :text => '<script type="text/javascript">$(\'#notice\').showMessage("#{message}", 1500);</script>', :layout => false
   end
   
   protected
