@@ -73,7 +73,7 @@ $(document).ready(function () {
 	// Translation ajax update
 	$('.translation_field').live("dblclick", function(){
 		section=$(this).attr("id").split('_');
-	 	datas = "id=" + section[1] + "&section=" + $('#translation_dropdown').val() + "&subsection=" + $('#translation_' + section[1] + "_subsection").val() + "&key=" + $('#translation_' + section[1] + "_key").val() + "&value=" + $('#translation_' + section[1] + "_value").val();
+	 	datas = "id=" + section[1] + "&section=" + $('#translation_' + section[1] + "_section").val() + "&subsection=" + $('#translation_' + section[1] + "_subsection").val() + "&key=" + $('#translation_' + section[1] + "_key").val() + "&value=" + $('#translation_' + section[1] + "_value").val();
 		url= "/superadmin/translations/updating";       
           	$.ajax({
             	type: "PUT",
