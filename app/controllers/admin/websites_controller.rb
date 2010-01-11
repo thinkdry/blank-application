@@ -21,6 +21,10 @@ class Admin::WebsitesController < Admin::ApplicationController
       @pages = current_user.private_workspace.pages
     end
     
+    before :update do
+      params[:website][:website_url_names] ||= []
+    end
+    
     after :update do
       if params[:website_files]
         @current_object.update_website_resource(params[:website_files])

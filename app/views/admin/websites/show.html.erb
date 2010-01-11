@@ -8,4 +8,5 @@
   Body Size : <%= @current_object.body_size %><br />
   Layout : <%= @current_object.layout_file_name %><br />
   Sitemap : <%= @current_object.sitemap_file_name %><br />
+  Website Urls : <%= current_object.website_urls.collect{|w| 'http://' + w.name }.join(' ,') %>
 <% end %>
