@@ -456,8 +456,6 @@ form input{
 
 .checkboxes .private{display:none;}
 
-
-
 .alone{ display:block; margin-top:25px;}
 
 .centerButton{clear:both;overflow:hidden;}
@@ -487,6 +485,8 @@ form input{
 .sendAll{margin-top:5px;}
 
 #languageConfiguration {margin-top:25px;}
+
+.formWithOverflow{overflow:hidden;}
 
 /*		KEYWORDS	*/	
 .keyword_label{
@@ -716,6 +716,10 @@ a.filter{
 .description{
 	font-size:80%;
 	padding:25px 0;
+}
+
+#group_members ul{
+	margin-left:25px;
 }
 
 /*		BLOCS			*/
