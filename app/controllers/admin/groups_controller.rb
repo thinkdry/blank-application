@@ -55,12 +55,10 @@ class Admin::GroupsController < Admin::ApplicationController
 	protected
 
 	def get_contacts_lists
-		@ws = current_workspace || @current_object.workspace_id || @current_object.workspaces.first
+		@workspace = @current_user.private_workspace
 		selected_contacts = @current_object.groupings.map{ |e| e.contacts_workspace }.uniq
-		remaining_contacts = @ws ? (@ws.contacts_workspaces.to_a - selected_contacts) : []
-		#raise selected_contacts.inspect
+		remaining_contacts = @workspace ? (@workspace.contacts_workspaces.to_a - selected_contacts) : []
 		@selected_members = selected_contacts.map{ |e| e.to_group_member(@current_user.id) } || []
-		#raise @selected_members.inspect+'===='+@remaining_members.inspect
 		@remaining_members = remaining_contacts.map{ |e| e.to_group_member(@current_user.id) } || []
 	end
 

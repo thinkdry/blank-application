@@ -10,7 +10,7 @@ module Yacaph
    DefaultParameters = {
       :image_width    => 260,
       :image_height   => 50,
-      :captcha_length => 5
+      :captcha_length => 6
    }
    
    def self.encrypt_string(filename)

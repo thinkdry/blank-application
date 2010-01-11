@@ -1,5 +1,4 @@
 <%h content_for :title, "#{current_container.class.to_s}: " + current_container.title %>
-
 <div class="workspaceHeader">
     <div class="workspaceLogo">
 		<%= image_tag @current_object.logo.url(:medium)%>
@@ -10,32 +9,10 @@
         <h2><%=  @current_object.title %></h2>
         <div class="workspaceActions">
             <% if @current_object.has_permission_for?('edit', @current_user, current_container_type) %>
-                <%= link_to I18n.t('general.link.edit'), edit_container_path(current_container)  %>&nbsp;|
+               <%= link_to I18n.t('general.link.edit'), edit_container_path(current_container)  %>&nbsp;|
             <% end %>
-            <% if current_container.class.to_s == 'Workspace' %>
-                <% if @current_object.has_permission_for?('contacts_management', @current_user, current_container_type) %>
-                    <%= link_to(I18n.t('workspace.show.manage_contacts'),
-                        list_admin_workspace_workspace_contacts_path(current_container.id))%> &nbsp;|
-                <% end %>
-                <% if ContactsWorkspace.exists?(:workspace_id => @current_object.id,
-                        :contactable_type => 'User',
-                        :contactable_id => @current_user.id) %>
-                    <%= link_to(I18n.t('workspace.show.unsubscribe_to_newsletter'),
-                        subscribe_admin_workspace_workspace_contacts_path(@workspace.id)+'?remove=yes')%>&nbsp;|
-                <% else %>
-                    <%= link_to(I18n.t('workspace.show.subscribe_to_newsletter'),
-                        subscribe_admin_workspace_workspace_contacts_path(current_container.id))%>&nbsp;|
-                <% end %>
-            <% end %>
-            <% if UsersContainer.exists?(:user_id => @current_user.id, :containerable_id => current_container.id, :containerable_type => current_container.class.to_s) %>
-                <%= link_to(I18n.t('workspace.show.leave_workspace'),
-                    unsubscription_admin_workspace_path(current_container.id)) %>&nbsp;|
-            <% elsif @current_object.state == 'Public' %>
-                <%= link_to(I18n.t('workspace.show.join_workspace'),
-                    subscription_admin_workspace_path(current_container.id)) %>&nbsp;|
-            <% end %>
+            <%=yield(:container_actions) %>
         </div>
-
         <div class="description"><%= @current_object.description %></div>
         <%= capture(&block) %>
         <% if @current_object.state == 'Public' || @current_object.state == 'mi_public' %>

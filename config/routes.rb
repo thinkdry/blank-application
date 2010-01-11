@@ -132,6 +132,9 @@ ActionController::Routing::Routes.draw do |map|
           con.resources :people, :collection => { :export_people => :any, :import_people => :any, :get_empty_csv => :get, :validate => :post ,:filter => :get }
           con.resources :workspace_contacts, :as => 'contacts', :except => :all, :collection => { :select => [:post, :get], :list => [:post, :get], :subscribe => :get}
         end
+        if container == 'website'
+          con.resources :menus
+        end
       end
     end
 

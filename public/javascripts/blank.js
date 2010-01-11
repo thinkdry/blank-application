@@ -388,10 +388,10 @@ function add_new_user(url){
 
 }
 
-function show_people(workspace_id){
+function show_people(container_id){
     var start_with = $('#start_with').val();
     var group_id = $('#group_id').val();
-    var url = "/admin/workspaces/"+workspace_id+"/groups/filtering_contacts/";
+    var url = "/admin/workspaces/"+container_id+"/groups/filtering_contacts/";
     $.ajax({
         type: 'GET',
         url: url,
@@ -428,6 +428,8 @@ function insert_keyword(model_name, place, field_name){
 jQuery.fn.insert_field = function(model_name, place, field_name){
     var name = $('#website_url_name_value').val();
 	var escapedName = name.replace(/\./g, "_");
+	escapedName = escapedName.replace(/:/g, "_");
+	escapedName = escapedName.replace(/\//g, "_");
     var field_values = name.split(',');
     for(var i=0; i < field_values.length; i++){
         var name = field_values[i].replace(/(^\s+|\s+$)/g, "");
@@ -465,6 +467,22 @@ function shiftRight(removeOptions,addOptions,saveFlag)
 
     document.getElementById('selected_Options').value = selcted_Options
 }
+
+function selectItemTab(idSelected){
+		
+    // get the tabs links on witch we should change the class
+    var tabsElements = document.getElementById('tabs').getElementsByTagName('li');
+		
+    for (var i = 0 ; i < tabsElements.length ; ++i){
+        if (tabsElements[i].id == idSelected){
+            tabsElements[i].className = 'selected';
+        }
+        else{
+            tabsElements[i].className = '';
+        }
+    }
+}
+
 function shiftLeft(removeOptions,addOptions,saveFlag)
 {
     var availableOptions = document.getElementById(removeOptions);

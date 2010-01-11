@@ -1,3 +1,5 @@
 <% form_for_container @current_object, title do |f| -%>
+  <%= f.advanced_editor :body,
+      :label => I18n.t('workspace.field.description_label') +'* : ' %>
 <% end -%>
 

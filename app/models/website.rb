@@ -4,6 +4,8 @@ class Website < ActiveRecord::Base
   
   has_many :website_urls, :dependent => :delete_all
   
+  has_many :menus, :order => "position"
+  
   # Favicon of the website
   has_attached_file :favicon,
                     :url =>  "/website_files/#{self.name}/favicon/:basename.:extension",

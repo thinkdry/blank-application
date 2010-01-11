@@ -1,0 +1,13 @@
+<div style="background-color:#F8F8F8;height:50px;padding-top:20px;">
+<% remote_form_for @menu,
+   :url => (@menu.new_record? ? (admin_website_menus_path(@website.id, :parent_id => @menu.parent_id)) : (admin_website_menu_path(@website.id, @menu.id))),
+   :method => (@menu.new_record? ? :post : :put) do |f|%>
+  <%= f.label "Name"%>
+  <%= f.text_field :name %>
+  <%= f.label "URL" %>
+  <%= f.select :url, [['No Link', '#']] + (@pages.collect {|p| [ p.title, p.title_sanitized ] } if @pages) %>
+  <%= f.submit "Submit"%>
+  <%= link_to_function "cancel", :onclick => "$('#menu_form').val() = '' " %>
+<% end %>
+</div>
+
