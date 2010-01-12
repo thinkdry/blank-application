@@ -118,7 +118,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.connect '/ck_config', :controller => 'ck_tools', :action => 'config_file'
     admin.connect '/ck_display/tabs/:tab_name', :controller => 'ck_tools', :action => "tabs"
     admin.connect '/ajax_item_save/:item_type/:id', :controller => 'ck_tools', :action => "ajax_item_save" 
-    admin.connect '/ajax_workspace_save/workspaces/:id', :controller => 'ck_tools', :action => "ajax_workspace_save"
+    admin.connect '/ajax_container_save/:container/:id', :controller => 'ck_tools', :action => "ajax_container_save"
 
     # Items created outside any workspace are private or fully public.
     # Items may be acceded by a list that gives all items the user can consult.

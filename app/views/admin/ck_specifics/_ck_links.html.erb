@@ -1,24 +1,20 @@
 	<div id="insert_link" class="fckLinkContent">
 		<h1>Links</h1>
 		<ul >
-			<% item_types_allowed_to(@current_user, 'show', current_workspace).each do |type| -%>
-				<% if type != 'video' && type != 'audio' && type != 'image'%>
-            	<li>
-	               	<%= link_to I18n.t('general.item.' + type), "#items_#{type}"%>
-	            </li>
-				<% end -%>
-           	<% end -%>
+			<% items = (item_types_allowed_to(@current_user, 'show', current_container) - %w{audio video image}).each do |type| -%>
+        	<li>
+             	<%= link_to I18n.t('general.item.' + type), "#items_#{type}"%>
+          </li>
+      <% end -%>
 		</ul>
 		
-		<% item_types_allowed_to(@current_user, 'show', current_workspace).each do |type| -%>
-			<% if type != 'video' && type != 'audio' && type != 'image'%>
+		<% items.each do |type| -%>
 			<div id="items_<%= type%>" class="item_list">
-			<% @current_user.get_items_of_type(type.pluralize).each do |item| %>			
-				<p><%= link_to item.title, 
-							"javascript:;", 
-							:itmUrl => item_path(item)%></p>
-			<%end%>
+			<% type.classify.constantize.matching_user_with_permission_in_containers(@current_user, 'show', @current_user.container_ids(current_container_type), current_container_type).each do |item| %>			
+				<p>
+				  <%= link_to item.title, "javascript:;", :itmUrl => item_path(item)%>
+				</p>
+			<% end %>
 			</div>
-			<% end -%>
 		<% end -%>
 	</div>

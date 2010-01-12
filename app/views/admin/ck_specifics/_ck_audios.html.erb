@@ -6,11 +6,13 @@
 				<li><a href="#upload_audio">Upload</a></li>
 			</ul>
 			<div id="insert_audio">
-				<div><% @current_user.get_items_of_type('audios').each do |audio| %>
-					<p><%= link_to audio.title, 
-								"javascript:;", 
-								:itmUrl => item_path(audio)%></p>
-				<%end%></div>	
+				<div>
+				<% current_objects.each do |audio| %>
+					<p>
+					  <%= link_to audio.title, "javascript:;", :itmUrl => item_path(audio)%>
+				  </p>
+				<% end %>
+				</div>	
 			</div>
 			<div id="upload_audio">
 				<p>Select a file to upload to the server. This file will be inserted as an Audio item in the applicaton</p>
