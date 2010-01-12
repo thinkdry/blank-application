@@ -98,19 +98,20 @@
 				        <br/><br/>
 				        <p><img src="/images/icons/exit.png" width="20px" style="margin-right:5px"/><%= link_to I18n.t('layout.application.logout'), admin_logout_path, :class => 'bigLink' %></p>
 			    	</div>
-
-			    	<div class="subMenuCol">
-						<h3>Superadmin</h3>
-			            <ul>
-							<li><%= link_to "Audits", superadmin_audits_path %></li>
-			                <li><%= link_to "General settings", superadmin_general_settings_path %></li>
-			                <li><%= link_to "User interface", superadmin_user_interfaces_path %></li>
-			                <li><%= link_to "Translations", superadmin_translations_path %></li>
-			                <li><%= link_to "Tasks", superadmin_tasks_path %></li>
-			                <li><%= link_to "Roles & permissions", superadmin_roles_path %></li>
-			                <li><%= link_to "Action Mailer settings", superadmin_mailer_settings_path %></li>
-			            </ul>
-					</div>
+            <% if @current_user.has_system_role('superadmin') %>
+			      	<div class="subMenuCol">
+						  <h3>Superadmin</h3>
+			              <ul>
+							  <li><%= link_to "Audits", superadmin_audits_path %></li>
+			                  <li><%= link_to "General settings", superadmin_general_settings_path %></li>
+			                  <li><%= link_to "User interface", superadmin_user_interfaces_path %></li>
+			                  <li><%= link_to "Translations", superadmin_translations_path %></li>
+			                  <li><%= link_to "Tasks", superadmin_tasks_path %></li>
+			                  <li><%= link_to "Roles & permissions", superadmin_roles_path %></li>
+			                  <li><%= link_to "Action Mailer settings", superadmin_mailer_settings_path %></li>
+			              </ul>
+					    </div>
+					  <% end %>
 				</div>
 			</div>
 			<div class="menuLabel"><%= I18n.t('layout.menu.configure') %></div>
