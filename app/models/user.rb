@@ -184,7 +184,7 @@ class User < ActiveRecord::Base
 		# Creation of the private workspace for the user
 		ws = Workspace.new(:title => "Archive for #{self.login}",
       :description => "Archive for #{self.login}",
-      :body => "Worksapce containing all the content created by #{self.full_name}"
+      :body => "Worksapce containing all the content created by #{self.full_name}",
       :creator_id => self.id,
       :available_items => get_configuration['sa_items'],
       :state => 'private')
