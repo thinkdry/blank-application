@@ -75,7 +75,10 @@ class Admin::CkToolsController < Admin::ApplicationController
   end
   
   def tabs
-    render :partial => "/admin/ck_specifics/ck_#{params[:tab_name]}"
+    if params[:tab_name] != 'links'
+      @current_objects = params[:tab_name].classify.constantize.matching_user_with_permission_in_containers(@current_user, 'show', [current_container.id], current_container_type)
+    end
+    render :partial => "/admin/ck_specifics/ck_#{params[:tab_name]}", :locals => {:current_objects => @current_objects}
   end
   
   def ajax_item_save
@@ -84,20 +87,18 @@ class Admin::CkToolsController < Admin::ApplicationController
 		if @current_object.update_attribute("body", params[:content])
 		  message = "Saved"
 		else
-		  message = "Unable to save"
+		  message = "Unable to Save"
 		end
 		
 		render :text => message, :layout => false
   end
   
-  def ajax_workspace_save
-    #TODO CONTAINER translate & DOC
-    @current_object = Workspace.find(params[:id])
-  	if @current_object.update_attribute("description", params[:content])
-  	#if current_workspace.update_attribute("description", params[:content])
-  	  message = "ok"
+  def ajax_container_save
+    @current_object = params[:container].classify.constantize.find(params[:id])
+  	if @current_object.update_attribute("body", params[:content])
+  	  message = "Saved"
   	else
-  	  message = "unable to save"
+  	  message = "Unable to Save"
   	end
 
   	render :text => '<script type="text/javascript">$(\'#notice\').showMessage("#{message}", 1500);</script>', :layout => false
@@ -107,7 +108,6 @@ class Admin::CkToolsController < Admin::ApplicationController
   
   def upload_image(object)
     img_tag = '<img src="' + object.image.url + '"/>'
-  
     return "<script type=\"text/javascript\">window.parent.itemUploadComplete('#{img_tag}');</script>"
   end
 
@@ -116,7 +116,6 @@ class Admin::CkToolsController < Admin::ApplicationController
 		vdo_tag += 'flashvars="&image=' + File.dirname(object.video.url)
 		vdo_tag += '/2.png&file=' + File.dirname(object.video.url)
 		vdo_tag += '/video.flv" allowfullscreen="true" allowscriptaccess="always" quality="high" src="/players/videoplayer.swf" type="application/x-shockwave-flash"/>'
-		
 		return "<script type=\"text/javascript\">window.parent.itemUploadComplete('#{vdo_tag}');</script>"
   end
   
@@ -124,7 +123,6 @@ class Admin::CkToolsController < Admin::ApplicationController
     audio_tag = '<embed allowfullscreen="true" allowscriptaccess="always" quality="high"'
 		audio_tag += ' flashvars="&playerID=1&soundFile=' + object.path_to_encoded_file
 		audio_tag += '" src="/players/audioplayer.swf" type="application/x-shockwave-flash"/>'
-  
 		return "<script type=\"text/javascript\">window.parent.itemUploadComplete('#{audio_tag}');</script>"
   end
 end

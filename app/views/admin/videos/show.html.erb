@@ -1,7 +1,7 @@
 <script type="text/javascript" src="/players/swfobject.js"></script>
 <% item_show( :title => I18n.t('video.field.video_label'),  :object => @current_object ) do %>
     <div id ="progress">
-        <% if @current_object.state=="encoded" %>
+        <% if @current_object.state == "encoded" %>
             <%= render :partial => "player", :object => @current_object %>
         <% else %>
             <%= render :partial => "status", :object => @current_object %>

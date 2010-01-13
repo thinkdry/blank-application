@@ -405,7 +405,7 @@ form input{
 }
 .errorForAdvancedEditor{
 	float:left;
-	padding-top:50px;
+	margin-left:10px;
 }
 
 #followers_email{

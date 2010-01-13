@@ -8,6 +8,7 @@ config/database_yml
 config/initializers/action_mailer.rb
 config/customs/sa_config.yml
 config/customs/action_mailer.yml
+config/customs/google_analytics.yml
 config/deploy.rb
 config/locales/old*.yml
 config/locales/

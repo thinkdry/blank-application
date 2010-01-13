@@ -450,6 +450,34 @@ jQuery.fn.insert_field = function(model_name, place, field_name){
     }
 }
 
+// Function to get encodig progress
+function get_encoding_progress(item_id,item_type){
+  var url = "/admin/"+item_type+"s/"+item_id+"/get_"+item_type+"_progress";
+  $.ajax({
+    type: "GET",
+    url: url,
+    data: "check=true",
+    success: function(response){
+      if(response == 'encoded'){
+	      $.ajax({
+	        type: "GET",
+	        url: url,
+	        data: "check=false",
+	        dataType: "script"
+	      });
+	    }else if(response == 'encoding_error'){
+	      $.ajax({
+	        type: "GET",
+	        url: url,
+	        data: "check=false&status=fail"
+	      });
+	    }else{
+	      get_encoding_progress(item_id,item_type);
+	    }
+    }
+  });
+}
+
 // to move option value from one select box to another select box
 function shiftRight(removeOptions,addOptions,saveFlag)
 {

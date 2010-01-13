@@ -1,0 +1,9 @@
+<h1><%= I18n.t('analytics.login.title') %></h1>
+<% form_tag workspace_analytics_path(@workspace.id), :method => :post do -%>
+  <label width="100"><%=I18n.t('analytics.login.username')%></label>
+  <%= text_field_tag 'login' %>
+  <label width="100"><%=I18n.t('analytics.login.password')%></label>
+  <%= password_field_tag 'password' %>
+  <div id="sub_but"><button type="submit" class="submit_button"><%=I18n.t('analytics.login.submit')%></button></div>
+<% end %>
+

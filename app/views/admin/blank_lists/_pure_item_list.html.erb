@@ -20,7 +20,7 @@
 				<div style="display:none">
 					<div id="modalDelete_<%=object.id.to_s%>" class="modalDelete">
 						<p><%= I18n.t('item.destroy.delete_conform')%></p>
-						<%= link_to I18n.t('general.common_word.yes1'), item_path(object), :method => :delete%> | 
+						<%= link_to I18n.t('general.common_word.yes1'), item_path(object), :method => :delete %> | 
 						<%= link_to I18n.t('general.common_word.no1'), "javascript:;", :class => "deleteClose" %>
 					</div>
 				</div>

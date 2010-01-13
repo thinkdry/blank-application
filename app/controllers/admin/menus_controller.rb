@@ -24,11 +24,8 @@ class Admin::MenusController < Admin::ApplicationController
       @menu.parent_id = params[:parent_id]
     end
     if @menu.save
-      
       @menus = @website.menus
-      
       flash[:notice] = 'Menu Item Created Sucessfully'
-      
       respond_to do |format|
         format.js {render :partial => '/admin/menus/update.js', :layout => false}
       end

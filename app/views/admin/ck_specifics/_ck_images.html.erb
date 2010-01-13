@@ -18,11 +18,11 @@
 					<option value="center">Center</option>
 				</select>
 			</p>
-			<div><% @current_user.get_items_of_type('images').each do |img| %>			
-				<%= link_to image_tag(img.image.url(:thumb)), 
-							"javascript:;", 
-							:picSrc => img.image.url%>
-			<%end%></div>
+			<div>
+			<% current_objects.each do |img| %>			
+				<%= link_to image_tag(img.image.url(:thumb)), "javascript:;", :picSrc => img.image.url%>
+			<% end %>
+			</div>
 		</div>
 		
 		<div id="upload_image">

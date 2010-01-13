@@ -57,8 +57,8 @@ module Authorizable
 				if ITEMS.include?(self.to_s.underscore)
 					named_scope :matching_user_with_permission_in_containers, lambda { |user, permission, container_ids, container|
 						# Check if these workspace are matching the really authorized ones, and set 'nil for all' condition
-						container_ids ||= container.classify.constantize.allowed_user_with_permission(user, self.to_s.underscore + '_' + permission, container).all(:select => "#{container.pluralize}.id").map{ |e| e.id }
-						container_ids = container_ids.map{|w_id| w_id.to_i} & container.classify.constantize.allowed_user_with_permission(user, self.to_s.underscore + '_' + permission, container).all(:select => "#{container.pluralize}.id").map{ |e| e.id }
+						container_ids ||= container.classify.constantize.allowed_user_with_permission(user, self.to_s.underscore + '_' + permission, container).all(:select => "#{container.pluralize}.id, #{container.pluralize}.title").map{ |e| e.id }
+						container_ids = container_ids.map{|w_id| w_id.to_i} & container.classify.constantize.allowed_user_with_permission(user, self.to_s.underscore + '_' + permission, container).all(:select => "#{container.pluralize}.id, #{container.pluralize}.title").map{ |e| e.id }
 						# So we can retrieve directly as the workspaces are checked, hihihi
 						if container_ids.first
 							{ :select => "DISTINCT #{self.to_s.underscore.pluralize}.*",
@@ -73,8 +73,8 @@ module Authorizable
 				elsif CONTAINERS.include?(self.to_s.underscore)
 					named_scope :matching_user_with_permission_in_containers, lambda { |user, permission, container_ids, container|
 						# Check if these workspace are matching the really authorized ones, and set 'nil for all' condition
-            container_ids ||= container.classify.constantize.allowed_user_with_permission(user, container + '_' + permission, container).all(:select => "#{container.pluralize}.id").map{ |e| e.id }
-						container_ids = container_ids.map{|w_id| w_id.to_i} & container.classify.constantize.allowed_user_with_permission(user, container+ '_' + permission, container).all(:select => "#{container.pluralize}.id").map{ |e| e.id }
+            container_ids ||= container.classify.constantize.allowed_user_with_permission(user, container + '_' + permission, container).all(:select => "#{container.pluralize}.id, #{container.pluralize}.title").map{ |e| e.id }
+						container_ids = container_ids.map{|w_id| w_id.to_i} & container.classify.constantize.allowed_user_with_permission(user, container+ '_' + permission, container).all(:select => "#{container.pluralize}.id, #{container.pluralize}.title").map{ |e| e.id }
             
 						# In case of system permission
 						if user.has_system_permission(container.pluralize, permission)
@@ -121,8 +121,8 @@ module Authorizable
 				elsif ['user'].include?(self.to_s.underscore)
 					named_scope :matching_user_with_permission_in_containers, lambda { |user, permission, container_ids, container|
 						# Check if these workspace are matching the really authorized ones, and set 'nil for all' condition
-						container_ids ||= container.classify.constantize.allowed_user_with_permission(user, self.to_s.underscore+'_'+permission, container).all(:select => "#{container.pluralize}.id").map{ |e| e.id }
-						container_ids = container_ids & container.classify.constantize.allowed_user_with_permission(user, self.to_s.underscore+'_'+permission, container).all(:select => "#{container.pluralize}.id").map{ |e| e.id }
+						container_ids ||= container.classify.constantize.allowed_user_with_permission(user, self.to_s.underscore+'_'+permission, container).all(:select => "#{container.pluralize}.id, #{container.pluralize}.title").map{ |e| e.id }
+						container_ids = container_ids & container.classify.constantize.allowed_user_with_permission(user, self.to_s.underscore+'_'+permission, container).all(:select => "#{container.pluralize}.id, #{container.pluralize}.title").map{ |e| e.id }
 						# In case of system permission
 						if user.has_system_permission(self.to_s.underscore.pluralize, permission)
 							{  }

@@ -5,6 +5,7 @@
                {'Basic' => 'basic', 'Contact' => 'contact', 'Gallery' => 'gallery', 'Guestbook' => 'guestbook'},
                { :selected => 'basic' },
                :label =>I18n.t('page.field.type_page_label') + ' :' %>
+  <%= available_item_types_for_ck %>
   <%= f.advanced_editor(	:body, 
 							  :label => I18n.t('article.field.article_label')+ ' * :',
 							  :hint => I18n.t('article.field.article_hint')) %>

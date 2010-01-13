@@ -1,0 +1,155 @@
+<style>
+  table{
+    background-color:#F8F8F8;
+  }
+
+  table tr th{
+    font-size:15px;
+  }
+  table tr td{
+    font-size:14px;
+  }
+
+  hr{
+    color:#F0F0F0;
+  }
+
+</style>
+<script type="text/javascript">
+  function add_param(val){
+    if(window.location.href.indexOf('?') > 1){
+      window.location.href = window.location.href.split('?')[0] + '?d=' + val;
+    }else{
+      window.location.href = window.location.href + '?d=' + val;
+    }
+  }
+</script>
+  <br />
+  <br />
+  <h1><%= I18n.t('analytics.profile_title') %> : <%= @profile.title %></h1>
+  <hr />
+  <h2><%= I18n.t('analytics.graphs.title') %></h2>
+  <% @graphs.each do |graph| %>
+    <%= image_tag graph.to_url %>
+    <br />
+    <br />
+  <% end %>
+  <h2><%= I18n.t('analytics.visitors_traffic.title') %></h2>
+  <h3><%= I18n.t('analytics.visitors_traffic.analyse.title') %>
+  <%= select 'graph','duration',{I18n.t('analytics.visitors_traffic.analyse.day') => 'day',I18n.t('analytics.visitors_traffic.analyse.week') => 'week',I18n.t('analytics.visitors_traffic.analyse.month') => 'month',I18n.t('analytics.visitors_traffic.analyse.year') => 'year'},{:include_blank => true, :selected => @duration},{:onchange => "add_param(this.value)"} %> </h3>
+  <table cellspacing="10" width="100%">
+    <tr align="center">
+      <th><%= I18n.t('analytics.visitors_traffic.details.visits') %></th>
+      <th><%= I18n.t('analytics.visitors_traffic.details.pageviews') %></th>
+      <th><%= I18n.t('analytics.visitors_traffic.details.average_time_on_site') %></th>
+      <th><%= I18n.t('analytics.visitors_traffic.details.bounce_rate') %></th>
+      <th><%= I18n.t('analytics.visitors_traffic.details.new_visits') %></th>
+      <th><%= I18n.t('analytics.visitors_traffic.details.page_per_visit') %></th>
+    </tr>
+    <tr align="center">
+      <td><%= @visitors_results.visits %></td>
+      <td><%= @visitors_results.pageviews %></td>
+      <td><%= Analytic.duration_format(@visitors_results.time_on_site.to_f/@visitors_results.visits.to_f) %></td>
+      <td><%= ((@visitors_results.bounces.to_f/@visitors_results.entrances.to_f) * 100).ceil.to_s + "%"%></td>
+      <td><%= ((@visitors_results.new_visits.to_f/@visitors_results.visits.to_f) * 100).ceil.to_s + "%" %></td>
+      <td><%= (@visitors_results.pageviews.to_f/@visitors_results.visits.to_f).ceil.to_s %></td>
+    </tr>
+  </table>
+  <br />
+  <hr />
+  <br />
+  <h2><%= I18n.t('analytics.sources.title') %></h2>
+  <h3><%= I18n.t('analytics.sources.site_sources.title') %></h3>
+  <table cellspacing="10">
+    <tr>
+      <th><%= I18n.t('analytics.sources.site_sources.site') %></th>
+      <th><%= I18n.t('analytics.sources.site_sources.visits') %></th>
+    </tr>
+    <% @sources_results.sort_by{ |i| i.entrances.to_i}.reverse[0...10].each do |result| %>
+      <tr>
+        <td><%= result.source %></td>
+        <td align="center"><%= result.entrances %></td>
+      </tr>
+    <% end %>
+  </table>
+  <br />
+  <h3><%= I18n.t('analytics.sources.traffic_sources.title') %></h3>
+  <table cellspacing="10">
+    <tr align="center">
+      <td>
+        <table>
+          <tr align="center">
+            <th><%= I18n.t('analytics.sources.traffic_sources.source') %></th>
+            <th><%= I18n.t('analytics.sources.traffic_sources.visits') %></th>
+          </tr>
+          <% @mediums_results.each do |k,v| %>
+            <tr align="center">
+              <td><%= k %></td>
+              <td><%= v %></td>
+            </tr>
+          <% end %>
+        </table>
+      </td>
+      <td><%= image_tag @mediums_graph.to_url %></td>
+    </tr>
+  </table>
+  <br />
+  <h3><%= I18n.t('analytics.sources.keyword_sources.title') %></h3>
+  <table>
+    <tr>
+      <th><%= I18n.t('analytics.sources.keyword_sources.keyword') %></th>
+      <th><%= I18n.t('analytics.sources.keyword_sources.visits') %></th>
+    </tr>
+    <% @keywords_results.sort_by{ |i| i.visits.to_i}.reverse[0...10].each do |result| %>
+      <tr>
+        <% if result.keyword != '(not set)' %>
+          <td><%= result.keyword %></td>
+          <td align="center"><%= result.visits %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+  <br />
+  <hr />
+  <br />
+  <h2><%= I18n.t('analytics.content_sources.title') %></h2>
+  <h3><%= I18n.t('analytics.content_sources.most_visited.title') %></h3>
+  <table cellspacing="10">
+    <tr>
+      <th><%= I18n.t('analytics.content_sources.most_visited.page_path') %></th>
+      <th><%= I18n.t('analytics.content_sources.most_visited.visits') %></th>
+    </tr>
+    <% @page_paths_results.sort_by{ |i| i.pageviews.to_i}.reverse[0...10].each do |result| %>
+      <tr>
+        <td><%= result.page_path %></td>
+        <td align="center"><%= result.pageviews %></td>
+      </tr>
+    <% end %>
+  </table>
+  <br />
+  <table cellspacing="10">
+    <tr>
+      <th><%= I18n.t('analytics.content_sources.most_visited.landing_path') %></th>
+      <th><%= I18n.t('analytics.content_sources.most_visited.visits') %></th>
+    </tr>
+    <% @landing_pages_results.sort_by{ |i| i.entrances.to_i}.reverse[0...10].each do |result| %>
+      <tr>
+        <td><%= result.landing_page_path %></td>
+        <td align="center"><%= result.entrances %></td>
+      </tr>
+    <% end %>
+  </table>
+  <br />
+  <table cellspacing="10">
+    <tr>
+      <th><%= I18n.t('analytics.content_sources.most_visited.exit_path') %></th>
+      <th><%= I18n.t('analytics.content_sources.most_visited.exits') %></th>
+    </tr>
+    <% @exit_pages_results.sort_by{ |i| i.exits.to_i}.reverse[0...10].each do |result| %>
+      <tr>
+        <td><%= result.exit_page_path %></td>
+        <td align="center"><%= result.exits %></td>
+      </tr>
+    <% end %>
+  </table>
+

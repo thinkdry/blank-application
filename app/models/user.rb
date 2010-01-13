@@ -182,12 +182,14 @@ class User < ActiveRecord::Base
   # Create Private worksapce for User on creation called 'Private space of user_login'
 	def create_private_workspace
 		# Creation of the private workspace for the user
-		ws = Workspace.create(:title => "Archive for #{self.login}",
-      :description => "Worksapce containing all the content created by #{self.full_name}",
+		ws = Workspace.new(:title => "Archive for #{self.login}",
+      :description => "Archive for #{self.login}",
+      :body => "Worksapce containing all the content created by #{self.full_name}",
       :creator_id => self.id,
       :available_items => get_configuration['sa_items'],
       :state => 'private')
 		# To assign the 'ws_admin' role to the user in his privte workspace
+		ws.save(false)
 		ws.users_containers.create(:user_id => self.id, :role_id => Role.find_by_name('co_admin').id)
 	end
 
@@ -306,10 +308,8 @@ class User < ActiveRecord::Base
     self.workspaces.find(:first, :conditions => {:state => 'private'})
   end
   
-  def containers  
-    result = []
-    CONTAINERS.each{|c| result += self.send(c.pluralize)}
-    return result
+  def container_ids(container)
+    self.send(container.pluralize).collect{|c| c.id.to_s }
   end
   
   def get_items_of_type(item_type="articles")

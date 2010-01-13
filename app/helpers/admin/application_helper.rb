@@ -88,6 +88,20 @@ module Admin::ApplicationHelper
 	def disable_field_condition(object)
 		return !object.new_record?
 	end
+	
+	def available_item_types_for_ck
+	  ck_items = %w{image audio video}
+    str = ""
+    str += "<div class='ckUploader'>Upload/Insert : "
+    items = item_types_allowed_to(@current_user, 'show', current_container)
+    items.each do |item|
+      if ck_items.include?(item)
+        str += "<a href='/admin/ck_display/tabs/#{item.pluralize}' id='fck_insert_#{item}'>#{item.capitalize}</a> | "
+      end
+    end
+    str += "<a href='/admin/ck_display/tabs/links' id='fck_insert_link'>Link</a></div>"
+    str
+	end
 
 
 end

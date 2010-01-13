@@ -36,7 +36,7 @@ namespace :blank do
 	desc "Building Xapian indexes"
 	task :xapian_rebuild => :environment do
 		p "Building Xapian indexes"
-		system("rake xapian:rebuild_index models='#{ITEMS.map{ |e| e.camelize }.join(' ')} User #{CONTAINERS.map{ |e| e.camelize }}' RAILS_ENV=#{RAILS_ENV}")
+		system("rake xapian:rebuild_index models='#{ITEMS.map{ |e| e.camelize }.join(' ')} User #{CONTAINERS.map{ |e| e.camelize }.join(' ')}' RAILS_ENV=#{RAILS_ENV}")
 		p "Done"
 	end
 
