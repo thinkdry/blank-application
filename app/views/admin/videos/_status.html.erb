@@ -1,20 +1,5 @@
 <script type="text/javascript">
-    //var cancel=true;
-    var item_id = '<%= object.id %>';
-    get_progress();
-    function get_progress(){
-        new Ajax.Request("/admin/videos/"+item_id+"/get_video_progress?check=true", {method: 'get', asynchronous:true, evalScripts:true,
-            onSuccess: function(transport){
-                if(transport.responseText == 'encoded'){
-                    new Ajax.Updater("progress","/admin/videos/"+item_id+"/get_video_progress?check=false", {method: 'get', asynchronous:true, evalScripts:true});
-                }else if(transport.responseText == 'encoding_error'){
-                    new Ajax.Updater("progress","/admin/videos/"+item_id+"/get_video_progress?check=false&status=fail", {method: 'get', asynchronous:true, evalScripts:true});
-                }else{
-                    setTimeout("get_progress()", 5000);
-                }
-            }});
-    }
-
+  get_encoding_progress('<%= object.id %>','<%= object.class.to_s.underscore %>');
 </script>
 <%#= periodically_call_remote :update=> 'progress',
 :condition => "cancel==true",
