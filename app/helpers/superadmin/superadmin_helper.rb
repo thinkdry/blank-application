@@ -2,7 +2,7 @@ module Superadmin::SuperadminHelper
   
   def superadmin_tabs_generator ()
      #parsing the superadmin controllers directory
-     controllers = Dir.new("#{RAILS_ROOT}/app/controllers/superadmin").entries
+     controllers = Dir.new("#{RAILS_ROOT}/app/controllers/superadmin").entries.sort
      content = String.new
 
      controllers.each do |controller|

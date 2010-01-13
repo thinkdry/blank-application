@@ -43,15 +43,16 @@ ActionController::Routing::Routes.draw do |map|
   # Routes Related to SuperAdministrator
 	map.namespace :superadmin do |sa|
 		sa.connect '', :controller => 'superadmin/administration', :action => 'show'
-		sa.resources :general_settings, :only => [:index], :collection => { :editing => :get, :updating => :put }
+		sa.resources :general_settings, :only => [:index, :update], :collection => { :editing => :get, :updating => :put }
 		sa.resources :audits, :only => [:index]
-		sa.resources :user_interfaces, :only => [:index], :collection => { :editing => :get, :updating => :put, :check_color => :get, :colors_changing => :get }
+		sa.resources :user_interfaces, :only => [:index, :update], :collection => { :editing => :get, :updating => :put, :check_color => :get, :colors_changing => :get }
 		sa.resources :tasks, :only => [:index], :collection => { :run_task => :get }
-		sa.resources :translations, :only => [:index], :collection => { :updating => :put, :context_switching => :get, :translation_new => :any , :new_project => :any, :new_language => :any, :section_switching => :any }
-    sa.resources :mailer_settings, :only => [:index], :collection => { :updating => :put }
+		sa.resources :translations, :only => [:index, :update], :collection => { :updating => :put, :context_switching => :get, :translation_new => :any , :new_project => :any, :new_language => :any, :section_switching => :any }
+    sa.resources :mailer_settings, :only => [:index, :update], :collection => { :updating => :put }
     # Routes for Roles and Permissions in BA
     sa.resources :roles, :collection => {:validate => :post}
     sa.resources :permissions, :collection => {:validate => :post}
+    sa.resources :google_analytics, :only => [:index], :collection => {:updating => :put}
 	end
 
   map.namespace :admin do |admin|
@@ -133,6 +134,7 @@ ActionController::Routing::Routes.draw do |map|
           con.resources :workspace_contacts, :as => 'contacts', :except => :all, :collection => { :select => [:post, :get], :list => [:post, :get], :subscribe => :get}
         end
         if container == 'website'
+          con.resources :analytics, :only => [:index]
           con.resources :menus
         end
       end

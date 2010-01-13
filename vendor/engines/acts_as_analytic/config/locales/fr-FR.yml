@@ -1,0 +1,61 @@
+---
+fr-FR:
+  analytics:
+    profile_title: Google Analytics for Profile
+    graphs:
+      title: Analytic Graphs
+      visits: Visits Last Month
+      pageviews: Pageviews Last Month
+    visitors_traffic:
+      title: Visitor Details
+      analyse:
+        title: Analyse By
+        year: Year
+        day: Day
+        week: Week
+        month: Month
+      details:
+        visits: Visits
+        pageviews: Pageviews
+        average_time_on_site: Average Time on Site
+        bounce_rate: Bounce Rate
+        new_visits: New Visits
+        page_per_visit: Page/Visit
+    sources:
+      title: Sources for Traffic
+      site_sources:
+        title: Site Sources
+        site: Site
+        visits: Site Visits
+      traffic_sources:
+        title: Traffic Sources
+        source: Source
+        visits: Visits
+        graph:
+          referral: Referral
+          search: Search
+          direct: Direct
+      keyword_sources:
+        title: Keyword Sources
+        keyword: Keyword
+        visits: Visits
+    content_sources:
+      title: Content Sources
+      most_visited:
+        title: Most Visited Pages
+        page_path: Page Path
+        landing_path: Landing Page Path
+        exit_path: Exit Page Path
+        visits: Visits
+        exits: Exits
+    login:
+      title: Google Analytics Login
+      username: Analytics Username
+      password: Password
+      submit: Login
+      message:
+        notice: Logged In Successfully
+        error: Login or Password Incorrect
+
+
+

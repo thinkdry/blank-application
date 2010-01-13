@@ -29,7 +29,7 @@ class Superadmin::UserInterfacesController < Admin::ApplicationController
 		res = @configuration.merge!(params[:configuration])
 	  @new=File.new("#{RAILS_ROOT}/config/customs/sa_config.yml", "w+")
 		@new.syswrite(res.to_yaml)
-		flash[:notice] = "General settings updated"
+		flash[:notice] = "User Interface Settings Updated"
 
     #		if !params[:newtemplate].blank?
     #      params[:template].each do |k_elmt, v_elmt|
@@ -44,7 +44,6 @@ class Superadmin::UserInterfacesController < Admin::ApplicationController
     #    else
     #      flash[:notice]="Changes not Saved"
     #    end
-
 		redirect_to superadmin_user_interfaces_path
 
 	end
