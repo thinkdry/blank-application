@@ -28,6 +28,8 @@ module ActsAsContainer
         # Relation 1-N to the 'users' table
         belongs_to :creator, :class_name => 'User'
         
+        acts_as_xapian :texts => [:title, :description]
+        
         #---------------------------------------------------------
         # Paperclip attachment definition
 	        has_attached_file :logo,
