@@ -40,7 +40,8 @@ class EncodingJob
     if ext != 'mp3' && ext != 'flv'
       file_ext = object.send("#{type}_file_name").split('.').last
       media = File.join(File.dirname(object.media_type.path), "#{object.send("#{type}_file_name").delete(file_ext)}#{enc}")
-      File.open(media, 'w')
+			# depend of the version of Linux !! TODO check Linux version for ffmpeg
+			#File.open(media, 'w')
     end
     if ext == enc
       command=<<-end_command
