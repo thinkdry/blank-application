@@ -1,8 +1,5 @@
-pute <%=debug @test%>
 <div id="search_header" class="list_header">
-  <h2><%= image_tag('/images/icons/search.png')%><%= I18n.t('layout.search.your_search_result') %></h2>
+  <h2><%#= image_tag('/images/icons/search.png')%><%= I18n.t('layout.search.your_search_result') %></h2>
 </div>
 
-<%#= render :partial => @templatee, :layout => false %>
 <%= render  :partial => 'admin/blank_lists/pure_item_list' %>
-<%#= render :template => "#{@templatee}.html.erb", :layout => false , :locals => {:ajax_url => request.path+'?'+request.url.split('?').last} %>
