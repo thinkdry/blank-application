@@ -64,10 +64,11 @@ class Admin::ApplicationController < ActionController::Base
   # - workspace : Workspace instance (default: nil)
 	def get_allowed_item_types(container=nil)
 		if container
-			return (container.available_items.to_s.split(',') & @configuration['sa_items'])
+			items = (container.available_items.to_s.split(',') & @configuration['sa_items'])
 		else
-			return @configuration['sa_items'] 
+			items = @configuration['sa_items'] 
 		end
+		items.sort
 	end
 
   # Method returning the item types allowed for an user with an permission

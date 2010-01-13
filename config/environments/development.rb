@@ -22,9 +22,9 @@ config.action_mailer.raise_delivery_errors = true
 # Defining the project name
 PROJECT_NAME = 'blank'.freeze
 # Containers Available to current setup
-CONTAINERS = ['workspace','website','folder'].freeze
+CONTAINERS = ['workspace','website','folder'].sort.freeze
 # Items available to the current setup
-ITEMS = ['article', 'image', 'cms_file', 'video', 'audio', 'feed_source', 'bookmark','newsletter', 'group', 'page'].freeze
+ITEMS = ['article', 'image', 'cms_file', 'video', 'audio', 'feed_source', 'bookmark','newsletter', 'group', 'page'].sort.freeze
 # Variable defining the languages available for the application
 LANGUAGES = ['en-US', 'fr-FR'].freeze
 # Variable defining the workspace types available for the application
