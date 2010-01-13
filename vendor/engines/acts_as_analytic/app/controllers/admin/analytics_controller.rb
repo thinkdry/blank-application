@@ -1,4 +1,4 @@
-class AnalyticsController < Admin::ApplicationController
+class Admin::AnalyticsController < Admin::ApplicationController
   unloadable
 
   def new
