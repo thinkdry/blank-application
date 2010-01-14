@@ -155,7 +155,7 @@ module Authorizable
           return true
         end
         # System access
-        if user.has_system_permission(self.class.to_s.downcase, action) || sys_cond
+        if user.has_system_permission(self.class.to_s.underscore, action) || sys_cond
           return true
         end
         # Workspace access
@@ -163,7 +163,7 @@ module Authorizable
         if action == 'show'
           self.send(container.pluralize).each do |ws|
             if ws.users.include?(user)
-              if user.has_container_permission(ws.id, self.class.to_s.downcase, action, container) && ws_cond
+              if user.has_container_permission(ws.id, self.class.to_s.underscore, action, container) && ws_cond
                 return true
               end
             end
@@ -180,13 +180,13 @@ module Authorizable
 					return true
 				end
 				# System access
-				if user.has_system_permission(self.class.to_s.downcase, action) || sys_cond
+				if user.has_system_permission(self.class.to_s.underscore, action) || sys_cond
 					return true
 				end
 				# Workspace access
 				# Not for new and index normally ...
 				if self.users.include?(user)
-					if user.has_container_permission(self.id, self.class.to_s.downcase, action, container) && ws_cond
+					if user.has_container_permission(self.id, self.class.to_s.underscore, action, container) && ws_cond
 						return true
 					end
 				end
@@ -210,7 +210,7 @@ module Authorizable
 					return false
 				end
         # System access
-				if user.has_system_permission(model_name.downcase, action)
+				if user.has_system_permission(model_name.underscore, action)
 					return true
 				end
         # Workspace access
