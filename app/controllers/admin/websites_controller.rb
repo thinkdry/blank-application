@@ -18,7 +18,7 @@ class Admin::WebsitesController < Admin::ApplicationController
   acts_as_container do
     
     before :edit do
-      @pages = current_user.private_workspace.pages
+      @pages = @current_object.pages
     end
     
     before :update do
