@@ -42,18 +42,22 @@ class Admin::AnalyticsController < Admin::ApplicationController
               @graphs = Analytic.build_line_graph(month_report)
               @mediums_results, @mediums_graph = Analytic.build_pie_graph(@site_mediums_results)
             else
+              logger.error("AnalyticsController Error:- No Profile matches")
               flash[:notice] = "No Website Profile exists. \n Please Contact the Administrator."
               redirect_to admin_website_path(@website)
             end
-          rescue
+          rescue Exception => e
+            logger.error("AnalyticsController Error:- with message #{e.message}")
             flash[:notice] = "Analytics Not Responding.\n Please Try Later."
             redirect_to admin_website_path(@website)
           end
         else
+          logger.error("AnalyticsController Error:- Username or Password Incorrect")
           flash[:notice] = "Analytics Not Responding.\n Please Try Later."
           redirect_to admin_website_path(@website)
         end
       else
+        logger.error("AnalyticsController Error:- Analytics Setting File does not exist")
         flash[:notice] = "Analytics Settings do not exist. \n Please Contact the Administrator"
         redirect_to admin_website_path(@website)
       end

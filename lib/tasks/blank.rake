@@ -120,6 +120,7 @@ namespace :blank do
       @role_wri.permissions << Permission.find(:all, :conditions =>{:name => "#{container}_show"})
       @admin_ws = Permission.create(:name => "#{container}_administrate", :type_permission => 'container') unless Permission.exists?(:name => "#{container}_administrate", :type_permission => 'container')
       if @admin_ws
+        @role_admin.permissions << @admin_ws
         @role_ws.permissions << @admin_ws
         @role_mod.permissions << @admin_ws
       end
@@ -127,7 +128,7 @@ namespace :blank do
     ITEMS.each do |item|
       ['new', 'edit', 'index', 'show', 'destroy','comment','rate'].each do |action|
         Permission.find(:all, :conditions =>{:name => item + '_' + action}).each do |p|
-            @role_user.permissions << p
+          #@role_user.permissions << p
           if action=='new'  || action=='edit'
             @role_ws.permissions << p
             @role_mod.permissions << p

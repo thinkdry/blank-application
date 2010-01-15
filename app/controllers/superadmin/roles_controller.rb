@@ -72,7 +72,8 @@ class Superadmin::RolesController < Admin::ApplicationController
     @role = Role.new(params[:role])
     respond_to do |format|
 			if @role.save
-        @role.set_permissions(params[:permissions]) if params[:permissions]
+			  params[:permissions] ||= []
+        @role.set_permissions(params[:permissions])
 				flash[:notice] = 'Role was successfully created.'
 				format.html { redirect_to(superadmin_roles_path) }
 				format.xml  { render :xml => @role, :status => :created, :location => superadmin_role_path(@role) }
@@ -93,7 +94,8 @@ class Superadmin::RolesController < Admin::ApplicationController
   def update
     respond_to do |format|
 			if @role.update_attributes(params[:role])
-        @role.set_permissions(params[:permissions]) if params[:permissions]
+			  params[:permissions] ||= []
+        @role.set_permissions(params[:permissions])
 				flash[:notice] = 'Role was successfully updated.'
 				format.html { redirect_to(superadmin_roles_path) }
 				format.xml  { head :ok }
@@ -134,6 +136,10 @@ class Superadmin::RolesController < Admin::ApplicationController
   end
   # Method allowing to get the permissions lists regarding the role type (workspace or system)
   def get_permissions
-    @permissions = Permission.type_of(@role.type_role)
+    if @role.type_role=="system"
+			@permissions = Permission.find(:all, :order => 'name ASC')
+	  else
+      @permissions = Permission.type_of(@role.type_role)
+    end
   end
 end
