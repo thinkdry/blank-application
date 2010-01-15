@@ -18,7 +18,7 @@ class Admin::WebsitesController < Admin::ApplicationController
   acts_as_container do
   
     after :create do
-      if File.directory? "#{RAILS_ROOT}/public/website_files/#{@current_object.title}"
+      unless File.directory? "#{RAILS_ROOT}/public/website_files/#{@current_object.title}"
         FileUtils.makedirs("#{RAILS_ROOT}/public/website_files/#{@current_object.title}/images")
         FileUtils.makedirs("#{RAILS_ROOT}/public/website_files/#{@current_object.title}/stylesheets")
         FileUtils.makedirs("#{RAILS_ROOT}/public/website_files/#{@current_object.title}/javascripts")
