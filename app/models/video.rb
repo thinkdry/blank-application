@@ -70,8 +70,8 @@ class Video < ActiveRecord::Base
   # Usage :
   # <tt>object.codec</tt>
   def codec
-    "-ar 22050 -ab 32 -f flv -y"
-    #"-vcodec libx264 -vpre hq -ar 22050 -ab 32 -crf 15"
+    #"-ar 22050 -ab 32 -f flv -y"
+    "-vcodec libx264 -vpre hq -ar 22050 -ab 32 -crf 15"
   end
 
   # Codec used for the MP3 encoding (in the case of 3gp file)
