@@ -380,7 +380,7 @@ function add_new_user(url){
                 data: "user_login="+user_login+"&role_id=" + role_id,
                 dataType: "script",
 				success:function(html){
-					$('#notice').showMessage("User Not existing", 1500);
+					$('#notice').showMessage("User Added Successfully", 1500);
 				}
             });
         }else{
