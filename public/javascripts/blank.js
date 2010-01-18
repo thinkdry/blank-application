@@ -559,3 +559,14 @@ function add_new_follower(){
         $('#new_follower_email').value = '';
     }
 }
+
+function replaceChar(str, from_char, to_char){
+  for(var i=0;i < str.length;i++){
+    if(str[i] == from_char){
+      str[i] = to_char;
+    }
+  }
+  return str;
+}
+
+
