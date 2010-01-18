@@ -4,13 +4,15 @@ class Admin::UsersController < Admin::ApplicationController
 
 	acts_as_authorizable(
 		:actions_permissions_links => {
+		    'new' => 'new',
+		    'create' => 'create',
 				'edit' => 'edit',
 				'update' => 'edit',
 				'show' => 'show',
 				'destroy' => 'destroy',
 				'locking' => 'destroy'
 			},
-		:skip_logging_actions => [:new, :create, :validate, :forgot_password, :reset_password, :activate])
+		:skip_logging_actions => [:validate, :forgot_password, :reset_password, :activate])
 
 	#layout 'application', :expect => [:new, :create]
 	layout :give_da_layout
