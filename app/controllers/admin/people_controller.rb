@@ -26,13 +26,22 @@ class Admin::PeopleController < Admin::ApplicationController
     end
     
 		response_for :update do |format|
-			format.html { redirect_to(current_workspace ? admin_workspace_person_path(current_workspace.id, @person.id) : admin_person_path(@person.id)) }
+			format.html {  }
 		end
 
 		response_for :destroy do |format|
 			format.html { redirect_to(current_workspace ? list_admin_workspace_workspace_contacts_path(current_workspace.id) : admin_people_path) }
 		end
 
+  end
+  
+  
+  def update
+    if params[:continue]
+		  redirect_to new_admin_person_path
+		else
+		  redirect_to(current_workspace ? admin_workspace_person_path(current_workspace.id, @person.id) : admin_person_path(@person.id))
+		end
   end
 
   # Action managing the person creation

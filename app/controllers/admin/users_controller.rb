@@ -85,7 +85,14 @@ class Admin::UsersController < Admin::ApplicationController
 			get_roles
 			flash.now[:error] = I18n.t('user.edit.flash_error')
     end
-
+  end
+  
+  def update
+     if params[:continue]
+  		  redirect_to new_admin_user_path
+  		else
+  		  redirect_to admin_user_path(@current_object)
+  		end
   end
 
 	def locking
