@@ -8,7 +8,7 @@
 			<%= link_to object.login + ' (' + object.full_name + ')', admin_user_path(object) %>
 		</div>
 		<div class="itemInListActions">
-		  <% if object.has_permission_for?('edit', @current_user, current_container_type) %>
+		  <% if object.has_permission_for?('edit', @current_user, current_container_type) || @current_user.id == object.id %>
 			  <%= link_to I18n.t('general.link.edit'), edit_admin_user_path(object) %> |
 			<% end %>
 			<% if object.has_permission_for?('destroy', @current_user, current_container_type) %>

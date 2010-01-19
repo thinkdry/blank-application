@@ -26,14 +26,12 @@
     <div class="itemShowRightBlock">
 		<div class="blockCornerLeft"></div><div class="blockElementHeader twoH">Actions</div><div class="blockCornerRight"></div>
         <div class="blockElementBody">
-			<% if @current_object.has_permission_for?('edit', @current_user, current_container_type) -%>	
+			<% if @current_object.has_permission_for?('edit', @current_user, current_container_type) || @current_object == @current_user-%>	
 				<%= link_to "Edit", edit_admin_user_path %>
-			<% end-%>		
-			<% if @current_object.has_permission_for?('edit', @current_user, current_container_type) -%>	
 			  <%= link_to I18n.t('general.object.comment').pluralize.capitalize, admin_comments_path %>
     		<%= link_to I18n.t('rating.index.link').pluralize, admin_ratings_path %>
 				<%= link_to I18n.t('general.notification.link'), admin_user_notification_path(@current_user) %>
-			<% end %>
+			<% end-%>		
         </div>
     </div>
 </div>

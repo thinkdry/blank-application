@@ -1,1 +1,31 @@
-<%= render :partial => "index" %>
+<%#= render :partial => "index" %>
+<div class="objectList small">
+	<div class="blockCornerLeft"></div><div class="blockElementHeader sixH">
+		<span id="item_count"><%=I18n.t('user.administration.list_title')%></span>
+	</div><div class="blockCornerRight"></div>
+	<div class="contentList filtered">
+		<ul id="pure_user_list">
+			<% if @objects.first -%>
+
+				<%= render :partial => 'pure_user_list'%>
+
+			<% else -%>
+
+		    	<%= I18n.t('item.common_word.list_empty') %>
+
+			<% end -%>
+		</ul>
+	</div>
+</div>
+<div class="rightBlocks">
+	<div class="itemShowRightBlock">
+	    <div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
+			Actions
+		</div><div class="blockCornerRight"></div>	
+	    <div class="blockElementBody">
+	        <%= link_to I18n.t('user.new.add_user'), new_admin_user_path %>
+			Filter :
+			<input id="filter"/>
+	    </div>
+	</div>
+</div>
