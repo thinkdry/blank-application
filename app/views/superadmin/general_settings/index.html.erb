@@ -12,27 +12,27 @@
 					:html => {:method => :put, :multipart => true, :class => ""} do |f| -%>
 
 			<label>Application name:</label>
-		  	<div class="formElement"><%= f.text_field :sa_application_name %></div>
+		  	<div class="formElement"><%= f.text_field :sa_application_name, :noHint => "yes" %></div>
 
 		  	<label>Application URL:</label>
-		  	<div class="formElement"><%= f.text_field :sa_application_url %></div>
+		  	<div class="formElement"><%= f.text_field :sa_application_url, :noHint => "yes" %></div>
 
 		  	<label>Contact email:</label>
-		  	<div class="formElement"><%= f.text_field :sa_contact_email %></div>
+		  	<div class="formElement"><%= f.text_field :sa_contact_email, :noHint => "yes" %></div>
 
 		  	<label>Allowed free user creation:</label>
 		  	<div class="formElement">
-		    	<%= f.check_box :sa_allowed_free_user_creation, { :class => "checkboxes" }, 'true', 'false' %>
+		    	<%= f.check_box :sa_allowed_free_user_creation, { :class => "checkboxes", :noHint => "yes" }, 'true', 'false' %>
 		  	</div>
 
 		  	<label>Automatic private worskpace:</label>
 		  	<div class="formElement">
-		    	<%= f.check_box :sa_automatic_private_workspace, { :class => "checkboxes" }, 'true', 'false' %>
+		    	<%= f.check_box :sa_automatic_private_workspace, { :class => "checkboxes", :noHint => "yes" }, 'true', 'false' %>
 		  	</div>
 
 		  	<label>Mandatory user activation:</label>
 		  	<div class="formElement">
-		    	<%= f.check_box :sa_mandatory_user_activation, { :class => "checkboxes" }, 'true', 'false' %>
+		    	<%= f.check_box :sa_mandatory_user_activation, { :class => "checkboxes", :noHint => "yes" }, 'true', 'false' %>
 		  	</div>
 
 		  	<label>Available items:</label>
@@ -42,7 +42,7 @@
 		 
 			<label></label>
 		  	<div class="formElement">
-		    	<%= check_box_tag 'apply_to_all_workspaces', 'true', false, { :class => "checkboxes" } %> 
+		    	<%= check_box_tag 'apply_to_all_workspaces', 'true', false, { :class => "checkboxes", :noHint => "yes" } %> 
 				Apply this item list available for each workspace
 		  	</div>
 
@@ -60,12 +60,12 @@
 
 		  	<label>Workspaces types:</label>
 		  	<div class="formElement">
-		    	<%= checkboxes_from_list(WS_TYPES, "sa_ws_types", @configuration, "configuration", true) %>
+		    	<%= checkboxes_from_list(WS_TYPES, "sa_ws_types", @configuration, "configuration", truew) %>
 		  	</div>
 
 		  	<label>Exception followers:</label>
 		  	<div class="formElement">
-		    	<input type="text" id="new_follower_email" name="new_follower_email" value=""/>
+		    	<input type="text" id="new_follower_email" name="new_follower_email" value="" noHint="yes"/>
 		    	<%= link_to_function( 	" ",
 		      					   		"add_new_follower()",
 		      					   		:class => "addExceptionFollower") %>
@@ -86,7 +86,7 @@
 		  	</div>
 		  	<label>Exception notifier activated :</label>
 		  	<div class="formElement">
-		    	<%= f.check_box :sa_exception_notifier_activated, { :class => "checkboxes" }, 'true', 'false' %>
+		    	<%= f.check_box :sa_exception_notifier_activated, { :class => "checkboxes", :noHint => "yes" }, 'true', 'false' %>
 		  	</div>
 
 		  	<button type="submit" class="submitButton"><span><%=I18n.t('general.button.update')%></span></button>

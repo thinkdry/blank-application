@@ -94,6 +94,9 @@ $(document).ready(function () {
 		$(this).nextAll('.ajax_hint_message').css('display','inline');
 	});
 	$(".formElement input").blur( function(){
+		if ($(this).attr("type") == "checkbox"){
+			return null;
+		}
 		if ($(this).attr("noHint") == null){
 			$(this).displayHintForField();
 		}
