@@ -93,7 +93,11 @@
 						<h3>Administration</h3>
 				        <ul>
 				              <li><%= link_to I18n.t('layout.application.my_account'), admin_user_path(current_user) %></li>
-				              <li><%= link_to I18n.t('user.administration.workspace_management'), admin_workspaces_path %></li>
+				              <% CONTAINERS.each do |container| %>
+				                <% if @current_user.has_system_permission(container, 'new') -%>
+				                  <li><%= link_to I18n.t("user.administration.#{container}_management"), containers_path(container) %></li>
+				                <% end %>
+				              <% end %>
 				        </ul>
 				        <br/><br/>
 				        <p><img src="/images/icons/exit.png" width="20px" style="margin-right:5px"/><%= link_to I18n.t('layout.application.logout'), admin_logout_path, :class => 'bigLink' %></p>

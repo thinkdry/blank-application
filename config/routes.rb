@@ -127,7 +127,8 @@ ActionController::Routing::Routes.draw do |map|
     items_resources(admin)
 
     CONTAINERS.each do |container|
-      admin.resources "#{container.pluralize}".to_sym, :member => { :add_new_user => :any, :subscription => :any, :unsubscription => :any, :question => :any }, :collection => {:validate => :post} do |con|
+      admin.resources "#{container.pluralize}".to_sym, :member => { :add_new_user => :any }, :collection => {:validate => :post} do |con|
+        con.resources :subscriptions, :only => [:create, :destroy], :collection => { :request => :any }
         items_resources(con)
         if container == 'workspace'
           con.resources :people, :collection => { :export_people => :any, :import_people => :any, :get_empty_csv => :get, :validate => :post ,:filter => :get }

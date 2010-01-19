@@ -1,9 +1,29 @@
-<div class="list_header">
-<h1>
-  <%= I18n.t('layout.application.workspaces') %>
-  <% if current_user.has_system_permission(current_container_type, 'new') %>
-    <%= link_to image_tag("/images/icons/add.png"), new_container_path(params[:controller].split('/')[1].singularize) %>
-  <% end %>
-</h1>
+<div class="objectList small">
+	<div class="blockCornerLeft"></div><div class="blockElementHeader sixH">
+		<span id="item_count"><%= params[:controller].split("/")[1].capitalize %></span>
+	</div><div class="blockCornerRight"></div>
+	<div class="contentList filtered">
+		<ul id="pure_user_list">
+			<% if @current_objects.first -%>
+
+				<%= render :partial => 'containers/index', :collection => @current_objects %>
+
+			<% else -%>
+
+		    	<%= I18n.t('item.common_word.list_empty') %>
+
+			<% end -%>
+			
+			<%#= will_paginate @paginated_objects %>
+		</ul>
+	</div>
 </div>
-<%= render :partial => 'containers/index', :collection => @current_objects %>
+<div class="rightBlocks">
+	<div class="itemShowRightBlock">
+	    <div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
+			Filters
+		</div><div class="blockCornerRight"></div>	
+	    <div class="blockElementBody">
+	    </div>
+	</div>
+</div>

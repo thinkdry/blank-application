@@ -1,21 +1,28 @@
-<%#= display_objects_list(
-  #:collection => @paginated_objects,
-  :in_list_partial => "admin/#{params[:controller].split('/')[1]}/container_in_list",
-  :ajax_url => send("admin_#{params[:controller].split('/')[1]}_path"),
-  #:ajax_url => request.path+'?'+request.url.split('?').last,
-  :ordering_fields => ['created_at', 'title'],
-  :output_formats => ['xml', 'json', 'atom'],
-  :no_div => @no_div
-) %>
-
-Title:
-  <%= object.title %>
-  <% if object.has_permission_for?('edit', @current_user, current_container_type)  %>
-    <%= link_to 'edit', edit_container_path(object)  %>
-  <% end %>
-  <% if object.has_permission_for?('destroy', @current_user, current_container_type)  %>
-    <%= link_to 'delete', container_path(object), :method => :delete, :confirm => 'Are You Sure?'  %>
-  <% end %>
-<br />
-Description:
-<p><%= object.description  %></p><br />
+<li class="itemInList">
+	<div class="itemInListDate">
+		<%= I18n.l object.created_at, :format =>:verb %>
+	</div>
+	<div class="itemInListBody">
+		<div class="itemInListTitle">
+			<%= link_to object.title, container_path(object) %>
+		</div>
+		<div class="itemInListActions">
+		  <% if object.has_permission_for?('edit', @current_user, current_container_type) %>
+			  <%= link_to I18n.t('general.link.edit'), edit_container_path(object) %> |
+			<% end %>
+			<% if object.has_permission_for?('destroy', @current_user, current_container_type) %>
+			    <%= link_to I18n.t('general.link.delete'), "javascript:;",
+						  :class => "deleteLink", 
+						  :modal_id => "#modalDelete_#{object.id.to_s}"
+			    %>
+			  <div style="display:none">
+				  <div id="modalDelete_<%=object.id.to_s%>" class="modalDelete">
+					  <p>I18n.t('general.common_word.confirmation')</p>
+					  <%= link_to I18n.t('general.common_word.yes1'), container_path(object), :method => :delete%> | 
+					  <%= link_to I18n.t('general.common_word.no1'), "javascript:;", :class => "deleteClose" %>
+				  </div>
+			  </div>
+		  <% end %>
+		</div>
+	</div>
+</li>

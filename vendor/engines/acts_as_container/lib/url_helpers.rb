@@ -9,7 +9,9 @@ module ActsAsContainer
     	  :edit_container_path,
         :new_container_item_path,
         :ajax_container_path,
-        :add_new_user_container_path
+        :add_new_user_container_path,
+        :subscribe_container_path,
+        :unsubscribe_container_path
     end
 
     def current_container
@@ -128,6 +130,27 @@ module ActsAsContainer
       helper += "add_new_user_admin_#{container}_path"
       args = [id]
       send(helper, *args)
+    end
+    
+    def subscribe_container_path(container)
+      helper = String.new
+      container_type = container.class.to_s.underscore
+      helper += "admin_#{container_type}_subscriptions_path"
+      send(helper, container)
+    end
+    
+    def unsubscribe_container_path(container)
+      helper = String.new
+      container_type = container.class.to_s.underscore
+      helper += "admin_#{container_type}_subscriptions_path"
+      send(helper, container)
+    end
+    
+    def request_subscription_container_path(container)
+      helper = String.new
+      container_type = container.class.to_s.underscore
+      helper += "request_admin_#{containerable_type}_subscriptions_path"
+      send(helper, container)
     end
 
   end
