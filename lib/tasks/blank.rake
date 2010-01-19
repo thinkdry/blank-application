@@ -36,7 +36,7 @@ namespace :blank do
 	desc "Building Xapian indexes"
 	task :xapian_rebuild => :environment do
 		p "Building Xapian indexes"
-		system("rake xapian:rebuild_index models='#{ITEMS.map{ |e| e.camelize }.join(' ')} User #{CONTAINERS.map{ |e| e.camelize }}' RAILS_ENV=#{RAILS_ENV}")
+		system("rake xapian:rebuild_index models='#{ITEMS.map{ |e| e.camelize }.join(' ')} User #{CONTAINERS.map{ |e| e.camelize }.join(' ')}' RAILS_ENV=#{RAILS_ENV}")
 		p "Done"
 	end
 
@@ -120,6 +120,7 @@ namespace :blank do
       @role_wri.permissions << Permission.find(:all, :conditions =>{:name => "#{container}_show"})
       @admin_ws = Permission.create(:name => "#{container}_administrate", :type_permission => 'container') unless Permission.exists?(:name => "#{container}_administrate", :type_permission => 'container')
       if @admin_ws
+        @role_admin.permissions << @admin_ws
         @role_ws.permissions << @admin_ws
         @role_mod.permissions << @admin_ws
       end
@@ -127,7 +128,7 @@ namespace :blank do
     ITEMS.each do |item|
       ['new', 'edit', 'index', 'show', 'destroy','comment','rate'].each do |action|
         Permission.find(:all, :conditions =>{:name => item + '_' + action}).each do |p|
-            @role_user.permissions << p
+          #@role_user.permissions << p
           if action=='new'  || action=='edit'
             @role_ws.permissions << p
             @role_mod.permissions << p
@@ -264,20 +265,23 @@ namespace :blank do
     p "Creating Default Workspace"
     @superadmin = User.first
     if Workspace.find_by_creator_id_and_state(@superadmin.id, "private").blank?
-      @ws = Workspace.create(:creator_id => @superadmin.id, :description => "Archive for #{@superadmin.login}", :title=> "Archive for #{@superadmin.login}", :state => "private", :available_items => @default_conf['sa_items'].to_a)
+      @ws = Workspace.new(:creator_id => @superadmin.id, :description => "Archive for #{@superadmin.login}", :title=> "Archive for #{@superadmin.login}", :state => "private", :available_items => @default_conf['sa_items'].to_a)
+      @ws.save(false)
       @ws.users_containers.create(:role_id => Role.find_by_name("co_admin").id, :user_id => @superadmin.id)
     end
     
     @aduser = User.find_by_login("devil")
     if Workspace.find_by_creator_id_and_state(@aduser.id, "private").blank?
-      @ws = Workspace.create(:creator_id => @aduser.id, :description => "Archive for Devil", :title=> "Archive for Devil", :state => "private", :available_items => @default_conf['sa_items'].to_a)
+      @ws = Workspace.new(:creator_id => @aduser.id, :description => "Archive for Devil", :title=> "Archive for Devil", :state => "private", :available_items => @default_conf['sa_items'].to_a)
+      @ws.save(false)
       @ws.users_containers.create(:role_id => Role.find_by_name("co_admin").id, :user_id => @aduser.id )
     end
 
 
     @user = User.find_by_login("quentin")
     if Workspace.find_by_creator_id_and_state(@user.id, "private").blank?
-      @ws = Workspace.create(:creator_id => @user.id, :description => "Archive for Quentin", :title=> "Archive for Quentin", :state => "private", :available_items => @default_conf['sa_items'].to_a)
+      @ws = Workspace.new(:creator_id => @user.id, :description => "Archive for Quentin", :title=> "Archive for Quentin", :state => "private", :available_items => @default_conf['sa_items'].to_a)
+      @ws.save(false)
       @ws.users_containers.create(:role_id => Role.find_by_name("co_admin").id, :user_id => @user.id )
     end
 

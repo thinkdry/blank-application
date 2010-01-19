@@ -119,12 +119,10 @@ module GenericForItemHelper
   # Usage :
   # f.advanced_editor(:body, 'Article' + ' * :')
 	def advanced_editor_on(object, attribute)
-	  
     cn = current_container
 		css_files = []
     google_map = false
     cn ||= object.send(current_container_type.pluralize).delete_if{ |e| e.websites.empty? }.first if (object.class.to_s == "Page")
-    
     #IF THE WS IS A WEBSITE
     #TODO check for blanklight website
     if cn && cn.respond_to?(:websites) && cn.websites.first && (tmp=cn.websites.first.front)
@@ -132,23 +130,15 @@ module GenericForItemHelper
         css_files << "#{uploaded_css.split("public")[1]}"
       end
     end
-    
     css_files << '/stylesheets/fckeditor.css' if css_files.empty?
-   
     input_id = String.new
     input_id = object.class.to_s.underscore + '_' + attribute.to_s
-    #TODO Remove current workspaces
-    
-    #current_workspace = @current_user.private_workspace if current_workspace.nil?
-    
     field =  ''
     object.new_record? ? new_item = "&new=true" : new_item = ""
     field += '<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>'
     #field += '<script type="text/javascript">CKEDITOR.replace(\'ckInstance\', {customConfig : \'/admin/ck_config?ws='+ current_container.id.to_s + new_item + '\'});</script>'
     field += '<script type="text/javascript">CKEDITOR.replace(\'ckInstance\', {customConfig : \'/admin/ck_config?' + new_item + '\'});</script>'
-
     return field
-  
   end
 
 	# Workspaces checkboxes for item form

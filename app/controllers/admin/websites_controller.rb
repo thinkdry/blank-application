@@ -16,9 +16,17 @@ class Admin::WebsitesController < Admin::ApplicationController
 		:skip_logging_actions => [:get_website, :load_site, :form_management, :load_news])
 
   acts_as_container do
+  
+    after :create do
+      unless File.directory? "#{RAILS_ROOT}/public/website_files/#{@current_object.title}"
+        FileUtils.makedirs("#{RAILS_ROOT}/public/website_files/#{@current_object.title}/images")
+        FileUtils.makedirs("#{RAILS_ROOT}/public/website_files/#{@current_object.title}/stylesheets")
+        FileUtils.makedirs("#{RAILS_ROOT}/public/website_files/#{@current_object.title}/javascripts")
+      end
+    end
     
     before :edit do
-      @pages = current_user.private_workspace.pages
+      @pages = @current_object.pages
     end
     
     before :update do

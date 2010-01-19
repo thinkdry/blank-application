@@ -57,8 +57,8 @@ module Authorizable
 				if ITEMS.include?(self.to_s.underscore)
 					named_scope :matching_user_with_permission_in_containers, lambda { |user, permission, container_ids, container|
 						# Check if these workspace are matching the really authorized ones, and set 'nil for all' condition
-						container_ids ||= container.classify.constantize.allowed_user_with_permission(user, self.to_s.underscore + '_' + permission, container).all(:select => "#{container.pluralize}.id").map{ |e| e.id }
-						container_ids = container_ids.map{|w_id| w_id.to_i} & container.classify.constantize.allowed_user_with_permission(user, self.to_s.underscore + '_' + permission, container).all(:select => "#{container.pluralize}.id").map{ |e| e.id }
+						container_ids ||= container.classify.constantize.allowed_user_with_permission(user, self.to_s.underscore + '_' + permission, container).all(:select => "#{container.pluralize}.id, #{container.pluralize}.title").map{ |e| e.id }
+						container_ids = container_ids.map{|w_id| w_id.to_i} & container.classify.constantize.allowed_user_with_permission(user, self.to_s.underscore + '_' + permission, container).all(:select => "#{container.pluralize}.id, #{container.pluralize}.title").map{ |e| e.id }
 						# So we can retrieve directly as the workspaces are checked, hihihi
 						if container_ids.first
 							{ :select => "DISTINCT #{self.to_s.underscore.pluralize}.*",
@@ -73,11 +73,11 @@ module Authorizable
 				elsif CONTAINERS.include?(self.to_s.underscore)
 					named_scope :matching_user_with_permission_in_containers, lambda { |user, permission, container_ids, container|
 						# Check if these workspace are matching the really authorized ones, and set 'nil for all' condition
-            container_ids ||= container.classify.constantize.allowed_user_with_permission(user, container + '_' + permission, container).all(:select => "#{container.pluralize}.id").map{ |e| e.id }
-						container_ids = container_ids.map{|w_id| w_id.to_i} & container.classify.constantize.allowed_user_with_permission(user, container+ '_' + permission, container).all(:select => "#{container.pluralize}.id").map{ |e| e.id }
+            container_ids ||= container.classify.constantize.allowed_user_with_permission(user, container + '_' + permission, container).all(:select => "#{container.pluralize}.id, #{container.pluralize}.title").map{ |e| e.id }
+						container_ids = container_ids.map{|w_id| w_id.to_i} & container.classify.constantize.allowed_user_with_permission(user, container+ '_' + permission, container).all(:select => "#{container.pluralize}.id, #{container.pluralize}.title").map{ |e| e.id }
             
 						# In case of system permission
-						if user.has_system_permission(container.pluralize, permission)
+						if user.has_system_permission(container, permission)
 							{ }
               # So we can retrieve directly as the workspaces are checked, hihihi
 						elsif container_ids.first
@@ -121,11 +121,11 @@ module Authorizable
 				elsif ['user'].include?(self.to_s.underscore)
 					named_scope :matching_user_with_permission_in_containers, lambda { |user, permission, container_ids, container|
 						# Check if these workspace are matching the really authorized ones, and set 'nil for all' condition
-						container_ids ||= container.classify.constantize.allowed_user_with_permission(user, self.to_s.underscore+'_'+permission, container).all(:select => "#{container.pluralize}.id").map{ |e| e.id }
-						container_ids = container_ids & container.classify.constantize.allowed_user_with_permission(user, self.to_s.underscore+'_'+permission, container).all(:select => "#{container.pluralize}.id").map{ |e| e.id }
+						container_ids ||= container.classify.constantize.allowed_user_with_permission(user, self.to_s.underscore+'_'+permission, container).all(:select => "#{container.pluralize}.id, #{container.pluralize}.title").map{ |e| e.id }
+						container_ids = container_ids & container.classify.constantize.allowed_user_with_permission(user, self.to_s.underscore+'_'+permission, container).all(:select => "#{container.pluralize}.id, #{container.pluralize}.title").map{ |e| e.id }
 						# In case of system permission
-						if user.has_system_permission(self.to_s.underscore.pluralize, permission)
-							{  }
+						if user.has_system_permission(self.to_s.underscore, permission)
+							{}
               # So we can retrieve directly as the workspaces are checked, hihihi
 						elsif container_ids.first
 							{ :select => "DISTINCT #{self.to_s.underscore.pluralize}.*",
@@ -151,11 +151,11 @@ module Authorizable
 		module UserInstanceMethods
       def accepting_action(user, action, container, spe_cond=false, sys_cond=false, ws_cond=true)
         # Special access
-        if user.has_system_role('superadmin') || (self.id && ['show', 'edit'].include?(action)) || spe_cond
+        if user.has_system_role('superadmin') || (self.id && ['show'].include?(action)) || spe_cond
           return true
         end
         # System access
-        if user.has_system_permission(self.class.to_s.downcase, action) || sys_cond
+        if user.has_system_permission(self.class.to_s.underscore, action) || sys_cond
           return true
         end
         # Workspace access
@@ -163,7 +163,7 @@ module Authorizable
         if action == 'show'
           self.send(container.pluralize).each do |ws|
             if ws.users.include?(user)
-              if user.has_container_permission(ws.id, self.class.to_s.downcase, action, container) && ws_cond
+              if user.has_container_permission(ws.id, self.class.to_s.underscore, action, container) && ws_cond
                 return true
               end
             end
@@ -180,13 +180,13 @@ module Authorizable
 					return true
 				end
 				# System access
-				if user.has_system_permission(self.class.to_s.downcase, action) || sys_cond
+				if user.has_system_permission(self.class.to_s.underscore, action) || sys_cond
 					return true
 				end
 				# Workspace access
 				# Not for new and index normally ...
 				if self.users.include?(user)
-					if user.has_container_permission(self.id, self.class.to_s.downcase, action, container) && ws_cond
+					if user.has_container_permission(self.id, self.class.to_s.underscore, action, container) && ws_cond
 						return true
 					end
 				end
@@ -210,7 +210,7 @@ module Authorizable
 					return false
 				end
         # System access
-				if user.has_system_permission(model_name.downcase, action)
+				if user.has_system_permission(model_name.underscore, action)
 					return true
 				end
         # Workspace access

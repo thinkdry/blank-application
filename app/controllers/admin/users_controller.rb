@@ -4,13 +4,15 @@ class Admin::UsersController < Admin::ApplicationController
 
 	acts_as_authorizable(
 		:actions_permissions_links => {
+		    'new' => 'new',
+		    'create' => 'new',
 				'edit' => 'edit',
 				'update' => 'edit',
 				'show' => 'show',
 				'destroy' => 'destroy',
 				'locking' => 'destroy'
 			},
-		:skip_logging_actions => [:new, :create, :validate, :forgot_password, :reset_password, :activate])
+		:skip_logging_actions => [:validate, :forgot_password, :reset_password, :activate])
 
 	#layout 'application', :expect => [:new, :create]
 	layout :give_da_layout
@@ -166,7 +168,11 @@ class Admin::UsersController < Admin::ApplicationController
 	  params[:container_type] = 'workspace'
     params_hash = setting_searching_params(:from_params => params)
     params_hash.merge!({:skip_pag => true}) if params[:format] && params[:format] != 'html'
-		@current_objects ||= @objects = User.get_da_objects_list(params_hash)
+    if @current_user.has_system_role('superadmin')
+		  @current_objects ||= @objects = User.get_da_objects_list(params_hash)
+		else
+		  @current_objects ||= @objects = User.get_da_objects_list(params_hash).delete_if{|u| u.has_system_role('superadmin')}
+		end
 	end
 
   # AutoComplete for Users in TextBox

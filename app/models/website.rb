@@ -2,6 +2,8 @@ class Website < ActiveRecord::Base
 
   acts_as_container
   
+  validates_uniqueness_of :title, :message => 'Website title already exists.'
+  
   has_many :website_urls, :dependent => :delete_all
   
   has_many :menus, :order => "position"

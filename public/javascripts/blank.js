@@ -383,7 +383,7 @@ function add_new_user(url){
                 data: "user_login="+user_login+"&role_id=" + role_id,
                 dataType: "script",
 				success:function(html){
-					$('#notice').showMessage("User Not existing", 1500);
+					$('#notice').showMessage("User Added Successfully", 1500);
 				}
             });
         }else{
@@ -423,6 +423,7 @@ function insert_keyword(model_name, place, field_name){
     var key_words = name.split(',')
     for(var i=0; i < key_words.length; i++){
         var name = key_words[i].replace(/(^\s+|\s+$)/g, "");
+        name = replaceChar(name, ".","_")
         if(name != 0 && name.length == (name.replace(/<(\S+).*>(|.*)<\/(\S+).*>|<%(.*)%>|<%=(.*)%>+/g, "")).length){
             var hidden_field = "<input type='hidden' id='"+model_name+"_"+field_name+"' value='"+name+"' name='"+model_name+"["+field_name+"][]'>";
             $(place).append("<div id='"+name+"' class='keyword_label'><span>"+hidden_field+name+"</span><a href='#' onclick='$(\"#" + name + "\").remove(); return false;'>X</a></div>")
@@ -451,6 +452,34 @@ jQuery.fn.insert_field = function(model_name, place, field_name){
         $('#website_url_name_value').val('');
 		$('#website_url_name_value').focus();
     }
+}
+
+// Function to get encodig progress
+function get_encoding_progress(item_id,item_type){
+  var url = "/admin/"+item_type+"s/"+item_id+"/get_"+item_type+"_progress";
+  $.ajax({
+    type: "GET",
+    url: url,
+    data: "check=true",
+    success: function(response){
+      if(response == 'encoded'){
+	      $.ajax({
+	        type: "GET",
+	        url: url,
+	        data: "check=false",
+	        dataType: "script"
+	      });
+	    }else if(response == 'encoding_error'){
+	      $.ajax({
+	        type: "GET",
+	        url: url,
+	        data: "check=false&status=fail"
+	      });
+	    }else{
+	      get_encoding_progress(item_id,item_type);
+	    }
+    }
+  });
 }
 
 // to move option value from one select box to another select box
@@ -515,12 +544,21 @@ function shiftLeft(removeOptions,addOptions,saveFlag)
     document.getElementById('selected_Options').value = selcted_Options;
 }
 
+function replaceChar(str, from_char, to_char){
+  for(var i=0;i < str.length;i++){
+    if(str[i] == from_char){
+      str = str.replace(from_char,to_char);
+    }
+  }
+  return str;
+}
+
 function add_new_follower(){
     //getting the mail value
     var email = $('#new_follower_email').val();
     //cleaning for jQuery to understand the div ID.
-    var emailDivId = email.replace("@", "_");
-    var emailDivId = emailDivId.replace(".", "_");
+    var emailDivId = replaceChar(email, "@","_")
+    var emailDivId = replaceChar(emailDivId, ".", "_");
 	
     if(email != 0){
         //creating a new div with ID, for deletion possible.
@@ -534,3 +572,4 @@ function add_new_follower(){
         $('#new_follower_email').value = '';
     }
 }
+

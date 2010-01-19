@@ -54,3 +54,10 @@ ActionMailer::Base.raise_delivery_errors = true
 ActionMailer::Base.template_root = "#{RAILS_ROOT}/app/views/admin"
 
 TRANSLATION_SITE = 'http://admin:secret@translator.thinkdry.com'
+
+#require 'fileutils'
+
+#['image', 'audio', 'video', 'cmsfile', 'user', 'articlefile', 'workspaces', 'websites', 'folders'].each do |obj|
+#  FileUtils.mkdir_p RAILS_ROOT + '/public/uploaded_files/'+ obj
+#end
+

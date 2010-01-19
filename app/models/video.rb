@@ -70,6 +70,7 @@ class Video < ActiveRecord::Base
   # Usage :
   # <tt>object.codec</tt>
   def codec
+    #"-ar 22050 -ab 32 -f flv -y"
     "-vcodec libx264 -vpre hq -ar 22050 -ab 32 -crf 15"
   end
 

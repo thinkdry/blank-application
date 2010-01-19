@@ -47,6 +47,14 @@ module Searchable
 				named_scope :paginating_with,
 					lambda { |limit, offset| { :limit => limit, :offset => offset }
 				}
+				
+				named_scope  :order,
+				  lambda {|field, order| {:order => "#{field} #{order}"}
+				}
+				
+				named_scope  :limit,
+				  lambda {|l| { :limit => l }
+				}
 
 				# Method returning the objects list scoping the params
 				#
@@ -61,7 +69,6 @@ module Searchable
 					req = req.searching_text_with_xapian(options[:full_text]) if options[:full_text]
 					# 2. workspaces & permissions
 					req = req.matching_user_with_permission_in_containers(options[:user], 'show', options[:container_ids], options[:container_type])
-					
 					# NOW REQ IS AN ARRAY
 					
 					# 3. condition if there
@@ -77,11 +84,14 @@ module Searchable
           end
           
 					if (options[:opti] == 'skip_pag_but_filter')
-						req = req.all(:order => options[:filter][:field]+' '+options[:filter][:way])
+					  req = req.order(options[:filter][:field], options[:filter][:way])
+						#req = req.all(:order => options[:filter][:field]+' '+options[:filter][:way])
 					elsif (options[:opti] == 'skip_pag_but_limit')
-						req = req.all(:limit => options[:pagination][:per_page])
+					  req = req.limit(options[:pagination][:per_page])
+						#req = req.all(:limit => options[:pagination][:per_page])
 					elsif (options[:opti] == 'skip_pag_but_filter_and_limit')
-						req = req.all(:order => options[:filter][:field]+' '+options[:filter][:way], :limit => options[:pagination][:per_page])
+					  req = req.order(options[:filter][:field],options[:filter][:way]).limit(options[:pagination][:per_page])
+						#req = req.all(:order => options[:filter][:field]+' '+options[:filter][:way], :limit => options[:pagination][:per_page])
 					elsif (options[:opti] == 'skip_full_pag')
 						# so nothing ...
 					else

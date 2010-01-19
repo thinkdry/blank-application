@@ -25,7 +25,9 @@ class Admin::AudiosController < Admin::ApplicationController
     elsif params[:status]
       render :text => @current_object.state
     else
-      render :partial=>"player", :object => @current_object
+      render :update do |page|
+        page.replace_html "states", :partial => 'player', :object => @current_object
+      end
     end
   end
 
