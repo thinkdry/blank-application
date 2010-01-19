@@ -151,13 +151,15 @@ module Authorizable
 		module UserInstanceMethods
       def accepting_action(user, action, container, spe_cond=false, sys_cond=false, ws_cond=true)
         # Special access
-        if user.has_system_role('superadmin') || (self.id && ['show'].include?(action)) || spe_cond
-          return true
-        end
+#        if user.has_system_role('superadmin') || (self.id && ['show','edit'].include?(action)) || spe_cond
+#          return true
+#        end
         # System access
         if user.has_system_permission(self.class.to_s.underscore, action) || sys_cond
           return true
         end
+        
+        
         # Workspace access
         # The only permission linked to an user in a workspace is 'show'
         if action == 'show'
@@ -168,6 +170,11 @@ module Authorizable
               end
             end
           end
+        end
+        
+        # Check if the user is the current_user
+        if self.id == user.id
+          return true
         end
         false
       end

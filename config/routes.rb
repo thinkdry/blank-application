@@ -65,8 +65,8 @@ ActionController::Routing::Routes.draw do |map|
     admin.reset_password '/reset_password/:password_reset_code', :controller => 'users', :action => 'reset_password'
     admin.resources :users, :member => { :locking => :any, :resend_activation_mail_or_activate_manually => :post },
       :collection => {:autocomplete_on => :any, :validate => :any } do |user|
-		user.notification '/notifications', :controller => 'users', :action => 'notifications'
-		user.create_notification '/create_notifications', :controller => 'users', :action => 'create_notifications'
+      user.notification '/notifications', :controller => 'users', :action => 'notifications'
+      user.create_notification '/create_notifications', :controller => 'users', :action => 'create_notifications'
     end
     admin.resource :session
 
@@ -144,22 +144,24 @@ ActionController::Routing::Routes.draw do |map|
     # Search related routes
     admin.resources :searches, :collection => { :print_advanced => :any, :validate => :post }
 
-    #################################################################################
-
-    # Add Project Specific Routes here!
-    # Website Home
-    map.root :controller => "websites", :action => 'index'
-	  map.connect '/:title_sanitized', :controller =>'websites', :action => 'index'
-    map.resources :websites, :only => [:index, :update]
-    #map.create_front_folders '/create_front_folders', :controller => 'fronts', :action => 'create_front_folders'
-    #map.export_contacts '/export_contacts/:website_id', :controller =>'websites', :action => 'export_contacts'
-    #map.connect '/web/form_submit', :controller => 'websites', :action => 'contact_submit'
-	  #map.connect '/web', :controller =>'websites', :action => 'load_site'
-    #map.connect '/actu/all', :controller =>'news_reports', :action => 'list'
-    #map.connect '/actu/:title_sanitized', :controller =>'websites', :action => 'load_news'
-    #map.connect '*global_error_page', :controller=>'websites', :action=>'load_site'
-
-    # Catch Errors and show custom message, avoid SWW
-    admin.error 'admin/error/:status' , :controller => 'home', :action => 'error'
+  # Catch Errors and show custom message, avoid SWW
+    admin.error '/admin/error/:status' , :controller => 'home', :action => 'error'
+    
   end
+  #################################################################################
+
+  # Add Project Specific Routes here!
+  # Website Home
+  map.root :controller => "websites", :action => 'index'
+  map.connect '/:title_sanitized', :controller =>'websites', :action => 'index'
+  map.resources :websites, :only => [:index, :update]
+  #map.create_front_folders '/create_front_folders', :controller => 'fronts', :action => 'create_front_folders'
+  #map.export_contacts '/export_contacts/:website_id', :controller =>'websites', :action => 'export_contacts'
+  #map.connect '/web/form_submit', :controller => 'websites', :action => 'contact_submit'
+  #map.connect '/web', :controller =>'websites', :action => 'load_site'
+  #map.connect '/actu/all', :controller =>'news_reports', :action => 'list'
+  #map.connect '/actu/:title_sanitized', :controller =>'websites', :action => 'load_news'
+  #map.connect '*global_error_page', :controller=>'websites', :action=>'load_site'
+
+  
 end
