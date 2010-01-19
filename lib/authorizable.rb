@@ -77,7 +77,7 @@ module Authorizable
 						container_ids = container_ids.map{|w_id| w_id.to_i} & container.classify.constantize.allowed_user_with_permission(user, container+ '_' + permission, container).all(:select => "#{container.pluralize}.id, #{container.pluralize}.title").map{ |e| e.id }
             
 						# In case of system permission
-						if user.has_system_permission(container.pluralize, permission)
+						if user.has_system_permission(container, permission)
 							{ }
               # So we can retrieve directly as the workspaces are checked, hihihi
 						elsif container_ids.first
@@ -124,8 +124,8 @@ module Authorizable
 						container_ids ||= container.classify.constantize.allowed_user_with_permission(user, self.to_s.underscore+'_'+permission, container).all(:select => "#{container.pluralize}.id, #{container.pluralize}.title").map{ |e| e.id }
 						container_ids = container_ids & container.classify.constantize.allowed_user_with_permission(user, self.to_s.underscore+'_'+permission, container).all(:select => "#{container.pluralize}.id, #{container.pluralize}.title").map{ |e| e.id }
 						# In case of system permission
-						if user.has_system_permission(self.to_s.underscore.pluralize, permission)
-							{  }
+						if user.has_system_permission(self.to_s.underscore, permission)
+							{}
               # So we can retrieve directly as the workspaces are checked, hihihi
 						elsif container_ids.first
 							{ :select => "DISTINCT #{self.to_s.underscore.pluralize}.*",
@@ -151,7 +151,7 @@ module Authorizable
 		module UserInstanceMethods
       def accepting_action(user, action, container, spe_cond=false, sys_cond=false, ws_cond=true)
         # Special access
-        if user.has_system_role('superadmin') || (self.id && ['show', 'edit'].include?(action)) || spe_cond
+        if user.has_system_role('superadmin') || (self.id && ['show'].include?(action)) || spe_cond
           return true
         end
         # System access

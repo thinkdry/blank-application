@@ -22,11 +22,11 @@
 
 		    <%= f.password_field 	:password, 
 									:label => I18n.t('user.field.password_label')+" * : ", 
-									:hint => I18n.t('user.field.password_hint') %>
+									:hint => @current_object.new_record? ? "Select your password" : I18n.t('user.field.password_hint') %>
 										
 		    <%= f.password_field 	:password_confirmation, 
 									:label => I18n.t('user.field.confirm_password_label')+" * : ", 
-									:hint => I18n.t('user.field.confirm_password_hint') %>
+									:hint => @current_object.new_record? ? "Select your password" : I18n.t('user.field.confirm_password_hint') %>
 			
 			<%= f.text_field :firstname, :label => I18n.t('user.field.first_name_label')+" * : ", :hint => "TODO hint" %>
 		    <%= f.text_field :lastname, :label => I18n.t('user.field.last_name_label')+" * : ", :hint => "TODO hint" %>

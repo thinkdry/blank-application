@@ -45,3 +45,14 @@ IMAGE_TYPES = ["image/jpeg", "image/pjpeg", "image/gif", "image/png", "image/x-p
 CAPTCHA_IMAGES_NUMBER = 10
 # Variable to define number of newsletters to send per hour
 NEWSLETTERS_PER_HOUR = 20
+
+require 'bullet'
+
+config.after_initialize do
+  Bullet.enable = true 
+  Bullet.alert = true
+  Bullet.bullet_logger = true  
+  Bullet.console = true
+  Bullet.rails_logger = true
+  Bullet.disable_browser_cache = true
+end

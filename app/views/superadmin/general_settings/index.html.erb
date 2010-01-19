@@ -73,9 +73,10 @@
 				<div id="followers_email" >
 		      		<% if @configuration['sa_exception_followers_email'] -%>
 		        		<% @configuration['sa_exception_followers_email'].each do |email| -%>
-		          			<div id="<%= email %>">
+		        		    <% div_name = email.gsub(/[.|:|@| \/]/, '_') %>
+		          			<div id="<%= div_name %>">
 		            			<%= email %> |
-		            			<a onclick="this.parentNode.remove(); return false;">DELETE</a>
+		            			<a onclick="$('#<%=div_name%>').remove(); return false;">DELETE</a>
 		            			<input type="hidden" value="<%= email %>" name="configuration[sa_exception_followers_email][]"/>
 		          			</div>
 
