@@ -56,7 +56,8 @@ module Admin::ApplicationHelper
 		  else
         content = '<div>'
       end
-      content += check_box_tag(object+'['+param+']'+"[]", "#{l}", ((ref=conf[param]) ? ref.include?(l) : false), :class => "checkboxes")+' '+I18n.t('general.'+key+'.'+l)
+      content += check_box_tag(object+'['+param+']'+"[]", "#{l}", ((ref=conf[param]) ? ref.include?(l) : false), :class => "checkboxes")
+      content += ' '+I18n.t('general.'+key+'.'+l)
       content += "</div>"
 			res << content
     end

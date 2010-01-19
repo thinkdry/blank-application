@@ -354,6 +354,10 @@ form input{
 	font-family:"Lucida Grande", "Bitstream Vera Sans", Helvetica, Verdana, Arial, sans-serif;
 	font-size:90%;
 }
+.superadmin .formElement textarea{
+	width:434px;
+}
+
 .submitButton{
 	background:#fff url(/images/rightSubmitButton.gif) no-repeat scroll right 1px;
 	clear:both;
