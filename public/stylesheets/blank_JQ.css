@@ -763,6 +763,7 @@ a.filter{
 
 .itemShowRightBlock .blockElementBody{
 	padding:25px 10px !important;
+	width:178px;
 }
 
 .rightBlocks{overflow:hidden;float:right;}
