@@ -26,6 +26,10 @@ class Admin::HomeController < Admin::ApplicationController
 		 @objects = params[:model_name].classify.constantize.find(:all, :conditions => conditions)
 		 render :text => '<ul>'+ @objects.map{ |e| '<li>' + e.name + '</li>' }.join(' ')+'</ul>'
 	end
+	
+	def error
+	  
+	end
 
 end
 
