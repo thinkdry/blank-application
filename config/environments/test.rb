@@ -54,3 +54,6 @@ IMAGE_TYPES = ["image/jpeg", "image/pjpeg", "image/gif", "image/png", "image/x-p
 CAPTCHA_IMAGES_NUMBER = 10
 # Variable to define number of newsletters to send per hour
 NEWSLETTERS_PER_HOUR = 20
+# Variable for website files
+WEBSITE_FILES = "website_files"
+WEBSITES_FOLDER = "#{RAILS_ROOT}/public/#{WEBSITE_FILES}/"

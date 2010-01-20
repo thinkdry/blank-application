@@ -21,9 +21,17 @@ class Superadmin::GeneralSettingsController < Admin::ApplicationController
     #File.rename("#{RAILS_ROOT}/config/customs/sa_config.yml", "#{RAILS_ROOT}/config/customs/old_sa_config.yml")
     @new=File.new("#{RAILS_ROOT}/config/customs/sa_config.yml", "w+")
     @new.syswrite(res.to_yaml)
-    if params[:apply_to_all_workspaces] == 'true'
-      Workspace.all.each do |w|
-        w.update_attributes(:available_items => @configuration['sa_items'])
+    if params[:apply_to_all_private_workspaces]
+      Workspace.is_private.each do |ws|  
+        ws.update_attributes(:available_items => @configuration['sa_items'])
+      end
+    end
+    
+    if params[:apply_to_all_containers] == 'true'
+      CONTAINERS.each do |container|
+        container.classify.constantize.all.each do |c|
+          c.update_attributes(:available_items => @configuration['sa_items'])
+        end
       end
     end
 		flash[:notice] = "General settings updated"

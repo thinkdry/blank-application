@@ -45,14 +45,22 @@ IMAGE_TYPES = ["image/jpeg", "image/pjpeg", "image/gif", "image/png", "image/x-p
 CAPTCHA_IMAGES_NUMBER = 10
 # Variable to define number of newsletters to send per hour
 NEWSLETTERS_PER_HOUR = 20
+# Variable for websites
+WEBSITE_FILES = "website_files".freeze
+WEBSITES_FOLDER = "#{RAILS_ROOT}/public/#{WEBSITE_FILES}".freeze
 
-require 'bullet'
+begin
+  require 'bullet'
 
-config.after_initialize do
-  Bullet.enable = true 
-  Bullet.alert = true
-  Bullet.bullet_logger = true  
-  Bullet.console = true
-  Bullet.rails_logger = true
-  Bullet.disable_browser_cache = true
-end
+  config.after_initialize do
+    Bullet.enable = true 
+    Bullet.alert = true
+    Bullet.bullet_logger = true  
+    Bullet.console = true
+    Bullet.rails_logger = true
+    Bullet.disable_browser_cache = true
+  end
+rescue
+  logger.info "Bullet not loaded"
+  p "Install Bullet Gem:- sudo gem install bullet"
+end  
