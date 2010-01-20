@@ -16,7 +16,8 @@ a:hover {color: #333;text-decoration: underline;}
 
 img {border:none;}
 
-th{color:#F79646;text-align:left;}
+th, th a{color:#F79646;text-align:left;}
+th a:hover{background-color:transparent !important; color:#F79646 !important; text-transform:none !important;}
 
 h1 {
 	border-bottom:1px solid #CCCCCC;
