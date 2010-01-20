@@ -18,10 +18,10 @@ class Admin::WebsitesController < Admin::ApplicationController
   acts_as_container do
   
     after :create do
-      unless File.directory? "#{RAILS_ROOT}/public/website_files/#{@current_object.title}"
-        FileUtils.makedirs("#{RAILS_ROOT}/public/website_files/#{@current_object.title}/images")
-        FileUtils.makedirs("#{RAILS_ROOT}/public/website_files/#{@current_object.title}/stylesheets")
-        FileUtils.makedirs("#{RAILS_ROOT}/public/website_files/#{@current_object.title}/javascripts")
+      unless File.directory? "#{WEBSITES_FOLDER}/#{@current_object.title}"
+        FileUtils.makedirs("#{WEBSITES_FOLDER}/#{@current_object.title}/images")
+        FileUtils.makedirs("#{WEBSITES_FOLDER}/#{@current_object.title}/stylesheets")
+        FileUtils.makedirs("#{WEBSITES_FOLDER}/#{@current_object.title}/javascripts")
       end
     end
     
@@ -51,11 +51,9 @@ class Admin::WebsitesController < Admin::ApplicationController
     p current_folder
     p new_folder
     command = <<-end_command
-         mv #{RAILS_ROOT}/public/website_files/#{current_folder} #{RAILS_ROOT}/public/website_files/#{new_folder}
+         mv #{WEBSITES_FOLDER}/#{current_folder} #{WEBSITES_FOLDER}/#{new_folder}
     end_command
     command.gsub!(/\s+/, " ")
-    p ">>>>>>>>>>>>>>>>>>>> inside rename"
-    p "#{command}"
     system(command)
   end
   

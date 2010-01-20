@@ -30,7 +30,7 @@
         width, height = '730', '350'
     end
     css_files = []
-    Dir["public/website_files/#{@current_website.title}/stylesheets/*.css"].collect do |uploaded_css|
+    Dir["public/#{WEBSITE_FILES}/#{@current_website.title}/stylesheets/*.css"].collect do |uploaded_css|
         css_files << "#{uploaded_css.split("public")[1]}"
     end
     #    css_files = '/fckeditor/css/test_fck.css' if css_files.empty?
