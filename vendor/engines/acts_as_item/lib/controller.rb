@@ -122,11 +122,7 @@ module ActsAsItem
 					# Response redirecting to the show page after the create action,
 					# In the case of Article, Page or Newsletter, it is redirecting to the edition page
 					# in order to fill the 'body' field.
-					response_for :create do |format|
-						format.html { params[:continue] ? redirect_to(new_item_path(@current_object.class.to_s)) : redirect_to(item_path(@current_object)) }
-					end
-					# Response redirecting to the show or new page after the edition 
-					response_for :update do |format|
+					response_for :create, :update do |format|
 						format.html { params[:continue] ? redirect_to(new_item_path(@current_object.class.to_s)) : redirect_to(item_path(@current_object)) }
 					end
 

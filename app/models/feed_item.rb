@@ -31,6 +31,9 @@ class FeedItem < ActiveRecord::Base
 
 	# Relation N-1 with the 'feed_sources' table
   belongs_to :feed_source
+  
+  validates_uniqueness_of :guid, :scope => :feed_source_id
+  validates_uniqueness_of :title, :scope => :feed_source_id
 
 	# Scope getting the latest 5 feed items entered inside the database
   named_scope :latest,

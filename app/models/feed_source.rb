@@ -48,7 +48,7 @@ class FeedSource < ActiveRecord::Base
   # Method defined in the ActsAsItem:ModelMethods:ClassMethods (see that library fro more information)
   acts_as_item
   # Relation 1-N with the 'feed_sources' table
-	has_many :feed_items , :order => "date_published DESC", :dependent => :delete_all
+	has_many :feed_items , :order => "date_published DESC", :dependent => :destroy
   # Validation of the presence of the 'url' field
   validates_presence_of :url
 	# Validation of the format of the 'url' field
@@ -66,8 +66,7 @@ class FeedSource < ActiveRecord::Base
   def self.valid_feed?(feed_url)
     begin
       open(feed_url) do |http|
-        p http.content_type
-        if http.content_type.include?('rss') ||  http.content_type.include?('xml')
+        if http.content_type.include?('rss') ||  http.content_type.include?('xml') || feed_url.include?('format=rss')
           return true
         else
           return false
@@ -90,16 +89,21 @@ class FeedSource < ActiveRecord::Base
     feed = Feedzirra::Feed.fetch_and_parse(self.url)
     feed.entries.each do |entry|
       # Be sure that the item hasnt been imported before
-      if self.feed_items.count(:conditions => { :guid => entry.id, :feed_source_id => self.id }) <= 0
-        FeedItem.create({
-            :feed_source_id => self.id,
-            :guid						=> entry.id,
-            :title					=> entry.title,
-            :description		=> entry.summary,
-            :authors				=> entry.author,
-            :date_published => entry.published,
-            :categories			=> entry.categories.join(','),
-            :link           => entry.url})
+      unless self.feed_items.exists?(:guid => entry.id, :link => entry.url, :feed_source_id => self.id)
+        feeditem = FeedItem.new({
+          :feed_source_id => self.id,
+          :guid						=> entry.id,
+          :title					=> entry.title,
+          :description		=> entry.summary,
+          :authors				=> entry.author,
+          :date_published => entry.published,
+          :categories			=> entry.categories.join(','),
+          :link           => entry.url})
+          if feeditem.save
+            logger.info "FeedItem Created with id #{feeditem.id} for FeedSource #{feeditem.feed_source_id}"
+          else
+            logger.info "Feed Creation Failed with #{feeditem.errors.full_messages.join(',')}"
+          end
       end
     end
   end
@@ -123,7 +127,7 @@ class FeedSource < ActiveRecord::Base
 			begin
 				s.import_latest_items
 			rescue
-        s.errors.inspect
+        logger.info s.errors.inspect
 				logger.info "  #{Time.now} : Error updating Feed Source #{s.id}"
 			end
 			#logger.info "Removing Expired Feed Items"
