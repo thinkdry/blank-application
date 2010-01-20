@@ -78,7 +78,7 @@ class Superadmin::RolesController < Admin::ApplicationController
 				format.html { redirect_to(superadmin_roles_path) }
 				format.xml  { render :xml => @role, :status => :created, :location => superadmin_role_path(@role) }
 			else
-				flash.now[:error] = 'Role Creation Failed.'
+				flash[:error] = 'Role Creation Failed.'
 				get_permissions
 				format.html { render :action => "new" }
 				format.xml  { render :xml => @role.errors, :status => :unprocessable_entity }
@@ -100,7 +100,7 @@ class Superadmin::RolesController < Admin::ApplicationController
 				format.html { redirect_to(superadmin_roles_path) }
 				format.xml  { head :ok }
 			else
-        flash.now[:error] = 'Role update failed.'
+        flash[:error] = 'Role update failed.'
 				get_permissions
 				format.html { render :action => "edit" }
 				format.xml  { render :xml => @role.errors, :status => :unprocessable_entity }
@@ -115,13 +115,14 @@ class Superadmin::RolesController < Admin::ApplicationController
 	# - DELETE /roles/1.xml
   def destroy
     if @role.name == 'superadmin'
-      flash[:error] = "SuperAdministrator Cannot Be Deleted!"
+      flash[:error] = "SuperAdministrator can't be deleted!"
       respond_to do |format|
         format.html { redirect_to(superadmin_roles_path) }
         format.xml  { head :ok }
       end
     else
       @role.destroy
+      flash[:notice] = 'Role was successfully deleted.'
       respond_to do |format|
         format.html { redirect_to(superadmin_roles_path) }
         format.xml  { head :ok }

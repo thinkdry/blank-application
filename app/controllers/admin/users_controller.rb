@@ -76,12 +76,12 @@ class Admin::UsersController < Admin::ApplicationController
     after :update do
 			get_roles
 			@current_object.save
-			flash.now[:notice] = I18n.t('user.edit.flash_notice')
+			flash[:notice] = I18n.t('user.edit.flash_notice')
     end
 
     after :update_fails do
 			get_roles
-			flash.now[:error] = I18n.t('user.edit.flash_error')
+			flash[:error] = I18n.t('user.edit.flash_error')
     end
     
     response_for :new , :update do |format|
