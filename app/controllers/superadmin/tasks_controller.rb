@@ -38,10 +38,17 @@ class Superadmin::TasksController < Admin::ApplicationController
 			system "touch #{RAILS_ROOT}/tmp/restart.txt" # tells passenger to restart the server
 			message = "Server restarted successfully"
 		end
-		render :update do |page|
-      page.show 'notice'
-			page.replace_html 'notice', message.nil? ? "#{params[:job].capitalize} Updated Sucessfully " : message
-		end
+		
+		message.nil? ? @message = "#{params[:job].capitalize} Updated Sucessfully " : @message = message
+		
+		respond_to do |format|
+  	  format.js {render :layout => false}
+  	end
+  	
+		# render :update do |page|
+		#       page.show 'notice'
+		#       page.replace_html 'notice', 
+		#     end
   end
 
 end

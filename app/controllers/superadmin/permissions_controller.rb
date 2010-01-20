@@ -69,12 +69,12 @@ class Superadmin::PermissionsController < Admin::ApplicationController
     @permission = Permission.new(params[:permission])
     respond_to do |format|
 			if @permission.save
-				flash.now[:notice] = 'Permission was successfully created.'
+				flash[:notice] = 'Permission was successfully created.'
 				format.html { redirect_to(superadmin_permissions_path) }
 				format.xml  { render :xml => @permission, :status => :created, :location => superadmin_permission_path(@permission) }
 				@permissions= Permission.find(:all)
 			else
-        flash.now[:error] = 'Permission Updation Failed.'
+        flash[:error] = 'Permission Updation Failed.'
 				format.html { render :action => "new" }
 				format.xml  { render :xml => @permission.errors, :status => :unprocessable_entity }
 			end
@@ -89,11 +89,11 @@ class Superadmin::PermissionsController < Admin::ApplicationController
   def update
     respond_to do |format|
 			if @permission.update_attributes(params[:permission])
-				flash.now[:notice] = 'Permission was successfully updated.'
+				flash[:notice] = 'Permission was successfully updated.'
 				format.html { redirect_to(superadmin_permissions_path) }
 				format.xml  { head :ok }
 			else
-				flash.now[:error] = 'Permission Updation Failed.'
+				flash[:error] = 'Permission Updation Failed.'
 				format.html { render :action => "edit" }
 				format.xml  { render :xml => @permission.errors, :status => :unprocessable_entity }
 			end
@@ -108,6 +108,7 @@ class Superadmin::PermissionsController < Admin::ApplicationController
   def destroy
     @permission.destroy
     @permissions= Permission.find(:all)
+    flash[:notice] = 'Permission was successfully updated.'
 		respond_to do |format|
 			format.html { redirect_to(superadmin_permissions_url) }
 			format.xml  { head :ok }
