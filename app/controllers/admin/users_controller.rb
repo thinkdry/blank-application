@@ -74,12 +74,8 @@ class Admin::UsersController < Admin::ApplicationController
     #		end
 
     after :update do
-			# System role secure check on Update
 			get_roles
 			@current_object.save
-      #			if is_given_private_workspace && !Workspace.exists?(:creator_id => @current_object.id, :state => 'private')
-      #				@current_object.create_private_workspace
-      #			end
 			flash.now[:notice] = I18n.t('user.edit.flash_notice')
     end
 
@@ -87,16 +83,12 @@ class Admin::UsersController < Admin::ApplicationController
 			get_roles
 			flash.now[:error] = I18n.t('user.edit.flash_error')
     end
+    
+    response_for :new , :update do |format|
+      format.html {params[:continue] ? redirect_to(new_admin_user_path) : redirect_to(admin_user_path)}
+    end
   end
   
-  def update
-     if params[:continue]
-  		  redirect_to new_admin_user_path
-  		else
-  		  redirect_to admin_user_path(@current_object)
-  		end
-  end
-
 	def locking
 		current_object
 		if @current_object.activation_code == 'unlocked'
