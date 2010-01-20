@@ -39,11 +39,17 @@
 		  	<div class="formElement">
 		    	<%= checkboxes_from_list(ITEMS, "sa_items", @configuration, "configuration", true) %>
 		  	</div>
+		  	
+		  <label></label>
+		  	<div class="formElement">
+		    	<%= check_box_tag 'apply_to_all_private_workspaces', 'true', false, { :class => "checkboxes", :noHint => "yes" } %> 
+				Apply this item list to all private workspaces
+		  	</div>
 		 
 			<label></label>
 		  	<div class="formElement">
-		    	<%= check_box_tag 'apply_to_all_workspaces', 'true', false, { :class => "checkboxes", :noHint => "yes" } %> 
-				Apply this item list available for each workspace
+		    	<%= check_box_tag 'apply_to_all_containers', 'true', false, { :class => "checkboxes", :noHint => "yes" } %> 
+				Apply this item list available for each containers
 		  	</div>
 
 		  	<label>Default language:</label>

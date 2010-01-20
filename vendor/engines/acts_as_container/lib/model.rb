@@ -66,6 +66,9 @@ module ActsAsContainer
         named_scope :latest,
           :order => 'created_at DESC',
           :limit => 5
+          
+         named_scope :is_private,
+          {:conditions => {:state => 'private'}}
 
         #---------------------------------------------------------
         # Callback Methods
