@@ -236,6 +236,8 @@ $(document).ready(function () {
 	$('#add_level_one_menu').colorbox({width:"650px"});
 	$('.add_sub_menu').colorbox({width:"650px"});
 	
+	$('#sortable').tablesorter(); 
+	
 	
 	// ************************************************************
 	// When keyword field got focus, submit is disable, user can add
