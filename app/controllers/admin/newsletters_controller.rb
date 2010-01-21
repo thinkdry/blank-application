@@ -10,11 +10,7 @@ class Admin::NewslettersController < Admin::ApplicationController
 
     before :show do
 			# Set the group available for newsletter sending
-      if current_workspace
-        @groups = current_workspace.groups.all(:select =>"id, title")
-      else
-        @groups = @current_object.workspaces.map{|w| w.groups.all(:select =>"id, title")}.flatten!
-      end
+     @groups = current_container.groups.find(:all, :select => "groups.id, groups.title")
       
     end
 		# After the creation, redirection to the edition in order to be able to set the body
