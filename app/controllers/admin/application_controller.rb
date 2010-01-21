@@ -14,7 +14,7 @@ class Admin::ApplicationController < ActionController::Base
 	# Library used to get helpers for Captcha
 	include YacaphHelper
   # Protect from cross-site requests
-  #protect_from_forgery
+  # protect_from_forgery
   # Filter the password fields to protect password & password confirmation
   filter_parameter_logging :password, :password_confirmation
   # Layout selected with the 'get_current_layout' method
