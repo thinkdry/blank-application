@@ -126,7 +126,7 @@ namespace :blank do
       end
     end
     ITEMS.each do |item|
-      ['new', 'edit', 'index', 'show', 'destroy','comment','rate'].each do |action|
+      ['new', 'edit', 'index', 'show', 'destroy','comment','rate','tag'].each do |action|
         Permission.find(:all, :conditions =>{:name => item + '_' + action}).each do |p|
           #@role_user.permissions << p
           if action=='new'  || action=='edit'
