@@ -4,6 +4,6 @@
   var so = new SWFObject('/players/videoplayer.swf','mpl','470','320','9','#666666');
   so.addParam('allowscriptaccess','always');
   so.addParam('allowfullscreen','true');
-  so.addParam('flashvars','&file=<%= object.path_to_encoded_file %>&logo=/images/videologo.png&backcolor=#D86C27');
+  so.addParam('flashvars','&image=/uploaded_files/video/'+ <%=object.id.to_s%> + '/original/1.png&file=<%= object.path_to_encoded_file %>&logo=/images/videologo.png&backcolor=#D86C27');
   so.write("player_<%= object.class.to_s + "_" + object.id.to_s%>");
 </script>

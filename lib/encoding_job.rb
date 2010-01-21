@@ -43,6 +43,8 @@ class EncodingJob
 			# depend of the version of Linux !! TODO check Linux version for ffmpeg
 			#File.open(media, 'w')
     end
+		commande = "ffmpeg -i #{ object.media_type.path } #{object.codec} #{ media }"
+		Delayed::Worker.logger.info commande
     if ext == enc
       command=<<-end_command
          true
@@ -64,9 +66,10 @@ class EncodingJob
   # Create Thumbnails for Video File on Particular Intervals
   def thumbnail(i,j,object)
     thumb = File.join(File.dirname(object.media_type.path), "#{i.to_s}.png")
-    File.open(thumb, 'w')
+		# Note needed for CentOS    
+		#File.open(thumb, 'w')
     command=<<-end_command
-    ffmpeg  -itsoffset -#{(i*j).to_s}  -i #{File.dirname(object.media_type.path)}/video.flv -vcodec png -vframes 1 -an -f rawvideo -s 470x320 -y #{thumb}
+    ffmpeg  -itsoffset -#{(i*j).to_s}  -i #{ object.media_type.path } -vcodec png -vframes 1 -an -f rawvideo -s 640x480 -y #{thumb}
     end_command
     command.gsub!(/\s+/, " ")
   end
