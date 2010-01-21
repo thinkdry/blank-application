@@ -122,19 +122,22 @@ h4 {
 .formError {color:red;}
 
 .ckUploader{clear:both;padding-top:50px;margin-left:10px;padding-bottom:5px;}
+.ckInsert{margin-left:10px;padding-bottom:5px;}
 
 .ui-tabs .ui-tabs-hide {display: none;}
 
 #images_tabs input, #insert_video input {width:300px;float:left;border:1px solid #ccc;height:20px;}
 #images_tabs label, #insert_video label {width:80px;padding-top:8px;;clear:both;float:left;}
 .fckLinkContent {height:500px;overflow:auto;clear:both;padding:10px;}
-.fckLinkContent div{clear:both; margin-top:25px;}
+.modalTabContent {clear:both; margin-top:25px;}
 .fckLinkContent form {overflow:hidden;}
 .fckLinkContent p{ margin-bottom:0; margin-top:5px;overflow:hidden;}
 .fckLinkContent li{display:inline;margin-right:10px;size:120%;}
 .fckLinkContent .ui-tabs-selected a{color:#F79646;font-size:120%;}
 .fckLinkContent h1{margin:0 0 10px !important;}
 #images_tabs select{float:left;margin-top:5px;}
+
+.modalWarning {clear:both;padding-top:25px;}
 
 /* Structure */
 
@@ -331,11 +334,14 @@ label{
 	width:130px;
 }
 
+.listInModal {clear:both;padding-top:25px;}
+.modalForm .formElement{float:left !important; clear:none; margin-top:0;}
+
 .advanced{
 	padding-top:50px !important;
 }
 
-form input{
+form input, .simulate{
 	border:1px solid #c2c2c2;
 	color:#333333;
 	font-size:100%;
@@ -838,9 +844,8 @@ a.filter{
 	width:206px;
 	margin:10px 0 0 35px;
 }
-.workspaceInfos{
-	float:left;padding:0 10px;width:689px;
-}
+.workspaceInfos{float:left;padding:0 10px;width:689px;}
+.workspaceInfos .description{padding-bottom:0;}
 .workspaceHeader{
 	margin-bottom:50px;
 	overflow:hidden;
@@ -848,7 +853,8 @@ a.filter{
 .workspaceActions{
 	border-bottom:1px solid #CCC;
 	overflow:hidden;
-	padding-bottom:5px;
+	padding-bottom:3px;
+	margin:0;
 }
 .space{padding:25px 10px;}
 .itemShowLeftBody table{margin-top:25px;}

@@ -22,17 +22,17 @@
 
 		  	<label>Allowed free user creation:</label>
 		  	<div class="formElement">
-		    	<%= f.check_box :sa_allowed_free_user_creation, { :class => "checkboxes", :noHint => "yes" }, 'true', 'false' %>
+		    	<%= f.check_box :sa_allowed_free_user_creation, { :class => "checkboxes"}, 'true', 'false' %>
 		  	</div>
 
 		  	<label>Automatic private worskpace:</label>
 		  	<div class="formElement">
-		    	<%= f.check_box :sa_automatic_private_workspace, { :class => "checkboxes", :noHint => "yes" }, 'true', 'false' %>
+		    	<%= f.check_box :sa_automatic_private_workspace, { :class => "checkboxes"}, 'true', 'false' %>
 		  	</div>
 
 		  	<label>Mandatory user activation:</label>
 		  	<div class="formElement">
-		    	<%= f.check_box :sa_mandatory_user_activation, { :class => "checkboxes", :noHint => "yes" }, 'true', 'false' %>
+		    	<%= f.check_box :sa_mandatory_user_activation, { :class => "checkboxes"}, 'true', 'false' %>
 		  	</div>
 
 		  	<label>Available items:</label>
@@ -42,13 +42,13 @@
 		  	
 		  <label></label>
 		  	<div class="formElement">
-		    	<%= check_box_tag 'apply_to_all_private_workspaces', 'true', false, { :class => "checkboxes", :noHint => "yes" } %> 
+		    	<%= check_box_tag 'apply_to_all_private_workspaces', 'true', false, { :class => "checkboxes"} %> 
 				Apply this item list to all private workspaces
 		  	</div>
 		 
 			<label></label>
 		  	<div class="formElement">
-		    	<%= check_box_tag 'apply_to_all_containers', 'true', false, { :class => "checkboxes", :noHint => "yes" } %> 
+		    	<%= check_box_tag 'apply_to_all_containers', 'true', false, { :class => "checkboxes"} %> 
 				Apply this item list available for each containers
 		  	</div>
 
@@ -92,7 +92,7 @@
 		  	</div>
 		  	<label>Exception notifier activated :</label>
 		  	<div class="formElement">
-		    	<%= f.check_box :sa_exception_notifier_activated, { :class => "checkboxes", :noHint => "yes" }, 'true', 'false' %>
+		    	<%= f.check_box :sa_exception_notifier_activated, { :class => "checkboxes"}, 'true', 'false' %>
 		  	</div>
 
 		  	<button type="submit" class="submitButton"><span><%=I18n.t('general.button.update')%></span></button>

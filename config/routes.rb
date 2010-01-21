@@ -118,7 +118,8 @@ ActionController::Routing::Routes.draw do |map|
     # FCKTools route for utilities methods for FCK editor
     admin.connect '/ck_uploads/:item_type', :controller => 'ck_tools', :action => 'upload_from_ck'
     admin.connect '/ck_config', :controller => 'ck_tools', :action => 'config_file'
-    admin.connect '/ck_display/tabs/:tab_name', :controller => 'ck_tools', :action => "tabs"
+    admin.connect '/ck_display/tabs/:tab_name', :controller => 'ck_tools', :action => 'tabs'
+    admin.connect '/ck_insert/gallery', :controller => 'ck_tools', :action => 'insert_gallery'
     admin.connect '/ajax_item_save/:item_type/:id', :controller => 'ck_tools', :action => "ajax_item_save" 
     admin.connect '/ajax_container_save/:container/:id', :controller => 'ck_tools', :action => "ajax_container_save"
 
