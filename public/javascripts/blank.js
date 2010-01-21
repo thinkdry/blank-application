@@ -69,7 +69,6 @@ $(document).ready(function () {
         }
     });
 
-
 	// Translation ajax update
 	$('.translation_field').live("dblclick", function(){
 		section=$(this).attr("id").split('_');
@@ -81,10 +80,10 @@ $(document).ready(function () {
               	data: datas,
               	success: function(){
 					//TODO translate
-					$('#notice').showMessage("Your update has been registered", 2000)
+					$('#notice').showMessage("Your update has been registered", 2000);
               	} 
 			});   
-	  });
+	});
 
 	//HINT FOR FORMS && AJAX VALIDATION
 	$(".formElement input").focus( function() {	
@@ -127,6 +126,38 @@ $(document).ready(function () {
 	$('#fck_insert_link').colorbox({width:"600px", onComplete:function(){$('#insert_link').tabs();}});
 	$('#fck_insert_video').colorbox({width:"600px", onComplete:function(){$('#videos_tabs').tabs();}});
 	$('#fck_insert_audio').colorbox({width:"600px", onComplete:function(){$('#audios_tabs').tabs();}});
+	
+	$('#fck_insert_gallery').colorbox({width:"700px"});
+	
+	$('#insert_gallery button').live('click', function(){
+		//get the datas of checked checkboxes
+		
+		if ($('#gallery_name').val() == "" || $("#insert_gallery input:checked").length <= 0){
+			$('#warning').html("Enter a name and select some pics");
+		}
+		
+		else{
+			var escapedName = $('#gallery_name').val().replace(/\./g, "_");
+			escapedName = escapedName.replace(/:/g, "_");
+			escapedName = escapedName.replace(/\//g, "_");
+			escapedName = escapedName.replace(/ /g, "_");
+		
+			var data = { 'list_of_pics[]' : [], 'gallery_name' : escapedName};
+		
+			$("#insert_gallery input:checked").each(function() { data['list_of_pics[]'].push($(this).val());});
+			//send the request
+			$.ajax({
+	        	type: "PUT",
+	          	url: "/admin/ck_insert/gallery",
+	          	data: data,
+	          	success: function(html){
+					//TODO translate
+					CKEDITOR.instances.ckInstance.insertHtml(html);
+					$.fn.colorbox.close();
+	          	} 
+			});
+		}
+	});
 	
 	$('#insert_image a').live('click', function(){
 		stringToInsert = '<img src="' + $(this).attr("picSrc") +'" ';
