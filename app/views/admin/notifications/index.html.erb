@@ -1,4 +1,6 @@
-<% form_for :notification_filter , :url => admin_user_create_notification_path(@user.id) do |f| %>
+<% form_for :notification_filter ,
+ :url => admin_user_notifications_path(@user),
+ :html => {:method => :post} do |f| %>
   <table width = "100%">
 	<tr>
 		<td valign = 'top'>
@@ -20,7 +22,7 @@
 			    &nbsp; 
 			    <%= I18n.t('general.notifications.' +m.name) %>
 			    <br/>
-			  <% end %>
+			  <% end -%>
 		  </div>
 		</td>
 	</tr>

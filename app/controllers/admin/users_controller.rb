@@ -19,7 +19,7 @@ class Admin::UsersController < Admin::ApplicationController
 
   # Check Current User Status and Give the Layout
 	def give_da_layout 
-		if params[:action] == 'new' || params[:action] == 'forgot_password' || params[:action] == 'reset_password'
+		if params[:action] == 'forgot_password' || params[:action] == 'reset_password'
 			if logged_in?
 				return get_current_layout
 			else
@@ -31,52 +31,27 @@ class Admin::UsersController < Admin::ApplicationController
 	end
 
   make_resourceful do
-    actions :all, :except => [:create, :index]
+    actions :all, :only => [:new, :create, :edit, :update]
 
     before :new do
-			if logged_in?
-				@search ||= Search.new
-        get_roles
-			elsif is_allowed_free_user_creation?
-				if @current_object.id # captcha just on create
-					render :action => 'new', :layout => 'login' unless yacaph_validated?
-        end
-			else
-				no_permission_redirection
-			end
+      get_roles
     end
 
 		before :edit do
 			get_roles
 		end
 
-    #		after :create do
-    #			# System role by default, secure assignement
-    #			@current_object.system_role_id = Role.find(:first, :conditions => {:name => 'user'}).id
-    #			@current_object.save
-    #			#raise "iamthere"
-    #			if is_given_private_workspace
-    #				@current_object.create_private_workspace
-    #			end
-    #			flash[:notice] = I18n.t('user.new.flash_notice')
-    #		end
-    #
-    #		response_for :create do |format|
-    #			format.html { redirect_to((@current_user ? users_path : '/')) }
-    #		end
-    #
-    #		after :create_fails do
-    #			flash[:error] = I18n.t('user.new.flash_error')
-    #    end
-    #
-    #		response_for :create_fails do |format|
-    #			format.html { render :action => 'new', :layout => (@current_user ? get_current_layout : 'login') }
-    #		end
+    after :create do
+      flash[:notice] = I18n.t('user.new.flash_notice')
+    end
 
     after :update do
-			get_roles
-			@current_object.save
 			flash[:notice] = I18n.t('user.edit.flash_notice')
+    end
+
+    after :create_fails do
+			get_roles
+			flash[:error] = I18n.t('user.new.flash_error')
     end
 
     after :update_fails do
@@ -84,8 +59,8 @@ class Admin::UsersController < Admin::ApplicationController
 			flash[:error] = I18n.t('user.edit.flash_error')
     end
     
-    response_for :new , :update do |format|
-      format.html {params[:continue] ? redirect_to(new_admin_user_path) : redirect_to(admin_user_path)}
+    response_for :create, :update do |format|
+      format.html {params[:continue] ? redirect_to(new_admin_user_path) : redirect_to(admin_user_path(@current_object))}
     end
   end
   
@@ -117,43 +92,6 @@ class Admin::UsersController < Admin::ApplicationController
       format.atom { render :template => "users/index.atom.builder", :layout => false }
 		end
 	end
-
-  # Create New User /users/new
-  def create #:nodoc:
-    # System role by default, secure assignement
-    @current_object = User.new(params[:user])
-    valid_user = false
-    if current_user
-      valid_user = @current_object.save
-    else
-      @current_object.system_role_id = Role.find_by_name('user').id
-      if yacaph_validated?
-        if @current_object.save
-          valid_user = true
-        end
-      else
-        @captcha_valid = false
-      end
-    end
-    if valid_user
-      if is_given_private_workspace
-        @current_object.create_private_workspace
-      end
-      flash[:notice] = I18n.t('user.new.flash_notice')
-      respond_to do |format|
-        format.html { redirect_to('/') }
-      end
-    else
-      if logged_in?
-        get_roles
-        @search ||= Search.new
-      end
-      flash.now[:error] = I18n.t('user.new.flash_error')
-      respond_to do |format|
-        format.html { render :action => 'new', :layout => (current_user ? get_current_layout : 'login') }
-      end
-    end
-  end
 
   # Users Index Object for All Users
 	def current_objects #:nodoc:
@@ -261,74 +199,6 @@ class Admin::UsersController < Admin::ApplicationController
     end
   end
   
-
-  #
-  # Select a list of objects and actions for user to be notified when updates are done on theses objects 
-  #
-  def notifications 
-    
-    allowed_items =  get_allowed_item_types(nil)
-    @actions = NotificationFilter.actions
-    #select just allowed objects in configuration 
-    @models =  NotificationFilter.models.delete_if{ |m| !allowed_items.include?(m.name) }    
-    @user = User.find(params[:user_id])
-    @filters  = @user.notification_filters || {}
-     
-  end
-  
-  #
-  # save selected objects and actions 
-  #
-  def create_notifications 
-    
-     user = User.find(params[:user_id])
-     filters  = user.notification_filters.delete_all 
-    
-     if params[:notification_filters]
-		   params[:notification_filters].each do |k, v|
-			  user.notification_filters << NotificationFilter.find(k.to_i)
-			 end
-		 end
-				 
-		 flash[:notice] = 'Les modifications ont été éffectuées avec succès'
-		 redirect_to admin_user_notification_path(user.id)
-		 
-  end
-
-
-  #
-  # Select a list of objects and actions for user to be notified when updates are done on theses objects 
-  #
-  def notifications 
-    
-    allowed_items =  get_allowed_item_types(nil)
-    @actions = NotificationFilter.actions
-    #select just allowed objects in configuration 
-    @models =  NotificationFilter.models.delete_if{ |m| !allowed_items.include?(m.name) }    
-    @user = User.find(params[:user_id])
-    @filters  = @user.notification_filters || {}
-     
-  end
-  
-  #
-  # save selected objects and actions 
-  #
-  def create_notifications 
-    
-     user = User.find(params[:user_id])
-     filters  = user.notification_filters.delete_all 
-    
-     if params[:notification_filters]
-		   params[:notification_filters].each do |k, v|
-			  user.notification_filters << NotificationFilter.find(k.to_i)
-			 end
-		 end
-				 
-		 flash[:notice] = 'Les modifications ont été éffectuées avec succès'
-		 redirect_to admin_user_notification_path(user.id)
-		 
-  end
-
 
   private
   def get_roles

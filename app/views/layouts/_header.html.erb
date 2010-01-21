@@ -61,14 +61,21 @@
                         </ul>
                     </div>
                     <% CONTAINERS.each do |container| %>
-                        <div class="subMenuCol">
-                            <h3><%= I18n.t("layout.application.#{container.pluralize}") %></h3>
-                            <ul>
-                                <% container.classify.constantize.allowed_user_with_permission(@current_user, "#{container}_show", container).each do |w| -%>
-                                    <li><%= link_to w.title, container_path(w) %></li>
-                                <% end -%>
-                            </ul>
-                        </div>
+                        <% if current_user.has_system_permission(container, 'new') %>
+                          <div class="subMenuCol">
+                              <h3><%= I18n.t("layout.application.#{container.pluralize}") %></h3>
+                              <ul>
+                                  <% containers = container.classify.constantize.allowed_user_with_permission(@current_user, "#{container}_show", container) %>
+                                    <% if containers.blank? %>
+                                        <li>List is Empty</li>
+                                    <% else %>
+                                       <% containers.each do |w| -%>
+                                          <li><%= link_to w.title, container_path(w) %></li>
+                                       <% end -%>
+                                    <% end %>
+                              </ul>
+                          </div>
+                       <% end %>       
                     <% end %>
                 </div>
             </div>

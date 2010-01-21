@@ -65,9 +65,10 @@ ActionController::Routing::Routes.draw do |map|
     admin.reset_password '/reset_password/:password_reset_code', :controller => 'users', :action => 'reset_password'
     admin.resources :users, :member => { :locking => :any, :resend_activation_mail_or_activate_manually => :post },
       :collection => {:autocomplete_on => :any, :validate => :any } do |user|
-      user.notification '/notifications', :controller => 'users', :action => 'notifications'
-      user.create_notification '/create_notifications', :controller => 'users', :action => 'create_notifications'
+      user.resources :notifications, :only => [:index, :create]
     end
+
+    # Sessions for managing user sessions
     admin.resource :session
 
 
