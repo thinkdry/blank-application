@@ -6,7 +6,7 @@ every 1.hours do
   rake "xapian:update_index"
 end
 
-every 1.hours do
+every 2.minutes do
   runner "QueuedMail.send_email"
 end
 
