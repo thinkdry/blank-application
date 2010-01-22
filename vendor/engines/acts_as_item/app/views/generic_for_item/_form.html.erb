@@ -23,9 +23,11 @@
 								  :hint => I18n.t('item.field.description_hint') %>
 		
 			  <% if current_container_type == 'website' -%>
-			    <%= f.select :published, {'Yes' => true, 'No' => false},
-			                         {:include_blank => true },
-			                         {:label => 'Published? : ', :hint => 'Required for the resource to be published to the website'} %>
+					<!-- TODO translate -->
+			    	<%= f.select 	:published, 
+									{'Yes' => true, 'No' => false},
+			                        {:include_blank => true },
+			                        {:label => 'Published:', :hint => 'Required for the resource to be published to the website'} %>
 			  <% end -%>
 			
         <%= capture(f, &block) %>
