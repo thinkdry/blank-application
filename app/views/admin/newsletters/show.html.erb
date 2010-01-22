@@ -2,7 +2,7 @@
 
   <%= @current_object.body %>
 
-  <form id="" method="post" action="<%= current_workspace ? admin_workspace_path(current_workspace.id) + send_to_a_group_admin_newsletter_path(@current_object) : send_to_a_group_admin_newsletter_path(@current_object) %>">
+  <form id="" method="post" action="<%= send_to_a_group_admin_workspace_newsletter_path(current_container, @current_object) %>">
       <h1><%= I18n.t('newsletter.send_newsletter.send_newsletter_to_user_list') %></h1>
       <input type="hidden" name="newsletter_id" value="<%= @current_object.id %>">
 	  
@@ -20,7 +20,7 @@
 
 	<h1><%= I18n.t('newsletter.send_newsletter.sent_to') %></h1>
 	<% if @current_object.groups_newsletters.size > 0 -%>
-	    <% for g_n in @current_object.groups_newsletters %>
+	    <% for g_n in @current_object.groups_newsletters.find(:all, :include => [:group]) %>
           <% if g_n.group %>
             <%= link_to g_n.group.title, admin_workspace_group_path(g_n.group.workspaces.first.id, g_n.group_id) %> <%= I18n.t('general.common_word.on1') %> <%= I18n.l g_n.sent_on, :format => :long %> <br />
           <% end %>

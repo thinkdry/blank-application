@@ -121,8 +121,8 @@ module Authorizable
 				elsif ['user'].include?(self.to_s.underscore)
 					named_scope :matching_user_with_permission_in_containers, lambda { |user, permission, container_ids, container|
 						# Check if these workspace are matching the really authorized ones, and set 'nil for all' condition
-						container_ids ||= container.classify.constantize.allowed_user_with_permission(user, self.to_s.underscore+'_'+permission, container).find(:all, :select => "#{container.pluralize}.id, #{container.pluralize}.title", :include => [container.pluralize.to_sym]).map{ |e| e.id }
-						container_ids = container_ids & container.classify.constantize.allowed_user_with_permission(user, self.to_s.underscore+'_'+permission, container).find(:all, :select => "#{container.pluralize}.id, #{container.pluralize}.title", :include => [container.pluralize.to_sym]).map{ |e| e.id }
+						container_ids ||= container.classify.constantize.allowed_user_with_permission(user, self.to_s.underscore+'_'+permission, container).find(:all, :select => "#{container.pluralize}.id, #{container.pluralize}.title").map{ |e| e.id }
+						container_ids = container_ids & container.classify.constantize.allowed_user_with_permission(user, self.to_s.underscore+'_'+permission, container).find(:all, :select => "#{container.pluralize}.id, #{container.pluralize}.title").map{ |e| e.id }
 						# In case of system permission
 						if user.has_system_permission(self.to_s.underscore, permission)
 							{}
