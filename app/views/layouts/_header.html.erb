@@ -107,7 +107,7 @@
 				              <% end %>
 				        </ul>
 				        <br/><br/>
-				        <p><img src="/images/icons/exit.png" width="20px" style="margin-right:5px"/><%= link_to I18n.t('layout.application.logout'), admin_logout_path, :class => 'bigLink' %></p>
+				        <p><img src="/images/icons/exit.png" width="20px" class="logoutPic"/><%= link_to I18n.t('layout.application.logout'), admin_logout_path, :class => 'bigLink' %></p>
 			    	</div>
             <% if @current_user.has_system_role('superadmin') %>
 			      	<div class="subMenuCol">

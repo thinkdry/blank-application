@@ -290,6 +290,8 @@ h4 {
 	float:left;
 }
 
+.logoutPic{float:left!important;margin:0 5px 0 !important;}
+
 /* 		FOOTER  	*/
 
 a.search_button{
