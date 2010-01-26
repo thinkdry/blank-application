@@ -1,5 +1,3 @@
-
-
 body {
 	margin: 0px 0px 0px 0px;
 	padding: 0px 0px 0px 0px;
@@ -14,7 +12,6 @@ body {
 	padding:25px 25px 0;
 	text-align:left;
 	width:400px;
-	height:350px;
 }
 a:link {
 	color: #7B003B;
@@ -31,6 +28,12 @@ a:hover {
 a:active {
 	text-decoration: none;
 }
+h1 {
+	color:#F79646;
+	font-size:190%;
+	font-weight:normal;
+}
+
 form  {
 	padding: 10px;
 	margin: 0px;
@@ -44,12 +47,15 @@ form  {
 	clear:both;
 	margin-top:5px;
 }
-#content_login   input {
-	width:200px;
-	border:solid 1px #eeeeee;
+#content_login input {
+	width:220px;
+	border:solid 1px #ccc;
 	margin-top:5px;
 	height:25px;
 	font-size:120%;
+}
+.forgotPassword{
+	width:375px !important;
 }
 #bottomLogin{
 	float:left;
@@ -115,8 +121,8 @@ form  {
 #actionlogin{
 	width:300px;
 	margin:0 auto;
-	overflow:auto;
-	padding-left:15px;
+	overflow:hidden;
+	padding:15px 0 15px 35px;
 }
 #actionlogin p{
 	margin:5px 0;
@@ -129,3 +135,27 @@ select{
 	width:15px !important;
 	border:none !important;
 }
+#rememberMe{
+	background:transparent url('/images/login_icons/question.png') no-repeat left center;
+	height:40px;
+	padding-left:40px;padding-top:10px;
+}
+#forgotPasswordLink{
+	background:transparent url('/images/login_icons/life_saver.png') no-repeat left center;
+	height:40px;
+	padding-left:40px;padding-top:10px;
+}
+#userCreation{
+	background:transparent url('/images/login_icons/register-account.gif') no-repeat left center;
+	height:40px;
+	padding-left:40px;padding-top:10px;
+}
+#backToLogin{
+	background:transparent url('/images/icons/left.png') no-repeat left center;
+	height:40px;
+	padding-left:40px;padding-top:10px;
+}
+
+#actionlogin a:visited{color:#333;}
+
+#remember_me{height:15px !important; margin:0 !important;}
