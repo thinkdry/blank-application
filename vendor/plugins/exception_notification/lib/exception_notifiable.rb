@@ -65,28 +65,27 @@ module ExceptionNotifiable
 
     def render_404
       respond_to do |type|
-#        type.html { render :file => "#{RAILS_ROOT}/public/404.html", :status => "404 Not Found" }
-        type.html { redirect_to '/error/404' }
+        type.html { render :template => 'admin/home/error', :status => '404' }
         type.all  { render :nothing => true, :status => "404 Not Found" }
       end
     end
 
     def render_500
       respond_to do |type|
-#        type.html { render :file => "#{RAILS_ROOT}/public/500.html", :status => "500 Error" }
-        type.html { redirect_to '/error/500' }
+        type.html { render :template => 'admin/home/error', :status => '500 Error' }
         type.all  { render :nothing => true, :status => "500 Error" }
       end
     end
 
     def rescue_action_in_public(exception)
+      p exception
       case exception
         when *self.class.exceptions_to_treat_as_404
+          p "am i here"
           render_404
-
-        else          
+        else        
+           p "or here"  
           render_500
-
           deliverer = self.class.exception_data
           data = case deliverer
             when nil then {}

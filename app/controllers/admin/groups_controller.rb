@@ -28,10 +28,10 @@ class Admin::GroupsController < Admin::ApplicationController
   #
   # /people/filter?group_id=1
   def filtering_contacts
-    group = Group.find(params[:group_id]) if !params[:group_id].blank?
+    group = Group.find(params[:group_id]) unless params[:group_id].blank?
     options = ""
 		#raise current_workspace.contacts_workspaces.map{ |e| e.to_group_member(@current_user.id) }.delete_if{ |e| e['email'].first != params[:start_with] && params[:start_with] != "all"}.inspect
-    current_workspace.contacts_workspaces.map{ |e| e.to_group_member(@current_user.id) }.delete_if{ |e| e['email'].first != params[:start_with] && params[:start_with] != "all"}.each do |mem|
+    current_workspace.contacts_workspaces(:all,:include => [:contactable]).map{ |e| e.to_group_member(@current_user.id) }.delete_if{ |e| e['email'].first != params[:start_with] && params[:start_with] != "all"}.each do |mem|
       if group.nil? || !group.contacts_workspaces.map{ |e| e.to_group_member(@current_user.id) }.include?(mem)
         options = options+ "<option value = '#{mem['id'].to_s}'>#{mem['email']}</option>"
       end
@@ -57,7 +57,7 @@ class Admin::GroupsController < Admin::ApplicationController
 	def get_contacts_lists
 		@workspace = @current_user.private_workspace
 		selected_contacts = @current_object.groupings.map{ |e| e.contacts_workspace }.uniq
-		remaining_contacts = @workspace ? (@workspace.contacts_workspaces.to_a - selected_contacts) : []
+		remaining_contacts = @workspace ? (@workspace.contacts_workspaces.find(:all, :include => [:contactable]).to_a - selected_contacts) : []
 		@selected_members = selected_contacts.map{ |e| e.to_group_member(@current_user.id) } || []
 		@remaining_members = remaining_contacts.map{ |e| e.to_group_member(@current_user.id) } || []
 	end

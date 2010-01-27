@@ -41,7 +41,7 @@ class Admin::CkToolsController < Admin::ApplicationController
                                                                   params[:item_type].to_sym => params[:upload],
                                                                   :user_id => current_user.id
                                                                   )
-      # TODO 
+      # TODO containers
       if params[:ws_id].nil?
         uploaded_item.associated_workspaces = [@current_user.get_private_workspace.id.to_s]
       else
@@ -50,6 +50,7 @@ class Admin::CkToolsController < Admin::ApplicationController
 
       if uploaded_item.save
 
+        #message contains the HTML code to insert in the ck editor
         case params[:item_type]
           when "image"
             message = upload_image(uploaded_item)
@@ -74,13 +75,43 @@ class Admin::CkToolsController < Admin::ApplicationController
     end
   end
   
+  
+  
+  # Action to display tabs that allow user to insert data in CK editor.
+ 	# insert pics, insert link, insert vids...
+ 	# it just send to the partial (displayed in a modal windows) the list of available items for display.
   def tabs
-    if params[:tab_name] != 'links'
+          
+    if params[:tab_name] != 'links' && params[:tab_name] != 'gallery'
       @current_objects = params[:tab_name].classify.constantize.matching_user_with_permission_in_containers(@current_user, 'show', [current_container.id], current_container_type)
     end
+    
+    if params[:tab_name] == 'gallery'
+      @current_objects = Image.matching_user_with_permission_in_containers(@current_user, 'show', [current_container.id], current_container_type)
+    end
+    
     render :partial => "/admin/ck_specifics/ck_#{params[:tab_name]}", :locals => {:current_objects => @current_objects}
   end
   
+  
+  # Action to generate a gallery from CK editor.
+  # The user select some pics in a list, gives a name to the gallery, and it display some html code in the ck editor.
+  # this function is not very 
+  def insert_gallery
+    gallery_code = String.new
+    
+    params[:list_of_pics].each do |pic_id|
+      img = Image.find(pic_id)
+      gallery_code += '<a href="' + img.image.url + '" rel="' + params[:gallery_name] + '" title="' + img.title + '"><img src="' + img.image.url(:thumb) + '""/></a>'   
+    end
+    
+    gallery_code += '<script type="text/javascript">$(document).ready(function () {$("a[rel=\'' + params[:gallery_name] + '\']").colorbox();});</script>'
+    
+    render :text => gallery_code
+  end
+  
+  # Save the current edited item by ajax.
+  # the user click on ck Save btn, and it save the item body.
   def ajax_item_save
     #TODO translate & DOC
     @current_object = params[:item_type].classify.constantize.find(params[:id])
@@ -93,6 +124,8 @@ class Admin::CkToolsController < Admin::ApplicationController
 		render :text => message, :layout => false
   end
   
+  # Save the current edited container by ajax.
+  # the user click on ck Save btn, and it save the container description.
   def ajax_container_save
     @current_object = params[:container].classify.constantize.find(params[:id])
   	if @current_object.update_attribute("body", params[:content])

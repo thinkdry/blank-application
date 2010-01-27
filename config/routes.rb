@@ -65,9 +65,10 @@ ActionController::Routing::Routes.draw do |map|
     admin.reset_password '/reset_password/:password_reset_code', :controller => 'users', :action => 'reset_password'
     admin.resources :users, :member => { :locking => :any, :resend_activation_mail_or_activate_manually => :post },
       :collection => {:autocomplete_on => :any, :validate => :any } do |user|
-      user.notification '/notifications', :controller => 'users', :action => 'notifications'
-      user.create_notification '/create_notifications', :controller => 'users', :action => 'create_notifications'
+      user.resources :notifications, :only => [:index, :create]
     end
+
+    # Sessions for managing user sessions
     admin.resource :session
 
 
@@ -117,7 +118,8 @@ ActionController::Routing::Routes.draw do |map|
     # FCKTools route for utilities methods for FCK editor
     admin.connect '/ck_uploads/:item_type', :controller => 'ck_tools', :action => 'upload_from_ck'
     admin.connect '/ck_config', :controller => 'ck_tools', :action => 'config_file'
-    admin.connect '/ck_display/tabs/:tab_name', :controller => 'ck_tools', :action => "tabs"
+    admin.connect '/ck_display/tabs/:tab_name', :controller => 'ck_tools', :action => 'tabs'
+    admin.connect '/ck_insert/gallery', :controller => 'ck_tools', :action => 'insert_gallery'
     admin.connect '/ajax_item_save/:item_type/:id', :controller => 'ck_tools', :action => "ajax_item_save" 
     admin.connect '/ajax_container_save/:container/:id', :controller => 'ck_tools', :action => "ajax_container_save"
 

@@ -61,14 +61,21 @@
                         </ul>
                     </div>
                     <% CONTAINERS.each do |container| %>
-                        <div class="subMenuCol">
-                            <h3><%= I18n.t("layout.application.#{container.pluralize}") %></h3>
-                            <ul>
-                                <% container.classify.constantize.allowed_user_with_permission(@current_user, "#{container}_show", container).each do |w| -%>
-                                    <li><%= link_to w.title, container_path(w) %></li>
-                                <% end -%>
-                            </ul>
-                        </div>
+                        <% if current_user.has_system_permission(container, 'new') %>
+                          <div class="subMenuCol">
+                              <h3><%= I18n.t("layout.application.#{container.pluralize}") %></h3>
+                              <ul>
+                                  <% containers = container.classify.constantize.allowed_user_with_permission(@current_user, "#{container}_show", container) %>
+                                    <% if containers.blank? %>
+                                        <li>List is Empty</li>
+                                    <% else %>
+                                       <% containers.each do |w| -%>
+                                          <li><%= link_to w.title, container_path(w) %></li>
+                                       <% end -%>
+                                    <% end %>
+                              </ul>
+                          </div>
+                       <% end %>       
                     <% end %>
                 </div>
             </div>
@@ -100,13 +107,13 @@
 				              <% end %>
 				        </ul>
 				        <br/><br/>
-				        <p><img src="/images/icons/exit.png" width="20px" style="margin-right:5px"/><%= link_to I18n.t('layout.application.logout'), admin_logout_path, :class => 'bigLink' %></p>
+				        <p><img src="/images/icons/exit.png" width="20px" class="logoutPic"/><%= link_to I18n.t('layout.application.logout'), admin_logout_path, :class => 'bigLink' %></p>
 			    	</div>
             <% if @current_user.has_system_role('superadmin') %>
 			      	<div class="subMenuCol">
 						  <h3>Superadmin</h3>
 			              <ul>
-							          <li><%= link_to "Audits", superadmin_audits_path %></li>
+							  <li><%= link_to "Audits", superadmin_audits_path %></li>
 			                  <li><%= link_to "Action Mailer Settings", superadmin_mailer_settings_path %></li>
 			                  <li><%= link_to "General Settings", superadmin_general_settings_path %></li>
 			                  <li><%= link_to "Google Analytic Settings", superadmin_google_analytics_path %></li>

@@ -1,8 +1,8 @@
 <div id="headerForm"></div>
 <div id="content_login">
   <div id="logoDiv"><%= image_tag(@configuration['sa_logo_url'].to_s) %></div>
-  <p><%= content_tag(:div, flash[:error], :class => 'error' , :style => "color:red") if flash[:error] %></p>
-  <p><%= content_tag(:div, flash[:notice], :class => 'notice', :style => "color:green") if flash[:notice] %></p>
+  <%= content_tag(:div, flash[:error], :class => 'error' , :style => "color:red") if flash[:error] %>
+  <%= content_tag(:div, flash[:notice], :class => 'notice', :style => "color:green") if flash[:notice] %>
 
   <% form_tag admin_session_path do -%>
     
@@ -16,19 +16,18 @@
 
     <div id="sub_but"><button type="submit" class="submit_button"><%=I18n.t('user.session.login_button')%></button></div>
     <div id="actionlogin">
-      <div id="bottomLogin">
-        <p>
-          <%= image_tag '/images/login_icons/question.png'%>
+		<div id="rememberMe">
           <%=I18n.t('user.session.remember_me')%>:
-          <%= check_box_tag 'remember_me', '1', @remember_me, :class => "checkboxes" %><br />
-          <%= image_tag '/images/login_icons/life_saver.png'%>
-          <%= link_to I18n.t('user.forgot_password.title'), admin_forgot_password_path %><br />
-          <% if is_allowed_free_user_creation? %>
-            <%= image_tag '/images/login_icons/register-account.gif'%>
+          <%= check_box_tag 'remember_me', '1', @remember_me, :class => "checkboxes" %>
+		</div>
+		<div id="forgotPasswordLink">
+          <%= link_to I18n.t('user.forgot_password.title'), admin_forgot_password_path %>
+		</div>
+		<% if is_allowed_free_user_creation? %>
+		<div id="userCreation">
             <%= link_to I18n.t('user.session.inscription'), new_admin_user_path %>
-          <% end %>
-        </p>
-      </div><br />
+		</div>
+        <% end %>
     </div>
   <% end %>
 </div>

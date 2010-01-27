@@ -9,7 +9,7 @@
 		</ul>
 		
 		<% items.each do |type| -%>
-			<div id="items_<%= type%>" class="item_list">
+			<div id="items_<%= type%>" class="item_list modalTabContent">
 			<% type.classify.constantize.matching_user_with_permission_in_containers(@current_user, 'show', @current_user.container_ids(current_container_type), current_container_type).each do |item| %>			
 				<p>
 				  <%= link_to item.title, "javascript:;", :itmUrl => item_path(item)%>

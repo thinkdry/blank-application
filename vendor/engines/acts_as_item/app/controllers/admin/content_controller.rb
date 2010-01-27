@@ -45,6 +45,7 @@ class Admin::ContentController < Admin::ApplicationController
   # - GET /ajax_content
 	# - GET /ajax_content?item_type=article
   #
+  
   def ajax_index
 		params[:item_type] ||= get_allowed_item_types(current_container).first.pluralize
 		if current_container

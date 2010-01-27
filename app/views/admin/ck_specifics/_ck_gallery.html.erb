@@ -1,0 +1,34 @@
+<div id="insert_images">
+	<div class="fckLinkContent">
+		<h1>Gallery</h1>
+		<div id="insert_gallery" class="modalTabContent">
+			<!-- TODO check with get_da_object -->
+			<!-- TODO translate -->	
+			<p>You can select the pic you will add to this gallery</p>
+			<div class="modalForm">
+				<label>Nom de la galerie</label>
+				<div class="formElement">
+					<input id="gallery_name" class="smallInput simulate"/>
+					<div class="ajax_hint_message" style="display:none;">
+						<div class="hintSelector"/>
+						<div class="hintMessage">
+							<p>Ne doit pas contenir de caractères spéciaux, d'espaces ou de signe de ponctuation</p>
+						</div>
+					</div>
+				</div>
+				<script>
+					$(".formElement input").focus( function() {$(this).nextAll('.ajax_hint_message').css('display','inline');});
+					$(".formElement input").blur( function() {$(this).nextAll('.ajax_hint_message').css('display','none');});					
+				</script>
+				<div class="listInModal">
+				<% current_objects.each do |img| %>
+					<input type="checkbox" name="list_of_pics[]" class="checkboxes" value="<%=img.id%>"/>
+					<%= image_tag(img.image.url(:thumb))%>
+				<% end %>
+				<div id="warning" class="modalWarning"></div>
+				<button class="submitButton"><span>Ajouter</span></button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

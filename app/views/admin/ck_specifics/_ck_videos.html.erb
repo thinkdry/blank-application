@@ -5,7 +5,7 @@
 			<li><a href="#insert_video">Insert</a></li>		
 			<li><a href="#upload_video">Upload</a></li>
 		</ul>
-		<div id="insert_video">
+		<div id="insert_video" class="modalTabContent">
 			<p>Click on the tilte of a video to join it to editor's content. You must add a new video items if you want to add a new Video. You can specify Widht and height of the player</p>
 			<p><label>Width : </label><input id="player_width"/></p>
 			<p><label>Height : </label><input id="player_height"/></p>
@@ -17,7 +17,7 @@
 			<%end%>
 			</div>
 		</div>
-		<div id="upload_video">
+		<div id="upload_video" class="modalTabContent">
 			<p>Select a file to upload to the server. This file will be inserted as an Image item in the web site</p>
 			<form 	target="video_fck_upload" 
 					action="/admin/ck_uploads/video" 

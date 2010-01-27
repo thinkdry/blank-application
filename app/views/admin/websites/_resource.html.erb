@@ -3,8 +3,8 @@
 	<%= file_field 'website_files', 'css' %>
 	<div class="addedInformation fileList">
     	<% css_files = [] %>
-    	<% Dir["public/website_files/#{website.title}/stylesheets/*"].collect do |uploaded_css| %>
-        	<% css_files << "<div class=\"keyword_label\"><span>" + "#{link_to uploaded_css.split('/')[4].to_s, "/website_files/#{website.title}/stylesheets/#{uploaded_css.split('/')[4].to_s}"}"+"</span><a onclick='delete_asset(this,\""+uploaded_css+"\" );'>X</a></div>" %>
+    	<% Dir["public/#{WEBSITE_FILES}/#{website.title}/stylesheets/*"].collect do |uploaded_css| %>
+        	<% css_files << "<div class=\"keyword_label\"><span>" + "#{link_to uploaded_css.split('/')[4].to_s, "/#{WEBSITE_FILES}/#{website.title}/stylesheets/#{uploaded_css.split('/')[4].to_s}"}"+"</span><a onclick='delete_asset(this,\""+uploaded_css+"\" );'>X</a></div>" %>
     	<% end %>
     	<%= css_files.join(' ') %>
 	</div>
@@ -14,8 +14,8 @@
 	<%= file_field 'website_files', 'js' %>
 	<div class="addedInformation fileList">
     	<% js_files = [] %>
-    	<% Dir["public/website_files/#{website.title}/javascripts/*"].collect do |uploaded_js| %>
-        	<% js_files << "<div class=\"keyword_label\"><span>"+"#{link_to uploaded_js.split('/')[4].to_s, "/website_files/#{website.title}/javascripts/#{uploaded_js.split('/')[4].to_s}"}" +"</span><a onclick='delete_asset(this,\""+uploaded_js+"\" );'>X</a></div>" %>
+    	<% Dir["public/#{WEBSITE_FILES}/#{website.title}/javascripts/*"].collect do |uploaded_js| %>
+        	<% js_files << "<div class=\"keyword_label\"><span>"+"#{link_to uploaded_js.split('/')[4].to_s, "/#{WEBSITE_FILES}/#{website.title}/javascripts/#{uploaded_js.split('/')[4].to_s}"}" +"</span><a onclick='delete_asset(this,\""+uploaded_js+"\" );'>X</a></div>" %>
     	<% end %>
     	<%= js_files.join(' ') %>
 	</div>
@@ -26,8 +26,8 @@
 	<%= file_field 'website_files', 'images' %>
 	<div class="addedInformation fileList">
     	<% img_files = [] %>
-    	<% Dir["public/website_files/#{website.title}/images/*"].collect do |uploaded_img| %>
-        	<% img_files << "<div class=\"keyword_label\"><span>"+"#{link_to uploaded_img.split('/')[4].to_s , "/website_files/#{website.title}/images/#{uploaded_img.split('/')[4].to_s}"}"+"</span><a onclick='delete_asset(this,\""+uploaded_img+"\" );'>X</a></div>" %>
+    	<% Dir["public/#{WEBSITE_FILES}/#{website.title}/images/*"].collect do |uploaded_img| %>
+        	<% img_files << "<div class=\"keyword_label\"><span>"+"#{link_to uploaded_img.split('/')[4].to_s , "/#{WEBSITE_FILES}/#{website.title}/images/#{uploaded_img.split('/')[4].to_s}"}"+"</span><a onclick='delete_asset(this,\""+uploaded_img+"\" );'>X</a></div>" %>
     	<% end %>
     	<%= img_files.join(' ') %>
 	</div>

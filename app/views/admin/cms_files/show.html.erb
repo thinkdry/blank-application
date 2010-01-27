@@ -1,4 +1,4 @@
 <% item_show( :title => I18n.t('cms_file.field.file_label'),  :object => @current_object ) do %>
-	<h2><%=I18n.t('cms_file.field.file_label')%> : <%= File.basename(@current_object.cmsfile.url.split("?")[0]) %></h2>
-	<%= image_tag("icons/download.png")%> <%= link_to I18n.t('general.button.download'),(@current_object.cmsfile.url.split("?")[0]) %><br />
+	<p><%=I18n.t('cms_file.field.file_label')%> : <%= File.basename(@current_object.cmsfile.url.split("?")[0]) %></p>
+	<%= link_to I18n.t('general.button.download'),(@current_object.cmsfile.url.split("?")[0]) %>
 <% end %>

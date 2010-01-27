@@ -10,8 +10,8 @@ class Website < ActiveRecord::Base
   
   # Favicon of the website
   has_attached_file :favicon,
-                    :url =>  "/website_files/#{self.name}/favicon/:basename.:extension",
-                    :path => ":rails_root/public/website_files/#{self.name}/favicon/:basename.:extension",
+                    :url =>  "/#{WEBSITE_FILES}/#{self.name}/favicon/:basename.:extension",
+                    :path => ":rails_root/public/#{WEBSITE_FILES}/#{self.name}/favicon/:basename.:extension",
                     :styles => { :default => "16x16>", :medium => "32x32>" }
   # Validation of the size of the attached file
   validates_attachment_size(:favicon, :less_than => 2.megabytes)
@@ -70,60 +70,60 @@ class Website < ActiveRecord::Base
   
   def store_assets(zip_file, dest_file)
     @upload_file_name = zip_file.original_filename
-    FileUtils.makedirs("#{RAILS_ROOT}/public/website_files/#{self.title}/tmp")
-    File.open("#{RAILS_ROOT}/public/website_files/#{self.title}/tmp/#{@upload_file_name}", "wb") do |f|
+    FileUtils.makedirs("#{WEBSITES_FOLDER}/#{self.title}/tmp")
+    File.open("#{WEBSITES_FOLDER}/#{self.title}/tmp/#{@upload_file_name}", "wb") do |f|
       f.write(zip_file.read)
     end
-    zf = Zip::ZipFile.open("#{RAILS_ROOT}/public/website_files/#{self.title}/tmp/#{@upload_file_name}")
+    zf = Zip::ZipFile.open("#{WEBSITES_FOLDER}/#{self.title}/tmp/#{@upload_file_name}")
     zf.each do |entry|
       if entry.name.split('/').last.include?('.')
-        fpath = File.join("#{RAILS_ROOT}/public/website_files/#{self.title}/#{dest_file}/#{entry.name.split('/').last}")
+        fpath = File.join("#{WEBSITES_FOLDER}/#{self.title}/#{dest_file}/#{entry.name.split('/').last}")
         if(File.exists?(fpath))
           File.delete(fpath)
         end
         zf.extract(entry, fpath)
       end
     end
-    FileUtils.rm_rf("#{RAILS_ROOT}/public/website_files/#{self.name}/tmp")
+    FileUtils.rm_rf("#{WEBSITES_FOLDER}/#{self.title}/tmp")
   end
 
-	def include_all_stylesheet_files
-		res = ""
-		Dir["public/website_files/#{self.title}/stylesheets/*.css"].collect do |uploaded_css|
-			res += "<link href='/website_files/#{self.title}/stylesheets/#{uploaded_css.split('/')[4]}' rel='stylesheet' type='text/css' />"
-		end
-		return res
-	end
+  def include_all_stylesheet_files
+    res = ""
+    Dir["public/#{WEBSITE_FILES}/#{self.title}/stylesheets/*.css"].collect do |uploaded_css|
+    res += "<link href='/#{WEBSITE_FILES}/#{self.title}/stylesheets/#{uploaded_css.split('/')[4]}' rel='stylesheet' type='text/css' />"
+    end
+   return res
+  end
 
-	def include_all_javascript_files
-		res = ""
-		Dir["public/front_files/#{self.title}/javascripts/*"].collect do |uploaded_js|
-			res += "<script src='/website_files/#{self.title}/javascripts/#{uploaded_js.split('/')[4]}' type='text/javascript'></script>"
-		end
-		return res
-	end
+  def include_all_javascript_files
+    res = ""
+    Dir["public/#{WEBSITE_FILES}/#{self.title}/javascripts/*"].collect do |uploaded_js|
+      res += "<script src='/#{WEBSITE_FILES}/#{self.title}/javascripts/#{uploaded_js.split('/')[4]}' type='text/javascript'></script>"
+    end
+   return res
+  end
 
-	# to display favicon image in site. Usage: need to call inside of <head> tag in layout
+# to display favicon image in site. Usage: need to call inside of <head> tag in layout
   def display_favicon
     if !self.favicon_file_name.blank?
       return "<link rel='shortcut icon' href='#{self.favicon.url}'/>"
     end
   end
-  
-  def website_url_names= params
-		tmp = params.uniq
-		self.website_urls.each do |k|
-			WebsiteUrl.destroy(k.id) unless tmp.delete(k.name)
-		end
-		tmp.each do |website_url_name|
-			self.website_urls.build(:name => website_url_name)
-		end
-	end
-	
-	private
 
-  def get_file_path(front_name,content_type,file)
-    return File.join("#{RAILS_ROOT}/public/website_files/#{front_name}/#{content_type}/", file.original_filename)
+  def website_url_names= params
+    tmp = params.uniq
+    self.website_urls.each do |k|
+      WebsiteUrl.destroy(k.id) unless tmp.delete(k.name)
+    end
+    tmp.each do |website_url_name|
+      self.website_urls.build(:name => website_url_name)
+    end
   end
-  
+
+private
+
+  def get_file_path(website,content_type,file)
+    return File.join("#{WEBSITES_FOLDER}/#{website}/#{content_type}/", file.original_filename)
+  end
+
 end

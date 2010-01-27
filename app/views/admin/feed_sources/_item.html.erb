@@ -6,9 +6,11 @@
 		<div class="itemInListTitle feed">
 			<%= link_to item.title, item.link, :popup=>['new_window'] %>
 		</div>
-		<div class="itemInListActions">
-			<%= link_to I18n.t('feed_source.show.add_bookmark'), new_admin_bookmark_path(:feed_item_id => item.id) %>
-		</div>
+    <% if @current_user.has_container_permission(current_container.id, 'bookmark', 'new', current_container_type) %>
+		  <div class="itemInListActions">
+			  <%= link_to I18n.t('feed_source.show.add_bookmark'), new_admin_bookmark_path(:feed_item_id => item.id) %>
+		  </div>
+    <% end %>
 		<div class="feedDescription"><%= item.description %></div>
 		<div class="itemInListTags"><%= object.categories %></div>
 	</div>
