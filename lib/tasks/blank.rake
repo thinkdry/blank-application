@@ -382,6 +382,16 @@ namespace :blank do
 
   namespace :maintaining do
 
+		desc "To retrieve translation files"
+		task(:retrieve_translation => :environment) do
+			LANGUAGES.each do |l|
+				command_backup =  "mv config/locales/" + l + ".yml tmp/backup/" + Time.now.strftime("%Y%m%d") + "_" + l + ".yml"
+				command_get =  "wget " + TRANSLATION_SITE + "/translations/" + PROJECT_NAME + "/" + l + ".yaml -O config/locales/" + l + ".yml"
+				system(command_backup)
+				system(command_get)
+			end
+		end
+
 		desc "To Reencode videos"
 		task(:video_reencode => :environment) do
 			@videos = Video.find(:all, :conditions =>["state = 'uploaded' OR state = 'encoding_error' OR state = 'error'"])
