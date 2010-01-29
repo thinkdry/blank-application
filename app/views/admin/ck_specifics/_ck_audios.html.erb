@@ -9,7 +9,7 @@
 				
 				<% current_objects.each do |audio| %>
 					<p>
-					  <%= link_to audio.title, "javascript:;", :itmUrl => item_path(audio)%>
+					  <%= link_to audio.title, "javascript:;", :itmUrl => audio.path_to_encoded_file%>
 				  </p>
 				<% end %>
 			</div>

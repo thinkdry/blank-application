@@ -11,10 +11,10 @@
 			<p><label>Height : </label><input id="player_height"/></p>
 			<div>
 			<% @current_user.get_items_of_type('videos').each do |video| %>	
-				<p><%= image_tag File.dirname(video.video.url) + "/2.png", :width => "48"%><%= link_to video.title, 
+				<p><%= image_tag File.dirname(video.video.url) + "/1.png", :width => "48"%><%= link_to video.title, 
 							   "javascript:;", 
-							   :itmUrl => File.dirname(video.video.url)%></p>
-			<%end%>
+							   :itmUrl => video.path_to_encoded_file %></p>
+			<% end %>
 			</div>
 		</div>
 		<div id="upload_video" class="modalTabContent">

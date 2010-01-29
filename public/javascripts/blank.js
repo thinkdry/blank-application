@@ -207,8 +207,8 @@ $(document).ready(function () {
 			stringToInsert += 'height="257" '; 
 		}
 		
-		stringToInsert +='flashvars="&image=' + $(this).attr('itmUrl') + '/2.png&file=' + $(this).attr('itmUrl') +'/video.flv"';
-		stringToInsert += 'allowfullscreen="true" allowscriptaccess="always" quality="high" src="/players/videoplayer.swf" type="application/x-shockwave-flash"/>';
+		stringToInsert +='flashvars="&image=' + $(this).attr('itmUrl') + '/1.png&file=' + $(this).attr('itmUrl');
+		stringToInsert += '&allowfullscreen="true" allowscriptaccess="always" quality="high" src="/players/videoplayer.swf" type="application/x-shockwave-flash"/>';
 				
 		CKEDITOR.instances.ckInstance.insertHtml(stringToInsert);
 		

@@ -55,6 +55,7 @@ class Admin::CkToolsController < Admin::ApplicationController
           when "image"
             message = upload_image(uploaded_item)
           when "video"
+            
             message = upload_video(uploaded_item)
           when "audio"
             message = upload_audio(uploaded_item)
@@ -71,7 +72,7 @@ class Admin::CkToolsController < Admin::ApplicationController
     rescue Exception => e
       logger.error(e.to_s + "\n" + e.backtrace.collect { |trace|' ' + trace + "\n" }.to_s)
       #TODO -> display error in notice on top (or error in fck erorrs) 
-      render :text => '<script type="text/javascript">$(\'#notice\').showMessage("error during transfert", 1500);</script>', :layout => false
+      render :text => '<script type="text/javascript">$(\'#notice\').showMessage("error during transfer", 1500);</script>', :layout => false
     end
   end
   
@@ -81,15 +82,12 @@ class Admin::CkToolsController < Admin::ApplicationController
  	# insert pics, insert link, insert vids...
  	# it just send to the partial (displayed in a modal windows) the list of available items for display.
   def tabs
-          
     if params[:tab_name] != 'links' && params[:tab_name] != 'gallery'
       @current_objects = params[:tab_name].classify.constantize.matching_user_with_permission_in_containers(@current_user, 'show', [current_container.id], current_container_type)
     end
-    
     if params[:tab_name] == 'gallery'
       @current_objects = Image.matching_user_with_permission_in_containers(@current_user, 'show', [current_container.id], current_container_type)
     end
-    
     render :partial => "/admin/ck_specifics/ck_#{params[:tab_name]}", :locals => {:current_objects => @current_objects}
   end
   
@@ -145,14 +143,18 @@ class Admin::CkToolsController < Admin::ApplicationController
   end
 
   def upload_video(object)
+    object.update_attributes(:state => 'uploaded')
+    Delayed::Job.enqueue(EncodingJob.new({:type=>"video", :id => object.id, :enc=>"flv"}))
 		vdo_tag =  '<embed width="370" height="257" '
 		vdo_tag += 'flashvars="&image=' + File.dirname(object.video.url)
-		vdo_tag += '/2.png&file=' + File.dirname(object.video.url)
-		vdo_tag += '/video.flv" allowfullscreen="true" allowscriptaccess="always" quality="high" src="/players/videoplayer.swf" type="application/x-shockwave-flash"/>'
+		vdo_tag += '/1.png&file=' + object.path_to_encoded_file
+		vdo_tag += '"allowfullscreen="true" allowscriptaccess="always" quality="high" src="/players/videoplayer.swf" type="application/x-shockwave-flash"/>'
 		return "<script type=\"text/javascript\">window.parent.itemUploadComplete('#{vdo_tag}');</script>"
   end
   
   def upload_audio(object)
+    object.update_attributes(:state => 'uploaded')
+    Delayed::Job.enqueue(EncodingJob.new({:type=>"audio", :id => object.id, :enc=>"mp3"}))
     audio_tag = '<embed allowfullscreen="true" allowscriptaccess="always" quality="high"'
 		audio_tag += ' flashvars="&playerID=1&soundFile=' + object.path_to_encoded_file
 		audio_tag += '" src="/players/audioplayer.swf" type="application/x-shockwave-flash"/>'
