@@ -9,7 +9,10 @@
   <table width = '730'>
     <tr>
       <td align = 'center'>
-	    BlankApplication
+			<%require 'configuration'%>
+			<%get_configuration%>
+	    <%=@configuration['sa_application_name']%>
+
 	  </td>
 	</tr>
   </table>
@@ -20,7 +23,7 @@
 
   <p>
     L'objet <%= I18n.t('general.item.' + @audit.auditable_type.downcase ).downcase %>
-    a été <%= I18n.t('general.actions.done.' +@audit.action.capitalize).downcase %>
+    a été <%= I18n.t('general.notifications.' +@audit.action).downcase %>
     par l'utilisateur <%= User.find(@audit.user_id).full_name %> 
 	le <%= I18n.l @audit.created_at, :format => :long1 %>
   </p>
@@ -28,7 +31,7 @@
   <%= "<p>Description : <b>#{@object.description}</b></p>" if @object.description %>
    
   <p>
-    Vous pouvez vous y rendre par le lien suivant :  
+    Vous pouvez vous y rendre par le lien suivant :  "<a href="<%=@configuration['sa_application_url']%>/admin/<%=@audit.auditable_type.pluralize.downcase%>/<%=@object.id%>"> <b><%=@object.title%></b></a>"
   </p>
 
 </body>

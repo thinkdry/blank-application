@@ -103,7 +103,4 @@ module Admin::ApplicationHelper
     str += "<a href='/admin/ck_display/tabs/links' id='fck_insert_link'>Link</a></div>"
     str
 	end
-
-
 end
-

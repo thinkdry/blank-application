@@ -5,7 +5,7 @@
 <div class="objectListWithTab">
     <div class="blockCornerLeft"></div><div class="blockElementHeader sevH">
 		<div class="filter">Filter : <input id="filter" /></div>
-        <div id="itemsNumber">showing&nbsp;<span id="number_of_item"><%= @total_objects_count%></span>&nbsp;of <%= @total_objects_count%> items</div>
+        <div id="itemsNumber">showing&nbsp;<span id="number_of_item"><%= @total_objects_count%></span>&nbsp;of <span id="total_items"><%= @total_objects_count%></span> items</div>
         <div id="classify_bar">
             <%= render :partial => 'admin/blank_lists/classify_bar' %>
 

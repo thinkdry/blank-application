@@ -268,7 +268,25 @@ $(document).ready(function () {
 	$('.add_sub_menu').colorbox({width:"650px"});
 	
 	$('#sortable').tablesorter(); 
+		
+	$('#translation_project').live('change', function(){	
+		ajaxDivReplace($('#translation_project option:selected').attr('url'), "#language_configuration", "GET");
+	});
 	
+	$('#translation_lang').live('change', function(){	
+		ajaxDivReplace($('#translation_lang option:selected').attr('url'), "#language_configuration", "GET");
+	});
+	
+	$('#translation_dropdown').live('change', function(){
+		var data = { 'language_id' : $('#language_id').val(), 'project_id' : $('#project_id').val(), 'translation[translation_dropdown]' : $('#translation_dropdown option:selected').val() };
+		$.ajax({type: "GET",
+				data: data,
+		   	 	url: $(this).attr('url'),
+		  	    success: function(html){
+		  			$('#language_configuration').html(html);
+		       }
+		 });
+	});
 	
 	// ************************************************************
 	// When keyword field got focus, submit is disable, user can add
@@ -295,6 +313,17 @@ $(document).ready(function () {
 	//     }
 	// })
 });
+
+
+function ajaxDivReplace(url, div, method){
+	 $.ajax({type: method,
+	     	 url: url,
+	  	     success: function(html){
+	  			$(div).html(html);
+	     	}
+	 });
+}
+
 
 function ajaxSaveOfFCKContent(){
 	

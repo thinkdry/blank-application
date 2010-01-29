@@ -26,7 +26,6 @@ h1 {
 	font-weight:normal;
 	height:35px;
 	margin:0 0 25px;
-	border-bottom:1px solid #CCCCCC;
 	clear:both;
 }
 
@@ -290,6 +289,8 @@ h4 {
 	float:left;
 }
 
+.logoutPic{float:left!important;margin:0 5px 0 !important;}
+
 /* 		FOOTER  	*/
 
 a.search_button{
@@ -500,6 +501,23 @@ form input, .simulate{
 
 .formWithOverflow{overflow:hidden;}
 
+
+.translationForm label{
+	display:block;
+	float:none !important;
+	text-align:left;
+}
+.translationForm .formElement{
+	float:none !important;
+	padding-top:0;
+	width:650px;
+}
+.translationForm input{width:640px;}
+
+.leftH1{float:left;}
+h1 label{padding-top:0;clear:none !important;width:auto!important;}
+h1 .formElement{padding-top:8px;width:200px !important;}
+.short{width:100px!important;}
 /*		KEYWORDS	*/	
 .keyword_label{
 	background:#E5E5E5;
