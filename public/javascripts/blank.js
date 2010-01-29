@@ -515,6 +515,29 @@ function get_encoding_progress(item_id,item_type){
   });
 }
 
+var file1="";
+function LimitAttach(form, file, allowed_types, alert_message) {
+    var a = $('#submit_button');
+    allowSubmit = false;
+    if(file1 == file) return;
+    if (!file) return;
+    while (file.indexOf("\\") != -1)
+        file = file.slice(file.indexOf("\\") + 1);
+    ext = file.slice(file.lastIndexOf(".")).toLowerCase();
+    for (var i = 0; i < allowed_types.length; i++)
+    {
+        if (allowed_types[i] == ext) {
+            allowSubmit = true;
+            a.disabled = '';
+            break;
+        }
+    }
+    if (!allowSubmit){
+        alert(alert_message)
+        a.disabled = 'true';
+    }
+}
+
 // to move option value from one select box to another select box
 function shiftRight(removeOptions,addOptions,saveFlag)
 {

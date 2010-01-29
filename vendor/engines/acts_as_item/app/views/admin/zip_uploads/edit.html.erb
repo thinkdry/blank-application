@@ -1,0 +1,19 @@
+<% form_tag container_zip_upload_path(current_container), :method => :put do %>
+  <h2>Images</h2>
+  <% for object in @images %>
+    <%= render :partial => "item", :locals => {:object => object, :object_type => object.class.to_s.underscore} %>
+  <% end %>
+  <h2>Audios</h2>
+  <% for object in @audios %>
+    <%= render :partial => "item", :locals => {:object => object, :object_type => object.class.to_s.underscore} %>
+  <% end %>
+  <h2>Videos</h2>
+  <% for object in @videos %>
+    <%= render :partial => "item", :locals => {:object => object, :object_type => object.class.to_s.underscore} %>
+  <% end %>
+  <h2>CmsFiles</h2>
+  <% for object in @cms_files %>
+    <%= render :partial => "item", :locals => {:object => object, :object_type => object.class.to_s.underscore} %>
+  <% end %>
+  <%= submit_tag "Save" %>
+<% end %>

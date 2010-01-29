@@ -9,7 +9,7 @@ class Admin::FeedSourcesController < Admin::ApplicationController
 			  #feed already existing, redirect it to the display of this feed
 			  if object = FeedSource.find_by_url(@current_object.url)
 			    #check if object has common workspaces with user ones
-			    common_workspaces = (object.workspaces & Workspace.allowed_user_with_permission(@current_user, 'workspace_show')).collect{|ws| ws.id.to_s}
+			    common_workspaces = (object.workspaces & Workspace.allowed_user_with_permission(@current_user, 'workspace_show', current_container_type)).collect{|ws| ws.id.to_s}
 			    
 			    if common_workspaces.length > 0
             # let's find in the WS the user selected at the creation, the ones already associated and the other.

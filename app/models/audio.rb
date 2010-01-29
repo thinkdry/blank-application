@@ -44,6 +44,9 @@ class Audio < ActiveRecord::Base
 	# Validation of the size of the attached file
   validates_attachment_size(:audio, :less_than => 25.megabytes)
 
+  # Callbacks
+  #after_save { |record| Delayed::Job.enqueue(EncodingJob.new({:type=>"audio", :id => record.id, :enc=>"mp3"})) }
+
   # Media type used for the MP3 encoding
   #
 	# This method returns a media type used inside the 'converter_worker' task during the encoding.

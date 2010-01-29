@@ -47,6 +47,9 @@ class Video < ActiveRecord::Base
 	# Validation of the size of the attached file
   validates_attachment_size(:video, :less_than => 100.megabytes)
 
+  # After Save Callback to encode video
+  #after_save {|record| Delayed::Job.enqueue(EncodingJob.new({:type=>"video", :id => record.id, :enc=>"flv"}))}
+
 	# Media type used for the FLV encoding
   #
 	# This method returns a media type used inside the 'converter_worker' task during the encoding.
@@ -70,8 +73,11 @@ class Video < ActiveRecord::Base
   # Usage :
   # <tt>object.codec</tt>
   def codec
-    #"-ar 22050 -ab 32 -f flv -y"
-    "-vcodec libx264 -vpre hq -ar 22050 -ab 32 -crf 15"
+    if RAILS_ENV == 'development'
+      "-ar 22050 -ab 32 -f flv -y"
+    else
+     "-vcodec libx264 -vpre hq -ar 22050 -ab 32 -crf 15"
+    end
   end
 
   # Codec used for the MP3 encoding (in the case of 3gp file)

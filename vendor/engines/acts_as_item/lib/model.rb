@@ -31,7 +31,7 @@ module ActsAsItem
 					:conditionnal_attribute => []
         CONTAINERS.each do |container|
           # Relation N-1 with the 'items' table (Join table)
-          has_many "items_#{container.pluralize}".to_sym, :as => :itemable, :dependent => :delete_all
+          has_many "items_#{container.pluralize}".to_sym, :as => :itemable, :dependent => :destroy
           # Relation N-1 getting the Workspace objects through 'item' table
           has_many "#{container.pluralize}".to_sym, :through => "items_#{container.pluralize}".to_sym
         end

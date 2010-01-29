@@ -12,13 +12,13 @@ module ActsAsContainer
         # Relationships
         
         # Relation N-1 with the 'users_containers' table
-        has_many :users_containers, :as => :containerable, :dependent => :delete_all
+        has_many :users_containers, :as => :containerable, :dependent => :destroy
         # Relation N-1 getting the roles linked to that workspace, through the 'users_workspaces' table
         has_many :roles, :through => :users_containers
         # Relation N-1 getting the users linked to that workspace, through the 'users_workspaces' table
         has_many :users, :through => :users_containers
         # Relation N-1 with the 'items' table
-        has_many "items_#{self.class_name.underscore.pluralize}".to_sym, :dependent => :delete_all
+        has_many "items_#{self.class_name.underscore.pluralize}".to_sym, :dependent => :destroy
         # Relation N-1 getting the different item types, through the 'items' table
         ITEMS.each do |item|
           has_many item.pluralize.to_sym, :source => :itemable, :through => "items_#{self.class_name.underscore.pluralize}".to_sym, :source_type => item.classify.to_s, :class_name => item.classify.to_s

@@ -1,0 +1,16 @@
+<% form_for :file, :builder => BlankFormBuilder,:url => container_zip_uploads_path(current_container), :html => {:multipart => true, :method => :post} do |f| -%>
+  <h2>Zip Uploads</h2>
+  <div class="itemShowLeft">
+	  <div class="itemShowLeftBody">
+      <%= file_field 'file', 'zip', :class => 'file' %>
+      <button class="submitButton continueUpdate" type="submit">
+        <span><%= I18n.t('general.button.create') %></span>
+      </button>
+    </div>
+  </div>
+  <div class="rightBlocks">
+		<div class="itemShowDate">
+				<%= I18n.l(Time.now, :format => :verb) %>
+		</div>
+  </div>
+<% end -%>

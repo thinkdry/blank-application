@@ -307,6 +307,10 @@ class User < ActiveRecord::Base
   def private_workspace
     self.workspaces.find(:first, :conditions => {:state => 'private'})
   end
+
+  def is_private?(ws)
+    self.private_workspace == ws
+  end
   
   def container_ids(container)
     self.send(container.pluralize).collect{|c| c.id.to_s }

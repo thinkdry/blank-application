@@ -12,6 +12,12 @@
                <%= link_to I18n.t('general.link.edit'), edit_container_path(current_container)  %>&nbsp;|
             <% end %>
             <%=yield(:container_actions) %>
+            <% if @current_object.has_permission_for?('new', @current_user, current_container_type) %>
+               <%= link_to "Upload Zip Items", new_container_zip_upload_path(current_container)  %>&nbsp;|
+            <% end %>
+            <% if @current_object.has_permission_for?('new', @current_user, current_container_type) %>
+               <%= link_to "Edit Uploaded Zip Items", edit_container_zip_upload_path(current_container)  %>&nbsp;|
+            <% end %>
         </div>
         <div class="description"><%= @current_object.description %></div>
         <%= capture(&block) %>

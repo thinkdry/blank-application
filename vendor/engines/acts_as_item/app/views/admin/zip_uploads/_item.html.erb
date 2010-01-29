@@ -1,0 +1,6 @@
+<% fields_for "#{object_type.pluralize}[]", object do |f| %>
+  <p><%= f.text_field :title %></p>
+  <%= error_message_on object, :title %>
+  <p><%= f.text_field :description %></p>
+  <%= error_message_on object, :description %>
+<% end %>

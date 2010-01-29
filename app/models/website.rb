@@ -1,3 +1,7 @@
+require 'fileutils'
+require 'zip/zip'
+require 'zip/zipfilesystem'
+
 class Website < ActiveRecord::Base
 
   acts_as_container

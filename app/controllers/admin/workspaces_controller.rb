@@ -16,6 +16,8 @@ class Admin::WorkspacesController < Admin::ApplicationController
       'add_new_user' => 'edit'
     },
 		:skip_logging_actions => [])
-
+  
   acts_as_container
+
+  
 end
