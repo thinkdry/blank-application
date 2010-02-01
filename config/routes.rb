@@ -152,7 +152,8 @@ ActionController::Routing::Routes.draw do |map|
     
   end
   #################################################################################
-
+  
+  map.resources :users, :only => [:new, :create], :collection => {:validate => :post}
   # Add Project Specific Routes here!
   # Website Home
   map.root :controller => "websites", :action => 'index'

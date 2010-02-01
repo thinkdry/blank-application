@@ -47,6 +47,8 @@ class Admin::ContentController < Admin::ApplicationController
   #
   
   def ajax_index
+    p ">>>>>>>>>>>>>>>"
+    p params
 		params[:item_type] ||= get_allowed_item_types(current_container).first.pluralize
 		if current_container
       params[:container] = [current_container.id]

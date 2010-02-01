@@ -96,7 +96,7 @@ class User < ActiveRecord::Base
 	validates_attachment_size(:avatar, :less_than => 5.megabytes)
 
   # Validationof the presence of these attributes
-  validates_presence_of     :login, :email, :firstname, :lastname
+  validates_presence_of     :login, :email, :firstname, :lastname, :system_role_id
 	validates_presence_of     :password, :on => :create
 	validates_presence_of     :password_confirmation, :on => :create
 	# Validation of the confirmation of this attribute

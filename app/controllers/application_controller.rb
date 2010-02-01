@@ -4,8 +4,12 @@ class ApplicationController < ActionController::Base
 	include AuthenticatedSystem
   # Captcha Management
 	include YacaphHelper
+  # Configuration
+  include Configuration
 	
 	helper :yacaph, :websites
+
+  before_filter :get_configuration
 	
 end
 

@@ -1,0 +1,82 @@
+<% form_for current_object, :builder => BlankFormBuilder, :html => {:method => :post, :multipart=> true } do |f| -%>
+	<div class="itemShowLeft">
+		<div class="itemShowLeftBody">
+			<h2><%=I18n.t('user.new.title')%></h2>
+			
+			<label><%= I18n.t('people.field.salutation_label') %> : </label>
+		    <div class="formElement">
+		      <% %w(Mr Ms Miss).each do |s|  %>
+		        <input id="user_salutation_<%= s.downcase %>" type="radio" 
+				    <%= "checked=true" if @current_object.salutation == s %> value="<%= s %>" 
+				    name="user[salutation]" class = "checkboxes" /><%= I18n.t("general.common_word.#{s}") %>
+		      <% end %>
+		    </div>
+			
+			<%= f.text_field    :login, 
+								:label => I18n.t('user.field.login_label')+" * : ", 
+								:hint => I18n.t('user.field.login_hint') %>
+								
+		    <%= f.text_field    :email, 
+								:label => I18n.t('user.field.email_label')+" * : ",
+								:hint => "TODO hint" %>
+
+		    <%= f.password_field 	:password, 
+									:label => I18n.t('user.field.password_label')+" * : ", 
+									:hint => @current_object.new_record? ? "Select your password" : I18n.t('user.field.password_hint') %>
+										
+		    <%= f.password_field 	:password_confirmation, 
+									:label => I18n.t('user.field.confirm_password_label')+" * : ", 
+									:hint => @current_object.new_record? ? "Select your password" : I18n.t('user.field.confirm_password_hint') %>
+			
+			<%= f.text_field :firstname, :label => I18n.t('user.field.first_name_label')+" * : ", :hint => "TODO hint" %>
+		    <%= f.text_field :lastname, :label => I18n.t('user.field.last_name_label')+" * : ", :hint => "TODO hint" %>
+									
+			<%= f.text_area :address, 
+							:size => "40x6", 
+							:label => I18n.t('user.field.address_label')+" : ", 
+							:hint => I18n.t('user.field.address_hint')%>
+					
+			<%= f.text_field 	:phone, 
+								:label => I18n.t('user.field.phone_label')+" : ", 
+								:hint => I18n.t('user.field.phone_hint') %>
+								
+			<%= f.text_field 	:mobile, 
+								:label => I18n.t('user.field.mobile_label')+" : ", 
+								:hint => I18n.t('user.field.mobile_hint') %>
+							
+			<%= f.text_area :edito, 
+							:label => I18n.t('user.field.edito_label')+" : ",
+							:hint => "TODO hint" %>
+			
+			<% f.field  :avatar, 
+						:label => I18n.t('user.field.photo_label')+" : " do %>
+					<%= file_field 'user', 'avatar', :class => 'file' %>
+			<% end %>
+			
+			<% if current_object.new_record? && !@current_user %>
+		      <%= yacaph_block %>
+		      <% if @captcha_valid == false %>
+		        <div id="errors_for_captcha">
+		          <div class="formError"><%= I18n.t("general.common_word.ajax_message_captcha_invalid") %></div>
+		        </div>
+		      <% end %>
+		    <% end %>
+		    <% button_text = current_object.new_record? ? I18n.t('general.button.create') : I18n.t('general.button.update') %>
+		    <button type="submit" class="submitButton" >
+				<span><%= button_text%></span>
+			</button>
+		</div>
+	</div>
+	<div class="rightBlocks">
+		<div class="itemShowDate">
+			<%= I18n.l Time.now, :format =>:verb %>
+		</div>
+		<div class="itemShowRightBlock">
+			<div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
+			</div>
+      <div class="blockCornerRight"></div>
+			<div class="blockElementBody"></div>
+	    </div>
+
+	</div>
+<% end -%>
