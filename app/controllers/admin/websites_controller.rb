@@ -44,6 +44,11 @@ class Admin::WebsitesController < Admin::ApplicationController
     end
     
   end
+
+  def delete_asset
+    FileUtils.rm_rf("#{RAILS_ROOT}/#{params[:file_path]}")
+    render :text => ""
+  end
   
   protected
   

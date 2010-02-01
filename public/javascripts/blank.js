@@ -658,3 +658,19 @@ function add_new_follower(){
     }
 }
 
+// to delete js/images/css file from websites
+function delete_asset(element, file_path){
+    if(confirm('Are you sure?')){
+        $.ajax({
+            type: "GET",
+            url: '/admin/websites/delete_asset',
+            data: "file_path="+file_path,
+            dataType: "script",
+            success:function(html){
+                    $(element).parent().remove();
+					$('#notice').showMessage("Asset Deleted Successfully", 1500);
+				}
+      });
+    }
+}
+

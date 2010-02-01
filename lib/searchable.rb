@@ -94,8 +94,9 @@ module Searchable
 						#req = req.all(:order => options[:filter][:field]+' '+options[:filter][:way], :limit => options[:pagination][:per_page])
 					elsif (options[:opti] == 'skip_full_pag')
 						# so nothing ...
-					else
+			    elsif options[:filter][:field] && options[:filter][:way]
 					  req = req.order_by(options[:filter][:field], options[:filter][:way])
+          else
 						#req = req.paginate(:per_page => options[:pagination][:per_page].to_i, :page => options[:pagination][:page].to_i, :order => options[:filter][:field]+' '+options[:filter][:way])
 						#req = req.paginate(:per_page => options[:pagination][:per_page].to_i, :page => options[:pagination][:page].to_i, :order => options[:filter][:field]+' '+options[:filter][:way])
           end

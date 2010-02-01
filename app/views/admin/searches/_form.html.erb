@@ -1,40 +1,29 @@
 <h1><%=I18n.t('layout.search.advance_search')%></h1>
   <% form_for @search, :url => admin_searches_path, :builder => BlankFormBuilder, :html => {:method => :get} do |f| %>
   
-    <p><%=I18n.t('layout.search.information_on_searched_item')%></p>
-	
-	<% if !params[:search].nil?%>
-    	<%= f.hidden_field :category, :value => params[:search][:category].to_s %>
-    	<%= f.hidden_field :advanced, :value => 'true' %>
-	<% end %>
-
-    <%= f.text_field :full__text_field, :label => I18n.t('layout.search.title_label') %>
-
-    <% if params[:category]=='item' %>
-      <br />Item categories<br />
-      <% available_items_list.each do |i| %>
-        <%= I18n.t('general.item.'+i.to_s) %> <%= check_box_tag "item_types[#{i}]", 1, true, :class => "checkboxes" %>
-      <% end %>
-    <% end %>
-
-    <% if params[:category]=='item' || params[:category]=='workspace' %>
-    <%= f.text_field :creator, :label => I18n.t('layout.search.author_label') %>
-    <div id="autocomplete_choices" class="autocomplete"></div>
-    <script type="text/javascript">
-      new Ajax.Autocompleter("search_creator", "autocomplete_choices", "/admin/users/index",{
-        method: 'post', paramName: 'login'
-      });
-    </script>
-    <% end %>
-    
-    <% f.field :date, :label => I18n.t('layout.search.search_period_label') do %>
-      <%=I18n.t('general.common_word.from1')%><br/><%= f.calendar_date_select :created_after, :class => "input_with_calendar" %> <br/>
-      <%=I18n.t('general.common_word.to1')%><br/><%= f.calendar_date_select :created_before, :class => "input_with_calendar" %>
-    <% end %>
-
-    <% ['latest', 'commented', 'rated', 'alpha'].each do end %>
-    
+	<div class="itemShowLeft">
+		<div class="itemShowLeftBody">
+      <%= I18n.t('layout.search.title_label')  %>
+      <%= text_field_tag :q %>
+      <%= f.date_select :created_at_after, :label => I18n.t('general.common_word.from1'), :include_blank => true%> <br/>
+      <%= f.date_select :created_at_before,:label => I18n.t('general.common_word.to1'), :include_blank => true %>
+          
     <button type="submit" class="submitButton">
 		<span><%=I18n.t('general.button.search')%></span>
 	</button>
+  </div>
+  </div>
+  <div class="rightBlocks">
+    <div class="itemShowRightBlock">
+      <div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
+        <%= "Available Items" %>
+      </div>
+      <div class="blockCornerRight"></div>
+      <div class="blockElementBody">
+        <% available_items_list.each do |i| %>  
+          <%= check_box_tag "m[]", i, :class => "checkboxes" %><%= I18n.t('general.item.'+i.to_s) %> <br />
+        <% end %>
+      </div>
+    </div>
+</div>
 <% end %>
