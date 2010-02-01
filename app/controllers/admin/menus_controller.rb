@@ -1,7 +1,7 @@
 class Admin::MenusController < Admin::ApplicationController
   
   def index
-    @website = Website.find(params[:website_id])
+    @website = Website.find(params[:website_id], :include => :menus)
     @pages = @website.pages.published
     if @website.menus.count > 0
       @menus = @website.menus
@@ -13,12 +13,11 @@ class Admin::MenusController < Admin::ApplicationController
     @pages = @website.pages.published
     @menu = Menu.new
     @menu.parent_id = params[:parent_id]
-    
     render :partial => 'form', :locals => {:menu => @menu,:pages => @pages}
   end
 
   def create
-    @website = Website.find(params[:website_id])
+    @website = Website.find(params[:website_id], :include => :menus)
     @menu = @website.menus.new(params[:menu])
     if params[:parent_id]
       @menu.parent_id = params[:parent_id]
@@ -36,7 +35,6 @@ class Admin::MenusController < Admin::ApplicationController
     @website = Website.find(params[:website_id])
     @menu = Menu.find(params[:id])
 		@pages = @website.pages.published
-		
 		render :partial => 'form', :locals => {:menu => @menu }
   end
 
@@ -45,9 +43,7 @@ class Admin::MenusController < Admin::ApplicationController
     @menu = Menu.find(params[:id])
     if @menu.update_attributes(params[:menu])
       @menus = @website.menus
-      
       flash[:notice] = 'Menu Item Updated Sucessfully'
-      
       respond_to do |format|
         format.js {render :partial => '/admin/menus/update.js', :layout => false}
       end
@@ -58,11 +54,8 @@ class Admin::MenusController < Admin::ApplicationController
     @website = Website.find(params[:website_id])
     @menu = Menu.find(params[:id])
     if @menu.destroy
-       
       flash[:notice] = 'Menu Item Updated Sucessfully'
-        
       @menus = @website.menus
-        
       respond_to do |format|
         format.js {render :partial => '/admin/menus/update.js', :layout => false}
       end

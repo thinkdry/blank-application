@@ -48,11 +48,11 @@ module Searchable
 					lambda { |limit, offset| { :limit => limit, :offset => offset }
 				}
 				
-				named_scope  :order,
+				named_scope  :order_by,
 				  lambda {|field, order| {:order => "#{field} #{order}"}
 				}
 				
-				named_scope  :limit,
+				named_scope  :limit_by,
 				  lambda {|l| { :limit => l }
 				}
 
@@ -84,13 +84,13 @@ module Searchable
           end
           
 					if (options[:opti] == 'skip_pag_but_filter')
-					  req = req.order(options[:filter][:field], options[:filter][:way])
+					  req = req.order_by(options[:filter][:field], options[:filter][:way])
 						#req = req.all(:order => options[:filter][:field]+' '+options[:filter][:way])
 					elsif (options[:opti] == 'skip_pag_but_limit')
-					  req = req.limit(options[:pagination][:per_page])
+					  req = req.limit_by(options[:pagination][:per_page])
 						#req = req.all(:limit => options[:pagination][:per_page])
 					elsif (options[:opti] == 'skip_pag_but_filter_and_limit')
-					  req = req.order(options[:filter][:field],options[:filter][:way]).limit(options[:pagination][:per_page])
+					  req = req.order_by(options[:filter][:field],options[:filter][:way]).limit_by(options[:pagination][:per_page])
 						#req = req.all(:order => options[:filter][:field]+' '+options[:filter][:way], :limit => options[:pagination][:per_page])
 					elsif (options[:opti] == 'skip_full_pag')
 						# so nothing ...

@@ -123,7 +123,7 @@ module Admin::BlankListsHelper
 	def safe_url(url, params)
 		# TODO find a way to manage with AJAX params
 		# trick, work just for classify_bar case
-		prev_params = (a=request.url.split('?')).size > 1 ? '?'+a.last : ''
+		prev_params = (a=request.url.split('?')).size > 1 ? '?' + a.last : ''
 		#raise request.url.split('?').size.inspect
     classify_url = (url+prev_params).split(params.first.split('=').first).first + ((url+prev_params).include?('?') ? '&' : '?') +params.join('&')
 		return classify_url.split('&').delete_if{|p| p==''}.join('&')
