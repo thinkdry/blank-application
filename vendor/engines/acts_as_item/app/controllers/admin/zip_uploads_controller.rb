@@ -86,44 +86,57 @@ protected
   # TODO Dirty work move to model
   def upload_file(file_path)
     ext = File.extname(file_path).downcase
+    CONTAINERS.each do |container|
+      instance_variable_set "@#{container}_ids", []
+    end
     file_name = File.basename(file_path)
-    private_container = current_user.private_workspace
-    available_items = private_container.available_items.split(',') & current_container.available_items.split(',')
-    if private_container == current_container
-      container_ids= [current_container.id]
-    else
-      container_ids = [private_container.id, current_container.id]
+    private_workspace = current_user.private_workspace
+    available_items = private_workspace.available_items.split(',') & current_container.available_items.split(',')
+    @workspace_ids << private_workspace.id
+    if current_container != private_workspace
+      eval("@#{current_container_type}_ids << #{current_container.id}")        
     end
     if ['.png','.jpeg','.gif','.jpg','.bmp'].include?(ext) && available_items.include?('image')
       i = Image.new(:title => file_name, :description => file_name, :user_id => current_user.id, :source => 'zip')
       i.image = File.new(file_path)
-      i.associated_workspaces= container_ids
+      CONTAINERS.each do |container|
+        i.send("associated_#{container.pluralize}=", eval("@#{container}_ids"))
+      end
       if i.save
         logger.info("Image with id #{i.id} created")
       end
-  elsif ['.wav','.mp3','.wma','.mp4'].include?(ext) && available_items.include?('audio')
+      elsif ['.wav','.mp3','.wma','.mp4'].include?(ext) && available_items.include?('audio')
       i = Audio.new(:title => file_name, :description => file_name, :user_id => current_user.id, :source => 'zip')
       i.audio = File.new(file_path)
-      i.associated_workspaces= container_ids
+      CONTAINERS.each do |container|
+        p ">>>>>>>>>>>>>>>>>>>>>.."
+        p container
+        p eval("@#{container}_ids")
+        i.send("associated_#{container.pluralize}=", eval("@#{container}_ids"))
+      end
       i.save
       if i.save
         i.update_attributes(:state => 'uploaded')
         Delayed::Job.enqueue(EncodingJob.new({:type=>"audio", :id => i.id, :enc=>"mp3"}))
         logger.info("Audio with id #{i.id} created")
       end
-  elsif [".mov", ".mpeg", ".mpg", ".3gp", ".flv", ".avi"].include?(ext) && current_container.available_items.split(',').include?('video')
+      elsif [".mov", ".mpeg", ".mpg", ".3gp", ".flv", ".avi"].include?(ext) && current_container.available_items.split(',').include?('video')
       i = Video.new(:title => file_name, :description => file_name, :user_id => current_user.id, :source => 'zip')
       i.video = File.new(file_path)
-      i.associated_workspaces= container_ids
+      CONTAINERS.each do |container|
+        i.send("associated_#{container.pluralize}=", eval("@#{container}_ids"))
+      end
       if i.save
         i.update_attributes(:state => 'uploaded')
         Delayed::Job.enqueue(EncodingJob.new({:type=>"video", :id => i.id, :enc=>"flv"}))
         logger.info("Video with id #{i.id} created")
       end
-  elsif [".txt",".doc",".pdf"].include?(ext) && available_items.include?('cms_file')
+      elsif [".txt",".doc",".pdf"].include?(ext) && available_items.include?('cms_file')
       i = CmsFile.new(:title => file_name, :description => file_name, :user_id => current_user.id, :source => 'zip')
       i.cmsfile = File.new(file_path)
-      i.associated_workspaces= container_ids
+      CONTAINERS.each do |container|
+        i.send("associated_#{container.pluralize}=", eval("@#{container}_ids"))
+      end
       if i.save
         logger.info("CmsFile with id #{i.id} created")
       end
