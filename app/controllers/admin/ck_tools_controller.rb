@@ -18,8 +18,23 @@ class Admin::CkToolsController < Admin::ApplicationController
   	config_file += "config.disableNativeSpellChecker = false;"
   	config_file += "config.forcePasteAsPlainText = true;"
   	config_file += "config.bodyClass = 'bodyClass';"
-  	config_file += "config.contentsCss = '#{params[:css_file_name]}';"
+  	
+  	config_file += "config.contentsCss = ["
+  	
+  	css_file_list = params[:css_file_name].join(',').split(',')
 
+  	i=0
+  	css_file_list.each do |css_file|
+  	  config_file += "'#{css_file}'"
+  	  i = i + 1
+  	  p i
+  	  if i < css_file_list.length
+  	    config_file += ","
+  	  end
+  	end
+  	
+  	config_file += "];"
+  	
   	config_file += "config.toolbar_BlankToolbar = ["
   	params[:new] == "true" ? config_file += "[" : config_file += "['Save',"
   	config_file += "'Source','Undo','Redo','-','Bold','Italic','Underline','BulletedList','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','Find',"

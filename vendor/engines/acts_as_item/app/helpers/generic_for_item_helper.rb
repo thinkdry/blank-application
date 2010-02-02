@@ -128,13 +128,13 @@ module GenericForItemHelper
     
     if cn && cn.class == Website
       Dir["public/website_files/#{cn.title}/stylesheets/*.css"].collect do |uploaded_css|
-        css_files << "#{uploaded_css.split("public")[1]}"
+        css_files << uploaded_css.split("public")[1]
       end
     end
     
-    css_files << '/stylesheets/fckeditor.css' if css_files.empty?
+    css_files << "/stylesheets/fckeditor.css" if css_files.empty?
     
-    css_file_name = "&css_file_name=" + css_files[0]
+    css_file_name = "&css_file_name[]=" + css_files.join(',') 
 
     field =  ''
     object.new_record? ? new_item = "&new=true" : new_item = ""
