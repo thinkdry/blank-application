@@ -42,6 +42,9 @@ class Admin::UsersController < Admin::ApplicationController
 		end
 
     after :create do
+      if is_given_private_workspace  
+        @current_object.create_private_workspace
+      end
       flash[:notice] = I18n.t('user.new.flash_notice')
     end
 
