@@ -121,23 +121,25 @@ module GenericForItemHelper
 	def advanced_editor_on(object, attribute)
     cn = current_container
 		css_files = []
-    google_map = false
-    cn ||= object.send(current_container_type.pluralize).delete_if{ |e| e.websites.empty? }.first if (object.class.to_s == "Page")
+    #google_map = false
+    #cn ||= object.send(current_container_type.pluralize).delete_if{ |e| e.websites.empty? }.first if (object.class.to_s == "Page")
     #IF THE WS IS A WEBSITE
     #TODO check for blanklight website
-    if cn && cn.respond_to?(:websites) && cn.websites.first && (tmp=cn.websites.first.front)
-      Dir["public/front_files/#{tmp.name}/stylesheets/*.css"].collect do |uploaded_css|
+    
+    if cn && cn.class == Website
+      Dir["public/website_files/#{cn.title}/stylesheets/*.css"].collect do |uploaded_css|
         css_files << "#{uploaded_css.split("public")[1]}"
       end
     end
+    
     css_files << '/stylesheets/fckeditor.css' if css_files.empty?
-    input_id = String.new
-    input_id = object.class.to_s.underscore + '_' + attribute.to_s
+    
+    css_file_name = "&css_file_name=" + css_files[0]
+
     field =  ''
     object.new_record? ? new_item = "&new=true" : new_item = ""
     field += '<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>'
-    #field += '<script type="text/javascript">CKEDITOR.replace(\'ckInstance\', {customConfig : \'/admin/ck_config?ws='+ current_container.id.to_s + new_item + '\'});</script>'
-    field += '<script type="text/javascript">CKEDITOR.replace(\'ckInstance\', {customConfig : \'/admin/ck_config?' + new_item + '\'});</script>'
+    field += '<script type="text/javascript">CKEDITOR.replace(\'ckInstance\', {customConfig : \'/admin/ck_config?' + new_item + css_file_name + '\'});</script>'
     return field
   end
 
