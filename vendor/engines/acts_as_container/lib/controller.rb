@@ -26,10 +26,11 @@ module ActsAsContainer
           self.instance_eval(&block) if block_given?
 
           before :show do
+            
             params[:id] ||= params["#{@current_object.class.to_s.downcase}_id".to_sym]
             # Just for the first load of the show, means without item selected
-            params[:item_type] ||= get_allowed_item_types(@current_object).first.to_s.pluralize
-            p params[:item_type]
+            current_container.class.to_s.underscore == "website" ? params[:item_type] = "pages" : params[:item_type] ||= get_allowed_item_types(@current_object).first.to_s.pluralize
+            
             params[:container] = [current_container.id]
             params[:container_type] = current_container.class.to_s.underscore
             if !params[:item_type].blank?
