@@ -2,4 +2,5 @@ $('#classify_bar').html("<%= escape_javascript(render :partial => 'admin/blank_l
 //$('#item_count').html("<%= pluralize(@total_objects_count, ' item')%>");
 $('#number_of_item').html("<%= @total_objects_count%>");
 $('#total_items').html("<%= @total_objects_count%>");
+$('#filter').val("");
 $('#pure_item_list').html("<%= escape_javascript(render :partial => 'admin/blank_lists/pure_item_list') %>");

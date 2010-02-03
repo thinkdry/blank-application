@@ -10,16 +10,35 @@ class Admin::CkToolsController < Admin::ApplicationController
     config_file += "config.language = '#{I18n.locale.split('-')[0]}';"
   	config_file += "config.uiColor = '#e6e6e6';"
   	config_file += "config.toolbar = 'BlankToolbar';"
-    config_file += "config.height = '400';"
+    config_file += "config.height = '450';"
   	config_file += "config.width = '632';"
   	config_file += "config.resize_maxWidth = 620;"
   	config_file += "config.resize_minWidth = 620;"
-  	config_file += "config.toolbarCanCollapse = false;"   
+  	config_file += "config.toolbarCanCollapse = false;" 
+  	config_file += "config.disableNativeSpellChecker = false;"
+  	config_file += "config.forcePasteAsPlainText = true;"
+  	config_file += "config.bodyClass = 'bodyClass';"
+  	
+  	config_file += "config.contentsCss = ["
+  	
+  	css_file_list = params[:css_file_name].join(',').split(',')
 
+  	i=0
+  	css_file_list.each do |css_file|
+  	  config_file += "'#{css_file}'"
+  	  i = i + 1
+  	  p i
+  	  if i < css_file_list.length
+  	    config_file += ","
+  	  end
+  	end
+  	
+  	config_file += "];"
+  	
   	config_file += "config.toolbar_BlankToolbar = ["
   	params[:new] == "true" ? config_file += "[" : config_file += "['Save',"
-  	config_file += "'Source','Undo','Redo','-','Bold','Italic','Underline','NumberedList','BulletedList','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','Find','Replace'],"
-  	config_file += "['Anchor','Link','Unlink','Table','SpecialChar','Styles','FontSize','TextColor','BGColor', '-','Maximize']];"
+  	config_file += "'Source','Undo','Redo','-','Bold','Italic','Underline','BulletedList','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','Find',"
+  	config_file += "'Link','Table','SpecialChar','FontSize','TextColor','BGColor', '-','Maximize']];"
 
   	config_file += "config.filebrowserWindowWidth = '640';"
     config_file += "config.filebrowserWindowHeight = '480';"
