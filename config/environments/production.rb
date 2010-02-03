@@ -59,3 +59,5 @@ NEWSLETTERS_PER_HOUR = 20
 # Variable for website files
 WEBSITE_FILES = "website_files".freeze
 WEBSITES_FOLDER = "#{RAILS_ROOT}/public/#{WEBSITE_FILES}".freeze
+WEBSITE_TEMPLATES_FOLDER = "#{RAILS_ROOT}/public/website_templates".freeze
+DEFAULT_WEBSITE_TEMPLATE = "#{WEBSITE_TEMPLATES_FOLDER}/default/default.html.erb".freeze

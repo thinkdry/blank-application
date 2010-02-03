@@ -6,10 +6,11 @@ class ApplicationController < ActionController::Base
 	include YacaphHelper
   # Configuration
   include Configuration
+
+  before_filter :get_configuration
 	
 	helper :yacaph, :websites
 
-  before_filter :get_configuration
 	
 end
 

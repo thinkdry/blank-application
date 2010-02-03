@@ -1,0 +1,13 @@
+<% path = "/#{WEBSITE_FILES}/#{@current_website.title}" %>
+<html>
+  <head>
+    <title><%= @page.page_title%></title>
+    <meta name='description' content="<%= @page.description%>"/>
+    <meta name='keywords' content="<%= @page.keywords_list%>"/>
+    <link rel="stylesheet" href="stylesheets/application.css" type="text/css" media="screen" title="no title" charset="utf-8"/>
+    <script type="text/javascript" src="javascripts/application.js"></script>
+  </head>
+  <body>
+    <%=yield%>
+  </body>
+</html>

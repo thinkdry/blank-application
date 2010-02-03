@@ -15,6 +15,12 @@ class UsersController < ApplicationController
       end
     end
 
+    after :create do
+      if is_given_private_workspace
+        @current_object.create_private_workspace
+      end
+    end
+
     response_for :create do |format|
       format.html{ redirect_to root_url }
     end

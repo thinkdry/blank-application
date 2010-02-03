@@ -11,7 +11,7 @@ module ItemsContainer
         # Relation 1-N with the 'workspaces' table
         belongs_to "#{self.class_name.split('Items')[1].underscore}".to_sym
         # Polymorphic relation with the items tables
-        belongs_to :itemable, :polymorphic => true, :include => :user
+        belongs_to :itemable, :polymorphic => true
         # Include InstanceMethods Module
         include ItemsContainer::ModelMethods::InstanceMethods
       end

@@ -1,1 +1,5 @@
-<%= render :file => @current_website.layout.path %>
+<% unless @current_website.layout_file_name.blank? %>
+  <%= render :file => @current_website.layout.path %>
+<% else %>
+  <%= render :file => DEFAULT_WEBSITE_TEMPLATE %>
+<% end %>

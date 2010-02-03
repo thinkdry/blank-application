@@ -157,6 +157,8 @@ ActionController::Routing::Routes.draw do |map|
   # Add Project Specific Routes here!
   # Website Home
   map.root :controller => "websites", :action => 'index'
+  map.connect '/site/:site_title', :controller => 'websites', :action => 'index'
+  map.connect '/site/:site_title/:title_sanitized', :controller => 'websites', :action => 'index'
   map.connect '/:title_sanitized', :controller =>'websites', :action => 'index'
   map.resources :websites, :only => [:index, :update]
   #map.create_front_folders '/create_front_folders', :controller => 'fronts', :action => 'create_front_folders'

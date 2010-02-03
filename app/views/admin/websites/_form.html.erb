@@ -5,7 +5,9 @@
 		<ul>
 			<li><a href="#general" class="website_tab_link">General</a></li>
 			<li><a href="#files_management" class="website_tab_link">Files</a></li>
+      <!--
 			<li><a href="#pages" class="website_tab_link">Pages</a></li>
+      -->
 		</ul>
 		<div class="blockElement">
             <div class="blockCornerLeft"></div>
@@ -20,14 +22,14 @@
 			<%= render :partial => 'website_urls_fields', :locals => {:website => @current_object, :f => f} %>
 			<%= f.select :website_state, {'Under Construction' => 'under_construction', 'Maintenance' => 'maintenance', 'Closed' => 'closed', 'Published' => 'published'},{},{:label => 'Website State'} %>
 		</div>
-	
+	  <!--
 		<div id="pages" class="websiteConfig">
-			<%= f.select :intro_page_id, @pages.collect{|p| [p.title, p.id]}, {:include_blank => true}, {:label => 'Intro'} %>
-		    <%= f.select :home_page_id, @pages.collect{|p| [p.title, p.id]}, {:include_blank => true}, {:label => 'Home'} %>
-		    <%= f.select :gallery_page_id, @pages.collect{|p| [p.title, p.id]}, {:include_blank => true}, {:label => 'Gallery'} %>
-		    <%= f.select :mail_page_id, @pages.collect{|p| [p.title, p.id]}, {:include_blank => true}, {:label => 'Contact'} %>
+			  <%#= f.select :intro_page_id, @pages.collect{|p| [p.title, p.id]}, {:include_blank => true}, {:label => 'Intro'} %>
+		    <%#= f.select :home_page_id, @pages.collect{|p| [p.title, p.id]}, {:include_blank => true}, {:label => 'Home'} %>
+		    <%#= f.select :gallery_page_id, @pages.collect{|p| [p.title, p.id]}, {:include_blank => true}, {:label => 'Gallery'} %>
+		    <%#= f.select :mail_page_id, @pages.collect{|p| [p.title, p.id]}, {:include_blank => true}, {:label => 'Contact'} %>
 		</div>
-	
+	  -->
 		<div id="files_management" class="websiteConfig">
 			<% f.field :favicon, :label => "Favicon :" do %>
 		    <%= @current_object.favicon_file_name + '<br />' if @current_object.favicon_file_name %>
