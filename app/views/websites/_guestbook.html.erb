@@ -1,7 +1,6 @@
 <div>
-<% form_for @person, :url => form_management_website_path(@website.id), :html => { :onsubmit => 'return validate_contact();'} do |f| %>
+<% form_for @person, :url => contacts_path, :html => {:method => :post, :onsubmit => 'return validate_contact();'} do |f| %>
   <% if !@person.errors.empty? %>
-
     <% attributes = {'first_name' => 'Nom','last_name' => 'Prénom', 'email' => 'Email', 'primary_phone' => 'Téléphone'} %>
     <ul style="height:auto;" >
       <% @person.errors.each do |attr,msg| %>
@@ -9,8 +8,8 @@
       <% end %>
     </ul>
   <% end %>
-  <input type="hidden" id="website_id" name="website_id" value="<%= @website.id %>" />
-  <input type="hidden" name="title_sanitized" value="<%= params[:title_sanitized] %>" />
+  <input type="hidden" id="website_id" name="website_id" value="<%= @current_website.id %>" />
+  <input type="hidden" name="prev_title_sanitized" value="<%= params[:title_sanitized] %>" />
   <label>Nom * : </label><%= f.text_field :first_name %><br />
   <label>Prénom * : </label><%= f.text_field :last_name %><br />
   <label>Email * : </label><%= f.text_field :email %><br />

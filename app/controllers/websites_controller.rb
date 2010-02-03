@@ -35,7 +35,7 @@ class WebsitesController < ApplicationController
 					@email_values = session[:email] || {}
 					session[:person] = nil
 					session[:email] = nil
-					@guestbook_messages = DataPerson.find(:all, :conditions => {:workspace_id => @current_website.workspace.id, :state => 'validated', :origin => 'guestbook_form'}, :order => 'created_at DESC')
+					@guestbook_messages = DataPerson.find(:all, :conditions => {:workspace_id => @current_website.creator.private_workspace.id, :state => 'validated', :origin => 'guestbook_form'}, :order => 'created_at DESC')
           @partial_to_render = 'websites/guestbook'
 				end
 					# Finally render the partial with @page, @current_website

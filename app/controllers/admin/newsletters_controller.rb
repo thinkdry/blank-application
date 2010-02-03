@@ -46,7 +46,7 @@ class Admin::NewslettersController < Admin::ApplicationController
 		else
 			flash[:error] = I18n.t('newsletter.send_newsletter.queued_newsletter_flash_error')
 		end
-		redirect_to container_path(current_container)
+		redirect_to item_path(@newsletter)
   end
 
 end

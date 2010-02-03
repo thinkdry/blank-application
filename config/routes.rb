@@ -156,6 +156,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users, :only => [:new, :create], :collection => {:validate => :post}
   # Add Project Specific Routes here!
   # Website Home
+  map.resources :contacts, :only => [:new, :create]
   map.root :controller => "websites", :action => 'index'
   map.connect '/site/:site_title', :controller => 'websites', :action => 'index'
   map.connect '/site/:site_title/:title_sanitized', :controller => 'websites', :action => 'index'
