@@ -74,6 +74,17 @@ class UserMailer < ActionMailer::Base
     content_type "text/html"
   end
 
+	# Send contact form update from website	
+	def contact_notification(website, email)
+		recipients website.contact_email
+    from email["email"]
+    sent_on Time.now
+		subject website.site_name+" : "+email["subject"]
+		body :first_last => email["first_name"]+" "+email["last_name"],
+			:body => email["body"],
+			:phone => email["primary_phone"]
+	end
+
   protected
 	# Method setting some default value for emails
     def setup_email(user)
