@@ -82,7 +82,6 @@ module Searchable
               }
             end
           end
-          
 					if (options[:opti] == 'skip_pag_but_filter')
 					  req = req.order_by(options[:filter][:field], options[:filter][:way])
 						#req = req.all(:order => options[:filter][:field]+' '+options[:filter][:way])

@@ -1,5 +1,6 @@
 <% item_show( :title => 'Page',  :object => @current_object ) do %>
-    Refrence Url: <b>http://www.example.com/<%= @current_object.title_sanitized  %></b><br />
+    Refrence Url: <b>http://www.example.com/<%= @current_object.title_sanitized  %> </b><br />
+                  <b><%= (@configuration['sa_application_url'] + "/site/" + current_container.title + "/" + @current_object.title_sanitized) if current_container_type == 'website'  %></b><br />
     Page Title: <%= @current_object.page_title %><br />
     Page Style: <%= @current_object.page_type %><br />
     Menu Title: <%= @current_object.menu_title %><br />
