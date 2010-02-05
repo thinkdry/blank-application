@@ -67,9 +67,19 @@ module Searchable
 					req = self
 					# 1. text if there
 					req = req.searching_text_with_xapian(options[:full_text]) if options[:full_text]
-					# 2. workspaces & permissions
-					req = req.matching_user_with_permission_in_containers(options[:user], 'show', options[:container_ids], options[:container_type])
-					# NOW REQ IS AN ARRAY
+          if options[:containers]
+            p ">>>>>>>>>>>>>>>>>>>>>>>>."
+            p options[:containers]
+            options[:containers].each do |k,v|
+              p k
+              p v
+              req  = req.matching_user_with_permission_in_containers(options[:user], 'show', v , k.to_s)
+            end
+          else
+					  # 2. workspaces & permissions
+					  req = req.matching_user_with_permission_in_containers(options[:user], 'show', options[:container_ids], options[:container_type])
+					  # NOW REQ IS AN ARRAY
+          end
 					
 					# 3. condition if there
           if options[:conditions]

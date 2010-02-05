@@ -5,13 +5,27 @@
 		<div class="itemShowLeftBody">
       <%= I18n.t('layout.search.title_label')  %>
       <%= text_field_tag :q %>
+      <% CONTAINERS.each do |container| %>
+         <% containers = container.classify.constantize.allowed_user_with_permission(@current_user, "#{container}_show", container) %>
+         <% unless containers.blank? %>
+         <div class="subMenuCol">
+           <h3><%= I18n.t("layout.application.#{container.pluralize}") %></h3>
+           <ul>
+             <% containers.each do |w| -%>
+               <%= w.title %>
+               <li><%= check_box_tag "containers[#{w.class.to_s.underscore}][]", w.id, false, :class => 'checkboxes' %></li>
+             <% end -%>
+           </ul>
+         </div>
+         <% end %>
+      <% end %>
       <%= f.date_select :created_at_after, :label => I18n.t('general.common_word.from1'), :include_blank => true%> <br/>
       <%= f.date_select :created_at_before,:label => I18n.t('general.common_word.to1'), :include_blank => true %>
           
-    <button type="submit" class="submitButton">
-		<span><%=I18n.t('general.button.search')%></span>
-	</button>
-  </div>
+      <button type="submit" class="submitButton">
+		    <span><%=I18n.t('general.button.search')%></span>
+	    </button>
+    </div>
   </div>
   <div class="rightBlocks">
     <div class="itemShowRightBlock">
@@ -21,7 +35,7 @@
       <div class="blockCornerRight"></div>
       <div class="blockElementBody">
         <% available_items_list.each do |i| %>  
-          <%= check_box_tag "m[]", i, :class => "checkboxes" %><%= I18n.t('general.item.'+i.to_s) %> <br />
+          <%= check_box_tag "m[]", i %><%= I18n.t('general.item.'+i.to_s) %> <br />
         <% end %>
       </div>
     </div>

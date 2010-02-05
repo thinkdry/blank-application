@@ -142,6 +142,7 @@ class Admin::ApplicationController < ActionController::Base
 			:models => options[:m] || (options[:cat] ? ((options[:cat] == 'item') ? @configuration['sa_items'] : [options[:cat]]) : @configuration['sa_items']),
 			:container_ids => options[:container],
 			:container_type => options[:container_type],
+      :containers => options[:containers],
 			:full_text => (options[:q] && !options[:q].blank? && options[:q] != I18n.t('layout.search.search_label')) ? options[:q] : nil,
 			:conditions => options[:cond],
 			:filter => { :field => options[:by] ? options[:by].split('-').first : 'created_at', :way => options[:by] ? options[:by].split('-').last : 'desc' },

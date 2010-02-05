@@ -80,6 +80,10 @@ class Search < ActiveRecord::Base
 	def container_type
 	  self[:container_type] ? self[:container_type] : 'workspace'
 	end
+
+  def containers= p
+    self[:containers] = p ? p : nil
+  end
 	
 	def param
 		return {
@@ -89,6 +93,7 @@ class Search < ActiveRecord::Base
 			#:models => self.models,
 			:container_ids => self.container_ids,
 			:container_type => self.container_type,
+      :containers => self.containers,
 			:full_text => self.full_text,
 			:conditions => self.conditions,
 			:filter => self.filter,
