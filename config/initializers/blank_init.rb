@@ -54,6 +54,7 @@ ActionMailer::Base.raise_delivery_errors = true
 ActionMailer::Base.template_root = "#{RAILS_ROOT}/app/views/admin"
 
 TRANSLATION_SITE = 'http://admin:secret@translator.thinkdry.com'
+WEBSITE_TEMPLATES = Dir.new(WEBSITE_TEMPLATES_FOLDER).reject{|i| i.include?(".") }.freeze
 
 #require 'fileutils'
 

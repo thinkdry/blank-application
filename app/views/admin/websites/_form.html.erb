@@ -1,4 +1,10 @@
+<div class="clear"></div>
 <% form_for_container @current_object, title do |f| -%>
+    <%= f.label "TEMPLATES" %>
+    <% WEBSITE_TEMPLATES.each do |t| %>
+        <%= f.radio_button :template, t, :label => t + (image_tag "/website_templates/#{t}/snapshot.png", :height => '50', :width => '100', :style => "border: 1px solid") %>
+    <% end %>
+    <%= f.radio_button :template, "custom", :label => "Custom" %>
   <% unless @current_object.new_record? -%>
 	<% if @current_object.has_permission_for?('administrate', @current_user, current_container_type)%>
 	<div id="website_tabs">

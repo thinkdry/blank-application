@@ -146,7 +146,7 @@ class Admin::ApplicationController < ActionController::Base
 			:conditions => options[:cond],
 			:filter => { :field => options[:by] ? options[:by].split('-').first : 'created_at', :way => options[:by] ? options[:by].split('-').last : 'desc' },
 			:pagination => { :page => options[:page] || 1, :per_page => options[:per_page] || get_per_page_value },
-			:opti => options[:opti]
+			:opti => options[:opti] ? options[:opti] : 'skip_pag_but_filter'
 			}
 	end
 
