@@ -25,7 +25,7 @@ class ContactsController < ApplicationController
 				UserMailer.deliver_contact_notification(website, params[:person].merge!(params[:email])) rescue p "email not delivered"
 				flash[:notice] = "Votre demande a bien été envoyée."
 			else
-				flash[:error] = "Votre demande a pu être enregsitrée mais pas envoyée."
+				flash[:error] = "Votre demande a pu être enregistrée mais pas envoyée."
 				session[:person] = @person
 				session[:email] = params[:email]
 			end
