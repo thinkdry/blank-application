@@ -3,6 +3,7 @@ class Admin::MenusController < Admin::ApplicationController
   def index
     @website = Website.find(params[:website_id], :include => :menus)
     @pages = @website.pages.published
+    @result_sets = @website.result_sets.published
     if @website.menus.count > 0
       @menus = @website.menus
     end
@@ -11,9 +12,10 @@ class Admin::MenusController < Admin::ApplicationController
   def new
     @website = Website.find(params[:website_id])
     @pages = @website.pages.published
+    @result_sets = @website.result_sets.published
     @menu = Menu.new
     @menu.parent_id = params[:parent_id]
-    render :partial => 'form', :locals => {:menu => @menu,:pages => @pages}
+    render :partial => 'form', :locals => {:menu => @menu,:pages => @pages, :result_sets => @result_sets}
   end
 
   def create
@@ -35,7 +37,8 @@ class Admin::MenusController < Admin::ApplicationController
     @website = Website.find(params[:website_id])
     @menu = Menu.find(params[:id])
 		@pages = @website.pages.published
-		render :partial => 'form', :locals => {:menu => @menu }
+    @result_sets = @website.result_sets.published
+		render :partial => 'form', :locals => {:menu => @menu,:pages => @pages, :result_sets => @result_sets}
   end
 
   def update

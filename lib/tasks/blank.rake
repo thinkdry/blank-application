@@ -181,6 +181,18 @@ namespace :blank do
     p "Done"
   end
 
+  desc 'New Item Permissions'
+  task(:new_item_permissions => :environment) do
+    ITEMS.each do |controller| 
+      ['new','edit', 'show', 'destroy'].each do |action|
+        Permission.create(:name => controller.singularize + '_' + action,  :type_permission =>'container') unless Permission.exists?(:name=>controller.singularize + '_' + action,  :type_permission =>'container')
+      end
+      ['comment', 'rate', 'tag'].each do |action|
+        Permission.create(:name => controller.singularize + '_' + action, :type_permission => 'container') unless Permission.exists?(:name => controller.singularize + '_' + action, :type_permission => 'container')
+      end
+    end
+  end
+
   desc "Load Users"
   task(:create_users => :environment) do
     @superadmin = Role.find_by_name('superadmin')

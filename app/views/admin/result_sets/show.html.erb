@@ -1,0 +1,16 @@
+<% item_show( :title => 'Result Set',  :object => @current_object ) do %>
+  Query : <%= @current_object.q %> <br/>
+  Field : <%= @current_object.field %> <br/>
+  Order : <%= @current_object.order %> <br/>
+  Limit : <%= @current_object.limit %> <br/>
+  <% CONTAINERS.each do |container| %>
+    <%= container.capitalize %><br />
+    <% @current_object.send("selected_#{container}s").each do |e| %>
+      <%= link_to e.title + " ", container_path(e)  %>
+    <% end %>
+    <br />
+    <br />
+  <% end %>
+  Items
+  <%= @current_object.items.join(',') if @current_object.items %>
+<% end -%>

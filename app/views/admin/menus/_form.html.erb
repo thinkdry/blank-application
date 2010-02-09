@@ -14,7 +14,7 @@
 			
 			<label>URL :</label>
 			<div class="formElement">
-			  	<%= f.select :url, [['No Link', '#']] + (@pages.collect {|p| [ p.title, p.title_sanitized ] } if @pages) %>
+			  	<%= f.select :url, [['No Link', '#']] + ((@pages + @result_sets).collect {|p| [ p.title, p.title_sanitized ] } if @pages) %>
 			</div>				
 			<button type="submit" class="submitButton"><span>Submit</span></button>
 		<% end %>

@@ -1,32 +1,6 @@
 <div id="search_header" class="list_header">
   <h2><%#= image_tag('/images/icons/search.png')%><%= I18n.t('layout.search.your_search_result') %></h2>
 </div>
-<% if @paginated_objects.first %>
-  <% unless @saved_search %>
-  Save Search
-  <% form_for ['admin', SavedSearch.new] do |f| -%>
-    <%= f.text_field :title %>
-    <%= f.hidden_field :q, :value => params[:q] %>
-    <% if params[:filter] %>
-      <%= f.hidden_field :field, :value => params[:filter][:field] ? params[:filter][:field] : @saved_search.field %>
-      <%= f.hidden_field :order, :value => params[:filter][:way] ? params[:filter][:way] : @saved_search.order %>
-      <%= f.hidden_field :limit, :value => params[:filter][:limit] ? params[:filter][:limit] : @saved_search.limit %>
-    <% end %>
-      <% if params[:m] %>
-        <% params[:m].each do |val| %>
-           <%= hidden_field_tag "saved_search[items][]", val %>
-        <% end %>
-      <% end %>
-      <% if params[:containers] %>
-        <% params[:containers].each do |k,v| %>
-          <% v.each do |val| %>
-            <%= hidden_field_tag "saved_search[containers][#{k}][]", val %>
-          <% end %>
-        <% end %>
-      <% end %>
-      <%= f.submit "Save" %>
-    <% end -%>
-  <% end %>
-<% end %>
+
 <%= render  :partial => 'admin/blank_lists/pure_item_list' %>
 

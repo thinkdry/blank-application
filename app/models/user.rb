@@ -77,7 +77,6 @@ class User < ActiveRecord::Base
 
   has_many :groups 
 
-  has_many :saved_searches
 	# Mixin method use to get this object search (see Searchable:ModelMethods for more)
 	acts_as_searchable :full_text_fields => [:login, :firstname, :lastname],
 					:conditionnal_attribute => []

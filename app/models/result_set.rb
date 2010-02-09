@@ -1,11 +1,27 @@
-class SavedSearch < ActiveRecord::Base
-    
-  belongs_to :user
+require 'friendly_url'
+class ResultSet < ActiveRecord::Base
+  acts_as_item
 
   serialize :containers
   serialize :items
 
-  validates_presence_of :title
+  before_save :set_title_sanitized
+
+  def set_title_sanitized
+    self['title_sanitized'] =  self.title.humanize.urlize
+  end
+  
+  CONTAINERS.each do |container|
+    define_method "selected_#{container}s".to_sym do
+      result = []
+      if self.containers[container.to_s]
+        self.containers[container.to_s].each do |e|
+          result << container.classify.constantize.find(e.to_i, :select => 'id, title')
+        end
+      end
+      result  
+    end
+  end
 
   def self.to_db(params)
     SavedSearch.new(
@@ -28,4 +44,5 @@ class SavedSearch < ActiveRecord::Base
       :per_page => self.limit 
     }
   end  
+  
 end

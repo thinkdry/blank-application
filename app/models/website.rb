@@ -10,7 +10,7 @@ class Website < ActiveRecord::Base
   
   has_many :website_urls, :dependent => :delete_all
   
-  has_many :menus, :order => "position"
+  has_many :menus, :order => "position", :dependent => :destroy
   
   # Favicon of the website
   has_attached_file :favicon,

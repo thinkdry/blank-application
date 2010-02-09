@@ -39,7 +39,7 @@ class Group < ActiveRecord::Base
 	# Relation 1-N
   has_many :groups_newsletters, :dependent => :delete_all
 	# Relation N-1 to the 'groupings' table, defining the object composing the group
-  has_many :groupings, :dependent => :destroy
+  has_many :groupings, :dependent => :delete_all
 	# Relation N-1 to the 'groupings' table and scoping the User objects
   has_many :contacts_workspaces, :through => :groupings
 	
