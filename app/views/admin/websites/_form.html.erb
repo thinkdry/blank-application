@@ -1,4 +1,3 @@
-<div class="clear"></div>
 <% form_for_container @current_object, title do |f| -%>
     <%= f.label "TEMPLATES" %>
     <% WEBSITE_TEMPLATES.each do |t| %>
@@ -11,9 +10,6 @@
 		<ul>
 			<li><a href="#general" class="website_tab_link">General</a></li>
 			<li><a href="#files_management" class="website_tab_link">Files</a></li>
-      <!--
-			<li><a href="#pages" class="website_tab_link">Pages</a></li>
-      -->
 		</ul>
 		<div class="blockElement">
             <div class="blockCornerLeft"></div>
@@ -22,54 +18,48 @@
             </div>
             <div class="blockCornerRight"></div>
             <div class="blockElementBody space">
-		<div id="general" class="websiteConfig">
-			<%= f.text_field :contact_email, :label => 'Contact Email' %>
-			<%= f.text_field :body_size, :label => 'Body Size', :hint => 'Website Body width and height (Ex: 200x200)' %>
-			<%= render :partial => 'website_urls_fields', :locals => {:website => @current_object, :f => f} %>
-			<%= f.select :website_state, {'Under Construction' => 'under_construction', 'Maintenance' => 'maintenance', 'Closed' => 'closed', 'Published' => 'published'},{},{:label => 'Website State'} %>
+				<div id="general" class="websiteConfig">
+					<%= f.text_field :contact_email, :label => 'Contact Email' %>
+					<%= f.text_field :body_size, :label => 'Body Size', :hint => 'Website Body width and height (Ex: 200x200)' %>
+					<%= render :partial => 'website_urls_fields', :locals => {:website => @current_object, :f => f} %>
+					<%= f.select :website_state, {'Under Construction' => 'under_construction', 'Maintenance' => 'maintenance', 'Closed' => 'closed', 'Published' => 'published'},{},{:label => 'Website State'} %>
+				</div>
+	  
+				<div id="files_management" class="websiteConfig">
+					<% f.field :favicon, :label => "Favicon :" do %>
+				    <%= @current_object.favicon_file_name + '<br />' if @current_object.favicon_file_name %>
+				    <%= file_field  'website', 
+									'favicon', 
+									:class => 'file', 
+									:value=>(@current_object.favicon.url ? @current_object.favicon.url : ""),
+				      				:onChange=>"LimitAttach(this.form, this.form.website_favicon.value, 
+												['.ico'],
+												\"#{I18n.t('item.common_word.invalid_type_alert', 
+												:types => ['.gif'].join(', '))}\")" %>
+				    <% end -%>
+				    <% f.field :layout, :label => "Layout :" do %>
+				      	<%= @current_object.layout_file_name + '<br />' if @current_object.layout_file_name %>
+				      	<%= file_field  'website', 
+										'layout', 
+										:class => 'file', 
+										:value=>(@current_object.layout.url ? @current_object.layout.url : "") %>
+				    <% end -%>
+				    <% f.field :sitemap, :label => "Sitemap :" do %>
+				      	<%= @current_object.sitemap_file_name + '<br />' if @current_object.sitemap_file_name %>
+				      	<%= file_field  'website', 
+										'sitemap', 
+										:class => 'file', 
+										:value=>(@current_object.sitemap.url ? @current_object.sitemap.url : ""),
+				        				:onChange=>"LimitAttach(this.form, this.form.website_sitemap.value, 
+													['.xml'],
+				        							\"#{I18n.t('item.common_word.invalid_type_alert', 
+													:types => ['.xml'].join(', '))}\")" %>
+				    <% end -%>
+					<%= render :partial => 'resource', :locals => {:website => @current_object, :f => f } %>
+				</div>
+			</div>
 		</div>
-	  <!--
-		<div id="pages" class="websiteConfig">
-			  <%#= f.select :intro_page_id, @pages.collect{|p| [p.title, p.id]}, {:include_blank => true}, {:label => 'Intro'} %>
-		    <%#= f.select :home_page_id, @pages.collect{|p| [p.title, p.id]}, {:include_blank => true}, {:label => 'Home'} %>
-		    <%#= f.select :gallery_page_id, @pages.collect{|p| [p.title, p.id]}, {:include_blank => true}, {:label => 'Gallery'} %>
-		    <%#= f.select :mail_page_id, @pages.collect{|p| [p.title, p.id]}, {:include_blank => true}, {:label => 'Contact'} %>
 		</div>
-	  -->
-		<div id="files_management" class="websiteConfig">
-			<% f.field :favicon, :label => "Favicon :" do %>
-		    <%= @current_object.favicon_file_name + '<br />' if @current_object.favicon_file_name %>
-		    <%= file_field  'website', 
-							'favicon', 
-							:class => 'file', 
-							:value=>(@current_object.favicon.url ? @current_object.favicon.url : ""),
-		      				:onChange=>"LimitAttach(this.form, this.form.website_favicon.value, 
-										['.ico'],
-										\"#{I18n.t('item.common_word.invalid_type_alert', 
-										:types => ['.gif'].join(', '))}\")" %>
-		    <% end -%>
-		    <% f.field :layout, :label => "Layout :" do %>
-		      	<%= @current_object.layout_file_name + '<br />' if @current_object.layout_file_name %>
-		      	<%= file_field  'website', 
-								'layout', 
-								:class => 'file', 
-								:value=>(@current_object.layout.url ? @current_object.layout.url : "") %>
-		    <% end -%>
-		    <% f.field :sitemap, :label => "Sitemap :" do %>
-		      	<%= @current_object.sitemap_file_name + '<br />' if @current_object.sitemap_file_name %>
-		      	<%= file_field  'website', 
-								'sitemap', 
-								:class => 'file', 
-								:value=>(@current_object.sitemap.url ? @current_object.sitemap.url : ""),
-		        				:onChange=>"LimitAttach(this.form, this.form.website_sitemap.value, 
-											['.xml'],
-		        							\"#{I18n.t('item.common_word.invalid_type_alert', 
-											:types => ['.xml'].join(', '))}\")" %>
-		    <% end -%>
-			<%= render :partial => 'resource', :locals => {:website => @current_object, :f => f } %>
-		</div>
-	</div>
-	</div></div>
 	<% end %>
   <% end %>
 <% end -%>
