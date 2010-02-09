@@ -8,26 +8,25 @@
 			<%= link_to object.login + ' (' + object.full_name + ')', admin_user_path(object) %>
 		</div>
 		<div class="itemInListActions">
-		  <% if object.has_permission_for?('edit', @current_user, current_container_type) || @current_user.id == object.id %>
-			  <%= link_to I18n.t('general.link.edit'), edit_admin_user_path(object) %> |
+		  	<% if object.has_permission_for?('edit', @current_user, current_container_type) || @current_user.id == object.id %>
+			  	<%= link_to I18n.t('general.link.edit'), edit_admin_user_path(object) %> |
 			<% end %>
 			<% if object.has_permission_for?('destroy', @current_user, current_container_type) %>
-			  <% if object.activation_code.to_s.size > 10 %>
-				    <%= link_to I18n.t('general.link.delete'), "javascript:;",
-							  :class => "deleteLink", 
-							  :modal_id => "#modalDelete_#{object.id.to_s}"
-				    %>
-				  <div style="display:none">
-					  <div id="modalDelete_<%=object.id.to_s%>" class="modalDelete">
-						  <p>I18n.t('general.common_word.confirmation')</p>
-						  <%= link_to I18n.t('general.common_word.yes1'), admin_user_path(object.id), :method => :delete%> | 
-						  <%= link_to I18n.t('general.common_word.no1'), "javascript:;", :class => "deleteClose" %>
-					  </div>
-				  </div>
-	       <% else %>
-	          <%= link_to (object.activation_code=='locked' ? 'Unlock' : 'Lock'), locking_admin_user_path(object.id) %>
-	       <% end %>
-		  <% end %>
+			    <%= link_to I18n.t('general.link.delete'), "javascript:;",
+						  	:class => "deleteLink", 
+							:modal_id => "#modalDelete_#{object.id.to_s}"
+			    %>
+				<div style="display:none">
+					<div id="modalDelete_<%=object.id.to_s%>" class="modalDelete">
+						<p>I18n.t('general.common_word.confirmation')</p>
+						<%= link_to I18n.t('general.common_word.yes1'), admin_user_path(object.id), :method => :delete%> | 
+						<%= link_to I18n.t('general.common_word.no1'), "javascript:;", :class => "deleteClose" %>
+					</div>
+				</div>
+			<% end %>
+	        <% if object.activation_code.to_s.size < 10 %>
+	          	| <%= link_to (object.activation_code=='locked' ? 'Unlock' : 'Lock'), locking_admin_user_path(object.id) %>
+	        <% end %>
 		</div>
 	</div>
 </li>
