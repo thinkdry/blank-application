@@ -55,7 +55,8 @@
 							<% if @current_user.has_system_permission('user', 'new') -%>
                             <li><%= link_to I18n.t('layout.application.users'), admin_users_path %></li>
 							<% end -%>
-                            <li><%= link_to I18n.t('layout.application.advanced_search'),new_admin_search_path  %>
+                            <li><%= link_to I18n.t('layout.application.advanced_search'),new_admin_search_path  %></li>
+                            <li><%= link_to 'Saved Searches', admin_saved_searches_path  %></li>
                         </ul>
                     </div>
                     <% CONTAINERS.each do |container| %>

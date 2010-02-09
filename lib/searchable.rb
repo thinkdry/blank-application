@@ -68,11 +68,7 @@ module Searchable
 					# 1. text if there
 					req = req.searching_text_with_xapian(options[:full_text]) if options[:full_text]
           if options[:containers]
-            p ">>>>>>>>>>>>>>>>>>>>>>>>."
-            p options[:containers]
             options[:containers].each do |k,v|
-              p k
-              p v
               req  = req.matching_user_with_permission_in_containers(options[:user], 'show', v , k.to_s)
             end
           else
@@ -92,23 +88,23 @@ module Searchable
               }
             end
           end
-					if (options[:opti] == 'skip_pag_but_filter')
-					  req = req.order_by(options[:filter][:field], options[:filter][:way])
-						#req = req.all(:order => options[:filter][:field]+' '+options[:filter][:way])
-					elsif (options[:opti] == 'skip_pag_but_limit')
-					  req = req.limit_by(options[:pagination][:per_page])
-						#req = req.all(:limit => options[:pagination][:per_page])
-					elsif (options[:opti] == 'skip_pag_but_filter_and_limit')
-					  req = req.order_by(options[:filter][:field],options[:filter][:way]).limit_by(options[:pagination][:per_page])
-						#req = req.all(:order => options[:filter][:field]+' '+options[:filter][:way], :limit => options[:pagination][:per_page])
-					elsif (options[:opti] == 'skip_full_pag')
-						# so nothing ...
-          elsif !options[:filter][:field].blank? && !options[:filter][:way].blank? && !req.class == 'Class'
-					  req = req.order_by(options[:filter][:field], options[:filter][:way])
-          else
-						#req = req.paginate(:per_page => options[:pagination][:per_page].to_i, :page => options[:pagination][:page].to_i, :order => options[:filter][:field]+' '+options[:filter][:way])
-						#req = req.paginate(:per_page => options[:pagination][:per_page].to_i, :page => options[:pagination][:page].to_i, :order => options[:filter][:field]+' '+options[:filter][:way])
-          end
+				 if (options[:opti] == 'skip_pag_but_filter')
+				  #req = req.order_by(options[:filter][:field], options[:filter][:way])
+					req = req.all(:order => options[:filter][:field]+' '+options[:filter][:way])
+				 elsif (options[:opti] == 'skip_pag_but_limit')
+				  req = req.limit_by(options[:pagination][:per_page])
+					#req = req.all(:limit => options[:pagination][:per_page])
+				 elsif (options[:opti] == 'skip_pag_but_filter_and_limit')
+				  req = req.order_by(options[:filter][:field],options[:filter][:way]).limit_by(options[:pagination][:per_page])
+					#req = req.all(:order => options[:filter][:field]+' '+options[:filter][:way], :limit => options[:pagination][:per_page])
+				 elsif (options[:opti] == 'skip_full_pag')
+					# so nothing ...
+         elsif !options[:filter][:field].blank? && !options[:filter][:way].blank?
+				  req = req.order_by(options[:filter][:field], options[:filter][:way])
+         else
+					#req = req.paginate(:per_page => options[:pagination][:per_page].to_i, :page => options[:pagination][:page].to_i, :order => options[:filter][:field]+' '+options[:filter][:way])
+					#req = req.paginate(:per_page => options[:pagination][:per_page].to_i, :page => options[:pagination][:page].to_i, :order => options[:filter][:field]+' '+options[:filter][:way])
+         end
           return req
 				end
 

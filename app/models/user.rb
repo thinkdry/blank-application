@@ -1,4 +1,4 @@
-# == Schema Information
+  # == Schema Information
 # Schema version: 20181126085723
 #
 # Table name: users
@@ -76,6 +76,8 @@ class User < ActiveRecord::Base
   has_many :notification_filters, :through => :notification_subscriptions
 
   has_many :groups 
+
+  has_many :saved_searches
 	# Mixin method use to get this object search (see Searchable:ModelMethods for more)
 	acts_as_searchable :full_text_fields => [:login, :firstname, :lastname],
 					:conditionnal_attribute => []

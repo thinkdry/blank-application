@@ -146,6 +146,7 @@ ActionController::Routing::Routes.draw do |map|
 
     # Search related routes
     admin.resources :searches, :collection => { :print_advanced => :any, :validate => :post }
+    admin.resources :saved_searches, :only => [:create, :index, :destroy], :member => {:results => :get}, :collection => { :validate => :post }
 
   # Catch Errors and show custom message, avoid SWW
     admin.error '/admin/error/:status' , :controller => 'home', :action => 'error'

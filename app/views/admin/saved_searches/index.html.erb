@@ -1,0 +1,30 @@
+<div class="objectList small">
+	<div class="blockCornerLeft"></div><div class="blockElementHeader sixH">
+		<span id="item_count">Saved Searches</span>
+	</div><div class="blockCornerRight"></div>
+	<div class="contentList filtered">
+		<ul id="pure_user_list">
+			<% if @current_objects.first -%>
+
+				<%= render :partial => 'admin/saved_searches/index', :collection => @current_objects %>
+
+			<% else -%>
+
+		    	<%= I18n.t('item.common_word.list_empty') %>
+
+			<% end -%>
+			
+			<%#= will_paginate @paginated_objects %>
+		</ul>
+	</div>
+</div>
+<div class="rightBlocks">
+	<div class="itemShowRightBlock">
+	    <div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
+			Filters
+		</div><div class="blockCornerRight"></div>	
+	    <div class="blockElementBody">
+        <%= link_to 'New Search', new_admin_search_path  %>
+	    </div>
+	</div>
+</div>

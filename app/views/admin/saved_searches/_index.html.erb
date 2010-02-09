@@ -1,0 +1,24 @@
+<li class="itemInList">
+	<div class="itemInListDate">
+		<%= I18n.l object.created_at, :format =>:verb %>
+	</div>
+	<div class="itemInListBody">
+		<div class="itemInListTitle">
+			<%= link_to object.title, results_admin_saved_search_path(object.id) %>
+		</div>
+		<div class="itemInListActions">
+			  <%= link_to "Results", results_admin_saved_search_path(object.id) %> |
+			    <%= link_to I18n.t('general.link.delete'), "javascript:;",
+						  :class => "deleteLink", 
+						  :modal_id => "#modalDelete_#{object.id.to_s}"
+			    %>
+			  <div style="display:none">
+				  <div id="modalDelete_<%=object.id.to_s%>" class="modalDelete">
+					  <p>I18n.t('general.common_word.confirmation')</p>
+					  <%= link_to I18n.t('general.common_word.yes1'), admin_saved_search_path(object), :method => :delete%> | 
+					  <%= link_to I18n.t('general.common_word.no1'), "javascript:;", :class => "deleteClose" %>
+				  </div>
+			  </div>
+		</div>
+	</div>
+</li>
