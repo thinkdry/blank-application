@@ -3,13 +3,29 @@
   
 	<div class="itemShowLeft">
 		<div class="itemShowLeftBody">
-      <%= I18n.t('layout.search.title_label')  %>
-      <%= text_field_tag :q %>
+      <label><%= I18n.t('layout.search.title_label')  %></label>
+      <div class="formElement">
+        <%= text_field_tag :q %>
+      </div>
       <!-- TODO Use some jquery plugin for calender select -->
        <!--
-      <%= f.date_select :created_at_after, :label => I18n.t('general.common_word.from1'), :include_blank => true%> <br/>
-      <%= f.date_select :created_at_before,:label => I18n.t('general.common_word.to1'), :include_blank => true %>
+        <%= f.date_select :created_at_after, :label => I18n.t('general.common_word.from1'), :include_blank => true%> <br/>
+        <%= f.date_select :created_at_before,:label => I18n.t('general.common_word.to1'), :include_blank => true %>
        -->   
+      <br />
+      <label>Filter By</label>
+      <div class="formElement">
+        <%= select "filter","field", [['CREATED','created_at'], ['UPDATED', 'updated_at'], ['TITLE','title'], ['COMMENTED','comments_number'], ['RATES','rates_average'], ['VIEWED','viewed_number']], :selected => 'created_at' %>
+      </div>
+      <br />
+      <label>Order By</label>
+      <div class="formElement">
+        <%= select "filter","way", [['ASC', 'asc'], ['DESC','desc']], :selected => 'desc' %>
+      </div>
+      <label>Limit</label>
+      <div class="formElement">
+        <%= select "filter","limit", [['5','5'], ['10', '10'], ['15','15'], ['20','20']], :selected => '10' %>
+      </div>
       <button type="submit" class="submitButton">
 		    <span><%=I18n.t('general.button.search')%></span>
 	    </button>

@@ -10,6 +10,10 @@ class Admin::SearchesController < Admin::ApplicationController #:nodoc: all
 	# - GET /searches.xml
   def index
 		# Creation of the search object and search do
+    if params[:filter]
+      params[:by] = "#{params[:filter][:field]}-#{params[:filter][:way]}"
+      params[:per_page] = "#{params[:filter][:limit]}".to_i
+    end
 		@search = Search.new(setting_searching_params(:from_params => params))#.advance_search_fields
 		@paginated_objects = @current_objects = @search.do_search
 		# Definition of the template to use to retrieve information
