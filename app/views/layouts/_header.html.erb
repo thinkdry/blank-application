@@ -52,7 +52,9 @@
                             <li><%= link_to I18n.t('layout.application.home'), admin_root_path %></li>
                             <li><%= link_to I18n.t('layout.application.content'), admin_content_path('articles') %></li>
                             <li><%= link_to I18n.t('layout.application.personal_contacts'), admin_people_path %></li>
+							<% if @current_user.has_system_permission('user', 'new') -%>
                             <li><%= link_to I18n.t('layout.application.users'), admin_users_path %></li>
+							<% end -%>
                             <li><%= link_to I18n.t('layout.application.advanced_search'),new_admin_search_path  %>
                         </ul>
                     </div>
