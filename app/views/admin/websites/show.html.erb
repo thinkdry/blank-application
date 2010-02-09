@@ -1,13 +1,16 @@
-<% content_for :container_actions do %>
-  <%= link_to 'Menu Manager', admin_website_menus_path(current_container)  %>&nbsp; |
-  <%= link_to 'Google Analytic', admin_website_analytics_path(current_container)  %>&nbsp; |
-<% end %>
-<% container_show( :title => "#{@current_object.class.to_s}",  :object => @current_object ) do %>
-  State : <%= @current_object.website_state %><br />
-  Webmaster Contact : <%= @current_object.contact_email %><br />
-  Logo : <%= image_tag @current_object.favicon.url(:medium) if @current_object.favicon_file_name %><br />
-  Body Size : <%= @current_object.body_size %><br />
-  Layout : <%= @current_object.layout_file_name %><br />
-  Sitemap : <%= @current_object.sitemap_file_name %><br />
-  Website Urls : <%= current_object.website_urls.collect{|w| 'http://' + w.name }.join(' ,') %>
-<% end %>
+<% content_for :container_actions do -%>
+  <%= link_to 'Menu Manager', admin_website_menus_path(current_container)  %>&nbsp;|
+  <%= link_to 'Google Analytic', admin_website_analytics_path(current_container)  %>&nbsp;|
+<% end -%>
+
+<% container_show( :title => "#{@current_object.class.to_s}",  :object => @current_object ) do -%>
+	<% if @current_user.has_system_permission('websites', 'new') -%>
+		State : <%= @current_object.website_state %><br />
+  		Webmaster Contact : <%= @current_object.contact_email %><br />
+  		Logo : <%= image_tag @current_object.favicon.url(:medium) if @current_object.favicon_file_name %><br />
+  		Body Size : <%= @current_object.body_size %><br />
+  		Layout : <%= @current_object.layout_file_name %><br />
+  		Sitemap : <%= @current_object.sitemap_file_name %><br />
+  		Website Urls : <%= current_object.website_urls.collect{|w| 'http://' + w.name }.join(' ,') %>
+	<% end -%>
+<% end -%>
