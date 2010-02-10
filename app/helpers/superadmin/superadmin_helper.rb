@@ -1,5 +1,20 @@
 module Superadmin::SuperadminHelper
   
+  
+  def superadmin_links_generator 
+    controllers = Dir.new("#{RAILS_ROOT}/app/controllers/superadmin").entries.sort
+    content = String.new
+
+    controllers.each do |controller|
+      #if the current controller is realy a controller file (and not another ruby class)
+      if controller =~ /_controller/ 
+   			content += content_tag(:li,	link_to(controller.gsub("_controller.rb","").humanize, "/superadmin/" + controller.gsub("_controller.rb","")))        
+      end
+    end
+    
+    return content_tag(:ul, content) 
+  end
+  
   def superadmin_tabs_generator ()
      #parsing the superadmin controllers directory
      controllers = Dir.new("#{RAILS_ROOT}/app/controllers/superadmin").entries.sort
