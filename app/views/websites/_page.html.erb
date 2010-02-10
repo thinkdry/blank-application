@@ -1,67 +1,76 @@
 <%= content_tag(:div, flash[:notice], :class => 'notice') if flash[:notice] %>
 <%= content_tag(:div, flash[:error], :class => 'error') if flash[:error] %>
-<% if current_user && @page.has_permission_for?('edit', current_user, 'website') %>
-    <%= link_to_function 'EDIT', "page_body(); show_or_hide_body_edit('block','none'); " %>
-    <div id="body_edit" style="display:none;overflow:auto;padding-bottom: 20px;">
-        <% form_for @page, :url => websites_url, :html => {:method => :put}, :builder => BlankFormBuilder  do |f| -%>
-            <div class="advancedEditor">
-                <textarea ajax="false" cols="40" id="ckInstance" name="page[body]" rows="20"><%= @page.body %></textarea>
-            </div>
-            <%= hidden_field_tag :page_id, @page.id, :id => 'item_id' %>
-            <%= hidden_field_tag :url, '/websites/', :id => 'ajax_save_url' %>
-            <%= link_to_function I18n.t('general.button.cancel'),"show_or_hide_body_edit('none','block')"  %>
-        <% end %>
-    </div>
+<% if @page.class.to_s == 'Page' %>
+  <% if current_user && @page.has_permission_for?('edit', current_user, 'website') %>
+      <%= link_to_function 'EDIT', "page_body(); show_or_hide_body_edit('block','none'); " %>
+      <div id="body_edit" style="display:none;overflow:auto;padding-bottom: 20px;">
+          <% form_for @page, :url => websites_url, :html => {:method => :put}, :builder => BlankFormBuilder  do |f| -%>
+              <div class="advancedEditor">
+                  <textarea ajax="false" cols="40" id="ckInstance" name="page[body]" rows="20"><%= @page.body %></textarea>
+              </div>
+              <%= hidden_field_tag :page_id, @page.id, :id => 'item_id' %>
+              <%= hidden_field_tag :url, '/websites/', :id => 'ajax_save_url' %>
+              <%= link_to_function I18n.t('general.button.cancel'),"show_or_hide_body_edit('none','block')"  %>
+          <% end %>
+      </div>
+  <% end %>
 <% end %>
 <%#= menu_generator %>
 <!-- Show the main page body -->
 <div id="page_body_show" style="display:block;">
 <%#= translate_text(@page.body) %>
-    <%= @page.body %>
+    <%= @page.body if @page.class.to_s == 'Page'%>
 </div>
+<% if @results %>
+  <div id="result_set">
+     <%= render :partial => 'list', :locals => {:results => @results, :page => @page} %>
+  </div>
+<% end %>
 <!-- Render Specific partial -->
 <%= render :partial => @partial_to_render %>
 
 <!-- Online Edit -->
-<% if  current_user && @page.has_permission_for?('edit', current_user, 'website') %>
-    <% if !@current_website.body_size.to_s.blank?
-        width, height = @current_website.body_size.split('x')[0], @current_website.body_size.split('x')[1]
-    else
-        width, height = '730', '350'
-    end
-    css_files = []
-    Dir["public/#{WEBSITE_FILES}/#{@current_website.title}/stylesheets/*.css"].collect do |uploaded_css|
-        css_files << "#{uploaded_css.split("public")[1]}"
-    end
-    #    css_files = '/fckeditor/css/test_fck.css' if css_files.empty?
-    css_files = '/stylesheets/fckeditor.css' if css_files.empty?
+<% if @page.class.to_s == 'Page' %>
+  <% if  current_user && @page.has_permission_for?('edit', current_user, 'website') %>
+      <% if !@current_website.body_size.to_s.blank?
+          width, height = @current_website.body_size.split('x')[0], @current_website.body_size.split('x')[1]
+      else
+          width, height = '730', '350'
+      end
+      css_files = []
+      Dir["public/#{WEBSITE_FILES}/#{@current_website.title}/stylesheets/*.css"].collect do |uploaded_css|
+          css_files << "#{uploaded_css.split("public")[1]}"
+      end
+      #    css_files = '/fckeditor/css/test_fck.css' if css_files.empty?
+      css_files = '/stylesheets/fckeditor.css' if css_files.empty?
 
-%>
-<!-- CKeditor settings -->
-<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
-<script type='text/javascript'>
-  function page_body(){
-    // Destroy any instance of ckeditor called ckinstance
-    var editor = CKEDITOR.instances['ckInstance'];
-    if (editor)
-        editor.destroy();
-    CKEDITOR.replace('ckInstance' , {customConfig : get_config(CKEDITOR.config)});
-  }
+  %>
+  <!-- CKeditor settings -->
+  <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+  <script type='text/javascript'>
+    function page_body(){
+      // Destroy any instance of ckeditor called ckinstance
+      var editor = CKEDITOR.instances['ckInstance'];
+      if (editor)
+          editor.destroy();
+      CKEDITOR.replace('ckInstance' , {customConfig : get_config(CKEDITOR.config)});
+    }
 
-  function get_config(config) {
-      config.language = 'en';
-      config.uiColor = '#e6e6e6';
-      config.toolbar = 'BlankToolbar';
-      config.height = '<%= height %>';
-      config.width = '<%= width %>';
-      config.resize_maxWidth = 608;
-      config.resize_minWidth = 608;
-      config.toolbarCanCollapse = false;
-      config.contentsCss = '<%=css_files%>';
-      config.toolbar_BlankToolbar = [['Save','Source','Undo','Redo','-','Bold','Italic','Underline','NumberedList','BulletedList','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','Find','Replace'],['Anchor','Link','Unlink','Table','SpecialChar','Styles','FontSize','TextColor','BGColor', '-','Maximize']];
-      config.filebrowserWindowWidth = '640';
-      config.filebrowserWindowHeight = '480';
-  }
-</script>
+    function get_config(config) {
+        config.language = 'en';
+        config.uiColor = '#e6e6e6';
+        config.toolbar = 'BlankToolbar';
+        config.height = '<%= height %>';
+        config.width = '<%= width %>';
+        config.resize_maxWidth = 608;
+        config.resize_minWidth = 608;
+        config.toolbarCanCollapse = false;
+        config.contentsCss = '<%=css_files%>';
+        config.toolbar_BlankToolbar = [['Save','Source','Undo','Redo','-','Bold','Italic','Underline','NumberedList','BulletedList','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','Find','Replace'],['Anchor','Link','Unlink','Table','SpecialChar','Styles','FontSize','TextColor','BGColor', '-','Maximize']];
+        config.filebrowserWindowWidth = '640';
+        config.filebrowserWindowHeight = '480';
+    }
+  </script>
 
+  <% end %>
 <% end %>

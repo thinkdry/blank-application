@@ -2,6 +2,8 @@ require 'friendly_url'
 class ResultSet < ActiveRecord::Base
   acts_as_item
 
+  belongs_to :menu
+
   serialize :containers
   serialize :items
 
@@ -38,7 +40,7 @@ class ResultSet < ActiveRecord::Base
   def make_params
     {
       :q => self.q,
-      :models => self.items,
+      :m => self.items,
       :containers => self.containers,
       :by => "#{self.field}-#{self.order}",
       :per_page => self.limit 
