@@ -18,7 +18,7 @@
 	            <%= capture(f, &block) %>
 			</div>
 			
-
+			<% if @current_user.has_system_permission('user', 'new')-%>
             <div class="blockElement">
                 <div class="blockCornerLeft"></div>
                 <div class="blockElementHeader sixH">
@@ -27,15 +27,14 @@
                 <div class="blockCornerRight"></div>
                 <div class="blockElementBody space">
                     <% if !@current_object.new_record? -%>
-                        <% if  @current_object.has_permission_for?('administrate', @current_user, current_container_type)-%>
-                            <div id="users">
-                                <% @current_object.users_containers.each do |object| %>
-                                    <%= render :partial => 'containers/user', :object => object %>
-                                <% end %>
-                            </div>
+                        <div id="users">
+                            <% @current_object.users_containers.each do |object| %>
+                                <%= render :partial => 'containers/user', :object => object %>
+                            <% end %>
+                        </div>
 							
-                            <h2><%= I18n.t('workspace.add_user.title') %></h2>
-                            <table>
+                        <h2><%= I18n.t('workspace.add_user.title') %></h2>
+                        <table>
                                 <tr>
                                     <td><%= I18n.t('workspace.add_user.name')+' :' %></td>
                                     <td>Role :</td>
@@ -60,26 +59,26 @@
                                     <td><%= link_to_function I18n.t('general.button.add'), :onclick => "add_new_user('#{add_new_user_container_path(@current_object.class.to_s.underscore, params[:id])}');" %></td>
                                 </tr>
                             </table>
-                        <% else -%>
-                            <div id="users">
-                                <% @current_object.roles.uniq.each do |r| %>
-                                    <p><%= I18n.t('general.role.' + r.name)%> :
-                                        <% @current_object.users_by_role(r.name).each do |u| %>
-                                            <%= link_to u.full_name + ',', admin_user_path(u.id) %>
-                                        <% end %></p>
-                                    <% end %>
-                            </div>
-                        <% end -%>
                     <% else -%>
-                        <div class="CommonMessage"><%=I18n.t 'workspace.new.add_user_text'%></div>
-                    <% end -%>
+                        <div id="users">
+                            <% @current_object.roles.uniq.each do |r| %>
+                                <p>
+									<%= I18n.t('general.role.' + r.name)%> :
+                                   	<% @current_object.users_by_role(r.name).each do |u| %>
+                                   		<%= link_to u.full_name + ',', admin_user_path(u.id) %>
+                                   	<% end %>
+								</p>
+                            <% end %>
+                       	</div>
+                   	<% end -%>
                 </div>
             </div>
-            <% text_button = (current_object.new_record? ?  I18n.t('general.button.create_a_new_workspace') : I18n.t('general.button.save') )%>
+			<% end -%>
+			<% text_button = (current_object.new_record? ?  I18n.t('general.button.create_a_new_workspace') : I18n.t('general.button.save') )%>
             <button type="submit" class="submitButton"><span><%= text_button %></span></button>
         </div>
     </div>
-
+	
     <% if @current_object.new_record? || @current_object.has_permission_for?('administrate', @current_user, current_container_type) %>
         <div class="rightBlocks">
 			 <div class="itemShowLeftDate">
@@ -127,5 +126,4 @@
             <% end %>
         </div>
     <% end %>
-
 <% end %>

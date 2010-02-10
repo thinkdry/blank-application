@@ -7,7 +7,7 @@ class ChangeDefaultItemStateToUnpublished < ActiveRecord::Migration
 
   def self.down
     ITEMS.each do |item|
-      drop_column item.pluralize.to_sym
+      remove_column item.pluralize.to_sym
     end
   end
 end

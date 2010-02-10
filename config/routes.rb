@@ -94,11 +94,12 @@ ActionController::Routing::Routes.draw do |map|
           :add_comment => :any,
           :redirect_to_content => :any
         }
-        member_to_set.merge!({:remove_file => :any}) if name=='article'
-        member_to_set.merge!({:get_video_progress => :any}) if name=='video'
-        member_to_set.merge!({:get_audio_progress => :any}) if name=='audio'
-        member_to_set.merge!({:send_to_a_group => :any}) if name=='newsletter'
-        member_to_set.merge!({:export_to_csv => :any}) if name=='group'
+        member_to_set.merge!({:results => :get}) if name == 'result_set'
+        member_to_set.merge!({:remove_file => :any}) if name =='article'
+        member_to_set.merge!({:get_video_progress => :any}) if name =='video'
+        member_to_set.merge!({:get_audio_progress => :any}) if name =='audio'
+        member_to_set.merge!({:send_to_a_group => :any}) if name =='newsletter'
+        member_to_set.merge!({:export_to_csv => :any}) if name =='group'
         member_to_set.merge!({:download => :any}) if ['audio', 'video', 'cms_file', 'image'].include?(name)
         collection_to_set = {
           :validate => :post
@@ -146,7 +147,6 @@ ActionController::Routing::Routes.draw do |map|
 
     # Search related routes
     admin.resources :searches, :collection => { :print_advanced => :any, :validate => :post }
-    admin.resources :saved_searches, :only => [:create, :index, :destroy], :member => {:results => :get}, :collection => { :validate => :post }
 
   # Catch Errors and show custom message, avoid SWW
     admin.error '/admin/error/:status' , :controller => 'home', :action => 'error'
@@ -162,7 +162,9 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/site/:site_title', :controller => 'websites', :action => 'index'
   map.connect '/site/:site_title/:title_sanitized', :controller => 'websites', :action => 'index'
   map.connect '/:title_sanitized', :controller =>'websites', :action => 'index'
+  map.connect '/:item_type/:id', :controller =>'websites', :action => 'show'
   map.resources :websites, :only => [:index, :update]
+  map.error '/error/:status', :controller => 'websites', :action => 'error'
   #map.create_front_folders '/create_front_folders', :controller => 'fronts', :action => 'create_front_folders'
   #map.export_contacts '/export_contacts/:website_id', :controller =>'websites', :action => 'export_contacts'
   #map.connect '/web/form_submit', :controller => 'websites', :action => 'contact_submit'

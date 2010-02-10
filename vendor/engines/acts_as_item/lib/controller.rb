@@ -73,7 +73,7 @@ module ActsAsItem
           before :new, :edit do
             @keywords = Keyword.all.collect{|k| k.name}.to_json
           end
-          
+
 					# Filter setting the Flash message linked to that action
           after :create do
             flash[:notice] = @current_object.class.label+' '+I18n.t('item.new.flash_notice')
@@ -105,11 +105,15 @@ module ActsAsItem
           # Makes `current_user` as author for the current_object
           before :create do
 						# Trick used in case there is no params (meaning none is selected)
+            p ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>."
+            p params
 						params[@current_object.class.to_s.underscore][:keywords_field] ||= []
             current_object.user_id = current_user.id
           end
 					# Filter setting the keywords value in case the list is empty (else the application will think there is no field ...)
 					before :update do
+					 p ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>."
+            p params
 						params[@current_object.class.to_s.underscore][:keywords_field] ||= []
 					end
 					#

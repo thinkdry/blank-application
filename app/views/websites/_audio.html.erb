@@ -1,0 +1,11 @@
+<script type="text/javascript" src="/players/swfobject.js"></script>
+<div id="player_<%=object.class.to_s + "_" + object.id.to_s %>"></div>
+<script type='text/javascript'>
+  //cancel=false;
+  var so = new SWFObject('/players/audioplayer.swf',1,'470','20','4');
+  so.addParam('allowfullscreen','true');
+  so.addParam('allowscriptaccess','always');
+  so.addParam('quality','high');
+  so.addParam('flashvars','&playerID=1&soundFile=<%= object.path_to_encoded_file %>&backcolor=#D86C27');
+  so.write("player_<%=object.class.to_s + "_" + object.id.to_s%>");
+</script>

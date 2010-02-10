@@ -39,6 +39,9 @@
 					        </div>
 				        </div>
             <% end %>
+            <% if @current_object.class.to_s == 'ResultSet' %>
+                <%= link_to 'Show Results', results_admin_result_set_path(@current_object)  %>
+            <% end %>
             <% if @current_object.has_permission_for?('rate', @current_user, current_container_type) %>
                 <%= item_rate(@current_object) %>
             <% end %>

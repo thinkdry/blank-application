@@ -44,6 +44,7 @@ class Article < ActiveRecord::Base
       article_files.build(:article_id => self.id, :articlefile => file_path)
     end
   end
+  
 
 end
 
