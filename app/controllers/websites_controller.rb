@@ -19,6 +19,7 @@ class WebsitesController < ApplicationController
         else
           @page = @result_set
         end
+      # Find the title_sanitized in menu tree 
       elsif params[:title_sanitized] && @current_website.menus.exists?(:title_sanitized => params[:title_sanitized])
         @menu = @current_website.menus.find(:first, :conditions => {:title_sanitized => params[:title_sanitized]})
         @page = @menu.try('page')
@@ -34,10 +35,11 @@ class WebsitesController < ApplicationController
         end
       end
       render :partial => 'page', :layout => 'websites/application'
+    # Else print the layout
     elsif current_website
-       render :template => "#{RAILS_ROOT}/public/#{@current_website.website_state}.html", :layout => false
+      render :template => "#{RAILS_ROOT}/public/#{@current_website.website_state}.html", :layout => false
     else
-      render :text => '<b>No Such Website Exists</b>'
+      redirect_to admin_root_path
     end
   end
 
