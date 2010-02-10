@@ -1,0 +1,36 @@
+body {padding:50px 100px; margin:0; font-family:Tahoma, Geneva, sans-serif; background-image:url(/website_templates/carbonizer/images/body_bg.png);}
+
+#container {background-color:#FFFFFF; padding:10px;}
+
+#header {height:150px; background-image:url(/website_templates/carbonizer/images/header_bg.png);}
+#logo {font-size:30px; background:url(/website_templates/carbonizer/images/header.png) no-repeat; height:100px; padding:50px 0 0 30px;}
+#logo a {color:#FFFFFF; text-decoration:none;}
+#slogan {float:right; font-size:18px; color:#FFFFFF; padding:60px 30px 0 0;}
+
+#menu {height:40px; background-image:url(/website_templates/carbonizer/images/menu_bg.png); margin-top:5px;}
+#menu ul {margin:0; padding:0;}
+#menu li {list-style:none; float:left; background:url(/website_templates/carbonizer/images/menu_border.png) right no-repeat;}
+#menu a {float:left; height:20px; padding:10px 30px; color:#FFFFFF; font-size:15px; font-weight:bold; text-decoration:none; font-family:Arial, Helvetica, sans-serif;}
+#menu a:hover {background:url(/website_templates/carbonizer/images/menu_border.png);}
+
+#main {float:left; width:100%; margin:5px 0; background:url(/website_templates/carbonizer/images/main_bg.png) right repeat-y; color:#111111; font-size:11px;}
+#main a {color:#333333;}
+#main a:hover {color:#000000;}
+#main br {line-height:8px;}
+#sidebar {width:160px; float:right; padding:0 30px 30px 30px; margin-top:10px;}
+#sidebar h3 {font-size:17px; font-weight:normal; margin:20px 0 5px 0;}
+#sidebar ul {margin:0; padding:0; border-top:1px solid #ECECEC;}
+#sidebar li {list-style:none; border-bottom:1px solid #ECECEC;}
+#sidebar li a {color:#111111; text-decoration:none; padding:3px; display:block;}
+#sidebar li a:hover {background-color:#ECECEC;}
+#text {line-height:14px; margin-right:225px; padding:10px 30px 30px 30px;}
+#text h1 {font-size:22px; font-weight:normal; margin:20px 0 10px 0;}
+#text h2 {font-size:19px; font-weight:normal; margin:20px 0 10px 0;}
+#text ol, #text ul {padding:0; margin:8px 0;}
+#text li {margin-left:40px;}
+
+#footer {height:40px; color:#FFFFFF; font-size:11px; background-image:url(/website_templates/carbonizer/images/footer_bg.png); clear:both;}
+#footer a {color:#FFFFFF;}
+#footer a:hover {color:#DFDFDF;}
+#footer_left {float:left; padding:13px 0 0 30px;}
+#footer_right {float:right; padding:13px 30px 0 0;}
