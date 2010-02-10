@@ -45,8 +45,9 @@ module WebsitesHelper
   end
 
   def create_child(object)
+    
     str = ""
-    str = '<ul>'
+    str = '<ul id="' + object.name + '">'
     object.children.each do |child|
       str += "<li>#{link_to child.name, (child.title_sanitized.to_s == '' ? child.title_sanitized : '/' + child.title_sanitized)}"
       str += child.children.blank? ? '</li>' : create_child(child) + '</li>'
