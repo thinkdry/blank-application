@@ -9,12 +9,27 @@
 			
 			<label>Name :*</label>
 			<div class="formElement">
-				<%= f.text_field :name%>	
+				<%= f.text_field :name %>	
+			</div>
+
+      <label>Page Title :*</label>
+			<div class="formElement">
+				<%= f.text_field :page_title %>	
+			</div>
+
+      <label>URL :*</label>
+			<div class="formElement">
+				<%= f.text_field :url %>	
 			</div>
 			
-			<label>URL :</label>
+			<label>Page :</label>
 			<div class="formElement">
-			  	<%= f.select :url, [['No Link', '#']] + ((@pages + @result_sets).collect {|p| [ p.title, p.title_sanitized ] } if @pages) %>
+			  	<%= f.select :page_id, @pages.collect {|p| [ p.title, p.id ] }, :include_blank => true %>
+			</div>				
+
+      <label>Result Set :</label>
+			<div class="formElement">
+			  	<%= f.select :result_set_id, @result_sets.collect {|r| [ r.title, r.id ] }, :include_blank => true %>
 			</div>				
 			<button type="submit" class="submitButton"><span>Submit</span></button>
 		<% end %>

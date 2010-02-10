@@ -24,7 +24,7 @@
   <label>ITEMS</label>
   <% available_items_list.each do |i| %>  
     <div class="formElement">
-      <% if current_object.items && @current_object.items.include?(i.id.to_s) %>
+      <% if current_object.items && @current_object.items.include?(i) %>
         <%= check_box_tag "result_set[items][]", i, true, :class => 'checkboxes' %><%= I18n.t('general.item.'+i.to_s) %> <br />
       <% else %>
         <%= check_box_tag "result_set[items][]", i, false, :class => 'checkboxes' %><%= I18n.t('general.item.'+i.to_s) %> <br />

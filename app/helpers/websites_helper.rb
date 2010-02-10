@@ -32,13 +32,13 @@ module WebsitesHelper
 #    logger.error e.inspect
 #  end
 
-  def menu_generator(css_class='')
+  def menu_generator(ul_class='', li_class='')
     str = ""
     @website = Website.find(session[:website_id])
     @menus = @website.menus
-    str += "<ul class=#{css_class}>"
+    str += "<ul class=#{ul_class}>"
     @menus.roots.each do |root|
-      str +="<li>#{link_to root.name, (root.url == '#' ? root.url : '/' + root.url) }"
+      str +="<li>#{link_to root.name, (root.title_sanitized.to_s == '' ? '#' : '/' + root.title_sanitized) }"
       str += root.children.blank? ? '</li>' : create_child(root) + '</li>'
     end
     str += '</ul>'
@@ -48,7 +48,7 @@ module WebsitesHelper
     str = ""
     str = '<ul>'
     object.children.each do |child|
-      str += "<li>#{link_to child.name, (child.url == '#' ? child.url : '/' + child.url)}"
+      str += "<li>#{link_to child.name, (child.title_sanitized.to_s == '' ? child.title_sanitized : '/' + child.title_sanitized)}"
       str += child.children.blank? ? '</li>' : create_child(child) + '</li>'
     end
     str += '</ul>'
