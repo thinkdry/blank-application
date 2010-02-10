@@ -33,6 +33,7 @@ module WebsitesHelper
 #  end
 
   def menu_generator(css_class='')
+    
     str = ""
     @website = Website.find(session[:website_id])
     @menus = @website.menus
@@ -45,8 +46,9 @@ module WebsitesHelper
   end
 
   def create_child(object)
+    
     str = ""
-    str = '<ul>'
+    str = '<ul id="' + object.name + '">'
     object.children.each do |child|
       str += "<li>#{link_to child.name, (child.url == '#' ? child.url : '/' + child.url)}"
       str += child.children.blank? ? '</li>' : create_child(child) + '</li>'
