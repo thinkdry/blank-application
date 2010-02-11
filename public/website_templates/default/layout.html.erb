@@ -1,9 +1,8 @@
-<% path = "/#{WEBSITE_FILES}/#{@current_website.title}" %>
 <html>
   <head>
-    <title><%= @page.page_title%></title>
-    <meta name='description' content="<%= @page.description%>"/>
-    <meta name='keywords' content="<%= @page.keywords_list%>"/>
+    <title><%= page_title %></title>
+    <meta name='description' content="<%= page_description %>"/>
+    <meta name='keywords' content="<%= page_keywords %>"/>
     <link rel="stylesheet" href="stylesheets/application.css" type="text/css" media="screen" title="no title" charset="utf-8"/>
     <link rel="stylesheet" href="/stylesheets/colorbox.css" type="text/css" />
     <script type="text/javascript" src="javascripts/application.js"></script>
@@ -12,6 +11,7 @@
     <script type="text/javascript" src="/javascripts/websites.js"></script>
   </head>
   <body>
+    <%= menu_generator %>
     <%=yield%>
   </body>
 </html>

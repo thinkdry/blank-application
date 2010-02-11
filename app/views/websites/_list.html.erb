@@ -1,8 +1,8 @@
-<h2><%= page.title %></h2>
+<h2><%= @site_page.seo_title %></h2>
 <ul class="records">
   <% for result in results -%>
   <li>
-    <%= link_to result.title, "/#{result.class.to_s.underscore}/#{result.id}"%>
+    <h3><%= link_to result.title, "/#{result.class.to_s.underscore}/#{result.title_sanitized}"%></h3>
   </li>
   <li><p><%= result.description %></p></li>
   <% end -%>

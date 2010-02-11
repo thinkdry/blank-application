@@ -1,6 +1,6 @@
 <%= content_tag(:div, flash[:notice], :class => 'notice') if flash[:notice] %>
 <%= content_tag(:div, flash[:error], :class => 'error') if flash[:error] %>
-<% if @page.class.to_s == 'Page' %>
+<% if @page %>
   <% if current_user && @page.has_permission_for?('edit', current_user, 'website') %>
       <%= link_to_function 'EDIT', "page_body(); show_or_hide_body_edit('block','none'); " %>
       <div id="body_edit" style="display:none;overflow:auto;padding-bottom: 20px;">
@@ -19,18 +19,18 @@
 <!-- Show the main page body -->
 <div id="page_body_show" style="display:block;">
 <%#= translate_text(@page.body) %>
-    <%= @page.body if @page.class.to_s == 'Page'%>
+    <%= @page.body if @page%>
 </div>
 <% if @results %>
   <div id="result_set">
-     <%= render :partial => 'list', :locals => {:results => @results, :page => @page} %>
+     <%= render :partial => 'list', :locals => {:results => @results, :site_page => @site_page} %>
   </div>
 <% end %>
 <!-- Render Specific partial -->
 <%= render :partial => @partial_to_render %>
 
 <!-- Online Edit -->
-<% if @page.class.to_s == 'Page' %>
+<% if @page %>
   <% if  current_user && @page.has_permission_for?('edit', current_user, 'website') %>
       <% if !@current_website.body_size.to_s.blank?
           width, height = @current_website.body_size.split('x')[0], @current_website.body_size.split('x')[1]

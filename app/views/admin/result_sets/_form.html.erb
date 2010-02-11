@@ -1,6 +1,5 @@
 <% form_for_item @current_object, title do |f| -%>
     <%= f.text_field :q, :label => 'Query :', :hint => 'Search Query' %>
-    <%= f.text_field :page_title, :label => 'Page Title : ' %>
     <%= f.select :field, [['CREATED','created_at'], ['UPDATED', 'updated_at'], ['TITLE','title'], ['COMMENTED','comments_number'], ['RATES','rates_average'], ['VIEWED','viewed_number']], :selected => 'created_at', :label => 'Filter By :' %>
     <%= f.select :order, [['ASC', 'asc'], ['DESC','desc']], :selected => 'desc', :label => 'Order By :' %>
     <%= f.select :limit, [['5','5'], ['10', '10'], ['15','15'], ['20','20']], :selected => '10', :label => 'Limit :' %>

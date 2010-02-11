@@ -1,11 +1,5 @@
 <% form_for_item @current_object, title do |f| -%>
-  	<%= f.text_field :page_title, :label => 'Page Title : ', :hint => 'Will appear on the top of the browser' %>
-  	<%= f.text_field :menu_title, :label => 'Menu Title : ', :hint => 'Will appear on the Menu' %>
-  	<%= f.select :page_type,
-               	{'Basic' => 'basic','Intro' => 'intro', 'Home' => 'home', 'Contact' => 'contact', 'Gallery' => 'gallery', 'Guestbook' => 'guestbook'},
-               	{ :selected => "#{@current_object.page_type ? @current_object.page_type : 'basic'}" },
-               	:label =>I18n.t('page.field.type_page_label') + ' :' %>
-  	<%= available_item_types_for_ck %>
+ 	<%= available_item_types_for_ck %>
 	<div class="ckInsert">
 		Insert templates : 
 		<a id="fck_insert_gallery" href="/admin/ck_display/tabs/gallery">Gallerie</a>
