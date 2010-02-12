@@ -162,8 +162,8 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/site/:site_title', :controller => 'websites', :action => 'index'
   map.connect '/site/:site_title/:title_sanitized', :controller => 'websites', :action => 'index'
   map.connect '/:title_sanitized', :controller =>'websites', :action => 'index'
-  map.connect '/:item_type/:id', :controller =>'websites', :action => 'show'
   map.resources :websites, :only => [:index, :update]
+  map.connect '/:item_type/:id', :controller =>'websites', :action => 'show'
   map.error '/error/:status', :controller => 'websites', :action => 'error'
   #map.create_front_folders '/create_front_folders', :controller => 'fronts', :action => 'create_front_folders'
   #map.export_contacts '/export_contacts/:website_id', :controller =>'websites', :action => 'export_contacts'
