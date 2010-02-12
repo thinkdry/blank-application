@@ -20,7 +20,7 @@
                         </ul>
                     </div>
 
-           <div class="subMenuCol">
+                    <div class="subMenuCol">
                         <h3><%= I18n.t('layout.general.other') %></h3>
                         <ul>
                             <% CONTAINERS.each do |container| %>
@@ -52,22 +52,22 @@
                             <li><%= link_to I18n.t('layout.application.home'), admin_root_path %></li>
                             <li><%= link_to 'Pages & contenu', admin_content_path('pages') %></li>
                             <li><%= link_to I18n.t('layout.application.personal_contacts'), admin_people_path %></li>
-							<li><%= link_to 'Requettes', admin_content_path('result_sets') %></li>
+                            <li><%= link_to 'Requettes', admin_content_path('result_sets') %></li>
                         </ul>
                     </div>
                     <% CONTAINERS.each do |container| %>
-                      <% containers = container.classify.constantize.allowed_user_with_permission(@current_user, "#{container}_show", container) %>
-                      <% unless containers.blank? %>
-                        <div class="subMenuCol">
-                            <h3><%= I18n.t("layout.application.#{container.pluralize}") %></h3>
-                            <ul>
-                               <% containers.each do |w| -%>
-                                  <li><%= link_to w.title, container_path(w) %></li>
-                               <% end -%>
-                            </ul>
-                        </div>
-                      <% end %>
-                     <% end %>
+                        <% containers = container.classify.constantize.allowed_user_with_permission(@current_user, "#{container}_show", container) %>
+                        <% unless containers.blank? %>
+                            <div class="subMenuCol">
+                                <h3><%= I18n.t("layout.application.#{container.pluralize}") %></h3>
+                                <ul>
+                                    <% containers.each do |w| -%>
+                                        <li><%= link_to w.title, container_path(w) %></li>
+                                    <% end -%>
+                                </ul>
+                            </div>
+                        <% end %>
+                    <% end %>
                 </div>
             </div>
             <div class="menuLabel"><%= I18n.t('layout.menu.display') %></div>
@@ -75,24 +75,24 @@
         <li>
             <a href="#" class="menuDropButton"><img src="/images/icons/white_down.png"/></a>
             <div class="menuLabel"><%= link_to I18n.t('layout.application.logout'), admin_logout_path %></div>
-		</li>
-	</ul>
-	<div id="powerfullSearch">
-		<% form_for @search, 
-					:url => admin_searches_path, 
-					:builder => BlankFormBuilder, 
-					:html => { :method => :get, :name => 'search' } do -%>
-					
-			<div class="fieldContainer">
-				<%= text_field_tag  "q", 
-									(params[:q] ? params[:q] : @search_hint), 
-									:id =>"commandSearch" %>
-			</div>
-			<div class="launchButton">
-				<button type="submit" class="headerSearchButton" onclick="return do_search('<%= I18n.t('layout.search.date_alert') %>');"></button>
-			</div>
-		<% end -%>
-	</div>
+        </li>
+    </ul>
+    <div id="powerfullSearch">
+        <% form_for @search,
+          :url => admin_searches_path,
+          :builder => BlankFormBuilder,
+          :html => { :method => :get, :name => 'search' } do -%>
+
+            <div class="fieldContainer">
+                <%= text_field_tag  "q",
+                  (params[:q] ? params[:q] : @search_hint),
+                  :id =>"commandSearch" %>
+            </div>
+            <div class="launchButton">
+                <button type="submit" class="headerSearchButton" onclick="return do_search('<%= I18n.t('layout.search.date_alert') %>');"></button>
+            </div>
+        <% end -%>
+    </div>
 </div>
 
 
