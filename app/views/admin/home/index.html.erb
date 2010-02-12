@@ -1,1 +1,18 @@
-<%= render :partial => "latest" %>
+<script>loadAnalyticsDatas();</script>
+
+	<% @websites.each do |website| -%>
+	<div class="siteSummary">
+		<h2><%= website.title%></h2>
+		<div class="homeCol" id="analytics_datas_<%= website.id %>">
+			<img src="/images/ajax-spinner.gif" alt="loading" />
+		</div>
+		<div class="homeCol">
+			<div class="colTitle">Last Contacts</div>
+			<ul class="contactList">
+			<% @persons.each do |person|%>
+				<li><%= link_to person.last_name + " " + person.first_name, admin_person_path(person) %> : <%= person.email%></li>
+			<% end %>
+			</ul>
+		</div>
+	</div>
+	<% end -%>

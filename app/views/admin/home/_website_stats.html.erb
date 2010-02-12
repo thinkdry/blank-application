@@ -1,0 +1,6 @@
+<div class="colTitle">Statistiques</div>
+<div class="stats"><span><%= website_datas[:visitor_number] %><br/> visites</span></div>
+<div>Pages Vues : <%= website_datas[:viewed_pages] %></div>
+<div>pour <%= website_datas[:new_visits] %> visiteurs uniques</div>
+<div class="colTitle">Actions</div>
+<div class="homeActions"><%= link_to "full stats", admin_website_analytics_path(website_datas[:website])%> | <%= link_to "Manage structure", admin_website_menus_path(website_datas[:website])%> | <%= link_to "Manage content", container_path(website_datas[:website]) %></div>

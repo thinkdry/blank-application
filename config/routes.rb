@@ -123,6 +123,8 @@ ActionController::Routing::Routes.draw do |map|
     admin.connect '/ck_insert/gallery', :controller => 'ck_tools', :action => 'insert_gallery'
     admin.connect '/ajax_item_save/:item_type/:id', :controller => 'ck_tools', :action => "ajax_item_save" 
     admin.connect '/ajax_container_save/:container/:id', :controller => 'ck_tools', :action => "ajax_container_save"
+    
+    admin.connect '/analytics_datas', :controller => 'home', :action => 'analytics_datas'
 
     # Items created outside any workspace are private or fully public.
     # Items may be acceded by a list that gives all items the user can consult.
@@ -172,6 +174,5 @@ ActionController::Routing::Routes.draw do |map|
   #map.connect '/actu/all', :controller =>'news_reports', :action => 'list'
   #map.connect '/actu/:title_sanitized', :controller =>'websites', :action => 'load_news'
   #map.connect '*global_error_page', :controller=>'websites', :action=>'load_site'
-
   
 end
