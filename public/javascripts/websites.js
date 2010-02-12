@@ -16,7 +16,7 @@ function ajaxSaveOfFCKContent(){
             url: url + itemId,
             data: 'content=' + escape(body),
             success: function(html){
-                alert ('save ok');
+                alert ('Saved');
             }
         });
     }
