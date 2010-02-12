@@ -13,7 +13,7 @@ module Authorized
 			# and including instance methods usefull to get roles and permissions.
 			def acts_as_authorized
 				# Relation N-1 getting workspace Role objects through the 'users_workspaces' table
-				has_many :container_roles, :through => :users_containers, :source => :role
+				has_many :container_roles, :through => :users_containers, :source => :role, :include => :permissions
 				include Authorized::ModelMethods::InstanceMethods
       end
 
@@ -25,7 +25,7 @@ module Authorized
 				# Usage :
 				# <tt>user.system_role</tt>
 				def system_role
-					return Role.find(self.system_role_id)
+					return Role.find(self.system_role_id, :include => :permissions)
 				end
 
 				# Method returning true if the user has the system role passed in params, false else
@@ -68,7 +68,7 @@ module Authorized
 				# <tt>user.workspace_permissions(2)</tt>
 				def container_permissions(container_id, container)
 					if UsersContainer.exists?(:user_id => self.id, :containerable_id => container_id, :containerable_type => container)
-						return UsersContainer.find(:first, :conditions => {:user_id => self.id, :containerable_id => container_id, :containerable_type => container}).role.permissions
+						return UsersContainer.find(:first, :conditions => {:user_id => self.id, :containerable_id => container_id, :containerable_type => container}, :include => [:role => [:permissions]]).role.permissions
 					else
 						return []
 					end
