@@ -41,6 +41,10 @@ class Website < ActiveRecord::Base
   # validates_attachment_content_type :sitemap
 	# Validation of the size of the attached file
   validates_attachment_size(:sitemap, :less_than => 2.megabytes)
+
+  def published?
+    website_state == 'published'
+  end
   
   def update_website_resource(params)
     unless params[:css].blank?

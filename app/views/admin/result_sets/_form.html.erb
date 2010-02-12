@@ -1,36 +1,34 @@
 <% form_for_item @current_object, title do |f| -%>
     <%= f.text_field :q, :label => 'Query :', :hint => 'Search Query' %>
-    <%= f.text_field :page_title, :label => 'Page Title : ' %>
     <%= f.select :field, [['CREATED','created_at'], ['UPDATED', 'updated_at'], ['TITLE','title'], ['COMMENTED','comments_number'], ['RATES','rates_average'], ['VIEWED','viewed_number']], :selected => 'created_at', :label => 'Filter By :' %>
     <%= f.select :order, [['ASC', 'asc'], ['DESC','desc']], :selected => 'desc', :label => 'Order By :' %>
     <%= f.select :limit, [['5','5'], ['10', '10'], ['15','15'], ['20','20']], :selected => '10', :label => 'Limit :' %>
-  <% CONTAINERS.each do |container| %>
-    <% containers = container.classify.constantize.allowed_user_with_permission(@current_user, "#{container}_show", container) %>
-    <% unless containers.blank? %>
-        <label><%= I18n.t("layout.application.#{container.pluralize}") %></label>
-        <% containers.each do |w| -%>
-           <div class="formElement">
-            
-            <% if current_object.containers && current_object.containers[w.class.to_s.underscore.to_s] && @current_object.containers[w.class.to_s.underscore.to_s].include?(w.id.to_s) %>
-              <%= check_box_tag "result_set[containers][#{w.class.to_s.underscore}][]", w.id, true, :class => 'checkboxes' %>
-            <% else %>
-              <%= check_box_tag "result_set[containers][#{w.class.to_s.underscore}][]", w.id, false, :class => 'checkboxes' %>
-            <% end %>
-           <%= w.title %><br />
-           </div>
-        <% end -%>
-    <% end %>
-  <% end %>
-  <label>ITEMS</label>
-  <% available_items_list.each do |i| %>  
-    <div class="formElement">
-      <% if current_object.items && @current_object.items.include?(i) %>
-        <%= check_box_tag "result_set[items][]", i, true, :class => 'checkboxes' %><%= I18n.t('general.item.'+i.to_s) %> <br />
-      <% else %>
-        <%= check_box_tag "result_set[items][]", i, false, :class => 'checkboxes' %><%= I18n.t('general.item.'+i.to_s) %> <br />
-      <% end %>
-    </div>
-  <% end %>
+  	<% CONTAINERS.each do |container| %>
+    	<% containers = container.classify.constantize.allowed_user_with_permission(@current_user, "#{container}_show", container) %>
+    	<% unless containers.blank? %>
+        	<label><%= I18n.t("layout.application.#{container.pluralize}") %></label>
+        	<div class="formElement">
+			<% containers.each do |w| -%>
+            	<% if current_object.containers && current_object.containers[w.class.to_s.underscore.to_s] && @current_object.containers[w.class.to_s.underscore.to_s].include?(w.id.to_s) %>
+              		<%= check_box_tag "result_set[containers][#{w.class.to_s.underscore}][]", w.id, true, :class => 'checkboxes' %>
+            	<% else %>
+              		<%= check_box_tag "result_set[containers][#{w.class.to_s.underscore}][]", w.id, false, :class => 'checkboxes' %> 
+            	<% end %>
+           		<%= w.title %><br />
+            <% end -%>
+			</div>
+    	<% end %>
+  	<% end %>
+  	<label>ITEMS</label>
+	<div class="formElement">
+ 		<% available_items_list.each do |i| %>  
+   		<% if current_object.items && @current_object.items.include?(i.id.to_s) %>
+       		<%= check_box_tag "result_set[items][]", i, true, :class => 'checkboxes' %><%= I18n.t('general.item.'+i.to_s) %> <br />
+     		<% else %>
+       		<%= check_box_tag "result_set[items][]", i, false, :class => 'checkboxes' %><%= I18n.t('general.item.'+i.to_s) %> <br />
+     		<% end %>
+ 		<% end %>
+	</div>
   <!-- TODO Use some jquery plugin for calender select -->
    <!--
     <%= f.date_select :created_at_after, :label => I18n.t('general.common_word.from1'), :include_blank => true%> <br/>

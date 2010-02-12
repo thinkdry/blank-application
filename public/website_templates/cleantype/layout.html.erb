@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 2.5 License
+
+Title      : Clean Type
+Version    : 1.0
+Released   : 20100104
+Description: A two-column fixed-width template suitable for small websites.
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title><%= page_title %></title>
+<meta name="keywords" content="<%= page_keywords %>" />
+<meta name="description" content="<%= page_description %>" />
+<link href="/website_templates/cleantype/stylesheets/default.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="wrapper">
+	<div id="header">
+		<div id="logo">
+			<h1><a href="#"><%= site_title %></a></h1>
+			<h2><a href="http://www.freecsstemplates.org/"><%= site_description %></a></h2>
+		</div>
+		<!-- end div#logo -->
+		<div id="menu">
+			<%= menu_generator %>
+		</div>
+		<!-- end div#menu -->
+	</div>
+	<!-- end div#header -->
+	<div id="page">
+		<div id="page-bgtop">
+			<div id="content">
+      <div class='post'>
+				<%=yield%>
+      </div>
+			</div>
+			<!-- end div#content -->
+			<div id="sidebar">
+				<ul>
+					<li id="search">
+						
+					</li>
+					<li>
+						<h2>Latest Articles</h2>
+						<ul>
+							<li><a href="#"></a></li>
+							<li><a href="#"></a></li>
+						</ul>
+					</li>
+					<li>
+						<h2>News</h2>
+						<ul>
+							<li><a href="#"></a></li>
+							<li><a href="#"></a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<!-- end div#sidebar -->
+			<div style="clear: both; height: 1px"></div>
+		</div>
+	</div>
+	<!-- end div#page -->
+</div>
+<!-- end div#wrapper -->
+	<div id="footer">
+		<p id="legal">Copyright &copy; 2010 <%= site_title %>. All Rights Reserved. Designed by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a>.</p>
+		<p id="links"><a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a></p>
+    <p><%= powered_by %></p>
+	</div>
+	<!-- end div#footer -->
+</body>
+</html>

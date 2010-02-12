@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
       session[:website_id] = @current_website.id
       return true
     elsif WebsiteUrl.exists?(:name => site_url)
-      @current_website = WebsiteUrl.find_by_name(site_url, :include => [:website => [:pages, :menus, :result_sets]]).website
+      @current_website = WebsiteUrl.find_by_name(site_url).website
 			session[:website_id] = @current_website.id
 			return true
 		else

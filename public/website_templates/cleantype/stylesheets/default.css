@@ -1,0 +1,348 @@
+/*
+Design by Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 2.5 License
+*/
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	margin-top: 40px;
+	background: #FFFFFF;
+	text-align: justify;
+	font-family: Lucida Grande, Helvetica, sans-serif;
+	font-size: 13px;
+	color: #757E82;
+}
+
+h1, h2, h3 {
+	color: #AA2808;
+}
+
+h1 {
+}
+
+h2 {
+}
+
+h3 {
+}
+
+p, blockquote, ul, ol {
+	margin-bottom: 20px;
+	line-height: 2em;
+}
+
+p {
+}
+
+blockquote {
+}
+
+ul, ol, li {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+
+a {
+	text-decoration: underline;
+	color: #EF8116;
+}
+
+a:hover {
+	text-decoration: none;
+	color: #EF8116;
+}
+
+/* Wrapper */
+
+#wrapper {
+}
+
+/* Header */
+
+#header {
+	width: 892px;
+	height: 91px;
+	margin: 0 auto;
+}
+
+/* Logo */
+
+#logo {
+	float: left;
+	width: 270px;
+	height: 76px;
+	margin: 0px;
+	padding: 15px 0px 0px 30px;
+}
+
+#logo h1 {
+	margin: 0;
+	padding: 0;
+	font: normal 36px Georgia, "Times New Roman", Times, serif;
+}
+
+#logo h2 {
+	margin: -2px 0 0 0;
+	padding: 0;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	font-size: 10px;
+	font-weight: bold;
+	color: #444444;
+}
+
+#logo h2 a {
+	color: #9AA9B1;
+}
+
+#logo a {
+	text-decoration: none;
+	color: #3C84B3;
+}
+
+/* Menu */
+
+#menu {
+	float: right;
+	width: 592px;
+	height: 54px;
+	margin-top: 10px;
+	background: url(../images/img01.jpg) no-repeat left top;
+}
+
+#menu ul {
+	margin: 0;
+	padding: 0px 0 0 20px;
+	list-style: none;
+	line-height: normal;
+	margin-left: 30px;
+}
+
+#menu li {
+	display: inline;
+	text-align: center;
+}
+
+#menu a {
+	display: block;
+	float: left;
+	height: 36px;
+	padding: 18px 20px 0px 20px;
+	text-decoration: none;
+	text-align: center;
+	text-transform: uppercase;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	color: #464E53;
+}
+
+#menu a:hover, #menu .active a {
+	background: #EF8116;
+	color: #FFFFFF;
+}
+
+/* Search */
+
+#search {
+	height: 45px;
+	padding: 0px 0px 40px 0px;
+}
+
+#search form {
+	margin: 0;
+	padding: 12px 0px 0 0;
+}
+
+#search fieldset {
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+
+#search input {
+	float: left;
+	font: 12px Georgia, "Times New Roman", Times, serif;
+}
+
+#search-text {
+	width: 120px;
+	height: 18px;
+	padding: 3px 0 0 5px;
+	border: 1px solid #000000;
+	color: #000000;
+}
+
+#search-submit {
+	height: 21px;
+	margin-left: 10px;
+	padding: 0px 2px;
+	border: none;
+	background: #000000;
+	color: #FFFFFF;
+}
+
+/* Page */
+
+#page {
+	width: 892px;
+	margin: 0 auto;
+}
+
+#page-bgtop {
+	padding: 0px 30px;
+}
+
+/* Content */
+
+#content {
+	float: right;
+	width: 564px;
+	padding-top: 30px;
+}
+.post {
+	margin: 0px 0px 30px 0px;
+}
+
+.post .title {
+	margin: 0px;
+	padding: 0px 0px 5px 0px;
+	color: #232F01;
+}
+
+.post .title a {
+	padding: 4px 35px 4px 15px;
+	background: #EF8116;
+	text-decoration: none;
+	font-weight: normal;
+	color: #FFFFFF;
+}
+
+.post .entry {
+}
+
+.post img {
+	float: left;
+	padding: 15px 0px;
+}
+
+.post .meta {
+	text-align: right;
+	padding-top: 20px;
+	border-bottom: 1px solid #E5E5E5;
+	font-weight: bold;
+	color: #202020;
+}
+
+.post .byline {
+	float: right;
+	margin-top: -30px;
+	font-size: 12px;
+	color: #5E5E5E;
+}
+
+/* Sidebar */
+
+#sidebar {
+	float: left;
+	width: 208px;
+	padding-top: 30px;
+}
+
+#sidebar ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	line-height: normal;
+}
+
+#sidebar li {
+	margin-bottom: 1px;
+}
+
+#sidebar li ul {
+	margin: 0px;
+	padding: 0px 0px 40px 0px;
+}
+
+#sidebar li li {
+	margin: 0;
+	padding: 9px 0px;
+	border: none;
+	background: url(../images/img07.jpg) repeat-x left bottom;
+}
+
+#sidebar h2 {
+	margin: 0px;
+	padding: 0px;
+	border-bottom: 2px solid #EBEBEB;
+	font-size: 160%;
+	font-weight: normal;
+	color: #454E55;
+}
+
+#sidebar h3 {
+	font-size: 77%;
+	color: #454E55;
+}
+
+#sidebar p {
+	margin: 0;
+	line-height: normal;
+	color: #D4C792;
+}
+
+#sidebar a {
+	border: none;
+	text-decoration: none;
+}
+
+#sidebar a:hover {
+	text-decoration: underline;
+}
+
+/* Submenu */
+
+#submenu {
+}
+
+/* News */
+
+#news {
+}
+
+#news a {
+	font-size: 85%;
+}
+
+/* Footer */
+
+#footer {
+	width: 892px;
+	height: 50px;
+	margin: 0 auto;
+	padding: 20px 0 20px 0;
+	border-top: 1px solid #E5E5E5;
+	color: #757E82;
+}
+
+#footer p {
+	margin: 0;
+	text-align: center;
+	font-size: 77%;
+}
+
+#footer a {
+	text-decoration: underline;
+	color: #757E82;
+}
+
+#footer a:hover {
+	text-decoration: none;
+}

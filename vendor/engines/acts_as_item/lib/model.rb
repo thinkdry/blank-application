@@ -44,10 +44,13 @@ module ActsAsItem
         
         # Validation of fields not in format of
         validates_not_format_of :title, :description, :with => /(#{SCRIPTING_TAGS})/
+
+        validates_uniqueness_of :title_sanitized, :scope => :user_id 
         
         named_scope :published,
          :conditions => {:published => true}
  
+        before_save :set_title_sanitized
 
 				# Inclusion of the instance methods inside the mixin
         include ActsAsItem::ModelMethods::InstanceMethods
@@ -66,6 +69,10 @@ module ActsAsItem
     end
 
     module InstanceMethods
+      
+      def set_title_sanitized
+        self['title_sanitized'] =  self.title.humanize.urlize
+      end
       # List Workspace Title's to which the Item is Associated
       #
       # Usage:

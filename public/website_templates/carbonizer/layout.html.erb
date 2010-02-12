@@ -1,4 +1,3 @@
-<% path = "/#{WEBSITE_FILES}/#{@current_website.title}" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--
 Created by: Reality Software | www.realitysoftware.ca
@@ -10,16 +9,12 @@ You can also purchase a PSD-file for this template.
 -->
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<% if @page != nil%>
-	<title><%= @page.page_title%></title>
-	<meta name='description' content="<%= @page.description%>"/>
-	<meta name='keywords' content="<%= @page.keywords_list%>"/>
-<% else %>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title><%= page_title %></title>
+	<meta name='description' content="<%= page_description %>"/>
+	<meta name='keywords' content="<%= page_keywords %>"/>
 	<meta name='description' content=''/>
 	<meta name='keywords' content=''/>
-<% end -%>
-
 <link rel="stylesheet" href="/website_templates/carbonizer/stylesheets/style.css" type="text/css" media="screen" title="no title" charset="utf-8"/>
 <link rel="stylesheet" href="/stylesheets/colorbox.css" type="text/css" />
 <script type="text/javascript" src="javascripts/application.js"></script>
@@ -32,12 +27,12 @@ You can also purchase a PSD-file for this template.
 <!-- header -->
 <div id="header">
 
-<div id="logo"><a href=""><%= @current_website.title%></a></div>
+<div id="logo"><a href=""><%= site_title %></a></div>
 
 </div>
 
 <div id="menu">
-	<% menu_generator %>
+	<%= menu_generator %>
 </div>
 <!--end header -->
 <!-- main -->
@@ -76,11 +71,12 @@ You can also purchase a PSD-file for this template.
 <!-- footer -->
 <div id="footer">
 
-<div id="footer_left">&copy; Copyright 2009 Your Website</div>
+<div id="footer_left">&copy; Copyright 2010 <%= site_title %></div>
 
 <div id="footer_right">
 <!-- Please do not change or delete these links. Read the license! Thanks. :-) -->
 Design by <a href="http://www.designity.org/">Free Web Design Community</a>
+Powered by <a href="http://www.blankapplication.org/">ThinkDRY:Blank Application</a>
 </div>
 
 </div>
