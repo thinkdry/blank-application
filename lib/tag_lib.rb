@@ -30,4 +30,43 @@ module TagLib
     str = 'Powered By'
     str += link_to 'ThinkDRY : Blank Application', 'http://www.blankapplication.org'
   end
+
+  ITEMS.each do |item|
+    define_method item.pluralize.to_sym do |*args|
+      options = args.extract_options!
+      items = item.classify.constantize.get_da_objects_list(setting_searching_params(:from_params => build_params(options.merge!(:items => [item]))))
+      str = ""
+      items.each do |item|
+        str += "<li>" + (link_to item.title, "/#{item}/#{item.title_sanitized}") + "</li>"
+      end
+      return str
+    end
+  end
+
+  def items(*args)
+    options = args.extract_options!
+    options[:items] ||= @current_website.available_items.split(',')
+    search = Search.new(setting_searching_params(:from_params => build_params(options)))
+    items = search.do_search
+    str = ""
+    items.each do |item|
+      str += "<li>" + (link_to item.title, "/#{item.class.to_s.underscore}/#{item.title_sanitized}") + "</li>"
+    end
+    return str
+  end
+
+  protected
+
+  def build_params(options)
+    options[:field] ||= 'created_at'
+    options[:order] ||= 'desc'
+    options[:limit] ||= 5
+    {
+      :m => options[:items],
+      :by => "#{options[:field]}-#{options[:order]}",
+      :per_page => options[:limit],
+      :containers => {:website => [@current_website.id.to_s]}
+    }
+  end
+  
 end
