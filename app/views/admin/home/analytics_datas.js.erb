@@ -1,0 +1,3 @@
+<% @websites_datas.each do |website_datas|%>
+	$('#analytics_datas_<%= website_datas[:website].id %>').html("<%= escape_javascript(render :partial => 'admin/home/website_stats', :locals => { :website_datas => website_datas })%>");
+<% end %>

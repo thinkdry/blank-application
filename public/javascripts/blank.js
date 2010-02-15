@@ -674,3 +674,15 @@ function delete_asset(element, file_path){
     }
 }
 
+function loadAnalyticsDatas(){
+	$("#ajax_spinner").show();
+	$.ajax({
+        type: "GET",
+        url: '/admin/analytics_datas',
+        dataType: "script",
+        success:function(html){
+			$('#analytics_datas').append(html);
+			$("#ajax_spinner").hide();
+		}
+  	});
+}

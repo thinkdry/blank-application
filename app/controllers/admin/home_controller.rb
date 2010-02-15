@@ -6,11 +6,16 @@ class Admin::HomeController < Admin::ApplicationController
   #
   def index
 #    @latest_items = GenericItem.consultable_by(current_user.id).latest
-    @latest_users = get_objects_list_with_search('user', 'created_at-desc', 5)
+#    @latest_users = get_objects_list_with_search('user', 'created_at-desc', 5)
 #    @latest_feeds = current_user.feed_items.latest
-    @latest_ws = get_objects_list_with_search('workspace', 'created_at-desc', 5)
+#    @latest_ws = get_objects_list_with_search('workspace', 'created_at-desc', 5)
 #		@accordion = [@latest_items,@latest_users,@latest_feeds,@latest_ws]
+    @persons = Person.find(:all, :order => "created_at DESC", :limit => 5)
+    @websites = Website.allowed_user_with_permission(@current_user, "website_show", 'website')
+  end
 
+
+  def analytics_datas
     websites = Website.allowed_user_with_permission(@current_user, "website_show", 'website')
   
     @websites_datas = []
@@ -40,10 +45,11 @@ class Admin::HomeController < Admin::ApplicationController
         end
       end
     end
-
-  @persons = Person.find(:all, :order => "created_at DESC", :limit => 5)
-
-
+    
+    respond_to do |format|
+		  format.js {render :layout => false}
+		end
+    
   end
 
 
