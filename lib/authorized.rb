@@ -25,7 +25,7 @@ module Authorized
 				# Usage :
 				# <tt>user.system_role</tt>
 				def system_role
-					return Role.find(self.system_role_id, :include => :permissions)
+					@role ||= Role.find(self.system_role_id, :include => :permissions)
 				end
 
 				# Method returning true if the user has the system role passed in params, false else
@@ -36,7 +36,7 @@ module Authorized
 				# Usage :
 				# <tt>user.has_system_role('admin')</tt>
 				def has_system_role(role_name)
-					return (self.system_role.name == role_name) || self.system_role.name == 'superadmin'
+					(self.system_role.name == role_name) || self.system_role.name == 'superadmin'
 				end
 
 				# Method returning true if the user has the workspace role passed in params, false else
@@ -48,7 +48,7 @@ module Authorized
 				# Usage:
 				# <tt>user.has_workspace_role('ws_admin')</tt>
 				def has_container_role(container_id, container, role_name)
-					return UsersContainer.exists?(:user_id => self.id, :containerable_id => container_id, :containerable_type => container.capitalize, :role_id => Role.find_by_name(role_name).id) || self.system_role.name == 'superadmin'
+					UsersContainer.exists?(:user_id => self.id, :containerable_id => container_id, :containerable_type => container.capitalize, :role_id => Role.find_by_name(role_name).id) || self.system_role.name == 'superadmin'
 				end
 
 				# Method returning the system permissions list
@@ -56,7 +56,7 @@ module Authorized
 				# Usage :
 				# <tt>user.system_permissions</tt>
 				def system_permissions
-					return self.system_role.permissions
+					@permissions ||= self.system_role.permissions
 				end
 
 				# Method returning the workspace permissions list
@@ -67,8 +67,8 @@ module Authorized
 				# Usage :
 				# <tt>user.workspace_permissions(2)</tt>
 				def container_permissions(container_id, container)
-					if UsersContainer.exists?(:user_id => self.id, :containerable_id => container_id, :containerable_type => container)
-						return UsersContainer.find(:first, :conditions => {:user_id => self.id, :containerable_id => container_id, :containerable_type => container}, :include => [:role => [:permissions]]).role.permissions
+					if @users_container ||= UsersContainer.find(:first, :conditions => {:user_id => self.id, :containerable_id => container_id, :containerable_type => container})
+						return @permissions ||= @users_container.role.permissions
 					else
 						return []
 					end
@@ -84,7 +84,7 @@ module Authorized
 				# <tt>user.has_system_permission('workspaces','new')</tt>
 				def has_system_permission(controller, action)
 					permission_name = controller+'_'+action
-					return !self.system_permissions.delete_if{ |e| e.name != permission_name}.blank? || self.has_system_role('superadmin')
+					!self.system_permissions.delete_if{ |e| e.name != permission_name}.blank? || self.has_system_role('superadmin')
 				end
 
 				# Method returning true if user has the workspace permission, false else

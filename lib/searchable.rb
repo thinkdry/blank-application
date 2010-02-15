@@ -64,6 +64,7 @@ module Searchable
 				def get_da_objects_list(*args)
 					options = args.extract_options!
 					#req is of type of the object in use. Article, Image....
+          "Inside get_da_objects_list"
 					req = self
 					# 1. text if there
 					req = req.searching_text_with_xapian(options[:full_text]) if options[:full_text]

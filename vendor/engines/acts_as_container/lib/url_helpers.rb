@@ -19,17 +19,16 @@ module ActsAsContainer
     end
 
     def current_container
-      container = nil
       CONTAINERS.each do |con|
         if params["#{con}_id".to_sym]
-          container = con.classify.constantize.find(params["#{con}_id"].to_i)
+          @container ||= con.classify.constantize.find(params["#{con}_id"].to_i)
           break
         elsif params[:controller].split('/')[1] == con.pluralize && params[:id]
-          container = con.classify.constantize.find(params[:id].to_i)
+          @container ||= con.classify.constantize.find(params[:id].to_i)
           break
         end
       end
-      container ? container : @current_user.private_workspace
+      @container ? @container : @current_user.private_workspace
     end
 
 

@@ -23,7 +23,7 @@ module Authorizable
 				define_method :permission_checking do
 					if options[:actions_permissions_links][params[:action]]
 						obj = params[:controller].split('/')[1].classify.constantize
-						@current_object = ['new', 'create','validate'].include?(params[:action]) ? obj.new : obj.find(params[:id])
+						@current_object ||= ['new', 'create','validate'].include?(params[:action]) ? obj.new : obj.find(params[:id])
 						#no_permission_redirection unless @current_user && @current_object.send("accepts_#{hash[params[:action]]}_for?".to_sym, @current_user)
 						no_permission_redirection unless @current_user && @current_object.has_permission_for?(options[:actions_permissions_links][params[:action]], @current_user, current_container ? current_container.class.to_s.underscore : 'workspace')
 					else
@@ -57,13 +57,13 @@ module Authorizable
 				if ITEMS.include?(self.to_s.underscore)
 					named_scope :matching_user_with_permission_in_containers, lambda { |user, permission, container_ids, container|
 						# Check if these workspace are matching the really authorized ones, and set 'nil for all' condition
-						container_ids ||= container.classify.constantize.allowed_user_with_permission(user, self.to_s.underscore + '_' + permission, container).find(:all, :select => "#{container.pluralize}.id, #{container.pluralize}.title").map{ |e| e.id }
-						container_ids = container_ids.map{|w_id| w_id.to_i} & container.classify.constantize.allowed_user_with_permission(user, self.to_s.underscore + '_' + permission, container).find(:all, :select => "#{container.pluralize}.id, #{container.pluralize}.title").map{ |e| e.id }
+						#@container_ids ||= container.classify.constantize.allowed_user_with_permission(user, self.to_s.underscore + '_' + permission, container).find(:all, :select => "#{container.pluralize}.id, #{container.pluralize}.title").map{ |e| e.id.to_i }
+            @container_ids ||= container.classify.constantize.find_by_container_and_permissions(user, self.to_s.underscore + '_' + permission, container).map{ |e| e.id.to_i }
 						# So we can retrieve directly as the workspaces are checked, hihihi
-						if container_ids.first
+						if @container_ids.first
 							{ :select => "DISTINCT #{self.to_s.underscore.pluralize}.*",
 								:joins => "LEFT JOIN items_#{container.pluralize} ON #{self.to_s.underscore.pluralize}.id = items_#{container.pluralize}.itemable_id AND items_#{container.pluralize}.itemable_type='#{self.to_s}'",
-								:conditions => "items_#{container.pluralize}.#{container}_id IN (#{container_ids.join(',')})"}
+								:conditions => "items_#{container.pluralize}.#{container}_id IN (#{@container_ids.join(',')})"}
 						else
               # In order to return nothing ...
 							{ :conditions => "1=2"}
@@ -73,16 +73,14 @@ module Authorizable
 				elsif CONTAINERS.include?(self.to_s.underscore)
 					named_scope :matching_user_with_permission_in_containers, lambda { |user, permission, container_ids, container|
 						# Check if these workspace are matching the really authorized ones, and set 'nil for all' condition
-            container_ids ||= container.classify.constantize.allowed_user_with_permission(user, container + '_' + permission, container).find(:all, :select => "#{container.pluralize}.id, #{container.pluralize}.title").map{ |e| e.id }
-						container_ids = container_ids.map{|w_id| w_id.to_i} & container.classify.constantize.allowed_user_with_permission(user, container+ '_' + permission, container).all(:select => "#{container.pluralize}.id, #{container.pluralize}.title").map{ |e| e.id }
-            
+            @container_ids ||= container.classify.constantize.find_by_container_and_permissions(user, container + '_' + permission, container).map{ |e| e.id.to_i }
 						# In case of system permission
 						if user.has_system_permission(container, permission)
 							{ }
               # So we can retrieve directly as the workspaces are checked, hihihi
-						elsif container_ids.first
+						elsif @container_ids.first
 							{ 
-                :conditions => "id IN (#{container_ids.join(',')})"
+                :conditions => "id IN (#{@container_ids.join(',')})"
               }
 						else
               # In order to return nothing ...
@@ -121,16 +119,15 @@ module Authorizable
 				elsif ['user'].include?(self.to_s.underscore)
 					named_scope :matching_user_with_permission_in_containers, lambda { |user, permission, container_ids, container|
 						# Check if these workspace are matching the really authorized ones, and set 'nil for all' condition
-						container_ids ||= container.classify.constantize.allowed_user_with_permission(user, self.to_s.underscore+'_'+permission, container).find(:all, :select => "#{container.pluralize}.id, #{container.pluralize}.title").map{ |e| e.id }
-						container_ids = container_ids & container.classify.constantize.allowed_user_with_permission(user, self.to_s.underscore+'_'+permission, container).find(:all, :select => "#{container.pluralize}.id, #{container.pluralize}.title").map{ |e| e.id }
+						@container_ids ||= container.classify.constantize.find_by_container_and_permissions(user, self.to_s.underscore+'_'+permission, container).map{ |e| e.id.to_i }
 						# In case of system permission
 						if user.has_system_permission(self.to_s.underscore, permission)
 							{}
               # So we can retrieve directly as the workspaces are checked, hihihi
-						elsif container_ids.first
+						elsif @container_ids.first
 							{ :select => "DISTINCT #{self.to_s.underscore.pluralize}.*",
 								:joins => "LEFT JOIN users_containers ON #{self.to_s.underscore.pluralize}.id = users_containers.user_id",
-								:conditions => "users_containers.#{container}_id IN (#{container_ids.join(',')})" }
+								:conditions => "users_containers.#{container}_id IN (#{@container_ids.join(',')})" }
 						else
               # In order to return nothing ...
 							{ :conditions => "1=2"}
@@ -144,7 +141,7 @@ module Authorizable
     module InstanceMethods
 			# Generic method called on an instance to check if the permission is matching or no
 			def has_permission_for?(permission, user, container)
-				return accepting_action(user, permission, container)
+				return @aa ||= accepting_action(user, permission, container)
 			end
 		end
 		
@@ -204,10 +201,11 @@ module Authorizable
 		module ItemInstanceMethods
 			def get_sa_config
 				if File.exist?("#{RAILS_ROOT}/config/customs/sa_config.yml")
-					return YAML.load_file("#{RAILS_ROOT}/config/customs/sa_config.yml")
+					@config ||= YAML.load_file("#{RAILS_ROOT}/config/customs/sa_config.yml")
 				else
-					return YAML.load_file("#{RAILS_ROOT}/config/customs/default_config.yml")
+					@config ||= YAML.load_file("#{RAILS_ROOT}/config/customs/default_config.yml")
 				end
+        return @config
 			end
 
 			def accepting_action(user, action, container, active=true)
