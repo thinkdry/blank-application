@@ -41,9 +41,9 @@ class Admin::ApplicationController < ActionController::Base
     redirect_to admin_login_path unless logged_in?
   end
 
-  ITEMS.each do |name|
-    audit name.classify.constantize => { :except => :viewed_number }
-  end
+  #ITEMS.each do |name|
+    #audit name.classify.constantize => { :except => :viewed_number }
+  #end
 
   # Method getting the layout to render
   #

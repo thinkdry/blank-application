@@ -27,6 +27,10 @@ class Article < ActiveRecord::Base
 
   # Method defined in the ActsAsItem:ModelMethods:ClassMethods (see that library fro more information)
   acts_as_item
+
+	# Audit activation of the item
+	acts_as_audited :except => :viewed_number
+
 	# Relation 1-N to the table 'article_files', managing the files linked to the article
   has_many :article_files, :dependent => :delete_all
 	# Overwriting of the ActsAsXapian specification define in ActsAsItem,

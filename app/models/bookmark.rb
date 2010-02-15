@@ -39,6 +39,10 @@ class Bookmark < ActiveRecord::Base
 
 	# Method defined in the ActsAsItem:ModelMethods:ClassMethods (see that library fro more information)
 	acts_as_item
+
+	# Audit activation of the item
+	acts_as_audited :except => :viewed_number
+
 	# Validation of the presence of the 'link' field
   validates_presence_of :link
 	# Validation of the format of the 'link' field
