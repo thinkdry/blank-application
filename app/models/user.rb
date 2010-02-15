@@ -306,7 +306,7 @@ class User < ActiveRecord::Base
   end
     
   def private_workspace
-    self.workspaces.find(:first, :conditions => {:state => 'private', :creator_id => self.id})
+    @workspace ||= self.workspaces.find(:first, :conditions => {:state => 'private', :creator_id => self.id})
   end
 
   def is_private?(ws)

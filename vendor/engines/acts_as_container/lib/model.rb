@@ -76,6 +76,10 @@ module ActsAsContainer
         # After Updation Save the associated Users in UserWorkspaces
         after_update  :save_users_container
 
+        def self.find_by_container_and_permissions(user, item_permission, container)
+          @container ||= self.allowed_user_with_permission(user, item_permission, container).find(:all, :select => "#{container.pluralize}.id, #{container.pluralize}.title")
+        end
+
         include ActsAsContainer::ModelMethods::InstanceMethods
       end
       
