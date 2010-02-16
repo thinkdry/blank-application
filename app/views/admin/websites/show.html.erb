@@ -1,6 +1,6 @@
 <% content_for :container_actions do -%>
-  <%= link_to <%=I18n.t('website.tree.name')%>, admin_website_menus_path(current_container)  %>&nbsp;|
-  <%= link_to <%=I18n.t('website.analytics.statistics')%>, admin_website_analytics_path(current_container)  %>&nbsp;|
+  <%= link_to I18n.t('website.tree.name'), admin_website_menus_path(current_container)  %>&nbsp;|
+  <%= link_to I18n.t('website.analytics.statistics'), admin_website_analytics_path(current_container)  %>&nbsp;|
 <% end -%>
 
 <% container_show( :title => "#{@current_object.class.to_s}",  :object => @current_object ) do -%>
