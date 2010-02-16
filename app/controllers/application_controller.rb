@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
 			options = options[:from_params]#.merge({ :cat => nil, :models => nil })
 		end
 		return {
-			:user => @current_website.creator,
+			:user => $current_website.creator,
 			:permission => 'show',
 			:models => options[:m] || (options[:cat] ? ((options[:cat] == 'item') ? @configuration['sa_items'] : [options[:cat]]) : @configuration['sa_items']),
       :containers => options[:containers],
@@ -36,11 +36,11 @@ class ApplicationController < ActionController::Base
 		site_url = params[:site_url] || request.url.split('//').second.split('/').first
 		#wsu = WebsiteUrl.find_by_sql("SELECT website_urls.website_id FROM website_urls WHERE website_urls.name = '#{ws_url}' LIMIT 1").first
 		if params[:site_title] && Website.exists?(:title => params[:site_title], :website_state => 'published')
-      @current_website = Website.find_by_title(params[:site_title])
+      $current_website ||= @current_website ||= Website.find_by_title(params[:site_title])
       session[:website_id] = @current_website.id
       return true
     elsif WebsiteUrl.exists?(:name => site_url)
-      @current_website = WebsiteUrl.find_by_name(site_url).website
+      $current_website = @current_website ||= WebsiteUrl.find_by_name(site_url).website
 			session[:website_id] = @current_website.id
 			return true
 		else

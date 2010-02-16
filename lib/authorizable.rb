@@ -144,7 +144,7 @@ module Authorizable
     module InstanceMethods
 			# Generic method called on an instance to check if the permission is matching or no
 			def has_permission_for?(permission, user, container)
-				return @aa ||= accepting_action(user, permission, container)
+				return accepting_action(user, permission, container)
 			end
 		end
 		
@@ -236,7 +236,6 @@ module Authorizable
 						end
 					end # if item available in ws
 				end
-				# go away
 				false
 			end
 		end

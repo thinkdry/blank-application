@@ -1,18 +1,9 @@
 module TagLib
-  
-#  class Item < Liquid::Tag                                             
-#    def initialize(tag_name, markup, tokens)
-#     super 
-#      p markup
-#      @args = markup
-#    end
+  include CustomTags
 
-#    def render(context)
-#      articles(:field => @field, :order => @order, :limit => @limit)
-#    end    
-#  end
-#  Liquid::Template.register_tag('items', Item)
-
+  def page_body
+    liquidize_page_body(render :partial => 'websites/page')
+  end
   
   def page_title
     result ||= @site_page || @item || @current_website 
@@ -46,16 +37,16 @@ module TagLib
   end
 
   ITEMS.each do |item|
-    define_method item.pluralize.to_sym do |*args|
-      options = args.extract_options!
-      items = item.classify.constantize.get_da_objects_list(setting_searching_params(:from_params => build_params(options.merge!(:items => [item]))))
-      str = ""
-      items.each do |item|
-        str += "<li>" + (link_to item.title, "/#{item}/#{item.title_sanitized}") + "</li>"
+      define_method item.pluralize.to_sym do |*args|
+        options = args.extract_options!
+        items = item.classify.constantize.get_da_objects_list(setting_searching_params(:from_params => build_params(options.merge!(:items => [item]))))
+        str = ""
+        items.each do |item|
+          str += "<li>" + (link_to item.title, "/#{item}/#{item.title_sanitized}") + "</li>"
+        end
+        return str
       end
-      return str
     end
-  end
 
   def items(*args)
     options = args.extract_options!
@@ -79,7 +70,9 @@ module TagLib
       :m => options[:items],
       :by => "#{options[:field]}-#{options[:order]}",
       :per_page => options[:limit],
-      :containers => {:website => [@current_website.id.to_s]}
+      :containers => {:website => ['1']}
     }
   end
+
+
 end

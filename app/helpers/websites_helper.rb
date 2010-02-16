@@ -1,5 +1,4 @@
 module WebsitesHelper
-  include TagLib
 
   def menu_generator(ul_class='', li_class='')
     str = ""

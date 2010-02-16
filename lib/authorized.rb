@@ -25,7 +25,7 @@ module Authorized
 				# Usage :
 				# <tt>user.system_role</tt>
 				def system_role
-					@role ||= Role.find(self.system_role_id)
+					@role ||= Role.find(self.system_role_id, :include => [:permissions])
 				end
 
 				# Method returning true if the user has the system role passed in params, false else
@@ -36,7 +36,7 @@ module Authorized
 				# Usage :
 				# <tt>user.has_system_role('admin')</tt>
 				def has_system_role(role_name)
-					(self.system_role.name == role_name) || self.system_role.name == 'superadmin'
+					(self.system_role.name == role_name) || (self.system_role.name == 'superadmin')
 				end
 
 				# Method returning true if the user has the workspace role passed in params, false else
@@ -67,8 +67,8 @@ module Authorized
 				# Usage :
 				# <tt>user.workspace_permissions(2)</tt>
 				def container_permissions(container_id, container)
-					if @users_container ||= UsersContainer.find(:first, :conditions => {:user_id => self.id, :containerable_id => container_id, :containerable_type => container})
-						return @permissions ||= @users_container.role.permissions
+					if @users_container = UsersContainer.find(:first, :conditions => {:user_id => self.id, :containerable_id => container_id, :containerable_type => container})
+						return @permissions = @users_container.role.permissions
 					else
 						return []
 					end

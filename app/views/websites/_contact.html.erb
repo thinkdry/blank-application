@@ -1,4 +1,5 @@
-<% form_for @person, :url => contacts_path, :html => {:method => :post, :onsubmit => 'return validate_contact();'} do |f| %>
+<% @email_values = session[:email] || {} %>
+<% form_for @person = (session[:person] || Person.new), :url => contacts_path, :html => {:method => :post, :onsubmit => 'return validate_contact();'} do |f| %>
   <% if !@person.errors.empty? %>
     <% attributes = {'first_name' => 'Nom','last_name' => 'Prénom', 'email' => 'Email', 'primary_phone' => 'Téléphone'} %>
     <ul style="height:auto;" >

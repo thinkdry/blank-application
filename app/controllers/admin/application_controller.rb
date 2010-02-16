@@ -84,11 +84,11 @@ class Admin::ApplicationController < ActionController::Base
   # - current_workspace : Workspace instance (default: nil)
 	def item_types_allowed_to(user, action, current_container=nil)
 		if current_container
-			items = (current_container.available_items.to_s.split(',') & @configuration['sa_items']).delete_if{ |e| !user.has_container_permission(current_container.id, e, action, current_container.class.to_s) }
+			@items ||= (current_container.available_items.to_s.split(',') & @configuration['sa_items']).delete_if{ |e| !user.has_container_permission(current_container.id, e, action, current_container.class.to_s) }
 		else
-			items = available_items_list.delete_if{ |e| Workspace.allowed_user_with_permission(user, e+'_'+action,'workspace').size == 0 }
+			@items ||= available_items_list.delete_if{ |e| Workspace.allowed_user_with_permission(user, e+'_'+action,'workspace').size == 0 }
 		end
-		items.sort!
+		@items.sort!
 	end
 
   # Method checking superadministrator role for current user

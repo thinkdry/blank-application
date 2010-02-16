@@ -1,8 +1,8 @@
 <html>
     <head>
-        <title><%= page_title %></title>
-        <meta name='description' content="<%= page_description %>"/>
-        <meta name='keywords' content="<%= page_keywords %>"/>
+        <title>{{ page_title }}</title>
+        <meta name='description' content='{{ page_description }}' />
+        <meta name='keywords' content= '{{ page_keywords }}'/>
         <link rel="stylesheet" href="stylesheets/application.css" type="text/css" media="screen" title="no title" charset="utf-8"/>
         <link rel="stylesheet" href="/stylesheets/colorbox.css" type="text/css" />
         <script type="text/javascript" src="javascripts/application.js"></script>
@@ -11,9 +11,10 @@
         <script type="text/javascript" src="/javascripts/websites.js"></script>
     </head>
     <body>
+        <h1>{{ site_title }}</h1>
+        <p>{{ site_description }}</p>
         <%= menu_generator %>
-        <%= articles(:field => 'created_at', :order => 'desc', :limit => 5) %>
-        <%= items(:items => ['image','audio', 'video','cms_file']) %>
-        <%=yield%>
+        {% items :item => 'article', :field => 'created_at', :order => 'asc', :limit => 1 %}
+        {{ page_body }}
     </body>
 </html>
