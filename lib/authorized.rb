@@ -25,7 +25,7 @@ module Authorized
 				# Usage :
 				# <tt>user.system_role</tt>
 				def system_role
-					@role ||= Role.find(self.system_role_id, :include => :permissions)
+					@role ||= Role.find(self.system_role_id)
 				end
 
 				# Method returning true if the user has the system role passed in params, false else

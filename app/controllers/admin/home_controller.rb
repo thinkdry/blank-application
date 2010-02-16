@@ -17,10 +17,8 @@ class Admin::HomeController < Admin::ApplicationController
 
   def analytics_datas
     websites = Website.allowed_user_with_permission(@current_user, "website_show", 'website')
-  
     @websites_datas = []
     website_datas = {}
-    
     if File.exist?("#{RAILS_ROOT}/config/customs/google_analytics.yml")
       analytic_config = YAML.load_file("#{RAILS_ROOT}/config/customs/google_analytics.yml")
       if Analytic.setup(analytic_config['sa_analytic_login'], analytic_config['sa_analytic_password'])

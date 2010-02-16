@@ -1,5 +1,19 @@
 module TagLib
   
+#  class Item < Liquid::Tag                                             
+#    def initialize(tag_name, markup, tokens)
+#     super 
+#      p markup
+#      @args = markup
+#    end
+
+#    def render(context)
+#      articles(:field => @field, :order => @order, :limit => @limit)
+#    end    
+#  end
+#  Liquid::Template.register_tag('items', Item)
+
+  
   def page_title
     result ||= @site_page || @item || @current_website 
     return result.title
@@ -68,5 +82,4 @@ module TagLib
       :containers => {:website => [@current_website.id.to_s]}
     }
   end
-  
 end
