@@ -7,7 +7,7 @@
 			<img src="/images/ajax-spinner.gif" alt="loading" />
 		</div>
 		<div class="homeCol">
-			<div class="colTitle">Last Contacts</div>
+			<div class="colTitle"><%=I18n.t('people.contact.last')%></div>
 			<ul class="contactList">
 			<% @persons.each do |person|%>
 				<li><%= link_to person.last_name + " " + person.first_name, admin_person_path(person) %> : <%= person.email%></li>

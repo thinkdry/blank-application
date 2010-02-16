@@ -1,3 +1,6 @@
 [submodule "vendor/plugins/ba-extension_translator"]
 	path = vendor/plugins/ba-extension_translator
 	url = git@forge.thinkdry.com:/home/git/ba-extension_translator
+[submodule "vendor/plugins/ba-extension_openerp"]
+	path = vendor/plugins/ba-extension_openerp
+	url = git@forge.thinkdry.com:/home/git/ba-extension_openerp.git

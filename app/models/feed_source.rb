@@ -47,6 +47,10 @@ class FeedSource < ActiveRecord::Base
 
   # Method defined in the ActsAsItem:ModelMethods:ClassMethods (see that library fro more information)
   acts_as_item
+
+	# Audit activation of the item
+	acts_as_audited :except => :viewed_number
+
   # Relation 1-N with the 'feed_sources' table
 	has_many :feed_items , :order => "date_published DESC", :dependent => :destroy
   # Validation of the presence of the 'url' field

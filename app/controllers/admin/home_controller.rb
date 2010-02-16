@@ -10,7 +10,7 @@ class Admin::HomeController < Admin::ApplicationController
 #    @latest_feeds = current_user.feed_items.latest
 #    @latest_ws = get_objects_list_with_search('workspace', 'created_at-desc', 5)
 #		@accordion = [@latest_items,@latest_users,@latest_feeds,@latest_ws]
-    @persons = Person.find(:all, :order => "created_at DESC", :limit => 5)
+    @persons = Person.find(:all, :order => "created_at DESC", :limit => 5,:conditions=>{:user_id => @current_user.id})
     @websites = Website.allowed_user_with_permission(@current_user, "website_show", 'website')
   end
 

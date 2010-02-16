@@ -34,6 +34,10 @@ class Audio < ActiveRecord::Base
   # Method defined in the ActsAsItem:ModelMethods:ClassMethods (see that library fro more information)
   acts_as_item
   # Paperclip attachment definition
+
+	# Audit activation of the item
+	acts_as_audited :except => :viewed_number
+
   has_attached_file :audio,
     :url =>  "/uploaded_files/audio/:id/:style/:basename.:extension",
     :path => ":rails_root/public/uploaded_files/audio/:id/:style/:basename.:extension"

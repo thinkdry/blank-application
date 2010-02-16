@@ -32,6 +32,10 @@ include Authentication
 
   # Method defined in the ActsAsItem:ModelMethods:ClassMethods (see that library fro more information)
 	acts_as_item
+
+	# Audit activation of the item
+	acts_as_audited :except => :viewed_number
+
 	# Relation N-N with 'groups' table
   has_and_belongs_to_many :groups
 	# Relation N-1 with 'groups_newsletters' table

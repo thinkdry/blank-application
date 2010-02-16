@@ -30,6 +30,10 @@ class Image < ActiveRecord::Base
 
   # Method defined in the ActsAsItem:ModelMethods:ClassMethods (see that library fro more information)
   acts_as_item
+
+	# Audit activation of the item
+	acts_as_audited :except => :viewed_number
+
   # Paperclip attachment definition
   has_attached_file :image,
                     :url =>    "/uploaded_files/image/:id/:style/:basename.:extension",
