@@ -1,6 +1,10 @@
 module TagLib
   include CustomTags
 
+	def current_page
+		params[:title_sanitized] ? params[:title_sanitized] : nil
+	end
+
   def page_body
     liquidize_page_body(render :partial => 'websites/page')
   end
