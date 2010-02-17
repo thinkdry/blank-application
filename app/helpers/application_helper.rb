@@ -12,7 +12,9 @@ module ApplicationHelper
 
   def liquidize(content)
     @template = Liquid::Template.parse(content)
-    @template.render('page_title' => page_title,
+    @template.render(
+		'current_page' => current_page,		
+		'page_title' => page_title,
     'page_description' => page_description,
     'page_keywords' => page_keywords,
     'path' => path,
