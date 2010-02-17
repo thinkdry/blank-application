@@ -19,6 +19,7 @@
 #
 
 require 'regexps'
+require 'friendly_url'
 
 # This class is defining an item object called 'Newsletter'.
 #

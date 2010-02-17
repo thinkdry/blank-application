@@ -16,6 +16,7 @@
 #
 
 require 'fastercsv'
+require 'friendly_url'
 
 # This class is defining an object called 'Group'. It is close to an item but the difference is that
 # a group can only be in one uniq workspace.

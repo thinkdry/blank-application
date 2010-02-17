@@ -13,8 +13,18 @@
     <body>
         <h1>{{ site_title }}</h1>
         <p>{{ site_description }}</p>
-        <%= menu_generator %>
-        {% items :item => 'article', :field => 'created_at', :order => 'asc', :limit => 1 %}
-        {{ page_body }}
+        <div id='menu'>
+          {% menu_generator %}
+        </div>
+        <div id='articles'>
+        <h3>Articles</h3>
+          {% articles :field => 'title', :order => 'desc', :limit => 5 %}
+        <div id='images'>
+        <h3>Images</h3>
+          {% images :field => 'title', :order => 'desc', :limit => 5 %}
+        </div>
+        <div id='content'>
+          {{ page_body }}
+        </div>
     </body>
 </html>

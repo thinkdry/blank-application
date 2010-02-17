@@ -1,3 +1,4 @@
+require 'friendly_url'
 class Menu < ActiveRecord::Base
 
   acts_as_tree

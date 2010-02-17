@@ -32,6 +32,7 @@ require 'rss/2.0'
 require 'open-uri'
 require 'regexps'
 require 'feedzirra'
+require 'friendly_url'
 
 # This class is defining an item object called 'FeedSource'.
 #

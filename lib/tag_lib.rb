@@ -70,7 +70,7 @@ module TagLib
       :m => options[:items],
       :by => "#{options[:field]}-#{options[:order]}",
       :per_page => options[:limit],
-      :containers => {:website => ['1']}
+      :containers => {:website => [$current_website.id]}
     }
   end
 

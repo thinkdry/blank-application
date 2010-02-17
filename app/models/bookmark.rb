@@ -33,6 +33,7 @@
 #
 # See the ActsAsItem:ModelMethods module to have further informations.
 #
+require 'friendly_url'
 class Bookmark < ActiveRecord::Base
 
   #to access helper methods

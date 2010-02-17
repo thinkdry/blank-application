@@ -29,6 +29,7 @@
 #
 # See the ActsAsItem:ModelMethods module to have further informations.
 #
+require 'friendly_url'
 class Audio < ActiveRecord::Base
 
   # Method defined in the ActsAsItem:ModelMethods:ClassMethods (see that library fro more information)
