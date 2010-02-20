@@ -76,10 +76,10 @@ class UserMailer < ActionMailer::Base
 
 	# Send contact form update from website	
 	def contact_notification(website, email)
-		recipients website.contact_email
+		recipients website["contact_email"]
     from email["email"]
     sent_on Time.now
-		subject website.title +" : "+email["subject"]
+		subject website["contact_email"] + " : " + email["subject"]
 		body :first_last => email["first_name"]+" "+email["last_name"],
 			:body => email["body"],
 			:phone => email["primary_phone"]
