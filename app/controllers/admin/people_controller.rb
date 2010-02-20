@@ -21,7 +21,7 @@ class Admin::PeopleController < Admin::ApplicationController
 		end
 
     after :update do
-      # to save assoceated workspaces of the person
+      # to save associated workspaces of the person
       @current_object.associated_workspaces(params[:associated_workspaces])
     end
     
@@ -30,7 +30,9 @@ class Admin::PeopleController < Admin::ApplicationController
 		end
 
 		response_for :destroy do |format|
-			format.html { redirect_to(current_workspace ? list_admin_workspace_workspace_contacts_path(current_workspace.id) : admin_people_path) }
+			format.html			{ redirect_to(admin_people_path) }
+			# TODO clean that	
+			#format.html { redirect_to(current_workspace ? list_admin_workspace_workspace_contacts_path(current_workspace.id) : admin_people_path) }
 		end
 
   end
@@ -54,7 +56,7 @@ class Admin::PeopleController < Admin::ApplicationController
 	# - POST /people
 	# - POST /workspaces/:id/people
   def create #:nodoc:
-    #TOTO TRANSLATE
+    #TODO TRANSLATE
     @person = current_user.people.build(params[:person])
     if @person.validate_uniqueness_of_email
 			if @person.save
@@ -108,9 +110,13 @@ class Admin::PeopleController < Admin::ApplicationController
     end
 		@outfile = "people_" + Time.now.strftime("%m-%d-%Y") + ".csv"
 		csv_data = FasterCSV.generate do |csv|
-			csv << ["First name", "Last name", "Email", "Gender", "Primary phone", "Mobile phone", "Fax", "Street", "City", "Postal code", "Country", "Company", "Web page", "Job title", "Notes","Salutation","Date of birth","Subscribed on","Updated at"]
+			# TODO clean that			
+			#csv << ["Firstname", "Last name", "Email", "Gender", "Primary phone", "Mobile phone", "Fax", "Street", "City", "Postal code", "Country", "Company", "Web page", "Job title", "Notes","Salutation","Date of birth","Subscribed on","Updated at"]
+			csv << ["Firstname", "Lastname", "Email", "phone", "Notes","SubscribedOn","UpdatedAt"]
 			@people.each do |person|
-				csv << [person.first_name, person.last_name, person.email, person.gender, person.primary_phone, person.mobile_phone, person.fax, person.street, person.city, person.postal_code, person.country, person.company, person.web_page, person.job_title, person.notes, person.salutation, person.date_of_birth, person.created_at, person.updated_at]
+				# TODO clean that
+				#csv << [person.first_name, person.last_name, person.email, person.gender, person.primary_phone, person.mobile_phone, person.fax, person.street, person.city, person.postal_code, person.country, person.company, person.web_page, person.job_title, person.notes, person.salutation, person.date_of_birth, person.created_at, person.updated_at]
+				csv << [person.first_name, person.last_name, person.email,  person.primary_phone, person.notes, person.created_at, person.updated_at]
 			end
 		end
 		send_data csv_data, :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment; filename=#{@outfile}"
@@ -129,17 +135,17 @@ class Admin::PeopleController < Admin::ApplicationController
           first_name =['first name','firstname','first-name','name','prénom']
           last_name =['last name','lastname','last-name','nom']
           email = ['email','e-mail','e mail','email address','email-address','e-mail address','emailaddress']
-          gender = ['gender']
+          #gender = ['gender']
           primary_phone = ['primary phone','primaryphone','primary-phone']
-          mobile_phone = ['mobile phone','mobilephone','mobile-phone']
-          fax = ['fax']
-          street = ['street']
-          city = ['city']
-          postal_code = ['postal code','postalcode','postal-code','code-postal','code postal','codepostal']
-          country = ['country']
-          company = ['company']
-          web_page = ['web page','webpage','web-page']
-          job_title = ['job title','jobtitle','job-title']
+          #mobile_phone = ['mobile phone','mobilephone','mobile-phone']
+          #fax = ['fax']
+          #street = ['street']
+          #city = ['city']
+          #postal_code = ['postal code','postalcode','postal-code','code-postal','code postal','codepostal']
+          #country = ['country']
+          #company = ['company']
+          #web_page = ['web page','webpage','web-page']
+          #job_title = ['job title','jobtitle','job-title']
           notes = ['notes']
           cols_order =[]
           @parsed_file[0].each do |col|
@@ -150,28 +156,28 @@ class Admin::PeopleController < Admin::ApplicationController
               cols_order << 'last_name'
             elsif email.include?(col)
               cols_order << 'email'
-            elsif gender.include?(col)
-              cols_order << 'gender'
+            #elsif gender.include?(col)
+            #  cols_order << 'gender'
             elsif primary_phone.include?(col)
               cols_order << 'primary_phone'
-            elsif mobile_phone.include?(col)
-              cols_order << 'mobile_phone'
-            elsif fax.include?(col)
-              cols_order << 'fax'
-            elsif street.include?(col)
-              cols_order << 'street'
-            elsif city.include?(col)
-              cols_order << 'city'
-            elsif postal_code.include?(col)
-              cols_order << 'postal_code'
-            elsif country.include?(col)
-              cols_order << 'country'
-            elsif company.include?(col)
-              cols_order << 'company'
-            elsif web_page.include?(col)
-              cols_order << 'web_page'
-            elsif job_title.include?(col)
-              cols_order << 'job_title'
+            #elsif mobile_phone.include?(col)
+            #  cols_order << 'mobile_phone'
+            #elsif fax.include?(col)
+            #  cols_order << 'fax'
+            #elsif street.include?(col)
+            #  cols_order << 'street'
+            #elsif city.include?(col)
+            #  cols_order << 'city'
+            #elsif postal_code.include?(col)
+            #  cols_order << 'postal_code'
+            #elsif country.include?(col)
+            #  cols_order << 'country'
+            #elsif company.include?(col)
+            #  cols_order << 'company'
+            #elsif web_page.include?(col)
+            #  cols_order << 'web_page'
+            #elsif job_title.include?(col)
+            #  cols_order << 'job_title'
             elsif notes.include?(col)
               cols_order << 'notes'
             else
@@ -247,7 +253,7 @@ class Admin::PeopleController < Admin::ApplicationController
   # GET /people/get_empty_csv
   def get_empty_csv
     csv_data = FasterCSV.generate do |csv|
-      csv << ["First name", "Last name", "Email", "Gender", "Primary phone", "Mobile phone", "Fax", "Street", "City", "Postal code", "Country", "Company", "Web page", "Job title", "Notes"]
+      csv << ["Firstname", "Lastname", "Email", "phone", "Notes"]
     end
     send_data csv_data,
       :type => 'text/csv; charset=iso-8859-1; header=present',

@@ -31,22 +31,25 @@ class Admin::NewslettersController < Admin::ApplicationController
   # - newsletters/1/send_to_a_group
   # - workspaces/1/newsletters/1/send_to_a_group
   def send_to_a_group
-    @group = Group.find(params[:group_id], :include => [:contacts_workspaces])
+		@website = Website.find(params[:workspace_id])    
+		@group = Group.find(params[:group_id], :include => [:contacts_workspaces])
     @newsletter = Newsletter.find(params[:newsletter_id])
     if GroupsNewsletter.new(:group_id => @group.id, :newsletter_id => @newsletter.id, :sent_on=>Time.now).save
       for member in @group.contacts_workspaces
-        if member.state == 'subscribed' || member.state.to_s.blank?
+				# TODO clean that: Controle on member state removed till better implementation       
+				# if member.state == 'subscribed' || member.state.to_s.blank?
           args = [member.to_group_member['email'],member.sha1_id,@newsletter.from_email,
 							@newsletter.subject, @newsletter.description, @newsletter.body]
           QueuedMail.add("UserMailer","send_newsletter", args, 0)
-        end
+       # end
       end
       flash[:notice] = I18n.t('newsletter.send_newsletter.queued_newsletter_flash_notice') 
-			Delayed::Job.enqueue(NewsletterJob.new)
+			# TODO clean that: Useless call 			
+			#Delayed::Job.enqueue(NewsletterJob.new)
 		else
 			flash[:error] = I18n.t('newsletter.send_newsletter.queued_newsletter_flash_error')
 		end
-		redirect_to item_path(@newsletter)
+		redirect_to admin_website_newsletter_path(@website,@newsletter)
   end
 
 end

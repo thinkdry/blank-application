@@ -17,7 +17,7 @@
   <label>Objet : </label><%= text_field :email,:subject , :value => !@email_values.empty? ? @email_values['subject'] : '' %><br />
   <label>Corps du message : </label><%= text_area :email, :body, :rows => 10, :value => !@email_values.empty? ? @email_values['body'] : '' %><br />
   <%= yacaph_block %>
-  <label> </label><%= check_box_tag 'state', '', false %> Recevoir la newsletter ? <br />
+  <label> </label>  <input type="hidden" id="state" name="state" value="true" />
   <%= f.hidden_field :origin, :value=>"contact_form"  %>
   <%= f.submit "Envoyer l'email", :class => "submit" %>
 
