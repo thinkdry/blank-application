@@ -79,7 +79,7 @@ class UserMailer < ActionMailer::Base
 		recipients website["contact_email"]
     from email["email"]
     sent_on Time.now
-		subject website["contact_email"] + " : " + email["subject"]
+		subject email["subject"]
 		body :first_last => email["first_name"]+" "+email["last_name"],
 			:body => email["body"],
 			:phone => email["primary_phone"]
