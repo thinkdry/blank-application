@@ -16,6 +16,9 @@ class Superadmin::GeneralSettingsController < Admin::ApplicationController
 	# Usage URL :
 	# - PUT /admin/general_settings/updating
 	def updating
+    params[:configuration][:sa_items] ||= []
+    params[:configuration][:sa_containers] ||= []
+    params[:configuration][:sa_exception_followers_email] ||= []
 		res = @configuration.merge!(params[:configuration])
 		#raise params[:configuration].inspect
     #File.rename("#{RAILS_ROOT}/config/customs/sa_config.yml", "#{RAILS_ROOT}/config/customs/old_sa_config.yml")

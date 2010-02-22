@@ -56,6 +56,11 @@ class Person < ActiveRecord::Base
   validates_not_format_of   :first_name, :last_name, :fax, :street, :city, :postal_code, :company,:job_title, :web_page, :notes,  :with => /(#{SCRIPTING_TAGS})/, :allow_blank => true
 
   attr_accessor :model_name
+      
+  named_scope :latest,
+    :order => "created_at desc",
+    :limit => 5
+  
 
   # Check with previously existing email for uniqueness
 	#
