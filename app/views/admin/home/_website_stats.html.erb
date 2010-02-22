@@ -1,6 +1,20 @@
-<div class="colTitle"><%=I18n.t('website.analytics.statistics')%></div>
-<div class="stats"><span><%= website_datas[:visitor_number] %><br/> <%=I18n.t('website.analytics.visits')%></span></div>
-<div><%=I18n.t('website.analytics.viewed_pages')%> : <%= website_datas[:viewed_pages] %></div>
-<div>pour <%= website_datas[:new_visits] %> <%=I18n.t('website.analytics.unique_visitors')%></div>
-<div class="colTitle"><%=I18n.t('general.common_word.actions')%></div>
-<div class="homeActions"><%= link_to <%=I18n.t('website.analytics.more_stats')%>, admin_website_analytics_path(website_datas[:website])%> | <%= link_to <%=I18n.t('website.tree.name')%>, admin_website_menus_path(website_datas[:website])%> | <%= link_to <%=I18n.t('website.content.manage')%>, container_path(website_datas[:website]) %></div>
+<div class="colTitle">
+  <%=I18n.t('website.analytics.statistics')%>
+</div>
+<div class="stats">
+  <span><%= website_datas[:visitor_number] %><br/> <%=I18n.t('website.analytics.visits')%></span>
+</div>
+<div>
+  <%= I18n.t('website.analytics.viewed_pages')%> : <%= website_datas[:viewed_pages] %>
+</div>
+<div>
+  pour <%= website_datas[:new_visits] %> <%=I18n.t('website.analytics.unique_visitors')%>
+</div>
+<div class="colTitle">
+  <%= I18n.t('general.common_word.actions')%>
+</div>
+<div class="homeActions">
+  <%= link_to I18n.t('website.analytics.more_stats') , admin_website_analytics_path(website_datas[:website])%> | 
+  <%= link_to I18n.t('website.tree.name'), admin_website_menus_path(website_datas[:website]) %> |
+  <%= link_to I18n.t('website.content.manage'), container_path(website_datas[:website]) %>
+</div>
