@@ -1,5 +1,5 @@
+<% if total_number_of_reply(object) > 0 || object.has_permission_for?('comment', @current_user, current_container_type) %>
 <div id="ajax_info" style="color:green"></div>
-
 <div class="blockElement" id="comment_list">
 	<div class="blockCornerLeft"></div>
 	<div class="blockElementHeader sixH">
@@ -40,3 +40,4 @@
 		<%end-%>
 	</div> 
 </div>
+<% end %>
