@@ -49,7 +49,7 @@ module Admin::ApplicationHelper
   # <tt>checkboxes_from_list(ITEMS, sa_items, @conf, "conf") </tt>
 	def checkboxes_from_list(var, param, conf, object, horizontal=false)
 		res = []
-    key = ([param.split('_').last.singularize] & ['item', 'language', 'layout', 'type', 'category']).first
+    key = ([param.split('_').last.singularize] & ['item', 'language', 'layout', 'type', 'category','container']).first
 		var.each do |l|
 		  if horizontal
 		    content = '<div class="checkboxListHorizontal">'

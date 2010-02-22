@@ -34,6 +34,13 @@ module Configuration
   # Get Selected Items List
   # 
   # will return a array of string of available items
+	def available_containers_links
+		return @configuration['sa_containers'] || CONTAINERS
+	end
+
+  # Get Selected Items List
+  # 
+  # will return a array of string of available items
 	def available_items_list
 		return @configuration['sa_items']
 	end
