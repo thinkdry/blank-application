@@ -45,10 +45,12 @@ class Admin::UsersController < Admin::ApplicationController
       if is_given_private_workspace  
         @current_object.create_private_workspace
       end
+      session[:locale] = nil
       flash[:notice] = I18n.t('user.new.flash_notice')
     end
 
     after :update do
+      session[:locale] = nil
 			flash[:notice] = I18n.t('user.edit.flash_notice')
     end
 

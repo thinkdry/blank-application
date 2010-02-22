@@ -1,4 +1,5 @@
-$('#menu_generator').html("<%= escape_javascript(render :partial => 'menu', :locals => { :menus => @menus })%>");
+$('#menu_generator_menus').html("<%= escape_javascript(render :partial => 'menu', :locals => { :menus => @menus.link_on_menu })%>");
+$('#menu_generator_others').html("<%= escape_javascript(render :partial => 'menu', :locals => { :menus => @menus.link_on_other })%>");
 $('#notice').showMessage('<%=flash[:notice]%>', 2000);
 $.fn.colorbox.close();
 $('#add_level_one_menu').colorbox({width:"650px"});

@@ -40,10 +40,10 @@ class Admin::HomeController < Admin::ApplicationController
               end
             end
           end
+        rescue
         end
       end
     end
-    
     respond_to do |format|
 		  format.js {render :layout => false}
 		end

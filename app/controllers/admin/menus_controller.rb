@@ -13,7 +13,7 @@ class Admin::MenusController < Admin::ApplicationController
     @website = Website.find(params[:website_id])
     @pages = @website.pages
     @result_sets = @website.result_sets
-    @menu = Menu.new
+    @menu = Menu.new(:link_on => params[:link_on])
     @menu.parent_id = params[:parent_id]
     render :partial => 'form', :locals => {:menu => @menu,:pages => @pages, :result_sets => @result_sets}
   end

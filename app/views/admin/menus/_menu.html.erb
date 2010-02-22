@@ -3,9 +3,9 @@
     	<% for menu in menus.roots -%>
        		<% content_tag_for :li, menu do %>
          		<p><%= h(menu.name) %></p>
-         		<%= link_to "Add Child", 
+         		<%= link_to "Add Child |", 
 							new_admin_website_menu_path(@website.id, :parent_id => menu.id ), 
-							:class => "add_sub_menu" %> |
+							:class => "add_sub_menu" if menu.link_on == 'menu' %>
          		<%= link_to "Edit", 
 							edit_admin_website_menu_path(@website.id, menu.id ), 
 							:class => "add_sub_menu" %> |

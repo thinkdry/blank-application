@@ -172,7 +172,7 @@ class Admin::ApplicationController < ActionController::Base
 	# inside the 'blank_init' initializer.
   def set_locale
 		session[:locale] = params[:locale] if params[:locale]
-		session[:locale] ||= ((current_user && !current_user.u_language.to_s.blank?) ? current_user.u_language : I18n.default_locale) || nil
+		session[:locale] ||= ((current_user && !current_user.u_language.to_s.blank?) ? current_user.u_language : I18n.default_locale)
 		I18n.locale = session[:locale]
 	end
 	

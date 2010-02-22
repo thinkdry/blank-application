@@ -103,7 +103,7 @@
 						language : 
 						<select id="user_u_language" name="user[u_language]">
 						<% available_languages.each do |l| %>
-							<option value="<%= l%>"><%= I18n.t('general.language.'+l)%></option>
+							<option value="<%= l%>" <%= @current_object.u_language == l ? 'selected=selected' : nil %>><%= I18n.t('general.language.'+l)%></option>
 						<%end-%>
 						</select>
 					</p>

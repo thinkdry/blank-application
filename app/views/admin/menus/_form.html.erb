@@ -7,7 +7,7 @@
 				This form helps you to create a menu node for the current website, create a name and select a page you want to display and let's rock.
 			</p>
 			
-			<label>Menu Name :*</label>
+			<label>Name :*</label>
 			<div class="formElement">
 				<%= f.text_field :name %>	
 			</div>
@@ -25,7 +25,8 @@
       <label>Result Set :</label>
 			<div class="formElement">
 			  	<%= f.select :result_set_id, @result_sets.collect {|r| [ r.title, r.id ] }, :include_blank => true %>
-			</div>				
+			</div>
+      <%= f.hidden_field :link_on, :value => @menu.link_on %>				
 			<button type="submit" class="submitButton"><span>Submit</span></button>
 		<% end %>
 </div>

@@ -14,6 +14,13 @@ class Menu < ActiveRecord::Base
   validates_uniqueness_of :seo_title, :scope => :website_id
 
   before_save :set_title_sanitized
+  
+  named_scope :link_on_menu,
+    :conditions => {:link_on => 'menu'}
+
+  named_scope :link_on_other,
+    :conditions => {:link_on => 'other'}
+
 
   def set_title_sanitized
     self['title_sanitized'] =  self.seo_title.humanize.urlize

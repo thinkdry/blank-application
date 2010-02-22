@@ -1,18 +1,6 @@
 <div id="footerBody">
   	<div class="footerCol">
-    	<h3><%=I18n.t('layout.footer.last_content')%></h3>
-    	<% get_objects_list_with_search('item', 'created_at-desc', 5).each do |l| %>
-      	<p><%= link_to l.title, item_path(l) %></p>
-    	<% end %>
-  	</div>
-	<div class="footerCol">
-    	<h3><%=I18n.t('layout.footer.last_workspaces')%></h3>
-    	<% get_objects_list_with_search('workspace', 'created_at-desc', 5).each do |w|%>
-      		<p><%= link_to w.title, admin_workspace_path(w) %></p>
-    		<% end %>
-  	</div>
-  	<div class="footerCol last">
-		<h3><%= I18n.t('layout.search.search_label')%></h3>
+    <h3><%= I18n.t('layout.search.search_label')%></h3>
 		<% unless @hide_full_text_search %>
 	      	<% form_for :search, @search, :url => admin_searches_path, :html => { :method => :get, :name => 'footer_search' } do -%>
 	        	<%= text_field_tag  "q", 
@@ -26,12 +14,27 @@
 							:class => "launchSearchFooter") %>
 	      	<% end -%>
 	    <% end %>
-	
-    	<h3><%=I18n.t('layout.footer.configuration')%></h3>
+      <!--
+    	<h3><%#=I18n.t('layout.footer.last_content')%></h3>
+    	<%# get_objects_list_with_search('item', 'created_at-desc', 5).each do |l| %>
+      	<p><%#= link_to l.title, item_path(l) %></p>
+    	<%# end %>
+      -->
+  	</div>
+	  <div class="footerCol">
+      <h3><%=I18n.t('layout.footer.configuration')%></h3>
     	<% if (available_languages.size > 1) -%><p>
 			<%= I18n.t('layout.application.change_language')%>&nbsp;
 			<%= select_language(:languages => available_languages, :params_name => 'locale', :type => 'select_box') %>
 		</p><%end-%>
+      <!--
+    	<h3><%#=I18n.t('layout.footer.last_workspaces')%></h3>
+    	<%# get_objects_list_with_search('workspace', 'created_at-desc', 5).each do |w|%>
+      		<p><%#= link_to w.title, admin_workspace_path(w) %></p>
+    		<%# end %>
+      -->
+  	</div>
+  	<div class="footerCol last">
     	<p>
 			<%= link_to_current_user :content_method => :login %> - 
 			<%= link_to I18n.t('layout.application.logout'), admin_logout_path %>

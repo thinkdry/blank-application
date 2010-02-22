@@ -1,6 +1,7 @@
 <div class="itemShowLeft">
 	<div class="itemShowLeftBody">
-		<h2>Menu Generator</h2>
+		<h2>Website Tree</h2>
+    <h3>Menu Generator</h3>
 		<p>
 		  Menu Generator is used to create dynamic menus for the websites. <br />
 		  Click on the Main Menu to start <br />
@@ -9,10 +10,31 @@
 	  	<div class="blockElement">
 		    <div class="blockCornerLeft"></div>
 		    <div class="blockElementHeader sixH">
-		        Site Tree View
+		        Menu Tree View
 		    </div><div class="blockCornerRight"></div>
 			<div class="blockElementBody space" id="menu_generator">
-				<%= render :partial => 'menu', :locals => {:menus => @menus} %>
+        <div id="menu_generator_menus">
+				<%= render :partial => 'menu', :locals => {:menus => @menus.link_on_menu} %>
+        </div>
+			</div>
+		</div>
+	</div><br />
+  <div class="itemShowLeftBody">
+    <h3>Other Pages</h3>
+		<p>
+		  Link other pages of the site here, these pages dont appear in the menu
+		</p>
+		<div id='menu_form'></div>
+	  	<div class="blockElement">
+		    <div class="blockCornerLeft"></div>
+		    <div class="blockElementHeader sixH">
+		        Link Other Pages 
+		    </div><div class="blockCornerRight"></div>
+			<div class="blockElementBody space" id="menu_generator">
+        <%= link_to 'Add Page', new_admin_website_menu_path(@website.id, :link_on => 'other') , :id => "add_level_one_menu"%>
+        <div id="menu_generator_others">
+				<%= render :partial => 'menu', :locals => {:menus => @menus.link_on_other} %>
+        </div>
 			</div>
 		</div>
 		<a type="submit" class="submitButton" href="<%=admin_website_path(@website.id)%>"><span>Save</span></a>
@@ -24,15 +46,17 @@
 		<%= I18n.l Time.now, :format =>:verb %>
 	</div>
 	<div class="itemShowRightBlock">
-		<div class="blockCornerLeft"></div><div class="blockElementHeader twoH">
+		<div class="blockCornerLeft"></div>
+    <div class="blockElementHeader twoH">
 			<%= I18n.t("item.show.associated_workspace") %><!-- TODO HINT -->
-		</div><div class="blockCornerRight"></div>
-		<div class="blockElementBody">
-			<%= link_to "Back to Website", admin_website_path(@website)%>
-			<%= link_to "Add level one item", 
-						new_admin_website_menu_path(@website.id), 
-						:id => "add_level_one_menu" %>
 		</div>
-    </div>
+    <div class="blockCornerRight"></div>
+  	<div class="blockElementBody">
+  		<%= link_to "Back to Website", admin_website_path(@website)%>
+	  	<%= link_to "Add level one item", 
+					new_admin_website_menu_path(@website.id, :link_on => 'menu'), 
+					:id => "add_level_one_menu" %>
+		</div>
+  </div>
 </div>
 
