@@ -53,7 +53,7 @@ module CustomTags
 
     def menu_generator(args)
       str = ""
-      @menus = $current_website.menus
+      @menus = $current_website.menus.link_on_menu
       ul = args[:ul] ? "<ul id=#{args[:ul]} class=#{args[:ul]}>" : '<ul>'
       li = args[:li] ? "<li id=#{args[:li]} class=#{args[:li]}>" : '<li>'
       current = args[:current] ? "<li id=#{args[:current]} class=#{args[:current]}>" : '<li>'
