@@ -34,6 +34,7 @@ class Article < ActiveRecord::Base
 
 	# Relation 1-N to the table 'article_files', managing the files linked to the article
   has_many :article_files, :dependent => :delete_all
+
 	# Overwriting of the ActsAsXapian specification define in ActsAsItem,
 	# in order to include the 'body' field inside the Xapian index
 	acts_as_xapian :texts => [:title, :description, :keywords_list, :body],:terms => [[:title,'S',"title"],[:body,'B',"body"]]

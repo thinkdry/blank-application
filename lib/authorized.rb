@@ -13,7 +13,7 @@ module Authorized
 			# and including instance methods usefull to get roles and permissions.
 			def acts_as_authorized
 				# Relation N-1 getting workspace Role objects through the 'users_workspaces' table
-				has_many :container_roles, :through => :users_containers, :source => :role, :include => :permissions
+				has_many :container_roles, :through => :users_containers, :source => :role
 				include Authorized::ModelMethods::InstanceMethods
       end
 
@@ -25,7 +25,7 @@ module Authorized
 				# Usage :
 				# <tt>user.system_role</tt>
 				def system_role
-					@role ||= Role.find(self.system_role_id, :include => [:permissions])
+					@role ||= Role.find(self.system_role_id)
 				end
 
 				# Method returning true if the user has the system role passed in params, false else
@@ -36,7 +36,7 @@ module Authorized
 				# Usage :
 				# <tt>user.has_system_role('admin')</tt>
 				def has_system_role(role_name)
-					(self.system_role.name == role_name) || (self.system_role.name == 'superadmin')
+					(self.system_role.name == 'superadmin') || (self.system_role.name == role_name)
 				end
 
 				# Method returning true if the user has the workspace role passed in params, false else
@@ -84,7 +84,7 @@ module Authorized
 				# <tt>user.has_system_permission('workspaces','new')</tt>
 				def has_system_permission(controller, action)
 					permission_name = controller+'_'+action
-					!self.system_permissions.delete_if{ |e| e.name != permission_name}.blank? || self.has_system_role('superadmin')
+					return self.has_system_role('superadmin')|| !self.system_permissions.delete_if{ |e| e.name != permission_name}.blank?
 				end
 
 				# Method returning true if user has the workspace permission, false else
@@ -98,7 +98,7 @@ module Authorized
 				# <tt>user.has_workspace_permission('workspace_id','articles','new')</tt>
 				def has_container_permission(container_id, controller, action, container)
 					permission_name = controller+'_'+action
-					return !self.container_permissions(container_id,container).delete_if{ |e| e.name != permission_name}.blank? || self.has_system_role('superadmin')
+					return self.has_system_role('superadmin') || !self.container_permissions(container_id,container).delete_if{ |e| e.name != permission_name}.blank? 
 				end
 
     end

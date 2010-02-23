@@ -6,7 +6,7 @@ module TagLib
 	end
 
   def page_body
-    liquidize_page_body(render :partial => 'websites/page')
+    liquidize_page_body(@item ? (render :partial => 'websites/show') : (render :partial => 'websites/page') )
   end
   
   def page_title
