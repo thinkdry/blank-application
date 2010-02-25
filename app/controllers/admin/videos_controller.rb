@@ -10,7 +10,11 @@ class Admin::VideosController < Admin::ApplicationController
 		#Filter calling the encoder method of ConverterWorker with parameters
     after :create, :update do
       @current_object.update_attributes(:state => 'uploaded')
-      Delayed::Job.enqueue(EncodingJob.new({:type=>"video", :id => @current_object.id, :enc=>"flv"}))
+      if encoding_activated?
+        Delayed::Job.enqueue(EncodingJob.new({:type=>"video", :id => @current_object.id, :enc=>"flv"}))
+      else
+        @current_object.update_attributes(:state => 'encoded')
+      end
     end
   end
 

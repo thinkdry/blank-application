@@ -1,5 +1,6 @@
 class Admin::FeedSourcesController < Admin::ApplicationController
-
+  
+  before_filter :check_rss_activation
 	# Method defined in the ActsAsItem:ControllerMethods:ClassMethods (see that library fro more information)
   acts_as_item do
 	
@@ -59,4 +60,10 @@ class Admin::FeedSourcesController < Admin::ApplicationController
       @feed_items = @current_object.feed_items.paginate(:page => params[:page], :per_page => get_per_page_value)
     end
   end
+  
+  protected
+
+    def check_rss_activation
+      failed_gem_redirection{'plaudix-feedzirra'} unless rss_activated?
+    end
 end

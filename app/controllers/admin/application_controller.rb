@@ -163,6 +163,11 @@ class Admin::ApplicationController < ActionController::Base
 		return s.do_search
 	end
 
+  def failed_gem_redirection
+    flash[:error] = "#{yield} or some of its dependencies not installed!"
+    redirect_to admin_root_url
+  end
+
 	private
 
 	# Locale definition
