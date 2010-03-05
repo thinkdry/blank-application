@@ -1,6 +1,7 @@
 class Admin::FeedSourcesController < Admin::ApplicationController
   
   before_filter :check_rss_activation
+  before_filter :check_feed_zirra_gem, :only => [:create, :update]
 	# Method defined in the ActsAsItem:ControllerMethods:ClassMethods (see that library fro more information)
   acts_as_item do
 	
@@ -62,6 +63,12 @@ class Admin::FeedSourcesController < Admin::ApplicationController
   end
   
   protected
+
+    def check_feed_zirra_gem
+      @feed ||= Feedzirra::Feed.fetch_and_parse(params[:feed_source][:url])
+    rescue
+      failed_gem_redirection{'plaudix-feedzirra'}
+    end
 
     def check_rss_activation
       failed_gem_redirection{'plaudix-feedzirra'} unless rss_activated?

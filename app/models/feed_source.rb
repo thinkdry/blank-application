@@ -128,8 +128,7 @@ class FeedSource < ActiveRecord::Base
       end
     end
   end
-
-
+  
   def self.update_feed_source
     logger.info "#{Time.now} : Updating Feed Sources ..."
     FeedSource.all.each do |s|
