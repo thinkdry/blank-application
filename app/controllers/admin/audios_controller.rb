@@ -10,7 +10,11 @@ class Admin::AudiosController < Admin::ApplicationController
 		#Filter calling the encoder method of ConverterWorker with parameters
     after :create, :update do
       @current_object.update_attributes(:state => 'uploaded')
-      Delayed::Job.enqueue(EncodingJob.new({:type=>"audio", :id => @current_object.id, :enc=>"mp3"}))
+      if encoding_activated?
+        Delayed::Job.enqueue(EncodingJob.new({:type=>"audio", :id => @current_object.id, :enc=>"mp3"}))
+      else
+        @current_object.update_attributes(:state => 'encoded')
+      end
       #MiddleMan.worker(:converter_worker).async_newthread(:arg=>{:type=>"audio", :id => @current_object.id, :enc=>"mp3"})
     end
   end

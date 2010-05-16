@@ -74,6 +74,22 @@
 		    	<%= checkboxes_from_list(WS_TYPES, "sa_ws_types", @configuration, "configuration", true) %>
 		  	</div>
 
+
+      	<label>Activate RSS:</label>
+		  	<div class="formElement">
+		    	<%= f.check_box :sa_activate_rss, { :class => "checkboxes"}, 'true', 'false' %>
+		  	</div>
+
+      <label>Activate Encoding:</label>
+		  	<div class="formElement">
+		    	<%= f.check_box :sa_activate_encoding, { :class => "checkboxes"}, 'true', 'false' %>
+		  	</div>
+
+       <label>Activate Search:</label>
+		  	<div class="formElement">
+		    	<%= f.check_box :sa_activate_search, { :class => "checkboxes"}, 'true', 'false' %>
+		  	</div>
+
 		  	<label>Exception followers:</label>
 		  	<div class="formElement">
 		    	<input type="text" id="new_follower_email" name="new_follower_email" value="" noHint="yes"/>

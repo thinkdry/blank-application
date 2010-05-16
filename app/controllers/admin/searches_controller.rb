@@ -2,6 +2,8 @@ class Admin::SearchesController < Admin::ApplicationController #:nodoc: all
 
 	# Mixin method implementing ajax validation for that controller
   acts_as_ajax_validation
+  
+  before_filter :check_search_activated
 
   # Action managing the results found (used also with AJAX call, for pagination or ordering)
 	#
@@ -14,7 +16,11 @@ class Admin::SearchesController < Admin::ApplicationController #:nodoc: all
       params[:by] = "#{params[:filter][:field]}-#{params[:filter][:way]}"
       params[:per_page] = "#{params[:filter][:limit]}".to_i
     end
-		@search = Search.new(setting_searching_params(:from_params => params))#.advance_search_fields
+    begin
+		  @search = Search.new(setting_searching_params(:from_params => params))#.advance_search_fields
+    rescue
+      failed_gem_redirection{'xapian'}
+    end
 		@paginated_objects = @current_objects = @search.do_search
 		# Definition of the template to use to retrieve information
 		if @search.category == 'user' || @search.category == 'workspace'
@@ -35,6 +41,10 @@ class Admin::SearchesController < Admin::ApplicationController #:nodoc: all
       @no_div = true
 			render :partial => @templatee, :layout => false
 		end
+  end
+
+  def check_search_activated
+    failed_gem_redirection{'xapian'} unless search_activated?
   end
 
   # Action to print the advance search partial (used onl with AJAX call)

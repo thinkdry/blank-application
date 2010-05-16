@@ -45,15 +45,9 @@ Rails::Initializer.run do |config|
   # config.gem "bj"
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   # config.gem "aws-s3", :lib => "aws/s3"
-
-        config.gem 'builder', :version => '>=2.1.2', :lib => 'builder'
-#        config.gem 'nakogiri', :version => '>=1.4.0', :lib => 'nakogiri'	
-	config.gem 'rmagick', :version => '>=2.9.1', :lib => 'RMagick'
+  config.gem 'rmagick', :version => '>=2.9.1', :lib => 'RMagick'
   config.gem 'javan-whenever', :lib => false, :source => 'http://gems.github.com'
-  #	config.gem 'rspec', :version => '>=1.2.8', :lib => 'spec', :source => 'http://gems.github.com'
-  #	config.gem 'test-unit', :version => '>=2.0.3', :lib => 'test/unit'
-  #	config.gem 'rspec-rails', :version => '>=1.2.7.1', :lib => 'spec/rails', :source => 'http://gems.github.com'
-	config.gem 'pauldix-feedzirra', :lib => 'feedzirra', :version => '>=0.0.16', :source => 'http://gems.github.com'
+  config.gem 'garb', :lib => false, :source => 'http://gems.github.com'
 	# Gems available as Plugins (actually inside vendor/plugins folder)
   #	config.gem 'Lipsiasoft-exception-notifier', :lib => 'exception_notifier', :source => 'http://gems.github.com'
   #	config.gem 'fastercsv', :version => '>=1.4.0', :lib => 'fastercsv'
@@ -66,8 +60,6 @@ Rails::Initializer.run do |config|
   # in vendor/plugins are loaded in alphabetical order.
   # :all can be used as a placeholder for all plugins not explicitly named
   # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
-	#config.plugin_paths += %W( #{RAILS_ROOT}/blank_modules )
-	#config.plugin_paths += %W( #{RAILS_ROOT}/blank_modules/aep_beast/plugins )
 	config.plugin_paths += %W( #{RAILS_ROOT}/vendor/engines )
 
   # Add additional load paths for your own custom dirs

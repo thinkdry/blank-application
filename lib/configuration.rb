@@ -85,5 +85,17 @@ module Configuration
 	def get_fcke_item_types
 		return ['page', 'image', 'cms_file', 'video', 'audio', 'bookmark']
 	end
+
+  def rss_activated?
+    @configuration['sa_activate_rss'] == 'true'
+  end
+
+  def encoding_activated?
+    @configuration['sa_activate_encoding'] == 'true'
+  end
+
+  def search_activated?
+    @configuration['sa_activate_search'] == 'true'
+  end    
   
 end
