@@ -47,6 +47,7 @@ Rails::Initializer.run do |config|
   # config.gem "aws-s3", :lib => "aws/s3"
   config.gem 'rmagick', :version => '>=2.9.1', :lib => 'RMagick'
   config.gem 'javan-whenever', :lib => false, :source => 'http://gems.github.com'
+  config.gem 'nokogiri', :version => '>=1.4.1'
   config.gem 'garb', :lib => false, :source => 'http://gems.github.com'
 	# Gems available as Plugins (actually inside vendor/plugins folder)
   #	config.gem 'Lipsiasoft-exception-notifier', :lib => 'exception_notifier', :source => 'http://gems.github.com'
